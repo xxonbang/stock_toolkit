@@ -20,6 +20,8 @@ from modules.sector_flow import aggregate_by_sector, format_sector_flow
 from modules.news_impact import build_impact_database, calculate_impact_stats
 from modules.theme_lifecycle import track_theme_lifecycle, format_lifecycle_alert
 from modules.risk_monitor import evaluate_risk
+from modules.pattern_matcher import find_similar_patterns
+from modules.scenario_simulator import parse_strategy, simulate_strategy
 
 
 def main():
@@ -37,6 +39,14 @@ def main():
     report = build_performance_report(loader)
     with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
+
+    # 모닝 브리프 생성 (Gemini)
+    try:
+        brief = generate_morning_brief(gemini, loader)
+        with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
+            json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"  브리핑 생성 실패: {e}")
 
     # Phase 2
     print("=== Phase 2: 모니터링 ===")
@@ -79,6 +89,41 @@ def main():
     stats = {k: calculate_impact_stats(v) for k, v in db.items()}
     with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False, indent=2)
+
+    # 시나리오 시뮬레이션 (기본 전략)
+    print("  시나리오 시뮬레이션...")
+    signal_history = loader.get_signal_history("vision")
+    default_strategies = [
+        "signal=매수 hold=5",
+        "signal=적극매수 hold=5",
+        "signal=매수 hold=5 stop=-3",
+    ]
+    sim_results = []
+    for strat_str in default_strategies:
+        strat = parse_strategy(strat_str)
+        result = simulate_strategy(signal_history, strat)
+        sim_results.append(result)
+    with open(results_dir / "simulation.json", "w", encoding="utf-8") as f:
+        json.dump(sim_results, f, ensure_ascii=False, indent=2)
+
+    # 패턴 매칭 (교차 신호 상위 종목 대상)
+    print("  패턴 매칭...")
+    pattern_results = []
+    intraday = loader.get_intraday_history()
+    if intraday and cross_matches:
+        for match in (cross_matches or [])[:5]:
+            code = match.get("code", "")
+            prices = intraday.get(code, {}).get("prices", [])
+            if prices and len(prices) >= 5:
+                similar = find_similar_patterns(prices[-20:], signal_history)
+                if similar:
+                    pattern_results.append({
+                        "code": code,
+                        "name": match.get("name", ""),
+                        "matches": similar,
+                    })
+    with open(results_dir / "pattern.json", "w", encoding="utf-8") as f:
+        json.dump(pattern_results, f, ensure_ascii=False, indent=2)
 
     # Phase 4
     print("=== Phase 4: 라이프사이클 ===")

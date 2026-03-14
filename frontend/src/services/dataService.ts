@@ -19,4 +19,7 @@ export const dataService = {
   getCrossSignal: () => fetchJson<any[]>("cross_signal.json"),
   getLifecycle: () => fetchJson<any[]>("lifecycle.json"),
   getRiskMonitor: () => fetchJson<any[]>("risk_monitor.json"),
+  getBriefing: () => fetchJson<any>("briefing.json"),
+  getSimulation: () => fetchJson<any[]>("simulation.json"),
+  getPattern: () => fetchJson<any[]>("pattern.json"),
 };

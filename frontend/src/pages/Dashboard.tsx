@@ -24,6 +24,9 @@ export default function Dashboard() {
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
+  const [briefing, setBriefing] = useState<any>(null);
+  const [simulation, setSimulation] = useState<any[] | null>(null);
+  const [pattern, setPattern] = useState<any[] | null>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -34,11 +37,25 @@ export default function Dashboard() {
     dataService.getLifecycle().then(setLifecycle);
     dataService.getRiskMonitor().then(setRiskMonitor);
     dataService.getNewsImpact().then(setNewsImpact);
+    dataService.getBriefing().then(setBriefing);
+    dataService.getSimulation().then(setSimulation);
+    dataService.getPattern().then(setPattern);
   }, []);
 
   return (
     <div className="min-h-screen bg-gray-950 text-white p-4 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Stock Toolkit</h1>
+
+      {/* AI 브리핑 */}
+      {briefing?.morning && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">AI 모닝 브리프</h2>
+          <div
+            className="bg-indigo-950 border border-indigo-800 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-line"
+            dangerouslySetInnerHTML={{ __html: briefing.morning }}
+          />
+        </section>
+      )}
 
       {/* 시장 현황 */}
       {performance && (
@@ -202,6 +219,58 @@ export default function Dashboard() {
                 <span className="text-green-400 text-sm ml-2">{s.signal}</span>
               </div>
               <span className="text-yellow-400 font-bold">{s.smart_money_score}</span>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* 시나리오 시뮬레이션 */}
+      {simulation && simulation.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">전략 시뮬레이션</h2>
+          <div className="grid grid-cols-1 gap-2">
+            {simulation.map((s, i) => (
+              <div key={i} className="bg-cyan-950 border border-cyan-800 rounded-lg p-3">
+                <div className="text-cyan-400 font-medium text-sm mb-2">{s.strategy}</div>
+                <div className="grid grid-cols-3 gap-2 text-center text-sm">
+                  <div>
+                    <div className="text-gray-400">매매 수</div>
+                    <div className="font-bold">{s.total_trades}건</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400">승률</div>
+                    <div className={`font-bold ${s.win_rate >= 50 ? "text-red-400" : "text-blue-400"}`}>
+                      {s.win_rate}%
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400">평균 수익</div>
+                    <div className={`font-bold ${(s.returns?.mean || 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                      {s.returns?.mean >= 0 ? "+" : ""}{s.returns?.mean?.toFixed(1) ?? "—"}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 패턴 매칭 */}
+      {pattern && pattern.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">차트 패턴 매칭</h2>
+          {pattern.map((p, i) => (
+            <div key={i} className="bg-gray-900 rounded-lg p-3 mb-2">
+              <div className="font-medium mb-2">{p.name} ({p.code})</div>
+              {p.matches?.slice(0, 3).map((m: any, j: number) => (
+                <div key={j} className="flex justify-between text-sm text-gray-400 mb-1">
+                  <span>{m.date} (유사도 {(m.similarity * 100).toFixed(0)}%)</span>
+                  <span className={m.future_return_d5 >= 0 ? "text-red-400" : "text-blue-400"}>
+                    D+5: {m.future_return_d5 >= 0 ? "+" : ""}{m.future_return_d5?.toFixed(1)}%
+                  </span>
+                </div>
+              ))}
             </div>
           ))}
         </section>
