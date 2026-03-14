@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
+import { Search, RotateCcw, Filter } from "lucide-react";
 import { dataService } from "../services/dataService";
+import { SectionHeader } from "../components/HelpDialog";
 
 const SIGNAL_OPTIONS = ["적극매수", "매수", "중립", "매도", "적극매도"];
 const RISK_OPTIONS = ["높음", "주의", "낮음"];
 const FLOW_OPTIONS = ["순매수", "순매도"];
 const MARKET_OPTIONS = ["KOSPI", "KOSDAQ"];
 
+const SECTION_HELP_SCANNER = {
+  scanner: {
+    title: "종목 스캐너",
+    desc: "원하는 조건을 선택하고 검색하면, 조건에 맞는 종목만 필터링됩니다. 여러 필터를 동시에 선택하면 AND 조건으로 모두 충족하는 종목만 표시됩니다.",
+  },
+};
+
+// Register scanner help
+import { SECTION_HELP } from "../components/HelpDialog";
+Object.assign(SECTION_HELP, SECTION_HELP_SCANNER);
+
 export default function Scanner() {
   const [allStocks, setAllStocks] = useState<any[]>([]);
   const [results, setResults] = useState<any[] | null>(null);
-
   const [signals, setSignals] = useState<Set<string>>(new Set());
   const [risks, setRisks] = useState<Set<string>>(new Set());
   const [flows, setFlows] = useState<Set<string>>(new Set());
@@ -31,23 +43,11 @@ export default function Scanner() {
 
   function handleSearch() {
     let filtered = allStocks;
-
-    if (signals.size > 0) {
-      filtered = filtered.filter((s) => signals.has(s.signal || ""));
-    }
-    if (risks.size > 0) {
-      filtered = filtered.filter((s) => risks.has(s.risk_level));
-    }
-    if (flows.size > 0) {
-      filtered = filtered.filter((s) => flows.has(s.foreign_flow));
-    }
-    if (markets.size > 0) {
-      filtered = filtered.filter((s) => markets.has(s.market));
-    }
-    if (themeOnly) {
-      filtered = filtered.filter((s) => s.theme);
-    }
-
+    if (signals.size > 0) filtered = filtered.filter((s) => signals.has(s.signal || ""));
+    if (risks.size > 0) filtered = filtered.filter((s) => risks.has(s.risk_level));
+    if (flows.size > 0) filtered = filtered.filter((s) => flows.has(s.foreign_flow));
+    if (markets.size > 0) filtered = filtered.filter((s) => markets.has(s.market));
+    if (themeOnly) filtered = filtered.filter((s) => s.theme);
     filtered.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
     setResults(filtered);
   }
@@ -61,165 +61,94 @@ export default function Scanner() {
     setResults(null);
   }
 
-  const activeCount =
-    signals.size + risks.size + flows.size + markets.size + (themeOnly ? 1 : 0);
+  const activeCount = signals.size + risks.size + flows.size + markets.size + (themeOnly ? 1 : 0);
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">종목 스캐너</h1>
+    <div className="max-w-2xl mx-auto px-4 py-6">
+      <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-6">
+        <Filter size={22} className="text-blue-600" />
+        종목 스캐너
+      </h1>
 
-      {/* 필터 섹션 */}
-      <div className="space-y-4 mb-6">
-        {/* 매매 신호 */}
-        <FilterGroup label="매매 신호">
+      <div className="bg-white border border-gray-200 rounded-xl p-4 mb-4 space-y-4">
+        <SectionHeader id="scanner">필터 조건</SectionHeader>
+
+        <FilterGroup label="매매 신호" desc="AI가 분석한 종목별 매매 추천 강도">
           {SIGNAL_OPTIONS.map((opt) => (
-            <Chip
-              key={opt}
-              label={opt}
-              active={signals.has(opt)}
-              onClick={() => setSignals(toggle(signals, opt))}
-              color={
-                opt.includes("매수")
-                  ? "red"
-                  : opt.includes("매도")
-                    ? "blue"
-                    : "gray"
-              }
-            />
+            <Chip key={opt} label={opt} active={signals.has(opt)} onClick={() => setSignals(toggle(signals, opt))}
+              color={opt.includes("매수") ? "red" : opt.includes("매도") ? "blue" : "gray"} />
           ))}
         </FilterGroup>
 
-        {/* 위험도 */}
-        <FilterGroup label="위험도">
+        <FilterGroup label="위험도" desc="매도 신호 + 외국인 매도 등 위험 요인 개수">
           {RISK_OPTIONS.map((opt) => (
-            <Chip
-              key={opt}
-              label={opt}
-              active={risks.has(opt)}
-              onClick={() => setRisks(toggle(risks, opt))}
-              color={opt === "높음" ? "red" : opt === "주의" ? "yellow" : "green"}
-            />
+            <Chip key={opt} label={opt} active={risks.has(opt)} onClick={() => setRisks(toggle(risks, opt))}
+              color={opt === "높음" ? "red" : opt === "주의" ? "amber" : "green"} />
           ))}
         </FilterGroup>
 
-        {/* 외국인 수급 */}
-        <FilterGroup label="외국인 수급">
+        <FilterGroup label="외국인 수급" desc="외국인 투자자의 당일 순매수/순매도 방향">
           {FLOW_OPTIONS.map((opt) => (
-            <Chip
-              key={opt}
-              label={opt}
-              active={flows.has(opt)}
-              onClick={() => setFlows(toggle(flows, opt))}
-              color={opt === "순매수" ? "red" : "blue"}
-            />
+            <Chip key={opt} label={opt} active={flows.has(opt)} onClick={() => setFlows(toggle(flows, opt))}
+              color={opt === "순매수" ? "red" : "blue"} />
           ))}
         </FilterGroup>
 
-        {/* 시장 */}
-        <FilterGroup label="시장">
+        <FilterGroup label="시장" desc="KOSPI(대형주 중심) 또는 KOSDAQ(중소형·기술주)">
           {MARKET_OPTIONS.map((opt) => (
-            <Chip
-              key={opt}
-              label={opt}
-              active={markets.has(opt)}
-              onClick={() => setMarkets(toggle(markets, opt))}
-              color="gray"
-            />
+            <Chip key={opt} label={opt} active={markets.has(opt)} onClick={() => setMarkets(toggle(markets, opt))} color="gray" />
           ))}
         </FilterGroup>
 
-        {/* 테마 */}
-        <FilterGroup label="테마">
-          <Chip
-            label="테마 대장주만"
-            active={themeOnly}
-            onClick={() => setThemeOnly(!themeOnly)}
-            color="purple"
-          />
+        <FilterGroup label="테마" desc="AI가 식별한 당일 주요 테마의 대장주만 표시">
+          <Chip label="테마 대장주만" active={themeOnly} onClick={() => setThemeOnly(!themeOnly)} color="purple" />
         </FilterGroup>
       </div>
 
-      {/* 검색/초기화 버튼 */}
-      <div className="flex gap-2 mb-6">
-        <button
-          onClick={handleSearch}
-          className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg transition"
-        >
+      <div className="flex gap-2 mb-5">
+        <button onClick={handleSearch}
+          className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition shadow-sm">
+          <Search size={18} />
           검색 {activeCount > 0 && `(${activeCount}개 필터)`}
         </button>
-        <button
-          onClick={handleReset}
-          className="px-4 bg-gray-800 hover:bg-gray-700 text-gray-300 py-3 rounded-lg transition"
-        >
+        <button onClick={handleReset}
+          className="flex items-center gap-1 px-4 bg-gray-100 hover:bg-gray-200 text-gray-600 py-3 rounded-xl transition">
+          <RotateCcw size={16} />
           초기화
         </button>
       </div>
 
-      {/* 검색 결과 */}
       {results !== null && (
-        <div>
-          <h2 className="text-lg font-semibold mb-3">
-            검색 결과 ({results.length}종목)
+        <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <h2 className="text-base font-semibold text-gray-900 mb-3">
+            검색 결과 <span className="text-gray-400 font-normal text-sm">({results.length}종목)</span>
           </h2>
           {results.length === 0 ? (
-            <div className="bg-gray-900 rounded-lg p-4 text-gray-500 text-center">
-              조건에 맞는 종목이 없습니다
-            </div>
+            <div className="text-center py-8 text-gray-400">조건에 맞는 종목이 없습니다</div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {results.map((s, i) => (
-                <div
-                  key={i}
-                  className="bg-gray-900 rounded-lg p-3"
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span className="font-medium">{s.name}</span>
-                      <span className="text-gray-500 text-sm ml-1">
-                        ({s.code})
-                      </span>
+                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">{s.name}</span>
+                    <span className="text-xs text-gray-400 ml-1">{s.code}</span>
+                    <div className="text-xs text-gray-500 mt-0.5">
+                      {s.market}
+                      {s.theme && <span className="text-purple-600 ml-1">{s.theme}</span>}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`text-sm font-bold ${
-                          s.signal?.includes("매수")
-                            ? "text-red-400"
-                            : s.signal?.includes("매도")
-                              ? "text-blue-400"
-                              : "text-gray-400"
-                        }`}
-                      >
-                        {s.signal || "—"}
-                      </span>
+                  </div>
+                  <div className="text-right space-y-1">
+                    <div className="flex items-center gap-1.5 justify-end">
+                      <SignalBadge signal={s.signal} />
                       {s.risk_level !== "낮음" && (
-                        <span
-                          className={`text-xs px-1.5 py-0.5 rounded ${
-                            s.risk_level === "높음"
-                              ? "bg-red-900 text-red-300"
-                              : "bg-yellow-900 text-yellow-300"
-                          }`}
-                        >
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full border ${s.risk_level === "높음" ? "bg-red-50 text-red-600 border-red-200" : "bg-amber-50 text-amber-600 border-amber-200"}`}>
                           {s.risk_level}
                         </span>
                       )}
                     </div>
-                  </div>
-                  <div className="flex justify-between text-sm text-gray-500 mt-1">
-                    <span>
-                      {s.market}
-                      {s.theme && (
-                        <span className="text-purple-400 ml-2">{s.theme}</span>
-                      )}
-                    </span>
-                    <span
-                      className={
-                        s.foreign_flow === "순매수"
-                          ? "text-red-400"
-                          : "text-blue-400"
-                      }
-                    >
+                    <div className={`text-xs ${s.foreign_flow === "순매수" ? "text-red-500" : "text-blue-500"}`}>
                       외국인 {s.foreign_flow}
-                    </span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -228,9 +157,8 @@ export default function Scanner() {
         </div>
       )}
 
-      {/* 전체 종목 수 */}
       {results === null && allStocks.length > 0 && (
-        <div className="text-center text-gray-600 text-sm">
+        <div className="text-center text-gray-400 text-sm py-8">
           전체 {allStocks.length}종목 — 필터를 선택하고 검색하세요
         </div>
       )}
@@ -238,69 +166,34 @@ export default function Scanner() {
   );
 }
 
-function FilterGroup({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function FilterGroup({ label, desc, children }: { label: string; desc: string; children: React.ReactNode }) {
   return (
-    <div className="bg-gray-900 rounded-lg p-3">
-      <div className="text-sm text-gray-400 mb-2">{label}</div>
+    <div>
+      <div className="text-sm font-medium text-gray-700 mb-1">{label}</div>
+      <div className="text-xs text-gray-400 mb-2">{desc}</div>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }
 
-function Chip({
-  label,
-  active,
-  onClick,
-  color,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-  color: string;
-}) {
-  const colors: Record<string, { active: string; inactive: string }> = {
-    red: {
-      active: "bg-red-600 text-white border-red-500",
-      inactive: "bg-gray-800 text-gray-400 border-gray-700",
-    },
-    blue: {
-      active: "bg-blue-600 text-white border-blue-500",
-      inactive: "bg-gray-800 text-gray-400 border-gray-700",
-    },
-    yellow: {
-      active: "bg-yellow-600 text-white border-yellow-500",
-      inactive: "bg-gray-800 text-gray-400 border-gray-700",
-    },
-    green: {
-      active: "bg-green-600 text-white border-green-500",
-      inactive: "bg-gray-800 text-gray-400 border-gray-700",
-    },
-    purple: {
-      active: "bg-purple-600 text-white border-purple-500",
-      inactive: "bg-gray-800 text-gray-400 border-gray-700",
-    },
-    gray: {
-      active: "bg-gray-600 text-white border-gray-500",
-      inactive: "bg-gray-800 text-gray-400 border-gray-700",
-    },
+function Chip({ label, active, onClick, color }: { label: string; active: boolean; onClick: () => void; color: string }) {
+  const styles: Record<string, { on: string; off: string }> = {
+    red: { on: "bg-red-600 text-white border-red-600", off: "bg-white text-gray-600 border-gray-300 hover:border-red-300" },
+    blue: { on: "bg-blue-600 text-white border-blue-600", off: "bg-white text-gray-600 border-gray-300 hover:border-blue-300" },
+    amber: { on: "bg-amber-500 text-white border-amber-500", off: "bg-white text-gray-600 border-gray-300 hover:border-amber-300" },
+    green: { on: "bg-green-600 text-white border-green-600", off: "bg-white text-gray-600 border-gray-300 hover:border-green-300" },
+    purple: { on: "bg-purple-600 text-white border-purple-600", off: "bg-white text-gray-600 border-gray-300 hover:border-purple-300" },
+    gray: { on: "bg-gray-700 text-white border-gray-700", off: "bg-white text-gray-600 border-gray-300 hover:border-gray-400" },
   };
-
-  const c = colors[color] || colors.gray;
-
+  const s = styles[color] || styles.gray;
   return (
-    <button
-      onClick={onClick}
-      className={`px-3 py-1.5 rounded-full border text-sm font-medium transition ${
-        active ? c.active : c.inactive
-      }`}
-    >
+    <button onClick={onClick} className={`px-3 py-1.5 rounded-full border text-sm font-medium transition ${active ? s.on : s.off}`}>
       {label}
     </button>
   );
+}
+
+function SignalBadge({ signal }: { signal: string }) {
+  const cls = signal?.includes("매수") ? "bg-red-50 text-red-700 border-red-200" : signal?.includes("매도") ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-gray-50 text-gray-600 border-gray-200";
+  return <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${cls}`}>{signal || "—"}</span>;
 }
