@@ -1,0 +1,7 @@
+{
+  "current_regime": "중립",
+  "by_source": {
+    "theme": { "mean": 2.1, "max": 8.5 },
+    "signal": { "mean": 1.8, "max": 6.2 }
+  }
+}
