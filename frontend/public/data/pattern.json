@@ -1,0 +1,39 @@
+[
+  {
+    "code": "012450",
+    "name": "한화에어로스페이스",
+    "matches": [
+      {
+        "date": "2026-02-18",
+        "similarity": 0.92,
+        "future_return_d5": 4.3
+      },
+      {
+        "date": "2026-01-22",
+        "similarity": 0.87,
+        "future_return_d5": -1.2
+      },
+      {
+        "date": "2025-12-11",
+        "similarity": 0.85,
+        "future_return_d5": 6.8
+      }
+    ]
+  },
+  {
+    "code": "000720",
+    "name": "현대건설",
+    "matches": [
+      {
+        "date": "2026-02-25",
+        "similarity": 0.89,
+        "future_return_d5": 2.1
+      },
+      {
+        "date": "2026-01-15",
+        "similarity": 0.84,
+        "future_return_d5": 3.5
+      }
+    ]
+  }
+]
