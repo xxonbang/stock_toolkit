@@ -29,4 +29,5 @@ export const dataService = {
   getValuation: () => fetchJson<any[]>("valuation.json"),
   getVolumeDivergence: () => fetchJson<any[]>("volume_divergence.json"),
   getPremarket: () => fetchJson<any>("premarket.json"),
+  getPortfolio: () => fetchJson<any>("portfolio.json"),
 };

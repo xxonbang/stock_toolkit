@@ -75,6 +75,7 @@ export default function Dashboard() {
   const [valuation, setValuation] = useState<any[] | null>(null);
   const [divergence, setDivergence] = useState<any[] | null>(null);
   const [premarket, setPremarket] = useState<any>(null);
+  const [portfolio, setPortfolio] = useState<any>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -94,6 +95,7 @@ export default function Dashboard() {
     dataService.getValuation().then(setValuation);
     dataService.getVolumeDivergence().then(setDivergence);
     dataService.getPremarket().then(setPremarket);
+    dataService.getPortfolio().then(setPortfolio);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -209,6 +211,42 @@ export default function Dashboard() {
               </div>
             )}
           </div>
+        </section>
+      )}
+
+      {/* 내 포트폴리오 */}
+      {portfolio && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="portfolio" count={portfolio.holdings?.length}>내 포트폴리오</SectionHeader>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="text-2xl font-bold text-gray-900">{portfolio.health_score}</div>
+            <div>
+              <div className={`text-sm font-semibold ${portfolio.health_score >= 70 ? "text-green-600" : portfolio.health_score >= 50 ? "text-amber-600" : "text-red-600"}`}>
+                {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
+              </div>
+              <div className="text-xs text-gray-500">건강도</div>
+            </div>
+          </div>
+          <div className="space-y-1.5 mb-3">
+            {portfolio.holdings?.map((h: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <span className="text-sm font-medium">{h.name}</span>
+                  <span className="text-xs text-gray-400 ml-1">{h.code}</span>
+                  <div className="text-xs text-gray-500">{h.sector} · 비중 {h.weight}%</div>
+                </div>
+                <div className="shrink-0">{signalBadge(h.signal)}</div>
+              </div>
+            ))}
+          </div>
+          {portfolio.suggestions?.length > 0 && (
+            <div className="bg-amber-50 border border-amber-100 rounded-lg p-2.5">
+              <div className="text-xs font-medium text-amber-700 mb-1">리밸런싱 제안</div>
+              {portfolio.suggestions.map((s: string, i: number) => (
+                <div key={i} className="text-xs text-amber-600">· {s}</div>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
