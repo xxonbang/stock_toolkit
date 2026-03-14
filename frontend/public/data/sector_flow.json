@@ -1,1 +1,10 @@
-{}
+{
+  "반도체": { "stock_count": 12, "total_foreign_net": 1520 },
+  "2차전지": { "stock_count": 8, "total_foreign_net": 890 },
+  "자동차": { "stock_count": 6, "total_foreign_net": 340 },
+  "바이오": { "stock_count": 15, "total_foreign_net": -120 },
+  "인터넷": { "stock_count": 5, "total_foreign_net": 210 },
+  "철강": { "stock_count": 4, "total_foreign_net": -450 },
+  "건설": { "stock_count": 7, "total_foreign_net": -680 },
+  "금융": { "stock_count": 9, "total_foreign_net": 150 }
+}
