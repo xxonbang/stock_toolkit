@@ -1,0 +1,47 @@
+name: Phase 1 - Alerts & Briefing
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "실행 모드"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - morning
+          - evening
+          - cross
+          - performance
+          - all
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+      - uses: actions/checkout@v4
+        with:
+          repository: xxonbang/theme-analyzer
+          path: theme_analysis
+      - uses: actions/checkout@v4
+        with:
+          repository: sonbyeongcheol/signal_analysis
+          path: signal_analysis
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: python scripts/run_phase1.py --mode ${{ inputs.mode }}
+        env:
+          THEME_ANALYSIS_DATA_PATH: theme_analysis/frontend/public/data
+          SIGNAL_ANALYSIS_DATA_PATH: signal_analysis/results
+          GEMINI_API_KEY_01: ${{ secrets.GEMINI_API_KEY_01 }}
+          GEMINI_API_KEY_02: ${{ secrets.GEMINI_API_KEY_02 }}
+          GEMINI_API_KEY_03: ${{ secrets.GEMINI_API_KEY_03 }}
+          GEMINI_API_KEY_04: ${{ secrets.GEMINI_API_KEY_04 }}
+          GEMINI_API_KEY_05: ${{ secrets.GEMINI_API_KEY_05 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
