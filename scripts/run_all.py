@@ -2,6 +2,7 @@
 import sys
 import json
 import shutil
+import argparse
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -25,14 +26,25 @@ from modules.scenario_simulator import parse_strategy, simulate_strategy
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", choices=["full", "data-only"], default="full",
+                        help="full: Gemini+텔레그램 포함, data-only: 데이터 갱신만")
+    args = parser.parse_args()
+
+    use_ai = args.mode == "full"
+
     loader = DataLoader(THEME_DATA_PATH, SIGNAL_DATA_PATH)
-    gemini = GeminiClient()
     results_dir = Path(__file__).parent.parent / "results"
     results_dir.mkdir(exist_ok=True)
 
     # Phase 1
     print("=== Phase 1: 알림 & 브리핑 ===")
-    cross_matches = run_cross_signal(loader, send_message)
+    if use_ai:
+        cross_matches = run_cross_signal(loader, send_message)
+    else:
+        themes = loader.get_themes()
+        signals = loader.get_combined_signals()
+        cross_matches = find_cross_signals(themes, signals)
     with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
         json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
 
@@ -40,13 +52,15 @@ def main():
     with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
-    # 모닝 브리프 생성 (Gemini)
-    try:
-        brief = generate_morning_brief(gemini, loader)
-        with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
-            json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"  브리핑 생성 실패: {e}")
+    # 모닝 브리프 생성 (Gemini — full 모드만)
+    if use_ai:
+        try:
+            gemini = GeminiClient()
+            brief = generate_morning_brief(gemini, loader)
+            with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
+                json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"  브리핑 생성 실패: {e}")
 
     # Phase 2
     print("=== Phase 2: 모니터링 ===")
@@ -169,7 +183,7 @@ def main():
     for json_file in results_dir.glob("*.json"):
         shutil.copy2(json_file, frontend_data / json_file.name)
 
-    print("=== 전체 완료 ===")
+    print(f"=== 전체 완료 (mode={args.mode}) ===")
 
 
 if __name__ == "__main__":

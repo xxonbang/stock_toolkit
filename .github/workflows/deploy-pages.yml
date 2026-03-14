@@ -2,6 +2,15 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "실행 모드 (full: Gemini+텔레그램 포함, data-only: 데이터만)"
+        required: false
+        default: "data-only"
+        type: choice
+        options:
+          - full
+          - data-only
   push:
     branches: [main]
     paths: ['frontend/**']
@@ -29,7 +38,7 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt
       - name: Run all phases
-        run: python scripts/run_all.py
+        run: python scripts/run_all.py --mode ${{ inputs.mode || 'data-only' }}
         env:
           THEME_ANALYSIS_DATA_PATH: theme_analysis/frontend/public/data
           SIGNAL_ANALYSIS_DATA_PATH: signal_analysis/results
