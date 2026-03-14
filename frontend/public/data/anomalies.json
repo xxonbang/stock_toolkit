@@ -1,6 +1,111 @@
 [
-  { "type": "거래량 폭발", "name": "에코프로비엠", "code": "247540", "ratio": 4.2 },
-  { "type": "동시 급등", "theme": "2차전지", "count": 5 },
-  { "type": "갭 상승", "name": "포스코퓨처엠", "code": "003670", "ratio": 3.1 },
-  { "type": "가격 급변", "name": "삼성SDI", "code": "006400", "ratio": 2.8 }
+  {
+    "type": "거래량 폭발",
+    "name": "흥아해운",
+    "code": "003280",
+    "ratio": 6.2,
+    "change_rate": 10.66
+  },
+  {
+    "type": "거래량 폭발",
+    "name": "남선알미늄",
+    "code": "008350",
+    "ratio": 20.1,
+    "change_rate": 14.35
+  },
+  {
+    "type": "거래량 폭발",
+    "name": "폴라리스AI",
+    "code": "039980",
+    "ratio": 3.2,
+    "change_rate": 16.52
+  },
+  {
+    "type": "거래량 폭발",
+    "name": "대우건설",
+    "code": "047040",
+    "ratio": 3.6,
+    "change_rate": 17.78
+  },
+  {
+    "type": "거래량 폭발",
+    "name": "우리기술",
+    "code": "032820",
+    "ratio": 2.1,
+    "change_rate": 11.64
+  },
+  {
+    "type": "거래량 폭발",
+    "name": "한일사료",
+    "code": "005860",
+    "ratio": 3.7,
+    "change_rate": 10.15
+  },
+  {
+    "type": "거래량 폭발",
+    "name": "이루온",
+    "code": "065440",
+    "ratio": 2.4,
+    "change_rate": 0.46
+  },
+  {
+    "type": "가격 급변",
+    "name": "한일사료",
+    "code": "005860",
+    "change_rate": 16.45
+  },
+  {
+    "type": "가격 급변",
+    "name": "남해화학",
+    "code": "025860",
+    "change_rate": 12.71
+  },
+  {
+    "type": "가격 급변",
+    "name": "예선테크",
+    "code": "250930",
+    "change_rate": 28.17
+  },
+  {
+    "type": "가격 급변",
+    "name": "씨엑스아이",
+    "code": "900120",
+    "change_rate": 29.83
+  },
+  {
+    "type": "가격 급변",
+    "name": "센서뷰",
+    "code": "321370",
+    "change_rate": 10.4
+  },
+  {
+    "type": "가격 급변",
+    "name": "블리츠웨이엔터테인먼트",
+    "code": "369370",
+    "change_rate": 11.4
+  },
+  {
+    "type": "가격 급변",
+    "name": "SKAI",
+    "code": "357880",
+    "change_rate": 17.25
+  },
+  {
+    "type": "가격 급변",
+    "name": "한선엔지니어링",
+    "code": "452280",
+    "change_rate": 21.08
+  },
+  {
+    "type": "가격 급변",
+    "name": "SK이터닉스",
+    "code": "475150",
+    "change_rate": 16.2
+  },
+  {
+    "type": "가격 급변",
+    "name": "지니틱스",
+    "code": "303030",
+    "change_rate": 15.31
+  }
 ]

@@ -18,26 +18,61 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-950 text-white p-4 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Stock Toolkit</h1>
 
-      {/* 시장 국면 */}
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">시장 현황</h2>
-        <div className="bg-gray-900 rounded-lg p-4">
-          <span className="text-gray-400">현재 국면: </span>
-          <span className="text-xl font-bold">{performance?.current_regime || "—"}</span>
-        </div>
-      </section>
-
-      {/* 시스템 성과 */}
-      {performance?.by_source && (
+      {/* 시장 현황 */}
+      {performance && (
         <section className="mb-6">
-          <h2 className="text-lg font-semibold mb-2">시스템 성과</h2>
-          <div className="grid grid-cols-1 gap-2">
-            {Object.entries(performance.by_source).map(([source, data]: [string, any]) => (
-              <div key={source} className="bg-gray-900 rounded-lg p-3 flex justify-between">
-                <span className="font-medium capitalize">{source}</span>
-                <span className="text-gray-400">
-                  평균 {data?.mean ?? "—"}% | 최대 {data?.max ?? "—"}%
-                </span>
+          <h2 className="text-lg font-semibold mb-2">시장 현황</h2>
+          <div className="bg-gray-900 rounded-lg p-4 space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">시장 심리</span>
+              <span className={`text-xl font-bold ${
+                performance.fear_greed?.score < 25 ? "text-red-500" :
+                performance.fear_greed?.score < 45 ? "text-orange-400" :
+                performance.fear_greed?.score < 55 ? "text-gray-300" :
+                "text-green-400"
+              }`}>
+                {performance.current_regime}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Fear & Greed</span>
+              <span className="text-orange-400">{performance.fear_greed?.score ?? "—"}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">VIX</span>
+              <span className="text-orange-400">{performance.vix?.current ?? "—"}</span>
+            </div>
+            {performance.kospi && (
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">KOSPI</span>
+                <span>{performance.kospi.current?.toLocaleString()} <span className="text-gray-600">({performance.kospi.status})</span></span>
+              </div>
+            )}
+            {performance.kosdaq && (
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">KOSDAQ</span>
+                <span>{performance.kosdaq.current?.toLocaleString()} <span className="text-gray-600">({performance.kosdaq.status})</span></span>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* 신호 분포 */}
+      {performance?.by_source?.combined && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">신호 분포 ({performance.by_source.combined.total}종목)</h2>
+          <div className="grid grid-cols-5 gap-1">
+            {[
+              { label: "적극매수", key: "적극매수", color: "bg-red-600" },
+              { label: "매수", key: "매수", color: "bg-red-900" },
+              { label: "중립", key: "중립", color: "bg-gray-700" },
+              { label: "매도", key: "매도", color: "bg-blue-900" },
+              { label: "적극매도", key: "적극매도", color: "bg-blue-600" },
+            ].map(({ label, key, color }) => (
+              <div key={key} className={`${color} rounded-lg p-2 text-center`}>
+                <div className="text-lg font-bold">{performance.by_source.combined[key] ?? 0}</div>
+                <div className="text-xs text-gray-300">{label}</div>
               </div>
             ))}
           </div>
@@ -48,12 +83,20 @@ export default function Dashboard() {
       {anomalies && anomalies.length > 0 && (
         <section className="mb-6">
           <h2 className="text-lg font-semibold mb-2">이상 거래 감지</h2>
-          {anomalies.slice(0, 5).map((a, i) => (
-            <div key={i} className="bg-red-950 border border-red-800 rounded-lg p-3 mb-2">
-              <span className="text-red-400 font-medium">{a.type}</span>
-              {a.name && <span className="ml-2">{a.name}</span>}
-              {a.ratio && <span className="text-gray-400 ml-2">×{a.ratio}</span>}
-              {a.theme && <span className="text-gray-400 ml-2">{a.theme} {a.count}종목</span>}
+          {anomalies.slice(0, 8).map((a, i) => (
+            <div key={i} className="bg-red-950 border border-red-800 rounded-lg p-3 mb-2 flex justify-between items-center">
+              <div>
+                <span className="text-red-400 font-medium text-sm">{a.type}</span>
+                {a.name && <span className="ml-2">{a.name}</span>}
+              </div>
+              <div className="text-right text-sm">
+                {a.ratio && <span className="text-yellow-400">x{a.ratio}</span>}
+                {a.change_rate != null && (
+                  <span className={`ml-2 ${a.change_rate >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                    {a.change_rate >= 0 ? "+" : ""}{a.change_rate}%
+                  </span>
+                )}
+              </div>
             </div>
           ))}
         </section>
@@ -63,27 +106,30 @@ export default function Dashboard() {
       {smartMoney && smartMoney.length > 0 && (
         <section className="mb-6">
           <h2 className="text-lg font-semibold mb-2">스마트 머니 TOP</h2>
-          {smartMoney.slice(0, 5).map((s, i) => (
-            <div key={i} className="bg-gray-900 rounded-lg p-3 mb-2 flex justify-between">
-              <span>{s.name} ({s.code})</span>
-              <span className="text-yellow-400">스코어 {s.smart_money_score}</span>
+          {smartMoney.slice(0, 10).map((s, i) => (
+            <div key={i} className="bg-gray-900 rounded-lg p-3 mb-2 flex justify-between items-center">
+              <div>
+                <span className="font-medium">{s.name}</span>
+                <span className="text-gray-500 text-sm ml-1">({s.code})</span>
+                <span className="text-green-400 text-sm ml-2">{s.signal}</span>
+              </div>
+              <span className="text-yellow-400 font-bold">{s.smart_money_score}</span>
             </div>
           ))}
         </section>
       )}
 
-      {/* 섹터 흐름 */}
-      {sectors && (
+      {/* 테마별 자금 흐름 */}
+      {sectors && Object.keys(sectors).length > 0 && (
         <section className="mb-6">
-          <h2 className="text-lg font-semibold mb-2">섹터 자금 흐름</h2>
+          <h2 className="text-lg font-semibold mb-2">테마별 자금 흐름</h2>
           {Object.entries(sectors)
             .sort(([, a]: any, [, b]: any) => (b.total_foreign_net || 0) - (a.total_foreign_net || 0))
-            .slice(0, 8)
             .map(([name, data]: [string, any]) => (
-              <div key={name} className="flex justify-between bg-gray-900 rounded-lg p-2 mb-1">
-                <span>{name} <span className="text-gray-500 text-sm">[{data.stock_count}]</span></span>
+              <div key={name} className="flex justify-between bg-gray-900 rounded-lg p-3 mb-1">
+                <span>{name} <span className="text-gray-500 text-sm">[{data.stock_count}종목]</span></span>
                 <span className={data.total_foreign_net >= 0 ? "text-red-400" : "text-blue-400"}>
-                  {data.total_foreign_net >= 0 ? "+" : ""}{data.total_foreign_net}억
+                  외국인 {data.total_foreign_net >= 0 ? "+" : ""}{(data.total_foreign_net / 1000).toFixed(0)}천주
                 </span>
               </div>
             ))}

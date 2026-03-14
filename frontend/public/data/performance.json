@@ -1,8 +1,39 @@
 {
-  "current_regime": "상승 추세",
+  "current_regime": "극단적 공포",
+  "fear_greed": {
+    "score": 19.7,
+    "rating": "extreme fear"
+  },
+  "vix": {
+    "current": 26.92,
+    "rating": "fear"
+  },
+  "kospi": {
+    "current": 5463.22,
+    "ma5": 5488.18,
+    "ma10": 5573.92,
+    "ma20": 5655.87,
+    "ma60": 4976.12,
+    "ma120": 4399.51,
+    "status": "혼합"
+  },
+  "kosdaq": {
+    "current": 809.16,
+    "ma5": 813.81,
+    "ma10": 827.86,
+    "ma20": 838.95,
+    "ma60": 727.32,
+    "ma120": 631.33,
+    "status": "혼합"
+  },
   "by_source": {
-    "theme": { "mean": 3.4, "max": 12.7 },
-    "signal": { "mean": 2.1, "max": 8.9 },
-    "cross": { "mean": 5.6, "max": 18.3 }
+    "combined": {
+      "total": 105,
+      "적극매수": 3,
+      "매수": 44,
+      "중립": 88,
+      "매도": 18,
+      "적극매도": 4
+    }
   }
 }
