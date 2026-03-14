@@ -340,7 +340,7 @@ export default function Dashboard() {
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
-                      <div className="text-xs text-gray-500">매매수</div>
+                      <div className="text-xs text-gray-500">총 거래</div>
                       <div className="text-sm font-semibold">{s.total_trades}건</div>
                     </div>
                     <div>
