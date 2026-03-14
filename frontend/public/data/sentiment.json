@@ -1,0 +1,23 @@
+{
+  "score": 31.1,
+  "label": "공포",
+  "components": {
+    "fear_greed": {
+      "value": 19.7,
+      "score": 19.7
+    },
+    "vix": {
+      "value": 26.92,
+      "score": 43.7
+    },
+    "kospi_deviation": {
+      "value": -3.41,
+      "score": 33.0
+    },
+    "foreign_flow": {
+      "value": -15128609,
+      "score": 0
+    }
+  },
+  "strategy": "방향성 관망"
+}

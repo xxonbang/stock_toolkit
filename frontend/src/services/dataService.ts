@@ -23,4 +23,10 @@ export const dataService = {
   getSimulation: () => fetchJson<any[]>("simulation.json"),
   getPattern: () => fetchJson<any[]>("pattern.json"),
   getScannerStocks: () => fetchJson<any[]>("scanner_stocks.json"),
+  getSentiment: () => fetchJson<any>("sentiment.json"),
+  getShortSqueeze: () => fetchJson<any[]>("short_squeeze.json"),
+  getGapAnalysis: () => fetchJson<any[]>("gap_analysis.json"),
+  getValuation: () => fetchJson<any[]>("valuation.json"),
+  getVolumeDivergence: () => fetchJson<any[]>("volume_divergence.json"),
+  getPremarket: () => fetchJson<any>("premarket.json"),
 };

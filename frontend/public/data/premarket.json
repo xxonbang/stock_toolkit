@@ -1,0 +1,16 @@
+{
+  "fear_greed": {
+    "score": 19.7,
+    "rating": "extreme fear"
+  },
+  "vix": {
+    "current": 26.92,
+    "change": 0.0
+  },
+  "kospi_futures": 5463.22,
+  "prediction": "하락 출발 예상",
+  "key_factors": [
+    "Fear & Greed 19.7 (extreme fear)",
+    "VIX 26.92 (fear)"
+  ]
+}

@@ -69,6 +69,12 @@ export default function Dashboard() {
   const [briefing, setBriefing] = useState<any>(null);
   const [simulation, setSimulation] = useState<any[] | null>(null);
   const [pattern, setPattern] = useState<any[] | null>(null);
+  const [sentiment, setSentiment] = useState<any>(null);
+  const [shortSqueeze, setShortSqueeze] = useState<any[] | null>(null);
+  const [gapAnalysis, setGapAnalysis] = useState<any[] | null>(null);
+  const [valuation, setValuation] = useState<any[] | null>(null);
+  const [divergence, setDivergence] = useState<any[] | null>(null);
+  const [premarket, setPremarket] = useState<any>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -82,6 +88,12 @@ export default function Dashboard() {
     dataService.getBriefing().then(setBriefing);
     dataService.getSimulation().then(setSimulation);
     dataService.getPattern().then(setPattern);
+    dataService.getSentiment().then(setSentiment);
+    dataService.getShortSqueeze().then(setShortSqueeze);
+    dataService.getGapAnalysis().then(setGapAnalysis);
+    dataService.getValuation().then(setValuation);
+    dataService.getVolumeDivergence().then(setDivergence);
+    dataService.getPremarket().then(setPremarket);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -100,6 +112,59 @@ export default function Dashboard() {
         </h1>
         <RefreshButtons />
       </div>
+
+      {/* 장전 프리마켓 */}
+      {premarket && (
+        <section className="bg-amber-50 border border-amber-100 rounded-xl p-4">
+          <SectionHeader id="premarket">장전 프리마켓</SectionHeader>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-gray-700">시장 출발 예상</span>
+            <span className={`text-sm font-bold ${premarket.prediction?.includes("상승") ? "text-red-600" : premarket.prediction?.includes("하락") ? "text-blue-600" : "text-gray-600"}`}>
+              {premarket.prediction}
+            </span>
+          </div>
+          <div className="space-y-1">
+            {premarket.key_factors?.map((f: string, i: number) => (
+              <div key={i} className="text-xs text-gray-500">· {f}</div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 시장 심리 온도계 */}
+      {sentiment && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="sentiment">시장 심리 온도계</SectionHeader>
+          <div className="flex items-center gap-4 mb-3">
+            <div className="text-3xl font-bold text-gray-900">{sentiment.score}</div>
+            <div>
+              <div className={`text-sm font-semibold ${sentiment.score < 30 ? "text-blue-600" : sentiment.score < 60 ? "text-gray-600" : "text-red-600"}`}>
+                {sentiment.label}
+              </div>
+              <div className="text-xs text-gray-500">{sentiment.strategy}</div>
+            </div>
+          </div>
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-3">
+            <div
+              className={`h-full rounded-full ${sentiment.score < 30 ? "bg-blue-500" : sentiment.score < 60 ? "bg-gray-400" : "bg-red-500"}`}
+              style={{ width: `${sentiment.score}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-[10px] text-gray-400 mb-3">
+            <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
+          </div>
+          {sentiment.components && (
+            <div className="grid grid-cols-2 gap-2">
+              {Object.entries(sentiment.components).map(([key, comp]: [string, any]) => (
+                <div key={key} className="text-xs bg-gray-50 rounded p-2">
+                  <div className="text-gray-500">{key === "fear_greed" ? "F&G" : key === "vix" ? "VIX" : key === "kospi_deviation" ? "KOSPI 이격도" : "외국인 수급"}</div>
+                  <div className="font-medium">{typeof comp.value === 'number' ? (Number.isInteger(comp.value) ? comp.value.toLocaleString() : comp.value) : comp.value}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
       {/* AI 브리핑 */}
       {briefing?.morning && (
@@ -393,6 +458,98 @@ export default function Dashboard() {
                 ))}
               </div>
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* 갭 분석 */}
+      {gapAnalysis && gapAnalysis.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="gap" count={gapAnalysis.length}>갭 분석</SectionHeader>
+          <div className="space-y-1.5">
+            {gapAnalysis.slice(0, 6).map((g, i) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{g.name}</div>
+                  <div className="text-xs text-gray-500">{g.direction}</div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className={`text-sm font-bold ${g.gap_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    {g.gap_pct >= 0 ? "+" : ""}{g.gap_pct}%
+                  </div>
+                  <div className="text-[10px] text-gray-400">메꿈 확률 {g.fill_probability}%</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 공매도 역발상 */}
+      {shortSqueeze && shortSqueeze.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="squeeze" count={shortSqueeze.length}>공매도 역발상</SectionHeader>
+          <div className="space-y-1.5">
+            {shortSqueeze.slice(0, 6).map((s, i) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-orange-50 border border-orange-100 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{s.name}</div>
+                  <div className="text-xs text-gray-500">공매도 {s.short_ratio}%</div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-sm font-bold text-orange-600">{s.squeeze_score}</div>
+                  <div className="text-[10px] text-gray-400">스퀴즈 스코어</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 밸류에이션 */}
+      {valuation && valuation.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="valuation" count={valuation.length}>밸류에이션 스크리너</SectionHeader>
+          <div className="space-y-1.5">
+            {valuation.slice(0, 6).map((v, i) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{v.name}</div>
+                  <div className="text-xs text-gray-500">
+                    PER {v.per}{v.pbr ? ` · PBR ${v.pbr}` : ""}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  {signalBadge(v.signal)}
+                  <span className="text-sm font-bold text-green-700 w-7 text-right">{v.value_score}</span>
+                </div>
+              </div>
+            ))}
+            <p className="text-[10px] text-gray-400">PER이 낮을수록 이익 대비 저평가</p>
+          </div>
+        </section>
+      )}
+
+      {/* 거래량-가격 괴리 */}
+      {divergence && divergence.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="divergence" count={divergence.length}>거래량-가격 괴리</SectionHeader>
+          <div className="space-y-1.5">
+            {divergence.slice(0, 6).map((d, i) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{d.name}</div>
+                  <div className="text-xs text-gray-500">{d.type}</div>
+                </div>
+                <div className="text-right shrink-0 text-xs">
+                  <div>거래량 {d.volume_change >= 0 ? "+" : ""}{d.volume_change}%</div>
+                  <div className={d.price_change >= 0 ? "text-red-600" : "text-blue-600"}>
+                    가격 {d.price_change >= 0 ? "+" : ""}{d.price_change}%
+                  </div>
+                </div>
+              </div>
+            ))}
+            <p className="text-[10px] text-gray-400">거래량과 가격의 방향이 다르면 추세 전환 가능성</p>
           </div>
         </section>
       )}
