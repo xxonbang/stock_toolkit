@@ -1,0 +1,23 @@
+[
+  {
+    "code": "000720",
+    "name": "현대건설",
+    "signal": "매수",
+    "confidence": 0.76,
+    "theme": "신재생에너지 / 원전"
+  },
+  {
+    "code": "475150",
+    "name": "SK이터닉스",
+    "signal": "매수",
+    "confidence": 0.71,
+    "theme": "신재생에너지 / 원전"
+  },
+  {
+    "code": "452280",
+    "name": "한선엔지니어링",
+    "signal": "매수",
+    "confidence": 0.62,
+    "theme": "신재생에너지 / 원전"
+  }
+]

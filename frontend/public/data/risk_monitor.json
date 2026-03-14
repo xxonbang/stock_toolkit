@@ -1,0 +1,166 @@
+[
+  {
+    "code": "003670",
+    "name": "포스코퓨처엠",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도",
+      "낮은 신뢰도"
+    ],
+    "signal": "매도",
+    "foreign_net": -606641
+  },
+  {
+    "code": "010950",
+    "name": "S-Oil",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도",
+      "낮은 신뢰도"
+    ],
+    "signal": "매도",
+    "foreign_net": -120154
+  },
+  {
+    "code": "096770",
+    "name": "SK이노베이션",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도",
+      "낮은 신뢰도"
+    ],
+    "signal": "적극매도",
+    "foreign_net": -254537
+  },
+  {
+    "code": "039980",
+    "name": "폴라리스AI",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도",
+      "낮은 신뢰도"
+    ],
+    "signal": "매도",
+    "foreign_net": -787284
+  },
+  {
+    "code": "272210",
+    "name": "한화시스템",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "낮은 신뢰도"
+    ],
+    "signal": "매도",
+    "foreign_net": -21415
+  },
+  {
+    "code": "009830",
+    "name": "한화솔루션",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도"
+    ],
+    "signal": "매도",
+    "foreign_net": -572954
+  },
+  {
+    "code": "329180",
+    "name": "HD현대중공업",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "낮은 신뢰도"
+    ],
+    "signal": "매도",
+    "foreign_net": 17987
+  },
+  {
+    "code": "086520",
+    "name": "에코프로",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도"
+    ],
+    "signal": "매도",
+    "foreign_net": -119287
+  },
+  {
+    "code": "038500",
+    "name": "삼표시멘트",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도"
+    ],
+    "signal": "매도",
+    "foreign_net": -476275
+  },
+  {
+    "code": "048410",
+    "name": "현대바이오",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "낮은 신뢰도"
+    ],
+    "signal": "매도",
+    "foreign_net": 0
+  },
+  {
+    "code": "005930",
+    "name": "삼성전자",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -2830759
+  },
+  {
+    "code": "000660",
+    "name": "SK하이닉스",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -202144
+  },
+  {
+    "code": "005380",
+    "name": "현대차",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "매수",
+    "foreign_net": -200951
+  },
+  {
+    "code": "005935",
+    "name": "삼성전자우",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "매수",
+    "foreign_net": -397711
+  },
+  {
+    "code": "000270",
+    "name": "기아",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "매수",
+    "foreign_net": -410163
+  }
+]

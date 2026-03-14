@@ -1,0 +1,20 @@
+[
+  {
+    "theme": "사료/비료/곡물 관련주",
+    "stage": "과열",
+    "stock_count": 2,
+    "avg_change": 14.58
+  },
+  {
+    "theme": "인공지능(AI) / 시스템 반도체",
+    "stage": "과열",
+    "stock_count": 2,
+    "avg_change": 13.82
+  },
+  {
+    "theme": "신재생에너지 / 원전",
+    "stage": "과열",
+    "stock_count": 3,
+    "avg_change": 18.64
+  }
+]

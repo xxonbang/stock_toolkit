@@ -16,5 +16,7 @@ export const dataService = {
   getSmartMoney: () => fetchJson<any[]>("smart_money.json"),
   getSectorFlow: () => fetchJson<Record<string, any>>("sector_flow.json"),
   getNewsImpact: () => fetchJson<Record<string, any>>("news_impact.json"),
-  getSimulation: () => fetchJson<any[]>("simulation.json"),
+  getCrossSignal: () => fetchJson<any[]>("cross_signal.json"),
+  getLifecycle: () => fetchJson<any[]>("lifecycle.json"),
+  getRiskMonitor: () => fetchJson<any[]>("risk_monitor.json"),
 };

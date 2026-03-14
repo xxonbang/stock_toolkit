@@ -11,7 +11,7 @@ from core.data_loader import DataLoader
 from core.telegram_bot import send_message
 from core.gemini_client import GeminiClient
 
-from modules.cross_signal import run as run_cross_signal
+from modules.cross_signal import run as run_cross_signal, find_cross_signals
 from modules.daily_briefing import generate_morning_brief, generate_evening_review
 from modules.system_performance import build_performance_report
 from modules.anomaly_detector import run_anomaly_scan, format_anomaly_alert
@@ -19,6 +19,7 @@ from modules.smart_money import calculate_smart_money_score
 from modules.sector_flow import aggregate_by_sector, format_sector_flow
 from modules.news_impact import build_impact_database, calculate_impact_stats
 from modules.theme_lifecycle import track_theme_lifecycle, format_lifecycle_alert
+from modules.risk_monitor import evaluate_risk
 
 
 def main():
@@ -29,7 +30,10 @@ def main():
 
     # Phase 1
     print("=== Phase 1: 알림 & 브리핑 ===")
-    run_cross_signal(loader, send_message)
+    cross_matches = run_cross_signal(loader, send_message)
+    with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
+        json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
+
     report = build_performance_report(loader)
     with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
@@ -56,6 +60,17 @@ def main():
     sectors = aggregate_by_sector(all_flow_stocks)
     with open(results_dir / "sector_flow.json", "w", encoding="utf-8") as f:
         json.dump(sectors, f, ensure_ascii=False, indent=2)
+
+    # 위험 종목 평가
+    risk_results = []
+    combined = loader.get_combined_signals()
+    for sig in combined:
+        result = evaluate_risk(sig)
+        if result["level"] != "낮음":
+            risk_results.append(result)
+    risk_results.sort(key=lambda x: len(x.get("warnings", [])), reverse=True)
+    with open(results_dir / "risk_monitor.json", "w", encoding="utf-8") as f:
+        json.dump(risk_results, f, ensure_ascii=False, indent=2)
 
     # Phase 3
     print("=== Phase 3: 분석 ===")

@@ -1,17 +1,39 @@
 import { useEffect, useState } from "react";
 import { dataService } from "../services/dataService";
 
+const STAGE_COLORS: Record<string, string> = {
+  "탄생": "text-green-400",
+  "성장": "text-yellow-400",
+  "과열": "text-red-400",
+  "쇠퇴": "text-gray-400",
+};
+
+const STAGE_BG: Record<string, string> = {
+  "탄생": "bg-green-950 border-green-800",
+  "성장": "bg-yellow-950 border-yellow-800",
+  "과열": "bg-red-950 border-red-800",
+  "쇠퇴": "bg-gray-800 border-gray-600",
+};
+
 export default function Dashboard() {
   const [performance, setPerformance] = useState<any>(null);
   const [sectors, setSectors] = useState<Record<string, any> | null>(null);
   const [anomalies, setAnomalies] = useState<any[] | null>(null);
   const [smartMoney, setSmartMoney] = useState<any[] | null>(null);
+  const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
+  const [lifecycle, setLifecycle] = useState<any[] | null>(null);
+  const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
+  const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
     dataService.getSectorFlow().then(setSectors);
     dataService.getAnomalies().then(setAnomalies);
     dataService.getSmartMoney().then(setSmartMoney);
+    dataService.getCrossSignal().then(setCrossSignal);
+    dataService.getLifecycle().then(setLifecycle);
+    dataService.getRiskMonitor().then(setRiskMonitor);
+    dataService.getNewsImpact().then(setNewsImpact);
   }, []);
 
   return (
@@ -79,6 +101,45 @@ export default function Dashboard() {
         </section>
       )}
 
+      {/* 교차 신호 고확신 종목 */}
+      {crossSignal && crossSignal.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">교차 신호 (테마+시그널)</h2>
+          {crossSignal.map((s, i) => (
+            <div key={i} className="bg-emerald-950 border border-emerald-800 rounded-lg p-3 mb-2">
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="font-medium">{s.name}</span>
+                  <span className="text-gray-500 text-sm ml-1">({s.code})</span>
+                </div>
+                <span className="text-emerald-400 font-bold">{s.signal}</span>
+              </div>
+              <div className="text-sm text-gray-400 mt-1">
+                테마: {s.theme} · 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* 테마 라이프사이클 */}
+      {lifecycle && lifecycle.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">테마 라이프사이클</h2>
+          {lifecycle.map((l, i) => (
+            <div key={i} className={`border rounded-lg p-3 mb-2 ${STAGE_BG[l.stage] || "bg-gray-900 border-gray-700"}`}>
+              <div className="flex justify-between items-center">
+                <span className="font-medium">{l.theme}</span>
+                <span className={`font-bold ${STAGE_COLORS[l.stage] || "text-gray-300"}`}>{l.stage}</span>
+              </div>
+              <div className="text-sm text-gray-400 mt-1">
+                {l.stock_count}종목 · 평균 {l.avg_change >= 0 ? "+" : ""}{l.avg_change}%
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+
       {/* 이상 거래 */}
       {anomalies && anomalies.length > 0 && (
         <section className="mb-6">
@@ -102,6 +163,33 @@ export default function Dashboard() {
         </section>
       )}
 
+      {/* 위험 종목 */}
+      {riskMonitor && riskMonitor.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">위험 종목 모니터</h2>
+          {riskMonitor.slice(0, 8).map((r, i) => (
+            <div key={i} className="bg-gray-900 rounded-lg p-3 mb-2">
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="font-medium">{r.name}</span>
+                  <span className="text-gray-500 text-sm ml-1">({r.code})</span>
+                </div>
+                <span className={`font-bold text-sm ${r.level === "높음" ? "text-red-500" : "text-orange-400"}`}>
+                  {r.level}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1 mt-1">
+                {r.warnings?.map((w: string, j: number) => (
+                  <span key={j} className="text-xs bg-red-900/50 text-red-300 px-2 py-0.5 rounded">
+                    {w}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+
       {/* 스마트 머니 */}
       {smartMoney && smartMoney.length > 0 && (
         <section className="mb-6">
@@ -114,6 +202,30 @@ export default function Dashboard() {
                 <span className="text-green-400 text-sm ml-2">{s.signal}</span>
               </div>
               <span className="text-yellow-400 font-bold">{s.smart_money_score}</span>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* 뉴스 임팩트 */}
+      {newsImpact && Object.keys(newsImpact).length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold mb-2">뉴스 임팩트</h2>
+          {Object.entries(newsImpact).map(([category, data]: [string, any]) => (
+            <div key={category} className="bg-gray-900 rounded-lg p-3 mb-2">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-purple-400">{category}</span>
+                <span className="text-gray-500 text-sm">{data.count}건</span>
+              </div>
+              {data.titles?.slice(0, 3).map((t: any, i: number) => (
+                <div key={i} className="text-sm text-gray-400 mb-1 flex justify-between">
+                  <span className="truncate mr-2">{t.title}</span>
+                  <span className={`shrink-0 ${
+                    t.signal?.includes("매수") ? "text-red-400" :
+                    t.signal?.includes("매도") ? "text-blue-400" : "text-gray-500"
+                  }`}>{t.stock}</span>
+                </div>
+              ))}
             </div>
           ))}
         </section>
