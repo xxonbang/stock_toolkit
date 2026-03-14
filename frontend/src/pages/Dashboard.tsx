@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
+import RefreshButtons from "../components/RefreshButtons";
 
 const STAGE_FILL: Record<string, string> = {
   "탄생": "#22c55e", "성장": "#eab308", "과열": "#ef4444", "쇠퇴": "#9ca3af",
@@ -92,10 +93,13 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
-      <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-        <BarChart3 size={22} className="text-blue-600" />
-        Stock Toolkit
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <BarChart3 size={22} className="text-blue-600" />
+          Stock Toolkit
+        </h1>
+        <RefreshButtons />
+      </div>
 
       {/* AI 브리핑 */}
       {briefing?.morning && (

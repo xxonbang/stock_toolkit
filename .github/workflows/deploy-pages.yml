@@ -57,6 +57,8 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          VITE_GH_PAT: ${{ secrets.VITE_GH_PAT }}
       - name: Copy results to dist
         run: |
           mkdir -p frontend/dist/data
