@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['frontend/**', 'results/**']
+    paths: ['frontend/**']
 
 jobs:
   build-and-deploy:
@@ -16,6 +16,30 @@ jobs:
       name: github-pages
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: xxonbang/theme-analyzer
+          path: theme_analysis
+      - uses: actions/checkout@v4
+        with:
+          repository: xxonbang/top50_analyzer
+          path: signal_analysis
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Run all phases
+        run: python scripts/run_all.py
+        env:
+          THEME_ANALYSIS_DATA_PATH: theme_analysis/frontend/public/data
+          SIGNAL_ANALYSIS_DATA_PATH: signal_analysis/results
+          GEMINI_API_KEY_01: ${{ secrets.GEMINI_API_KEY_01 }}
+          GEMINI_API_KEY_02: ${{ secrets.GEMINI_API_KEY_02 }}
+          GEMINI_API_KEY_03: ${{ secrets.GEMINI_API_KEY_03 }}
+          GEMINI_API_KEY_04: ${{ secrets.GEMINI_API_KEY_04 }}
+          GEMINI_API_KEY_05: ${{ secrets.GEMINI_API_KEY_05 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

@@ -28,7 +28,7 @@ jobs:
           path: theme_analysis
       - uses: actions/checkout@v4
         with:
-          repository: sonbyeongcheol/signal_analysis
+          repository: xxonbang/top50_analyzer
           path: signal_analysis
       - uses: actions/setup-python@v5
         with:
