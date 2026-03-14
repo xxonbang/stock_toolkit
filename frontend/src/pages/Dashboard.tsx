@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
+import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { dataService } from "../services/dataService";
+
+const STAGE_FILL: Record<string, string> = {
+  "탄생": "#4ade80",
+  "성장": "#facc15",
+  "과열": "#f87171",
+  "쇠퇴": "#9ca3af",
+};
 
 const STAGE_COLORS: Record<string, string> = {
   "탄생": "text-green-400",
@@ -143,7 +151,57 @@ export default function Dashboard() {
       {lifecycle && lifecycle.length > 0 && (
         <section className="mb-6">
           <h2 className="text-lg font-semibold mb-2">테마 라이프사이클</h2>
-          {lifecycle.map((l, i) => (
+          {/* 버블차트 */}
+          <div className="bg-gray-900 rounded-lg p-3 mb-3">
+            <ResponsiveContainer width="100%" height={200}>
+              <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
+                <XAxis
+                  dataKey="stock_count"
+                  name="종목수"
+                  type="number"
+                  tick={{ fill: '#9ca3af', fontSize: 12 }}
+                  axisLine={{ stroke: '#374151' }}
+                  label={{ value: '종목수', position: 'bottom', fill: '#6b7280', fontSize: 11, offset: -5 }}
+                />
+                <YAxis
+                  dataKey="avg_change"
+                  name="평균등락률"
+                  type="number"
+                  tick={{ fill: '#9ca3af', fontSize: 12 }}
+                  axisLine={{ stroke: '#374151' }}
+                  label={{ value: '%', position: 'top', fill: '#6b7280', fontSize: 11, offset: -5 }}
+                />
+                <Tooltip
+                  content={({ payload }) => {
+                    if (!payload?.length) return null;
+                    const d = payload[0].payload;
+                    return (
+                      <div className="bg-gray-800 border border-gray-700 rounded p-2 text-xs">
+                        <div className="font-bold">{d.theme}</div>
+                        <div>단계: {d.stage}</div>
+                        <div>종목수: {d.stock_count}</div>
+                        <div>평균: {d.avg_change >= 0 ? "+" : ""}{d.avg_change}%</div>
+                      </div>
+                    );
+                  }}
+                />
+                <Scatter data={lifecycle}>
+                  {lifecycle.map((l: any, i: number) => (
+                    <Cell key={i} fill={STAGE_FILL[l.stage] || "#6b7280"} r={Math.max(8, l.stock_count * 4)} />
+                  ))}
+                </Scatter>
+              </ScatterChart>
+            </ResponsiveContainer>
+            <div className="flex justify-center gap-4 text-xs text-gray-500 mt-1">
+              {Object.entries(STAGE_FILL).map(([stage, color]) => (
+                <span key={stage} className="flex items-center gap-1">
+                  <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+                  {stage}
+                </span>
+              ))}
+            </div>
+          </div>
+          {lifecycle.map((l: any, i: number) => (
             <div key={i} className={`border rounded-lg p-3 mb-2 ${STAGE_BG[l.stage] || "bg-gray-900 border-gray-700"}`}>
               <div className="flex justify-between items-center">
                 <span className="font-medium">{l.theme}</span>

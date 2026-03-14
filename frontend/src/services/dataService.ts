@@ -22,4 +22,5 @@ export const dataService = {
   getBriefing: () => fetchJson<any>("briefing.json"),
   getSimulation: () => fetchJson<any[]>("simulation.json"),
   getPattern: () => fetchJson<any[]>("pattern.json"),
+  getScannerStocks: () => fetchJson<any[]>("scanner_stocks.json"),
 };

@@ -71,16 +71,42 @@ def main():
     with open(results_dir / "sector_flow.json", "w", encoding="utf-8") as f:
         json.dump(sectors, f, ensure_ascii=False, indent=2)
 
-    # 위험 종목 평가
+    # 위험 종목 평가 + 스캐너 데이터
     risk_results = []
+    scanner_stocks = []
     combined = loader.get_combined_signals()
+    themes = loader.get_themes()
+    leader_theme = {}
+    for theme in themes:
+        for leader in theme.get("leaders", []):
+            if leader.get("code"):
+                leader_theme[leader["code"]] = theme.get("name", "")
+
     for sig in combined:
         result = evaluate_risk(sig)
         if result["level"] != "낮음":
             risk_results.append(result)
+        code = sig.get("code", "")
+        signal = sig.get("signal", sig.get("combined_signal", sig.get("vision_signal", "")))
+        foreign_net = sig.get("foreign_net", 0)
+        scanner_stocks.append({
+            "code": code,
+            "name": sig.get("name", ""),
+            "signal": signal,
+            "confidence": round(sig.get("vision_confidence", 0) or 0, 2),
+            "foreign_net": foreign_net,
+            "foreign_flow": "순매수" if isinstance(foreign_net, (int, float)) and foreign_net > 0 else "순매도",
+            "risk_level": result["level"],
+            "warnings": result["warnings"],
+            "theme": leader_theme.get(code, ""),
+            "market": sig.get("market", ""),
+        })
+
     risk_results.sort(key=lambda x: len(x.get("warnings", [])), reverse=True)
     with open(results_dir / "risk_monitor.json", "w", encoding="utf-8") as f:
         json.dump(risk_results, f, ensure_ascii=False, indent=2)
+    with open(results_dir / "scanner_stocks.json", "w", encoding="utf-8") as f:
+        json.dump(scanner_stocks, f, ensure_ascii=False, indent=2)
 
     # Phase 3
     print("=== Phase 3: 분석 ===")
