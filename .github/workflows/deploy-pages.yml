@@ -22,7 +22,7 @@ jobs:
           path: theme_analysis
       - uses: actions/checkout@v4
         with:
-          repository: xxonbang/top50_analyzer
+          repository: xxonbang/signal-pulse
           path: signal_analysis
       - uses: actions/setup-python@v5
         with:
