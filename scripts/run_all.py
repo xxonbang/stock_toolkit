@@ -81,6 +81,7 @@ def main():
     if isinstance(macro_indicators, dict):
         report["macro_indicators"] = macro_indicators.get("indicators", [])
         report["investor_trend"] = macro_indicators.get("investor_trend", [])
+        report["futures"] = macro_indicators.get("futures", [])
     # 테마 예측
     forecast = loader.get_theme_forecast()
     if isinstance(forecast, dict):

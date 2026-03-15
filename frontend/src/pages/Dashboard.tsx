@@ -362,6 +362,24 @@ export default function Dashboard() {
               </div>
             )}
           </div>
+          {/* 주요 선물 */}
+          {performance.futures?.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">주요 선물</div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {performance.futures.map((ft: any, i: number) => (
+                  <div key={i} className="bg-gray-50 rounded-lg p-2 text-center">
+                    <div className="text-[10px] text-gray-400 truncate">{ft.name}</div>
+                    <div className="text-sm font-semibold text-gray-900">{ft.price?.toLocaleString()}</div>
+                    <div className={`text-[10px] font-medium ${(ft.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                      {ft.change_pct >= 0 ? "▲" : "▼"}{Math.abs(ft.change_pct)}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* 환율 */}
           {performance.exchange?.length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100">
