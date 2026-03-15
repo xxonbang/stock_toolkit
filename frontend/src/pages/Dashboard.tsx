@@ -1530,7 +1530,7 @@ export default function Dashboard() {
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-gray-900/15 backdrop-blur-sm text-gray-500 hover:bg-gray-900/25 hover:text-gray-700 transition-all duration-200 shadow-sm"
+          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm text-gray-400 hover:bg-white/50 hover:text-gray-600 transition-all duration-200"
           aria-label="최상단으로 이동"
         >
           <ChevronUp size={20} />
