@@ -202,12 +202,11 @@ export function SectionHeader({
       </div>
       {open && help && (
         <div
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-6"
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-white rounded-t-2xl sm:rounded-xl shadow-xl max-w-sm w-full p-5 pb-8 sm:pb-5 sm:m-4 max-h-[80vh] overflow-y-auto"
-            style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom))" }}
+            className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-5"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-3">
