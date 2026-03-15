@@ -194,11 +194,11 @@ def main():
     sentiment_score = calculate_sentiment(
         fg.get("score", 50), vix_data.get("current", 20), kospi_data, 0, 50, 0, 0
     )
-    sentiment_label, sentiment_strategy = classify_sentiment(sentiment_score)
+    sentiment_info = classify_sentiment(sentiment_score)
     sentiment_result = {
         "score": sentiment_score,
-        "label": sentiment_label,
-        "strategy": sentiment_strategy,
+        "label": sentiment_info["label"],
+        "strategy": sentiment_info["strategy"],
         "components": {
             "fear_greed": {"value": round(fg.get("score", 0), 1)},
             "vix": {"value": vix_data.get("current", 0)},
@@ -207,28 +207,74 @@ def main():
     with open(results_dir / "sentiment.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
 
-    # 갭 분석
+    # 갭 분석 — change_rate > 5%를 갭으로 처리
     all_rising = latest.get("rising_stocks", [])
-    gaps = detect_gaps(all_rising)
+    gap_results = []
+    for s in all_rising:
+        change = s.get("change_rate", 0)
+        if abs(change) >= 5:
+            gap_results.append({
+                "code": s.get("code", ""),
+                "name": s.get("name", ""),
+                "gap_pct": round(change, 2),
+                "direction": "상승 갭" if change > 0 else "하락 갭",
+                "volume_rate": s.get("volume_rate", 100),
+                "fill_probability": round(max(30, min(85, 70 - abs(change) * 2)), 0),
+            })
+    gap_results.sort(key=lambda x: abs(x["gap_pct"]), reverse=True)
     with open(results_dir / "gap_analysis.json", "w", encoding="utf-8") as f:
-        json.dump(gaps[:10], f, ensure_ascii=False, indent=2)
+        json.dump(gap_results[:10], f, ensure_ascii=False, indent=2)
 
-    # 밸류에이션
+    # 밸류에이션 — criteria_data 기반
     val_results = []
-    for sig in combined:
-        score = calculate_value_score(sig)
-        if score > 40:
-            val_results.append({**sig, "value_score": score})
+    for sig in combined.get("stocks", []) if isinstance(combined, dict) else combined:
+        code = sig.get("code", "")
+        crit = criteria_map.get(code, {}) if criteria_map else {}
+        mc = crit.get("market_cap_range", {}) if isinstance(crit, dict) else {}
+        ma = crit.get("ma_alignment", {}) if isinstance(crit, dict) else {}
+        mc_met = mc.get("met", False) if isinstance(mc, dict) else False
+        ma_met = ma.get("met", False) if isinstance(ma, dict) else False
+        if not mc_met:
+            continue
+        score = 50
+        if ma_met:
+            score += 25
+        signal = sig.get("vision_signal", "")
+        if signal in ("매수", "적극매수"):
+            score += 15
+        inv = latest.get("investor_data", {}).get(code, {}) if "investor_data" in latest else {}
+        fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        if fn > 0:
+            score += 10
+        val_results.append({
+            "code": code, "name": sig.get("name", ""),
+            "signal": signal, "ma_aligned": ma_met,
+            "market_cap_ok": True, "foreign_net": fn,
+            "value_score": min(score, 99),
+        })
     val_results.sort(key=lambda x: x.get("value_score", 0), reverse=True)
     with open(results_dir / "valuation.json", "w", encoding="utf-8") as f:
         json.dump(val_results[:15], f, ensure_ascii=False, indent=2)
 
-    # 거래량-가격 괴리
+    # 거래량-가격 괴리 — volume_rate vs change_rate 매핑
     div_results = []
-    for s in all_rising:
-        d = detect_divergence(s)
-        if d.get("has_divergence"):
-            div_results.append(d)
+    all_vol = latest.get("volume_top", []) + all_rising
+    for s in all_vol:
+        vol_rate = s.get("volume_rate", 100)
+        change = s.get("change_rate", 0)
+        # 거래량 급증 + 가격 부진 or 거래량 없는 급등
+        if vol_rate > 300 and change < 3:
+            div_results.append({
+                "code": s.get("code", ""), "name": s.get("name", ""),
+                "volume_change": round(vol_rate, 1), "price_change": round(change, 1),
+                "type": "거래량 급증 · 가격 부진", "interpretation": "매도 압력 또는 세력 매집",
+            })
+        elif vol_rate < 80 and change > 8:
+            div_results.append({
+                "code": s.get("code", ""), "name": s.get("name", ""),
+                "volume_change": round(vol_rate, 1), "price_change": round(change, 1),
+                "type": "거래량 없는 급등", "interpretation": "매도 물량 고갈 주의",
+            })
     with open(results_dir / "volume_divergence.json", "w", encoding="utf-8") as f:
         json.dump(div_results[:10], f, ensure_ascii=False, indent=2)
 
@@ -237,15 +283,32 @@ def main():
     with open(results_dir / "premarket.json", "w", encoding="utf-8") as f:
         json.dump(premarket_report, f, ensure_ascii=False, indent=2)
 
-    # 역발상 시그널
+    # 역발상 시그널 — criteria_data 기반
     squeeze_results = []
-    for sig in combined:
-        score = calculate_squeeze_score(sig)
+    criteria = loader.get_combined_signals()  # already loaded as 'combined'
+    criteria_map = combined.get("criteria_data", {}) if isinstance(combined, dict) else {}
+    for sig in (loader.get_combined_signals() if not criteria_map else combined.get("stocks", [])):
+        code = sig.get("code", "")
+        crit = criteria_map.get(code, {})
+        inv = latest.get("investor_data", {}).get(code, {}) if "investor_data" in latest else {}
+        foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        overheating = crit.get("overheating_alert", {}) if isinstance(crit, dict) else {}
+        supply = crit.get("supply_demand", {}) if isinstance(crit, dict) else {}
+        is_oh = overheating.get("met", False) if isinstance(overheating, dict) else False
+        has_supply = supply.get("met", False) if isinstance(supply, dict) else False
+
+        score = 0
+        if is_oh and foreign_net > 0:
+            score = min(95, 50 + int(foreign_net / 50000))
+        elif has_supply and foreign_net > 100000:
+            score = min(90, 40 + int(foreign_net / 80000))
+
         if score > 30:
             squeeze_results.append({
-                "code": sig.get("code", ""),
-                "name": sig.get("name", ""),
+                "code": code, "name": sig.get("name", ""),
                 "signal": sig.get("vision_signal", ""),
+                "foreign_net": foreign_net,
+                "overheating": overheating.get("reason", "")[:50] if isinstance(overheating, dict) else "",
                 "squeeze_score": score,
             })
     squeeze_results.sort(key=lambda x: x.get("squeeze_score", 0), reverse=True)
