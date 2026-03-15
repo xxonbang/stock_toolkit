@@ -64,27 +64,29 @@ export default function RefreshButtons() {
   if (!CRONJOB_API_KEY) return null;
 
   return (
-    <div className="flex items-center gap-1.5 flex-wrap">
-      <button
-        onClick={() => handleRefresh("data-only")}
-        disabled={!!loading}
-        className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition disabled:opacity-50"
-        title="데이터만 갱신 (Gemini 미사용)"
-      >
-        <RefreshCw size={12} className={loading === "data-only" ? "animate-spin" : ""} />
-        갱신
-      </button>
-      <button
-        onClick={() => handleRefresh("full")}
-        disabled={!!loading}
-        className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition disabled:opacity-50"
-        title="데이터 갱신 + AI 브리핑 생성"
-      >
-        <Sparkles size={12} className={loading === "full" ? "animate-spin" : ""} />
-        AI
-      </button>
+    <div className="relative">
+      <div className="flex items-center gap-1.5 shrink-0">
+        <button
+          onClick={() => handleRefresh("data-only")}
+          disabled={!!loading}
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition disabled:opacity-50 whitespace-nowrap"
+          title="데이터만 갱신 (Gemini 미사용)"
+        >
+          <RefreshCw size={12} className={loading === "data-only" ? "animate-spin" : ""} />
+          갱신
+        </button>
+        <button
+          onClick={() => handleRefresh("full")}
+          disabled={!!loading}
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition disabled:opacity-50 whitespace-nowrap"
+          title="데이터 갱신 + AI 브리핑 생성"
+        >
+          <Sparkles size={12} className={loading === "full" ? "animate-spin" : ""} />
+          AI
+        </button>
+      </div>
       {result && (
-        <div className={`text-[11px] ${result.includes("시작") ? "text-green-600" : "text-red-500"}`}>
+        <div className={`absolute top-full right-0 mt-1 text-[10px] whitespace-nowrap ${result.includes("시작") ? "text-green-600" : "text-red-500"}`}>
           {result}
         </div>
       )}
