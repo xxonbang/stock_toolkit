@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { HelpCircle, X } from "lucide-react";
 
 export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
@@ -180,6 +181,15 @@ export function SectionHeader({
   const [open, setOpen] = useState(false);
   const help = SECTION_HELP[id];
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   return (
     <>
       <div className="flex items-center gap-2 mb-3">
@@ -200,9 +210,9 @@ export function SectionHeader({
           </button>
         )}
       </div>
-      {open && help && (
+      {open && help && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-6"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/30 p-6"
           onClick={() => setOpen(false)}
         >
           <div
@@ -220,7 +230,8 @@ export function SectionHeader({
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">{help.desc}</p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
