@@ -1,1 +1,82 @@
-[]
+[
+  {
+    "code": "047040",
+    "name": "대우건설",
+    "signal": "매수",
+    "foreign_net": 3703306,
+    "overheating": "RSI 76.8 (주의: 과매수 구간)",
+    "squeeze_score": 95
+  },
+  {
+    "code": "032820",
+    "name": "우리기술",
+    "signal": "중립",
+    "foreign_net": 5220354,
+    "overheating": "RSI 76.4 (주의: 과매수 구간)",
+    "squeeze_score": 95
+  },
+  {
+    "code": "050890",
+    "name": "쏠리드",
+    "signal": "중립",
+    "foreign_net": 881027,
+    "overheating": "RSI 75.3 (주의: 과매수 구간)",
+    "squeeze_score": 67
+  },
+  {
+    "code": "008350",
+    "name": "남선알미늄",
+    "signal": "중립",
+    "foreign_net": 1843994,
+    "overheating": "수급 양호 + 외국인 매수",
+    "squeeze_score": 63
+  },
+  {
+    "code": "417200",
+    "name": "LS머트리얼즈",
+    "signal": "중립",
+    "foreign_net": 469917,
+    "overheating": "RSI 72.4 (주의: 과매수 구간)",
+    "squeeze_score": 59
+  },
+  {
+    "code": "452280",
+    "name": "한선엔지니어링",
+    "signal": "매수",
+    "foreign_net": 271453,
+    "overheating": "RSI 77.8 (주의: 과매수 구간)",
+    "squeeze_score": 55
+  },
+  {
+    "code": "065440",
+    "name": "이루온",
+    "signal": null,
+    "foreign_net": 282199,
+    "overheating": "RSI 80.9 (위험: 과매수 극단)",
+    "squeeze_score": 55
+  },
+  {
+    "code": "003280",
+    "name": "흥아해운",
+    "signal": "중립",
+    "foreign_net": 1162425,
+    "overheating": "수급 양호 + 외국인 매수",
+    "squeeze_score": 54
+  },
+  {
+    "code": "307750",
+    "name": "국전약품",
+    "signal": null,
+    "foreign_net": 168709,
+    "overheating": "RSI 71.1 (주의: 과매수 구간)",
+    "squeeze_score": 53
+  },
+  {
+    "code": "475150",
+    "name": "SK이터닉스",
+    "signal": "매수",
+    "foreign_net": 63197,
+    "overheating": "RSI 75.1 (주의: 과매수 구간)",
+    "squeeze_score": 51
+  }
+]

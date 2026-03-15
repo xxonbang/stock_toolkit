@@ -526,20 +526,21 @@ export default function Dashboard() {
       {/* 공매도 역발상 */}
       {shortSqueeze && shortSqueeze.length > 0 && (
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="squeeze" count={shortSqueeze.length}>공매도 역발상</SectionHeader>
+          <SectionHeader id="squeeze" count={shortSqueeze.length}>역발상 시그널</SectionHeader>
           <div className="space-y-1.5">
             {shortSqueeze.slice(0, 6).map((s, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-orange-50 border border-orange-100 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{s.name}</div>
-                  <div className="text-xs text-gray-500">공매도 {s.short_ratio}%</div>
+                  <div className="text-xs text-gray-500 truncate">{s.overheating}</div>
                 </div>
-                <div className="text-right shrink-0">
-                  <div className="text-sm font-bold text-orange-600">{s.squeeze_score}</div>
-                  <div className="text-[10px] text-gray-400">스퀴즈 스코어</div>
+                <div className="flex items-center gap-2 shrink-0">
+                  {signalBadge(s.signal)}
+                  <span className="text-sm font-bold text-orange-600 w-7 text-right">{s.squeeze_score}</span>
                 </div>
               </div>
             ))}
+            <p className="text-[10px] text-gray-400">과열 경고 + 외국인 매수 전환 = 역발상 매수 기회</p>
           </div>
         </section>
       )}
@@ -554,7 +555,8 @@ export default function Dashboard() {
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{v.name}</div>
                   <div className="text-xs text-gray-500">
-                    PER {v.per}{v.pbr ? ` · PBR ${v.pbr}` : ""}
+                    {v.ma_aligned ? "MA정배열" : "MA비정배열"}
+                    {v.foreign_net > 0 ? " · 외국인 매수" : ""}
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -563,7 +565,7 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
-            <p className="text-[10px] text-gray-400">PER이 낮을수록 이익 대비 저평가</p>
+            <p className="text-[10px] text-gray-400">시가총액 적정 + MA정배열 + 매수신호 + 외국인 매수 종합</p>
           </div>
         </section>
       )}
@@ -580,7 +582,7 @@ export default function Dashboard() {
                   <div className="text-xs text-gray-500">{d.type}</div>
                 </div>
                 <div className="text-right shrink-0 text-xs">
-                  <div>거래량 {d.volume_change >= 0 ? "+" : ""}{d.volume_change}%</div>
+                  <div className="text-amber-600">거래량 x{(d.volume_change / 100).toFixed(1)}</div>
                   <div className={d.price_change >= 0 ? "text-red-600" : "text-blue-600"}>
                     가격 {d.price_change >= 0 ? "+" : ""}{d.price_change}%
                   </div>
