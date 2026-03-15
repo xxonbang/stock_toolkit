@@ -4,7 +4,7 @@ import { HelpCircle, X } from "lucide-react";
 
 export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   briefing: {
-    title: "AI 모닝 브리프",
+    title: "AI 모닝 브리핑",
     desc: "Gemini AI가 시장 데이터를 종합 분석하여 매일 아침 작성하는 투자 브리핑입니다. 글로벌 환경, 주목 테마, 고확신 종목, 전략 제안을 포함합니다.",
   },
   market: {

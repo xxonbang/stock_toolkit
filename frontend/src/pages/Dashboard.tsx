@@ -252,6 +252,17 @@ export default function Dashboard() {
         </section>
       )}
 
+      {/* AI 모닝 브리핑 */}
+      {briefing?.morning && (
+        <section className="bg-blue-50 border border-blue-100 rounded-xl p-4">
+          <SectionHeader id="briefing">AI 모닝 브리핑</SectionHeader>
+          <div
+            className="text-sm text-gray-700 leading-relaxed whitespace-pre-line [&_b]:text-gray-900 [&_b]:font-semibold"
+            dangerouslySetInnerHTML={{ __html: briefing.morning }}
+          />
+        </section>
+      )}
+
       {/* 시장 심리 온도계 */}
       {sentiment && (
         <section className="bg-white border border-gray-200 rounded-xl p-4">
@@ -331,16 +342,6 @@ export default function Dashboard() {
         </section>
       )}
 
-      {/* AI 브리핑 */}
-      {briefing?.morning && (
-        <section className="bg-blue-50 border border-blue-100 rounded-xl p-4">
-          <SectionHeader id="briefing">AI 모닝 브리프</SectionHeader>
-          <div
-            className="text-sm text-gray-700 leading-relaxed whitespace-pre-line [&_b]:text-gray-900 [&_b]:font-semibold"
-            dangerouslySetInnerHTML={{ __html: briefing.morning }}
-          />
-        </section>
-      )}
 
       {/* 시장 현황 */}
       {performance && (
