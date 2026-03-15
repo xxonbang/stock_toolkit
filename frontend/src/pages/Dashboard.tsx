@@ -367,21 +367,21 @@ export default function Dashboard() {
           {performance.exchange?.length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100">
               <div className="text-xs text-gray-500 mb-1.5">환율</div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-1.5">
                 {performance.exchange.slice(0, 4).map((r: any, i: number) => {
-                  const label: Record<string, string> = { USD: "원/달러", JPY: "원/엔(100)", EUR: "원/유로", CNY: "원/위안" };
+                  const label: Record<string, string> = { USD: "원/달러", JPY: "원/엔", EUR: "원/유로", CNY: "원/위안" };
                   const cur = r.currency || r.name || "";
                   return (
-                    <div key={i} className="text-xs bg-gray-50 rounded p-1.5 flex justify-between">
-                      <span className="text-gray-500">{label[cur] || cur}</span>
-                      <span>
-                        <span className="font-medium">{r.rate?.toLocaleString()}원</span>
+                    <div key={i} className="bg-gray-50 rounded-lg p-2">
+                      <div className="text-[10px] text-gray-400 mb-0.5">{label[cur] || cur}</div>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-semibold text-gray-900">{r.rate?.toLocaleString()}</span>
                         {r.change_rate != null && (
-                          <span className={`ml-1 ${r.change_rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                            {r.change_rate >= 0 ? "▲" : "▼"}{Math.abs(r.change_rate)}%
+                          <span className={`text-[10px] font-medium ${r.change_rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {r.change_rate >= 0 ? "+" : ""}{r.change_rate}%
                           </span>
                         )}
-                      </span>
+                      </div>
                     </div>
                   );
                 })}
