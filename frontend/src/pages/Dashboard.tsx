@@ -238,17 +238,33 @@ export default function Dashboard() {
       {premarket && (
         <section className="bg-amber-50 border border-amber-100 rounded-xl p-4">
           <SectionHeader id="premarket">장전 프리마켓</SectionHeader>
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">시장 출발 예상</span>
-            <span className={`text-sm font-bold ${premarket.prediction?.includes("상승") ? "text-red-600" : premarket.prediction?.includes("하락") ? "text-blue-600" : "text-gray-600"}`}>
+          {/* 예측 결과 카드 */}
+          <div className={`rounded-lg p-3 mb-3 text-center ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-50 border border-red-100" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-50 border border-blue-100" : "bg-gray-50 border border-gray-100"}`}>
+            <div className="text-[10px] text-gray-400 mb-1">시장 출발 예상</div>
+            <div className={`text-lg font-bold ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "text-red-600" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "text-blue-600" : "text-gray-700"}`}>
               {premarket.prediction}
-            </span>
+            </div>
           </div>
-          <div className="space-y-1">
-            {premarket.key_factors?.map((f: string, i: number) => (
-              <div key={i} className="text-xs text-gray-500">· {f}</div>
-            ))}
-          </div>
+          {/* 핵심 요인 */}
+          {premarket.key_factors?.length > 0 && (
+            <div>
+              <div className="text-xs font-medium text-gray-500 mb-1.5">핵심 요인</div>
+              <div className="space-y-1">
+                {premarket.key_factors.map((f: string, i: number) => {
+                  const isPositive = f.includes("+") || f.includes("상승") || f.includes("매수");
+                  const isNegative = f.includes("-") || f.includes("하락") || f.includes("공포") || f.includes("경고") || f.includes("우려");
+                  return (
+                    <div key={i} className="flex items-start gap-1.5 text-xs">
+                      <span className={`shrink-0 mt-0.5 ${isPositive ? "text-red-400" : isNegative ? "text-blue-400" : "text-gray-400"}`}>
+                        {isPositive ? "▲" : isNegative ? "▼" : "·"}
+                      </span>
+                      <span className="text-gray-600">{f}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </section>
       )}
 
