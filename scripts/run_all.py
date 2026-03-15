@@ -636,14 +636,18 @@ def main():
     # 시간대별 히트맵 — investor-intraday 실데이터
     intraday_inv = loader.get_investor_intraday()
     snapshots = intraday_inv.get("snapshots", []) if isinstance(intraday_inv, dict) else []
-    if snapshots:
+    if isinstance(snapshots, list) and snapshots:
         heatmap_snapshots = []
         for snap in snapshots:
+            if not isinstance(snap, dict):
+                continue
             time_str = snap.get("time", "")
             pt = snap.get("pt", {})
             kospi_data_snap = pt.get("kospi", [])
-            foreign = sum(item.get("all_ntby_amt", 0) for item in kospi_data_snap if "외국인" in item.get("investor", ""))
-            institution = sum(item.get("all_ntby_amt", 0) for item in kospi_data_snap if any(k in item.get("investor", "") for k in ["기관", "투신", "연기금", "보험", "은행"]))
+            if not isinstance(kospi_data_snap, list):
+                kospi_data_snap = []
+            foreign = sum(item.get("all_ntby_amt", 0) for item in kospi_data_snap if isinstance(item, dict) and "외국인" in item.get("investor", ""))
+            institution = sum(item.get("all_ntby_amt", 0) for item in kospi_data_snap if isinstance(item, dict) and any(k in item.get("investor", "") for k in ["기관", "투신", "연기금", "보험", "은행"]))
             heatmap_snapshots.append({
                 "time": time_str,
                 "foreign": foreign,
