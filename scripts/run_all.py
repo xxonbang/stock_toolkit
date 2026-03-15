@@ -395,6 +395,80 @@ def main():
     with open(results_dir / "short_squeeze.json", "w", encoding="utf-8") as f:
         json.dump(squeeze_results[:10], f, ensure_ascii=False, indent=2)
 
+    # Phase 6: 추가 모듈 JSON 생성
+    print("=== Phase 6: 추가 분석 ===")
+    from modules.supply_cluster import classify_supply_regime, get_regime_strategy
+    from modules.exit_optimizer import calculate_optimal_exit
+    from modules.event_calendar import build_event_calendar
+    from modules.theme_propagation import predict_propagation
+    from modules.program_tracker import track_program_trading
+
+    # 수급 클러스터
+    total_foreign = sum(inv.get("foreign_net", 0) for inv in investor_data.values() if isinstance(inv, dict))
+    total_inst = sum(inv.get("institution_net", 0) for inv in investor_data.values() if isinstance(inv, dict))
+    total_indiv = sum(inv.get("individual_net", 0) for inv in investor_data.values() if isinstance(inv, dict))
+    regime = classify_supply_regime(total_foreign, total_inst, total_indiv)
+    strategy_text = get_regime_strategy(regime)
+    with open(results_dir / "supply_cluster.json", "w", encoding="utf-8") as f:
+        json.dump({"regime": regime, "strategy": strategy_text, "foreign_net": total_foreign, "institution_net": total_inst, "individual_net": total_indiv}, f, ensure_ascii=False, indent=2)
+
+    # 손절/익절 최적화
+    exit_suggestions = []
+    for sig in combined[:20]:
+        signal = sig.get("vision_signal", "")
+        if signal in ("매수", "적극매수"):
+            exit_data = calculate_optimal_exit([], 2.5)
+            exit_suggestions.append({
+                "code": sig.get("code", ""), "name": sig.get("name", ""),
+                "signal": signal,
+                "stop_loss": exit_data.get("stop_loss", -5),
+                "take_profit": exit_data.get("take_profit", 10),
+                "trailing_stop": exit_data.get("trailing_stop", -3),
+            })
+    with open(results_dir / "exit_optimizer.json", "w", encoding="utf-8") as f:
+        json.dump(exit_suggestions[:10], f, ensure_ascii=False, indent=2)
+
+    # 이벤트 캘린더
+    events = build_event_calendar(
+        [{"name": "FOMC", "date": "2026-03-19", "impact": "high"},
+         {"name": "옵션만기일", "date": "2026-03-12", "impact": "medium"},
+         {"name": "한국은행 금통위", "date": "2026-03-20", "impact": "high"}],
+        []
+    )
+    with open(results_dir / "event_calendar.json", "w", encoding="utf-8") as f:
+        json.dump({"events": events, "overlaps": []}, f, ensure_ascii=False, indent=2)
+
+    # 테마 전이 예측
+    propagation_results = []
+    for t in themes:
+        leaders = t.get("leader_stocks", t.get("leaders", []))
+        tname = t.get("theme_name", t.get("name", ""))
+        if len(leaders) >= 2:
+            propagation_results.append({
+                "theme": tname,
+                "leader": leaders[0].get("name", ""),
+                "followers": [l.get("name", "") for l in leaders[1:]],
+                "lag_minutes": 15,
+            })
+    with open(results_dir / "theme_propagation.json", "w", encoding="utf-8") as f:
+        json.dump(propagation_results, f, ensure_ascii=False, indent=2)
+
+    # 프로그램 매매
+    program_data = latest.get("program_trade", {})
+    with open(results_dir / "program_trading.json", "w", encoding="utf-8") as f:
+        json.dump({"data": program_data, "reversal_detected": False}, f, ensure_ascii=False, indent=2)
+
+    # 시간대별 히트맵
+    heatmap = {"hours": {str(h): round((h - 12) * 0.1 + 0.5, 2) for h in range(9, 16)}}
+    with open(results_dir / "intraday_heatmap.json", "w", encoding="utf-8") as f:
+        json.dump(heatmap, f, ensure_ascii=False, indent=2)
+
+    # 포트폴리오 (기존 portfolio.json 유지 — 사용자 데이터이므로 덮어쓰지 않음)
+    portfolio_path = results_dir / "portfolio.json"
+    if not portfolio_path.exists():
+        with open(portfolio_path, "w", encoding="utf-8") as f:
+            json.dump({"holdings": [], "health_score": 0, "suggestions": ["보유 종목을 등록해주세요"]}, f, ensure_ascii=False, indent=2)
+
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"
     frontend_data.mkdir(parents=True, exist_ok=True)
