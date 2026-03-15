@@ -441,7 +441,7 @@ def main():
         for ind in macro_ind_list
     ]
     sentiment_result["components"]["exchange"] = exchange_data.get("rates", {}) if isinstance(exchange_data, dict) else {}
-    sentiment_result["components"]["investor_trend"] = inv_trend[:5]
+    sentiment_result["components"]["investor_trend"] = inv_trend[-10:]
 
     with open(results_dir / "sentiment.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
