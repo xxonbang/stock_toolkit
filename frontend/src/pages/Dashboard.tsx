@@ -410,27 +410,6 @@ export default function Dashboard() {
               </div>
             </div>
           )}
-          {/* 매크로 지표 */}
-          {performance.macro_indicators?.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-gray-100">
-              <div className="text-xs text-gray-500 mb-1.5">글로벌 매크로</div>
-              <div className="grid grid-cols-2 gap-1.5">
-                {performance.macro_indicators.slice(0, 8).map((ind: any, i: number) => (
-                  <div key={i} className="bg-gray-50 rounded-lg p-2">
-                    <div className="text-[10px] text-gray-400 mb-0.5">{ind.name || ind.symbol}</div>
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-sm font-semibold text-gray-900">{ind.price?.toLocaleString()}</span>
-                      {ind.change_pct != null && (
-                        <span className={`text-[10px] font-medium ${(ind.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          {ind.change_pct >= 0 ? "+" : ""}{ind.change_pct}%
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           {/* 테마 예측 */}
           {performance.theme_forecast?.themes?.length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100">
@@ -458,7 +437,7 @@ export default function Dashboard() {
           {/* 매크로 추세 (indicator-history) */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100">
-              <div className="text-xs text-gray-500 mb-1.5">매크로 추세 (최근 변동)</div>
+              <div className="text-xs text-gray-500 mb-1.5">글로벌 매크로</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {Object.entries(indicatorHistory.macro as Record<string, any[]>).slice(0, 6).map(([symbol, history]: [string, any]) => {
                   const arr = Array.isArray(history) ? history : [];
