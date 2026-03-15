@@ -49,6 +49,10 @@ function Badge({ children, variant = "default" }: { children: React.ReactNode; v
   );
 }
 
+function Empty({ text = "현재 해당 데이터 없음" }: { text?: string }) {
+  return <div className="text-center py-4 text-xs text-gray-400">{text}</div>;
+}
+
 function signalBadge(signal: string) {
   if (signal?.includes("적극매수")) return <Badge variant="danger">적극매수</Badge>;
   if (signal?.includes("매수")) return <Badge variant="danger">매수</Badge>;
@@ -323,11 +327,11 @@ export default function Dashboard() {
       })()}
 
       {/* 교차 신호 */}
-      {crossSignal && crossSignal.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="cross" count={crossSignal.length}>교차 신호</SectionHeader>
+          <SectionHeader id="cross" count={crossSignal?.length ?? 0}>교차 신호</SectionHeader>
           <div className="space-y-2">
-            {crossSignal.map((s, i) => (
+            {(crossSignal || []).map((s, i) => (
               <div key={i} className="p-2.5 bg-green-50 border border-green-100 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 mr-2">
@@ -342,13 +346,14 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!crossSignal?.length && <Empty />}
         </section>
       )}
 
       {/* 테마 라이프사이클 */}
-      {lifecycle && lifecycle.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="lifecycle" count={lifecycle.length}>테마 라이프사이클</SectionHeader>
+          <SectionHeader id="lifecycle" count={lifecycle?.length ?? 0}>테마 라이프사이클</SectionHeader>
           <div className="bg-gray-50 rounded-lg p-2 mb-3">
             <ResponsiveContainer width="100%" height={160}>
               <ScatterChart margin={{ top: 5, right: 5, bottom: 20, left: 0 }}>
@@ -359,7 +364,7 @@ export default function Dashboard() {
                   const d = payload[0].payload;
                   return (<div className="bg-white border border-gray-200 rounded-lg shadow p-2 text-xs"><div className="font-semibold">{d.theme}</div><div className="text-gray-500">{d.stage} · {d.stock_count}종목 · {d.avg_change >= 0 ? "+" : ""}{d.avg_change}%</div></div>);
                 }} />
-                <Scatter data={lifecycle}>{lifecycle.map((l: any, i: number) => (<Cell key={i} fill={STAGE_FILL[l.stage] || "#6b7280"} r={Math.max(6, l.stock_count * 3)} />))}</Scatter>
+                <Scatter data={lifecycle || []}>{(lifecycle || []).map((l: any, i: number) => (<Cell key={i} fill={STAGE_FILL[l.stage] || "#6b7280"} r={Math.max(6, l.stock_count * 3)} />))}</Scatter>
               </ScatterChart>
             </ResponsiveContainer>
             <div className="flex justify-center gap-3 text-xs text-gray-400">
@@ -369,7 +374,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="space-y-1.5">
-            {lifecycle.map((l: any, i: number) => (
+            {(lifecycle || []).map((l: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <span className="text-sm font-medium truncate min-w-0">{l.theme}</span>
                 <div className="flex items-center gap-2 shrink-0">
@@ -379,15 +384,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!lifecycle?.length && <Empty />}
         </section>
       )}
 
       {/* 이상 거래 감지 */}
-      {anomalies && anomalies.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="anomaly" count={anomalies.length}>이상 거래 감지</SectionHeader>
+          <SectionHeader id="anomaly" count={anomalies?.length ?? 0}>이상 거래 감지</SectionHeader>
           <div className="space-y-1.5">
-            {anomalies.slice(0, 6).map((a, i) => (
+            {(anomalies || []).slice(0, 6).map((a, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-red-50 border border-red-100 rounded-lg gap-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap size={14} className="text-red-400 shrink-0" />
@@ -407,15 +413,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!anomalies?.length && <Empty />}
         </section>
       )}
 
       {/* 위험 종목 모니터 */}
-      {riskMonitor && riskMonitor.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="risk" count={riskMonitor.length}>위험 종목 모니터</SectionHeader>
+          <SectionHeader id="risk" count={riskMonitor?.length ?? 0}>위험 종목 모니터</SectionHeader>
           <div className="space-y-1.5">
-            {riskMonitor.slice(0, 6).map((r, i) => (
+            {(riskMonitor || []).slice(0, 6).map((r, i) => (
               <div key={i} className="p-2 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
@@ -432,15 +439,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!riskMonitor?.length && <Empty />}
         </section>
       )}
 
       {/* 스마트 머니 TOP */}
-      {smartMoney && smartMoney.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="smartmoney" count={smartMoney.length}>스마트 머니 TOP</SectionHeader>
+          <SectionHeader id="smartmoney" count={smartMoney?.length ?? 0}>스마트 머니 TOP</SectionHeader>
           <div className="space-y-1.5">
-            {smartMoney.slice(0, 8).map((s, i) => (
+            {(smartMoney || []).slice(0, 8).map((s, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold flex items-center justify-center shrink-0">
@@ -455,15 +463,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!smartMoney?.length && <Empty />}
         </section>
       )}
 
       {/* 전략 시뮬레이션 */}
-      {simulation && simulation.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="simulation">전략 시뮬레이션</SectionHeader>
           <div className="space-y-2">
-            {simulation.map((s, i) => (
+            {(simulation || []).map((s, i) => (
               <div key={i} className="p-3 bg-gray-50 rounded-lg">
                 <div className="text-xs text-blue-600 font-medium mb-2 flex items-center gap-1">
                   <Activity size={12} className="shrink-0" />
@@ -488,15 +497,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!simulation?.length && <Empty />}
         </section>
       )}
 
       {/* 차트 패턴 매칭 */}
-      {pattern && pattern.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="pattern">차트 패턴 매칭</SectionHeader>
           <div className="space-y-3">
-            {pattern.map((p, i) => (
+            {(pattern || []).map((p, i) => (
               <div key={i}>
                 <div className="font-medium text-sm flex items-center gap-1 mb-1.5">
                   <LineChart size={14} className="text-gray-400 shrink-0" />
@@ -515,15 +525,16 @@ export default function Dashboard() {
             ))}
             <p className="text-[10px] text-gray-400">D+5 = 패턴 발생 후 5거래일 뒤 수익률</p>
           </div>
+            {!pattern?.length && <Empty />}
         </section>
       )}
 
       {/* 뉴스 임팩트 */}
-      {newsImpact && Object.keys(newsImpact).length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="news">뉴스 임팩트</SectionHeader>
           <div className="space-y-3">
-            {Object.entries(newsImpact).map(([cat, data]: [string, any]) => (
+            {Object.entries(newsImpact || {}).map(([cat, data]: [string, any]) => (
               <div key={cat} className="p-3 bg-gray-50 rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <Badge variant="purple">{cat}</Badge>
@@ -538,15 +549,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!Object.keys(newsImpact || {}).length && <Empty />}
         </section>
       )}
 
       {/* 갭 분석 */}
-      {gapAnalysis && gapAnalysis.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="gap" count={gapAnalysis.length}>갭 분석</SectionHeader>
+          <SectionHeader id="gap" count={gapAnalysis?.length ?? 0}>갭 분석</SectionHeader>
           <div className="space-y-1.5">
-            {gapAnalysis.slice(0, 6).map((g, i) => (
+            {(gapAnalysis || []).slice(0, 6).map((g, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{g.name}</div>
@@ -561,15 +573,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!gapAnalysis?.length && <Empty />}
         </section>
       )}
 
       {/* 공매도 역발상 */}
-      {shortSqueeze && shortSqueeze.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="squeeze" count={shortSqueeze.length}>역발상 시그널</SectionHeader>
+          <SectionHeader id="squeeze" count={shortSqueeze?.length ?? 0}>역발상 시그널</SectionHeader>
           <div className="space-y-1.5">
-            {shortSqueeze.slice(0, 6).map((s, i) => (
+            {(shortSqueeze || []).slice(0, 6).map((s, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-orange-50 border border-orange-100 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{s.name}</div>
@@ -583,15 +596,16 @@ export default function Dashboard() {
             ))}
             <p className="text-[10px] text-gray-400">과열 경고 + 외국인 매수 전환 = 역발상 매수 기회</p>
           </div>
+            {!shortSqueeze?.length && <Empty />}
         </section>
       )}
 
       {/* 밸류에이션 */}
-      {valuation && valuation.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="valuation" count={valuation.length}>밸류에이션 스크리너</SectionHeader>
+          <SectionHeader id="valuation" count={valuation?.length ?? 0}>밸류에이션 스크리너</SectionHeader>
           <div className="space-y-1.5">
-            {valuation.slice(0, 6).map((v, i) => (
+            {(valuation || []).slice(0, 6).map((v, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{v.name}</div>
@@ -608,15 +622,16 @@ export default function Dashboard() {
             ))}
             <p className="text-[10px] text-gray-400">시가총액 적정 + MA정배열 + 매수신호 + 외국인 매수 종합</p>
           </div>
+            {!valuation?.length && <Empty />}
         </section>
       )}
 
       {/* 거래량-가격 괴리 */}
-      {divergence && divergence.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="divergence" count={divergence.length}>거래량-가격 괴리</SectionHeader>
+          <SectionHeader id="divergence" count={divergence?.length ?? 0}>거래량-가격 괴리</SectionHeader>
           <div className="space-y-1.5">
-            {divergence.slice(0, 6).map((d, i) => (
+            {(divergence || []).slice(0, 6).map((d, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{d.name}</div>
@@ -632,15 +647,16 @@ export default function Dashboard() {
             ))}
             <p className="text-[10px] text-gray-400">거래량과 가격의 방향이 다르면 추세 전환 가능성</p>
           </div>
+            {!divergence?.length && <Empty />}
         </section>
       )}
 
       {/* 테마별 자금 흐름 */}
-      {sectors && Object.keys(sectors).length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="sector">테마별 자금 흐름</SectionHeader>
           <div className="space-y-1.5">
-            {Object.entries(sectors)
+            {Object.entries(sectors || {})
               .sort(([, a]: any, [, b]: any) => (b.total_foreign_net || 0) - (a.total_foreign_net || 0))
               .map(([name, data]: [string, any]) => {
                 const net = data.total_foreign_net || 0;
@@ -661,15 +677,16 @@ export default function Dashboard() {
                 );
               })}
           </div>
+            {!Object.keys(sectors || {}).length && <Empty />}
         </section>
       )}
 
       {/* 테마 전이 예측 */}
-      {propagation && propagation.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="propagation" count={propagation.length}>테마 전이 예측</SectionHeader>
+          <SectionHeader id="propagation" count={propagation?.length ?? 0}>테마 전이 예측</SectionHeader>
           <div className="space-y-2">
-            {propagation.map((p, i) => (
+            {(propagation || []).map((p, i) => (
               <div key={i} className="p-2.5 bg-violet-50 border border-violet-100 rounded-lg">
                 <div className="text-sm font-medium text-gray-900 mb-1">{p.theme}</div>
                 <div className="text-xs text-gray-600">
@@ -681,15 +698,16 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!propagation?.length && <Empty />}
         </section>
       )}
 
       {/* 손절/익절 최적화 */}
-      {exitOptimizer && exitOptimizer.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="exit" count={exitOptimizer.length}>손절/익절 최적화</SectionHeader>
+          <SectionHeader id="exit" count={exitOptimizer?.length ?? 0}>손절/익절 최적화</SectionHeader>
           <div className="space-y-1.5">
-            {exitOptimizer.slice(0, 6).map((e, i) => (
+            {(exitOptimizer || []).slice(0, 6).map((e, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{e.name}</div>
@@ -713,15 +731,16 @@ export default function Dashboard() {
             ))}
             <p className="text-[10px] text-gray-400">추적 = 최고점 대비 하락 시 자동 매도 기준</p>
           </div>
+            {!exitOptimizer?.length && <Empty />}
         </section>
       )}
 
       {/* 이벤트 캘린더 */}
-      {eventCalendar?.events && eventCalendar.events.length > 0 && (
+      {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="events" count={eventCalendar.events.length}>이벤트 캘린더</SectionHeader>
+          <SectionHeader id="events" count={eventCalendar?.events?.length ?? 0}>이벤트 캘린더</SectionHeader>
           <div className="space-y-1.5">
-            {eventCalendar.events.map((ev: any, i: number) => (
+            {(eventCalendar?.events || []).map((ev: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium">{ev.name}</div>
@@ -733,6 +752,7 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
+            {!(eventCalendar?.events || []).length && <Empty />}
         </section>
       )}
     </div>
