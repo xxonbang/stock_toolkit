@@ -202,18 +202,19 @@ export function SectionHeader({
       </div>
       {open && help && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30"
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-white rounded-xl shadow-xl max-w-sm w-full p-5"
+            className="bg-white rounded-t-2xl sm:rounded-xl shadow-xl max-w-sm w-full p-5 pb-8 sm:pb-5 sm:m-4 max-h-[80vh] overflow-y-auto"
+            style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom))" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-3">
               <h3 className="font-semibold text-gray-900">{help.title}</h3>
               <button
                 onClick={() => setOpen(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 shrink-0 ml-2"
               >
                 <X size={18} />
               </button>

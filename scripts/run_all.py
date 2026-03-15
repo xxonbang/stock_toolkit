@@ -554,7 +554,68 @@ def main():
         json.dump(div_results[:10], f, ensure_ascii=False, indent=2)
 
     # 프리마켓
-    premarket_report = build_premarket_report(macro, {}, [])
+    # 프리마켓 — 선물 + 매크로 + 뉴스 통합
+    futures_data = macro_indicators.get("futures", []) if isinstance(macro_indicators, dict) else []
+    k200_day = next((f for f in futures_data if f.get("symbol") == "K200F_DAY"), {}) if isinstance(futures_data, list) else {}
+    k200_ngt = next((f for f in futures_data if f.get("symbol") == "K200F_NGT"), {}) if isinstance(futures_data, list) else {}
+    spx_f = next((f for f in futures_data if f.get("symbol") == "SPX_F"), {}) if isinstance(futures_data, list) else {}
+    nq_f = next((f for f in futures_data if f.get("symbol") == "NQ_F"), {}) if isinstance(futures_data, list) else {}
+    oil_f = next((f for f in futures_data if f.get("symbol") == "OIL_F"), {}) if isinstance(futures_data, list) else {}
+    gold_f = next((f for f in futures_data if f.get("symbol") == "GOLD_F"), {}) if isinstance(futures_data, list) else {}
+
+    # 시장 출발 예측
+    factors = []
+    score_pm = 0
+    k200_chg = k200_ngt.get("change_pct", 0) or k200_day.get("change_pct", 0)
+    if k200_chg:
+        score_pm += max(-2, min(2, k200_chg / 0.5))
+        factors.append(f"코스피200 야간선물 {k200_chg:+.2f}%")
+    spx_chg = spx_f.get("change_pct", 0)
+    if spx_chg:
+        score_pm += 0.5 if spx_chg > 0 else -0.5
+        factors.append(f"S&P500 선물 {spx_chg:+.2f}%")
+    nq_chg = nq_f.get("change_pct", 0)
+    if nq_chg:
+        score_pm += 0.5 if nq_chg > 0 else -0.5
+        factors.append(f"나스닥 선물 {nq_chg:+.2f}%")
+    oil_chg = oil_f.get("change_pct", 0)
+    if oil_chg and abs(oil_chg) > 2:
+        factors.append(f"원유 선물 {oil_chg:+.2f}% {'(인플레 우려)' if oil_chg > 0 else '(안정)'}")
+    gold_chg = gold_f.get("change_pct", 0)
+    if gold_chg and abs(gold_chg) > 1:
+        factors.append(f"금 선물 {gold_chg:+.2f}% {'(안전자산 선호)' if gold_chg > 0 else '(위험선호)'}")
+    fg_val = fg.get("score", 50)
+    if fg_val < 25:
+        score_pm -= 0.5
+        factors.append(f"F&G {round(fg_val, 1)} (극단적 공포)")
+    elif fg_val > 75:
+        score_pm += 0.5
+        factors.append(f"F&G {round(fg_val, 1)} (극단적 탐욕)")
+    vix_cur = vix_d.get("current", 20)
+    if vix_cur > 25:
+        score_pm -= 0.5
+        factors.append(f"VIX {vix_cur} (변동성 경고)")
+
+    if score_pm >= 2:
+        prediction = "강세 출발 예상"
+    elif score_pm >= 0.5:
+        prediction = "소폭 상승 출발"
+    elif score_pm > -0.5:
+        prediction = "보합 출발"
+    elif score_pm > -2:
+        prediction = "소폭 하락 출발"
+    else:
+        prediction = "약세 출발 예상"
+
+    premarket_report = {
+        "prediction": prediction,
+        "score": round(score_pm, 1),
+        "key_factors": factors,
+        "futures": [
+            {"name": f.get("name"), "price": f.get("price"), "change_pct": f.get("change_pct"), "status": f.get("status")}
+            for f in futures_data if isinstance(f, dict)
+        ],
+    }
     with open(results_dir / "premarket.json", "w", encoding="utf-8") as f:
         json.dump(premarket_report, f, ensure_ascii=False, indent=2)
 
