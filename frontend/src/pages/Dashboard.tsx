@@ -436,12 +436,22 @@ export default function Dashboard() {
             <div className="mt-3 pt-3 border-t border-gray-100">
               <div className="text-xs text-gray-500 mb-1.5">오늘의 테마 예측</div>
               {performance.theme_forecast.market_context && (
-                <div className="text-xs text-gray-600 mb-1">{performance.theme_forecast.market_context}</div>
+                <div className="text-[11px] text-gray-600 leading-relaxed mb-2 bg-gray-50 rounded-lg p-2.5">
+                  {performance.theme_forecast.market_context}
+                </div>
               )}
-              <div className="flex flex-wrap gap-1">
-                {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => (
-                  <Badge key={i} variant="purple">{t.theme_name || t.name} {t.confidence ? `${t.confidence}%` : ""}</Badge>
-                ))}
+              <div className="space-y-1.5">
+                {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => {
+                  const conf = t.confidence;
+                  const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
+                  const confColor = confLabel.includes("높") || (typeof conf === "number" && conf >= 70) ? "text-red-500" : confLabel.includes("보통") || (typeof conf === "number" && conf >= 40) ? "text-amber-500" : "text-gray-400";
+                  return (
+                    <div key={i} className="flex items-center justify-between bg-purple-50 rounded-lg px-2.5 py-1.5">
+                      <span className="text-xs font-medium text-gray-900">{t.theme_name || t.name}</span>
+                      {confLabel && <span className={`text-[10px] font-medium ${confColor}`}>{confLabel}</span>}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
