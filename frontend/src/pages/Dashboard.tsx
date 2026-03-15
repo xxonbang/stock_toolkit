@@ -345,6 +345,36 @@ export default function Dashboard() {
               </div>
             )}
           </div>
+          {/* 글로벌 매크로 */}
+          {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">글로벌 매크로</div>
+              <div className="grid grid-cols-2 gap-1.5">
+                {Object.entries(indicatorHistory.macro as Record<string, any[]>).slice(0, 6).map(([symbol, history]: [string, any]) => {
+                  const arr = Array.isArray(history) ? history : [];
+                  const latest = arr[arr.length - 1];
+                  const prev = arr[arr.length - 2];
+                  if (!latest) return null;
+                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "MU": "마이크론", "SOXX": "SOXX", "EWY": "EWY", "KORU": "KORU", "^VIX": "VIX", "FNG": "F&G" };
+                  return (
+                    <div key={symbol} className="bg-gray-50 rounded-lg p-2">
+                      <div className="text-[10px] text-gray-400 mb-0.5">{nameMap[symbol] || symbol}</div>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-semibold text-gray-900">{latest.price?.toLocaleString()}</span>
+                        {latest.change_pct != null && (
+                          <span className={`text-[10px] font-medium ${latest.change_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {latest.change_pct >= 0 ? "+" : ""}{latest.change_pct}%
+                          </span>
+                        )}
+                      </div>
+                      {prev && <div className="text-[9px] text-gray-400 mt-0.5">전일 {prev.price?.toLocaleString()}</div>}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* 주요 선물 */}
           {performance.futures?.length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100">
@@ -428,35 +458,6 @@ export default function Dashboard() {
                     <div key={i} className="flex items-center justify-between bg-purple-50 rounded-lg px-2.5 py-1.5">
                       <span className="text-xs font-medium text-gray-900">{t.theme_name || t.name}</span>
                       {confLabel && <span className={`text-[10px] font-medium ${confColor}`}>{confLabel}</span>}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          {/* 매크로 추세 (indicator-history) */}
-          {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
-            <div className="mt-3 pt-3 border-t border-gray-100">
-              <div className="text-xs text-gray-500 mb-1.5">글로벌 매크로</div>
-              <div className="grid grid-cols-2 gap-1.5">
-                {Object.entries(indicatorHistory.macro as Record<string, any[]>).slice(0, 6).map(([symbol, history]: [string, any]) => {
-                  const arr = Array.isArray(history) ? history : [];
-                  const latest = arr[arr.length - 1];
-                  const prev = arr[arr.length - 2];
-                  if (!latest) return null;
-                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "MU": "마이크론", "SOXX": "SOXX", "EWY": "EWY", "KORU": "KORU", "^VIX": "VIX", "FNG": "F&G" };
-                  return (
-                    <div key={symbol} className="bg-gray-50 rounded-lg p-2">
-                      <div className="text-[10px] text-gray-400 mb-0.5">{nameMap[symbol] || symbol}</div>
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-sm font-semibold text-gray-900">{latest.price?.toLocaleString()}</span>
-                        {latest.change_pct != null && (
-                          <span className={`text-[10px] font-medium ${latest.change_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                            {latest.change_pct >= 0 ? "+" : ""}{latest.change_pct}%
-                          </span>
-                        )}
-                      </div>
-                      {prev && <div className="text-[9px] text-gray-400 mt-0.5">전일 {prev.price?.toLocaleString()}</div>}
                     </div>
                   );
                 })}
