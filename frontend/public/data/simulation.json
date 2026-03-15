@@ -1,32 +1,38 @@
 [
   {
     "strategy": "signal=매수 hold=5",
-    "total_trades": 142,
-    "win_rate": 54.2,
+    "total_trades": 0,
+    "win_rate": 0,
     "returns": {
-      "mean": 1.3,
-      "max": 18.5,
-      "min": -12.1
-    }
+      "mean": 0,
+      "max": 0,
+      "min": 0,
+      "stdev": 0
+    },
+    "trades": []
   },
   {
     "strategy": "signal=적극매수 hold=5",
-    "total_trades": 28,
-    "win_rate": 67.9,
+    "total_trades": 0,
+    "win_rate": 0,
     "returns": {
-      "mean": 3.8,
-      "max": 22.1,
-      "min": -8.4
-    }
+      "mean": 0,
+      "max": 0,
+      "min": 0,
+      "stdev": 0
+    },
+    "trades": []
   },
   {
     "strategy": "signal=매수 hold=5 stop=-3",
-    "total_trades": 142,
-    "win_rate": 51.4,
+    "total_trades": 0,
+    "win_rate": 0,
     "returns": {
-      "mean": 0.8,
-      "max": 18.5,
-      "min": -3.0
-    }
+      "mean": 0,
+      "max": 0,
+      "min": 0,
+      "stdev": 0
+    },
+    "trades": []
   }
 ]

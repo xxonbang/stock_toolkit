@@ -5,58 +5,10 @@
     "level": "높음",
     "warnings": [
       "매도 신호",
-      "외국인 대량 매도",
-      "낮은 신뢰도"
+      "외국인 대량 매도"
     ],
     "signal": "매도",
     "foreign_net": -606641
-  },
-  {
-    "code": "010950",
-    "name": "S-Oil",
-    "level": "높음",
-    "warnings": [
-      "매도 신호",
-      "외국인 대량 매도",
-      "낮은 신뢰도"
-    ],
-    "signal": "매도",
-    "foreign_net": -120154
-  },
-  {
-    "code": "096770",
-    "name": "SK이노베이션",
-    "level": "높음",
-    "warnings": [
-      "매도 신호",
-      "외국인 대량 매도",
-      "낮은 신뢰도"
-    ],
-    "signal": "적극매도",
-    "foreign_net": -254537
-  },
-  {
-    "code": "039980",
-    "name": "폴라리스AI",
-    "level": "높음",
-    "warnings": [
-      "매도 신호",
-      "외국인 대량 매도",
-      "낮은 신뢰도"
-    ],
-    "signal": "매도",
-    "foreign_net": -787284
-  },
-  {
-    "code": "272210",
-    "name": "한화시스템",
-    "level": "높음",
-    "warnings": [
-      "매도 신호",
-      "낮은 신뢰도"
-    ],
-    "signal": "매도",
-    "foreign_net": -21415
   },
   {
     "code": "009830",
@@ -70,15 +22,26 @@
     "foreign_net": -572954
   },
   {
-    "code": "329180",
-    "name": "HD현대중공업",
+    "code": "010950",
+    "name": "S-Oil",
     "level": "높음",
     "warnings": [
       "매도 신호",
-      "낮은 신뢰도"
+      "외국인 대량 매도"
     ],
     "signal": "매도",
-    "foreign_net": 17987
+    "foreign_net": -120154
+  },
+  {
+    "code": "096770",
+    "name": "SK이노베이션",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도"
+    ],
+    "signal": "적극매도",
+    "foreign_net": -254537
   },
   {
     "code": "086520",
@@ -92,6 +55,17 @@
     "foreign_net": -119287
   },
   {
+    "code": "039980",
+    "name": "폴라리스AI",
+    "level": "높음",
+    "warnings": [
+      "매도 신호",
+      "외국인 대량 매도"
+    ],
+    "signal": "매도",
+    "foreign_net": -787284
+  },
+  {
     "code": "038500",
     "name": "삼표시멘트",
     "level": "높음",
@@ -101,17 +75,6 @@
     ],
     "signal": "매도",
     "foreign_net": -476275
-  },
-  {
-    "code": "048410",
-    "name": "현대바이오",
-    "level": "높음",
-    "warnings": [
-      "매도 신호",
-      "낮은 신뢰도"
-    ],
-    "signal": "매도",
-    "foreign_net": 0
   },
   {
     "code": "005930",
@@ -162,5 +125,215 @@
     ],
     "signal": "매수",
     "foreign_net": -410163
+  },
+  {
+    "code": "006800",
+    "name": "미래에셋증권",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -799350
+  },
+  {
+    "code": "272210",
+    "name": "한화시스템",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": -21415
+  },
+  {
+    "code": "105560",
+    "name": "KB금융",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": 0
+  },
+  {
+    "code": "015760",
+    "name": "한국전력",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -480884
+  },
+  {
+    "code": "025860",
+    "name": "남해화학",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -227968
+  },
+  {
+    "code": "047050",
+    "name": "포스코인터내셔널",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -335171
+  },
+  {
+    "code": "064350",
+    "name": "현대로템",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": 0
+  },
+  {
+    "code": "329180",
+    "name": "HD현대중공업",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": 17987
+  },
+  {
+    "code": "005490",
+    "name": "POSCO홀딩스",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": 0
+  },
+  {
+    "code": "450080",
+    "name": "에코프로머티",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -353696
+  },
+  {
+    "code": "010170",
+    "name": "대한광통신",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -2648202
+  },
+  {
+    "code": "006910",
+    "name": "보성파워텍",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -605079
+  },
+  {
+    "code": "046120",
+    "name": "오르비텍",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": -73930
+  },
+  {
+    "code": "950250",
+    "name": "테라뷰",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -669584
+  },
+  {
+    "code": "048410",
+    "name": "현대바이오",
+    "level": "주의",
+    "warnings": [
+      "매도 신호"
+    ],
+    "signal": "매도",
+    "foreign_net": 0
+  },
+  {
+    "code": "456160",
+    "name": "지투지바이오",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "매수",
+    "foreign_net": -106436
+  },
+  {
+    "code": "321370",
+    "name": "센서뷰",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -372268
+  },
+  {
+    "code": "357880",
+    "name": "SKAI",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -637850
+  },
+  {
+    "code": "440110",
+    "name": "파두",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -210245
+  },
+  {
+    "code": "019540",
+    "name": "일지테크",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": "중립",
+    "foreign_net": -240435
+  },
+  {
+    "code": "336260",
+    "name": "두산퓨얼셀",
+    "level": "주의",
+    "warnings": [
+      "외국인 대량 매도"
+    ],
+    "signal": null,
+    "foreign_net": -313456
   }
 ]

@@ -28,7 +28,7 @@
     "name": "남선알미늄",
     "signal": "중립",
     "foreign_net": 1843994,
-    "overheating": "수급 양호 + 외국인 매수",
+    "overheating": "RSI 66.3 (정상)",
     "squeeze_score": 63
   },
   {
@@ -60,7 +60,7 @@
     "name": "흥아해운",
     "signal": "중립",
     "foreign_net": 1162425,
-    "overheating": "수급 양호 + 외국인 매수",
+    "overheating": "RSI 58.0 (정상)",
     "squeeze_score": 54
   },
   {

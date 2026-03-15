@@ -1,16 +1,15 @@
 {
-  "fear_greed": {
-    "score": 19.7,
-    "rating": "extreme fear"
+  "macro": {
+    "us_market": "정보 없음",
+    "dollar_index": 0,
+    "us_10y_yield": 0,
+    "oil_price": 0
   },
-  "vix": {
-    "current": 26.92,
-    "change": 0.0
+  "futures": {
+    "kospi200_futures": 0,
+    "kospi200_change": 0,
+    "foreign_futures_net": 0
   },
-  "kospi_futures": 5463.22,
-  "prediction": "하락 출발 예상",
-  "key_factors": [
-    "Fear & Greed 19.7 (extreme fear)",
-    "VIX 26.92 (fear)"
-  ]
+  "top_news": [],
+  "news_count": 0
 }

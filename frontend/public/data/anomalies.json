@@ -1,111 +1,374 @@
 [
   {
     "type": "거래량 폭발",
-    "name": "흥아해운",
-    "code": "003280",
-    "ratio": 6.2,
-    "change_rate": 10.66
-  },
-  {
-    "type": "거래량 폭발",
-    "name": "남선알미늄",
-    "code": "008350",
-    "ratio": 20.1,
-    "change_rate": 14.35
-  },
-  {
-    "type": "거래량 폭발",
-    "name": "폴라리스AI",
-    "code": "039980",
-    "ratio": 3.2,
-    "change_rate": 16.52
-  },
-  {
-    "type": "거래량 폭발",
-    "name": "대우건설",
-    "code": "047040",
-    "ratio": 3.6,
-    "change_rate": 17.78
-  },
-  {
-    "type": "거래량 폭발",
-    "name": "우리기술",
-    "code": "032820",
-    "ratio": 2.1,
-    "change_rate": 11.64
-  },
-  {
-    "type": "거래량 폭발",
-    "name": "한일사료",
     "code": "005860",
-    "ratio": 3.7,
-    "change_rate": 10.15
-  },
-  {
-    "type": "거래량 폭발",
-    "name": "이루온",
-    "code": "065440",
-    "ratio": 2.4,
-    "change_rate": 0.46
-  },
-  {
-    "type": "가격 급변",
     "name": "한일사료",
-    "code": "005860",
+    "ratio": 2.2,
     "change_rate": 16.45
   },
   {
     "type": "가격 급변",
-    "name": "남해화학",
+    "code": "005860",
+    "name": "한일사료",
+    "change_rate": 16.45
+  },
+  {
+    "type": "가격 급변",
     "code": "025860",
+    "name": "남해화학",
     "change_rate": 12.71
   },
   {
     "type": "가격 급변",
-    "name": "예선테크",
     "code": "250930",
+    "name": "예선테크",
     "change_rate": 28.17
   },
   {
-    "type": "가격 급변",
-    "name": "씨엑스아이",
+    "type": "거래량 폭발",
+    "code": "019540",
+    "name": "일지테크",
+    "ratio": 6.4,
+    "change_rate": -0.16
+  },
+  {
+    "type": "거래량 폭발",
     "code": "900120",
+    "name": "씨엑스아이",
+    "ratio": 12.2,
     "change_rate": 29.83
   },
   {
     "type": "가격 급변",
-    "name": "센서뷰",
-    "code": "321370",
-    "change_rate": 10.4
+    "code": "900120",
+    "name": "씨엑스아이",
+    "change_rate": 29.83
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "218150",
+    "name": "미래생명자원",
+    "ratio": 3.0,
+    "change_rate": 2.45
   },
   {
     "type": "가격 급변",
-    "name": "블리츠웨이엔터테인먼트",
+    "code": "321370",
+    "name": "센서뷰",
+    "change_rate": 10.4
+  },
+  {
+    "type": "거래량 폭발",
     "code": "369370",
+    "name": "블리츠웨이엔터테인먼트",
+    "ratio": 5.4,
     "change_rate": 11.4
   },
   {
     "type": "가격 급변",
-    "name": "SKAI",
-    "code": "357880",
-    "change_rate": 17.25
+    "code": "369370",
+    "name": "블리츠웨이엔터테인먼트",
+    "change_rate": 11.4
   },
   {
     "type": "가격 급변",
-    "name": "한선엔지니어링",
+    "code": "357880",
+    "name": "SKAI",
+    "change_rate": 17.25
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "332290",
+    "name": "누보",
+    "ratio": 5.2,
+    "change_rate": 5.87
+  },
+  {
+    "type": "거래량 폭발",
     "code": "452280",
+    "name": "한선엔지니어링",
+    "ratio": 2.3,
     "change_rate": 21.08
   },
   {
     "type": "가격 급변",
-    "name": "SK이터닉스",
-    "code": "475150",
-    "change_rate": 16.2
+    "code": "452280",
+    "name": "한선엔지니어링",
+    "change_rate": 21.08
   },
   {
     "type": "가격 급변",
-    "name": "지니틱스",
+    "code": "475150",
+    "name": "SK이터닉스",
+    "change_rate": 16.2
+  },
+  {
+    "type": "거래량 폭발",
     "code": "303030",
+    "name": "지니틱스",
+    "ratio": 8.4,
     "change_rate": 15.31
+  },
+  {
+    "type": "가격 급변",
+    "code": "303030",
+    "name": "지니틱스",
+    "change_rate": 15.31
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "003280",
+    "name": "흥아해운",
+    "ratio": 6.2,
+    "change_rate": 10.66
+  },
+  {
+    "type": "가격 급변",
+    "code": "003280",
+    "name": "흥아해운",
+    "change_rate": 10.66
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "008350",
+    "name": "남선알미늄",
+    "ratio": 20.1,
+    "change_rate": 14.35
+  },
+  {
+    "type": "가격 급변",
+    "code": "008350",
+    "name": "남선알미늄",
+    "change_rate": 14.35
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "039980",
+    "name": "폴라리스AI",
+    "ratio": 3.2,
+    "change_rate": 16.52
+  },
+  {
+    "type": "가격 급변",
+    "code": "039980",
+    "name": "폴라리스AI",
+    "change_rate": 16.52
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "047040",
+    "name": "대우건설",
+    "ratio": 3.6,
+    "change_rate": 17.78
+  },
+  {
+    "type": "가격 급변",
+    "code": "047040",
+    "name": "대우건설",
+    "change_rate": 17.78
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "032820",
+    "name": "우리기술",
+    "ratio": 2.1,
+    "change_rate": 11.64
+  },
+  {
+    "type": "가격 급변",
+    "code": "032820",
+    "name": "우리기술",
+    "change_rate": 11.64
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "005880",
+    "name": "대한해운",
+    "ratio": 3.5,
+    "change_rate": -2.0
+  },
+  {
+    "type": "가격 급변",
+    "code": "036180",
+    "name": "지더블유바이텍",
+    "change_rate": -44.44
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "234100",
+    "name": "폴라리스세원",
+    "ratio": 5.5,
+    "change_rate": 8.81
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "038880",
+    "name": "아이에이",
+    "ratio": 3.5,
+    "change_rate": 16.67
+  },
+  {
+    "type": "가격 급변",
+    "code": "038880",
+    "name": "아이에이",
+    "change_rate": 16.67
+  },
+  {
+    "type": "가격 급변",
+    "code": "019570",
+    "name": "플루토스",
+    "change_rate": -13.09
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "018470",
+    "name": "조일알미늄",
+    "ratio": 6.5,
+    "change_rate": 3.1
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "950220",
+    "name": "네오이뮨텍",
+    "ratio": 14.1,
+    "change_rate": 6.42
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "041910",
+    "name": "폴라리스AI파마",
+    "ratio": 36.3,
+    "change_rate": 30.0
+  },
+  {
+    "type": "가격 급변",
+    "code": "041910",
+    "name": "폴라리스AI파마",
+    "change_rate": 30.0
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "307750",
+    "name": "국전약품",
+    "ratio": 8.4,
+    "change_rate": 14.18
+  },
+  {
+    "type": "가격 급변",
+    "code": "307750",
+    "name": "국전약품",
+    "change_rate": 14.18
+  },
+  {
+    "type": "가격 급변",
+    "code": "388790",
+    "name": "라이콤",
+    "change_rate": 11.02
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "474610",
+    "name": "RF시스템즈",
+    "ratio": 7.5,
+    "change_rate": 24.08
+  },
+  {
+    "type": "가격 급변",
+    "code": "474610",
+    "name": "RF시스템즈",
+    "change_rate": 24.08
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "322510",
+    "name": "제이엘케이",
+    "ratio": 18.6,
+    "change_rate": 26.94
+  },
+  {
+    "type": "가격 급변",
+    "code": "322510",
+    "name": "제이엘케이",
+    "change_rate": 26.94
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "432720",
+    "name": "퀄리타스반도체",
+    "ratio": 32.7,
+    "change_rate": 8.02
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "388050",
+    "name": "지투파워",
+    "ratio": 5.5,
+    "change_rate": 5.38
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "476060",
+    "name": "온코닉테라퓨틱스",
+    "ratio": 3.3,
+    "change_rate": 16.19
+  },
+  {
+    "type": "가격 급변",
+    "code": "476060",
+    "name": "온코닉테라퓨틱스",
+    "change_rate": 16.19
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "441270",
+    "name": "파인엠텍",
+    "ratio": 5.6,
+    "change_rate": 11.09
+  },
+  {
+    "type": "가격 급변",
+    "code": "441270",
+    "name": "파인엠텍",
+    "change_rate": 11.09
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "340360",
+    "name": "다보링크",
+    "ratio": 2.1,
+    "change_rate": 11.68
+  },
+  {
+    "type": "가격 급변",
+    "code": "340360",
+    "name": "다보링크",
+    "change_rate": 11.68
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "347850",
+    "name": "디앤디파마텍",
+    "ratio": 3.7,
+    "change_rate": 15.38
+  },
+  {
+    "type": "가격 급변",
+    "code": "347850",
+    "name": "디앤디파마텍",
+    "change_rate": 15.38
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "417500",
+    "name": "제이아이테크",
+    "ratio": 2.0,
+    "change_rate": 3.3
+  },
+  {
+    "type": "거래량 폭발",
+    "code": "475580",
+    "name": "에이럭스",
+    "ratio": 4.0,
+    "change_rate": 7.44
   }
 ]

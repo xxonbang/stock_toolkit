@@ -138,6 +138,5 @@
     ],
     "updated_at": "2026-03-13 15:42:20"
   },
-  "reversal_detected": false,
-  "description": "프로그램 매매 데이터"
+  "reversal_detected": false
 }

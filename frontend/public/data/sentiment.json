@@ -1,23 +1,13 @@
 {
-  "score": 31.1,
-  "label": "공포",
+  "score": 55.5,
+  "label": "낙관",
+  "strategy": "기존 포지션 유지, 분할 매수 가능",
   "components": {
     "fear_greed": {
-      "value": 19.7,
-      "score": 19.7
+      "value": 19.7
     },
     "vix": {
-      "value": 26.92,
-      "score": 43.7
-    },
-    "kospi_deviation": {
-      "value": -3.41,
-      "score": 33.0
-    },
-    "foreign_flow": {
-      "value": -15128609,
-      "score": 0
+      "value": 26.92
     }
-  },
-  "strategy": "방향성 관망"
+  }
 }

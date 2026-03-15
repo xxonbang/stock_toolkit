@@ -1,40 +1,7 @@
 {
-  "holdings": [
-    {
-      "code": "000660",
-      "name": "SK하이닉스",
-      "sector": "AI반도체",
-      "weight": 50,
-      "signal": "중립"
-    },
-    {
-      "code": "064400",
-      "name": "LG CNS",
-      "sector": "IT서비스",
-      "weight": 50,
-      "signal": "—"
-    }
-  ],
-  "diagnosis": {
-    "sector_weights": {
-      "AI반도체": 0.5,
-      "IT서비스": 0.5
-    },
-    "concentration_issues": [
-      {
-        "sector": "AI반도체",
-        "weight": 0.5
-      },
-      {
-        "sector": "IT서비스",
-        "weight": 0.5
-      }
-    ],
-    "signal_conflicts": []
-  },
-  "health_score": 40.0,
+  "holdings": [],
+  "health_score": 0,
   "suggestions": [
-    "AI반도체 비중 50% — 일부 매도 후 분산 권장",
-    "IT서비스 비중 50% — 일부 매도 후 분산 권장"
+    "보유 종목을 등록해주세요"
   ]
 }
