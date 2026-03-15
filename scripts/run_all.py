@@ -49,6 +49,27 @@ def main():
         json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
 
     report = build_performance_report(loader)
+    # 시장 지표 추가
+    macro = loader.get_macro()
+    perf_latest = loader.get_latest()
+    fg = macro.get("fear_greed", {})
+    vix_d = macro.get("vix", {})
+    fg_score = fg.get("score", 50)
+    regime = "극단적 공포" if fg_score < 25 else "공포" if fg_score < 45 else "중립" if fg_score < 55 else "탐욕" if fg_score < 75 else "극단적 탐욕"
+    report["current_regime"] = regime
+    report["fear_greed"] = {"score": round(fg_score, 1), "rating": fg.get("rating", "")}
+    report["vix"] = {"current": vix_d.get("current", 0), "rating": vix_d.get("rating", "")}
+    report["kospi"] = perf_latest.get("kospi_index", {})
+    report["kosdaq"] = perf_latest.get("kosdaq_index", {})
+    # 신호 분포
+    combined_data = loader.get_combined_signals()
+    if isinstance(combined_data, list):
+        signal_counts = {}
+        for s in combined_data:
+            sig = s.get("signal", s.get("combined_signal", s.get("vision_signal", "중립")))
+            signal_counts[sig] = signal_counts.get(sig, 0) + 1
+        signal_counts["total"] = len(combined_data)
+        report["by_source"]["combined"] = signal_counts
     with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
@@ -65,12 +86,20 @@ def main():
     # Phase 2
     print("=== Phase 2: 모니터링 ===")
     latest = loader.get_latest()
-    stocks = latest.get("rising_stocks", []) + latest.get("volume_top", [])
+    # 실제 데이터 구조: rising.kospi/kosdaq, volume.kospi/kosdaq, falling.kospi/kosdaq
+    rising = latest.get("rising", {})
+    rising_stocks = rising.get("kospi", []) + rising.get("kosdaq", [])
+    volume_data = latest.get("volume", {})
+    volume_stocks = volume_data.get("kospi", []) + volume_data.get("kosdaq", [])
+    falling = latest.get("falling", {})
+    falling_stocks = falling.get("kospi", []) + falling.get("kosdaq", [])
+
+    stocks = rising_stocks + volume_stocks
     anomalies = run_anomaly_scan(stocks)
     with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
         json.dump(anomalies, f, ensure_ascii=False, indent=2)
 
-    all_stocks = latest.get("rising_stocks", [])
+    all_stocks = rising_stocks
     smart_money_results = []
     for stock in all_stocks:
         score = calculate_smart_money_score(stock)
@@ -80,7 +109,7 @@ def main():
     with open(results_dir / "smart_money.json", "w", encoding="utf-8") as f:
         json.dump(smart_money_results, f, ensure_ascii=False, indent=2)
 
-    all_flow_stocks = latest.get("rising_stocks", []) + latest.get("falling_stocks", [])
+    all_flow_stocks = rising_stocks + falling_stocks
     sectors = aggregate_by_sector(all_flow_stocks)
     with open(results_dir / "sector_flow.json", "w", encoding="utf-8") as f:
         json.dump(sectors, f, ensure_ascii=False, indent=2)
@@ -92,9 +121,9 @@ def main():
     themes = loader.get_themes()
     leader_theme = {}
     for theme in themes:
-        for leader in theme.get("leaders", []):
+        for leader in theme.get("leader_stocks", theme.get("leaders", [])):
             if leader.get("code"):
-                leader_theme[leader["code"]] = theme.get("name", "")
+                leader_theme[leader["code"]] = theme.get("theme_name", theme.get("name", ""))
 
     for sig in combined:
         result = evaluate_risk(sig)
@@ -170,7 +199,7 @@ def main():
     themes = loader.get_themes()
     lifecycle_results = []
     for theme in themes:
-        name = theme.get("name", "")
+        name = theme.get("theme_name", theme.get("name", ""))
         if name:
             result = track_theme_lifecycle(name, [{"themes": h.get("data", {}).get("themes", [])} for h in history])
             lifecycle_results.append(result)
@@ -185,6 +214,11 @@ def main():
     from modules.volume_price_divergence import detect_divergence
     from modules.premarket_monitor import build_premarket_report
     from modules.short_squeeze import calculate_squeeze_score
+
+    # criteria_data 로드 (combined_analysis.json 원본에서)
+    combined_raw = loader._load_json(loader.signal_path / "combined" / "combined_analysis.json")
+    criteria_map = combined_raw.get("criteria_data", {}) if isinstance(combined_raw, dict) else {}
+    investor_data = latest.get("investor_data", {})
 
     # 시장 심리 온도계
     macro = loader.get_macro()
@@ -208,7 +242,7 @@ def main():
         json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
 
     # 갭 분석 — change_rate > 5%를 갭으로 처리
-    all_rising = latest.get("rising_stocks", [])
+    all_rising = rising_stocks
     gap_results = []
     for s in all_rising:
         change = s.get("change_rate", 0)
@@ -227,7 +261,7 @@ def main():
 
     # 밸류에이션 — criteria_data 기반
     val_results = []
-    for sig in combined.get("stocks", []) if isinstance(combined, dict) else combined:
+    for sig in combined:
         code = sig.get("code", "")
         crit = criteria_map.get(code, {}) if criteria_map else {}
         mc = crit.get("market_cap_range", {}) if isinstance(crit, dict) else {}
@@ -242,7 +276,7 @@ def main():
         signal = sig.get("vision_signal", "")
         if signal in ("매수", "적극매수"):
             score += 15
-        inv = latest.get("investor_data", {}).get(code, {}) if "investor_data" in latest else {}
+        inv = investor_data.get(code, {})
         fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
         if fn > 0:
             score += 10
@@ -258,7 +292,7 @@ def main():
 
     # 거래량-가격 괴리 — volume_rate vs change_rate 매핑
     div_results = []
-    all_vol = latest.get("volume_top", []) + all_rising
+    all_vol = volume_stocks + rising_stocks
     for s in all_vol:
         vol_rate = s.get("volume_rate", 100)
         change = s.get("change_rate", 0)
@@ -285,12 +319,10 @@ def main():
 
     # 역발상 시그널 — criteria_data 기반
     squeeze_results = []
-    criteria = loader.get_combined_signals()  # already loaded as 'combined'
-    criteria_map = combined.get("criteria_data", {}) if isinstance(combined, dict) else {}
-    for sig in (loader.get_combined_signals() if not criteria_map else combined.get("stocks", [])):
+    for sig in combined:
         code = sig.get("code", "")
         crit = criteria_map.get(code, {})
-        inv = latest.get("investor_data", {}).get(code, {}) if "investor_data" in latest else {}
+        inv = investor_data.get(code, {})
         foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
         overheating = crit.get("overheating_alert", {}) if isinstance(crit, dict) else {}
         supply = crit.get("supply_demand", {}) if isinstance(crit, dict) else {}

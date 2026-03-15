@@ -1,11 +1,11 @@
 def find_cross_signals(themes: list, combined_signals: list) -> list:
     leader_map = {}
     for theme in themes:
-        for leader in theme.get("leaders", []):
+        for leader in theme.get("leader_stocks", theme.get("leaders", [])):
             code = leader.get("code")
             if code:
                 leader_map[code] = {
-                    "theme": theme.get("name"),
+                    "theme": theme.get("theme_name", theme.get("name")),
                     "theme_rank": theme.get("rank"),
                 }
     matches = []

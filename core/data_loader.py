@@ -26,6 +26,10 @@ class DataLoader:
 
     def get_themes(self) -> list:
         data = self.get_latest()
+        # 구조: theme_analysis.themes 또는 직접 themes
+        ta = data.get("theme_analysis", {})
+        if isinstance(ta, dict) and "themes" in ta:
+            return ta["themes"]
         return data.get("themes", [])
 
     def get_theme_forecast(self) -> dict:
