@@ -1,1 +1,465 @@
-[]
+[
+  {
+    "code": "475150",
+    "name": "SK이터닉스",
+    "market": "KOSDAQ",
+    "vision_signal": "매수",
+    "vision_reason": "정부의 강력한 재생에너지 보급 정책과 RPS 제도 개편 기대감으로 주가가 52주 신고가를 경신하며 매우 강한 상승 추세를 보이고 있습니다. 기관의 5일 연속 순매수 또한 긍정적이나, 급등에 따른 높은 이격도와 높은 추정 PER로 인한 밸류에이션 부담은 고려해야 합니다",
+    "vision_confidence": 0.71,
+    "vision_news": [
+      {
+        "title": "SK이터닉스 최대주주 Eclipse Holdco L.P., SK이터닉스 주식등의 수 1468만...",
+        "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=640870",
+        "description": "종목 시세 정보에 따르면 SK이터닉스의 주가는 3월 13일 15시 19분 기준 3만9000원이며, 전일 대비 1650원(4.42%) 상승했다. SK이터닉스는 2024년 3월 29일 코스피 시장에 상장된 건물 건설업체다....",
+        "pubDate": "03-13 15:46",
+        "originallink": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=640870"
+      },
+      {
+        "title": "‘전일 상한가’ SK이터닉스, 코스피 약세에도 강세 [줍줍리포트]",
+        "link": "https://n.news.naver.com/mnews/article/011/0004598944?sid=101",
+        "description": "DS투자증권은 최근 리포트를 통해 SK이터닉스의 목표주가를 4만 3000원으로 상향했다. 올해 매출과 영업이익은 전년 대비 각각 38.8%, 28.3% 성장할 것으로 내다봤다. 정부가 신재생에너지 공급의무화제도(RPS) 개편을...",
+        "pubDate": "03-13 10:40",
+        "originallink": "https://www.sedaily.com/article/20018957?ref=naver"
+      },
+      {
+        "title": "코스피 5412.39 출발...건설 섹터 SK이터닉스 강세",
+        "link": "https://www.wolyo.co.kr/news/articleView.html?idxno=309825",
+        "description": "또한 SK이터닉스가 전날 상한가에 이어 이날도 17% 급등하면서 4만3700원까지 올랐다. SK이터닉스에 대해... 목표주가를 4만3000원으로 제시한 바 있다. 한편, 서울 외환시장에서 원·달러 환율은 전 거래일 대비 0....",
+        "pubDate": "03-13 09:46",
+        "originallink": "https://www.wolyo.co.kr/news/articleView.html?idxno=309825"
+      }
+    ],
+    "vision_news_analysis": {
+      "sentiment": "긍정",
+      "sentiment_score": 0.95,
+      "key_news": [
+        "정부 대규모 재생에너지 보급 정책 기대감으로 이틀 연속 강세",
+        "DS투자증권, 목표주가 4.3만원 상향 및 올해 매출/영업이익 높은 성장 전망",
+        "RPS 제도 개편 추진, 태양광 이격거리 규제 해소 등 우호적 사업 환경",
+        "최대주주 변경 (KKR), 기관 투자 관심 증대",
+        "고유가 및 신재생에너지 정책 기대감으로 신재생에너지 관련주 강세"
+      ],
+      "catalyst": "정부의 신재생에너지 확대 정책과 우호적인 규제 환경, 그리고 KKR의 최대주주 등극이 SK이터닉스의 핵심적인 성장 모멘텀입니다."
+    },
+    "api_signal": "적극매수",
+    "api_reason": "이동평균선이 정배열로 전환되어 상승 추세에 있습니다. 외국인 및 기관 투자자들의 매수세가 유입되고 있습니다. 긍정적인 재료들이 주가 상승 모멘텀을 제공하고 있습니다",
+    "api_news": [
+      {
+        "title": "SK이터닉스 최대주주 Eclipse Holdco L.P., SK이터닉스 주식등의 수 1468만1280주 취득…총 지분율 43.1%",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBE0B835DyLrE8oqXgeWAzNBBr3FhzxY8Jd55GNnOSmFA-a-5LF3nEMF66EC1BJtObGzlVKELONV96OODaBzff-2D7-699IAgAgHqscVfQJtzpqQgDJMPgZ3iUeClnozC8PtRxHaXsugGr0mlMsEv8htO-nM0emvVF4nKS",
+        "description": "SK이터닉스 최대주주 Eclipse Holdco L.P.가 SK디스커버리와의 주식매매계약을 체결하며 총 지분율 43.1%를 취득했다."
+      },
+      {
+        "title": "'전일 상한가' SK이터닉스, 코스피 약세에도 강세",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdmedtiamGO7YB2wJtEvj5b_m34SqYlWLTnOTQBAaiVk_fg3TXISpcUvfIPvdlmbU56cyj8nfvtdVVVeQHGGdA1KeWcJGWQrggW1YIr_F3XeAWU-tQIFUAHj4jmCkZ3XBUASU",
+        "description": "SK이터닉스가 정부의 대규모 재생에너지 보급 정책 기대감에 힘입어 코스피 약세에도 불구하고 이틀 연속 강세를 보였다."
+      },
+      {
+        "title": "SK이터닉스, KKR 3479억 빅딜 확정에 상한가 직행, 37350원 신고가 점령, AI 데이터센터 전력 갈증의 숨은 승자",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBdwS9Km0p8eTgxB4ZzA-KwhthQAylFNMNuNLhaRWPLUw4HVfeQLAmFIk4QsUuca4O4g80sZ2agHcWfdz-ANxl8YbkAQkWSNbvltW5DUXGvPZyo9TqLM6_8euCpbNrso4GwBsUc9EsNHQrYulaAdgs1h2_mExNLLytrQQ",
+        "description": "SK이터닉스가 KKR M&A 본계약 체결로 상한가를 기록하며 AI 데이터센터 전력 부족과 RE100 확대 정책의 수혜주로 부각됐다."
+      }
+    ],
+    "api_news_analysis": {
+      "sentiment_score": 1.0,
+      "sentiment": "긍정",
+      "key_news": [
+        "KKR 인수 확정 및 상한가 기록",
+        "정부 재생에너지 정책 수혜 및 AI 데이터센터 전력 해결사 부각",
+        "목표주가 상향 및 실적 성장 기대"
+      ],
+      "catalyst": "글로벌 PEF KKR의 인수, 정부의 재생에너지 정책 수혜, AI 데이터센터 전력 수요 증가",
+      "news": [
+        {
+          "title": "SK이터닉스 최대주주 Eclipse Holdco L.P., SK이터닉스 주식등의 수 1468만1280주 취득…총 지분율 43.1%",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBE0B835DyLrE8oqXgeWAzNBBr3FhzxY8Jd55GNnOSmFA-a-5LF3nEMF66EC1BJtObGzlVKELONV96OODaBzff-2D7-699IAgAgHqscVfQJtzpqQgDJMPgZ3iUeClnozC8PtRxHaXsugGr0mlMsEv8htO-nM0emvVF4nKS",
+          "description": "SK이터닉스 최대주주 Eclipse Holdco L.P.가 SK디스커버리와의 주식매매계약을 체결하며 총 지분율 43.1%를 취득했다."
+        },
+        {
+          "title": "'전일 상한가' SK이터닉스, 코스피 약세에도 강세",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdmedtiamGO7YB2wJtEvj5b_m34SqYlWLTnOTQBAaiVk_fg3TXISpcUvfIPvdlmbU56cyj8nfvtdVVVeQHGGdA1KeWcJGWQrggW1YIr_F3XeAWU-tQIFUAHj4jmCkZ3XBUASU",
+          "description": "SK이터닉스가 정부의 대규모 재생에너지 보급 정책 기대감에 힘입어 코스피 약세에도 불구하고 이틀 연속 강세를 보였다."
+        },
+        {
+          "title": "SK이터닉스, KKR 3479억 빅딜 확정에 상한가 직행, 37350원 신고가 점령, AI 데이터센터 전력 갈증의 숨은 승자",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBdwS9Km0p8eTgxB4ZzA-KwhthQAylFNMNuNLhaRWPLUw4HVfeQLAmFIk4QsUuca4O4g80sZ2agHcWfdz-ANxl8YbkAQkWSNbvltW5DUXGvPZyo9TqLM6_8euCpbNrso4GwBsUc9EsNHQrYulaAdgs1h2_mExNLLytrQQ",
+          "description": "SK이터닉스가 KKR M&A 본계약 체결로 상한가를 기록하며 AI 데이터센터 전력 부족과 RE100 확대 정책의 수혜주로 부각됐다."
+        }
+      ]
+    },
+    "api_key_factors": {
+      "price_trend": "상승",
+      "volume_signal": "보통",
+      "foreign_flow": "매수우위",
+      "institution_flow": "매수우위",
+      "valuation": "적정"
+    },
+    "api_risk_level": "높음",
+    "api_confidence": 0.77,
+    "api_data": {
+      "price": {
+        "current": 39350,
+        "change": 2000,
+        "change_rate_pct": 5.35,
+        "open": 39150,
+        "high": 43700,
+        "low": 38500,
+        "prev_close": 37350,
+        "high_52week": 48550,
+        "low_52week": 26150
+      },
+      "ranking": {
+        "volume_rank": 7,
+        "volume": 11546015,
+        "volume_rate_vs_prev": 97.47,
+        "trading_value": 471519147875,
+        "description": "거래량 기준 시장 내 순위 (1=최다 거래량)"
+      },
+      "valuation": {
+        "per": 48.52,
+        "pbr": 5.48,
+        "eps": 811.0,
+        "bps": 7187.0,
+        "peg": null
+      },
+      "recent_changes": [
+        {
+          "date": "20260313",
+          "change_rate": 5.35
+        },
+        {
+          "date": "20260312",
+          "change_rate": 29.91
+        },
+        {
+          "date": "20260311",
+          "change_rate": 0.52
+        },
+        {
+          "date": "20260310",
+          "change_rate": -1.04
+        },
+        {
+          "date": "20260309",
+          "change_rate": 5.86
+        },
+        {
+          "date": "20260306",
+          "change_rate": 13.99
+        }
+      ]
+    },
+    "match_status": "partial",
+    "confidence": 0.72,
+    "theme": "신재생에너지 / 원전",
+    "theme_rank": null
+  },
+  {
+    "code": "000720",
+    "name": "현대건설",
+    "market": "KOSPI",
+    "vision_signal": "매수",
+    "vision_reason": "유가 급등에 따른 원전 테마의 강력한 수혜와 북유럽 원전 파트너십 소식 등으로 주가가 강한 상승 추세를 보이고 있습니다. 외국인의 5일 연속 순매수가 이어지며 수급 또한 긍정적이며, 낮은 추정 PER로 밸류에이션 매력도 높습니다",
+    "vision_confidence": 0.76,
+    "vision_news": [
+      {
+        "title": "현대건설, NEOM 터널 프로젝트 계약 해지",
+        "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=641003",
+        "description": "2026년 3월 13일 오후 4시 10분 한국거래소 기준 현대건설의 주가는 전일 대비 8700원 상승한 16만4400원에 거래를 마쳤다. 현대건설의 최근 실적은 2024년 12월 결산 기준으로, 자산 총계 27조54억원, 부채 총계...",
+        "pubDate": "03-13 18:46",
+        "originallink": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=641003"
+      },
+      {
+        "title": "현대건설 주가 장중 상승 흐름…16만9000원 터치 후 강세 유지",
+        "link": "https://www.job-post.co.kr/news/articleView.html?idxno=210207",
+        "description": "코스피 대형 건설주 현대건설 주가가 장중 상승세를 보이며 16만원대 중반에서 거래되고 있다. 13일 한국거래소에 따르면 오후 1시 28분 기준 현대건설 주가는 전 거래일 대비 9,100원(5.84%) 오른 16만4,800원을 기록하고...",
+        "pubDate": "03-13 13:30",
+        "originallink": "https://www.job-post.co.kr/news/articleView.html?idxno=210207"
+      },
+      {
+        "title": "건설주 동반 상승…대우건설 급등세, GS건설·현대건설도 강세 흐름",
+        "link": "https://www.cbci.co.kr/news/articleView.html?idxno=560770",
+        "description": "현대건설도 상승 대열에 합류했다. 현대건설은 168,100원에 거래되며 전일 대비 12,400원 상승했다.... 시장에서는 정책 변화와 수주 환경, 해외 프로젝트 동향 등이 주가 흐름에 영향을 줄 수 있는 주요 요인으로...",
+        "pubDate": "03-13 11:04",
+        "originallink": "https://www.cbci.co.kr/news/articleView.html?idxno=560770"
+      }
+    ],
+    "vision_news_analysis": {
+      "sentiment": "긍정",
+      "sentiment_score": 0.85,
+      "key_news": [
+        "유가 급등에 원전주 강세, 현대건설 주목",
+        "현대건설, 북유럽 에너지 전환 핵심 파트너로 부상",
+        "투자 초고수, 현대건설 매수 집중",
+        "이형석 전무, 현대건설 주식 추가 매수 (내부자 매수)",
+        "자사주 수익률 300% 대박, 책임 경영 효과"
+      ],
+      "catalyst": "중동 리스크 심화로 인한 원전 테마의 부각과 글로벌 원전 시장에서의 현대건설의 역할 확대, 그리고 경영진의 책임 경영을 통한 주주 가치 제고 노력이 핵심적인 매수 재료입니다."
+    },
+    "api_signal": "매수",
+    "api_reason": "이동평균선이 정배열로 전환되어 상승 추세에 있습니다. 외국인 투자자들의 매수세가 유입되고 있습니다. 밸류에이션 지표상 적정 영역에 속합니다",
+    "api_news": [
+      {
+        "title": "현대건설 주가 상승 중",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVGB0tHwnxb0fYttJy6QZcgXDcnwW6gQggBSl-Ji9469TIh2VtYtoPVKbxBpzkjxTw5pEK9rHqBAZAGF-H6NtT82BzTZnhH9-6auIPHT3gUwwU10KkU8wkWt9JtYLRG6j7KyNXoD3SilJ0uu07_9hxH55_yUDT9BKxNR8u_w",
+        "description": "현대건설 주가가 13일 9시 21분 기준으로 3.60% 상승 중이다."
+      },
+      {
+        "title": "유가 100달러 또 넘었다…중동 리스크에 원전株 일제히 상승",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa0zTB9zqPcsA17NBFfk488Rrnvi2OIlp3392g_bgMxRHeLzD7Fym3HpgGleMH5S86amN6CwRhF72ymmZt2t8wv4smeCFQNuZkf6_uuN8HtJXgBs1E1DpKLxZqhb6EDP78gAMD-IDfpwe22ihKJfEPfuxl",
+        "description": "중동 리스크로 국제유가가 급등하며 원전주가 강세를 보이고 있으며 현대건설도 주목받고 있다."
+      },
+      {
+        "title": "\"대표가 먼저 샀다\"…현대건설 자사주 수익률 '300% 대박'",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4ghs7kHyVR8B-ilth1bUOIMQlOwG1is661KmK0zR44GSb75kSEdZjgcw7HpmCsQD34mbll8LduN5huYv0WNYQMLl55sLZPrAtUn37HoVAHjETYOd6QC9BGP4XN4wHJzKUAyhPgaYTIRSpkvmuCVpmfFhCWfw",
+        "description": "현대건설 임직원들의 자사주 매입 후 높은 평가이익이 발생했다는 소식이다."
+      },
+      {
+        "title": "현대건설 주가, 3월 12일 장중 157900원 6.11% 상승",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEVf5dgmgB4Y099wdFDXjFUlO_85LXa4945tOZFh2tU0T5XYaQiG8DH3k0cSVZY_G83fTQsne5WVxf-P1LRefQ5puu-iQqajPfubCCLkUKhY5qAtvqHquj298HWL60eaF1yPquY0XS6n8xVhpxOh7xR_sy1042qfORrOA0",
+        "description": "현대건설 주가가 12일 오전 10시 8분 기준 6.11% 상승했다."
+      },
+      {
+        "title": "이형석 전무, 현대건설 주식 100주 추가 매수",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrtW0LZmpK2S-JVLbBDMnsgek3Q5rOFs8kSyOX7YeAXIN23oAWBeDYLhCHwM7moOB_hR53ujUbXLMpXct0DVxZmoc-FcIKPnEvHiTshX5Y3RdnkK7UWm04zAWjaTHNFKXlH6CWaDK_6wNNspl8xncKsuFbW0epiz_KJ_Zk",
+        "description": "현대건설 이형석 전무가 3월 9일 현대건설 주식 100주를 추가 매수했다."
+      }
+    ],
+    "api_news_analysis": {
+      "sentiment_score": 0.8,
+      "sentiment": "긍정",
+      "key_news": [
+        "원전 관련주 부각으로 주가 상승",
+        "경영진 자사주 매입 및 높은 수익률",
+        "유가 급등에 따른 원전 수혜 기대"
+      ],
+      "catalyst": "국제 유가 급등에 따른 원전 테마 부각 및 경영진의 책임 경영",
+      "news": [
+        {
+          "title": "현대건설 주가 상승 중",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVGB0tHwnxb0fYttJy6QZcgXDcnwW6gQggBSl-Ji9469TIh2VtYtoPVKbxBpzkjxTw5pEK9rHqBAZAGF-H6NtT82BzTZnhH9-6auIPHT3gUwwU10KkU8wkWt9JtYLRG6j7KyNXoD3SilJ0uu07_9hxH55_yUDT9BKxNR8u_w",
+          "description": "현대건설 주가가 13일 9시 21분 기준으로 3.60% 상승 중이다."
+        },
+        {
+          "title": "유가 100달러 또 넘었다…중동 리스크에 원전株 일제히 상승",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa0zTB9zqPcsA17NBFfk488Rrnvi2OIlp3392g_bgMxRHeLzD7Fym3HpgGleMH5S86amN6CwRhF72ymmZt2t8wv4smeCFQNuZkf6_uuN8HtJXgBs1E1DpKLxZqhb6EDP78gAMD-IDfpwe22ihKJfEPfuxl",
+          "description": "중동 리스크로 국제유가가 급등하며 원전주가 강세를 보이고 있으며 현대건설도 주목받고 있다."
+        },
+        {
+          "title": "\"대표가 먼저 샀다\"…현대건설 자사주 수익률 '300% 대박'",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4ghs7kHyVR8B-ilth1bUOIMQlOwG1is661KmK0zR44GSb75kSEdZjgcw7HpmCsQD34mbll8LduN5huYv0WNYQMLl55sLZPrAtUn37HoVAHjETYOd6QC9BGP4XN4wHJzKUAyhPgaYTIRSpkvmuCVpmfFhCWfw",
+          "description": "현대건설 임직원들의 자사주 매입 후 높은 평가이익이 발생했다는 소식이다."
+        },
+        {
+          "title": "현대건설 주가, 3월 12일 장중 157900원 6.11% 상승",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEVf5dgmgB4Y099wdFDXjFUlO_85LXa4945tOZFh2tU0T5XYaQiG8DH3k0cSVZY_G83fTQsne5WVxf-P1LRefQ5puu-iQqajPfubCCLkUKhY5qAtvqHquj298HWL60eaF1yPquY0XS6n8xVhpxOh7xR_sy1042qfORrOA0",
+          "description": "현대건설 주가가 12일 오전 10시 8분 기준 6.11% 상승했다."
+        },
+        {
+          "title": "이형석 전무, 현대건설 주식 100주 추가 매수",
+          "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrtW0LZmpK2S-JVLbBDMnsgek3Q5rOFs8kSyOX7YeAXIN23oAWBeDYLhCHwM7moOB_hR53ujUbXLMpXct0DVxZmoc-FcIKPnEvHiTshX5Y3RdnkK7UWm04zAWjaTHNFKXlH6CWaDK_6wNNspl8xncKsuFbW0epiz_KJ_Zk",
+          "description": "현대건설 이형석 전무가 3월 9일 현대건설 주식 100주를 추가 매수했다."
+        }
+      ]
+    },
+    "api_key_factors": {
+      "price_trend": "상승",
+      "volume_signal": "증가",
+      "foreign_flow": "매수우위",
+      "institution_flow": "매도우위",
+      "valuation": "적정"
+    },
+    "api_risk_level": "높음",
+    "api_confidence": 0.62,
+    "api_data": {
+      "price": {
+        "current": 164400,
+        "change": 8700,
+        "change_rate_pct": 5.59,
+        "open": 152800,
+        "high": 169000,
+        "low": 151800,
+        "prev_close": 155700,
+        "high_52week": 202000,
+        "low_52week": 109000
+      },
+      "ranking": {
+        "volume_rank": 8,
+        "volume": 2710670,
+        "volume_rate_vs_prev": 181.89,
+        "trading_value": 443708101300,
+        "description": "거래량 기준 시장 내 순위 (1=최다 거래량)"
+      },
+      "valuation": {
+        "per": -109.6,
+        "pbr": 2.3,
+        "eps": -1500.0,
+        "bps": 71394.0,
+        "peg": -0.43
+      },
+      "recent_changes": [
+        {
+          "date": "20260313",
+          "change_rate": 5.59
+        },
+        {
+          "date": "20260312",
+          "change_rate": 4.64
+        },
+        {
+          "date": "20260311",
+          "change_rate": -2.11
+        },
+        {
+          "date": "20260310",
+          "change_rate": 3.83
+        },
+        {
+          "date": "20260309",
+          "change_rate": -6.63
+        },
+        {
+          "date": "20260306",
+          "change_rate": 8.89
+        }
+      ]
+    },
+    "match_status": "match",
+    "confidence": 0.84,
+    "theme": "신재생에너지 / 원전",
+    "theme_rank": null
+  },
+  {
+    "code": "452280",
+    "name": "한선엔지니어링",
+    "market": "KOSDAQ",
+    "vision_signal": "매수",
+    "vision_reason": "강한 가격 상승과 함께 이동평균선이 정배열 초기 단계로 전환되며 기술적 분석에서 긍정적인 신호를 보입니다. 외국인과 기관의 매매 동향은 혼조세이나, 최근 기관의 순매수 전환이 긍정적입니다. 밸류에이션 지표가 부재하여 중립으로 판단했으며, 고성장 산업인 수소 테마로 인한 수혜 기대감은 주가에 긍정적으로 작용하고 있습니다",
+    "vision_confidence": 0.62,
+    "vision_news": [
+      {
+        "title": "ESS 핵심 제품 공급 확대… 한선엔지니어링 외형 성장 질주",
+        "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=408315",
+        "description": "한선엔지니어링 주가가 강세를 보이고 있다. 19일 한국거래소에 따르면 이날 오후 2시47분 현재 3.72% 상승 8920원에 거래되고 있다. 주가는 장기 박스권에서 벗어나 가속도를 내는 모습이다. 올해 3분기까지 전년 실적의 90...",
+        "pubDate": "12-19 14:54",
+        "originallink": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=408315"
+      },
+      {
+        "title": "한선엔지니어링 주가 9월 24일 11,560원…장중 1.49% 상승",
+        "link": "https://www.job-post.co.kr/news/articleView.html?idxno=179887",
+        "description": "24일 오후 12시 2분 기준, 코스닥 시장에서 한선엔지니어링 주가는 11,560원으로 거래되고 있다. 전일 대비 170원(1.49%) 상승한 수치다. 출처 : 네이버페이 증권 24일 한선엔지니어링 주가는 11,140원으로 장을 시작해...",
+        "pubDate": "09-24 13:18",
+        "originallink": "https://www.job-post.co.kr/news/articleView.html?idxno=179887"
+      },
+      {
+        "title": "한선엔지니어링 주가 12% 점프…장중 12000원선 넘기도",
+        "link": "https://www.cbci.co.kr/news/articleView.html?idxno=528264",
+        "description": "한선엔지니어링(452280) 주가가 급등세를 보이고 있다. 한선엔지니어링은 23일 오전 11시 40분 현재 11830원에 거래되고 있다. 전일 종가대비 1310원(+12.45%) 올랐다. 한선엔지니어링은 앞서 지난 19일과 22일 연속...",
+        "pubDate": "09-23 11:44",
+        "originallink": "https://www.cbci.co.kr/news/articleView.html?idxno=528264"
+      }
+    ],
+    "vision_news_analysis": {
+      "sentiment": "긍정",
+      "sentiment_score": 0.4,
+      "key_news": [
+        "한선엔지니어링, 고성장 산업인 수소 관련주로 주목",
+        "수소법 개정안 통과 기대감에 수소산업 성장 기대",
+        "수소 액화 수송 저장 시장 확대에 따른 수혜 기대",
+        "글로벌 시장 확대 위한 적극적인 투자 진행 중",
+        "반도체, 조선, 방위산업 등 다양한 분야에 밸브 및 피팅 공급"
+      ],
+      "catalyst": "한선엔지니어링은 수소 산업의 성장과 수소법 개정안 통과 기대감에 힘입어 수혜주로 주목받고 있으며, 다양한 산업 분야에서 기술력을 인정받고 있습니다."
+    },
+    "api_signal": "매수",
+    "api_reason": "기술적 추세는 정배열이며, 52주 고점 근처에 위치합니다. 거래량은 급증했으며, 외국인과 기관 모두 순매수 흐름을 보였습니다. 밸류에이션은 PER 기준 고평가, 낮은 부채비율은 긍정적입니다. 재료 측면에서는 부산2공장 건설 완료 및 생산 능력 2배 확대 계획은 긍정적이나, 전환사채의 주식 전환으로 인한 물량 부담이 상존합니다. '대미투자특별법' 통과로 인한 수혜도 기대됩니다",
+    "api_news": [
+      {
+        "title": "한선엔지니어링, 48억 전환사채 청구 접수…오는 26일 상장",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnLESz21FQRy4p4LbIlWXH9e92pS_7QWZDE57LE5YhFQ5nHdAzFtYwOkF5eVR4iJA0Tkpzlptppk5pWwYGdIlGyE-2p7lf18Xx8IuCGmLcsWvWnJZHKJn7vR1qzd-pXaC6zD8tZayN1JJeqePV8MpCZT9KEHpBxQ",
+        "description": "계장용 튜브 및 피팅(관이음쇠) 업체인 한선엔지니어링은 3회차 전환사채(CB)의 전환청구권 일부가 행사됐다고 12일 밝혔다."
+      },
+      {
+        "title": "한선엔지니어링 주가, 급등세... 왜?",
+        "link": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHF7BinExvz0CiRy9FqaknuHYrHrRw6Hi8E2I1bvj4EYPyHxscvEqonzkGH4xdMpIbgtpVqfsWfbWSnn_eg4C2pfr91WOU6iRI8kTyESQMGzQ00mnQoAOLOMzR5yDOZcteNMpeRrKPGvq9H73MevODsvbGtAS8",
+        "description": "'대미투자특별법'이 국회 본회의를 통과했다는 소식에 관련 산업 기자재 기업들이 시장에서 주목받고 있다."
+      }
+    ],
+    "api_news_analysis": {
+      "sentiment": "긍정",
+      "sentiment_score": 0.3,
+      "key_news": [
+        "한선엔지니어링, 전환사채 일부 주식 전환 청구 접수, 26일 상장 예정",
+        "부산2공장 건설 완료, 생산 능력 2배 확대 계획",
+        "'대미투자특별법' 통과로 관련 산업 기자재 기업 주목"
+      ],
+      "catalyst": "부산2공장 건설 완료 및 생산 능력 2배 확대 계획은 긍정적이나, 전환사채의 주식 전환으로 인한 물량 부담이 상존합니다. '대미투자특별법' 통과로 인한 수혜도 기대됩니다."
+    },
+    "api_key_factors": {
+      "price_trend": "상승",
+      "volume_signal": "급증",
+      "foreign_flow": "매수우위",
+      "institution_flow": "매수우위",
+      "valuation": "고평가"
+    },
+    "api_risk_level": "중간",
+    "api_confidence": 0.67,
+    "api_data": {
+      "price": {
+        "current": 16580,
+        "change": 2350,
+        "change_rate_pct": 16.51,
+        "open": 14350,
+        "high": 17870,
+        "low": 14010,
+        "prev_close": 14230,
+        "high_52week": 18490,
+        "low_52week": 9970
+      },
+      "ranking": {
+        "volume_rank": 13,
+        "volume": 10774531,
+        "volume_rate_vs_prev": 437.69,
+        "trading_value": 177788700025,
+        "description": "거래량 기준 시장 내 순위 (1=최다 거래량)"
+      },
+      "valuation": {
+        "per": 67.95,
+        "pbr": 4.82,
+        "eps": 244.0,
+        "bps": 3440.0,
+        "peg": null
+      },
+      "recent_changes": [
+        {
+          "date": "20260313",
+          "change_rate": 16.51
+        },
+        {
+          "date": "20260312",
+          "change_rate": 29.95
+        },
+        {
+          "date": "20260311",
+          "change_rate": 16.99
+        },
+        {
+          "date": "20260310",
+          "change_rate": 5.88
+        },
+        {
+          "date": "20260309",
+          "change_rate": -4.84
+        },
+        {
+          "date": "20260306",
+          "change_rate": 3.11
+        }
+      ]
+    },
+    "match_status": "match",
+    "confidence": 0.82,
+    "theme": "신재생에너지 / 원전",
+    "theme_rank": null
+  }
+]

@@ -202,11 +202,30 @@ def main():
 
     # Phase 3
     print("=== Phase 3: 분석 ===")
-    history = loader.get_theme_history()
-    db = build_impact_database(history)
-    stats = {k: calculate_impact_stats(v) for k, v in db.items()}
+    # 뉴스 임팩트 — combined signals의 vision_news에서 추출
+    news_impact = {}
+    for sig in combined[:30]:
+        news_list = sig.get("vision_news", [])
+        for n in news_list[:1]:
+            title = n.get("title", "")
+            if not title:
+                continue
+            cat = "실적" if "실적" in title or "매출" in title else \
+                  "정책" if "정부" in title or "정책" in title else \
+                  "수급" if "외국인" in title or "매수" in title or "매도" in title else \
+                  "이슈"
+            if cat not in news_impact:
+                news_impact[cat] = {"count": 0, "titles": []}
+            news_impact[cat]["count"] += 1
+            news_impact[cat]["titles"].append({
+                "title": title,
+                "stock": sig.get("name", ""),
+                "signal": sig.get("vision_signal", ""),
+            })
     with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
-        json.dump(stats, f, ensure_ascii=False, indent=2)
+        json.dump(news_impact, f, ensure_ascii=False, indent=2)
+
+    history = loader.get_theme_history()
 
     # 시나리오 시뮬레이션 (기본 전략)
     print("  시나리오 시뮬레이션...")
@@ -224,12 +243,13 @@ def main():
     with open(results_dir / "simulation.json", "w", encoding="utf-8") as f:
         json.dump(sim_results, f, ensure_ascii=False, indent=2)
 
-    # 패턴 매칭 (교차 신호 상위 종목 대상)
+    # 패턴 매칭 — 매수 신호 종목 대상
     print("  패턴 매칭...")
     pattern_results = []
     intraday = loader.get_intraday_history()
-    if intraday and cross_matches:
-        for match in (cross_matches or [])[:5]:
+    buy_stocks = cross_matches or [s for s in combined if s.get("vision_signal") in ("매수", "적극매수")]
+    if intraday and buy_stocks:
+        for match in buy_stocks[:5]:
             code = match.get("code", "")
             prices = intraday.get(code, {}).get("prices", [])
             if prices and len(prices) >= 5:

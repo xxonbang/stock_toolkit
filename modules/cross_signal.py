@@ -12,7 +12,7 @@ def find_cross_signals(themes: list, combined_signals: list) -> list:
     buy_signals = {"적극매수", "매수"}
     for sig in combined_signals:
         code = sig.get("code")
-        if code in leader_map and sig.get("signal") in buy_signals:
+        if code in leader_map and sig.get("vision_signal", sig.get("signal")) in buy_signals:
             matches.append({**sig, **leader_map[code]})
     matches.sort(key=lambda x: x.get("score", 0), reverse=True)
     return matches
