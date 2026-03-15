@@ -419,7 +419,7 @@ export default function Dashboard() {
                   return (
                     <div key={idx} className="bg-gray-50 rounded p-1.5 flex-1 text-center">
                       <div className="text-gray-400">{item.label}</div>
-                      <div className="font-medium">{item.val ?? "-"}</div>
+                      <div className="font-medium">{item.val != null ? (typeof item.val === "number" ? item.val.toFixed(1) : item.val) : "-"}</div>
                       {diff != null && <div className={`text-[10px] ${diff >= 0 ? "text-red-500" : "text-blue-500"}`}>{diff >= 0 ? "▲" : "▼"}{Math.abs(diff).toFixed(1)}p</div>}
                     </div>
                   );

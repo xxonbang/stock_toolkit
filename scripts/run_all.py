@@ -73,9 +73,9 @@ def main():
     # 환율
     report["exchange"] = perf_latest.get("exchange", {}).get("rates", [])
     # F&G 추세
-    report["fear_greed"]["previous_1_week"] = fg.get("previous_1_week")
-    report["fear_greed"]["previous_1_month"] = fg.get("previous_1_month")
-    report["fear_greed"]["previous_1_year"] = fg.get("previous_1_year")
+    report["fear_greed"]["previous_1_week"] = round(fg.get("previous_1_week", 0), 1) if fg.get("previous_1_week") is not None else None
+    report["fear_greed"]["previous_1_month"] = round(fg.get("previous_1_month", 0), 1) if fg.get("previous_1_month") is not None else None
+    report["fear_greed"]["previous_1_year"] = round(fg.get("previous_1_year", 0), 1) if fg.get("previous_1_year") is not None else None
     # 매크로 지표
     macro_indicators = loader.get_macro_indicators()
     if isinstance(macro_indicators, dict):
