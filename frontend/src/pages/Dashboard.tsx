@@ -195,8 +195,8 @@ export default function Dashboard() {
       {/* 헤더 — sticky + 블러 배경 */}
       <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-2.5 bg-gray-50/80 backdrop-blur-md border-b border-gray-100/50">
         <div className="flex items-center justify-between mb-2.5">
-          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-            <BarChart3 size={22} className="text-blue-600" />
+          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2 shrink-0 whitespace-nowrap">
+            <BarChart3 size={22} className="text-blue-600 shrink-0" />
             Stock Toolkit
           </h1>
           <RefreshButtons />

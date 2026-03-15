@@ -64,7 +64,7 @@ export default function RefreshButtons() {
   if (!CRONJOB_API_KEY) return null;
 
   return (
-    <div className="relative">
+    <>
       <div className="flex items-center gap-1.5 shrink-0">
         <button
           onClick={() => handleRefresh("data-only")}
@@ -85,11 +85,14 @@ export default function RefreshButtons() {
           AI
         </button>
       </div>
+      {/* 토스트 — fixed로 헤더 레이아웃 영향 없음 */}
       {result && (
-        <div className={`absolute top-full right-0 mt-1 text-[10px] whitespace-nowrap ${result.includes("시작") ? "text-green-600" : "text-red-500"}`}>
-          {result}
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
+          <div className={`px-4 py-2 rounded-full text-xs font-medium shadow-lg ${result.includes("시작") ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}>
+            {result}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
