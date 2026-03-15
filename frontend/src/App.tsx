@@ -11,7 +11,7 @@ export default function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/scanner" element={<Scanner />} />
         </Routes>
-        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex shadow-[0_-1px_3px_rgba(0,0,0,0.05)]" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
           <NavLink to="/" className={({ isActive }) =>
             `flex-1 flex flex-col items-center py-2.5 text-xs font-medium transition ${isActive ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'}`
           }>

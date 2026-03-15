@@ -50,7 +50,13 @@ function Badge({ children, variant = "default" }: { children: React.ReactNode; v
 }
 
 function Empty({ text = "현재 해당 데이터 없음" }: { text?: string }) {
-  return <div className="text-center py-4 text-xs text-gray-400">{text}</div>;
+  return (
+    <div className="text-center py-5">
+      <div className="text-gray-300 text-lg mb-1">—</div>
+      <div className="text-xs text-gray-400">{text}</div>
+      <div className="text-[10px] text-gray-300 mt-0.5">데이터 갱신 후 표시됩니다</div>
+    </div>
+  );
 }
 
 function signalBadge(signal: string) {
@@ -155,15 +161,39 @@ export default function Dashboard() {
   const vixLabel = vixVal < 15 ? "안정" : vixVal < 20 ? "보통" : vixVal < 30 ? "불안" : "공포";
   const vixColor = vixVal < 15 ? "bg-green-500" : vixVal < 20 ? "bg-yellow-500" : vixVal < 30 ? "bg-orange-500" : "bg-red-500";
 
+  // 카테고리 퀵 네비게이션
+  const categories = [
+    { id: "cat-market", label: "시장" },
+    { id: "cat-signal", label: "신호" },
+    { id: "cat-analysis", label: "분석" },
+    { id: "cat-strategy", label: "전략" },
+    { id: "cat-system", label: "시스템" },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <BarChart3 size={22} className="text-blue-600" />
-          Stock Toolkit
-        </h1>
-        <RefreshButtons />
+      {/* 헤더 — sticky */}
+      <div className="sticky top-0 z-10 bg-gray-50 -mx-4 px-4 pt-1 pb-3">
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <BarChart3 size={22} className="text-blue-600" />
+            Stock Toolkit
+          </h1>
+          <RefreshButtons />
+        </div>
+        {/* 카테고리 퀵 점프 */}
+        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+          {categories.map((cat) => (
+            <button key={cat.id} onClick={() => document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="px-3 py-1 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition whitespace-nowrap shrink-0">
+              {cat.label}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {/* ===== 시장 카테고리 ===== */}
+      <div id="cat-market" className="scroll-mt-24" />
 
       {/* 장전 프리마켓 */}
       {premarket && (
@@ -498,6 +528,9 @@ export default function Dashboard() {
         );
       })()}
 
+      {/* ===== 신호 카테고리 ===== */}
+      <div id="cat-signal" className="scroll-mt-24" />
+
       {/* 교차 신호 */}
       {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
@@ -728,6 +761,9 @@ export default function Dashboard() {
         </section>
       )}
 
+      {/* ===== 분석 카테고리 ===== */}
+      <div id="cat-analysis" className="scroll-mt-24" />
+
       {/* 뉴스 임팩트 */}
       {(
         <section className="bg-white border border-gray-200 rounded-xl p-4">
@@ -811,13 +847,10 @@ export default function Dashboard() {
               <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{v.name}</div>
-                  <div className="text-xs text-gray-500">
-                    {v.per ? `PER ${v.per}` : v.ma_aligned ? "MA정배열" : "MA비정배열"}
-                    {v.pbr ? ` · PBR ${v.pbr}` : ""}
-                    {v.roe ? ` · ROE ${v.roe}%` : ""}
-                    {v.opm ? ` · 영업이익률 ${v.opm}%` : ""}
-                    {v.debt_ratio ? ` · 부채 ${v.debt_ratio}%` : ""}
-                    {!v.per && v.foreign_net > 0 ? " · 외국인 매수" : ""}
+                  <div className="text-xs text-gray-500 leading-relaxed">
+                    <div>{v.per ? `PER ${v.per}` : v.ma_aligned ? "MA정배열" : ""}{v.pbr ? ` · PBR ${v.pbr}` : ""}{v.roe ? ` · ROE ${v.roe}%` : ""}</div>
+                    {(v.opm || v.debt_ratio) && <div>{v.opm ? `영업이익률 ${v.opm}%` : ""}{v.debt_ratio ? `${v.opm ? " · " : ""}부채비율 ${v.debt_ratio}%` : ""}</div>}
+                    {!v.per && v.foreign_net > 0 && <div>외국인 순매수</div>}
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -910,6 +943,9 @@ export default function Dashboard() {
             {!propagation?.length && <Empty />}
         </section>
       )}
+
+      {/* ===== 전략 카테고리 ===== */}
+      <div id="cat-strategy" className="scroll-mt-24" />
 
       {/* 손절/익절 최적화 */}
       {(
@@ -1108,36 +1144,30 @@ export default function Dashboard() {
       <section className="bg-white border border-gray-200 rounded-xl p-4">
         <SectionHeader id="orderbook" count={orderbook?.length ?? 0}>호가창 압력</SectionHeader>
         <div className="space-y-1.5">
-          {(orderbook || []).map((o, i) => (
-            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{o.name}</div>
-                {o.bid_ask_ratio != null && (
-                  <div className="text-xs text-gray-500">
-                    매수잔량 {o.bid_volume?.toLocaleString()} · 매도잔량 {o.ask_volume?.toLocaleString()}
-                    {o.bid_ask_ratio ? ` · 비율 ${o.bid_ask_ratio}` : ""}
-                  </div>
-                )}
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <div className="w-16 h-2 bg-gray-100 rounded-full overflow-hidden flex">
-                  {(() => {
-                    const pct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
-                    return (<><div className="bg-red-400 h-full" style={{width: `${pct}%`}} /><div className="bg-blue-400 h-full" style={{width: `${100 - pct}%`}} /></>);
-                  })()}
+          {(orderbook || []).map((o, i) => {
+            const buyPct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
+            return (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{o.name}</div>
+                  {(o.bid_volume != null || o.ask_volume != null) && (
+                    <div className="text-xs text-gray-500">
+                      매수 {o.bid_volume?.toLocaleString()}주 · 매도 {o.ask_volume?.toLocaleString()}주
+                    </div>
+                  )}
                 </div>
-                <span className={`text-xs font-medium ${(() => {
-                  const pct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
-                  return pct > 50 ? "text-red-600" : "text-blue-600";
-                })()}`}>
-                  {(() => {
-                    const pct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
-                    return `${pct > 50 ? "매수" : "매도"}우위 ${pct}%`;
-                  })()}
-                </span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <div className="w-16 h-2 bg-gray-100 rounded-full overflow-hidden flex">
+                    <div className="bg-red-400 h-full" style={{width: `${buyPct}%`}} />
+                    <div className="bg-blue-400 h-full" style={{width: `${100 - buyPct}%`}} />
+                  </div>
+                  <span className={`text-xs font-medium ${buyPct > 50 ? "text-red-600" : "text-blue-600"}`}>
+                    {buyPct > 50 ? "매수" : "매도"}우위 {buyPct}%
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         {!orderbook?.length && <Empty />}
       </section>
@@ -1213,8 +1243,8 @@ export default function Dashboard() {
                   외국인 {m.foreign_net >= 0 ? "+" : ""}{(m.foreign_net / 1000).toFixed(0)}천주
                 </span>
               </div>
-              <div className="flex gap-2 text-xs text-gray-500">
-                <span>매수: {m.buy_top5?.map((b: any) => b.name || b).join(", ")}</span>
+              <div className="text-xs text-gray-500 truncate">
+                매수: {m.buy_top5?.map((b: any) => typeof b === "string" ? b : b?.name || b?.member || "").filter(Boolean).join(", ") || "-"}
               </div>
             </div>
           ))}
@@ -1238,7 +1268,7 @@ export default function Dashboard() {
                 <div className={`font-medium ${(tv.change_rate || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
                   {(tv.change_rate || 0) >= 0 ? "+" : ""}{tv.change_rate}%
                 </div>
-                {tv.trading_value && <div className="text-gray-400">{(tv.trading_value / 100000000).toFixed(0)}억</div>}
+                {tv.trading_value && <div className="text-gray-400">거래대금 {(tv.trading_value / 100000000).toFixed(0)}억원</div>}
               </div>
             </div>
           ))}
@@ -1346,6 +1376,9 @@ export default function Dashboard() {
         </div>
         {!signalConsistency?.length && <Empty />}
       </section>
+
+      {/* ===== 시스템 카테고리 ===== */}
+      <div id="cat-system" className="scroll-mt-24" />
 
       {/* 시뮬레이션 히스토리 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
