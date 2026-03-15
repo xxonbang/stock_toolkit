@@ -2,6 +2,10 @@
 
 ## 2026-03-15
 
+### [기능] 투자 아이디어 5차 연구 — 10개 신규 아이디어 (2026-03-15 03:30 KST)
+- **변경 파일:** `docs/research/2026-03-15-investment-ideas-5.md`
+- **내용:** 기존 25개와 겹치지 않는 10개 신규 아이디어(#26~#35) 연구. 호가창 압력 분석기, 대주주/내부자 거래 추적기, 기관 컨센서스 괴리 탐지기, 테마 전이 예측기, 시간대별 수익률 히트맵, 동시호가 이상 감지기, 프로그램 매매 역추적기, 수급 클러스터 분석기, 손절/익절 최적화 엔진, 이벤트 캘린더 복합 분석기. 5차 비교표 + 추천 우선순위 + 1~5차 통합 로드맵(35개) 포함.
+
 ### [기능] 신규 모듈 10개 구현 — #16~#25 (2026-03-15 02:30 KST)
 - **변경 파일:** `modules/short_squeeze.py`, `modules/earnings_preview.py`, `modules/portfolio_advisor.py`, `modules/sentiment_index.py`, `modules/correlation_network.py`, `modules/gap_analyzer.py`, `modules/valuation_screener.py`, `modules/volume_price_divergence.py`, `modules/ai_mentor.py`, `modules/premarket_monitor.py`
 - **내용:** 공매도 역발상(#16), 실적 서프라이즈 프리뷰(#17), 포트폴리오 리밸런싱(#18), 시장 심리 온도계(#19), 종목 상관관계(#20), 갭 분석(#21), 밸류에이션 스크리너(#22), 거래량-가격 괴리(#23), AI 투자 멘토(#24), 장전 프리마켓 모니터(#25) 구현. 전 모듈 smoke test 통과.
