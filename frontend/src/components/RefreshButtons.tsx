@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { RefreshCw, Sparkles } from "lucide-react";
 
-const GH_TOKEN = import.meta.env.VITE_GH_PAT || "";
-const DISPATCH_URL =
-  "https://api.github.com/repos/xxonbang/stock_toolkit/actions/workflows/deploy-pages.yml/dispatches";
+const CRONJOB_API_KEY = import.meta.env.VITE_CRONJOB_API_KEY || "";
+const DATA_ONLY_JOB_ID = "7375005";
+const FULL_JOB_IDS = ["7375862", "7375863", "7375864", "7375865"];
 
-async function triggerWorkflow(mode: "data-only" | "full"): Promise<boolean> {
-  const res = await fetch(DISPATCH_URL, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${GH_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ref: "main", inputs: { mode } }),
-  });
-  // GitHub returns 204 on success, 422 if already running
-  return res.status === 204 || res.status === 422;
+async function triggerCronJob(jobId: string): Promise<boolean> {
+  try {
+    const res = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${CRONJOB_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ job: { enabled: true } }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 export default function RefreshButtons() {
@@ -29,17 +30,21 @@ export default function RefreshButtons() {
     setLoading(mode);
     setResult(null);
     try {
-      const ok = await triggerWorkflow(mode);
+      let ok: boolean;
+      if (mode === "data-only") {
+        ok = await triggerCronJob(DATA_ONLY_JOB_ID);
+      } else {
+        ok = await triggerCronJob(FULL_JOB_IDS[0]);
+      }
       setResult(ok ? "갱신 요청 완료 (1~2분 후 반영)" : "요청 실패");
-    } catch (e) {
-      console.error("Refresh error:", e);
-      setResult("요청 실패 — 잠시 후 재시도");
+    } catch {
+      setResult("네트워크 오류");
     }
     setLoading(null);
     setTimeout(() => setResult(null), 5000);
   }
 
-  if (!GH_TOKEN) return null;
+  if (!CRONJOB_API_KEY) return null;
 
   return (
     <div className="flex items-center gap-1.5 flex-wrap">

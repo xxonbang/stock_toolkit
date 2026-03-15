@@ -75,6 +75,7 @@ jobs:
           npm run build
         env:
           VITE_GH_PAT: ${{ secrets.VITE_GH_PAT }}
+          VITE_CRONJOB_API_KEY: ${{ secrets.VITE_CRONJOB_API_KEY }}
       - name: Copy results to dist
         run: |
           mkdir -p frontend/dist/data

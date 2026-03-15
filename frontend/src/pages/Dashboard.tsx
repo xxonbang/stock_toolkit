@@ -84,6 +84,8 @@ export default function Dashboard() {
   const [exitOptimizer, setExitOptimizer] = useState<any[] | null>(null);
   const [eventCalendar, setEventCalendar] = useState<any>(null);
   const [propagation, setPropagation] = useState<any[] | null>(null);
+  const [programTrading, setProgramTrading] = useState<any>(null);
+  const [heatmap, setHeatmap] = useState<any>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -108,6 +110,8 @@ export default function Dashboard() {
     dataService.getExitOptimizer().then(setExitOptimizer);
     dataService.getEventCalendar().then(setEventCalendar);
     dataService.getThemePropagation().then(setPropagation);
+    dataService.getProgramTrading().then(setProgramTrading);
+    dataService.getIntradayHeatmap().then(setHeatmap);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -755,6 +759,91 @@ export default function Dashboard() {
             {!(eventCalendar?.events || []).length && <Empty />}
         </section>
       )}
+
+      {/* 프로그램 매매 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="program">프로그램 매매</SectionHeader>
+        {programTrading?.data ? (
+          <div className="space-y-1.5">
+            {(programTrading.data.kospi || []).slice(0, 5).map((p: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <span className="text-sm text-gray-700">{p.investor}</span>
+                <div className="flex gap-3 text-xs shrink-0">
+                  <span className={`font-medium ${p.all_ntby_amt >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    {p.all_ntby_amt >= 0 ? "+" : ""}{(p.all_ntby_amt / 100).toFixed(0)}억
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : <Empty />}
+      </section>
+
+      {/* 시간대별 수익률 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="heatmap">시간대별 수익률</SectionHeader>
+        {heatmap?.hours ? (
+          <div className="grid grid-cols-7 gap-1">
+            {Object.entries(heatmap.hours).map(([hour, ret]: [string, any]) => (
+              <div key={hour} className={`text-center p-2 rounded-lg ${ret >= 0.5 ? "bg-red-50" : ret >= 0 ? "bg-gray-50" : "bg-blue-50"}`}>
+                <div className="text-[10px] text-gray-500">{hour}시</div>
+                <div className={`text-xs font-medium ${ret >= 0.5 ? "text-red-600" : ret >= 0 ? "text-gray-600" : "text-blue-600"}`}>
+                  {ret >= 0 ? "+" : ""}{ret}%
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : <Empty />}
+        <p className="text-[10px] text-gray-400 mt-2">시간대별 평균 수익률 (양수=상승 경향, 음수=하락 경향)</p>
+      </section>
+
+      {/* 내부자 거래 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="insider">내부자 거래</SectionHeader>
+        <Empty text="DART API 연동 후 표시됩니다" />
+      </section>
+
+      {/* 컨센서스 괴리 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="consensus">컨센서스 괴리</SectionHeader>
+        <Empty text="증권사 목표가 데이터 수집 후 표시됩니다" />
+      </section>
+
+      {/* 동시호가 분석 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="auction">동시호가 분석</SectionHeader>
+        <Empty text="실시간 호가 데이터 연동 후 표시됩니다" />
+      </section>
+
+      {/* 호가창 압력 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="orderbook">호가창 압력</SectionHeader>
+        <Empty text="실시간 호가 데이터 연동 후 표시됩니다" />
+      </section>
+
+      {/* 상관관계 네트워크 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="correlation">상관관계 네트워크</SectionHeader>
+        <Empty text="가격 히스토리 축적 후 표시됩니다" />
+      </section>
+
+      {/* 실적 프리뷰 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="earnings">실적 프리뷰</SectionHeader>
+        <Empty text="DART 실적 캘린더 연동 후 표시됩니다" />
+      </section>
+
+      {/* AI 투자 멘토 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="mentor">AI 투자 멘토</SectionHeader>
+        <Empty text="매매 이력 축적 후 표시됩니다" />
+      </section>
+
+      {/* 매매 일지 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="journal">매매 일지</SectionHeader>
+        <Empty text="보류 중 — 매매 기록 연동 시 활성화" />
+      </section>
     </div>
   );
 }
