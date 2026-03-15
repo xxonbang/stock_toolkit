@@ -70,6 +70,26 @@ def main():
             signal_counts[sig] = signal_counts.get(sig, 0) + 1
         signal_counts["total"] = len(combined_data)
         report["by_source"]["combined"] = signal_counts
+    # 환율
+    report["exchange"] = perf_latest.get("exchange", {}).get("rates", [])
+    # F&G 추세
+    report["fear_greed"]["previous_1_week"] = fg.get("previous_1_week")
+    report["fear_greed"]["previous_1_month"] = fg.get("previous_1_month")
+    report["fear_greed"]["previous_1_year"] = fg.get("previous_1_year")
+    # 매크로 지표
+    macro_indicators = loader.get_macro_indicators()
+    if isinstance(macro_indicators, dict):
+        report["macro_indicators"] = macro_indicators.get("indicators", [])
+        report["investor_trend"] = macro_indicators.get("investor_trend", [])
+    # 테마 예측
+    forecast = loader.get_theme_forecast()
+    if isinstance(forecast, dict):
+        report["theme_forecast"] = {
+            "market_context": forecast.get("market_context", ""),
+            "us_market_summary": forecast.get("us_market_summary", ""),
+            "themes": forecast.get("today", []),
+        }
+
     with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
@@ -192,6 +212,11 @@ def main():
             "risk_level": level, "warnings": warnings,
             "theme": leader_theme.get(code, ""),
             "market": sig.get("market", ""),
+            "api_signal": sig.get("api_signal", ""),
+            "api_confidence": sig.get("api_confidence", 0),
+            "match_status": sig.get("match_status", ""),
+            "api_risk_level": sig.get("api_risk_level", ""),
+            "api_key_factors": sig.get("api_key_factors", []),
         })
 
     risk_results.sort(key=lambda x: len(x.get("warnings", [])), reverse=True)
@@ -243,23 +268,48 @@ def main():
     with open(results_dir / "simulation.json", "w", encoding="utf-8") as f:
         json.dump(sim_results, f, ensure_ascii=False, indent=2)
 
-    # 패턴 매칭 — 매수 신호 종목 대상
+    # 패턴 매칭 — kis_gemini price_history + RSI 포함
     print("  패턴 매칭...")
     pattern_results = []
-    intraday = loader.get_intraday_history()
     buy_stocks = cross_matches or [s for s in combined if s.get("vision_signal") in ("매수", "적극매수")]
-    if intraday and buy_stocks:
-        for match in buy_stocks[:5]:
-            code = match.get("code", "")
-            prices = intraday.get(code, {}).get("prices", [])
-            if prices and len(prices) >= 5:
-                similar = find_similar_patterns(prices[-20:], signal_history)
+
+    # kis_gemini price_history 우선
+    kis_gemini_pat = loader.get_kis_gemini()
+    gemini_stocks_pat = kis_gemini_pat.get("stocks", {}) if isinstance(kis_gemini_pat, dict) else {}
+    used_kis = False
+    if gemini_stocks_pat and buy_stocks:
+        for match_item in buy_stocks[:5]:
+            code = match_item.get("code", "")
+            gem = gemini_stocks_pat.get(code, {})
+            ph = gem.get("price_history", []) if isinstance(gem, dict) else []
+            if len(ph) >= 20:
+                used_kis = True
+                prices = [float(p.get("close", 0)) for p in ph[-20:]]
+                similar = find_similar_patterns(prices, signal_history)
+                rsi = ph[-1].get("rsi_14", 0) if ph else 0
                 if similar:
                     pattern_results.append({
                         "code": code,
-                        "name": match.get("name", ""),
+                        "name": match_item.get("name", ""),
+                        "rsi": round(rsi, 1) if rsi else None,
                         "matches": similar,
                     })
+
+    # 폴백: intraday-history
+    if not used_kis:
+        intraday = loader.get_intraday_history()
+        if intraday and buy_stocks:
+            for match_item in buy_stocks[:5]:
+                code = match_item.get("code", "")
+                prices = intraday.get(code, {}).get("prices", [])
+                if prices and len(prices) >= 5:
+                    similar = find_similar_patterns(prices[-20:], signal_history)
+                    if similar:
+                        pattern_results.append({
+                            "code": code,
+                            "name": match_item.get("name", ""),
+                            "matches": similar,
+                        })
     with open(results_dir / "pattern.json", "w", encoding="utf-8") as f:
         json.dump(pattern_results, f, ensure_ascii=False, indent=2)
 
@@ -306,6 +356,20 @@ def main():
             "vix": {"value": vix_data.get("current", 0)},
         }
     }
+    # 매크로 전체 지표 반영
+    macro_ind = loader.get_macro_indicators()
+    macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
+    exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
+    inv_trend = macro_ind.get("investor_trend", []) if isinstance(macro_ind, dict) else []
+
+    sentiment_result["components"]["macro"] = [
+        {"symbol": ind.get("symbol", ""), "name": ind.get("name", ""),
+         "price": ind.get("price"), "change_pct": ind.get("change_pct")}
+        for ind in macro_ind_list
+    ]
+    sentiment_result["components"]["exchange"] = exchange_data.get("rates", {}) if isinstance(exchange_data, dict) else {}
+    sentiment_result["components"]["investor_trend"] = inv_trend[:5]
+
     with open(results_dir / "sentiment.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
 
@@ -327,33 +391,69 @@ def main():
     with open(results_dir / "gap_analysis.json", "w", encoding="utf-8") as f:
         json.dump(gap_results[:10], f, ensure_ascii=False, indent=2)
 
-    # 밸류에이션 — criteria_data 기반
+    # 밸류에이션 — kis_gemini PER/PBR/ROE 기반
+    kis_gemini = loader.get_kis_gemini()
+    gemini_stocks = kis_gemini.get("stocks", {}) if isinstance(kis_gemini, dict) else {}
+
     val_results = []
     for sig in combined:
         code = sig.get("code", "")
-        crit = criteria_map.get(code, {}) if criteria_map else {}
-        mc = crit.get("market_cap_range", {}) if isinstance(crit, dict) else {}
-        ma = crit.get("ma_alignment", {}) if isinstance(crit, dict) else {}
-        mc_met = mc.get("met", False) if isinstance(mc, dict) else False
-        ma_met = ma.get("met", False) if isinstance(ma, dict) else False
-        if not mc_met:
-            continue
-        score = 50
-        if ma_met:
-            score += 25
-        signal = sig.get("vision_signal", "")
-        if signal in ("매수", "적극매수"):
-            score += 15
-        inv = investor_data.get(code, {})
-        fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
-        if fn > 0:
-            score += 10
-        val_results.append({
-            "code": code, "name": sig.get("name", ""),
-            "signal": signal, "ma_aligned": ma_met,
-            "market_cap_ok": True, "foreign_net": fn,
-            "value_score": min(score, 99),
-        })
+        gem = gemini_stocks.get(code, {})
+        val = gem.get("valuation", {}) if isinstance(gem, dict) else {}
+        fund = gem.get("fundamental", {}) if isinstance(gem, dict) else {}
+
+        per = val.get("PER", 0) or 0
+        pbr = val.get("PBR", 0) or 0
+        peg = val.get("PEG", 0) or 0
+        roe = fund.get("ROE", 0) or 0
+        opm = fund.get("OPM", 0) or 0
+        debt = fund.get("debt_ratio", 0) or 0
+
+        # kis_gemini 데이터가 있으면 실제 PER/PBR 기반 스코어링
+        if per and 0 < per < 30:
+            score = 0
+            score += max(0, min(25, int((20 - per) * 1.25)))
+            score += max(0, min(20, int((1.5 - pbr) * 13))) if pbr else 0
+            score += max(0, min(20, int(roe * 1.3))) if roe else 0
+            score += max(0, min(15, int((30 - opm) * 0.5))) if opm else 0
+            score += max(0, min(10, int((100 - debt) * 0.1))) if debt else 0
+            score += 10 if sig.get("vision_signal") in ("매수", "적극매수") else 0
+
+            val_results.append({
+                "code": code, "name": sig.get("name", ""),
+                "per": round(per, 1), "pbr": round(pbr, 2),
+                "peg": round(peg, 2) if peg else None,
+                "roe": round(roe, 1) if roe else None,
+                "opm": round(opm, 1) if opm else None,
+                "debt_ratio": round(debt, 1) if debt else None,
+                "signal": sig.get("vision_signal", ""),
+                "value_score": min(score, 99),
+            })
+        else:
+            # kis_gemini 없으면 criteria_data 폴백
+            crit = criteria_map.get(code, {}) if criteria_map else {}
+            mc = crit.get("market_cap_range", {}) if isinstance(crit, dict) else {}
+            ma = crit.get("ma_alignment", {}) if isinstance(crit, dict) else {}
+            mc_met = mc.get("met", False) if isinstance(mc, dict) else False
+            ma_met = ma.get("met", False) if isinstance(ma, dict) else False
+            if not mc_met:
+                continue
+            score = 50
+            if ma_met:
+                score += 25
+            signal = sig.get("vision_signal", "")
+            if signal in ("매수", "적극매수"):
+                score += 15
+            inv = investor_data.get(code, {})
+            fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+            if fn > 0:
+                score += 10
+            val_results.append({
+                "code": code, "name": sig.get("name", ""),
+                "signal": signal, "ma_aligned": ma_met,
+                "market_cap_ok": True, "foreign_net": fn,
+                "value_score": min(score, 99),
+            })
     val_results.sort(key=lambda x: x.get("value_score", 0), reverse=True)
     with open(results_dir / "valuation.json", "w", encoding="utf-8") as f:
         json.dump(val_results[:15], f, ensure_ascii=False, indent=2)
@@ -478,8 +578,31 @@ def main():
     with open(results_dir / "program_trading.json", "w", encoding="utf-8") as f:
         json.dump({"data": program_data, "reversal_detected": False}, f, ensure_ascii=False, indent=2)
 
-    # 시간대별 히트맵
-    heatmap = {"hours": {str(h): round((h - 12) * 0.1 + 0.5, 2) for h in range(9, 16)}}
+    # 시간대별 히트맵 — investor-intraday 실데이터
+    intraday_inv = loader.get_investor_intraday()
+    snapshots = intraday_inv.get("snapshots", []) if isinstance(intraday_inv, dict) else []
+    if snapshots:
+        heatmap_snapshots = []
+        for snap in snapshots:
+            time_str = snap.get("time", "")
+            pt = snap.get("pt", {})
+            kospi_data_snap = pt.get("kospi", [])
+            foreign = sum(item.get("all_ntby_amt", 0) for item in kospi_data_snap if "외국인" in item.get("investor", ""))
+            institution = sum(item.get("all_ntby_amt", 0) for item in kospi_data_snap if any(k in item.get("investor", "") for k in ["기관", "투신", "연기금", "보험", "은행"]))
+            heatmap_snapshots.append({
+                "time": time_str,
+                "foreign": foreign,
+                "institution": institution,
+                "is_estimated": snap.get("is_estimated", False),
+            })
+        heatmap = {"snapshots": heatmap_snapshots, "hours": {}}
+        # 시간대별 집계
+        for snap in heatmap_snapshots:
+            hour = snap["time"][:2] if len(snap["time"]) >= 2 else ""
+            if hour:
+                heatmap["hours"][hour] = round((snap["foreign"] + snap["institution"]) / 100000000, 2) if snap["foreign"] or snap["institution"] else 0
+    else:
+        heatmap = {"hours": {str(h): round((h - 12) * 0.1 + 0.5, 2) for h in range(9, 16)}}
     with open(results_dir / "intraday_heatmap.json", "w", encoding="utf-8") as f:
         json.dump(heatmap, f, ensure_ascii=False, indent=2)
 
@@ -532,14 +655,33 @@ def main():
     with open(results_dir / "auction.json", "w", encoding="utf-8") as f:
         json.dump(auction_results, f, ensure_ascii=False, indent=2)
 
-    # 호가창 압력
+    # 호가창 압력 — kis_gemini order_book 기반
     orderbook_results = []
-    for sig in combined[:5]:
-        code = sig.get("code", "")
-        inv = investor_data.get(code, {})
-        fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
-        buy_pct = min(90, max(10, 50 + (fn / 50000)))
-        orderbook_results.append({"name": sig.get("name",""), "code": code, "buy_pct": round(buy_pct)})
+    if gemini_stocks:
+        for code, gem in list(gemini_stocks.items())[:20]:
+            ob = gem.get("order_book", {}) if isinstance(gem, dict) else {}
+            if ob:
+                ask = ob.get("ask_volume_total", 0) or 0
+                bid = ob.get("bid_volume_total", 0) or 0
+                ratio = ob.get("bid_ask_ratio", 1.0) or 1.0
+                total = ask + bid
+                buy_pct = round(bid / total * 100) if total > 0 else 50
+                orderbook_results.append({
+                    "name": gem.get("name", code), "code": code,
+                    "ask_volume": ask, "bid_volume": bid,
+                    "bid_ask_ratio": round(ratio, 2),
+                    "buy_pct": buy_pct,
+                    "best_ask": ob.get("best_ask", 0),
+                    "best_bid": ob.get("best_bid", 0),
+                })
+    if not orderbook_results:
+        # 폴백: combined signals + investor_data 기반
+        for sig in combined[:5]:
+            code = sig.get("code", "")
+            inv = investor_data.get(code, {})
+            fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+            buy_pct = min(90, max(10, 50 + (fn / 50000)))
+            orderbook_results.append({"name": sig.get("name",""), "code": code, "buy_pct": round(buy_pct)})
     with open(results_dir / "orderbook.json", "w", encoding="utf-8") as f:
         json.dump(orderbook_results, f, ensure_ascii=False, indent=2)
 
@@ -596,6 +738,110 @@ def main():
     ]
     with open(results_dir / "trading_journal.json", "w", encoding="utf-8") as f:
         json.dump({"entries": journal_entries}, f, ensure_ascii=False, indent=2)
+
+    # 증권사 매매 (member_data)
+    member_data = latest.get("member_data", {})
+    member_results = []
+    for code, md in list(member_data.items())[:10]:
+        if isinstance(md, dict) and md.get("buy_top5"):
+            member_results.append({
+                "code": code, "name": md.get("name", ""),
+                "buy_top5": md.get("buy_top5", [])[:3],
+                "sell_top5": md.get("sell_top5", [])[:3],
+                "foreign_net": md.get("foreign_net", 0),
+            })
+    with open(results_dir / "member_trading.json", "w", encoding="utf-8") as f:
+        json.dump(member_results, f, ensure_ascii=False, indent=2)
+
+    # 거래대금 TOP30
+    tv = latest.get("trading_value", {})
+    trading_value_stocks = (tv.get("kospi", [])[:15] if isinstance(tv.get("kospi"), list) else []) + \
+                           (tv.get("kosdaq", [])[:15] if isinstance(tv.get("kosdaq"), list) else [])
+    with open(results_dir / "trading_value.json", "w", encoding="utf-8") as f:
+        json.dump(trading_value_stocks, f, ensure_ascii=False, indent=2)
+
+    # falling 종목 역발상 추가
+    for s in falling_stocks:
+        vol_rate = s.get("volume_rate", 100)
+        change = s.get("change_rate", 0)
+        code = s.get("code", "")
+        inv = investor_data.get(code, {})
+        fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        if vol_rate > 300 and change < -5:
+            anomalies.append({"type": "하락+거래량폭발", "code": code, "name": s.get("name", ""), "change_rate": change, "ratio": round(vol_rate/100, 1)})
+        if fn > 100000 and change < -3:
+            squeeze_results.append({"code": code, "name": s.get("name", ""), "signal": "역발상", "foreign_net": fn, "overheating": f"하락 {change}% but 외국인 매수", "squeeze_score": min(80, 40+int(fn/80000))})
+    # 역발상 재저장 (falling 추가분 포함)
+    squeeze_results.sort(key=lambda x: x.get("squeeze_score", 0), reverse=True)
+    with open(results_dir / "short_squeeze.json", "w", encoding="utf-8") as f:
+        json.dump(squeeze_results[:10], f, ensure_ascii=False, indent=2)
+    # 이상거래 재저장 (falling 추가분 포함)
+    with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
+        json.dump(anomalies, f, ensure_ascii=False, indent=2)
+
+    # criteria_data 전체 14개 필드 scanner에 반영
+    latest_criteria = latest.get("criteria_data", {})
+    for code, crit in latest_criteria.items():
+        scanner_entry = next((s for s in scanner_stocks if s["code"] == code), None)
+        if scanner_entry and isinstance(crit, dict):
+            scanner_entry["golden_cross"] = crit.get("golden_cross", {}).get("met", False)
+            scanner_entry["short_selling"] = crit.get("short_selling", {}).get("met", False)
+            scanner_entry["bnf"] = crit.get("bnf", {}).get("met", False)
+            scanner_entry["high_breakout"] = crit.get("high_breakout", {}).get("met", False)
+            scanner_entry["momentum"] = crit.get("momentum_history", {}).get("met", False)
+            scanner_entry["all_criteria_met"] = crit.get("all_met", False)
+    # scanner 재저장
+    with open(results_dir / "scanner_stocks.json", "w", encoding="utf-8") as f:
+        json.dump(scanner_stocks, f, ensure_ascii=False, indent=2)
+
+    # 3일 OHLCV
+    history_data = latest.get("history", {})
+    price_history_top = {}
+    for sig in combined[:10]:
+        code = sig.get("code", "")
+        hist = history_data.get(code, []) if isinstance(history_data, dict) else []
+        if hist:
+            price_history_top[code] = {"name": sig.get("name", ""), "data": hist[-3:]}
+    report["price_history"] = price_history_top
+    with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
+        json.dump(report, f, ensure_ascii=False, indent=2)
+
+    # 뉴스 추가 소스 병합 (theme-analyzer 독립 뉴스)
+    news_data = latest.get("news", {})
+    if isinstance(news_data, dict):
+        for cat_key, articles in news_data.items():
+            if cat_key not in news_impact:
+                news_impact[cat_key] = {"count": 0, "titles": []}
+            if isinstance(articles, list):
+                for art in articles[:3]:
+                    title = art.get("title", "") if isinstance(art, dict) else str(art)
+                    if title:
+                        news_impact[cat_key]["count"] += 1
+                        news_impact[cat_key]["titles"].append({"title": title, "stock": "", "signal": ""})
+        with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
+            json.dump(news_impact, f, ensure_ascii=False, indent=2)
+
+    # paper-trading 최신
+    pt = loader.get_paper_trading_latest()
+    if pt:
+        with open(results_dir / "paper_trading_latest.json", "w", encoding="utf-8") as f:
+            json.dump({
+                "date": pt.get("trade_date"),
+                "stocks": pt.get("stocks", []),
+                "summary": pt.get("summary", {}),
+            }, f, ensure_ascii=False, indent=2)
+
+    # 예측 적중률
+    forecasts = loader.get_forecast_history(5)
+    forecast_accuracy = []
+    for fc in forecasts:
+        forecast_accuracy.append({
+            "date": fc.get("forecast_date"),
+            "themes": [t.get("theme_name") for t in fc.get("today", [])] if isinstance(fc.get("today"), list) else [],
+            "confidence": [t.get("confidence") for t in fc.get("today", [])] if isinstance(fc.get("today"), list) else [],
+        })
+    with open(results_dir / "forecast_accuracy.json", "w", encoding="utf-8") as f:
+        json.dump(forecast_accuracy, f, ensure_ascii=False, indent=2)
 
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"

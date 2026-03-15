@@ -94,6 +94,10 @@ export default function Dashboard() {
   const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
   const [aiMentor, setAiMentor] = useState<any>(null);
   const [tradingJournal, setTradingJournal] = useState<any>(null);
+  const [memberTrading, setMemberTrading] = useState<any[] | null>(null);
+  const [tradingValue, setTradingValue] = useState<any[] | null>(null);
+  const [paperTrading, setPaperTrading] = useState<any>(null);
+  const [forecastAccuracy, setForecastAccuracy] = useState<any[] | null>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -128,6 +132,10 @@ export default function Dashboard() {
     dataService.getEarningsCalendar().then(setEarningsCalendar);
     dataService.getAiMentor().then(setAiMentor);
     dataService.getTradingJournal().then(setTradingJournal);
+    dataService.getMemberTrading().then(setMemberTrading);
+    dataService.getTradingValue().then(setTradingValue);
+    dataService.getPaperTrading().then(setPaperTrading);
+    dataService.getForecastAccuracy().then(setForecastAccuracy);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -188,13 +196,49 @@ export default function Dashboard() {
             <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
           </div>
           {sentiment.components && (
-            <div className="grid grid-cols-2 gap-2">
-              {Object.entries(sentiment.components).map(([key, comp]: [string, any]) => (
-                <div key={key} className="text-xs bg-gray-50 rounded p-2">
-                  <div className="text-gray-500">{key === "fear_greed" ? "F&G" : key === "vix" ? "VIX" : key === "kospi_deviation" ? "KOSPI 이격도" : "외국인 수급"}</div>
-                  <div className="font-medium">{typeof comp.value === 'number' ? (Number.isInteger(comp.value) ? comp.value.toLocaleString() : comp.value) : comp.value}</div>
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-2">
+                {Object.entries(sentiment.components)
+                  .filter(([key]) => ["fear_greed", "vix", "kospi_deviation", "foreign_flow"].includes(key))
+                  .map(([key, comp]: [string, any]) => (
+                  <div key={key} className="text-xs bg-gray-50 rounded p-2">
+                    <div className="text-gray-500">{key === "fear_greed" ? "F&G" : key === "vix" ? "VIX" : key === "kospi_deviation" ? "KOSPI 이격도" : "외국인 수급"}</div>
+                    <div className="font-medium">{typeof comp.value === 'number' ? (Number.isInteger(comp.value) ? comp.value.toLocaleString() : comp.value) : comp.value}</div>
+                  </div>
+                ))}
+              </div>
+              {/* 매크로 지표 */}
+              {sentiment.components.macro?.length > 0 && (
+                <div className="pt-2 border-t border-gray-100">
+                  <div className="text-xs text-gray-400 mb-1">글로벌 지표</div>
+                  <div className="grid grid-cols-2 gap-1">
+                    {sentiment.components.macro.slice(0, 6).map((ind: any, i: number) => (
+                      <div key={i} className="flex justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1">
+                        <span className="text-gray-500 truncate">{ind.name || ind.symbol}</span>
+                        <span className={`font-medium ${(ind.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          {ind.change_pct != null ? `${ind.change_pct >= 0 ? "+" : ""}${ind.change_pct}%` : "-"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              )}
+              {/* 투자자 동향 */}
+              {sentiment.components.investor_trend?.length > 0 && (
+                <div className="pt-2 border-t border-gray-100">
+                  <div className="text-xs text-gray-400 mb-1">투자자 동향</div>
+                  <div className="grid grid-cols-1 gap-1">
+                    {sentiment.components.investor_trend.slice(0, 3).map((inv: any, i: number) => (
+                      <div key={i} className="flex justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1">
+                        <span className="text-gray-500">{inv.investor || inv.name}</span>
+                        <span className={`font-medium ${(inv.net_buy || inv.amount || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          {(inv.net_buy || inv.amount || 0) >= 0 ? "+" : ""}{((inv.net_buy || inv.amount || 0) / 100000000).toFixed(1)}억
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </section>
@@ -243,6 +287,70 @@ export default function Dashboard() {
               </div>
             )}
           </div>
+          {/* 환율 */}
+          {performance.exchange?.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">환율</div>
+              <div className="grid grid-cols-2 gap-2">
+                {performance.exchange.slice(0, 4).map((r: any, i: number) => (
+                  <div key={i} className="text-xs bg-gray-50 rounded p-1.5">
+                    <span className="text-gray-500">{r.currency || r.name} </span>
+                    <span className="font-medium">{r.rate?.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* F&G 추세 */}
+          {(performance.fear_greed?.previous_1_week != null || performance.fear_greed?.previous_1_month != null) && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">공포·탐욕 추세</div>
+              <div className="flex gap-3 text-xs">
+                <div className="bg-gray-50 rounded p-1.5 flex-1 text-center">
+                  <div className="text-gray-400">1주 전</div>
+                  <div className="font-medium">{performance.fear_greed.previous_1_week ?? "-"}</div>
+                </div>
+                <div className="bg-gray-50 rounded p-1.5 flex-1 text-center">
+                  <div className="text-gray-400">1달 전</div>
+                  <div className="font-medium">{performance.fear_greed.previous_1_month ?? "-"}</div>
+                </div>
+                <div className="bg-gray-50 rounded p-1.5 flex-1 text-center">
+                  <div className="text-gray-400">1년 전</div>
+                  <div className="font-medium">{performance.fear_greed.previous_1_year ?? "-"}</div>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* 매크로 지표 */}
+          {performance.macro_indicators?.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">글로벌 매크로</div>
+              <div className="grid grid-cols-2 gap-1.5">
+                {performance.macro_indicators.slice(0, 8).map((ind: any, i: number) => (
+                  <div key={i} className="flex justify-between text-xs bg-gray-50 rounded p-1.5">
+                    <span className="text-gray-500 truncate">{ind.name || ind.symbol}</span>
+                    <span className={`font-medium ${(ind.change_pct || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                      {ind.price?.toLocaleString()} {ind.change_pct != null ? `(${ind.change_pct >= 0 ? "+" : ""}${ind.change_pct}%)` : ""}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* 테마 예측 */}
+          {performance.theme_forecast?.themes?.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">오늘의 테마 예측</div>
+              {performance.theme_forecast.market_context && (
+                <div className="text-xs text-gray-600 mb-1">{performance.theme_forecast.market_context}</div>
+              )}
+              <div className="flex flex-wrap gap-1">
+                {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => (
+                  <Badge key={i} variant="purple">{t.theme_name || t.name} {t.confidence ? `${t.confidence}%` : ""}</Badge>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
       )}
 
@@ -360,8 +468,13 @@ export default function Dashboard() {
                   </div>
                   <div className="shrink-0">{signalBadge(s.signal)}</div>
                 </div>
-                <div className="text-xs text-gray-500 mt-1">
-                  {s.theme} · 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%
+                <div className="text-xs text-gray-500 mt-1 flex items-center gap-1.5">
+                  <span>{s.theme} · 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%</span>
+                  {s.dual_signal && (
+                    <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "혼조" ? "warning" : "default"}>
+                      {s.dual_signal}
+                    </Badge>
+                  )}
                 </div>
               </div>
             ))}
@@ -630,8 +743,10 @@ export default function Dashboard() {
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{v.name}</div>
                   <div className="text-xs text-gray-500">
-                    {v.ma_aligned ? "MA정배열" : "MA비정배열"}
-                    {v.foreign_net > 0 ? " · 외국인 매수" : ""}
+                    {v.per ? `PER ${v.per}` : v.ma_aligned ? "MA정배열" : "MA비정배열"}
+                    {v.pbr ? ` · PBR ${v.pbr}` : ""}
+                    {v.roe ? ` · ROE ${v.roe}%` : ""}
+                    {!v.per && v.foreign_net > 0 ? " · 외국인 매수" : ""}
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -640,7 +755,7 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
-            <p className="text-[10px] text-gray-400">시가총액 적정 + MA정배열 + 매수신호 + 외국인 매수 종합</p>
+            <p className="text-[10px] text-gray-400">PER · PBR · ROE + 매매신호 종합 밸류 스코어</p>
           </div>
             {!valuation?.length && <Empty />}
         </section>
@@ -798,7 +913,24 @@ export default function Dashboard() {
       {/* 시간대별 수익률 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
         <SectionHeader id="heatmap">시간대별 수익률</SectionHeader>
-        {heatmap?.hours ? (
+        {heatmap?.snapshots?.length ? (
+          <div className="space-y-1.5">
+            {heatmap.snapshots.map((snap: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="text-xs text-gray-500">{snap.time}</div>
+                <div className="flex gap-3 text-xs">
+                  <span className={`font-medium ${(snap.foreign || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    외국인 {snap.foreign >= 0 ? "+" : ""}{(snap.foreign / 100000000).toFixed(1)}억
+                  </span>
+                  <span className={`font-medium ${(snap.institution || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    기관 {snap.institution >= 0 ? "+" : ""}{(snap.institution / 100000000).toFixed(1)}억
+                  </span>
+                </div>
+              </div>
+            ))}
+            <p className="text-[10px] text-gray-400">장중 시간대별 외국인·기관 순매매 추이</p>
+          </div>
+        ) : heatmap?.hours ? (
           <div className="grid grid-cols-7 gap-1">
             {Object.entries(heatmap.hours).map(([hour, ret]: [string, any]) => (
               <div key={hour} className={`text-center p-2 rounded-lg ${ret >= 0.5 ? "bg-red-50" : ret >= 0 ? "bg-gray-50" : "bg-blue-50"}`}>
@@ -810,7 +942,7 @@ export default function Dashboard() {
             ))}
           </div>
         ) : <Empty />}
-        <p className="text-[10px] text-gray-400 mt-2">시간대별 평균 수익률 (양수=상승 경향, 음수=하락 경향)</p>
+        {!heatmap?.snapshots?.length && <p className="text-[10px] text-gray-400 mt-2">시간대별 평균 수익률 (양수=상승 경향, 음수=하락 경향)</p>}
       </section>
 
       {/* 내부자 거래 */}
@@ -884,6 +1016,12 @@ export default function Dashboard() {
             <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
               <div className="min-w-0">
                 <div className="text-sm font-medium truncate">{o.name}</div>
+                {o.bid_ask_ratio != null && (
+                  <div className="text-xs text-gray-500">
+                    매수잔량 {o.bid_volume?.toLocaleString()} · 매도잔량 {o.ask_volume?.toLocaleString()}
+                    {o.bid_ask_ratio ? ` · 비율 ${o.bid_ask_ratio}` : ""}
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <div className="w-16 h-2 bg-gray-100 rounded-full overflow-hidden flex">
@@ -957,6 +1095,96 @@ export default function Dashboard() {
             ))}
           </div>
         ) : <Empty />}
+      </section>
+
+      {/* 증권사 매매 동향 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="member" count={memberTrading?.length ?? 0}>증권사 매매 동향</SectionHeader>
+        <div className="space-y-1.5">
+          {(memberTrading || []).slice(0, 6).map((m, i) => (
+            <div key={i} className="p-2 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium truncate">{m.name}</span>
+                <span className={`text-xs font-medium ${(m.foreign_net || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                  외국인 {m.foreign_net >= 0 ? "+" : ""}{(m.foreign_net / 1000).toFixed(0)}천주
+                </span>
+              </div>
+              <div className="flex gap-2 text-xs text-gray-500">
+                <span>매수: {m.buy_top5?.map((b: any) => b.name || b).join(", ")}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!memberTrading?.length && <Empty />}
+      </section>
+
+      {/* 거래대금 TOP */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="trading_value" count={tradingValue?.length ?? 0}>거래대금 TOP</SectionHeader>
+        <div className="space-y-1.5">
+          {(tradingValue || []).slice(0, 10).map((tv, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
+                </div>
+                <span className="text-sm font-medium truncate">{tv.name}</span>
+              </div>
+              <div className="text-right shrink-0 text-xs">
+                <div className={`font-medium ${(tv.change_rate || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                  {(tv.change_rate || 0) >= 0 ? "+" : ""}{tv.change_rate}%
+                </div>
+                {tv.trading_value && <div className="text-gray-400">{(tv.trading_value / 100000000).toFixed(0)}억</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+        {!tradingValue?.length && <Empty />}
+      </section>
+
+      {/* 모의투자 현황 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="paper_trading">모의투자 현황</SectionHeader>
+        {paperTrading?.stocks?.length ? (
+          <div className="space-y-1.5">
+            <div className="text-xs text-gray-500 mb-2">날짜: {paperTrading.date}</div>
+            {paperTrading.stocks.slice(0, 6).map((s: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <span className="text-sm font-medium truncate">{s.name || s.code}</span>
+                <div className="text-right shrink-0 text-xs">
+                  {s.return_pct != null && (
+                    <span className={`font-medium ${s.return_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                      {s.return_pct >= 0 ? "+" : ""}{s.return_pct}%
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+            {paperTrading.summary && (
+              <div className="text-xs text-gray-500 mt-2 bg-blue-50 rounded p-2">
+                총 수익률: {paperTrading.summary.total_return ?? "-"}%
+              </div>
+            )}
+          </div>
+        ) : <Empty />}
+      </section>
+
+      {/* 예측 적중률 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="forecast" count={forecastAccuracy?.length ?? 0}>예측 적중률</SectionHeader>
+        <div className="space-y-1.5">
+          {(forecastAccuracy || []).map((fc, i) => (
+            <div key={i} className="p-2 bg-gray-50 rounded-lg">
+              <div className="text-xs text-gray-500 mb-1">{fc.date}</div>
+              <div className="flex flex-wrap gap-1">
+                {(fc.themes || []).map((t: string, j: number) => (
+                  <Badge key={j} variant="purple">{t} {fc.confidence?.[j] ? `${fc.confidence[j]}%` : ""}</Badge>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        {!forecastAccuracy?.length && <Empty />}
       </section>
 
       {/* 매매 일지 */}

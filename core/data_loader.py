@@ -83,6 +83,35 @@ class DataLoader:
     def get_simulation(self, category: str = "combined_strong_buy") -> dict:
         return self._load_json(self.signal_path / "simulation" / f"{category}.json")
 
+    # --- KIS Gemini ---
+    def get_kis_gemini(self) -> dict:
+        return self._load_json(self.signal_path / "kis" / "kis_gemini.json")
+
+    def get_kis_analysis(self) -> list:
+        data = self._load_json(self.signal_path / "kis" / "kis_analysis.json")
+        return data.get("results", [])
+
+    # --- Theme 추가 데이터 ---
+    def get_investor_intraday(self) -> dict:
+        return self._load_json(self.theme_path / "investor-intraday.json")
+
+    def get_indicator_history(self) -> dict:
+        return self._load_json(self.theme_path / "indicator-history.json")
+
+    def get_paper_trading_latest(self) -> dict:
+        pt_dir = self.theme_path / "paper-trading"
+        if not pt_dir.exists():
+            return {}
+        files = sorted(pt_dir.glob("*.json"))
+        return self._load_json(files[-1]) if files else {}
+
+    def get_forecast_history(self, count: int = 3) -> list:
+        fh_dir = self.theme_path / "forecast-history"
+        if not fh_dir.exists():
+            return []
+        files = sorted(fh_dir.glob("*.json"))
+        return [self._load_json(f) for f in files[-count:]]
+
     # --- 통합 조회 ---
     def get_macro(self) -> dict:
         return {

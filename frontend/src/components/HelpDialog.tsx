@@ -134,6 +134,22 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
     title: "실적 프리뷰",
     desc: "실적 발표 예정 종목의 사전 수급 변화를 추적합니다. 발표 전 외국인/기관 매수가 급증하면 서프라이즈 가능성, 매도가 늘면 미스 가능성을 시사합니다.",
   },
+  member: {
+    title: "증권사 매매 동향",
+    desc: "종목별 증권사(회원사)의 매수/매도 상위 5개사와 외국인 순매수 현황입니다. 특정 증권사가 집중 매수하면 기관 자금 유입 신호일 수 있습니다.",
+  },
+  trading_value: {
+    title: "거래대금 TOP",
+    desc: "당일 거래대금이 가장 많은 종목 순위입니다. 거래대금이 큰 종목은 시장의 관심이 집중된 종목이며, 유동성이 풍부하여 매매가 용이합니다.",
+  },
+  paper_trading: {
+    title: "모의투자 현황",
+    desc: "AI 신호 기반 모의투자(Paper Trading) 결과입니다. 실제 매매 없이 AI 신호대로 매매했을 때의 성과를 추적하여 신호의 유효성을 검증합니다.",
+  },
+  forecast: {
+    title: "예측 적중률",
+    desc: "테마 예측 모델이 과거에 제시한 예측과 실제 결과를 비교합니다. 예측 적중률이 높을수록 모델의 신뢰도가 높습니다.",
+  },
 };
 
 export function SectionHeader({
