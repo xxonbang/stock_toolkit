@@ -188,7 +188,7 @@ export default function Dashboard() {
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="sentiment">시장 심리 온도계</SectionHeader>
           <div className="flex items-center gap-4 mb-3">
-            <div className="text-3xl font-bold text-gray-900">{sentiment.score}</div>
+            <div className="text-3xl font-bold text-gray-900">{sentiment.score}<span className="text-sm font-normal text-gray-400">/100</span></div>
             <div>
               <div className={`text-sm font-semibold ${sentiment.score < 30 ? "text-blue-600" : sentiment.score < 60 ? "text-gray-600" : "text-red-600"}`}>
                 {sentiment.label}
@@ -280,19 +280,23 @@ export default function Dashboard() {
             </div>
             {performance.kospi && (
               <div className="flex items-center gap-2 min-w-0">
-                <TrendingUp size={14} className="text-gray-400 shrink-0" />
+                {(performance.kospi.change || 0) >= 0
+                  ? <TrendingUp size={14} className="text-red-400 shrink-0" />
+                  : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
                 <div className="min-w-0">
                   <div className="text-sm font-medium">{performance.kospi.current?.toLocaleString()}</div>
-                  <div className="text-xs text-gray-500">KOSPI</div>
+                  <div className="text-xs text-gray-500">KOSPI {performance.kospi.change != null && <span className={`${(performance.kospi.change || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>{performance.kospi.change >= 0 ? "▲" : "▼"}{Math.abs(performance.kospi.change || 0).toFixed(2)}</span>}</div>
                 </div>
               </div>
             )}
             {performance.kosdaq && (
               <div className="flex items-center gap-2 min-w-0">
-                <TrendingUp size={14} className="text-gray-400 shrink-0" />
+                {(performance.kosdaq.change || 0) >= 0
+                  ? <TrendingUp size={14} className="text-red-400 shrink-0" />
+                  : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
                 <div className="min-w-0">
                   <div className="text-sm font-medium">{performance.kosdaq.current?.toLocaleString()}</div>
-                  <div className="text-xs text-gray-500">KOSDAQ</div>
+                  <div className="text-xs text-gray-500">KOSDAQ {performance.kosdaq.change != null && <span className={`${(performance.kosdaq.change || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>{performance.kosdaq.change >= 0 ? "▲" : "▼"}{Math.abs(performance.kosdaq.change || 0).toFixed(2)}</span>}</div>
                 </div>
               </div>
             )}
@@ -316,18 +320,20 @@ export default function Dashboard() {
             <div className="mt-3 pt-3 border-t border-gray-100">
               <div className="text-xs text-gray-500 mb-1.5">공포·탐욕 추세</div>
               <div className="flex gap-3 text-xs">
-                <div className="bg-gray-50 rounded p-1.5 flex-1 text-center">
-                  <div className="text-gray-400">1주 전</div>
-                  <div className="font-medium">{performance.fear_greed.previous_1_week ?? "-"}</div>
-                </div>
-                <div className="bg-gray-50 rounded p-1.5 flex-1 text-center">
-                  <div className="text-gray-400">1달 전</div>
-                  <div className="font-medium">{performance.fear_greed.previous_1_month ?? "-"}</div>
-                </div>
-                <div className="bg-gray-50 rounded p-1.5 flex-1 text-center">
-                  <div className="text-gray-400">1년 전</div>
-                  <div className="font-medium">{performance.fear_greed.previous_1_year ?? "-"}</div>
-                </div>
+                {[
+                  { label: "1주 전", val: performance.fear_greed.previous_1_week },
+                  { label: "1달 전", val: performance.fear_greed.previous_1_month },
+                  { label: "1년 전", val: performance.fear_greed.previous_1_year },
+                ].map((item, idx) => {
+                  const diff = item.val != null ? fgScore - item.val : null;
+                  return (
+                    <div key={idx} className="bg-gray-50 rounded p-1.5 flex-1 text-center">
+                      <div className="text-gray-400">{item.label}</div>
+                      <div className="font-medium">{item.val ?? "-"}</div>
+                      {diff != null && <div className={`text-[10px] ${diff >= 0 ? "text-red-500" : "text-blue-500"}`}>{diff >= 0 ? "▲" : "▼"}{Math.abs(diff).toFixed(1)}p</div>}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -392,20 +398,23 @@ export default function Dashboard() {
             <div className="bg-gray-50 rounded-lg p-2">
               <div className="text-gray-500">외국인</div>
               <div className={`font-semibold ${supplyCluster.foreign_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                {supplyCluster.foreign_net >= 0 ? "+" : ""}{(supplyCluster.foreign_net / 1000).toFixed(0)}천주
+                {supplyCluster.foreign_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.foreign_net) >= 1000000 ? `${(supplyCluster.foreign_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.foreign_net / 1000).toFixed(0)}천주`}
               </div>
+              <div className="text-[9px] text-gray-400 mt-0.5">순매수</div>
             </div>
             <div className="bg-gray-50 rounded-lg p-2">
               <div className="text-gray-500">기관</div>
               <div className={`font-semibold ${supplyCluster.institution_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                {supplyCluster.institution_net >= 0 ? "+" : ""}{(supplyCluster.institution_net / 1000).toFixed(0)}천주
+                {supplyCluster.institution_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.institution_net) >= 1000000 ? `${(supplyCluster.institution_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.institution_net / 1000).toFixed(0)}천주`}
               </div>
+              <div className="text-[9px] text-gray-400 mt-0.5">순매수</div>
             </div>
             <div className="bg-gray-50 rounded-lg p-2">
               <div className="text-gray-500">개인</div>
               <div className={`font-semibold ${supplyCluster.individual_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                {supplyCluster.individual_net >= 0 ? "+" : ""}{(supplyCluster.individual_net / 1000).toFixed(0)}천주
+                {supplyCluster.individual_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.individual_net) >= 1000000 ? `${(supplyCluster.individual_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.individual_net / 1000).toFixed(0)}천주`}
               </div>
+              <div className="text-[9px] text-gray-400 mt-0.5">순매수</div>
             </div>
           </div>
         </section>
@@ -416,7 +425,7 @@ export default function Dashboard() {
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="portfolio" count={portfolio.holdings?.length}>내 포트폴리오</SectionHeader>
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-2xl font-bold text-gray-900">{portfolio.health_score}</div>
+            <div className="text-2xl font-bold text-gray-900">{portfolio.health_score}<span className="text-sm font-normal text-gray-400">/100</span></div>
             <div>
               <div className={`text-sm font-semibold ${portfolio.health_score >= 70 ? "text-green-600" : portfolio.health_score >= 50 ? "text-amber-600" : "text-red-600"}`}>
                 {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
@@ -560,10 +569,11 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="text-right text-xs shrink-0">
-                  {a.ratio && <div className="text-amber-600 font-medium">x{a.ratio}</div>}
+                  {a.ratio && <div className="text-amber-600 font-medium">거래량 x{a.ratio}</div>}
+                  {a.rsi && <div className="text-purple-600 font-medium">RSI {a.rsi}</div>}
                   {a.change_rate != null && (
                     <div className={a.change_rate >= 0 ? "text-red-600" : "text-blue-600"}>
-                      {a.change_rate >= 0 ? "+" : ""}{a.change_rate}%
+                      등락 {a.change_rate >= 0 ? "+" : ""}{a.change_rate}%
                     </div>
                   )}
                 </div>
@@ -622,7 +632,10 @@ export default function Dashboard() {
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {signalBadge(s.signal)}
-                  <span className="text-sm font-bold text-blue-700 w-7 text-right">{s.smart_money_score}</span>
+                  <div className="text-right shrink-0">
+                    <div className="text-sm font-bold text-blue-700">{s.smart_money_score}</div>
+                    <div className="text-[9px] text-gray-400">스코어</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -754,7 +767,10 @@ export default function Dashboard() {
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {signalBadge(s.signal)}
-                  <span className="text-sm font-bold text-orange-600 w-7 text-right">{s.squeeze_score}</span>
+                  <div className="text-right shrink-0">
+                    <div className="text-sm font-bold text-orange-600">{s.squeeze_score}</div>
+                    <div className="text-[9px] text-gray-400">역발상</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -784,7 +800,10 @@ export default function Dashboard() {
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {signalBadge(v.signal)}
-                  <span className="text-sm font-bold text-green-700 w-7 text-right">{v.value_score}</span>
+                  <div className="text-right shrink-0">
+                    <div className="text-sm font-bold text-green-700">{v.value_score}</div>
+                    <div className="text-[9px] text-gray-400">밸류</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -1076,7 +1095,7 @@ export default function Dashboard() {
                   <div className="bg-blue-400 h-full" style={{width: `${100 - (o.buy_pct || 50)}%`}} />
                 </div>
                 <span className={`text-xs font-medium ${(o.buy_pct || 50) > 50 ? "text-red-600" : "text-blue-600"}`}>
-                  {(o.buy_pct || 50) > 50 ? "매수" : "매도"}벽
+                  {(o.buy_pct || 50) > 50 ? "매수" : "매도"}벽 {o.buy_pct || 50}%
                 </span>
               </div>
             </div>
@@ -1101,7 +1120,7 @@ export default function Dashboard() {
                   <div className={`w-12 h-2 bg-gray-100 rounded-full overflow-hidden`}>
                     <div className={`h-full rounded-full ${p.correlation > 0.7 ? "bg-red-400" : p.correlation > 0.3 ? "bg-amber-400" : "bg-green-400"}`} style={{width: `${Math.abs(p.correlation) * 100}%`}} />
                   </div>
-                  <div className="text-[10px] text-gray-500 text-right">{p.correlation?.toFixed(2)}</div>
+                  <div className="text-[10px] text-gray-500 text-right">{p.correlation?.toFixed(2)} {Math.abs(p.correlation) > 0.7 ? "높음" : Math.abs(p.correlation) > 0.3 ? "보통" : "낮음"}</div>
                 </div>
               </div>
             ))}
@@ -1257,9 +1276,9 @@ export default function Dashboard() {
                 <div className="text-sm font-medium truncate">{vp.name}</div>
               </div>
               <div className="flex gap-2 text-xs shrink-0">
-                {vp.poc_1week ? <div className="text-center"><div className="text-gray-400">1주</div><div className="font-medium">{vp.poc_1week?.toLocaleString()}</div></div> : null}
-                {vp.poc_1month ? <div className="text-center"><div className="text-gray-400">1개월</div><div className="font-medium">{vp.poc_1month?.toLocaleString()}</div></div> : null}
-                {vp.poc_3month ? <div className="text-center"><div className="text-gray-400">3개월</div><div className="font-medium">{vp.poc_3month?.toLocaleString()}</div></div> : null}
+                {vp.poc_1week ? <div className="text-center"><div className="text-gray-400">1주 POC</div><div className="font-medium">{vp.poc_1week?.toLocaleString()}원</div></div> : null}
+                {vp.poc_1month ? <div className="text-center"><div className="text-gray-400">1개월 POC</div><div className="font-medium">{vp.poc_1month?.toLocaleString()}원</div></div> : null}
+                {vp.poc_3month ? <div className="text-center"><div className="text-gray-400">3개월 POC</div><div className="font-medium">{vp.poc_3month?.toLocaleString()}원</div></div> : null}
               </div>
             </div>
           ))}
@@ -1281,7 +1300,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <Badge variant={sc.consistency === "일관" ? "success" : sc.consistency === "변동" ? "danger" : "warning"}>
-                {sc.consistency}
+                {sc.consistency === "일관" ? `${sc.days}일 연속` : sc.consistency === "변동" ? "신호 불안정" : "부분 일치"}
               </Badge>
             </div>
           ))}
