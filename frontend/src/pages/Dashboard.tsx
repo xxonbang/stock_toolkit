@@ -456,16 +456,31 @@ export default function Dashboard() {
             </div>
           )}
           {/* 매크로 추세 (indicator-history) */}
-          {indicatorHistory && Object.keys(indicatorHistory).length > 0 && (
+          {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100">
-              <div className="text-xs text-gray-500 mb-1.5">매크로 추세</div>
+              <div className="text-xs text-gray-500 mb-1.5">매크로 추세 (최근 변동)</div>
               <div className="grid grid-cols-2 gap-1.5">
-                {Object.entries(indicatorHistory).slice(0, 6).map(([key, val]: [string, any]) => (
-                  <div key={key} className="flex justify-between text-xs bg-gray-50 rounded p-1.5">
-                    <span className="text-gray-500 truncate">{key}</span>
-                    <span className="font-medium">{typeof val === "number" ? val.toLocaleString() : typeof val === "object" && val?.value != null ? val.value : "-"}</span>
-                  </div>
-                ))}
+                {Object.entries(indicatorHistory.macro as Record<string, any[]>).slice(0, 6).map(([symbol, history]: [string, any]) => {
+                  const arr = Array.isArray(history) ? history : [];
+                  const latest = arr[arr.length - 1];
+                  const prev = arr[arr.length - 2];
+                  if (!latest) return null;
+                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "MU": "마이크론", "SOXX": "SOXX", "EWY": "EWY", "KORU": "KORU", "^VIX": "VIX", "FNG": "F&G" };
+                  return (
+                    <div key={symbol} className="bg-gray-50 rounded-lg p-2">
+                      <div className="text-[10px] text-gray-400 mb-0.5">{nameMap[symbol] || symbol}</div>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-semibold text-gray-900">{latest.price?.toLocaleString()}</span>
+                        {latest.change_pct != null && (
+                          <span className={`text-[10px] font-medium ${latest.change_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {latest.change_pct >= 0 ? "+" : ""}{latest.change_pct}%
+                          </span>
+                        )}
+                      </div>
+                      {prev && <div className="text-[9px] text-gray-400 mt-0.5">전일 {prev.price?.toLocaleString()}</div>}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
