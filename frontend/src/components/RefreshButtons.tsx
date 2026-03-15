@@ -2,11 +2,12 @@ import { useState } from "react";
 import { RefreshCw, Sparkles } from "lucide-react";
 
 const CRONJOB_API_KEY = import.meta.env.VITE_CRONJOB_API_KEY || "";
-const DATA_ONLY_JOB_ID = "7375005";
-const FULL_JOB_IDS = ["7375862", "7375863", "7375864", "7375865"];
+const MANUAL_DATA_JOB = "7376450";
+const MANUAL_FULL_JOB = "7376451";
 
-async function triggerCronJob(jobId: string): Promise<boolean> {
+async function triggerManualJob(jobId: string): Promise<boolean> {
   try {
+    // Enable the job (schedule is every minute, so it runs within 60s)
     const res = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
       method: "PATCH",
       headers: {
@@ -15,7 +16,21 @@ async function triggerCronJob(jobId: string): Promise<boolean> {
       },
       body: JSON.stringify({ job: { enabled: true } }),
     });
-    return res.ok;
+    if (!res.ok) return false;
+
+    // Disable after 90s to prevent repeated runs
+    setTimeout(async () => {
+      await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${CRONJOB_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ job: { enabled: false } }),
+      });
+    }, 90000);
+
+    return true;
   } catch {
     return false;
   }
@@ -30,18 +45,20 @@ export default function RefreshButtons() {
     setLoading(mode);
     setResult(null);
     try {
-      let ok: boolean;
-      if (mode === "data-only") {
-        ok = await triggerCronJob(DATA_ONLY_JOB_ID);
+      const jobId = mode === "data-only" ? MANUAL_DATA_JOB : MANUAL_FULL_JOB;
+      const ok = await triggerManualJob(jobId);
+      if (ok) {
+        setResult("갱신 시작! 약 2분 후 자동 반영");
+        // Auto-reload after 2.5 minutes
+        setTimeout(() => window.location.reload(), 150000);
       } else {
-        ok = await triggerCronJob(FULL_JOB_IDS[0]);
+        setResult("요청 실패");
       }
-      setResult(ok ? "갱신 요청 완료 (1~2분 후 반영)" : "요청 실패");
     } catch {
       setResult("네트워크 오류");
     }
     setLoading(null);
-    setTimeout(() => setResult(null), 5000);
+    setTimeout(() => setResult(null), 8000);
   }
 
   if (!CRONJOB_API_KEY) return null;
@@ -67,7 +84,7 @@ export default function RefreshButtons() {
         AI
       </button>
       {result && (
-        <div className={`text-[11px] ${result.includes("완료") ? "text-green-600" : "text-red-500"}`}>
+        <div className={`text-[11px] ${result.includes("시작") ? "text-green-600" : "text-red-500"}`}>
           {result}
         </div>
       )}
