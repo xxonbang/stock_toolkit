@@ -294,19 +294,27 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-              {/* 투자자 동향 */}
+              {/* 투자자 동향 (일별 외국인/기관/개인) */}
               {sentiment.components.investor_trend?.length > 0 && (
                 <div className="pt-2 border-t border-gray-100">
-                  <div className="text-xs text-gray-400 mb-1">투자자 동향</div>
+                  <div className="text-xs text-gray-400 mb-1">최근 투자자 동향 (KOSPI)</div>
                   <div className="grid grid-cols-1 gap-1">
-                    {sentiment.components.investor_trend.slice(0, 3).map((inv: any, i: number) => (
-                      <div key={i} className="flex justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1">
-                        <span className="text-gray-500">{inv.investor || inv.name}</span>
-                        <span className={`font-medium ${(inv.net_buy || inv.amount || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          {(inv.net_buy || inv.amount || 0) >= 0 ? "+" : ""}{((inv.net_buy || inv.amount || 0) / 100000000).toFixed(1)}억
-                        </span>
-                      </div>
-                    ))}
+                    {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
+                      const k = day.kospi || day;
+                      return (
+                        <div key={i} className="flex items-center justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1.5">
+                          <span className="text-gray-500">{day.date}</span>
+                          <div className="flex gap-2">
+                            <span className={`font-medium ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                              외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 10000).toFixed(0)}만
+                            </span>
+                            <span className={`font-medium ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                              기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
