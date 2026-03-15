@@ -24,6 +24,13 @@ jobs:
     environment:
       name: github-pages
     steps:
+      - name: 배포 시작 알림
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d parse_mode=HTML \
+            -d text="🚀 <b>[Stock Toolkit] 배포 시작</b>%0A모드: ${{ inputs.mode || 'data-only' }}%0A트리거: ${{ github.event_name }}"
+
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
@@ -67,3 +74,19 @@ jobs:
         with:
           path: frontend/dist
       - uses: actions/deploy-pages@v4
+
+      - name: 배포 완료 알림
+        if: success()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d parse_mode=HTML \
+            -d text="✅ <b>[Stock Toolkit] 배포 완료</b>%0A모드: ${{ inputs.mode || 'data-only' }}%0A🔗 https://xxonbang.github.io/stock_toolkit/"
+
+      - name: 배포 실패 알림
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d parse_mode=HTML \
+            -d text="❌ <b>[Stock Toolkit] 배포 실패</b>%0A모드: ${{ inputs.mode || 'data-only' }}%0A확인: https://github.com/xxonbang/stock_toolkit/actions"
