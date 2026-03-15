@@ -306,12 +306,23 @@ export default function Dashboard() {
             <div className="mt-3 pt-3 border-t border-gray-100">
               <div className="text-xs text-gray-500 mb-1.5">환율</div>
               <div className="grid grid-cols-2 gap-2">
-                {performance.exchange.slice(0, 4).map((r: any, i: number) => (
-                  <div key={i} className="text-xs bg-gray-50 rounded p-1.5">
-                    <span className="text-gray-500">{r.currency || r.name} </span>
-                    <span className="font-medium">{r.rate?.toLocaleString()}</span>
-                  </div>
-                ))}
+                {performance.exchange.slice(0, 4).map((r: any, i: number) => {
+                  const label: Record<string, string> = { USD: "원/달러", JPY: "원/엔(100)", EUR: "원/유로", CNY: "원/위안" };
+                  const cur = r.currency || r.name || "";
+                  return (
+                    <div key={i} className="text-xs bg-gray-50 rounded p-1.5 flex justify-between">
+                      <span className="text-gray-500">{label[cur] || cur}</span>
+                      <span>
+                        <span className="font-medium">{r.rate?.toLocaleString()}원</span>
+                        {r.change_rate != null && (
+                          <span className={`ml-1 ${r.change_rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {r.change_rate >= 0 ? "▲" : "▼"}{Math.abs(r.change_rate)}%
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -502,7 +513,7 @@ export default function Dashboard() {
                   <div className="shrink-0">{signalBadge(s.signal)}</div>
                 </div>
                 <div className="text-xs text-gray-500 mt-1 flex items-center gap-1.5">
-                  <span>{s.theme} · 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%</span>
+                  <span>{s.theme} · AI 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%</span>
                   {s.dual_signal && (
                     <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "혼조" ? "warning" : "default"}>
                       {s.dual_signal}
@@ -649,30 +660,41 @@ export default function Dashboard() {
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="simulation">전략 시뮬레이션</SectionHeader>
           <div className="space-y-2">
-            {(simulation || []).map((s, i) => (
-              <div key={i} className="p-3 bg-gray-50 rounded-lg">
-                <div className="text-xs text-blue-600 font-medium mb-2 flex items-center gap-1">
-                  <Activity size={12} className="shrink-0" />
-                  <span className="truncate">{s.strategy}</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div>
-                    <div className="text-[10px] text-gray-500">총 거래</div>
-                    <div className="text-sm font-semibold">{s.total_trades}건</div>
+            {(simulation || []).map((s, i) => {
+              const strategyLabel = (s.strategy || "")
+                .replace("signal=적극매수", "적극매수 신호")
+                .replace("signal=매수", "매수 신호")
+                .replace(/hold=(\d+)/, "→ $1일 보유")
+                .replace(/stop=(-?\d+)/, "· 손절 $1%");
+              return (
+                <div key={i} className="p-3 bg-gray-50 rounded-lg">
+                  <div className="text-xs text-blue-600 font-medium mb-2 flex items-center gap-1">
+                    <Activity size={12} className="shrink-0" />
+                    <span className="truncate">{strategyLabel || s.strategy}</span>
                   </div>
-                  <div>
-                    <div className="text-[10px] text-gray-500">승률</div>
-                    <div className={`text-sm font-semibold ${s.win_rate >= 50 ? "text-red-600" : "text-blue-600"}`}>{s.win_rate}%</div>
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-gray-500">평균수익</div>
-                    <div className={`text-sm font-semibold ${(s.returns?.mean || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                      {s.returns?.mean >= 0 ? "+" : ""}{s.returns?.mean?.toFixed(1)}%
+                  {s.total_trades > 0 ? (
+                    <div className="grid grid-cols-3 gap-2 text-center">
+                      <div>
+                        <div className="text-[10px] text-gray-500">총 거래</div>
+                        <div className="text-sm font-semibold">{s.total_trades}건</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-gray-500">승률</div>
+                        <div className={`text-sm font-semibold ${s.win_rate >= 50 ? "text-red-600" : "text-blue-600"}`}>{s.win_rate}%</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-gray-500">평균수익</div>
+                        <div className={`text-sm font-semibold ${(s.returns?.mean || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                          {s.returns?.mean >= 0 ? "+" : ""}{s.returns?.mean?.toFixed(1)}%
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="text-xs text-gray-400 text-center py-1">거래 데이터 축적 중</div>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
             {!simulation?.length && <Empty />}
         </section>
@@ -1039,13 +1061,21 @@ export default function Dashboard() {
             <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
               <div className="min-w-0">
                 <div className="text-sm font-medium truncate">{c.name}</div>
-                <div className="text-xs text-gray-500">현재가 {c.current_price?.toLocaleString()}원</div>
+                <div className="text-xs text-gray-500">
+                  {c.current_price > 0 ? `현재가 ${c.current_price?.toLocaleString()}원` : "매수 신호 종목"}
+                </div>
               </div>
               <div className="text-right shrink-0">
-                <div className="text-xs font-medium text-amber-600">목표 {c.target_price?.toLocaleString()}원</div>
-                <div className={`text-[10px] ${c.gap_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                  괴리 {c.gap_pct >= 0 ? "+" : ""}{c.gap_pct}%
-                </div>
+                {c.target_price > 0 ? (
+                  <>
+                    <div className="text-xs font-medium text-amber-600">목표 {c.target_price?.toLocaleString()}원</div>
+                    <div className={`text-[10px] ${c.gap_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                      괴리 {c.gap_pct >= 0 ? "+" : ""}{c.gap_pct}%
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-xs text-gray-400">목표가 수집 중</div>
+                )}
               </div>
             </div>
           ))}
@@ -1091,11 +1121,19 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <div className="w-16 h-2 bg-gray-100 rounded-full overflow-hidden flex">
-                  <div className="bg-red-400 h-full" style={{width: `${o.buy_pct || 50}%`}} />
-                  <div className="bg-blue-400 h-full" style={{width: `${100 - (o.buy_pct || 50)}%`}} />
+                  {(() => {
+                    const pct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
+                    return (<><div className="bg-red-400 h-full" style={{width: `${pct}%`}} /><div className="bg-blue-400 h-full" style={{width: `${100 - pct}%`}} /></>);
+                  })()}
                 </div>
-                <span className={`text-xs font-medium ${(o.buy_pct || 50) > 50 ? "text-red-600" : "text-blue-600"}`}>
-                  {(o.buy_pct || 50) > 50 ? "매수" : "매도"}벽 {o.buy_pct || 50}%
+                <span className={`text-xs font-medium ${(() => {
+                  const pct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
+                  return pct > 50 ? "text-red-600" : "text-blue-600";
+                })()}`}>
+                  {(() => {
+                    const pct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
+                    return `${pct > 50 ? "매수" : "매도"}우위 ${pct}%`;
+                  })()}
                 </span>
               </div>
             </div>
@@ -1345,21 +1383,25 @@ export default function Dashboard() {
           {(intradayStockFlow || []).slice(0, 10).map((isf, i) => (
             <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
               <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{isf.code}</div>
-                {isf.change_rate != null && (
-                  <div className={`text-xs ${(isf.change_rate || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                    {isf.change_rate >= 0 ? "+" : ""}{isf.change_rate}%
-                  </div>
-                )}
+                <div className="text-sm font-medium truncate">{isf.name || isf.code}</div>
+                <div className="text-xs text-gray-500">
+                  {isf.name ? isf.code : ""}
+                  {isf.current_price > 0 && <span className="ml-1">{isf.current_price?.toLocaleString()}원</span>}
+                  {isf.change_rate != null && (
+                    <span className={`ml-1 ${(isf.change_rate || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                      {isf.change_rate >= 0 ? "+" : ""}{isf.change_rate}%
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="flex gap-2 text-xs shrink-0">
                 <div className={`text-center ${(isf.foreign || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
                   <div className="text-gray-400">외국인</div>
-                  <div className="font-medium">{isf.foreign >= 0 ? "+" : ""}{isf.foreign?.toLocaleString()}</div>
+                  <div className="font-medium">{isf.foreign >= 0 ? "+" : ""}{Math.abs(isf.foreign) >= 10000 ? `${(isf.foreign / 10000).toFixed(0)}만주` : `${isf.foreign?.toLocaleString()}주`}</div>
                 </div>
                 <div className={`text-center ${(isf.institution || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
                   <div className="text-gray-400">기관</div>
-                  <div className="font-medium">{isf.institution >= 0 ? "+" : ""}{isf.institution?.toLocaleString()}</div>
+                  <div className="font-medium">{isf.institution >= 0 ? "+" : ""}{Math.abs(isf.institution) >= 10000 ? `${(isf.institution / 10000).toFixed(0)}만주` : `${isf.institution?.toLocaleString()}주`}</div>
                 </div>
               </div>
             </div>
