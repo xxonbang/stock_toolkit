@@ -263,90 +263,31 @@ export default function Dashboard() {
         </section>
       )}
 
-      {/* 시장 심리 온도계 */}
-      {sentiment && (
-        <section className="bg-white border border-gray-200 rounded-xl p-4">
-          <SectionHeader id="sentiment">시장 심리 온도계</SectionHeader>
-          <div className="flex items-center gap-4 mb-3">
-            <div className="text-3xl font-bold text-gray-900">{sentiment.score}<span className="text-sm font-normal text-gray-400">/100</span></div>
-            <div>
-              <div className={`text-sm font-semibold ${sentiment.score < 30 ? "text-blue-600" : sentiment.score < 60 ? "text-gray-600" : "text-red-600"}`}>
-                {sentiment.label}
-              </div>
-              <div className="text-xs text-gray-500">{sentiment.strategy}</div>
-            </div>
-          </div>
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-3">
-            <div
-              className={`h-full rounded-full ${sentiment.score < 30 ? "bg-blue-500" : sentiment.score < 60 ? "bg-gray-400" : "bg-red-500"}`}
-              style={{ width: `${sentiment.score}%` }}
-            />
-          </div>
-          <div className="flex justify-between text-[10px] text-gray-400 mb-3">
-            <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
-          </div>
-          {sentiment.components && (
-            <div className="space-y-2">
-              <div className="grid grid-cols-2 gap-2">
-                {Object.entries(sentiment.components)
-                  .filter(([key]) => ["fear_greed", "vix", "kospi_deviation", "foreign_flow"].includes(key))
-                  .map(([key, comp]: [string, any]) => (
-                  <div key={key} className="text-xs bg-gray-50 rounded p-2">
-                    <div className="text-gray-500">{key === "fear_greed" ? "F&G" : key === "vix" ? "VIX" : key === "kospi_deviation" ? "KOSPI 이격도" : "외국인 수급"}</div>
-                    <div className="font-medium">{typeof comp.value === 'number' ? (Number.isInteger(comp.value) ? comp.value.toLocaleString() : comp.value) : comp.value}</div>
-                  </div>
-                ))}
-              </div>
-              {/* 매크로 지표 */}
-              {sentiment.components.macro?.length > 0 && (
-                <div className="pt-2 border-t border-gray-100">
-                  <div className="text-xs text-gray-400 mb-1">글로벌 지표</div>
-                  <div className="grid grid-cols-2 gap-1">
-                    {sentiment.components.macro.slice(0, 6).map((ind: any, i: number) => (
-                      <div key={i} className="flex justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1">
-                        <span className="text-gray-500 truncate">{ind.name || ind.symbol}</span>
-                        <span className={`font-medium ${(ind.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          {ind.change_pct != null ? `${ind.change_pct >= 0 ? "+" : ""}${ind.change_pct}%` : "-"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {/* 투자자 동향 (일별 외국인/기관/개인) */}
-              {sentiment.components.investor_trend?.length > 0 && (
-                <div className="pt-2 border-t border-gray-100">
-                  <div className="text-xs text-gray-400 mb-1">최근 투자자 동향 (KOSPI)</div>
-                  <div className="grid grid-cols-1 gap-1">
-                    {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
-                      const k = day.kospi || day;
-                      return (
-                        <div key={i} className="flex items-center justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1.5">
-                          <span className="text-gray-500">{day.date}</span>
-                          <div className="flex gap-2">
-                            <span className={`font-medium ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                              외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 10000).toFixed(0)}만
-                            </span>
-                            <span className={`font-medium ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                              기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
-                            </span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </section>
-      )}
-
-
-      {/* 시장 현황 */}
+      {/* 시장 현황 (심리 온도계 통합) */}
       {performance && (
         <section className="bg-white border border-gray-200 rounded-xl p-4">
           <SectionHeader id="market">시장 현황</SectionHeader>
+
+          {/* 시장 심리 — 시장 현황 상단에 통합 */}
+          {sentiment && (
+            <div className="mb-4 pb-4 border-b border-gray-100">
+              <div className="flex items-center gap-4 mb-2">
+                <div className="text-2xl font-bold text-gray-900">{sentiment.score}<span className="text-xs font-normal text-gray-400">/100</span></div>
+                <div>
+                  <div className={`text-sm font-semibold ${sentiment.score < 30 ? "text-blue-600" : sentiment.score < 60 ? "text-gray-600" : "text-red-600"}`}>
+                    {sentiment.label}
+                  </div>
+                  <div className="text-[10px] text-gray-500">{sentiment.strategy}</div>
+                </div>
+              </div>
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden mb-1.5">
+                <div className={`h-full rounded-full ${sentiment.score < 30 ? "bg-blue-500" : sentiment.score < 60 ? "bg-gray-400" : "bg-red-500"}`} style={{ width: `${sentiment.score}%` }} />
+              </div>
+              <div className="flex justify-between text-[9px] text-gray-400">
+                <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
+              </div>
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Gauge value={fgScore} max={100} label="공포·탐욕 지수" color={fgColor} />
@@ -485,6 +426,30 @@ export default function Dashboard() {
                     <span className="font-medium">{typeof val === "number" ? val.toLocaleString() : typeof val === "object" && val?.value != null ? val.value : "-"}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+          {/* 투자자 동향 — 시장 현황 내 통합 */}
+          {sentiment?.components?.investor_trend?.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">최근 투자자 동향 (KOSPI)</div>
+              <div className="grid grid-cols-1 gap-1">
+                {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
+                  const k = day.kospi || day;
+                  return (
+                    <div key={i} className="flex items-center justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1.5">
+                      <span className="text-gray-500">{day.date}</span>
+                      <div className="flex gap-2">
+                        <span className={`font-medium ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 10000).toFixed(0)}만
+                        </span>
+                        <span className={`font-medium ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
