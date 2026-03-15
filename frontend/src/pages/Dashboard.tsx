@@ -163,29 +163,60 @@ export default function Dashboard() {
 
   // 카테고리 퀵 네비게이션
   const categories = [
-    { id: "cat-market", label: "시장" },
-    { id: "cat-signal", label: "신호" },
-    { id: "cat-analysis", label: "분석" },
-    { id: "cat-strategy", label: "전략" },
-    { id: "cat-system", label: "시스템" },
+    { id: "cat-market", label: "시장", icon: "📊" },
+    { id: "cat-signal", label: "신호", icon: "🎯" },
+    { id: "cat-analysis", label: "분석", icon: "🔍" },
+    { id: "cat-strategy", label: "전략", icon: "⚡" },
+    { id: "cat-system", label: "시스템", icon: "🤖" },
   ];
+  const [activeCategory, setActiveCategory] = useState("cat-market");
+
+  // 스크롤 위치에 따라 활성 카테고리 추적
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveCategory(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-80px 0px -70% 0px", threshold: 0 }
+    );
+    categories.forEach((cat) => {
+      const el = document.getElementById(cat.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
-      {/* 헤더 — sticky */}
-      <div className="sticky top-0 z-10 bg-gray-50 -mx-4 px-4 pt-1 pb-3">
-        <div className="flex items-center justify-between mb-2">
+      {/* 헤더 — sticky + 블러 배경 */}
+      <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-2.5 bg-gray-50/80 backdrop-blur-md border-b border-gray-100/50">
+        <div className="flex items-center justify-between mb-2.5">
           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <BarChart3 size={22} className="text-blue-600" />
             Stock Toolkit
           </h1>
           <RefreshButtons />
         </div>
-        {/* 카테고리 퀵 점프 */}
-        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+        {/* 카테고리 퀵 점프 — 세련된 디자인 */}
+        <div className="flex gap-1 bg-gray-100/80 rounded-xl p-1">
           {categories.map((cat) => (
-            <button key={cat.id} onClick={() => document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="px-3 py-1 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition whitespace-nowrap shrink-0">
+            <button
+              key={cat.id}
+              onClick={() => {
+                setActiveCategory(cat.id);
+                document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className={`flex-1 flex items-center justify-center gap-1 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
+                activeCategory === cat.id
+                  ? "bg-white text-blue-600 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              <span className="text-[10px]">{cat.icon}</span>
               {cat.label}
             </button>
           ))}
