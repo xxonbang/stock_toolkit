@@ -137,7 +137,7 @@ def main():
     gemini_anom_map = kis_gemini_anom.get("stocks", {}) if isinstance(kis_gemini_anom, dict) else {}
     for code_anom, gem_anom in gemini_anom_map.items():
         ph_anom = gem_anom.get("price_history", []) if isinstance(gem_anom, dict) else []
-        if ph_anom:
+        if isinstance(ph_anom, list) and ph_anom:
             rsi_a = ph_anom[-1].get("rsi_14", 0) or 0
             name_a = gem_anom.get("name", code_anom)
             if rsi_a > 80 and code_anom not in seen_codes:
@@ -223,7 +223,7 @@ def main():
         # RSI 조회
         gem_rsi = gemini_rsi_map.get(code, {})
         ph_rsi = gem_rsi.get("price_history", []) if isinstance(gem_rsi, dict) else []
-        rsi_val = ph_rsi[-1].get("rsi_14", 0) if ph_rsi else 0
+        rsi_val = ph_rsi[-1].get("rsi_14", 0) if isinstance(ph_rsi, list) and ph_rsi else 0
 
         # 위험도 직접 계산
         warnings = []
@@ -327,7 +327,7 @@ def main():
             code = match_item.get("code", "")
             gem = gemini_stocks_pat.get(code, {})
             ph = gem.get("price_history", []) if isinstance(gem, dict) else []
-            if len(ph) >= 20:
+            if isinstance(ph, list) and len(ph) >= 20:
                 used_kis = True
                 prices = [float(p.get("close", 0)) for p in ph[-20:]]
                 similar = find_similar_patterns(prices, signal_history)
@@ -950,8 +950,12 @@ def main():
     price_history_top = {}
     for sig in combined[:10]:
         code = sig.get("code", "")
-        hist = history_data.get(code, []) if isinstance(history_data, dict) else []
-        if hist:
+        hist = history_data.get(code, {}) if isinstance(history_data, dict) else {}
+        if isinstance(hist, dict):
+            raw = hist.get("raw_daily_prices", hist.get("changes", []))
+            if isinstance(raw, list) and raw:
+                price_history_top[code] = {"name": sig.get("name", ""), "data": raw[-3:]}
+        elif isinstance(hist, list) and hist:
             price_history_top[code] = {"name": sig.get("name", ""), "data": hist[-3:]}
     report["price_history"] = price_history_top
     with open(results_dir / "performance.json", "w", encoding="utf-8") as f:
