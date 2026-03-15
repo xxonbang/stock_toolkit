@@ -148,7 +148,17 @@ def main():
     with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
         json.dump(anomalies, f, ensure_ascii=False, indent=2)
 
-    # 스마트 머니 — combined signals + investor_data + 이중 검증
+    # kis_analysis 4차원 점수 로드
+    kis_analysis_data = loader.get_kis_analysis()
+    kis_analysis_map = {}
+    if isinstance(kis_analysis_data, list):
+        for ka in kis_analysis_data:
+            if isinstance(ka, dict) and ka.get("code"):
+                kis_analysis_map[ka["code"]] = ka
+    elif isinstance(kis_analysis_data, dict):
+        kis_analysis_map = kis_analysis_data
+
+    # 스마트 머니 — combined signals + investor_data + 이중 검증 + 4차원 점수
     smart_money_results = []
     for sig in combined:
         code = sig.get("code", "")
@@ -172,6 +182,9 @@ def main():
         elif api_sig in ("적극매수", "매수"):
             score += 5
         dual = "고확신" if api_sig in ("매수", "적극매수") and match_st == "match" else "확인필요" if signal in ("매수", "적극매수") else "혼조"
+        # kis_analysis 4차원 점수
+        ka = kis_analysis_map.get(code, {})
+        ka_scores = ka.get("scores", {}) if isinstance(ka, dict) else {}
         if score >= 70:
             smart_money_results.append({
                 "code": code, "name": sig.get("name", ""),
@@ -179,6 +192,11 @@ def main():
                 "signal": signal, "foreign_net": foreign_net,
                 "api_signal": api_sig, "match_status": match_st,
                 "dual_signal": dual,
+                "tech_score": ka_scores.get("technical", ka.get("technical_score")),
+                "supply_score": ka_scores.get("supply", ka.get("supply_score")),
+                "value_score_4d": ka_scores.get("value", ka.get("value_score")),
+                "material_score": ka_scores.get("material", ka.get("material_score")),
+                "total_score": ka.get("total_score", ka.get("score")),
             })
     smart_money_results.sort(key=lambda x: x["smart_money_score"], reverse=True)
     with open(results_dir / "smart_money.json", "w", encoding="utf-8") as f:
@@ -242,6 +260,9 @@ def main():
         mkt_info = gem_rsi.get("market_info", {}) if isinstance(gem_rsi, dict) else {}
         trading_info = gem_rsi.get("trading", {}) if isinstance(gem_rsi, dict) else {}
         program_net = inv.get("program_net", 0) if isinstance(inv, dict) else 0
+        # kis_analysis 4차원 점수
+        ka = kis_analysis_map.get(code, {})
+        ka_scores = ka.get("scores", {}) if isinstance(ka, dict) else {}
 
         scanner_stocks.append({
             "code": code, "name": sig.get("name", ""),
@@ -262,6 +283,12 @@ def main():
             "volume_turnover_pct": trading_info.get("volume_turnover_pct"),
             "market_cap_billion": mkt_info.get("market_cap_billion"),
             "program_net": program_net,
+            # kis_analysis 4차원 점수
+            "tech_score": ka_scores.get("technical", ka.get("technical_score")) if ka else None,
+            "supply_score": ka_scores.get("supply", ka.get("supply_score")) if ka else None,
+            "value_score_4d": ka_scores.get("value", ka.get("value_score")) if ka else None,
+            "material_score": ka_scores.get("material", ka.get("material_score")) if ka else None,
+            "total_score": ka.get("total_score", ka.get("score")) if ka else None,
         })
 
     risk_results.sort(key=lambda x: len(x.get("warnings", [])), reverse=True)

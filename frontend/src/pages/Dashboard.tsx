@@ -102,6 +102,7 @@ export default function Dashboard() {
   const [signalConsistency, setSignalConsistency] = useState<any[] | null>(null);
   const [simulationHistory, setSimulationHistory] = useState<any[] | null>(null);
   const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
+  const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -144,6 +145,7 @@ export default function Dashboard() {
     dataService.getSignalConsistency().then(setSignalConsistency);
     dataService.getSimulationHistory().then(setSimulationHistory);
     dataService.getIntradayStockFlow().then(setIntradayStockFlow);
+    dataService.getIndicatorHistory().then(setIndicatorHistory);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -355,6 +357,20 @@ export default function Dashboard() {
               <div className="flex flex-wrap gap-1">
                 {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => (
                   <Badge key={i} variant="purple">{t.theme_name || t.name} {t.confidence ? `${t.confidence}%` : ""}</Badge>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* 매크로 추세 (indicator-history) */}
+          {indicatorHistory && Object.keys(indicatorHistory).length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <div className="text-xs text-gray-500 mb-1.5">매크로 추세</div>
+              <div className="grid grid-cols-2 gap-1.5">
+                {Object.entries(indicatorHistory).slice(0, 6).map(([key, val]: [string, any]) => (
+                  <div key={key} className="flex justify-between text-xs bg-gray-50 rounded p-1.5">
+                    <span className="text-gray-500 truncate">{key}</span>
+                    <span className="font-medium">{typeof val === "number" ? val.toLocaleString() : typeof val === "object" && val?.value != null ? val.value : "-"}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -599,7 +615,7 @@ export default function Dashboard() {
                     <span className="text-sm font-medium truncate block">{s.name}</span>
                     {s.dual_signal && (
                       <span className={`text-[10px] ${s.dual_signal === "고확신" ? "text-green-600" : "text-gray-400"}`}>
-                        {s.dual_signal}
+                        {s.dual_signal}{s.total_score != null ? ` · 종합 ${s.total_score}점` : ""}
                       </span>
                     )}
                   </div>

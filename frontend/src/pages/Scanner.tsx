@@ -192,8 +192,13 @@ export default function Scanner() {
                     {s.match_status === "match" && (
                       <div className="text-[10px] text-green-600">이중 매칭 확인</div>
                     )}
-                    {s.golden_cross && <span className="text-[10px] text-red-400 mr-1">골든크로스</span>}
-                    {s.high_breakout && <span className="text-[10px] text-red-400 mr-1">신고가</span>}
+                    <div className="flex flex-wrap gap-1 justify-end">
+                      {s.golden_cross && <span className="text-[10px] text-red-400">골든크로스</span>}
+                      {s.high_breakout && <span className="text-[10px] text-red-400">신고가</span>}
+                      {s.foreign_holding_pct != null && <span className="text-[10px] text-gray-400">외보 {s.foreign_holding_pct}%</span>}
+                      {s.market_cap_billion != null && <span className="text-[10px] text-gray-400">{s.market_cap_billion}조</span>}
+                      {s.total_score != null && <span className="text-[10px] text-purple-500">종합 {s.total_score}점</span>}
+                    </div>
                   </div>
                 </div>
               ))}
