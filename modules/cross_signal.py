@@ -33,10 +33,12 @@ def format_cross_signal_alert(matches: list) -> str:
         return ""
     lines = ["<b>[고확신 매매 후보] 크로스 시그널</b>", "━" * 20]
     for m in matches:
+        sig = m.get('vision_signal', m.get('signal', '-'))
+        dual = f" [{m['dual_signal']}]" if m.get('dual_signal') else ""
         lines.append(
-            f"\n<b>{m['name']} ({m['code']})</b>\n"
-            f"테마: {m['theme']} (#{m.get('theme_rank', '-')})\n"
-            f"신호: {m['signal']} (점수: {m.get('score', '-')})"
+            f"\n<b>{m.get('name', '')} ({m.get('code', '')})</b>\n"
+            f"테마: {m.get('theme', '')} (#{m.get('theme_rank', '-')})\n"
+            f"신호: {sig}{dual} (점수: {m.get('score', '-')})"
         )
     lines.append("━" * 20)
     return "\n".join(lines)
