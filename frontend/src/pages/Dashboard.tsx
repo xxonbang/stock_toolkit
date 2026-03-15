@@ -5,7 +5,7 @@ import {
 } from "recharts";
 import {
   TrendingUp, TrendingDown, Shield,
-  Activity, BarChart3, Zap, LineChart,
+  Activity, BarChart3, Zap, LineChart, ChevronUp,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -170,6 +170,7 @@ export default function Dashboard() {
     { id: "cat-system", label: "시스템", icon: "🤖" },
   ];
   const [activeCategory, setActiveCategory] = useState("cat-market");
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // 스크롤 위치에 따라 활성 카테고리 추적
   useEffect(() => {
@@ -188,6 +189,13 @@ export default function Dashboard() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
+  }, []);
+
+  // 스크롤 위치 감지 — 최상단 버튼 표시
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -1517,6 +1525,17 @@ export default function Dashboard() {
         </div>
         {!(tradingJournal?.entries || []).length && <Empty />}
       </section>
+
+      {/* 최상단 이동 플로팅 버튼 */}
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-gray-900/15 backdrop-blur-sm text-gray-500 hover:bg-gray-900/25 hover:text-gray-700 transition-all duration-200 shadow-sm"
+          aria-label="최상단으로 이동"
+        >
+          <ChevronUp size={20} />
+        </button>
+      )}
     </div>
   );
 }
