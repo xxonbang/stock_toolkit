@@ -355,7 +355,7 @@ export default function Dashboard() {
                   const latest = arr[arr.length - 1];
                   const prev = arr[arr.length - 2];
                   if (!latest) return null;
-                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "MU": "마이크론", "SOXX": "SOXX", "EWY": "EWY", "KORU": "KORU", "^VIX": "VIX", "FNG": "F&G" };
+                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "069500": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)", "KOSPI200F": "코스피200선물", "^VIX": "VIX", "FNG": "F&G" };
                   return (
                     <div key={symbol} className="bg-gray-50 rounded-lg p-2">
                       <div className="text-[10px] text-gray-400 mb-0.5">{nameMap[symbol] || symbol}</div>
