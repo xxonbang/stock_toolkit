@@ -93,6 +93,8 @@ def main():
     volume_stocks = volume_data.get("kospi", []) + volume_data.get("kosdaq", [])
     falling = latest.get("falling", {})
     falling_stocks = falling.get("kospi", []) + falling.get("kosdaq", [])
+    investor_data = latest.get("investor_data", {})
+    combined = loader.get_combined_signals()
 
     stocks = rising_stocks + volume_stocks
     # 직접 이상거래 탐지 (실제 데이터 필드: volume_rate, change_rate)
@@ -113,7 +115,6 @@ def main():
         json.dump(anomalies, f, ensure_ascii=False, indent=2)
 
     # 스마트 머니 — combined signals + investor_data 기반
-    investor_data = latest.get("investor_data", {})
     smart_money_results = []
     for sig in combined:
         code = sig.get("code", "")
@@ -158,7 +159,6 @@ def main():
     # 위험 종목 평가 + 스캐너 데이터
     risk_results = []
     scanner_stocks = []
-    combined = loader.get_combined_signals()
     themes = loader.get_themes()
     leader_theme = {}
     for theme in themes:
@@ -267,7 +267,6 @@ def main():
     # criteria_data 로드 (combined_analysis.json 원본에서)
     combined_raw = loader._load_json(loader.signal_path / "combined" / "combined_analysis.json")
     criteria_map = combined_raw.get("criteria_data", {}) if isinstance(combined_raw, dict) else {}
-    investor_data = latest.get("investor_data", {})
 
     # 시장 심리 온도계
     macro = loader.get_macro()
