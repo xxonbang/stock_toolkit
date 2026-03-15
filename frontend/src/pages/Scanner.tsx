@@ -27,6 +27,13 @@ export default function Scanner() {
   const [flows, setFlows] = useState<Set<string>>(new Set());
   const [markets, setMarkets] = useState<Set<string>>(new Set());
   const [themeOnly, setThemeOnly] = useState(false);
+  const [goldenCross, setGoldenCross] = useState(false);
+  const [bnf, setBnf] = useState(false);
+  const [shortSelling, setShortSelling] = useState(false);
+  const [highBreakout, setHighBreakout] = useState(false);
+  const [rsiOverbought, setRsiOverbought] = useState(false);
+  const [rsiOversold, setRsiOversold] = useState(false);
+  const [dualMatch, setDualMatch] = useState(false);
 
   useEffect(() => {
     dataService.getScannerStocks().then((data) => {
@@ -48,6 +55,13 @@ export default function Scanner() {
     if (flows.size > 0) filtered = filtered.filter((s) => flows.has(s.foreign_flow));
     if (markets.size > 0) filtered = filtered.filter((s) => markets.has(s.market));
     if (themeOnly) filtered = filtered.filter((s) => s.theme);
+    if (goldenCross) filtered = filtered.filter((s) => s.golden_cross);
+    if (bnf) filtered = filtered.filter((s) => s.bnf);
+    if (shortSelling) filtered = filtered.filter((s) => s.short_selling);
+    if (highBreakout) filtered = filtered.filter((s) => s.high_breakout);
+    if (rsiOverbought) filtered = filtered.filter((s) => s.rsi && s.rsi > 70);
+    if (rsiOversold) filtered = filtered.filter((s) => s.rsi && s.rsi < 30);
+    if (dualMatch) filtered = filtered.filter((s) => s.match_status === "match");
     filtered.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
     setResults(filtered);
   }
@@ -58,10 +72,19 @@ export default function Scanner() {
     setFlows(new Set());
     setMarkets(new Set());
     setThemeOnly(false);
+    setGoldenCross(false);
+    setBnf(false);
+    setShortSelling(false);
+    setHighBreakout(false);
+    setRsiOverbought(false);
+    setRsiOversold(false);
+    setDualMatch(false);
     setResults(null);
   }
 
-  const activeCount = signals.size + risks.size + flows.size + markets.size + (themeOnly ? 1 : 0);
+  const activeCount = signals.size + risks.size + flows.size + markets.size + (themeOnly ? 1 : 0)
+    + (goldenCross ? 1 : 0) + (bnf ? 1 : 0) + (shortSelling ? 1 : 0) + (highBreakout ? 1 : 0)
+    + (rsiOverbought ? 1 : 0) + (rsiOversold ? 1 : 0) + (dualMatch ? 1 : 0);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
@@ -102,6 +125,22 @@ export default function Scanner() {
 
         <FilterGroup label="테마" desc="AI가 식별한 당일 주요 테마의 대장주만 표시">
           <Chip label="테마 대장주만" active={themeOnly} onClick={() => setThemeOnly(!themeOnly)} color="purple" />
+        </FilterGroup>
+
+        <FilterGroup label="기술적 조건" desc="차트 패턴 및 기술적 지표 기반 필터">
+          <Chip label="골든크로스" active={goldenCross} onClick={() => setGoldenCross(!goldenCross)} color="red" />
+          <Chip label="52주 신고가" active={highBreakout} onClick={() => setHighBreakout(!highBreakout)} color="red" />
+          <Chip label="BNF 적합" active={bnf} onClick={() => setBnf(!bnf)} color="green" />
+          <Chip label="공매도 경고" active={shortSelling} onClick={() => setShortSelling(!shortSelling)} color="amber" />
+        </FilterGroup>
+
+        <FilterGroup label="RSI" desc="상대강도지수 (70↑ 과매수, 30↓ 과매도)">
+          <Chip label="RSI 과매수 (>70)" active={rsiOverbought} onClick={() => setRsiOverbought(!rsiOverbought)} color="red" />
+          <Chip label="RSI 과매도 (<30)" active={rsiOversold} onClick={() => setRsiOversold(!rsiOversold)} color="blue" />
+        </FilterGroup>
+
+        <FilterGroup label="이중 검증" desc="Vision AI + KIS API 신호 일치 종목">
+          <Chip label="이중 매칭" active={dualMatch} onClick={() => setDualMatch(!dualMatch)} color="green" />
         </FilterGroup>
       </div>
 
@@ -148,7 +187,13 @@ export default function Scanner() {
                     </div>
                     <div className={`text-xs ${s.foreign_flow === "순매수" ? "text-red-500" : "text-blue-500"}`}>
                       외국인 {s.foreign_flow}
+                      {s.rsi ? <span className={`ml-1 ${s.rsi > 70 ? "text-red-500" : s.rsi < 30 ? "text-blue-500" : "text-gray-400"}`}>RSI {s.rsi}</span> : null}
                     </div>
+                    {s.match_status === "match" && (
+                      <div className="text-[10px] text-green-600">이중 매칭 확인</div>
+                    )}
+                    {s.golden_cross && <span className="text-[10px] text-red-400 mr-1">골든크로스</span>}
+                    {s.high_breakout && <span className="text-[10px] text-red-400 mr-1">신고가</span>}
                   </div>
                 </div>
               ))}

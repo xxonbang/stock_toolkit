@@ -47,5 +47,10 @@ export const dataService = {
   getMemberTrading: () => fetchJson<any[]>("member_trading.json"),
   getTradingValue: () => fetchJson<any[]>("trading_value.json"),
   getPaperTrading: () => fetchJson<any>("paper_trading_latest.json"),
-  getForecastAccuracy: () => fetchJson<any[]>("forecast_accuracy.json"),
+  getForecastAccuracy: () => fetchJson<any>("forecast_accuracy.json"),
+  getVolumeProfile: () => fetchJson<any[]>("volume_profile.json"),
+  getSignalConsistency: () => fetchJson<any[]>("signal_consistency.json"),
+  getSimulationHistory: () => fetchJson<any[]>("simulation_history.json"),
+  getIntradayStockFlow: () => fetchJson<any[]>("intraday_stock_flow.json"),
+  getIndicatorHistory: () => fetchJson<any>("indicator_history.json"),
 };

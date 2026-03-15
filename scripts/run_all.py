@@ -131,10 +131,24 @@ def main():
             anomalies.append({"type": "거래량 폭발", "code": code, "name": s.get("name", ""), "ratio": round(vol_rate / 100, 1), "change_rate": change})
         if abs(change) > 10:
             anomalies.append({"type": "가격 급변", "code": code, "name": s.get("name", ""), "change_rate": change})
+
+    # RSI 극단값 이상거래 추가
+    kis_gemini_anom = loader.get_kis_gemini()
+    gemini_anom_map = kis_gemini_anom.get("stocks", {}) if isinstance(kis_gemini_anom, dict) else {}
+    for code_anom, gem_anom in gemini_anom_map.items():
+        ph_anom = gem_anom.get("price_history", []) if isinstance(gem_anom, dict) else []
+        if ph_anom:
+            rsi_a = ph_anom[-1].get("rsi_14", 0) or 0
+            name_a = gem_anom.get("name", code_anom)
+            if rsi_a > 80 and code_anom not in seen_codes:
+                anomalies.append({"type": "RSI 과매수", "code": code_anom, "name": name_a, "rsi": round(rsi_a, 1)})
+            elif rsi_a < 20 and rsi_a > 0 and code_anom not in seen_codes:
+                anomalies.append({"type": "RSI 과매도", "code": code_anom, "name": name_a, "rsi": round(rsi_a, 1)})
+
     with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
         json.dump(anomalies, f, ensure_ascii=False, indent=2)
 
-    # 스마트 머니 — combined signals + investor_data 기반
+    # 스마트 머니 — combined signals + investor_data + 이중 검증
     smart_money_results = []
     for sig in combined:
         code = sig.get("code", "")
@@ -142,6 +156,8 @@ def main():
         foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
         signal = sig.get("vision_signal", "")
         conf = sig.get("vision_confidence", 0) or 0
+        api_sig = sig.get("api_signal", "")
+        match_st = sig.get("match_status", "")
         score = 50
         if signal in ("적극매수",):
             score += 30
@@ -150,11 +166,19 @@ def main():
         score += int((conf or 0) * 20)
         if isinstance(foreign_net, (int, float)) and foreign_net > 0:
             score += 10
+        # 이중 검증 보너스
+        if api_sig in ("적극매수", "매수") and match_st == "match":
+            score += 15
+        elif api_sig in ("적극매수", "매수"):
+            score += 5
+        dual = "고확신" if api_sig in ("매수", "적극매수") and match_st == "match" else "확인필요" if signal in ("매수", "적극매수") else "혼조"
         if score >= 70:
             smart_money_results.append({
                 "code": code, "name": sig.get("name", ""),
                 "smart_money_score": min(score, 99),
                 "signal": signal, "foreign_net": foreign_net,
+                "api_signal": api_sig, "match_status": match_st,
+                "dual_signal": dual,
             })
     smart_money_results.sort(key=lambda x: x["smart_money_score"], reverse=True)
     with open(results_dir / "smart_money.json", "w", encoding="utf-8") as f:
@@ -176,6 +200,10 @@ def main():
     with open(results_dir / "sector_flow.json", "w", encoding="utf-8") as f:
         json.dump(sector_flow, f, ensure_ascii=False, indent=2)
 
+    # kis_gemini RSI 로드 (위험종목/이상거래/스캐너에 사용)
+    kis_gemini_rsi = loader.get_kis_gemini()
+    gemini_rsi_map = kis_gemini_rsi.get("stocks", {}) if isinstance(kis_gemini_rsi, dict) else {}
+
     # 위험 종목 평가 + 스캐너 데이터
     risk_results = []
     scanner_stocks = []
@@ -192,16 +220,28 @@ def main():
         inv = investor_data.get(code, {})
         foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
 
+        # RSI 조회
+        gem_rsi = gemini_rsi_map.get(code, {})
+        ph_rsi = gem_rsi.get("price_history", []) if isinstance(gem_rsi, dict) else []
+        rsi_val = ph_rsi[-1].get("rsi_14", 0) if ph_rsi else 0
+
         # 위험도 직접 계산
         warnings = []
         if signal in ("적극매도", "매도"):
             warnings.append("매도 신호")
         if isinstance(foreign_net, (int, float)) and foreign_net < -100000:
             warnings.append("외국인 대량 매도")
+        if rsi_val and rsi_val > 70:
+            warnings.append(f"RSI 과매수 ({round(rsi_val, 1)})")
         level = "높음" if len(warnings) >= 2 else "주의" if len(warnings) == 1 else "낮음"
 
         if level != "낮음":
             risk_results.append({"code": code, "name": sig.get("name", ""), "level": level, "warnings": warnings, "signal": signal, "foreign_net": foreign_net})
+
+        # kis_gemini 추가 데이터
+        mkt_info = gem_rsi.get("market_info", {}) if isinstance(gem_rsi, dict) else {}
+        trading_info = gem_rsi.get("trading", {}) if isinstance(gem_rsi, dict) else {}
+        program_net = inv.get("program_net", 0) if isinstance(inv, dict) else 0
 
         scanner_stocks.append({
             "code": code, "name": sig.get("name", ""),
@@ -217,6 +257,11 @@ def main():
             "match_status": sig.get("match_status", ""),
             "api_risk_level": sig.get("api_risk_level", ""),
             "api_key_factors": sig.get("api_key_factors", []),
+            "rsi": round(rsi_val, 1) if rsi_val else None,
+            "foreign_holding_pct": mkt_info.get("foreign_holding_pct"),
+            "volume_turnover_pct": trading_info.get("volume_turnover_pct"),
+            "market_cap_billion": mkt_info.get("market_cap_billion"),
+            "program_net": program_net,
         })
 
     risk_results.sort(key=lambda x: len(x.get("warnings", [])), reverse=True)
@@ -573,10 +618,20 @@ def main():
     with open(results_dir / "theme_propagation.json", "w", encoding="utf-8") as f:
         json.dump(propagation_results, f, ensure_ascii=False, indent=2)
 
-    # 프로그램 매매
+    # 프로그램 매매 — 시장 전체 + 종목별
     program_data = latest.get("program_trade", {})
+    program_by_stock = []
+    for code_p, inv_p in list(investor_data.items())[:30]:
+        if isinstance(inv_p, dict):
+            pn = inv_p.get("program_net", 0)
+            if pn and pn != 0:
+                program_by_stock.append({
+                    "code": code_p, "name": inv_p.get("name", code_p),
+                    "program_net": pn,
+                })
+    program_by_stock.sort(key=lambda x: abs(x.get("program_net", 0)), reverse=True)
     with open(results_dir / "program_trading.json", "w", encoding="utf-8") as f:
-        json.dump({"data": program_data, "reversal_detected": False}, f, ensure_ascii=False, indent=2)
+        json.dump({"data": program_data, "by_stock": program_by_stock[:15], "reversal_detected": False}, f, ensure_ascii=False, indent=2)
 
     # 시간대별 히트맵 — investor-intraday 실데이터
     intraday_inv = loader.get_investor_intraday()
@@ -739,6 +794,97 @@ def main():
     with open(results_dir / "trading_journal.json", "w", encoding="utf-8") as f:
         json.dump({"entries": journal_entries}, f, ensure_ascii=False, indent=2)
 
+    # Volume Profile 지지/저항
+    volume_profile = loader.get_volume_profile()
+    vp_results = []
+    if isinstance(volume_profile, dict):
+        for vp_code, vp_data in list(volume_profile.items())[:20]:
+            if isinstance(vp_data, dict):
+                poc_1m = vp_data.get("1month", {}).get("poc", 0) if isinstance(vp_data.get("1month"), dict) else 0
+                poc_3m = vp_data.get("3month", {}).get("poc", 0) if isinstance(vp_data.get("3month"), dict) else 0
+                poc_1w = vp_data.get("1week", {}).get("poc", 0) if isinstance(vp_data.get("1week"), dict) else 0
+                vp_name = vp_data.get("name", vp_code)
+                if poc_1m or poc_3m:
+                    vp_results.append({
+                        "code": vp_code, "name": vp_name,
+                        "poc_1week": poc_1w, "poc_1month": poc_1m, "poc_3month": poc_3m,
+                    })
+    with open(results_dir / "volume_profile.json", "w", encoding="utf-8") as f:
+        json.dump(vp_results[:15], f, ensure_ascii=False, indent=2)
+
+    # 신호 일관성 추적
+    signal_consistency = []
+    combined_history = loader.get_signal_history("combined")
+    if combined_history and len(combined_history) >= 3:
+        # 최근 5일 히스토리에서 신호 변동 추적
+        recent_history = combined_history[-5:]
+        signal_track = {}
+        for hist_entry in recent_history:
+            hist_data = hist_entry.get("data", {})
+            hist_stocks = hist_data.get("stocks", []) if isinstance(hist_data, dict) else []
+            for hs in hist_stocks:
+                hc = hs.get("code", "")
+                if hc not in signal_track:
+                    signal_track[hc] = {"name": hs.get("name", ""), "signals": []}
+                sig_val = hs.get("vision_signal", hs.get("signal", ""))
+                signal_track[hc]["signals"].append(sig_val)
+        for sc_code, sc_data in signal_track.items():
+            sigs = sc_data["signals"]
+            if len(sigs) >= 3:
+                unique = len(set(sigs))
+                consecutive = all(s == sigs[0] for s in sigs) if sigs else False
+                signal_consistency.append({
+                    "code": sc_code, "name": sc_data["name"],
+                    "signals": sigs,
+                    "consistency": "일관" if consecutive else "변동" if unique >= 3 else "부분일관",
+                    "days": len(sigs),
+                    "current": sigs[-1] if sigs else "",
+                })
+        signal_consistency.sort(key=lambda x: x["days"], reverse=True)
+    with open(results_dir / "signal_consistency.json", "w", encoding="utf-8") as f:
+        json.dump(signal_consistency[:20], f, ensure_ascii=False, indent=2)
+
+    # 시뮬레이션 히스토리 (41일분)
+    sim_index_path = loader.signal_path / "simulation" / "simulation_index.json"
+    sim_history_results = []
+    if sim_index_path.exists():
+        sim_index = loader._load_json(sim_index_path)
+        sim_files = sim_index.get("files", []) if isinstance(sim_index, dict) else []
+        for sf in sim_files[-10:]:
+            sf_path = loader.signal_path / "simulation" / sf
+            if sf_path.exists():
+                sf_data = loader._load_json(sf_path)
+                if isinstance(sf_data, dict):
+                    sim_history_results.append({
+                        "date": sf_data.get("date", sf),
+                        "total_trades": sf_data.get("total_trades", 0),
+                        "win_rate": sf_data.get("win_rate", 0),
+                        "avg_return": sf_data.get("avg_return", 0),
+                    })
+    with open(results_dir / "simulation_history.json", "w", encoding="utf-8") as f:
+        json.dump(sim_history_results, f, ensure_ascii=False, indent=2)
+
+    # investor-intraday 종목별 수급 (상위 종목)
+    intraday_stock_flow = []
+    if snapshots:
+        last_snap = snapshots[-1] if snapshots else {}
+        snap_data = last_snap.get("data", {})
+        if isinstance(snap_data, dict):
+            for isc, isd in list(snap_data.items())[:30]:
+                if isinstance(isd, dict):
+                    intraday_stock_flow.append({
+                        "code": isc,
+                        "foreign": isd.get("f", 0),
+                        "institution": isd.get("i", 0),
+                        "individual": isd.get("pg", 0),
+                        "program": isd.get("p", 0),
+                        "current_price": isd.get("cp", 0),
+                        "change_rate": isd.get("cr", 0),
+                    })
+            intraday_stock_flow.sort(key=lambda x: abs(x.get("foreign", 0)), reverse=True)
+    with open(results_dir / "intraday_stock_flow.json", "w", encoding="utf-8") as f:
+        json.dump(intraday_stock_flow[:20], f, ensure_ascii=False, indent=2)
+
     # 증권사 매매 (member_data)
     member_data = latest.get("member_data", {})
     member_results = []
@@ -789,6 +935,11 @@ def main():
             scanner_entry["bnf"] = crit.get("bnf", {}).get("met", False)
             scanner_entry["high_breakout"] = crit.get("high_breakout", {}).get("met", False)
             scanner_entry["momentum"] = crit.get("momentum_history", {}).get("met", False)
+            scanner_entry["reverse_alignment"] = crit.get("reverse_alignment", {}).get("met", False)
+            scanner_entry["market_cap_ok"] = crit.get("market_cap_range", {}).get("met", False)
+            scanner_entry["ma_aligned"] = crit.get("ma_alignment", {}).get("met", False)
+            scanner_entry["overheating"] = crit.get("overheating_alert", {}).get("met", False)
+            scanner_entry["supply_demand"] = crit.get("supply_demand", {}).get("met", False)
             scanner_entry["all_criteria_met"] = crit.get("all_met", False)
     # scanner 재저장
     with open(results_dir / "scanner_stocks.json", "w", encoding="utf-8") as f:
@@ -831,17 +982,50 @@ def main():
                 "summary": pt.get("summary", {}),
             }, f, ensure_ascii=False, indent=2)
 
-    # 예측 적중률
-    forecasts = loader.get_forecast_history(5)
+    # 예측 적중률 — 실제 테마 결과와 비교
+    forecasts = loader.get_forecast_history(10)
+    theme_history = loader.get_theme_history()
+    # 실제 테마 성과 맵 (날짜 → 테마 목록)
+    actual_themes_by_date = {}
+    for th in theme_history:
+        th_date = th.get("date", "")
+        th_data = th.get("data", {})
+        th_themes = th_data.get("themes", []) if isinstance(th_data, dict) else []
+        actual_themes_by_date[th_date] = [t.get("theme_name", t.get("name", "")) for t in th_themes]
+
     forecast_accuracy = []
+    total_predictions = 0
+    total_hits = 0
     for fc in forecasts:
+        fc_date = fc.get("forecast_date", "")
+        fc_themes = fc.get("today", []) if isinstance(fc.get("today"), list) else []
+        predicted = [t.get("theme_name", t.get("name", "")) for t in fc_themes]
+        confidences = [t.get("confidence") for t in fc_themes]
+        # 실제 당일 테마와 비교
+        actual = actual_themes_by_date.get(fc_date, [])
+        hits = []
+        for pt in predicted:
+            hit = any(pt in at or at in pt for at in actual) if actual else False
+            hits.append(hit)
+            total_predictions += 1
+            if hit:
+                total_hits += 1
         forecast_accuracy.append({
-            "date": fc.get("forecast_date"),
-            "themes": [t.get("theme_name") for t in fc.get("today", [])] if isinstance(fc.get("today"), list) else [],
-            "confidence": [t.get("confidence") for t in fc.get("today", [])] if isinstance(fc.get("today"), list) else [],
+            "date": fc_date,
+            "themes": predicted,
+            "confidence": confidences,
+            "hits": hits,
+            "hit_count": sum(hits),
+            "total": len(predicted),
         })
+    overall_accuracy = round(total_hits / total_predictions * 100, 1) if total_predictions > 0 else 0
     with open(results_dir / "forecast_accuracy.json", "w", encoding="utf-8") as f:
-        json.dump(forecast_accuracy, f, ensure_ascii=False, indent=2)
+        json.dump({"predictions": forecast_accuracy, "overall_accuracy": overall_accuracy, "total_predictions": total_predictions, "total_hits": total_hits}, f, ensure_ascii=False, indent=2)
+
+    # 매크로 추세 (indicator-history)
+    ind_history = loader.get_indicator_history()
+    with open(results_dir / "indicator_history.json", "w", encoding="utf-8") as f:
+        json.dump(ind_history if isinstance(ind_history, dict) else {}, f, ensure_ascii=False, indent=2)
 
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"

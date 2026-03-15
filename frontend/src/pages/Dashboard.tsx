@@ -97,7 +97,11 @@ export default function Dashboard() {
   const [memberTrading, setMemberTrading] = useState<any[] | null>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [paperTrading, setPaperTrading] = useState<any>(null);
-  const [forecastAccuracy, setForecastAccuracy] = useState<any[] | null>(null);
+  const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
+  const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
+  const [signalConsistency, setSignalConsistency] = useState<any[] | null>(null);
+  const [simulationHistory, setSimulationHistory] = useState<any[] | null>(null);
+  const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -136,6 +140,10 @@ export default function Dashboard() {
     dataService.getTradingValue().then(setTradingValue);
     dataService.getPaperTrading().then(setPaperTrading);
     dataService.getForecastAccuracy().then(setForecastAccuracy);
+    dataService.getVolumeProfile().then(setVolumeProfile);
+    dataService.getSignalConsistency().then(setSignalConsistency);
+    dataService.getSimulationHistory().then(setSimulationHistory);
+    dataService.getIntradayStockFlow().then(setIntradayStockFlow);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -587,7 +595,14 @@ export default function Dashboard() {
                   <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold flex items-center justify-center shrink-0">
                     {i + 1}
                   </div>
-                  <span className="text-sm font-medium truncate">{s.name}</span>
+                  <div className="min-w-0">
+                    <span className="text-sm font-medium truncate block">{s.name}</span>
+                    {s.dual_signal && (
+                      <span className={`text-[10px] ${s.dual_signal === "고확신" ? "text-green-600" : "text-gray-400"}`}>
+                        {s.dual_signal}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {signalBadge(s.signal)}
@@ -746,6 +761,8 @@ export default function Dashboard() {
                     {v.per ? `PER ${v.per}` : v.ma_aligned ? "MA정배열" : "MA비정배열"}
                     {v.pbr ? ` · PBR ${v.pbr}` : ""}
                     {v.roe ? ` · ROE ${v.roe}%` : ""}
+                    {v.opm ? ` · 영업이익률 ${v.opm}%` : ""}
+                    {v.debt_ratio ? ` · 부채 ${v.debt_ratio}%` : ""}
                     {!v.per && v.foreign_net > 0 ? " · 외국인 매수" : ""}
                   </div>
                 </div>
@@ -906,6 +923,20 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
+            {/* 종목별 프로그램 매매 */}
+            {programTrading.by_stock?.length > 0 && (
+              <div className="mt-2 pt-2 border-t border-gray-100">
+                <div className="text-xs text-gray-500 mb-1">종목별 프로그램 순매수</div>
+                {programTrading.by_stock.slice(0, 5).map((ps: any, i: number) => (
+                  <div key={i} className="flex items-center justify-between text-xs py-1">
+                    <span className="text-gray-700 truncate">{ps.name}</span>
+                    <span className={`font-medium ${ps.program_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                      {ps.program_net >= 0 ? "+" : ""}{(ps.program_net / 1000).toFixed(0)}천주
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         ) : <Empty />}
       </section>
@@ -1171,20 +1202,136 @@ export default function Dashboard() {
 
       {/* 예측 적중률 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="forecast" count={forecastAccuracy?.length ?? 0}>예측 적중률</SectionHeader>
+        <SectionHeader id="forecast">예측 적중률</SectionHeader>
+        {forecastAccuracy?.overall_accuracy != null && (
+          <div className="flex items-center gap-3 mb-3">
+            <div className="text-2xl font-bold text-gray-900">{forecastAccuracy.overall_accuracy}%</div>
+            <div className="text-xs text-gray-500">
+              전체 적중률 ({forecastAccuracy.total_hits}/{forecastAccuracy.total_predictions})
+            </div>
+          </div>
+        )}
         <div className="space-y-1.5">
-          {(forecastAccuracy || []).map((fc, i) => (
+          {(forecastAccuracy?.predictions || []).map((fc: any, i: number) => (
             <div key={i} className="p-2 bg-gray-50 rounded-lg">
-              <div className="text-xs text-gray-500 mb-1">{fc.date}</div>
+              <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <span>{fc.date}</span>
+                <span>{fc.hit_count}/{fc.total} 적중</span>
+              </div>
               <div className="flex flex-wrap gap-1">
                 {(fc.themes || []).map((t: string, j: number) => (
-                  <Badge key={j} variant="purple">{t} {fc.confidence?.[j] ? `${fc.confidence[j]}%` : ""}</Badge>
+                  <Badge key={j} variant={fc.hits?.[j] ? "success" : "default"}>
+                    {fc.hits?.[j] ? "✓ " : ""}{t}
+                  </Badge>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        {!forecastAccuracy?.length && <Empty />}
+        {!(forecastAccuracy?.predictions || []).length && <Empty />}
+      </section>
+
+      {/* Volume Profile 지지/저항 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="volume_profile" count={volumeProfile?.length ?? 0}>매물대 지지/저항</SectionHeader>
+        <div className="space-y-1.5">
+          {(volumeProfile || []).slice(0, 8).map((vp, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{vp.name}</div>
+              </div>
+              <div className="flex gap-2 text-xs shrink-0">
+                {vp.poc_1week ? <div className="text-center"><div className="text-gray-400">1주</div><div className="font-medium">{vp.poc_1week?.toLocaleString()}</div></div> : null}
+                {vp.poc_1month ? <div className="text-center"><div className="text-gray-400">1개월</div><div className="font-medium">{vp.poc_1month?.toLocaleString()}</div></div> : null}
+                {vp.poc_3month ? <div className="text-center"><div className="text-gray-400">3개월</div><div className="font-medium">{vp.poc_3month?.toLocaleString()}</div></div> : null}
+              </div>
+            </div>
+          ))}
+          <p className="text-[10px] text-gray-400">POC = 가장 많이 거래된 핵심 가격대 (지지/저항선)</p>
+        </div>
+        {!volumeProfile?.length && <Empty />}
+      </section>
+
+      {/* 신호 일관성 추적 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="consistency" count={signalConsistency?.length ?? 0}>신호 일관성</SectionHeader>
+        <div className="space-y-1.5">
+          {(signalConsistency || []).slice(0, 8).map((sc, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{sc.name}</div>
+                <div className="text-xs text-gray-500">
+                  {sc.signals?.join(" → ")} ({sc.days}일)
+                </div>
+              </div>
+              <Badge variant={sc.consistency === "일관" ? "success" : sc.consistency === "변동" ? "danger" : "warning"}>
+                {sc.consistency}
+              </Badge>
+            </div>
+          ))}
+          <p className="text-[10px] text-gray-400">연속 동일 신호 = 높은 신뢰도 · 잦은 변동 = 주의</p>
+        </div>
+        {!signalConsistency?.length && <Empty />}
+      </section>
+
+      {/* 시뮬레이션 히스토리 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="sim_history" count={simulationHistory?.length ?? 0}>시뮬레이션 히스토리</SectionHeader>
+        <div className="space-y-1.5">
+          {(simulationHistory || []).map((sh, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="text-xs text-gray-500">{sh.date}</div>
+              <div className="flex gap-3 text-xs shrink-0">
+                <div className="text-center">
+                  <div className="text-gray-400">거래수</div>
+                  <div className="font-medium">{sh.total_trades}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-gray-400">승률</div>
+                  <div className={`font-medium ${(sh.win_rate || 0) >= 50 ? "text-red-600" : "text-blue-600"}`}>{sh.win_rate}%</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-gray-400">수익</div>
+                  <div className={`font-medium ${(sh.avg_return || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    {(sh.avg_return || 0) >= 0 ? "+" : ""}{sh.avg_return?.toFixed(1)}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!simulationHistory?.length && <Empty />}
+      </section>
+
+      {/* 장중 종목별 수급 */}
+      <section className="bg-white border border-gray-200 rounded-xl p-4">
+        <SectionHeader id="intraday_flow" count={intradayStockFlow?.length ?? 0}>장중 종목별 수급</SectionHeader>
+        <div className="space-y-1.5">
+          {(intradayStockFlow || []).slice(0, 10).map((isf, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{isf.code}</div>
+                {isf.change_rate != null && (
+                  <div className={`text-xs ${(isf.change_rate || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                    {isf.change_rate >= 0 ? "+" : ""}{isf.change_rate}%
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2 text-xs shrink-0">
+                <div className={`text-center ${(isf.foreign || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                  <div className="text-gray-400">외국인</div>
+                  <div className="font-medium">{isf.foreign >= 0 ? "+" : ""}{isf.foreign?.toLocaleString()}</div>
+                </div>
+                <div className={`text-center ${(isf.institution || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                  <div className="text-gray-400">기관</div>
+                  <div className="font-medium">{isf.institution >= 0 ? "+" : ""}{isf.institution?.toLocaleString()}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+          <p className="text-[10px] text-gray-400">최근 장중 가집계 시점 기준 종목별 투자자 동향</p>
+        </div>
+        {!intradayStockFlow?.length && <Empty />}
       </section>
 
       {/* 매매 일지 */}
