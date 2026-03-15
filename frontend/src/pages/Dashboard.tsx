@@ -253,15 +253,40 @@ export default function Dashboard() {
       )}
 
       {/* AI 모닝 브리핑 */}
-      {briefing?.morning && (
-        <section className="bg-blue-50 border border-blue-100 rounded-xl p-4">
-          <SectionHeader id="briefing">AI 모닝 브리핑</SectionHeader>
-          <div
-            className="text-sm text-gray-700 leading-relaxed whitespace-pre-line [&_b]:text-gray-900 [&_b]:font-semibold"
-            dangerouslySetInnerHTML={{ __html: briefing.morning }}
-          />
-        </section>
-      )}
+      {briefing?.morning && (() => {
+        const raw = briefing.morning as string;
+        const sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
+          const titleMatch = s.match(/^([^\]]+)\]<\/b>\s*/);
+          const title = titleMatch ? titleMatch[1] : "";
+          const body = titleMatch ? s.slice(titleMatch[0].length).trim() : s.replace(/<\/?b>/g, "").trim();
+          return { title, body };
+        });
+        const iconMap: Record<string, string> = {
+          "글로벌 환경": "🌍", "오늘의 주목 테마": "🔥", "고확신 종목": "🎯",
+          "주의 종목": "⚠️", "전략 제안": "💡",
+        };
+        const bgMap: Record<string, string> = {
+          "글로벌 환경": "bg-slate-50", "오늘의 주목 테마": "bg-amber-50",
+          "고확신 종목": "bg-green-50", "주의 종목": "bg-red-50", "전략 제안": "bg-blue-50",
+        };
+        return (
+          <section className="space-y-2">
+            <SectionHeader id="briefing">AI 모닝 브리핑</SectionHeader>
+            {sections.map((sec: any, i: number) => (
+              <div key={i} className={`rounded-xl border border-gray-100 p-3.5 ${bgMap[sec.title] || "bg-gray-50"}`}>
+                <div className="flex items-center gap-1.5 mb-2">
+                  <span className="text-sm">{iconMap[sec.title] || "📌"}</span>
+                  <span className="text-sm font-semibold text-gray-900">{sec.title}</span>
+                </div>
+                <div
+                  className="text-xs text-gray-700 leading-relaxed whitespace-pre-line [&_b]:text-gray-900 [&_b]:font-semibold"
+                  dangerouslySetInnerHTML={{ __html: sec.body }}
+                />
+              </div>
+            ))}
+          </section>
+        );
+      })()}
 
       {/* 시장 현황 (심리 온도계 통합) */}
       {performance && (
