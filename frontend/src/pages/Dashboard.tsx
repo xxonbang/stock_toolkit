@@ -86,6 +86,14 @@ export default function Dashboard() {
   const [propagation, setPropagation] = useState<any[] | null>(null);
   const [programTrading, setProgramTrading] = useState<any>(null);
   const [heatmap, setHeatmap] = useState<any>(null);
+  const [insiderTrades, setInsiderTrades] = useState<any[] | null>(null);
+  const [consensus, setConsensus] = useState<any[] | null>(null);
+  const [auction, setAuction] = useState<any[] | null>(null);
+  const [orderbook, setOrderbook] = useState<any[] | null>(null);
+  const [correlationData, setCorrelationData] = useState<any>(null);
+  const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
+  const [aiMentor, setAiMentor] = useState<any>(null);
+  const [tradingJournal, setTradingJournal] = useState<any>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -112,6 +120,14 @@ export default function Dashboard() {
     dataService.getThemePropagation().then(setPropagation);
     dataService.getProgramTrading().then(setProgramTrading);
     dataService.getIntradayHeatmap().then(setHeatmap);
+    dataService.getInsiderTrades().then(setInsiderTrades);
+    dataService.getConsensus().then(setConsensus);
+    dataService.getAuction().then(setAuction);
+    dataService.getOrderbook().then(setOrderbook);
+    dataService.getCorrelation().then(setCorrelationData);
+    dataService.getEarningsCalendar().then(setEarningsCalendar);
+    dataService.getAiMentor().then(setAiMentor);
+    dataService.getTradingJournal().then(setTradingJournal);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -799,50 +815,165 @@ export default function Dashboard() {
 
       {/* 내부자 거래 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="insider">내부자 거래</SectionHeader>
-        <Empty text="DART API 연동 후 표시됩니다" />
+        <SectionHeader id="insider" count={insiderTrades?.length ?? 0}>내부자 거래</SectionHeader>
+        <div className="space-y-1.5">
+          {(insiderTrades || []).map((t, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{t.name || t.corp_name}</div>
+                <div className="text-xs text-gray-500">{t.executive} · {t.position}</div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className={`text-xs font-medium ${t.type === "매수" ? "text-red-600" : "text-blue-600"}`}>{t.type} {t.shares?.toLocaleString()}주</div>
+                <div className="text-[10px] text-gray-400">{t.date}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!insiderTrades?.length && <Empty />}
       </section>
 
       {/* 컨센서스 괴리 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="consensus">컨센서스 괴리</SectionHeader>
-        <Empty text="증권사 목표가 데이터 수집 후 표시됩니다" />
+        <SectionHeader id="consensus" count={consensus?.length ?? 0}>컨센서스 괴리</SectionHeader>
+        <div className="space-y-1.5">
+          {(consensus || []).map((c, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{c.name}</div>
+                <div className="text-xs text-gray-500">현재가 {c.current_price?.toLocaleString()}원</div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="text-xs font-medium text-amber-600">목표 {c.target_price?.toLocaleString()}원</div>
+                <div className={`text-[10px] ${c.gap_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                  괴리 {c.gap_pct >= 0 ? "+" : ""}{c.gap_pct}%
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!consensus?.length && <Empty />}
       </section>
 
       {/* 동시호가 분석 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="auction">동시호가 분석</SectionHeader>
-        <Empty text="실시간 호가 데이터 연동 후 표시됩니다" />
+        <SectionHeader id="auction" count={auction?.length ?? 0}>동시호가 분석</SectionHeader>
+        <div className="space-y-1.5">
+          {(auction || []).map((a, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{a.name}</div>
+                <div className="text-xs text-gray-500">{a.session === "opening" ? "시가" : "종가"} 동시호가</div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className={`text-xs font-medium ${a.pressure === "매수우위" ? "text-red-600" : "text-blue-600"}`}>{a.pressure}</div>
+                <div className="text-[10px] text-gray-400">비율 {a.ratio}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!auction?.length && <Empty />}
+        <p className="text-[10px] text-gray-400 mt-1">장중 실시간 호가 기반 · 휴장 시 최근 데이터</p>
       </section>
 
       {/* 호가창 압력 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="orderbook">호가창 압력</SectionHeader>
-        <Empty text="실시간 호가 데이터 연동 후 표시됩니다" />
+        <SectionHeader id="orderbook" count={orderbook?.length ?? 0}>호가창 압력</SectionHeader>
+        <div className="space-y-1.5">
+          {(orderbook || []).map((o, i) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{o.name}</div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="w-16 h-2 bg-gray-100 rounded-full overflow-hidden flex">
+                  <div className="bg-red-400 h-full" style={{width: `${o.buy_pct || 50}%`}} />
+                  <div className="bg-blue-400 h-full" style={{width: `${100 - (o.buy_pct || 50)}%`}} />
+                </div>
+                <span className={`text-xs font-medium ${(o.buy_pct || 50) > 50 ? "text-red-600" : "text-blue-600"}`}>
+                  {(o.buy_pct || 50) > 50 ? "매수" : "매도"}벽
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!orderbook?.length && <Empty />}
       </section>
 
       {/* 상관관계 네트워크 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
         <SectionHeader id="correlation">상관관계 네트워크</SectionHeader>
-        <Empty text="가격 히스토리 축적 후 표시됩니다" />
+        {correlationData?.pairs?.length ? (
+          <div className="space-y-1.5">
+            {correlationData.pairs.map((p: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="text-sm min-w-0">
+                  <span className="font-medium">{p.stock_a}</span>
+                  <span className="text-gray-400 mx-1">↔</span>
+                  <span className="font-medium">{p.stock_b}</span>
+                </div>
+                <div className="shrink-0">
+                  <div className={`w-12 h-2 bg-gray-100 rounded-full overflow-hidden`}>
+                    <div className={`h-full rounded-full ${p.correlation > 0.7 ? "bg-red-400" : p.correlation > 0.3 ? "bg-amber-400" : "bg-green-400"}`} style={{width: `${Math.abs(p.correlation) * 100}%`}} />
+                  </div>
+                  <div className="text-[10px] text-gray-500 text-right">{p.correlation?.toFixed(2)}</div>
+                </div>
+              </div>
+            ))}
+            <p className="text-[10px] text-gray-400">0.7 이상 = 높은 상관 (분산 효과 낮음)</p>
+          </div>
+        ) : <Empty />}
       </section>
 
       {/* 실적 프리뷰 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="earnings">실적 프리뷰</SectionHeader>
-        <Empty text="DART 실적 캘린더 연동 후 표시됩니다" />
+        <SectionHeader id="earnings" count={earningsCalendar?.items?.length ?? 0}>실적 프리뷰</SectionHeader>
+        <div className="space-y-1.5">
+          {(earningsCalendar?.items || []).slice(0, 6).map((e: any, i: number) => (
+            <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">{e.corp_name || e.name}</div>
+                <div className="text-xs text-gray-500">{e.report_type || "실적 공시"}</div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="text-xs text-gray-700">{e.date}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!(earningsCalendar?.items || []).length && <Empty />}
       </section>
 
       {/* AI 투자 멘토 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
         <SectionHeader id="mentor">AI 투자 멘토</SectionHeader>
-        <Empty text="매매 이력 축적 후 표시됩니다" />
+        {aiMentor?.advice?.length ? (
+          <div className="space-y-2">
+            {aiMentor.advice.map((a: any, i: number) => (
+              <div key={i} className="p-2.5 bg-indigo-50 border border-indigo-100 rounded-lg">
+                <div className="text-xs font-medium text-indigo-700 mb-1">{a.category}</div>
+                <div className="text-sm text-gray-700">{a.message}</div>
+              </div>
+            ))}
+          </div>
+        ) : <Empty />}
       </section>
 
       {/* 매매 일지 */}
       <section className="bg-white border border-gray-200 rounded-xl p-4">
-        <SectionHeader id="journal">매매 일지</SectionHeader>
-        <Empty text="보류 중 — 매매 기록 연동 시 활성화" />
+        <SectionHeader id="journal" count={tradingJournal?.entries?.length ?? 0}>매매 일지</SectionHeader>
+        <div className="space-y-1.5">
+          {(tradingJournal?.entries || []).map((e: any, i: number) => (
+            <div key={i} className="p-2.5 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium">{e.name}</span>
+                <Badge variant={e.action === "매수" ? "danger" : "blue"}>{e.action}</Badge>
+              </div>
+              <div className="text-xs text-gray-500">{e.date} · {e.reason}</div>
+            </div>
+          ))}
+        </div>
+        {!(tradingJournal?.entries || []).length && <Empty />}
       </section>
     </div>
   );

@@ -36,4 +36,12 @@ export const dataService = {
   getThemePropagation: () => fetchJson<any[]>("theme_propagation.json"),
   getProgramTrading: () => fetchJson<any>("program_trading.json"),
   getIntradayHeatmap: () => fetchJson<any>("intraday_heatmap.json"),
+  getInsiderTrades: () => fetchJson<any[]>("insider_trades.json"),
+  getConsensus: () => fetchJson<any[]>("consensus.json"),
+  getAuction: () => fetchJson<any[]>("auction.json"),
+  getOrderbook: () => fetchJson<any[]>("orderbook.json"),
+  getCorrelation: () => fetchJson<any>("correlation.json"),
+  getEarningsCalendar: () => fetchJson<any>("earnings_calendar.json"),
+  getAiMentor: () => fetchJson<any>("ai_mentor.json"),
+  getTradingJournal: () => fetchJson<any>("trading_journal.json"),
 };
