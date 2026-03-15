@@ -177,6 +177,81 @@ def main():
     with open(results_dir / "lifecycle.json", "w", encoding="utf-8") as f:
         json.dump(lifecycle_results, f, ensure_ascii=False, indent=2)
 
+    # Phase 5: 신규 모듈
+    print("=== Phase 5: 신규 분석 ===")
+    from modules.sentiment_index import calculate_sentiment, classify_sentiment
+    from modules.gap_analyzer import detect_gaps
+    from modules.valuation_screener import calculate_value_score
+    from modules.volume_price_divergence import detect_divergence
+    from modules.premarket_monitor import build_premarket_report
+    from modules.short_squeeze import calculate_squeeze_score
+
+    # 시장 심리 온도계
+    macro = loader.get_macro()
+    fg = macro.get("fear_greed", {})
+    vix_data = macro.get("vix", {})
+    kospi_data = latest.get("kospi_index", loader.get_market_status() if hasattr(loader, 'get_market_status') else {})
+    sentiment_score = calculate_sentiment(
+        fg.get("score", 50), vix_data.get("current", 20), kospi_data, 0, 50, 0, 0
+    )
+    sentiment_label, sentiment_strategy = classify_sentiment(sentiment_score)
+    sentiment_result = {
+        "score": sentiment_score,
+        "label": sentiment_label,
+        "strategy": sentiment_strategy,
+        "components": {
+            "fear_greed": {"value": round(fg.get("score", 0), 1)},
+            "vix": {"value": vix_data.get("current", 0)},
+        }
+    }
+    with open(results_dir / "sentiment.json", "w", encoding="utf-8") as f:
+        json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
+
+    # 갭 분석
+    all_rising = latest.get("rising_stocks", [])
+    gaps = detect_gaps(all_rising)
+    with open(results_dir / "gap_analysis.json", "w", encoding="utf-8") as f:
+        json.dump(gaps[:10], f, ensure_ascii=False, indent=2)
+
+    # 밸류에이션
+    val_results = []
+    for sig in combined:
+        score = calculate_value_score(sig)
+        if score > 40:
+            val_results.append({**sig, "value_score": score})
+    val_results.sort(key=lambda x: x.get("value_score", 0), reverse=True)
+    with open(results_dir / "valuation.json", "w", encoding="utf-8") as f:
+        json.dump(val_results[:15], f, ensure_ascii=False, indent=2)
+
+    # 거래량-가격 괴리
+    div_results = []
+    for s in all_rising:
+        d = detect_divergence(s)
+        if d.get("has_divergence"):
+            div_results.append(d)
+    with open(results_dir / "volume_divergence.json", "w", encoding="utf-8") as f:
+        json.dump(div_results[:10], f, ensure_ascii=False, indent=2)
+
+    # 프리마켓
+    premarket_report = build_premarket_report(macro, {}, [])
+    with open(results_dir / "premarket.json", "w", encoding="utf-8") as f:
+        json.dump(premarket_report, f, ensure_ascii=False, indent=2)
+
+    # 역발상 시그널
+    squeeze_results = []
+    for sig in combined:
+        score = calculate_squeeze_score(sig)
+        if score > 30:
+            squeeze_results.append({
+                "code": sig.get("code", ""),
+                "name": sig.get("name", ""),
+                "signal": sig.get("vision_signal", ""),
+                "squeeze_score": score,
+            })
+    squeeze_results.sort(key=lambda x: x.get("squeeze_score", 0), reverse=True)
+    with open(results_dir / "short_squeeze.json", "w", encoding="utf-8") as f:
+        json.dump(squeeze_results[:10], f, ensure_ascii=False, indent=2)
+
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"
     frontend_data.mkdir(parents=True, exist_ok=True)

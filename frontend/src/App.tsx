@@ -6,7 +6,7 @@ import Scanner from './pages/Scanner'
 export default function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen bg-gray-50 pb-14">
+      <div className="min-h-screen bg-gray-50 pb-20">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/scanner" element={<Scanner />} />
