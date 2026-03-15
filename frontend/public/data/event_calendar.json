@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "date": "2026-03-12",
+      "type": "매크로",
+      "name": "옵션만기일",
+      "impact": "medium",
+      "code": null
+    },
+    {
+      "date": "2026-03-19",
+      "type": "매크로",
+      "name": "FOMC",
+      "impact": "high",
+      "code": null
+    },
+    {
+      "date": "2026-03-20",
+      "type": "매크로",
+      "name": "한국은행 금통위",
+      "impact": "high",
+      "code": null
+    }
+  ],
+  "overlaps": []
+}

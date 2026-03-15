@@ -76,6 +76,10 @@ export default function Dashboard() {
   const [divergence, setDivergence] = useState<any[] | null>(null);
   const [premarket, setPremarket] = useState<any>(null);
   const [portfolio, setPortfolio] = useState<any>(null);
+  const [supplyCluster, setSupplyCluster] = useState<any>(null);
+  const [exitOptimizer, setExitOptimizer] = useState<any[] | null>(null);
+  const [eventCalendar, setEventCalendar] = useState<any>(null);
+  const [propagation, setPropagation] = useState<any[] | null>(null);
 
   useEffect(() => {
     dataService.getPerformance().then(setPerformance);
@@ -96,6 +100,10 @@ export default function Dashboard() {
     dataService.getVolumeDivergence().then(setDivergence);
     dataService.getPremarket().then(setPremarket);
     dataService.getPortfolio().then(setPortfolio);
+    dataService.getSupplyCluster().then(setSupplyCluster);
+    dataService.getExitOptimizer().then(setExitOptimizer);
+    dataService.getEventCalendar().then(setEventCalendar);
+    dataService.getThemePropagation().then(setPropagation);
   }, []);
 
   const fgScore = performance?.fear_greed?.score ?? 0;
@@ -210,6 +218,39 @@ export default function Dashboard() {
                 </div>
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* 수급 클러스터 */}
+      {supplyCluster && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="supply_cluster">수급 클러스터</SectionHeader>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="text-sm font-bold text-gray-900 bg-purple-50 border border-purple-200 rounded-lg px-3 py-1.5">
+              {supplyCluster.regime}
+            </div>
+          </div>
+          <div className="text-xs text-gray-600 mb-3">{supplyCluster.strategy}</div>
+          <div className="grid grid-cols-3 gap-2 text-center text-xs">
+            <div className="bg-gray-50 rounded-lg p-2">
+              <div className="text-gray-500">외국인</div>
+              <div className={`font-semibold ${supplyCluster.foreign_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                {supplyCluster.foreign_net >= 0 ? "+" : ""}{(supplyCluster.foreign_net / 1000).toFixed(0)}천주
+              </div>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-2">
+              <div className="text-gray-500">기관</div>
+              <div className={`font-semibold ${supplyCluster.institution_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                {supplyCluster.institution_net >= 0 ? "+" : ""}{(supplyCluster.institution_net / 1000).toFixed(0)}천주
+              </div>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-2">
+              <div className="text-gray-500">개인</div>
+              <div className={`font-semibold ${supplyCluster.individual_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                {supplyCluster.individual_net >= 0 ? "+" : ""}{(supplyCluster.individual_net / 1000).toFixed(0)}천주
+              </div>
+            </div>
           </div>
         </section>
       )}
@@ -619,6 +660,78 @@ export default function Dashboard() {
                   </div>
                 );
               })}
+          </div>
+        </section>
+      )}
+
+      {/* 테마 전이 예측 */}
+      {propagation && propagation.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="propagation" count={propagation.length}>테마 전이 예측</SectionHeader>
+          <div className="space-y-2">
+            {propagation.map((p, i) => (
+              <div key={i} className="p-2.5 bg-violet-50 border border-violet-100 rounded-lg">
+                <div className="text-sm font-medium text-gray-900 mb-1">{p.theme}</div>
+                <div className="text-xs text-gray-600">
+                  <span className="text-violet-600 font-medium">{p.leader}</span>
+                  <span className="text-gray-400 mx-1">→</span>
+                  {p.followers?.join(", ")}
+                </div>
+                <div className="text-[10px] text-gray-400 mt-1">예상 전이 시간: ~{p.lag_minutes}분</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 손절/익절 최적화 */}
+      {exitOptimizer && exitOptimizer.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="exit" count={exitOptimizer.length}>손절/익절 최적화</SectionHeader>
+          <div className="space-y-1.5">
+            {exitOptimizer.slice(0, 6).map((e, i) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{e.name}</div>
+                  <div className="text-xs text-gray-500">{e.signal}</div>
+                </div>
+                <div className="flex gap-3 shrink-0 text-xs">
+                  <div className="text-center">
+                    <div className="text-blue-600 font-medium">{e.stop_loss}%</div>
+                    <div className="text-[10px] text-gray-400">손절</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-red-600 font-medium">+{e.take_profit}%</div>
+                    <div className="text-[10px] text-gray-400">익절</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-amber-600 font-medium">{e.trailing_stop}%</div>
+                    <div className="text-[10px] text-gray-400">추적</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <p className="text-[10px] text-gray-400">추적 = 최고점 대비 하락 시 자동 매도 기준</p>
+          </div>
+        </section>
+      )}
+
+      {/* 이벤트 캘린더 */}
+      {eventCalendar?.events && eventCalendar.events.length > 0 && (
+        <section className="bg-white border border-gray-200 rounded-xl p-4">
+          <SectionHeader id="events" count={eventCalendar.events.length}>이벤트 캘린더</SectionHeader>
+          <div className="space-y-1.5">
+            {eventCalendar.events.map((ev: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium">{ev.name}</div>
+                  <div className="text-xs text-gray-500">{ev.date}</div>
+                </div>
+                <Badge variant={ev.impact === "high" ? "danger" : ev.impact === "medium" ? "warning" : "default"}>
+                  {ev.impact === "high" ? "고영향" : ev.impact === "medium" ? "중영향" : "저영향"}
+                </Badge>
+              </div>
+            ))}
           </div>
         </section>
       )}

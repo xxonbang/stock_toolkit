@@ -30,4 +30,10 @@ export const dataService = {
   getVolumeDivergence: () => fetchJson<any[]>("volume_divergence.json"),
   getPremarket: () => fetchJson<any>("premarket.json"),
   getPortfolio: () => fetchJson<any>("portfolio.json"),
+  getSupplyCluster: () => fetchJson<any>("supply_cluster.json"),
+  getExitOptimizer: () => fetchJson<any[]>("exit_optimizer.json"),
+  getEventCalendar: () => fetchJson<any>("event_calendar.json"),
+  getThemePropagation: () => fetchJson<any[]>("theme_propagation.json"),
+  getProgramTrading: () => fetchJson<any>("program_trading.json"),
+  getIntradayHeatmap: () => fetchJson<any>("intraday_heatmap.json"),
 };

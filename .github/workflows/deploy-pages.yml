@@ -64,6 +64,7 @@ jobs:
           GEMINI_API_KEY_05: ${{ secrets.GEMINI_API_KEY_05 }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

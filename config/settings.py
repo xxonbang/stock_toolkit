@@ -20,6 +20,8 @@ GEMINI_API_KEYS = [k for k in GEMINI_API_KEYS if k]
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
+DART_API_KEY = os.getenv("DART_API_KEY", "")
+
 NAVER_CLIENT_ID = os.getenv("NAVER_CLIENT_ID", "")
 NAVER_CLIENT_SECRET = os.getenv("NAVER_CLIENT_SECRET", "")
 
