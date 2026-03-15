@@ -95,24 +95,65 @@ def main():
     falling_stocks = falling.get("kospi", []) + falling.get("kosdaq", [])
 
     stocks = rising_stocks + volume_stocks
-    anomalies = run_anomaly_scan(stocks)
+    # 직접 이상거래 탐지 (실제 데이터 필드: volume_rate, change_rate)
+    anomalies = []
+    seen_codes = set()
+    for s in stocks:
+        code = s.get("code", "")
+        if code in seen_codes:
+            continue
+        seen_codes.add(code)
+        vol_rate = s.get("volume_rate", 100)
+        change = s.get("change_rate", 0)
+        if vol_rate > 200:
+            anomalies.append({"type": "거래량 폭발", "code": code, "name": s.get("name", ""), "ratio": round(vol_rate / 100, 1), "change_rate": change})
+        if abs(change) > 10:
+            anomalies.append({"type": "가격 급변", "code": code, "name": s.get("name", ""), "change_rate": change})
     with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
         json.dump(anomalies, f, ensure_ascii=False, indent=2)
 
-    all_stocks = rising_stocks
+    # 스마트 머니 — combined signals + investor_data 기반
+    investor_data = latest.get("investor_data", {})
     smart_money_results = []
-    for stock in all_stocks:
-        score = calculate_smart_money_score(stock)
+    for sig in combined:
+        code = sig.get("code", "")
+        inv = investor_data.get(code, {})
+        foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        signal = sig.get("vision_signal", "")
+        conf = sig.get("vision_confidence", 0) or 0
+        score = 50
+        if signal in ("적극매수",):
+            score += 30
+        elif signal in ("매수",):
+            score += 15
+        score += int((conf or 0) * 20)
+        if isinstance(foreign_net, (int, float)) and foreign_net > 0:
+            score += 10
         if score >= 70:
-            smart_money_results.append({**stock, "smart_money_score": score})
+            smart_money_results.append({
+                "code": code, "name": sig.get("name", ""),
+                "smart_money_score": min(score, 99),
+                "signal": signal, "foreign_net": foreign_net,
+            })
     smart_money_results.sort(key=lambda x: x["smart_money_score"], reverse=True)
     with open(results_dir / "smart_money.json", "w", encoding="utf-8") as f:
-        json.dump(smart_money_results, f, ensure_ascii=False, indent=2)
+        json.dump(smart_money_results[:20], f, ensure_ascii=False, indent=2)
 
-    all_flow_stocks = rising_stocks + falling_stocks
-    sectors = aggregate_by_sector(all_flow_stocks)
+    # 섹터 자금 흐름 — 테마별 외국인 순매수 집계
+    themes = loader.get_themes()
+    sector_flow = {}
+    for t in themes:
+        tname = t.get("theme_name", t.get("name", ""))
+        leaders = t.get("leader_stocks", t.get("leaders", []))
+        total_foreign = 0
+        for leader in leaders:
+            code = leader.get("code", "")
+            inv = investor_data.get(code, {})
+            if isinstance(inv, dict):
+                total_foreign += inv.get("foreign_net", 0)
+        sector_flow[tname] = {"stock_count": len(leaders), "total_foreign_net": total_foreign}
     with open(results_dir / "sector_flow.json", "w", encoding="utf-8") as f:
-        json.dump(sectors, f, ensure_ascii=False, indent=2)
+        json.dump(sector_flow, f, ensure_ascii=False, indent=2)
 
     # 위험 종목 평가 + 스캐너 데이터
     risk_results = []
@@ -126,21 +167,29 @@ def main():
                 leader_theme[leader["code"]] = theme.get("theme_name", theme.get("name", ""))
 
     for sig in combined:
-        result = evaluate_risk(sig)
-        if result["level"] != "낮음":
-            risk_results.append(result)
         code = sig.get("code", "")
-        signal = sig.get("signal", sig.get("combined_signal", sig.get("vision_signal", "")))
-        foreign_net = sig.get("foreign_net", 0)
+        signal = sig.get("vision_signal", "")
+        inv = investor_data.get(code, {})
+        foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+
+        # 위험도 직접 계산
+        warnings = []
+        if signal in ("적극매도", "매도"):
+            warnings.append("매도 신호")
+        if isinstance(foreign_net, (int, float)) and foreign_net < -100000:
+            warnings.append("외국인 대량 매도")
+        level = "높음" if len(warnings) >= 2 else "주의" if len(warnings) == 1 else "낮음"
+
+        if level != "낮음":
+            risk_results.append({"code": code, "name": sig.get("name", ""), "level": level, "warnings": warnings, "signal": signal, "foreign_net": foreign_net})
+
         scanner_stocks.append({
-            "code": code,
-            "name": sig.get("name", ""),
+            "code": code, "name": sig.get("name", ""),
             "signal": signal,
             "confidence": round(sig.get("vision_confidence", 0) or 0, 2),
             "foreign_net": foreign_net,
             "foreign_flow": "순매수" if isinstance(foreign_net, (int, float)) and foreign_net > 0 else "순매도",
-            "risk_level": result["level"],
-            "warnings": result["warnings"],
+            "risk_level": level, "warnings": warnings,
             "theme": leader_theme.get(code, ""),
             "market": sig.get("market", ""),
         })
