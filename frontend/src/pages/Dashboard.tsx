@@ -416,11 +416,16 @@ export default function Dashboard() {
               <div className="text-xs text-gray-500 mb-1.5">글로벌 매크로</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {performance.macro_indicators.slice(0, 8).map((ind: any, i: number) => (
-                  <div key={i} className="flex justify-between text-xs bg-gray-50 rounded p-1.5">
-                    <span className="text-gray-500 truncate">{ind.name || ind.symbol}</span>
-                    <span className={`font-medium ${(ind.change_pct || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                      {ind.price?.toLocaleString()} {ind.change_pct != null ? `(${ind.change_pct >= 0 ? "+" : ""}${ind.change_pct}%)` : ""}
-                    </span>
+                  <div key={i} className="bg-gray-50 rounded-lg p-2">
+                    <div className="text-[10px] text-gray-400 mb-0.5">{ind.name || ind.symbol}</div>
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-sm font-semibold text-gray-900">{ind.price?.toLocaleString()}</span>
+                      {ind.change_pct != null && (
+                        <span className={`text-[10px] font-medium ${(ind.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          {ind.change_pct >= 0 ? "+" : ""}{ind.change_pct}%
+                        </span>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
