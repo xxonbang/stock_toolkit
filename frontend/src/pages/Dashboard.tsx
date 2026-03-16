@@ -528,19 +528,17 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
                   const k = day.kospi || day;
                   return (
-                    <div key={i} className="flex items-center justify-between text-[10px] t-card-alt rounded px-1.5 py-1.5">
+                    <div key={i} className="grid grid-cols-4 text-[10px] t-card-alt rounded px-1.5 py-1.5 items-center">
                       <span className="t-text-sub">{day.date}</span>
-                      <div className="flex gap-2">
-                        <span className={`font-medium ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 10000).toFixed(0)}만
-                        </span>
-                        <span className={`font-medium ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
-                        </span>
-                        <span className={`font-medium ${(k.individual || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          개인 {(k.individual || 0) >= 0 ? "+" : ""}{((k.individual || 0) / 10000).toFixed(0)}만
-                        </span>
-                      </div>
+                      <span className={`font-medium text-right ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 10000).toFixed(0)}만
+                      </span>
+                      <span className={`font-medium text-right ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
+                      </span>
+                      <span className={`font-medium text-right ${(k.individual || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        개인 {(k.individual || 0) >= 0 ? "+" : ""}{((k.individual || 0) / 10000).toFixed(0)}만
+                      </span>
                     </div>
                   );
                 })}
