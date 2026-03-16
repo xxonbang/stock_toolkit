@@ -256,11 +256,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 장전 프리마켓 */}
       {premarket && (
-        <section className="bg-amber-50 border border-amber-100 rounded-xl p-4">
+        <section className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4">
           <SectionHeader id="premarket">장전 프리마켓</SectionHeader>
           {/* 예측 결과 카드 */}
-          <div className={`rounded-lg p-3 mb-3 text-center ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-50 border border-red-100" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-50 border border-blue-100" : "bg-gray-50 border t-border-light"}`}>
-            <div className="text-[10px] text-gray-400 mb-1">시장 출발 예상</div>
+          <div className={`rounded-lg p-3 mb-3 text-center ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
+            <div className="text-[10px] t-text-dim mb-1">시장 출발 예상</div>
             <div className={`text-lg font-bold ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "text-red-600" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "text-blue-600" : "t-text"}`}>
               {premarket.prediction}
             </div>
@@ -268,7 +268,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* 핵심 요인 */}
           {premarket.key_factors?.length > 0 && (
             <div>
-              <div className="text-xs font-medium text-gray-500 mb-1.5">핵심 요인</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">핵심 요인</div>
               <div className="space-y-1">
                 {premarket.key_factors.map((f: string, i: number) => {
                   const isPositive = f.includes("+") || f.includes("상승") || f.includes("매수");
@@ -302,14 +302,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           "주의 종목": "⚠️", "전략 제안": "💡",
         };
         const bgMap: Record<string, string> = {
-          "글로벌 환경": "bg-slate-50", "오늘의 주목 테마": "bg-amber-50",
-          "고확신 종목": "bg-green-50", "주의 종목": "bg-red-50", "전략 제안": "bg-blue-50",
+          "글로벌 환경": "bg-slate-500/10", "오늘의 주목 테마": "bg-amber-500/10",
+          "고확신 종목": "bg-green-500/10", "주의 종목": "bg-red-500/10", "전략 제안": "bg-blue-500/10",
         };
         return (
           <section className="space-y-2">
             <SectionHeader id="briefing">AI 모닝 브리핑</SectionHeader>
             {sections.map((sec: any, i: number) => (
-              <div key={i} className={`rounded-xl border t-border-light p-3.5 ${bgMap[sec.title] || "bg-gray-50"}`}>
+              <div key={i} className={`rounded-xl border t-border-light p-3.5 ${bgMap[sec.title] || "t-card-alt"}`}>
                 <div className="flex items-center gap-1.5 mb-2">
                   <span className="text-sm">{iconMap[sec.title] || "📌"}</span>
                   <span className="text-sm font-semibold t-text">{sec.title}</span>
@@ -384,7 +384,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* 글로벌 매크로 */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium text-gray-500 mb-1.5">글로벌 매크로</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">글로벌 매크로</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {Object.entries(indicatorHistory.macro as Record<string, any[]>).slice(0, 6).map(([symbol, history]: [string, any]) => {
                   const arr = Array.isArray(history) ? history : [];
@@ -394,7 +394,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "069500": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)", "KOSPI200F": "코스피200선물", "^VIX": "VIX", "FNG": "F&G" };
                   return (
                     <div key={symbol} className="t-card-alt rounded-lg p-2">
-                      <div className="text-[10px] text-gray-400 mb-0.5">{nameMap[symbol] || symbol}</div>
+                      <div className="text-[10px] t-text-dim mb-0.5">{nameMap[symbol] || symbol}</div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-sm font-semibold t-text">{latest.price?.toLocaleString()}</span>
                         {latest.change_pct != null && (
@@ -403,7 +403,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                           </span>
                         )}
                       </div>
-                      {prev && <div className="text-[10px] text-gray-400 mt-0.5">전일 {prev.price?.toLocaleString()}</div>}
+                      {prev && <div className="text-[10px] t-text-dim mt-0.5">전일 {prev.price?.toLocaleString()}</div>}
                     </div>
                   );
                 })}
@@ -414,11 +414,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* 주요 선물 */}
           {performance.futures?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium text-gray-500 mb-1.5">주요 선물</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">주요 선물</div>
               <div className="grid grid-cols-3 gap-1.5">
                 {performance.futures.map((ft: any, i: number) => (
                   <div key={i} className="t-card-alt rounded-lg p-2 text-center">
-                    <div className="text-[10px] text-gray-400 truncate">{ft.name}</div>
+                    <div className="text-[10px] t-text-dim truncate">{ft.name}</div>
                     <div className="text-sm font-semibold t-text">{ft.price?.toLocaleString()}</div>
                     <div className={`text-[10px] font-medium ${(ft.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
                       {ft.change_pct >= 0 ? "▲" : "▼"}{Math.abs(ft.change_pct)}%
@@ -432,14 +432,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* 환율 */}
           {performance.exchange?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium text-gray-500 mb-1.5">환율</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">환율</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {performance.exchange.slice(0, 4).map((r: any, i: number) => {
                   const label: Record<string, string> = { USD: "원/달러", JPY: "원/엔", EUR: "원/유로", CNY: "원/위안" };
                   const cur = r.currency || r.name || "";
                   return (
                     <div key={i} className="t-card-alt rounded-lg p-2">
-                      <div className="text-[10px] text-gray-400 mb-0.5">{label[cur] || cur}</div>
+                      <div className="text-[10px] t-text-dim mb-0.5">{label[cur] || cur}</div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-sm font-semibold t-text">{r.rate?.toLocaleString()}</span>
                         {r.change_rate != null && (
@@ -457,7 +457,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* F&G 추세 */}
           {(performance.fear_greed?.previous_1_week != null || performance.fear_greed?.previous_1_month != null) && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium text-gray-500 mb-1.5">공포·탐욕 추세</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">공포·탐욕 추세</div>
               <div className="flex gap-3 text-xs">
                 {[
                   { label: "1주 전", val: performance.fear_greed.previous_1_week },
@@ -479,7 +479,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* 테마 예측 */}
           {performance.theme_forecast?.themes?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium text-gray-500 mb-1.5">오늘의 테마 예측</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">오늘의 테마 예측</div>
               {performance.theme_forecast.market_context && (
                 <div className="text-[11px] t-text-sub leading-relaxed mb-2 t-card-alt rounded-lg p-2.5">
                   {performance.theme_forecast.market_context}
@@ -491,7 +491,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
                   const confColor = confLabel.includes("높") || (typeof conf === "number" && conf >= 70) ? "text-red-500" : confLabel.includes("보통") || (typeof conf === "number" && conf >= 40) ? "text-amber-500" : "t-text-dim";
                   return (
-                    <div key={i} className="flex items-center justify-between bg-purple-50 rounded-lg px-2.5 py-1.5">
+                    <div key={i} className="flex items-center justify-between bg-purple-500/10 rounded-lg px-2.5 py-1.5">
                       <span className="text-xs font-medium t-text">{t.theme_name || t.name}</span>
                       {confLabel && <span className={`text-[10px] font-medium ${confColor}`}>{confLabel}</span>}
                     </div>
@@ -503,12 +503,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {/* 투자자 동향 — 시장 현황 내 통합 */}
           {sentiment?.components?.investor_trend?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium text-gray-500 mb-1.5">최근 투자자 동향 (KOSPI)</div>
+              <div className="text-xs font-medium t-text-sub mb-1.5">최근 투자자 동향 (KOSPI)</div>
               <div className="grid grid-cols-1 gap-1">
                 {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
                   const k = day.kospi || day;
                   return (
-                    <div key={i} className="flex items-center justify-between text-[10px] bg-gray-50 rounded px-1.5 py-1.5">
+                    <div key={i} className="flex items-center justify-between text-[10px] t-card-alt rounded px-1.5 py-1.5">
                       <span className="t-text-sub">{day.date}</span>
                       <div className="flex gap-2">
                         <span className={`font-medium ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
@@ -532,7 +532,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="supply_cluster">수급 클러스터</SectionHeader>
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-sm font-bold t-text bg-purple-50 border border-purple-200 rounded-lg px-3 py-1.5">
+            <div className="text-sm font-bold t-text bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-1.5">
               {supplyCluster.regime}
             </div>
           </div>
@@ -543,21 +543,21 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div className={`font-semibold ${supplyCluster.foreign_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
                 {supplyCluster.foreign_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.foreign_net) >= 1000000 ? `${(supplyCluster.foreign_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.foreign_net / 1000).toFixed(0)}천주`}
               </div>
-              <div className="text-[10px] text-gray-400 mt-0.5">순매수</div>
+              <div className="text-[10px] t-text-dim mt-0.5">순매수</div>
             </div>
             <div className="t-card-alt rounded-lg p-2">
               <div className="t-text-sub">기관</div>
               <div className={`font-semibold ${supplyCluster.institution_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
                 {supplyCluster.institution_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.institution_net) >= 1000000 ? `${(supplyCluster.institution_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.institution_net / 1000).toFixed(0)}천주`}
               </div>
-              <div className="text-[10px] text-gray-400 mt-0.5">순매수</div>
+              <div className="text-[10px] t-text-dim mt-0.5">순매수</div>
             </div>
             <div className="t-card-alt rounded-lg p-2">
               <div className="t-text-sub">개인</div>
               <div className={`font-semibold ${supplyCluster.individual_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
                 {supplyCluster.individual_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.individual_net) >= 1000000 ? `${(supplyCluster.individual_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.individual_net / 1000).toFixed(0)}천주`}
               </div>
-              <div className="text-[10px] text-gray-400 mt-0.5">순매수</div>
+              <div className="text-[10px] t-text-dim mt-0.5">순매수</div>
             </div>
           </div>
         </section>
@@ -581,7 +581,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
                 <div className="min-w-0">
                   <span className="text-sm font-medium">{h.name}</span>
-                  <span className="text-xs text-gray-400 ml-1">{h.code}</span>
+                  <span className="text-xs t-text-dim ml-1">{h.code}</span>
                   <div className="text-xs t-text-sub">{h.sector} · 비중 {h.weight}%</div>
                 </div>
                 <div className="shrink-0">{signalBadge(h.signal)}</div>
@@ -589,7 +589,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             ))}
           </div>
           {portfolio.suggestions?.length > 0 && (
-            <div className="bg-amber-50 border border-amber-100 rounded-lg p-2.5">
+            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5">
               <div className="text-xs font-medium text-amber-700 mb-1">리밸런싱 제안</div>
               {portfolio.suggestions.map((s: string, i: number) => (
                 <div key={i} className="text-xs text-amber-600">· {s}</div>
@@ -622,7 +622,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               {bars.map((b) => (
                 <div key={b.key} className="text-center flex-1">
                   <div className="font-semibold t-text">{b.count}</div>
-                  <div className="text-gray-500 text-[10px]">{b.key}</div>
+                  <div className="t-text-sub text-[10px]">{b.key}</div>
                 </div>
               ))}
             </div>
@@ -639,15 +639,15 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="cross" count={crossSignal?.length ?? 0}>교차 신호</SectionHeader>
           <div className="space-y-2">
             {(crossSignal || []).map((s, i) => (
-              <div key={i} className="p-2.5 bg-green-50 border border-green-100 rounded-lg">
+              <div key={i} className="p-2.5 bg-green-500/10 border border-green-500/20 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 mr-2">
                     <span className="font-medium text-sm">{s.name}</span>
-                    <span className="text-xs text-gray-400 ml-1">{s.code}</span>
+                    <span className="text-xs t-text-dim ml-1">{s.code}</span>
                   </div>
                   <div className="shrink-0">{signalBadge(s.signal)}</div>
                 </div>
-                <div className="text-xs text-gray-500 mt-1 flex items-center gap-1.5">
+                <div className="text-xs t-text-sub mt-1 flex items-center gap-1.5">
                   <span>{s.theme} · AI 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%</span>
                   {s.dual_signal && (
                     <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "혼조" ? "warning" : "default"}>
@@ -706,7 +706,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="anomaly" count={anomalies?.length ?? 0}>이상 거래 감지</SectionHeader>
           <div className="space-y-1.5">
             {(anomalies || []).slice(0, 6).map((a, i) => (
-              <div key={i} className="flex items-center justify-between p-2 bg-red-50 border border-red-100 rounded-lg gap-2">
+              <div key={i} className="flex items-center justify-between p-2 bg-red-500/10 border border-red-500/20 rounded-lg gap-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap size={14} className="text-red-400 shrink-0" />
                   <div className="min-w-0">
@@ -741,7 +741,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   <div className="flex items-center gap-2 min-w-0">
                     <Shield size={14} className={`shrink-0 ${r.level === "높음" ? "text-red-500" : "text-amber-500"}`} />
                     <span className="text-sm font-medium truncate">{r.name}</span>
-                    <span className="text-xs text-gray-400 shrink-0">{r.code}</span>
+                    <span className="text-xs t-text-dim shrink-0">{r.code}</span>
                   </div>
                 </div>
                 <div className="flex gap-1 mt-1.5 ml-6">
@@ -825,7 +825,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       </div>
                     </div>
                   ) : (
-                    <div className="text-xs text-gray-400 text-center py-1">거래 데이터 축적 중</div>
+                    <div className="text-xs t-text-dim text-center py-1">거래 데이터 축적 중</div>
                   )}
                 </div>
               );
@@ -843,13 +843,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             {(pattern || []).map((p, i) => (
               <div key={i}>
                 <div className="font-medium text-sm flex items-center gap-1 mb-1.5">
-                  <LineChart size={14} className="text-gray-400 shrink-0" />
+                  <LineChart size={14} className="t-text-dim shrink-0" />
                   <span className="truncate">{p.name}</span>
-                  <span className="text-xs text-gray-400 shrink-0">{p.code}</span>
+                  <span className="text-xs t-text-dim shrink-0">{p.code}</span>
                 </div>
                 {p.matches?.slice(0, 3).map((m: any, j: number) => (
                   <div key={j} className="flex justify-between text-xs py-1 border-b t-border-light last:border-0 gap-2">
-                    <span className="text-gray-500 truncate">{m.date} · 유사도 {(m.similarity * 100).toFixed(0)}%</span>
+                    <span className="t-text-sub truncate">{m.date} · 유사도 {(m.similarity * 100).toFixed(0)}%</span>
                     <span className={`shrink-0 ${m.future_return_d5 >= 0 ? "text-red-600 font-medium" : "text-blue-600 font-medium"}`}>
                       D+5 {m.future_return_d5 >= 0 ? "+" : ""}{m.future_return_d5?.toFixed(1)}%
                     </span>
@@ -920,10 +920,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="squeeze" count={shortSqueeze?.length ?? 0}>역발상 시그널</SectionHeader>
           <div className="space-y-1.5">
             {(shortSqueeze || []).slice(0, 6).map((s, i) => (
-              <div key={i} className="flex items-center justify-between p-2 bg-orange-50 border border-orange-100 rounded-lg gap-2">
+              <div key={i} className="flex items-center justify-between p-2 bg-orange-500/10 border border-orange-500/20 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{s.name}</div>
-                  <div className="text-xs text-gray-500 truncate">{s.overheating}</div>
+                  <div className="text-xs t-text-sub truncate">{s.overheating}</div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {signalBadge(s.signal)}
@@ -949,7 +949,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{v.name}</div>
-                  <div className="text-xs text-gray-500 leading-relaxed">
+                  <div className="text-xs t-text-sub leading-relaxed">
                     <div>{v.per ? `PER ${v.per}` : v.ma_aligned ? "MA정배열" : ""}{v.pbr ? ` · PBR ${v.pbr}` : ""}{v.roe ? ` · ROE ${v.roe}%` : ""}</div>
                     {(v.opm || v.debt_ratio) && <div>{v.opm ? `영업이익률 ${v.opm}%` : ""}{v.debt_ratio ? `${v.opm ? " · " : ""}부채비율 ${v.debt_ratio}%` : ""}</div>}
                     {!v.per && v.foreign_net > 0 && <div>외국인 순매수</div>}
@@ -1031,14 +1031,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="propagation" count={propagation?.length ?? 0}>테마 전이 예측</SectionHeader>
           <div className="space-y-2">
             {(propagation || []).map((p, i) => (
-              <div key={i} className="p-2.5 bg-violet-50 border border-violet-100 rounded-lg">
+              <div key={i} className="p-2.5 bg-violet-500/10 border border-violet-500/20 rounded-lg">
                 <div className="text-sm font-medium t-text mb-1">{p.theme}</div>
                 <div className="text-xs t-text-sub">
                   <span className="text-violet-600 font-medium">{p.leader}</span>
-                  <span className="text-gray-400 mx-1">→</span>
+                  <span className="t-text-dim mx-1">→</span>
                   {p.followers?.join(", ")}
                 </div>
-                <div className="text-[10px] text-gray-400 mt-1">예상 전이 시간: ~{p.lag_minutes}분</div>
+                <div className="text-[10px] t-text-dim mt-1">예상 전이 시간: ~{p.lag_minutes}분</div>
               </div>
             ))}
           </div>
@@ -1121,7 +1121,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             {/* 종목별 프로그램 매매 */}
             {programTrading.by_stock?.length > 0 && (
               <div className="mt-2 pt-2 border-t t-border-light">
-                <div className="text-xs font-medium text-gray-500 mb-1.5">종목별 프로그램 순매수</div>
+                <div className="text-xs font-medium t-text-sub mb-1.5">종목별 프로그램 순매수</div>
                 {programTrading.by_stock.slice(0, 5).map((ps: any, i: number) => (
                   <div key={i} className="flex items-center justify-between text-xs py-1">
                     <span className="t-text truncate">{ps.name}</span>
@@ -1159,7 +1159,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         ) : heatmap?.hours ? (
           <div className="grid grid-cols-7 gap-1">
             {Object.entries(heatmap.hours).map(([hour, ret]: [string, any]) => (
-              <div key={hour} className={`text-center p-2 rounded-lg ${ret >= 0.5 ? "bg-red-50" : ret >= 0 ? "bg-gray-50" : "bg-blue-50"}`}>
+              <div key={hour} className={`text-center p-2 rounded-lg ${ret >= 0.5 ? "bg-red-500/10" : ret >= 0 ? "t-card-alt" : "bg-blue-500/10"}`}>
                 <div className="text-[10px] t-text-dim">{hour}시</div>
                 <div className={`text-xs font-medium ${ret >= 0.5 ? "text-red-600" : ret >= 0 ? "t-text-sub" : "text-blue-600"}`}>
                   {ret >= 0 ? "+" : ""}{ret}%
@@ -1168,7 +1168,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             ))}
           </div>
         ) : <Empty />}
-        {!heatmap?.snapshots?.length && <p className="text-[10px] text-gray-400 mt-2">시간대별 평균 수익률 (양수=상승 경향, 음수=하락 경향)</p>}
+        {!heatmap?.snapshots?.length && <p className="text-[10px] t-text-dim mt-2">시간대별 평균 수익률 (양수=상승 경향, 음수=하락 경향)</p>}
       </section>
 
       {/* 내부자 거래 */}
@@ -1239,7 +1239,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           ))}
         </div>
         {!auction?.length && <Empty />}
-        <p className="text-[10px] text-gray-400 mt-1">장중 실시간 호가 기반 · 휴장 시 최근 데이터</p>
+        <p className="text-[10px] t-text-dim mt-1">장중 실시간 호가 기반 · 휴장 시 최근 데이터</p>
       </section>
 
       {/* 호가창 압력 */}
@@ -1283,14 +1283,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
                 <div className="text-sm min-w-0">
                   <span className="font-medium">{p.stock_a}</span>
-                  <span className="text-gray-400 mx-1">↔</span>
+                  <span className="t-text-dim mx-1">↔</span>
                   <span className="font-medium">{p.stock_b}</span>
                 </div>
                 <div className="shrink-0">
                   <div className={`w-12 h-2 t-muted rounded-full overflow-hidden`}>
                     <div className={`h-full rounded-full ${p.correlation > 0.7 ? "bg-red-400" : p.correlation > 0.3 ? "bg-amber-400" : "bg-green-400"}`} style={{width: `${Math.abs(p.correlation) * 100}%`}} />
                   </div>
-                  <div className="text-[10px] text-gray-500 text-right">{p.correlation?.toFixed(2)} {Math.abs(p.correlation) > 0.7 ? "높음" : Math.abs(p.correlation) > 0.3 ? "보통" : "낮음"}</div>
+                  <div className="text-[10px] t-text-sub text-right">{p.correlation?.toFixed(2)} {Math.abs(p.correlation) > 0.7 ? "높음" : Math.abs(p.correlation) > 0.3 ? "보통" : "낮음"}</div>
                 </div>
               </div>
             ))}
@@ -1324,7 +1324,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         {aiMentor?.advice?.length ? (
           <div className="space-y-2">
             {aiMentor.advice.map((a: any, i: number) => (
-              <div key={i} className="p-2.5 bg-indigo-50 border border-indigo-100 rounded-lg">
+              <div key={i} className="p-2.5 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
                 <div className="text-xs font-medium text-indigo-700 mb-1">{a.category}</div>
                 <div className="text-sm t-text">{a.message}</div>
               </div>
@@ -1345,7 +1345,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   외국인 {m.foreign_net >= 0 ? "+" : ""}{(m.foreign_net / 1000).toFixed(0)}천주
                 </span>
               </div>
-              <div className="text-xs text-gray-500 truncate">
+              <div className="text-xs t-text-sub truncate">
                 매수: {m.buy_top5?.map((b: any) => typeof b === "string" ? b : b?.name || b?.member || "").filter(Boolean).join(", ") || "-"}
               </div>
             </div>
@@ -1383,7 +1383,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <SectionHeader id="paper_trading">모의투자 현황</SectionHeader>
         {paperTrading?.stocks?.length ? (
           <div className="space-y-1.5">
-            <div className="text-xs text-gray-500 mb-2">날짜: {paperTrading.date}</div>
+            <div className="text-xs t-text-sub mb-2">날짜: {paperTrading.date}</div>
             {paperTrading.stocks.slice(0, 6).map((s: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
                 <span className="text-sm font-medium truncate">{s.name || s.code}</span>
@@ -1397,7 +1397,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
             ))}
             {paperTrading.summary && (
-              <div className="text-xs text-gray-500 mt-2 bg-blue-50 rounded p-2">
+              <div className="text-xs t-text-sub mt-2 bg-blue-500/10 rounded p-2">
                 총 수익률: {paperTrading.summary.total_return ?? "-"}%
               </div>
             )}
@@ -1419,7 +1419,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <div className="space-y-1.5">
           {(forecastAccuracy?.predictions || []).map((fc: any, i: number) => (
             <div key={i} className="p-2 t-card-alt rounded-lg">
-              <div className="flex justify-between text-xs text-gray-500 mb-1">
+              <div className="flex justify-between text-xs t-text-sub mb-1">
                 <span>{fc.date}</span>
                 <span>{fc.hit_count}/{fc.total} 적중</span>
               </div>
@@ -1567,7 +1567,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm text-gray-400 hover:bg-white/50 hover:t-text-sub transition-all duration-200"
+          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm t-text-dim hover:bg-white/50 hover:t-text-sub transition-all duration-200"
           aria-label="최상단으로 이동"
         >
           <ChevronUp size={20} />
