@@ -599,23 +599,23 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         const c = performance.by_source.combined;
         const total = c.total || 0;
         const buyCount = (c["적극매수"] || 0) + (c["매수"] || 0);
-        const sellCount = (c["매도"] || 0) + (c["적극매도"] || 0);
-        // 매수 종목: crossSignal + smartMoney에서 추출
-        const buyNames: string[] = [];
+        // 매수 종목: crossSignal + smartMoney에서 추출 (중복 제거)
+        const seen = new Set<string>();
         const strongBuyNames: string[] = [];
+        const buyNames: string[] = [];
         (crossSignal || []).forEach((s: any) => {
           const sig = s.vision_signal || s.signal || "";
-          if (sig === "적극매수") strongBuyNames.push(s.name);
-          else if (sig === "매수" && !buyNames.includes(s.name)) buyNames.push(s.name);
+          if (sig === "적극매수" && !seen.has(s.name)) { strongBuyNames.push(s.name); seen.add(s.name); }
+          else if (sig === "매수" && !seen.has(s.name)) { buyNames.push(s.name); seen.add(s.name); }
         });
         (smartMoney || []).forEach((s: any) => {
-          if (s.signal === "매수" && !buyNames.includes(s.name) && !strongBuyNames.includes(s.name)) buyNames.push(s.name);
+          if ((s.signal === "매수" || s.signal === "적극매수") && !seen.has(s.name)) { buyNames.push(s.name); seen.add(s.name); }
         });
         return (
           <section className="t-card rounded-xl p-4">
             <SectionHeader id="signals" timestamp={ts}>AI 주목 종목</SectionHeader>
             <div className="text-xs t-text-sub mb-3">
-              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 {buyCount}</span> · <span className="text-blue-500 font-semibold">매도 {sellCount}</span>
+              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {buyCount}종목</span>
             </div>
             {strongBuyNames.length > 0 && (
               <div className="mb-2">
@@ -631,10 +631,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div>
                 <div className="text-[10px] t-text-dim mb-1">매수</div>
                 <div className="flex flex-wrap gap-1">
-                  {buyNames.slice(0, 12).map((n, i) => (
+                  {buyNames.map((n, i) => (
                     <span key={i} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/10 t-text-sub">{n}</span>
                   ))}
-                  {buyNames.length > 12 && <span className="text-[10px] t-text-dim self-center">외 {buyNames.length - 12}개</span>}
                 </div>
               </div>
             )}
