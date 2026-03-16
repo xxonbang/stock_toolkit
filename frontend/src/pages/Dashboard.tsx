@@ -327,6 +327,33 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 />
               </div>
             ))}
+            {/* 오늘의 테마 예측 — AI 브리핑 영역에 포함 */}
+            {performance?.theme_forecast?.themes?.length > 0 && (
+              <div className="rounded-xl border t-border-light p-3.5 bg-purple-500/8">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <span className="text-sm">📈</span>
+                  <span className="text-sm font-semibold t-text">오늘의 테마 예측</span>
+                </div>
+                {performance.theme_forecast.market_context && (
+                  <div className="text-xs t-text-sub leading-relaxed mb-2 t-card-alt rounded-lg p-2.5">
+                    {performance.theme_forecast.market_context}
+                  </div>
+                )}
+                <div className="space-y-1.5">
+                  {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => {
+                    const conf = t.confidence;
+                    const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
+                    const confColor = confLabel.includes("높") || (typeof conf === "number" && conf >= 70) ? "text-red-500" : confLabel.includes("보통") || (typeof conf === "number" && conf >= 40) ? "text-amber-500" : "t-text-dim";
+                    return (
+                      <div key={i} className="flex items-center justify-between t-card-alt rounded-lg px-2.5 py-1.5">
+                        <span className="text-xs font-medium t-text">{t.theme_name || t.name}</span>
+                        {confLabel && <span className={`text-[10px] font-medium ${confColor}`}>{confLabel}</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </section>
         );
       })()}
@@ -477,30 +504,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       <div className="t-text-dim">{item.label}</div>
                       <div className="font-medium">{item.val != null ? (typeof item.val === "number" ? item.val.toFixed(1) : item.val) : "-"}</div>
                       {diff != null && <div className={`text-[10px] ${diff >= 0 ? "text-red-500" : "text-blue-500"}`}>{diff >= 0 ? "▲" : "▼"}{Math.abs(diff).toFixed(1)}p</div>}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          {/* 테마 예측 */}
-          {performance.theme_forecast?.themes?.length > 0 && (
-            <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">오늘의 테마 예측</div>
-              {performance.theme_forecast.market_context && (
-                <div className="text-[11px] t-text-sub leading-relaxed mb-2 t-card-alt rounded-lg p-2.5">
-                  {performance.theme_forecast.market_context}
-                </div>
-              )}
-              <div className="space-y-1.5">
-                {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => {
-                  const conf = t.confidence;
-                  const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
-                  const confColor = confLabel.includes("높") || (typeof conf === "number" && conf >= 70) ? "text-red-500" : confLabel.includes("보통") || (typeof conf === "number" && conf >= 40) ? "text-amber-500" : "t-text-dim";
-                  return (
-                    <div key={i} className="flex items-center justify-between bg-purple-500/10 rounded-lg px-2.5 py-1.5">
-                      <span className="text-xs font-medium t-text">{t.theme_name || t.name}</span>
-                      {confLabel && <span className={`text-[10px] font-medium ${confColor}`}>{confLabel}</span>}
                     </div>
                   );
                 })}
