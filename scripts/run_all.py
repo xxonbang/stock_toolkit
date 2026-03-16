@@ -164,7 +164,7 @@ def main():
     for sig in combined:
         code = sig.get("code", "")
         inv = investor_data.get(code, {})
-        foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        foreign_net = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
         signal = sig.get("vision_signal", "")
         conf = sig.get("vision_confidence", 0) or 0
         api_sig = sig.get("api_signal", "")
@@ -214,7 +214,7 @@ def main():
             code = leader.get("code", "")
             inv = investor_data.get(code, {})
             if isinstance(inv, dict):
-                total_foreign += inv.get("foreign_net", 0)
+                total_foreign += (inv.get("foreign_net") or 0)
         sector_flow[tname] = {"stock_count": len(leaders), "total_foreign_net": total_foreign}
     with open(results_dir / "sector_flow.json", "w", encoding="utf-8") as f:
         json.dump(sector_flow, f, ensure_ascii=False, indent=2)
@@ -237,7 +237,7 @@ def main():
         code = sig.get("code", "")
         signal = sig.get("vision_signal", "")
         inv = investor_data.get(code, {})
-        foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        foreign_net = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
 
         # RSI 조회
         gem_rsi = gemini_rsi_map.get(code, {})
@@ -260,7 +260,7 @@ def main():
         # kis_gemini 추가 데이터
         mkt_info = gem_rsi.get("market_info", {}) if isinstance(gem_rsi, dict) else {}
         trading_info = gem_rsi.get("trading", {}) if isinstance(gem_rsi, dict) else {}
-        program_net = inv.get("program_net", 0) if isinstance(inv, dict) else 0
+        program_net = (inv.get("program_net") or 0) if isinstance(inv, dict) else 0
         # kis_analysis 4차원 점수
         ka = kis_analysis_map.get(code, {})
         ka_scores = ka.get("scores", {}) if isinstance(ka, dict) else {}
@@ -518,7 +518,7 @@ def main():
             if signal in ("매수", "적극매수"):
                 score += 15
             inv = investor_data.get(code, {})
-            fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+            fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
             if fn > 0:
                 score += 10
             val_results.append({
@@ -625,7 +625,7 @@ def main():
         code = sig.get("code", "")
         crit = criteria_map.get(code, {})
         inv = investor_data.get(code, {})
-        foreign_net = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        foreign_net = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
         overheating = crit.get("overheating_alert", {}) if isinstance(crit, dict) else {}
         supply = crit.get("supply_demand", {}) if isinstance(crit, dict) else {}
         is_oh = overheating.get("met", False) if isinstance(overheating, dict) else False
@@ -658,9 +658,9 @@ def main():
     from modules.program_tracker import track_program_trading
 
     # 수급 클러스터
-    total_foreign = sum(inv.get("foreign_net", 0) for inv in investor_data.values() if isinstance(inv, dict))
-    total_inst = sum(inv.get("institution_net", 0) for inv in investor_data.values() if isinstance(inv, dict))
-    total_indiv = sum(inv.get("individual_net", 0) for inv in investor_data.values() if isinstance(inv, dict))
+    total_foreign = sum((inv.get("foreign_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
+    total_inst = sum((inv.get("institution_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
+    total_indiv = sum((inv.get("individual_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
     regime = classify_supply_regime(total_foreign, total_inst, total_indiv)
     strategy_text = get_regime_strategy(regime)
     with open(results_dir / "supply_cluster.json", "w", encoding="utf-8") as f:
@@ -827,7 +827,7 @@ def main():
         for sig in combined[:5]:
             code = sig.get("code", "")
             inv = investor_data.get(code, {})
-            fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+            fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
             buy_pct = min(90, max(10, 50 + (fn / 50000)))
             orderbook_results.append({"name": sig.get("name",""), "code": code, "buy_pct": round(buy_pct)})
     with open(results_dir / "orderbook.json", "w", encoding="utf-8") as f:
@@ -1005,7 +1005,7 @@ def main():
         change = s.get("change_rate", 0)
         code = s.get("code", "")
         inv = investor_data.get(code, {})
-        fn = inv.get("foreign_net", 0) if isinstance(inv, dict) else 0
+        fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
         if vol_rate > 300 and change < -5:
             anomalies.append({"type": "하락+거래량폭발", "code": code, "name": s.get("name", ""), "change_rate": change, "ratio": round(vol_rate/100, 1)})
         if fn > 100000 and change < -3:
