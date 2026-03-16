@@ -69,7 +69,7 @@ export default function RefreshButtons() {
         <button
           onClick={() => handleRefresh("data-only")}
           disabled={!!loading}
-          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition disabled:opacity-50 whitespace-nowrap"
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium t-text-sub t-card-alt hover:opacity-80 rounded-lg transition disabled:opacity-50 whitespace-nowrap"
           title="데이터만 갱신 (Gemini 미사용)"
         >
           <RefreshCw size={12} className={loading === "data-only" ? "animate-spin" : ""} />

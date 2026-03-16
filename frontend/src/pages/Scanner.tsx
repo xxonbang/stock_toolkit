@@ -88,12 +88,12 @@ export default function Scanner() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-6">
+      <h1 className="text-xl font-bold t-text flex items-center gap-2 mb-6">
         <Filter size={22} className="text-blue-600" />
         종목 스캐너
       </h1>
 
-      <div className="bg-white border border-gray-200 rounded-xl p-4 mb-4 space-y-4">
+      <div className="t-card rounded-xl p-4 mb-4 space-y-4">
         <SectionHeader id="scanner">필터 조건</SectionHeader>
 
         <FilterGroup label="매매 신호" desc="AI가 분석한 종목별 매매 추천 강도">
@@ -151,27 +151,27 @@ export default function Scanner() {
           검색 {activeCount > 0 && `(${activeCount}개 필터)`}
         </button>
         <button onClick={handleReset}
-          className="flex items-center gap-1 px-4 bg-gray-100 hover:bg-gray-200 text-gray-600 py-3 rounded-xl transition">
+          className="flex items-center gap-1 px-4 bg-gray-100 hover:bg-gray-200 t-text-sub py-3 rounded-xl transition">
           <RotateCcw size={16} />
           초기화
         </button>
       </div>
 
       {results !== null && (
-        <div className="bg-white border border-gray-200 rounded-xl p-4">
-          <h2 className="text-base font-semibold text-gray-900 mb-3">
-            검색 결과 <span className="text-gray-400 font-normal text-sm">({results.length}종목)</span>
+        <div className="t-card rounded-xl p-4">
+          <h2 className="text-base font-semibold t-text mb-3">
+            검색 결과 <span className="t-text-dim font-normal text-sm">({results.length}종목)</span>
           </h2>
           {results.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">조건에 맞는 종목이 없습니다</div>
+            <div className="text-center py-8 t-text-dim">조건에 맞는 종목이 없습니다</div>
           ) : (
             <div className="space-y-1.5">
               {results.map((s, i) => (
-                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={i} className="flex items-center justify-between p-3 t-card-alt rounded-lg">
                   <div>
-                    <span className="text-sm font-medium text-gray-900">{s.name}</span>
-                    <span className="text-xs text-gray-400 ml-1">{s.code}</span>
-                    <div className="text-xs text-gray-500 mt-0.5">
+                    <span className="text-sm font-medium t-text">{s.name}</span>
+                    <span className="text-xs t-text-dim ml-1">{s.code}</span>
+                    <div className="text-xs t-text-sub mt-0.5">
                       {s.market}
                       {s.theme && <span className="text-purple-600 ml-1">{s.theme}</span>}
                     </div>
@@ -187,7 +187,7 @@ export default function Scanner() {
                     </div>
                     <div className={`text-xs ${s.foreign_flow === "순매수" ? "text-red-500" : "text-blue-500"}`}>
                       외국인 {s.foreign_flow}
-                      {s.rsi ? <span className={`ml-1 ${s.rsi > 70 ? "text-red-500" : s.rsi < 30 ? "text-blue-500" : "text-gray-400"}`}>RSI {s.rsi}</span> : null}
+                      {s.rsi ? <span className={`ml-1 ${s.rsi > 70 ? "text-red-500" : s.rsi < 30 ? "text-blue-500" : "t-text-dim"}`}>RSI {s.rsi}</span> : null}
                     </div>
                     {s.match_status === "match" && (
                       <div className="text-[10px] text-green-600">이중 매칭 확인</div>
@@ -195,8 +195,8 @@ export default function Scanner() {
                     <div className="flex flex-wrap gap-1 justify-end">
                       {s.golden_cross && <span className="text-[10px] text-red-400">골든크로스</span>}
                       {s.high_breakout && <span className="text-[10px] text-red-400">신고가</span>}
-                      {s.foreign_holding_pct != null && <span className="text-[10px] text-gray-400">외보 {s.foreign_holding_pct}%</span>}
-                      {s.market_cap_billion != null && <span className="text-[10px] text-gray-400">{s.market_cap_billion}조</span>}
+                      {s.foreign_holding_pct != null && <span className="text-[10px] t-text-dim">외보 {s.foreign_holding_pct}%</span>}
+                      {s.market_cap_billion != null && <span className="text-[10px] t-text-dim">{s.market_cap_billion}조</span>}
                       {s.total_score != null && <span className="text-[10px] text-purple-500">종합 {s.total_score}점</span>}
                     </div>
                   </div>
@@ -208,7 +208,7 @@ export default function Scanner() {
       )}
 
       {results === null && allStocks.length > 0 && (
-        <div className="text-center text-gray-400 text-sm py-8">
+        <div className="text-center t-text-dim text-sm py-8">
           전체 {allStocks.length}종목 — 필터를 선택하고 검색하세요
         </div>
       )}
@@ -219,8 +219,8 @@ export default function Scanner() {
 function FilterGroup({ label, desc, children }: { label: string; desc: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-sm font-medium text-gray-700 mb-1">{label}</div>
-      <div className="text-xs text-gray-400 mb-2">{desc}</div>
+      <div className="text-sm font-medium t-text mb-1">{label}</div>
+      <div className="text-xs t-text-dim mb-2">{desc}</div>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -228,12 +228,12 @@ function FilterGroup({ label, desc, children }: { label: string; desc: string; c
 
 function Chip({ label, active, onClick, color }: { label: string; active: boolean; onClick: () => void; color: string }) {
   const styles: Record<string, { on: string; off: string }> = {
-    red: { on: "bg-red-600 text-white border-red-600", off: "bg-white text-gray-600 border-gray-300 hover:border-red-300" },
-    blue: { on: "bg-blue-600 text-white border-blue-600", off: "bg-white text-gray-600 border-gray-300 hover:border-blue-300" },
-    amber: { on: "bg-amber-500 text-white border-amber-500", off: "bg-white text-gray-600 border-gray-300 hover:border-amber-300" },
-    green: { on: "bg-green-600 text-white border-green-600", off: "bg-white text-gray-600 border-gray-300 hover:border-green-300" },
-    purple: { on: "bg-purple-600 text-white border-purple-600", off: "bg-white text-gray-600 border-gray-300 hover:border-purple-300" },
-    gray: { on: "bg-gray-700 text-white border-gray-700", off: "bg-white text-gray-600 border-gray-300 hover:border-gray-400" },
+    red: { on: "bg-red-600 text-white border-red-600", off: "t-card t-text-sub hover:border-red-300" },
+    blue: { on: "bg-blue-600 text-white border-blue-600", off: "t-card t-text-sub hover:border-blue-300" },
+    amber: { on: "bg-amber-500 text-white border-amber-500", off: "t-card t-text-sub hover:border-amber-300" },
+    green: { on: "bg-green-600 text-white border-green-600", off: "t-card t-text-sub hover:border-green-300" },
+    purple: { on: "bg-purple-600 text-white border-purple-600", off: "t-card t-text-sub hover:border-purple-300" },
+    gray: { on: "bg-gray-700 text-white border-gray-700", off: "t-card t-text-sub hover:border-gray-400" },
   };
   const s = styles[color] || styles.gray;
   return (
@@ -244,6 +244,6 @@ function Chip({ label, active, onClick, color }: { label: string; active: boolea
 }
 
 function SignalBadge({ signal }: { signal: string }) {
-  const cls = signal?.includes("매수") ? "bg-red-50 text-red-700 border-red-200" : signal?.includes("매도") ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-gray-50 text-gray-600 border-gray-200";
+  const cls = signal?.includes("매수") ? "bg-red-50 text-red-700 border-red-200" : signal?.includes("매도") ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-gray-50 t-text-sub border-gray-200";
   return <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${cls}`}>{signal || "—"}</span>;
 }

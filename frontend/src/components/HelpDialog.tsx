@@ -193,10 +193,10 @@ export function SectionHeader({
   return (
     <>
       <div className="flex items-center gap-2 mb-3">
-        <h2 className="text-base font-semibold text-gray-900">
+        <h2 className="text-base font-semibold t-text">
           {children}
           {count != null && (
-            <span className="text-sm font-normal text-gray-400 ml-1">
+            <span className="text-sm font-normal t-text-dim ml-1">
               ({count})
             </span>
           )}
@@ -204,7 +204,7 @@ export function SectionHeader({
         {help && (
           <button
             onClick={() => setOpen(true)}
-            className="text-gray-400 hover:text-blue-500 transition"
+            className="t-text-dim hover:text-blue-500 transition"
           >
             <HelpCircle size={16} />
           </button>
@@ -216,19 +216,19 @@ export function SectionHeader({
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-5"
+            className="t-card rounded-2xl shadow-xl max-w-sm w-full p-5"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-3">
-              <h3 className="font-semibold text-gray-900">{help.title}</h3>
+              <h3 className="font-semibold t-text">{help.title}</h3>
               <button
                 onClick={() => setOpen(false)}
-                className="text-gray-400 hover:text-gray-600 shrink-0 ml-2"
+                className="t-text-dim hover:t-text-sub shrink-0 ml-2"
               >
                 <X size={18} />
               </button>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed">{help.desc}</p>
+            <p className="text-sm t-text-sub leading-relaxed">{help.desc}</p>
           </div>
         </div>,
         document.body

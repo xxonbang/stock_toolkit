@@ -1,20 +1,82 @@
 @import "tailwindcss";
 
+/* ===== Light 테마 ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #f9fafb;
-  --card-border: #e5e7eb;
-  --muted: #6b7280;
+  --bg: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f1f5f9;
+  --bg-muted: #e2e8f0;
+  --bg-nav: #ffffff;
+  --bg-header: rgba(248,250,252,0.85);
+  --bg-pill: #f1f5f9;
+  --bg-pill-active: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-pill-active: #2563eb;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
   --accent: #2563eb;
-  --danger: #dc2626;
+  --up: #dc2626;
+  --down: #2563eb;
   --success: #16a34a;
   --warning: #d97706;
+  --danger: #dc2626;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-nav: 0 -1px 3px rgba(0,0,0,0.05);
+  color-scheme: light;
+}
+
+/* ===== Dark 테마 ===== */
+.dark {
+  --bg: #0b0f14;
+  --bg-card: #131a24;
+  --bg-card-alt: #1a2332;
+  --bg-muted: #1e293b;
+  --bg-nav: #0f1419;
+  --bg-header: rgba(11,15,20,0.85);
+  --bg-pill: #1a2332;
+  --bg-pill-active: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --text-pill-active: #22c55e;
+  --border: #1e293b;
+  --border-light: #1a2332;
+  --accent: #22c55e;
+  --up: #22c55e;
+  --down: #ef4444;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-nav: 0 -1px 3px rgba(0,0,0,0.4);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s, color 0.2s;
 }
+
+/* 유틸리티 */
+.t-bg { background: var(--bg); }
+.t-card { background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-card); }
+.t-card-alt { background: var(--bg-card-alt); }
+.t-muted { background: var(--bg-muted); }
+.t-text { color: var(--text-primary); }
+.t-text-sub { color: var(--text-secondary); }
+.t-text-dim { color: var(--text-tertiary); }
+.t-border { border-color: var(--border); }
+.t-border-light { border-color: var(--border-light); }
+.t-up { color: var(--up); }
+.t-down { color: var(--down); }
+.t-accent { color: var(--accent); }
+
+/* 스크롤바 다크 모드 */
+.dark ::-webkit-scrollbar { width: 4px; }
+.dark ::-webkit-scrollbar-track { background: var(--bg); }
+.dark ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
