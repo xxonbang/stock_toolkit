@@ -1113,15 +1113,22 @@ def main():
     # 뉴스 추가 소스 병합 (theme-analyzer 독립 뉴스)
     news_data = latest.get("news", {})
     if isinstance(news_data, dict):
-        for cat_key, articles in news_data.items():
-            if cat_key not in news_impact:
-                news_impact[cat_key] = {"count": 0, "titles": []}
-            if isinstance(articles, list):
-                for art in articles[:3]:
-                    title = art.get("title", "") if isinstance(art, dict) else str(art)
-                    if title:
-                        news_impact[cat_key]["count"] += 1
-                        news_impact[cat_key]["titles"].append({"title": title, "stock": "", "signal": ""})
+        for code_or_key, stock_news in news_data.items():
+            # 종목코드(숫자)는 종목별 뉴스 → "종목뉴스" 카테고리로 병합
+            if not isinstance(stock_news, dict):
+                continue
+            news_list = stock_news.get("news", [])
+            if not isinstance(news_list, list) or not news_list:
+                continue
+            stock_name = stock_news.get("name", code_or_key)
+            cat = "종목뉴스"
+            if cat not in news_impact:
+                news_impact[cat] = {"count": 0, "titles": []}
+            for art in news_list[:2]:
+                title = art.get("title", "") if isinstance(art, dict) else ""
+                if title:
+                    news_impact[cat]["count"] += 1
+                    news_impact[cat]["titles"].append({"title": title, "stock": stock_name, "signal": ""})
         with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
             json.dump(news_impact, f, ensure_ascii=False, indent=2)
 

@@ -883,7 +883,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="news" timestamp={ts}>뉴스 임팩트</SectionHeader>
           <div className="space-y-3">
-            {Object.entries(newsImpact || {}).map(([cat, data]: [string, any]) => (
+            {Object.entries(newsImpact || {}).filter(([cat, data]) => cat !== "generated_at" && typeof data === "object" && data?.count > 0).map(([cat, data]: [string, any]) => (
               <div key={cat} className="p-3 t-card-alt rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <Badge variant="purple">{cat}</Badge>
