@@ -779,11 +779,33 @@ def main():
     with open(results_dir / "intraday_heatmap.json", "w", encoding="utf-8") as f:
         json.dump(heatmap, f, ensure_ascii=False, indent=2)
 
-    # 포트폴리오 (기존 portfolio.json 유지 — 사용자 데이터이므로 덮어쓰지 않음)
-    portfolio_path = results_dir / "portfolio.json"
-    if not portfolio_path.exists():
-        with open(portfolio_path, "w", encoding="utf-8") as f:
-            json.dump({"holdings": [], "health_score": 0, "suggestions": ["보유 종목을 등록해주세요"]}, f, ensure_ascii=False, indent=2)
+    # 포트폴리오 — 보유 종목 기반 분석
+    portfolio_holdings = [
+        {"name": "SK하이닉스", "code": "000660", "sector": "AI반도체"},
+        {"name": "LG CNS", "code": "064400", "sector": "IT서비스"},
+    ]
+    # 보유 종목에 실시간 신호/수급 매칭
+    for h in portfolio_holdings:
+        code = h["code"]
+        sig_match = next((s for s in combined if s.get("code") == code), None)
+        inv_match = investor_data.get(code, {})
+        h["signal"] = sig_match.get("vision_signal", "분석 대상 외") if sig_match else "분석 대상 외"
+        h["foreign_net"] = (inv_match.get("foreign_net") or 0) if isinstance(inv_match, dict) else 0
+        h["weight"] = round(100 / len(portfolio_holdings))
+    total_holdings = len(portfolio_holdings)
+    buy_count = sum(1 for h in portfolio_holdings if h["signal"] in ("매수", "적극매수"))
+    health = min(100, 30 + buy_count * 20 + min(total_holdings, 5) * 10)
+    suggestions = []
+    if total_holdings < 3:
+        suggestions.append(f"보유 {total_holdings}종목 — 최소 3~5종목 분산 권장")
+    sectors = [h["sector"] for h in portfolio_holdings]
+    if len(set(sectors)) < len(sectors):
+        suggestions.append("동일 섹터 편중 — 섹터 분산 필요")
+    for h in portfolio_holdings:
+        if h["signal"] in ("매도", "적극매도"):
+            suggestions.append(f"{h['name']} 매도 신호 — 점검 필요")
+    with open(results_dir / "portfolio.json", "w", encoding="utf-8") as f:
+        json.dump({"holdings": portfolio_holdings, "health_score": health, "suggestions": suggestions}, f, ensure_ascii=False, indent=2)
 
     # Phase 7: 추가 데이터 (DART, 상관관계 등)
     print("=== Phase 7: 추가 데이터 ===")
