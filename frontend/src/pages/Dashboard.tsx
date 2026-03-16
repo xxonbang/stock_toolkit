@@ -505,6 +505,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                         <span className={`font-medium ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
                           기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
                         </span>
+                        <span className={`font-medium ${(k.individual || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          개인 {(k.individual || 0) >= 0 ? "+" : ""}{((k.individual || 0) / 10000).toFixed(0)}만
+                        </span>
                       </div>
                     </div>
                   );
