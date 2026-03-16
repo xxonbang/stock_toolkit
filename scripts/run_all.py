@@ -673,10 +673,19 @@ def main():
     from modules.theme_propagation import predict_propagation
     from modules.program_tracker import track_program_trading
 
-    # 수급 클러스터
-    total_foreign = sum((inv.get("foreign_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
-    total_inst = sum((inv.get("institution_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
-    total_indiv = sum((inv.get("individual_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
+    # 수급 클러스터 — pykrx investor_trend 기반 (투자자 동향과 동일 소스)
+    inv_trend_data = macro_indicators.get("investor_trend", []) if isinstance(macro_indicators, dict) else []
+    if inv_trend_data:
+        latest_trend = inv_trend_data[-1]  # 가장 최근 일자
+        k = latest_trend.get("kospi", {})
+        total_foreign = (k.get("foreign") or 0)
+        total_inst = (k.get("institution") or 0)
+        total_indiv = (k.get("individual") or 0)
+    else:
+        # 폴백: investor_data 합산
+        total_foreign = sum((inv.get("foreign_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
+        total_inst = sum((inv.get("institution_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
+        total_indiv = sum((inv.get("individual_net") or 0) for inv in investor_data.values() if isinstance(inv, dict))
     regime = classify_supply_regime(total_foreign, total_inst, total_indiv)
     strategy_text = get_regime_strategy(regime)
     with open(results_dir / "supply_cluster.json", "w", encoding="utf-8") as f:
