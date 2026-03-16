@@ -520,10 +520,20 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
             </div>
           )}
-          {/* 투자자 동향 — 시장 현황 내 통합 */}
+          {/* 투자자 동향 + 수급 국면 — 시장 현황 내 통합 */}
           {sentiment?.components?.investor_trend?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">최근 투자자 동향 (KOSPI)</div>
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="text-xs font-medium t-text-sub">투자자 동향 (KOSPI)</div>
+                {supplyCluster && (
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-400">{supplyCluster.regime}</span>
+                  </div>
+                )}
+              </div>
+              {supplyCluster?.strategy && (
+                <div className="text-[10px] t-text-dim mb-1.5">{supplyCluster.strategy}</div>
+              )}
               <div className="grid grid-cols-1 gap-1">
                 {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
                   const k = day.kospi || day;
@@ -545,42 +555,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
             </div>
           )}
-        </section>
-      )}
-
-      {/* 수급 클러스터 */}
-      {supplyCluster && (
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="supply_cluster" timestamp={ts}>수급 클러스터</SectionHeader>
-          <div className="flex items-center gap-3 mb-3">
-            <div className="text-sm font-bold t-text bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-1.5">
-              {supplyCluster.regime}
-            </div>
-          </div>
-          <div className="text-xs t-text-sub mb-3">{supplyCluster.strategy}</div>
-          <div className="grid grid-cols-3 gap-2 text-center text-xs">
-            <div className="t-card-alt rounded-lg p-2">
-              <div className="t-text-sub">외국인</div>
-              <div className={`font-semibold ${supplyCluster.foreign_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                {supplyCluster.foreign_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.foreign_net) >= 1000000 ? `${(supplyCluster.foreign_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.foreign_net / 1000).toFixed(0)}천주`}
-              </div>
-              <div className="text-[10px] t-text-dim mt-0.5">순매수</div>
-            </div>
-            <div className="t-card-alt rounded-lg p-2">
-              <div className="t-text-sub">기관</div>
-              <div className={`font-semibold ${supplyCluster.institution_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                {supplyCluster.institution_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.institution_net) >= 1000000 ? `${(supplyCluster.institution_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.institution_net / 1000).toFixed(0)}천주`}
-              </div>
-              <div className="text-[10px] t-text-dim mt-0.5">순매수</div>
-            </div>
-            <div className="t-card-alt rounded-lg p-2">
-              <div className="t-text-sub">개인</div>
-              <div className={`font-semibold ${supplyCluster.individual_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                {supplyCluster.individual_net >= 0 ? "+" : ""}{Math.abs(supplyCluster.individual_net) >= 1000000 ? `${(supplyCluster.individual_net / 1000000).toFixed(1)}백만주` : `${(supplyCluster.individual_net / 1000).toFixed(0)}천주`}
-              </div>
-              <div className="text-[10px] t-text-dim mt-0.5">순매수</div>
-            </div>
-          </div>
         </section>
       )}
 
