@@ -779,11 +779,13 @@ def main():
     with open(results_dir / "intraday_heatmap.json", "w", encoding="utf-8") as f:
         json.dump(heatmap, f, ensure_ascii=False, indent=2)
 
-    # 포트폴리오 — 보유 종목 기반 분석
-    portfolio_holdings = [
-        {"name": "SK하이닉스", "code": "000660", "sector": "AI반도체"},
-        {"name": "LG CNS", "code": "064400", "sector": "IT서비스"},
-    ]
+    # 포트폴리오 — config/portfolio.json에서 보유 종목 로드
+    portfolio_config_path = Path(__file__).parent.parent / "config" / "portfolio.json"
+    if portfolio_config_path.exists():
+        with open(portfolio_config_path, "r", encoding="utf-8") as f:
+            portfolio_holdings = json.load(f).get("holdings", [])
+    else:
+        portfolio_holdings = []
     # 보유 종목에 실시간 신호/수급 매칭
     for h in portfolio_holdings:
         code = h["code"]
