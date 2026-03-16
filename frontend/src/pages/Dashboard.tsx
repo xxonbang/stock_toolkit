@@ -594,34 +594,51 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </section>
       )}
 
-      {/* 신호 분포 */}
+      {/* AI 주목 종목 */}
       {performance?.by_source?.combined && (() => {
         const c = performance.by_source.combined;
-        const total = c.total || 1;
-        const nullCount = c["null"] || 0;
-        const bars = [
-          { key: "적극매수", count: c["적극매수"] || 0, color: "bg-red-500" },
-          { key: "매수", count: c["매수"] || 0, color: "bg-red-300" },
-          { key: "중립", count: (c["중립"] || 0) + nullCount, color: "bg-gray-300" },
-          { key: "매도", count: c["매도"] || 0, color: "bg-blue-300" },
-          { key: "적극매도", count: c["적극매도"] || 0, color: "bg-blue-500" },
-        ];
+        const total = c.total || 0;
+        const buyCount = (c["적극매수"] || 0) + (c["매수"] || 0);
+        const sellCount = (c["매도"] || 0) + (c["적극매도"] || 0);
+        // 매수 종목: crossSignal + smartMoney에서 추출
+        const buyNames: string[] = [];
+        const strongBuyNames: string[] = [];
+        (crossSignal || []).forEach((s: any) => {
+          const sig = s.vision_signal || s.signal || "";
+          if (sig === "적극매수") strongBuyNames.push(s.name);
+          else if (sig === "매수" && !buyNames.includes(s.name)) buyNames.push(s.name);
+        });
+        (smartMoney || []).forEach((s: any) => {
+          if (s.signal === "매수" && !buyNames.includes(s.name) && !strongBuyNames.includes(s.name)) buyNames.push(s.name);
+        });
         return (
           <section className="t-card rounded-xl p-4">
-            <SectionHeader id="signals" timestamp={ts} count={total}>신호 분포</SectionHeader>
-            <div className="flex h-3 rounded-full overflow-hidden mb-3">
-              {bars.map((b) => (
-                <div key={b.key} className={b.color} style={{ width: `${(b.count / total) * 100}%` }} />
-              ))}
+            <SectionHeader id="signals" timestamp={ts}>AI 주목 종목</SectionHeader>
+            <div className="text-xs t-text-sub mb-3">
+              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 {buyCount}</span> · <span className="text-blue-500 font-semibold">매도 {sellCount}</span>
             </div>
-            <div className="flex justify-between text-xs">
-              {bars.map((b) => (
-                <div key={b.key} className="text-center flex-1">
-                  <div className="font-semibold t-text">{b.count}</div>
-                  <div className="t-text-sub text-[10px]">{b.key}</div>
+            {strongBuyNames.length > 0 && (
+              <div className="mb-2">
+                <div className="text-[10px] t-text-dim mb-1">적극매수</div>
+                <div className="flex flex-wrap gap-1">
+                  {strongBuyNames.map((n, i) => (
+                    <span key={i} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/15 text-red-400">{n}</span>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
+            {buyNames.length > 0 && (
+              <div>
+                <div className="text-[10px] t-text-dim mb-1">매수</div>
+                <div className="flex flex-wrap gap-1">
+                  {buyNames.slice(0, 12).map((n, i) => (
+                    <span key={i} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/10 t-text-sub">{n}</span>
+                  ))}
+                  {buyNames.length > 12 && <span className="text-[10px] t-text-dim self-center">외 {buyNames.length - 12}개</span>}
+                </div>
+              </div>
+            )}
+            {buyCount === 0 && <Empty text="현재 매수 신호 종목 없음" />}
           </section>
         );
       })()}
