@@ -256,7 +256,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 장전 프리마켓 */}
       {premarket && (
-        <section className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4">
+        <section className="t-card rounded-xl p-4 border-l-4 border-l-cyan-500/50">
           <SectionHeader id="premarket">장전 프리마켓</SectionHeader>
           {/* 예측 결과 카드 */}
           <div className={`rounded-lg p-3 mb-3 text-center ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
@@ -302,8 +302,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           "주의 종목": "⚠️", "전략 제안": "💡",
         };
         const bgMap: Record<string, string> = {
-          "글로벌 환경": "bg-slate-500/10", "오늘의 주목 테마": "bg-amber-500/10",
-          "고확신 종목": "bg-green-500/10", "주의 종목": "bg-red-500/10", "전략 제안": "bg-blue-500/10",
+          "글로벌 환경": "bg-slate-500/8", "오늘의 주목 테마": "bg-cyan-500/8",
+          "고확신 종목": "bg-emerald-500/8", "주의 종목": "bg-rose-500/8", "전략 제안": "bg-indigo-500/8",
         };
         return (
           <section className="space-y-2">
@@ -589,10 +589,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             ))}
           </div>
           {portfolio.suggestions?.length > 0 && (
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5">
-              <div className="text-xs font-medium text-amber-700 mb-1">리밸런싱 제안</div>
+            <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5">
+              <div className="text-xs font-medium text-orange-400 mb-1">리밸런싱 제안</div>
               {portfolio.suggestions.map((s: string, i: number) => (
-                <div key={i} className="text-xs text-amber-600">· {s}</div>
+                <div key={i} className="text-xs t-text-sub">· {s}</div>
               ))}
             </div>
           )}
