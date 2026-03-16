@@ -2,6 +2,11 @@
 
 ## 2026-03-16
 
+### [버그픽스] 새로고침 시 퀵 네비 '신호' 선택 버그 수정 (2026-03-16 08:20 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** scrollY < 100일 때 항상 '시장' 활성화. IntersectionObserver rootMargin 조정.
+- **커밋:** `bbad24c`
+
 ### [버그픽스] investor_data None 값 TypeError + full 모드 KeyError 수정 (2026-03-16 07:47 KST)
 - **변경 파일:** `scripts/run_all.py`, `modules/cross_signal.py`
 - **내용:** investor_data의 foreign_net/individual_net 등이 None일 때 sum() TypeError 발생 → `(inv.get("key") or 0)` 패턴으로 전체 11개소 일괄 수정. full 모드에서 cross_signal의 `m['signal']` KeyError → `m.get('vision_signal')` 안전 접근으로 수정.
