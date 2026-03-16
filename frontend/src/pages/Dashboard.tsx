@@ -598,16 +598,17 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {performance?.by_source?.combined && (() => {
         const c = performance.by_source.combined;
         const total = c.total || 1;
+        const nullCount = c["null"] || 0;
         const bars = [
           { key: "적극매수", count: c["적극매수"] || 0, color: "bg-red-500" },
           { key: "매수", count: c["매수"] || 0, color: "bg-red-300" },
-          { key: "중립", count: c["중립"] || 0, color: "bg-gray-300" },
+          { key: "중립", count: (c["중립"] || 0) + nullCount, color: "bg-gray-300" },
           { key: "매도", count: c["매도"] || 0, color: "bg-blue-300" },
           { key: "적극매도", count: c["적극매도"] || 0, color: "bg-blue-500" },
         ];
         return (
           <section className="t-card rounded-xl p-4">
-            <SectionHeader id="signals" timestamp={ts} count={c.total}>신호 분포</SectionHeader>
+            <SectionHeader id="signals" timestamp={ts} count={total}>신호 분포</SectionHeader>
             <div className="flex h-3 rounded-full overflow-hidden mb-3">
               {bars.map((b) => (
                 <div key={b.key} className={b.color} style={{ width: `${(b.count / total) * 100}%` }} />

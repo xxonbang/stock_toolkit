@@ -66,7 +66,7 @@ def main():
     if isinstance(combined_data, list):
         signal_counts = {}
         for s in combined_data:
-            sig = s.get("signal", s.get("combined_signal", s.get("vision_signal", "중립")))
+            sig = s.get("signal", s.get("combined_signal", s.get("vision_signal"))) or "중립"
             signal_counts[sig] = signal_counts.get(sig, 0) + 1
         signal_counts["total"] = len(combined_data)
         report["by_source"]["combined"] = signal_counts
