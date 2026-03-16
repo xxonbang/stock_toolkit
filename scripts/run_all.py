@@ -38,7 +38,7 @@ def main():
     results_dir.mkdir(exist_ok=True)
 
     # Phase 1
-    print("=== Phase 1: 알림 & 브리핑 ===")
+    print(f"=== Phase 1: 알림 & 브리핑 (mode={args.mode}) ===", flush=True)
     if use_ai:
         cross_matches = run_cross_signal(loader, send_message)
     else:
@@ -96,13 +96,25 @@ def main():
 
     # 모닝 브리프 생성 (Gemini — full 모드만)
     if use_ai:
+        import traceback
+        print("  Gemini 브리핑 생성 시작...", flush=True)
         try:
-            gemini = GeminiClient()
-            brief = generate_morning_brief(gemini, loader)
-            with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
-                json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
+            from config.settings import GEMINI_API_KEYS as _gkeys
+            print(f"  Gemini API 키: {len(_gkeys)}개 로드됨", flush=True)
+            if not _gkeys:
+                print("  [경고] Gemini API 키가 비어있음!", flush=True)
+            else:
+                gemini = GeminiClient()
+                brief = generate_morning_brief(gemini, loader)
+                if brief:
+                    with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
+                        json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
+                    print(f"  브리핑 생성 완료 ({len(brief)}자)", flush=True)
+                else:
+                    print("  [경고] Gemini가 빈 응답 반환", flush=True)
         except Exception as e:
-            print(f"  브리핑 생성 실패: {e}")
+            print(f"  브리핑 생성 실패: {e}", flush=True)
+            traceback.print_exc()
 
     # Phase 2
     print("=== Phase 2: 모니터링 ===")
