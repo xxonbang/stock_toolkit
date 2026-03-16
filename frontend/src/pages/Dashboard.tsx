@@ -176,13 +176,18 @@ export default function Dashboard() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        // 최상단이면 항상 시장
+        if (window.scrollY < 100) {
+          setActiveCategory("cat-market");
+          return;
+        }
         for (const entry of entries) {
           if (entry.isIntersecting) {
             setActiveCategory(entry.target.id);
           }
         }
       },
-      { rootMargin: "-80px 0px -70% 0px", threshold: 0 }
+      { rootMargin: "-100px 0px -60% 0px", threshold: 0 }
     );
     categories.forEach((cat) => {
       const el = document.getElementById(cat.id);
