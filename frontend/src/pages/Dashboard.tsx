@@ -203,7 +203,18 @@ export default function Dashboard() {
       {/* 헤더 — sticky + 블러 배경 */}
       <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-2.5 bg-gray-50/80 backdrop-blur-md border-b border-gray-100/50">
         <div className="flex items-center justify-between mb-2.5">
-          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2 shrink-0 whitespace-nowrap">
+          <h1
+            className="text-xl font-bold text-gray-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
+            onClick={async () => {
+              if ("caches" in window) {
+                const keys = await caches.keys();
+                await Promise.all(keys.map((k) => caches.delete(k)));
+              }
+              const regs = await navigator.serviceWorker?.getRegistrations();
+              if (regs) await Promise.all(regs.map((r) => r.unregister()));
+              window.location.reload();
+            }}
+          >
             <BarChart3 size={22} className="text-blue-600 shrink-0" />
             Stock Toolkit
           </h1>
