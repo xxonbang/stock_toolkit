@@ -1,5 +1,5 @@
 import { HashRouter, Routes, Route, NavLink } from 'react-router-dom'
-import { BarChart3, Filter, Sun, Moon } from 'lucide-react'
+import { TrendingUp, Filter, Sun, Moon } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Dashboard from './pages/Dashboard'
 import Scanner from './pages/Scanner'
@@ -42,7 +42,7 @@ export default function App() {
           <NavLink to="/" className={({ isActive }) =>
             `flex-1 flex flex-col items-center py-2.5 text-xs font-medium transition ${isActive ? 't-accent' : 't-text-dim'}`
           }>
-            <BarChart3 size={20} />
+            <TrendingUp size={20} />
             <span className="mt-0.5">대시보드</span>
           </NavLink>
           <NavLink to="/scanner" className={({ isActive }) =>

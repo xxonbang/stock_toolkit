@@ -220,7 +220,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               window.location.reload();
             }}
           >
-            <BarChart3 size={22} className="text-blue-600 shrink-0" />
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-6 h-6 shrink-0" />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1.5 shrink-0">
