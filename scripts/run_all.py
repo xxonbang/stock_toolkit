@@ -405,11 +405,18 @@ def main():
     # Phase 4
     print("=== Phase 4: 라이프사이클 ===")
     themes = loader.get_themes()
+    # change_rate 맵 구성 (rising/falling/volume에서)
+    change_rate_map = {}
+    for market in ["kospi", "kosdaq"]:
+        for cat_key in ["rising", "falling", "volume"]:
+            for s in latest.get(cat_key, {}).get(market, []) if isinstance(latest.get(cat_key), dict) else []:
+                if isinstance(s, dict) and s.get("code") and s.get("change_rate") is not None:
+                    change_rate_map[s["code"]] = s["change_rate"]
     lifecycle_results = []
     for theme in themes:
         name = theme.get("theme_name", theme.get("name", ""))
         if name:
-            result = track_theme_lifecycle(name, [{"themes": h.get("data", {}).get("themes", [])} for h in history])
+            result = track_theme_lifecycle(name, history, change_rate_map)
             lifecycle_results.append(result)
     with open(results_dir / "lifecycle.json", "w", encoding="utf-8") as f:
         json.dump(lifecycle_results, f, ensure_ascii=False, indent=2)
