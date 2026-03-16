@@ -208,11 +208,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 헤더 — sticky + 블러 배경 */}
       <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-2.5 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between mb-2.5">
-          {onToggleTheme && (
-            <button onClick={onToggleTheme} className="p-1.5 rounded-lg t-text-dim hover:t-text-sub transition mr-1" title={isDark ? "라이트 모드" : "다크 모드"}>
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-          )}
           <h1
             className="text-xl font-bold t-text flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
             onClick={async () => {
@@ -228,7 +223,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <BarChart3 size={22} className="text-blue-600 shrink-0" />
             Stock Toolkit
           </h1>
-          <RefreshButtons />
+          <div className="flex items-center gap-1.5 shrink-0">
+            <RefreshButtons />
+            {onToggleTheme && (
+              <button onClick={onToggleTheme} className="p-1.5 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            )}
+          </div>
         </div>
         {/* 카테고리 퀵 점프 — 세련된 디자인 */}
         <div className="flex gap-1 rounded-xl p-1" style={{ background: 'var(--bg-pill)' }}>
