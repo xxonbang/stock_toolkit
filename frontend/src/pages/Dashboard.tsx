@@ -299,12 +299,39 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* AI 모닝 브리핑 */}
       {briefing?.morning && (() => {
         const raw = briefing.morning as string;
-        const sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
-          const titleMatch = s.match(/^([^\]]+)\]<\/b>\s*/);
-          const title = titleMatch ? titleMatch[1] : "";
-          const body = titleMatch ? s.slice(titleMatch[0].length).trim() : s.replace(/<\/?b>/g, "").trim();
-          return { title, body };
-        });
+        // HTML(<b>[제목]</b>) 또는 마크다운(**N. 제목**) 모두 파싱
+        let sections: { title: string; body: string }[] = [];
+        if (raw.includes("<b>[")) {
+          // HTML 형식
+          sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
+            const titleMatch = s.match(/^([^\]]+)\]<\/b>\s*/);
+            const title = titleMatch ? titleMatch[1] : "";
+            const body = titleMatch ? s.slice(titleMatch[0].length).trim() : s.replace(/<\/?b>/g, "").trim();
+            return { title, body };
+          });
+        } else {
+          // 마크다운 형식: **N. 제목** 또는 **제목**
+          const blocks = raw.split(/\n\*\*\d*\.?\s*/).filter(s => s.trim());
+          for (const block of blocks) {
+            const match = block.match(/^([^*\n]+)\*\*\s*\n?([\s\S]*)/);
+            if (match) {
+              sections.push({ title: match[1].trim(), body: match[2].trim().replace(/\*\*/g, "").replace(/`<b>|<\/b>`/g, "").replace(/`/g, "").replace(/\*\s+/g, "· ").replace(/---/g, "").trim() });
+            }
+          }
+          // 파싱 실패 시 전체를 하나의 섹션으로
+          if (sections.length === 0) {
+            sections = [{ title: "AI 분석", body: raw.replace(/\*\*/g, "").replace(/`/g, "").replace(/---/g, "").replace(/<\/?b>/g, "").trim() }];
+          }
+        }
+        // 제목 키워드 매칭
+        const matchKey = (title: string) => {
+          if (title.includes("글로벌") || title.includes("환경") || title.includes("시장")) return "글로벌 환경";
+          if (title.includes("테마") && (title.includes("주목") || title.includes("주요"))) return "오늘의 주목 테마";
+          if (title.includes("핵심") || title.includes("고확신") || title.includes("관심")) return "고확신 종목";
+          if (title.includes("주의") || title.includes("위험")) return "주의 종목";
+          if (title.includes("전략") || title.includes("제안")) return "전략 제안";
+          return title;
+        };
         const iconMap: Record<string, string> = {
           "글로벌 환경": "🌍", "오늘의 주목 테마": "🔥", "고확신 종목": "🎯",
           "주의 종목": "⚠️", "전략 제안": "💡",
@@ -316,18 +343,22 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         return (
           <section className="space-y-2">
             <SectionHeader id="briefing" timestamp={briefTs}>AI 모닝 브리핑</SectionHeader>
-            {sections.map((sec: any, i: number) => (
-              <div key={i} className={`rounded-xl border t-border-light p-3.5 ${bgMap[sec.title] || "t-card-alt"}`}>
+            {sections.map((sec: any, i: number) => {
+              const key = matchKey(sec.title);
+              return (
+              <div key={i} className={`rounded-xl border t-border-light p-3.5 ${bgMap[key] || "t-card-alt"}`}>
                 <div className="flex items-center gap-1.5 mb-2">
-                  <span className="text-sm">{iconMap[sec.title] || "📌"}</span>
+                  <span className="text-sm">{iconMap[key] || "📌"}</span>
                   <span className="text-sm font-semibold t-text">{sec.title}</span>
                 </div>
-                <div
-                  className="text-xs t-text leading-relaxed whitespace-pre-line [&_b]:t-text [&_b]:font-semibold"
-                  dangerouslySetInnerHTML={{ __html: sec.body }}
-                />
+                <div className="text-xs t-text leading-relaxed whitespace-pre-line">
+                  {sec.body.split("\n").map((line: string, j: number) => (
+                    <div key={j}>{line.startsWith("· ") || line.startsWith("* ") ? <span className="t-text-sub">{line}</span> : line}</div>
+                  ))}
+                </div>
               </div>
-            ))}
+              );
+            })}
             {/* 오늘의 테마 예측 — AI 브리핑 영역에 포함 */}
             {performance?.theme_forecast?.themes?.length > 0 && (
               <div className="rounded-xl border t-border-light p-3.5 bg-purple-500/8">
