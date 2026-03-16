@@ -488,28 +488,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
             </div>
           )}
-          {/* F&G 추세 */}
-          {(performance.fear_greed?.previous_1_week != null || performance.fear_greed?.previous_1_month != null) && (
-            <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">공포·탐욕 추세</div>
-              <div className="flex gap-3 text-xs">
-                {[
-                  { label: "1주 전", val: performance.fear_greed.previous_1_week },
-                  { label: "1달 전", val: performance.fear_greed.previous_1_month },
-                  { label: "1년 전", val: performance.fear_greed.previous_1_year },
-                ].map((item, idx) => {
-                  const diff = item.val != null ? fgScore - item.val : null;
-                  return (
-                    <div key={idx} className="t-card-alt rounded p-1.5 flex-1 text-center">
-                      <div className="t-text-dim">{item.label}</div>
-                      <div className="font-medium">{item.val != null ? (typeof item.val === "number" ? item.val.toFixed(1) : item.val) : "-"}</div>
-                      {diff != null && <div className={`text-[10px] ${diff >= 0 ? "text-red-500" : "text-blue-500"}`}>{diff >= 0 ? "▲" : "▼"}{Math.abs(diff).toFixed(1)}p</div>}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
           {/* 투자자 동향 — 시장 현황 내 통합 */}
           {sentiment?.components?.investor_trend?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
