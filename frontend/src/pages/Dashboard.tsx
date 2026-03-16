@@ -1559,7 +1559,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm t-text-dim hover:bg-white/50 hover:t-text-sub transition-all duration-200"
+          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/40 backdrop-blur-md text-white hover:bg-gray-500/60 transition-all duration-200"
           aria-label="최상단으로 이동"
         >
           <ChevronUp size={20} />
