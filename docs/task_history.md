@@ -2,6 +2,11 @@
 
 ## 2026-03-16
 
+### [기능] Light/Dark 모드 전면 개편 — 금융 앱 스타일 (2026-03-16 10:00 KST)
+- **변경 파일:** `frontend/src/index.css`, `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/Scanner.tsx`, `frontend/src/components/HelpDialog.tsx`, `frontend/src/components/RefreshButtons.tsx`
+- **내용:** CSS 변수 기반 테마 시스템 구축. Light(슬레이트+흰 카드) / Dark(네이비#0b0f14+다크카드#131a24). 헤더 테마 토글 버튼, 퀵 네비/섹션/카드/텍스트 전체 CSS 변수 적용, localStorage 저장 + prefers-color-scheme 자동 감지.
+- **커밋:** `0093f74`
+
 ### [버그픽스] 새로고침 시 퀵 네비 '신호' 선택 버그 수정 (2026-03-16 08:20 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`
 - **내용:** scrollY < 100일 때 항상 '시장' 활성화. IntersectionObserver rootMargin 조정.
