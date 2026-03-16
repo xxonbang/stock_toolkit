@@ -154,6 +154,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     dataService.getIndicatorHistory().then(setIndicatorHistory);
   }, []);
 
+  // 공통 타임스탬프 (performance.json 기준, 대부분 동일 시점)
+  const ts = performance?.generated_at || "";
+  const briefTs = briefing?.generated_at || ts;
+  const sentimentTs = sentiment?.generated_at || ts;
+
   const fgScore = performance?.fear_greed?.score ?? 0;
   const fgLabel = fgScore < 25 ? "극단적 공포" : fgScore < 45 ? "공포" : fgScore < 55 ? "중립" : fgScore < 75 ? "탐욕" : "극단적 탐욕";
   const fgColor = fgScore < 25 ? "bg-red-500" : fgScore < 45 ? "bg-orange-400" : fgScore < 55 ? "bg-gray-400" : fgScore < 75 ? "bg-green-400" : "bg-green-600";
@@ -259,7 +264,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 장전 프리마켓 */}
       {premarket && (
         <section className="t-card rounded-xl p-4 border-l-4 border-l-cyan-500/50">
-          <SectionHeader id="premarket">장전 프리마켓</SectionHeader>
+          <SectionHeader id="premarket" timestamp={ts}>장전 프리마켓</SectionHeader>
           {/* 예측 결과 카드 */}
           <div className={`rounded-lg p-3 mb-3 text-center ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
             <div className="text-[10px] t-text-dim mb-1">시장 출발 예상</div>
@@ -309,7 +314,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         };
         return (
           <section className="space-y-2">
-            <SectionHeader id="briefing">AI 모닝 브리핑</SectionHeader>
+            <SectionHeader id="briefing" timestamp={briefTs}>AI 모닝 브리핑</SectionHeader>
             {sections.map((sec: any, i: number) => (
               <div key={i} className={`rounded-xl border t-border-light p-3.5 ${bgMap[sec.title] || "t-card-alt"}`}>
                 <div className="flex items-center gap-1.5 mb-2">
@@ -329,7 +334,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 시장 현황 (심리 온도계 통합) */}
       {performance && (
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="market">시장 현황</SectionHeader>
+          <SectionHeader id="market" timestamp={ts}>시장 현황</SectionHeader>
 
           {/* 시장 심리 — 시장 현황 상단에 통합 */}
           {sentiment && (
@@ -532,7 +537,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 수급 클러스터 */}
       {supplyCluster && (
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="supply_cluster">수급 클러스터</SectionHeader>
+          <SectionHeader id="supply_cluster" timestamp={ts}>수급 클러스터</SectionHeader>
           <div className="flex items-center gap-3 mb-3">
             <div className="text-sm font-bold t-text bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-1.5">
               {supplyCluster.regime}
@@ -568,7 +573,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 내 포트폴리오 */}
       {portfolio && (
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="portfolio" count={portfolio.holdings?.length}>내 포트폴리오</SectionHeader>
+          <SectionHeader id="portfolio" timestamp={ts} count={portfolio.holdings?.length}>내 포트폴리오</SectionHeader>
           <div className="flex items-center gap-3 mb-3">
             <div className="text-2xl font-bold t-text">{portfolio.health_score}<span className="text-sm font-normal t-text-dim">/100</span></div>
             <div>
@@ -614,7 +619,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         ];
         return (
           <section className="t-card rounded-xl p-4">
-            <SectionHeader id="signals" count={c.total}>신호 분포</SectionHeader>
+            <SectionHeader id="signals" timestamp={ts} count={c.total}>신호 분포</SectionHeader>
             <div className="flex h-3 rounded-full overflow-hidden mb-3">
               {bars.map((b) => (
                 <div key={b.key} className={b.color} style={{ width: `${(b.count / total) * 100}%` }} />
@@ -638,7 +643,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 교차 신호 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="cross" count={crossSignal?.length ?? 0}>교차 신호</SectionHeader>
+          <SectionHeader id="cross" timestamp={ts} count={crossSignal?.length ?? 0}>교차 신호</SectionHeader>
           <div className="space-y-2">
             {(crossSignal || []).map((s, i) => (
               <div key={i} className="p-2.5 bg-green-500/10 border border-green-500/20 rounded-lg">
@@ -667,7 +672,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 테마 라이프사이클 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="lifecycle" count={lifecycle?.length ?? 0}>테마 라이프사이클</SectionHeader>
+          <SectionHeader id="lifecycle" timestamp={ts} count={lifecycle?.length ?? 0}>테마 라이프사이클</SectionHeader>
           <div className="t-card-alt rounded-lg p-2 mb-3">
             <ResponsiveContainer width="100%" height={160}>
               <ScatterChart margin={{ top: 5, right: 5, bottom: 20, left: 0 }}>
@@ -705,7 +710,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 이상 거래 감지 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="anomaly" count={anomalies?.length ?? 0}>이상 거래 감지</SectionHeader>
+          <SectionHeader id="anomaly" timestamp={ts} count={anomalies?.length ?? 0}>이상 거래 감지</SectionHeader>
           <div className="space-y-1.5">
             {(anomalies || []).slice(0, 6).map((a, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-red-500/10 border border-red-500/20 rounded-lg gap-2">
@@ -735,7 +740,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 위험 종목 모니터 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="risk" count={riskMonitor?.length ?? 0}>위험 종목 모니터</SectionHeader>
+          <SectionHeader id="risk" timestamp={ts} count={riskMonitor?.length ?? 0}>위험 종목 모니터</SectionHeader>
           <div className="space-y-1.5">
             {(riskMonitor || []).slice(0, 6).map((r, i) => (
               <div key={i} className="p-2 t-card-alt rounded-lg">
@@ -761,7 +766,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 스마트 머니 TOP */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="smartmoney" count={smartMoney?.length ?? 0}>스마트 머니 TOP</SectionHeader>
+          <SectionHeader id="smartmoney" timestamp={ts} count={smartMoney?.length ?? 0}>스마트 머니 TOP</SectionHeader>
           <div className="space-y-1.5">
             {(smartMoney || []).slice(0, 8).map((s, i) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -795,7 +800,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 전략 시뮬레이션 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="simulation">전략 시뮬레이션</SectionHeader>
+          <SectionHeader id="simulation" timestamp={ts}>전략 시뮬레이션</SectionHeader>
           <div className="space-y-2">
             {(simulation || []).map((s, i) => {
               const strategyLabel = (s.strategy || "")
@@ -840,7 +845,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 차트 패턴 매칭 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="pattern">차트 패턴 매칭</SectionHeader>
+          <SectionHeader id="pattern" timestamp={ts}>차트 패턴 매칭</SectionHeader>
           <div className="space-y-3">
             {(pattern || []).map((p, i) => (
               <div key={i}>
@@ -871,7 +876,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 뉴스 임팩트 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="news">뉴스 임팩트</SectionHeader>
+          <SectionHeader id="news" timestamp={ts}>뉴스 임팩트</SectionHeader>
           <div className="space-y-3">
             {Object.entries(newsImpact || {}).map(([cat, data]: [string, any]) => (
               <div key={cat} className="p-3 t-card-alt rounded-lg">
@@ -895,7 +900,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 갭 분석 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="gap" count={gapAnalysis?.length ?? 0}>갭 분석</SectionHeader>
+          <SectionHeader id="gap" timestamp={ts} count={gapAnalysis?.length ?? 0}>갭 분석</SectionHeader>
           <div className="space-y-1.5">
             {(gapAnalysis || []).slice(0, 6).map((g, i) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -919,7 +924,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 공매도 역발상 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="squeeze" count={shortSqueeze?.length ?? 0}>역발상 시그널</SectionHeader>
+          <SectionHeader id="squeeze" timestamp={ts} count={shortSqueeze?.length ?? 0}>역발상 시그널</SectionHeader>
           <div className="space-y-1.5">
             {(shortSqueeze || []).slice(0, 6).map((s, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-orange-500/10 border border-orange-500/20 rounded-lg gap-2">
@@ -945,7 +950,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 밸류에이션 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="valuation" count={valuation?.length ?? 0}>밸류에이션 스크리너</SectionHeader>
+          <SectionHeader id="valuation" timestamp={ts} count={valuation?.length ?? 0}>밸류에이션 스크리너</SectionHeader>
           <div className="space-y-1.5">
             {(valuation || []).slice(0, 6).map((v, i) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -975,7 +980,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 거래량-가격 괴리 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="divergence" count={divergence?.length ?? 0}>거래량-가격 괴리</SectionHeader>
+          <SectionHeader id="divergence" timestamp={ts} count={divergence?.length ?? 0}>거래량-가격 괴리</SectionHeader>
           <div className="space-y-1.5">
             {(divergence || []).slice(0, 6).map((d, i) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1000,7 +1005,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 테마별 자금 흐름 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="sector">테마별 자금 흐름</SectionHeader>
+          <SectionHeader id="sector" timestamp={ts}>테마별 자금 흐름</SectionHeader>
           <div className="space-y-1.5">
             {Object.entries(sectors || {})
               .sort(([, a]: any, [, b]: any) => (b.total_foreign_net || 0) - (a.total_foreign_net || 0))
@@ -1030,7 +1035,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 테마 전이 예측 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="propagation" count={propagation?.length ?? 0}>테마 전이 예측</SectionHeader>
+          <SectionHeader id="propagation" timestamp={ts} count={propagation?.length ?? 0}>테마 전이 예측</SectionHeader>
           <div className="space-y-2">
             {(propagation || []).map((p, i) => (
               <div key={i} className="p-2.5 bg-violet-500/10 border border-violet-500/20 rounded-lg">
@@ -1054,7 +1059,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 손절/익절 최적화 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="exit" count={exitOptimizer?.length ?? 0}>손절/익절 최적화</SectionHeader>
+          <SectionHeader id="exit" timestamp={ts} count={exitOptimizer?.length ?? 0}>손절/익절 최적화</SectionHeader>
           <div className="space-y-1.5">
             {(exitOptimizer || []).slice(0, 6).map((e, i) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1087,7 +1092,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 이벤트 캘린더 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="events" count={eventCalendar?.events?.length ?? 0}>이벤트 캘린더</SectionHeader>
+          <SectionHeader id="events" timestamp={ts} count={eventCalendar?.events?.length ?? 0}>이벤트 캘린더</SectionHeader>
           <div className="space-y-1.5">
             {(eventCalendar?.events || []).map((ev: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1107,7 +1112,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 프로그램 매매 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="program">프로그램 매매</SectionHeader>
+        <SectionHeader id="program" timestamp={ts}>프로그램 매매</SectionHeader>
         {programTrading?.data ? (
           <div className="space-y-1.5">
             {(programTrading.data.kospi || []).slice(0, 5).map((p: any, i: number) => (
@@ -1140,7 +1145,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 시간대별 수익률 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="heatmap">시간대별 수익률</SectionHeader>
+        <SectionHeader id="heatmap" timestamp={ts}>시간대별 수익률</SectionHeader>
         {heatmap?.snapshots?.length ? (
           <div className="space-y-1.5">
             {heatmap.snapshots.map((snap: any, i: number) => (
@@ -1175,7 +1180,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 내부자 거래 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="insider" count={insiderTrades?.length ?? 0}>내부자 거래</SectionHeader>
+        <SectionHeader id="insider" timestamp={ts} count={insiderTrades?.length ?? 0}>내부자 거래</SectionHeader>
         <div className="space-y-1.5">
           {(insiderTrades || []).map((t, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1195,7 +1200,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 컨센서스 괴리 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="consensus" count={consensus?.length ?? 0}>컨센서스 괴리</SectionHeader>
+        <SectionHeader id="consensus" timestamp={ts} count={consensus?.length ?? 0}>컨센서스 괴리</SectionHeader>
         <div className="space-y-1.5">
           {(consensus || []).map((c, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1225,7 +1230,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 동시호가 분석 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="auction" count={auction?.length ?? 0}>동시호가 분석</SectionHeader>
+        <SectionHeader id="auction" timestamp={ts} count={auction?.length ?? 0}>동시호가 분석</SectionHeader>
         <div className="space-y-1.5">
           {(auction || []).map((a, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1246,7 +1251,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 호가창 압력 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="orderbook" count={orderbook?.length ?? 0}>호가창 압력</SectionHeader>
+        <SectionHeader id="orderbook" timestamp={ts} count={orderbook?.length ?? 0}>호가창 압력</SectionHeader>
         <div className="space-y-1.5">
           {(orderbook || []).map((o, i) => {
             const buyPct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
@@ -1278,7 +1283,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 상관관계 네트워크 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="correlation">상관관계 네트워크</SectionHeader>
+        <SectionHeader id="correlation" timestamp={ts}>상관관계 네트워크</SectionHeader>
         {correlationData?.pairs?.length ? (
           <div className="space-y-1.5">
             {correlationData.pairs.map((p: any, i: number) => (
@@ -1303,7 +1308,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 실적 프리뷰 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="earnings" count={earningsCalendar?.items?.length ?? 0}>실적 프리뷰</SectionHeader>
+        <SectionHeader id="earnings" timestamp={ts} count={earningsCalendar?.items?.length ?? 0}>실적 프리뷰</SectionHeader>
         <div className="space-y-1.5">
           {(earningsCalendar?.items || []).slice(0, 6).map((e: any, i: number) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1322,7 +1327,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* AI 투자 멘토 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="mentor">AI 투자 멘토</SectionHeader>
+        <SectionHeader id="mentor" timestamp={ts}>AI 투자 멘토</SectionHeader>
         {aiMentor?.advice?.length ? (
           <div className="space-y-2">
             {aiMentor.advice.map((a: any, i: number) => (
@@ -1337,7 +1342,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 증권사 매매 동향 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="member" count={memberTrading?.length ?? 0}>증권사 매매 동향</SectionHeader>
+        <SectionHeader id="member" timestamp={ts} count={memberTrading?.length ?? 0}>증권사 매매 동향</SectionHeader>
         <div className="space-y-1.5">
           {(memberTrading || []).slice(0, 6).map((m, i) => (
             <div key={i} className="p-2 t-card-alt rounded-lg">
@@ -1358,7 +1363,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 거래대금 TOP */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="trading_value" count={tradingValue?.length ?? 0}>거래대금 TOP</SectionHeader>
+        <SectionHeader id="trading_value" timestamp={ts} count={tradingValue?.length ?? 0}>거래대금 TOP</SectionHeader>
         <div className="space-y-1.5">
           {(tradingValue || []).slice(0, 10).map((tv, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1382,7 +1387,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 모의투자 현황 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="paper_trading">모의투자 현황</SectionHeader>
+        <SectionHeader id="paper_trading" timestamp={ts}>모의투자 현황</SectionHeader>
         {paperTrading?.stocks?.length ? (
           <div className="space-y-1.5">
             <div className="text-xs t-text-sub mb-2">날짜: {paperTrading.date}</div>
@@ -1409,7 +1414,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 예측 적중률 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="forecast">예측 적중률</SectionHeader>
+        <SectionHeader id="forecast" timestamp={ts}>예측 적중률</SectionHeader>
         {forecastAccuracy?.overall_accuracy != null && (
           <div className="flex items-center gap-3 mb-3">
             <div className="text-2xl font-bold t-text">{forecastAccuracy.overall_accuracy}%</div>
@@ -1440,7 +1445,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* Volume Profile 지지/저항 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="volume_profile" count={volumeProfile?.length ?? 0}>매물대 지지/저항</SectionHeader>
+        <SectionHeader id="volume_profile" timestamp={ts} count={volumeProfile?.length ?? 0}>매물대 지지/저항</SectionHeader>
         <div className="space-y-1.5">
           {(volumeProfile || []).slice(0, 8).map((vp, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1461,7 +1466,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 신호 일관성 추적 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="consistency" count={signalConsistency?.length ?? 0}>신호 일관성</SectionHeader>
+        <SectionHeader id="consistency" timestamp={ts} count={signalConsistency?.length ?? 0}>신호 일관성</SectionHeader>
         <div className="space-y-1.5">
           {(signalConsistency || []).slice(0, 8).map((sc, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1486,7 +1491,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 시뮬레이션 히스토리 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="sim_history" count={simulationHistory?.length ?? 0}>시뮬레이션 히스토리</SectionHeader>
+        <SectionHeader id="sim_history" timestamp={ts} count={simulationHistory?.length ?? 0}>시뮬레이션 히스토리</SectionHeader>
         <div className="space-y-1.5">
           {(simulationHistory || []).map((sh, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1515,7 +1520,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 장중 종목별 수급 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="intraday_flow" count={intradayStockFlow?.length ?? 0}>장중 종목별 수급</SectionHeader>
+        <SectionHeader id="intraday_flow" timestamp={ts} count={intradayStockFlow?.length ?? 0}>장중 종목별 수급</SectionHeader>
         <div className="space-y-1.5">
           {(intradayStockFlow || []).slice(0, 10).map((isf, i) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
@@ -1550,7 +1555,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 매매 일지 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="journal" count={tradingJournal?.entries?.length ?? 0}>매매 일지</SectionHeader>
+        <SectionHeader id="journal" timestamp={ts} count={tradingJournal?.entries?.length ?? 0}>매매 일지</SectionHeader>
         <div className="space-y-1.5">
           {(tradingJournal?.entries || []).map((e: any, i: number) => (
             <div key={i} className="p-2.5 t-card-alt rounded-lg">

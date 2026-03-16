@@ -1124,6 +1124,22 @@ def main():
     with open(results_dir / "indicator_history.json", "w", encoding="utf-8") as f:
         json.dump(ind_history if isinstance(ind_history, dict) else {}, f, ensure_ascii=False, indent=2)
 
+    # 모든 JSON에 generated_at 타임스탬프 일괄 삽입
+    from datetime import datetime
+    generated_at = datetime.now().strftime("%Y-%m-%d %H:%M KST")
+    for json_file in results_dir.glob("*.json"):
+        try:
+            with open(json_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, dict):
+                data["generated_at"] = generated_at
+            else:
+                continue  # list 타입은 구조 변경 없이 건너뜀
+            with open(json_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"
     frontend_data.mkdir(parents=True, exist_ok=True)

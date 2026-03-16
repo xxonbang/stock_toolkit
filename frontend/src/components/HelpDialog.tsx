@@ -173,10 +173,12 @@ export function SectionHeader({
   id,
   children,
   count,
+  timestamp,
 }: {
   id: string;
   children: React.ReactNode;
   count?: number;
+  timestamp?: string;
 }) {
   const [open, setOpen] = useState(false);
   const help = SECTION_HELP[id];
@@ -193,7 +195,7 @@ export function SectionHeader({
   return (
     <>
       <div className="flex items-center gap-2 mb-3">
-        <h2 className="text-base font-semibold t-text">
+        <h2 className="text-base font-semibold t-text shrink-0">
           {children}
           {count != null && (
             <span className="text-sm font-normal t-text-dim ml-1">
@@ -208,6 +210,9 @@ export function SectionHeader({
           >
             <HelpCircle size={16} />
           </button>
+        )}
+        {timestamp && (
+          <span className="ml-auto text-[10px] t-text-dim shrink-0">{timestamp}</span>
         )}
       </div>
       {open && help && createPortal(
