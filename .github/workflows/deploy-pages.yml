@@ -52,6 +52,11 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
+      - name: Preserve existing briefing
+        if: ${{ (inputs.mode || 'data-only') == 'data-only' }}
+        run: |
+          mkdir -p results
+          curl -sf "https://xxonbang.github.io/stock_toolkit/data/briefing.json" -o results/briefing.json || echo "기존 briefing 없음"
       - name: Run all phases
         run: python scripts/run_all.py --mode ${{ inputs.mode || 'data-only' }}
         env:

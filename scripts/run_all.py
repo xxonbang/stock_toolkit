@@ -95,6 +95,10 @@ def main():
         json.dump(report, f, ensure_ascii=False, indent=2)
 
     # 모닝 브리프 생성 (Gemini — full 모드만)
+    # data-only 모드: 기존 briefing.json 보존 (full에서 생성된 결과 유지)
+    briefing_path = results_dir / "briefing.json"
+    if not use_ai and briefing_path.exists():
+        print("  data-only 모드: 기존 briefing.json 보존", flush=True)
     if use_ai:
         import traceback
         print("  Gemini 브리핑 생성 시작...", flush=True)
