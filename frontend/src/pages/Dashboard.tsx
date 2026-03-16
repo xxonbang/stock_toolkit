@@ -222,7 +222,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               }
               const regs = await navigator.serviceWorker?.getRegistrations();
               if (regs) await Promise.all(regs.map((r) => r.unregister()));
-              window.location.reload();
+              window.scrollTo(0, 0);
+              window.location.href = window.location.pathname + window.location.search;
             }}
           >
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-6 h-6 shrink-0" />
