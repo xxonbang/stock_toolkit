@@ -1,5 +1,16 @@
 # Task History
 
+## 2026-03-17
+
+### [개선] 외부 데이터 활용 종합 개선 — Tier 1~3 (2026-03-17 15:00 KST)
+- **변경 파일:** `scripts/run_all.py`, `docs/research/2026-03-17-data-utilization.md`
+- **내용:**
+  - **연구:** theme-analyzer(10개 파일) + signal-pulse(8개 파일) 전체 재조사, 18건 활용 방안 도출
+  - **Tier 1 버그 수정 (3건):** volume_profile 키매핑 수정(0→20건), intraday_heatmap 파싱 수정(0값→실데이터), pattern 매칭 로직 전면 교체(intraday-history 교차 비교, 0→7건)
+  - **Tier 2 기존 기능 개선 (7건):** paper_trading 25일 히스토리 추가, forecast_accuracy 대장주 코드 기준 매칭(0%→75%), simulation_history 48일 집계(0→15건), valuation fundamental_data 폴백+EPS성장률/52주위치, premarket 시황맥락+미국시장+투자자동향5일, short_squeeze 공매도/골든크로스 필드 추가, indicator_history F&G/VIX 트렌드 추가
+  - **Tier 3 신규 기능 (4건):** intraday_stock_tracker(장중 종목별 수급 전환 감지), consecutive_monitor(연속 상승/하락 모니터), volume_profile_alerts(매물대 지지/저항 경보 23건), source_performance(vision/kis/combined 성과 비교)
+  - **데이터 활용률:** theme-analyzer 18.5%→~80%, 빈 JSON 6개→0개
+
 ## 2026-03-16
 
 ### [기능] Light/Dark 모드 전면 개편 — 금융 앱 스타일 (2026-03-16 10:00 KST)
