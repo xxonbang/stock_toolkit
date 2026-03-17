@@ -1,12 +1,12 @@
 def find_cross_signals(themes: list, combined_signals: list) -> list:
     leader_map = {}
-    for theme in themes:
+    for idx, theme in enumerate(themes):
         for leader in theme.get("leader_stocks", theme.get("leaders", [])):
             code = leader.get("code")
             if code:
                 leader_map[code] = {
                     "theme": theme.get("theme_name", theme.get("name")),
-                    "theme_rank": theme.get("rank"),
+                    "theme_rank": theme.get("rank") or (idx + 1),
                 }
     matches = []
     buy_signals = {"적극매수", "매수"}
@@ -24,7 +24,7 @@ def find_cross_signals(themes: list, combined_signals: list) -> list:
             else:
                 entry["dual_signal"] = "혼조"
             matches.append(entry)
-    matches.sort(key=lambda x: x.get("score", 0), reverse=True)
+    matches.sort(key=lambda x: x.get("confidence", 0), reverse=True)
     return matches
 
 
@@ -38,7 +38,7 @@ def format_cross_signal_alert(matches: list) -> str:
         lines.append(
             f"\n<b>{m.get('name', '')} ({m.get('code', '')})</b>\n"
             f"테마: {m.get('theme', '')} (#{m.get('theme_rank', '-')})\n"
-            f"신호: {sig}{dual} (점수: {m.get('score', '-')})"
+            f"신호: {sig}{dual} (신뢰도: {round(m.get('confidence', 0) * 100)}%)"
         )
     lines.append("━" * 20)
     return "\n".join(lines)
