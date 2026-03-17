@@ -29,13 +29,9 @@ jobs:
           fetch-depth: 5
       - name: 배포 시작 알림
         run: |
-          COMMITS=$(git log --oneline -5 --format="· %s" | head -5)
           MSG="🚀 <b>[Stock Toolkit] 배포 시작</b>
           모드: ${{ inputs.mode || 'data-only' }}
-          트리거: ${{ github.event_name }}
-
-          <b>최근 변경사항:</b>
-          ${COMMITS}"
+          트리거: ${{ github.event_name }}"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d parse_mode=HTML \
