@@ -299,35 +299,45 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* AI 모닝 브리핑 */}
       {briefing?.morning && (() => {
         const raw = briefing.morning as string;
-        // HTML(<b>[제목]</b>) 또는 마크다운(**N. 제목**) 모두 파싱
+        // HTML 태그 정리 유틸
+        const stripHtml = (s: string) => s.replace(/<\/?[bi]>/g, "").replace(/<\/?b>/g, "").trim();
+        // 번호 기반 섹션 파싱: "N.  <b>제목</b>" 또는 "**N. 제목**" 또는 "<b>[제목]</b>"
         let sections: { title: string; body: string }[] = [];
-        if (raw.includes("<b>[")) {
-          // HTML 형식
-          sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
-            const titleMatch = s.match(/^([^\]]+)\]<\/b>\s*/);
-            const title = titleMatch ? titleMatch[1] : "";
-            const body = titleMatch ? s.slice(titleMatch[0].length).trim() : s.replace(/<\/?b>/g, "").trim();
-            return { title, body };
-          });
-        } else {
-          // 마크다운 형식: **N. 제목** 또는 **제목**
-          const blocks = raw.split(/\n\*\*\d*\.?\s*/).filter(s => s.trim());
-          for (const block of blocks) {
-            const match = block.match(/^([^*\n]+)\*\*\s*\n?([\s\S]*)/);
-            if (match) {
-              sections.push({ title: match[1].trim(), body: match[2].trim().replace(/\*\*/g, "").replace(/`<b>|<\/b>`/g, "").replace(/`/g, "").replace(/\*\s+/g, "· ").replace(/---/g, "").trim() });
-            }
-          }
-          // 파싱 실패 시 전체를 하나의 섹션으로
-          if (sections.length === 0) {
-            sections = [{ title: "AI 분석", body: raw.replace(/\*\*/g, "").replace(/`/g, "").replace(/---/g, "").replace(/<\/?b>/g, "").trim() }];
+        // 1) "N.  <b>제목</b>" 형식 (Gemini full 모드 출력)
+        const numberedPattern = /\d+\.\s*<b>([^<]+)<\/b>/g;
+        const numberedMatches = [...raw.matchAll(numberedPattern)];
+        if (numberedMatches.length >= 2) {
+          for (let i = 0; i < numberedMatches.length; i++) {
+            const title = numberedMatches[i][1].trim();
+            const start = numberedMatches[i].index! + numberedMatches[i][0].length;
+            const end = i < numberedMatches.length - 1 ? numberedMatches[i + 1].index! : raw.length;
+            const body = stripHtml(raw.slice(start, end)).replace(/^\s*\n/, "");
+            sections.push({ title, body });
           }
         }
-        // 제목 키워드 매칭
+        // 2) "<b>[제목]</b>" 형식
+        if (sections.length === 0 && raw.includes("<b>[")) {
+          sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
+            const m = s.match(/^([^\]]+)\]<\/b>\s*/);
+            return { title: m ? m[1] : "", body: stripHtml(m ? s.slice(m[0].length) : s) };
+          });
+        }
+        // 3) 마크다운 "**N. 제목**" 형식
+        if (sections.length === 0) {
+          const blocks = raw.split(/\n\*\*\d*\.?\s*/).filter(s => s.trim());
+          for (const block of blocks) {
+            const m = block.match(/^([^*\n]+)\*\*\s*\n?([\s\S]*)/);
+            if (m) sections.push({ title: m[1].trim(), body: m[2].replace(/\*\*/g, "").replace(/`/g, "").replace(/---/g, "").trim() });
+          }
+        }
+        // 4) 폴백
+        if (sections.length === 0) {
+          sections = [{ title: "AI 분석", body: stripHtml(raw) }];
+        }
         const matchKey = (title: string) => {
           if (title.includes("글로벌") || title.includes("환경") || title.includes("시장")) return "글로벌 환경";
           if (title.includes("테마") && (title.includes("주목") || title.includes("주요"))) return "오늘의 주목 테마";
-          if (title.includes("핵심") || title.includes("고확신") || title.includes("관심")) return "고확신 종목";
+          if (title.includes("핵심") || title.includes("고확신") || title.includes("관심") || title.includes("종목")) return "고확신 종목";
           if (title.includes("주의") || title.includes("위험")) return "주의 종목";
           if (title.includes("전략") || title.includes("제안")) return "전략 제안";
           return title;
@@ -336,25 +346,42 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           "글로벌 환경": "🌍", "오늘의 주목 테마": "🔥", "고확신 종목": "🎯",
           "주의 종목": "⚠️", "전략 제안": "💡",
         };
-        const bgMap: Record<string, string> = {
-          "글로벌 환경": "bg-slate-500/8", "오늘의 주목 테마": "bg-cyan-500/8",
-          "고확신 종목": "bg-emerald-500/8", "주의 종목": "bg-rose-500/8", "전략 제안": "bg-indigo-500/8",
+        const accentMap: Record<string, string> = {
+          "글로벌 환경": "border-l-slate-400", "오늘의 주목 테마": "border-l-cyan-400",
+          "고확신 종목": "border-l-emerald-400", "주의 종목": "border-l-rose-400", "전략 제안": "border-l-indigo-400",
+        };
+        // 본문 라인 렌더링
+        const renderBody = (body: string) => {
+          return body.split("\n").filter(l => l.trim()).map((line: string, j: number) => {
+            const trimmed = line.trim();
+            // 체크 항목 (✔️, ✅, ·, -, *)
+            if (/^[✔️✅·\-\*]/.test(trimmed)) {
+              const text = trimmed.replace(/^[✔️✅·\-\*]+\s*/, "");
+              return (
+                <div key={j} className="flex items-start gap-2 py-0.5">
+                  <span className="text-emerald-400 mt-0.5 text-[10px]">●</span>
+                  <span className="t-text-sub text-[13px] leading-relaxed">{text}</span>
+                </div>
+              );
+            }
+            // 주의/전략 라벨 제거
+            const cleaned = trimmed.replace(/^(주의 종목:|전략 제안:)\s*/i, "");
+            return <p key={j} className="t-text text-[13px] leading-[1.7]">{cleaned}</p>;
+          });
         };
         return (
-          <section className="space-y-2">
+          <section className="space-y-3">
             <SectionHeader id="briefing" timestamp={briefTs}>AI 모닝 브리핑</SectionHeader>
             {sections.map((sec: any, i: number) => {
               const key = matchKey(sec.title);
               return (
-              <div key={i} className={`rounded-xl border t-border-light p-3.5 ${bgMap[key] || "t-card-alt"}`}>
-                <div className="flex items-center gap-1.5 mb-2">
-                  <span className="text-sm">{iconMap[key] || "📌"}</span>
-                  <span className="text-sm font-semibold t-text">{sec.title}</span>
+              <div key={i} className={`rounded-xl border t-border-light border-l-[3px] ${accentMap[key] || "border-l-gray-400"} t-card-alt p-4`}>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="text-base">{iconMap[key] || "📌"}</span>
+                  <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
                 </div>
-                <div className="text-xs t-text leading-relaxed whitespace-pre-line">
-                  {sec.body.split("\n").map((line: string, j: number) => (
-                    <div key={j}>{line.startsWith("· ") || line.startsWith("* ") ? <span className="t-text-sub">{line}</span> : line}</div>
-                  ))}
+                <div className="space-y-1">
+                  {renderBody(sec.body)}
                 </div>
               </div>
               );
