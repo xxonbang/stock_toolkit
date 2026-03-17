@@ -73,6 +73,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [anomalies, setAnomalies] = useState<any[] | null>(null);
   const [smartMoney, setSmartMoney] = useState<any[] | null>(null);
   const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
+  const [stockDetail, setStockDetail] = useState<any>(null);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -210,6 +211,101 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      {/* 종목 상세 팝업 */}
+      {stockDetail && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" onClick={() => setStockDetail(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl t-card border t-border-light p-5 mx-2 mb-0 sm:mb-0" onClick={e => e.stopPropagation()}>
+            {/* 헤더 */}
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-base font-bold t-text">{stockDetail.name}</h3>
+                <span className="text-[11px] t-text-dim">{stockDetail.code} · {stockDetail.market}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                {stockDetail.dual_signal && (
+                  <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                    stockDetail.dual_signal === "고확신" ? "bg-emerald-500/10 text-emerald-500" :
+                    stockDetail.dual_signal === "KIS매수" ? "bg-blue-500/10 text-blue-500" :
+                    "bg-amber-500/10 text-amber-500"
+                  }`}>{stockDetail.dual_signal}</span>
+                )}
+                <button onClick={() => setStockDetail(null)} className="text-lg t-text-dim hover:t-text">✕</button>
+              </div>
+            </div>
+            {/* 신호 요약 */}
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              <div className="t-card-alt rounded-lg p-2.5">
+                <div className="text-[10px] t-text-dim mb-1">Vision AI</div>
+                <div className={`text-xs font-semibold ${stockDetail.vision_signal === "매수" || stockDetail.vision_signal === "적극매수" ? "text-red-500" : "t-text"}`}>
+                  {stockDetail.vision_signal || "-"} {stockDetail.vision_confidence ? `(${Math.round(stockDetail.vision_confidence * 100)}%)` : ""}
+                </div>
+              </div>
+              <div className="t-card-alt rounded-lg p-2.5">
+                <div className="text-[10px] t-text-dim mb-1">KIS API</div>
+                <div className={`text-xs font-semibold ${stockDetail.api_signal === "매수" || stockDetail.api_signal === "적극매수" ? "text-red-500" : "t-text"}`}>
+                  {stockDetail.api_signal || "-"} {stockDetail.api_confidence ? `(${Math.round(stockDetail.api_confidence * 100)}%)` : ""}
+                </div>
+              </div>
+            </div>
+            {/* 핵심 요인 (api_key_factors) */}
+            {stockDetail.api_key_factors && Object.keys(stockDetail.api_key_factors).length > 0 && (
+              <div className="mb-4">
+                <div className="text-[11px] font-semibold t-text mb-1.5">핵심 요인</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {Object.entries(stockDetail.api_key_factors).map(([k, v]: [string, any]) => {
+                    const label: Record<string, string> = { price_trend: "추세", volume_signal: "거래량", foreign_flow: "외국인", institution_flow: "기관", valuation: "밸류에이션" };
+                    return (
+                      <span key={k} className={`text-[11px] px-2 py-0.5 rounded-full ${
+                        String(v).includes("매수") || String(v).includes("상승") || String(v).includes("급증") ? "bg-red-500/8 text-red-400" :
+                        String(v).includes("매도") || String(v).includes("하락") || String(v).includes("고평가") ? "bg-blue-500/8 text-blue-400" :
+                        "t-card-alt t-text-sub"
+                      }`}>{label[k] || k}: {String(v)}</span>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {/* 재료 분석 */}
+            {(stockDetail.vision_reason || stockDetail.api_reason) && (
+              <div className="mb-4">
+                <div className="text-[11px] font-semibold t-text mb-1.5">재료 분석</div>
+                {stockDetail.vision_reason && (
+                  <div className="mb-2">
+                    <div className="text-[10px] t-text-dim mb-0.5">Vision AI</div>
+                    <p className="text-[12px] t-text-sub leading-relaxed">{stockDetail.vision_reason}</p>
+                  </div>
+                )}
+                {stockDetail.api_reason && (
+                  <div>
+                    <div className="text-[10px] t-text-dim mb-0.5">KIS API</div>
+                    <p className="text-[12px] t-text-sub leading-relaxed">{stockDetail.api_reason}</p>
+                  </div>
+                )}
+              </div>
+            )}
+            {/* 관련 뉴스 */}
+            {((stockDetail.vision_news?.length > 0) || (stockDetail.api_news?.length > 0)) && (
+              <div>
+                <div className="text-[11px] font-semibold t-text mb-1.5">관련 뉴스</div>
+                <div className="space-y-1.5">
+                  {[...(stockDetail.vision_news || []), ...(stockDetail.api_news || [])].reduce((acc: any[], n: any) => {
+                    if (!acc.find((a: any) => a.title === n.title)) acc.push(n);
+                    return acc;
+                  }, []).slice(0, 6).map((n: any, i: number) => (
+                    <a key={i} href={n.originallink || n.link} target="_blank" rel="noopener noreferrer"
+                       className="block t-card-alt rounded-lg p-2.5 hover:bg-blue-500/5 transition-colors">
+                      <div className="text-[12px] font-medium t-text leading-snug">{n.title}</div>
+                      {n.description && <div className="text-[11px] t-text-dim mt-0.5 line-clamp-2">{n.description}</div>}
+                      {n.pubDate && <div className="text-[10px] t-text-dim mt-1">{n.pubDate}</div>}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       {/* 헤더 — sticky + 블러 배경 */}
       <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-2.5 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between mb-2.5">
@@ -667,40 +763,40 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         const c = performance.by_source.combined;
         const total = c.total || 0;
         const buyCount = (c["적극매수"] || 0) + (c["매수"] || 0);
-        // 매수 종목: crossSignal + smartMoney에서 추출 (중복 제거)
+        // 매수 종목: crossSignal + smartMoney에서 추출 (중복 제거, 객체 보존)
         const seen = new Set<string>();
-        const strongBuyNames: string[] = [];
-        const buyNames: string[] = [];
+        const strongBuyStocks: any[] = [];
+        const buyStocks: any[] = [];
         (crossSignal || []).forEach((s: any) => {
           const sig = s.vision_signal || s.signal || "";
-          if (sig === "적극매수" && !seen.has(s.name)) { strongBuyNames.push(s.name); seen.add(s.name); }
-          else if (sig === "매수" && !seen.has(s.name)) { buyNames.push(s.name); seen.add(s.name); }
+          if (sig === "적극매수" && !seen.has(s.name)) { strongBuyStocks.push(s); seen.add(s.name); }
+          else if (sig === "매수" && !seen.has(s.name)) { buyStocks.push(s); seen.add(s.name); }
         });
         (smartMoney || []).forEach((s: any) => {
-          if ((s.signal === "매수" || s.signal === "적극매수") && !seen.has(s.name)) { buyNames.push(s.name); seen.add(s.name); }
+          if ((s.signal === "매수" || s.signal === "적극매수") && !seen.has(s.name)) { buyStocks.push(s); seen.add(s.name); }
         });
         return (
           <section className="t-card rounded-xl p-4">
             <SectionHeader id="signals" timestamp={ts}>AI 주목 종목</SectionHeader>
             <div className="text-xs t-text-sub mb-3">
-              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {strongBuyNames.length + buyNames.length}종목</span>
+              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {strongBuyStocks.length + buyStocks.length}종목</span>
             </div>
-            {strongBuyNames.length > 0 && (
+            {strongBuyStocks.length > 0 && (
               <div className="mb-2">
                 <div className="text-[10px] t-text-dim mb-1">적극매수</div>
                 <div className="flex flex-wrap gap-1">
-                  {strongBuyNames.map((n, i) => (
-                    <span key={i} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/15 text-red-400">{n}</span>
+                  {strongBuyStocks.map((s, i) => (
+                    <span key={i} onClick={() => setStockDetail(s)} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 cursor-pointer hover:bg-red-500/25 transition-colors">{s.name}</span>
                   ))}
                 </div>
               </div>
             )}
-            {buyNames.length > 0 && (
+            {buyStocks.length > 0 && (
               <div>
                 <div className="text-[10px] t-text-dim mb-1">매수</div>
                 <div className="flex flex-wrap gap-1">
-                  {buyNames.map((n, i) => (
-                    <span key={i} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/10 t-text-sub">{n}</span>
+                  {buyStocks.map((s, i) => (
+                    <span key={i} onClick={() => setStockDetail(s)} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/10 t-text-sub cursor-pointer hover:bg-red-500/20 transition-colors">{s.name}</span>
                   ))}
                 </div>
               </div>

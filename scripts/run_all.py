@@ -236,6 +236,12 @@ def main():
                 "value_score_4d": ka_scores.get("value", ka.get("value_score")),
                 "material_score": ka_scores.get("material", ka.get("material_score")),
                 "total_score": ka.get("total_score", ka.get("score")),
+                "vision_reason": sig.get("vision_reason", ""),
+                "api_reason": sig.get("api_reason", ""),
+                "vision_news": sig.get("vision_news", [])[:5],
+                "api_news": sig.get("api_news", [])[:5],
+                "vision_news_analysis": sig.get("vision_news_analysis", {}),
+                "api_key_factors": sig.get("api_key_factors", {}),
             })
     smart_money_results.sort(key=lambda x: x["smart_money_score"], reverse=True)
     with open(results_dir / "smart_money.json", "w", encoding="utf-8") as f:
