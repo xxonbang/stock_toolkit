@@ -2,6 +2,12 @@
 
 ## 2026-03-17
 
+### [버그픽스] 크로스 시그널 #None + 점수 누락 수정 (2026-03-17 22:50 KST)
+- **변경 파일:** `modules/cross_signal.py`
+- **내용:** theme_rank None → 테마 배열 순서 폴백, score(존재하지 않음) → confidence 필드 사용(백분율 표시)
+- **원인:** 테마 데이터에 rank 키 부재, 시그널 데이터에 score 키 없고 confidence 키만 존재
+- **커밋:** `a215273`
+
 ### [개선] 외부 데이터 활용 종합 개선 — Tier 1~3 (2026-03-17 15:00 KST)
 - **변경 파일:** `scripts/run_all.py`, `docs/research/2026-03-17-data-utilization.md`
 - **내용:**
