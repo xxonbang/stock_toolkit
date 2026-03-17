@@ -61,12 +61,26 @@ def main():
     report["vix"] = {"current": vix_d.get("current", 0), "rating": vix_d.get("rating", "")}
     report["kospi"] = perf_latest.get("kospi_index", {})
     report["kosdaq"] = perf_latest.get("kosdaq_index", {})
-    # 신호 분포
+    # 신호 분포 (vision + api 통합: 어느 쪽이든 매수면 매수로 집계)
     combined_data = loader.get_combined_signals()
     if isinstance(combined_data, list):
+        buy_set = {"적극매수", "매수"}
         signal_counts = {}
         for s in combined_data:
-            sig = s.get("signal", s.get("combined_signal", s.get("vision_signal"))) or "중립"
+            vs = s.get("vision_signal") or ""
+            api = s.get("api_signal") or ""
+            if vs in buy_set or api in buy_set:
+                # 둘 중 더 강한 신호 사용
+                if "적극매수" in (vs, api):
+                    sig = "적극매수"
+                else:
+                    sig = "매수"
+            elif vs:
+                sig = vs
+            elif api:
+                sig = api
+            else:
+                sig = "중립"
             signal_counts[sig] = signal_counts.get(sig, 0) + 1
         signal_counts["total"] = len(combined_data)
         report["by_source"]["combined"] = signal_counts
@@ -190,15 +204,23 @@ def main():
             score += 30
         elif signal in ("매수",):
             score += 15
+        if api_sig in ("적극매수",):
+            score += 20
+        elif api_sig in ("매수",):
+            score += 10
         score += int((conf or 0) * 20)
         if isinstance(foreign_net, (int, float)) and foreign_net > 0:
             score += 10
         # 이중 검증 보너스
-        if api_sig in ("적극매수", "매수") and match_st == "match":
-            score += 15
-        elif api_sig in ("적극매수", "매수"):
-            score += 5
-        dual = "고확신" if api_sig in ("매수", "적극매수") and match_st == "match" else "확인필요" if signal in ("매수", "적극매수") else "혼조"
+        if signal in ("매수", "적극매수") and api_sig in ("매수", "적극매수"):
+            score += 10
+            dual = "고확신"
+        elif signal in ("매수", "적극매수"):
+            dual = "확인필요"
+        elif api_sig in ("매수", "적극매수"):
+            dual = "KIS매수"
+        else:
+            dual = "혼조"
         # kis_analysis 4차원 점수
         ka = kis_analysis_map.get(code, {})
         ka_scores = ka.get("scores", {}) if isinstance(ka, dict) else {}
@@ -865,12 +887,26 @@ def main():
             portfolio_holdings = json.load(f).get("holdings", [])
     else:
         portfolio_holdings = []
-    # 보유 종목에 실시간 신호/수급 매칭
+    # 보유 종목에 실시간 신호/수급 매칭 (vision + api 통합)
     for h in portfolio_holdings:
         code = h["code"]
         sig_match = next((s for s in combined if s.get("code") == code), None)
         inv_match = investor_data.get(code, {})
-        h["signal"] = sig_match.get("vision_signal", "분석 대상 외") if sig_match else "분석 대상 외"
+        if sig_match:
+            vs = sig_match.get("vision_signal", "")
+            api = sig_match.get("api_signal", "")
+            buy_set = {"적극매수", "매수"}
+            sell_set = {"매도", "적극매도"}
+            if vs in buy_set or api in buy_set:
+                h["signal"] = "적극매수" if "적극매수" in (vs, api) else "매수"
+            elif vs in sell_set or api in sell_set:
+                h["signal"] = "적극매도" if "적극매도" in (vs, api) else "매도"
+            else:
+                h["signal"] = vs or api or "중립"
+            h["vision_signal"] = vs
+            h["api_signal"] = api
+        else:
+            h["signal"] = "분석 대상 외"
         h["foreign_net"] = (inv_match.get("foreign_net") or 0) if isinstance(inv_match, dict) else 0
         h["weight"] = round(100 / len(portfolio_holdings))
     total_holdings = len(portfolio_holdings)

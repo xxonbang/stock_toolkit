@@ -13,14 +13,19 @@ def find_cross_signals(themes: list, combined_signals: list) -> list:
     for sig in combined_signals:
         code = sig.get("code")
         vs = sig.get("vision_signal", sig.get("signal"))
-        if code in leader_map and vs in buy_signals:
+        as_ = sig.get("api_signal", "")
+        # vision 또는 api 어느 쪽이든 매수면 포함
+        if code in leader_map and (vs in buy_signals or as_ in buy_signals):
             entry = {**sig, **leader_map[code]}
-            as_ = sig.get("api_signal", "")
             ms = sig.get("match_status", "")
-            if as_ in buy_signals and ms == "match":
+            if vs in buy_signals and as_ in buy_signals and ms == "match":
+                entry["dual_signal"] = "고확신"
+            elif vs in buy_signals and as_ in buy_signals:
                 entry["dual_signal"] = "고확신"
             elif vs in buy_signals:
                 entry["dual_signal"] = "확인필요"
+            elif as_ in buy_signals:
+                entry["dual_signal"] = "KIS매수"
             else:
                 entry["dual_signal"] = "혼조"
             matches.append(entry)

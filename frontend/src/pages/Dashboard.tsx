@@ -439,12 +439,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                           )}
                         </div>
                         {(catalyst || leaders.length > 0) && (
-                          <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                            {catalyst && <span className="text-[11px] t-text-sub">{catalyst}</span>}
+                          <div className="mt-1 space-y-0.5">
+                            {catalyst && <div className="text-[11px] t-text-sub">{catalyst}</div>}
                             {leaders.length > 0 && (
-                              <span className="text-[11px] t-text-dim">
+                              <div className="text-[11px] t-text-dim">
                                 {leaders.map((l: any) => l.name).join(" · ")}
-                              </span>
+                              </div>
                             )}
                           </div>
                         )}
@@ -609,13 +609,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     <div key={i} className="grid grid-cols-4 text-[10px] t-card-alt rounded px-1.5 py-1.5 items-center">
                       <span className="t-text-sub">{day.date}</span>
                       <span className={`font-medium text-right ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 10000).toFixed(0)}만
+                        외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 100).toFixed(0)}억
                       </span>
                       <span className={`font-medium text-right ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 10000).toFixed(0)}만
+                        기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 100).toFixed(0)}억
                       </span>
                       <span className={`font-medium text-right ${(k.individual || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        개인 {(k.individual || 0) >= 0 ? "+" : ""}{((k.individual || 0) / 10000).toFixed(0)}만
+                        개인 {(k.individual || 0) >= 0 ? "+" : ""}{((k.individual || 0) / 100).toFixed(0)}억
                       </span>
                     </div>
                   );
@@ -683,7 +683,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <section className="t-card rounded-xl p-4">
             <SectionHeader id="signals" timestamp={ts}>AI 주목 종목</SectionHeader>
             <div className="text-xs t-text-sub mb-3">
-              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {buyCount}종목</span>
+              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {strongBuyNames.length + buyNames.length}종목</span>
             </div>
             {strongBuyNames.length > 0 && (
               <div className="mb-2">
