@@ -987,8 +987,8 @@ def main():
     earnings_items = []
     if dart_key:
         try:
-            from datetime import datetime
-            today = datetime.now().strftime("%Y%m%d")
+            from datetime import datetime, timezone, timedelta
+            today = datetime.now(timezone(timedelta(hours=9))).strftime("%Y%m%d")
             r = requests.get(f"https://opendart.fss.or.kr/api/list.json?crtfc_key={dart_key}&bgn_de={today}&pblntf_ty=A&page_count=10", timeout=10)
             if r.status_code == 200:
                 for item in r.json().get("list", []):

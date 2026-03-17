@@ -334,6 +334,24 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         if (sections.length === 0) {
           sections = [{ title: "AI 분석", body: stripHtml(raw) }];
         }
+        // "주목 테마" 섹션은 테마 예측 카드에 통합 → AI 브리핑에서 제거
+        const hasThemeForecast = performance?.theme_forecast?.themes?.length > 0;
+        if (hasThemeForecast) {
+          sections = sections.filter(sec => {
+            const t = sec.title;
+            return !(t.includes("테마") && (t.includes("주목") || t.includes("주요")));
+          });
+        }
+        // "주목 테마" 섹션의 촉매 설명을 추출 (테마 예측 카드에서 활용)
+        const themeCatalystMap: Record<string, string> = {};
+        const origThemeSec = raw.match(/\d+\.\s*<b>[^<]*주목[^<]*<\/b>([\s\S]*?)(?=\d+\.\s*<b>|$)/);
+        if (origThemeSec) {
+          const lines = origThemeSec[1].replace(/<\/?[bi]>/g, "").split("\n").filter((l: string) => l.trim());
+          for (const line of lines) {
+            const m = line.match(/[✔️✅·\-\*]\s*(.+?)\s*\((.+)\)/);
+            if (m) themeCatalystMap[m[1].trim()] = m[2].trim();
+          }
+        }
         const matchKey = (title: string) => {
           if (title.includes("글로벌") || title.includes("환경") || title.includes("시장")) return "글로벌 환경";
           if (title.includes("테마") && (title.includes("주목") || title.includes("주요"))) return "오늘의 주목 테마";
@@ -386,27 +404,50 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
               );
             })}
-            {/* 오늘의 테마 예측 — AI 브리핑 영역에 포함 */}
+            {/* 오늘의 테마 예측 — AI 브리핑 주목 테마 통합 */}
             {performance?.theme_forecast?.themes?.length > 0 && (
-              <div className="rounded-xl border t-border-light p-3.5 bg-purple-500/8">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <span className="text-sm">📈</span>
-                  <span className="text-sm font-semibold t-text">오늘의 테마 예측</span>
+              <div className="rounded-xl border t-border-light border-l-[3px] border-l-cyan-400/60 t-card-alt p-4">
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="text-base">🔥</span>
+                  <span className="text-[13px] font-bold t-text tracking-tight">오늘의 주목 테마</span>
                 </div>
                 {performance.theme_forecast.market_context && (
-                  <div className="text-xs t-text-sub leading-relaxed mb-2 t-card-alt rounded-lg p-2.5">
+                  <p className="text-[13px] t-text-sub leading-[1.7] mb-3">
                     {performance.theme_forecast.market_context}
-                  </div>
+                  </p>
                 )}
-                <div className="space-y-1.5">
+                <div className="space-y-0">
                   {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => {
+                    const themeName = t.theme_name || t.name || "";
                     const conf = t.confidence;
                     const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
-                    const confColor = confLabel.includes("높") || (typeof conf === "number" && conf >= 70) ? "text-red-500" : confLabel.includes("보통") || (typeof conf === "number" && conf >= 40) ? "text-amber-500" : "t-text-dim";
+                    const isHigh = confLabel.includes("높") || (typeof conf === "number" && conf >= 70);
+                    const isMid = confLabel.includes("보통") || (typeof conf === "number" && conf >= 40 && conf < 70);
+                    // AI 브리핑의 촉매 설명 매칭
+                    const catalyst = Object.entries(themeCatalystMap).find(([k]) => themeName.includes(k) || k.includes(themeName))?.[1];
+                    const leaders = (t.leader_stocks || []).slice(0, 3);
                     return (
-                      <div key={i} className="flex items-center justify-between t-card-alt rounded-lg px-2.5 py-1.5">
-                        <span className="text-xs font-medium t-text">{t.theme_name || t.name}</span>
-                        {confLabel && <span className={`text-[10px] font-medium ${confColor}`}>{confLabel}</span>}
+                      <div key={i} className="py-2.5 border-b t-border-light last:border-b-0">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[13px] font-medium t-text">{themeName}</span>
+                          {confLabel && (
+                            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${
+                              isHigh ? "bg-emerald-500/10 text-emerald-500" :
+                              isMid ? "bg-amber-500/10 text-amber-500" :
+                              "bg-gray-500/10 t-text-dim"
+                            }`}>{confLabel}</span>
+                          )}
+                        </div>
+                        {(catalyst || leaders.length > 0) && (
+                          <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                            {catalyst && <span className="text-[11px] t-text-sub">{catalyst}</span>}
+                            {leaders.length > 0 && (
+                              <span className="text-[11px] t-text-dim">
+                                {leaders.map((l: any) => l.name).join(" · ")}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
                     );
                   })}

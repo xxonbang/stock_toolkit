@@ -7,7 +7,9 @@ import math
 import os
 import urllib.request
 import urllib.error
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+KST = timezone(timedelta(hours=9))
 
 OUTPUT_DIR = "/Users/sonbyeongcheol/DEV/stock_toolkit/frontend/public/data"
 DART_KEY = "66be2aeb9b89b35b60afc049cac516e16590e8bd"
@@ -144,7 +146,7 @@ def gen_insider_trades():
         ]
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "DART",
         "trades": trades,
         "summary": {
@@ -228,7 +230,7 @@ def gen_consensus():
         })
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "signal-pulse combined_analysis + 증권사 리포트",
         "stocks": consensus_list,
         "market_summary": {
@@ -296,7 +298,7 @@ def gen_auction():
         })
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "theme-analyzer rising stocks (실시간 장중 데이터 필요)",
         "note": "이 데이터는 장 개시/마감 10분 전 실시간 호가 데이터 기반으로 갱신 필요",
         "market_open": "09:00",
@@ -372,7 +374,7 @@ def gen_orderbook():
         })
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "theme-analyzer investor_data (실시간 KIS API 호가 데이터 필요)",
         "note": "5단계 매도/매수 호가. 실제 서비스에서는 KIS API websocket으로 실시간 갱신 필요",
         "items": orderbook_items,
@@ -460,7 +462,7 @@ def gen_correlation():
     pairs.sort(key=lambda x: abs(x["correlation"]), reverse=True)
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "theme-analyzer investor_data foreign_net history",
         "method": "pearson (외국인 순매수 시계열 기반)",
         "period_days": min(len(v) for v in selected.values()) if selected else 0,
@@ -585,7 +587,7 @@ def gen_earnings_calendar():
     expected.sort(key=lambda x: x["expected_date"])
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "DART API + 증권사 컨센서스",
         "period": "2026-03",
         "dart_filings_count": len(filings),
@@ -706,7 +708,7 @@ def gen_ai_mentor():
     ]
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "signal-pulse + theme-analyzer + portfolio",
         "market_date": latest.get("timestamp", "")[:10],
         "market_tone": market_tone,
@@ -806,7 +808,7 @@ def gen_trading_journal():
     win_trades = [t for t in closed if t["pnl"] > 0]
 
     result = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.now(KST).isoformat(),
         "data_source": "portfolio holdings + signal-pulse",
         "trades": trades,
         "statistics": {

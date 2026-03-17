@@ -1,6 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
+  schedule:
+    - cron: '0 23 * * 0-4'  # KST 08:00 (월~금) — 장전 full 모드
   workflow_dispatch:
     inputs:
       mode:
@@ -23,6 +25,9 @@ jobs:
       id-token: write
     environment:
       name: github-pages
+    env:
+      # schedule 트리거(08:00 장전) → full, push → data-only, workflow_dispatch → 입력값
+      RUN_MODE: ${{ github.event_name == 'schedule' && 'full' || inputs.mode || 'data-only' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,7 +35,7 @@ jobs:
       - name: 배포 시작 알림
         run: |
           MSG="🚀 <b>[Stock Toolkit] 배포 시작</b>
-          모드: ${{ inputs.mode || 'data-only' }}
+          모드: ${{ env.RUN_MODE }}
           트리거: ${{ github.event_name }}"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
@@ -49,12 +54,12 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt
       - name: Preserve existing briefing
-        if: ${{ (inputs.mode || 'data-only') == 'data-only' }}
+        if: ${{ env.RUN_MODE == 'data-only' }}
         run: |
           mkdir -p results
           curl -sf "https://xxonbang.github.io/stock_toolkit/data/briefing.json" -o results/briefing.json || echo "기존 briefing 없음"
       - name: Run all phases
-        run: python scripts/run_all.py --mode ${{ inputs.mode || 'data-only' }}
+        run: python scripts/run_all.py --mode ${{ env.RUN_MODE }}
         env:
           THEME_ANALYSIS_DATA_PATH: theme_analysis/frontend/public/data
           SIGNAL_ANALYSIS_DATA_PATH: signal_analysis/results
@@ -92,7 +97,7 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d parse_mode=HTML \
-            -d text="✅ <b>[Stock Toolkit] 배포 완료</b>%0A모드: ${{ inputs.mode || 'data-only' }}%0A🔗 https://xxonbang.github.io/stock_toolkit/"
+            -d text="✅ <b>[Stock Toolkit] 배포 완료</b>%0A모드: ${{ env.RUN_MODE }}%0A🔗 https://xxonbang.github.io/stock_toolkit/"
 
       - name: 배포 실패 알림
         if: failure()
@@ -100,4 +105,4 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d parse_mode=HTML \
-            -d text="❌ <b>[Stock Toolkit] 배포 실패</b>%0A모드: ${{ inputs.mode || 'data-only' }}%0A확인: https://github.com/xxonbang/stock_toolkit/actions"
+            -d text="❌ <b>[Stock Toolkit] 배포 실패</b>%0A모드: ${{ env.RUN_MODE }}%0A확인: https://github.com/xxonbang/stock_toolkit/actions"
