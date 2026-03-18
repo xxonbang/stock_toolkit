@@ -495,6 +495,27 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           "글로벌 환경": "border-l-slate-400", "오늘의 주목 테마": "border-l-cyan-400",
           "고확신 종목": "border-l-emerald-400", "주의 종목": "border-l-rose-400", "전략 제안": "border-l-indigo-400",
         };
+        // 종목명(코드) 패턴을 클릭 가능한 요소로 변환
+        const allStockData = [...(crossSignal || []), ...(smartMoney || [])];
+        const renderTextWithStockLinks = (text: string) => {
+          // "종목명(6자리코드)" 패턴 매칭
+          const parts = text.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
+          return parts.map((part, k) => {
+            const m = part.match(/^(.+)\((\d{6})\)$/);
+            if (m) {
+              const name = m[1].trim();
+              const code = m[2];
+              const detail = allStockData.find((s: any) => s.code === code);
+              return (
+                <span key={k}
+                  onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name, code, _noData: true })}
+                  className="font-semibold text-blue-400 cursor-pointer hover:underline"
+                >{name}({code})</span>
+              );
+            }
+            return <span key={k}>{part}</span>;
+          });
+        };
         // 본문 라인 렌더링
         const renderBody = (body: string) => {
           return body.split("\n").filter(l => l.trim()).map((line: string, j: number) => {
@@ -505,13 +526,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               return (
                 <div key={j} className="flex items-start gap-2 py-0.5">
                   <span className="text-emerald-400 mt-0.5 text-[10px]">●</span>
-                  <span className="t-text-sub text-[13px] leading-relaxed">{text}</span>
+                  <span className="t-text-sub text-[13px] leading-relaxed">{renderTextWithStockLinks(text)}</span>
                 </div>
               );
             }
             // 주의/전략 라벨 제거
             const cleaned = trimmed.replace(/^(주의 종목:|전략 제안:)\s*/i, "");
-            return <p key={j} className="t-text text-[13px] leading-[1.7]">{cleaned}</p>;
+            return <p key={j} className="t-text text-[13px] leading-[1.7]">{renderTextWithStockLinks(cleaned)}</p>;
           });
         };
         return (
