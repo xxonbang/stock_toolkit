@@ -230,7 +230,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-base font-bold t-text">{stockDetail.name}</h3>
-                <span className="text-[11px] t-text-dim">{stockDetail.code} · {stockDetail.market}</span>
+                <span className="text-[11px] t-text-dim">{stockDetail.code}{stockDetail.market ? ` · ${stockDetail.market}` : ""}</span>
               </div>
               <div className="flex items-center gap-2">
                 {stockDetail.dual_signal && (
@@ -243,8 +243,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 <button onClick={() => setStockDetail(null)} className="text-lg t-text-dim hover:t-text">✕</button>
               </div>
             </div>
+            {/* 분석 데이터 없음 안내 */}
+            {stockDetail._noData && (
+              <div className="text-center py-8">
+                <div className="text-2xl mb-2">📊</div>
+                <div className="text-sm t-text-sub mb-1">분석 데이터가 아직 없습니다</div>
+                <div className="text-[11px] t-text-dim">이 종목은 현재 AI 분석 대상에 포함되지 않았습니다.<br/>다음 분석 시점에 포함될 수 있습니다.</div>
+              </div>
+            )}
             {/* 신호 요약 */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
+            {!stockDetail._noData && <><div className="grid grid-cols-2 gap-2 mb-4">
               <div className="t-card-alt rounded-lg p-2.5">
                 <div className="text-[10px] t-text-dim mb-1">Vision AI</div>
                 <div className={`text-xs font-semibold ${stockDetail.vision_signal === "매수" || stockDetail.vision_signal === "적극매수" ? "text-red-500" : "t-text"}`}>
@@ -313,6 +321,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 </div>
               </div>
             )}
+            </>}
           </div>
         </div>
       )}
@@ -565,8 +574,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                                   const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === l.code);
                                   return (
                                     <span key={li}
-                                      onClick={detail ? (e) => { e.stopPropagation(); setStockDetail(detail); } : undefined}
-                                      className={`text-[11px] px-1.5 py-0.5 rounded bg-blue-500/8 t-text-sub ${detail ? "cursor-pointer hover:bg-blue-500/20 transition-colors" : ""}`}
+                                      onClick={(e) => { e.stopPropagation(); detail ? setStockDetail(detail) : setStockDetail({ name: l.name, code: l.code, _noData: true }); }}
+                                      className="text-[11px] px-1.5 py-0.5 rounded bg-blue-500/8 t-text-sub cursor-pointer hover:bg-blue-500/20 transition-colors"
                                     >{l.name}</span>
                                   );
                                 })}
