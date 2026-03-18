@@ -225,7 +225,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {stockDetail && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" onClick={() => setStockDetail(null)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl t-card border t-border-light p-5 pb-10 mx-2 mb-[env(safe-area-inset-bottom,0px)] sm:mb-0" onClick={e => e.stopPropagation()}>
+          <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl t-card border t-border-light p-5 sm:mx-2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
