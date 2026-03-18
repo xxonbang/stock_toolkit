@@ -415,40 +415,42 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* AI 모닝 브리핑 */}
       {briefing?.morning && (() => {
         const raw = briefing.morning as string;
-        // HTML 태그 정리 유틸
-        const stripHtml = (s: string) => s.replace(/<\/?[bi]>/g, "").replace(/<\/?b>/g, "").trim();
-        // 번호 기반 섹션 파싱: "N.  <b>제목</b>" 또는 "**N. 제목**" 또는 "<b>[제목]</b>"
+        // HTML 태그 정리
+        const strip = (s: string) => s.replace(/<\/?[bi]>/g, "").replace(/<br\s*\/?>/gi, "\n").replace(/&nbsp;/g, " ").trim();
+        // 범용 섹션 파서: Gemini 형식 변동에 대응
+        // 지원: "N. <b>제목</b>", "<b>N. 제목</b>", "<b>[제목]</b>", "**N. 제목**", "N. 제목" (태그 없이)
         let sections: { title: string; body: string }[] = [];
-        // 1) "N.  <b>제목</b>" 형식 (Gemini full 모드 출력)
-        const numberedPattern = /\d+\.\s*<b>([^<]+)<\/b>/g;
-        const numberedMatches = [...raw.matchAll(numberedPattern)];
-        if (numberedMatches.length >= 2) {
-          for (let i = 0; i < numberedMatches.length; i++) {
-            const title = numberedMatches[i][1].trim();
-            const start = numberedMatches[i].index! + numberedMatches[i][0].length;
-            const end = i < numberedMatches.length - 1 ? numberedMatches[i + 1].index! : raw.length;
-            const body = stripHtml(raw.slice(start, end)).replace(/^\s*\n/, "");
-            sections.push({ title, body });
+        const sectionRegex = /(?:<b>\s*)?\d+\.\s*(?:<b>)?([^<\n]+?)(?:<\/b>)/g;
+        const matches = [...raw.matchAll(sectionRegex)];
+        if (matches.length >= 2) {
+          for (let i = 0; i < matches.length; i++) {
+            const title = strip(matches[i][1]);
+            if (!title || title.length > 40) continue;
+            const start = matches[i].index! + matches[i][0].length;
+            const end = i < matches.length - 1 ? matches[i + 1].index! : raw.length;
+            const body = strip(raw.slice(start, end));
+            if (title) sections.push({ title, body });
           }
         }
-        // 2) "<b>[제목]</b>" 형식
-        if (sections.length === 0 && raw.includes("<b>[")) {
-          sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
-            const m = s.match(/^([^\]]+)\]<\/b>\s*/);
-            return { title: m ? m[1] : "", body: stripHtml(m ? s.slice(m[0].length) : s) };
-          });
-        }
-        // 3) 마크다운 "**N. 제목**" 형식
-        if (sections.length === 0) {
+        // 마크다운 "**N. 제목**" 형식
+        if (sections.length < 2) {
+          sections = [];
           const blocks = raw.split(/\n\*\*\d*\.?\s*/).filter(s => s.trim());
           for (const block of blocks) {
             const m = block.match(/^([^*\n]+)\*\*\s*\n?([\s\S]*)/);
-            if (m) sections.push({ title: m[1].trim(), body: m[2].replace(/\*\*/g, "").replace(/`/g, "").replace(/---/g, "").trim() });
+            if (m) sections.push({ title: m[1].trim(), body: strip(m[2]) });
           }
         }
-        // 4) 폴백
-        if (sections.length === 0) {
-          sections = [{ title: "AI 분석", body: stripHtml(raw) }];
+        // "<b>[제목]</b>" 형식
+        if (sections.length < 2 && raw.includes("<b>[")) {
+          sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
+            const m = s.match(/^([^\]]+)\]<\/b>\s*/);
+            return { title: m ? m[1] : "", body: strip(m ? s.slice(m[0].length) : s) };
+          }).filter(s => s.title);
+        }
+        // 최종 폴백
+        if (sections.length < 2) {
+          sections = [{ title: "AI 분석", body: strip(raw) }];
         }
         // "주목 테마" 섹션은 테마 예측 카드에 통합 → AI 브리핑에서 제거
         const hasThemeForecast = performance?.theme_forecast?.themes?.length > 0;
