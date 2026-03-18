@@ -74,6 +74,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [smartMoney, setSmartMoney] = useState<any[] | null>(null);
   const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
   const [stockDetail, setStockDetail] = useState<any>(null);
+  const [showDualExp, setShowDualExp] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -223,7 +224,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
       {/* 종목 상세 팝업 */}
       {stockDetail && (
-        <div className="fixed inset-0 z-[60]" onClick={() => setStockDetail(null)}>
+        <div className="fixed inset-0 z-[60]" onClick={() => { setStockDetail(null); setShowDualExp(false); }}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
           <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
             {/* 헤더 */}
@@ -233,14 +234,31 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 <span className="text-[11px] t-text-dim">{stockDetail.code}{stockDetail.market ? ` · ${stockDetail.market}` : ""}</span>
               </div>
               <div className="flex items-center gap-2">
-                {stockDetail.dual_signal && (
-                  <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
-                    stockDetail.dual_signal === "고확신" ? "bg-emerald-500/10 text-emerald-500" :
-                    stockDetail.dual_signal === "KIS매수" ? "bg-blue-500/10 text-blue-500" :
-                    "bg-amber-500/10 text-amber-500"
-                  }`}>{stockDetail.dual_signal}</span>
-                )}
-                <button onClick={() => setStockDetail(null)} className="text-lg t-text-dim hover:t-text">✕</button>
+                {stockDetail.dual_signal && (() => {
+                  const ds = stockDetail.dual_signal;
+                  const explanations: Record<string, string> = {
+                    "고확신": "Vision AI와 KIS API 양쪽 모두 매수 신호가 일치합니다. 두 독립 분석의 합의로 신뢰도가 높습니다.",
+                    "확인필요": "Vision AI는 매수 신호이나, KIS API는 중립 또는 다른 판단입니다. 한쪽만 매수이므로 추가 확인이 필요합니다.",
+                    "KIS매수": "KIS API만 매수 신호이고, Vision AI는 중립입니다. KIS 정량 분석 기반이며 AI 차트 판단은 미동의 상태입니다.",
+                    "혼조": "Vision AI와 KIS API의 판단이 서로 다릅니다. 신중한 접근이 필요합니다.",
+                  };
+                  return (
+                    <div className="relative">
+                      <span onClick={(e) => { e.stopPropagation(); setShowDualExp(!showDualExp); }} className={`text-[11px] font-semibold px-2 py-0.5 rounded-full cursor-pointer ${
+                        ds === "고확신" ? "bg-emerald-500/10 text-emerald-500" :
+                        ds === "KIS매수" ? "bg-blue-500/10 text-blue-500" :
+                        "bg-amber-500/10 text-amber-500"
+                      }`}>{ds}</span>
+                      {showDualExp && (
+                        <div className="absolute right-0 top-8 w-64 p-3 rounded-xl t-card border t-border-light shadow-lg z-10" onClick={e => e.stopPropagation()}>
+                          <div className="text-[11px] font-semibold t-text mb-1">{ds}</div>
+                          <div className="text-[11px] t-text-sub leading-relaxed">{explanations[ds] || ""}</div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+                <button onClick={() => { setStockDetail(null); setShowDualExp(false); }} className="text-lg t-text-dim hover:t-text">✕</button>
               </div>
             </div>
             {/* 분석 데이터 없음 안내 */}
