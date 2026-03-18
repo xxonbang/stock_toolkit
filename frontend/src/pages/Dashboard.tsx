@@ -111,7 +111,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
 
-  useEffect(() => {
+  const loadAllData = () => {
     dataService.getPerformance().then(setPerformance);
     dataService.getSectorFlow().then(setSectors);
     dataService.getAnomalies().then(setAnomalies);
@@ -153,6 +153,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     dataService.getSimulationHistory().then(setSimulationHistory);
     dataService.getIntradayStockFlow().then(setIntradayStockFlow);
     dataService.getIndicatorHistory().then(setIndicatorHistory);
+  };
+
+  useEffect(() => {
+    loadAllData();
+    // 장중 5분, 장외 10분 자동 폴링
+    const now = new Date();
+    const h = now.getHours();
+    const isMarketHours = h >= 9 && h < 16;
+    const interval = setInterval(loadAllData, isMarketHours ? 5 * 60 * 1000 : 10 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   // 공통 타임스탬프 (performance.json 기준, 대부분 동일 시점)
@@ -334,6 +344,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             )}
           </div>
         </div>
+        {/* 데이터 신선도 배너 */}
+        {ts && (() => {
+          const m = ts.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+          if (!m) return null;
+          const genTime = new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5]);
+          const diffMin = Math.round((Date.now() - genTime.getTime()) / 60000);
+          const label = diffMin < 5 ? "방금 갱신" : diffMin < 60 ? `${diffMin}분 전` : diffMin < 1440 ? `${Math.round(diffMin/60)}시간 전` : `${Math.round(diffMin/1440)}일 전`;
+          const color = diffMin < 30 ? "text-emerald-400" : diffMin < 180 ? "text-amber-400" : "text-red-400";
+          return <div className={`text-[10px] ${color} text-right -mt-1 mb-1`}>최근 갱신: {label}</div>;
+        })()}
         {/* 카테고리 퀵 점프 — 세련된 디자인 */}
         <div className="flex gap-1 rounded-xl p-1" style={{ background: 'var(--bg-pill)' }}>
           {categories.map((cat) => (

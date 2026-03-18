@@ -258,7 +258,8 @@ def main():
             from datetime import datetime as dt2
             sig_time = dt2.fromisoformat(signal_generated_at)
             signal_age_hours = round((now_kst - sig_time).total_seconds() / 3600, 1)
-        except Exception:
+        except Exception as e:
+            print(f"  signal_age 계산 실패: {e}")
             signal_age_hours = 0
 
     # 등락률/거래량 빠른 조회 맵 구성
@@ -1423,7 +1424,7 @@ def main():
             }, f, ensure_ascii=False, indent=2)
 
     # 예측 적중률 — 대장주 코드 기준 매칭 (테마명 불일치 우회)
-    forecasts = loader.get_forecast_history(10)
+    forecasts = loader.get_forecast_history(15)  # 재예측 5회/일 대응 (3일분)
     theme_history = loader.get_theme_history()
     # 실제 상승 종목 맵 (날짜 → 상승 종목 코드 set)
     actual_rising_by_date = {}
@@ -1730,8 +1731,8 @@ def main():
                 continue  # list 타입은 구조 변경 없이 건너뜀
             with open(json_file, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  타임스탬프 삽입 실패 ({json_file.name}): {e}")
 
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"
