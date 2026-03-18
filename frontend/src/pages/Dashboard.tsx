@@ -75,6 +75,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
   const [stockDetail, setStockDetail] = useState<any>(null);
   const [showDualExp, setShowDualExp] = useState(false);
+  const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -222,6 +223,36 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      {/* 신뢰도 설명 팝업 */}
+      {confExp && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setConfExp(null)}>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="relative w-[85%] max-w-sm t-card border t-border-light rounded-2xl p-5 shadow-xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-bold t-text">{confExp.theme}</span>
+              <button onClick={() => setConfExp(null)} className="t-text-dim hover:t-text text-lg">✕</button>
+            </div>
+            <div className="mb-3">
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                confExp.confidence.includes("높") ? "bg-emerald-500/10 text-emerald-500" :
+                confExp.confidence.includes("보통") ? "bg-amber-500/10 text-amber-500" :
+                "bg-gray-500/10 t-text-dim"
+              }`}>신뢰도: {confExp.confidence}</span>
+            </div>
+            <div className="text-[12px] t-text-sub leading-relaxed space-y-2">
+              <p>{confExp.confidence.includes("높")
+                ? "AI가 이 테마의 상승 가능성을 높게 판단합니다. 강력한 촉매(재료)가 확인되었고, 대장주의 수급과 기술적 신호가 일치합니다."
+                : confExp.confidence.includes("보통")
+                ? "AI가 이 테마에 주목하고 있으나, 일부 불확실성이 존재합니다. 촉매는 있으나 수급이 불안정하거나, 대장주 신호가 엇갈릴 수 있습니다."
+                : "AI가 이 테마를 관찰 중이나, 상승 동력이 약하거나 리스크가 높습니다. 단기 변동성에 주의가 필요합니다."
+              }</p>
+              {confExp.catalyst && (
+                <p><span className="font-semibold t-text">촉매:</span> {confExp.catalyst}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
       {/* 종목 상세 팝업 */}
       {stockDetail && (
         <div className="fixed inset-0 z-[60]" onClick={() => { setStockDetail(null); setShowDualExp(false); }}>
@@ -597,7 +628,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                         <div className="flex items-center justify-between">
                           <span className="text-[13px] font-medium t-text">{themeName}</span>
                           {confLabel && (
-                            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${
+                            <span onClick={() => setConfExp({ theme: themeName, confidence: confLabel, catalyst })}
+                              className={`text-[11px] font-semibold px-2 py-0.5 rounded-full shrink-0 cursor-pointer ${
                               isHigh ? "bg-emerald-500/10 text-emerald-500" :
                               isMid ? "bg-amber-500/10 text-amber-500" :
                               "bg-gray-500/10 t-text-dim"
