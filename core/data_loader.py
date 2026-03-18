@@ -32,6 +32,13 @@ class DataLoader:
             return ta["themes"]
         return data.get("themes", [])
 
+    def get_stock_history(self) -> dict:
+        """종목 일봉 히스토리: stock-history.json 우선, 없으면 latest.json history 폴백"""
+        separated = self.theme_path / "stock-history.json"
+        if separated.exists():
+            return self._load_json(separated)
+        return self.get_latest().get("history", {})
+
     def get_theme_forecast(self) -> dict:
         return self._load_json(self.theme_path / "theme-forecast.json")
 

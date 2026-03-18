@@ -1312,10 +1312,21 @@ def main():
     with open(results_dir / "member_trading.json", "w", encoding="utf-8") as f:
         json.dump(member_results, f, ensure_ascii=False, indent=2)
 
-    # 거래대금 TOP30
+    # 거래대금 TOP30 + rank_change (자금 유입/이탈 감지)
     tv = latest.get("trading_value", {})
     trading_value_stocks = (tv.get("kospi", [])[:15] if isinstance(tv.get("kospi"), list) else []) + \
                            (tv.get("kosdaq", [])[:15] if isinstance(tv.get("kosdaq"), list) else [])
+    for tvs in trading_value_stocks:
+        rc = tvs.get("rank_change")
+        if rc is not None and isinstance(rc, (int, float)):
+            if rc <= -5:
+                tvs["flow_signal"] = "자금 급유입"
+            elif rc <= -2:
+                tvs["flow_signal"] = "자금 유입"
+            elif rc >= 5:
+                tvs["flow_signal"] = "자금 이탈"
+            elif rc >= 2:
+                tvs["flow_signal"] = "자금 소폭 이탈"
     with open(results_dir / "trading_value.json", "w", encoding="utf-8") as f:
         json.dump(trading_value_stocks, f, ensure_ascii=False, indent=2)
 
@@ -1359,7 +1370,7 @@ def main():
         json.dump(scanner_stocks, f, ensure_ascii=False, indent=2)
 
     # 3일 OHLCV
-    history_data = latest.get("history", {})
+    history_data = loader.get_stock_history()
     price_history_top = {}
     for sig in combined[:10]:
         code = sig.get("code", "")
@@ -1415,12 +1426,35 @@ def main():
                     "total_stocks": summary.get("total_stocks", 0),
                 })
     if pt:
+        # 장중 손익 커브: price_snapshots에서 각 종목별 시간대별 수익률 계산
+        intraday_pnl = []
+        snapshots_raw = pt.get("price_snapshots", [])
+        stocks_list = pt.get("stocks", [])
+        if snapshots_raw and stocks_list:
+            stock_buy = {s["code"]: s.get("buy_price", 0) for s in stocks_list if isinstance(s, dict) and s.get("code")}
+            for snap in snapshots_raw:
+                if not isinstance(snap, dict):
+                    continue
+                ts_str = snap.get("timestamp", "")
+                prices = snap.get("prices", {})
+                total_pnl = 0
+                count = 0
+                for code, buy in stock_buy.items():
+                    cur = prices.get(code, 0) if isinstance(prices, dict) else 0
+                    if buy and cur:
+                        total_pnl += (cur - buy) / buy * 100
+                        count += 1
+                avg_pnl = round(total_pnl / count, 2) if count else 0
+                time_part = ts_str.split(" ")[-1][:5] if " " in ts_str else ts_str[:5]
+                intraday_pnl.append({"time": time_part, "avg_pnl": avg_pnl, "stocks": count})
+
         with open(results_dir / "paper_trading_latest.json", "w", encoding="utf-8") as f:
             json.dump({
                 "date": pt.get("trade_date"),
-                "stocks": pt.get("stocks", []),
+                "stocks": stocks_list,
                 "summary": pt.get("summary", {}),
                 "history": pt_history,
+                "intraday_pnl": intraday_pnl,
             }, f, ensure_ascii=False, indent=2)
 
     # 예측 적중률 — 대장주 코드 기준 매칭 (테마명 불일치 우회)
