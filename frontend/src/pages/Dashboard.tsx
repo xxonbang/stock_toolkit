@@ -223,9 +223,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
       {/* 종목 상세 팝업 */}
       {stockDetail && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" onClick={() => setStockDetail(null)}>
+        <div className="fixed inset-0 z-[60]" onClick={() => setStockDetail(null)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl t-card border t-border-light p-5 sm:mx-2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
+          <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
