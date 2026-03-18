@@ -225,7 +225,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {stockDetail && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" onClick={() => setStockDetail(null)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl t-card border t-border-light p-5 mx-2 mb-0 sm:mb-0" onClick={e => e.stopPropagation()}>
+          <div className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl t-card border t-border-light p-5 pb-10 mx-2 mb-[env(safe-area-inset-bottom,0px)] sm:mb-0" onClick={e => e.stopPropagation()}>
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -561,9 +561,15 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                             {catalyst && <div className="text-[12px] t-text-sub leading-relaxed">{catalyst}</div>}
                             {leaders.length > 0 && (
                               <div className="flex flex-wrap gap-1">
-                                {leaders.map((l: any, li: number) => (
-                                  <span key={li} className="text-[11px] px-1.5 py-0.5 rounded bg-blue-500/8 t-text-sub">{l.name}</span>
-                                ))}
+                                {leaders.map((l: any, li: number) => {
+                                  const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === l.code);
+                                  return (
+                                    <span key={li}
+                                      onClick={detail ? (e) => { e.stopPropagation(); setStockDetail(detail); } : undefined}
+                                      className={`text-[11px] px-1.5 py-0.5 rounded bg-blue-500/8 t-text-sub ${detail ? "cursor-pointer hover:bg-blue-500/20 transition-colors" : ""}`}
+                                    >{l.name}</span>
+                                  );
+                                })}
                               </div>
                             )}
                           </div>
