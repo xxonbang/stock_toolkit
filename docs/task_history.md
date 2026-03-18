@@ -1,5 +1,20 @@
 # Task History
 
+## 2026-03-18
+
+### [기능] 실시간 데이터 격차 해소 — 10회 연구 결과 구현 (2026-03-18 16:00 KST)
+- **변경 파일:** `scripts/run_all.py`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`, `frontend/src/components/RefreshButtons.tsx`, `.github/workflows/deploy-pages.yml`, `docs/research/2026-03-18-realtime-gap.md`
+- **내용:**
+  - **Intraday Overlay:** cross_signal/smart_money에 장중 등락률·수급·거래량 오버레이, intraday_score, validation(신호유효/약화/무효화)
+  - **신뢰도 Decay:** 0.98^h 공식, signal_age_hours, decayed_confidence 필드
+  - **장중 급등 경보:** surge_alerts.json (등락률>15% + 거래량>200%, 6건 감지)
+  - **수급 반전 강화:** 시점 간 가속/둔화 추세 판정 (trend 필드)
+  - **미활용 데이터 활용:** market_breadth(5스냅샷), program_detail(12투자자유형), investor_trend_stocks(10일 추세 20종목)
+  - **인프라:** deploy-pages concurrency 제어, 필수 JSON 검증 스텝, RefreshButtons 90초 중복 방지
+  - **UX:** 교차 신호/스마트머니 카드에 overlay 표시, 타임스탬프 가시성 개선
+- **연구:** docs/research/2026-03-18-realtime-gap.md (10회 연구, ~1,500줄)
+- **커밋:** `a01fbbd`
+
 ## 2026-03-17
 
 ### [버그픽스] 크로스 시그널 #None + 점수 누락 수정 (2026-03-17 22:50 KST)
