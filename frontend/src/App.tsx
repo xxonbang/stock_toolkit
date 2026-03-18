@@ -23,6 +23,11 @@ function useTheme() {
 export default function App() {
   const { dark, toggle } = useTheme();
 
+  useEffect(() => {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <HashRouter>
       <div className="min-h-screen pb-20" style={{ background: 'var(--bg)' }}>

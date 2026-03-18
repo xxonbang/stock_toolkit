@@ -557,11 +557,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                           )}
                         </div>
                         {(catalyst || leaders.length > 0) && (
-                          <div className="mt-1 space-y-0.5">
-                            {catalyst && <div className="text-[11px] t-text-sub">{catalyst}</div>}
+                          <div className="mt-1.5 space-y-1">
+                            {catalyst && <div className="text-[12px] t-text-sub leading-relaxed">{catalyst}</div>}
                             {leaders.length > 0 && (
-                              <div className="text-[11px] t-text-dim">
-                                {leaders.map((l: any) => l.name).join(" · ")}
+                              <div className="flex flex-wrap gap-1">
+                                {leaders.map((l: any, li: number) => (
+                                  <span key={li} className="text-[11px] px-1.5 py-0.5 rounded bg-blue-500/8 t-text-sub">{l.name}</span>
+                                ))}
                               </div>
                             )}
                           </div>
