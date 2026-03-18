@@ -57,7 +57,8 @@ export default function RefreshButtons() {
     } catch {
       setResult("네트워크 오류");
     }
-    setLoading(null);
+    // 90초간 버튼 비활성 유지 (중복 트리거 방지)
+    setTimeout(() => setLoading(null), 90000);
     setTimeout(() => setResult(null), 8000);
   }
 

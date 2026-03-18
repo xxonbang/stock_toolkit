@@ -814,25 +814,47 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="cross" timestamp={ts} count={crossSignal?.length ?? 0}>교차 신호</SectionHeader>
           <div className="space-y-2">
-            {(crossSignal || []).map((s, i) => (
-              <div key={i} className="p-2.5 bg-green-500/10 border border-green-500/20 rounded-lg">
+            {(crossSignal || []).map((s, i) => {
+              const intra = s.intraday || {};
+              const ageH = s.signal_age_hours || 0;
+              const ageLbl = ageH >= 12 ? "매우 오래됨" : ageH >= 6 ? "오래됨" : ageH >= 3 ? "주의" : "최근";
+              const ageColor = ageH >= 12 ? "text-gray-400" : ageH >= 6 ? "text-amber-400" : ageH >= 3 ? "text-yellow-400" : "text-emerald-400";
+              return (
+              <div key={i} onClick={() => setStockDetail(s)} className="p-2.5 t-card-alt border t-border-light rounded-lg cursor-pointer hover:border-blue-500/30 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 mr-2">
-                    <span className="font-medium text-sm">{s.name}</span>
+                    <span className="font-medium text-sm t-text">{s.name}</span>
                     <span className="text-xs t-text-dim ml-1">{s.code}</span>
                   </div>
-                  <div className="shrink-0">{signalBadge(s.signal)}</div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {s.dual_signal && (
+                      <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "KIS매수" ? "blue" : s.dual_signal === "혼조" ? "warning" : "default"}>
+                        {s.dual_signal}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-                <div className="text-xs t-text-sub mt-1 flex items-center gap-1.5">
-                  <span>{s.theme} · AI 신뢰도 {((s.confidence || 0) * 100).toFixed(0)}%</span>
-                  {s.dual_signal && (
-                    <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "혼조" ? "warning" : "default"}>
-                      {s.dual_signal}
-                    </Badge>
+                <div className="text-[11px] t-text-sub mt-1.5">{s.theme}</div>
+                {/* Intraday Overlay */}
+                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                  {intra.change_rate != null && intra.change_rate !== 0 && (
+                    <span className={`text-[11px] font-medium ${intra.change_rate >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                      {intra.change_rate >= 0 ? "+" : ""}{intra.change_rate}%
+                    </span>
                   )}
+                  {intra.validation && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                      intra.validation === "신호 유효" ? "bg-emerald-500/10 text-emerald-400" :
+                      intra.validation === "신호 약화" ? "bg-amber-500/10 text-amber-400" :
+                      intra.validation === "신호 무효화" ? "bg-red-500/10 text-red-400" :
+                      "bg-gray-500/10 t-text-dim"
+                    }`}>{intra.validation}</span>
+                  )}
+                  {ageH > 0 && <span className={`text-[10px] ${ageColor}`}>{Math.round(ageH)}시간 전</span>}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
             {!crossSignal?.length && <Empty />}
         </section>
@@ -937,30 +959,46 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="smartmoney" timestamp={ts} count={smartMoney?.length ?? 0}>스마트 머니 TOP</SectionHeader>
           <div className="space-y-1.5">
-            {(smartMoney || []).slice(0, 8).map((s, i) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold flex items-center justify-center shrink-0">
-                    {i + 1}
+            {(smartMoney || []).slice(0, 8).map((s, i) => {
+              const intra = s.intraday || {};
+              return (
+              <div key={i} onClick={() => setStockDetail(s)} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/20 hover:border transition-colors">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold flex items-center justify-center shrink-0">
+                      {i + 1}
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-sm font-medium truncate block t-text">{s.name}</span>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        {s.dual_signal && (
+                          <span className={`text-[10px] ${s.dual_signal === "고확신" ? "text-emerald-500" : s.dual_signal === "KIS매수" ? "text-blue-400" : "t-text-dim"}`}>
+                            {s.dual_signal}
+                          </span>
+                        )}
+                        {intra.validation && (
+                          <span className={`text-[10px] ${
+                            intra.validation === "신호 유효" ? "text-emerald-400" :
+                            intra.validation === "신호 약화" ? "text-amber-400" :
+                            intra.validation === "신호 무효화" ? "text-red-400" : "t-text-dim"
+                          }`}>{intra.validation}</span>
+                        )}
+                        {intra.change_rate != null && intra.change_rate !== 0 && (
+                          <span className={`text-[10px] font-medium ${intra.change_rate >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                            {intra.change_rate >= 0 ? "+" : ""}{intra.change_rate}%
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <span className="text-sm font-medium truncate block">{s.name}</span>
-                    {s.dual_signal && (
-                      <span className={`text-[10px] ${s.dual_signal === "고확신" ? "text-green-600" : "t-text-dim"}`}>
-                        {s.dual_signal}{s.total_score != null ? ` · 종합 ${s.total_score}점` : ""}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  {signalBadge(s.signal)}
                   <div className="text-right shrink-0">
-                    <div className="text-sm font-bold text-blue-700">{s.smart_money_score}</div>
+                    <div className="text-sm font-bold text-blue-500">{s.smart_money_score}</div>
                     <div className="text-[10px] t-text-dim">스코어</div>
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
             {!smartMoney?.length && <Empty />}
         </section>

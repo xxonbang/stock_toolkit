@@ -45,8 +45,7 @@ def main():
         themes = loader.get_themes()
         signals = loader.get_combined_signals()
         cross_matches = find_cross_signals(themes, signals)
-    with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
-        json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
+    # cross_signal.json 저장은 Phase 2에서 Overlay 적용 후 수행
 
     report = build_performance_report(loader)
     # 시장 지표 추가
@@ -244,8 +243,129 @@ def main():
                 "api_key_factors": sig.get("api_key_factors", {}),
             })
     smart_money_results.sort(key=lambda x: x["smart_money_score"], reverse=True)
+
+    # === Intraday Overlay + Decay ===
+    from datetime import datetime, timezone, timedelta
+    kst_tz = timezone(timedelta(hours=9))
+    now_kst = datetime.now(kst_tz)
+
+    # combined_analysis generated_at 추출 (신호 생성 시각)
+    combined_raw = loader._load_json(loader.signal_path / "combined" / "combined_analysis.json")
+    signal_generated_at = combined_raw.get("generated_at", "") if isinstance(combined_raw, dict) else ""
+    signal_age_hours = 0
+    if signal_generated_at:
+        try:
+            from datetime import datetime as dt2
+            sig_time = dt2.fromisoformat(signal_generated_at)
+            signal_age_hours = round((now_kst - sig_time).total_seconds() / 3600, 1)
+        except Exception:
+            signal_age_hours = 0
+
+    # 등락률/거래량 빠른 조회 맵 구성
+    change_rate_map = {}
+    volume_rate_map = {}
+    for s in rising_stocks + falling_stocks + volume_stocks:
+        code = s.get("code", "")
+        if code:
+            if code not in change_rate_map:
+                change_rate_map[code] = s.get("change_rate", 0)
+            if code not in volume_rate_map and s.get("volume_rate"):
+                volume_rate_map[code] = s.get("volume_rate", 0)
+
+    def _apply_overlay(entry):
+        """cross_signal/smart_money 항목에 장중 오버레이 추가"""
+        code = entry.get("code", "")
+        cr = change_rate_map.get(code, 0)
+        vr = volume_rate_map.get(code, 0)
+        inv = investor_data.get(code, {})
+        fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
+        inst = (inv.get("institution_net") or 0) if isinstance(inv, dict) else 0
+        pn = (inv.get("program_net") or 0) if isinstance(inv, dict) else 0
+
+        # intraday_score (signal-pulse 비의존 점수)
+        score = 50
+        if cr > 5: score += 15
+        elif cr > 2: score += 8
+        elif cr < -5: score -= 15
+        elif cr < -2: score -= 8
+        if vr > 200: score += 10
+        elif vr > 100: score += 5
+        if fn > 0: score += 10
+        elif fn < -100000: score -= 10
+        if inst > 0: score += 5
+        score = max(0, min(100, score))
+
+        # validation (hysteresis: ±2% 이내 중립)
+        vs = entry.get("vision_signal", entry.get("signal", ""))
+        buy_set = {"적극매수", "매수"}
+        sell_set = {"매도", "적극매도"}
+        if vs in buy_set:
+            if cr < -5:
+                validation = "신호 무효화"
+            elif cr < -2:
+                validation = "신호 약화"
+            elif cr >= 0:
+                validation = "신호 유효"
+            else:
+                validation = "중립"
+        elif vs in sell_set:
+            if cr > 5:
+                validation = "신호 무효화"
+            elif cr > 2:
+                validation = "신호 약화"
+            else:
+                validation = "신호 유효"
+        else:
+            validation = "중립"
+
+        # decay
+        original_conf = entry.get("confidence", entry.get("vision_confidence", 0)) or 0
+        decayed_conf = round(original_conf * (0.98 ** signal_age_hours), 3) if signal_age_hours > 0 else original_conf
+
+        entry["intraday"] = {
+            "change_rate": cr,
+            "volume_rate": vr,
+            "foreign_net": fn,
+            "institution_net": inst,
+            "program_net": pn,
+            "intraday_score": score,
+            "validation": validation,
+        }
+        entry["signal_age_hours"] = signal_age_hours
+        entry["signal_generated_at"] = signal_generated_at
+        entry["decayed_confidence"] = decayed_conf
+        return entry
+
+    # Overlay 적용: cross_signal
+    if cross_matches:
+        cross_matches = [_apply_overlay(m) for m in cross_matches]
+    with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
+        json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
+
+    # Overlay 적용: smart_money
+    smart_money_results = [_apply_overlay(s) for s in smart_money_results[:20]]
     with open(results_dir / "smart_money.json", "w", encoding="utf-8") as f:
-        json.dump(smart_money_results[:20], f, ensure_ascii=False, indent=2)
+        json.dump(smart_money_results, f, ensure_ascii=False, indent=2)
+
+    # === 장중 급등 경보 ===
+    surge_alerts = []
+    for s in rising_stocks:
+        cr = s.get("change_rate", 0)
+        vr = s.get("volume_rate", 0)
+        code = s.get("code", "")
+        if cr >= 15 and vr >= 200:
+            # 기존 신호 확인
+            sig_match = next((c for c in combined if c.get("code") == code), None)
+            existing_signal = sig_match.get("vision_signal", "") if sig_match else ""
+            surge_alerts.append({
+                "code": code, "name": s.get("name", ""),
+                "change_rate": round(cr, 2), "volume_rate": round(vr, 1),
+                "existing_signal": existing_signal,
+                "missed": existing_signal not in ("매수", "적극매수"),
+            })
+    surge_alerts.sort(key=lambda x: x["change_rate"], reverse=True)
+    with open(results_dir / "surge_alerts.json", "w", encoding="utf-8") as f:
+        json.dump(surge_alerts, f, ensure_ascii=False, indent=2)
 
     # 섹터 자금 흐름 — 테마별 외국인 순매수 집계
     themes = loader.get_themes()
@@ -1408,12 +1528,29 @@ def main():
                 reversal = "매도→매수 전환"
             elif f_first > 0 and f_last < 0:
                 reversal = "매수→매도 전환"
+            # 시점 간 가속/둔화 판정 (중간 스냅샷 활용)
+            trend = ""
+            if len(snapshots) >= 3:
+                mid_snap = snapshots[len(snapshots) // 2].get("data", {})
+                mid = mid_snap.get(code, {}) if isinstance(mid_snap, dict) else {}
+                f_mid = mid.get("f") or 0
+                first_half = f_mid - f_first
+                second_half = f_last - f_mid
+                if abs(second_half) > abs(first_half) * 1.5 and f_last > 0:
+                    trend = "매수 가속"
+                elif abs(second_half) < abs(first_half) * 0.5 and f_last > 0:
+                    trend = "매수 둔화"
+                elif abs(second_half) > abs(first_half) * 1.5 and f_last < 0:
+                    trend = "매도 가속"
+                elif abs(second_half) < abs(first_half) * 0.5 and f_last < 0:
+                    trend = "매도 둔화"
             if abs(f_change) > 50000 or reversal:
                 intraday_stock_tracker.append({
                     "code": code, "price": cp, "change_rate": cr,
                     "foreign_first": f_first, "foreign_last": f_last, "foreign_change": f_change,
                     "institution_change": i_last - i_first,
                     "reversal": reversal,
+                    "trend": trend,
                 })
         intraday_stock_tracker.sort(key=lambda x: abs(x.get("foreign_change", 0)), reverse=True)
     with open(results_dir / "intraday_stock_tracker.json", "w", encoding="utf-8") as f:
@@ -1510,6 +1647,74 @@ def main():
     best_source = max(source_performance, key=lambda k: source_performance[k]["win_rate"]) if any(p["total"] for p in source_performance.values()) else "combined"
     with open(results_dir / "source_performance.json", "w", encoding="utf-8") as f:
         json.dump({"by_source": source_performance, "best_source": best_source}, f, ensure_ascii=False, indent=2)
+
+    # === 미활용 데이터 활용: 시장 breadth + program_net + 10일 히스토리 ===
+
+    # 시장 breadth: investor-intraday 스냅샷별 외국인 순매수 양성 비율
+    market_breadth = []
+    if isinstance(snapshots, list):
+        for snap in snapshots:
+            if not isinstance(snap, dict):
+                continue
+            sd = snap.get("data", {})
+            if not isinstance(sd, dict) or not sd:
+                continue
+            total_stocks = len(sd)
+            positive_foreign = sum(1 for v in sd.values() if isinstance(v, dict) and (v.get("f") or 0) > 0)
+            market_breadth.append({
+                "time": snap.get("time", ""),
+                "total": total_stocks,
+                "positive_foreign": positive_foreign,
+                "ratio": round(positive_foreign / total_stocks * 100, 1) if total_stocks else 0,
+            })
+    with open(results_dir / "market_breadth.json", "w", encoding="utf-8") as f:
+        json.dump(market_breadth, f, ensure_ascii=False, indent=2)
+
+    # program_trade 투자자 유형별 분리
+    program_trade = latest.get("program_trade", {})
+    program_detail = {}
+    for market in ["kospi", "kosdaq"]:
+        pt_list = program_trade.get(market, [])
+        if isinstance(pt_list, list):
+            for pt_item in pt_list:
+                if isinstance(pt_item, dict):
+                    inv_type = pt_item.get("investor", "")
+                    if inv_type:
+                        if inv_type not in program_detail:
+                            program_detail[inv_type] = {"all": 0, "arbt": 0, "nabt": 0}
+                        program_detail[inv_type]["all"] += pt_item.get("all_ntby_amt", 0) or 0
+                        program_detail[inv_type]["arbt"] += pt_item.get("arbt_ntby_amt", 0) or 0
+                        program_detail[inv_type]["nabt"] += pt_item.get("nabt_ntby_amt", 0) or 0
+    with open(results_dir / "program_detail.json", "w", encoding="utf-8") as f:
+        json.dump(program_detail, f, ensure_ascii=False, indent=2)
+
+    # 투자자 10일 히스토리 추세 (상위 수급 변화 종목)
+    investor_trend_stocks = []
+    for code, inv in investor_data.items() if isinstance(investor_data, dict) else []:
+        if not isinstance(inv, dict):
+            continue
+        history = inv.get("history", [])
+        if not isinstance(history, list) or len(history) < 3:
+            continue
+        fn_current = inv.get("foreign_net") or 0
+        # 히스토리에서 가장 오래된 값
+        fn_oldest = 0
+        for h in history:
+            if isinstance(h, dict):
+                fn_oldest = h.get("foreign_net", h.get("foreign", 0)) or 0
+                break
+        fn_change = fn_current - fn_oldest
+        if abs(fn_change) > 100000:
+            investor_trend_stocks.append({
+                "code": code, "name": inv.get("name", ""),
+                "foreign_net": fn_current,
+                "foreign_10d_change": fn_change,
+                "trend": "매수 전환" if fn_oldest < 0 and fn_current > 0 else "매도 전환" if fn_oldest > 0 and fn_current < 0 else "매수 강화" if fn_change > 0 else "매도 강화",
+                "days": len(history),
+            })
+    investor_trend_stocks.sort(key=lambda x: abs(x["foreign_10d_change"]), reverse=True)
+    with open(results_dir / "investor_trend_stocks.json", "w", encoding="utf-8") as f:
+        json.dump(investor_trend_stocks[:20], f, ensure_ascii=False, indent=2)
 
     # 모든 JSON에 generated_at 타임스탬프 일괄 삽입
     from datetime import datetime, timezone, timedelta

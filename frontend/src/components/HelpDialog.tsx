@@ -212,7 +212,7 @@ export function SectionHeader({
           </button>
         )}
         {timestamp && (
-          <span className="ml-auto text-[10px] t-text-dim shrink-0">{timestamp}</span>
+          <span className="ml-auto text-[11px] t-text-sub shrink-0">{timestamp}</span>
         )}
       </div>
       {open && help && createPortal(

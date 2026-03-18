@@ -20,6 +20,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: stock-toolkit-pages
+      cancel-in-progress: true
     permissions:
       pages: write
       id-token: write
@@ -53,11 +56,14 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
-      - name: Preserve existing briefing
+      - name: Preserve existing AI outputs
         if: ${{ env.RUN_MODE == 'data-only' }}
         run: |
           mkdir -p results
-          curl -sf "https://xxonbang.github.io/stock_toolkit/data/briefing.json" -o results/briefing.json || echo "기존 briefing 없음"
+          BASE="https://xxonbang.github.io/stock_toolkit/data"
+          for f in briefing.json; do
+            curl -sf "$BASE/$f" -o "results/$f" || echo "기존 $f 없음"
+          done
       - name: Run all phases
         run: python scripts/run_all.py --mode ${{ env.RUN_MODE }}
         env:
@@ -82,6 +88,20 @@ jobs:
         env:
           VITE_GH_PAT: ${{ secrets.VITE_GH_PAT }}
           VITE_CRONJOB_API_KEY: ${{ secrets.VITE_CRONJOB_API_KEY }}
+      - name: Validate required results
+        run: |
+          REQUIRED="performance.json cross_signal.json smart_money.json scanner_stocks.json sentiment.json"
+          MISSING=0
+          for f in $REQUIRED; do
+            if [ ! -f "results/$f" ]; then
+              echo "❌ 필수 파일 누락: $f"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ $MISSING -gt 2 ]; then
+            echo "❌ 필수 파일 3개 이상 누락 — 배포 중단"
+            exit 1
+          fi
       - name: Copy results to dist
         run: |
           mkdir -p frontend/dist/data
