@@ -505,13 +505,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             })()}
             {/* 테마 토글 */}
             {onToggleTheme && (
-              <button onClick={onToggleTheme} className="p-2 rounded-xl bg-gray-700/40 hover:bg-gray-600/50 transition" title={isDark ? "라이트 모드" : "다크 모드"}>
-                {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-blue-300" />}
+              <button onClick={onToggleTheme} className="p-1.5 rounded-lg hover:opacity-80 transition" title={isDark ? "라이트 모드" : "다크 모드"}>
+                {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="t-text-sub" />}
               </button>
             )}
             {/* ... 메뉴 버튼 */}
             <div className="relative">
-              <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-2 rounded-xl bg-gray-700/40 hover:bg-gray-600/50 transition t-text-dim text-lg leading-none">⋯</button>
+              <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
               {showHeaderMenu && (
                 <>
                   <div className="fixed inset-0 z-30" onClick={() => setShowHeaderMenu(false)} />
