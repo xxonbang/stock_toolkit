@@ -46,3 +46,63 @@ export async function searchKisStock(code: string): Promise<KisStockPrice | null
   if (error) return null;
   return (data?.stock as KisStockPrice) ?? null;
 }
+
+// ========== 포트폴리오 CRUD (Supabase) ==========
+
+export interface PortfolioHolding {
+  id?: string;
+  code: string;
+  name: string;
+  avg_price: number;
+  quantity: number;
+  sector?: string;
+}
+
+/** DB에서 보유 종목 조회 */
+export async function fetchHoldingsFromDB(): Promise<PortfolioHolding[]> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from("portfolio_holdings")
+    .select("id, code, name, avg_price, quantity")
+    .eq("user_id", user.id)
+    .order("added_at");
+  if (error) { console.error("포트폴리오 조회 실패:", error.message); return []; }
+  return (data || []) as PortfolioHolding[];
+}
+
+/** DB에 종목 추가 */
+export async function insertHolding(h: PortfolioHolding): Promise<boolean> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { error } = await supabase.from("portfolio_holdings").insert({
+    user_id: user.id,
+    code: h.code,
+    name: h.name,
+    avg_price: h.avg_price,
+    quantity: h.quantity,
+  });
+  if (error) {
+    if (error.code === "23505") { console.warn("중복 종목:", h.code); }
+    else { console.error("종목 추가 실패:", error.message); }
+    return false;
+  }
+  return true;
+}
+
+/** DB 종목 수정 */
+export async function updateHolding(id: string, updates: Partial<PortfolioHolding>): Promise<boolean> {
+  const { error } = await supabase.from("portfolio_holdings").update({
+    ...updates,
+    updated_at: new Date().toISOString(),
+  }).eq("id", id);
+  if (error) { console.error("종목 수정 실패:", error.message); return false; }
+  return true;
+}
+
+/** DB 종목 삭제 */
+export async function deleteHolding(id: string): Promise<boolean> {
+  const { error } = await supabase.from("portfolio_holdings").delete().eq("id", id);
+  if (error) { console.error("종목 삭제 실패:", error.message); return false; }
+  return true;
+}

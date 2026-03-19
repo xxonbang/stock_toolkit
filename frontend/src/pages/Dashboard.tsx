@@ -10,8 +10,8 @@ import {
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
-import { supabase, fetchKisPrices, searchKisStock } from "../lib/supabase";
-import type { KisStockPrice } from "../lib/supabase";
+import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding } from "../lib/supabase";
+import type { KisStockPrice, PortfolioHolding } from "../lib/supabase";
 
 const STAGE_FILL: Record<string, string> = {
   "탄생": "#22c55e", "성장": "#eab308", "과열": "#ef4444", "쇠퇴": "#9ca3af",
@@ -91,6 +91,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [loginPw, setLoginPw] = useState("");
   const [loginError, setLoginError] = useState("");
   const [livePriceTime, setLivePriceTime] = useState("");
+  const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
+  const [dbLoading, setDbLoading] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -148,26 +150,30 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     dataService.getPremarket().then(setPremarket);
     dataService.getPortfolio().then(p => {
       if (!p) return;
-      // localStorage 편집본이 있으면 avg_price/quantity/sector 병합
-      const saved = localStorage.getItem("portfolio_holdings");
-      if (saved) {
-        try {
-          const local: any[] = JSON.parse(saved);
-          const merged = local.map((lh: any) => {
-            const server = p.holdings?.find((sh: any) => sh.code === lh.code) || {};
-            return { ...server, ...lh, current_price: server.current_price || 0, signal: server.signal || "분석 대상 외",
-              profit_rate: (lh.avg_price && server.current_price) ? Math.round((server.current_price - lh.avg_price) / lh.avg_price * 10000) / 100 : 0,
-              profit_amount: (lh.avg_price && server.current_price) ? (server.current_price - lh.avg_price) * (lh.quantity || 0) : 0,
-              invested: (lh.avg_price || 0) * (lh.quantity || 0),
-              current_value: (server.current_price || 0) * (lh.quantity || 0),
-            };
-          });
-          const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
-          const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
-          merged.forEach(h => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-          p.holdings = merged;
-          p.summary = { total_invested: totalInv, total_value: totalVal, total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0, total_profit_amount: totalVal - totalInv, total_holdings: merged.length };
-        } catch {}
+      // DB holdings 우선 → localStorage 폴백
+      const mergeHoldings = (userHoldings: any[]) => {
+        const merged = userHoldings.map((lh: any) => {
+          const server = p.holdings?.find((sh: any) => sh.code === lh.code) || {};
+          return { ...server, ...lh, current_price: (server as any).current_price || 0, signal: (server as any).signal || "분석 대상 외",
+            profit_rate: (lh.avg_price && (server as any).current_price) ? Math.round(((server as any).current_price - lh.avg_price) / lh.avg_price * 10000) / 100 : 0,
+            profit_amount: (lh.avg_price && (server as any).current_price) ? ((server as any).current_price - lh.avg_price) * (lh.quantity || 0) : 0,
+            invested: (lh.avg_price || 0) * (lh.quantity || 0),
+            current_value: ((server as any).current_price || 0) * (lh.quantity || 0),
+          };
+        });
+        const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
+        const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
+        merged.forEach(h => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+        p.holdings = merged;
+        p.summary = { total_invested: totalInv, total_value: totalVal, total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0, total_profit_amount: totalVal - totalInv, total_holdings: merged.length };
+      };
+      // DB가 로드되어 있으면 DB 우선
+      if (dbHoldings.length > 0) {
+        mergeHoldings(dbHoldings);
+      } else {
+        // localStorage 폴백
+        const saved = localStorage.getItem("portfolio_holdings");
+        if (saved) { try { mergeHoldings(JSON.parse(saved)); } catch {} }
       }
       setPortfolio(p);
     });
@@ -199,11 +205,25 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   useEffect(() => {
     loadAllData();
     // Supabase 세션 확인
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSupaUser(session?.user || null);
+      if (session?.user) {
+        setDbLoading(true);
+        const holdings = await fetchHoldingsFromDB();
+        setDbHoldings(holdings);
+        setDbLoading(false);
+      }
     });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSupaUser(session?.user || null);
+      if (session?.user) {
+        setDbLoading(true);
+        const holdings = await fetchHoldingsFromDB();
+        setDbHoldings(holdings);
+        setDbLoading(false);
+      } else {
+        setDbHoldings([]);
+      }
     });
     // 장중 5분, 장외 10분 자동 폴링
     const now = new Date();
@@ -1050,7 +1070,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <span className={`font-medium ${portfolio.health_score >= 70 ? "text-emerald-500" : portfolio.health_score >= 50 ? "text-amber-500" : "text-red-500"}`}>
               {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
             </span>
-            <button onClick={() => { setEditHoldings(JSON.parse(JSON.stringify(portfolio.holdings || []))); setShowPortfolioEdit(true); }}
+            <button onClick={() => {
+              // DB holdings 우선, 없으면 portfolio.holdings 사용
+              const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
+              setEditHoldings(JSON.parse(JSON.stringify(source)));
+              setShowPortfolioEdit(true);
+            }}
               className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
           </div>
         </section>
@@ -1182,9 +1207,37 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               )}
             </div>
             {/* 저장 */}
-            <button onClick={() => {
+            <button onClick={async () => {
+              // DB 연동 (로그인 시)
+              if (supaUser) {
+                const prevCodes = new Set(dbHoldings.map(h => h.code));
+                const newCodes = new Set(editHoldings.map((h: any) => h.code));
+                // 삭제: DB에 있지만 편집본에 없는 것
+                for (const prev of dbHoldings) {
+                  if (!newCodes.has(prev.code) && prev.id) {
+                    await deleteHolding(prev.id);
+                  }
+                }
+                // 추가/수정
+                for (const h of editHoldings) {
+                  const existing = dbHoldings.find(d => d.code === h.code);
+                  if (existing?.id) {
+                    // 수정 (avg_price 또는 quantity 변경 시)
+                    if (existing.avg_price !== h.avg_price || existing.quantity !== h.quantity) {
+                      await updateHolding(existing.id, { avg_price: h.avg_price, quantity: h.quantity, name: h.name });
+                    }
+                  } else {
+                    // 신규 추가
+                    await insertHolding(h);
+                  }
+                }
+                // DB에서 최신 데이터 리로드
+                const fresh = await fetchHoldingsFromDB();
+                setDbHoldings(fresh);
+              }
+              // localStorage 폴백 (항상 저장)
               localStorage.setItem("portfolio_holdings", JSON.stringify(editHoldings));
-              // 로컬 portfolio 데이터 즉시 업데이트
+              // 화면 즉시 업데이트
               const totalInvested = editHoldings.reduce((s: number, h: any) => s + (h.avg_price || 0) * (h.quantity || 0), 0);
               const updated = editHoldings.map((h: any) => ({
                 ...h,
@@ -1211,7 +1264,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 },
               });
               setShowPortfolioEdit(false);
-            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">저장</button>
+            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">
+              {supaUser ? "저장 (클라우드)" : "저장 (로컬)"}
+            </button>
           </div>
         </div>
       )}
