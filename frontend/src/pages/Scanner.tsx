@@ -88,7 +88,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
     + (rsiOverbought ? 1 : 0) + (rsiOversold ? 1 : 0) + (dualMatch ? 1 : 0);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-2xl mx-auto px-4 pt-0 pb-6">
       {/* 헤더 — 컴팩트 */}
       <div className="sticky top-0 z-10 -mx-4 px-3 pt-0.5 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between h-7">

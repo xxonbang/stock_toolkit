@@ -288,7 +288,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 pb-16 space-y-5">
+    <div className="max-w-2xl mx-auto px-4 pt-0 pb-16 space-y-5">
       {/* 로그인 모달 */}
       {showLogin && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setShowLogin(false)}>
