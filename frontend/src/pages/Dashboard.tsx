@@ -874,22 +874,23 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         const refreshPortfolioPrices = async () => {
           setPriceRefreshing(true);
           try {
-            const res = await fetch("https://xxonbang.github.io/theme-analyzer/data/latest.json");
-            if (!res.ok) throw new Error("fetch failed");
-            const latest = await res.json();
-            // 현재가 추출 (volume/rising/trading_value + fundamental_data)
             const priceMap: Record<string, number> = {};
-            for (const src of ["volume", "rising", "trading_value", "falling"]) {
-              const d = (latest as any)[src] || {};
-              for (const mkt of ["kospi", "kosdaq"]) {
-                for (const s of d[mkt] || []) {
-                  if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
-                }
+            // 1) stock_toolkit 배포 데이터에서 현재가 (경량 ~10KB)
+            const [tvRes, pfRes] = await Promise.all([
+              fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
+              fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
+            ]);
+            if (tvRes.ok) {
+              const tv = await tvRes.json();
+              for (const s of (tv || [])) {
+                if (s.code && s.current_price) priceMap[s.code] = s.current_price;
               }
             }
-            const fund = (latest as any).fundamental_data || {};
-            for (const [code, fd] of Object.entries(fund)) {
-              if (!priceMap[code] && (fd as any)?.stck_prpr) priceMap[code] = (fd as any).stck_prpr;
+            if (pfRes.ok) {
+              const pf = await pfRes.json();
+              for (const h of pf?.holdings || []) {
+                if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
+              }
             }
             // 포트폴리오 재계산
             const holdings = (portfolio.holdings || []).map((h: any) => {
@@ -1054,30 +1055,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     if (!list.length) {
                       setSearchLoading(true);
                       try {
-                        const res = await fetch("https://xxonbang.github.io/theme-analyzer/data/latest.json");
+                        const res = await fetch(import.meta.env.BASE_URL + "data/scanner_stocks.json");
                         if (res.ok) {
-                          const latest = await res.json();
-                          const stocks: any[] = [];
-                          const seen = new Set<string>();
-                          for (const src of ["volume", "rising", "trading_value", "falling"]) {
-                            const d = (latest as any)[src] || {};
-                            for (const mkt of ["kospi", "kosdaq"]) {
-                              for (const s of d[mkt] || []) {
-                                if (s.code && !seen.has(s.code)) {
-                                  seen.add(s.code);
-                                  stocks.push({ code: s.code, name: s.name, market: s.market || mkt.toUpperCase(), current_price: s.current_price });
-                                }
-                              }
-                            }
-                          }
-                          // investor_data에서 추가
-                          const inv = (latest as any).investor_data || {};
-                          for (const [code, data] of Object.entries(inv)) {
-                            if (!seen.has(code) && (data as any)?.name) {
-                              seen.add(code);
-                              stocks.push({ code, name: (data as any).name, market: "", current_price: 0 });
-                            }
-                          }
+                          const ss = await res.json();
+                          const stocks = (ss || []).filter((s: any) => s.code && s.name).map((s: any) => ({
+                            code: s.code, name: s.name, market: s.market || "", current_price: 0,
+                          }));
                           setAllStockList(stocks);
                           list = stocks;
                         }
