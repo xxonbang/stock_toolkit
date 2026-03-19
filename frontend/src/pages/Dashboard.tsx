@@ -78,6 +78,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
+  const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -866,9 +867,64 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {portfolio && (() => {
         const sm = portfolio.summary || {};
         const profitColor = (r: number) => r > 0 ? "text-red-500" : r < 0 ? "text-blue-500" : "t-text";
+        const refreshPortfolioPrices = async () => {
+          setPriceRefreshing(true);
+          try {
+            const res = await fetch("https://xxonbang.github.io/theme-analyzer/data/latest.json");
+            if (!res.ok) throw new Error("fetch failed");
+            const latest = await res.json();
+            // 현재가 추출 (volume/rising/trading_value + fundamental_data)
+            const priceMap: Record<string, number> = {};
+            for (const src of ["volume", "rising", "trading_value", "falling"]) {
+              const d = (latest as any)[src] || {};
+              for (const mkt of ["kospi", "kosdaq"]) {
+                for (const s of d[mkt] || []) {
+                  if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
+                }
+              }
+            }
+            const fund = (latest as any).fundamental_data || {};
+            for (const [code, fd] of Object.entries(fund)) {
+              if (!priceMap[code] && (fd as any)?.stck_prpr) priceMap[code] = (fd as any).stck_prpr;
+            }
+            // 포트폴리오 재계산
+            const holdings = (portfolio.holdings || []).map((h: any) => {
+              const cp = priceMap[h.code] || h.current_price || 0;
+              const ap = h.avg_price || 0;
+              const qty = h.quantity || 0;
+              return {
+                ...h,
+                current_price: cp,
+                profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+                profit_amount: ap && cp ? (cp - ap) * qty : 0,
+                invested: ap * qty,
+                current_value: cp * qty,
+              };
+            });
+            const totalInv = holdings.reduce((s: number, h: any) => s + h.invested, 0);
+            const totalVal = holdings.reduce((s: number, h: any) => s + h.current_value, 0);
+            holdings.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+            setPortfolio({
+              ...portfolio,
+              holdings,
+              summary: {
+                total_invested: totalInv, total_value: totalVal,
+                total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+                total_profit_amount: totalVal - totalInv, total_holdings: holdings.length,
+              },
+            });
+          } catch (e) { console.error("price refresh failed:", e); }
+          setPriceRefreshing(false);
+        };
         return (
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="portfolio" timestamp={ts} count={portfolio.holdings?.length}>내 포트폴리오</SectionHeader>
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-base font-semibold t-text">내 포트폴리오 <span className="text-sm font-normal t-text-dim">({portfolio.holdings?.length})</span></h2>
+            <button onClick={refreshPortfolioPrices} disabled={priceRefreshing}
+              className="ml-auto text-[11px] px-2 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition font-medium disabled:opacity-50">
+              {priceRefreshing ? "갱신 중..." : "시세 갱신"}
+            </button>
+          </div>
           {/* 총 손익 요약 */}
           {sm.total_invested > 0 && (
             <div className="flex items-center justify-between mb-3 p-3 t-card-alt rounded-xl">
@@ -936,7 +992,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
             </span>
             <button onClick={() => { setEditHoldings(JSON.parse(JSON.stringify(portfolio.holdings || []))); setShowPortfolioEdit(true); }}
-              className="ml-auto text-[11px] px-2 py-0.5 rounded-lg t-card-alt t-text-sub hover:text-blue-400 transition">편집</button>
+              className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
           </div>
         </section>
         );
