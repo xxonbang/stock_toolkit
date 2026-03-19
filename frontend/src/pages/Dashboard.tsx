@@ -473,11 +473,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           </div>
         </div>
       )}
-      {/* 헤더 — sticky + 블러 배경 */}
-      <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-2.5 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="flex items-center justify-between mb-2.5">
+      {/* 헤더 — 컴팩트 sticky */}
+      <div className="sticky top-0 z-10 -mx-4 px-4 pt-1.5 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="flex items-center justify-between">
           <h1
-            className="text-xl font-bold t-text flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
+            className="text-base font-bold t-text flex items-center gap-1.5 shrink-0 cursor-pointer"
             onClick={async () => {
               if ("caches" in window) {
                 const keys = await caches.keys();
@@ -489,34 +489,35 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               window.location.href = window.location.pathname + window.location.search;
             }}
           >
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-6 h-6 shrink-0" />
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </h1>
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-1 shrink-0">
+            {/* 신선도 인라인 */}
+            {ts && (() => {
+              const m = ts.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+              if (!m) return null;
+              const diffMin = Math.round((Date.now() - new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5]).getTime()) / 60000);
+              const label = diffMin < 5 ? "방금" : diffMin < 60 ? `${diffMin}분` : diffMin < 1440 ? `${Math.round(diffMin/60)}h` : `${Math.round(diffMin/1440)}d`;
+              const color = diffMin < 30 ? "text-emerald-400" : diffMin < 180 ? "text-amber-400" : "text-red-400";
+              return <span className={`text-[9px] ${color}`}>{label}</span>;
+            })()}
             <RefreshButtons />
             {onToggleTheme && (
-              <button onClick={onToggleTheme} className="p-1.5 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
-                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              <button onClick={onToggleTheme} className="p-1 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
+                {isDark ? <Sun size={14} /> : <Moon size={14} />}
               </button>
             )}
           </div>
         </div>
-        {/* 데이터 신선도 배너 */}
-        {ts && (() => {
-          const m = ts.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
-          if (!m) return null;
-          const genTime = new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5]);
-          const diffMin = Math.round((Date.now() - genTime.getTime()) / 60000);
-          const label = diffMin < 5 ? "방금 갱신" : diffMin < 60 ? `${diffMin}분 전` : diffMin < 1440 ? `${Math.round(diffMin/60)}시간 전` : `${Math.round(diffMin/1440)}일 전`;
-          const color = diffMin < 30 ? "text-emerald-400" : diffMin < 180 ? "text-amber-400" : "text-red-400";
-          return <div className={`text-[10px] ${color} text-right -mt-1 mb-1`}>최근 갱신: {label}</div>;
-        })()}
-        {/* 페이지 탭 (대시보드 / 종목 스캐너) */}
-        <div className="flex gap-1 -mx-1">
+        {/* 페이지 탭 */}
+        <div className="flex -mx-1 mt-1">
           <a href="#/" className="flex-1 text-center py-1 text-[11px] font-medium t-accent border-b-2 border-current">대시보드</a>
-          <a href="#/scanner" className="flex-1 text-center py-1 text-[11px] font-medium t-text-dim hover:t-text-sub transition">종목 스캐너</a>
+          <a href="#/scanner" className="flex-1 text-center py-1 text-[11px] font-medium t-text-dim hover:t-text-sub transition border-b-2 border-transparent">종목 스캐너</a>
         </div>
       </div>
+      {/* 헤더-컨텐츠 여백 */}
+      <div className="h-3" />
 
       {/* ===== 시장 카테고리 ===== */}
       <div id="cat-market" className="scroll-mt-24" />
