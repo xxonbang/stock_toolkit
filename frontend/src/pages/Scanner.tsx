@@ -24,6 +24,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
   const [allStocks, setAllStocks] = useState<any[]>([]);
   const [results, setResults] = useState<any[] | null>(null);
   const [signals, setSignals] = useState<Set<string>>(new Set());
+  const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [risks, setRisks] = useState<Set<string>>(new Set());
   const [flows, setFlows] = useState<Set<string>>(new Set());
   const [markets, setMarkets] = useState<Set<string>>(new Set());
@@ -96,12 +97,24 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </a>
-          <div className="flex items-center gap-1 shrink-0">
-            <RefreshButtons />
-            {onToggleTheme && (
-              <button onClick={onToggleTheme} className="p-1 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
-                {isDark ? <Sun size={14} /> : <Moon size={14} />}
-              </button>
+          <div className="relative shrink-0">
+            <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg t-text-dim hover:t-text transition text-lg leading-none">⋯</button>
+            {showHeaderMenu && (
+              <>
+                <div className="fixed inset-0 z-30" onClick={() => setShowHeaderMenu(false)} />
+                <div className="absolute right-0 top-9 z-40 w-44 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
+                  <div className="p-1.5 space-y-0.5">
+                    <RefreshButtons />
+                    {onToggleTheme && (
+                      <button onClick={() => { onToggleTheme(); setShowHeaderMenu(false); }}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-xs t-text-sub hover:bg-blue-500/10 rounded-lg transition">
+                        {isDark ? <Sun size={14} /> : <Moon size={14} />}
+                        {isDark ? "라이트 모드" : "다크 모드"}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>

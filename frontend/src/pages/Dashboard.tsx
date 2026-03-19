@@ -93,6 +93,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [livePriceTime, setLivePriceTime] = useState("");
   const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
   const [dbLoading, setDbLoading] = useState(false);
+  const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -492,22 +493,37 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </h1>
-          <div className="flex items-center gap-1 shrink-0">
-            {/* 신선도 인라인 */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* 신선도 */}
             {ts && (() => {
               const m = ts.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
               if (!m) return null;
               const diffMin = Math.round((Date.now() - new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5]).getTime()) / 60000);
-              const label = diffMin < 5 ? "방금" : diffMin < 60 ? `${diffMin}분` : diffMin < 1440 ? `${Math.round(diffMin/60)}h` : `${Math.round(diffMin/1440)}d`;
+              const label = diffMin < 5 ? "방금" : diffMin < 60 ? `${diffMin}분 전` : diffMin < 1440 ? `${Math.round(diffMin/60)}시간 전` : `${Math.round(diffMin/1440)}일 전`;
               const color = diffMin < 30 ? "text-emerald-400" : diffMin < 180 ? "text-amber-400" : "text-red-400";
-              return <span className={`text-[9px] ${color}`}>{label}</span>;
+              return <span className={`text-[10px] ${color}`}>{label}</span>;
             })()}
-            <RefreshButtons />
-            {onToggleTheme && (
-              <button onClick={onToggleTheme} className="p-1 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
-                {isDark ? <Sun size={14} /> : <Moon size={14} />}
-              </button>
-            )}
+            {/* ... 메뉴 버튼 */}
+            <div className="relative">
+              <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg t-text-dim hover:t-text transition text-lg leading-none">⋯</button>
+              {showHeaderMenu && (
+                <>
+                  <div className="fixed inset-0 z-30" onClick={() => setShowHeaderMenu(false)} />
+                  <div className="absolute right-0 top-9 z-40 w-44 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
+                    <div className="p-1.5 space-y-0.5">
+                      <RefreshButtons />
+                      {onToggleTheme && (
+                        <button onClick={() => { onToggleTheme(); setShowHeaderMenu(false); }}
+                          className="w-full flex items-center gap-2 px-3 py-2 text-xs t-text-sub hover:bg-blue-500/10 rounded-lg transition">
+                          {isDark ? <Sun size={14} /> : <Moon size={14} />}
+                          {isDark ? "라이트 모드" : "다크 모드"}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
         {/* 페이지 탭 */}
