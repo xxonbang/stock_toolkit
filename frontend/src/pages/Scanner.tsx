@@ -212,7 +212,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
                     <div className="flex items-center gap-1.5 justify-end">
                       <SignalBadge signal={s.signal} />
                       {s.risk_level !== "낮음" && (
-                        <span className={`text-xs px-1.5 py-0.5 rounded-full border ${s.risk_level === "높음" ? "bg-red-50 text-red-600 border-red-200" : "bg-amber-50 text-amber-600 border-amber-200"}`}>
+                        <span className={`text-[11px] px-1.5 py-0.5 rounded-full border ${s.risk_level === "높음" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-amber-500/10 text-amber-400 border-amber-500/20"}`}>
                           {s.risk_level}
                         </span>
                       )}
@@ -227,8 +227,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
                     <div className="flex flex-wrap gap-1 justify-end">
                       {s.golden_cross && <span className="text-[10px] text-red-400">골든크로스</span>}
                       {s.high_breakout && <span className="text-[10px] text-red-400">신고가</span>}
-                      {s.foreign_holding_pct != null && <span className="text-[10px] t-text-dim">외보 {s.foreign_holding_pct}%</span>}
-                      {s.market_cap_billion != null && <span className="text-[10px] t-text-dim">{s.market_cap_billion}조</span>}
+                      {s.foreign_holding_pct != null && s.foreign_holding_pct > 0 && <span className="text-[10px] t-text-dim">외국인 {s.foreign_holding_pct}%</span>}
+                      {s.market_cap_billion != null && s.market_cap_billion > 0 && <span className="text-[10px] t-text-dim">시총 {s.market_cap_billion >= 1000000 ? `${(s.market_cap_billion / 1000000).toFixed(1)}조` : `${Math.round(s.market_cap_billion / 100).toLocaleString()}억`}</span>}
                       {s.total_score != null && <span className="text-[10px] text-purple-500">종합 {s.total_score}점</span>}
                     </div>
                   </div>
@@ -273,6 +273,10 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
 }
 
 function SignalBadge({ signal }: { signal: string }) {
-  const cls = signal?.includes("매수") ? "bg-red-50 text-red-700 border-red-200" : signal?.includes("매도") ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-gray-50 t-text-sub border-gray-200";
-  return <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${cls}`}>{signal || "—"}</span>;
+  const cls = signal?.includes("적극매수") ? "bg-red-500/15 text-red-400 border-red-500/30"
+    : signal?.includes("매수") ? "bg-red-500/10 text-red-400 border-red-500/20"
+    : signal?.includes("적극매도") ? "bg-blue-500/15 text-blue-400 border-blue-500/30"
+    : signal?.includes("매도") ? "bg-blue-500/10 text-blue-400 border-blue-500/20"
+    : "bg-gray-500/10 t-text-dim border-gray-500/20";
+  return <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${cls}`}>{signal || "—"}</span>;
 }
