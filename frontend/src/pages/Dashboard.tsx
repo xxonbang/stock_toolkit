@@ -10,6 +10,8 @@ import {
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
+import { supabase, fetchKisPrices, searchKisStock } from "../lib/supabase";
+import type { KisStockPrice } from "../lib/supabase";
 
 const STAGE_FILL: Record<string, string> = {
   "탄생": "#22c55e", "성장": "#eab308", "과열": "#ef4444", "쇠퇴": "#9ca3af",
@@ -83,6 +85,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [allStockList, setAllStockList] = useState<any[]>([]);
+  const [supaUser, setSupaUser] = useState<any>(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPw, setLoginPw] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [livePriceTime, setLivePriceTime] = useState("");
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -190,12 +198,19 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
   useEffect(() => {
     loadAllData();
+    // Supabase 세션 확인
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSupaUser(session?.user || null);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSupaUser(session?.user || null);
+    });
     // 장중 5분, 장외 10분 자동 폴링
     const now = new Date();
     const h = now.getHours();
     const isMarketHours = h >= 9 && h < 16;
     const interval = setInterval(loadAllData, isMarketHours ? 5 * 60 * 1000 : 10 * 60 * 1000);
-    return () => clearInterval(interval);
+    return () => { clearInterval(interval); subscription.unsubscribe(); };
   }, []);
 
   // 공통 타임스탬프 (performance.json 기준, 대부분 동일 시점)
@@ -254,6 +269,36 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      {/* 로그인 모달 */}
+      {showLogin && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setShowLogin(false)}>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="relative w-[85%] max-w-sm t-card border t-border-light rounded-2xl p-5 shadow-xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-sm font-bold t-text">로그인</span>
+              <button onClick={() => setShowLogin(false)} className="t-text-dim hover:t-text text-lg">✕</button>
+            </div>
+            <p className="text-[11px] t-text-sub mb-3">로그인하면 KIS API 실시간 시세를 사용할 수 있습니다.</p>
+            <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
+              className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text mb-2" />
+            <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
+              className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text mb-3" />
+            {loginError && <p className="text-[11px] text-red-400 mb-2">{loginError}</p>}
+            <button onClick={async () => {
+              setLoginError("");
+              const { error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPw });
+              if (error) { setLoginError(error.message); return; }
+              setShowLogin(false);
+              setLoginEmail("");
+              setLoginPw("");
+            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
+            {supaUser && (
+              <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setShowLogin(false); }}
+                className="w-full text-xs py-2 mt-2 t-text-dim hover:text-red-400 transition">로그아웃</button>
+            )}
+          </div>
+        </div>
+      )}
       {/* 신뢰도 설명 팝업 */}
       {confExp && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setConfExp(null)}>
@@ -874,22 +919,38 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         const refreshPortfolioPrices = async () => {
           setPriceRefreshing(true);
           try {
-            const priceMap: Record<string, number> = {};
-            // 1) stock_toolkit 배포 데이터에서 현재가 (경량 ~10KB)
-            const [tvRes, pfRes] = await Promise.all([
-              fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
-              fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
-            ]);
-            if (tvRes.ok) {
-              const tv = await tvRes.json();
-              for (const s of (tv || [])) {
-                if (s.code && s.current_price) priceMap[s.code] = s.current_price;
-              }
+            const codes = (portfolio.holdings || []).map((h: any) => h.code).filter(Boolean);
+            let priceMap: Record<string, number> = {};
+            // 1) KIS API 실시간 (Supabase Edge Function — 로그인 필요)
+            if (supaUser && codes.length > 0) {
+              try {
+                const kisData = await fetchKisPrices(codes);
+                for (const [code, p] of Object.entries(kisData)) {
+                  if (p.current_price) priceMap[code] = p.current_price;
+                }
+                if (Object.keys(priceMap).length > 0) {
+                  const now = new Date();
+                  setLivePriceTime(`${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")}`);
+                }
+              } catch (e) { console.warn("KIS Edge Function 실패, 폴백:", e); }
             }
-            if (pfRes.ok) {
-              const pf = await pfRes.json();
-              for (const h of pf?.holdings || []) {
-                if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
+            // 2) 폴백: stock_toolkit 배포 데이터
+            if (Object.keys(priceMap).length < codes.length) {
+              const [tvRes, pfRes] = await Promise.all([
+                fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
+                fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
+              ]);
+              if (tvRes.ok) {
+                const tv = await tvRes.json();
+                for (const s of (tv || [])) {
+                  if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
+                }
+              }
+              if (pfRes.ok) {
+                const pf = await pfRes.json();
+                for (const h of pf?.holdings || []) {
+                  if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
+                }
               }
             }
             // 포트폴리오 재계산
@@ -925,10 +986,17 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <section className="t-card rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
             <h2 className="text-base font-semibold t-text">내 포트폴리오 <span className="text-sm font-normal t-text-dim">({portfolio.holdings?.length})</span></h2>
-            <button onClick={refreshPortfolioPrices} disabled={priceRefreshing}
-              className="ml-auto text-[11px] px-2 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition font-medium disabled:opacity-50">
-              {priceRefreshing ? "갱신 중..." : "시세 갱신"}
-            </button>
+            <div className="ml-auto flex items-center gap-1.5">
+              {livePriceTime && <span className="text-[10px] text-emerald-400">LIVE {livePriceTime}</span>}
+              <button onClick={refreshPortfolioPrices} disabled={priceRefreshing}
+                className="text-[11px] px-2 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition font-medium disabled:opacity-50">
+                {priceRefreshing ? "조회 중..." : supaUser ? "실시간" : "갱신"}
+              </button>
+              {!supaUser && (
+                <button onClick={() => setShowLogin(true)}
+                  className="text-[10px] px-1.5 py-0.5 rounded border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition">로그인</button>
+              )}
+            </div>
           </div>
           {/* 총 손익 요약 */}
           {sm.total_invested > 0 && (
