@@ -474,10 +474,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>
       )}
       {/* 헤더 — 컴팩트 sticky */}
-      <div className="sticky top-0 z-10 -mx-4 px-4 pt-1 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="flex items-center justify-between">
+      <div className="sticky top-0 z-10 -mx-4 px-3 pt-0.5 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="flex items-center justify-between h-8">
           <h1
-            className="text-sm font-bold t-text flex items-center gap-1.5 shrink-0 cursor-pointer"
+            className="text-[13px] font-bold t-text flex items-center gap-1 shrink-0 cursor-pointer"
             onClick={async () => {
               if ("caches" in window) {
                 const keys = await caches.keys();
@@ -489,7 +489,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               window.location.href = window.location.pathname + window.location.search;
             }}
           >
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-4 h-4 shrink-0" />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1 shrink-0">
@@ -511,9 +511,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           </div>
         </div>
         {/* 페이지 탭 */}
-        <div className="flex -mx-1 mt-0.5">
-          <a href="#/" className="flex-1 text-center py-2 text-xs font-medium t-accent border-b-2 border-current">대시보드</a>
-          <a href="#/scanner" className="flex-1 text-center py-2 text-xs font-medium t-text-dim hover:t-text-sub transition border-b-2 border-transparent">종목 스캐너</a>
+        <div className="flex -mx-1">
+          <a href="#/" className="flex-1 text-center py-2.5 text-[13px] font-semibold t-accent border-b-[3px] border-current">대시보드</a>
+          <a href="#/scanner" className="flex-1 text-center py-2.5 text-[13px] font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">종목 스캐너</a>
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}
