@@ -475,7 +475,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
       {/* 헤더 — 컴팩트 sticky */}
       <div className="sticky top-0 z-10 -mx-4 px-3 pt-0.5 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="flex items-center justify-between h-8">
+        <div className="flex items-center justify-between h-7">
           <h1
             className="text-[13px] font-bold t-text flex items-center gap-1 shrink-0 cursor-pointer"
             onClick={async () => {
@@ -512,8 +512,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>
         {/* 페이지 탭 */}
         <div className="flex -mx-1">
-          <a href="#/" className="flex-1 text-center py-2.5 text-[13px] font-semibold t-accent border-b-[3px] border-current">대시보드</a>
-          <a href="#/scanner" className="flex-1 text-center py-2.5 text-[13px] font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">종목 스캐너</a>
+          <a href="#/" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">대시보드</a>
+          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">종목 스캐너</a>
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}

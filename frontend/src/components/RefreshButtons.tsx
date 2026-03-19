@@ -66,23 +66,23 @@ export default function RefreshButtons() {
 
   return (
     <>
-      <div className="flex items-center gap-1.5 shrink-0">
+      <div className="flex items-center gap-1 shrink-0">
         <button
           onClick={() => handleRefresh("data-only")}
           disabled={!!loading}
-          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium t-text-sub t-card-alt hover:opacity-80 rounded-lg transition disabled:opacity-50 whitespace-nowrap"
+          className="flex items-center gap-0.5 px-1.5 py-1 text-[10px] font-medium t-text-sub t-card-alt hover:opacity-80 rounded-md transition disabled:opacity-50 whitespace-nowrap"
           title="데이터만 갱신 (Gemini 미사용)"
         >
-          <RefreshCw size={12} className={loading === "data-only" ? "animate-spin" : ""} />
+          <RefreshCw size={10} className={loading === "data-only" ? "animate-spin" : ""} />
           갱신
         </button>
         <button
           onClick={() => handleRefresh("full")}
           disabled={!!loading}
-          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition disabled:opacity-50 whitespace-nowrap"
+          className="flex items-center gap-0.5 px-1.5 py-1 text-[10px] font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-md transition disabled:opacity-50 whitespace-nowrap"
           title="데이터 갱신 + AI 브리핑 생성"
         >
-          <Sparkles size={12} className={loading === "full" ? "animate-spin" : ""} />
+          <Sparkles size={10} className={loading === "full" ? "animate-spin" : ""} />
           AI
         </button>
       </div>
