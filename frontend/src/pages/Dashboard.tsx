@@ -249,6 +249,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               {confExp.catalyst && (
                 <p><span className="font-semibold t-text">촉매:</span> {confExp.catalyst}</p>
               )}
+              {(confExp as any).description && (
+                <p><span className="font-semibold t-text">상세:</span> {(confExp as any).description}</p>
+              )}
             </div>
           </div>
         </div>
@@ -620,15 +623,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
                     const isHigh = confLabel.includes("높") || (typeof conf === "number" && conf >= 70);
                     const isMid = confLabel.includes("보통") || (typeof conf === "number" && conf >= 40 && conf < 70);
-                    // AI 브리핑의 촉매 설명 매칭
-                    const catalyst = Object.entries(themeCatalystMap).find(([k]) => themeName.includes(k) || k.includes(themeName))?.[1];
+                    // 촉매: theme_forecast 원본 우선, AI 브리핑 파싱 폴백
+                    const catalyst = t.catalyst || Object.entries(themeCatalystMap).find(([k]) => themeName.includes(k) || k.includes(themeName))?.[1] || "";
+                    const description = t.description || "";
                     const leaders = (t.leader_stocks || []).slice(0, 3);
                     return (
                       <div key={i} className="py-2.5 border-b t-border-light last:border-b-0">
                         <div className="flex items-center justify-between">
                           <span className="text-[13px] font-medium t-text">{themeName}</span>
                           {confLabel && (
-                            <span onClick={() => setConfExp({ theme: themeName, confidence: confLabel, catalyst })}
+                            <span onClick={() => setConfExp({ theme: themeName, confidence: confLabel, catalyst, description } as any)}
                               className={`text-[11px] font-semibold px-2 py-0.5 rounded-full shrink-0 cursor-pointer ${
                               isHigh ? "bg-emerald-500/10 text-emerald-500" :
                               isMid ? "bg-amber-500/10 text-amber-500" :
