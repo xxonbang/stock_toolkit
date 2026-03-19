@@ -140,8 +140,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         </div>
         {!filterCollapsed && <>
 
-        {/* AI 신호 필터 (signal-pulse 99종목) */}
-        <div className="text-[10px] t-text-dim mt-1 mb-0.5 uppercase tracking-wider">AI 신호 (99종목)</div>
+        {/* signal-pulse 종목 필터 */}
+        <div className="text-[10px] t-text-dim mt-1 mb-0.5 tracking-wider">signal-pulse 종목 필터 (99종목)</div>
 
         <FilterGroup label="매매 신호" desc="Vision AI + KIS API 종합 판정">
           {SIGNAL_OPTIONS.map((opt) => (
@@ -164,8 +164,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
           <Chip label="이중 매칭" active={dualMatch} onClick={() => setDualMatch(!dualMatch)} />
         </FilterGroup>
 
-        {/* 기술적 필터 (전체 203종목) */}
-        <div className="text-[10px] t-text-dim mt-3 mb-0.5 uppercase tracking-wider">기술적 조건 (203종목)</div>
+        {/* signal-pulse + theme-analyzer 전체 종목 필터 */}
+        <div className="text-[10px] t-text-dim mt-3 mb-0.5 tracking-wider">signal-pulse + theme-analyzer 전체 종목 필터 (203종목)</div>
 
         <FilterGroup label="기술적 패턴" desc="차트 기반 자동 감지">
           <Chip label="골든크로스" active={goldenCross} onClick={() => setGoldenCross(!goldenCross)} />
