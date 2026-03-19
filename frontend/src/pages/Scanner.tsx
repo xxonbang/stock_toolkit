@@ -25,6 +25,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
   const [results, setResults] = useState<any[] | null>(null);
   const [signals, setSignals] = useState<Set<string>>(new Set());
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
+  const [filterCollapsed, setFilterCollapsed] = useState(false);
   const [risks, setRisks] = useState<Set<string>>(new Set());
   const [flows, setFlows] = useState<Set<string>>(new Set());
   const [markets, setMarkets] = useState<Set<string>>(new Set());
@@ -66,6 +67,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
     if (dualMatch) filtered = filtered.filter((s) => s.match_status === "match");
     filtered.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
     setResults(filtered);
+    setFilterCollapsed(true);
   }
 
   function handleReset() {
@@ -82,6 +84,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
     setRsiOversold(false);
     setDualMatch(false);
     setResults(null);
+    setFilterCollapsed(false);
   }
 
   const activeCount = signals.size + risks.size + flows.size + markets.size + (themeOnly ? 1 : 0)
@@ -126,7 +129,16 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
       <div className="h-3" />
 
       <div className="t-card rounded-xl p-4 mb-4">
-        <SectionHeader id="scanner">필터 조건</SectionHeader>
+        <div className="flex items-center justify-between mb-2">
+          <SectionHeader id="scanner">필터 조건</SectionHeader>
+          {filterCollapsed && (
+            <button onClick={() => setFilterCollapsed(false)}
+              className="text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">
+              필터 열기 ({activeCount}개)
+            </button>
+          )}
+        </div>
+        {!filterCollapsed && <>
 
         <FilterGroup label="매매 신호" desc="AI가 분석한 종목별 매매 추천 강도">
           {SIGNAL_OPTIONS.map((opt) => (
@@ -174,9 +186,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         <FilterGroup label="이중 검증" desc="Vision AI + KIS API 신호 일치 종목">
           <Chip label="이중 매칭" active={dualMatch} onClick={() => setDualMatch(!dualMatch)} color="green" />
         </FilterGroup>
-      </div>
 
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2 mt-3">
         <button onClick={handleSearch}
           className="flex-1 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium py-2 rounded-lg transition">
           <Search size={13} />
@@ -187,6 +198,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
           <RotateCcw size={12} />
           초기화
         </button>
+      </div>
+      </>}
       </div>
 
       {results !== null && (
