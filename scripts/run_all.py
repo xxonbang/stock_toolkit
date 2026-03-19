@@ -460,6 +460,55 @@ def main():
     risk_results.sort(key=lambda x: len(x.get("warnings", [])), reverse=True)
     with open(results_dir / "risk_monitor.json", "w", encoding="utf-8") as f:
         json.dump(risk_results, f, ensure_ascii=False, indent=2)
+    # theme-analyzer 종목 추가 (signal-pulse에 없는 종목)
+    scanner_codes = set(s["code"] for s in scanner_stocks)
+    theme_criteria = latest.get("criteria_data", {})
+    for code, crit in (theme_criteria.items() if isinstance(theme_criteria, dict) else []):
+        if code in scanner_codes or not isinstance(crit, dict):
+            continue
+        inv = investor_data.get(code, {})
+        fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
+        name = inv.get("name", "") if isinstance(inv, dict) else ""
+        if not name:
+            continue
+        # criteria 기반 위험도
+        warnings = []
+        oh = crit.get("overheating", {})
+        if isinstance(oh, dict) and oh.get("met"):
+            warnings.append("과열 경고")
+        ra = crit.get("reverse_alignment", {})
+        if isinstance(ra, dict) and ra.get("met"):
+            warnings.append("역배열")
+        level = "높음" if len(warnings) >= 2 else "주의" if len(warnings) == 1 else "낮음"
+        scanner_stocks.append({
+            "code": code, "name": name,
+            "signal": "",  # signal-pulse 미분석
+            "confidence": 0,
+            "foreign_net": fn,
+            "foreign_flow": "순매수" if fn > 0 else "순매도",
+            "risk_level": level, "warnings": warnings,
+            "theme": leader_theme.get(code, ""),
+            "market": "",
+            "api_signal": "", "api_confidence": 0, "match_status": "",
+            "api_risk_level": "", "api_key_factors": {},
+            "rsi": 0,
+            "foreign_holding_pct": 0, "volume_turnover_pct": 0,
+            "market_cap_billion": 0, "program_net": 0,
+            "tech_score": None, "supply_score": None,
+            "value_score_4d": None, "material_score": None, "total_score": None,
+            "golden_cross": crit.get("golden_cross", {}).get("met", False) if isinstance(crit.get("golden_cross"), dict) else False,
+            "short_selling": crit.get("short_selling", {}).get("met", False) if isinstance(crit.get("short_selling"), dict) else False,
+            "bnf": crit.get("bnf", {}).get("met", False) if isinstance(crit.get("bnf"), dict) else False,
+            "high_breakout": crit.get("high_breakout", {}).get("met", False) if isinstance(crit.get("high_breakout"), dict) else False,
+            "momentum": crit.get("momentum_history", {}).get("met", False) if isinstance(crit.get("momentum_history"), dict) else False,
+            "reverse_alignment": crit.get("reverse_alignment", {}).get("met", False) if isinstance(crit.get("reverse_alignment"), dict) else False,
+            "market_cap_ok": crit.get("market_cap", {}).get("met", False) if isinstance(crit.get("market_cap"), dict) else False,
+            "ma_aligned": crit.get("ma_alignment", {}).get("met", False) if isinstance(crit.get("ma_alignment"), dict) else False,
+            "overheating": crit.get("overheating", {}).get("met", False) if isinstance(crit.get("overheating"), dict) else False,
+            "supply_demand": crit.get("supply_demand", {}).get("met", False) if isinstance(crit.get("supply_demand"), dict) else False,
+            "all_criteria_met": crit.get("all_met", False),
+        })
+
     with open(results_dir / "scanner_stocks.json", "w", encoding="utf-8") as f:
         json.dump(scanner_stocks, f, ensure_ascii=False, indent=2)
 
