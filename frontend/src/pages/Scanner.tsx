@@ -165,7 +165,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         </FilterGroup>
 
         {/* signal-pulse + theme-analyzer 전체 종목 필터 */}
-        <div className="text-[10px] t-text-dim mt-3 mb-0.5 tracking-wider">signal-pulse + theme-analyzer 전체 종목 필터 (203종목)</div>
+        <div className="text-[10px] t-text-dim mt-1 mb-0.5 tracking-wider">signal-pulse + theme-analyzer 전체 종목 필터 (203종목)</div>
 
         <FilterGroup label="기술적 패턴" desc="차트 기반 자동 감지">
           <Chip label="골든크로스" active={goldenCross} onClick={() => setGoldenCross(!goldenCross)} />
@@ -264,7 +264,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
 
 function FilterGroup({ label, desc, children }: { label: string; desc: string; children: React.ReactNode }) {
   return (
-    <div className="py-2.5 border-b t-border-light last:border-b-0">
+    <div className="py-1.5 border-b t-border-light last:border-b-0">
       <div className="flex items-baseline gap-2 mb-2">
         <span className="text-[13px] font-semibold t-text">{label}</span>
         <span className="text-[10px] t-text-dim">{desc}</span>
