@@ -1014,11 +1014,36 @@ def main():
             portfolio_holdings = json.load(f).get("holdings", [])
     else:
         portfolio_holdings = []
-    # 보유 종목에 실시간 신호/수급 매칭 (vision + api 통합)
+    # 보유 종목에 실시간 신호/수급/수익률 매칭
+    # 현재가 조회 맵 (여러 소스에서 폴백)
+    price_map = {}
+    # 1) rising/volume/falling TOP
+    for stock_list in [rising_stocks, volume_stocks, falling_stocks]:
+        for s in stock_list:
+            code = s.get("code", "")
+            if code and s.get("current_price") and code not in price_map:
+                price_map[code] = s["current_price"]
+    # 2) kis_gemini
+    kis_gemini_all = loader.get_kis_gemini()
+    gem_stocks = kis_gemini_all.get("stocks", {}) if isinstance(kis_gemini_all, dict) else {}
+    for code, gem in gem_stocks.items():
+        if code not in price_map and isinstance(gem, dict):
+            p = gem.get("price", {})
+            if isinstance(p, dict) and p.get("current"):
+                price_map[code] = p["current"]
+    # 3) fundamental_data
+    fund_all = latest.get("fundamental_data", {})
+    for code, fd in (fund_all.items() if isinstance(fund_all, dict) else []):
+        if code not in price_map and isinstance(fd, dict) and fd.get("stck_prpr"):
+            price_map[code] = fd["stck_prpr"]
+
+    total_invested = 0
+    total_value = 0
     for h in portfolio_holdings:
         code = h["code"]
         sig_match = next((s for s in combined if s.get("code") == code), None)
         inv_match = investor_data.get(code, {})
+        # 신호 매칭 (vision + api 통합)
         if sig_match:
             vs = sig_match.get("vision_signal", "")
             api = sig_match.get("api_signal", "")
@@ -1035,10 +1060,34 @@ def main():
         else:
             h["signal"] = "분석 대상 외"
         h["foreign_net"] = (inv_match.get("foreign_net") or 0) if isinstance(inv_match, dict) else 0
-        h["weight"] = round(100 / len(portfolio_holdings))
+        # 현재가 + 수익률 계산
+        avg_price = h.get("avg_price", 0)
+        quantity = h.get("quantity", 0)
+        current_price = price_map.get(code, 0)
+        h["current_price"] = current_price
+        if avg_price and current_price:
+            h["profit_rate"] = round((current_price - avg_price) / avg_price * 100, 2)
+            h["profit_amount"] = (current_price - avg_price) * quantity
+        else:
+            h["profit_rate"] = 0
+            h["profit_amount"] = 0
+        h["invested"] = avg_price * quantity
+        h["current_value"] = current_price * quantity
+        total_invested += h["invested"]
+        total_value += h["current_value"]
+        # 비중 계산 (투자금 기준)
+        h["weight"] = round(h["invested"] / total_invested * 100) if total_invested else 0
+
+    # 비중 재계산 (전체 합산 후)
+    for h in portfolio_holdings:
+        h["weight"] = round(h.get("invested", 0) / total_invested * 100) if total_invested else 0
+
     total_holdings = len(portfolio_holdings)
     buy_count = sum(1 for h in portfolio_holdings if h["signal"] in ("매수", "적극매수"))
+    total_profit_rate = round((total_value - total_invested) / total_invested * 100, 2) if total_invested else 0
+    total_profit_amount = total_value - total_invested
     health = min(100, 30 + buy_count * 20 + min(total_holdings, 5) * 10)
+
     suggestions = []
     if total_holdings < 3:
         suggestions.append(f"보유 {total_holdings}종목 — 최소 3~5종목 분산 권장")
@@ -1048,8 +1097,24 @@ def main():
     for h in portfolio_holdings:
         if h["signal"] in ("매도", "적극매도"):
             suggestions.append(f"{h['name']} 매도 신호 — 점검 필요")
+        pr = h.get("profit_rate", 0)
+        if pr <= -5:
+            suggestions.append(f"{h['name']} 손실 {pr}% — 손절 검토")
+        elif pr >= 20:
+            suggestions.append(f"{h['name']} 수익 +{pr}% — 익절 검토")
     with open(results_dir / "portfolio.json", "w", encoding="utf-8") as f:
-        json.dump({"holdings": portfolio_holdings, "health_score": health, "suggestions": suggestions}, f, ensure_ascii=False, indent=2)
+        json.dump({
+            "holdings": portfolio_holdings,
+            "health_score": health,
+            "suggestions": suggestions,
+            "summary": {
+                "total_invested": total_invested,
+                "total_value": total_value,
+                "total_profit_rate": total_profit_rate,
+                "total_profit_amount": total_profit_amount,
+                "total_holdings": total_holdings,
+            },
+        }, f, ensure_ascii=False, indent=2)
 
     # Phase 7: 추가 데이터 (DART, 상관관계 등)
     print("=== Phase 7: 추가 데이터 ===")

@@ -76,6 +76,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [stockDetail, setStockDetail] = useState<any>(null);
   const [showDualExp, setShowDualExp] = useState(false);
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
+  const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
+  const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -131,7 +133,31 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     dataService.getValuation().then(setValuation);
     dataService.getVolumeDivergence().then(setDivergence);
     dataService.getPremarket().then(setPremarket);
-    dataService.getPortfolio().then(setPortfolio);
+    dataService.getPortfolio().then(p => {
+      if (!p) return;
+      // localStorage 편집본이 있으면 avg_price/quantity/sector 병합
+      const saved = localStorage.getItem("portfolio_holdings");
+      if (saved) {
+        try {
+          const local: any[] = JSON.parse(saved);
+          const merged = local.map((lh: any) => {
+            const server = p.holdings?.find((sh: any) => sh.code === lh.code) || {};
+            return { ...server, ...lh, current_price: server.current_price || 0, signal: server.signal || "분석 대상 외",
+              profit_rate: (lh.avg_price && server.current_price) ? Math.round((server.current_price - lh.avg_price) / lh.avg_price * 10000) / 100 : 0,
+              profit_amount: (lh.avg_price && server.current_price) ? (server.current_price - lh.avg_price) * (lh.quantity || 0) : 0,
+              invested: (lh.avg_price || 0) * (lh.quantity || 0),
+              current_value: (server.current_price || 0) * (lh.quantity || 0),
+            };
+          });
+          const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
+          const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
+          merged.forEach(h => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+          p.holdings = merged;
+          p.summary = { total_invested: totalInv, total_value: totalVal, total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0, total_profit_amount: totalVal - totalInv, total_holdings: merged.length };
+        } catch {}
+      }
+      setPortfolio(p);
+    });
     dataService.getSupplyCluster().then(setSupplyCluster);
     dataService.getExitOptimizer().then(setExitOptimizer);
     dataService.getEventCalendar().then(setEventCalendar);
@@ -837,39 +863,161 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* 내 포트폴리오 */}
-      {portfolio && (
+      {portfolio && (() => {
+        const sm = portfolio.summary || {};
+        const profitColor = (r: number) => r > 0 ? "text-red-500" : r < 0 ? "text-blue-500" : "t-text";
+        return (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="portfolio" timestamp={ts} count={portfolio.holdings?.length}>내 포트폴리오</SectionHeader>
-          <div className="flex items-center gap-3 mb-3">
-            <div className="text-2xl font-bold t-text">{portfolio.health_score}<span className="text-sm font-normal t-text-dim">/100</span></div>
-            <div>
-              <div className={`text-sm font-semibold ${portfolio.health_score >= 70 ? "text-green-600" : portfolio.health_score >= 50 ? "text-amber-600" : "text-red-600"}`}>
-                {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
+          {/* 총 손익 요약 */}
+          {sm.total_invested > 0 && (
+            <div className="flex items-center justify-between mb-3 p-3 t-card-alt rounded-xl">
+              <div>
+                <div className="text-[10px] t-text-dim">총 투자금</div>
+                <div className="text-sm font-semibold t-text">{(sm.total_invested || 0).toLocaleString()}원</div>
               </div>
-              <div className="text-xs t-text-sub">건강도</div>
+              <div>
+                <div className="text-[10px] t-text-dim">평가금</div>
+                <div className="text-sm font-semibold t-text">{(sm.total_value || 0).toLocaleString()}원</div>
+              </div>
+              <div className="text-right">
+                <div className="text-[10px] t-text-dim">총 수익률</div>
+                <div className={`text-sm font-bold ${profitColor(sm.total_profit_rate || 0)}`}>
+                  {(sm.total_profit_rate || 0) >= 0 ? "+" : ""}{sm.total_profit_rate || 0}%
+                </div>
+              </div>
             </div>
-          </div>
+          )}
+          {/* 종목별 */}
           <div className="space-y-1.5 mb-3">
             {portfolio.holdings?.map((h: any, i: number) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <div className="min-w-0">
-                  <span className="text-sm font-medium">{h.name}</span>
-                  <span className="text-xs t-text-dim ml-1">{h.code}</span>
-                  <div className="text-xs t-text-sub">{h.sector} · 비중 {h.weight}%</div>
+              <div key={i} className="p-2.5 t-card-alt rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="min-w-0">
+                    <span className="text-sm font-medium t-text">{h.name}</span>
+                    <span className="text-[10px] t-text-dim ml-1">{h.code}</span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    {h.profit_rate != null && h.current_price > 0 && (
+                      <span className={`text-xs font-bold ${profitColor(h.profit_rate)}`}>
+                        {h.profit_rate >= 0 ? "+" : ""}{h.profit_rate}%
+                      </span>
+                    )}
+                    {signalBadge(h.signal)}
+                  </div>
                 </div>
-                <div className="shrink-0">{signalBadge(h.signal)}</div>
+                <div className="flex items-center gap-3 mt-1 text-[10px] t-text-dim">
+                  <span>평단 {(h.avg_price || 0).toLocaleString()}</span>
+                  {h.current_price > 0 && <span>현재 {h.current_price.toLocaleString()}</span>}
+                  <span>{h.quantity}주</span>
+                  <span>비중 {h.weight}%</span>
+                </div>
+                {h.profit_amount != null && h.current_price > 0 && (
+                  <div className={`text-[10px] font-medium mt-0.5 ${profitColor(h.profit_amount)}`}>
+                    평가손익 {h.profit_amount >= 0 ? "+" : ""}{h.profit_amount.toLocaleString()}원
+                  </div>
+                )}
               </div>
             ))}
           </div>
+          {/* 리밸런싱 제안 */}
           {portfolio.suggestions?.length > 0 && (
-            <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5">
+            <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5 mb-3">
               <div className="text-xs font-medium text-orange-400 mb-1">리밸런싱 제안</div>
               {portfolio.suggestions.map((s: string, i: number) => (
                 <div key={i} className="text-xs t-text-sub">· {s}</div>
               ))}
             </div>
           )}
+          {/* 건강도 */}
+          <div className="flex items-center gap-2 text-xs t-text-dim">
+            <span>건강도 {portfolio.health_score}/100</span>
+            <span className={`font-medium ${portfolio.health_score >= 70 ? "text-emerald-500" : portfolio.health_score >= 50 ? "text-amber-500" : "text-red-500"}`}>
+              {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
+            </span>
+            <button onClick={() => { setEditHoldings(JSON.parse(JSON.stringify(portfolio.holdings || []))); setShowPortfolioEdit(true); }}
+              className="ml-auto text-[11px] px-2 py-0.5 rounded-lg t-card-alt t-text-sub hover:text-blue-400 transition">편집</button>
+          </div>
         </section>
+        );
+      })()}
+      {/* 포트폴리오 편집 모달 */}
+      {showPortfolioEdit && (
+        <div className="fixed inset-0 z-[60]" onClick={() => setShowPortfolioEdit(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2"
+            style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base font-bold t-text">포트폴리오 편집</h3>
+              <button onClick={() => setShowPortfolioEdit(false)} className="text-lg t-text-dim hover:t-text">✕</button>
+            </div>
+            <div className="space-y-3 mb-4">
+              {editHoldings.map((h: any, i: number) => (
+                <div key={i} className="p-3 t-card-alt rounded-xl">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium t-text">{h.name} <span className="text-[10px] t-text-dim">{h.code}</span></span>
+                    <button onClick={() => setEditHoldings(editHoldings.filter((_: any, j: number) => j !== i))}
+                      className="text-xs text-red-400 hover:text-red-300">삭제</button>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="text-[10px] t-text-dim block mb-0.5">평균단가</label>
+                      <input type="number" value={h.avg_price || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, avg_price: Number(e.target.value)}; setEditHoldings(v); }}
+                        className="w-full text-xs p-1.5 rounded-lg t-card border t-border-light t-text" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] t-text-dim block mb-0.5">수량</label>
+                      <input type="number" value={h.quantity || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, quantity: Number(e.target.value)}; setEditHoldings(v); }}
+                        className="w-full text-xs p-1.5 rounded-lg t-card border t-border-light t-text" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] t-text-dim block mb-0.5">섹터</label>
+                      <input type="text" value={h.sector || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, sector: e.target.value}; setEditHoldings(v); }}
+                        className="w-full text-xs p-1.5 rounded-lg t-card border t-border-light t-text" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* 종목 추가 */}
+            <button onClick={() => {
+              const name = prompt("종목명");
+              const code = prompt("종목코드 (6자리)");
+              if (name && code) setEditHoldings([...editHoldings, { name, code, sector: "", avg_price: 0, quantity: 0 }]);
+            }} className="w-full text-xs py-2 rounded-lg border t-border-light t-text-sub hover:text-blue-400 transition mb-4">+ 종목 추가</button>
+            {/* 저장 */}
+            <button onClick={() => {
+              localStorage.setItem("portfolio_holdings", JSON.stringify(editHoldings));
+              // 로컬 portfolio 데이터 즉시 업데이트
+              const totalInvested = editHoldings.reduce((s: number, h: any) => s + (h.avg_price || 0) * (h.quantity || 0), 0);
+              const updated = editHoldings.map((h: any) => ({
+                ...h,
+                weight: totalInvested ? Math.round((h.avg_price || 0) * (h.quantity || 0) / totalInvested * 100) : 0,
+                current_price: portfolio?.holdings?.find((ph: any) => ph.code === h.code)?.current_price || 0,
+                profit_rate: (h.avg_price && portfolio?.holdings?.find((ph: any) => ph.code === h.code)?.current_price)
+                  ? Math.round(((portfolio.holdings.find((ph: any) => ph.code === h.code)?.current_price || 0) - h.avg_price) / h.avg_price * 10000) / 100 : 0,
+                profit_amount: (h.avg_price && portfolio?.holdings?.find((ph: any) => ph.code === h.code)?.current_price)
+                  ? ((portfolio.holdings.find((ph: any) => ph.code === h.code)?.current_price || 0) - h.avg_price) * (h.quantity || 0) : 0,
+                invested: (h.avg_price || 0) * (h.quantity || 0),
+                current_value: (portfolio?.holdings?.find((ph: any) => ph.code === h.code)?.current_price || 0) * (h.quantity || 0),
+                signal: portfolio?.holdings?.find((ph: any) => ph.code === h.code)?.signal || "분석 대상 외",
+              }));
+              const totalValue = updated.reduce((s: number, h: any) => s + h.current_value, 0);
+              setPortfolio({
+                ...portfolio,
+                holdings: updated,
+                summary: {
+                  total_invested: totalInvested,
+                  total_value: totalValue,
+                  total_profit_rate: totalInvested ? Math.round((totalValue - totalInvested) / totalInvested * 10000) / 100 : 0,
+                  total_profit_amount: totalValue - totalInvested,
+                  total_holdings: updated.length,
+                },
+              });
+              setShowPortfolioEdit(false);
+            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">저장</button>
+          </div>
+        </div>
       )}
 
       {/* AI 주목 종목 */}
