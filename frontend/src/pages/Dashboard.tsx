@@ -505,8 +505,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             })()}
             {/* 테마 토글 */}
             {onToggleTheme && (
-              <button onClick={onToggleTheme} className="p-1.5 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
-                {isDark ? <Sun size={15} /> : <Moon size={15} />}
+              <button onClick={onToggleTheme} className="p-2 rounded-xl bg-gray-800/60 hover:bg-gray-700/60 dark:bg-gray-700/50 dark:hover:bg-gray-600/50 transition" title={isDark ? "라이트 모드" : "다크 모드"}>
+                {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-blue-400" />}
               </button>
             )}
             {/* ... 메뉴 버튼 */}
