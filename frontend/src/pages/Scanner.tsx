@@ -176,15 +176,15 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         </FilterGroup>
       </div>
 
-      <div className="flex gap-2 mb-5">
+      <div className="flex items-center gap-2 mb-4">
         <button onClick={handleSearch}
-          className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition shadow-sm">
-          <Search size={18} />
-          검색 {activeCount > 0 && `(${activeCount}개 필터)`}
+          className="flex-1 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium py-2 rounded-lg transition">
+          <Search size={13} />
+          검색{activeCount > 0 ? ` (${activeCount})` : ""}
         </button>
         <button onClick={handleReset}
-          className="flex items-center gap-1 px-4 bg-gray-100 hover:bg-gray-200 t-text-sub py-3 rounded-xl transition">
-          <RotateCcw size={16} />
+          className="flex items-center gap-1 px-3 py-2 text-xs t-text-dim hover:t-text-sub t-card-alt rounded-lg transition">
+          <RotateCcw size={12} />
           초기화
         </button>
       </div>
