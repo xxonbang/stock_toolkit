@@ -474,10 +474,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>
       )}
       {/* 헤더 — 컴팩트 sticky */}
-      <div className="sticky top-0 z-10 -mx-4 px-3 pt-0.5 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="flex items-center justify-between h-7">
+      <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="flex items-center justify-between h-10">
           <h1
-            className="text-[13px] font-bold t-text flex items-center gap-1 shrink-0 cursor-pointer"
+            className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer"
             onClick={async () => {
               if ("caches" in window) {
                 const keys = await caches.keys();
@@ -489,7 +489,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               window.location.href = window.location.pathname + window.location.search;
             }}
           >
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-4 h-4 shrink-0" />
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1 shrink-0">

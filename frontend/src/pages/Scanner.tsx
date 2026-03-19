@@ -90,10 +90,10 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
   return (
     <div className="max-w-2xl mx-auto px-4 pt-0 pb-6">
       {/* 헤더 — 컴팩트 */}
-      <div className="sticky top-0 z-10 -mx-4 px-3 pt-0.5 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="flex items-center justify-between h-7">
-          <a href="#/" className="text-[13px] font-bold t-text flex items-center gap-1 shrink-0">
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-4 h-4 shrink-0" />
+      <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="flex items-center justify-between h-10">
+          <a href="#/" className="text-lg font-bold t-text flex items-center gap-2 shrink-0">
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </a>
           <div className="flex items-center gap-1 shrink-0">
