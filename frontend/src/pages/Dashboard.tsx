@@ -515,9 +515,19 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               {showHeaderMenu && (
                 <>
                   <div className="fixed inset-0 z-30" onClick={() => setShowHeaderMenu(false)} />
-                  <div className="absolute right-0 top-9 z-40 w-44 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
-                    <div className="p-1.5 space-y-0.5">
-                      <RefreshButtons />
+                  <div className="absolute right-0 top-9 z-40 w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
+                    <div className="p-1">
+                      <RefreshButtons menuMode />
+                      {supaUser && (
+                        <>
+                          <div className="border-t t-border-light my-1" />
+                          <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setShowHeaderMenu(false); }}
+                            className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
+                            <span className="text-base">↪</span>
+                            로그아웃
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </>

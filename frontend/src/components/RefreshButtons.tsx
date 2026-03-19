@@ -36,7 +36,7 @@ async function triggerManualJob(jobId: string): Promise<boolean> {
   }
 }
 
-export default function RefreshButtons() {
+export default function RefreshButtons({ menuMode }: { menuMode?: boolean } = {}) {
   const [loading, setLoading] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
 
@@ -63,6 +63,36 @@ export default function RefreshButtons() {
   }
 
   if (!CRONJOB_API_KEY) return null;
+
+  if (menuMode) {
+    return (
+      <>
+        <button
+          onClick={() => handleRefresh("data-only")}
+          disabled={!!loading}
+          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] t-text hover:bg-blue-500/10 rounded-lg transition disabled:opacity-50"
+        >
+          <RefreshCw size={16} className={`t-text-sub ${loading === "data-only" ? "animate-spin" : ""}`} />
+          데이터 새로고침
+        </button>
+        <button
+          onClick={() => handleRefresh("full")}
+          disabled={!!loading}
+          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] t-text hover:bg-blue-500/10 rounded-lg transition disabled:opacity-50"
+        >
+          <Sparkles size={16} className={`text-blue-400 ${loading === "full" ? "animate-spin" : ""}`} />
+          AI 분석 재실시
+        </button>
+        {result && (
+          <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
+            <div className={`px-4 py-2 rounded-full text-xs font-medium shadow-lg ${result.includes("시작") ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}>
+              {result}
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <>

@@ -108,9 +108,9 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
               {showHeaderMenu && (
                 <>
                   <div className="fixed inset-0 z-30" onClick={() => setShowHeaderMenu(false)} />
-                  <div className="absolute right-0 top-9 z-40 w-44 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
-                    <div className="p-1.5 space-y-0.5">
-                      <RefreshButtons />
+                  <div className="absolute right-0 top-9 z-40 w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
+                    <div className="p-1">
+                      <RefreshButtons menuMode />
                     </div>
                   </div>
                 </>
