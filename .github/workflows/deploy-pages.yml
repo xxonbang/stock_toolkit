@@ -1,8 +1,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  schedule:
-    - cron: '0 23 * * 0-4'  # KST 08:00 (월~금) — 장전 full 모드
   workflow_dispatch:
     inputs:
       mode:
@@ -29,8 +27,8 @@ jobs:
     environment:
       name: github-pages
     env:
-      # schedule 트리거(08:00 장전) → full, push → data-only, workflow_dispatch → 입력값
-      RUN_MODE: ${{ github.event_name == 'schedule' && 'full' || inputs.mode || 'data-only' }}
+      # workflow_dispatch → 입력값, push → data-only
+      RUN_MODE: ${{ inputs.mode || 'data-only' }}
     steps:
       - uses: actions/checkout@v4
         with:
