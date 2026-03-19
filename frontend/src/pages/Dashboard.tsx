@@ -69,7 +69,8 @@ function signalBadge(signal: string) {
   return <Badge>중립</Badge>;
 }
 
-export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: () => void; isDark?: boolean }) {
+export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleTheme?: () => void; isDark?: boolean; page?: string }) {
+  const isPortfolioPage = page === "portfolio";
   const [performance, setPerformance] = useState<any>(null);
   const [sectors, setSectors] = useState<Record<string, any> | null>(null);
   const [anomalies, setAnomalies] = useState<any[] | null>(null);
@@ -537,13 +538,15 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>
         {/* 페이지 탭 */}
         <div className="flex -mx-1">
-          <a href="#/" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">대시보드</a>
+          <a href="#/" className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${!isPortfolioPage ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>대시보드</a>
+          <a href="#/portfolio" className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${isPortfolioPage ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>포트폴리오</a>
           <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">종목 스캐너</a>
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}
 
       {/* ===== 시장 카테고리 ===== */}
+      {!isPortfolioPage && <>
       <div id="cat-market" className="scroll-mt-24" />
 
       {/* 장전 프리마켓 */}
@@ -943,6 +946,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </section>
       )}
 
+      </>}
       {/* 내 포트폴리오 */}
       {portfolio && (() => {
         const sm = portfolio.summary || {};
@@ -1296,6 +1300,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>
       )}
 
+      {!isPortfolioPage && <>
       {/* AI 주목 종목 */}
       {performance?.by_source?.combined && (() => {
         const c = performance.by_source.combined;
@@ -2325,7 +2330,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <ChevronUp size={20} />
         </button>
       )}
-      {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨) */}
+      </>}
+      {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨, 대시보드만) */}
+      {!isPortfolioPage && <>
       <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pb-[env(safe-area-inset-bottom,0px)]" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)' }}>
         <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
           {categories.map((cat) => (
@@ -2346,6 +2353,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           ))}
         </div>
       </div>
+      </>}
     </div>
   );
 }

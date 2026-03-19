@@ -32,6 +32,7 @@ export default function App() {
       <div className="min-h-screen pb-4" style={{ background: 'var(--bg)' }}>
         <Routes>
           <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />} />
+          <Route path="/portfolio" element={<Dashboard onToggleTheme={toggle} isDark={dark} page="portfolio" />} />
           <Route path="/scanner" element={<Scanner onToggleTheme={toggle} isDark={dark} />} />
         </Routes>
       </div>
