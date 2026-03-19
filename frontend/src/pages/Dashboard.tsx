@@ -300,7 +300,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <span className="text-sm font-bold t-text">로그인</span>
               <button onClick={() => setShowLogin(false)} className="t-text-dim hover:t-text text-lg">✕</button>
             </div>
-            <p className="text-[11px] t-text-sub mb-3">로그인하면 KIS API 실시간 시세를 사용할 수 있습니다.</p>
             <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
               className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text mb-2" />
             <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
