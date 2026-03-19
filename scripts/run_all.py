@@ -1036,6 +1036,19 @@ def main():
     for code, fd in (fund_all.items() if isinstance(fund_all, dict) else []):
         if code not in price_map and isinstance(fd, dict) and fd.get("stck_prpr"):
             price_map[code] = fd["stck_prpr"]
+    # 4) KIS API 직접 조회 (보유 종목 중 현재가 없는 것만)
+    missing_codes = [h["code"] for h in portfolio_holdings if h["code"] not in price_map]
+    if missing_codes:
+        try:
+            from core.kis_client import KISClient
+            kis = KISClient()
+            kis_prices = kis.get_prices_batch(missing_codes)
+            for code, pdata in kis_prices.items():
+                price_map[code] = pdata["current_price"]
+            if kis_prices:
+                print(f"  [KIS] 포트폴리오 {len(kis_prices)}종목 실시간 시세 조회 완료")
+        except Exception as e:
+            print(f"  [KIS] 실시간 시세 조회 실패: {e}")
 
     total_invested = 0
     total_value = 0
