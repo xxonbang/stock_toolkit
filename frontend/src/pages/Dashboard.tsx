@@ -519,15 +519,19 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   <div className="absolute right-0 top-9 z-40 w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
                     <div className="p-1">
                       <RefreshButtons menuMode />
-                      {supaUser && (
-                        <>
-                          <div className="border-t t-border-light my-1" />
-                          <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setShowHeaderMenu(false); }}
-                            className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
-                            <span className="text-base">↪</span>
-                            로그아웃
-                          </button>
-                        </>
+                      <div className="border-t t-border-light my-1" />
+                      {supaUser ? (
+                        <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setShowHeaderMenu(false); }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
+                          <span className="text-base">↪</span>
+                          로그아웃
+                        </button>
+                      ) : (
+                        <button onClick={() => { setShowLogin(true); setShowHeaderMenu(false); }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-blue-400 hover:bg-blue-500/10 rounded-lg transition">
+                          <span className="text-base">→</span>
+                          로그인
+                        </button>
                       )}
                     </div>
                   </div>
@@ -948,7 +952,15 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
       </>}
       {/* 내 포트폴리오 */}
-      {portfolio && (() => {
+      {!supaUser ? (
+        <section className="t-card rounded-xl p-6 text-center">
+          <div className="text-3xl mb-3">📊</div>
+          <div className="text-sm font-semibold t-text mb-1">내 포트폴리오</div>
+          <div className="text-[12px] t-text-sub mb-4">로그인하면 보유 종목을 관리하고<br/>실시간 수익률을 확인할 수 있습니다.</div>
+          <button onClick={() => setShowLogin(true)}
+            className="text-sm font-medium px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
+        </section>
+      ) : portfolio && (() => {
         const sm = portfolio.summary || {};
         const profitColor = (r: number) => r > 0 ? "text-red-500" : r < 0 ? "text-blue-500" : "t-text";
         const refreshPortfolioPrices = async () => {
@@ -1027,10 +1039,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 className="text-[11px] px-2 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition font-medium disabled:opacity-50">
                 {priceRefreshing ? "조회 중..." : supaUser ? "실시간" : "갱신"}
               </button>
-              {!supaUser && (
-                <button onClick={() => setShowLogin(true)}
-                  className="text-[10px] px-1.5 py-0.5 rounded border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition">로그인</button>
-              )}
             </div>
           </div>
           {/* 총 손익 요약 */}
