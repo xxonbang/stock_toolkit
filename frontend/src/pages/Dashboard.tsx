@@ -491,6 +491,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           const color = diffMin < 30 ? "text-emerald-400" : diffMin < 180 ? "text-amber-400" : "text-red-400";
           return <div className={`text-[10px] ${color} text-right -mt-1 mb-1`}>최근 갱신: {label}</div>;
         })()}
+        {/* 페이지 탭 (대시보드 / 종목 스캐너) */}
+        <div className="flex gap-1 -mx-1">
+          <a href="#/" className="flex-1 text-center py-1 text-[11px] font-medium t-accent border-b-2 border-current">대시보드</a>
+          <a href="#/scanner" className="flex-1 text-center py-1 text-[11px] font-medium t-text-dim hover:t-text-sub transition">종목 스캐너</a>
+        </div>
       </div>
 
       {/* ===== 시장 카테고리 ===== */}

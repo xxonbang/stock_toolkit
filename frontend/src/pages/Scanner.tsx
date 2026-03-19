@@ -88,10 +88,13 @@ export default function Scanner() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold t-text flex items-center gap-2 mb-6">
-        <Filter size={22} className="text-blue-600" />
-        종목 스캐너
-      </h1>
+      {/* 페이지 탭 */}
+      <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-1 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="flex gap-1 mb-1">
+          <a href="#/" className="flex-1 text-center py-1 text-[11px] font-medium t-text-dim hover:t-text-sub transition">대시보드</a>
+          <a href="#/scanner" className="flex-1 text-center py-1 text-[11px] font-medium t-accent border-b-2 border-current">종목 스캐너</a>
+        </div>
+      </div>
 
       <div className="t-card rounded-xl p-4 mb-4 space-y-4">
         <SectionHeader id="scanner">필터 조건</SectionHeader>
