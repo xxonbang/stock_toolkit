@@ -542,7 +542,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}
-      <div className="h-1" />
 
       {/* ===== 시장 카테고리 ===== */}
       <div id="cat-market" className="scroll-mt-24" />
