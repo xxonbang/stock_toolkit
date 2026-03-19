@@ -492,27 +492,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           return <div className={`text-[10px] ${color} text-right -mt-1 mb-1`}>최근 갱신: {label}</div>;
         })()}
       </div>
-      {/* 카테고리 퀵 점프 — 하단 고정 */}
-      <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pb-[env(safe-area-inset-bottom,0px)]" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)' }}>
-        <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => {
-                setActiveCategory(cat.id);
-                document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className={`flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium rounded-lg transition-all duration-200`}
-              style={activeCategory === cat.id
-                ? { background: 'var(--bg-pill-active)', color: 'var(--text-pill-active)', boxShadow: 'var(--shadow-card)' }
-                : { color: 'var(--text-tertiary)' }}
-            >
-              <span className="text-[10px]">{cat.icon}</span>
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
 
       {/* ===== 시장 카테고리 ===== */}
       <div id="cat-market" className="scroll-mt-24" />
@@ -2232,6 +2211,27 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <ChevronUp size={20} />
         </button>
       )}
+      {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨) */}
+      <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pb-[env(safe-area-inset-bottom,0px)]" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)' }}>
+        <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setActiveCategory(cat.id);
+                document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium rounded-lg transition-all duration-200"
+              style={activeCategory === cat.id
+                ? { background: 'var(--bg-pill-active)', color: 'var(--text-pill-active)', boxShadow: 'var(--shadow-card)' }
+                : { color: 'var(--text-tertiary)' }}
+            >
+              <span className="text-[10px]">{cat.icon}</span>
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
