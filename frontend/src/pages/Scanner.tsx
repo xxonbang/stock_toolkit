@@ -140,51 +140,52 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         </div>
         {!filterCollapsed && <>
 
-        <FilterGroup label="매매 신호" desc="AI가 분석한 종목별 매매 추천 강도">
+        {/* AI 신호 필터 (signal-pulse 99종목) */}
+        <div className="text-[10px] t-text-dim mt-1 mb-0.5 uppercase tracking-wider">AI 신호 (99종목)</div>
+
+        <FilterGroup label="매매 신호" desc="Vision AI + KIS API 종합 판정">
           {SIGNAL_OPTIONS.map((opt) => (
-            <Chip key={opt} label={opt} active={signals.has(opt)} onClick={() => setSignals(toggle(signals, opt))}
-              color={opt.includes("매수") ? "red" : opt.includes("매도") ? "blue" : "gray"} />
+            <Chip key={opt} label={opt} active={signals.has(opt)} onClick={() => setSignals(toggle(signals, opt))} />
           ))}
         </FilterGroup>
 
-        <FilterGroup label="위험도" desc="매도 신호 + 외국인 매도 등 위험 요인 개수">
+        <FilterGroup label="위험도" desc="매도 신호 + 외국인 매도 등 위험 요인">
           {RISK_OPTIONS.map((opt) => (
-            <Chip key={opt} label={opt} active={risks.has(opt)} onClick={() => setRisks(toggle(risks, opt))}
-              color={opt === "높음" ? "red" : opt === "주의" ? "amber" : "green"} />
+            <Chip key={opt} label={opt} active={risks.has(opt)} onClick={() => setRisks(toggle(risks, opt))} />
           ))}
-        </FilterGroup>
-
-        <FilterGroup label="외국인 수급" desc="외국인 투자자의 당일 순매수/순매도 방향">
-          {FLOW_OPTIONS.map((opt) => (
-            <Chip key={opt} label={opt} active={flows.has(opt)} onClick={() => setFlows(toggle(flows, opt))}
-              color={opt === "순매수" ? "red" : "blue"} />
-          ))}
-        </FilterGroup>
-
-        <FilterGroup label="시장" desc="KOSPI(대형주 중심) 또는 KOSDAQ(중소형·기술주)">
-          {MARKET_OPTIONS.map((opt) => (
-            <Chip key={opt} label={opt} active={markets.has(opt)} onClick={() => setMarkets(toggle(markets, opt))} color="gray" />
-          ))}
-        </FilterGroup>
-
-        <FilterGroup label="테마" desc="AI가 식별한 당일 주요 테마의 대장주만 표시">
-          <Chip label="테마 대장주만" active={themeOnly} onClick={() => setThemeOnly(!themeOnly)} color="purple" />
-        </FilterGroup>
-
-        <FilterGroup label="기술적 조건" desc="차트 패턴 및 기술적 지표 기반 필터">
-          <Chip label="골든크로스" active={goldenCross} onClick={() => setGoldenCross(!goldenCross)} color="red" />
-          <Chip label="52주 신고가" active={highBreakout} onClick={() => setHighBreakout(!highBreakout)} color="red" />
-          <Chip label="BNF 적합" active={bnf} onClick={() => setBnf(!bnf)} color="green" />
-          <Chip label="공매도 경고" active={shortSelling} onClick={() => setShortSelling(!shortSelling)} color="amber" />
         </FilterGroup>
 
         <FilterGroup label="RSI" desc="상대강도지수 (70↑ 과매수, 30↓ 과매도)">
-          <Chip label="RSI 과매수 (>70)" active={rsiOverbought} onClick={() => setRsiOverbought(!rsiOverbought)} color="red" />
-          <Chip label="RSI 과매도 (<30)" active={rsiOversold} onClick={() => setRsiOversold(!rsiOversold)} color="blue" />
+          <Chip label="과매수 (>70)" active={rsiOverbought} onClick={() => setRsiOverbought(!rsiOverbought)} />
+          <Chip label="과매도 (<30)" active={rsiOversold} onClick={() => setRsiOversold(!rsiOversold)} />
         </FilterGroup>
 
-        <FilterGroup label="이중 검증" desc="Vision AI + KIS API 신호 일치 종목">
-          <Chip label="이중 매칭" active={dualMatch} onClick={() => setDualMatch(!dualMatch)} color="green" />
+        <FilterGroup label="이중 검증" desc="Vision AI + KIS API 신호 일치">
+          <Chip label="이중 매칭" active={dualMatch} onClick={() => setDualMatch(!dualMatch)} />
+        </FilterGroup>
+
+        {/* 기술적 필터 (전체 203종목) */}
+        <div className="text-[10px] t-text-dim mt-3 mb-0.5 uppercase tracking-wider">기술적 조건 (203종목)</div>
+
+        <FilterGroup label="기술적 패턴" desc="차트 기반 자동 감지">
+          <Chip label="골든크로스" active={goldenCross} onClick={() => setGoldenCross(!goldenCross)} />
+          <Chip label="52주 신고가" active={highBreakout} onClick={() => setHighBreakout(!highBreakout)} />
+          <Chip label="MA 정배열" active={false} onClick={() => {}} />
+          <Chip label="BNF 적합" active={bnf} onClick={() => setBnf(!bnf)} />
+          <Chip label="공매도 경고" active={shortSelling} onClick={() => setShortSelling(!shortSelling)} />
+        </FilterGroup>
+
+        <FilterGroup label="수급·시장" desc="외국인 수급 방향 및 시장 구분">
+          {FLOW_OPTIONS.map((opt) => (
+            <Chip key={opt} label={opt} active={flows.has(opt)} onClick={() => setFlows(toggle(flows, opt))} />
+          ))}
+          {MARKET_OPTIONS.map((opt) => (
+            <Chip key={opt} label={opt} active={markets.has(opt)} onClick={() => setMarkets(toggle(markets, opt))} />
+          ))}
+        </FilterGroup>
+
+        <FilterGroup label="테마" desc="AI 식별 테마 대장주">
+          <Chip label="테마 대장주만" active={themeOnly} onClick={() => setThemeOnly(!themeOnly)} />
         </FilterGroup>
 
       <div className="flex items-center gap-2 mt-3">
