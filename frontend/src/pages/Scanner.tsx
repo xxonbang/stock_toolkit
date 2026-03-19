@@ -125,7 +125,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
       </div>
       <div className="h-3" />
 
-      <div className="t-card rounded-xl p-4 mb-4 space-y-4">
+      <div className="t-card rounded-xl p-4 mb-4">
         <SectionHeader id="scanner">필터 조건</SectionHeader>
 
         <FilterGroup label="매매 신호" desc="AI가 분석한 종목별 매매 추천 강도">
@@ -250,26 +250,23 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
 
 function FilterGroup({ label, desc, children }: { label: string; desc: string; children: React.ReactNode }) {
   return (
-    <div>
-      <div className="text-sm font-medium t-text mb-1">{label}</div>
-      <div className="text-xs t-text-dim mb-2">{desc}</div>
-      <div className="flex flex-wrap gap-2">{children}</div>
+    <div className="py-2.5 border-b t-border-light last:border-b-0">
+      <div className="flex items-baseline gap-2 mb-2">
+        <span className="text-[13px] font-semibold t-text">{label}</span>
+        <span className="text-[10px] t-text-dim">{desc}</span>
+      </div>
+      <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   );
 }
 
-function Chip({ label, active, onClick, color }: { label: string; active: boolean; onClick: () => void; color: string }) {
-  const styles: Record<string, { on: string; off: string }> = {
-    red: { on: "bg-red-600 text-white border-red-600", off: "t-card t-text-sub hover:border-red-300" },
-    blue: { on: "bg-blue-600 text-white border-blue-600", off: "t-card t-text-sub hover:border-blue-300" },
-    amber: { on: "bg-amber-500 text-white border-amber-500", off: "t-card t-text-sub hover:border-amber-300" },
-    green: { on: "bg-green-600 text-white border-green-600", off: "t-card t-text-sub hover:border-green-300" },
-    purple: { on: "bg-purple-600 text-white border-purple-600", off: "t-card t-text-sub hover:border-purple-300" },
-    gray: { on: "bg-gray-700 text-white border-gray-700", off: "t-card t-text-sub hover:border-gray-400" },
-  };
-  const s = styles[color] || styles.gray;
+function Chip({ label, active, onClick }: { label: string; active: boolean; onClick: () => void; color?: string }) {
   return (
-    <button onClick={onClick} className={`px-3 py-1.5 rounded-full border text-sm font-medium transition ${active ? s.on : s.off}`}>
+    <button onClick={onClick} className={`px-2.5 py-1 rounded-lg text-[12px] font-medium transition-all ${
+      active
+        ? "bg-blue-500 text-white shadow-sm"
+        : "t-card-alt t-text-sub hover:bg-blue-500/10 hover:text-blue-400"
+    }`}>
       {label}
     </button>
   );
