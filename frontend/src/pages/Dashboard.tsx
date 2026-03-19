@@ -1094,7 +1094,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 </div>
               ))}
             </div>
-            {/* 종목 검색 + 추가 */}
+            {/* 종목 검색 + 추가 (stock-master 2,618종목 + KIS API fallback) */}
             <div className="mb-4">
               <div className="relative">
                 <input
@@ -1104,16 +1104,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     const q = e.target.value;
                     setStockSearch(q);
                     if (q.length < 2) { setSearchResults([]); return; }
-                    // 로컬 목록 없으면 theme-analyzer에서 로드
+                    // stock-master.json 로드 (2,618종목)
                     let list = allStockList;
                     if (!list.length) {
                       setSearchLoading(true);
                       try {
-                        const res = await fetch(import.meta.env.BASE_URL + "data/scanner_stocks.json");
+                        const res = await fetch(import.meta.env.BASE_URL + "data/stock-master.json");
                         if (res.ok) {
-                          const ss = await res.json();
-                          const stocks = (ss || []).filter((s: any) => s.code && s.name).map((s: any) => ({
-                            code: s.code, name: s.name, market: s.market || "", current_price: 0,
+                          const master = await res.json();
+                          const stocks = (master?.stocks || []).map((s: any) => ({
+                            code: s.code, name: s.name, market: s.market || "",
                           }));
                           setAllStockList(stocks);
                           list = stocks;
@@ -1121,18 +1121,29 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       } catch {}
                       setSearchLoading(false);
                     }
-                    // 검색 (종목명 또는 코드)
+                    // 로컬 검색 (종목명 또는 코드)
                     const results = list.filter((s: any) =>
                       s.name?.includes(q) || s.code?.includes(q)
-                    ).slice(0, 8);
+                    ).slice(0, 10);
                     setSearchResults(results);
+                    // 6자리 코드인데 결과 없으면 KIS API fallback
+                    if (results.length === 0 && /^\d{6}$/.test(q) && supaUser) {
+                      setSearchLoading(true);
+                      try {
+                        const kis = await searchKisStock(q);
+                        if (kis) {
+                          setSearchResults([{ code: kis.code, name: kis.name, market: "", current_price: kis.current_price, fromKis: true }]);
+                        }
+                      } catch {}
+                      setSearchLoading(false);
+                    }
                   }}
-                  placeholder="종목명 또는 코드로 검색..."
+                  placeholder="종목명 또는 코드 검색 (2,618종목)..."
                   className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text pr-8"
                 />
                 {searchLoading && <span className="absolute right-3 top-2.5 text-[10px] t-text-dim animate-pulse">검색 중...</span>}
               </div>
-              {searchResults.length > 0 && (
+              {searchResults.length > 0 ? (
                 <div className="mt-1 border t-border-light rounded-lg overflow-hidden max-h-48 overflow-y-auto">
                   {searchResults.map((s: any, si: number) => (
                     <button key={si}
@@ -1145,10 +1156,28 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       }}
                       className="w-full text-left px-3 py-2 text-xs t-text hover:bg-blue-500/10 transition flex items-center justify-between border-b t-border-light last:border-b-0"
                     >
-                      <span><span className="font-medium">{s.name}</span> <span className="t-text-dim">{s.code}</span></span>
-                      {s.current_price > 0 && <span className="t-text-dim">{s.current_price.toLocaleString()}원</span>}
+                      <div>
+                        <span className="font-medium">{s.name}</span>
+                        <span className="t-text-dim ml-1">{s.code}</span>
+                        {s.market && <span className="t-text-dim ml-1 text-[10px]">{s.market}</span>}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        {s.current_price > 0 && <span className="t-text-dim">{s.current_price.toLocaleString()}원</span>}
+                        {s.fromKis && <span className="text-[9px] px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-400">KIS</span>}
+                      </div>
                     </button>
                   ))}
+                </div>
+              ) : stockSearch.length >= 2 && !searchLoading && (
+                <div className="mt-1 p-3 border t-border-light rounded-lg text-center">
+                  <div className="text-xs t-text-dim">검색 결과 없음</div>
+                  {/^\d{6}$/.test(stockSearch) ? (
+                    supaUser
+                      ? <div className="text-[10px] text-emerald-400 mt-1">KIS API로 실시간 조회 중...</div>
+                      : <div className="text-[10px] t-text-dim mt-1">로그인하면 KIS API로 실시간 조회 가능</div>
+                  ) : (
+                    <div className="text-[10px] t-text-dim mt-1">종목 코드 6자리 입력 시 KIS API로 실시간 조회합니다</div>
+                  )}
                 </div>
               )}
             </div>

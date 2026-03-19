@@ -56,4 +56,5 @@ export const dataService = {
   getSimulationHistory: () => fetchJson<any[]>("simulation_history.json"),
   getIntradayStockFlow: () => fetchJson<any[]>("intraday_stock_flow.json"),
   getIndicatorHistory: () => fetchJson<any>("indicator_history.json"),
+  getStockMaster: () => fetchJson<any>("stock-master.json"),
 };
