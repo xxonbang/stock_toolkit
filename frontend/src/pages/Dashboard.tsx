@@ -5,7 +5,7 @@ import {
 } from "recharts";
 import {
   TrendingUp, TrendingDown, Shield,
-  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon,
+  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -976,7 +976,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 }
                 if (Object.keys(priceMap).length > 0) {
                   const now = new Date();
-                  setLivePriceTime(`${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")}`);
+                  const h = now.getHours();
+                  const ampm = h < 12 ? "오전" : "오후";
+                  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+                  setLivePriceTime(`${ampm} ${h12}:${now.getMinutes().toString().padStart(2,"0")}`);
                 }
               } catch (e) { console.warn("KIS Edge Function 실패, 폴백:", e); }
             }
@@ -1032,11 +1035,16 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <section className="t-card rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
             <h2 className="text-base font-semibold t-text">내 포트폴리오 <span className="text-sm font-normal t-text-dim">({portfolio.holdings?.length})</span></h2>
-            <div className="ml-auto flex items-center gap-1.5">
-              {livePriceTime && <span className="text-[10px] text-emerald-400">LIVE {livePriceTime}</span>}
+            <div className="ml-auto flex items-center gap-2">
+              {livePriceTime && (
+                <div className="text-center">
+                  <div className="text-[9px] font-bold text-emerald-400 tracking-wider">LIVE</div>
+                  <div className="text-[10px] t-text-dim">{livePriceTime}</div>
+                </div>
+              )}
               <button onClick={refreshPortfolioPrices} disabled={priceRefreshing}
-                className="text-[11px] px-2 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition font-medium disabled:opacity-50">
-                {priceRefreshing ? "조회 중..." : supaUser ? "실시간" : "갱신"}
+                className="p-2 rounded-xl bg-emerald-900/30 hover:bg-emerald-800/40 transition disabled:opacity-50">
+                <RefreshCw size={16} className={`text-emerald-400 ${priceRefreshing ? "animate-spin" : ""}`} />
               </button>
             </div>
           </div>
