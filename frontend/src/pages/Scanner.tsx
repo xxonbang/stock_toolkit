@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Search, RotateCcw, Filter } from "lucide-react";
+import { Search, RotateCcw, Filter, Sun, Moon } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
+import RefreshButtons from "../components/RefreshButtons";
 
 const SIGNAL_OPTIONS = ["적극매수", "매수", "중립", "매도", "적극매도"];
 const RISK_OPTIONS = ["높음", "주의", "낮음"];
@@ -19,7 +20,7 @@ const SECTION_HELP_SCANNER = {
 import { SECTION_HELP } from "../components/HelpDialog";
 Object.assign(SECTION_HELP, SECTION_HELP_SCANNER);
 
-export default function Scanner() {
+export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () => void; isDark?: boolean }) {
   const [allStocks, setAllStocks] = useState<any[]>([]);
   const [results, setResults] = useState<any[] | null>(null);
   const [signals, setSignals] = useState<Set<string>>(new Set());
@@ -88,9 +89,23 @@ export default function Scanner() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      {/* 페이지 탭 */}
+      {/* 헤더 */}
       <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-1 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="flex gap-1 mb-1">
+        <div className="flex items-center justify-between mb-2">
+          <a href="#/" className="text-xl font-bold t-text flex items-center gap-2 shrink-0 whitespace-nowrap">
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-6 h-6 shrink-0" />
+            Stock Toolkit
+          </a>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <RefreshButtons />
+            {onToggleTheme && (
+              <button onClick={onToggleTheme} className="p-1.5 rounded-lg t-text-dim hover:t-text-sub transition" title={isDark ? "라이트 모드" : "다크 모드"}>
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="flex gap-1">
           <a href="#/" className="flex-1 text-center py-1 text-[11px] font-medium t-text-dim hover:t-text-sub transition">대시보드</a>
           <a href="#/scanner" className="flex-1 text-center py-1 text-[11px] font-medium t-accent border-b-2 border-current">종목 스캐너</a>
         </div>
