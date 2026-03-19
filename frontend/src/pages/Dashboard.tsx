@@ -268,7 +268,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+    <div className="max-w-2xl mx-auto px-4 py-6 pb-16 space-y-5">
       {/* 로그인 모달 */}
       {showLogin && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setShowLogin(false)}>
@@ -491,8 +491,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           const color = diffMin < 30 ? "text-emerald-400" : diffMin < 180 ? "text-amber-400" : "text-red-400";
           return <div className={`text-[10px] ${color} text-right -mt-1 mb-1`}>최근 갱신: {label}</div>;
         })()}
-        {/* 카테고리 퀵 점프 — 세련된 디자인 */}
-        <div className="flex gap-1 rounded-xl p-1" style={{ background: 'var(--bg-pill)' }}>
+      </div>
+      {/* 카테고리 퀵 점프 — 하단 고정 */}
+      <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pb-[env(safe-area-inset-bottom,0px)]" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)' }}>
+        <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -500,7 +502,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 setActiveCategory(cat.id);
                 document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className={`flex-1 flex items-center justify-center gap-1 py-1.5 text-xs font-medium rounded-lg transition-all duration-200`}
+              className={`flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium rounded-lg transition-all duration-200`}
               style={activeCategory === cat.id
                 ? { background: 'var(--bg-pill-active)', color: 'var(--text-pill-active)', boxShadow: 'var(--shadow-card)' }
                 : { color: 'var(--text-tertiary)' }}
