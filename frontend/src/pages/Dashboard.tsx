@@ -79,6 +79,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
+  const [stockSearch, setStockSearch] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [allStockList, setAllStockList] = useState<any[]>([]);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -1035,12 +1039,82 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 </div>
               ))}
             </div>
-            {/* 종목 추가 */}
-            <button onClick={() => {
-              const name = prompt("종목명");
-              const code = prompt("종목코드 (6자리)");
-              if (name && code) setEditHoldings([...editHoldings, { name, code, sector: "", avg_price: 0, quantity: 0 }]);
-            }} className="w-full text-xs py-2 rounded-lg border t-border-light t-text-sub hover:text-blue-400 transition mb-4">+ 종목 추가</button>
+            {/* 종목 검색 + 추가 */}
+            <div className="mb-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={stockSearch}
+                  onChange={async (e) => {
+                    const q = e.target.value;
+                    setStockSearch(q);
+                    if (q.length < 2) { setSearchResults([]); return; }
+                    // 로컬 목록 없으면 theme-analyzer에서 로드
+                    let list = allStockList;
+                    if (!list.length) {
+                      setSearchLoading(true);
+                      try {
+                        const res = await fetch("https://xxonbang.github.io/theme-analyzer/data/latest.json");
+                        if (res.ok) {
+                          const latest = await res.json();
+                          const stocks: any[] = [];
+                          const seen = new Set<string>();
+                          for (const src of ["volume", "rising", "trading_value", "falling"]) {
+                            const d = (latest as any)[src] || {};
+                            for (const mkt of ["kospi", "kosdaq"]) {
+                              for (const s of d[mkt] || []) {
+                                if (s.code && !seen.has(s.code)) {
+                                  seen.add(s.code);
+                                  stocks.push({ code: s.code, name: s.name, market: s.market || mkt.toUpperCase(), current_price: s.current_price });
+                                }
+                              }
+                            }
+                          }
+                          // investor_data에서 추가
+                          const inv = (latest as any).investor_data || {};
+                          for (const [code, data] of Object.entries(inv)) {
+                            if (!seen.has(code) && (data as any)?.name) {
+                              seen.add(code);
+                              stocks.push({ code, name: (data as any).name, market: "", current_price: 0 });
+                            }
+                          }
+                          setAllStockList(stocks);
+                          list = stocks;
+                        }
+                      } catch {}
+                      setSearchLoading(false);
+                    }
+                    // 검색 (종목명 또는 코드)
+                    const results = list.filter((s: any) =>
+                      s.name?.includes(q) || s.code?.includes(q)
+                    ).slice(0, 8);
+                    setSearchResults(results);
+                  }}
+                  placeholder="종목명 또는 코드로 검색..."
+                  className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text pr-8"
+                />
+                {searchLoading && <span className="absolute right-3 top-2.5 text-[10px] t-text-dim animate-pulse">검색 중...</span>}
+              </div>
+              {searchResults.length > 0 && (
+                <div className="mt-1 border t-border-light rounded-lg overflow-hidden max-h-48 overflow-y-auto">
+                  {searchResults.map((s: any, si: number) => (
+                    <button key={si}
+                      onClick={() => {
+                        if (!editHoldings.find((h: any) => h.code === s.code)) {
+                          setEditHoldings([...editHoldings, { name: s.name, code: s.code, sector: "", avg_price: 0, quantity: 0 }]);
+                        }
+                        setStockSearch("");
+                        setSearchResults([]);
+                      }}
+                      className="w-full text-left px-3 py-2 text-xs t-text hover:bg-blue-500/10 transition flex items-center justify-between border-b t-border-light last:border-b-0"
+                    >
+                      <span><span className="font-medium">{s.name}</span> <span className="t-text-dim">{s.code}</span></span>
+                      {s.current_price > 0 && <span className="t-text-dim">{s.current_price.toLocaleString()}원</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             {/* 저장 */}
             <button onClick={() => {
               localStorage.setItem("portfolio_holdings", JSON.stringify(editHoldings));
