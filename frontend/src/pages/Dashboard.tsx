@@ -963,71 +963,61 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         const sm = portfolio.summary || {};
         const profitColor = (r: number) => r > 0 ? "text-red-500" : r < 0 ? "text-blue-500" : "t-text";
         const refreshPortfolioPrices = async () => {
+          if (priceRefreshing || !portfolio?.holdings?.length) return;
           setPriceRefreshing(true);
           try {
-            const codes = (portfolio.holdings || []).map((h: any) => h.code).filter(Boolean);
+            const codes = portfolio.holdings.map((h: any) => h.code).filter(Boolean);
             let priceMap: Record<string, number> = {};
-            // 1) KIS API 실시간 (Supabase Edge Function — 로그인 필요)
+            let source = "";
+            // 1) KIS API 실시간 (로그인 시 Edge Function)
             if (supaUser && codes.length > 0) {
               try {
                 const kisData = await fetchKisPrices(codes);
                 for (const [code, p] of Object.entries(kisData)) {
                   if (p.current_price) priceMap[code] = p.current_price;
                 }
-              } catch (e) { console.warn("KIS Edge Function 실패, 폴백:", e); }
+                if (Object.keys(priceMap).length > 0) source = "KIS";
+              } catch (e) {
+                console.warn("KIS Edge Function 실패:", e);
+              }
             }
-            // 2) 폴백: stock_toolkit 배포 데이터
-            if (Object.keys(priceMap).length < codes.length) {
-              const [tvRes, pfRes] = await Promise.all([
-                fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
-                fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
-              ]);
-              if (tvRes.ok) {
-                const tv = await tvRes.json();
-                for (const s of (tv || [])) {
+            // 2) 폴백: 배포 데이터
+            if (!source) {
+              try {
+                const [tvRes, pfRes] = await Promise.all([
+                  fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
+                  fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
+                ]);
+                if (tvRes.ok) for (const s of await tvRes.json() || []) {
                   if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
                 }
-              }
-              if (pfRes.ok) {
-                const pf = await pfRes.json();
-                for (const h of pf?.holdings || []) {
+                if (pfRes.ok) for (const h of (await pfRes.json())?.holdings || []) {
                   if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
                 }
-              }
+                if (Object.keys(priceMap).length > 0) source = "캐시";
+              } catch {}
             }
-            // 포트폴리오 재계산
-            const holdings = (portfolio.holdings || []).map((h: any) => {
-              const cp = priceMap[h.code] || h.current_price || 0;
-              const ap = h.avg_price || 0;
-              const qty = h.quantity || 0;
-              return {
-                ...h,
-                current_price: cp,
-                profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
-                profit_amount: ap && cp ? (cp - ap) * qty : 0,
-                invested: ap * qty,
-                current_value: cp * qty,
-              };
-            });
-            const totalInv = holdings.reduce((s: number, h: any) => s + h.invested, 0);
-            const totalVal = holdings.reduce((s: number, h: any) => s + h.current_value, 0);
-            holdings.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-            setPortfolio({
-              ...portfolio,
-              holdings,
-              summary: {
+            if (Object.keys(priceMap).length > 0) {
+              // 포트폴리오 재계산
+              const updated = portfolio.holdings.map((h: any) => {
+                const cp = priceMap[h.code] || h.current_price || 0;
+                const ap = h.avg_price || 0;
+                const qty = h.quantity || 0;
+                return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+                  profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
+              });
+              const totalInv = updated.reduce((s: number, h: any) => s + h.invested, 0);
+              const totalVal = updated.reduce((s: number, h: any) => s + h.current_value, 0);
+              updated.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+              setPortfolio({ ...portfolio, holdings: updated, summary: {
                 total_invested: totalInv, total_value: totalVal,
                 total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-                total_profit_amount: totalVal - totalInv, total_holdings: holdings.length,
-              },
-            });
-            // 시각 표시 (KIS든 폴백이든)
-            if (Object.keys(priceMap).length > 0) {
+                total_profit_amount: totalVal - totalInv, total_holdings: updated.length,
+              }});
+              // 시각 표시
               const now = new Date();
-              const h = now.getHours();
-              const ampm = h < 12 ? "오전" : "오후";
-              const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-              setLivePriceTime(`${ampm} ${h12}:${now.getMinutes().toString().padStart(2,"0")}`);
+              const hh = now.getHours();
+              setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
             }
           } catch (e) { console.error("price refresh failed:", e); }
           setPriceRefreshing(false);
