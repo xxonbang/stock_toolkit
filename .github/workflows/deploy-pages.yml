@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 5
       - name: 배포 시작 알림
         run: |
-          MSG="🚀 <b>[Stock Toolkit] 배포 시작</b>
+          MSG="🚀 <b>배포 시작</b>
           모드: ${{ env.RUN_MODE }}
           트리거: ${{ github.event_name }}"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
@@ -120,7 +120,7 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d parse_mode=HTML \
-            -d text="✅ <b>[Stock Toolkit] 배포 완료</b>%0A모드: ${{ env.RUN_MODE }}%0A🔗 https://xxonbang.github.io/stock_toolkit/"
+            -d text="✅ <b>배포 완료</b>%0A모드: ${{ env.RUN_MODE }}%0A🔗 https://xxonbang.github.io/stock_toolkit/"
 
       - name: 배포 실패 알림
         if: failure()
@@ -128,4 +128,4 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d parse_mode=HTML \
-            -d text="❌ <b>[Stock Toolkit] 배포 실패</b>%0A모드: ${{ env.RUN_MODE }}%0A확인: https://github.com/xxonbang/stock_toolkit/actions"
+            -d text="❌ <b>배포 실패</b>%0A모드: ${{ env.RUN_MODE }}%0A확인: https://github.com/xxonbang/stock_toolkit/actions"
