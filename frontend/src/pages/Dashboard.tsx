@@ -301,9 +301,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <button onClick={() => setShowLogin(false)} className="t-text-dim hover:t-text text-lg">✕</button>
             </div>
             <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text mb-2" />
+              className="w-full text-[16px] p-2.5 rounded-lg t-card border t-border-light t-text mb-2" />
             <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text mb-3" />
+              className="w-full text-[16px] p-2.5 rounded-lg t-card border t-border-light t-text mb-3" />
             {loginError && <p className="text-[11px] text-red-400 mb-2">{loginError}</p>}
             <button onClick={async () => {
               setLoginError("");
@@ -974,13 +974,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 for (const [code, p] of Object.entries(kisData)) {
                   if (p.current_price) priceMap[code] = p.current_price;
                 }
-                if (Object.keys(priceMap).length > 0) {
-                  const now = new Date();
-                  const h = now.getHours();
-                  const ampm = h < 12 ? "오전" : "오후";
-                  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-                  setLivePriceTime(`${ampm} ${h12}:${now.getMinutes().toString().padStart(2,"0")}`);
-                }
               } catch (e) { console.warn("KIS Edge Function 실패, 폴백:", e); }
             }
             // 2) 폴백: stock_toolkit 배포 데이터
@@ -1028,6 +1021,14 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 total_profit_amount: totalVal - totalInv, total_holdings: holdings.length,
               },
             });
+            // 시각 표시 (KIS든 폴백이든)
+            if (Object.keys(priceMap).length > 0) {
+              const now = new Date();
+              const h = now.getHours();
+              const ampm = h < 12 ? "오전" : "오후";
+              const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+              setLivePriceTime(`${ampm} ${h12}:${now.getMinutes().toString().padStart(2,"0")}`);
+            }
           } catch (e) { console.error("price refresh failed:", e); }
           setPriceRefreshing(false);
         };
@@ -1043,8 +1044,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 </div>
               )}
               <button onClick={refreshPortfolioPrices} disabled={priceRefreshing}
-                className="p-2 rounded-xl bg-emerald-900/30 hover:bg-emerald-800/40 transition disabled:opacity-50">
-                <RefreshCw size={16} className={`text-emerald-400 ${priceRefreshing ? "animate-spin" : ""}`} />
+                className="p-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition disabled:opacity-50">
+                <RefreshCw size={16} className={`text-emerald-500 ${priceRefreshing ? "animate-spin" : ""}`} />
               </button>
             </div>
           </div>
@@ -1147,17 +1148,17 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">평균단가</label>
                       <input type="number" value={h.avg_price || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, avg_price: Number(e.target.value)}; setEditHoldings(v); }}
-                        className="w-full text-xs p-1.5 rounded-lg t-card border t-border-light t-text" />
+                        className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
                     </div>
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">수량</label>
                       <input type="number" value={h.quantity || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, quantity: Number(e.target.value)}; setEditHoldings(v); }}
-                        className="w-full text-xs p-1.5 rounded-lg t-card border t-border-light t-text" />
+                        className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
                     </div>
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">섹터</label>
                       <input type="text" value={h.sector || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, sector: e.target.value}; setEditHoldings(v); }}
-                        className="w-full text-xs p-1.5 rounded-lg t-card border t-border-light t-text" />
+                        className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
                     </div>
                   </div>
                 </div>
@@ -1208,7 +1209,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     }
                   }}
                   placeholder="종목명 또는 코드 검색 (2,618종목)..."
-                  className="w-full text-xs p-2.5 rounded-lg t-card border t-border-light t-text pr-8"
+                  className="w-full text-[16px] p-2.5 rounded-lg t-card border t-border-light t-text pr-8"
                 />
                 {searchLoading && <span className="absolute right-3 top-2.5 text-[10px] t-text-dim animate-pulse">검색 중...</span>}
               </div>
