@@ -125,7 +125,7 @@ class KISClient:
         print("  [KIS] 토큰 확보 실패")
         return False
 
-    def get_current_price(self, stock_code: str) -> dict | None:
+    def get_current_price(self, stock_code: str, _retry: bool = False) -> dict | None:
         """주식현재가 시세 조회 (tr_id: FHKST01010100)"""
         if not self.ensure_token():
             return None
@@ -161,11 +161,14 @@ class KISClient:
                 }
             else:
                 msg = data.get("msg1", "")
-                if "만료" in msg:
-                    # 토큰 만료 → Supabase 재조회 후 1회 재시도
+                if "만료" in msg and not _retry:
+                    # 토큰 만료 → 신규 발급 시도 (1회만, Supabase 캐시 무시)
                     self.access_token = ""
-                    if self.ensure_token():
-                        return self.get_current_price(stock_code)
+                    self._token_expires_at = None
+                    token = self._issue_new_token()
+                    if token:
+                        self.access_token = token
+                        return self.get_current_price(stock_code, _retry=True)
                 print(f"  [KIS] {stock_code} 조회 실패: {msg}")
         except Exception as e:
             print(f"  [KIS] {stock_code} API 오류: {e}")
