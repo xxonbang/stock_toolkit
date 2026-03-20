@@ -5,6 +5,7 @@ Generate 8 missing dashboard JSON data files.
 import json
 import math
 import os
+import time
 import urllib.request
 import urllib.error
 from datetime import datetime, timedelta, timezone
@@ -319,12 +320,11 @@ def gen_auction():
 # ── 4. orderbook.json ─────────────────────────────────────────────────────────
 
 def gen_orderbook():
-    print("\n[4] orderbook.json — 호가창 압력 분석 (플레이스홀더)")
+    print("\n[4] orderbook.json — 호가창 압력 분석")
 
     latest = load_json(SOURCE_LATEST)
     investor_data = latest.get("investor_data", {})
 
-    # Focus on portfolio-relevant + high-volume stocks
     target_codes = ["000660", "064550", "005930", "086520", "000270"]
     target_names = {
         "000660": "SK하이닉스", "064550": "LG CNS", "005930": "삼성전자",
@@ -335,27 +335,57 @@ def gen_orderbook():
         "086520": 82000, "000270": 105000,
     }
 
+    # KIS API 클라이언트 (실패해도 mock 폴백)
+    kis = None
+    try:
+        from core.kis_client import KISClient
+        kis = KISClient()
+        if not kis.ensure_token():
+            kis = None
+    except Exception:
+        kis = None
+
     orderbook_items = []
+    kis_count = 0
     for code in target_codes:
         price = prices.get(code, 100000)
         name = target_names.get(code, code)
         inv = investor_data.get(code, {})
         foreign_net = inv.get("foreign_net", 0)
 
-        # Simulate 10-level orderbook
-        ask_levels = []
-        bid_levels = []
-        for lvl in range(1, 6):
-            ask_price = int(price * (1 + lvl * 0.002))
-            bid_price = int(price * (1 - lvl * 0.002))
-            # More ask pressure if foreign is selling
-            ask_qty = max(100, 500 - lvl * 60 + (200 if foreign_net < 0 else 0))
-            bid_qty = max(100, 500 - lvl * 60 + (200 if foreign_net > 0 else 0))
-            ask_levels.append({"price": ask_price, "qty": ask_qty, "level": lvl})
-            bid_levels.append({"price": bid_price, "qty": bid_qty, "level": lvl})
+        # KIS 실데이터 시도
+        kis_data = None
+        if kis:
+            try:
+                kis_data = kis.get_asking_price(code)
+                time.sleep(0.05)  # API 호출 후 항상 sleep (성공/실패 무관)
+            except Exception:
+                kis_data = None
 
-        total_ask = sum(l["qty"] for l in ask_levels)
-        total_bid = sum(l["qty"] for l in bid_levels)
+        if kis_data:
+            # KIS 실데이터 사용
+            ask_levels = kis_data["ask_levels"]
+            bid_levels = kis_data["bid_levels"]
+            total_ask = kis_data["total_ask_qty"]
+            total_bid = kis_data["total_bid_qty"]
+            # 현재가도 1호가 기준으로 갱신
+            if bid_levels and bid_levels[0]["price"] > 0:
+                price = bid_levels[0]["price"]
+            kis_count += 1
+        else:
+            # 기존 mock 로직 (폴백)
+            ask_levels = []
+            bid_levels = []
+            for lvl in range(1, 6):
+                ask_price = int(price * (1 + lvl * 0.002))
+                bid_price = int(price * (1 - lvl * 0.002))
+                ask_qty = max(100, 500 - lvl * 60 + (200 if foreign_net < 0 else 0))
+                bid_qty = max(100, 500 - lvl * 60 + (200 if foreign_net > 0 else 0))
+                ask_levels.append({"price": ask_price, "qty": ask_qty, "level": lvl})
+                bid_levels.append({"price": bid_price, "qty": bid_qty, "level": lvl})
+            total_ask = sum(l["qty"] for l in ask_levels)
+            total_bid = sum(l["qty"] for l in bid_levels)
+
         pressure = round((total_bid - total_ask) / max(total_bid + total_ask, 1) * 100, 1)
 
         orderbook_items.append({
@@ -373,10 +403,11 @@ def gen_orderbook():
             "updated_at": latest.get("timestamp", ""),
         })
 
+    data_source = f"KIS API {kis_count}종목" if kis_count > 0 else "mock (KIS 미연결)"
     result = {
         "generated_at": datetime.now(KST).isoformat(),
-        "data_source": "theme-analyzer investor_data (실시간 KIS API 호가 데이터 필요)",
-        "note": "5단계 매도/매수 호가. 실제 서비스에서는 KIS API websocket으로 실시간 갱신 필요",
+        "data_source": data_source,
+        "note": "5단계 매도/매수 호가. KIS API 연결 시 실데이터, 미연결 시 mock",
         "items": orderbook_items,
         "summary": {
             "total": len(orderbook_items),
@@ -385,7 +416,7 @@ def gen_orderbook():
         },
     }
     save_json("orderbook.json", result)
-    print(f"  저장 완료 — {len(orderbook_items)}종목")
+    print(f"  저장 완료 — {len(orderbook_items)}종목 (KIS: {kis_count}, mock: {len(orderbook_items) - kis_count})")
     return len(orderbook_items)
 
 

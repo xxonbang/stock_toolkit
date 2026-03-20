@@ -174,6 +174,109 @@ class KISClient:
             print(f"  [KIS] {stock_code} API 오류: {e}")
         return None
 
+    def get_asking_price(self, stock_code: str, _retry: bool = False) -> dict | None:
+        """주식현재가 호가/예상체결 조회 (tr_id: FHKST01010200)"""
+        if not self.ensure_token():
+            return None
+        try:
+            url = f"{BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn"
+            headers = {
+                "Content-Type": "application/json; charset=utf-8",
+                "authorization": f"Bearer {self.access_token}",
+                "appkey": self.app_key,
+                "appsecret": self.app_secret,
+                "tr_id": "FHKST01010200",
+                "custtype": "P",
+            }
+            params = {
+                "FID_COND_MRKT_DIV_CODE": "J",
+                "FID_INPUT_ISCD": stock_code,
+            }
+            res = requests.get(url, headers=headers, params=params, timeout=15)
+            data = res.json()
+            if data.get("rt_cd") == "0":
+                o = data.get("output1", {})
+                ask_levels = []
+                bid_levels = []
+                for i in range(1, 6):
+                    ask_levels.append({
+                        "price": int(o.get(f"askp{i}", 0)),
+                        "qty": int(o.get(f"askp_rsqn{i}", 0)),
+                        "level": i,
+                    })
+                    bid_levels.append({
+                        "price": int(o.get(f"bidp{i}", 0)),
+                        "qty": int(o.get(f"bidp_rsqn{i}", 0)),
+                        "level": i,
+                    })
+                return {
+                    "ask_levels": ask_levels,
+                    "bid_levels": bid_levels,
+                    "total_ask_qty": int(o.get("total_askp_rsqn", 0)),
+                    "total_bid_qty": int(o.get("total_bidp_rsqn", 0)),
+                }
+            else:
+                msg = data.get("msg1", "")
+                if "만료" in msg and not _retry:
+                    self.access_token = ""
+                    self._token_expires_at = None
+                    token = self._issue_new_token()
+                    if token:
+                        self.access_token = token
+                        return self.get_asking_price(stock_code, _retry=True)
+                print(f"  [KIS] {stock_code} 호가 조회 실패: {msg}")
+        except Exception as e:
+            print(f"  [KIS] {stock_code} 호가 API 오류: {e}")
+        return None
+
+    def get_investor(self, stock_code: str, _retry: bool = False) -> list[dict] | None:
+        """주식현재가 투자자 조회 (tr_id: FHKST01010900)"""
+        if not self.ensure_token():
+            return None
+        try:
+            url = f"{BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-investor"
+            headers = {
+                "Content-Type": "application/json; charset=utf-8",
+                "authorization": f"Bearer {self.access_token}",
+                "appkey": self.app_key,
+                "appsecret": self.app_secret,
+                "tr_id": "FHKST01010900",
+                "custtype": "P",
+            }
+            params = {
+                "FID_COND_MRKT_DIV_CODE": "J",
+                "FID_INPUT_ISCD": stock_code,
+            }
+            res = requests.get(url, headers=headers, params=params, timeout=15)
+            data = res.json()
+            if data.get("rt_cd") == "0":
+                rows = data.get("output", [])
+                result = []
+                for row in rows:
+                    result.append({
+                        "date": row.get("stck_bsop_date", ""),
+                        "individual_net_qty": int(row.get("prsn_ntby_qty", 0)),
+                        "foreign_net_qty": int(row.get("frgn_ntby_qty", 0)),
+                        "institution_net_qty": int(row.get("orgn_ntby_qty", 0)),
+                        "individual_net_amount": int(row.get("prsn_ntby_tr_pbmn", 0)),
+                        "foreign_net_amount": int(row.get("frgn_ntby_tr_pbmn", 0)),
+                        "institution_net_amount": int(row.get("orgn_ntby_tr_pbmn", 0)),
+                    })
+                return result
+            else:
+                msg = data.get("msg1", "")
+                if "만료" in msg and not _retry:
+                    self.access_token = ""
+                    self._token_expires_at = None
+                    token = self._issue_new_token()
+                    if token:
+                        self.access_token = token
+                        return self.get_investor(stock_code, _retry=True)
+                print(f"  [KIS] {stock_code} 투자자 조회 실패: {msg}")
+        except Exception as e:
+            print(f"  [KIS] {stock_code} 투자자 API 오류: {e}")
+        return None
+
     def get_prices_batch(self, stock_codes: list[str]) -> dict[str, dict]:
         """여러 종목 현재가 일괄 조회 (50ms 간격)"""
         results = {}
