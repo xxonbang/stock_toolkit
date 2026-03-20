@@ -1878,6 +1878,129 @@ def main():
     with open(results_dir / "investor_trend_stocks.json", "w", encoding="utf-8") as f:
         json.dump(investor_trend_stocks[:20], f, ensure_ascii=False, indent=2)
 
+    # === 연속 시그널 추적 (AND + OR) ===
+    from collections import defaultdict
+    sig_hist_dir = loader.signal_path / "combined" / "history"
+    theme_hist_dir = loader.theme_path / "history"
+
+    # 날짜별 signal-pulse 매수 종목
+    sig_buy_by_date = defaultdict(set)
+    if sig_hist_dir.exists():
+        for f in sorted(sig_hist_dir.glob("*.json"))[-20:]:
+            date = f.stem.split("_")[1][:10] if "_" in f.stem else f.stem[:10]
+            try:
+                sdata = loader._load_json(f)
+                for s in sdata.get("stocks", []) if isinstance(sdata, dict) else []:
+                    if s.get("vision_signal") in ("매수", "적극매수"):
+                        sig_buy_by_date[date].add(s.get("code", ""))
+            except Exception:
+                pass
+
+    # 날짜별 theme-analyzer 대장주
+    leader_by_date = defaultdict(set)
+    if theme_hist_dir.exists():
+        for f in sorted(theme_hist_dir.glob("*.json"))[-20:]:
+            date = f.stem.split("_")[0]
+            try:
+                tdata = loader._load_json(f)
+                ta = tdata.get("theme_analysis", {})
+                for t in (ta.get("themes", []) if isinstance(ta, dict) else []):
+                    for l in t.get("leader_stocks", t.get("leaders", [])):
+                        if l.get("code"):
+                            leader_by_date[date].add(l["code"])
+            except Exception:
+                pass
+
+    all_dates = sorted(set(sig_buy_by_date.keys()) | set(leader_by_date.keys()))
+
+    # 종목별 연속일수 계산 함수
+    def _calc_streak(code_dates_map):
+        results = []
+        for code, dates in code_dates_map.items():
+            sorted_d = sorted(set(dates))
+            if len(sorted_d) < 2:
+                continue
+            # 최대 연속일수 (주말 3일 갭 허용)
+            max_streak = 1
+            cur_streak = 1
+            for i in range(1, len(sorted_d)):
+                try:
+                    d1 = datetime.strptime(sorted_d[i-1], "%Y-%m-%d")
+                    d2 = datetime.strptime(sorted_d[i], "%Y-%m-%d")
+                    gap = (d2 - d1).days
+                except Exception:
+                    gap = 99
+                if gap <= 3:
+                    cur_streak += 1
+                    max_streak = max(max_streak, cur_streak)
+                else:
+                    cur_streak = 1
+            if max_streak >= 2:
+                name = ""
+                for s in combined:
+                    if s.get("code") == code:
+                        name = s.get("name", "")
+                        break
+                if not name:
+                    inv_item = investor_data.get(code, {})
+                    name = inv_item.get("name", code) if isinstance(inv_item, dict) else code
+                results.append({
+                    "code": code, "name": name,
+                    "streak": max_streak, "total_days": len(sorted_d),
+                    "dates": sorted_d[-5:],
+                })
+        results.sort(key=lambda x: x["streak"], reverse=True)
+        return results
+
+    from datetime import datetime as dt_class
+
+    # OR 조건: signal-pulse 매수 또는 theme-analyzer 대장주
+    or_map = defaultdict(list)
+    for date in all_dates:
+        for code in sig_buy_by_date.get(date, set()) | leader_by_date.get(date, set()):
+            or_map[code].append(date)
+    or_results = _calc_streak(or_map)
+
+    # AND 조건: signal-pulse 매수 이면서 theme-analyzer 대장주
+    and_map = defaultdict(list)
+    for date in all_dates:
+        for code in sig_buy_by_date.get(date, set()) & leader_by_date.get(date, set()):
+            and_map[code].append(date)
+    and_results = _calc_streak(and_map)
+
+    # 개별: signal-pulse 매수만
+    sig_only_map = defaultdict(list)
+    for date, codes in sig_buy_by_date.items():
+        for code in codes:
+            sig_only_map[code].append(date)
+    sig_results = _calc_streak(sig_only_map)
+
+    # 개별: theme-analyzer 대장주만
+    leader_only_map = defaultdict(list)
+    for date, codes in leader_by_date.items():
+        for code in codes:
+            leader_only_map[code].append(date)
+    leader_results = _calc_streak(leader_only_map)
+
+    consecutive_data = {
+        "and_condition": and_results[:10],
+        "or_condition": or_results[:15],
+        "signal_only": sig_results[:10],
+        "leader_only": leader_results[:10],
+    }
+    with open(results_dir / "consecutive_signals.json", "w", encoding="utf-8") as f:
+        json.dump(consecutive_data, f, ensure_ascii=False, indent=2)
+
+    # 텔레그램 알림 (full 모드, AND 2일+ 있을 때)
+    if use_ai and and_results:
+        lines = ["<b>🔥 연속 매수+대장주 (AND 조건)</b>"]
+        for r in and_results[:5]:
+            lines.append(f"  <b>{r['name']}</b> ({r['code']}) — {r['streak']}일 연속")
+        try:
+            send_message("\n".join(lines))
+        except Exception:
+            pass
+
     # 모든 JSON에 generated_at 타임스탬프 일괄 삽입
     from datetime import datetime, timezone, timedelta
     kst = timezone(timedelta(hours=9))

@@ -57,4 +57,5 @@ export const dataService = {
   getIntradayStockFlow: () => fetchJson<any[]>("intraday_stock_flow.json"),
   getIndicatorHistory: () => fetchJson<any>("indicator_history.json"),
   getStockMaster: () => fetchJson<any>("stock-master.json"),
+  getConsecutiveSignals: () => fetchJson<any>("consecutive_signals.json"),
 };

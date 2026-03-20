@@ -131,6 +131,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [simulationHistory, setSimulationHistory] = useState<any[] | null>(null);
   const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
+  const [consecutiveSignals, setConsecutiveSignals] = useState<any>(null);
 
   const loadAllData = () => {
     dataService.getPerformance().then(setPerformance);
@@ -202,6 +203,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     dataService.getSimulationHistory().then(setSimulationHistory);
     dataService.getIntradayStockFlow().then(setIntradayStockFlow);
     dataService.getIndicatorHistory().then(setIndicatorHistory);
+    dataService.getConsecutiveSignals().then(setConsecutiveSignals);
   };
 
   useEffect(() => {
@@ -1356,6 +1358,53 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
       {/* ===== 신호 카테고리 ===== */}
       <div id="cat-signal" className="scroll-mt-24" />
+
+      {/* 연속 시그널 추적 */}
+      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && (
+        <section className="t-card rounded-xl p-4">
+          <SectionHeader id="consecutive" timestamp={ts}>연속 시그널</SectionHeader>
+          {/* AND 조건 */}
+          {consecutiveSignals.and_condition?.length > 0 && (
+            <div className="mb-3">
+              <div className="text-[11px] font-semibold text-red-400 mb-1.5">🔥 매수 + 대장주 동시 (AND)</div>
+              <div className="space-y-1">
+                {consecutiveSignals.and_condition.map((r: any, i: number) => (
+                  <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
+                    <div>
+                      <span className="text-[13px] font-medium t-text">{r.name}</span>
+                      <span className="text-[10px] t-text-dim ml-1">{r.code}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold text-red-400">{r.streak}일 연속</span>
+                      <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* OR 조건 */}
+          {consecutiveSignals.or_condition?.length > 0 && (
+            <div>
+              <div className="text-[11px] font-semibold text-amber-400 mb-1.5">📊 매수 또는 대장주 (OR)</div>
+              <div className="space-y-1">
+                {consecutiveSignals.or_condition.slice(0, 8).map((r: any, i: number) => (
+                  <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
+                    <div>
+                      <span className="text-[13px] font-medium t-text">{r.name}</span>
+                      <span className="text-[10px] t-text-dim ml-1">{r.code}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-semibold text-amber-400">{r.streak}일</span>
+                      <span className="text-[10px] t-text-dim">{r.total_days}일 등장</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* 교차 신호 */}
       {(
