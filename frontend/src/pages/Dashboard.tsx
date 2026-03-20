@@ -592,35 +592,34 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         // HTML 태그 정리
         const strip = (s: string) => s.replace(/<\/?[bi]>/g, "").replace(/<br\s*\/?>/gi, "\n").replace(/&nbsp;/g, " ").trim();
         // 범용 섹션 파서: Gemini 형식 변동에 대응
-        // 지원: "N. <b>제목</b>", "<b>N. 제목</b>", "<b>[제목]</b>", "**N. 제목**", "N. 제목" (태그 없이)
         let sections: { title: string; body: string }[] = [];
-        const sectionRegex = /(?:<b>\s*)?\d+\.\s*(?:<b>)?([^<\n]+?)(?:<\/b>)/g;
-        const matches = [...raw.matchAll(sectionRegex)];
-        if (matches.length >= 2) {
-          for (let i = 0; i < matches.length; i++) {
-            const title = strip(matches[i][1]);
-            if (!title || title.length > 40) continue;
-            const start = matches[i].index! + matches[i][0].length;
-            const end = i < matches.length - 1 ? matches[i + 1].index! : raw.length;
-            const body = strip(raw.slice(start, end));
-            if (title) sections.push({ title, body });
-          }
-        }
-        // 마크다운 "**N. 제목**" 형식
-        if (sections.length < 2) {
+        // 모든 가능한 제목 패턴을 순서대로 시도
+        const patterns = [
+          // 1) "<i><b>제목:</b></i>" 또는 "<i><b>제목</b></i>"
+          /(?:<i>\s*)?<b>([^<]{2,30}?)(?::?\s*)<\/b>(?:\s*<\/i>)?/g,
+          // 2) "N. <b>제목</b>" 또는 "<b>N. 제목</b>"
+          /(?:<b>\s*)?\d+\.\s*(?:<b>)?([^<\n]{2,30}?)(?:<\/b>)/g,
+          // 3) "**제목**"
+          /\*\*([^*\n]{2,30}?)\*\*/g,
+        ];
+        for (const regex of patterns) {
+          if (sections.length >= 2) break;
           sections = [];
-          const blocks = raw.split(/\n\*\*\d*\.?\s*/).filter(s => s.trim());
-          for (const block of blocks) {
-            const m = block.match(/^([^*\n]+)\*\*\s*\n?([\s\S]*)/);
-            if (m) sections.push({ title: m[1].trim(), body: strip(m[2]) });
+          const matches = [...raw.matchAll(regex)];
+          // 첫 매칭이 날짜/타이틀이면 건너뛰기
+          const filtered = matches.filter(m => {
+            const t = strip(m[1]);
+            return t && t.length >= 2 && t.length <= 30 && !t.includes("모닝") && !t.includes("브리프") && !t.includes("년 ");
+          });
+          if (filtered.length >= 2) {
+            for (let i = 0; i < filtered.length; i++) {
+              const title = strip(filtered[i][1]).replace(/:$/, "").replace(/^\d+\.\s*/, "");
+              const start = filtered[i].index! + filtered[i][0].length;
+              const end = i < filtered.length - 1 ? filtered[i + 1].index! : raw.length;
+              const body = strip(raw.slice(start, end));
+              if (title) sections.push({ title, body });
+            }
           }
-        }
-        // "<b>[제목]</b>" 형식
-        if (sections.length < 2 && raw.includes("<b>[")) {
-          sections = raw.split(/\n*<b>\[/).filter(Boolean).map((s: string) => {
-            const m = s.match(/^([^\]]+)\]<\/b>\s*/);
-            return { title: m ? m[1] : "", body: strip(m ? s.slice(m[0].length) : s) };
-          }).filter(s => s.title);
         }
         // 최종 폴백
         if (sections.length < 2) {
