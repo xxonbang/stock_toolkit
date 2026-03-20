@@ -1,9 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = "https://fyklcplybyfrfryopzvx.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5a2xjcGx5YnlmcmZyeW9wenZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MDIxMzIsImV4cCI6MjA4NTE3ODEzMn0.tih-g2tQRgL1e8Dtm0OWZU7Jdd5T0mC05TXD-C_CYGE";
+const SUPABASE_KEY = "sb_publishable_QwdLROqMGoagr4s63SuoCQ_gtrvTOJx";
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,

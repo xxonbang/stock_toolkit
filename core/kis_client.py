@@ -3,7 +3,7 @@ import json
 import time
 import requests
 from datetime import datetime, timezone, timedelta
-from config.settings import KIS_APP_KEY, KIS_APP_SECRET, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+from config.settings import KIS_APP_KEY, KIS_APP_SECRET, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_SECRET_KEY
 
 KST = timezone(timedelta(hours=9))
 BASE_URL = "https://openapi.koreainvestment.com:9443"
@@ -13,12 +13,13 @@ class KISClient:
     def __init__(self):
         self.app_key = KIS_APP_KEY
         self.app_secret = KIS_APP_SECRET
+        self._supa_key = SUPABASE_SECRET_KEY or SUPABASE_SERVICE_ROLE_KEY  # SECRET_KEY 우선
         self.access_token = ""
         self._token_expires_at = None
 
     def _get_token_from_supabase(self) -> str | None:
         """Supabase api_credentials에서 유효한 access_token 조회"""
-        if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
+        if not SUPABASE_URL or not self._supa_key:
             return None
         try:
             url = f"{SUPABASE_URL}/rest/v1/api_credentials"
@@ -29,8 +30,8 @@ class KISClient:
                 "select": "credential_value,expires_at",
             }
             headers = {
-                "apikey": SUPABASE_SERVICE_ROLE_KEY,
-                "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+                "apikey": self._supa_key,
+                "Authorization": f"Bearer {self._supa_key}",
             }
             res = requests.get(url, params=params, headers=headers, timeout=10)
             if res.status_code == 200 and res.json():
@@ -77,15 +78,15 @@ class KISClient:
 
     def _save_token_to_supabase(self, token: str):
         """발급된 토큰을 Supabase에 저장 (다른 환경과 공유)"""
-        if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
+        if not SUPABASE_URL or not self._supa_key:
             return
         try:
             now = datetime.now(timezone.utc)
             expires = now + timedelta(hours=23)
             url = f"{SUPABASE_URL}/rest/v1/api_credentials"
             headers = {
-                "apikey": SUPABASE_SERVICE_ROLE_KEY,
-                "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+                "apikey": self._supa_key,
+                "Authorization": f"Bearer {self._supa_key}",
                 "Content-Type": "application/json",
             }
             # 기존 행 UPDATE (signal-pulse와 호환: 평문 토큰 저장)
