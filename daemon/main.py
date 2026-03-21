@@ -2,6 +2,7 @@
 import asyncio
 import logging
 import signal
+from datetime import datetime, timezone, timedelta
 from daemon.config import (
     ALERT_SURGE_LEVELS, ALERT_DROP_LEVELS,
     ALERT_VOLUME_RATIO, ALERT_COOLDOWN_SEC,
@@ -30,6 +31,41 @@ alert_engine = AlertEngine(
     supply_reversal_threshold=ALERT_SUPPLY_REVERSAL_THRESHOLD,
 )
 ws_client: KISWebSocketClient | None = None
+
+KST = timezone(timedelta(hours=9))
+
+# 한국 공휴일 (2026년 기준, 매년 초 업데이트 필요)
+KR_HOLIDAYS_2026 = {
+    "01-01", "01-28", "01-29", "01-30",  # 신정, 설날 연휴
+    "03-01",                              # 삼일절
+    "05-05", "05-24",                     # 어린이날, 부처님오신날
+    "06-06",                              # 현충일
+    "08-15",                              # 광복절
+    "09-24", "09-25", "09-26",            # 추석 연휴
+    "10-03", "10-09",                     # 개천절, 한글날
+    "12-25",                              # 크리스마스
+}
+
+
+def is_market_day() -> bool:
+    """오늘이 장 운영일인지 (주말/공휴일 제외)"""
+    now = datetime.now(KST)
+    if now.weekday() >= 5:  # 토(5), 일(6)
+        return False
+    if now.strftime("%m-%d") in KR_HOLIDAYS_2026:
+        return False
+    return True
+
+
+def is_market_hours() -> bool:
+    """현재 장중 시간인지 (08:30 ~ 15:40 KST)"""
+    now = datetime.now(KST)
+    h, m = now.hour, now.minute
+    if h < 8 or (h == 8 and m < 30):
+        return False
+    if h > 15 or (h == 15 and m > 40):
+        return False
+    return True
 
 
 async def on_execution(data: dict):
@@ -65,9 +101,11 @@ async def refresh_subscriptions():
 
 
 async def schedule_refresh():
-    """10분마다 구독 종목 갱신"""
+    """10분마다 구독 종목 갱신 (장 운영일만)"""
     while True:
         await asyncio.sleep(600)
+        if not is_market_day():
+            continue
         try:
             await refresh_subscriptions()
         except Exception as e:
@@ -78,10 +116,12 @@ _last_workflow_time: str | None = None
 
 
 async def schedule_auto_trade():
-    """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스"""
+    """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스 (장중만)"""
     global _last_workflow_time
     while True:
         await asyncio.sleep(300)
+        if not is_market_day() or not is_market_hours():
+            continue
         try:
             completed, new_time = await check_workflow_completion(_last_workflow_time)
             if completed:
