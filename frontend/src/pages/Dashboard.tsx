@@ -354,6 +354,33 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           </div>
         </div>
       )}
+      {/* 헤더 드롭다운 메뉴 — fixed로 렌더 (sticky 헤더 밖) */}
+      {showHeaderMenu && (
+        <>
+          <div className="fixed inset-0 z-[90]" onClick={() => setShowHeaderMenu(false)} />
+          <div className="fixed z-[91] w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden"
+            style={{ top: (document.getElementById("header-menu-btn")?.getBoundingClientRect().bottom ?? 48) + 4, right: 16 }}
+            onClick={e => e.stopPropagation()}>
+            <div className="p-1">
+              <RefreshButtons menuMode />
+              <div className="border-t t-border-light my-1" />
+              {supaUser ? (
+                <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setDbHoldings([]); setShowHeaderMenu(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
+                  <span className="text-base">↪</span>
+                  로그아웃
+                </button>
+              ) : (
+                <button onClick={() => { setShowLogin(true); setShowHeaderMenu(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-blue-400 hover:bg-blue-500/10 rounded-lg transition">
+                  <span className="text-base">→</span>
+                  로그인
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
       {/* 신뢰도 설명 팝업 */}
       {confExp && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setConfExp(null)}>
@@ -543,34 +570,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="t-text-sub" />}
               </button>
             )}
-            {/* ... 메뉴 버튼 */}
-            <div className="relative">
-              <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
-              {showHeaderMenu && (
-                <>
-                  <div className="fixed inset-0 z-[60]" onClick={() => setShowHeaderMenu(false)} />
-                  <div className="absolute right-0 top-9 z-[70] w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden" onClick={e => e.stopPropagation()}>
-                    <div className="p-1">
-                      <RefreshButtons menuMode />
-                      <div className="border-t t-border-light my-1" />
-                      {supaUser ? (
-                        <button onClick={async () => { await supabase.auth.signOut(); setShowHeaderMenu(false); }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
-                          <span className="text-base">↪</span>
-                          로그아웃
-                        </button>
-                      ) : (
-                        <button onClick={() => { setShowLogin(true); setShowHeaderMenu(false); }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-blue-400 hover:bg-blue-500/10 rounded-lg transition">
-                          <span className="text-base">→</span>
-                          로그인
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
+            {/* 메뉴 버튼 — 드롭다운은 컴포넌트 최상위에서 fixed 렌더 */}
+            <button id="header-menu-btn" onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
           </div>
         </div>
         {/* 페이지 탭 */}
