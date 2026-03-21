@@ -82,6 +82,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
+  const [excludedCodes, setExcludedCodes] = useState<Set<string>>(new Set());
   const [stockSearch, setStockSearch] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -1061,33 +1062,50 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </button>
             </div>
           </div>
-          {/* 총 손익 요약 */}
-          {sm.total_invested > 0 && (
+          {/* 총 손익 요약 — 체크된 종목만 계산 */}
+          {(() => {
+            const included = (portfolio.holdings || []).filter((h: any) => !excludedCodes.has(h.code));
+            const filtInv = included.reduce((s: number, h: any) => s + (h.invested || 0), 0);
+            const filtVal = included.reduce((s: number, h: any) => s + (h.current_value || 0), 0);
+            const filtRate = filtInv ? Math.round((filtVal - filtInv) / filtInv * 10000) / 100 : 0;
+            return filtInv > 0 ? (
             <div className="flex items-center justify-between mb-3 p-3 t-card-alt rounded-xl">
               <div>
                 <div className="text-[10px] t-text-dim">총 투자금</div>
-                <div className="text-sm font-semibold t-text">{(sm.total_invested || 0).toLocaleString()}원</div>
+                <div className="text-sm font-semibold t-text">{filtInv.toLocaleString()}원</div>
               </div>
               <div>
                 <div className="text-[10px] t-text-dim">평가금</div>
-                <div className="text-sm font-semibold t-text">{(sm.total_value || 0).toLocaleString()}원</div>
+                <div className="text-sm font-semibold t-text">{filtVal.toLocaleString()}원</div>
               </div>
               <div className="text-right">
                 <div className="text-[10px] t-text-dim">총 수익률</div>
-                <div className={`text-sm font-bold ${profitColor(sm.total_profit_rate || 0)}`}>
-                  {(sm.total_profit_rate || 0) >= 0 ? "+" : ""}{sm.total_profit_rate || 0}%
+                <div className={`text-sm font-bold ${profitColor(filtRate)}`}>
+                  {filtRate >= 0 ? "+" : ""}{filtRate}%
                 </div>
               </div>
             </div>
-          )}
+            ) : null;
+          })()}
           {/* 종목별 */}
           <div className="space-y-1.5 mb-3">
-            {portfolio.holdings?.map((h: any, i: number) => (
-              <div key={i} className="p-2.5 t-card-alt rounded-lg">
+            {portfolio.holdings?.map((h: any, i: number) => {
+              const isExcluded = excludedCodes.has(h.code);
+              return (
+              <div key={i} className={`p-2.5 t-card-alt rounded-lg ${isExcluded ? "opacity-40" : ""}`}>
                 <div className="flex items-center justify-between">
-                  <div className="min-w-0">
-                    <span className="text-sm font-medium t-text">{h.name}</span>
-                    <span className="text-[10px] t-text-dim ml-1">{h.code}</span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <input type="checkbox" checked={!isExcluded}
+                      onChange={() => setExcludedCodes(prev => {
+                        const next = new Set(prev);
+                        next.has(h.code) ? next.delete(h.code) : next.add(h.code);
+                        return next;
+                      })}
+                      className="w-4 h-4 rounded accent-blue-500 shrink-0 cursor-pointer" />
+                    <div className="min-w-0">
+                      <span className="text-sm font-medium t-text">{h.name}</span>
+                      <span className="text-[10px] t-text-dim ml-1">{h.code}</span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     {h.profit_rate != null && h.current_price > 0 && (
@@ -1110,7 +1128,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   </div>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
           {/* 리밸런싱 제안 */}
           {portfolio.suggestions?.length > 0 && (
