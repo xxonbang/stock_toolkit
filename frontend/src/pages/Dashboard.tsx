@@ -622,7 +622,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               const title = strip(filtered[i][1]).replace(/:$/, "").replace(/^\d+\.\s*/, "");
               const start = filtered[i].index! + filtered[i][0].length;
               const end = i < filtered.length - 1 ? filtered[i + 1].index! : raw.length;
-              const body = strip(raw.slice(start, end));
+              const body = strip(raw.slice(start, end)).replace(/\n\d+\.\s*$/, "").replace(/^\d+\.\s*/, "");
               if (title) sections.push({ title, body });
             }
           }
@@ -689,7 +689,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         // 본문 라인 렌더링
         const renderBody = (body: string) => {
           return body.split("\n").filter(l => l.trim()).map((line: string, j: number) => {
-            const trimmed = line.trim();
+            let trimmed = line.trim();
+            // 잔여 번호 제거 ("2.", "3." 등 단독 라인 또는 앞쪽 번호)
+            if (/^\d+\.\s*$/.test(trimmed)) return null;
+            trimmed = trimmed.replace(/^\d+\.\s*/, "");
+            // 앞쪽 콜론 제거 (": 설명" → "설명")
+            trimmed = trimmed.replace(/^:\s*/, "");
+            if (!trimmed) return null;
             // 체크 항목 (✔️, ✅, ·, -, *)
             if (/^[✔️✅·\-\*]/.test(trimmed)) {
               const text = trimmed.replace(/^[✔️✅·\-\*]+\s*/, "");
@@ -703,7 +709,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             // 주의/전략 라벨 제거
             const cleaned = trimmed.replace(/^(주의 종목:|전략 제안:)\s*/i, "");
             return <p key={j} className="t-text text-[13px] leading-[1.7]">{renderTextWithStockLinks(cleaned)}</p>;
-          });
+          }).filter(Boolean);
         };
         return (
           <section className="space-y-3">
