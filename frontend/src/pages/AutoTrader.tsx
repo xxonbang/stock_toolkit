@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Sun, Moon, ArrowLeft } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Sun, Moon } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
 interface Trade {
@@ -68,14 +68,11 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
     <div className="min-h-screen pb-4" style={{ background: "var(--bg)" }}>
       {/* 헤더 */}
       <header
-        className="sticky top-0 z-40 backdrop-blur-md border-b px-4 py-3"
+        className="sticky top-0 z-40 backdrop-blur-md border-b px-4 pt-3 pb-0"
         style={{ background: "var(--bg-header)", borderColor: "var(--border)" }}
       >
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <a href="#/" className="t-text-sub hover:t-text"><ArrowLeft size={18} /></a>
-            <h1 className="text-base font-bold t-text">모의투자 리포트</h1>
-          </div>
+        <div className="max-w-2xl mx-auto flex items-center justify-between h-10">
+          <h1 className="text-lg font-bold t-text">모의투자 리포트</h1>
           <div className="flex items-center gap-2">
             <button onClick={fetchTrades} className="text-xs t-text-sub hover:t-text px-2 py-1 rounded t-card-alt">새로고침</button>
             {onToggleTheme && (
@@ -84,6 +81,12 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
               </button>
             )}
           </div>
+        </div>
+        <div className="max-w-2xl mx-auto flex -mx-1">
+          <a href="#/" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">대시보드</a>
+          <a href="#/portfolio" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">포트폴리오</a>
+          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">스캐너</a>
+          <a href="#/auto-trader" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">모의투자</a>
         </div>
       </header>
 

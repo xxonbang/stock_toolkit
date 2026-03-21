@@ -124,7 +124,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         <div className="flex -mx-1">
           <a href="#/" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">대시보드</a>
           <a href="#/portfolio" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">포트폴리오</a>
-          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">종목 스캐너</a>
+          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">스캐너</a>
+          <a href="#/auto-trader" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">모의투자</a>
         </div>
       </div>
       <div className="h-3" />
