@@ -2391,7 +2391,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       </>}
       {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨, 대시보드만) */}
       {!isPortfolioPage && <>
-      <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pb-[env(safe-area-inset-bottom,0px)]" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)' }}>
+      <div className="fixed bottom-0 left-0 right-0 z-20 px-3" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
         <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
           {categories.map((cat) => (
             <button
