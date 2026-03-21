@@ -89,6 +89,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [allStockList, setAllStockList] = useState<any[]>([]);
   const [supaUser, setSupaUser] = useState<any>(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPw, setLoginPw] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -309,30 +310,45 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     <div className="max-w-2xl mx-auto px-4 pt-0 pb-16 space-y-5">
       {/* 로그인 모달 */}
       {showLogin && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setShowLogin(false)}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center" onClick={() => setShowLogin(false)}>
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative w-[85%] max-w-sm t-card border t-border-light rounded-2xl p-5 shadow-xl" onClick={e => e.stopPropagation()}>
+          <div className="relative w-[85%] max-w-sm bg-white dark:bg-[#1a2332] border t-border-light rounded-2xl p-5 shadow-xl" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-bold t-text">로그인</span>
               <button onClick={() => setShowLogin(false)} className="t-text-dim hover:t-text text-lg">✕</button>
             </div>
-            <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
-              className="w-full text-[16px] p-2.5 rounded-lg t-card border t-border-light t-text mb-2" />
-            <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
-              className="w-full text-[16px] p-2.5 rounded-lg t-card border t-border-light t-text mb-3" />
             {loginError && <p className="text-[11px] text-red-400 mb-2">{loginError}</p>}
-            <button onClick={async () => {
+            {loginLoading && <p className="text-[11px] text-blue-400 mb-2">로그인 중...</p>}
+            <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
+              className="w-full text-[16px] p-2.5 rounded-lg bg-gray-50 dark:bg-[#131a24] border t-border-light t-text mb-2" />
+            <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
+              onKeyDown={e => { if (e.key === "Enter") (e.target as HTMLInputElement).form?.requestSubmit?.(); }}
+              className="w-full text-[16px] p-2.5 rounded-lg bg-gray-50 dark:bg-[#131a24] border t-border-light t-text mb-3" />
+            <button disabled={loginLoading} onClick={async () => {
               setLoginError("");
-              const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPw });
-              if (error) { setLoginError(error.message); return; }
-              // 즉시 상태 반영 (onAuthStateChange 대기 없이)
-              if (data?.user) setSupaUser(data.user);
-              setShowLogin(false);
-              setLoginEmail("");
-              setLoginPw("");
-            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
+              setLoginLoading(true);
+              try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail.trim(), password: loginPw });
+                if (error) { setLoginError(error.message); return; }
+                if (data?.session) {
+                  setSupaUser(data.session.user);
+                  setShowLogin(false);
+                  setLoginEmail("");
+                  setLoginPw("");
+                  // DB holdings 즉시 로드
+                  const holdings = await fetchHoldingsFromDB();
+                  setDbHoldings(holdings);
+                }
+              } catch (e: any) {
+                setLoginError(e?.message || "로그인 실패");
+              } finally {
+                setLoginLoading(false);
+              }
+            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition disabled:opacity-50">
+              {loginLoading ? "로그인 중..." : "로그인"}
+            </button>
             {supaUser && (
-              <button onClick={async () => { await supabase.auth.signOut(); setShowLogin(false); }}
+              <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setDbHoldings([]); setShowLogin(false); }}
                 className="w-full text-xs py-2 mt-2 t-text-dim hover:text-red-400 transition">로그아웃</button>
             )}
           </div>
@@ -493,7 +509,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
       )}
       {/* 헤더 — 컴팩트 sticky */}
-      <div className="sticky top-0 z-10 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+      <div className="sticky top-0 z-50 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between h-10">
           <h1
             className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer"
@@ -532,8 +548,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
               {showHeaderMenu && (
                 <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowHeaderMenu(false)} />
-                  <div className="absolute right-0 top-9 z-50 w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden" onClick={e => e.stopPropagation()}>
+                  <div className="fixed inset-0 z-[60]" onClick={() => setShowHeaderMenu(false)} />
+                  <div className="absolute right-0 top-9 z-[70] w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden" onClick={e => e.stopPropagation()}>
                     <div className="p-1">
                       <RefreshButtons menuMode />
                       <div className="border-t t-border-light my-1" />
