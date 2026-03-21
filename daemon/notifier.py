@@ -27,7 +27,7 @@ def format_alert(alert: dict, stock_name: str = "") -> str:
     price = alert["price"]
     name_str = f"{stock_name} " if stock_name else ""
 
-    lines = [f"<b>[ST] {label}</b>"]
+    lines = [f"<b>{label}</b>"]
     lines.append(f"<b>{name_str}({code})</b>")
     lines.append(f"현재가: {price:,}원")
 
