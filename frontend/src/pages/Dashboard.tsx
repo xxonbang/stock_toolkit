@@ -133,6 +133,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
   const [consecutiveSignals, setConsecutiveSignals] = useState<any>(null);
 
+  const dbHoldingsRef = { current: dbHoldings };
+  dbHoldingsRef.current = dbHoldings;
+
   const loadAllData = () => {
     dataService.getPerformance().then(setPerformance);
     dataService.getSectorFlow().then(setSectors);
@@ -171,8 +174,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         p.summary = { total_invested: totalInv, total_value: totalVal, total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0, total_profit_amount: totalVal - totalInv, total_holdings: merged.length };
       };
       // DB가 로드되어 있으면 DB 우선
-      if (dbHoldings.length > 0) {
-        mergeHoldings(dbHoldings);
+      if (dbHoldingsRef.current.length > 0) {
+        mergeHoldings(dbHoldingsRef.current);
       } else {
         // localStorage 폴백
         const saved = localStorage.getItem("portfolio_holdings");
@@ -1011,18 +1014,18 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               const totalInv = updated.reduce((s: number, h: any) => s + h.invested, 0);
               const totalVal = updated.reduce((s: number, h: any) => s + h.current_value, 0);
               updated.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-              setPortfolio({ ...portfolio, holdings: updated, summary: {
+              setPortfolio((prev: any) => ({ ...prev, holdings: updated, summary: {
                 total_invested: totalInv, total_value: totalVal,
                 total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
                 total_profit_amount: totalVal - totalInv, total_holdings: updated.length,
-              }});
+              }}));
               // 시각 표시
               const now = new Date();
               const hh = now.getHours();
               setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
             }
           } catch (e) { console.error("price refresh failed:", e); }
-          setPriceRefreshing(false);
+          finally { setPriceRefreshing(false); }
         };
         return (
         <section className="t-card rounded-xl p-4">
