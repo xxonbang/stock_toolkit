@@ -11,6 +11,8 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram
 from daemon.stock_manager import fetch_subscription_codes, get_stock_name
+from daemon.trader import check_positions_for_sell, run_buy_process
+from daemon.github_monitor import check_workflow_completion
 
 logging.basicConfig(
     level=logging.INFO,
@@ -31,13 +33,15 @@ ws_client: KISWebSocketClient | None = None
 
 
 async def on_execution(data: dict):
-    """체결 데이터 수신 콜백 — 알림 규칙 검사 + 발송"""
+    """체결 데이터 수신 콜백 — 알림 규칙 검사 + 보유 포지션 수익률 체크"""
     alerts = alert_engine.check(data, tick_volume=data.get("tick_volume"))
     for alert in alerts:
         name = get_stock_name(alert["code"])
         msg = format_alert(alert, stock_name=name)
         logger.info(f"알림 발송: {alert['type']} {alert['code']}")
         await send_telegram(msg)
+    # 보유 포지션 익절/손절 체크
+    await check_positions_for_sell(data)
 
 
 async def on_asking_price(data: dict):
@@ -70,6 +74,24 @@ async def schedule_refresh():
             logger.error(f"구독 갱신 실패: {e}")
 
 
+_last_workflow_time: str | None = None
+
+
+async def schedule_auto_trade():
+    """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스"""
+    global _last_workflow_time
+    while True:
+        await asyncio.sleep(300)
+        try:
+            completed, new_time = await check_workflow_completion(_last_workflow_time)
+            if completed:
+                _last_workflow_time = new_time
+                logger.info("theme-analysis 완료 감지 — 매수 프로세스 시작")
+                await run_buy_process()
+        except Exception as e:
+            logger.error(f"자동매매 루프 오류: {e}")
+
+
 async def main():
     global ws_client
 
@@ -89,6 +111,7 @@ async def main():
     await asyncio.gather(
         ws_client.connect(),
         schedule_refresh(),
+        schedule_auto_trade(),
     )
 
     logger.info("WebSocket 알림 데몬 종료")
