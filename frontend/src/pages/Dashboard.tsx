@@ -699,6 +699,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             // 체크 항목 (✔️, ✅, ·, -, *)
             if (/^[✔️✅·\-\*]/.test(trimmed)) {
               const text = trimmed.replace(/^[✔️✅·\-\*]+\s*/, "");
+              if (!text) return null;
               return (
                 <div key={j} className="flex items-start gap-2 py-0.5">
                   <span className="text-emerald-400 mt-0.5 text-[10px]">●</span>
@@ -2388,7 +2389,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/40 backdrop-blur-md text-white hover:bg-gray-500/60 transition-all duration-200"
+          className="fixed right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/40 backdrop-blur-md text-white hover:bg-gray-500/60 transition-all duration-200"
+          style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 60px)' }}
           aria-label="최상단으로 이동"
         >
           <ChevronUp size={20} />
