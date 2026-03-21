@@ -533,7 +533,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               {showHeaderMenu && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setShowHeaderMenu(false)} />
-                  <div className="absolute right-0 top-9 z-50 w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden">
+                  <div className="absolute right-0 top-9 z-50 w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden" onClick={e => e.stopPropagation()}>
                     <div className="p-1">
                       <RefreshButtons menuMode />
                       <div className="border-t t-border-light my-1" />
