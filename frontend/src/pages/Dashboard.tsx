@@ -965,8 +965,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       )}
 
       </>}
-      {/* 내 포트폴리오 */}
-      {!supaUser ? (
+      {/* 내 포트폴리오 — 포트폴리오 탭에서만 표시 */}
+      {isPortfolioPage && (!supaUser ? (
         <section className="t-card rounded-xl p-6 text-center">
           <div className="text-3xl mb-3">📊</div>
           <div className="text-sm font-semibold t-text mb-1">내 포트폴리오</div>
@@ -1130,7 +1130,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           </div>
         </section>
         );
-      })()}
+      })())}
       {/* 포트폴리오 편집 모달 */}
       {showPortfolioEdit && (
         <div className="fixed inset-0 z-[60]" onClick={() => setShowPortfolioEdit(false)}>
