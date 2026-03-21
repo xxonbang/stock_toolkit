@@ -354,12 +354,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           </div>
         </div>
       )}
-      {/* 헤더 드롭다운 메뉴 — fixed로 렌더 (sticky 헤더 밖) */}
+      {/* 헤더 드롭다운 메뉴 */}
       {showHeaderMenu && (
-        <>
-          <div className="fixed inset-0 z-[90]" onClick={() => setShowHeaderMenu(false)} />
-          <div className="fixed z-[91] w-48 t-card border t-border-light rounded-xl shadow-lg overflow-hidden"
-            style={{ top: (document.getElementById("header-menu-btn")?.getBoundingClientRect().bottom ?? 48) + 4, right: 16 }}
+        <div style={{ position: "fixed", inset: 0, zIndex: 99998 }} onClick={() => setShowHeaderMenu(false)}>
+          <div style={{ position: "fixed", top: 48, right: 16, zIndex: 99999, width: 192 }}
+            className="bg-white dark:bg-[#1a2332] border t-border-light rounded-xl shadow-lg"
             onClick={e => e.stopPropagation()}>
             <div className="p-1">
               <RefreshButtons menuMode />
@@ -379,7 +378,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
       {/* 신뢰도 설명 팝업 */}
       {confExp && (
