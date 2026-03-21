@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Dashboard from './pages/Dashboard'
 import Scanner from './pages/Scanner'
+import AutoTrader from './pages/AutoTrader'
 
 function useTheme() {
   const [dark, setDark] = useState(() => {
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />} />
           <Route path="/portfolio" element={<Dashboard onToggleTheme={toggle} isDark={dark} page="portfolio" />} />
           <Route path="/scanner" element={<Scanner onToggleTheme={toggle} isDark={dark} />} />
+          <Route path="/auto-trader" element={<AutoTrader onToggleTheme={toggle} isDark={dark} />} />
         </Routes>
       </div>
     </HashRouter>

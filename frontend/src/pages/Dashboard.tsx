@@ -545,7 +545,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <div className="flex -mx-1">
           <a href="#/" className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${!isPortfolioPage ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>대시보드</a>
           <a href="#/portfolio" className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${isPortfolioPage ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>포트폴리오</a>
-          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">종목 스캐너</a>
+          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">스캐너</a>
+          <a href="#/auto-trader" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">모의투자</a>
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}
