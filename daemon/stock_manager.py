@@ -62,9 +62,9 @@ async def fetch_subscription_codes(manual_codes: set[str] | None = None) -> set[
     if manual_codes:
         codes |= manual_codes
 
-    if len(codes) > 40:
-        codes = set(list(codes)[:40])
-        logger.warning(f"구독 한도 40개 초과 — {len(codes)}개로 제한")
+    if len(codes) > 20:
+        codes = set(list(codes)[:20])
+        logger.warning(f"구독 한도 20종목 초과 — {len(codes)}종목으로 제한 (체결가+호가 = {len(codes)*2}슬롯)")
 
     return codes
 

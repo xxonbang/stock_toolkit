@@ -30,3 +30,18 @@ def test_format_target_reached():
     msg = format_alert(alert, stock_name="삼성전자")
     assert "목표가" in msg
     assert "70,000" in msg
+
+
+def test_format_bid_wall():
+    alert = {"type": "bid_wall", "code": "005930", "price": 68800, "qty": 15000, "avg_qty": 1000, "ratio": 15.0, "level": 2}
+    msg = format_alert(alert, stock_name="삼성전자")
+    assert "매수벽" in msg
+    assert "15.0배" in msg
+
+
+def test_format_supply_reversal_buy():
+    alert = {"type": "supply_reversal_buy", "code": "005930", "price": 68900, "bid_ratio": 70.0, "prev_ratio": 30.0, "delta": 40.0}
+    msg = format_alert(alert, stock_name="삼성전자")
+    assert "매수 전환" in msg
+    assert "30.0%" in msg
+    assert "70.0%" in msg

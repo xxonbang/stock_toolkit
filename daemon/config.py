@@ -19,3 +19,8 @@ ALERT_SURGE_LEVELS = [5.0, 10.0, 15.0]   # 급등 단계별 (%)
 ALERT_DROP_LEVELS = [-3.0, -5.0]          # 급락 단계별 (%)
 ALERT_VOLUME_RATIO = 3.0                  # 거래량 폭증 배수
 ALERT_COOLDOWN_SEC = 300                  # 동일 종목 동일 이벤트 재알림 방지 (초)
+
+# 호가 관련 임계값
+ALERT_WALL_RATIO = 5.0                    # 호가 벽 판정: 특정 호가 잔량 ≥ 평균의 N배
+ALERT_SUPPLY_REVERSAL_THRESHOLD = 0.3     # 수급 반전: 매수비율 변동 ≥ 30%p
+MAX_SUBSCRIPTION_STOCKS = 20              # 최대 구독 종목 수 (체결가+호가 = 종목당 2슬롯)

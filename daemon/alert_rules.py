@@ -5,14 +5,19 @@ from collections import deque
 
 class AlertEngine:
     def __init__(self, surge_levels: list[float], drop_levels: list[float],
-                 volume_ratio: float, cooldown_sec: int):
+                 volume_ratio: float, cooldown_sec: int,
+                 wall_ratio: float = 5.0, supply_reversal_threshold: float = 0.3):
         self._surge_levels = sorted(surge_levels)
         self._drop_levels = sorted(drop_levels, reverse=True)
         self._volume_ratio = volume_ratio
         self._cooldown_sec = cooldown_sec
+        self._wall_ratio = wall_ratio
+        self._supply_reversal_threshold = supply_reversal_threshold
         self._cooldowns: dict[tuple[str, str], float] = {}
         self._volume_window: dict[str, deque] = {}
         self._targets: dict[str, float] = {}
+        # 수급 추적: {code: deque of (timestamp, bid_ratio)}
+        self._supply_history: dict[str, deque] = {}
 
     def check(self, data: dict, tick_volume: int | None = None) -> list[dict]:
         code = data["code"]
@@ -51,6 +56,88 @@ class AlertEngine:
                     alerts.append({"type": alert_type, "code": code, "price": price, "target": target})
                     self._mark_alerted(code, alert_type)
                     del self._targets[code]
+
+        return alerts
+
+    def check_asking_price(self, data: dict) -> list[dict]:
+        """호가 데이터에 대해 벽 감지 + 수급 반전 검사"""
+        code = data["code"]
+        ask_qtys = data["ask_qtys"]
+        bid_qtys = data["bid_qtys"]
+        total_ask = data["total_ask"]
+        total_bid = data["total_bid"]
+        alerts = []
+
+        # 호가 벽 감지: 특정 호가 잔량이 평균의 N배 이상
+        all_qtys = [q for q in ask_qtys + bid_qtys if q > 0]
+        if all_qtys:
+            avg_qty = sum(all_qtys) / len(all_qtys)
+            if avg_qty > 0:
+                # 매수벽 (bid)
+                for i, qty in enumerate(bid_qtys):
+                    if qty >= avg_qty * self._wall_ratio:
+                        alert_type = "bid_wall"
+                        if self._can_alert(code, alert_type):
+                            alerts.append({
+                                "type": alert_type,
+                                "code": code,
+                                "price": data["bid_prices"][i],
+                                "qty": qty,
+                                "avg_qty": round(avg_qty),
+                                "ratio": round(qty / avg_qty, 1),
+                                "level": i + 1,
+                            })
+                            self._mark_alerted(code, alert_type)
+                        break  # 가장 가까운 벽만
+                # 매도벽 (ask)
+                for i, qty in enumerate(ask_qtys):
+                    if qty >= avg_qty * self._wall_ratio:
+                        alert_type = "ask_wall"
+                        if self._can_alert(code, alert_type):
+                            alerts.append({
+                                "type": alert_type,
+                                "code": code,
+                                "price": data["ask_prices"][i],
+                                "qty": qty,
+                                "avg_qty": round(avg_qty),
+                                "ratio": round(qty / avg_qty, 1),
+                                "level": i + 1,
+                            })
+                            self._mark_alerted(code, alert_type)
+                        break
+
+        # 수급 반전 감지: 매수비율 변동
+        total = total_ask + total_bid
+        if total > 0:
+            bid_ratio = total_bid / total
+            now = time.time()
+            if code not in self._supply_history:
+                self._supply_history[code] = deque()
+            history = self._supply_history[code]
+            history.append((now, bid_ratio))
+            # 5분 초과 제거
+            cutoff = now - 300
+            while history and history[0][0] < cutoff:
+                history.popleft()
+            # 최소 2개 이상일 때 반전 판정
+            if len(history) >= 2:
+                oldest_ratio = history[0][1]
+                delta = bid_ratio - oldest_ratio
+                if abs(delta) >= self._supply_reversal_threshold:
+                    if delta > 0:
+                        alert_type = "supply_reversal_buy"
+                    else:
+                        alert_type = "supply_reversal_sell"
+                    if self._can_alert(code, alert_type):
+                        alerts.append({
+                            "type": alert_type,
+                            "code": code,
+                            "price": data["bid_prices"][0] if data["bid_prices"] else 0,
+                            "bid_ratio": round(bid_ratio * 100, 1),
+                            "prev_ratio": round(oldest_ratio * 100, 1),
+                            "delta": round(delta * 100, 1),
+                        })
+                        self._mark_alerted(code, alert_type)
 
         return alerts
 

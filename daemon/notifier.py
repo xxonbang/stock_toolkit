@@ -13,6 +13,10 @@ ALERT_LABELS = {
     "drop_5": ("💥 급락 -5%", "danger"),
     "volume_surge": ("📊 거래량 폭증", "info"),
     "target_reached": ("🎯 목표가 도달", "success"),
+    "bid_wall": ("🧱 매수벽 감지", "info"),
+    "ask_wall": ("🧱 매도벽 감지", "warning"),
+    "supply_reversal_buy": ("🔄 수급 매수 전환", "success"),
+    "supply_reversal_sell": ("🔄 수급 매도 전환", "danger"),
 }
 
 
@@ -34,6 +38,12 @@ def format_alert(alert: dict, stock_name: str = "") -> str:
         lines.append(f"체결량: 평균 대비 {alert['ratio']}배")
     elif alert_type == "target_reached":
         lines.append(f"목표가: {alert['target']:,.0f}원")
+    elif alert_type in ("bid_wall", "ask_wall"):
+        wall_type = "매수" if alert_type == "bid_wall" else "매도"
+        lines.append(f"{wall_type}벽: {alert['price']:,}원 ({alert['qty']:,}주, 평균의 {alert['ratio']}배)")
+    elif alert_type in ("supply_reversal_buy", "supply_reversal_sell"):
+        direction = "매수 전환" if "buy" in alert_type else "매도 전환"
+        lines.append(f"{direction}: 매수비율 {alert['prev_ratio']}% → {alert['bid_ratio']}% ({alert['delta']:+.1f}%p)")
 
     return "\n".join(lines)
 

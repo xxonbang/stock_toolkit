@@ -5,6 +5,7 @@ import signal
 from daemon.config import (
     ALERT_SURGE_LEVELS, ALERT_DROP_LEVELS,
     ALERT_VOLUME_RATIO, ALERT_COOLDOWN_SEC,
+    ALERT_WALL_RATIO, ALERT_SUPPLY_REVERSAL_THRESHOLD,
 )
 from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
@@ -23,6 +24,8 @@ alert_engine = AlertEngine(
     drop_levels=ALERT_DROP_LEVELS,
     volume_ratio=ALERT_VOLUME_RATIO,
     cooldown_sec=ALERT_COOLDOWN_SEC,
+    wall_ratio=ALERT_WALL_RATIO,
+    supply_reversal_threshold=ALERT_SUPPLY_REVERSAL_THRESHOLD,
 )
 ws_client: KISWebSocketClient | None = None
 
@@ -30,6 +33,16 @@ ws_client: KISWebSocketClient | None = None
 async def on_execution(data: dict):
     """체결 데이터 수신 콜백 — 알림 규칙 검사 + 발송"""
     alerts = alert_engine.check(data, tick_volume=data.get("tick_volume"))
+    for alert in alerts:
+        name = get_stock_name(alert["code"])
+        msg = format_alert(alert, stock_name=name)
+        logger.info(f"알림 발송: {alert['type']} {alert['code']}")
+        await send_telegram(msg)
+
+
+async def on_asking_price(data: dict):
+    """호가 데이터 수신 콜백 — 호가 벽 + 수급 반전 검사"""
+    alerts = alert_engine.check_asking_price(data)
     for alert in alerts:
         name = get_stock_name(alert["code"])
         msg = format_alert(alert, stock_name=name)
@@ -65,7 +78,7 @@ async def main():
     codes = await fetch_subscription_codes()
     logger.info(f"초기 구독 종목: {len(codes)}개")
 
-    ws_client = KISWebSocketClient(on_execution=on_execution)
+    ws_client = KISWebSocketClient(on_execution=on_execution, on_asking_price=on_asking_price)
     for code in codes:
         ws_client._subscribed_codes.add(code)
 
