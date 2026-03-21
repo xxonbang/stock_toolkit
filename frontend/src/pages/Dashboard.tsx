@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ScatterChart, Scatter, XAxis, YAxis, Tooltip,
   ResponsiveContainer, Cell,
@@ -355,35 +356,36 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
       )}
       {/* 헤더 드롭다운 메뉴 */}
-      {/* 설정 메뉴 — 풀스크린 모달 */}
-      {showHeaderMenu && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 100000, background: "rgba(0,0,0,0.5)" }}
-          onClick={() => setShowHeaderMenu(false)}>
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, borderRadius: "16px 16px 0 0", paddingBottom: "env(safe-area-inset-bottom, 16px)" }}
-            className="bg-white dark:bg-[#1a2332]"
-            onClick={e => e.stopPropagation()}>
-            <div style={{ width: 40, height: 4, borderRadius: 2, margin: "12px auto", background: "#94a3b8" }} />
-            <div style={{ padding: "0 16px 16px" }}>
+      {/* 설정 메뉴 — createPortal로 document.body에 직접 렌더 */}
+      {showHeaderMenu && createPortal(
+        <>
+          <div onClick={() => setShowHeaderMenu(false)}
+            style={{ position: "fixed", inset: 0, zIndex: 100000, background: "rgba(0,0,0,0.3)", backdropFilter: "blur(2px)" }} />
+          <div style={{ position: "fixed", top: 52, right: 16, zIndex: 100001, width: 200, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.2)" }}
+            className="bg-white dark:bg-[#1a2332] border t-border-light">
+            <div style={{ padding: 4 }}>
               <RefreshButtons menuMode />
-              <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0" }} />
+              <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
               {supaUser ? (
                 <button onClick={async () => {
                   setShowHeaderMenu(false);
                   await supabase.auth.signOut();
                   setSupaUser(null);
                   setDbHoldings([]);
-                }} style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "12px", borderRadius: 8, fontSize: 14, color: "#ef4444", background: "transparent", border: "none", cursor: "pointer" }}>
-                  ↪ 로그아웃
+                }}
+                  style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#ef4444", background: "none", border: "none", cursor: "pointer" }}>
+                  <span>↪</span> 로그아웃
                 </button>
               ) : (
                 <button onClick={() => { setShowHeaderMenu(false); setShowLogin(true); }}
-                  style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "12px", borderRadius: 8, fontSize: 14, color: "#3b82f6", background: "transparent", border: "none", cursor: "pointer" }}>
-                  → 로그인
+                  style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#3b82f6", background: "none", border: "none", cursor: "pointer" }}>
+                  <span>→</span> 로그인
                 </button>
               )}
             </div>
           </div>
-        </div>
+        </>,
+        document.body
       )}
       {/* 신뢰도 설명 팝업 */}
       {confExp && (
