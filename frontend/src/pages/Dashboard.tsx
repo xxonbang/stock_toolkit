@@ -154,33 +154,40 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     dataService.getValuation().then(setValuation);
     dataService.getVolumeDivergence().then(setDivergence);
     dataService.getPremarket().then(setPremarket);
-    dataService.getPortfolio().then(p => {
+    dataService.getPortfolio().then(async (p) => {
       if (!p) return;
-      // DB holdings 우선 → localStorage 폴백
-      const mergeHoldings = (userHoldings: any[]) => {
-        const merged = userHoldings.map((lh: any) => {
-          const server = p.holdings?.find((sh: any) => sh.code === lh.code) || {};
-          return { ...server, ...lh, current_price: (server as any).current_price || 0, signal: (server as any).signal || "분석 대상 외",
-            profit_rate: (lh.avg_price && (server as any).current_price) ? Math.round(((server as any).current_price - lh.avg_price) / lh.avg_price * 10000) / 100 : 0,
-            profit_amount: (lh.avg_price && (server as any).current_price) ? ((server as any).current_price - lh.avg_price) * (lh.quantity || 0) : 0,
-            invested: (lh.avg_price || 0) * (lh.quantity || 0),
-            current_value: ((server as any).current_price || 0) * (lh.quantity || 0),
-          };
-        });
-        const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
-        const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
-        merged.forEach(h => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-        p.holdings = merged;
-        p.summary = { total_invested: totalInv, total_value: totalVal, total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0, total_profit_amount: totalVal - totalInv, total_holdings: merged.length };
-      };
-      // DB가 로드되어 있으면 DB 우선
-      if (dbHoldingsRef.current.length > 0) {
-        mergeHoldings(dbHoldingsRef.current);
-      } else {
-        // localStorage 폴백
-        const saved = localStorage.getItem("portfolio_holdings");
-        if (saved) { try { mergeHoldings(JSON.parse(saved)); } catch {} }
+      // DB holdings을 직접 로드하여 최신 데이터 보장 (타이밍 이슈 방지)
+      let userHoldings = dbHoldingsRef.current;
+      if (userHoldings.length === 0) {
+        try { userHoldings = await fetchHoldingsFromDB(); } catch {}
       }
+      if (userHoldings.length === 0) {
+        const saved = localStorage.getItem("portfolio_holdings");
+        if (saved) { try { userHoldings = JSON.parse(saved); } catch {} }
+      }
+      // DB avg_price가 항상 우선 — server(portfolio.json)의 avg_price 무시
+      const merged = (userHoldings.length > 0 ? userHoldings : p.holdings || []).map((lh: any) => {
+        const server = p.holdings?.find((sh: any) => sh.code === lh.code) || {};
+        const avgPrice = lh.avg_price || 0;
+        const qty = lh.quantity || 0;
+        const cp = (server as any).current_price || 0;
+        return {
+          ...server, ...lh,
+          avg_price: avgPrice,
+          quantity: qty,
+          current_price: cp,
+          signal: (server as any).signal || "분석 대상 외",
+          profit_rate: avgPrice && cp ? Math.round((cp - avgPrice) / avgPrice * 10000) / 100 : 0,
+          profit_amount: avgPrice && cp ? (cp - avgPrice) * qty : 0,
+          invested: avgPrice * qty,
+          current_value: cp * qty,
+        };
+      });
+      const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
+      const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
+      merged.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+      p.holdings = merged;
+      p.summary = { total_invested: totalInv, total_value: totalVal, total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0, total_profit_amount: totalVal - totalInv, total_holdings: merged.length };
       setPortfolio(p);
     });
     dataService.getSupplyCluster().then(setSupplyCluster);
