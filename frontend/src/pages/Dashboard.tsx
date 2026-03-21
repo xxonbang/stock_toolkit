@@ -1083,6 +1083,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 <div className={`text-sm font-bold ${profitColor(filtRate)}`}>
                   {filtRate >= 0 ? "+" : ""}{filtRate}%
                 </div>
+                <div className={`text-[10px] font-medium ${profitColor(filtVal - filtInv)}`}>
+                  {filtVal - filtInv >= 0 ? "+" : ""}{(filtVal - filtInv).toLocaleString()}원
+                </div>
               </div>
             </div>
             ) : null;
