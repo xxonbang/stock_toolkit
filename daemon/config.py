@@ -27,7 +27,7 @@ MAX_SUBSCRIPTION_STOCKS = 20              # 최대 구독 종목 수 (체결가+
 
 # 자동매매 설정
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
-GITHUB_REPO = os.getenv("GITHUB_REPO", "xxonbang/theme_analysis")
+GITHUB_REPO = os.getenv("GITHUB_REPO", "xxonbang/theme-analyzer")
 GITHUB_WORKFLOW = os.getenv("GITHUB_WORKFLOW", "daily-theme-analysis.yml")
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
