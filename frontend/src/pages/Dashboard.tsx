@@ -355,31 +355,29 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
       )}
       {/* 헤더 드롭다운 메뉴 */}
-      {showHeaderMenu && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 99998 }} onClick={() => setShowHeaderMenu(false)}>
-          <div style={{ position: "fixed", top: 48, right: 16, zIndex: 99999, width: 192 }}
-            className="bg-white dark:bg-[#1a2332] border t-border-light rounded-xl shadow-lg"
-            onClick={e => e.stopPropagation()}>
-            <div className="p-1">
-              <RefreshButtons menuMode />
-              <div className="border-t t-border-light my-1" />
-              {supaUser ? (
-                <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setDbHoldings([]); setShowHeaderMenu(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
-                  <span className="text-base">↪</span>
-                  로그아웃
-                </button>
-              ) : (
-                <button onClick={() => { setShowLogin(true); setShowHeaderMenu(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-blue-400 hover:bg-blue-500/10 rounded-lg transition">
-                  <span className="text-base">→</span>
-                  로그인
-                </button>
-              )}
-            </div>
+      {showHeaderMenu && <>
+        <div style={{ position: "fixed", inset: 0, zIndex: 99998 }} onClick={() => setShowHeaderMenu(false)} />
+        <div style={{ position: "fixed", top: 48, right: 16, zIndex: 99999, width: 192 }}
+          className="bg-white dark:bg-[#1a2332] border t-border-light rounded-xl shadow-lg">
+          <div className="p-1">
+            <RefreshButtons menuMode />
+            <div className="border-t t-border-light my-1" />
+            {supaUser ? (
+              <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setDbHoldings([]); setShowHeaderMenu(false); }}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
+                <span className="text-base">↪</span>
+                로그아웃
+              </button>
+            ) : (
+              <button onClick={() => { setShowLogin(true); setShowHeaderMenu(false); }}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-blue-400 hover:bg-blue-500/10 rounded-lg transition">
+                <span className="text-base">→</span>
+                로그인
+              </button>
+            )}
           </div>
         </div>
-      )}
+      </>}
       {/* 신뢰도 설명 팝업 */}
       {confExp && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setConfExp(null)}>
