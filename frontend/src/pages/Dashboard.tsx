@@ -724,7 +724,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
                 </div>
                 <div className="space-y-1">
-                  {renderBody(sec.body)}
+                  {renderBody(sec.body).length > 0
+                    ? renderBody(sec.body)
+                    : <p className="text-[12px] t-text-dim italic">해당 항목 없음</p>
+                  }
                 </div>
               </div>
               );
