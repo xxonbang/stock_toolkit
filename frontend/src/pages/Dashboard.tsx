@@ -229,14 +229,17 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         setDbLoading(false);
       }
     });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      setSupaUser(session?.user || null);
-      if (session?.user) {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      const user = session?.user || null;
+      setSupaUser(user);
+      if (user && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "INITIAL_SESSION")) {
         setDbLoading(true);
-        const holdings = await fetchHoldingsFromDB();
-        setDbHoldings(holdings);
-        setDbLoading(false);
-      } else {
+        try {
+          const holdings = await fetchHoldingsFromDB();
+          setDbHoldings(holdings);
+        } catch {} finally { setDbLoading(false); }
+      }
+      if (event === "SIGNED_OUT") {
         setDbHoldings([]);
       }
     });
@@ -320,14 +323,16 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {loginError && <p className="text-[11px] text-red-400 mb-2">{loginError}</p>}
             <button onClick={async () => {
               setLoginError("");
-              const { error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPw });
+              const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPw });
               if (error) { setLoginError(error.message); return; }
+              // 즉시 상태 반영 (onAuthStateChange 대기 없이)
+              if (data?.user) setSupaUser(data.user);
               setShowLogin(false);
               setLoginEmail("");
               setLoginPw("");
             }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
             {supaUser && (
-              <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setShowLogin(false); }}
+              <button onClick={async () => { await supabase.auth.signOut(); setShowLogin(false); }}
                 className="w-full text-xs py-2 mt-2 t-text-dim hover:text-red-400 transition">로그아웃</button>
             )}
           </div>
@@ -533,7 +538,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                       <RefreshButtons menuMode />
                       <div className="border-t t-border-light my-1" />
                       {supaUser ? (
-                        <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setShowHeaderMenu(false); }}
+                        <button onClick={async () => { await supabase.auth.signOut(); setShowHeaderMenu(false); }}
                           className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition">
                           <span className="text-base">↪</span>
                           로그아웃
