@@ -2,6 +2,15 @@
 
 ## 2026-03-22
 
+### [개선] 패턴 매칭 로직 전면 교체 — 현재↔과거 비교로 변경 (2026-03-22 15:30 KST)
+- **변경 파일:** `scripts/run_all.py`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`
+- **내용:**
+  - 기존: 대상 종목의 오늘 패턴 vs 다른 종목의 오늘 패턴 (동일 시점 비교, 예측 가치 없음)
+  - 변경: 대상 종목의 오늘 패턴 vs intraday-history 과거 시점 패턴 (실제 D+5 수익률 포함)
+  - 과거 풀 233건(87개 종목), 마지막 엔트리 제외로 현재↔현재 비교 방지
+  - 프론트엔드: 과거 패턴 날짜 + 종목명 표시, 도움말 업데이트
+- **커밋:** `fba248f`
+
 ### [버그픽스] 패턴 매칭 D+5 빈값 수정 — peer를 stock-history 보유 종목으로 필터링 (2026-03-22 14:30 KST)
 - **변경 파일:** `scripts/run_all.py`
 - **내용:** intraday-history(677종목)에서 peer를 선택하나 stock-history(153종목)에만 일봉이 있어 D+5 전부 null → peer 후보를 _close_map 6일 이상 종목으로 한정, 비교 풀 405→136, D+5 표시율 0%→100%
