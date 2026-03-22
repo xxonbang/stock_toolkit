@@ -13,6 +13,7 @@ import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
 import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding } from "../lib/supabase";
 import type { KisStockPrice, PortfolioHolding } from "../lib/supabase";
+import AutoTrader from "./AutoTrader";
 
 const STAGE_FILL: Record<string, string> = {
   "탄생": "#22c55e", "성장": "#eab308", "과열": "#ef4444", "쇠퇴": "#9ca3af",
@@ -588,16 +589,24 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
         {/* 페이지 탭 */}
         <div className="flex -mx-1">
-          <a href="#/" className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${!isPortfolioPage ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>대시보드</a>
-          <a href="#/portfolio" className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${isPortfolioPage ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>포트폴리오</a>
-          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">스캐너</a>
-          <a href="#/auto-trader" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">모의투자</a>
+          {[
+            { href: "#/", label: "대시보드", key: "" },
+            { href: "#/portfolio", label: "포트폴리오", key: "portfolio" },
+            { href: "#/scanner", label: "스캐너", key: "scanner" },
+            { href: "#/auto-trader", label: "모의투자", key: "auto-trader" },
+          ].map(tab => {
+            const active = (page || "") === tab.key;
+            return <a key={tab.key} href={tab.href} className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${active ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>{tab.label}</a>;
+          })}
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}
 
+      {/* ===== 모의투자 페이지 ===== */}
+      {page === "auto-trader" && <AutoTrader />}
+
       {/* ===== 시장 카테고리 ===== */}
-      {!isPortfolioPage && <>
+      {!isPortfolioPage && page !== "auto-trader" && <>
       <div id="cat-market" className="scroll-mt-24" />
 
       {/* 장전 프리마켓 */}
@@ -1384,7 +1393,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
       )}
 
-      {!isPortfolioPage && <>
+      {!isPortfolioPage && page !== "auto-trader" && <>
       {/* AI 주목 종목 */}
       {performance?.by_source?.combined && (() => {
         const c = performance.by_source.combined;
@@ -2480,7 +2489,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       )}
       </>}
       {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨, 대시보드만) */}
-      {!isPortfolioPage && <>
+      {!isPortfolioPage && page !== "auto-trader" && <>
       <div className="fixed bottom-0 left-0 right-0 z-20 px-3" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
         <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
           {categories.map((cat) => (

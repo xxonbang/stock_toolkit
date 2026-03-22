@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Sun, Moon } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3 } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
 interface Trade {
@@ -27,7 +27,7 @@ function formatDate(iso: string) {
   return d.toLocaleDateString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
-export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: () => void; isDark?: boolean }) {
+export default function AutoTrader() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,7 +51,6 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
   const pending = trades.filter((t) => t.status === "pending");
   const closed = trades.filter((t) => t.status === "sold");
 
-  // 성과 요약
   const totalTrades = closed.length;
   const wins = closed.filter((t) => (t.pnl_pct ?? 0) > 0).length;
   const losses = closed.filter((t) => (t.pnl_pct ?? 0) < 0).length;
@@ -62,92 +61,56 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
     const pnl = (t.pnl_pct ?? 0) / 100 * buy * t.quantity;
     return s + pnl;
   }, 0);
-
-  // 보유 종목 평가
   const totalInvested = active.reduce((s, t) => s + (t.filled_price ?? t.order_price) * t.quantity, 0);
 
+  if (loading) {
+    return (
+      <div className="text-center py-20 t-text-sub">
+        <div className="text-2xl mb-2">📊</div>
+        데이터 로딩 중...
+      </div>
+    );
+  }
+
+  if (trades.length === 0) {
+    return (
+      <div className="text-center py-20 t-text-sub">
+        <div className="text-3xl mb-3">📭</div>
+        <div className="text-sm font-medium t-text mb-1">매매 이력 없음</div>
+        <div className="text-xs t-text-dim">자동매매가 실행되면 여기에 표시됩니다</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen pb-4" style={{ background: "var(--bg)" }}>
-      {/* 헤더 */}
-      <header
-        className="sticky z-40 backdrop-blur-md border-b px-4 pt-3 pb-0"
-        style={{ top: "env(safe-area-inset-top, 0px)", background: "var(--bg-header)", borderColor: "var(--border)" }}
-      >
-        <div className="max-w-2xl mx-auto flex items-center justify-between h-10">
-          <h1 className="text-lg font-bold t-text flex items-center gap-2">
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
-            모의투자 리포트
-          </h1>
-          <div className="flex items-center gap-2">
-            <button onClick={fetchTrades} className="text-xs t-text-sub hover:t-text px-2 py-1 rounded t-card-alt">새로고침</button>
-            {onToggleTheme && (
-              <button onClick={onToggleTheme} className="p-1.5 rounded-lg t-text-sub hover:t-text">
-                {isDark ? <Sun size={16} /> : <Moon size={16} />}
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="max-w-2xl mx-auto flex -mx-1">
-          <a href="#/" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">대시보드</a>
-          <a href="#/portfolio" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">포트폴리오</a>
-          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">스캐너</a>
-          <a href="#/auto-trader" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">모의투자</a>
-        </div>
-      </header>
+    <div className="space-y-4">
+      {/* 성과 요약 */}
+      <div className="grid grid-cols-2 gap-3">
+        <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
+        <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
+        <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--success)" : "var(--danger)"} />
+        <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
+      </div>
 
-      <main className="max-w-2xl mx-auto px-4 pt-4 space-y-4">
-        {loading ? (
-          <div className="text-center py-20 t-text-sub">
-            <div className="text-2xl mb-2">📊</div>
-            데이터 로딩 중...
-          </div>
-        ) : trades.length === 0 ? (
-          <div className="text-center py-20 t-text-sub">
-            <div className="text-3xl mb-3">📭</div>
-            <div className="text-sm font-medium t-text mb-1">매매 이력 없음</div>
-            <div className="text-xs t-text-dim">자동매매가 실행되면 여기에 표시됩니다</div>
-          </div>
+      {active.length > 0 && (
+        <Section title="보유 중" count={active.length}>
+          {active.map((t) => <TradeRow key={t.id} trade={t} type="active" />)}
+        </Section>
+      )}
+
+      {pending.length > 0 && (
+        <Section title="주문 대기" count={pending.length}>
+          {pending.map((t) => <TradeRow key={t.id} trade={t} type="pending" />)}
+        </Section>
+      )}
+
+      <Section title="매매 이력" count={closed.length}>
+        {closed.length === 0 ? (
+          <div className="text-center py-8 t-text-sub text-sm">아직 완료된 매매가 없습니다</div>
         ) : (
-          <>
-            {/* 성과 요약 */}
-            <div className="grid grid-cols-2 gap-3">
-              <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
-              <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
-              <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--success)" : "var(--danger)"} />
-              <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
-            </div>
-
-            {/* 보유 중 */}
-            {active.length > 0 && (
-              <Section title="보유 중" count={active.length}>
-                {active.map((t) => (
-                  <TradeRow key={t.id} trade={t} type="active" />
-                ))}
-              </Section>
-            )}
-
-            {/* 주문 대기 */}
-            {pending.length > 0 && (
-              <Section title="주문 대기" count={pending.length}>
-                {pending.map((t) => (
-                  <TradeRow key={t.id} trade={t} type="pending" />
-                ))}
-              </Section>
-            )}
-
-            {/* 매매 이력 */}
-            <Section title="매매 이력" count={closed.length}>
-              {closed.length === 0 ? (
-                <div className="text-center py-8 t-text-sub text-sm">아직 완료된 매매가 없습니다</div>
-              ) : (
-                closed.map((t) => (
-                  <TradeRow key={t.id} trade={t} type="closed" />
-                ))
-              )}
-            </Section>
-          </>
+          closed.map((t) => <TradeRow key={t.id} trade={t} type="closed" />)
         )}
-      </main>
+      </Section>
     </div>
   );
 }
