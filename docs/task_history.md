@@ -2,6 +2,11 @@
 
 ## 2026-03-22
 
+### [버그픽스] 모의투자 헤더를 공통 헤더로 통합 (2026-03-22 16:30 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/App.tsx`
+- **내용:** 모의투자 페이지의 독자 헤더 제거, Dashboard 공통 헤더를 공유하도록 변경. 탭 활성화를 page prop 기반으로 일반화
+- **커밋:** `42e5172`
+
 ### [기능] 패턴 매칭 D+1~D+5 일별 수익률 표시 (2026-03-22 16:00 KST)
 - **변경 파일:** `scripts/run_all.py`, `frontend/src/pages/Dashboard.tsx`
 - **내용:** D+5만 보여주던 것을 D+1~D+5 각 거래일 실제 수익률로 확장, 태그 배열로 일별 추이 표시
