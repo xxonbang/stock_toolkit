@@ -84,6 +84,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [excludedCodes, setExcludedCodes] = useState<Set<string>>(new Set());
+  const [headerRefreshing, setHeaderRefreshing] = useState(false);
   const [stockSearch, setStockSearch] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -553,12 +554,17 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       <div className="sticky z-50 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ top: 'env(safe-area-inset-top, 0px)', background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between h-10">
           <h1
-            className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer"
+            className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer active:scale-95 transition-transform"
             onClick={() => {
+              if (headerRefreshing) return;
+              setHeaderRefreshing(true);
               window.scrollTo({ top: 0, behavior: "smooth" });
+              loadAllData();
+              setTimeout(() => setHeaderRefreshing(false), 2000);
             }}
           >
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo"
+              className={`w-5 h-5 shrink-0 transition-transform ${headerRefreshing ? "animate-spin" : ""}`} />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1.5 shrink-0">
