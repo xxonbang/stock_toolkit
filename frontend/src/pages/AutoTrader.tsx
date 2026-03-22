@@ -37,11 +37,13 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
 
   async function fetchTrades() {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("auto_trades")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (!error && data) setTrades(data as Trade[]);
+    try {
+      const { data, error } = await supabase
+        .from("auto_trades")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (!error && data) setTrades(data as Trade[]);
+    } catch {}
     setLoading(false);
   }
 
@@ -72,7 +74,10 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
         style={{ top: "env(safe-area-inset-top, 0px)", background: "var(--bg-header)", borderColor: "var(--border)" }}
       >
         <div className="max-w-2xl mx-auto flex items-center justify-between h-10">
-          <h1 className="text-lg font-bold t-text">모의투자 리포트</h1>
+          <h1 className="text-lg font-bold t-text flex items-center gap-2">
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
+            모의투자 리포트
+          </h1>
           <div className="flex items-center gap-2">
             <button onClick={fetchTrades} className="text-xs t-text-sub hover:t-text px-2 py-1 rounded t-card-alt">새로고침</button>
             {onToggleTheme && (
@@ -92,7 +97,16 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
 
       <main className="max-w-2xl mx-auto px-4 pt-4 space-y-4">
         {loading ? (
-          <div className="text-center py-20 t-text-sub">로딩 중...</div>
+          <div className="text-center py-20 t-text-sub">
+            <div className="text-2xl mb-2">📊</div>
+            데이터 로딩 중...
+          </div>
+        ) : trades.length === 0 ? (
+          <div className="text-center py-20 t-text-sub">
+            <div className="text-3xl mb-3">📭</div>
+            <div className="text-sm font-medium t-text mb-1">매매 이력 없음</div>
+            <div className="text-xs t-text-dim">자동매매가 실행되면 여기에 표시됩니다</div>
+          </div>
         ) : (
           <>
             {/* 성과 요약 */}
