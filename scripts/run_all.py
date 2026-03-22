@@ -554,8 +554,12 @@ def main():
     signal_history = loader.get_signal_history("vision")
     # signal_history에 price_d0~d5 보강
     enriched_history = []
+    import re as _re
     for snapshot in signal_history:
-        snap_date = snapshot.get("date", "")
+        raw_date = snapshot.get("date", "")
+        # "vision_2026-03-20_1945" → "2026-03-20" 추출
+        _dm = _re.search(r"(\d{4}-\d{2}-\d{2})", raw_date)
+        snap_date = _dm.group(1) if _dm else raw_date
         data = snapshot.get("data", {})
         stocks_raw = data.get("results", data.get("stocks", []))
         if isinstance(stocks_raw, dict):
@@ -580,6 +584,13 @@ def main():
             enriched_stocks.append(entry)
         if enriched_stocks:
             enriched_history.append({"date": snap_date, "stocks": enriched_stocks})
+
+    # 같은 날짜 중복 제거 (마지막 snapshot만 유지)
+    seen_dates = {}
+    for eh in enriched_history:
+        seen_dates[eh["date"]] = eh
+    enriched_history = sorted(seen_dates.values(), key=lambda x: x["date"])
+    print(f"    enriched: {len(enriched_history)}일, {sum(len(e['stocks']) for e in enriched_history)}종목")
 
     default_strategies = [
         "signal=매수 hold=5",
