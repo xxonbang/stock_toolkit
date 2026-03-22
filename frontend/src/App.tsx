@@ -33,9 +33,7 @@ export default function App() {
 
   return (
     <HashRouter>
-      {/* iOS PWA 다이나믹 아일랜드/노치 영역 배경 */}
-      <div className="safe-area-top" />
-      <div className="min-h-screen pb-4" style={{ background: 'var(--bg)', paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+      <div className="min-h-screen pb-4" style={{ background: 'var(--bg)' }}>
         <Routes>
           <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />} />
           <Route path="/portfolio" element={<Dashboard onToggleTheme={toggle} isDark={dark} page="portfolio" />} />
