@@ -541,7 +541,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
       )}
       {/* 헤더 — 컴팩트 sticky */}
-      <div className="sticky top-0 z-50 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+      <div className="sticky z-50 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ top: 'env(safe-area-inset-top, 0px)', background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between h-10">
           <h1
             className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer"
