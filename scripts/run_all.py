@@ -625,41 +625,72 @@ def main():
                     prices.append(float(iv["close"]))
         return prices
 
-    # 모든 종목의 패턴 벡터 사전 구축 (길이 통일: 최근 20개 30분봉)
-    # peer 후보는 stock-history에 일봉이 있는 종목만 (D+5 수익률 계산 가능)
+    # 과거 패턴 풀 구축 — intraday-history 연속 2일 슬라이딩 윈도우
+    # 각 윈도우의 30분봉 20개를 정규화하고, stock-history에서 D+5 실제 수익률 산출
     pat_len = 20
-    all_patterns = {}
-    for code, entries in intraday_stocks.items():
-        prices = _extract_prices(entries)
-        if len(prices) >= pat_len:
-            all_patterns[code] = normalize_pattern(prices[-pat_len:])
+    hist_patterns = []  # [{code, name, date, pattern, future_return}]
+    # 종목명 맵 (combined에서 구축)
+    _name_map = {s.get("code", ""): s.get("name", "") for s in combined}
+    for h_code, entries in intraday_stocks.items():
+        if not isinstance(entries, list) or len(entries) < 3:
+            continue
+        if h_code not in _close_map or len(_close_map[h_code]) < 6:
+            continue
+        h_dates = sorted(_close_map[h_code].keys())
+        # 마지막 엔트리(현재) 제외 → entries[:-1]에서 윈도우 생성
+        for j in range(1, len(entries) - 1):
+            e_prev = entries[j - 1] if isinstance(entries[j - 1], dict) else {}
+            e_curr = entries[j] if isinstance(entries[j], dict) else {}
+            # 2일치 30분봉 종가 추출
+            prices = []
+            for e in [e_prev, e_curr]:
+                for iv in e.get("intervals_30m", []):
+                    if isinstance(iv, dict) and iv.get("close"):
+                        prices.append(float(iv["close"]))
+            if len(prices) < pat_len:
+                continue
+            pattern_date = e_curr.get("date", "")
+            if not pattern_date or pattern_date not in _close_map[h_code]:
+                continue
+            # D+5 수익률: pattern_date로부터 5거래일 후
+            idx = h_dates.index(pattern_date) if pattern_date in h_dates else -1
+            if idx < 0 or idx + 5 >= len(h_dates):
+                continue
+            p_start = _close_map[h_code][h_dates[idx]]
+            p_end = _close_map[h_code][h_dates[idx + 5]]
+            if p_start <= 0:
+                continue
+            future_ret = round((p_end - p_start) / p_start * 100, 2)
+            hist_patterns.append({
+                "code": h_code,
+                "name": _name_map.get(h_code, ""),
+                "date": pattern_date,
+                "pattern": normalize_pattern(prices[-pat_len:]),
+                "future_return": future_ret,
+            })
+    print(f"    과거 패턴 풀: {len(hist_patterns)}건")
 
-    if buy_stocks and all_patterns:
+    # 대상 종목의 현재 패턴 추출 + 과거 풀과 비교
+    if buy_stocks and hist_patterns:
         for match_item in buy_stocks[:8]:
             code = match_item.get("code", "")
-            if code not in all_patterns:
+            cur_prices = _extract_prices(intraday_stocks.get(code, []))
+            if len(cur_prices) < pat_len:
                 continue
-            target = all_patterns[code]
-            # 다른 종목과 유사도 비교 + 5일 수익률 산출 (stock-history 있는 종목만)
-            peers = []
-            for peer_code, peer_norm in all_patterns.items():
-                if peer_code == code:
-                    continue
-                if peer_code not in _close_map or len(_close_map[peer_code]) < 6:
-                    continue
-                sim = calculate_similarity(target, peer_norm)
+            target = normalize_pattern(cur_prices[-pat_len:])
+            # 과거 풀에서 유사 패턴 탐색
+            matches = []
+            for hp in hist_patterns:
+                sim = calculate_similarity(target, hp["pattern"])
                 if sim >= 0.85:
-                    # stock-history에서 5일 수익률 계산
-                    peer_closes = _close_map.get(peer_code, {})
-                    peer_dates = sorted(peer_closes.keys())
-                    future_ret = None
-                    if len(peer_dates) >= 6:
-                        p_now = peer_closes.get(peer_dates[-1], 0)
-                        p_5ago = peer_closes.get(peer_dates[-6], 0)
-                        if p_5ago > 0:
-                            future_ret = round((p_now - p_5ago) / p_5ago * 100, 2)
-                    peers.append({"code": peer_code, "similarity": sim, "future_return": future_ret})
-            peers.sort(key=lambda x: x["similarity"], reverse=True)
+                    matches.append({
+                        "code": hp["code"],
+                        "name": hp["name"],
+                        "date": hp["date"],
+                        "similarity": sim,
+                        "future_return": hp["future_return"],
+                    })
+            matches.sort(key=lambda x: x["similarity"], reverse=True)
             # RSI (kis_gemini에서 가져오기)
             kis_gemini_pat = loader.get_kis_gemini()
             gem_stocks = kis_gemini_pat.get("stocks", {}) if isinstance(kis_gemini_pat, dict) else {}
@@ -672,13 +703,14 @@ def main():
             # 최근 가격 추세 (마지막 5개 봉 기울기)
             prices = _extract_prices(intraday_stocks.get(code, []))
             trend = round((prices[-1] - prices[-5]) / prices[-5] * 100, 2) if len(prices) >= 5 and prices[-5] else 0
+            top_matches = matches[:5]
             pattern_results.append({
                 "code": code,
                 "name": match_item.get("name", ""),
                 "rsi": round(rsi, 1) if rsi else None,
                 "trend_pct": trend,
-                "peer_count": len(peers),
-                "matches": peers[:5],
+                "peer_count": len(matches),
+                "matches": top_matches,
             })
     with open(results_dir / "pattern.json", "w", encoding="utf-8") as f:
         json.dump(pattern_results, f, ensure_ascii=False, indent=2)

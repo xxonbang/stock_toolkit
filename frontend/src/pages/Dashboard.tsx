@@ -1740,9 +1740,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 </div>
                 {p.matches?.slice(0, 3).map((m: any, j: number) => {
                   const ret = m.future_return ?? m.future_return_d5;
+                  const dateLabel = m.date ? m.date.slice(5) : "";
                   return (
                   <div key={j} className="flex justify-between text-xs py-1 border-b t-border-light last:border-0 gap-2">
-                    <span className="t-text-sub truncate">· 유사도 {(m.similarity * 100).toFixed(0)}%</span>
+                    <span className="t-text-sub truncate">· {dateLabel}{m.name ? ` ${m.name}` : ""} {(m.similarity * 100).toFixed(0)}%</span>
                     {ret != null ? (
                       <span className={`shrink-0 font-medium ${ret >= 0 ? "text-red-500" : "text-blue-500"}`}>
                         D+5 {ret >= 0 ? "+" : ""}{ret.toFixed(1)}%
