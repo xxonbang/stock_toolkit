@@ -5,30 +5,42 @@ const CRONJOB_API_KEY = import.meta.env.VITE_CRONJOB_API_KEY || "";
 const MANUAL_DATA_JOB = "7376450";
 const MANUAL_FULL_JOB = "7376451";
 
+async function disableJob(jobId: string) {
+  try {
+    await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${CRONJOB_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ job: { enabled: false } }),
+    });
+  } catch {}
+}
+
 async function triggerManualJob(jobId: string): Promise<boolean> {
   try {
-    // Enable the job (schedule is every minute, so it runs within 60s)
+    // 1) 활성화 — cron이 1분 내 1회 실행
     const res = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
       method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${CRONJOB_API_KEY}`,
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: `Bearer ${CRONJOB_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({ job: { enabled: true } }),
     });
     if (!res.ok) return false;
 
-    // Disable after 90s to prevent repeated runs
-    setTimeout(async () => {
-      await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${CRONJOB_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ job: { enabled: false } }),
-      });
-    }, 90000);
+    // 2) 즉시 비활성화 예약 — 75초 후 (cron 1회 실행 보장 후 비활성화)
+    setTimeout(() => disableJob(jobId), 75000);
+
+    // 3) 안전장치: 페이지 이탈 시에도 비활성화
+    const cleanup = () => disableJob(jobId);
+    window.addEventListener("beforeunload", cleanup, { once: true });
+    window.addEventListener("pagehide", cleanup, { once: true });
+    // visibilitychange로 백그라운드 전환도 감지
+    const onVisChange = () => { if (document.hidden) { disableJob(jobId); document.removeEventListener("visibilitychange", onVisChange); } };
+    document.addEventListener("visibilitychange", onVisChange);
+    // 75초 후 이벤트 리스너 정리
+    setTimeout(() => {
+      window.removeEventListener("beforeunload", cleanup);
+      window.removeEventListener("pagehide", cleanup);
+      document.removeEventListener("visibilitychange", onVisChange);
+    }, 76000);
 
     return true;
   } catch {
