@@ -1739,24 +1739,29 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   <span className="text-xs t-text-dim shrink-0">{p.code}</span>
                 </div>
                 {p.matches?.slice(0, 3).map((m: any, j: number) => {
-                  const ret = m.future_return ?? m.future_return_d5;
                   const dateLabel = m.date ? m.date.slice(5) : "";
+                  const dr = m.daily_returns || {};
                   return (
-                  <div key={j} className="flex justify-between text-xs py-1 border-b t-border-light last:border-0 gap-2">
-                    <span className="t-text-sub truncate">· {dateLabel}{m.name ? ` ${m.name}` : ""} {(m.similarity * 100).toFixed(0)}%</span>
-                    {ret != null ? (
-                      <span className={`shrink-0 font-medium ${ret >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        D+5 {ret >= 0 ? "+" : ""}{ret.toFixed(1)}%
-                      </span>
-                    ) : (
-                      <span className="shrink-0 t-text-dim">D+5 —</span>
-                    )}
+                  <div key={j} className="border-b t-border-light last:border-0 py-1.5">
+                    <div className="flex justify-between text-xs gap-2 mb-1">
+                      <span className="t-text-sub truncate">· {dateLabel}{m.name ? ` ${m.name}` : ""} {(m.similarity * 100).toFixed(0)}%</span>
+                    </div>
+                    <div className="flex gap-1 ml-3">
+                      {[1,2,3,4,5].map(d => {
+                        const v = dr[`d${d}`];
+                        return v != null ? (
+                          <span key={d} className={`text-[10px] px-1 py-0.5 rounded ${v >= 0 ? "text-red-500 bg-red-50 dark:bg-red-900/20" : "text-blue-500 bg-blue-50 dark:bg-blue-900/20"}`}>
+                            D{d} {v >= 0 ? "+" : ""}{v.toFixed(1)}
+                          </span>
+                        ) : null;
+                      })}
+                    </div>
                   </div>
                   );
                 })}
               </div>
             ))}
-            <p className="text-[10px] t-text-dim">D+5 = 패턴 발생 후 5거래일 뒤 수익률</p>
+            <p className="text-[10px] t-text-dim">D1~D5 = 패턴 발생 후 각 거래일의 실제 수익률(%)</p>
           </div>
             {!pattern?.length && <Empty />}
         </section>

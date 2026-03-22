@@ -652,21 +652,24 @@ def main():
             pattern_date = e_curr.get("date", "")
             if not pattern_date or pattern_date not in _close_map[h_code]:
                 continue
-            # D+5 수익률: pattern_date로부터 5거래일 후
+            # D+1~D+5 수익률: pattern_date로부터 각 거래일 후
             idx = h_dates.index(pattern_date) if pattern_date in h_dates else -1
             if idx < 0 or idx + 5 >= len(h_dates):
                 continue
             p_start = _close_map[h_code][h_dates[idx]]
-            p_end = _close_map[h_code][h_dates[idx + 5]]
             if p_start <= 0:
                 continue
-            future_ret = round((p_end - p_start) / p_start * 100, 2)
+            daily_rets = {}
+            for d in range(1, 6):
+                p_d = _close_map[h_code][h_dates[idx + d]]
+                daily_rets[f"d{d}"] = round((p_d - p_start) / p_start * 100, 2)
             hist_patterns.append({
                 "code": h_code,
                 "name": _name_map.get(h_code, ""),
                 "date": pattern_date,
                 "pattern": normalize_pattern(prices[-pat_len:]),
-                "future_return": future_ret,
+                "future_return": daily_rets["d5"],
+                "daily_returns": daily_rets,
             })
     print(f"    과거 패턴 풀: {len(hist_patterns)}건")
 
@@ -689,6 +692,7 @@ def main():
                         "date": hp["date"],
                         "similarity": sim,
                         "future_return": hp["future_return"],
+                        "daily_returns": hp["daily_returns"],
                     })
             matches.sort(key=lambda x: x["similarity"], reverse=True)
             # RSI (kis_gemini에서 가져오기)
