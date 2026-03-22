@@ -539,9 +539,48 @@ def main():
 
     history = loader.get_theme_history()
 
-    # 시나리오 시뮬레이션 (기본 전략)
+    # 시나리오 시뮬레이션 — stock-history 일봉 기반 수익률 역산
     print("  시나리오 시뮬레이션...")
+    stock_hist = loader.get_stock_history()
+    # stock_hist: {code: {code, changes: [{date, close, ...}]}}
+    # 종목별 날짜→종가 맵 구축
+    _close_map = {}
+    for code, info in stock_hist.items():
+        changes = info.get("changes", []) if isinstance(info, dict) else []
+        # 날짜 오름차순 정렬
+        sorted_changes = sorted(changes, key=lambda x: x.get("date", ""))
+        _close_map[code] = {c["date"]: c["close"] for c in sorted_changes if c.get("close")}
+
     signal_history = loader.get_signal_history("vision")
+    # signal_history에 price_d0~d5 보강
+    enriched_history = []
+    for snapshot in signal_history:
+        snap_date = snapshot.get("date", "")
+        data = snapshot.get("data", {})
+        stocks_raw = data.get("results", data.get("stocks", []))
+        if isinstance(stocks_raw, dict):
+            stocks_raw = list(stocks_raw.values())
+        enriched_stocks = []
+        for s in stocks_raw:
+            code = s.get("code", "")
+            sig = s.get("signal", s.get("vision_signal", ""))
+            closes = _close_map.get(code, {})
+            # 날짜 리스트 (오름차순)
+            all_dates = sorted(closes.keys())
+            if snap_date not in closes or not all_dates:
+                continue
+            idx = all_dates.index(snap_date) if snap_date in all_dates else -1
+            if idx < 0:
+                continue
+            entry = {"code": code, "name": s.get("name", ""), "signal": sig, "date": snap_date}
+            entry["price_d0"] = closes.get(all_dates[idx], 0)
+            for d in range(1, 6):
+                if idx + d < len(all_dates):
+                    entry[f"price_d{d}"] = closes.get(all_dates[idx + d], 0)
+            enriched_stocks.append(entry)
+        if enriched_stocks:
+            enriched_history.append({"date": snap_date, "stocks": enriched_stocks})
+
     default_strategies = [
         "signal=매수 hold=5",
         "signal=적극매수 hold=5",
@@ -550,8 +589,9 @@ def main():
     sim_results = []
     for strat_str in default_strategies:
         strat = parse_strategy(strat_str)
-        result = simulate_strategy(signal_history, strat)
+        result = simulate_strategy(enriched_history, strat)
         sim_results.append(result)
+    print(f"    시뮬레이션 완료: {sum(r['total_trades'] for r in sim_results)}건 거래")
     with open(results_dir / "simulation.json", "w", encoding="utf-8") as f:
         json.dump(sim_results, f, ensure_ascii=False, indent=2)
 
@@ -588,14 +628,23 @@ def main():
             if code not in all_patterns:
                 continue
             target = all_patterns[code]
-            # 다른 종목과 유사도 비교
+            # 다른 종목과 유사도 비교 + 5일 수익률 산출
             peers = []
             for peer_code, peer_norm in all_patterns.items():
                 if peer_code == code:
                     continue
                 sim = calculate_similarity(target, peer_norm)
                 if sim >= 0.85:
-                    peers.append({"code": peer_code, "similarity": sim})
+                    # stock-history에서 5일 수익률 계산
+                    peer_closes = _close_map.get(peer_code, {})
+                    peer_dates = sorted(peer_closes.keys())
+                    future_ret = None
+                    if len(peer_dates) >= 6:
+                        p_now = peer_closes.get(peer_dates[-1], 0)
+                        p_5ago = peer_closes.get(peer_dates[-6], 0)
+                        if p_5ago > 0:
+                            future_ret = round((p_now - p_5ago) / p_5ago * 100, 2)
+                    peers.append({"code": peer_code, "similarity": sim, "future_return": future_ret})
             peers.sort(key=lambda x: x["similarity"], reverse=True)
             # RSI (kis_gemini에서 가져오기)
             kis_gemini_pat = loader.get_kis_gemini()

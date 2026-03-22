@@ -1713,7 +1713,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                       </div>
                     </div>
                   ) : (
-                    <div className="text-xs t-text-dim text-center py-1">거래 데이터 축적 중</div>
+                    <div className="text-xs t-text-dim text-center py-2">
+                      <div>데이터 부족 — 시그널 히스토리 축적 필요</div>
+                      <div className="text-[10px] mt-0.5">일봉 데이터와 시그널 이력이 5일 이상 누적되면 결과 표시</div>
+                    </div>
                   )}
                 </div>
               );
@@ -1735,14 +1738,21 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   <span className="truncate">{p.name}</span>
                   <span className="text-xs t-text-dim shrink-0">{p.code}</span>
                 </div>
-                {p.matches?.slice(0, 3).map((m: any, j: number) => (
+                {p.matches?.slice(0, 3).map((m: any, j: number) => {
+                  const ret = m.future_return ?? m.future_return_d5;
+                  return (
                   <div key={j} className="flex justify-between text-xs py-1 border-b t-border-light last:border-0 gap-2">
-                    <span className="t-text-sub truncate">{m.date} · 유사도 {(m.similarity * 100).toFixed(0)}%</span>
-                    <span className={`shrink-0 ${m.future_return_d5 >= 0 ? "text-red-600 font-medium" : "text-blue-600 font-medium"}`}>
-                      D+5 {m.future_return_d5 >= 0 ? "+" : ""}{m.future_return_d5?.toFixed(1)}%
-                    </span>
+                    <span className="t-text-sub truncate">· 유사도 {(m.similarity * 100).toFixed(0)}%</span>
+                    {ret != null ? (
+                      <span className={`shrink-0 font-medium ${ret >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        D+5 {ret >= 0 ? "+" : ""}{ret.toFixed(1)}%
+                      </span>
+                    ) : (
+                      <span className="shrink-0 t-text-dim">D+5 —</span>
+                    )}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             ))}
             <p className="text-[10px] t-text-dim">D+5 = 패턴 발생 후 5거래일 뒤 수익률</p>
