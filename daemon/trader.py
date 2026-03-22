@@ -83,11 +83,41 @@ def should_sell(buy_price: int, current_price: int, take_profit: float = TRADE_T
     return None
 
 
-async def place_buy_order(code: str, name: str, price: int) -> bool:
+async def _kis_order(tr_id: str, code: str, quantity: int, price: int, retry: bool = True) -> dict | None:
+    """KIS 모의투자 주문 공통 — 토큰 만료 시 1회 재시도"""
     token = await _ensure_mock_token()
     if not token:
-        return False
+        return None
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
+    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    body = {
+        "CANO": account_parts[0],
+        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
+        "PDNO": code,
+        "ORD_DVSN": "00",
+        "ORD_QTY": str(quantity),
+        "ORD_UNPR": str(price),
+    }
+    try:
+        session = await get_session()
+        async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") == "0":
+                return data
+            msg = data.get("msg1", "")
+            if retry and ("만료" in msg or "token" in msg.lower()):
+                logger.warning(f"KIS 토큰 만료 — 재발급 후 재시도")
+                _reset_token()
+                import asyncio
+                await asyncio.sleep(1)
+                return await _kis_order(tr_id, code, quantity, price, retry=False)
+            logger.error(f"KIS 주문 실패 ({tr_id}): {msg}")
+    except Exception as e:
+        logger.error(f"KIS 주문 오류 ({tr_id}): {e}")
+    return None
 
+
+async def place_buy_order(code: str, name: str, price: int) -> bool:
     quantity = calc_quantity(TRADE_AMOUNT_PER_STOCK, price)
     if quantity <= 0:
         logger.warning(f"매수 수량 0 — {name}({code}) 가격 {price}원")
@@ -97,81 +127,35 @@ async def place_buy_order(code: str, name: str, price: int) -> bool:
     if not position:
         return False
 
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
-    body = {
-        "CANO": account_parts[0],
-        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
-        "PDNO": code,
-        "ORD_DVSN": "00",
-        "ORD_QTY": str(quantity),
-        "ORD_UNPR": str(price),
-    }
-    try:
-        session = await get_session()
-        async with session.post(url, json=body, headers=_order_headers(token, "VTTC0802U")) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") == "0":
-                await update_position_filled(position["id"], price)
-                logger.info(f"매수 체결: {name}({code}) {price:,}원 × {quantity}주")
-                await send_telegram(
-                    f"<b>📥 자동 매수 체결</b>\n"
-                    f"<b>{name} ({code})</b>\n"
-                    f"가격: {price:,}원 × {quantity}주\n"
-                    f"금액: {price * quantity:,}원"
-                )
-                return True
-            else:
-                msg = data.get("msg1", "")
-                logger.error(f"매수 주문 실패: {name}({code}) — {msg}")
-                # 토큰 만료 시 재발급 시도
-                if "만료" in msg or "token" in msg.lower():
-                    _reset_token()
-    except Exception as e:
-        logger.error(f"매수 주문 오류: {e}")
+    result = await _kis_order("VTTC0802U", code, quantity, price)
+    if result:
+        await update_position_filled(position["id"], price)
+        logger.info(f"매수 체결: {name}({code}) {price:,}원 × {quantity}주")
+        await send_telegram(
+            f"<b>📥 자동 매수 체결</b>\n"
+            f"<b>{name} ({code})</b>\n"
+            f"가격: {price:,}원 × {quantity}주\n"
+            f"금액: {price * quantity:,}원"
+        )
+        return True
     return False
 
 
 async def place_sell_order(code: str, name: str, price: int, quantity: int, position_id: str, reason: str, buy_price: int) -> bool:
-    token = await _ensure_mock_token()
-    if not token:
-        unmark_selling(position_id)
-        return False
-
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
-    body = {
-        "CANO": account_parts[0],
-        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
-        "PDNO": code,
-        "ORD_DVSN": "00",
-        "ORD_QTY": str(quantity),
-        "ORD_UNPR": str(price),
-    }
-    try:
-        session = await get_session()
-        async with session.post(url, json=body, headers=_order_headers(token, "VTTC0801U")) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") == "0":
-                pnl = calc_pnl_pct(buy_price, price)
-                await update_position_sold(position_id, price, pnl, reason)
-                reason_label = "익절 +3%" if reason == "take_profit" else "손절 -3%"
-                emoji = "💰" if reason == "take_profit" else "🛑"
-                logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%)")
-                await send_telegram(
-                    f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
-                    f"<b>{name} ({code})</b>\n"
-                    f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
-                    f"수익률: {pnl:+.2f}% ({quantity}주)"
-                )
-                return True
-            else:
-                msg = data.get("msg1", "")
-                logger.error(f"매도 주문 실패: {name}({code}) — {msg}")
-                if "만료" in msg or "token" in msg.lower():
-                    _reset_token()
-    except Exception as e:
-        logger.error(f"매도 주문 오류: {e}")
+    result = await _kis_order("VTTC0801U", code, quantity, price)
+    if result:
+        pnl = calc_pnl_pct(buy_price, price)
+        await update_position_sold(position_id, price, pnl, reason)
+        reason_label = "익절 +3%" if reason == "take_profit" else "손절 -3%"
+        emoji = "💰" if reason == "take_profit" else "🛑"
+        logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%)")
+        await send_telegram(
+            f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
+            f"<b>{name} ({code})</b>\n"
+            f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
+            f"수익률: {pnl:+.2f}% ({quantity}주)"
+        )
+        return True
     unmark_selling(position_id)
     return False
 

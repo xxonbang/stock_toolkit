@@ -1,6 +1,6 @@
-"""Telegram 알림 발송 — 포맷팅 + 비동기 전송 + 쓰로틀링"""
+"""Telegram 알림 발송 — 포맷팅 + 비동기 전송 + 큐잉"""
+import asyncio
 import logging
-import time
 from daemon.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 from daemon.http_session import get_session
 
@@ -49,33 +49,47 @@ def format_alert(alert: dict, stock_name: str = "") -> str:
     return "\n".join(lines)
 
 
-# 쓰로틀링: 초당 최대 1건
-_last_send_time: float = 0
-_MIN_INTERVAL = 1.0  # 초
+# 메시지 큐 (드롭 대신 큐잉, 최대 50건 버퍼)
+_msg_queue: asyncio.Queue | None = None
+_MAX_QUEUE = 50
+
+
+def _get_queue() -> asyncio.Queue:
+    global _msg_queue
+    if _msg_queue is None:
+        _msg_queue = asyncio.Queue(maxsize=_MAX_QUEUE)
+    return _msg_queue
 
 
 async def send_telegram(text: str):
-    global _last_send_time
+    """메시지를 큐에 추가 (큐가 가득 차면 가장 오래된 것 버림)"""
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        logger.warning("Telegram 설정 누락 — 알림 미발송")
         return
-    # 쓰로틀링
-    now = time.time()
-    if (now - _last_send_time) < _MIN_INTERVAL:
-        return
-    _last_send_time = now
-
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = {
-        "chat_id": TELEGRAM_CHAT_ID,
-        "text": text,
-        "parse_mode": "HTML",
-    }
+    q = _get_queue()
+    if q.full():
+        try:
+            q.get_nowait()  # 가장 오래된 메시지 버림
+        except asyncio.QueueEmpty:
+            pass
     try:
-        session = await get_session()
-        async with session.post(url, json=payload) as resp:
-            if resp.status != 200:
-                body = await resp.text()
-                logger.error(f"Telegram 발송 실패 ({resp.status}): {body}")
-    except Exception as e:
-        logger.error(f"Telegram 발송 오류: {e}")
+        q.put_nowait(text)
+    except asyncio.QueueFull:
+        pass
+
+
+async def telegram_worker():
+    """큐에서 메시지를 꺼내 초당 1건씩 발송하는 워커"""
+    q = _get_queue()
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    while True:
+        text = await q.get()
+        try:
+            session = await get_session()
+            payload = {"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "HTML"}
+            async with session.post(url, json=payload) as resp:
+                if resp.status != 200:
+                    body = await resp.text()
+                    logger.error(f"Telegram 발송 실패 ({resp.status}): {body}")
+        except Exception as e:
+            logger.error(f"Telegram 발송 오류: {e}")
+        await asyncio.sleep(1)  # 초당 1건 제한

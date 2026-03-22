@@ -10,7 +10,7 @@ from daemon.config import (
 )
 from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
-from daemon.notifier import format_alert, send_telegram
+from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, get_stock_name
 from daemon.trader import check_positions_for_sell, run_buy_process
 from daemon.github_monitor import check_workflow_completion
@@ -159,16 +159,22 @@ async def main():
         global _shutdown
         _shutdown = True
         ws_client.stop()
+        tasks.cancel()
 
     loop = asyncio.get_event_loop()
     for sig in (signal.SIGINT, signal.SIGTERM):
         loop.add_signal_handler(sig, shutdown)
 
-    await asyncio.gather(
+    tasks = asyncio.gather(
         ws_client.connect(),
         schedule_refresh(),
         schedule_auto_trade(),
+        telegram_worker(),
     )
+    try:
+        await tasks
+    except asyncio.CancelledError:
+        logger.info("종료 신호 수신 — 정리 중")
 
     await close_session()
     logger.info("WebSocket 알림 데몬 종료")
