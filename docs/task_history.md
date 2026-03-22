@@ -2,6 +2,11 @@
 
 ## 2026-03-22
 
+### [버그픽스] 패턴 매칭 D+5 빈값 수정 — peer를 stock-history 보유 종목으로 필터링 (2026-03-22 14:30 KST)
+- **변경 파일:** `scripts/run_all.py`
+- **내용:** intraday-history(677종목)에서 peer를 선택하나 stock-history(153종목)에만 일봉이 있어 D+5 전부 null → peer 후보를 _close_map 6일 이상 종목으로 한정, 비교 풀 405→136, D+5 표시율 0%→100%
+- **커밋:** `b65452b`
+
 ### [버그픽스] 시뮬레이션 0건 수정 — signal history 날짜 파싱 오류 (2026-03-22 12:20 KST)
 - **변경 파일:** `scripts/run_all.py`
 - **내용:** data_loader가 파일명 stem 전체를 date로 반환(vision_2026-03-20_1945)하여 stock-history 날짜와 불일치 → 정규식으로 YYYY-MM-DD 추출, 같은 날짜 중복 snapshot 제거
