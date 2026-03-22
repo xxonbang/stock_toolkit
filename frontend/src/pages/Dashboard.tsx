@@ -221,29 +221,38 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
   useEffect(() => {
     loadAllData();
-    // Supabase 세션 확인
+    // Supabase 세션 확인 — 에러 시 기존 상태 유지 (로그아웃 방지)
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setSupaUser(session?.user || null);
       if (session?.user) {
-        setDbLoading(true);
-        const holdings = await fetchHoldingsFromDB();
-        setDbHoldings(holdings);
-        setDbLoading(false);
-      }
-    });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      const user = session?.user || null;
-      setSupaUser(user);
-      if (user && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "INITIAL_SESSION")) {
+        setSupaUser(session.user);
         setDbLoading(true);
         try {
           const holdings = await fetchHoldingsFromDB();
           setDbHoldings(holdings);
         } catch {} finally { setDbLoading(false); }
       }
+      // session이 null이어도 기존 supaUser를 유지 (네트워크 오류 대응)
+    }).catch(() => {
+      // getSession 실패 시 아무것도 하지 않음 — 기존 로그인 상태 유지
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_OUT") {
+        setSupaUser(null);
         setDbHoldings([]);
+        return;
       }
+      // SIGNED_IN, TOKEN_REFRESHED, INITIAL_SESSION — 세션이 있을 때만 업데이트
+      if (session?.user) {
+        setSupaUser(session.user);
+        if (event === "SIGNED_IN" || event === "INITIAL_SESSION") {
+          setDbLoading(true);
+          try {
+            const holdings = await fetchHoldingsFromDB();
+            setDbHoldings(holdings);
+          } catch {} finally { setDbLoading(false); }
+        }
+      }
+      // session이 null이지만 SIGNED_OUT이 아닌 경우 → 기존 상태 유지
     });
     // 장중 5분, 장외 10분 자동 폴링
     const now = new Date();
@@ -545,15 +554,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <div className="flex items-center justify-between h-10">
           <h1
             className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer"
-            onClick={async () => {
-              if ("caches" in window) {
-                const keys = await caches.keys();
-                await Promise.all(keys.map((k) => caches.delete(k)));
-              }
-              const regs = await navigator.serviceWorker?.getRegistrations();
-              if (regs) await Promise.all(regs.map((r) => r.unregister()));
-              window.scrollTo(0, 0);
-              window.location.href = window.location.pathname + window.location.search;
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
