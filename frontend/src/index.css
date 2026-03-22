@@ -54,11 +54,6 @@
   color-scheme: dark;
 }
 
-html {
-  padding-top: env(safe-area-inset-top, 0px);
-  background: var(--bg);
-}
-
 body {
   background: var(--bg);
   color: var(--text-primary);
