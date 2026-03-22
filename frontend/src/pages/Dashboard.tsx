@@ -361,8 +361,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <>
           <div onClick={() => setShowHeaderMenu(false)}
             style={{ position: "fixed", inset: 0, zIndex: 100000, background: "rgba(0,0,0,0.3)", backdropFilter: "blur(2px)" }} />
-          <div style={{ position: "fixed", top: 52, right: 16, zIndex: 100001, width: 200, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.2)" }}
-            className="bg-white dark:bg-[#1a2332] border t-border-light">
+          <div style={{ position: "fixed", top: 52, right: 16, zIndex: 100001, width: 200, borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.12)", background: "var(--bg-card)", border: "1px solid var(--border)" }}>
             <div style={{ padding: 4 }}>
               <RefreshButtons menuMode />
               <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
@@ -542,7 +541,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>
       )}
       {/* 헤더 — 컴팩트 sticky */}
-      <div className="sticky top-0 z-50 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
+      <div className="sticky top-0 z-50 -mx-4 px-4 pb-0 backdrop-blur-md" style={{ background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)', paddingTop: 'calc(env(safe-area-inset-top, 0px) + 8px)' }}>
         <div className="flex items-center justify-between h-10">
           <h1
             className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer"
