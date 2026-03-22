@@ -626,6 +626,7 @@ def main():
         return prices
 
     # 모든 종목의 패턴 벡터 사전 구축 (길이 통일: 최근 20개 30분봉)
+    # peer 후보는 stock-history에 일봉이 있는 종목만 (D+5 수익률 계산 가능)
     pat_len = 20
     all_patterns = {}
     for code, entries in intraday_stocks.items():
@@ -639,10 +640,12 @@ def main():
             if code not in all_patterns:
                 continue
             target = all_patterns[code]
-            # 다른 종목과 유사도 비교 + 5일 수익률 산출
+            # 다른 종목과 유사도 비교 + 5일 수익률 산출 (stock-history 있는 종목만)
             peers = []
             for peer_code, peer_norm in all_patterns.items():
                 if peer_code == code:
+                    continue
+                if peer_code not in _close_map or len(_close_map[peer_code]) < 6:
                     continue
                 sim = calculate_similarity(target, peer_norm)
                 if sim >= 0.85:
