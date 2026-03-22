@@ -68,8 +68,8 @@ export default function AutoTrader({ onToggleTheme, isDark }: { onToggleTheme?: 
     <div className="min-h-screen pb-4" style={{ background: "var(--bg)" }}>
       {/* 헤더 */}
       <header
-        className="sticky top-0 z-40 backdrop-blur-md border-b px-4 pt-3 pb-0"
-        style={{ background: "var(--bg-header)", borderColor: "var(--border)" }}
+        className="sticky z-40 backdrop-blur-md border-b px-4 pt-3 pb-0"
+        style={{ top: "env(safe-area-inset-top, 0px)", background: "var(--bg-header)", borderColor: "var(--border)" }}
       >
         <div className="max-w-2xl mx-auto flex items-center justify-between h-10">
           <h1 className="text-lg font-bold t-text">모의투자 리포트</h1>
