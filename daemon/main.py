@@ -32,6 +32,8 @@ alert_engine = AlertEngine(
     supply_reversal_threshold=ALERT_SUPPLY_REVERSAL_THRESHOLD,
 )
 ws_client: KISWebSocketClient | None = None
+_shutdown = False  # 종료 신호
+_buy_running = False  # run_buy_process 중복 실행 방지
 
 KST = timezone(timedelta(hours=9))
 
@@ -59,12 +61,12 @@ def is_market_day() -> bool:
 
 
 def is_market_hours() -> bool:
-    """현재 장중 시간인지 (08:30 ~ 15:40 KST)"""
+    """현재 장중 시간인지 (08:30 ~ 16:00 KST, 장 마감 후 동시호가까지 포함)"""
     now = datetime.now(KST)
     h, m = now.hour, now.minute
     if h < 8 or (h == 8 and m < 30):
         return False
-    if h > 15 or (h == 15 and m > 40):
+    if h >= 16:
         return False
     return True
 
@@ -105,9 +107,9 @@ async def refresh_subscriptions():
 
 async def schedule_refresh():
     """10분마다 구독 종목 갱신 (장 운영일만)"""
-    while True:
+    while not _shutdown:
         await asyncio.sleep(600)
-        if not is_market_day():
+        if _shutdown or not is_market_day():
             continue
         try:
             await refresh_subscriptions()
@@ -120,17 +122,23 @@ _last_workflow_time: str | None = None
 
 async def schedule_auto_trade():
     """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스 (장중만)"""
-    global _last_workflow_time
-    while True:
+    global _last_workflow_time, _buy_running
+    while not _shutdown:
         await asyncio.sleep(300)
-        if not is_market_day() or not is_market_hours():
+        if _shutdown or not is_market_day() or not is_market_hours():
             continue
+        if _buy_running:
+            continue  # 이전 매수 프로세스 아직 실행 중
         try:
             completed, new_time = await check_workflow_completion(_last_workflow_time)
             if completed:
                 _last_workflow_time = new_time
+                _buy_running = True
                 logger.info("theme-analysis 완료 감지 — 매수 프로세스 시작")
-                await run_buy_process()
+                try:
+                    await run_buy_process()
+                finally:
+                    _buy_running = False
         except Exception as e:
             logger.error(f"자동매매 루프 오류: {e}")
 
@@ -147,9 +155,14 @@ async def main():
     for code in codes:
         ws_client._subscribed_codes.add(code)
 
+    def shutdown():
+        global _shutdown
+        _shutdown = True
+        ws_client.stop()
+
     loop = asyncio.get_event_loop()
     for sig in (signal.SIGINT, signal.SIGTERM):
-        loop.add_signal_handler(sig, ws_client.stop)
+        loop.add_signal_handler(sig, shutdown)
 
     await asyncio.gather(
         ws_client.connect(),

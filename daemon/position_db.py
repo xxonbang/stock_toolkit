@@ -100,7 +100,7 @@ def unmark_selling(position_id: str):
 async def insert_buy_order(code: str, name: str, price: int, quantity: int) -> dict | None:
     url = f"{SUPABASE_URL}/rest/v1/auto_trades"
     body = {"code": code, "name": name, "side": "buy", "order_price": price, "quantity": quantity, "status": "pending"}
-    result = await _supabase_request("POST", url, json=body)
+    result = await _supabase_request("POST", url, retries=0, json=body)  # POST는 retry 안 함 (멱등성 없음)
     if result:
         invalidate_cache()
         return result[0] if isinstance(result, list) and result else result
