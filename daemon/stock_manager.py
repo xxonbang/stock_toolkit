@@ -1,7 +1,7 @@
 """구독 종목 관리 — GitHub Pages JSON 폴링 + 수동 종목"""
 import logging
-import aiohttp
 from daemon.config import DATA_BASE_URL
+from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.stocks")
 
@@ -38,10 +38,10 @@ def parse_portfolio_codes(data: list | None) -> set[str]:
 
 async def fetch_json(url: str) -> list | dict | None:
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
-                if resp.status == 200:
-                    return await resp.json(content_type=None)
+        session = await get_session()
+        async with session.get(url) as resp:
+            if resp.status == 200:
+                return await resp.json(content_type=None)
     except Exception as e:
         logger.warning(f"JSON fetch 실패 ({url}): {e}")
     return None

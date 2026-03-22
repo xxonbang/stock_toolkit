@@ -14,6 +14,7 @@ from daemon.notifier import format_alert, send_telegram
 from daemon.stock_manager import fetch_subscription_codes, get_stock_name
 from daemon.trader import check_positions_for_sell, run_buy_process
 from daemon.github_monitor import check_workflow_completion
+from daemon.http_session import close_session
 
 logging.basicConfig(
     level=logging.INFO,
@@ -70,6 +71,8 @@ def is_market_hours() -> bool:
 
 async def on_execution(data: dict):
     """체결 데이터 수신 콜백 — 알림 규칙 검사 + 보유 포지션 수익률 체크"""
+    if not is_market_hours():
+        return  # 장 외 시간 무시
     alerts = alert_engine.check(data, tick_volume=data.get("tick_volume"))
     for alert in alerts:
         name = get_stock_name(alert["code"])
@@ -154,6 +157,7 @@ async def main():
         schedule_auto_trade(),
     )
 
+    await close_session()
     logger.info("WebSocket 알림 데몬 종료")
 
 

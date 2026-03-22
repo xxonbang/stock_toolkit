@@ -1,7 +1,8 @@
-"""Telegram 알림 발송 — 포맷팅 + 비동기 전송"""
+"""Telegram 알림 발송 — 포맷팅 + 비동기 전송 + 쓰로틀링"""
 import logging
-import aiohttp
+import time
 from daemon.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.notify")
 
@@ -48,10 +49,22 @@ def format_alert(alert: dict, stock_name: str = "") -> str:
     return "\n".join(lines)
 
 
+# 쓰로틀링: 초당 최대 1건
+_last_send_time: float = 0
+_MIN_INTERVAL = 1.0  # 초
+
+
 async def send_telegram(text: str):
+    global _last_send_time
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         logger.warning("Telegram 설정 누락 — 알림 미발송")
         return
+    # 쓰로틀링
+    now = time.time()
+    if (now - _last_send_time) < _MIN_INTERVAL:
+        return
+    _last_send_time = now
+
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
@@ -59,10 +72,10 @@ async def send_telegram(text: str):
         "parse_mode": "HTML",
     }
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=payload, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-                if resp.status != 200:
-                    body = await resp.text()
-                    logger.error(f"Telegram 발송 실패 ({resp.status}): {body}")
+        session = await get_session()
+        async with session.post(url, json=payload) as resp:
+            if resp.status != 200:
+                body = await resp.text()
+                logger.error(f"Telegram 발송 실패 ({resp.status}): {body}")
     except Exception as e:
         logger.error(f"Telegram 발송 오류: {e}")

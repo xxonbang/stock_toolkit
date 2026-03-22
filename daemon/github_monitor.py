@@ -1,7 +1,7 @@
 """GitHub 워크플로우 완료 감지"""
 import logging
-import aiohttp
 from daemon.config import GITHUB_TOKEN, GITHUB_REPO, GITHUB_WORKFLOW
+from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.github")
 
@@ -40,19 +40,19 @@ async def check_workflow_completion(last_seen_time: str | None) -> tuple[bool, s
         "Accept": "application/vnd.github.v3+json",
     }
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params, headers=headers, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    runs = parse_workflow_runs(data)
-                    if runs:
-                        latest_time = runs[0]["updated_at"]
-                        if is_new_completion(latest_time, last_seen_time):
-                            logger.info(f"워크플로우 완료 감지: {latest_time}")
-                            return True, latest_time
-                        return False, last_seen_time
-                else:
-                    logger.warning(f"GitHub API 오류 ({resp.status})")
+        session = await get_session()
+        async with session.get(url, params=params, headers=headers) as resp:
+            if resp.status == 200:
+                data = await resp.json()
+                runs = parse_workflow_runs(data)
+                if runs:
+                    latest_time = runs[0]["updated_at"]
+                    if is_new_completion(latest_time, last_seen_time):
+                        logger.info(f"워크플로우 완료 감지: {latest_time}")
+                        return True, latest_time
+                    return False, last_seen_time
+            else:
+                logger.warning(f"GitHub API 오류 ({resp.status})")
     except Exception as e:
         logger.error(f"GitHub API 호출 실패: {e}")
     return False, last_seen_time

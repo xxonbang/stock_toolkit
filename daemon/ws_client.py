@@ -3,9 +3,9 @@ import asyncio
 import json
 import logging
 import time
-import aiohttp
 import websockets
 from daemon.config import KIS_APP_KEY, KIS_APP_SECRET, WS_URL
+from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.ws")
 
@@ -85,11 +85,11 @@ async def get_approval_key() -> str | None:
         "secretkey": KIS_APP_SECRET,
     }
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=body, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    return data.get("approval_key")
+        session = await get_session()
+        async with session.post(url, json=body) as resp:
+            if resp.status == 200:
+                data = await resp.json()
+                return data.get("approval_key")
     except Exception as e:
         logger.error(f"approval_key 발급 실패: {e}")
     return None

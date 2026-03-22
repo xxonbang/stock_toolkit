@@ -152,6 +152,9 @@ class AlertEngine:
             window.popleft()
 
     def set_target(self, code: str, price: float):
+        # 최대 100개 제한 (메모리 누수 방지)
+        if len(self._targets) >= 100 and code not in self._targets:
+            return
         self._targets[code] = price
 
     def remove_target(self, code: str):
