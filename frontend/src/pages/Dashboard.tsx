@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import {
   ScatterChart, Scatter, XAxis, YAxis, Tooltip,
@@ -136,7 +136,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
   const [consecutiveSignals, setConsecutiveSignals] = useState<any>(null);
 
-  const dbHoldingsRef = { current: dbHoldings };
+  const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
 
   const loadAllData = () => {
