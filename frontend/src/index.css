@@ -67,6 +67,19 @@ body {
   padding-right: env(safe-area-inset-right, 0px);
 }
 
+/* iOS PWA 상단 safe area 배경 — 스크롤 시 콘텐츠가 비치지 않도록 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: constant(safe-area-inset-top);
+  height: env(safe-area-inset-top, 0px);
+  background: var(--bg);
+  z-index: 99999;
+}
+
 /* 유틸리티 */
 .t-bg { background: var(--bg); }
 .t-card { background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-card); }
