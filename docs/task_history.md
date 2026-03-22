@@ -1,5 +1,128 @@
 # Task History
 
+## 2026-03-22
+
+### [버그픽스] 시뮬레이션 0건 수정 — signal history 날짜 파싱 오류 (2026-03-22 12:20 KST)
+- **변경 파일:** `scripts/run_all.py`
+- **내용:** data_loader가 파일명 stem 전체를 date로 반환(vision_2026-03-20_1945)하여 stock-history 날짜와 불일치 → 정규식으로 YYYY-MM-DD 추출, 같은 날짜 중복 snapshot 제거
+- **커밋:** `1e08f4d`
+
+### [기능] 전략 시뮬레이션 + 패턴 매칭 데이터 보강 (2026-03-22 12:05 KST)
+- **변경 파일:** `scripts/run_all.py`, `frontend/src/pages/Dashboard.tsx`
+- **내용:** stock-history 일봉으로 price_d0~d5 역산하여 시뮬레이션 구현, 유사 종목 5일 수익률(future_return) 산출, 프론트엔드 데이터 부족 안내 + future_return 표시 개선
+- **커밋:** `f8e615c`
+
+### [버그픽스] 모의투자 페이지 — 헤더 로고 + 빈 데이터 안내 + 무한 로딩 방지 (2026-03-22 11:38 KST)
+- **변경 파일:** `frontend/src/pages/PaperTrading.tsx` (추정)
+- **내용:** 모의투자 페이지에 헤더 로고 추가, 빈 데이터 시 안내 표시, 무한 로딩 방지
+- **커밋:** `d54ad3d`
+
+### [버그픽스] iOS PWA 상단 safe area 콘텐츠 비침 방지 (2026-03-22 11:35 KST)
+- **변경 파일:** 프론트엔드 CSS/HTML
+- **내용:** iOS PWA 상단 safe area에 콘텐츠가 비치는 문제 수정
+- **커밋:** `9e40660`
+
+### [기능] 로고 클릭 시 데이터 새로고침 + 시각적 피드백 (2026-03-22 11:31 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 로고 클릭 시 데이터 새로고침 트리거 + 시각적 피드백 애니메이션
+- **커밋:** `2ab3d8a`
+
+### [버그픽스] 로그인 상태 유실 방지 (2026-03-22 11:25 KST)
+- **변경 파일:** 프론트엔드 인증 관련 파일
+- **내용:** 로그인 상태 유실 3가지 원인 수정
+- **커밋:** `ac4167b`
+
+### [버그픽스] 포트폴리오 평단 오류 근본 수정 (2026-03-22 11:20 KST)
+- **변경 파일:** 프론트엔드 포트폴리오 컴포넌트
+- **내용:** dbHoldingsRef를 useRef로 변경하여 평단 오류 근본 수정
+- **커밋:** `6e101df`
+
+### [개선] 데몬 안정화 — 위험 요소 전면 수정 + 2차/3차 진단 (2026-03-22 11:01~11:15 KST)
+- **변경 파일:** `daemon/` 디렉토리 다수
+- **내용:** 8건 위험 요소 전면 수정, 2차 진단 4건 수정, 3차 진단 3건 개선, 불필요한 지역 import asyncio 제거
+- **커밋:** `adf2bc2`, `53d26a6`, `2d4ba5b`, `7cb8995`
+
+### [리팩토링] iOS safe area 통합 — 업계 권장 방식 (2026-03-22 09:00~10:18 KST)
+- **변경 파일:** `frontend/index.html`, `frontend/src/index.css`, `frontend/src/pages/Dashboard.tsx`
+- **내용:** 다이나믹 아일랜드 대응을 위해 여러 차례 수정 후 최종적으로 body padding 방식으로 통합. 메뉴 팝업 라이트 테마 대응, sticky 헤더 safe-area-inset-top 적용, 상태바 default 변경
+- **커밋:** `db9cac5`, `fb8ba9d`, `4723bb8`, `65b03f0`, `b1fc066`, `65eb7f1`
+
+### [버그픽스] cron-job.org 무한 트리거 방지 (2026-03-22 09:50 KST)
+- **변경 파일:** `.github/workflows/` 또는 관련 스크립트
+- **내용:** cron-job.org 무한 트리거 방지 안전장치 3중 추가
+- **커밋:** `575426c`
+
+### [버그픽스] 로그아웃 버튼 클릭 불가 — 메뉴 UI 전면 재구현 (2026-03-22 00:34~00:57 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/` 관련
+- **내용:** 로그인/로그아웃 불안정 → z-index 조정 → stopPropagation → fixed 이동 → 바텀시트 모달 재구현 → 최종 createPortal로 document.body에 직접 렌더하여 해결
+- **커밋:** `612eb5c`, `8749300`, `21a7c68`, `9e926dc`, `fd94ec5`, `38a1d69`, `d8a3f9a`, `c4941da`, `c5e4149`
+
+### [기능] 포트폴리오 기능 강화 — 체크박스 선택 계산 + 총 손익 (2026-03-22 00:26~00:30 KST)
+- **변경 파일:** 프론트엔드 포트폴리오 컴포넌트
+- **내용:** 포트폴리오 평단 오류 수정(DB avg_price 우선), 종목별 체크박스로 투자금/평가금/수익률 선택 계산, 총 손익 금액 표시
+- **커밋:** `73497d3`, `713867d`, `67af69e`
+
+### [버그픽스] 네비게이션 + 대시보드 정리 (2026-03-22 00:14~00:31 KST)
+- **변경 파일:** 프론트엔드 페이지 컴포넌트
+- **내용:** 대시보드 탭에서 포트폴리오 섹션 제거(포트폴리오 탭 전용), 스캐너/모의투자 페이지에 통일된 4탭 네비게이션 적용
+- **커밋:** `73369d4`, `d591510`
+
+### [개선] daemon 설정 수정 (2026-03-22 00:14~00:22 KST)
+- **변경 파일:** `daemon/` 관련
+- **내용:** GitHub 레포명 수정(theme_analysis → theme-analyzer), 주말/공휴일/장외 시간 체크 추가
+- **커밋:** `4d776a6`, `04187e6`
+
+### [버그픽스] AI 브리핑 표시 오류 수정 (2026-03-22 00:10~00:11 KST)
+- **변경 파일:** 프론트엔드 브리핑 관련 컴포넌트
+- **내용:** AI 브리핑 파싱 오류(잔여 번호/콜론 제거 + 가독성 개선), 빈 불릿(초록 점만) 제거, 빈 본문 시 "해당 항목 없음" 표시
+- **커밋:** `733475f`, `81385cd`, `0c9ab0a`
+
+### [버그픽스] 모바일 safe area + iOS 상태 바 (2026-03-22 00:05~00:08 KST)
+- **변경 파일:** `frontend/index.html`, `frontend/src/index.css`
+- **내용:** viewport-fit=cover + 하단 바 패딩 적용, iOS 상태 바 테마 색상 동기화 복원
+- **커밋:** `f611c23`, `31eab4c`
+
+### [버그픽스] 포트폴리오 무한 리렌더 수정 (2026-03-22 00:04 KST)
+- **변경 파일:** 프론트엔드 포트폴리오 컴포넌트
+- **내용:** stale closure + finally 블록으로 인한 무한 리렌더 수정
+- **커밋:** `6bfcde0`
+
+## 2026-03-21
+
+### [기능] 모의투자 리포트 페이지 + 자동매매 (2026-03-21 23:55 KST)
+- **변경 파일:** 프론트엔드 모의투자 페이지, `daemon/` 관련
+- **내용:** 모의투자 리포트 페이지 신규, 익절 기준 +3%로 변경, daemon에 모의투자 자동매매 구현(고확신 종목 매수 + 익절 +3% / 손절 -3%)
+- **커밋:** `9c927be`, `c8d74ea`
+
+### [개선] daemon 호가 구독 + 알림 태그 제거 (2026-03-21 23:04~23:09 KST)
+- **변경 파일:** `daemon/` 관련
+- **내용:** 호가(H0STASP0) 구독 추가(수급 반전 + 호가 벽 감지), 알림 메시지에서 [ST] 태그 제거
+- **커밋:** `8a944ac`, `cef0a46`
+
+### [기능] KIS WebSocket 실시간 알림 데몬 구현 (2026-03-21 23:30 KST)
+- **변경 파일:** `daemon/` 디렉토리 전체 (15파일 신규 생성), `docs/research/2026-03-21-gcp-migration.md`, `docs/superpowers/plans/2026-03-21-websocket-alert-daemon.md`
+- **내용:**
+  - GCP e2-micro 독립 실행용 WebSocket 알림 데몬 (`daemon/` 디렉토리)
+  - KIS WebSocket(H0STCNT0) 체결가 실시간 수신 + PINGPONG + 자동 재연결
+  - 알림 엔진: 급등(+5/10/15%), 급락(-3/5%), 거래량 폭증(5분 3배), 목표가 도달
+  - Telegram 비동기 알림 발송 ([ST] 태그), 쿨다운(5분) 중복 방지
+  - GitHub Pages JSON 폴링으로 구독 종목 자동 갱신 (cross_signal + portfolio)
+  - GCP 이전 연구 문서 (비용 분석, side-effect 진단, 알림 중복 분석)
+  - 기존 코드 변경 제로, 테스트 21건 PASS, 기존 55건 영향 없음
+- **커밋:** `f96fe11`
+
+## 2026-03-20
+
+### [기능] KIS API 확장 — 호가/투자자동향 + MCP 연결 (2026-03-20 14:00 KST)
+- **변경 파일:** `core/kis_client.py`, `scripts/generate_missing_data.py`, `tests/test_kis_client.py`, `docs/research/2026-03-20-kis-improvement.md`, `docs/superpowers/plans/2026-03-20-kis-api-expansion.md`, `~/.claude/settings.local.json`
+- **내용:**
+  - **Phase 1:** kis_client.py에 `get_asking_price` (호가 5단계, TR:FHKST01010200), `get_investor` (투자자동향, TR:FHKST01010900) 메서드 추가
+  - **Phase 1:** gen_orderbook()에서 KIS 호가 실데이터 시도 → 실패 시 기존 mock 폴백 (side-effect 없음)
+  - **Phase 2:** KIS Code Assistant MCP를 Claude Code 개발 도구로 연결 (settings.local.json)
+  - **연구:** docs/research/2026-03-20-kis-improvement.md (KIS API 334개 중 활용 현황 + 개선 포인트)
+  - **테스트:** 4건 추가 (전체 55건 PASS)
+- **커밋:** `8c62a8f`
+
 ## 2026-03-18
 
 ### [기능] 실시간 데이터 격차 해소 — 10회 연구 결과 구현 (2026-03-18 16:00 KST)
