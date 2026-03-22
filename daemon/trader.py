@@ -1,4 +1,5 @@
 """KIS 모의투자 자동매매 — 매수/매도 주문 + 수익률 감시"""
+import asyncio
 import logging
 import time
 from daemon.config import (
@@ -108,7 +109,6 @@ async def _kis_order(tr_id: str, code: str, quantity: int, price: int, retry: bo
             if retry and ("만료" in msg or "token" in msg.lower()):
                 logger.warning(f"KIS 토큰 만료 — 재발급 후 재시도")
                 _reset_token()
-                import asyncio
                 await asyncio.sleep(1)
                 return await _kis_order(tr_id, code, quantity, price, retry=False)
             logger.error(f"KIS 주문 실패 ({tr_id}): {msg}")
