@@ -616,9 +616,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         document.body
       )}
       {/* 신뢰도 설명 팝업 */}
-      {confExp && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={() => setConfExp(null)}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      {confExp && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setConfExp(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
           <div className="relative w-[85%] max-w-sm t-card border t-border-light rounded-2xl p-5 shadow-xl" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-bold t-text">{confExp.theme}</span>
@@ -646,12 +646,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
       {/* 종목 상세 팝업 */}
-      {stockDetail && (
-        <div className="fixed inset-0 z-[60]" onClick={() => { setStockDetail(null); setShowDualExp(false); }}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      {stockDetail && createPortal(
+        <div className="fixed inset-0 z-[9999]" onClick={() => { setStockDetail(null); setShowDualExp(false); }}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
           <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
@@ -771,7 +772,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             )}
             </>}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
       {/* 토스트 메시지 */}
       {toastMsg && createPortal(
