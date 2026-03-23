@@ -540,6 +540,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   </div>
                 )}
               </div>
+              {/* 현재 설정 요약 */}
+              <div className="px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                <div className="text-[10px] t-text-dim mb-1">현재 설정</div>
+                <div className="text-[12px] font-medium t-text">
+                  알림: {alertMode === "all" ? "교차신호 + 포트폴리오" : alertMode === "portfolio_only" ? "포트폴리오만" : "전체 OFF"}
+                </div>
+              </div>
               {/* 알림 대상 */}
               <div>
                 <div className="text-[11px] t-text-dim mb-2">실시간 알림 대상</div>
