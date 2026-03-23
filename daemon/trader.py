@@ -4,7 +4,7 @@ import logging
 import time
 from daemon.config import (
     KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_ACCOUNT_NO, KIS_MOCK_BASE_URL,
-    TRADE_AMOUNT_PER_STOCK, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT,
+    TRADE_AMOUNT_PER_STOCK, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT,
     DATA_BASE_URL,
 )
 from daemon.position_db import (
@@ -19,6 +19,9 @@ from daemon.http_session import get_session
 logger = logging.getLogger("daemon.trader")
 
 BUY_SIGNALS = {"적극매수", "매수"}
+
+# 종목별 고점 추적 (trailing stop용)
+_peak_prices: dict[str, int] = {}
 
 _access_token = ""
 _token_issued_at: float = 0
@@ -173,8 +176,11 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
     if result:
         pnl = calc_pnl_pct(buy_price, price)
         await update_position_sold(position_id, price, pnl, reason)
-        reason_label = "익절 +3%" if reason == "take_profit" else "손절 -3%" if reason == "stop_loss" else "수동 매도"
-        emoji = "💰" if reason == "take_profit" else "🛑" if reason == "stop_loss" else "✋"
+        reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
+        reason_label = reason_labels.get(reason, reason)
+        emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
+        # 고점 추적 정리
+        _peak_prices.pop(position_id, None)
         logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%)")
         await send_telegram(
             f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
@@ -337,7 +343,23 @@ async def check_positions_for_sell(current_price_data: dict):
         if buy_price <= 0:
             continue
 
+        # 고점 추적 (trailing stop용)
+        peak_key = position_id
+        if current_price > _peak_prices.get(peak_key, 0):
+            _peak_prices[peak_key] = current_price
+
         reason = should_sell(buy_price, current_price, take_profit=tp, stop_loss=sl)
+
+        # trailing stop: 수익 중(pnl > 0)이고 고점 대비 c% 하락
+        if not reason:
+            pnl = calc_pnl_pct(buy_price, current_price)
+            peak = _peak_prices.get(peak_key, current_price)
+            if pnl > 0 and peak > 0:
+                drop = (current_price - peak) / peak * 100
+                ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
+                if drop <= ts_pct:
+                    reason = "trailing_stop"
+
         if reason:
             mark_selling(position_id)  # 락 설정
             await place_sell_order(
