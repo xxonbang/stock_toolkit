@@ -540,8 +540,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <button key={mode}
                       onClick={async () => {
                         setAlertModeState(mode);
-                        const ok = await setAlertMode(mode);
-                        setSettingsResult(ok ? "설정이 저장되었습니다" : "저장 실패 — 다시 시도해주세요");
+                        try {
+                          const ok = await setAlertMode(mode);
+                          setSettingsResult(ok ? "✓ 설정이 저장되었습니다" : "✕ 저장 실패 — 다시 시도해주세요");
+                        } catch {
+                          setSettingsResult("✕ 저장 실패 — 네트워크를 확인해주세요");
+                        }
                         setTimeout(() => setSettingsResult(""), 2000);
                       }}
                       className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${alertMode === mode
