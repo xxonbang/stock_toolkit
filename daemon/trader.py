@@ -342,16 +342,20 @@ async def cancel_all_pending_orders():
     cano = account_parts[0]
     acnt_cd = account_parts[1] if len(account_parts) > 1 else "01"
 
-    # KIS 미체결 조회
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-psbl-rvsecncl"
+    # KIS 모의투자 미체결 조회
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
     params = {
         "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+        "INQR_STRT_DT": "", "INQR_END_DT": "",
+        "SLL_BUY_DVSN_CD": "00", "INQR_DVSN": "00",
+        "PDNO": "", "CCLD_DVSN": "01",
+        "ORD_GNO_BRNO": "", "ODNO": "",
+        "INQR_DVSN_3": "00", "INQR_DVSN_1": "",
         "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
-        "INQR_DVSN_1": "0", "INQR_DVSN_2": "0",
     }
     session = await get_session()
     try:
-        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8036R")) as resp:
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
             data = await resp.json()
             if data.get("rt_cd") != "0":
                 logger.warning(f"미체결 조회 실패: {data.get('msg1', '')}")
@@ -417,20 +421,43 @@ async def sell_all_positions_market():
             continue
         mark_selling(position_id)
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+        # 현재가 조회하여 수익률 계산
+        current_price = await _get_current_price(pos["code"])
         result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
         if result:
-            pnl = 0.0
-            await update_position_sold(position_id, buy_price, pnl, "eod_close")
-            logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pos['quantity']}주")
+            sell_price = current_price if current_price > 0 else buy_price
+            pnl = calc_pnl_pct(buy_price, sell_price)
+            pnl_amount = (sell_price - buy_price) * pos["quantity"]
+            await update_position_sold(position_id, sell_price, pnl, "eod_close")
+            logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pnl:+.2f}%")
             await send_telegram(
                 f"<b>🔔 장 마감 청산</b>\n"
                 f"<b>{pos['name']} ({pos['code']})</b>\n"
-                f"매수가: {buy_price:,}원 × {pos['quantity']}주\n"
-                f"시장가 매도 주문 완료"
+                f"매수가: {buy_price:,}원 → 현재가: {sell_price:,}원\n"
+                f"수익률: {pnl:+.2f}% ({pnl_amount:+,}원)\n"
+                f"{pos['quantity']}주 시장가 매도"
             )
         else:
             unmark_selling(position_id)
     invalidate_cache()
+
+
+async def _get_current_price(code: str) -> int:
+    """KIS API로 현재가 조회"""
+    token = await _ensure_mock_token()
+    if not token:
+        return 0
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+    try:
+        session = await get_session()
+        async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") == "0":
+                return int(data.get("output", {}).get("stck_prpr", "0"))
+    except Exception as e:
+        logger.warning(f"현재가 조회 실패 ({code}): {e}")
+    return 0
 
 
 async def _kis_order_market(tr_id: str, code: str, quantity: int) -> dict | None:
