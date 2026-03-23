@@ -142,8 +142,7 @@ class AlertEngine:
                         alert_type = "supply_reversal_buy"
                     else:
                         alert_type = "supply_reversal_sell"
-                    # buy/sell 구분 없이 supply_reversal 단일 쿨다운
-                    if self._can_alert(code, "supply_reversal"):
+                    if self._can_alert(code, alert_type):
                         alerts.append({
                             "type": alert_type,
                             "code": code,
@@ -152,7 +151,7 @@ class AlertEngine:
                             "prev_ratio": round(oldest_ratio * 100, 1),
                             "delta": round(delta * 100, 1),
                         })
-                        self._mark_alerted(code, "supply_reversal")
+                        self._mark_alerted(code, alert_type)
 
         return alerts
 
