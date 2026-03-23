@@ -427,9 +427,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   setShowLogin(false);
                   setLoginEmail("");
                   setLoginPw("");
-                  const holdings = await fetchHoldingsFromDB();
-                  setDbHoldings(holdings);
-                  getAlertMode().then(setAlertModeState);
+                  fetchHoldingsFromDB().then(setDbHoldings).catch(() => {});
+                  getAlertMode().then(setAlertModeState).catch(() => {});
+                } else {
+                  setLoginError("로그인 응답에 세션이 없습니다. 다시 시도해주세요.");
                 }
               } catch (e: any) {
                 setLoginError(e?.message || "네트워크 오류. 다시 시도해주세요.");
