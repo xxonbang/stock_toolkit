@@ -68,9 +68,10 @@ class AlertEngine:
         total_bid = data["total_bid"]
         alerts = []
 
-        # 장 초반 5분(09:00~09:05) 호가 알림 억제 — 호가 안정화 대기
+        # 장 초반 5분(09:00~09:05 KST) 호가 알림 억제 — 호가 안정화 대기
         import datetime
-        now_t = datetime.datetime.now().time()
+        KST = datetime.timezone(datetime.timedelta(hours=9))
+        now_t = datetime.datetime.now(KST).time()
         if now_t < datetime.time(9, 5):
             # 수급 히스토리는 계속 쌓되, 알림은 발생시키지 않음
             total = total_ask + total_bid
