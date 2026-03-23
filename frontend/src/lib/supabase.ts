@@ -150,11 +150,18 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
   try {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return false;
-    const { error } = await supabase.from("alert_config").upsert({
+    // 기존 설정 조회 후 병합 (부분 업데이트 지원)
+    const { data: existing } = await supabase.from("alert_config")
+      .select("alert_mode, take_profit_pct, stop_loss_pct")
+      .eq("user_id", user.id).maybeSingle();
+    const merged = {
       user_id: user.id,
-      ...updates,
+      alert_mode: updates.alert_mode ?? existing?.alert_mode ?? "all",
+      take_profit_pct: updates.take_profit_pct ?? existing?.take_profit_pct ?? 3.0,
+      stop_loss_pct: updates.stop_loss_pct ?? existing?.stop_loss_pct ?? -3.0,
       updated_at: new Date().toISOString(),
-    }, { onConflict: "user_id" });
+    };
+    const { error } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
     if (error) { console.error("설정 변경 실패:", error.code, error.message, error.details); return false; }
     return true;
   } catch (e) {
