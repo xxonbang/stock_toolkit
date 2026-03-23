@@ -103,6 +103,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const [settingsResult, setSettingsResult] = useState("");
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -534,7 +535,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <button key={mode}
                       onClick={async () => {
                         setAlertModeState(mode);
-                        await setAlertMode(mode);
+                        const ok = await setAlertMode(mode);
+                        setSettingsResult(ok ? "설정이 저장되었습니다" : "저장 실패 — 다시 시도해주세요");
+                        setTimeout(() => setSettingsResult(""), 2000);
                       }}
                       className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${alertMode === mode
                         ? mode === "off" ? "bg-red-600/15 border-red-500/40" : "bg-blue-600/15 border-blue-500/40"
@@ -550,6 +553,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     </button>
                   ))}
                 </div>
+                {settingsResult && (
+                  <div className={`text-[11px] text-center mt-2 py-1.5 rounded-lg ${settingsResult.includes("실패") ? "text-red-400 bg-red-500/10" : "text-emerald-400 bg-emerald-500/10"}`}>
+                    {settingsResult}
+                  </div>
+                )}
               </div>
             </div>
           </div>
