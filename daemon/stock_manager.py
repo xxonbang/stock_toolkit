@@ -1,6 +1,6 @@
-"""구독 종목 관리 — GitHub Pages JSON 폴링 + 수동 종목"""
+"""구독 종목 관리 — GitHub Pages JSON 폴링 + Supabase 알림 설정"""
 import logging
-from daemon.config import DATA_BASE_URL
+from daemon.config import DATA_BASE_URL, SUPABASE_URL, SUPABASE_SECRET_KEY
 from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.stocks")
@@ -47,13 +47,41 @@ async def fetch_json(url: str) -> list | dict | None:
     return None
 
 
+async def fetch_alert_mode() -> str:
+    """Supabase alert_config에서 알림 모드 조회 (기본: 'all')"""
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return "all"
+    try:
+        session = await get_session()
+        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode&limit=1"
+        headers = {
+            "apikey": SUPABASE_SECRET_KEY,
+            "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
+        }
+        async with session.get(url, headers=headers) as resp:
+            if resp.status == 200:
+                rows = await resp.json()
+                if rows and isinstance(rows, list) and rows[0].get("alert_mode"):
+                    mode = rows[0]["alert_mode"]
+                    logger.info(f"알림 모드: {mode}")
+                    return mode
+    except Exception as e:
+        logger.warning(f"알림 모드 조회 실패: {e}")
+    return "all"
+
+
 async def fetch_subscription_codes(manual_codes: set[str] | None = None) -> set[str]:
     codes: set[str] = set()
 
-    cross_data = await fetch_json(f"{DATA_BASE_URL}/cross_signal.json")
-    if isinstance(cross_data, list):
-        codes |= parse_cross_signal_codes(cross_data, limit=20)
+    alert_mode = await fetch_alert_mode()
 
+    # 교차 신호 종목 (alert_mode가 'all'일 때만)
+    if alert_mode != "portfolio_only":
+        cross_data = await fetch_json(f"{DATA_BASE_URL}/cross_signal.json")
+        if isinstance(cross_data, list):
+            codes |= parse_cross_signal_codes(cross_data, limit=20)
+
+    # 포트폴리오 종목 (항상 포함)
     portfolio_data = await fetch_json(f"{DATA_BASE_URL}/portfolio.json")
     if isinstance(portfolio_data, dict):
         holdings = portfolio_data.get("holdings", [])

@@ -106,3 +106,32 @@ export async function deleteHolding(id: string): Promise<boolean> {
   if (error) { console.error("종목 삭제 실패:", error.message); return false; }
   return true;
 }
+
+// ========== 알림 설정 (alert_config) ==========
+
+export type AlertMode = "all" | "portfolio_only";
+
+/** 알림 모드 조회 */
+export async function getAlertMode(): Promise<AlertMode> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return "all";
+  const { data } = await supabase
+    .from("alert_config")
+    .select("alert_mode")
+    .eq("user_id", user.id)
+    .single();
+  return (data?.alert_mode as AlertMode) || "all";
+}
+
+/** 알림 모드 변경 */
+export async function setAlertMode(mode: AlertMode): Promise<boolean> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { error } = await supabase.from("alert_config").upsert({
+    user_id: user.id,
+    alert_mode: mode,
+    updated_at: new Date().toISOString(),
+  }, { onConflict: "user_id" });
+  if (error) { console.error("알림 설정 변경 실패:", error.message); return false; }
+  return true;
+}

@@ -11,8 +11,8 @@ import {
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
-import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding } from "../lib/supabase";
-import type { KisStockPrice, PortfolioHolding } from "../lib/supabase";
+import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode } from "../lib/supabase";
+import type { KisStockPrice, PortfolioHolding, AlertMode } from "../lib/supabase";
 import AutoTrader from "./AutoTrader";
 
 const STAGE_FILL: Record<string, string> = {
@@ -99,6 +99,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [livePriceTime, setLivePriceTime] = useState("");
   const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
   const [dbLoading, setDbLoading] = useState(false);
+  const [alertMode, setAlertModeState] = useState<AlertMode>("all");
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
@@ -288,6 +289,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         try {
           const holdings = await fetchHoldingsFromDB();
           setDbHoldings(holdings);
+          getAlertMode().then(setAlertModeState);
         } catch {} finally { setDbLoading(false); }
       }
       // session이 null이어도 기존 supaUser를 유지 (네트워크 오류 대응)
@@ -1196,6 +1198,23 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               setShowPortfolioEdit(true);
             }}
               className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
+          </div>
+          {/* 알림 대상 설정 */}
+          <div className="flex items-center justify-between mt-3 pt-3 border-t t-border-light">
+            <span className="text-xs t-text-sub">실시간 알림 대상</span>
+            <div className="flex gap-1">
+              {([["all", "교차신호 + 포트폴리오"], ["portfolio_only", "포트폴리오만"]] as [AlertMode, string][]).map(([mode, label]) => (
+                <button key={mode}
+                  onClick={async () => {
+                    setAlertModeState(mode);
+                    await setAlertMode(mode);
+                  }}
+                  className={`text-[11px] px-2.5 py-1 rounded-lg transition font-medium ${alertMode === mode
+                    ? "bg-blue-600 text-white"
+                    : "t-text-dim border t-border-light hover:t-text-sub"}`}
+                >{label}</button>
+              ))}
+            </div>
           </div>
         </section>
         );
