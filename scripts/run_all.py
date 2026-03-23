@@ -1326,8 +1326,8 @@ def main():
         for code, gem in list(gemini_stocks.items())[:20]:
             ob = gem.get("order_book", {}) if isinstance(gem, dict) else {}
             if ob:
-                ask = ob.get("ask_volume_total", 0) or 0
-                bid = ob.get("bid_volume_total", 0) or 0
+                ask = ob.get("total_ask_volume", ob.get("ask_volume_total", 0)) or 0
+                bid = ob.get("total_bid_volume", ob.get("bid_volume_total", 0)) or 0
                 ratio = ob.get("bid_ask_ratio", 1.0) or 1.0
                 total = ask + bid
                 buy_pct = round(bid / total * 100) if total > 0 else 50
