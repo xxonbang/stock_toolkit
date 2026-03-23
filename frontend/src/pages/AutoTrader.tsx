@@ -249,8 +249,8 @@ function TradeRow({ trade, type, onSell, selling }: {
         <div>{formatDate(trade.created_at)}</div>
       </div>
       {type === "closed" && trade.sell_reason && (
-        <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : "var(--danger)" }}>
-          {trade.sell_reason === "take_profit" ? "익절 +3%" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절 -3%"}
+        <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "var(--danger)" }}>
+          {trade.sell_reason === "take_profit" ? "익절 +3%" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절 -3%"}
         </div>
       )}
     </div>
