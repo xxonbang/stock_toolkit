@@ -2,6 +2,7 @@
 import asyncio
 import logging
 import time
+from datetime import datetime, timezone, timedelta
 from daemon.config import (
     KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_ACCOUNT_NO, KIS_MOCK_BASE_URL,
     TRADE_AMOUNT_PER_STOCK, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT,
@@ -168,6 +169,10 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             f"금액: {price * quantity:,}원"
         )
         return True
+    # KIS 주문 실패 → DB pending 정리
+    from daemon.position_db import delete_position
+    await delete_position(position["id"])
+    logger.warning(f"매수 실패 → pending 삭제: {name}({code})")
     return False
 
 
@@ -353,7 +358,6 @@ async def check_positions_for_sell(current_price_data: dict):
             _peak_prices[peak_key] = current_price
 
         # 익일 보유 종목은 익절 기준 10%로 상향
-        from datetime import datetime, timezone, timedelta
         _KST = timezone(timedelta(hours=9))
         created = pos.get("created_at", "")
         is_carry_over = False
@@ -492,6 +496,10 @@ async def sell_all_positions_market():
         else:
             to_sell.append(pos)
         await asyncio.sleep(0.2)
+
+    # 익일 보유 종목: 고점 추적 초기화 (익일 시가부터 새로 추적)
+    for pos in to_carry:
+        _peak_prices.pop(pos.get("id", ""), None)
 
     # 익일 보유 종목 알림
     if to_carry:
