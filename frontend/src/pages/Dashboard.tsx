@@ -221,6 +221,63 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     dataService.getConsecutiveSignals().then(setConsecutiveSignals);
   };
 
+  const refreshPortfolioPrices = async () => {
+    if (priceRefreshing || !portfolio?.holdings?.length) return;
+    setPriceRefreshing(true);
+    try {
+      const codes = portfolio.holdings.map((h: any) => h.code).filter(Boolean);
+      let priceMap: Record<string, number> = {};
+      let source = "";
+      if (supaUser && codes.length > 0) {
+        try {
+          const kisData = await fetchKisPrices(codes);
+          for (const [code, p] of Object.entries(kisData)) {
+            if (p.current_price) priceMap[code] = p.current_price;
+          }
+          if (Object.keys(priceMap).length > 0) source = "KIS";
+        } catch (e) {
+          console.warn("KIS Edge Function 실패:", e);
+        }
+      }
+      if (!source) {
+        try {
+          const [tvRes, pfRes] = await Promise.all([
+            fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
+            fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
+          ]);
+          if (tvRes.ok) for (const s of await tvRes.json() || []) {
+            if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
+          }
+          if (pfRes.ok) for (const h of (await pfRes.json())?.holdings || []) {
+            if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
+          }
+          if (Object.keys(priceMap).length > 0) source = "캐시";
+        } catch {}
+      }
+      if (Object.keys(priceMap).length > 0) {
+        const updated = portfolio.holdings.map((h: any) => {
+          const cp = priceMap[h.code] || h.current_price || 0;
+          const ap = h.avg_price || 0;
+          const qty = h.quantity || 0;
+          return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+            profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
+        });
+        const totalInv = updated.reduce((s: number, h: any) => s + h.invested, 0);
+        const totalVal = updated.reduce((s: number, h: any) => s + h.current_value, 0);
+        updated.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+        setPortfolio((prev: any) => ({ ...prev, holdings: updated, summary: {
+          total_invested: totalInv, total_value: totalVal,
+          total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+          total_profit_amount: totalVal - totalInv, total_holdings: updated.length,
+        }}));
+        const now = new Date();
+        const hh = now.getHours();
+        setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
+      }
+    } catch (e) { console.error("price refresh failed:", e); }
+    finally { setPriceRefreshing(false); }
+  };
+
   useEffect(() => {
     loadAllData();
     // Supabase 세션 확인 — 에러 시 기존 상태 유지 (로그아웃 방지)
@@ -1028,66 +1085,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       ) : portfolio && (() => {
         const sm = portfolio.summary || {};
         const profitColor = (r: number) => r > 0 ? "text-red-500" : r < 0 ? "text-blue-500" : "t-text";
-        const refreshPortfolioPrices = async () => {
-          if (priceRefreshing || !portfolio?.holdings?.length) return;
-          setPriceRefreshing(true);
-          try {
-            const codes = portfolio.holdings.map((h: any) => h.code).filter(Boolean);
-            let priceMap: Record<string, number> = {};
-            let source = "";
-            // 1) KIS API 실시간 (로그인 시 Edge Function)
-            if (supaUser && codes.length > 0) {
-              try {
-                const kisData = await fetchKisPrices(codes);
-                for (const [code, p] of Object.entries(kisData)) {
-                  if (p.current_price) priceMap[code] = p.current_price;
-                }
-                if (Object.keys(priceMap).length > 0) source = "KIS";
-              } catch (e) {
-                console.warn("KIS Edge Function 실패:", e);
-              }
-            }
-            // 2) 폴백: 배포 데이터
-            if (!source) {
-              try {
-                const [tvRes, pfRes] = await Promise.all([
-                  fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
-                  fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
-                ]);
-                if (tvRes.ok) for (const s of await tvRes.json() || []) {
-                  if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
-                }
-                if (pfRes.ok) for (const h of (await pfRes.json())?.holdings || []) {
-                  if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
-                }
-                if (Object.keys(priceMap).length > 0) source = "캐시";
-              } catch {}
-            }
-            if (Object.keys(priceMap).length > 0) {
-              // 포트폴리오 재계산
-              const updated = portfolio.holdings.map((h: any) => {
-                const cp = priceMap[h.code] || h.current_price || 0;
-                const ap = h.avg_price || 0;
-                const qty = h.quantity || 0;
-                return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
-                  profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
-              });
-              const totalInv = updated.reduce((s: number, h: any) => s + h.invested, 0);
-              const totalVal = updated.reduce((s: number, h: any) => s + h.current_value, 0);
-              updated.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-              setPortfolio((prev: any) => ({ ...prev, holdings: updated, summary: {
-                total_invested: totalInv, total_value: totalVal,
-                total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-                total_profit_amount: totalVal - totalInv, total_holdings: updated.length,
-              }}));
-              // 시각 표시
-              const now = new Date();
-              const hh = now.getHours();
-              setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
-            }
-          } catch (e) { console.error("price refresh failed:", e); }
-          finally { setPriceRefreshing(false); }
-        };
         return (
         <section className="t-card rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
