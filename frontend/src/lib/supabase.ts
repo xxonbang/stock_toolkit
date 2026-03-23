@@ -125,13 +125,18 @@ export async function getAlertMode(): Promise<AlertMode> {
 
 /** 알림 모드 변경 */
 export async function setAlertMode(mode: AlertMode): Promise<boolean> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return false;
-  const { error } = await supabase.from("alert_config").upsert({
-    user_id: user.id,
-    alert_mode: mode,
-    updated_at: new Date().toISOString(),
-  }, { onConflict: "user_id" });
-  if (error) { console.error("알림 설정 변경 실패:", error.message); return false; }
-  return true;
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { console.warn("setAlertMode: 사용자 없음"); return false; }
+    const { error } = await supabase.from("alert_config").upsert({
+      user_id: user.id,
+      alert_mode: mode,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: "user_id" });
+    if (error) { console.error("알림 설정 변경 실패:", error.code, error.message, error.details); return false; }
+    return true;
+  } catch (e) {
+    console.error("setAlertMode 예외:", e);
+    return false;
+  }
 }
