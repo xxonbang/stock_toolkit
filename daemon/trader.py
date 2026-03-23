@@ -177,7 +177,8 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
 
 
 async def place_sell_order(code: str, name: str, price: int, quantity: int, position_id: str, reason: str, buy_price: int) -> bool:
-    result = await _kis_order("VTTC0801U", code, quantity, price)
+    # 시장가 매도 (지정가 미체결 방지)
+    result = await _kis_order_market("VTTC0801U", code, quantity)
     if result:
         pnl = calc_pnl_pct(buy_price, price)
         await update_position_sold(position_id, price, pnl, reason)
@@ -195,6 +196,8 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
         )
         return True
     unmark_selling(position_id)
+    logger.error(f"매도 실패: {name}({code}) {reason}")
+    await send_telegram(f"<b>⚠️ 매도 실패</b>\n{name} ({code})\n사유: {reason}\n수동 확인 필요")
     return False
 
 
@@ -305,8 +308,7 @@ _trade_config_time: float = 0
 async def _get_trade_config() -> dict:
     """익절/손절 설정 조회 (60초 캐시)"""
     global _trade_config_cache, _trade_config_time
-    import time as _t
-    now = _t.time()
+    now = time.time()
     if _trade_config_cache and (now - _trade_config_time) < 60:
         return _trade_config_cache
     _trade_config_cache = await fetch_alert_config()
@@ -464,6 +466,7 @@ async def cancel_all_pending_orders():
 
 
 CARRY_OVER_THRESHOLD = 3.0  # 익일 보유 허용 기준 (당일 수익률 %)
+MAX_HOLD_DAYS = 3           # 최대 보유일 (초과 시 강제 청산)
 
 async def sell_all_positions_market():
     """장 마감 청산 — 수익 +3% 이상은 익일 보유, 나머지 시장가 매도"""
@@ -482,16 +485,35 @@ async def sell_all_positions_market():
     to_sell = []
     to_carry = []
 
+    _KST = timezone(timedelta(hours=9))
+    today = datetime.now(_KST).date()
+
     for pos in filled:
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
         if buy_price <= 0:
             to_sell.append(pos)
             continue
+
+        # 보유일 계산
+        hold_days = 0
+        created = pos.get("created_at", "")
+        if created:
+            try:
+                created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
+                hold_days = (today - created_date).days
+            except Exception:
+                pass
+
         current_price = await _get_current_price(pos["code"])
         pnl = calc_pnl_pct(buy_price, current_price) if current_price > 0 else 0
         pos["_current_price"] = current_price
         pos["_pnl"] = pnl
-        if pnl >= CARRY_OVER_THRESHOLD:
+
+        # 최대 보유일 초과 → 강제 매도
+        if hold_days >= MAX_HOLD_DAYS:
+            to_sell.append(pos)
+            logger.info(f"최대 보유일 초과({hold_days}일): {pos['name']}({pos['code']})")
+        elif pnl >= CARRY_OVER_THRESHOLD:
             to_carry.append(pos)
         else:
             to_sell.append(pos)
