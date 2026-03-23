@@ -1,5 +1,13 @@
 # Task History
 
+## 2026-03-23
+
+### [버그픽스] 포트폴리오 리프레쉬 버튼 영구 로딩 수정 (2026-03-23 10:00 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** refreshPortfolioPrices가 IIFE 렌더 함수 안에서 정의되어 리렌더링 시 타이밍 이슈로 스피닝 지속 → 컴포넌트 최상위 레벨로 이동하여 해결
+- **원인:** setPriceRefreshing(true) → 리렌더링 → IIFE 재실행 → 새 함수 생성 → finally 상태 불일치
+- **커밋:** `751fb9b`
+
 ## 2026-03-22
 
 ### [버그픽스] 모의투자 헤더를 공통 헤더로 통합 (2026-03-22 16:30 KST)
