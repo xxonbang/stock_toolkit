@@ -773,7 +773,7 @@ def main():
     macro_ind = loader.get_macro_indicators()
     macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
     exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
-    inv_trend = macro_ind.get("investor_trend", []) if isinstance(macro_ind, dict) else []
+    inv_trend = (macro_ind.get("investor_trend") or []) if isinstance(macro_ind, dict) else []
 
     sentiment_result["components"]["macro"] = [
         {"symbol": ind.get("symbol", ""), "name": ind.get("name", ""),
