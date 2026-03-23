@@ -656,7 +656,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <a href={`https://finance.naver.com/item/main.nhn?code=${stockDetail.code}`}
+                <a href={`https://m.stock.naver.com/domestic/stock/${stockDetail.code}/total`}
                   target="_blank" rel="noopener noreferrer"
                   className="text-base font-bold t-text hover:text-blue-400 transition">
                   {stockDetail.name} ↗
