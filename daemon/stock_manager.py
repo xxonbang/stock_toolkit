@@ -75,13 +75,18 @@ async def fetch_subscription_codes(manual_codes: set[str] | None = None) -> set[
 
     alert_mode = await fetch_alert_mode()
 
+    # 전체 OFF → 구독 없음
+    if alert_mode == "off":
+        logger.info("알림 전체 OFF — 구독 종목 없음")
+        return codes
+
     # 교차 신호 종목 (alert_mode가 'all'일 때만)
-    if alert_mode != "portfolio_only":
+    if alert_mode == "all":
         cross_data = await fetch_json(f"{DATA_BASE_URL}/cross_signal.json")
         if isinstance(cross_data, list):
             codes |= parse_cross_signal_codes(cross_data, limit=20)
 
-    # 포트폴리오 종목 (항상 포함)
+    # 포트폴리오 종목 (all, portfolio_only 모두 포함)
     portfolio_data = await fetch_json(f"{DATA_BASE_URL}/portfolio.json")
     if isinstance(portfolio_data, dict):
         holdings = portfolio_data.get("holdings", [])

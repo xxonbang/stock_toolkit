@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS alert_config (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
-  alert_mode TEXT NOT NULL DEFAULT 'all' CHECK (alert_mode IN ('all', 'portfolio_only')),
+  alert_mode TEXT NOT NULL DEFAULT 'all' CHECK (alert_mode IN ('all', 'portfolio_only', 'off')),
   updated_at TIMESTAMPTZ DEFAULT now(),
   UNIQUE(user_id)
 );

@@ -109,7 +109,7 @@ export async function deleteHolding(id: string): Promise<boolean> {
 
 // ========== 알림 설정 (alert_config) ==========
 
-export type AlertMode = "all" | "portfolio_only";
+export type AlertMode = "all" | "portfolio_only" | "off";
 
 /** 알림 모드 조회 */
 export async function getAlertMode(): Promise<AlertMode> {

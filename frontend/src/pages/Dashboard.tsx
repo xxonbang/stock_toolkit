@@ -501,48 +501,50 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </>,
         document.body
       )}
-      {/* 설정 바텀시트 */}
+      {/* 설정 팝업 */}
       {showSettings && createPortal(
-        <div className="fixed inset-0 z-[9999]" onClick={() => setShowSettings(false)}>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setShowSettings(false)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-          <div className="fixed bottom-0 left-0 right-0 z-[10000] rounded-t-2xl overflow-hidden"
-            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", maxHeight: "70vh" }}
+          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden"
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}
             onClick={e => e.stopPropagation()}>
-            {/* 핸들 바 */}
-            <div className="flex justify-center pt-3 pb-2">
-              <div className="w-10 h-1 rounded-full" style={{ background: "var(--border)" }} />
+            <div className="px-5 pt-5 pb-1">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold t-text">설정</h3>
+                <button onClick={() => setShowSettings(false)} className="p-1 rounded-lg t-text-dim hover:t-text transition">
+                  <X size={18} />
+                </button>
+              </div>
             </div>
-            <div className="px-5 pb-2">
-              <h3 className="text-base font-bold t-text">설정</h3>
-            </div>
-            <div className="px-5 pb-8 space-y-5">
+            <div className="px-5 pb-6 space-y-5 pt-4">
+              {/* 계정 정보 */}
+              {supaUser && (
+                <div>
+                  <div className="text-[11px] t-text-dim mb-1.5">계정</div>
+                  <div className="text-[13px] t-text px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    {supaUser.email}
+                  </div>
+                </div>
+              )}
               {/* 알림 대상 */}
               <div>
-                <div className="text-xs t-text-sub mb-2">실시간 알림 대상</div>
+                <div className="text-[11px] t-text-dim mb-1.5">실시간 알림 대상</div>
                 <div className="flex gap-2">
-                  {([["all", "교차신호 + 포트폴리오"], ["portfolio_only", "포트폴리오만"]] as [AlertMode, string][]).map(([mode, label]) => (
+                  {([["all", "교차신호 + 포트폴리오"], ["portfolio_only", "포트폴리오만"], ["off", "전체 OFF"]] as [AlertMode | "off", string][]).map(([mode, label]) => (
                     <button key={mode}
                       onClick={async () => {
-                        setAlertModeState(mode);
-                        await setAlertMode(mode);
+                        const m = mode as AlertMode;
+                        setAlertModeState(m);
+                        await setAlertMode(m);
                       }}
-                      className={`flex-1 text-[12px] py-2.5 rounded-xl transition font-medium ${alertMode === mode
-                        ? "bg-blue-600 text-white"
+                      className={`flex-1 text-[11px] py-2 rounded-xl transition font-medium ${alertMode === mode
+                        ? mode === "off" ? "bg-red-600 text-white" : "bg-blue-600 text-white"
                         : "t-text-dim hover:t-text-sub"}`}
                       style={alertMode !== mode ? { border: "1px solid var(--border)" } : undefined}
                     >{label}</button>
                   ))}
                 </div>
               </div>
-              {/* 계정 정보 */}
-              {supaUser && (
-                <div>
-                  <div className="text-xs t-text-sub mb-2">계정</div>
-                  <div className="text-[12px] t-text-dim px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                    {supaUser.email}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>,
