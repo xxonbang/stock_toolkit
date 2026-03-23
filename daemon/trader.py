@@ -117,6 +117,26 @@ async def _kis_order(tr_id: str, code: str, quantity: int, price: int, retry: bo
     return None
 
 
+async def is_upper_limit(code: str, price: int) -> bool:
+    """현재가가 상한가인지 확인"""
+    token = await _ensure_mock_token()
+    if not token:
+        return False
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+    try:
+        session = await get_session()
+        async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") == "0":
+                upper = int(data.get("output", {}).get("stck_mxpr", "0"))
+                if upper > 0 and price >= upper:
+                    return True
+    except Exception as e:
+        logger.warning(f"상한가 조회 오류 ({code}): {e}")
+    return False
+
+
 async def place_buy_order(code: str, name: str, price: int) -> bool:
     quantity = calc_quantity(TRADE_AMOUNT_PER_STOCK, price)
     if quantity <= 0:
@@ -127,6 +147,9 @@ async def place_buy_order(code: str, name: str, price: int) -> bool:
 
 async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: int) -> bool:
     """수량을 직접 지정하여 매수"""
+    if await is_upper_limit(code, price):
+        logger.info(f"상한가 종목 스킵 — {name}({code}) {price:,}원")
+        return False
     position = await insert_buy_order(code, name, price, quantity)
     if not position:
         return False
@@ -309,9 +332,78 @@ async def check_positions_for_sell(current_price_data: dict):
             )
 
 
+async def cancel_all_pending_orders():
+    """KIS 미체결 주문 전체 취소 + DB pending 정리"""
+    from daemon.position_db import invalidate_cache, delete_position
+    token = await _ensure_mock_token()
+    if not token:
+        return
+    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    cano = account_parts[0]
+    acnt_cd = account_parts[1] if len(account_parts) > 1 else "01"
+
+    # KIS 미체결 조회
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-psbl-rvsecncl"
+    params = {
+        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+        "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+        "INQR_DVSN_1": "0", "INQR_DVSN_2": "0",
+    }
+    session = await get_session()
+    try:
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8036R")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                logger.warning(f"미체결 조회 실패: {data.get('msg1', '')}")
+                return
+            orders = data.get("output", [])
+            if not orders:
+                logger.info("미체결 주문 없음")
+                return
+            logger.info(f"미체결 {len(orders)}건 취소 시작")
+            for order in orders:
+                odno = order.get("odno", "")
+                code = order.get("pdno", "")
+                qty = order.get("psbl_qty", order.get("ord_qty", "0"))
+                # 주문 취소
+                cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
+                cancel_body = {
+                    "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+                    "KRX_FWDG_ORD_ORGNO": "",
+                    "ORGN_ODNO": odno,
+                    "ORD_DVSN": "00",
+                    "RVSE_CNCL_DVSN_CD": "02",  # 취소
+                    "ORD_QTY": str(qty),
+                    "ORD_UNPR": "0",
+                    "QTY_ALL_ORD_YN": "Y",
+                }
+                async with session.post(cancel_url, json=cancel_body, headers=_order_headers(token, "VTTC0803U")) as cresp:
+                    cdata = await cresp.json()
+                    if cdata.get("rt_cd") == "0":
+                        logger.info(f"미체결 취소: {code} 주문번호={odno}")
+                    else:
+                        logger.warning(f"미체결 취소 실패: {code} {cdata.get('msg1', '')}")
+                await asyncio.sleep(0.3)
+    except Exception as e:
+        logger.error(f"미체결 취소 오류: {e}")
+
+    # DB pending 정리
+    positions = await get_active_positions(force_refresh=True)
+    pending = [p for p in positions if p["status"] == "pending"]
+    for p in pending:
+        await delete_position(p["id"])
+        logger.info(f"DB pending 삭제: {p.get('name', '')}({p.get('code', '')})")
+    invalidate_cache()
+
+
 async def sell_all_positions_market():
-    """보유 중인 전 포지션 시장가 매도 (장 마감 전 청산)"""
+    """보유 중인 전 포지션 시장가 매도 + 미체결 취소 (장 마감 전 청산)"""
     from daemon.position_db import invalidate_cache
+
+    # 1) 미체결 주문 취소
+    await cancel_all_pending_orders()
+
+    # 2) 보유 포지션 시장가 매도
     positions = await get_active_positions(force_refresh=True)
     filled = [p for p in positions if p["status"] == "filled"]
     if not filled:
@@ -325,10 +417,8 @@ async def sell_all_positions_market():
             continue
         mark_selling(position_id)
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
-        # 시장가 주문: ORD_DVSN="01", 가격 0
         result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
         if result:
-            # 시장가이므로 체결가를 알 수 없음 — 매수가로 임시 기록, 체결 데이터에서 갱신
             pnl = 0.0
             await update_position_sold(position_id, buy_price, pnl, "eod_close")
             logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pos['quantity']}주")

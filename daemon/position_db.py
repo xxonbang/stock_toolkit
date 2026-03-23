@@ -120,3 +120,9 @@ async def update_position_sold(position_id: str, sell_price: int, pnl_pct: float
     await _supabase_request("PATCH", url, json=body)
     invalidate_cache()
     unmark_selling(position_id)
+
+
+async def delete_position(position_id: str):
+    url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=eq.{position_id}"
+    await _supabase_request("DELETE", url)
+    invalidate_cache()
