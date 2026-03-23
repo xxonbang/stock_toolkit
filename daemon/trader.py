@@ -276,14 +276,13 @@ async def run_buy_process():
         logger.warning("가용 잔고 없음 — 매수 중단")
         return
 
-    amount_per_stock = balance // len(buy_candidates)
-    logger.info(f"고확신 {len(buy_candidates)}종목, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
+    MIN_AMOUNT_PER_STOCK = 500_000  # 종목당 최소 50만원
+    max_stocks = max(1, balance // MIN_AMOUNT_PER_STOCK)
+    actual_candidates = buy_candidates[:max_stocks]
+    amount_per_stock = balance // len(actual_candidates)
+    logger.info(f"고확신 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
 
-    if amount_per_stock < 100_000:
-        logger.warning(f"종목당 투자금 {amount_per_stock:,}원 — 최소 10만원 미만, 매수 중단")
-        return
-
-    for c in buy_candidates:
+    for c in actual_candidates:
         quantity = calc_quantity(amount_per_stock, c["price"])
         if quantity <= 0:
             continue
@@ -348,7 +347,21 @@ async def check_positions_for_sell(current_price_data: dict):
         if current_price > _peak_prices.get(peak_key, 0):
             _peak_prices[peak_key] = current_price
 
-        reason = should_sell(buy_price, current_price, take_profit=tp, stop_loss=sl)
+        # 익일 보유 종목은 익절 기준 10%로 상향
+        from datetime import datetime, timezone, timedelta
+        _KST = timezone(timedelta(hours=9))
+        created = pos.get("created_at", "")
+        is_carry_over = False
+        if created:
+            try:
+                created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
+                today = datetime.now(_KST).date()
+                is_carry_over = created_date < today
+            except Exception:
+                pass
+        effective_tp = 10.0 if is_carry_over else tp
+
+        reason = should_sell(buy_price, current_price, take_profit=effective_tp, stop_loss=sl)
 
         # trailing stop: 수익 중(pnl > 0)이고 고점 대비 c% 하락
         if not reason:
@@ -441,29 +454,67 @@ async def cancel_all_pending_orders():
     invalidate_cache()
 
 
+CARRY_OVER_THRESHOLD = 3.0  # 익일 보유 허용 기준 (당일 수익률 %)
+
 async def sell_all_positions_market():
-    """보유 중인 전 포지션 시장가 매도 + 미체결 취소 (장 마감 전 청산)"""
+    """장 마감 청산 — 수익 +3% 이상은 익일 보유, 나머지 시장가 매도"""
     from daemon.position_db import invalidate_cache
 
     # 1) 미체결 주문 취소
     await cancel_all_pending_orders()
 
-    # 2) 보유 포지션 시장가 매도
+    # 2) 보유 포지션 분류
     positions = await get_active_positions(force_refresh=True)
     filled = [p for p in positions if p["status"] == "filled"]
     if not filled:
         logger.info("장 마감 청산: 보유 포지션 없음")
         return
 
-    logger.info(f"장 마감 청산: {len(filled)}종목 시장가 매도 시작")
+    to_sell = []
+    to_carry = []
+
     for pos in filled:
+        buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+        if buy_price <= 0:
+            to_sell.append(pos)
+            continue
+        current_price = await _get_current_price(pos["code"])
+        pnl = calc_pnl_pct(buy_price, current_price) if current_price > 0 else 0
+        pos["_current_price"] = current_price
+        pos["_pnl"] = pnl
+        if pnl >= CARRY_OVER_THRESHOLD:
+            to_carry.append(pos)
+        else:
+            to_sell.append(pos)
+        await asyncio.sleep(0.2)
+
+    # 익일 보유 종목 알림
+    if to_carry:
+        carry_lines = []
+        for pos in to_carry:
+            carry_lines.append(f"  {pos['name']}({pos['code']}) {pos['_pnl']:+.2f}%")
+        logger.info(f"익일 보유: {len(to_carry)}종목 (수익 +{CARRY_OVER_THRESHOLD}% 이상)")
+        await send_telegram(
+            f"<b>📌 익일 보유 ({len(to_carry)}종목)</b>\n"
+            f"수익 +{CARRY_OVER_THRESHOLD}% 이상 → 보유 유지\n"
+            f"익절 목표: +10%, trailing stop: -3%\n\n"
+            + "\n".join(carry_lines)
+        )
+
+    # 매도 대상
+    if not to_sell:
+        logger.info("장 마감 청산: 매도 대상 없음 (전종목 익일 보유)")
+        invalidate_cache()
+        return
+
+    logger.info(f"장 마감 청산: {len(to_sell)}종목 매도, {len(to_carry)}종목 익일 보유")
+    for pos in to_sell:
         position_id = pos["id"]
         if is_selling(position_id):
             continue
         mark_selling(position_id)
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
-        # 현재가 조회하여 수익률 계산
-        current_price = await _get_current_price(pos["code"])
+        current_price = pos.get("_current_price") or await _get_current_price(pos["code"])
         result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
         if result:
             sell_price = current_price if current_price > 0 else buy_price
