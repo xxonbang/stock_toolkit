@@ -2,6 +2,38 @@
 
 ## 2026-03-23
 
+### [기능] 설정 바텀시트 추가 — 알림 대상 선택을 ⋮ > 설정으로 이동 (2026-03-23 15:30 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 포트폴리오 섹션의 알림 대상 버튼을 ⋮ 메뉴 > 설정 바텀시트로 이동, 계정 정보 표시 추가
+- **커밋:** `d9c0d59`
+
+### [버그픽스] 포트폴리오 평단/수량 오류 + 로그인 모달 안 닫히는 문제 (2026-03-23 15:00 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:**
+  - 평단 오류: loadAllData()에서 DB 로드 전 portfolio.json의 잘못된 avg_price로 병합 → useEffect로 DB 로드 완료 후 병합으로 변경
+  - 로그인 모달: await fetchHoldingsFromDB()가 블로킹 → fire-and-forget으로 변경
+- **커밋:** `077138a`, `b7891f9`
+
+### [버그픽스] 호가 알림 전면 중단 — UTC/KST 시간대 오류 (2026-03-23 14:00 KST)
+- **변경 파일:** `daemon/alert_rules.py`
+- **내용:** GCP 서버가 UTC인데 datetime.now()로 로컬 시간 사용 → KST 09:00~18:05 동안 호가 알림 전면 차단 → datetime.now(KST)로 수정
+- **커밋:** `0817978`
+
+### [버그픽스] alert_config 406 에러 + 모의투자 전용 앱키 분리 (2026-03-23 13:30 KST)
+- **변경 파일:** `frontend/src/lib/supabase.ts`, `daemon/config.py`, `daemon/trader.py`
+- **내용:**
+  - .single()이 0건일 때 406 반환 → .maybeSingle()로 변경
+  - KIS_MOCK_APP_KEY/SECRET 별도 변수 분리 (실전투자 키와 모의투자 키 분리)
+- **커밋:** `1ec0260`, `ae60010`
+
+### [기능] 당일 청산 로직 + 상한가 매수 스킵 + 미체결 취소 (2026-03-23 13:15 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`, `daemon/position_db.py`
+- **내용:**
+  - 15:15 보유 전 포지션 시장가 매도 (schedule_eod_close)
+  - 매수 시 상한가 체크 (현재가 >= 상한가 → 스킵)
+  - 15:15 청산 시 KIS 미체결 조회(VTTC8036R) → 전건 취소(VTTC0803U) + DB pending 삭제
+- **커밋:** `1f1bac9`, `58f7fae`
+
 ### [기능] 모의투자 3가지 개선 — 균등분배 + 수동매도 + 잔고조회 (2026-03-23 13:00 KST)
 - **변경 파일:** `daemon/trader.py`, `daemon/position_db.py`, `frontend/src/pages/AutoTrader.tsx`
 - **내용:**
