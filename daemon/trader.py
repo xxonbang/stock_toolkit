@@ -3,7 +3,7 @@ import asyncio
 import logging
 import time
 from daemon.config import (
-    KIS_APP_KEY, KIS_APP_SECRET, KIS_MOCK_ACCOUNT_NO, KIS_MOCK_BASE_URL,
+    KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_ACCOUNT_NO, KIS_MOCK_BASE_URL,
     TRADE_AMOUNT_PER_STOCK, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT,
     DATA_BASE_URL,
 )
@@ -36,8 +36,8 @@ async def _ensure_mock_token() -> str | None:
     url = f"{KIS_MOCK_BASE_URL}/oauth2/tokenP"
     body = {
         "grant_type": "client_credentials",
-        "appkey": KIS_APP_KEY,
-        "appsecret": KIS_APP_SECRET,
+        "appkey": KIS_MOCK_APP_KEY,
+        "appsecret": KIS_MOCK_APP_SECRET,
     }
     try:
         session = await get_session()
@@ -57,8 +57,8 @@ def _order_headers(token: str, tr_id: str) -> dict:
     return {
         "Content-Type": "application/json; charset=utf-8",
         "authorization": f"Bearer {token}",
-        "appkey": KIS_APP_KEY,
-        "appsecret": KIS_APP_SECRET,
+        "appkey": KIS_MOCK_APP_KEY,
+        "appsecret": KIS_MOCK_APP_SECRET,
         "tr_id": tr_id,
         "custtype": "P",
     }
@@ -189,8 +189,8 @@ async def fetch_available_balance() -> int:
     headers = {
         "Content-Type": "application/json; charset=utf-8",
         "authorization": f"Bearer {token}",
-        "appkey": KIS_APP_KEY,
-        "appsecret": KIS_APP_SECRET,
+        "appkey": KIS_MOCK_APP_KEY,
+        "appsecret": KIS_MOCK_APP_SECRET,
         "tr_id": "VTTC8908R",
         "custtype": "P",
     }

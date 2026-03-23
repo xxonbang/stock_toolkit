@@ -34,6 +34,8 @@ SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY", "")
 
 KIS_MOCK_ACCOUNT_NO = os.getenv("KIS_MOCK_ACCOUNT_NO", "")
+KIS_MOCK_APP_KEY = os.getenv("KIS_MOCK_APP_KEY", KIS_APP_KEY)
+KIS_MOCK_APP_SECRET = os.getenv("KIS_MOCK_APP_SECRET", KIS_APP_SECRET)
 KIS_MOCK_BASE_URL = "https://openapivts.koreainvestment.com:29443"
 
 TRADE_AMOUNT_PER_STOCK = 10_000_000  # 종목당 투자금액 (원)

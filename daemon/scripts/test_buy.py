@@ -5,7 +5,7 @@ import json
 import sys
 sys.path.insert(0, ".")
 
-from daemon.config import KIS_APP_KEY, KIS_APP_SECRET, KIS_MOCK_BASE_URL, KIS_MOCK_ACCOUNT_NO
+from daemon.config import KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_BASE_URL, KIS_MOCK_ACCOUNT_NO
 from daemon.position_db import calc_quantity, insert_buy_order, update_position_filled
 
 CANO = KIS_MOCK_ACCOUNT_NO.split("-")[0]
@@ -24,8 +24,8 @@ def headers(token, tr_id):
     return {
         "Content-Type": "application/json; charset=utf-8",
         "authorization": f"Bearer {token}",
-        "appkey": KIS_APP_KEY,
-        "appsecret": KIS_APP_SECRET,
+        "appkey": KIS_MOCK_APP_KEY,
+        "appsecret": KIS_MOCK_APP_SECRET,
         "tr_id": tr_id,
         "custtype": "P",
     }

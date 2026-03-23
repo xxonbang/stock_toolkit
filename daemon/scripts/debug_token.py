@@ -5,7 +5,7 @@ import base64
 import json
 import sys
 sys.path.insert(0, ".")
-from daemon.config import KIS_APP_KEY, KIS_APP_SECRET, KIS_MOCK_BASE_URL, KIS_MOCK_ACCOUNT_NO
+from daemon.config import KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_BASE_URL, KIS_MOCK_ACCOUNT_NO
 
 
 async def main():
@@ -13,7 +13,7 @@ async def main():
         # 토큰 발급
         resp = await s.post(
             f"{KIS_MOCK_BASE_URL}/oauth2/tokenP",
-            json={"grant_type": "client_credentials", "appkey": KIS_APP_KEY, "appsecret": KIS_APP_SECRET},
+            json={"grant_type": "client_credentials", "appkey": KIS_MOCK_APP_KEY, "appsecret": KIS_MOCK_APP_SECRET},
         )
         data = await resp.json()
         token = data.get("access_token", "")
@@ -53,8 +53,8 @@ async def main():
         hdrs = {
             "Content-Type": "application/json; charset=utf-8",
             "authorization": f"Bearer {token}",
-            "appkey": KIS_APP_KEY,
-            "appsecret": KIS_APP_SECRET,
+            "appkey": KIS_MOCK_APP_KEY,
+            "appsecret": KIS_MOCK_APP_SECRET,
             "tr_id": "VTTC0802U",
             "custtype": "P",
         }
