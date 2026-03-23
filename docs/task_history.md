@@ -2,6 +2,12 @@
 
 ## 2026-03-23
 
+### [기능] 알림 대상 모드 선택 — 교차신호+포트폴리오 / 포트폴리오만 (2026-03-23 11:00 KST)
+- **변경 파일:** `daemon/sql/create_alert_config.sql`, `daemon/stock_manager.py`, `frontend/src/lib/supabase.ts`, `frontend/src/pages/Dashboard.tsx`
+- **내용:** Supabase alert_config 테이블 기반 알림 모드 선택. 프론트엔드 포트폴리오 섹션에 토글 버튼, daemon에서 폴링하여 portfolio_only 모드 시 cross_signal 구독 스킵
+- **사전 작업 필요:** Supabase Dashboard에서 `daemon/sql/create_alert_config.sql` 실행
+- **커밋:** `f5d65aa`
+
 ### [버그픽스] 호가 알림 과다 발생 수정 — 장 초반 억제 + 수급 전환 조건 강화 (2026-03-23 10:30 KST)
 - **변경 파일:** `daemon/alert_rules.py`, `daemon/tests/test_alert_rules.py`
 - **내용:** 장 초반(09:00~09:05) 호가 알림 억제, 수급 전환 최소 데이터 2→10개, buy/sell 독립 쿨다운→단일 쿨다운
