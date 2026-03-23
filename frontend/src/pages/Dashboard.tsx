@@ -848,11 +848,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <section className="t-card rounded-xl p-4 border-l-4 border-l-cyan-500/50">
           <SectionHeader id="premarket" timestamp={ts}>장전 프리마켓</SectionHeader>
           {/* 예측 결과 카드 */}
-          <div className={`rounded-lg p-3 mb-3 text-center ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
-            <div className="text-[10px] t-text-dim mb-1">시장 출발 예상</div>
-            <div className={`text-lg font-bold ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "text-red-600" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "text-blue-600" : "t-text"}`}>
+          <div className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 mb-3 ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
+            <span className="text-[10px] t-text-dim">출발 예상</span>
+            <span className={`text-sm font-bold ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "text-red-600" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "text-blue-600" : "t-text"}`}>
               {premarket.prediction}
-            </div>
+            </span>
           </div>
           {/* 핵심 요인 */}
           {premarket.key_factors?.length > 0 && (
