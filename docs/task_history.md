@@ -2,6 +2,11 @@
 
 ## 2026-03-23
 
+### [개선] 로그인 안정성 + 모달 UI 전면 개선 (2026-03-23 12:00 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** form 태그 감싸 Enter 키 동작, 에러 메시지 한글화, 로딩 중 모달 닫기 방지, createPortal z-9999, CSS 변수 기반 테마 대응, 세련된 레이아웃
+- **커밋:** `d46824c`
+
 ### [기능] 알림 대상 모드 선택 — 교차신호+포트폴리오 / 포트폴리오만 (2026-03-23 11:00 KST)
 - **변경 파일:** `daemon/sql/create_alert_config.sql`, `daemon/stock_manager.py`, `frontend/src/lib/supabase.ts`, `frontend/src/pages/Dashboard.tsx`
 - **내용:** Supabase alert_config 테이블 기반 알림 모드 선택. 프론트엔드 포트폴리오 섹션에 토글 버튼, daemon에서 폴링하여 portfolio_only 모드 시 cross_signal 구독 스킵
