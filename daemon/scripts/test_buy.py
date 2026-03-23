@@ -87,17 +87,12 @@ async def main():
 
     # 잔고 조회
     bal = await get_balance(token)
-    if not bal:
-        print("잔고 조회 실패")
-        await close_session()
-        return
-    print(f"예수금: {bal['balance']:,}원  가용: {bal['available']:,}원  총평가: {bal['total']:,}원")
-
-    available = bal["available"]
-    if available <= 0:
-        print("가용 잔고 없음")
-        await close_session()
-        return
+    if bal:
+        print(f"예수금: {bal['balance']:,}원  가용: {bal['available']:,}원  총평가: {bal['total']:,}원")
+        available = bal["available"]
+    else:
+        print("잔고 조회 실패 — 기본 700만원으로 진행")
+        available = 7_000_000
 
     # 현재가 조회
     priced = []
