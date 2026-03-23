@@ -106,6 +106,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [settingsResult, setSettingsResult] = useState("");
   const [pendingAlertMode, setPendingAlertMode] = useState<AlertMode | null>(null);
   const [settingsSaving, setSettingsSaving] = useState(false);
+  const [streakPopup, setStreakPopup] = useState<{ name: string; dates: string[] } | null>(null);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -771,6 +772,31 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
             )}
             </>}
+          </div>
+        </div>,
+        document.body
+      )}
+      {/* 연속 시그널 날짜 팝업 */}
+      {streakPopup && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setStreakPopup(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+          <div className="relative w-full max-w-[300px] rounded-2xl overflow-hidden"
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}
+            onClick={e => e.stopPropagation()}>
+            <div className="px-4 pt-4 pb-2 flex items-center justify-between">
+              <h3 className="text-sm font-bold t-text">{streakPopup.name}</h3>
+              <button onClick={() => setStreakPopup(null)} className="p-1 t-text-dim hover:t-text"><X size={16} /></button>
+            </div>
+            <div className="px-4 pb-4">
+              <div className="text-[11px] t-text-dim mb-2">{streakPopup.dates.length}일 연속 · {streakPopup.dates[0]} ~ {streakPopup.dates[streakPopup.dates.length - 1]}</div>
+              <div className="flex flex-wrap gap-1.5">
+                {streakPopup.dates.map((d, i) => (
+                  <span key={i} className="text-[11px] px-2 py-1 rounded-lg t-text" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    {d.slice(5)}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>,
         document.body
@@ -1638,10 +1664,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                       <span className="text-[13px] font-medium t-text">{r.name}</span>
                       <span className="text-[10px] t-text-dim ml-1">{r.code}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
+                      className="flex items-center gap-2 hover:opacity-70 transition">
                       <span className="text-[11px] font-bold text-red-400">{r.streak}일 연속</span>
                       <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
-                    </div>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -1658,10 +1685,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                       <span className="text-[13px] font-medium t-text">{r.name}</span>
                       <span className="text-[10px] t-text-dim ml-1">{r.code}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
+                      className="flex items-center gap-2 hover:opacity-70 transition">
                       <span className="text-[11px] font-semibold text-amber-400">{r.streak}일</span>
                       <span className="text-[10px] t-text-dim">{r.total_days}일 등장</span>
-                    </div>
+                    </button>
                   </div>
                 ))}
               </div>
