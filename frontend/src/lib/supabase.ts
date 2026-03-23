@@ -119,7 +119,7 @@ export async function getAlertMode(): Promise<AlertMode> {
     .from("alert_config")
     .select("alert_mode")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
   return (data?.alert_mode as AlertMode) || "all";
 }
 
