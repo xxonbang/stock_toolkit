@@ -845,35 +845,33 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
       {/* 장전 프리마켓 */}
       {premarket && (
-        <section className="t-card rounded-xl p-4 border-l-4 border-l-cyan-500/50">
+        <section className="t-card rounded-xl p-4">
           <SectionHeader id="premarket" timestamp={ts}>장전 프리마켓</SectionHeader>
-          {/* 예측 결과 카드 */}
-          <div className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 mb-3 ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
-            <span className="text-[10px] t-text-dim">출발 예상</span>
-            <span className={`text-sm font-bold ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "text-red-600" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "text-blue-600" : "t-text"}`}>
-              {premarket.prediction}
-            </span>
-          </div>
-          {/* 핵심 요인 */}
-          {premarket.key_factors?.length > 0 && (
-            <div>
-              <div className="text-xs font-medium t-text-sub mb-1.5">핵심 요인</div>
-              <div className="space-y-1">
+          {/* 예측 결과 + 핵심 요인 */}
+          <div className={`rounded-xl p-3 mb-3 ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "bg-red-500/10 border border-red-500/20" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "bg-blue-500/10 border border-blue-500/20" : "t-card-alt border t-border-light"}`}>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] t-text-dim">시장 출발 예상</span>
+              <span className={`text-sm font-bold ${premarket.prediction?.includes("상승") || premarket.prediction?.includes("강세") ? "text-red-600" : premarket.prediction?.includes("하락") || premarket.prediction?.includes("약세") ? "text-blue-600" : "t-text"}`}>
+                {premarket.prediction}
+              </span>
+            </div>
+            {premarket.key_factors?.length > 0 && (
+              <div className="grid grid-cols-2 gap-x-3 gap-y-1">
                 {premarket.key_factors.map((f: string, i: number) => {
                   const isPositive = f.includes("+") || f.includes("상승") || f.includes("매수");
                   const isNegative = f.includes("-") || f.includes("하락") || f.includes("공포") || f.includes("경고") || f.includes("우려");
                   return (
-                    <div key={i} className="flex items-start gap-1.5 text-xs">
-                      <span className={`shrink-0 mt-0.5 ${isPositive ? "text-red-400" : isNegative ? "text-blue-400" : "t-text-dim"}`}>
+                    <div key={i} className="flex items-center gap-1 text-[11px]">
+                      <span className={`shrink-0 text-[9px] ${isPositive ? "text-red-400" : isNegative ? "text-blue-400" : "t-text-dim"}`}>
                         {isPositive ? "▲" : isNegative ? "▼" : "·"}
                       </span>
-                      <span className="t-text-sub">{f}</span>
+                      <span className="t-text-sub truncate">{f}</span>
                     </div>
                   );
                 })}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </section>
       )}
 
