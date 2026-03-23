@@ -11,7 +11,7 @@ import {
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
-import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode, getTradePct, setAccessToken, STORAGE_KEY } from "../lib/supabase";
+import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode, setAccessToken, STORAGE_KEY } from "../lib/supabase";
 import type { KisStockPrice, PortfolioHolding, AlertMode } from "../lib/supabase";
 import AutoTrader from "./AutoTrader";
 
@@ -311,9 +311,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           setDbLoading(true);
           fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoading(false));
           getAlertMode().then(setAlertModeState).catch(() => {});
-          getTradePct().then(({ take_profit, stop_loss }) => {
-            try { localStorage.setItem("_tp", String(take_profit)); localStorage.setItem("_sl", String(stop_loss)); } catch {}
-          }).catch(() => {});
         }
       }
     } catch { /* 파싱 실패 시 로그인 화면 표시 */ }
@@ -441,9 +438,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   setLoginPw("");
                   fetchHoldingsFromDB().then(setDbHoldings).catch(() => {});
                   getAlertMode().then(setAlertModeState).catch(() => {});
-                  getTradePct().then(({ take_profit, stop_loss }) => {
-                    try { localStorage.setItem("_tp", String(take_profit)); localStorage.setItem("_sl", String(stop_loss)); } catch {}
-                  }).catch(() => {});
                 } else {
                   setLoginError("로그인 응답에 세션이 없습니다. 다시 시도해주세요.");
                 }
@@ -545,24 +539,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     로그인하면 설정을 변경할 수 있습니다
                   </div>
                 )}
-              </div>
-              {/* 현재 설정값 요약 */}
-              <div>
-                <div className="text-[11px] t-text-dim mb-1.5">현재 설정</div>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="px-2 py-2 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                    <div className="text-[10px] t-text-dim">알림</div>
-                    <div className="text-[12px] font-medium t-text">{alertMode === "all" ? "전체" : alertMode === "portfolio_only" ? "포트폴리오" : "OFF"}</div>
-                  </div>
-                  <div className="px-2 py-2 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                    <div className="text-[10px] t-text-dim">익절</div>
-                    <div className="text-[12px] font-medium text-red-500">+{(() => { try { return Number(localStorage.getItem("_tp") || "3.0"); } catch { return 3.0; } })()}%</div>
-                  </div>
-                  <div className="px-2 py-2 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                    <div className="text-[10px] t-text-dim">손절</div>
-                    <div className="text-[12px] font-medium text-blue-500">{(() => { try { return Number(localStorage.getItem("_sl") || "-3.0"); } catch { return -3.0; } })()}%</div>
-                  </div>
-                </div>
               </div>
               {/* 알림 대상 */}
               <div>
