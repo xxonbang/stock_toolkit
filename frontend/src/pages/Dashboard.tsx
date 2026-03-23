@@ -1156,7 +1156,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                           </span>
                         )}
                       </div>
-                      {prev && <div className="text-[10px] t-text-dim mt-0.5">전일 {prev.price?.toLocaleString()}</div>}
+                      {(() => {
+                        const prevPrice = prev?.price ?? (latest.change_pct && latest.price ? Math.round(latest.price / (1 + latest.change_pct / 100) * 100) / 100 : null);
+                        return prevPrice != null ? <div className="text-[10px] t-text-dim mt-0.5">전일 {prevPrice.toLocaleString()}</div> : null;
+                      })()}
                     </div>
                   );
                 })}
