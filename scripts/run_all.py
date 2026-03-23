@@ -1320,25 +1320,37 @@ def main():
     with open(results_dir / "auction.json", "w", encoding="utf-8") as f:
         json.dump(auction_results, f, ensure_ascii=False, indent=2)
 
-    # 호가창 압력 — kis_gemini order_book 기반
-    orderbook_results = []
+    # 호가창 압력 — kis_gemini 전체 종목에서 불균형 큰 순으로 선별
+    all_orderbook = []
     if gemini_stocks:
-        for code, gem in list(gemini_stocks.items())[:20]:
+        for code, gem in gemini_stocks.items():
             ob = gem.get("order_book", {}) if isinstance(gem, dict) else {}
-            if ob:
-                ask = ob.get("total_ask_volume", ob.get("ask_volume_total", 0)) or 0
-                bid = ob.get("total_bid_volume", ob.get("bid_volume_total", 0)) or 0
-                ratio = ob.get("bid_ask_ratio", 1.0) or 1.0
-                total = ask + bid
-                buy_pct = round(bid / total * 100) if total > 0 else 50
-                orderbook_results.append({
-                    "name": gem.get("name", code), "code": code,
-                    "ask_volume": ask, "bid_volume": bid,
-                    "bid_ask_ratio": round(ratio, 2),
-                    "buy_pct": buy_pct,
-                    "best_ask": ob.get("best_ask", 0),
-                    "best_bid": ob.get("best_bid", 0),
-                })
+            if not ob:
+                continue
+            ask = ob.get("total_ask_volume", ob.get("ask_volume_total", 0)) or 0
+            bid = ob.get("total_bid_volume", ob.get("bid_volume_total", 0)) or 0
+            total = ask + bid
+            if total <= 0:
+                continue
+            buy_pct = round(bid / total * 100)
+            # 50%에서 얼마나 벗어났는지 = 불균형 정도
+            imbalance = abs(buy_pct - 50)
+            if imbalance < 5:
+                continue  # 불균형 5% 미만은 제외 (의미 없음)
+            ratio = ob.get("bid_ask_ratio", 1.0) or 1.0
+            all_orderbook.append({
+                "name": gem.get("name", code), "code": code,
+                "ask_volume": ask, "bid_volume": bid,
+                "bid_ask_ratio": round(ratio, 2),
+                "buy_pct": buy_pct,
+                "imbalance": imbalance,
+                "best_ask": ob.get("best_ask", 0),
+                "best_bid": ob.get("best_bid", 0),
+            })
+    # 매수 우위 TOP 10 + 매도 우위 TOP 10 (불균형 큰 순)
+    buy_dominant = sorted([o for o in all_orderbook if o["buy_pct"] > 50], key=lambda x: x["buy_pct"], reverse=True)[:10]
+    sell_dominant = sorted([o for o in all_orderbook if o["buy_pct"] < 50], key=lambda x: x["buy_pct"])[:10]
+    orderbook_results = buy_dominant + sell_dominant
     if not orderbook_results:
         # 폴백: combined signals + investor_data 기반
         for sig in combined[:5]:
@@ -1347,6 +1359,9 @@ def main():
             fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
             buy_pct = min(90, max(10, 50 + (fn / 50000)))
             orderbook_results.append({"name": sig.get("name",""), "code": code, "buy_pct": round(buy_pct)})
+    # imbalance 키 제거 (프론트엔드 불필요)
+    for o in orderbook_results:
+        o.pop("imbalance", None)
     with open(results_dir / "orderbook.json", "w", encoding="utf-8") as f:
         json.dump(orderbook_results, f, ensure_ascii=False, indent=2)
 
