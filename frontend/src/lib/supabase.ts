@@ -3,10 +3,32 @@ import { createClient } from "@supabase/supabase-js";
 const SUPABASE_URL = "https://fyklcplybyfrfryopzvx.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QwdLROqMGoagr4s63SuoCQ_gtrvTOJx";
 
+// 모듈 레벨 access token — auth 상태 변경 시 직접 설정
+let _accessToken: string | null = null;
+export function setAccessToken(token: string | null) { _accessToken = token; }
+export function getAccessToken() { return _accessToken; }
+
+export const STORAGE_KEY = `sb-${new URL(SUPABASE_URL).hostname.split(".")[0]}-auth-token`;
+
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
+    // navigator.locks 비활성화 — 강제 새로고침 시 lock hang 방지
+    lock: async <R>(_name: string, _acquireTimeout: number, fn: () => Promise<R>): Promise<R> => await fn(),
+  },
+  global: {
+    // PostgREST/Edge Functions 요청에 user JWT 직접 주입
+    // (SDK가 publishable key를 Authorization에 넣는 문제 우회)
+    fetch: (url, options = {}) => {
+      const urlStr = typeof url === "string" ? url : url instanceof Request ? url.url : "";
+      if ((urlStr.includes("/rest/v1/") || urlStr.includes("/functions/v1/")) && _accessToken) {
+        const headers = new Headers(options?.headers);
+        headers.set("Authorization", `Bearer ${_accessToken}`);
+        options = { ...options, headers };
+      }
+      return fetch(url, options);
+    },
   },
 });
 

@@ -11,7 +11,7 @@ import {
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
-import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode } from "../lib/supabase";
+import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode, setAccessToken, STORAGE_KEY } from "../lib/supabase";
 import type { KisStockPrice, PortfolioHolding, AlertMode } from "../lib/supabase";
 import AutoTrader from "./AutoTrader";
 
@@ -300,31 +300,35 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
   useEffect(() => {
     loadAllData();
-    // Supabase 세션 확인 — 에러 시 기존 상태 유지 (로그아웃 방지)
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user) {
-        setSupaUser(session.user);
-        setDbLoading(true);
-        try {
-          const holdings = await fetchHoldingsFromDB();
-          setDbHoldings(holdings);
-          getAlertMode().then(setAlertModeState);
-        } catch {} finally { setDbLoading(false); }
+    // 즉시 localStorage에서 세션 복원 (SDK 초기화/navigator.locks 대기 없음)
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const raw = JSON.parse(stored);
+        // ExpireStorage 래핑 형식 처리
+        const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
+        const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
+        if (parsed?.user) {
+          setSupaUser(parsed.user);
+          setAccessToken(parsed.access_token ?? null);
+          setDbLoading(true);
+          fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoading(false));
+          getAlertMode().then(setAlertModeState).catch(() => {});
+        }
       }
-      // session이 null이어도 기존 supaUser를 유지 (네트워크 오류 대응)
-    }).catch(() => {
-      // getSession 실패 시 아무것도 하지 않음 — 기존 로그인 상태 유지
-    });
+    } catch { /* 파싱 실패 시 로그인 화면 표시 */ }
+
+    const authed = { current: false };
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_OUT") {
-        setSupaUser(null);
-        setDbHoldings([]);
-        return;
-      }
-      // SIGNED_IN, TOKEN_REFRESHED, INITIAL_SESSION — 세션이 있을 때만 업데이트
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") authed.current = true;
+      // SIGNED_OUT 무시 — 명시적 로그아웃에서 직접 상태 정리
+      if (event === "SIGNED_OUT") return;
+      // 인증 상태에서 null session 무시
+      if (authed.current && !session?.user) return;
       if (session?.user) {
         setSupaUser(session.user);
-        if (event === "SIGNED_IN" || event === "INITIAL_SESSION") {
+        setAccessToken(session.access_token ?? null);
+        if (event === "SIGNED_IN") {
           setDbLoading(true);
           try {
             const holdings = await fetchHoldingsFromDB();
@@ -431,6 +435,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 }
                 if (data?.session) {
                   setSupaUser(data.session.user);
+                  setAccessToken(data.session.access_token ?? null);
                   setShowLogin(false);
                   setLoginEmail("");
                   setLoginPw("");
@@ -489,7 +494,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   setShowHeaderMenu(false);
                   setSupaUser(null);
                   setDbHoldings([]);
-                  supabase.auth.signOut();
+                  setAccessToken(null);
+                  localStorage.removeItem(STORAGE_KEY);
+                  supabase.auth.signOut().catch(() => {});
                   setToastMsg("로그아웃되었습니다");
                   setTimeout(() => setToastMsg(""), 2500);
                 }}
