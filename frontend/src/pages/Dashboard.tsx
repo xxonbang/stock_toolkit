@@ -481,6 +481,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             style={{ position: "fixed", inset: 0, zIndex: 100000, background: "rgba(0,0,0,0.3)", backdropFilter: "blur(2px)" }} />
           <div style={{ position: "fixed", top: 52, right: 16, zIndex: 100001, width: 200, borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.12)", background: "var(--bg-card)", border: "1px solid var(--border)" }}>
             <div style={{ padding: 4 }}>
+              <button onClick={() => setShowHeaderMenu(false)}
+                style={{ width: "100%", display: "flex", justifyContent: "flex-end", padding: "6px 8px", background: "none", border: "none", cursor: "pointer" }}>
+                <X size={16} style={{ color: "var(--text-tertiary)" }} />
+              </button>
               <RefreshButtons menuMode />
               <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
               <button onClick={() => { setShowHeaderMenu(false); setShowSettings(true); }}
