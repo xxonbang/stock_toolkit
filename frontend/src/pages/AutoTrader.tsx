@@ -59,7 +59,7 @@ export default function AutoTrader() {
   const [pctResult, setPctResult] = useState("");
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user: u } }) => {
+    function loadData(u: any) {
       setUser(u);
       setAuthChecked(true);
       if (u) {
@@ -71,7 +71,12 @@ export default function AutoTrader() {
       } else {
         setLoading(false);
       }
-    }).catch(() => { setAuthChecked(true); setLoading(false); });
+    }
+    supabase.auth.getUser().then(({ data: { user: u } }) => loadData(u)).catch(() => { setAuthChecked(true); setLoading(false); });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      loadData(session?.user ?? null);
+    });
+    return () => { subscription.unsubscribe(); };
   }, []);
 
   async function fetchTrades() {
