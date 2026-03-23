@@ -1,6 +1,6 @@
 """구독 종목 관리 — GitHub Pages JSON 폴링 + Supabase 알림 설정"""
 import logging
-from daemon.config import DATA_BASE_URL, SUPABASE_URL, SUPABASE_SECRET_KEY
+from daemon.config import DATA_BASE_URL, SUPABASE_URL, SUPABASE_SECRET_KEY, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT
 from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.stocks")
@@ -49,7 +49,7 @@ async def fetch_json(url: str) -> list | dict | None:
 
 async def fetch_alert_config() -> dict:
     """Supabase alert_config에서 전체 설정 조회"""
-    defaults = {"alert_mode": "all", "take_profit_pct": 3.0, "stop_loss_pct": -3.0}
+    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return defaults
     try:
@@ -77,7 +77,6 @@ async def fetch_alert_config() -> dict:
 async def fetch_alert_mode() -> str:
     config = await fetch_alert_config()
     return config["alert_mode"]
-    return "all"
 
 
 async def fetch_subscription_codes(manual_codes: set[str] | None = None) -> set[str]:
