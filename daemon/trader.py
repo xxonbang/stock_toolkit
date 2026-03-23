@@ -276,10 +276,23 @@ async def run_buy_process():
         logger.warning("가용 잔고 없음 — 매수 중단")
         return
 
-    MIN_AMOUNT_PER_STOCK = 500_000  # 종목당 최소 50만원
-    max_stocks = max(1, balance // MIN_AMOUNT_PER_STOCK)
-    actual_candidates = buy_candidates[:max_stocks]
-    amount_per_stock = balance // len(actual_candidates)
+    MIN_AMOUNT_PER_STOCK = 1_000_000  # 종목당 최소 100만원
+    if balance >= 5_000_000:
+        # 잔고 500만원 이상: 대상 종목 전체 균등 매수
+        actual_candidates = buy_candidates
+        amount_per_stock = balance // len(actual_candidates)
+    elif balance >= 2_000_000:
+        # 잔고 200~500만원: 최대 2종목
+        actual_candidates = buy_candidates[:2]
+        amount_per_stock = balance // len(actual_candidates)
+    else:
+        # 잔고 200만원 미만: 종목당 최소 100만원 기준
+        max_stocks = max(1, balance // MIN_AMOUNT_PER_STOCK)
+        if max_stocks == 0:
+            logger.warning(f"잔고 {balance:,}원 — 종목당 최소 100만원 미달, 매수 중단")
+            return
+        actual_candidates = buy_candidates[:max_stocks]
+        amount_per_stock = balance // len(actual_candidates)
     logger.info(f"고확신 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
 
     for c in actual_candidates:
