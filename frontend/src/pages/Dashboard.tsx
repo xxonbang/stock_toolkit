@@ -275,8 +275,15 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         const now = new Date();
         const hh = now.getHours();
         setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
+      } else {
+        setToastMsg("시세 조회 실패 — 장 운영시간에 다시 시도해주세요");
+        setTimeout(() => setToastMsg(""), 3000);
       }
-    } catch (e) { console.error("price refresh failed:", e); }
+    } catch (e) {
+      console.error("price refresh failed:", e);
+      setToastMsg("시세 새로고침 실패 — 네트워크를 확인해주세요");
+      setTimeout(() => setToastMsg(""), 3000);
+    }
     finally { setPriceRefreshing(false); }
   };
 
