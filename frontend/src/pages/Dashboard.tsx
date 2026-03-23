@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import {
   TrendingUp, TrendingDown, Shield,
-  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw,
+  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -380,50 +380,74 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   return (
     <div className="max-w-2xl mx-auto px-4 pt-0 pb-16 space-y-5">
       {/* 로그인 모달 */}
-      {showLogin && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center" onClick={() => setShowLogin(false)}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative w-[85%] max-w-sm bg-white dark:bg-[#1a2332] border t-border-light rounded-2xl p-5 shadow-xl" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold t-text">로그인</span>
-              <button onClick={() => setShowLogin(false)} className="t-text-dim hover:t-text text-lg">✕</button>
+      {showLogin && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => { if (!loginLoading) setShowLogin(false); }}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
+            {/* 헤더 */}
+            <div className="px-5 pt-5 pb-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold t-text">로그인</h3>
+                <button onClick={() => { if (!loginLoading) setShowLogin(false); }} className="p-1 rounded-lg t-text-dim hover:t-text transition">
+                  <X size={18} />
+                </button>
+              </div>
+              <p className="text-[11px] t-text-dim mt-1">포트폴리오 관리 및 실시간 시세 조회</p>
             </div>
-            {loginError && <p className="text-[11px] text-red-400 mb-2">{loginError}</p>}
-            {loginLoading && <p className="text-[11px] text-blue-400 mb-2">로그인 중...</p>}
-            <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
-              className="w-full text-[16px] p-2.5 rounded-lg bg-gray-50 dark:bg-[#131a24] border t-border-light t-text mb-2" />
-            <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
-              onKeyDown={e => { if (e.key === "Enter") (e.target as HTMLInputElement).form?.requestSubmit?.(); }}
-              className="w-full text-[16px] p-2.5 rounded-lg bg-gray-50 dark:bg-[#131a24] border t-border-light t-text mb-3" />
-            <button disabled={loginLoading} onClick={async () => {
+            {/* 본문 */}
+            <form className="px-5 pb-5" onSubmit={async (e) => {
+              e.preventDefault();
+              if (loginLoading || !loginEmail.trim() || !loginPw) return;
               setLoginError("");
               setLoginLoading(true);
               try {
                 const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail.trim(), password: loginPw });
-                if (error) { setLoginError(error.message); return; }
+                if (error) {
+                  const msg = error.message.includes("rate limit") ? "잠시 후 다시 시도해주세요"
+                    : error.message.includes("Invalid login") ? "이메일 또는 비밀번호가 올바르지 않습니다"
+                    : error.message;
+                  setLoginError(msg);
+                  return;
+                }
                 if (data?.session) {
                   setSupaUser(data.session.user);
                   setShowLogin(false);
                   setLoginEmail("");
                   setLoginPw("");
-                  // DB holdings 즉시 로드
                   const holdings = await fetchHoldingsFromDB();
                   setDbHoldings(holdings);
+                  getAlertMode().then(setAlertModeState);
                 }
               } catch (e: any) {
-                setLoginError(e?.message || "로그인 실패");
+                setLoginError(e?.message || "네트워크 오류. 다시 시도해주세요.");
               } finally {
                 setLoginLoading(false);
               }
-            }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition disabled:opacity-50">
-              {loginLoading ? "로그인 중..." : "로그인"}
-            </button>
-            {supaUser && (
-              <button onClick={async () => { await supabase.auth.signOut(); setSupaUser(null); setDbHoldings([]); setShowLogin(false); }}
-                className="w-full text-xs py-2 mt-2 t-text-dim hover:text-red-400 transition">로그아웃</button>
-            )}
+            }}>
+              {loginError && (
+                <div className="flex items-center gap-2 text-[11px] text-red-400 mb-3 p-2.5 rounded-lg" style={{ background: "rgba(239,68,68,0.08)" }}>
+                  <span className="shrink-0">!</span>
+                  <span>{loginError}</span>
+                </div>
+              )}
+              <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
+                autoComplete="email" autoFocus
+                className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-2 outline-none transition"
+                style={{ background: "var(--bg)", border: "1px solid var(--border)", }} />
+              <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
+                autoComplete="current-password"
+                className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-4 outline-none transition"
+                style={{ background: "var(--bg)", border: "1px solid var(--border)", }} />
+              <button type="submit" disabled={loginLoading || !loginEmail.trim() || !loginPw}
+                className="w-full text-sm font-semibold py-2.5 rounded-xl text-white transition disabled:opacity-40"
+                style={{ background: loginLoading ? "#4b5563" : "#2563eb" }}>
+                {loginLoading ? "로그인 중..." : "로그인"}
+              </button>
+            </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
       {/* 헤더 드롭다운 메뉴 */}
       {/* 설정 메뉴 — createPortal로 document.body에 직접 렌더 */}
