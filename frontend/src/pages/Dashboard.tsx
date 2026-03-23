@@ -475,7 +475,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
               <button onClick={() => { setShowHeaderMenu(false); setShowSettings(true); }}
                 style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "var(--text-secondary)", background: "none", border: "none", cursor: "pointer" }}>
-                <span>⚙</span> 설정
+                <span style={{ fontSize: 18 }}>⚙</span> 설정
               </button>
               <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
               {supaUser ? (
