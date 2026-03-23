@@ -117,6 +117,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [divergence, setDivergence] = useState<any[] | null>(null);
   const [premarket, setPremarket] = useState<any>(null);
   const [portfolio, setPortfolio] = useState<any>(null);
+  const [portfolioRaw, setPortfolioRaw] = useState<any>(null);
   const [supplyCluster, setSupplyCluster] = useState<any>(null);
   const [exitOptimizer, setExitOptimizer] = useState<any[] | null>(null);
   const [eventCalendar, setEventCalendar] = useState<any>(null);
@@ -145,12 +146,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
 
-  // DB holdings 또는 portfolio 변경 시 병합 — DB avg_price가 항상 우선
+  // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
   useEffect(() => {
-    if (!portfolio?.holdings) return;
-    const userHoldings = dbHoldings.length > 0 ? dbHoldings : portfolio.holdings;
+    if (!portfolioRaw?.holdings) return;
+    const serverHoldings = portfolioRaw.holdings;
+    const userHoldings = dbHoldings.length > 0 ? dbHoldings : serverHoldings;
     const merged = userHoldings.map((lh: any) => {
-      const server = portfolio.holdings.find((sh: any) => sh.code === lh.code) || {};
+      const server = serverHoldings.find((sh: any) => sh.code === lh.code) || {};
       const avgPrice = lh.avg_price || 0;
       const qty = lh.quantity || 0;
       const cp = (server as any).current_price || lh.current_price || 0;
@@ -169,16 +171,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
     const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
     merged.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-    setPortfolio((prev: any) => {
-      if (!prev) return prev;
-      return { ...prev, holdings: merged, summary: {
-        total_invested: totalInv, total_value: totalVal,
-        total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-        total_profit_amount: totalVal - totalInv, total_holdings: merged.length,
-      }};
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dbHoldings]);
+    setPortfolio({ ...portfolioRaw, holdings: merged, summary: {
+      total_invested: totalInv, total_value: totalVal,
+      total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+      total_profit_amount: totalVal - totalInv, total_holdings: merged.length,
+    }});
+  }, [dbHoldings, portfolioRaw]);
 
   const loadAllData = () => {
     dataService.getPerformance().then(setPerformance);
@@ -200,8 +198,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     dataService.getPremarket().then(setPremarket);
     dataService.getPortfolio().then((p) => {
       if (!p) return;
-      // portfolio.json은 일단 저장 (DB holdings 로드 후 병합은 별도 effect에서)
-      setPortfolio(p);
+      setPortfolioRaw(p);
     });
     dataService.getSupplyCluster().then(setSupplyCluster);
     dataService.getExitOptimizer().then(setExitOptimizer);
