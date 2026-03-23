@@ -656,8 +656,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-base font-bold t-text">{stockDetail.name}</h3>
-                <span className="text-[11px] t-text-dim">{stockDetail.code}{stockDetail.market ? ` · ${stockDetail.market}` : ""}</span>
+                <a href={`https://finance.naver.com/item/main.nhn?code=${stockDetail.code}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-base font-bold t-text hover:text-blue-400 transition">
+                  {stockDetail.name} ↗
+                </a>
+                <div className="text-[11px] t-text-dim">{stockDetail.code}{stockDetail.market ? ` · ${stockDetail.market}` : ""}</div>
               </div>
               <div className="flex items-center gap-2">
                 {stockDetail.dual_signal && (() => {
