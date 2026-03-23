@@ -101,6 +101,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [dbLoading, setDbLoading] = useState(false);
   const [alertMode, setAlertModeState] = useState<AlertMode>("all");
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -465,6 +466,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   setSupaUser(null);
                   setDbHoldings([]);
                   supabase.auth.signOut();
+                  setToastMsg("로그아웃되었습니다");
+                  setTimeout(() => setToastMsg(""), 2500);
                 }}
                   style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#ef4444", background: "none", border: "none", cursor: "pointer" }}>
                   <span>↪</span> 로그아웃
@@ -634,11 +637,19 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           </div>
         </div>
       )}
+      {/* 토스트 메시지 */}
+      {toastMsg && createPortal(
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 rounded-xl text-sm font-medium text-white shadow-lg animate-pulse"
+          style={{ background: "rgba(30,30,30,0.9)", backdropFilter: "blur(8px)" }}>
+          {toastMsg}
+        </div>,
+        document.body
+      )}
       {/* 헤더 — 컴팩트 sticky */}
       <div className="sticky z-50 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ top: 'env(safe-area-inset-top, 0px)', background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between h-10">
           <h1
-            className="text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer active:scale-95 transition-transform"
+            className={`text-lg font-bold t-text flex items-center gap-2 shrink-0 cursor-pointer active:scale-95 transition-all ${headerRefreshing ? "animate-pulse" : ""}`}
             onClick={() => {
               if (headerRefreshing) return;
               setHeaderRefreshing(true);
@@ -648,7 +659,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             }}
           >
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo"
-              className={`w-5 h-5 shrink-0 transition-transform ${headerRefreshing ? "animate-spin" : ""}`} />
+              className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1.5 shrink-0">
