@@ -307,3 +307,64 @@ async def check_positions_for_sell(current_price_data: dict):
                 reason=reason,
                 buy_price=buy_price,
             )
+
+
+async def sell_all_positions_market():
+    """보유 중인 전 포지션 시장가 매도 (장 마감 전 청산)"""
+    from daemon.position_db import invalidate_cache
+    positions = await get_active_positions(force_refresh=True)
+    filled = [p for p in positions if p["status"] == "filled"]
+    if not filled:
+        logger.info("장 마감 청산: 보유 포지션 없음")
+        return
+
+    logger.info(f"장 마감 청산: {len(filled)}종목 시장가 매도 시작")
+    for pos in filled:
+        position_id = pos["id"]
+        if is_selling(position_id):
+            continue
+        mark_selling(position_id)
+        buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+        # 시장가 주문: ORD_DVSN="01", 가격 0
+        result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+        if result:
+            # 시장가이므로 체결가를 알 수 없음 — 매수가로 임시 기록, 체결 데이터에서 갱신
+            pnl = 0.0
+            await update_position_sold(position_id, buy_price, pnl, "eod_close")
+            logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pos['quantity']}주")
+            await send_telegram(
+                f"<b>🔔 장 마감 청산</b>\n"
+                f"<b>{pos['name']} ({pos['code']})</b>\n"
+                f"매수가: {buy_price:,}원 × {pos['quantity']}주\n"
+                f"시장가 매도 주문 완료"
+            )
+        else:
+            unmark_selling(position_id)
+    invalidate_cache()
+
+
+async def _kis_order_market(tr_id: str, code: str, quantity: int) -> dict | None:
+    """KIS 모의투자 시장가 주문"""
+    token = await _ensure_mock_token()
+    if not token:
+        return None
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
+    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    body = {
+        "CANO": account_parts[0],
+        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
+        "PDNO": code,
+        "ORD_DVSN": "01",  # 시장가
+        "ORD_QTY": str(quantity),
+        "ORD_UNPR": "0",
+    }
+    try:
+        session = await get_session()
+        async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") == "0":
+                return data
+            logger.error(f"시장가 주문 실패: {data.get('msg1', '')}")
+    except Exception as e:
+        logger.error(f"시장가 주문 오류: {e}")
+    return None

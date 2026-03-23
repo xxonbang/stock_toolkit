@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process
+from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market
 from daemon.github_monitor import check_workflow_completion
 from daemon.http_session import close_session
 
@@ -143,6 +143,23 @@ async def schedule_auto_trade():
             logger.error(f"자동매매 루프 오류: {e}")
 
 
+async def schedule_eod_close():
+    """15:15에 보유 전 포지션 시장가 매도 (당일 청산)"""
+    while not _shutdown:
+        await asyncio.sleep(30)
+        if _shutdown or not is_market_day():
+            continue
+        now = datetime.now(KST)
+        if now.hour == 15 and now.minute == 15:
+            logger.info("15:15 장 마감 청산 시작")
+            try:
+                await sell_all_positions_market()
+            except Exception as e:
+                logger.error(f"장 마감 청산 오류: {e}")
+            # 다음 체크까지 10분 대기 (중복 실행 방지)
+            await asyncio.sleep(600)
+
+
 async def main():
     global ws_client
 
@@ -169,6 +186,7 @@ async def main():
         ws_client.connect(),
         schedule_refresh(),
         schedule_auto_trade(),
+        schedule_eod_close(),
         telegram_worker(),
     )
     try:
