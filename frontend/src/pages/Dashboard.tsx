@@ -880,12 +880,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         let sections: { title: string; body: string }[] = [];
         // 모든 가능한 제목 패턴을 순서대로 시도
         const patterns = [
-          // 1) "<i><b>제목:</b></i>" 또는 "<i><b>제목</b></i>"
-          /(?:<i>\s*)?<b>([^<]{2,30}?)(?::?\s*)<\/b>(?:\s*<\/i>)?/g,
-          // 2) "N. <b>제목</b>" 또는 "<b>N. 제목</b>"
-          /(?:<b>\s*)?\d+\.\s*(?:<b>)?([^<\n]{2,30}?)(?:<\/b>)/g,
-          // 3) "**제목**"
-          /\*\*([^*\n]{2,30}?)\*\*/g,
+          // 1) 줄바꿈 + "<b>N. 제목</b>" — 최상위 섹션만 (서브 항목 제외)
+          /\n\s*<b>(\d+\.\s*[^<\n]{2,30}?)\s*<\/b>/g,
+          // 2) "**N. 제목**"
+          /\*\*(\d+\.\s*[^*\n]{2,30}?)\*\*/g,
         ];
         for (const regex of patterns) {
           if (sections.length >= 2) break;
