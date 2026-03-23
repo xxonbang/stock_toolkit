@@ -102,6 +102,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [alertMode, setAlertModeState] = useState<AlertMode>("all");
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
+  const [showSettings, setShowSettings] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -472,6 +473,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             <div style={{ padding: 4 }}>
               <RefreshButtons menuMode />
               <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
+              <button onClick={() => { setShowHeaderMenu(false); setShowSettings(true); }}
+                style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "var(--text-secondary)", background: "none", border: "none", cursor: "pointer" }}>
+                <span>⚙</span> 설정
+              </button>
+              <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
               {supaUser ? (
                 <button onClick={() => {
                   setShowHeaderMenu(false);
@@ -493,6 +499,53 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             </div>
           </div>
         </>,
+        document.body
+      )}
+      {/* 설정 바텀시트 */}
+      {showSettings && createPortal(
+        <div className="fixed inset-0 z-[9999]" onClick={() => setShowSettings(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+          <div className="fixed bottom-0 left-0 right-0 z-[10000] rounded-t-2xl overflow-hidden"
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", maxHeight: "70vh" }}
+            onClick={e => e.stopPropagation()}>
+            {/* 핸들 바 */}
+            <div className="flex justify-center pt-3 pb-2">
+              <div className="w-10 h-1 rounded-full" style={{ background: "var(--border)" }} />
+            </div>
+            <div className="px-5 pb-2">
+              <h3 className="text-base font-bold t-text">설정</h3>
+            </div>
+            <div className="px-5 pb-8 space-y-5">
+              {/* 알림 대상 */}
+              <div>
+                <div className="text-xs t-text-sub mb-2">실시간 알림 대상</div>
+                <div className="flex gap-2">
+                  {([["all", "교차신호 + 포트폴리오"], ["portfolio_only", "포트폴리오만"]] as [AlertMode, string][]).map(([mode, label]) => (
+                    <button key={mode}
+                      onClick={async () => {
+                        setAlertModeState(mode);
+                        await setAlertMode(mode);
+                      }}
+                      className={`flex-1 text-[12px] py-2.5 rounded-xl transition font-medium ${alertMode === mode
+                        ? "bg-blue-600 text-white"
+                        : "t-text-dim hover:t-text-sub"}`}
+                      style={alertMode !== mode ? { border: "1px solid var(--border)" } : undefined}
+                    >{label}</button>
+                  ))}
+                </div>
+              </div>
+              {/* 계정 정보 */}
+              {supaUser && (
+                <div>
+                  <div className="text-xs t-text-sub mb-2">계정</div>
+                  <div className="text-[12px] t-text-dim px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    {supaUser.email}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>,
         document.body
       )}
       {/* 신뢰도 설명 팝업 */}
@@ -1250,23 +1303,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               setShowPortfolioEdit(true);
             }}
               className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
-          </div>
-          {/* 알림 대상 설정 */}
-          <div className="flex items-center justify-between mt-3 pt-3 border-t t-border-light">
-            <span className="text-xs t-text-sub">실시간 알림 대상</span>
-            <div className="flex gap-1">
-              {([["all", "교차신호 + 포트폴리오"], ["portfolio_only", "포트폴리오만"]] as [AlertMode, string][]).map(([mode, label]) => (
-                <button key={mode}
-                  onClick={async () => {
-                    setAlertModeState(mode);
-                    await setAlertMode(mode);
-                  }}
-                  className={`text-[11px] px-2.5 py-1 rounded-lg transition font-medium ${alertMode === mode
-                    ? "bg-blue-600 text-white"
-                    : "t-text-dim border t-border-light hover:t-text-sub"}`}
-                >{label}</button>
-              ))}
-            </div>
           </div>
         </section>
         );
