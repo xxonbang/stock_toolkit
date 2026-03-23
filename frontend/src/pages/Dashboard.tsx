@@ -230,7 +230,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   };
 
   const refreshPortfolioPrices = async () => {
-    if (priceRefreshing || !portfolio?.holdings?.length) return;
+    if (priceRefreshing) return;
+    if (!portfolio?.holdings?.length) {
+      setToastMsg("포트폴리오 데이터가 없습니다");
+      setTimeout(() => setToastMsg(""), 2500);
+      return;
+    }
     setPriceRefreshing(true);
     try {
       const codes = portfolio.holdings.map((h: any) => h.code).filter(Boolean);
