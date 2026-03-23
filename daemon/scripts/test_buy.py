@@ -1,62 +1,36 @@
-"""대장주 전종목 수동 매수 테스트 — 독립 실행"""
+"""대장주 전종목 수동 매수 테스트 — daemon의 매수 함수 직접 사용 (알림 포함)"""
 import asyncio
 import aiohttp
-import json
 import sys
 sys.path.insert(0, ".")
 
-from daemon.config import KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_BASE_URL, KIS_MOCK_ACCOUNT_NO
-from daemon.position_db import calc_quantity, insert_buy_order, update_position_filled
-
-CANO = KIS_MOCK_ACCOUNT_NO.split("-")[0]
-ACNT_CD = KIS_MOCK_ACCOUNT_NO.split("-")[1] if "-" in KIS_MOCK_ACCOUNT_NO else "01"
-
-
-async def get_token(session):
-    url = f"{KIS_MOCK_BASE_URL}/oauth2/tokenP"
-    body = {"grant_type": "client_credentials", "appkey": KIS_MOCK_APP_KEY, "appsecret": KIS_MOCK_APP_SECRET}
-    print(f"  토큰 요청: key_len={len(KIS_MOCK_APP_KEY)}, secret_len={len(KIS_MOCK_APP_SECRET)}")
-    async with session.post(url, json=body) as resp:
-        data = await resp.json()
-        if not data.get("access_token"):
-            print(f"  토큰 응답: {data}")
-        return data.get("access_token")
+from daemon.config import KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_BASE_URL
+from daemon.trader import place_buy_order_with_qty, _ensure_mock_token
+from daemon.position_db import calc_quantity
+from daemon.notifier import telegram_worker
+from daemon.http_session import get_session, close_session
 
 
-def headers(token, tr_id):
-    return {
+async def get_price(code):
+    token = await _ensure_mock_token()
+    if not token:
+        return 0
+    session = await get_session()
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+    headers = {
         "Content-Type": "application/json; charset=utf-8",
         "authorization": f"Bearer {token}",
         "appkey": KIS_MOCK_APP_KEY,
         "appsecret": KIS_MOCK_APP_SECRET,
-        "tr_id": tr_id,
+        "tr_id": "FHKST01010100",
         "custtype": "P",
     }
-
-
-async def get_price(session, token, code):
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
-    async with session.get(url, params=params, headers=headers(token, "FHKST01010100")) as resp:
+    async with session.get(url, params=params, headers=headers) as resp:
         data = await resp.json()
         if data.get("rt_cd") == "0":
             return int(data.get("output", {}).get("stck_prpr", "0"))
     return 0
-
-
-async def buy_order(session, token, code, qty, price):
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
-    body = {
-        "CANO": CANO, "ACNT_PRDT_CD": ACNT_CD,
-        "PDNO": code, "ORD_DVSN": "00",
-        "ORD_QTY": str(qty), "ORD_UNPR": str(price),
-    }
-    async with session.post(url, json=body, headers=headers(token, "VTTC0802U")) as resp:
-        data = await resp.json()
-        if data.get("rt_cd") == "0":
-            return True
-        print(f"    KIS 오류: {data.get('msg1', '')}")
-    return False
 
 
 async def main():
@@ -71,52 +45,52 @@ async def main():
         ("375500", "DL이앤씨"),
     ]
 
-    async with aiohttp.ClientSession() as session:
-        token = await get_token(session)
-        if not token:
-            print("토큰 발급 실패")
-            return
-        print(f"토큰: {token[:20]}...")
+    # telegram_worker를 백그라운드로 실행 (알림 전송용)
+    tg_task = asyncio.create_task(telegram_worker())
 
-        # 현재가 조회
-        priced = []
-        for code, name in targets:
-            price = await get_price(session, token, code)
-            print(f"  {name:16s} {code}  현재가: {price:>8,}원")
-            if price > 0:
-                priced.append((code, name, price))
-            await asyncio.sleep(0.3)
+    token = await _ensure_mock_token()
+    if not token:
+        print("토큰 발급 실패")
+        tg_task.cancel()
+        await close_session()
+        return
+    print(f"토큰: {token[:20]}...")
 
-        if not priced:
-            print("현재가 조회 실패")
-            return
+    # 현재가 조회
+    priced = []
+    for code, name in targets:
+        price = await get_price(code)
+        print(f"  {name:16s} {code}  현재가: {price:>8,}원")
+        if price > 0:
+            priced.append((code, name, price))
+        await asyncio.sleep(0.3)
 
-        # 700만원 기준 균등 분배
-        total_budget = 7_000_000
-        amount_per = total_budget // len(priced)
-        print(f"\n예산: {total_budget:,}원 / {len(priced)}종목 = 종목당 {amount_per:,}원")
+    if not priced:
+        print("현재가 조회 실패")
+        tg_task.cancel()
+        await close_session()
+        return
 
-        for code, name, price in priced:
-            qty = calc_quantity(amount_per, price)
-            if qty <= 0:
-                print(f"  {name}: 수량 0 스킵")
-                continue
-            print(f"  매수: {name} {price:,}원 x {qty}주 = {price * qty:,}원")
+    total_budget = 7_000_000
+    amount_per = total_budget // len(priced)
+    print(f"\n예산: {total_budget:,}원 / {len(priced)}종목 = 종목당 {amount_per:,}원")
 
-            # DB 기록
-            position = await insert_buy_order(code, name, price, qty)
-            if not position:
-                print(f"    DB 기록 실패")
-                continue
+    for code, name, price in priced:
+        qty = calc_quantity(amount_per, price)
+        if qty <= 0:
+            print(f"  {name}: 수량 0 스킵")
+            continue
+        print(f"  매수: {name} {price:,}원 x {qty}주 = {price * qty:,}원")
+        ok = await place_buy_order_with_qty(code, name, price, qty)
+        print(f"    -> {'성공' if ok else '실패(상한가 또는 주문오류)'}")
+        await asyncio.sleep(0.5)
 
-            # KIS 주문
-            ok = await buy_order(session, token, code, qty, price)
-            if ok:
-                await update_position_filled(position["id"], price)
-                print(f"    -> 성공")
-            else:
-                print(f"    -> KIS 주문 실패")
-            await asyncio.sleep(0.5)
+    # 알림 전송 대기
+    print("\n알림 전송 대기 중...")
+    await asyncio.sleep(3)
+    tg_task.cancel()
+    await close_session()
+    print("완료")
 
 
 asyncio.run(main())
