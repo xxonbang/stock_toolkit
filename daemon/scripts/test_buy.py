@@ -14,7 +14,7 @@ ACNT_CD = KIS_MOCK_ACCOUNT_NO.split("-")[1] if "-" in KIS_MOCK_ACCOUNT_NO else "
 
 async def get_token(session):
     url = f"{KIS_MOCK_BASE_URL}/oauth2/tokenP"
-    body = {"grant_type": "client_credentials", "appkey": KIS_APP_KEY, "appsecret": KIS_APP_SECRET}
+    body = {"grant_type": "client_credentials", "appkey": KIS_MOCK_APP_KEY, "appsecret": KIS_MOCK_APP_SECRET}
     async with session.post(url, json=body) as resp:
         data = await resp.json()
         return data.get("access_token")
