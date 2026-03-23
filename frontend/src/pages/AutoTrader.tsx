@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { getTradePct, setAlertConfig } from "../lib/supabase";
 
@@ -218,13 +218,7 @@ export default function AutoTrader() {
         </Section>
       )}
 
-      <Section title="매매 이력" count={closed.length}>
-        {closed.length === 0 ? (
-          <div className="text-center py-8 t-text-sub text-sm">아직 완료된 매매가 없습니다</div>
-        ) : (
-          closed.map((t) => <TradeRow key={t.id} trade={t} type="closed" />)
-        )}
-      </Section>
+      <HistoryByDate trades={closed} />
     </div>
   );
 }
@@ -312,6 +306,78 @@ function TradeRow({ trade, type, onSell, selling }: {
           {trade.sell_reason === "take_profit" ? "익절 +3%" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절 -3%"}
         </div>
       )}
+    </div>
+  );
+}
+
+function HistoryByDate({ trades }: { trades: Trade[] }) {
+  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+
+  if (trades.length === 0) {
+    return (
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <h2 className="text-sm font-semibold t-text">매매 이력</h2>
+          <span className="text-xs px-1.5 py-0.5 rounded-full t-card-alt t-text-sub">0</span>
+        </div>
+        <div className="text-center py-8 t-text-sub text-sm">아직 완료된 매매가 없습니다</div>
+      </div>
+    );
+  }
+
+  // 날짜별 그룹핑
+  const grouped: Record<string, Trade[]> = {};
+  for (const t of trades) {
+    const d = new Date(t.created_at);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(t);
+  }
+  const dates = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
+
+  const toggle = (date: string) => {
+    setCollapsed(prev => {
+      const s = new Set(prev);
+      if (s.has(date)) s.delete(date); else s.add(date);
+      return s;
+    });
+  };
+
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-2">
+        <h2 className="text-sm font-semibold t-text">매매 이력</h2>
+        <span className="text-xs px-1.5 py-0.5 rounded-full t-card-alt t-text-sub">{trades.length}</span>
+      </div>
+      <div className="space-y-3">
+        {dates.map(date => {
+          const items = grouped[date];
+          const isOpen = !collapsed.has(date);
+          const dayPnl = items.reduce((s, t) => s + (t.pnl_pct ?? 0), 0);
+          const avgPnl = items.length > 0 ? dayPnl / items.length : 0;
+          return (
+            <div key={date}>
+              <button onClick={() => toggle(date)}
+                className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg transition hover:opacity-80"
+                style={{ background: "var(--bg)" }}>
+                <div className="flex items-center gap-2">
+                  <ChevronDown size={14} className={`t-text-dim transition-transform ${isOpen ? "" : "-rotate-90"}`} />
+                  <span className="text-xs font-medium t-text">{date}</span>
+                  <span className="text-[10px] t-text-dim">{items.length}건</span>
+                </div>
+                <span className={`text-[11px] font-medium ${avgPnl > 0 ? "text-red-500" : avgPnl < 0 ? "text-blue-500" : "t-text-dim"}`}>
+                  평균 {avgPnl >= 0 ? "+" : ""}{avgPnl.toFixed(2)}%
+                </span>
+              </button>
+              {isOpen && (
+                <div className="space-y-2 mt-2">
+                  {items.map(t => <TradeRow key={t.id} trade={t} type="closed" />)}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
