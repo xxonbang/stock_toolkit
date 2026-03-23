@@ -2,6 +2,14 @@
 
 ## 2026-03-23
 
+### [기능] 모의투자 3가지 개선 — 균등분배 + 수동매도 + 잔고조회 (2026-03-23 13:00 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/position_db.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:**
+  1. 매수 금액: 고정 1000만원 → KIS 잔고 조회(VTTC8908R) 후 종목 수로 균등 분배
+  2. daemon: sell_requested 상태 감지 → 수동 매도 실행 (manual_sell reason)
+  3. 프론트엔드: 종목별 매도 버튼 + 전체 매도 버튼 (auto_trades.status → sell_requested)
+- **커밋:** `c5e063a`
+
 ### [개선] 로그인 안정성 + 모달 UI 전면 개선 (2026-03-23 12:00 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`
 - **내용:** form 태그 감싸 Enter 키 동작, 에러 메시지 한글화, 로딩 중 모달 닫기 방지, createPortal z-9999, CSS 변수 기반 테마 대응, 세련된 레이아웃
