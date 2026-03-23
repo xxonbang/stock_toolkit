@@ -460,11 +460,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <RefreshButtons menuMode />
               <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
               {supaUser ? (
-                <button onClick={async () => {
+                <button onClick={() => {
                   setShowHeaderMenu(false);
-                  await supabase.auth.signOut();
                   setSupaUser(null);
                   setDbHoldings([]);
+                  supabase.auth.signOut();
                 }}
                   style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#ef4444", background: "none", border: "none", cursor: "pointer" }}>
                   <span>↪</span> 로그아웃
