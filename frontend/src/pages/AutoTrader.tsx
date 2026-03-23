@@ -27,9 +27,28 @@ function formatDate(iso: string) {
   return d.toLocaleDateString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
+async function requestSell(tradeId: string): Promise<boolean> {
+  const { error } = await supabase
+    .from("auto_trades")
+    .update({ status: "sell_requested" })
+    .eq("id", tradeId)
+    .eq("status", "filled");
+  if (error) { console.error("매도 요청 실패:", error.message); return false; }
+  return true;
+}
+
+async function requestSellAll(trades: Trade[]): Promise<number> {
+  let count = 0;
+  for (const t of trades) {
+    if (await requestSell(t.id)) count++;
+  }
+  return count;
+}
+
 export default function AutoTrader() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selling, setSelling] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchTrades();
@@ -48,7 +67,7 @@ export default function AutoTrader() {
   }
 
   const active = trades.filter((t) => t.status === "filled");
-  const pending = trades.filter((t) => t.status === "pending");
+  const pending = trades.filter((t) => t.status === "pending" || t.status === "sell_requested");
   const closed = trades.filter((t) => t.status === "sold");
 
   const totalTrades = closed.length;
@@ -62,6 +81,27 @@ export default function AutoTrader() {
     return s + pnl;
   }, 0);
   const totalInvested = active.reduce((s, t) => s + (t.filled_price ?? t.order_price) * t.quantity, 0);
+
+  async function handleSell(trade: Trade) {
+    setSelling(prev => new Set(prev).add(trade.id));
+    const ok = await requestSell(trade.id);
+    if (ok) {
+      setTrades(prev => prev.map(t => t.id === trade.id ? { ...t, status: "sell_requested" } : t));
+    }
+    setSelling(prev => { const s = new Set(prev); s.delete(trade.id); return s; });
+  }
+
+  async function handleSellAll() {
+    if (!active.length || !confirm(`보유 ${active.length}종목 전체 매도 요청하시겠습니까?`)) return;
+    setSelling(new Set(active.map(t => t.id)));
+    const count = await requestSellAll(active);
+    if (count > 0) {
+      setTrades(prev => prev.map(t =>
+        t.status === "filled" ? { ...t, status: "sell_requested" } : t
+      ));
+    }
+    setSelling(new Set());
+  }
 
   if (loading) {
     return (
@@ -93,14 +133,29 @@ export default function AutoTrader() {
       </div>
 
       {active.length > 0 && (
-        <Section title="보유 중" count={active.length}>
-          {active.map((t) => <TradeRow key={t.id} trade={t} type="active" />)}
-        </Section>
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <h2 className="text-sm font-semibold t-text">보유 중</h2>
+            <span className="text-xs px-1.5 py-0.5 rounded-full t-card-alt t-text-sub">{active.length}</span>
+            <button onClick={handleSellAll}
+              className="ml-auto text-[11px] px-3 py-1 rounded-lg font-medium text-red-400 border border-red-400/30 hover:bg-red-500/10 transition">
+              전체 매도
+            </button>
+          </div>
+          <div className="space-y-2">
+            {active.map((t) => (
+              <TradeRow key={t.id} trade={t} type="active"
+                onSell={() => handleSell(t)} selling={selling.has(t.id)} />
+            ))}
+          </div>
+        </div>
       )}
 
       {pending.length > 0 && (
         <Section title="주문 대기" count={pending.length}>
-          {pending.map((t) => <TradeRow key={t.id} trade={t} type="pending" />)}
+          {pending.map((t) => (
+            <TradeRow key={t.id} trade={t} type={t.status === "sell_requested" ? "sell_requested" : "pending"} />
+          ))}
         </Section>
       )}
 
@@ -140,7 +195,12 @@ function Section({ title, count, children }: { title: string; count: number; chi
   );
 }
 
-function TradeRow({ trade, type }: { trade: Trade; type: "active" | "pending" | "closed" }) {
+function TradeRow({ trade, type, onSell, selling }: {
+  trade: Trade;
+  type: "active" | "pending" | "closed" | "sell_requested";
+  onSell?: () => void;
+  selling?: boolean;
+}) {
   const buyPrice = trade.filled_price ?? trade.order_price;
   const amount = buyPrice * trade.quantity;
   const pnl = trade.pnl_pct ?? 0;
@@ -167,12 +227,18 @@ function TradeRow({ trade, type }: { trade: Trade; type: "active" | "pending" | 
           </span>
         )}
         {type === "active" && (
-          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(37,99,235,0.1)", color: "var(--accent)" }}>
-            보유 중
-          </span>
+          <button onClick={onSell} disabled={selling}
+            className="text-[11px] px-2.5 py-1 rounded-lg font-medium text-red-400 border border-red-400/30 hover:bg-red-500/10 transition disabled:opacity-40">
+            {selling ? "요청 중..." : "매도"}
+          </button>
         )}
         {type === "pending" && (
           <span className="text-xs px-2 py-0.5 rounded-full t-card-alt t-text-sub">주문 대기</span>
+        )}
+        {type === "sell_requested" && (
+          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.1)", color: "var(--danger)" }}>
+            매도 대기
+          </span>
         )}
       </div>
       <div className="flex items-center justify-between text-xs t-text-sub">
@@ -184,7 +250,7 @@ function TradeRow({ trade, type }: { trade: Trade; type: "active" | "pending" | 
       </div>
       {type === "closed" && trade.sell_reason && (
         <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : "var(--danger)" }}>
-          {trade.sell_reason === "take_profit" ? "익절 +3%" : "손절 -3%"}
+          {trade.sell_reason === "take_profit" ? "익절 +3%" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절 -3%"}
         </div>
       )}
     </div>

@@ -65,7 +65,7 @@ async def get_active_positions(force_refresh: bool = False) -> list[dict]:
     now = time.time()
     if not force_refresh and _positions_cache and (now - _cache_time) < _CACHE_TTL:
         return _positions_cache
-    url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=in.(pending,filled)&select=*"
+    url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=in.(pending,filled,sell_requested)&select=*"
     result = await _supabase_request("GET", url)
     if result is not None:
         _positions_cache = result
