@@ -49,6 +49,8 @@ async function requestSellAll(trades: Trade[]): Promise<number> {
 export default function AutoTrader() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const [selling, setSelling] = useState<Set<string>>(new Set());
   const [takeProfit, setTakeProfit] = useState(3.0);
   const [stopLoss, setStopLoss] = useState(-3.0);
@@ -57,11 +59,19 @@ export default function AutoTrader() {
   const [pctResult, setPctResult] = useState("");
 
   useEffect(() => {
-    fetchTrades();
-    getTradePct().then(({ take_profit, stop_loss }) => {
-      setTakeProfit(take_profit);
-      setStopLoss(stop_loss);
-    }).catch(() => {});
+    supabase.auth.getUser().then(({ data: { user: u } }) => {
+      setUser(u);
+      setAuthChecked(true);
+      if (u) {
+        fetchTrades();
+        getTradePct().then(({ take_profit, stop_loss }) => {
+          setTakeProfit(take_profit);
+          setStopLoss(stop_loss);
+        }).catch(() => {});
+      } else {
+        setLoading(false);
+      }
+    }).catch(() => { setAuthChecked(true); setLoading(false); });
   }, []);
 
   async function fetchTrades() {
@@ -113,11 +123,21 @@ export default function AutoTrader() {
     setSelling(new Set());
   }
 
-  if (loading) {
+  if (loading || !authChecked) {
     return (
       <div className="text-center py-20 t-text-sub">
         <div className="text-2xl mb-2">📊</div>
         데이터 로딩 중...
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="text-center py-20 t-text-sub">
+        <div className="text-3xl mb-3">🔒</div>
+        <div className="text-sm font-medium t-text mb-1">로그인이 필요합니다</div>
+        <div className="text-xs t-text-dim">모의투자 현황을 확인하려면 로그인해주세요</div>
       </div>
     );
   }
