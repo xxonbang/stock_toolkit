@@ -131,8 +131,8 @@ def test_no_wall_when_even(engine):
 
 # === 수급 반전 ===
 def test_supply_reversal_buy(engine):
-    # 초기: 매도 우세 (bid_ratio=0.3)
-    for _ in range(5):
+    # 초기: 매도 우세 (bid_ratio=0.3) — 최소 10개 데이터 확보
+    for _ in range(10):
         engine.check_asking_price({
             "code": "005930",
             "ask_prices": [69000] * 5, "bid_prices": [68900] * 5,
@@ -155,8 +155,8 @@ def test_supply_reversal_sell(engine):
         surge_levels=[5.0], drop_levels=[-3.0],
         volume_ratio=3.0, cooldown_sec=300,
     )
-    # 초기: 매수 우세
-    for _ in range(5):
+    # 초기: 매수 우세 — 최소 10개 데이터 확보
+    for _ in range(10):
         engine2.check_asking_price({
             "code": "000660",
             "ask_prices": [130000] * 5, "bid_prices": [129000] * 5,

@@ -68,6 +68,20 @@ class AlertEngine:
         total_bid = data["total_bid"]
         alerts = []
 
+        # 장 초반 5분(09:00~09:05) 호가 알림 억제 — 호가 안정화 대기
+        import datetime
+        now_t = datetime.datetime.now().time()
+        if now_t < datetime.time(9, 5):
+            # 수급 히스토리는 계속 쌓되, 알림은 발생시키지 않음
+            total = total_ask + total_bid
+            if total > 0:
+                bid_ratio = total_bid / total
+                now = time.time()
+                if code not in self._supply_history:
+                    self._supply_history[code] = deque()
+                self._supply_history[code].append((now, bid_ratio))
+            return alerts
+
         # 호가 벽 감지: 특정 호가 잔량이 평균의 N배 이상
         all_qtys = [q for q in ask_qtys + bid_qtys if q > 0]
         if all_qtys:
@@ -119,8 +133,8 @@ class AlertEngine:
             cutoff = now - 300
             while history and history[0][0] < cutoff:
                 history.popleft()
-            # 최소 2개 이상일 때 반전 판정
-            if len(history) >= 2:
+            # 최소 10개 이상 데이터 확보 후 판정 (약 30초~1분 분량)
+            if len(history) >= 10:
                 oldest_ratio = history[0][1]
                 delta = bid_ratio - oldest_ratio
                 if abs(delta) >= self._supply_reversal_threshold:
@@ -128,7 +142,8 @@ class AlertEngine:
                         alert_type = "supply_reversal_buy"
                     else:
                         alert_type = "supply_reversal_sell"
-                    if self._can_alert(code, alert_type):
+                    # buy/sell 구분 없이 supply_reversal 단일 쿨다운
+                    if self._can_alert(code, "supply_reversal"):
                         alerts.append({
                             "type": alert_type,
                             "code": code,
@@ -137,7 +152,7 @@ class AlertEngine:
                             "prev_ratio": round(oldest_ratio * 100, 1),
                             "delta": round(delta * 100, 1),
                         })
-                        self._mark_alerted(code, alert_type)
+                        self._mark_alerted(code, "supply_reversal")
 
         return alerts
 
