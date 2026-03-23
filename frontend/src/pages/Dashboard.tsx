@@ -1165,12 +1165,14 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             <div className="mt-3 pt-3 border-t t-border-light">
               <div className="text-xs font-medium t-text-sub mb-1.5">글로벌 매크로</div>
               <div className="grid grid-cols-2 gap-1.5">
-                {Object.entries(indicatorHistory.macro as Record<string, any[]>).slice(0, 6).map(([symbol, history]: [string, any]) => {
+                {(["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"] as string[]).map(symbol => {
+                  const macro = indicatorHistory.macro as Record<string, any[]>;
+                  const history = macro[symbol];
                   const arr = Array.isArray(history) ? history : [];
                   const latest = arr[arr.length - 1];
                   const prev = arr[arr.length - 2];
                   if (!latest) return null;
-                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "069500": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)", "KOSPI200F": "코스피200선물", "^VIX": "VIX", "FNG": "F&G" };
+                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "KOSPI200": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)" };
                   return (
                     <div key={symbol} className="t-card-alt rounded-lg p-2">
                       <div className="text-[10px] t-text-dim mb-0.5">{nameMap[symbol] || symbol}</div>
