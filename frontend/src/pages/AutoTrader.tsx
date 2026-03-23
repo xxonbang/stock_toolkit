@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3 } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings } from "lucide-react";
 import { supabase } from "../lib/supabase";
+import { getTradePct, setAlertConfig } from "../lib/supabase";
 
 interface Trade {
   id: string;
@@ -49,9 +50,18 @@ export default function AutoTrader() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
   const [selling, setSelling] = useState<Set<string>>(new Set());
+  const [takeProfit, setTakeProfit] = useState(3.0);
+  const [stopLoss, setStopLoss] = useState(-3.0);
+  const [showPctEdit, setShowPctEdit] = useState(false);
+  const [pctSaving, setPctSaving] = useState(false);
+  const [pctResult, setPctResult] = useState("");
 
   useEffect(() => {
     fetchTrades();
+    getTradePct().then(({ take_profit, stop_loss }) => {
+      setTakeProfit(take_profit);
+      setStopLoss(stop_loss);
+    }).catch(() => {});
   }, []);
 
   async function fetchTrades() {
@@ -124,6 +134,55 @@ export default function AutoTrader() {
 
   return (
     <div className="space-y-4">
+      {/* 익절/손절 설정 */}
+      <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs">
+            <span className="text-red-500 font-medium">익절 +{takeProfit}%</span>
+            <span className="t-text-dim">/</span>
+            <span className="text-blue-500 font-medium">손절 {stopLoss}%</span>
+            <span className="t-text-dim">· 15:15 청산</span>
+          </div>
+          <button onClick={() => setShowPctEdit(!showPctEdit)}
+            className="p-1.5 rounded-lg t-text-dim hover:t-text transition">
+            <Settings size={14} />
+          </button>
+        </div>
+        {showPctEdit && (
+          <div className="mt-3 pt-3 border-t t-border-light space-y-3">
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <div className="text-[10px] t-text-dim mb-1">익절 (%)</div>
+                <input type="number" step="0.5" min="0.5" max="30" value={takeProfit}
+                  onChange={e => setTakeProfit(parseFloat(e.target.value) || 3.0)}
+                  className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
+                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+              </div>
+              <div className="flex-1">
+                <div className="text-[10px] t-text-dim mb-1">손절 (%)</div>
+                <input type="number" step="0.5" min="-30" max="-0.5" value={stopLoss}
+                  onChange={e => setStopLoss(parseFloat(e.target.value) || -3.0)}
+                  className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
+                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+              </div>
+            </div>
+            <button disabled={pctSaving} onClick={async () => {
+              setPctSaving(true);
+              const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss });
+              setPctResult(ok ? "✓ 저장 완료" : "✕ 저장 실패");
+              setTimeout(() => setPctResult(""), 2000);
+              setPctSaving(false);
+            }}
+              className="w-full text-[12px] font-medium py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+              {pctSaving ? "저장 중..." : "저장"}
+            </button>
+            {pctResult && (
+              <div className={`text-[11px] text-center ${pctResult.includes("실패") ? "text-red-400" : "text-emerald-400"}`}>{pctResult}</div>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* 성과 요약 */}
       <div className="grid grid-cols-2 gap-3">
         <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />

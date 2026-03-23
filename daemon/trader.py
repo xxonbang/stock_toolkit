@@ -13,7 +13,7 @@ from daemon.position_db import (
     is_selling, mark_selling, unmark_selling,
 )
 from daemon.notifier import send_telegram
-from daemon.stock_manager import fetch_json
+from daemon.stock_manager import fetch_json, fetch_alert_config
 from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.trader")
@@ -284,10 +284,29 @@ async def run_buy_process():
         await place_buy_order_with_qty(c["code"], c["name"], c["price"], quantity)
 
 
+_trade_config_cache: dict | None = None
+_trade_config_time: float = 0
+
+async def _get_trade_config() -> dict:
+    """익절/손절 설정 조회 (60초 캐시)"""
+    global _trade_config_cache, _trade_config_time
+    import time as _t
+    now = _t.time()
+    if _trade_config_cache and (now - _trade_config_time) < 60:
+        return _trade_config_cache
+    _trade_config_cache = await fetch_alert_config()
+    _trade_config_time = now
+    return _trade_config_cache
+
+
 async def check_positions_for_sell(current_price_data: dict):
     """보유 포지션 수익률 체크 → 익절/손절/수동매도 (캐시 + 중복 매도 방지)"""
     code = current_price_data["code"]
     current_price = current_price_data["price"]
+
+    config = await _get_trade_config()
+    tp = config.get("take_profit_pct", TRADE_TAKE_PROFIT_PCT)
+    sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
 
     positions = await get_active_positions()  # 5초 캐시 사용
     for pos in positions:
@@ -318,7 +337,7 @@ async def check_positions_for_sell(current_price_data: dict):
         if buy_price <= 0:
             continue
 
-        reason = should_sell(buy_price, current_price)
+        reason = should_sell(buy_price, current_price, take_profit=tp, stop_loss=sl)
         if reason:
             mark_selling(position_id)  # 락 설정
             await place_sell_order(

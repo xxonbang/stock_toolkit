@@ -47,13 +47,14 @@ async def fetch_json(url: str) -> list | dict | None:
     return None
 
 
-async def fetch_alert_mode() -> str:
-    """Supabase alert_config에서 알림 모드 조회 (기본: 'all')"""
+async def fetch_alert_config() -> dict:
+    """Supabase alert_config에서 전체 설정 조회"""
+    defaults = {"alert_mode": "all", "take_profit_pct": 3.0, "stop_loss_pct": -3.0}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
-        return "all"
+        return defaults
     try:
         session = await get_session()
-        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode&limit=1"
+        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode,take_profit_pct,stop_loss_pct&limit=1"
         headers = {
             "apikey": SUPABASE_SECRET_KEY,
             "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
@@ -61,12 +62,21 @@ async def fetch_alert_mode() -> str:
         async with session.get(url, headers=headers) as resp:
             if resp.status == 200:
                 rows = await resp.json()
-                if rows and isinstance(rows, list) and rows[0].get("alert_mode"):
-                    mode = rows[0]["alert_mode"]
-                    logger.info(f"알림 모드: {mode}")
-                    return mode
+                if rows and isinstance(rows, list):
+                    row = rows[0]
+                    return {
+                        "alert_mode": row.get("alert_mode") or "all",
+                        "take_profit_pct": float(row.get("take_profit_pct") or 3.0),
+                        "stop_loss_pct": float(row.get("stop_loss_pct") or -3.0),
+                    }
     except Exception as e:
-        logger.warning(f"알림 모드 조회 실패: {e}")
+        logger.warning(f"설정 조회 실패: {e}")
+    return defaults
+
+
+async def fetch_alert_mode() -> str:
+    config = await fetch_alert_config()
+    return config["alert_mode"]
     return "all"
 
 

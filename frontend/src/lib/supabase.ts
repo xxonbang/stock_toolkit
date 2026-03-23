@@ -145,20 +145,40 @@ export async function getAlertMode(): Promise<AlertMode> {
   return (data?.alert_mode as AlertMode) || "all";
 }
 
-/** 알림 모드 변경 */
-export async function setAlertMode(mode: AlertMode): Promise<boolean> {
+/** 알림 설정 변경 (모드 + 익절/손절) */
+export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number }): Promise<boolean> {
   try {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) { console.warn("setAlertMode: 사용자 없음"); return false; }
+    if (!user) return false;
     const { error } = await supabase.from("alert_config").upsert({
       user_id: user.id,
-      alert_mode: mode,
+      ...updates,
       updated_at: new Date().toISOString(),
     }, { onConflict: "user_id" });
-    if (error) { console.error("알림 설정 변경 실패:", error.code, error.message, error.details); return false; }
+    if (error) { console.error("설정 변경 실패:", error.code, error.message, error.details); return false; }
     return true;
   } catch (e) {
-    console.error("setAlertMode 예외:", e);
+    console.error("setAlertConfig 예외:", e);
     return false;
   }
+}
+
+/** 알림 모드 변경 (하위호환) */
+export async function setAlertMode(mode: AlertMode): Promise<boolean> {
+  return setAlertConfig({ alert_mode: mode });
+}
+
+/** 익절/손절 조회 */
+export async function getTradePct(): Promise<{ take_profit: number; stop_loss: number }> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { take_profit: 3.0, stop_loss: -3.0 };
+  const { data } = await supabase
+    .from("alert_config")
+    .select("take_profit_pct, stop_loss_pct")
+    .eq("user_id", user.id)
+    .maybeSingle();
+  return {
+    take_profit: data?.take_profit_pct ?? 3.0,
+    stop_loss: data?.stop_loss_pct ?? -3.0,
+  };
 }
