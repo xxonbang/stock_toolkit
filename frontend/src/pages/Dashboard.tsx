@@ -104,6 +104,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [toastMsg, setToastMsg] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [settingsResult, setSettingsResult] = useState("");
+  const [pendingAlertMode, setPendingAlertMode] = useState<AlertMode | null>(null);
+  const [settingsSaving, setSettingsSaving] = useState(false);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -551,33 +553,49 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div>
                 <div className="text-[11px] t-text-dim mb-2">실시간 알림 대상</div>
                 <div className="space-y-1.5">
-                  {([["all", "교차신호 + 포트폴리오", "교차 신호와 포트폴리오 종목 모두 알림"], ["portfolio_only", "포트폴리오만", "보유 종목만 알림"], ["off", "전체 OFF", "모든 알림 중단"]] as [AlertMode, string, string][]).map(([mode, label, desc]) => (
+                  {([["all", "교차신호 + 포트폴리오", "교차 신호와 포트폴리오 종목 모두 알림"], ["portfolio_only", "포트폴리오만", "보유 종목만 알림"], ["off", "전체 OFF", "모든 알림 중단"]] as [AlertMode, string, string][]).map(([mode, label, desc]) => {
+                    const selected = (pendingAlertMode ?? alertMode) === mode;
+                    return (
                     <button key={mode} disabled={!supaUser}
-                      onClick={async () => {
-                        if (!supaUser) return;
-                        setAlertModeState(mode);
-                        try {
-                          const ok = await setAlertMode(mode);
-                          setSettingsResult(ok ? "✓ 설정이 저장되었습니다" : "✕ 저장 실패 — 다시 시도해주세요");
-                        } catch {
-                          setSettingsResult("✕ 저장 실패 — 네트워크를 확인해주세요");
-                        }
-                        setTimeout(() => setSettingsResult(""), 2000);
-                      }}
-                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${!supaUser ? "opacity-40 cursor-not-allowed" : ""} ${alertMode === mode
+                      onClick={() => { if (supaUser) setPendingAlertMode(mode); }}
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${!supaUser ? "opacity-40 cursor-not-allowed" : ""} ${selected
                         ? mode === "off" ? "bg-red-600/15 border-red-500/40" : "bg-blue-600/15 border-blue-500/40"
                         : "hover:opacity-80"}`}
-                      style={{ border: `1px solid ${alertMode === mode ? undefined : "var(--border)"}` }}>
+                      style={{ border: `1px solid ${selected ? undefined : "var(--border)"}` }}>
                       <div className="text-left">
-                        <div className={`text-[13px] font-medium ${alertMode === mode ? (mode === "off" ? "text-red-400" : "text-blue-400") : "t-text"}`}>{label}</div>
+                        <div className={`text-[13px] font-medium ${selected ? (mode === "off" ? "text-red-400" : "text-blue-400") : "t-text"}`}>{label}</div>
                         <div className="text-[10px] t-text-dim">{desc}</div>
                       </div>
-                      {alertMode === mode && (
+                      {selected && (
                         <div className={`text-xs font-bold ${mode === "off" ? "text-red-400" : "text-blue-400"}`}>✓</div>
                       )}
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
+                {pendingAlertMode && pendingAlertMode !== alertMode && (
+                  <button disabled={settingsSaving}
+                    onClick={async () => {
+                      setSettingsSaving(true);
+                      try {
+                        const ok = await setAlertMode(pendingAlertMode);
+                        if (ok) {
+                          setAlertModeState(pendingAlertMode);
+                          setPendingAlertMode(null);
+                          setSettingsResult("✓ 설정이 저장되었습니다");
+                        } else {
+                          setSettingsResult("✕ 저장 실패 — 다시 시도해주세요");
+                        }
+                      } catch {
+                        setSettingsResult("✕ 저장 실패 — 네트워크를 확인해주세요");
+                      }
+                      setSettingsSaving(false);
+                      setTimeout(() => setSettingsResult(""), 2000);
+                    }}
+                    className="w-full mt-3 text-[13px] font-semibold py-2.5 rounded-xl text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                    {settingsSaving ? "저장 중..." : "확인"}
+                  </button>
+                )}
                 {settingsResult && (
                   <div className={`text-[11px] text-center mt-2 py-1.5 rounded-lg ${settingsResult.includes("실패") ? "text-red-400 bg-red-500/10" : "text-emerald-400 bg-emerald-500/10"}`}>
                     {settingsResult}
