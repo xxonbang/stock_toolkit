@@ -2,6 +2,14 @@
 
 ## 2026-03-23
 
+### [기능] 백테스트 연구 + daemon 설정 변경 + trailing stop 구현 (2026-03-23 22:00 KST)
+- **변경 파일:** `scripts/backtest_abc.py`, `daemon/config.py`, `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`, `docs/research/2026-03-23-backtest-abc.md`
+- **내용:**
+  - 일봉 200일 48조합 백테스트: 복수일 최적 a=10%/b=-2%/c=-3%, 당일청산 최적 a=5%/b=-2%/c=-3%
+  - daemon 설정: 익절 3%→7%, 손절 -3%→-2%, trailing stop -3% 신규
+  - trailing stop 구현: 종목별 고점 추적, 수익 중 고점 대비 3% 하락 시 매도
+- **커밋:** `98615fa`
+
 ### [기능] 설정 바텀시트 추가 — 알림 대상 선택을 ⋮ > 설정으로 이동 (2026-03-23 15:30 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`
 - **내용:** 포트폴리오 섹션의 알림 대상 버튼을 ⋮ 메뉴 > 설정 바텀시트로 이동, 계정 정보 표시 추가
