@@ -1108,7 +1108,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <button onClick={() => setShowLogin(true)}
             className="text-sm font-medium px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
         </section>
-      ) : portfolio && (() => {
+      ) : !portfolio ? (
+        <section className="t-card rounded-xl p-6 text-center">
+          <div className="text-2xl mb-2">📊</div>
+          <div className="text-sm t-text-sub">포트폴리오 데이터 로딩 중...</div>
+        </section>
+      ) : (() => {
         const sm = portfolio.summary || {};
         const profitColor = (r: number) => r > 0 ? "text-red-500" : r < 0 ? "text-blue-500" : "t-text";
         return (
