@@ -11,7 +11,7 @@ import {
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
-import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode, setAccessToken, STORAGE_KEY } from "../lib/supabase";
+import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, getAlertMode, setAlertMode, getTradePct, setAccessToken, STORAGE_KEY } from "../lib/supabase";
 import type { KisStockPrice, PortfolioHolding, AlertMode } from "../lib/supabase";
 import AutoTrader from "./AutoTrader";
 
@@ -311,6 +311,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           setDbLoading(true);
           fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoading(false));
           getAlertMode().then(setAlertModeState).catch(() => {});
+          getTradePct().then(({ take_profit, stop_loss }) => {
+            try { localStorage.setItem("_tp", String(take_profit)); localStorage.setItem("_sl", String(stop_loss)); } catch {}
+          }).catch(() => {});
         }
       }
     } catch { /* 파싱 실패 시 로그인 화면 표시 */ }
@@ -438,6 +441,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   setLoginPw("");
                   fetchHoldingsFromDB().then(setDbHoldings).catch(() => {});
                   getAlertMode().then(setAlertModeState).catch(() => {});
+                  getTradePct().then(({ take_profit, stop_loss }) => {
+                    try { localStorage.setItem("_tp", String(take_profit)); localStorage.setItem("_sl", String(stop_loss)); } catch {}
+                  }).catch(() => {});
                 } else {
                   setLoginError("로그인 응답에 세션이 없습니다. 다시 시도해주세요.");
                 }
@@ -528,21 +534,44 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             </div>
             <div className="px-5 pb-6 space-y-5 pt-4">
               {/* 계정 정보 */}
-              {supaUser && (
-                <div>
-                  <div className="text-[11px] t-text-dim mb-1.5">계정</div>
+              <div>
+                <div className="text-[11px] t-text-dim mb-1.5">계정</div>
+                {supaUser ? (
                   <div className="text-[13px] t-text px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
                     {supaUser.email}
                   </div>
+                ) : (
+                  <div className="text-[12px] t-text-dim px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    로그인하면 설정을 변경할 수 있습니다
+                  </div>
+                )}
+              </div>
+              {/* 현재 설정값 요약 */}
+              <div>
+                <div className="text-[11px] t-text-dim mb-1.5">현재 설정</div>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="px-2 py-2 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    <div className="text-[10px] t-text-dim">알림</div>
+                    <div className="text-[12px] font-medium t-text">{alertMode === "all" ? "전체" : alertMode === "portfolio_only" ? "포트폴리오" : "OFF"}</div>
+                  </div>
+                  <div className="px-2 py-2 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    <div className="text-[10px] t-text-dim">익절</div>
+                    <div className="text-[12px] font-medium text-red-500">+{(() => { try { return Number(localStorage.getItem("_tp") || "3.0"); } catch { return 3.0; } })()}%</div>
+                  </div>
+                  <div className="px-2 py-2 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                    <div className="text-[10px] t-text-dim">손절</div>
+                    <div className="text-[12px] font-medium text-blue-500">{(() => { try { return Number(localStorage.getItem("_sl") || "-3.0"); } catch { return -3.0; } })()}%</div>
+                  </div>
                 </div>
-              )}
+              </div>
               {/* 알림 대상 */}
               <div>
                 <div className="text-[11px] t-text-dim mb-2">실시간 알림 대상</div>
                 <div className="space-y-1.5">
                   {([["all", "교차신호 + 포트폴리오", "교차 신호와 포트폴리오 종목 모두 알림"], ["portfolio_only", "포트폴리오만", "보유 종목만 알림"], ["off", "전체 OFF", "모든 알림 중단"]] as [AlertMode, string, string][]).map(([mode, label, desc]) => (
-                    <button key={mode}
+                    <button key={mode} disabled={!supaUser}
                       onClick={async () => {
+                        if (!supaUser) return;
                         setAlertModeState(mode);
                         try {
                           const ok = await setAlertMode(mode);
@@ -552,7 +581,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                         }
                         setTimeout(() => setSettingsResult(""), 2000);
                       }}
-                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${alertMode === mode
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${!supaUser ? "opacity-40 cursor-not-allowed" : ""} ${alertMode === mode
                         ? mode === "off" ? "bg-red-600/15 border-red-500/40" : "bg-blue-600/15 border-blue-500/40"
                         : "hover:opacity-80"}`}
                       style={{ border: `1px solid ${alertMode === mode ? undefined : "var(--border)"}` }}>
