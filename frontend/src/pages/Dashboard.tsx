@@ -529,18 +529,21 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
             </div>
             <div className="px-5 pb-6 space-y-5 pt-4">
+              {!supaUser ? (
+                <div className="text-center py-6">
+                  <div className="text-2xl mb-2">🔒</div>
+                  <div className="text-sm t-text mb-1">로그인이 필요합니다</div>
+                  <div className="text-[11px] t-text-dim mb-4">설정을 변경하려면 먼저 로그인해주세요</div>
+                  <button onClick={() => { setShowSettings(false); setShowLogin(true); }}
+                    className="text-sm font-medium px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
+                </div>
+              ) : <>
               {/* 계정 정보 */}
               <div>
                 <div className="text-[11px] t-text-dim mb-1.5">계정</div>
-                {supaUser ? (
-                  <div className="text-[13px] t-text px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                    {supaUser.email}
-                  </div>
-                ) : (
-                  <div className="text-[12px] t-text-dim px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                    로그인하면 설정을 변경할 수 있습니다
-                  </div>
-                )}
+                <div className="text-[13px] t-text px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                  {supaUser.email}
+                </div>
               </div>
               {/* 현재 설정 요약 */}
               <div className="px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
@@ -602,6 +605,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   </div>
                 )}
               </div>
+              </>}
             </div>
           </div>
         </div>,
