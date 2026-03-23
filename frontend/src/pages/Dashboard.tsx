@@ -528,20 +528,26 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               )}
               {/* 알림 대상 */}
               <div>
-                <div className="text-[11px] t-text-dim mb-1.5">실시간 알림 대상</div>
-                <div className="flex gap-2">
-                  {([["all", "교차신호 + 포트폴리오"], ["portfolio_only", "포트폴리오만"], ["off", "전체 OFF"]] as [AlertMode | "off", string][]).map(([mode, label]) => (
+                <div className="text-[11px] t-text-dim mb-2">실시간 알림 대상</div>
+                <div className="space-y-1.5">
+                  {([["all", "교차신호 + 포트폴리오", "교차 신호와 포트폴리오 종목 모두 알림"], ["portfolio_only", "포트폴리오만", "보유 종목만 알림"], ["off", "전체 OFF", "모든 알림 중단"]] as [AlertMode, string, string][]).map(([mode, label, desc]) => (
                     <button key={mode}
                       onClick={async () => {
-                        const m = mode as AlertMode;
-                        setAlertModeState(m);
-                        await setAlertMode(m);
+                        setAlertModeState(mode);
+                        await setAlertMode(mode);
                       }}
-                      className={`flex-1 text-[11px] py-2 rounded-xl transition font-medium ${alertMode === mode
-                        ? mode === "off" ? "bg-red-600 text-white" : "bg-blue-600 text-white"
-                        : "t-text-dim hover:t-text-sub"}`}
-                      style={alertMode !== mode ? { border: "1px solid var(--border)" } : undefined}
-                    >{label}</button>
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${alertMode === mode
+                        ? mode === "off" ? "bg-red-600/15 border-red-500/40" : "bg-blue-600/15 border-blue-500/40"
+                        : "hover:opacity-80"}`}
+                      style={{ border: `1px solid ${alertMode === mode ? undefined : "var(--border)"}` }}>
+                      <div className="text-left">
+                        <div className={`text-[13px] font-medium ${alertMode === mode ? (mode === "off" ? "text-red-400" : "text-blue-400") : "t-text"}`}>{label}</div>
+                        <div className="text-[10px] t-text-dim">{desc}</div>
+                      </div>
+                      {alertMode === mode && (
+                        <div className={`text-xs font-bold ${mode === "off" ? "text-red-400" : "text-blue-400"}`}>✓</div>
+                      )}
+                    </button>
                   ))}
                 </div>
               </div>
