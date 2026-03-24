@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [개선] 헤더 새로고침 결과 toast 알림 추가 + 로고 회전 제거 (2026-03-24 21:45 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** loadAllData()에 Promise.allSettled 기반 성공/실패 집계 추가, 헤더 클릭 시 새로고침 완료/실패 toast 표시, 로고 animate-spin 제거 (animate-bounce 유지)
+- **커밋:** `9366bd6`
+
 ### [버그픽스] 앱 복귀 시 세션 자동 갱신 (2026-03-24 14:40 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/AutoTrader.tsx`
 - **내용:** visibilitychange 이벤트로 앱 복귀 감지 → getSession()으로 토큰 자동 갱신. PWA/모바일 백그라운드 방치 후 로그인 풀림 방지.

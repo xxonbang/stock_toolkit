@@ -114,6 +114,12 @@ async def update_position_filled(position_id: str, filled_price: int):
     invalidate_cache()
 
 
+async def update_position_quantity(position_id: str, quantity: int):
+    url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=eq.{position_id}"
+    await _supabase_request("PATCH", url, json={"quantity": quantity})
+    invalidate_cache()
+
+
 async def update_position_sold(position_id: str, sell_price: int, pnl_pct: float, reason: str):
     url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=eq.{position_id}"
     body = {"status": "sold", "pnl_pct": round(pnl_pct, 2), "sell_reason": reason, "sold_at": "now()"}

@@ -10,7 +10,8 @@ from daemon.config import (
 )
 from daemon.position_db import (
     is_already_held_or_ordered, insert_buy_order, update_position_filled,
-    update_position_sold, get_active_positions, calc_quantity, calc_pnl_pct,
+    update_position_sold, update_position_quantity, get_active_positions,
+    calc_quantity, calc_pnl_pct,
     is_selling, mark_selling, unmark_selling,
 )
 from daemon.notifier import send_telegram
@@ -149,6 +150,64 @@ async def place_buy_order(code: str, name: str, price: int) -> bool:
     return await place_buy_order_with_qty(code, name, price, quantity)
 
 
+async def _verify_fill(code: str, ordered_qty: int) -> int:
+    """주문 후 KIS 미체결 조회 → 실제 체결 수량 반환, 미체결분 취소"""
+    await asyncio.sleep(1)
+    token = await _ensure_mock_token()
+    if not token:
+        return ordered_qty  # 조회 실패 시 주문수량 그대로
+    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    cano, acnt_cd = account_parts[0], account_parts[1] if len(account_parts) > 1 else "01"
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
+    params = {
+        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+        "INQR_STRT_DT": "", "INQR_END_DT": "",
+        "SLL_BUY_DVSN_CD": "02", "INQR_DVSN": "00",
+        "PDNO": "", "CCLD_DVSN": "01",
+        "ORD_GNO_BRNO": "", "ODNO": "",
+        "INQR_DVSN_3": "00", "INQR_DVSN_1": "",
+        "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+    }
+    try:
+        session = await get_session()
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return ordered_qty
+            unfilled_qty = 0
+            for order in data.get("output", []):
+                if order.get("pdno") != code:
+                    continue
+                rmn = int(order.get("rmn_qty", "0") or "0")
+                if rmn <= 0:
+                    continue
+                unfilled_qty += rmn
+                # 미체결분 취소
+                odno = order.get("odno", "")
+                if odno:
+                    cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
+                    cancel_body = {
+                        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+                        "KRX_FWDG_ORD_ORGNO": "", "ORGN_ODNO": odno,
+                        "ORD_DVSN": "00", "RVSE_CNCL_DVSN_CD": "02",
+                        "ORD_QTY": str(rmn), "ORD_UNPR": "0", "QTY_ALL_ORD_YN": "Y",
+                    }
+                    async with session.post(cancel_url, json=cancel_body, headers=_order_headers(token, "VTTC0803U")) as cresp:
+                        cdata = await cresp.json()
+                        if cdata.get("rt_cd") == "0":
+                            logger.info(f"미체결 취소: {code} 잔여 {rmn}주")
+                        else:
+                            logger.warning(f"미체결 취소 실패: {code} {cdata.get('msg1', '')}")
+                    await asyncio.sleep(0.3)
+            filled_qty = ordered_qty - unfilled_qty
+            if unfilled_qty > 0:
+                logger.info(f"부분 체결: {code} 주문 {ordered_qty}주 → 체결 {filled_qty}주, 미체결 {unfilled_qty}주 취소")
+            return filled_qty
+    except Exception as e:
+        logger.error(f"체결 확인 오류: {e}")
+        return ordered_qty
+
+
 async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: int) -> bool:
     """수량을 직접 지정하여 시장가 매수 (미체결 방지)"""
     if await is_upper_limit(code, price):
@@ -161,13 +220,23 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
     # 시장가 매수 (지정가 미체결 방지)
     result = await _kis_order_market("VTTC0802U", code, quantity)
     if result:
+        filled_qty = await _verify_fill(code, quantity)
+        if filled_qty <= 0:
+            # 체결 0주 → DB 정리
+            from daemon.position_db import delete_position
+            await delete_position(position["id"])
+            logger.warning(f"체결 0주 → pending 삭제: {name}({code})")
+            return False
         await update_position_filled(position["id"], price)
-        logger.info(f"매수 체결: {name}({code}) {price:,}원 × {quantity}주 (시장가)")
+        if filled_qty != quantity:
+            await update_position_quantity(position["id"], filled_qty)
+        logger.info(f"매수 체결: {name}({code}) {price:,}원 × {filled_qty}주 (시장가)")
         await send_telegram(
             f"<b>📥 자동 매수 체결</b>\n"
             f"<b>{name} ({code})</b>\n"
-            f"가격: {price:,}원 × {quantity}주\n"
-            f"금액: {price * quantity:,}원"
+            f"가격: {price:,}원 × {filled_qty}주\n"
+            f"금액: {price * filled_qty:,}원"
+            + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
         )
         # 매수 후 구독 갱신 (모의투자 종목 WebSocket 수신 시작)
         try:
