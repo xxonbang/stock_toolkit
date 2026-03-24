@@ -239,7 +239,7 @@ export default function AutoTrader() {
             <span className="text-red-500 font-medium">익절 +{takeProfit}%</span>
             <span className="t-text-dim">/</span>
             <span className="text-blue-500 font-medium">손절 {stopLoss}%</span>
-            <span className="t-text-dim">· 15:15 청산</span>
+            <span className="t-text-dim">· 15:15 청산 (+3%↑ 익일보유)</span>
           </div>
           <button onClick={() => setShowPctEdit(!showPctEdit)}
             className="p-1.5 rounded-lg t-text-dim hover:t-text transition">
