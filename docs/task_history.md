@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [개선] UI/UX 일괄 개선 — 신선도/그룹핑/팝업/방향 표시 (2026-03-24 23:25 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/components/HelpDialog.tsx`, `frontend/src/lib/supabase.ts`, `scripts/run_all.py`
+- **내용:** 연속 시그널 신선도 뱃지+종료 접기, 이상 거래 종목별 그룹핑+액션 분류+수급 표시, 라이프사이클 팝업(단계 설명+포함 종목), 교차 신호 방향 표시(↑매수유효/↓매도유효), 도움말 줄바꿈, 모의투자 손실 색상 파랑 변경, _calc_streak 7일 cutoff
+- **커밋:** `af5e452`
+
 ### [기능] 매집 신호 AND/OR 토글 + 리밸런싱 제안 실데이터 기반 (2026-03-24 22:45 KST)
 - **변경 파일:** `daemon/trader.py`, `daemon/stock_manager.py`, `daemon/tests/test_trader.py`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/lib/supabase.ts`, `frontend/src/pages/Dashboard.tsx`
 - **내용:** 모의투자 페이지에 매집 기준 AND/OR 토글 추가 (Supabase alert_config.buy_signal_mode 연동). 리밸런싱 제안을 서버 JSON 대신 실제 보유 데이터 기반으로 계산. OR 모드 테스트 추가.

@@ -108,6 +108,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [settingsSaving, setSettingsSaving] = useState(false);
   const [streakPopup, setStreakPopup] = useState<{ name: string; dates: string[] } | null>(null);
   const [lifecyclePopup, setLifecyclePopup] = useState<{ theme: string; stocks: string[]; stage: string; strategy?: string } | null>(null);
+  const [badgePopup, setBadgePopup] = useState<{ label: string; desc: string; x: number; y: number } | null>(null);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -863,6 +864,16 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 </div>
               )}
             </div>
+          </div>
+        </div>,
+        document.body
+      )}
+      {/* 뱃지 설명 팝업 */}
+      {badgePopup && createPortal(
+        <div className="fixed inset-0 z-[9999]" onClick={() => setBadgePopup(null)}>
+          <div className="fixed max-w-[260px] px-3 py-2 rounded-xl text-xs t-text-sub shadow-lg"
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", top: badgePopup.y, left: Math.min(badgePopup.x, window.innerWidth - 270), transform: "translateX(-50%)" }}>
+            <span className="font-semibold t-text">{badgePopup.label}</span> — {badgePopup.desc}
           </div>
         </div>,
         document.body
@@ -1683,46 +1694,111 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {performance?.by_source?.combined && (() => {
         const c = performance.by_source.combined;
         const total = c.total || 0;
-        const buyCount = (c["적극매수"] || 0) + (c["매수"] || 0);
-        // 매수 종목: crossSignal + smartMoney에서 추출 (중복 제거, 객체 보존)
+
+        // 교차 신호 코드 셋 + 연속 신호 맵
+        const crossCodeSet = new Set((crossSignal || []).map((s: any) => s.code));
+        const streakMap: Record<string, number> = {};
+        for (const r of (consecutiveSignals?.and_condition || [])) if (r.code) streakMap[r.code] = r.streak;
+        for (const r of (consecutiveSignals?.or_condition || [])) if (r.code && !streakMap[r.code]) streakMap[r.code] = r.streak;
+
+        // 수급 맵 (smartMoney)
+        const supplyMap: Record<string, number> = {};
+        for (const sm of (smartMoney || [])) if (sm?.code) supplyMap[sm.code] = sm.foreign_net || 0;
+
+        // 매수 종목 수집 + 카테고리 분류
         const seen = new Set<string>();
-        const strongBuyStocks: any[] = [];
-        const buyStocks: any[] = [];
+        const allBuy: { s: any; cat: string; score: number }[] = [];
+
+        const classify = (s: any) => {
+          const vs = s.vision_signal || s.signal || "";
+          const as_ = s.api_signal || "";
+          const buys = new Set(["매수", "적극매수"]);
+          const isCross = crossCodeSet.has(s.code);
+          const bothBuy = buys.has(vs) && buys.has(as_);
+          if (isCross && bothBuy) return "고확신";
+          if (isCross) return "대장주";
+          if (bothBuy) return "매수 일치";
+          return "매수";
+        };
+
+        const catOrder: Record<string, number> = { "고확신": 0, "대장주": 1, "매수 일치": 2, "매수": 3 };
+
         (crossSignal || []).forEach((s: any) => {
-          const sig = s.vision_signal || s.signal || "";
-          if (sig === "적극매수" && !seen.has(s.name)) { strongBuyStocks.push(s); seen.add(s.name); }
-          else if (sig === "매수" && !seen.has(s.name)) { buyStocks.push(s); seen.add(s.name); }
+          if (!seen.has(s.code)) {
+            const cat = classify(s);
+            allBuy.push({ s, cat, score: (s.confidence || 0) * 100 });
+            seen.add(s.code);
+          }
         });
         (smartMoney || []).forEach((s: any) => {
-          if ((s.signal === "매수" || s.signal === "적극매수") && !seen.has(s.name)) { buyStocks.push(s); seen.add(s.name); }
+          const buys = new Set(["매수", "적극매수"]);
+          if (buys.has(s.signal) && !seen.has(s.code)) {
+            allBuy.push({ s, cat: classify(s), score: s.smart_money_score || 0 });
+            seen.add(s.code);
+          }
         });
+
+        allBuy.sort((a, b) => (catOrder[a.cat] ?? 9) - (catOrder[b.cat] ?? 9) || b.score - a.score);
+
+        const catStyle: Record<string, { bg: string; text: string; border: string }> = {
+          "고확신": { bg: "bg-red-500/15", text: "text-red-400", border: "border-red-500/20" },
+          "대장주": { bg: "bg-orange-500/12", text: "text-orange-400", border: "border-orange-500/20" },
+          "매수 일치": { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/15" },
+          "매수": { bg: "bg-gray-500/8", text: "t-text-sub", border: "border-gray-500/10" },
+        };
+
+        // 카테고리별 그룹핑
+        const groups: Record<string, typeof allBuy> = {};
+        for (const item of allBuy) {
+          (groups[item.cat] ??= []).push(item);
+        }
+
         return (
           <section className="t-card rounded-xl p-4">
             <SectionHeader id="signals" timestamp={ts}>AI 주목 종목</SectionHeader>
             <div className="text-xs t-text-sub mb-3">
-              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {strongBuyStocks.length + buyStocks.length}종목</span>
+              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {allBuy.length}종목</span>
             </div>
-            {strongBuyStocks.length > 0 && (
-              <div className="mb-2">
-                <div className="text-[10px] t-text-dim mb-1">적극매수</div>
-                <div className="flex flex-wrap gap-1">
-                  {strongBuyStocks.map((s, i) => (
-                    <span key={i} onClick={() => setStockDetail(s)} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 cursor-pointer hover:bg-red-500/25 transition-colors">{s.name}</span>
-                  ))}
+            {["고확신", "대장주", "매수 일치", "매수"].map(cat => {
+              const items = groups[cat];
+              if (!items?.length) return null;
+              const style = catStyle[cat];
+              return (
+                <div key={cat} className="mb-2.5">
+                  <div className="text-[10px] t-text-dim mb-1">{cat} ({items.length})</div>
+                  <div className="space-y-1">
+                    {items.map(({ s }, i) => {
+                      const streak = streakMap[s.code];
+                      const foreignNet = supplyMap[s.code];
+                      const intra = s.intraday || {};
+                      return (
+                        <div key={i} onClick={() => setStockDetail(s)}
+                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border cursor-pointer hover:opacity-80 transition ${style.bg} ${style.border}`}>
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className={`text-[13px] font-medium truncate ${style.text}`}>{s.name}</span>
+                            {streak && <span className="text-[9px] px-1 py-0.5 rounded bg-amber-500/15 text-amber-400">{streak}일 연속</span>}
+                            {foreignNet != null && foreignNet !== 0 && (
+                              <span className={`text-[9px] px-1 py-0.5 rounded ${foreignNet > 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
+                                외인{foreignNet > 0 ? "↑" : "↓"}
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-1.5 shrink-0 text-[10px] t-text-dim">
+                            {s.theme && <span className="truncate max-w-[80px]">{s.theme}</span>}
+                            {intra.change_rate != null && intra.change_rate !== 0 && (
+                              <span className={intra.change_rate >= 0 ? "text-red-400 font-medium" : "text-blue-400 font-medium"}>
+                                {intra.change_rate >= 0 ? "+" : ""}{intra.change_rate}%
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-            {buyStocks.length > 0 && (
-              <div>
-                <div className="text-[10px] t-text-dim mb-1">매수</div>
-                <div className="flex flex-wrap gap-1">
-                  {buyStocks.map((s, i) => (
-                    <span key={i} onClick={() => setStockDetail(s)} className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/10 t-text-sub cursor-pointer hover:bg-red-500/20 transition-colors">{s.name}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {buyCount === 0 && <Empty text="현재 매수 신호 종목 없음" />}
+              );
+            })}
+            {allBuy.length === 0 && <Empty text="현재 매수 신호 종목 없음" />}
           </section>
         );
       })()}
@@ -1933,14 +2009,15 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           const cr = item.change_rate ?? 0;
           const inv = investorMap[item.code];
           const hasForeignBuy = inv && inv.foreign_net > 0;
-          if (hasForeignBuy && cr > 0) return { label: "수급 동반", color: "bg-emerald-500/10 border-emerald-500/20", text: "text-emerald-500" };
-          if (cr < 10 && (item.ratio ?? 0) >= 2) return { label: "초기 급등", color: "bg-amber-500/10 border-amber-500/20", text: "text-amber-500" };
-          if (cr >= 25) return { label: "추격 주의", color: "bg-red-500/10 border-red-500/20", text: "text-red-400" };
-          return { label: "", color: "bg-red-500/6 border-red-500/15", text: "" };
+          if (hasForeignBuy && cr > 0) return { label: "수급 동반", color: "bg-emerald-500/10 border-emerald-500/20", text: "text-emerald-500", desc: "외국인/기관 순매수 + 가격 상승 동반. 수급과 가격이 같은 방향 → 신뢰도 높은 상승." };
+          if (cr >= 25) return { label: "추격 주의", color: "bg-red-500/10 border-red-500/20", text: "text-red-400", desc: "등락률 25% 이상 급등. 이미 큰 폭 상승 → 추격 매수 시 고점 물림 위험." };
+          if (cr >= 10 && (item.ratio ?? 0) >= 2) return { label: "급등 확인", color: "bg-orange-500/10 border-orange-500/20", text: "text-orange-400", desc: "거래량 폭발(x2 이상) + 등락률 10~25%. 거래량이 뒷받침된 확인된 급등 → 모멘텀 추세." };
+          if (cr < 10 && (item.ratio ?? 0) >= 2) return { label: "초기 급등", color: "bg-amber-500/10 border-amber-500/20", text: "text-amber-500", desc: "거래량 폭발(x2 이상) + 등락률 10% 미만. 아직 초기 단계 → 진입 여지 있음." };
+          return { label: "", color: "bg-red-500/6 border-red-500/15", text: "", desc: "" };
         };
 
         // 4. 정렬: 수급동반 > 초기급등 > 나머지 > 추격주의
-        const order: Record<string, number> = { "수급 동반": 0, "초기 급등": 1, "": 2, "추격 주의": 3 };
+        const order: Record<string, number> = { "수급 동반": 0, "급등 확인": 1, "초기 급등": 2, "": 3, "추격 주의": 4 };
         items.sort((a, b) => (order[classify(a).label] ?? 2) - (order[classify(b).label] ?? 2) || (b.change_rate ?? 0) - (a.change_rate ?? 0));
 
         const show = items.slice(0, 10);
@@ -1962,7 +2039,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <div className="flex items-center gap-1.5">
                       <span className="text-sm font-medium truncate">{a.name}</span>
                       {isCross && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400">관심</span>}
-                      {cls.label && <span className={`text-[9px] px-1 py-0.5 rounded font-medium ${cls.text} ${cls.color}`}>{cls.label}</span>}
+                      {cls.label && <span onClick={(e) => { e.stopPropagation(); const r = (e.target as HTMLElement).getBoundingClientRect(); setBadgePopup({ label: cls.label, desc: cls.desc, x: r.left + r.width / 2, y: r.bottom + 8 }); }}
+                        className={`text-[9px] px-1 py-0.5 rounded font-medium cursor-pointer ${cls.text} ${cls.color}`}>{cls.label}</span>}
                     </div>
                     <div className="text-[10px] t-text-dim">{a.types.join(" + ")}</div>
                   </div>
