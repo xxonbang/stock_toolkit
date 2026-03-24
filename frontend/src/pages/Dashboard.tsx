@@ -691,13 +691,21 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 <div className="text-[11px] t-text-dim">{stockDetail.code}{stockDetail.market ? ` · ${stockDetail.market}` : ""}</div>
               </div>
               <div className="flex items-center gap-2">
-                {stockDetail.dual_signal && (() => {
-                  const ds = stockDetail.dual_signal;
+                {(() => {
+                  // 실제 데이터 기반 dual_signal 재계산
+                  const vs = stockDetail.vision_signal || "";
+                  const as_ = stockDetail.api_signal || "";
+                  const buysSet = new Set(["매수", "적극매수"]);
+                  const ds = buysSet.has(vs) && buysSet.has(as_) ? "고확신"
+                    : buysSet.has(vs) ? "확인필요"
+                    : buysSet.has(as_) ? "KIS매수"
+                    : vs && as_ && vs !== as_ ? "혼조" : "";
+                  if (!ds) return null;
                   const explanations: Record<string, string> = {
-                    "고확신": "Vision AI와 KIS API 양쪽 모두 매수 신호가 일치합니다. 두 독립 분석의 합의로 신뢰도가 높습니다.",
-                    "확인필요": "Vision AI는 매수 신호이나, KIS API는 중립 또는 다른 판단입니다. 한쪽만 매수이므로 추가 확인이 필요합니다.",
-                    "KIS매수": "KIS API만 매수 신호이고, Vision AI는 중립입니다. KIS 정량 분석 기반이며 AI 차트 판단은 미동의 상태입니다.",
-                    "혼조": "Vision AI와 KIS API의 판단이 서로 다릅니다. 신중한 접근이 필요합니다.",
+                    "고확신": `Vision AI(${vs})와 KIS API(${as_}) 양쪽 모두 매수 신호가 일치합니다. 두 독립 분석의 합의로 신뢰도가 높습니다.`,
+                    "확인필요": `Vision AI는 매수(${vs}) 신호이나, KIS API는 ${as_ || "없음"}입니다. 한쪽만 매수이므로 추가 확인이 필요합니다.`,
+                    "KIS매수": `KIS API만 매수(${as_}) 신호이고, Vision AI는 ${vs || "없음"}입니다. KIS 정량 분석 기반이며 AI 차트 판단은 미동의 상태입니다.`,
+                    "혼조": `Vision AI(${vs})와 KIS API(${as_})의 판단이 서로 다릅니다. 신중한 접근이 필요합니다.`,
                   };
                   return (
                     <div className="relative">
@@ -1922,9 +1930,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     </span>
                   )}
                   {intra.validation && (() => {
-                    const sig = s.vision_signal || s.api_signal || "";
+                    const sig = s.vision_signal || s.signal || s.api_signal || "";
                     const isBuy = ["매수", "적극매수"].includes(sig);
-                    const arrow = intra.validation === "신호 유효" ? (isBuy ? "↑ 매수 유효" : "↓ 매도 유효") : intra.validation;
+                    const isSell = ["매도", "적극매도"].includes(sig);
+                    const arrow = intra.validation === "신호 유효" ? (isBuy ? "↑ 매수 유효" : isSell ? "↓ 매도 유효" : null) : intra.validation;
+                    if (!arrow) return null;
                     return (
                     <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
                       intra.validation === "신호 유효" ? "bg-emerald-500/10 text-emerald-400" :
@@ -2086,30 +2096,87 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       })()}
 
       {/* 위험 종목 모니터 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="risk" timestamp={ts} count={riskMonitor?.length ?? 0}>위험 종목 모니터</SectionHeader>
-          <div className="space-y-1.5">
-            {(riskMonitor || []).slice(0, 6).map((r, i) => (
-              <div key={i} className="p-2 t-card-alt rounded-lg">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <Shield size={14} className={`shrink-0 ${r.level === "높음" ? "text-red-500" : "text-amber-500"}`} />
-                    <span className="text-sm font-medium truncate">{r.name}</span>
-                    <span className="text-xs t-text-dim shrink-0">{r.code}</span>
-                  </div>
+      {(() => {
+        const risks = riskMonitor || [];
+        if (!risks.length) return (
+          <section className="t-card rounded-xl p-4">
+            <SectionHeader id="risk" timestamp={ts} count={0}>위험 종목 모니터</SectionHeader>
+            <Empty />
+          </section>
+        );
+
+        // 보유 종목 코드 셋
+        const holdCodes = new Set((portfolio?.holdings || []).map((h: any) => h.code).filter(Boolean));
+
+        // 위험도 점수: warnings 개수 + level 가중치
+        const scored = risks.map((r: any) => {
+          const warnCount = r.warnings?.length || 0;
+          const levelScore = r.level === "높음" ? 2 : 1;
+          const isHeld = holdCodes.has(r.code);
+          return { ...r, score: warnCount * levelScore + (isHeld ? 100 : 0), isHeld };
+        }).sort((a: any, b: any) => b.score - a.score);
+
+        const held = scored.filter((r: any) => r.isHeld);
+        const notHeld = scored.filter((r: any) => !r.isHeld);
+        const show = notHeld.slice(0, 8);
+        const rest = notHeld.slice(8);
+
+        const gradeStyle = (r: any) => {
+          const wc = r.warnings?.length || 0;
+          if (r.level === "높음" && wc >= 2) return { grade: "위험", color: "text-red-500", bg: "bg-red-500/10 border-red-500/20" };
+          if (r.level === "높음" || wc >= 2) return { grade: "경고", color: "text-orange-500", bg: "bg-orange-500/8 border-orange-500/15" };
+          return { grade: "주의", color: "text-amber-500", bg: "bg-amber-500/6 border-amber-500/10" };
+        };
+
+        const renderItem = (r: any, i: number, dim = false) => {
+          const g = gradeStyle(r);
+          const foreignAmt = r.foreign_net ? Math.abs(r.foreign_net) : 0;
+          const foreignStr = foreignAmt >= 100000000 ? `${(foreignAmt / 100000000).toFixed(1)}억` : foreignAmt >= 10000 ? `${Math.round(foreignAmt / 10000)}만` : "";
+          return (
+            <div key={i} className={`p-2 rounded-lg border ${g.bg} ${dim ? "opacity-50" : ""}`}>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Shield size={14} className={`shrink-0 ${g.color}`} />
+                  <span className="text-sm font-medium truncate">{r.name}</span>
+                  <span className={`text-[9px] px-1 py-0.5 rounded font-medium ${g.color}`}>{g.grade}</span>
+                  {r.isHeld && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400 font-medium">보유 중</span>}
                 </div>
-                <div className="flex gap-1 mt-1.5 ml-6">
-                  {r.warnings?.map((w: string, j: number) => (
-                    <Badge key={j} variant={r.level === "높음" ? "danger" : "warning"}>{w}</Badge>
-                  ))}
+                <div className="text-right text-[10px] shrink-0 t-text-dim">
+                  {foreignStr && <div className="text-blue-400">외인 -{foreignStr}</div>}
                 </div>
               </div>
-            ))}
+              <div className="flex gap-1 mt-1 ml-6 flex-wrap">
+                {r.warnings?.map((w: string, j: number) => (
+                  <span key={j} className={`text-[10px] ${g.color}`}>{w}</span>
+                ))}
+              </div>
+            </div>
+          );
+        };
+
+        return (
+        <section className="t-card rounded-xl p-4">
+          <SectionHeader id="risk" timestamp={ts} count={risks.length}>위험 종목 모니터</SectionHeader>
+          <div className="space-y-1.5">
+            {held.length > 0 && (
+              <div className="mb-2">
+                <div className="text-[10px] text-red-400 font-semibold mb-1">내 보유 종목 주의</div>
+                {held.map((r: any, i: number) => renderItem(r, i))}
+              </div>
+            )}
+            {show.map((r: any, i: number) => renderItem(r, i))}
+            {rest.length > 0 && (
+              <details className="mt-1">
+                <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">더 보기 ({rest.length})</summary>
+                <div className="space-y-1.5 mt-1.5">
+                  {rest.map((r: any, i: number) => renderItem(r, i, true))}
+                </div>
+              </details>
+            )}
           </div>
-            {!riskMonitor?.length && <Empty />}
         </section>
-      )}
+        );
+      })()}
 
       {/* 스마트 머니 TOP */}
       {(
@@ -2134,9 +2201,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                           </span>
                         )}
                         {intra.validation && (() => {
-                          const sig2 = s.vision_signal || s.api_signal || "";
+                          const sig2 = s.vision_signal || s.signal || s.api_signal || "";
                           const isBuy2 = ["매수", "적극매수"].includes(sig2);
-                          const arrow2 = intra.validation === "신호 유효" ? (isBuy2 ? "↑ 매수 유효" : "↓ 매도 유효") : intra.validation;
+                          const isSell2 = ["매도", "적극매도"].includes(sig2);
+                          const arrow2 = intra.validation === "신호 유효" ? (isBuy2 ? "↑ 매수 유효" : isSell2 ? "↓ 매도 유효" : null) : intra.validation;
+                          if (!arrow2) return null;
                           return (
                           <span className={`text-[10px] ${
                             intra.validation === "신호 유효" ? "text-emerald-400" :
@@ -2219,7 +2288,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="pattern" timestamp={ts}>차트 패턴 매칭</SectionHeader>
           <div className="space-y-3">
-            {(pattern || []).map((p, i) => (
+            {(pattern || []).filter((p: any) => p.matches?.length > 0).map((p: any, i: number) => (
               <div key={i}>
                 <div className="font-medium text-sm flex items-center gap-1 mb-1.5">
                   <LineChart size={14} className="t-text-dim shrink-0" />
@@ -2228,11 +2297,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 </div>
                 {p.matches?.slice(0, 3).map((m: any, j: number) => {
                   const dateLabel = m.date ? m.date.slice(5) : "";
+                  const matchName = m.name || m.code || "?";
                   const dr = m.daily_returns || {};
                   return (
                   <div key={j} className="border-b t-border-light last:border-0 py-1.5">
                     <div className="flex justify-between text-xs gap-2 mb-1">
-                      <span className="t-text-sub truncate">· {dateLabel}{m.name ? ` ${m.name}` : ""} {(m.similarity * 100).toFixed(0)}%</span>
+                      <span className="t-text-sub truncate">· {dateLabel} {matchName} {(m.similarity * 100).toFixed(0)}%</span>
                     </div>
                     <div className="flex gap-1 ml-3">
                       {[1,2,3,4,5].map(d => {

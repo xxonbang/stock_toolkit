@@ -29,11 +29,11 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   risk: {
     title: "위험 종목 모니터",
-    desc: "매도 신호, 외국인 대량 매도 등 복수 위험 요인이 동시에 발생한 종목입니다. '높음'은 2개 이상, '주의'는 1개 위험 요인이 감지된 상태입니다.",
+    desc: "AI 분석 결과 위험 요인이 감지된 종목입니다.\n\n■ 위험 요인\n· 매도 신호: AI 차트 분석(vision)이 '매도' 또는 '적극매도'로 판단한 종목\n· 외국인 대량 매도: 외국인 순매도 10만주 이상\n· RSI 과매수: RSI 70 이상 → 단기 과열 구간\n\n■ 위험 등급\n· 위험: level 높음 + 경고 2개 이상\n· 경고: level 높음 또는 경고 2개\n· 주의: 경고 1개\n\n보유 종목이 포함되면 최상단에 강조 표시됩니다.",
   },
   smartmoney: {
     title: "스마트 머니 TOP",
-    desc: "외국인·기관 투자자의 매수 패턴을 종합 평가한 스코어(0~99)입니다. 70점 이상만 표시됩니다.\n\n■ 점수 구성 (기본 50점 + 가산)\n· Vision AI 신호: 적극매수 +30, 매수 +15\n· KIS API 신호: 적극매수 +20, 매수 +10\n· AI 신뢰도: confidence(0~1) × 20 = 최대 +20\n· 외국인 순매수: 순매수 > 0이면 +10\n· 이중 검증 보너스: Vision+KIS 모두 매수면 +10\n\n■ 해석\n· 90+: 매우 강한 매수 신호 (복수 검증 + 높은 확신)\n· 80~89: 강한 매수 신호\n· 70~79: 관심 종목 (추가 확인 권장)",
+    desc: "외국인·기관 투자자의 매수 패턴을 종합 평가한 스코어(0~99)입니다. 70점 이상만 표시됩니다.\n\n■ 점수 구성 (기본 50점 + 가산)\n· Vision AI 신호: 적극매수 +30, 매수 +15\n· KIS API 신호: 적극매수 +20, 매수 +10\n· AI 신뢰도: confidence(0~1) × 20 = 최대 +20\n· 외국인 순매수: 순매수 > 0이면 +10\n· 이중 검증 보너스: Vision+KIS 모두 매수면 +10\n\n■ 해석\n· 90+: 매우 강한 매수 신호 (복수 검증 + 높은 확신)\n· 80~89: 강한 매수 신호\n· 70~79: 관심 종목 (추가 확인 권장)\n\n■ 신호 검증 뱃지\n· ↑ 매수 유효: AI가 '매수' 판단 + 장중 가격이 상승 방향 → 분석과 시장 일치\n· ↓ 매도 유효: AI가 '매도' 판단 + 장중 가격이 하락 방향 → 분석과 시장 일치\n· 신호 약화: 분석 반대 방향 -2%~-5% → 주의\n· 신호 무효화: 분석 반대 방향 -5% 이상 → 신호 틀림\n· 중립 신호는 방향성이 없어 검증 뱃지를 표시하지 않습니다.\n\n■ 이중 검증 뱃지 (상세 팝업)\n· 고확신: Vision AI + KIS API 양쪽 모두 매수 일치\n· 확인필요: Vision AI만 매수, KIS API는 비매수\n· KIS매수: KIS API만 매수, Vision AI는 비매수\n· 혼조: 두 분석의 판단이 서로 상충",
   },
   simulation: {
     title: "전략 시뮬레이션",
@@ -41,7 +41,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   pattern: {
     title: "차트 패턴 매칭",
-    desc: "AI 추천 종목의 현재 차트 패턴을, 과거 다른 시점·다른 종목에서 나타났던 패턴과 비교합니다.\n\n· 유사도: 현재 패턴과 과거 패턴의 코사인 유사도 (85% 이상만 표시)\n· D+5: 그 과거 패턴이 나타난 후 실제 5거래일 뒤 수익률\n\n예) '03-11 삼성전자 92%' → 3/11 삼성전자가 지금과 비슷한 차트였고, 이후 5일간의 실제 수익률을 보여줌\n\n상승(+)이 많으면 현재 패턴이 과거에 좋은 결과를 낸 패턴과 유사하다는 의미입니다.",
+    desc: "현재 종목의 차트 모양이 과거 어떤 종목의 어떤 시점과 비슷한지 찾아줍니다.\n\n■ 읽는 법 (예시)\n'03-11 삼성SDI 97%'\n→ 3월 11일의 삼성SDI 차트와 97% 유사\n\nD1~D5 = 그 과거 패턴 발생 후 1~5거래일 뒤 실제 등락률\n· D1 +0.0 → 1일 후 보합\n· D3 -4.3 → 3일 후 4.3% 하락\n· D5 +1.3 → 5일 후 1.3% 상승\n\n■ 해석\n· D1~D5가 대부분 +: 과거에 이 패턴 이후 상승한 경우가 많음 → 긍정적\n· D1~D5가 대부분 -: 과거에 이 패턴 이후 하락한 경우가 많음 → 부정적\n· 유사도 높을수록 (97%+) 참고 가치 높음\n\n■ 주의\n과거 패턴이 반복된다는 보장은 없습니다. 참고 지표로만 활용하세요.",
   },
   news: {
     title: "뉴스 임팩트",
@@ -217,14 +217,14 @@ export function SectionHeader({
       </div>
       {open && help && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/30 p-6"
+          className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/30"
           onClick={() => setOpen(false)}
         >
           <div
-            className="t-card rounded-2xl shadow-xl max-w-sm w-full p-5"
+            className="t-card rounded-t-2xl sm:rounded-2xl shadow-xl max-w-sm w-full max-h-[80vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-start mb-3">
+            <div className="flex justify-between items-center p-4 pb-2 shrink-0 sticky top-0 t-card rounded-t-2xl z-10">
               <h3 className="font-semibold t-text">{help.title}</h3>
               <button
                 onClick={() => setOpen(false)}
@@ -233,7 +233,9 @@ export function SectionHeader({
                 <X size={18} />
               </button>
             </div>
-            <p className="text-sm t-text-sub leading-relaxed whitespace-pre-line">{help.desc}</p>
+            <div className="overflow-y-auto px-4 pb-4">
+              <p className="text-sm t-text-sub leading-relaxed whitespace-pre-line">{help.desc}</p>
+            </div>
           </div>
         </div>,
         document.body

@@ -630,7 +630,13 @@ def main():
     pat_len = 20
     hist_patterns = []  # [{code, name, date, pattern, future_return}]
     # 종목명 맵 (combined에서 구축)
-    _name_map = {s.get("code", ""): s.get("name", "") for s in combined}
+    _name_map = {}
+    for code_nm, inv_nm in investor_data.items():
+        if isinstance(inv_nm, dict) and inv_nm.get("name"):
+            _name_map[code_nm] = inv_nm["name"]
+    for s in combined:
+        if s.get("code") and s.get("name"):
+            _name_map[s["code"]] = s["name"]
     for h_code, entries in intraday_stocks.items():
         if not isinstance(entries, list) or len(entries) < 3:
             continue
