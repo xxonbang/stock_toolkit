@@ -153,11 +153,11 @@ async def place_buy_order(code: str, name: str, price: int) -> bool:
 _MAX_FILL_RETRIES = 3
 
 
-async def _cancel_unfilled(code: str) -> int:
-    """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환"""
+async def _cancel_unfilled(code: str) -> int | None:
+    """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환. 조회 실패 시 None."""
     token = await _ensure_mock_token()
     if not token:
-        return 0
+        return None
     account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
     cano, acnt_cd = account_parts[0], account_parts[1] if len(account_parts) > 1 else "01"
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
@@ -176,7 +176,7 @@ async def _cancel_unfilled(code: str) -> int:
         async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
             data = await resp.json()
             if data.get("rt_cd") != "0":
-                return 0
+                return None
             for order in data.get("output", []):
                 if order.get("pdno") != code:
                     continue
@@ -202,6 +202,7 @@ async def _cancel_unfilled(code: str) -> int:
                     await asyncio.sleep(0.3)
     except Exception as e:
         logger.error(f"미체결 조회/취소 오류: {e}")
+        return None
     return unfilled_qty
 
 
@@ -212,6 +213,9 @@ async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
     for attempt in range(1, _MAX_FILL_RETRIES + 1):
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled(code)
+        if unfilled is None:
+            logger.warning(f"미체결 조회 실패: {code} — 체결 확인 불가, 주문수량 그대로 반영")
+            return ordered_qty
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
