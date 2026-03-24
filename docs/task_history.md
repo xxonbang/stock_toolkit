@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [버그픽스] 모의투자 부분 체결 감지 + 미체결 자동 취소 (2026-03-24 22:00 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/position_db.py`, `frontend/src/components/HelpDialog.tsx`
+- **내용:** 매수 주문 후 KIS 미체결 조회로 실제 체결 수량 확인, 미체결분 자동 취소, DB에 실제 체결 수량만 반영. 부분 체결 시 텔레그램 경고. VIX 구간 설명 세분화.
+- **커밋:** `d2509d5`
+
 ### [개선] 헤더 새로고침 결과 toast 알림 추가 + 로고 회전 제거 (2026-03-24 21:45 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`
 - **내용:** loadAllData()에 Promise.allSettled 기반 성공/실패 집계 추가, 헤더 클릭 시 새로고침 완료/실패 toast 표시, 로고 animate-spin 제거 (animate-bounce 유지)
