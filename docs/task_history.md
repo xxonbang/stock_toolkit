@@ -2,6 +2,17 @@
 
 ## 2026-03-24
 
+### [버그픽스] 모의투자 구독 분리 + 시장가 매수 + 기본값 현행화 (2026-03-24 14:10 KST)
+- **변경 파일:** `daemon/main.py`, `daemon/stock_manager.py`, `daemon/trader.py`, `frontend/src/lib/supabase.ts`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:**
+  - 알림용(cross_signal+portfolio)과 모의투자용(auto_trades filled) 구독 분리 관리
+  - on_execution 콜백에서 용도별 분기 (알림 종목→알림 발송, 보유 종목→손익 체크)
+  - 보유 종목 우선 구독 확보 (20슬롯 한도 내), 매수/매도 후 구독 즉시 갱신
+  - 매수: 지정가→시장가 전환 (미체결 방지)
+  - 익절/손절 기본값 전 레이어 7%/-2%로 통일 (DB 포함)
+  - AutoTrader: 현재가/수익률 표시 + refresh 버튼 추가
+- **커밋:** `913661a`
+
 ### [버그픽스] 모의투자 페이지 무한 로딩 수정 (2026-03-24 10:30 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** `supabase.auth.getUser()` 호출이 토큰 갱신 시 hang → localStorage 즉시 세션 복원 패턴으로 변경 (Dashboard.tsx와 동일)
