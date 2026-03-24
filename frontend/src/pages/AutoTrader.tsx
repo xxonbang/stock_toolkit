@@ -128,7 +128,20 @@ export default function AutoTrader() {
         .from("auto_trades")
         .select("*")
         .order("created_at", { ascending: false });
-      if (!error && data) setTrades(data as Trade[]);
+      if (!error && data) {
+        setTrades(data as Trade[]);
+        // 보유 종목이 있으면 자동으로 시세 조회
+        const activeCodes = (data as Trade[]).filter(t => t.status === "filled").map(t => t.code).filter(Boolean);
+        if (activeCodes.length > 0) {
+          fetchKisPrices(activeCodes).then(kisData => {
+            const map: Record<string, number> = {};
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) map[code] = p.current_price;
+            }
+            if (Object.keys(map).length > 0) setPrices(map);
+          }).catch(() => {});
+        }
+      }
     } catch {}
     setLoading(false);
   }
