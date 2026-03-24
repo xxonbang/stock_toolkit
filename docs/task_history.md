@@ -1,5 +1,14 @@
 # Task History
 
+## 2026-03-24
+
+### [버그픽스] alert_config 기본값 불일치 수정 + dead code 제거 (2026-03-24 09:30 KST)
+- **변경 파일:** `daemon/stock_manager.py`
+- **내용:**
+  - `fetch_alert_config()` 기본값: 하드코딩 3%/-3% → config.py의 7%/-2% 참조 (DB 조회 실패 시 올바른 값 적용)
+  - `fetch_alert_mode()` 도달 불가 `return "all"` dead code 제거
+- **커밋:** `6e804df`
+
 ## 2026-03-23
 
 ### [버그픽스] daemon 로직 2차 진단 4건 수정 (2026-03-23 23:30 KST)

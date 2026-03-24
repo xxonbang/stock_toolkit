@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown } from "lucide-react";
-import { supabase } from "../lib/supabase";
+import { supabase, STORAGE_KEY, setAccessToken } from "../lib/supabase";
 import { getTradePct, setAlertConfig } from "../lib/supabase";
 
 interface Trade {
@@ -72,8 +72,34 @@ export default function AutoTrader() {
         setLoading(false);
       }
     }
-    supabase.auth.getUser().then(({ data: { user: u } }) => loadData(u)).catch(() => { setAuthChecked(true); setLoading(false); });
+
+    // localStorage에서 즉시 세션 복원 (getUser() hang 방지)
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const raw = JSON.parse(stored);
+        const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
+        const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
+        if (parsed?.user) {
+          setAccessToken(parsed.access_token ?? null);
+          loadData(parsed.user);
+        } else {
+          setAuthChecked(true);
+          setLoading(false);
+        }
+      } else {
+        setAuthChecked(true);
+        setLoading(false);
+      }
+    } catch {
+      setAuthChecked(true);
+      setLoading(false);
+    }
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setAccessToken(session.access_token ?? null);
+      }
       loadData(session?.user ?? null);
     });
     return () => { subscription.unsubscribe(); };
