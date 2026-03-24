@@ -84,8 +84,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
-  const [excludedCodes, setExcludedCodes] = useState<Set<string>>(new Set());
   const [headerRefreshing, setHeaderRefreshing] = useState(false);
+  const [excludedCodes, setExcludedCodes] = useState<Set<string>>(new Set());
   const [stockSearch, setStockSearch] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -181,52 +181,62 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     }});
   }, [dbHoldings, portfolioRaw]);
 
-  const loadAllData = () => {
-    dataService.getPerformance().then(setPerformance);
-    dataService.getSectorFlow().then(setSectors);
-    dataService.getAnomalies().then(setAnomalies);
-    dataService.getSmartMoney().then(setSmartMoney);
-    dataService.getCrossSignal().then(setCrossSignal);
-    dataService.getLifecycle().then(setLifecycle);
-    dataService.getRiskMonitor().then(setRiskMonitor);
-    dataService.getNewsImpact().then(setNewsImpact);
-    dataService.getBriefing().then(setBriefing);
-    dataService.getSimulation().then(setSimulation);
-    dataService.getPattern().then(setPattern);
-    dataService.getSentiment().then(setSentiment);
-    dataService.getShortSqueeze().then(setShortSqueeze);
-    dataService.getGapAnalysis().then(setGapAnalysis);
-    dataService.getValuation().then(setValuation);
-    dataService.getVolumeDivergence().then(setDivergence);
-    dataService.getPremarket().then(setPremarket);
-    dataService.getPortfolio().then((p) => {
-      if (!p) return;
-      setPortfolioRaw(p);
-    });
-    dataService.getSupplyCluster().then(setSupplyCluster);
-    dataService.getExitOptimizer().then(setExitOptimizer);
-    dataService.getEventCalendar().then(setEventCalendar);
-    dataService.getThemePropagation().then(setPropagation);
-    dataService.getProgramTrading().then(setProgramTrading);
-    dataService.getIntradayHeatmap().then(setHeatmap);
-    dataService.getInsiderTrades().then(setInsiderTrades);
-    dataService.getConsensus().then(setConsensus);
-    dataService.getAuction().then(setAuction);
-    dataService.getOrderbook().then(setOrderbook);
-    dataService.getCorrelation().then(setCorrelationData);
-    dataService.getEarningsCalendar().then(setEarningsCalendar);
-    dataService.getAiMentor().then(setAiMentor);
-    dataService.getTradingJournal().then(setTradingJournal);
-    dataService.getMemberTrading().then(setMemberTrading);
-    dataService.getTradingValue().then(setTradingValue);
-    dataService.getPaperTrading().then(setPaperTrading);
-    dataService.getForecastAccuracy().then(setForecastAccuracy);
-    dataService.getVolumeProfile().then(setVolumeProfile);
-    dataService.getSignalConsistency().then(setSignalConsistency);
-    dataService.getSimulationHistory().then(setSimulationHistory);
-    dataService.getIntradayStockFlow().then(setIntradayStockFlow);
-    dataService.getIndicatorHistory().then(setIndicatorHistory);
-    dataService.getConsecutiveSignals().then(setConsecutiveSignals);
+  const loadAllData = (showToast = false) => {
+    const promises = [
+      dataService.getPerformance().then(setPerformance),
+      dataService.getSectorFlow().then(setSectors),
+      dataService.getAnomalies().then(setAnomalies),
+      dataService.getSmartMoney().then(setSmartMoney),
+      dataService.getCrossSignal().then(setCrossSignal),
+      dataService.getLifecycle().then(setLifecycle),
+      dataService.getRiskMonitor().then(setRiskMonitor),
+      dataService.getNewsImpact().then(setNewsImpact),
+      dataService.getBriefing().then(setBriefing),
+      dataService.getSimulation().then(setSimulation),
+      dataService.getPattern().then(setPattern),
+      dataService.getSentiment().then(setSentiment),
+      dataService.getShortSqueeze().then(setShortSqueeze),
+      dataService.getGapAnalysis().then(setGapAnalysis),
+      dataService.getValuation().then(setValuation),
+      dataService.getVolumeDivergence().then(setDivergence),
+      dataService.getPremarket().then(setPremarket),
+      dataService.getPortfolio().then((p) => { if (p) setPortfolioRaw(p); }),
+      dataService.getSupplyCluster().then(setSupplyCluster),
+      dataService.getExitOptimizer().then(setExitOptimizer),
+      dataService.getEventCalendar().then(setEventCalendar),
+      dataService.getThemePropagation().then(setPropagation),
+      dataService.getProgramTrading().then(setProgramTrading),
+      dataService.getIntradayHeatmap().then(setHeatmap),
+      dataService.getInsiderTrades().then(setInsiderTrades),
+      dataService.getConsensus().then(setConsensus),
+      dataService.getAuction().then(setAuction),
+      dataService.getOrderbook().then(setOrderbook),
+      dataService.getCorrelation().then(setCorrelationData),
+      dataService.getEarningsCalendar().then(setEarningsCalendar),
+      dataService.getAiMentor().then(setAiMentor),
+      dataService.getTradingJournal().then(setTradingJournal),
+      dataService.getMemberTrading().then(setMemberTrading),
+      dataService.getTradingValue().then(setTradingValue),
+      dataService.getPaperTrading().then(setPaperTrading),
+      dataService.getForecastAccuracy().then(setForecastAccuracy),
+      dataService.getVolumeProfile().then(setVolumeProfile),
+      dataService.getSignalConsistency().then(setSignalConsistency),
+      dataService.getSimulationHistory().then(setSimulationHistory),
+      dataService.getIntradayStockFlow().then(setIntradayStockFlow),
+      dataService.getIndicatorHistory().then(setIndicatorHistory),
+      dataService.getConsecutiveSignals().then(setConsecutiveSignals),
+    ];
+    if (showToast) {
+      Promise.allSettled(promises).then((results) => {
+        const failed = results.filter((r) => r.status === "rejected").length;
+        if (failed === 0) {
+          setToastMsg("데이터 새로고침 완료");
+        } else {
+          setToastMsg(`새로고침 일부 실패 (${failed}/${results.length})`);
+        }
+        setTimeout(() => setToastMsg(""), 2500);
+      });
+    }
   };
 
   const refreshPortfolioPrices = async () => {
@@ -833,12 +843,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               setHeaderRefreshing(true);
               window.scrollTo({ top: 0, behavior: "smooth" });
               if (window.location.hash !== "#/") window.location.hash = "#/";
-              loadAllData();
+              loadAllData(true);
               setTimeout(() => setHeaderRefreshing(false), 2000);
             }}
           >
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo"
-              className={`w-5 h-5 shrink-0 transition-transform ${headerRefreshing ? "animate-spin" : ""}`} />
+              className="w-5 h-5 shrink-0" />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1.5 shrink-0">
