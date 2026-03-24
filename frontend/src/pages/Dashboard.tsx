@@ -338,12 +338,25 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       }
       // session이 null이지만 SIGNED_OUT이 아닌 경우 → 기존 상태 유지
     });
+    // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응)
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session?.user) {
+            setSupaUser(session.user);
+            setAccessToken(session.access_token ?? null);
+          }
+        }).catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     // 장중 5분, 장외 10분 자동 폴링
     const now = new Date();
     const h = now.getHours();
     const isMarketHours = h >= 9 && h < 16;
     const interval = setInterval(loadAllData, isMarketHours ? 5 * 60 * 1000 : 10 * 60 * 1000);
-    return () => { clearInterval(interval); subscription.unsubscribe(); };
+    return () => { clearInterval(interval); subscription.unsubscribe(); document.removeEventListener("visibilitychange", handleVisibility); };
   }, []);
 
   // 공통 타임스탬프 (performance.json 기준, 대부분 동일 시점)

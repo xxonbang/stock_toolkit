@@ -104,7 +104,21 @@ export default function AutoTrader() {
       }
       loadData(session?.user ?? null);
     });
-    return () => { subscription.unsubscribe(); };
+
+    // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응)
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session?.user) {
+            setAccessToken(session.access_token ?? null);
+            loadData(session.user);
+          }
+        }).catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => { subscription.unsubscribe(); document.removeEventListener("visibilitychange", handleVisibility); };
   }, []);
 
   async function fetchTrades() {
