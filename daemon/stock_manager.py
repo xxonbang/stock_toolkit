@@ -66,8 +66,8 @@ async def fetch_alert_config() -> dict:
                     row = rows[0]
                     return {
                         "alert_mode": row.get("alert_mode") or "all",
-                        "take_profit_pct": float(row.get("take_profit_pct") or 3.0),
-                        "stop_loss_pct": float(row.get("stop_loss_pct") or -3.0),
+                        "take_profit_pct": float(row.get("take_profit_pct") or TRADE_TAKE_PROFIT_PCT),
+                        "stop_loss_pct": float(row.get("stop_loss_pct") or TRADE_STOP_LOSS_PCT),
                     }
     except Exception as e:
         logger.warning(f"설정 조회 실패: {e}")
@@ -109,6 +109,34 @@ async def fetch_subscription_codes(manual_codes: set[str] | None = None) -> set[
         logger.warning(f"구독 한도 20종목 초과 — {len(codes)}종목으로 제한 (체결가+호가 = {len(codes)*2}슬롯)")
 
     return codes
+
+
+async def fetch_trade_codes() -> set[str]:
+    """모의투자 보유 종목 코드 조회 (auto_trades에서 filled 상태)"""
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return set()
+    try:
+        session = await get_session()
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.filled&select=code,name"
+        headers = {
+            "apikey": SUPABASE_SECRET_KEY,
+            "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
+        }
+        async with session.get(url, headers=headers) as resp:
+            if resp.status == 200:
+                rows = await resp.json()
+                codes = set()
+                for row in (rows or []):
+                    code = row.get("code")
+                    if code:
+                        codes.add(code)
+                        name = row.get("name", "")
+                        if name:
+                            stock_names[code] = name
+                return codes
+    except Exception as e:
+        logger.warning(f"모의투자 종목 조회 실패: {e}")
+    return set()
 
 
 def get_stock_name(code: str) -> str:

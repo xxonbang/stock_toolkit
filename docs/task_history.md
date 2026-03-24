@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [버그픽스] 모의투자 페이지 무한 로딩 수정 (2026-03-24 10:30 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** `supabase.auth.getUser()` 호출이 토큰 갱신 시 hang → localStorage 즉시 세션 복원 패턴으로 변경 (Dashboard.tsx와 동일)
+- **커밋:** `a91a038`
+
 ### [버그픽스] alert_config 기본값 불일치 수정 + dead code 제거 (2026-03-24 09:30 KST)
 - **변경 파일:** `daemon/stock_manager.py`
 - **내용:**

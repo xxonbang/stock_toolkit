@@ -11,7 +11,7 @@ from daemon.config import (
 from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
-from daemon.stock_manager import fetch_subscription_codes, get_stock_name
+from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
 from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market
 from daemon.github_monitor import check_workflow_completion
 from daemon.http_session import close_session
@@ -34,6 +34,10 @@ alert_engine = AlertEngine(
 ws_client: KISWebSocketClient | None = None
 _shutdown = False  # 종료 신호
 _buy_running = False  # run_buy_process 중복 실행 방지
+
+# 구독 종목 용도별 분리
+_alert_codes: set[str] = set()  # 알림용 (cross_signal + portfolio)
+_trade_codes: set[str] = set()  # 모의투자용 (auto_trades filled)
 
 KST = timezone(timedelta(hours=9))
 
@@ -72,21 +76,30 @@ def is_market_hours() -> bool:
 
 
 async def on_execution(data: dict):
-    """체결 데이터 수신 콜백 — 알림 규칙 검사 + 보유 포지션 수익률 체크"""
+    """체결 데이터 수신 콜백 — 용도별 분기 처리"""
     if not is_market_hours():
-        return  # 장 외 시간 무시
-    alerts = alert_engine.check(data, tick_volume=data.get("tick_volume"))
-    for alert in alerts:
-        name = get_stock_name(alert["code"])
-        msg = format_alert(alert, stock_name=name)
-        logger.info(f"알림 발송: {alert['type']} {alert['code']}")
-        await send_telegram(msg)
-    # 보유 포지션 익절/손절 체크
-    await check_positions_for_sell(data)
+        return
+    code = data.get("code", "")
+
+    # 알림용 종목 → 급등/급락/거래량 알림
+    if code in _alert_codes:
+        alerts = alert_engine.check(data, tick_volume=data.get("tick_volume"))
+        for alert in alerts:
+            name = get_stock_name(alert["code"])
+            msg = format_alert(alert, stock_name=name)
+            logger.info(f"알림 발송: {alert['type']} {alert['code']}")
+            await send_telegram(msg)
+
+    # 모의투자 보유 종목 → 익절/손절/trailing stop 체크
+    if code in _trade_codes:
+        await check_positions_for_sell(data)
 
 
 async def on_asking_price(data: dict):
-    """호가 데이터 수신 콜백 — 호가 벽 + 수급 반전 검사"""
+    """호가 데이터 수신 콜백 — 알림용 종목만 호가 벽/수급 반전 검사"""
+    code = data.get("code", "")
+    if code not in _alert_codes:
+        return
     alerts = alert_engine.check_asking_price(data)
     for alert in alerts:
         name = get_stock_name(alert["code"])
@@ -96,13 +109,30 @@ async def on_asking_price(data: dict):
 
 
 async def refresh_subscriptions():
-    """구독 종목 갱신 (GitHub Pages 폴링)"""
+    """구독 종목 갱신 — 알림용 + 모의투자용 분리 관리"""
+    global _alert_codes, _trade_codes
     if not ws_client:
         return
-    codes = await fetch_subscription_codes()
-    if codes:
-        await ws_client.update_subscriptions(codes)
-        logger.info(f"구독 갱신 완료: {len(codes)}종목")
+
+    new_alert = await fetch_subscription_codes()
+    new_trade = await fetch_trade_codes()
+
+    _alert_codes = new_alert
+    _trade_codes = new_trade
+
+    # 모의투자 보유 종목 우선 확보, 나머지 슬롯을 알림용으로 배분
+    combined = set(new_trade)  # 보유 종목 우선
+    remaining_slots = 20 - len(combined)
+    if remaining_slots > 0:
+        for code in new_alert:
+            if code not in combined:
+                combined.add(code)
+                if len(combined) >= 20:
+                    break
+
+    if combined:
+        await ws_client.update_subscriptions(combined)
+    logger.info(f"구독 갱신: 알림 {len(new_alert)}종목, 모의투자 {len(new_trade)}종목, 실구독 {len(combined)}종목")
 
 
 async def schedule_refresh():
@@ -118,6 +148,14 @@ async def schedule_refresh():
 
 
 _last_workflow_time: str | None = None
+
+
+async def trigger_subscription_refresh():
+    """매수/매도 후 구독 즉시 갱신 (외부에서 호출 가능)"""
+    try:
+        await refresh_subscriptions()
+    except Exception as e:
+        logger.error(f"구독 즉시 갱신 실패: {e}")
 
 
 async def schedule_auto_trade():
@@ -161,15 +199,27 @@ async def schedule_eod_close():
 
 
 async def main():
-    global ws_client
+    global ws_client, _alert_codes, _trade_codes
 
     logger.info("WebSocket 알림 데몬 시작")
 
-    codes = await fetch_subscription_codes()
-    logger.info(f"초기 구독 종목: {len(codes)}개")
+    _alert_codes = await fetch_subscription_codes()
+    _trade_codes = await fetch_trade_codes()
+
+    # 모의투자 보유 종목 우선, 나머지 슬롯을 알림용으로
+    initial_codes = set(_trade_codes)
+    remaining = 20 - len(initial_codes)
+    if remaining > 0:
+        for code in _alert_codes:
+            if code not in initial_codes:
+                initial_codes.add(code)
+                if len(initial_codes) >= 20:
+                    break
+
+    logger.info(f"초기 구독: 알림 {len(_alert_codes)}종목, 모의투자 {len(_trade_codes)}종목, 실구독 {len(initial_codes)}종목")
 
     ws_client = KISWebSocketClient(on_execution=on_execution, on_asking_price=on_asking_price)
-    for code in codes:
+    for code in initial_codes:
         ws_client._subscribed_codes.add(code)
 
     def shutdown():

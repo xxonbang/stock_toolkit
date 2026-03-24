@@ -150,7 +150,7 @@ async def place_buy_order(code: str, name: str, price: int) -> bool:
 
 
 async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: int) -> bool:
-    """수량을 직접 지정하여 매수"""
+    """수량을 직접 지정하여 시장가 매수 (미체결 방지)"""
     if await is_upper_limit(code, price):
         logger.info(f"상한가 종목 스킵 — {name}({code}) {price:,}원")
         return False
@@ -158,16 +158,23 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
     if not position:
         return False
 
-    result = await _kis_order("VTTC0802U", code, quantity, price)
+    # 시장가 매수 (지정가 미체결 방지)
+    result = await _kis_order_market("VTTC0802U", code, quantity)
     if result:
         await update_position_filled(position["id"], price)
-        logger.info(f"매수 체결: {name}({code}) {price:,}원 × {quantity}주")
+        logger.info(f"매수 체결: {name}({code}) {price:,}원 × {quantity}주 (시장가)")
         await send_telegram(
             f"<b>📥 자동 매수 체결</b>\n"
             f"<b>{name} ({code})</b>\n"
             f"가격: {price:,}원 × {quantity}주\n"
             f"금액: {price * quantity:,}원"
         )
+        # 매수 후 구독 갱신 (모의투자 종목 WebSocket 수신 시작)
+        try:
+            from daemon.main import trigger_subscription_refresh
+            asyncio.ensure_future(trigger_subscription_refresh())
+        except Exception:
+            pass
         return True
     # KIS 주문 실패 → DB pending 정리
     from daemon.position_db import delete_position
@@ -194,6 +201,12 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
             f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
             f"수익률: {pnl:+.2f}% ({quantity}주)"
         )
+        # 매도 후 구독 갱신 (보유 종목 변경 반영)
+        try:
+            from daemon.main import trigger_subscription_refresh
+            asyncio.ensure_future(trigger_subscription_refresh())
+        except Exception:
+            pass
         return True
     unmark_selling(position_id)
     logger.error(f"매도 실패: {name}({code}) {reason}")

@@ -157,8 +157,8 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
     const merged = {
       user_id: user.id,
       alert_mode: updates.alert_mode ?? existing?.alert_mode ?? "all",
-      take_profit_pct: updates.take_profit_pct ?? existing?.take_profit_pct ?? 3.0,
-      stop_loss_pct: updates.stop_loss_pct ?? existing?.stop_loss_pct ?? -3.0,
+      take_profit_pct: updates.take_profit_pct ?? existing?.take_profit_pct ?? 7.0,
+      stop_loss_pct: updates.stop_loss_pct ?? existing?.stop_loss_pct ?? -2.0,
       updated_at: new Date().toISOString(),
     };
     const { error } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
@@ -177,15 +177,18 @@ export async function setAlertMode(mode: AlertMode): Promise<boolean> {
 
 /** 익절/손절 조회 */
 export async function getTradePct(): Promise<{ take_profit: number; stop_loss: number }> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { take_profit: 3.0, stop_loss: -3.0 };
-  const { data } = await supabase
-    .from("alert_config")
-    .select("take_profit_pct, stop_loss_pct")
-    .eq("user_id", user.id)
-    .maybeSingle();
-  return {
-    take_profit: data?.take_profit_pct ?? 3.0,
-    stop_loss: data?.stop_loss_pct ?? -3.0,
-  };
+  const defaults = { take_profit: 7.0, stop_loss: -2.0 };
+  try {
+    const { data } = await supabase
+      .from("alert_config")
+      .select("take_profit_pct, stop_loss_pct")
+      .limit(1)
+      .maybeSingle();
+    return {
+      take_profit: data?.take_profit_pct ?? defaults.take_profit,
+      stop_loss: data?.stop_loss_pct ?? defaults.stop_loss,
+    };
+  } catch {
+    return defaults;
+  }
 }

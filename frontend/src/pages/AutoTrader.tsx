@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown } from "lucide-react";
-import { supabase, STORAGE_KEY, setAccessToken } from "../lib/supabase";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, RefreshCw } from "lucide-react";
+import { supabase, STORAGE_KEY, setAccessToken, fetchKisPrices } from "../lib/supabase";
 import { getTradePct, setAlertConfig } from "../lib/supabase";
 
 interface Trade {
@@ -52,8 +52,10 @@ export default function AutoTrader() {
   const [user, setUser] = useState<any>(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [selling, setSelling] = useState<Set<string>>(new Set());
-  const [takeProfit, setTakeProfit] = useState(3.0);
-  const [stopLoss, setStopLoss] = useState(-3.0);
+  const [takeProfit, setTakeProfit] = useState(7.0);
+  const [stopLoss, setStopLoss] = useState(-2.0);
+  const [prices, setPrices] = useState<Record<string, number>>({});
+  const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [showPctEdit, setShowPctEdit] = useState(false);
   const [pctSaving, setPctSaving] = useState(false);
   const [pctResult, setPctResult] = useState("");
@@ -115,6 +117,24 @@ export default function AutoTrader() {
       if (!error && data) setTrades(data as Trade[]);
     } catch {}
     setLoading(false);
+  }
+
+  async function refreshPrices() {
+    if (priceRefreshing) return;
+    const codes = trades.filter(t => t.status === "filled").map(t => t.code).filter(Boolean);
+    if (!codes.length) return;
+    setPriceRefreshing(true);
+    try {
+      const kisData = await fetchKisPrices(codes);
+      const map: Record<string, number> = {};
+      for (const [code, p] of Object.entries(kisData)) {
+        if (p.current_price) map[code] = p.current_price;
+      }
+      if (Object.keys(map).length > 0) setPrices(map);
+    } catch (e) {
+      console.warn("시세 조회 실패:", e);
+    }
+    setPriceRefreshing(false);
   }
 
   const active = trades.filter((t) => t.status === "filled");
@@ -247,15 +267,21 @@ export default function AutoTrader() {
           <div className="flex items-center gap-2 mb-2">
             <h2 className="text-sm font-semibold t-text">보유 중</h2>
             <span className="text-xs px-1.5 py-0.5 rounded-full t-card-alt t-text-sub">{active.length}</span>
+            <button onClick={refreshPrices} disabled={priceRefreshing}
+              className="ml-auto text-[11px] px-2 py-1 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1">
+              <RefreshCw size={12} className={priceRefreshing ? "animate-spin" : ""} />
+              시세
+            </button>
             <button onClick={handleSellAll}
-              className="ml-auto text-[11px] px-3 py-1 rounded-lg font-medium text-red-400 border border-red-400/30 hover:bg-red-500/10 transition">
+              className="text-[11px] px-3 py-1 rounded-lg font-medium text-red-400 border border-red-400/30 hover:bg-red-500/10 transition">
               전체 매도
             </button>
           </div>
           <div className="space-y-2">
             {active.map((t) => (
               <TradeRow key={t.id} trade={t} type="active"
-                onSell={() => handleSell(t)} selling={selling.has(t.id)} />
+                onSell={() => handleSell(t)} selling={selling.has(t.id)}
+                currentPrice={prices[t.code]} />
             ))}
           </div>
         </div>
@@ -299,15 +325,18 @@ function Section({ title, count, children }: { title: string; count: number; chi
   );
 }
 
-function TradeRow({ trade, type, onSell, selling }: {
+function TradeRow({ trade, type, onSell, selling, currentPrice }: {
   trade: Trade;
   type: "active" | "pending" | "closed" | "sell_requested";
   onSell?: () => void;
   selling?: boolean;
+  currentPrice?: number;
 }) {
   const buyPrice = trade.filled_price ?? trade.order_price;
   const amount = buyPrice * trade.quantity;
   const pnl = trade.pnl_pct ?? 0;
+  const livePnl = currentPrice && buyPrice > 0 ? ((currentPrice - buyPrice) / buyPrice * 100) : null;
+  const livePnlAmount = currentPrice && buyPrice > 0 ? (currentPrice - buyPrice) * trade.quantity : null;
 
   return (
     <div
@@ -328,6 +357,17 @@ function TradeRow({ trade, type, onSell, selling }: {
             }}
           >
             {pnl >= 0 ? "+" : ""}{pnl.toFixed(2)}%
+          </span>
+        )}
+        {type === "active" && livePnl !== null && (
+          <span
+            className="text-xs font-semibold px-2 py-0.5 rounded-full"
+            style={{
+              color: livePnl >= 0 ? "var(--success)" : "var(--danger)",
+              background: livePnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)",
+            }}
+          >
+            {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
           </span>
         )}
         {type === "active" && (
@@ -352,6 +392,16 @@ function TradeRow({ trade, type, onSell, selling }: {
         </div>
         <div>{formatDate(trade.created_at)}</div>
       </div>
+      {type === "active" && currentPrice != null && (
+        <div className="flex items-center justify-between text-xs mt-1.5 pt-1.5 border-t t-border-light">
+          <span className="t-text-sub">현재가 <span className="t-text font-medium">{formatKRW(currentPrice)}</span></span>
+          {livePnlAmount !== null && (
+            <span style={{ color: livePnlAmount >= 0 ? "var(--success)" : "var(--danger)" }} className="font-medium">
+              {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
+            </span>
+          )}
+        </div>
+      )}
       {type === "closed" && trade.sell_reason && (
         <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "var(--danger)" }}>
           {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절"}
