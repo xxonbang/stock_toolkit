@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [기능] 매집 신호 AND/OR 토글 + 리밸런싱 제안 실데이터 기반 (2026-03-24 22:45 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/stock_manager.py`, `daemon/tests/test_trader.py`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/lib/supabase.ts`, `frontend/src/pages/Dashboard.tsx`
+- **내용:** 모의투자 페이지에 매집 기준 AND/OR 토글 추가 (Supabase alert_config.buy_signal_mode 연동). 리밸런싱 제안을 서버 JSON 대신 실제 보유 데이터 기반으로 계산. OR 모드 테스트 추가.
+- **커밋:** `7e898e6`
+
 ### [버그픽스] 미체결 조회 실패 시 전량 체결 오판 수정 (2026-03-24 22:20 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** _cancel_unfilled 반환값을 조회 실패 시 0→None으로 변경, _verify_fill_with_retry에서 None 감지 시 ordered_qty 그대로 반영 (안전 fallback)

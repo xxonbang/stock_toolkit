@@ -233,7 +233,7 @@ export function SectionHeader({
                 <X size={18} />
               </button>
             </div>
-            <p className="text-sm t-text-sub leading-relaxed">{help.desc}</p>
+            <p className="text-sm t-text-sub leading-relaxed whitespace-pre-line">{help.desc}</p>
           </div>
         </div>,
         document.body

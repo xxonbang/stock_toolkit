@@ -734,6 +734,8 @@ def main():
         name = theme.get("theme_name", theme.get("name", ""))
         if name:
             result = track_theme_lifecycle(name, history, change_rate_map)
+            leaders = theme.get("leader_stocks", theme.get("leaders", []))
+            result["stocks"] = [l.get("name", l.get("code", "")) for l in leaders if isinstance(l, dict)]
             lifecycle_results.append(result)
     with open(results_dir / "lifecycle.json", "w", encoding="utf-8") as f:
         json.dump(lifecycle_results, f, ensure_ascii=False, indent=2)
@@ -2027,12 +2029,17 @@ def main():
 
     all_dates = sorted(set(sig_buy_by_date.keys()) | set(leader_by_date.keys()))
 
-    # 종목별 연속일수 계산 함수
+    # 종목별 연속일수 계산 함수 (최근 5영업일 내 마지막 등장 종목만)
+    _streak_cutoff = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
+
     def _calc_streak(code_dates_map):
         results = []
         for code, dates in code_dates_map.items():
             sorted_d = sorted(set(dates))
             if len(sorted_d) < 2:
+                continue
+            # 마지막 등장이 최근 7일 이내인지 확인
+            if sorted_d[-1] < _streak_cutoff:
                 continue
             # 최대 연속일수 (주말 3일 갭 허용)
             max_streak = 1
@@ -2063,7 +2070,7 @@ def main():
                     "streak": max_streak, "total_days": len(sorted_d),
                     "dates": sorted_d[-5:],
                 })
-        results.sort(key=lambda x: x["streak"], reverse=True)
+        results.sort(key=lambda x: (-1 if x["dates"][-1] >= _streak_cutoff else 0, x["dates"][-1], x["streak"]), reverse=True)
         return results
 
     from datetime import datetime as dt_class

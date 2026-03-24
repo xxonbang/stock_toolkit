@@ -107,6 +107,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [pendingAlertMode, setPendingAlertMode] = useState<AlertMode | null>(null);
   const [settingsSaving, setSettingsSaving] = useState(false);
   const [streakPopup, setStreakPopup] = useState<{ name: string; dates: string[] } | null>(null);
+  const [lifecyclePopup, setLifecyclePopup] = useState<{ theme: string; stocks: string[]; stage: string; strategy?: string } | null>(null);
   const [lifecycle, setLifecycle] = useState<any[] | null>(null);
   const [riskMonitor, setRiskMonitor] = useState<any[] | null>(null);
   const [newsImpact, setNewsImpact] = useState<Record<string, any> | null>(null);
@@ -819,6 +820,48 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   </span>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+      {/* 라이프사이클 팝업 */}
+      {lifecyclePopup && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setLifecyclePopup(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+          <div className="relative w-full max-w-[320px] rounded-2xl overflow-hidden"
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}
+            onClick={e => e.stopPropagation()}>
+            <div className="px-4 pt-4 pb-2 flex items-center justify-between">
+              <h3 className="text-sm font-bold t-text">{lifecyclePopup.theme}</h3>
+              <button onClick={() => setLifecyclePopup(null)} className="p-1 t-text-dim hover:t-text"><X size={16} /></button>
+            </div>
+            <div className="px-4 pb-4 space-y-3">
+              <div>
+                <div className="text-[10px] t-text-dim mb-1">단계</div>
+                <div className="text-sm font-medium t-text">
+                  {lifecyclePopup.stage === "탄생" && "🟢 탄생 — 테마 초기 등장. 대장주 중심으로 관심 종목 형성 시작."}
+                  {lifecyclePopup.stage === "성장" && "🟡 성장 — 테마 확산 중. 종목 수와 거래량 증가, 수익 기대 구간."}
+                  {lifecyclePopup.stage === "과열" && "🔴 과열 — 급등 후 과열 경고. 차익 실현 및 리스크 관리 필요."}
+                  {lifecyclePopup.stage === "쇠퇴" && "⚪ 쇠퇴 — 관심 감소, 거래량 축소. 신규 진입 비추천."}
+                </div>
+              </div>
+              {lifecyclePopup.strategy && (
+                <div>
+                  <div className="text-[10px] t-text-dim mb-1">전략</div>
+                  <div className="text-xs t-text-sub">{lifecyclePopup.strategy}</div>
+                </div>
+              )}
+              {lifecyclePopup.stocks.length > 0 && (
+                <div>
+                  <div className="text-[10px] t-text-dim mb-1">포함 종목 ({lifecyclePopup.stocks.length})</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {lifecyclePopup.stocks.map((s, i) => (
+                      <span key={i} className="text-[11px] px-2 py-1 rounded-lg t-text" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>,
@@ -1688,53 +1731,86 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       <div id="cat-signal" className="scroll-mt-24" />
 
       {/* 연속 시그널 추적 */}
-      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && (
+      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && (() => {
+        const today = new Date().toISOString().slice(0, 10);
+        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+        const freshness = (r: any) => {
+          const last = r.dates?.[r.dates.length - 1] || "";
+          if (last >= today) return "active";
+          if (last >= yesterday) return "watch";
+          return "ended";
+        };
+        const badge = (f: string) => f === "active"
+          ? <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-medium">진행 중</span>
+          : f === "watch"
+          ? <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 font-medium">관찰</span>
+          : <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gray-500/15 text-gray-400 font-medium">종료</span>;
+        const sortByFreshness = (arr: any[]) => [...arr].sort((a, b) => {
+          const la = a.dates?.[a.dates.length - 1] || "";
+          const lb = b.dates?.[b.dates.length - 1] || "";
+          if (la !== lb) return lb.localeCompare(la);
+          return (b.streak || 0) - (a.streak || 0);
+        });
+        const renderList = (items: any[], color: string, showStreak: boolean) => {
+          const sorted = sortByFreshness(items);
+          const active = sorted.filter((r: any) => freshness(r) !== "ended");
+          const ended = sorted.filter((r: any) => freshness(r) === "ended");
+          return (
+            <>
+              {active.map((r: any, i: number) => (
+                <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[13px] font-medium t-text">{r.name}</span>
+                    <span className="text-[10px] t-text-dim">{r.code}</span>
+                    {badge(freshness(r))}
+                  </div>
+                  <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
+                    className="flex items-center gap-2 hover:opacity-70 transition">
+                    <span className={`text-[11px] font-bold ${color}`}>{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
+                    <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
+                  </button>
+                </div>
+              ))}
+              {ended.length > 0 && (
+                <details className="mt-1">
+                  <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({ended.length})</summary>
+                  {ended.map((r: any, i: number) => (
+                    <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0 opacity-40">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[13px] font-medium t-text">{r.name}</span>
+                        <span className="text-[10px] t-text-dim">{r.code}</span>
+                        {badge("ended")}
+                      </div>
+                      <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
+                        className="flex items-center gap-2 hover:opacity-70 transition">
+                        <span className={`text-[11px] font-semibold t-text-dim`}>{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
+                        <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
+                      </button>
+                    </div>
+                  ))}
+                </details>
+              )}
+            </>
+          );
+        };
+        return (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="consecutive" timestamp={ts}>연속 시그널</SectionHeader>
-          {/* AND 조건 */}
           {consecutiveSignals.and_condition?.length > 0 && (
             <div className="mb-3">
               <div className="text-[11px] font-semibold text-red-400 mb-1.5">🔥 매수 + 대장주 동시 (AND)</div>
-              <div className="space-y-1">
-                {consecutiveSignals.and_condition.map((r: any, i: number) => (
-                  <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
-                    <div>
-                      <span className="text-[13px] font-medium t-text">{r.name}</span>
-                      <span className="text-[10px] t-text-dim ml-1">{r.code}</span>
-                    </div>
-                    <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
-                      className="flex items-center gap-2 hover:opacity-70 transition">
-                      <span className="text-[11px] font-bold text-red-400">{r.streak}일 연속</span>
-                      <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <div className="space-y-1">{renderList(consecutiveSignals.and_condition, "text-red-400", true)}</div>
             </div>
           )}
-          {/* OR 조건 */}
           {consecutiveSignals.or_condition?.length > 0 && (
             <div>
               <div className="text-[11px] font-semibold text-amber-400 mb-1.5">📊 매수 또는 대장주 (OR)</div>
-              <div className="space-y-1">
-                {consecutiveSignals.or_condition.slice(0, 8).map((r: any, i: number) => (
-                  <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
-                    <div>
-                      <span className="text-[13px] font-medium t-text">{r.name}</span>
-                      <span className="text-[10px] t-text-dim ml-1">{r.code}</span>
-                    </div>
-                    <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
-                      className="flex items-center gap-2 hover:opacity-70 transition">
-                      <span className="text-[11px] font-semibold text-amber-400">{r.streak}일</span>
-                      <span className="text-[10px] t-text-dim">{r.total_days}일 등장</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <div className="space-y-1">{renderList(consecutiveSignals.or_condition.slice(0, 15), "text-amber-400", false)}</div>
             </div>
           )}
         </section>
-      )}
+        );
+      })()}
 
       {/* 교차 신호 */}
       {(
@@ -1769,14 +1845,19 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                       {intra.change_rate >= 0 ? "+" : ""}{intra.change_rate}%
                     </span>
                   )}
-                  {intra.validation && (
+                  {intra.validation && (() => {
+                    const sig = s.vision_signal || s.api_signal || "";
+                    const isBuy = ["매수", "적극매수"].includes(sig);
+                    const arrow = intra.validation === "신호 유효" ? (isBuy ? "↑ 매수 유효" : "↓ 매도 유효") : intra.validation;
+                    return (
                     <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
                       intra.validation === "신호 유효" ? "bg-emerald-500/10 text-emerald-400" :
                       intra.validation === "신호 약화" ? "bg-amber-500/10 text-amber-400" :
                       intra.validation === "신호 무효화" ? "bg-red-500/10 text-red-400" :
                       "bg-gray-500/10 t-text-dim"
-                    }`}>{intra.validation}</span>
-                  )}
+                    }`}>{arrow}</span>
+                    );
+                  })()}
                   {ageH > 0 && <span className={`text-[10px] ${ageColor}`}>{Math.round(ageH)}시간 전</span>}
                 </div>
               </div>
@@ -1813,10 +1894,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <div className="space-y-1.5">
             {(lifecycle || []).map((l: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <span className="text-sm font-medium truncate min-w-0">{l.theme}</span>
+                <button onClick={() => l.stocks?.length && setLifecyclePopup({ theme: l.theme, stocks: l.stocks, stage: l.stage, strategy: l.strategy })}
+                  className="text-sm font-medium truncate min-w-0 text-left hover:underline">{l.theme}</button>
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="text-xs t-text-sub">{l.avg_change >= 0 ? "+" : ""}{l.avg_change}%</span>
-                  <Badge variant={l.stage === "과열" ? "danger" : l.stage === "성장" ? "warning" : l.stage === "탄생" ? "success" : "default"}>{l.stage}</Badge>
+                  <button onClick={() => setLifecyclePopup({ theme: l.theme, stocks: l.stocks || [], stage: l.stage, strategy: l.strategy })}>
+                    <Badge variant={l.stage === "과열" ? "danger" : l.stage === "성장" ? "warning" : l.stage === "탄생" ? "success" : "default"}>{l.stage}</Badge>
+                  </button>
                 </div>
               </div>
             ))}
@@ -1826,34 +1910,102 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       )}
 
       {/* 이상 거래 감지 */}
-      {(
+      {(() => {
+        // 1. 종목별 그룹핑
+        const grouped: Record<string, { code: string; name: string; types: string[]; ratio?: number; change_rate?: number }> = {};
+        for (const a of (anomalies || [])) {
+          const key = a.code || a.name;
+          if (!grouped[key]) grouped[key] = { code: a.code, name: a.name, types: [], ratio: a.ratio, change_rate: a.change_rate };
+          else { if (a.ratio && (!grouped[key].ratio || a.ratio > grouped[key].ratio)) grouped[key].ratio = a.ratio; }
+          if (!grouped[key].types.includes(a.type)) grouped[key].types.push(a.type);
+        }
+        const items = Object.values(grouped);
+
+        // 2. 컨텍스트: 교차 신호 포함 여부, 수급 동향
+        const crossCodes = new Set((crossSignal || []).map((s: any) => s.code));
+        const investorMap: Record<string, any> = {};
+        for (const sm of (Array.isArray(smartMoney) ? smartMoney : [])) {
+          if (sm?.code) investorMap[sm.code] = sm;
+        }
+
+        // 3. 액션 분류
+        const classify = (item: typeof items[0]) => {
+          const cr = item.change_rate ?? 0;
+          const inv = investorMap[item.code];
+          const hasForeignBuy = inv && inv.foreign_net > 0;
+          if (hasForeignBuy && cr > 0) return { label: "수급 동반", color: "bg-emerald-500/10 border-emerald-500/20", text: "text-emerald-500" };
+          if (cr < 10 && (item.ratio ?? 0) >= 2) return { label: "초기 급등", color: "bg-amber-500/10 border-amber-500/20", text: "text-amber-500" };
+          if (cr >= 25) return { label: "추격 주의", color: "bg-red-500/10 border-red-500/20", text: "text-red-400" };
+          return { label: "", color: "bg-red-500/6 border-red-500/15", text: "" };
+        };
+
+        // 4. 정렬: 수급동반 > 초기급등 > 나머지 > 추격주의
+        const order: Record<string, number> = { "수급 동반": 0, "초기 급등": 1, "": 2, "추격 주의": 3 };
+        items.sort((a, b) => (order[classify(a).label] ?? 2) - (order[classify(b).label] ?? 2) || (b.change_rate ?? 0) - (a.change_rate ?? 0));
+
+        const show = items.slice(0, 10);
+        const rest = items.slice(10);
+
+        return (
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="anomaly" timestamp={ts} count={anomalies?.length ?? 0}>이상 거래 감지</SectionHeader>
+          <SectionHeader id="anomaly" timestamp={ts} count={items.length}>이상 거래 감지</SectionHeader>
           <div className="space-y-1.5">
-            {(anomalies || []).slice(0, 6).map((a, i) => (
-              <div key={i} className="flex items-center justify-between p-2 bg-red-500/10 border border-red-500/20 rounded-lg gap-2">
+            {show.map((a, i) => {
+              const cls = classify(a);
+              const inv = investorMap[a.code];
+              const isCross = crossCodes.has(a.code);
+              return (
+              <div key={i} className={`flex items-center justify-between p-2 border rounded-lg gap-2 ${cls.color}`}>
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap size={14} className="text-red-400 shrink-0" />
                   <div className="min-w-0">
-                    <div className="text-sm font-medium truncate">{a.name}</div>
-                    <div className="text-xs t-text-sub">{a.type}</div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-sm font-medium truncate">{a.name}</span>
+                      {isCross && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400">관심</span>}
+                      {cls.label && <span className={`text-[9px] px-1 py-0.5 rounded font-medium ${cls.text} ${cls.color}`}>{cls.label}</span>}
+                    </div>
+                    <div className="text-[10px] t-text-dim">{a.types.join(" + ")}</div>
                   </div>
                 </div>
                 <div className="text-right text-xs shrink-0">
                   {a.ratio && <div className="text-amber-600 font-medium">거래량 x{a.ratio}</div>}
-                  {a.rsi && <div className="text-purple-600 font-medium">RSI {a.rsi}</div>}
                   {a.change_rate != null && (
                     <div className={a.change_rate >= 0 ? "text-red-600" : "text-blue-600"}>
-                      등락 {a.change_rate >= 0 ? "+" : ""}{a.change_rate}%
+                      {a.change_rate >= 0 ? "+" : ""}{a.change_rate}%
                     </div>
                   )}
+                  {inv && <div className={`text-[10px] ${inv.foreign_net > 0 ? "text-red-400" : "text-blue-400"}`}>외인 {inv.foreign_net > 0 ? "매수" : "매도"}</div>}
                 </div>
               </div>
-            ))}
+              );
+            })}
+            {rest.length > 0 && (
+              <details className="mt-1">
+                <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">더 보기 ({rest.length})</summary>
+                <div className="space-y-1.5 mt-1.5">
+                  {rest.map((a, i) => {
+                    const cls = classify(a);
+                    return (
+                    <div key={i} className={`flex items-center justify-between p-2 border rounded-lg gap-2 opacity-60 ${cls.color}`}>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <Zap size={12} className="text-red-400 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="text-xs font-medium truncate">{a.name}</span>
+                          <span className="text-[10px] t-text-dim ml-1">{a.types.join("+")}</span>
+                        </div>
+                      </div>
+                      <div className="text-[10px] t-text-sub shrink-0">{a.change_rate != null ? `${a.change_rate >= 0 ? "+" : ""}${a.change_rate}%` : ""}</div>
+                    </div>
+                    );
+                  })}
+                </div>
+              </details>
+            )}
           </div>
-            {!anomalies?.length && <Empty />}
+          {!items.length && <Empty />}
         </section>
-      )}
+        );
+      })()}
 
       {/* 위험 종목 모니터 */}
       {(
@@ -1903,13 +2055,18 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                             {s.dual_signal}
                           </span>
                         )}
-                        {intra.validation && (
+                        {intra.validation && (() => {
+                          const sig2 = s.vision_signal || s.api_signal || "";
+                          const isBuy2 = ["매수", "적극매수"].includes(sig2);
+                          const arrow2 = intra.validation === "신호 유효" ? (isBuy2 ? "↑ 매수 유효" : "↓ 매도 유효") : intra.validation;
+                          return (
                           <span className={`text-[10px] ${
                             intra.validation === "신호 유효" ? "text-emerald-400" :
                             intra.validation === "신호 약화" ? "text-amber-400" :
                             intra.validation === "신호 무효화" ? "text-red-400" : "t-text-dim"
-                          }`}>{intra.validation}</span>
-                        )}
+                          }`}>{arrow2}</span>
+                          );
+                        })()}
                         {intra.change_rate != null && intra.change_rate !== 0 && (
                           <span className={`text-[10px] font-medium ${intra.change_rate >= 0 ? "text-red-400" : "text-blue-400"}`}>
                             {intra.change_rate >= 0 ? "+" : ""}{intra.change_rate}%

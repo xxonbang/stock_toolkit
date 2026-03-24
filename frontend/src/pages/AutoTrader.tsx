@@ -321,7 +321,7 @@ export default function AutoTrader() {
       <div className="grid grid-cols-2 gap-3">
         <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
         <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
-        <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--success)" : "var(--danger)"} />
+        <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--success)" : "#3b82f6"} />
         <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
       </div>
 
@@ -415,8 +415,8 @@ function TradeRow({ trade, type, onSell, selling, currentPrice }: {
           <span
             className="text-xs font-semibold px-2 py-0.5 rounded-full"
             style={{
-              color: pnl >= 0 ? "var(--success)" : "var(--danger)",
-              background: pnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)",
+              color: pnl >= 0 ? "var(--success)" : "#3b82f6",
+              background: pnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)",
             }}
           >
             {pnl >= 0 ? "+" : ""}{pnl.toFixed(2)}%
@@ -426,8 +426,8 @@ function TradeRow({ trade, type, onSell, selling, currentPrice }: {
           <span
             className="text-xs font-semibold px-2 py-0.5 rounded-full"
             style={{
-              color: livePnl >= 0 ? "var(--success)" : "var(--danger)",
-              background: livePnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)",
+              color: livePnl >= 0 ? "var(--success)" : "#3b82f6",
+              background: livePnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)",
             }}
           >
             {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
@@ -459,14 +459,14 @@ function TradeRow({ trade, type, onSell, selling, currentPrice }: {
         <div className="flex items-center justify-between text-xs mt-1.5 pt-1.5 border-t t-border-light">
           <span className="t-text-sub">현재가 <span className="t-text font-medium">{formatKRW(currentPrice)}</span></span>
           {livePnlAmount !== null && (
-            <span style={{ color: livePnlAmount >= 0 ? "var(--success)" : "var(--danger)" }} className="font-medium">
+            <span style={{ color: livePnlAmount >= 0 ? "var(--success)" : "#3b82f6" }} className="font-medium">
               {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
             </span>
           )}
         </div>
       )}
       {type === "closed" && trade.sell_reason && (
-        <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "var(--danger)" }}>
+        <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "#3b82f6" }}>
           {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절"}
         </div>
       )}

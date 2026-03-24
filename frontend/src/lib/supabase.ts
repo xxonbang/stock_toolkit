@@ -152,7 +152,7 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
     if (!user) return false;
     // 기존 설정 조회 후 병합 (부분 업데이트 지원)
     const { data: existing } = await supabase.from("alert_config")
-      .select("alert_mode, take_profit_pct, stop_loss_pct, trailing_stop_pct, buy_signal_mode")
+      .select("alert_mode, take_profit_pct, stop_loss_pct, trailing_stop_pct")
       .eq("user_id", user.id).maybeSingle();
     const merged: Record<string, any> = {
       user_id: user.id,
@@ -160,7 +160,7 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
       take_profit_pct: updates.take_profit_pct ?? existing?.take_profit_pct ?? 7.0,
       stop_loss_pct: updates.stop_loss_pct ?? existing?.stop_loss_pct ?? -2.0,
       trailing_stop_pct: updates.trailing_stop_pct ?? existing?.trailing_stop_pct ?? -3.0,
-      buy_signal_mode: updates.buy_signal_mode ?? existing?.buy_signal_mode ?? "and",
+      buy_signal_mode: updates.buy_signal_mode ?? (existing as any)?.buy_signal_mode ?? "and",
       updated_at: new Date().toISOString(),
     };
     const { error } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
@@ -183,15 +183,21 @@ export async function getTradePct(): Promise<{ take_profit: number; stop_loss: n
   try {
     const { data } = await supabase
       .from("alert_config")
-      .select("take_profit_pct, stop_loss_pct, trailing_stop_pct, buy_signal_mode")
+      .select("take_profit_pct, stop_loss_pct, trailing_stop_pct")
       .limit(1)
       .maybeSingle();
-    return {
+    const result = {
       take_profit: data?.take_profit_pct ?? defaults.take_profit,
       stop_loss: data?.stop_loss_pct ?? defaults.stop_loss,
       trailing_stop: data?.trailing_stop_pct ?? defaults.trailing_stop,
-      buy_signal_mode: data?.buy_signal_mode ?? defaults.buy_signal_mode,
+      buy_signal_mode: defaults.buy_signal_mode,
     };
+    // buy_signal_mode는 별도 조회 (컬럼 미존재 시 안전)
+    try {
+      const { data: d2 } = await supabase.from("alert_config").select("buy_signal_mode").limit(1).maybeSingle();
+      if (d2?.buy_signal_mode) result.buy_signal_mode = d2.buy_signal_mode;
+    } catch {}
+    return result;
   } catch {
     return defaults;
   }
