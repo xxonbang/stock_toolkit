@@ -54,6 +54,7 @@ export default function AutoTrader() {
   const [selling, setSelling] = useState<Set<string>>(new Set());
   const [takeProfit, setTakeProfit] = useState(7.0);
   const [stopLoss, setStopLoss] = useState(-2.0);
+  const [trailingStop, setTrailingStop] = useState(-3.0);
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [showPctEdit, setShowPctEdit] = useState(false);
@@ -66,9 +67,10 @@ export default function AutoTrader() {
       setAuthChecked(true);
       if (u) {
         fetchTrades();
-        getTradePct().then(({ take_profit, stop_loss }) => {
+        getTradePct().then(({ take_profit, stop_loss, trailing_stop }) => {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
+          setTrailingStop(trailing_stop);
         }).catch(() => {});
       } else {
         setLoading(false);
@@ -239,7 +241,9 @@ export default function AutoTrader() {
             <span className="text-red-500 font-medium">익절 +{takeProfit}%</span>
             <span className="t-text-dim">/</span>
             <span className="text-blue-500 font-medium">손절 {stopLoss}%</span>
-            <span className="t-text-dim">· 15:15 청산 (+3%↑ 익일보유)</span>
+            <span className="t-text-dim">/</span>
+            <span className="text-amber-500 font-medium">급락 {trailingStop}%</span>
+            <span className="t-text-dim">· 15:15 (+3%↑ 보유)</span>
           </div>
           <button onClick={() => setShowPctEdit(!showPctEdit)}
             className="p-1.5 rounded-lg t-text-dim hover:t-text transition">
@@ -252,21 +256,28 @@ export default function AutoTrader() {
               <div className="flex-1">
                 <div className="text-[10px] t-text-dim mb-1">익절 (%)</div>
                 <input type="number" step="0.5" min="0.5" max="30" value={takeProfit}
-                  onChange={e => setTakeProfit(parseFloat(e.target.value) || 3.0)}
+                  onChange={e => setTakeProfit(parseFloat(e.target.value) || 7.0)}
                   className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
                   style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
               </div>
               <div className="flex-1">
                 <div className="text-[10px] t-text-dim mb-1">손절 (%)</div>
                 <input type="number" step="0.5" min="-30" max="-0.5" value={stopLoss}
-                  onChange={e => setStopLoss(parseFloat(e.target.value) || -3.0)}
+                  onChange={e => setStopLoss(parseFloat(e.target.value) || -2.0)}
+                  className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
+                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+              </div>
+              <div className="flex-1">
+                <div className="text-[10px] t-text-dim mb-1">급락 (%)</div>
+                <input type="number" step="0.5" min="-30" max="-0.5" value={trailingStop}
+                  onChange={e => setTrailingStop(parseFloat(e.target.value) || -3.0)}
                   className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
                   style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
               </div>
             </div>
             <button disabled={pctSaving} onClick={async () => {
               setPctSaving(true);
-              const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss });
+              const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss, trailing_stop_pct: trailingStop });
               setPctResult(ok ? "✓ 저장 완료" : "✕ 저장 실패");
               setTimeout(() => setPctResult(""), 2000);
               setPctSaving(false);
