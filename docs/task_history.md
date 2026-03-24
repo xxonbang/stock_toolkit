@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [버그픽스] 앱 복귀 시 세션 자동 갱신 (2026-03-24 14:40 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** visibilitychange 이벤트로 앱 복귀 감지 → getSession()으로 토큰 자동 갱신. PWA/모바일 백그라운드 방치 후 로그인 풀림 방지.
+- **커밋:** `5287f5c`
+
 ### [버그픽스] 모의투자 구독 분리 + 시장가 매수 + 기본값 현행화 (2026-03-24 14:10 KST)
 - **변경 파일:** `daemon/main.py`, `daemon/stock_manager.py`, `daemon/trader.py`, `frontend/src/lib/supabase.ts`, `frontend/src/pages/AutoTrader.tsx`
 - **내용:**
