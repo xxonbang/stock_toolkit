@@ -69,10 +69,16 @@ def _order_headers(token: str, tr_id: str) -> dict:
     }
 
 
-def filter_high_confidence(signals: list | None) -> list[dict]:
-    """고확신 종목 필터: 대장주 AND vision 매수 AND api 매수"""
+def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
+    """고확신 종목 필터: 대장주 AND (vision+api 매수). mode='or'이면 vision OR api."""
     if not signals:
         return []
+    if mode == "or":
+        return [
+            s for s in signals
+            if s.get("vision_signal") in BUY_SIGNALS
+            or s.get("api_signal") in BUY_SIGNALS
+        ]
     return [
         s for s in signals
         if s.get("vision_signal") in BUY_SIGNALS
@@ -360,9 +366,11 @@ async def run_buy_process():
         logger.warning("cross_signal.json 로드 실패")
         return
 
-    targets = filter_high_confidence(cross_data)
+    config = await fetch_alert_config()
+    buy_mode = config.get("buy_signal_mode", "and")
+    targets = filter_high_confidence(cross_data, mode=buy_mode)
     if not targets:
-        logger.info("고확신 매수 대상 없음")
+        logger.info(f"고확신 매수 대상 없음 (모드: {buy_mode})")
         return
 
     # 이미 보유/주문 중인 종목 제외

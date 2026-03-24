@@ -60,6 +60,7 @@ export default function AutoTrader() {
   const [showPctEdit, setShowPctEdit] = useState(false);
   const [pctSaving, setPctSaving] = useState(false);
   const [pctResult, setPctResult] = useState("");
+  const [buySignalMode, setBuySignalMode] = useState<"and" | "or">("and");
 
   useEffect(() => {
     function loadData(u: any) {
@@ -67,10 +68,11 @@ export default function AutoTrader() {
       setAuthChecked(true);
       if (u) {
         fetchTrades();
-        getTradePct().then(({ take_profit, stop_loss, trailing_stop }) => {
+        getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
+          setBuySignalMode(buy_signal_mode === "or" ? "or" : "and");
         }).catch(() => {});
       } else {
         setLoading(false);
@@ -290,6 +292,29 @@ export default function AutoTrader() {
             )}
           </div>
         )}
+      </div>
+
+      {/* 매집 신호 기준 */}
+      <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
+        <div className="flex items-center justify-between gap-2">
+          <div className="text-xs t-text-dim leading-relaxed">
+            <div className="font-medium t-text mb-0.5">매집 종목 선정 기준</div>
+            <div>테마 대장주 <span className="t-text-dim">+</span> {buySignalMode === "and"
+              ? <span>차트 분석 <span className="text-blue-400 font-medium">AND</span> 기술적 지표 모두 매수</span>
+              : <span>차트 분석 <span className="text-amber-400 font-medium">OR</span> 기술적 지표 중 하나 매수</span>
+            }</div>
+          </div>
+          <button onClick={async () => {
+            const prev = buySignalMode;
+            const next = prev === "and" ? "or" : "and";
+            setBuySignalMode(next);
+            const ok = await setAlertConfig({ buy_signal_mode: next });
+            if (!ok) setBuySignalMode(prev);
+          }}
+            className={`text-[11px] font-medium px-3 py-1.5 rounded-lg transition shrink-0 ${buySignalMode === "and" ? "bg-blue-600 text-white" : "bg-amber-600 text-white"}`}>
+            {buySignalMode === "and" ? "AND" : "OR"}
+          </button>
+        </div>
       </div>
 
       {/* 성과 요약 */}

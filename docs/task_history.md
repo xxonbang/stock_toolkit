@@ -2,6 +2,16 @@
 
 ## 2026-03-24
 
+### [버그픽스] 미체결 조회 실패 시 전량 체결 오판 수정 (2026-03-24 22:20 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** _cancel_unfilled 반환값을 조회 실패 시 0→None으로 변경, _verify_fill_with_retry에서 None 감지 시 ordered_qty 그대로 반영 (안전 fallback)
+- **커밋:** `e46cba8`
+
+### [개선] 모의투자 미체결 시 최대 3회 시장가 재주문 (2026-03-24 22:10 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** _verify_fill → _cancel_unfilled + _verify_fill_with_retry로 분리. 미체결 감지 시 취소 후 잔여 수량으로 시장가 재주문 (최대 3회). 3회 모두 실패 시 실제 체결 수량만 DB 반영.
+- **커밋:** `f74b3dd`
+
 ### [버그픽스] 모의투자 부분 체결 감지 + 미체결 자동 취소 (2026-03-24 22:00 KST)
 - **변경 파일:** `daemon/trader.py`, `daemon/position_db.py`, `frontend/src/components/HelpDialog.tsx`
 - **내용:** 매수 주문 후 KIS 미체결 조회로 실제 체결 수량 확인, 미체결분 자동 취소, DB에 실제 체결 수량만 반영. 부분 체결 시 텔레그램 경고. VIX 구간 설명 세분화.

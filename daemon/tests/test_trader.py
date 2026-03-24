@@ -15,6 +15,21 @@ def test_filter_high_confidence():
     assert "047040" in codes
 
 
+def test_filter_high_confidence_or_mode():
+    signals = [
+        {"code": "005930", "vision_signal": "매수", "api_signal": "매수"},
+        {"code": "000660", "vision_signal": "매수", "api_signal": "중립"},
+        {"code": "047040", "vision_signal": "중립", "api_signal": "적극매수"},
+        {"code": "999999", "vision_signal": "중립", "api_signal": "중립"},
+    ]
+    result = filter_high_confidence(signals, mode="or")
+    codes = [r["code"] for r in result]
+    assert "005930" in codes  # 둘 다 매수 → 통과
+    assert "000660" in codes  # vision만 매수 → OR이므로 통과
+    assert "047040" in codes  # api만 적극매수 → OR이므로 통과
+    assert "999999" not in codes  # 둘 다 중립 → 탈락
+
+
 def test_filter_high_confidence_empty():
     assert filter_high_confidence([]) == []
     assert filter_high_confidence(None) == []

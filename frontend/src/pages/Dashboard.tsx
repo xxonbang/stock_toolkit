@@ -1406,15 +1406,28 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               );
             })}
           </div>
-          {/* 리밸런싱 제안 */}
-          {portfolio.suggestions?.length > 0 && (
-            <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5 mb-3">
-              <div className="text-xs font-medium text-orange-400 mb-1">리밸런싱 제안</div>
-              {portfolio.suggestions.map((s: string, i: number) => (
-                <div key={i} className="text-xs t-text-sub">· {s}</div>
-              ))}
-            </div>
-          )}
+          {/* 리밸런싱 제안 — 실제 보유 데이터 기반 계산 */}
+          {(() => {
+            const h = portfolio.holdings || [];
+            const suggestions: string[] = [];
+            if (h.length > 0 && h.length < 3) suggestions.push(`보유 ${h.length}종목 — 최소 3~5종목 분산 권장`);
+            const sectors = h.map((x: any) => x.sector).filter(Boolean);
+            if (sectors.length > 0 && new Set(sectors).size < sectors.length) suggestions.push("동일 섹터 편중 — 섹터 분산 필요");
+            for (const x of h) {
+              const pr = x.profit_rate ?? 0;
+              if (pr <= -5) suggestions.push(`${x.name} 손실 ${pr}% — 손절 검토`);
+              else if (pr >= 20) suggestions.push(`${x.name} 수익 +${pr}% — 익절 검토`);
+            }
+            if (suggestions.length === 0) return null;
+            return (
+              <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5 mb-3">
+                <div className="text-xs font-medium text-orange-400 mb-1">리밸런싱 제안</div>
+                {suggestions.map((s, i) => (
+                  <div key={i} className="text-xs t-text-sub">· {s}</div>
+                ))}
+              </div>
+            );
+          })()}
           {/* 건강도 */}
           <div className="flex items-center gap-2 text-xs t-text-dim">
             <span>건강도 {portfolio.health_score}/100</span>
