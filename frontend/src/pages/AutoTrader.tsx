@@ -251,7 +251,7 @@ export default function AutoTrader() {
     fetchTrades();
     getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
       setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
-      setBuyToggles(parseBuyMode(buy_signal_mode));
+      { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
     }).catch(() => {});
   };
 
@@ -290,7 +290,7 @@ export default function AutoTrader() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[11px]">
             {[
-              { label: "익절", value: `+${takeProfit}%`, color: "var(--success)" },
+              { label: "익절", value: `+${takeProfit}%↑`, color: "var(--success)" },
               { label: "손절", value: `${stopLoss}%`, color: "#3b82f6" },
               { label: "급락", value: `${trailingStop}%`, color: "#f59e0b" },
             ].map(item => (
@@ -321,6 +321,18 @@ export default function AutoTrader() {
                     style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
                 </div>
               ))}
+            </div>
+            {/* 보유일별 익절/보유 기준 미니 테이블 */}
+            <div className="text-[9px] t-text-dim p-2 rounded-lg" style={{ background: "var(--bg)" }}>
+              <div className="flex gap-1 mb-1 font-medium t-text-sub">
+                {["D+0","D+1","D+2","D+3","D+4+"].map(d => <span key={d} className="flex-1 text-center">{d}</span>)}
+              </div>
+              <div className="flex gap-1" style={{ color: "var(--success)" }}>
+                {[0,3,8,13,18].map((off,i) => <span key={i} className="flex-1 text-center font-medium">+{takeProfit+off}%</span>)}
+              </div>
+              <div className="flex gap-1 mt-0.5 t-text-dim">
+                {[3,5,8,12,15].map((thr,i) => <span key={i} className="flex-1 text-center">≥{thr}%보유</span>)}
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <button disabled={pctSaving} onClick={async () => {
