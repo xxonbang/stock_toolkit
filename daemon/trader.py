@@ -70,21 +70,37 @@ def _order_headers(token: str, tr_id: str) -> dict:
 
 
 def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
-    """고확신 종목 필터. mode: 'and'=vision+api 모두, 'or'=둘 중 하나, 'leader'=대장주 전체."""
-    if not signals:
+    """고확신 종목 필터. mode: 콤마 구분 토글 ('chart,indicator,top_leader') 또는 레거시."""
+    if not signals or mode == "none":
         return []
-    if mode == "leader":
-        return list(signals)  # cross_signal에 포함 = 이미 대장주, 시그널 무관
-    if mode == "or":
-        return [
-            s for s in signals
-            if s.get("vision_signal") in BUY_SIGNALS
-            or s.get("api_signal") in BUY_SIGNALS
-        ]
+    # 레거시 모드 → 토글 플래그 변환
+    if mode == "and":
+        flags = {"chart", "indicator"}
+    elif mode == "or":
+        return [s for s in signals if s.get("vision_signal") in BUY_SIGNALS or s.get("api_signal") in BUY_SIGNALS]
+    elif mode == "leader":
+        flags = {"all_leaders"}
+    else:
+        flags = set(mode.split(","))
+    # top_leader: 원본 기준으로 테마별 거래대금 1위 코드 집합 산출
+    top_codes: set[str] | None = None
+    if "top_leader" in flags:
+        theme_best: dict[str, tuple[str, int]] = {}  # theme → (code, volume)
+        for s in signals:
+            theme = s.get("theme", "")
+            vol = (s.get("api_data") or {}).get("ranking", {}).get("volume", 0)
+            if theme not in theme_best or vol > theme_best[theme][1]:
+                theme_best[theme] = (s.get("code", ""), vol)
+        top_codes = {code for code, _ in theme_best.values()}
+    # all_leaders: 추가 필터 없음 — cross_signal 전체가 대장주이므로 시그널 조건만 적용
+    # 시그널 + 대장주 조건 AND 필터
+    need_chart = "chart" in flags
+    need_indicator = "indicator" in flags
     return [
         s for s in signals
-        if s.get("vision_signal") in BUY_SIGNALS
-        and s.get("api_signal") in BUY_SIGNALS
+        if (not need_chart or s.get("vision_signal") in BUY_SIGNALS)
+        and (not need_indicator or s.get("api_signal") in BUY_SIGNALS)
+        and (top_codes is None or s.get("code", "") in top_codes)
     ]
 
 
@@ -477,18 +493,18 @@ async def check_positions_for_sell(current_price_data: dict):
         if current_price > _peak_prices.get(peak_key, 0):
             _peak_prices[peak_key] = current_price
 
-        # 익일 보유 종목은 익절 기준 10%로 상향
+        # 보유일수 계산 → 익절 기준 연동
         _KST = timezone(timedelta(hours=9))
+        hold_days = 0
         created = pos.get("created_at", "")
-        is_carry_over = False
         if created:
             try:
                 created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
                 today = datetime.now(_KST).date()
-                is_carry_over = created_date < today
+                hold_days = (today - created_date).days
             except Exception:
                 pass
-        effective_tp = 10.0 if is_carry_over else tp
+        effective_tp = get_tiered_tp(tp, hold_days)
 
         reason = should_sell(buy_price, current_price, take_profit=effective_tp, stop_loss=sl)
 
@@ -583,8 +599,22 @@ async def cancel_all_pending_orders():
     invalidate_cache()
 
 
-CARRY_OVER_THRESHOLD = 3.0  # 익일 보유 허용 기준 (당일 수익률 %)
-MAX_HOLD_DAYS = 3           # 최대 보유일 (초과 시 강제 청산)
+# 보유일별 익절 기준 / 장 마감 보유 기준 (매수가 대비 %, 누적)
+# base_tp는 사용자 설정값 (기본 7%), 나머지는 base_tp 기준 오프셋
+_TP_OFFSETS = [0, 3, 8, 13, 18]      # D+0: +0, D+1: +3, D+2: +8, D+3: +13, D+4+: +18
+_CARRY_THRESHOLDS = [3, 5, 8, 12, 15]  # D+0: 3%, D+1: 5%, D+2: 8%, D+3: 12%, D+4+: 15%
+
+
+def get_tiered_tp(base_tp: float, hold_days: int) -> float:
+    """보유일수 연동 익절 기준 반환"""
+    idx = min(max(hold_days, 0), len(_TP_OFFSETS) - 1)
+    return base_tp + _TP_OFFSETS[idx]
+
+
+def get_carry_threshold(hold_days: int) -> float:
+    """보유일수 연동 장 마감 보유 기준 반환"""
+    idx = min(max(hold_days, 0), len(_CARRY_THRESHOLDS) - 1)
+    return _CARRY_THRESHOLDS[idx]
 
 async def sell_all_positions_market():
     """장 마감 청산 — 수익 +3% 이상은 익일 보유, 나머지 시장가 매도"""
@@ -627,12 +657,12 @@ async def sell_all_positions_market():
         pos["_current_price"] = current_price
         pos["_pnl"] = pnl
 
-        # 최대 보유일 초과 → 강제 매도
-        if hold_days >= MAX_HOLD_DAYS:
-            to_sell.append(pos)
-            logger.info(f"최대 보유일 초과({hold_days}일): {pos['name']}({pos['code']})")
-        elif pnl >= CARRY_OVER_THRESHOLD:
+        # 보유일수 연동 장 마감 보유 기준
+        carry_threshold = get_carry_threshold(hold_days)
+        if pnl >= carry_threshold:
             to_carry.append(pos)
+            pos["_hold_days"] = hold_days
+            pos["_carry_threshold"] = carry_threshold
         else:
             to_sell.append(pos)
         await asyncio.sleep(0.2)
@@ -645,12 +675,13 @@ async def sell_all_positions_market():
     if to_carry:
         carry_lines = []
         for pos in to_carry:
-            carry_lines.append(f"  {pos['name']}({pos['code']}) {pos['_pnl']:+.2f}%")
-        logger.info(f"익일 보유: {len(to_carry)}종목 (수익 +{CARRY_OVER_THRESHOLD}% 이상)")
+            d = pos.get("_hold_days", 0)
+            thr = pos.get("_carry_threshold", 3)
+            carry_lines.append(f"  {pos['name']}({pos['code']}) {pos['_pnl']:+.2f}% (D+{d}, 기준 +{thr}%)")
+        logger.info(f"익일 보유: {len(to_carry)}종목")
         await send_telegram(
             f"<b>📌 익일 보유 ({len(to_carry)}종목)</b>\n"
-            f"수익 +{CARRY_OVER_THRESHOLD}% 이상 → 보유 유지\n"
-            f"익절 목표: +10%, trailing stop: -3%\n\n"
+            f"보유일별 기준 충족 → 보유 유지\n\n"
             + "\n".join(carry_lines)
         )
 
