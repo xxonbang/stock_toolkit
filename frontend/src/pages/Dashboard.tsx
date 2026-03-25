@@ -7,6 +7,7 @@ import {
 import {
   TrendingUp, TrendingDown, Shield,
   Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X,
+  Globe, Flame, Target, AlertTriangle, Lightbulb, Search, Bot, Circle, Pin,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -385,11 +386,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
   // 카테고리 퀵 네비게이션
   const categories = [
-    { id: "cat-market", label: "시장", icon: "📊" },
-    { id: "cat-signal", label: "신호", icon: "🎯" },
-    { id: "cat-analysis", label: "분석", icon: "🔍" },
-    { id: "cat-strategy", label: "전략", icon: "⚡" },
-    { id: "cat-system", label: "시스템", icon: "🤖" },
+    { id: "cat-market", label: "시장", icon: <BarChart3 size={14} /> },
+    { id: "cat-signal", label: "신호", icon: <Target size={14} /> },
+    { id: "cat-analysis", label: "분석", icon: <Search size={14} /> },
+    { id: "cat-strategy", label: "전략", icon: <Zap size={14} /> },
+    { id: "cat-system", label: "시스템", icon: <Bot size={14} /> },
   ];
   const [activeCategory, setActiveCategory] = useState("cat-market");
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -729,7 +730,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {/* 분석 데이터 없음 안내 */}
             {stockDetail._noData && (
               <div className="text-center py-8">
-                <div className="text-2xl mb-2">📊</div>
+                <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
                 <div className="text-sm t-text-sub mb-1">분석 데이터가 아직 없습니다</div>
                 <div className="text-[11px] t-text-dim">이 종목은 현재 AI 분석 대상에 포함되지 않았습니다.<br/>다음 분석 시점에 포함될 수 있습니다.</div>
               </div>
@@ -849,10 +850,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div>
                 <div className="text-[10px] t-text-dim mb-1">단계</div>
                 <div className="text-sm font-medium t-text">
-                  {lifecyclePopup.stage === "탄생" && "🟢 탄생 — 테마 초기 등장. 대장주 중심으로 관심 종목 형성 시작."}
-                  {lifecyclePopup.stage === "성장" && "🟡 성장 — 테마 확산 중. 종목 수와 거래량 증가, 수익 기대 구간."}
-                  {lifecyclePopup.stage === "과열" && "🔴 과열 — 급등 후 과열 경고. 차익 실현 및 리스크 관리 필요."}
-                  {lifecyclePopup.stage === "쇠퇴" && "⚪ 쇠퇴 — 관심 감소, 거래량 축소. 신규 진입 비추천."}
+                  {lifecyclePopup.stage === "탄생" && <><Circle size={12} className="inline text-emerald-400 fill-emerald-400 mr-1" /> 탄생 — 테마 초기 등장. 대장주 중심으로 관심 종목 형성 시작.</>}
+                  {lifecyclePopup.stage === "성장" && <><Circle size={12} className="inline text-amber-400 fill-amber-400 mr-1" /> 성장 — 테마 확산 중. 종목 수와 거래량 증가, 수익 기대 구간.</>}
+                  {lifecyclePopup.stage === "과열" && <><Circle size={12} className="inline text-red-400 fill-red-400 mr-1" /> 과열 — 급등 후 과열 경고. 차익 실현 및 리스크 관리 필요.</>}
+                  {lifecyclePopup.stage === "쇠퇴" && <><Circle size={12} className="inline text-gray-400 fill-gray-400 mr-1" /> 쇠퇴 — 관심 감소, 거래량 축소. 신규 진입 비추천.</>}
                 </div>
               </div>
               {lifecyclePopup.strategy && (
@@ -1049,9 +1050,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           if (title.includes("전략") || title.includes("제안")) return "전략 제안";
           return title;
         };
-        const iconMap: Record<string, string> = {
-          "글로벌 환경": "🌍", "오늘의 주목 테마": "🔥", "고확신 종목": "🎯",
-          "주의 종목": "⚠️", "전략 제안": "💡",
+        const iconMap: Record<string, React.ReactNode> = {
+          "글로벌 환경": <Globe size={16} />, "오늘의 주목 테마": <Flame size={16} />, "고확신 종목": <Target size={16} />,
+          "주의 종목": <AlertTriangle size={16} />, "전략 제안": <Lightbulb size={16} />,
         };
         const accentMap: Record<string, string> = {
           "글로벌 환경": "border-l-slate-400", "오늘의 주목 테마": "border-l-cyan-400",
@@ -1114,7 +1115,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               return (
               <div key={i} className={`rounded-xl border t-border-light border-l-[3px] ${accentMap[key] || "border-l-gray-400"} t-card-alt p-4`}>
                 <div className="flex items-center gap-2 mb-2.5">
-                  <span className="text-base">{iconMap[key] || "📌"}</span>
+                  <span className="text-base">{iconMap[key] || <Pin size={16} />}</span>
                   <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
                 </div>
                 <div className="space-y-1">
@@ -1130,7 +1131,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {performance?.theme_forecast?.themes?.length > 0 && (
               <div className="rounded-xl border t-border-light border-l-[3px] border-l-cyan-400/60 t-card-alt p-4">
                 <div className="flex items-center gap-2 mb-2.5">
-                  <span className="text-base">🔥</span>
+                  <Flame size={16} />
                   <span className="text-[13px] font-bold t-text tracking-tight">오늘의 주목 테마</span>
                 </div>
                 {performance.theme_forecast.market_context && (
@@ -1367,7 +1368,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {/* 내 포트폴리오 — 포트폴리오 탭에서만 표시 */}
       {isPortfolioPage && (!supaUser ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="text-3xl mb-3">📊</div>
+          <BarChart3 size={28} className="mx-auto mb-3 t-text-dim" />
           <div className="text-sm font-semibold t-text mb-1">내 포트폴리오</div>
           <div className="text-[12px] t-text-sub mb-4">로그인하면 보유 종목을 관리하고<br/>실시간 수익률을 확인할 수 있습니다.</div>
           <button onClick={() => setShowLogin(true)}
@@ -1375,7 +1376,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </section>
       ) : !portfolio ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="text-2xl mb-2">📊</div>
+          <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
           <div className="text-sm t-text-sub">포트폴리오 데이터 로딩 중...</div>
         </section>
       ) : (() => {
@@ -1884,13 +1885,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <SectionHeader id="consecutive" timestamp={ts}>연속 시그널</SectionHeader>
           {consecutiveSignals.and_condition?.length > 0 && (
             <div className="mb-3">
-              <div className="text-[11px] font-semibold text-red-400 mb-1.5">🔥 매수 + 대장주 동시 (AND)</div>
+              <div className="text-[11px] font-semibold text-red-400 mb-1.5 flex items-center gap-1"><Flame size={12} /> 매수 + 대장주 동시 (AND)</div>
               <div className="space-y-1">{renderList(consecutiveSignals.and_condition, "text-red-400", true)}</div>
             </div>
           )}
           {consecutiveSignals.or_condition?.length > 0 && (
             <div>
-              <div className="text-[11px] font-semibold text-amber-400 mb-1.5">📊 매수 또는 대장주 (OR)</div>
+              <div className="text-[11px] font-semibold text-amber-400 mb-1.5 flex items-center gap-1"><BarChart3 size={12} /> 매수 또는 대장주 (OR)</div>
               <div className="space-y-1">{renderList(consecutiveSignals.or_condition.slice(0, 15), "text-amber-400", false)}</div>
             </div>
           )}
