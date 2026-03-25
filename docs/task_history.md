@@ -1,5 +1,12 @@
 # Task History
 
+## 2026-03-25
+
+### [버그픽스] 모의투자 세션 만료 후 무한 로딩 재발 방지 (2026-03-25 17:25 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** sessionExpiredRef로 세션 만료 확정 시 onAuthStateChange/handleVisibility의 loadData 재호출 차단. Supabase SDK 백그라운드 토큰 갱신이 무한 로딩을 유발하는 문제 해결.
+- **커밋:** `679d140`
+
 ## 2026-03-24
 
 ### [버그픽스+개선] dual_signal 재계산, 위험 등급, 패턴 매칭 등 (2026-03-24 23:55 KST)

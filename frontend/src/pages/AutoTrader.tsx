@@ -132,15 +132,16 @@ export default function AutoTrader() {
   async function fetchTrades() {
     setLoading(true);
     try {
-      const { data, error } = await Promise.race([
-        supabase.from("auto_trades").select("*").order("created_at", { ascending: false }),
-        new Promise<{ data: null; error: { message: string } }>((_, reject) =>
-          setTimeout(() => reject({ data: null, error: { message: "timeout" } }), 8000)
-        ),
-      ]);
+      const { data, error } = await supabase
+        .from("auto_trades")
+        .select("*")
+        .order("created_at", { ascending: false });
       if (error) {
-        setSessionExpired(true); sessionExpiredRef.current = true;
-        setUser(null);
+        const msg = (error.message || "").toLowerCase();
+        if (msg.includes("jwt") || msg.includes("token") || msg.includes("auth") || error.code === "PGRST301") {
+          setSessionExpired(true); sessionExpiredRef.current = true;
+          setUser(null);
+        }
         setLoading(false);
         return;
       }
@@ -158,8 +159,7 @@ export default function AutoTrader() {
         }
       }
     } catch {
-      setSessionExpired(true);
-      setUser(null);
+      // 네트워크 오류 등 — 세션 만료가 아님
     }
     setLoading(false);
   }
@@ -312,29 +312,31 @@ export default function AutoTrader() {
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="flex items-center justify-between gap-2">
           <div className="text-xs t-text-dim leading-relaxed">
-            <div className="font-medium t-text mb-0.5">매집 종목 선정 기준</div>
-            <div>{buySignalMode === "leader"
-              ? <span>테마 대장주 <span className="text-emerald-400 font-medium">전체</span> (시그널 무관)</span>
-              : <>테마 대장주 <span className="t-text-dim">+</span> {buySignalMode === "and"
-                ? <span>차트 분석 <span className="text-blue-400 font-medium">AND</span> 기술적 지표 모두 매수</span>
-                : <span>차트 분석 <span className="text-amber-400 font-medium">OR</span> 기술적 지표 중 하나 매수</span>
-              }</>
-            }</div>
+            <div className="font-medium t-text mb-1">매집 종목 선정 기준</div>
+            <div className="flex rounded-lg overflow-hidden border t-border-light">
+              {([
+                { value: "and", label: "AND", desc: "차트+지표 모두", color: "bg-blue-600" },
+                { value: "or", label: "OR", desc: "차트 또는 지표", color: "bg-amber-600" },
+                { value: "leader", label: "대장주", desc: "시그널 무관", color: "bg-emerald-600" },
+              ] as const).map(opt => (
+                <button key={opt.value} onClick={async () => {
+                  if (buySignalMode === opt.value) return;
+                  const prev = buySignalMode;
+                  setBuySignalMode(opt.value);
+                  const ok = await setAlertConfig({ buy_signal_mode: opt.value });
+                  if (!ok) setBuySignalMode(prev);
+                }}
+                  className={`flex-1 py-2 text-center transition ${
+                    buySignalMode === opt.value
+                      ? `${opt.color} text-white`
+                      : "t-text-dim hover:t-text"
+                  }`}>
+                  <div className="text-[11px] font-semibold">{opt.label}</div>
+                  <div className="text-[9px] opacity-70">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
           </div>
-          <button onClick={async () => {
-            const prev = buySignalMode;
-            const next = prev === "and" ? "or" : prev === "or" ? "leader" : "and";
-            setBuySignalMode(next as any);
-            const ok = await setAlertConfig({ buy_signal_mode: next });
-            if (!ok) setBuySignalMode(prev);
-          }}
-            className={`text-[11px] font-medium px-3 py-1.5 rounded-lg transition shrink-0 ${
-              buySignalMode === "and" ? "bg-blue-600 text-white" :
-              buySignalMode === "or" ? "bg-amber-600 text-white" :
-              "bg-emerald-600 text-white"
-            }`}>
-            {buySignalMode === "and" ? "AND" : buySignalMode === "or" ? "OR" : "대장주"}
-          </button>
         </div>
       </div>
 
