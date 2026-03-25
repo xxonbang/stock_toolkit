@@ -153,6 +153,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
 
+  // 모달/bottom sheet 열림 시 body 스크롤 잠금
+  const anyModalOpen = !!(stockDetail || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showPortfolioEdit);
+  useEffect(() => {
+    document.body.style.overflow = anyModalOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [anyModalOpen]);
+
   // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
   useEffect(() => {
     if (!portfolioRaw?.holdings) return;
