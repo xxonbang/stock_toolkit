@@ -70,9 +70,11 @@ def _order_headers(token: str, tr_id: str) -> dict:
 
 
 def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
-    """고확신 종목 필터: 대장주 AND (vision+api 매수). mode='or'이면 vision OR api."""
+    """고확신 종목 필터. mode: 'and'=vision+api 모두, 'or'=둘 중 하나, 'leader'=대장주 전체."""
     if not signals:
         return []
+    if mode == "leader":
+        return list(signals)  # cross_signal에 포함 = 이미 대장주, 시그널 무관
     if mode == "or":
         return [
             s for s in signals

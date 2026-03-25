@@ -2,6 +2,11 @@
 
 ## 2026-03-24
 
+### [버그픽스+개선] dual_signal 재계산, 위험 등급, 패턴 매칭 등 (2026-03-24 23:55 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`, `frontend/src/lib/supabase.ts`, `scripts/run_all.py`
+- **내용:** 상세 팝업 dual_signal을 실제 vision/api 기반 재계산, 중립 신호 방향 뱃지 미표시, 위험 종목 등급화+보유 종목 강조+외인 금액, 차트 패턴 matches 0건 미표시+name 빈값 fallback, HelpDialog 스크롤+sticky 헤더
+- **커밋:** `2b4aa6e`
+
 ### [기능] AI 주목 종목 분류 + 이상 거래 급등 확인 뱃지 (2026-03-24 23:35 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/AutoTrader.tsx`
 - **내용:** AI 주목 종목 4단계 카테고리 분류(고확신/대장주/매수일치/매수) + 연속일수/수급/테마 컨텍스트 표시. 이상 거래에 급등 확인 뱃지(10~25%+거래량x2) 추가, 뱃지 클릭 시 설명 팝업.

@@ -60,7 +60,8 @@ export default function AutoTrader() {
   const [showPctEdit, setShowPctEdit] = useState(false);
   const [pctSaving, setPctSaving] = useState(false);
   const [pctResult, setPctResult] = useState("");
-  const [buySignalMode, setBuySignalMode] = useState<"and" | "or">("and");
+  const [sessionExpired, setSessionExpired] = useState(false);
+  const [buySignalMode, setBuySignalMode] = useState<"and" | "or" | "leader">("and");
 
   useEffect(() => {
     function loadData(u: any) {
@@ -72,7 +73,7 @@ export default function AutoTrader() {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
-          setBuySignalMode(buy_signal_mode === "or" ? "or" : "and");
+          setBuySignalMode(buy_signal_mode === "or" ? "or" : buy_signal_mode === "leader" ? "leader" : "and");
         }).catch(() => {});
       } else {
         setLoading(false);
@@ -128,13 +129,20 @@ export default function AutoTrader() {
   async function fetchTrades() {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("auto_trades")
-        .select("*")
-        .order("created_at", { ascending: false });
-      if (!error && data) {
+      const { data, error } = await Promise.race([
+        supabase.from("auto_trades").select("*").order("created_at", { ascending: false }),
+        new Promise<{ data: null; error: { message: string } }>((_, reject) =>
+          setTimeout(() => reject({ data: null, error: { message: "timeout" } }), 8000)
+        ),
+      ]);
+      if (error) {
+        setSessionExpired(true);
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      if (data) {
         setTrades(data as Trade[]);
-        // 보유 종목이 있으면 자동으로 시세 조회
         const activeCodes = (data as Trade[]).filter(t => t.status === "filled").map(t => t.code).filter(Boolean);
         if (activeCodes.length > 0) {
           fetchKisPrices(activeCodes).then(kisData => {
@@ -146,7 +154,10 @@ export default function AutoTrader() {
           }).catch(() => {});
         }
       }
-    } catch {}
+    } catch {
+      setSessionExpired(true);
+      setUser(null);
+    }
     setLoading(false);
   }
 
@@ -217,9 +228,9 @@ export default function AutoTrader() {
   if (!user) {
     return (
       <div className="text-center py-20 t-text-sub">
-        <div className="text-3xl mb-3">🔒</div>
-        <div className="text-sm font-medium t-text mb-1">로그인이 필요합니다</div>
-        <div className="text-xs t-text-dim">모의투자 현황을 확인하려면 로그인해주세요</div>
+        <div className="text-3xl mb-3">{sessionExpired ? "⏰" : "🔒"}</div>
+        <div className="text-sm font-medium t-text mb-1">{sessionExpired ? "세션이 만료되었습니다" : "로그인이 필요합니다"}</div>
+        <div className="text-xs t-text-dim">{sessionExpired ? "다시 로그인해주세요" : "모의투자 현황을 확인하려면 로그인해주세요"}</div>
       </div>
     );
   }
@@ -299,20 +310,27 @@ export default function AutoTrader() {
         <div className="flex items-center justify-between gap-2">
           <div className="text-xs t-text-dim leading-relaxed">
             <div className="font-medium t-text mb-0.5">매집 종목 선정 기준</div>
-            <div>테마 대장주 <span className="t-text-dim">+</span> {buySignalMode === "and"
-              ? <span>차트 분석 <span className="text-blue-400 font-medium">AND</span> 기술적 지표 모두 매수</span>
-              : <span>차트 분석 <span className="text-amber-400 font-medium">OR</span> 기술적 지표 중 하나 매수</span>
+            <div>{buySignalMode === "leader"
+              ? <span>테마 대장주 <span className="text-emerald-400 font-medium">전체</span> (시그널 무관)</span>
+              : <>테마 대장주 <span className="t-text-dim">+</span> {buySignalMode === "and"
+                ? <span>차트 분석 <span className="text-blue-400 font-medium">AND</span> 기술적 지표 모두 매수</span>
+                : <span>차트 분석 <span className="text-amber-400 font-medium">OR</span> 기술적 지표 중 하나 매수</span>
+              }</>
             }</div>
           </div>
           <button onClick={async () => {
             const prev = buySignalMode;
-            const next = prev === "and" ? "or" : "and";
-            setBuySignalMode(next);
+            const next = prev === "and" ? "or" : prev === "or" ? "leader" : "and";
+            setBuySignalMode(next as any);
             const ok = await setAlertConfig({ buy_signal_mode: next });
             if (!ok) setBuySignalMode(prev);
           }}
-            className={`text-[11px] font-medium px-3 py-1.5 rounded-lg transition shrink-0 ${buySignalMode === "and" ? "bg-blue-600 text-white" : "bg-amber-600 text-white"}`}>
-            {buySignalMode === "and" ? "AND" : "OR"}
+            className={`text-[11px] font-medium px-3 py-1.5 rounded-lg transition shrink-0 ${
+              buySignalMode === "and" ? "bg-blue-600 text-white" :
+              buySignalMode === "or" ? "bg-amber-600 text-white" :
+              "bg-emerald-600 text-white"
+            }`}>
+            {buySignalMode === "and" ? "AND" : buySignalMode === "or" ? "OR" : "대장주"}
           </button>
         </div>
       </div>

@@ -30,6 +30,15 @@ def test_filter_high_confidence_or_mode():
     assert "999999" not in codes  # 둘 다 중립 → 탈락
 
 
+def test_filter_high_confidence_leader_mode():
+    signals = [
+        {"code": "005930", "vision_signal": "매수", "api_signal": "매수"},
+        {"code": "000660", "vision_signal": "중립", "api_signal": "중립"},
+    ]
+    result = filter_high_confidence(signals, mode="leader")
+    assert len(result) == 2  # 대장주 전체 통과, 시그널 무관
+
+
 def test_filter_high_confidence_empty():
     assert filter_high_confidence([]) == []
     assert filter_high_confidence(None) == []
