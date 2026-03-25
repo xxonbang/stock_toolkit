@@ -137,7 +137,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [correlationData, setCorrelationData] = useState<any>(null);
   const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
   const [aiMentor, setAiMentor] = useState<any>(null);
-  const [tradingJournal, setTradingJournal] = useState<any>(null);
   const [memberTrading, setMemberTrading] = useState<any[] | null>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [paperTrading, setPaperTrading] = useState<any>(null);
@@ -217,7 +216,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       dataService.getCorrelation().then(setCorrelationData),
       dataService.getEarningsCalendar().then(setEarningsCalendar),
       dataService.getAiMentor().then(setAiMentor),
-      dataService.getTradingJournal().then(setTradingJournal),
       dataService.getMemberTrading().then(setMemberTrading),
       dataService.getTradingValue().then(setTradingValue),
       dataService.getPaperTrading().then(setPaperTrading),
@@ -3126,23 +3124,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <p className="text-[10px] t-text-dim">최근 장중 가집계 시점 기준 종목별 투자자 동향</p>
         </div>
         {!intradayStockFlow?.length && <Empty />}
-      </section>
-
-      {/* 매매 일지 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="journal" timestamp={ts} count={tradingJournal?.entries?.length ?? 0}>매매 일지</SectionHeader>
-        <div className="space-y-1.5">
-          {(tradingJournal?.entries || []).map((e: any, i: number) => (
-            <div key={i} className="p-2.5 t-card-alt rounded-lg">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium">{e.name}</span>
-                <Badge variant={e.action === "매수" ? "danger" : "blue"}>{e.action}</Badge>
-              </div>
-              <div className="text-xs t-text-sub">{e.date} · {e.reason}</div>
-            </div>
-          ))}
-        </div>
-        {!(tradingJournal?.entries || []).length && <Empty />}
       </section>
 
       {/* 최상단 이동 플로팅 버튼 */}
