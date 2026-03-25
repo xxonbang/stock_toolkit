@@ -1788,10 +1788,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         allBuy.sort((a, b) => (catOrder[a.cat] ?? 9) - (catOrder[b.cat] ?? 9) || b.score - a.score);
 
         const catStyle: Record<string, { bg: string; text: string; border: string }> = {
-          "고확신": { bg: "bg-red-500/15", text: "text-red-400", border: "border-red-500/20" },
-          "대장주": { bg: "bg-orange-500/12", text: "text-orange-400", border: "border-orange-500/20" },
-          "매수 일치": { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/15" },
-          "매수": { bg: "bg-gray-500/8", text: "t-text-sub", border: "border-gray-500/10" },
+          "고확신": { bg: "t-card-alt", text: "text-red-500", border: "border-l-[3px] border-l-red-500 border t-border-light" },
+          "대장주": { bg: "t-card-alt", text: "text-orange-500", border: "border-l-[3px] border-l-orange-400 border t-border-light" },
+          "매수 일치": { bg: "t-card-alt", text: "text-blue-500", border: "border-l-[3px] border-l-blue-400 border t-border-light" },
+          "매수": { bg: "t-card-alt", text: "t-text", border: "border t-border-light" },
         };
 
         // 카테고리별 그룹핑
@@ -1823,9 +1823,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                           className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border cursor-pointer hover:opacity-80 transition ${style.bg} ${style.border}`}>
                           <div className="flex items-center gap-1.5 min-w-0">
                             <span className={`text-[13px] font-medium truncate ${style.text}`}>{s.name}</span>
-                            {streak && <span className="text-[9px] px-1 py-0.5 rounded bg-amber-500/15 text-amber-400">{streak}일 연속</span>}
+                            {streak && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-500 font-medium">{streak}일 연속</span>}
                             {foreignNet != null && foreignNet !== 0 && (
-                              <span className={`text-[9px] px-1 py-0.5 rounded ${foreignNet > 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
+                              <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${foreignNet > 0 ? "bg-red-500/10 text-red-500" : "bg-blue-500/10 text-blue-500"}`}>
                                 외인{foreignNet > 0 ? "↑" : "↓"}
                               </span>
                             )}
