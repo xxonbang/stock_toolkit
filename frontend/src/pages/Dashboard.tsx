@@ -139,7 +139,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [aiMentor, setAiMentor] = useState<any>(null);
   const [memberTrading, setMemberTrading] = useState<any[] | null>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
-  const [paperTrading, setPaperTrading] = useState<any>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
   const [signalConsistency, setSignalConsistency] = useState<any[] | null>(null);
@@ -217,7 +216,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       dataService.getAiMentor().then(setAiMentor),
       dataService.getMemberTrading().then(setMemberTrading),
       dataService.getTradingValue().then(setTradingValue),
-      dataService.getPaperTrading().then(setPaperTrading),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
       fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
       dataService.getSignalConsistency().then(setSignalConsistency),
@@ -2937,82 +2935,134 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="trading_value" timestamp={ts} count={tradingValue?.length ?? 0}>거래대금 TOP</SectionHeader>
         <div className="space-y-1.5">
-          {(tradingValue || []).slice(0, 10).map((tv, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+          {(tradingValue || []).slice(0, 10).map((tv: any, i: number) => {
+            const vr = tv.volume_rate || 0;
+            const cr = tv.change_rate || 0;
+            const isSurge = vr >= 200 && cr >= 10;
+            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === tv.code);
+            return (
+            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+              onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: tv.name, code: tv.code, _noData: true })}>
               <div className="flex items-center gap-2 min-w-0">
                 <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold flex items-center justify-center shrink-0">
-                  {i + 1}
+                  {tv.rank || i + 1}
                 </div>
-                <span className="text-sm font-medium truncate">{tv.name}</span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-medium truncate">{tv.name}</span>
+                    {tv.is_new && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400 font-medium">NEW</span>}
+                    {isSurge && <span className="text-[9px] px-1 py-0.5 rounded bg-red-500/15 text-red-400 font-medium">폭증+급등</span>}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] t-text-dim">
+                    {vr > 0 && <span>거래량 {vr >= 100 ? `${Math.round(vr)}%` : `${vr.toFixed(0)}%`}</span>}
+                    {tv.rank_change != null && tv.rank_change !== 0 && (
+                      <span className={tv.rank_change > 0 ? "text-red-500" : "text-blue-500"}>
+                        {tv.rank_change > 0 ? `+${tv.rank_change}` : tv.rank_change}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="text-right shrink-0 text-xs">
-                <div className={`font-medium ${(tv.change_rate || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                  {(tv.change_rate || 0) >= 0 ? "+" : ""}{tv.change_rate}%
+                <div className={`font-medium ${cr >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                  {cr >= 0 ? "+" : ""}{cr}%
                 </div>
-                {tv.trading_value && <div className="t-text-dim">거래대금 {(tv.trading_value / 100000000).toFixed(0)}억원</div>}
+                {tv.trading_value && <div className="t-text-dim">{(tv.trading_value / 100000000).toFixed(0)}억</div>}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
         {!tradingValue?.length && <Empty />}
-      </section>
-
-      {/* 모의투자 현황 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="paper_trading" timestamp={ts}>모의투자 현황</SectionHeader>
-        {paperTrading?.stocks?.length ? (
-          <div className="space-y-1.5">
-            <div className="text-xs t-text-sub mb-2">날짜: {paperTrading.date}</div>
-            {paperTrading.stocks.slice(0, 6).map((s: any, i: number) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <span className="text-sm font-medium truncate">{s.name || s.code}</span>
-                <div className="text-right shrink-0 text-xs">
-                  {s.return_pct != null && (
-                    <span className={`font-medium ${s.return_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                      {s.return_pct >= 0 ? "+" : ""}{s.return_pct}%
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-            {paperTrading.summary && (
-              <div className="text-xs t-text-sub mt-2 bg-blue-500/10 rounded p-2">
-                총 수익률: {paperTrading.summary.total_return ?? "-"}%
-              </div>
-            )}
-          </div>
-        ) : <Empty />}
       </section>
 
       {/* 예측 적중률 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="forecast" timestamp={ts}>예측 적중률</SectionHeader>
-        {forecastAccuracy?.overall_accuracy != null && (
+        {(() => {
+          const preds = forecastAccuracy?.predictions || [];
+          if (!preds.length) return <Empty />;
+          // 날짜별 합산
+          const byDate: Record<string, { total: number; hits: number; themes: { name: string; hit: boolean; confidence?: string }[] }> = {};
+          for (const p of preds) {
+            const d = p.date;
+            if (!byDate[d]) byDate[d] = { total: 0, hits: 0, themes: [] };
+            for (let i = 0; i < (p.themes || []).length; i++) {
+              const hit = p.hits?.[i] ?? false;
+              byDate[d].total++;
+              if (hit) byDate[d].hits++;
+              byDate[d].themes.push({ name: p.themes[i], hit, confidence: p.confidence?.[i] });
+            }
+          }
+          const dates = Object.keys(byDate).sort().reverse();
+
+          // 테마 대분류별 적중률
+          const catMap: Record<string, { total: number; hits: number }> = {};
+          for (const p of preds) {
+            for (const det of p.details || []) {
+              let cat = det.theme;
+              if (/AI|반도체|HBM|5G/.test(cat)) cat = "AI/반도체";
+              else if (/2차전지|전기차/.test(cat)) cat = "2차전지";
+              else if (/바이오|헬스|제약/.test(cat)) cat = "바이오";
+              else if (/건설|인프라/.test(cat)) cat = "건설";
+              else if (/에너지|원전|신재생|유가|정유/.test(cat)) cat = "에너지";
+              else if (/해운|물류/.test(cat)) cat = "해운";
+              else if (/방산/.test(cat)) cat = "방산";
+              else if (/증권|금융|밸류/.test(cat)) cat = "금융";
+              else cat = "기타";
+              if (!catMap[cat]) catMap[cat] = { total: 0, hits: 0 };
+              catMap[cat].total++;
+              if (det.hit) catMap[cat].hits++;
+            }
+          }
+          const cats = Object.entries(catMap).sort((a, b) => b[1].total - a[1].total);
+          const overall = forecastAccuracy?.overall_accuracy ?? 0;
+
+          return (<>
+          {/* 전체 적중률 + 테마별 신뢰도 */}
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-2xl font-bold t-text">{forecastAccuracy.overall_accuracy}%</div>
+            <div className="text-2xl font-bold t-text">{overall}%</div>
             <div className="text-xs t-text-sub">
-              전체 적중률 ({forecastAccuracy.total_hits}/{forecastAccuracy.total_predictions})
+              전체 적중률 ({forecastAccuracy?.total_hits}/{forecastAccuracy?.total_predictions})
             </div>
           </div>
-        )}
-        <div className="space-y-1.5">
-          {(forecastAccuracy?.predictions || []).map((fc: any, i: number) => (
-            <div key={i} className="p-2 t-card-alt rounded-lg">
-              <div className="flex justify-between text-xs t-text-sub mb-1">
-                <span>{fc.date}</span>
-                <span>{fc.hit_count}/{fc.total} 적중</span>
+          {/* 테마별 적중률 — 투자 신뢰도 지표 */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {cats.map(([cat, v]) => {
+              const rate = v.total ? Math.round(v.hits / v.total * 100) : 0;
+              const color = rate >= 70 ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/20" : rate >= 40 ? "bg-amber-500/10 text-amber-400 border-amber-500/20" : "bg-red-500/10 text-red-400 border-red-500/20";
+              return (
+                <span key={cat} className={`text-[10px] px-2 py-0.5 rounded-full border font-medium ${color}`}>
+                  {cat} {rate}% <span className="opacity-60">({v.hits}/{v.total})</span>
+                </span>
+              );
+            })}
+          </div>
+          <p className="text-[10px] t-text-dim mb-2">테마별 적중률이 높을수록 해당 테마 예측 신뢰도 높음</p>
+          {/* 일별 합산 (최근 5일) */}
+          <div className="space-y-1.5">
+            {dates.slice(0, 5).map((d) => {
+              const info = byDate[d];
+              const rate = info.total ? Math.round(info.hits / info.total * 100) : 0;
+              // 적중/미적중 테마를 각각 중복 제거
+              const hitThemes = [...new Set(info.themes.filter(t => t.hit).map(t => t.name))];
+              const missThemes = [...new Set(info.themes.filter(t => !t.hit).map(t => t.name))];
+              return (
+              <div key={d} className="p-2 t-card-alt rounded-lg">
+                <div className="flex justify-between text-xs t-text-sub mb-1">
+                  <span>{d}</span>
+                  <span className={rate >= 60 ? "text-emerald-400" : rate >= 40 ? "text-amber-400" : "text-red-400"}>{info.hits}/{info.total} 적중 ({rate}%)</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {hitThemes.map((t, j) => <Badge key={`h${j}`} variant="success">{t}</Badge>)}
+                  {missThemes.map((t, j) => <Badge key={`m${j}`} variant="default">{t}</Badge>)}
+                </div>
               </div>
-              <div className="flex flex-wrap gap-1">
-                {(fc.themes || []).map((t: string, j: number) => (
-                  <Badge key={j} variant={fc.hits?.[j] ? "success" : "default"}>
-                    {fc.hits?.[j] ? "✓ " : ""}{t}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        {!(forecastAccuracy?.predictions || []).length && <Empty />}
+              );
+            })}
+          </div>
+          </>);
+        })()}
       </section>
 
       {/* Volume Profile 지지/저항 경보 */}
@@ -3038,8 +3088,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
               <div className="flex items-center gap-2 text-[10px]">
                 {cp > 0 && <span className="t-text">현재 {cp.toLocaleString()}원</span>}
-                {sup > 0 && <span className="t-text-dim">지지 {sup.toLocaleString()}<span className={gapSup >= 0 ? "text-red-500" : "text-blue-500"}> ({gapSup >= 0 ? "+" : ""}{gapSup}%)</span></span>}
-                {res > 0 && res !== sup && <span className="t-text-dim">저항 {res.toLocaleString()}<span className={gapRes <= 0 ? "text-red-500" : "text-blue-500"}> ({gapRes >= 0 ? "+" : ""}{-gapRes}%)</span></span>}
+                {sup > 0 && sup === res ? (
+                  <span className="t-text-dim">매물대 {sup.toLocaleString()}<span className={gapSup >= 0 ? "text-red-500" : "text-blue-500"}> ({gapSup >= 0 ? "+" : ""}{gapSup}%)</span></span>
+                ) : (<>
+                  {sup > 0 && <span className="t-text-dim">지지 {sup.toLocaleString()}<span className={gapSup >= 0 ? "text-red-500" : "text-blue-500"}> ({gapSup >= 0 ? "+" : ""}{gapSup}%)</span></span>}
+                  {res > 0 && <span className="t-text-dim">저항 {res.toLocaleString()}<span className={gapRes <= 0 ? "text-red-500" : "text-blue-500"}> ({gapRes >= 0 ? "+" : ""}{-gapRes}%)</span></span>}
+                </>)}
               </div>
             </div>
             );
