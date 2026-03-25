@@ -2,6 +2,57 @@
 
 ## 2026-03-25
 
+### [개선] 모의투자 제거 + 예측 적중률 압축 + 거래대금 TOP 개선 (2026-03-26 00:05 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`
+- **내용:** 모의투자 현황(theme_analysis 데이터) 제거. 예측 적중률 날짜별 합산+테마별 적중률 뱃지 추가. 거래대금 TOP에 거래량 비율/순위 변동/NEW/폭증+급등 뱃지/클릭 팝업 추가.
+- **커밋:** `1f70379`
+
+### [개선] 매물대 지지/저항 경보 데이터 교체 + 도움말 현행화 (2026-03-25 23:40 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`
+- **내용:** volume_profile_alerts.json으로 교체 — 현재가+상태 뱃지+괴리율 표시, 클릭 팝업, 도움말 현행화
+- **커밋:** `a89d9ef`
+
+### [리팩토링] 시뮬레이션 히스토리 제거 + 신호 변동 모니터 교체 (2026-03-25 23:25 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 시뮬레이션 히스토리(더미 데이터) 제거. 신호 일관성→신호 변동 모니터로 교체 — 중립 반복 제외, 시그널 변경 종목만 표시(매수/매도 전환 뱃지, 클릭 팝업)
+- **커밋:** `0ab9346`
+
+### [개선] 장중 종목별 수급 — 종목명, 쌍끌이 뱃지, 시그널 연계, 클릭 팝업 (2026-03-25 23:00 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** stock-master 초기 로드로 종목명 매핑, 외국인+기관 동시 매수/매도 쌍끌이 뱃지, 시그널 뱃지 연계, 의미순 정렬, 종목 클릭 상세 팝업
+- **커밋:** `884ddba`
+
+### [리팩토링] 대시보드 매매 일지 섹션 제거 (2026-03-25 22:45 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 매매 일지 섹션 제거 — 보유 종목 스냅샷일 뿐 실제 매매 기록이 아니며 포트폴리오 탭과 정보 중복
+- **커밋:** `131cb0c`
+
+### [개선] 편집 버튼 상단 이동 + 하단 퀵 네비 높이 확대 (2026-03-25 22:30 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 편집 버튼을 건강도 영역 → refresh 버튼 우측으로 이동. 하단 카테고리 네비 터치 영역 확대(py-2→py-3, 패딩 추가).
+- **커밋:** `893e516`
+
+### [개선] 건강도 5축 가중 점수 + 계산 방법 설명 팝업 (2026-03-25 22:20 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 건강도를 서버 단일값 → 프론트 5축 가중 점수(수익/시그널/수급/분산/위험)로 교체. 축별 미니 바 + HelpCircle 클릭 시 설명 팝업 추가.
+- **커밋:** `6d55ba2`
+
+### [버그픽스] 포트폴리오 종목 상세 팝업 데이터 누락 수정 (2026-03-25 22:05 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 팝업 검색 대상에 portfolioRaw.holdings 추가 — crossSignal/smartMoney에 없는 보유 종목도 분석 데이터 표시
+- **원인:** crossSignal(4건)+smartMoney(20건)에만 검색하여 포트폴리오 종목이 누락
+- **커밋:** `d851f25`
+
+### [기능] 포트폴리오 종목 카드 클릭 시 상세 팝업 표시 (2026-03-25 21:55 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 포트폴리오 종목 카드 클릭 시 대시보드와 동일한 종목 상세 팝업 표시 (crossSignal/smartMoney 데이터 활용). 체크박스 stopPropagation 처리.
+- **커밋:** `3e7b432`
+
+### [개선] 포트폴리오 탭 — 세션 hang 방지, Lucide 아이콘, 리밸런싱 시그널 기반 (2026-03-25 21:50 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/Scanner.tsx`
+- **내용:** refresh 버튼 세션 유효성 사전 확인+8초 타임아웃, 이모지→Lucide 아이콘 교체, 편집 모달 섹터 입력 제거+자동 병합, 리밸런싱 제안을 시그널/수급/위험/연속매집 데이터 기반으로 교체 (위험도별 색상, 종목당 최대 2개, 우선순위 정렬)
+- **커밋:** `c12b88c`
+
 ### [버그픽스+개선] 세션 만료 오판 수정 + 매집 기준 세그먼트 UI (2026-03-25 17:40 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** fetchTrades에서 Promise.race 타임아웃 제거, 인증 에러(jwt/token/auth)만 세션 만료 처리. 매집 기준 토글을 AND/OR/대장주 3개 세그먼트 버튼으로 변경.

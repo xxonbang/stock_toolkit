@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import {
   TrendingUp, TrendingDown, Shield,
-  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X,
+  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X, HelpCircle,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -82,6 +82,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [showDualExp, setShowDualExp] = useState(false);
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
+  const [showHealthHelp, setShowHealthHelp] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [headerRefreshing, setHeaderRefreshing] = useState(false);
@@ -136,14 +137,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [correlationData, setCorrelationData] = useState<any>(null);
   const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
   const [aiMentor, setAiMentor] = useState<any>(null);
-  const [tradingJournal, setTradingJournal] = useState<any>(null);
   const [memberTrading, setMemberTrading] = useState<any[] | null>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
-  const [paperTrading, setPaperTrading] = useState<any>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
   const [signalConsistency, setSignalConsistency] = useState<any[] | null>(null);
-  const [simulationHistory, setSimulationHistory] = useState<any[] | null>(null);
   const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
   const [consecutiveSignals, setConsecutiveSignals] = useState<any>(null);
@@ -216,15 +214,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       dataService.getCorrelation().then(setCorrelationData),
       dataService.getEarningsCalendar().then(setEarningsCalendar),
       dataService.getAiMentor().then(setAiMentor),
-      dataService.getTradingJournal().then(setTradingJournal),
       dataService.getMemberTrading().then(setMemberTrading),
       dataService.getTradingValue().then(setTradingValue),
-      dataService.getPaperTrading().then(setPaperTrading),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
-      dataService.getVolumeProfile().then(setVolumeProfile),
+      fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
       dataService.getSignalConsistency().then(setSignalConsistency),
-      dataService.getSimulationHistory().then(setSimulationHistory),
       dataService.getIntradayStockFlow().then(setIntradayStockFlow),
+      dataService.getStockMaster().then((m: any) => { if (m?.stocks) setAllStockList(m.stocks.map((s: any) => ({ code: s.code, name: s.name, market: s.market || "" }))); }),
       dataService.getIndicatorHistory().then(setIndicatorHistory),
       dataService.getConsecutiveSignals().then(setConsecutiveSignals),
     ];
@@ -255,11 +251,18 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       let source = "";
       if (supaUser && codes.length > 0) {
         try {
-          const kisData = await fetchKisPrices(codes);
-          for (const [code, p] of Object.entries(kisData)) {
-            if (p.current_price) priceMap[code] = p.current_price;
+          // 세션 유효성 먼저 확인 — 무효 시 Edge Function hang 방지
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.access_token) {
+            const kisData = await Promise.race([
+              fetchKisPrices(codes),
+              new Promise<never>((_, reject) => setTimeout(() => reject(new Error("KIS timeout")), 8000)),
+            ]);
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) priceMap[code] = p.current_price;
+            }
+            if (Object.keys(priceMap).length > 0) source = "KIS";
           }
-          if (Object.keys(priceMap).length > 0) source = "KIS";
         } catch (e) {
           console.warn("KIS Edge Function 실패:", e);
         }
@@ -1371,7 +1374,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {/* 내 포트폴리오 — 포트폴리오 탭에서만 표시 */}
       {isPortfolioPage && (!supaUser ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="text-3xl mb-3">📊</div>
+          <div className="mb-3 flex justify-center"><BarChart3 size={28} className="t-text-dim" /></div>
           <div className="text-sm font-semibold t-text mb-1">내 포트폴리오</div>
           <div className="text-[12px] t-text-sub mb-4">로그인하면 보유 종목을 관리하고<br/>실시간 수익률을 확인할 수 있습니다.</div>
           <button onClick={() => setShowLogin(true)}
@@ -1379,7 +1382,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </section>
       ) : !portfolio ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="text-2xl mb-2">📊</div>
+          <div className="mb-2 flex justify-center"><BarChart3 size={24} className="t-text-dim animate-pulse" /></div>
           <div className="text-sm t-text-sub">포트폴리오 데이터 로딩 중...</div>
         </section>
       ) : (() => {
@@ -1400,6 +1403,17 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 className="p-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition disabled:opacity-50">
                 <RefreshCw size={16} className={`text-emerald-500 ${priceRefreshing ? "animate-spin" : ""}`} />
               </button>
+              <button onClick={() => {
+                const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
+                const sectorMap: Record<string, string> = {};
+                for (const hh of portfolio.holdings || []) if (hh.code && hh.sector) sectorMap[hh.code] = hh.sector;
+                const merged = JSON.parse(JSON.stringify(source)).map((hh: any) => ({
+                  ...hh, sector: hh.sector || sectorMap[hh.code] || "",
+                }));
+                setEditHoldings(merged);
+                setShowPortfolioEdit(true);
+              }}
+                className="text-[11px] px-2.5 py-1.5 rounded-xl border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
             </div>
           </div>
           {/* 총 손익 요약 — 체크된 종목만 계산 */}
@@ -1434,8 +1448,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <div className="space-y-1.5 mb-3">
             {portfolio.holdings?.map((h: any, i: number) => {
               const isExcluded = excludedCodes.has(h.code);
+              const detail = [...(crossSignal || []), ...(smartMoney || []), ...(portfolioRaw?.holdings || [])].find((s: any) => s.code === h.code);
               return (
-              <div key={i} className={`p-2.5 t-card-alt rounded-lg ${isExcluded ? "opacity-40" : ""}`}>
+              <div key={i} className={`p-2.5 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors ${isExcluded ? "opacity-40" : ""}`}
+                onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: h.name, code: h.code, _noData: true })}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 min-w-0">
                     <input type="checkbox" checked={!isExcluded}
@@ -1444,6 +1460,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                         next.has(h.code) ? next.delete(h.code) : next.add(h.code);
                         return next;
                       })}
+                      onClick={(e) => e.stopPropagation()}
                       className="w-4 h-4 rounded accent-blue-500 shrink-0 cursor-pointer" />
                     <div className="min-w-0">
                       <span className="text-sm font-medium t-text">{h.name}</span>
@@ -1474,42 +1491,144 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               );
             })}
           </div>
-          {/* 리밸런싱 제안 — 실제 보유 데이터 기반 계산 */}
+          {/* 리밸런싱 제안 — 시그널+수급+위험 기반 */}
           {(() => {
             const h = portfolio.holdings || [];
-            const suggestions: string[] = [];
-            if (h.length > 0 && h.length < 3) suggestions.push(`보유 ${h.length}종목 — 최소 3~5종목 분산 권장`);
-            const sectors = h.map((x: any) => x.sector).filter(Boolean);
-            if (sectors.length > 0 && new Set(sectors).size < sectors.length) suggestions.push("동일 섹터 편중 — 섹터 분산 필요");
+            const riskMap: Record<string, any> = {};
+            for (const r of riskMonitor || []) if (r.code) riskMap[r.code] = r;
+            const streakMap: Record<string, number> = {};
+            for (const r of (consecutiveSignals?.and_condition || [])) if (r.code) streakMap[r.code] = r.streak;
+            for (const r of (consecutiveSignals?.or_condition || [])) if (r.code && !streakMap[r.code]) streakMap[r.code] = r.streak;
+
+            type Suggestion = { text: string; priority: number; type: "danger" | "warn" | "opportunity" };
+            const suggestions: Suggestion[] = [];
+
             for (const x of h) {
+              const sig = x.signal || "";
+              const isSell = sig.includes("매도");
+              const risk = riskMap[x.code];
+              const riskLevel = risk?.level || "";
+              const foreignNet = x.foreign_net ?? 0;
               const pr = x.profit_rate ?? 0;
-              if (pr <= -5) suggestions.push(`${x.name} 손실 ${pr}% — 손절 검토`);
-              else if (pr >= 20) suggestions.push(`${x.name} 수익 +${pr}% — 익절 검토`);
+              const streak = streakMap[x.code];
+              const items: Suggestion[] = [];
+
+              if (isSell && riskLevel === "높음") items.push({ text: `${x.name} 매도 신호 + 고위험 — 즉시 비중 축소 검토`, priority: 1, type: "danger" });
+              else if (isSell) items.push({ text: `${x.name} 매도 신호 감지 — 비중 축소 검토`, priority: 2, type: "warn" });
+              if (foreignNet < 0 && (riskLevel === "주의" || riskLevel === "높음")) items.push({ text: `${x.name} 외국인 이탈 + ${riskLevel} — 주의 필요`, priority: 3, type: "warn" });
+              if (streak && streak >= 2) items.push({ text: `${x.name} ${streak}일 연속 매집 신호 — 추가 매수 검토`, priority: 4, type: "opportunity" });
+              if (pr <= -5) items.push({ text: `${x.name} 손실 ${pr}% — 손절 검토`, priority: 5, type: "warn" });
+              else if (pr >= 20) items.push({ text: `${x.name} 수익 +${pr}% — 익절 검토`, priority: 6, type: "opportunity" });
+
+              items.sort((a, b) => a.priority - b.priority);
+              suggestions.push(...items.slice(0, 2));
             }
+            const sectors = h.map((x: any) => x.sector).filter(Boolean);
+            if (sectors.length > 0 && new Set(sectors).size < sectors.length) suggestions.push({ text: "동일 섹터 편중 — 섹터 분산 필요", priority: 7, type: "warn" });
+
             if (suggestions.length === 0) return null;
+            suggestions.sort((a, b) => a.priority - b.priority);
+            const typeColor = { danger: "text-red-400", warn: "text-amber-400", opportunity: "text-emerald-400" };
             return (
               <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5 mb-3">
                 <div className="text-xs font-medium text-orange-400 mb-1">리밸런싱 제안</div>
                 {suggestions.map((s, i) => (
-                  <div key={i} className="text-xs t-text-sub">· {s}</div>
+                  <div key={i} className="text-xs t-text-sub">
+                    <span className={typeColor[s.type]}>·</span> {s.text}
+                  </div>
                 ))}
               </div>
             );
           })()}
-          {/* 건강도 */}
+          {/* 건강도 — 다차원 가중 점수 */}
+          {(() => {
+            const h = portfolio.holdings || [];
+            const n = h.length || 1;
+            // 1) 수익 건전성 (30점) — 평균 수익률 기반
+            const avgPr = h.reduce((s: number, x: any) => s + (x.profit_rate ?? 0), 0) / n;
+            const profitScore = Math.max(0, 30 + Math.min(avgPr, 0) * 1.5); // 손실 1%당 -1.5점, 최대 -30
+            // 2) 시그널 정합성 (25점) — 매도 신호 종목 비중
+            const sellCount = h.filter((x: any) => (x.signal || "").includes("매도")).length;
+            const signalScore = Math.max(0, 25 - (sellCount / n) * 50);
+            // 3) 수급 방향 (20점) — 외국인 순매도 종목 비중
+            const foreignSellCount = h.filter((x: any) => (x.foreign_net ?? 0) < 0).length;
+            const supplyScore = Math.max(0, 20 - (foreignSellCount / n) * 40);
+            // 4) 분산도 (15점) — HHI + 종목 수
+            const sectors = h.map((x: any) => x.sector).filter(Boolean);
+            const sectorCounts: Record<string, number> = {};
+            sectors.forEach((s: string) => { sectorCounts[s] = (sectorCounts[s] || 0) + 1; });
+            const hhi = Object.values(sectorCounts).reduce((s: number, c: number) => s + (c / n) ** 2, 0);
+            let diverseScore = 15 * (1 - hhi);
+            if (n < 3) diverseScore = Math.max(0, diverseScore - 5);
+            diverseScore = Math.max(0, diverseScore);
+            // 5) 위험 노출 (10점) — riskMonitor 기반
+            const riskMap2: Record<string, string> = {};
+            for (const r of riskMonitor || []) if (r.code) riskMap2[r.code] = r.level;
+            const highRiskCount = h.filter((x: any) => riskMap2[x.code] === "높음").length;
+            const cautionCount = h.filter((x: any) => riskMap2[x.code] === "주의").length;
+            const riskScore = Math.max(0, 10 - (highRiskCount / n) * 20 - (cautionCount / n) * 8);
+            const total = Math.round(profitScore + signalScore + supplyScore + diverseScore + riskScore);
+            const healthColor = total >= 70 ? "text-emerald-500" : total >= 50 ? "text-amber-500" : "text-red-500";
+            const healthLabel = total >= 70 ? "양호" : total >= 50 ? "보통" : "개선 필요";
+            const axes = [
+              { label: "수익", score: Math.round(profitScore), max: 30 },
+              { label: "시그널", score: Math.round(signalScore), max: 25 },
+              { label: "수급", score: Math.round(supplyScore), max: 20 },
+              { label: "분산", score: Math.round(diverseScore), max: 15 },
+              { label: "위험", score: Math.round(riskScore), max: 10 },
+            ];
+            return (<>
           <div className="flex items-center gap-2 text-xs t-text-dim">
-            <span>건강도 {portfolio.health_score}/100</span>
-            <span className={`font-medium ${portfolio.health_score >= 70 ? "text-emerald-500" : portfolio.health_score >= 50 ? "text-amber-500" : "text-red-500"}`}>
-              {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
-            </span>
-            <button onClick={() => {
-              // DB holdings 우선, 없으면 portfolio.holdings 사용
-              const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
-              setEditHoldings(JSON.parse(JSON.stringify(source)));
-              setShowPortfolioEdit(true);
-            }}
-              className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
+            <span>건강도 {total}/100</span>
+            <span className={`font-medium ${healthColor}`}>{healthLabel}</span>
+            <button onClick={() => setShowHealthHelp(true)} className="t-text-dim hover:t-text-sub"><HelpCircle size={13} /></button>
           </div>
+          {/* 건강도 축별 바 */}
+          <div className="flex gap-1 mt-1.5">
+            {axes.map((a) => (
+              <div key={a.label} className="flex-1" title={`${a.label} ${a.score}/${a.max}`}>
+                <div className="h-1 rounded-full bg-gray-700 overflow-hidden">
+                  <div className="h-full rounded-full transition-all" style={{ width: `${(a.score / a.max) * 100}%`, backgroundColor: (a.score / a.max) >= 0.7 ? "#10b981" : (a.score / a.max) >= 0.4 ? "#f59e0b" : "#ef4444" }} />
+                </div>
+                <div className="text-[8px] t-text-dim text-center mt-0.5">{a.label}</div>
+              </div>
+            ))}
+          </div>
+          {/* 건강도 설명 팝업 */}
+          {showHealthHelp && createPortal(
+            <div className="fixed inset-0 z-[9999]" onClick={() => setShowHealthHelp(false)}>
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+              <div className="fixed bottom-0 left-0 right-0 z-[10000] max-h-[70vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-md sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2"
+                onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold t-text">건강도 계산 방법</h3>
+                  <button onClick={() => setShowHealthHelp(false)} className="t-text-dim hover:t-text"><X size={16} /></button>
+                </div>
+                <div className="space-y-2 text-xs t-text-sub">
+                  <p className="t-text font-medium">5개 축의 합산 점수 (100점 만점)</p>
+                  {axes.map((a) => (
+                    <div key={a.label} className="flex items-center gap-2">
+                      <span className="font-medium t-text w-12">{a.label}</span>
+                      <div className="flex-1 h-1.5 rounded-full bg-gray-700 overflow-hidden">
+                        <div className="h-full rounded-full" style={{ width: `${(a.score / a.max) * 100}%`, backgroundColor: (a.score / a.max) >= 0.7 ? "#10b981" : (a.score / a.max) >= 0.4 ? "#f59e0b" : "#ef4444" }} />
+                      </div>
+                      <span className="w-14 text-right">{a.score}/{a.max}</span>
+                    </div>
+                  ))}
+                  <div className="border-t t-border-light pt-2 mt-2 space-y-1.5 text-[11px]">
+                    <div><span className="font-medium t-text">수익 (30점)</span> — 보유 종목 평균 수익률 기반. 손실 1%당 1.5점 감점</div>
+                    <div><span className="font-medium t-text">시그널 (25점)</span> — 매도/적극매도 신호 종목 비중이 높을수록 감점</div>
+                    <div><span className="font-medium t-text">수급 (20점)</span> — 외국인 순매도 종목 비중이 높을수록 감점</div>
+                    <div><span className="font-medium t-text">분산 (15점)</span> — 섹터 집중도(HHI) + 종목 수 3개 미만 시 추가 감점</div>
+                    <div><span className="font-medium t-text">위험 (10점)</span> — 고위험/주의 등급 종목 비중이 높을수록 감점</div>
+                  </div>
+                </div>
+              </div>
+            </div>,
+            document.body
+          )}
+          </>);
+          })()}
         </section>
         );
       })())}
@@ -1521,7 +1640,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-bold t-text">포트폴리오 편집</h3>
-              <button onClick={() => setShowPortfolioEdit(false)} className="text-lg t-text-dim hover:t-text">✕</button>
+              <button onClick={() => setShowPortfolioEdit(false)} className="t-text-dim hover:t-text"><X size={18} /></button>
             </div>
             <div className="space-y-3 mb-4">
               {editHoldings.map((h: any, i: number) => (
@@ -1531,7 +1650,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <button onClick={() => setEditHoldings(editHoldings.filter((_: any, j: number) => j !== i))}
                       className="text-xs text-red-400 hover:text-red-300">삭제</button>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">평균단가</label>
                       <input type="number" value={h.avg_price || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, avg_price: Number(e.target.value)}; setEditHoldings(v); }}
@@ -1540,11 +1659,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">수량</label>
                       <input type="number" value={h.quantity || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, quantity: Number(e.target.value)}; setEditHoldings(v); }}
-                        className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
-                    </div>
-                    <div>
-                      <label className="text-[10px] t-text-dim block mb-0.5">섹터</label>
-                      <input type="text" value={h.sector || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, sector: e.target.value}; setEditHoldings(v); }}
                         className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
                     </div>
                   </div>
@@ -1606,7 +1720,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <button key={si}
                       onClick={() => {
                         if (!editHoldings.find((h: any) => h.code === s.code)) {
-                          setEditHoldings([...editHoldings, { name: s.name, code: s.code, sector: "", avg_price: 0, quantity: 0 }]);
+                          const autoSector = (portfolio?.holdings || []).find((h: any) => h.code === s.code)?.sector || "";
+                          setEditHoldings([...editHoldings, { name: s.name, code: s.code, sector: autoSector, avg_price: 0, quantity: 0 }]);
                         }
                         setStockSearch("");
                         setSearchResults([]);
@@ -2826,169 +2941,264 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="trading_value" timestamp={ts} count={tradingValue?.length ?? 0}>거래대금 TOP</SectionHeader>
         <div className="space-y-1.5">
-          {(tradingValue || []).slice(0, 10).map((tv, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+          {(tradingValue || []).slice(0, 10).map((tv: any, i: number) => {
+            const vr = tv.volume_rate || 0;
+            const cr = tv.change_rate || 0;
+            const isSurge = vr >= 200 && cr >= 10;
+            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === tv.code);
+            return (
+            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+              onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: tv.name, code: tv.code, _noData: true })}>
               <div className="flex items-center gap-2 min-w-0">
                 <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold flex items-center justify-center shrink-0">
-                  {i + 1}
+                  {tv.rank || i + 1}
                 </div>
-                <span className="text-sm font-medium truncate">{tv.name}</span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-medium truncate">{tv.name}</span>
+                    {tv.is_new && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400 font-medium">NEW</span>}
+                    {isSurge && <span className="text-[9px] px-1 py-0.5 rounded bg-red-500/15 text-red-400 font-medium">폭증+급등</span>}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] t-text-dim">
+                    {vr > 0 && <span>거래량 {vr >= 100 ? `${Math.round(vr)}%` : `${vr.toFixed(0)}%`}</span>}
+                    {tv.rank_change != null && tv.rank_change !== 0 && (
+                      <span className={tv.rank_change > 0 ? "text-red-500" : "text-blue-500"}>
+                        {tv.rank_change > 0 ? `+${tv.rank_change}` : tv.rank_change}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="text-right shrink-0 text-xs">
-                <div className={`font-medium ${(tv.change_rate || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                  {(tv.change_rate || 0) >= 0 ? "+" : ""}{tv.change_rate}%
+                <div className={`font-medium ${cr >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                  {cr >= 0 ? "+" : ""}{cr}%
                 </div>
-                {tv.trading_value && <div className="t-text-dim">거래대금 {(tv.trading_value / 100000000).toFixed(0)}억원</div>}
+                {tv.trading_value && <div className="t-text-dim">{(tv.trading_value / 100000000).toFixed(0)}억</div>}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
         {!tradingValue?.length && <Empty />}
-      </section>
-
-      {/* 모의투자 현황 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="paper_trading" timestamp={ts}>모의투자 현황</SectionHeader>
-        {paperTrading?.stocks?.length ? (
-          <div className="space-y-1.5">
-            <div className="text-xs t-text-sub mb-2">날짜: {paperTrading.date}</div>
-            {paperTrading.stocks.slice(0, 6).map((s: any, i: number) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <span className="text-sm font-medium truncate">{s.name || s.code}</span>
-                <div className="text-right shrink-0 text-xs">
-                  {s.return_pct != null && (
-                    <span className={`font-medium ${s.return_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                      {s.return_pct >= 0 ? "+" : ""}{s.return_pct}%
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-            {paperTrading.summary && (
-              <div className="text-xs t-text-sub mt-2 bg-blue-500/10 rounded p-2">
-                총 수익률: {paperTrading.summary.total_return ?? "-"}%
-              </div>
-            )}
-          </div>
-        ) : <Empty />}
       </section>
 
       {/* 예측 적중률 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="forecast" timestamp={ts}>예측 적중률</SectionHeader>
-        {forecastAccuracy?.overall_accuracy != null && (
+        {(() => {
+          const preds = forecastAccuracy?.predictions || [];
+          if (!preds.length) return <Empty />;
+          // 날짜별 합산
+          const byDate: Record<string, { total: number; hits: number; themes: { name: string; hit: boolean; confidence?: string }[] }> = {};
+          for (const p of preds) {
+            const d = p.date;
+            if (!byDate[d]) byDate[d] = { total: 0, hits: 0, themes: [] };
+            for (let i = 0; i < (p.themes || []).length; i++) {
+              const hit = p.hits?.[i] ?? false;
+              byDate[d].total++;
+              if (hit) byDate[d].hits++;
+              byDate[d].themes.push({ name: p.themes[i], hit, confidence: p.confidence?.[i] });
+            }
+          }
+          const dates = Object.keys(byDate).sort().reverse();
+
+          // 테마 대분류별 적중률
+          const catMap: Record<string, { total: number; hits: number }> = {};
+          for (const p of preds) {
+            for (const det of p.details || []) {
+              let cat = det.theme;
+              if (/AI|반도체|HBM|5G/.test(cat)) cat = "AI/반도체";
+              else if (/2차전지|전기차/.test(cat)) cat = "2차전지";
+              else if (/바이오|헬스|제약/.test(cat)) cat = "바이오";
+              else if (/건설|인프라/.test(cat)) cat = "건설";
+              else if (/에너지|원전|신재생|유가|정유/.test(cat)) cat = "에너지";
+              else if (/해운|물류/.test(cat)) cat = "해운";
+              else if (/방산/.test(cat)) cat = "방산";
+              else if (/증권|금융|밸류/.test(cat)) cat = "금융";
+              else cat = "기타";
+              if (!catMap[cat]) catMap[cat] = { total: 0, hits: 0 };
+              catMap[cat].total++;
+              if (det.hit) catMap[cat].hits++;
+            }
+          }
+          const cats = Object.entries(catMap).sort((a, b) => b[1].total - a[1].total);
+          const overall = forecastAccuracy?.overall_accuracy ?? 0;
+
+          return (<>
+          {/* 전체 적중률 + 테마별 신뢰도 */}
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-2xl font-bold t-text">{forecastAccuracy.overall_accuracy}%</div>
+            <div className="text-2xl font-bold t-text">{overall}%</div>
             <div className="text-xs t-text-sub">
-              전체 적중률 ({forecastAccuracy.total_hits}/{forecastAccuracy.total_predictions})
+              전체 적중률 ({forecastAccuracy?.total_hits}/{forecastAccuracy?.total_predictions})
             </div>
           </div>
-        )}
-        <div className="space-y-1.5">
-          {(forecastAccuracy?.predictions || []).map((fc: any, i: number) => (
-            <div key={i} className="p-2 t-card-alt rounded-lg">
-              <div className="flex justify-between text-xs t-text-sub mb-1">
-                <span>{fc.date}</span>
-                <span>{fc.hit_count}/{fc.total} 적중</span>
+          {/* 테마별 적중률 — 투자 신뢰도 지표 */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {cats.map(([cat, v]) => {
+              const rate = v.total ? Math.round(v.hits / v.total * 100) : 0;
+              const color = rate >= 70 ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/20" : rate >= 40 ? "bg-amber-500/10 text-amber-400 border-amber-500/20" : "bg-red-500/10 text-red-400 border-red-500/20";
+              return (
+                <span key={cat} className={`text-[10px] px-2 py-0.5 rounded-full border font-medium ${color}`}>
+                  {cat} {rate}% <span className="opacity-60">({v.hits}/{v.total})</span>
+                </span>
+              );
+            })}
+          </div>
+          <p className="text-[10px] t-text-dim mb-2">테마별 적중률이 높을수록 해당 테마 예측 신뢰도 높음</p>
+          {/* 일별 합산 (최근 5일) */}
+          <div className="space-y-1.5">
+            {dates.slice(0, 5).map((d) => {
+              const info = byDate[d];
+              const rate = info.total ? Math.round(info.hits / info.total * 100) : 0;
+              // 적중/미적중 테마를 각각 중복 제거
+              const hitThemes = [...new Set(info.themes.filter(t => t.hit).map(t => t.name))];
+              const missThemes = [...new Set(info.themes.filter(t => !t.hit).map(t => t.name))];
+              return (
+              <div key={d} className="p-2 t-card-alt rounded-lg">
+                <div className="flex justify-between text-xs t-text-sub mb-1">
+                  <span>{d}</span>
+                  <span className={rate >= 60 ? "text-emerald-400" : rate >= 40 ? "text-amber-400" : "text-red-400"}>{info.hits}/{info.total} 적중 ({rate}%)</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {hitThemes.map((t, j) => <Badge key={`h${j}`} variant="success">{t}</Badge>)}
+                  {missThemes.map((t, j) => <Badge key={`m${j}`} variant="default">{t}</Badge>)}
+                </div>
               </div>
-              <div className="flex flex-wrap gap-1">
-                {(fc.themes || []).map((t: string, j: number) => (
-                  <Badge key={j} variant={fc.hits?.[j] ? "success" : "default"}>
-                    {fc.hits?.[j] ? "✓ " : ""}{t}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        {!(forecastAccuracy?.predictions || []).length && <Empty />}
+              );
+            })}
+          </div>
+          </>);
+        })()}
       </section>
 
-      {/* Volume Profile 지지/저항 */}
+      {/* Volume Profile 지지/저항 경보 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="volume_profile" timestamp={ts} count={volumeProfile?.length ?? 0}>매물대 지지/저항</SectionHeader>
         <div className="space-y-1.5">
-          {(volumeProfile || []).slice(0, 8).map((vp, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{vp.name}</div>
+          {(volumeProfile || []).slice(0, 12).map((vp: any, i: number) => {
+            const cp = vp.current_price || 0;
+            const sup = vp.support || 0;
+            const res = vp.resistance || 0;
+            const status = vp.status || "";
+            const hasAlert = !!status;
+            const gapSup = sup && cp ? Math.round((cp - sup) / sup * 100) : 0;
+            const gapRes = res && cp ? Math.round((res - cp) / cp * 100) : 0;
+            const statusColor = status.includes("이탈") ? "bg-red-500/15 text-red-400" : status.includes("지지") ? "bg-emerald-500/15 text-emerald-400" : status.includes("돌파") ? "bg-blue-500/15 text-blue-400" : "bg-amber-500/15 text-amber-400";
+            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === vp.code);
+            return (
+            <div key={i} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+              onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: vp.name, code: vp.code, _noData: true })}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium truncate">{vp.name}</span>
+                {hasAlert && <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${statusColor}`}>{status}</span>}
               </div>
-              <div className="flex gap-2 text-xs shrink-0">
-                {vp.poc_1week ? <div className="text-center"><div className="t-text-dim">1주 POC</div><div className="font-medium">{vp.poc_1week?.toLocaleString()}원</div></div> : null}
-                {vp.poc_1month ? <div className="text-center"><div className="t-text-dim">1개월 POC</div><div className="font-medium">{vp.poc_1month?.toLocaleString()}원</div></div> : null}
-                {vp.poc_3month ? <div className="text-center"><div className="t-text-dim">3개월 POC</div><div className="font-medium">{vp.poc_3month?.toLocaleString()}원</div></div> : null}
+              <div className="flex items-center gap-2 text-[10px]">
+                {cp > 0 && <span className="t-text">현재 {cp.toLocaleString()}원</span>}
+                {sup > 0 && sup === res ? (
+                  <span className="t-text-dim">매물대 {sup.toLocaleString()}<span className={gapSup >= 0 ? "text-red-500" : "text-blue-500"}> ({gapSup >= 0 ? "+" : ""}{gapSup}%)</span></span>
+                ) : (<>
+                  {sup > 0 && <span className="t-text-dim">지지 {sup.toLocaleString()}<span className={gapSup >= 0 ? "text-red-500" : "text-blue-500"}> ({gapSup >= 0 ? "+" : ""}{gapSup}%)</span></span>}
+                  {res > 0 && <span className="t-text-dim">저항 {res.toLocaleString()}<span className={gapRes <= 0 ? "text-red-500" : "text-blue-500"}> ({gapRes >= 0 ? "+" : ""}{-gapRes}%)</span></span>}
+                </>)}
               </div>
             </div>
-          ))}
-          <p className="text-[10px] t-text-dim">POC = 가장 많이 거래된 핵심 가격대 (지지/저항선)</p>
+            );
+          })}
+          <p className="text-[10px] t-text-dim">매물대 지지/저항선 근접 종목만 표시 · 현재가 대비 괴리율</p>
         </div>
         {!volumeProfile?.length && <Empty />}
       </section>
 
       {/* 신호 일관성 추적 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="consistency" timestamp={ts} count={signalConsistency?.length ?? 0}>신호 일관성</SectionHeader>
-        <div className="space-y-1.5">
-          {(signalConsistency || []).slice(0, 8).map((sc, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{sc.name}</div>
-                <div className="text-xs t-text-sub">
-                  {sc.signals?.join(" → ")} ({sc.days}일)
+        <SectionHeader id="consistency" timestamp={ts}>신호 변동 모니터</SectionHeader>
+        {(() => {
+          // 실제 변화가 있는 종목만 필터 + 변동 방향 분류
+          const items = (signalConsistency || []).filter((sc: any) => {
+            const sigs = (sc.signals || []).filter(Boolean);
+            return new Set(sigs).size > 1;
+          }).map((sc: any) => {
+            const sigs = (sc.signals || []).filter(Boolean);
+            const current = sc.current || sigs[sigs.length - 1] || "중립";
+            const prev = sigs.length >= 2 ? sigs[sigs.length - 2] : "중립";
+            const isBuy = current.includes("매수");
+            const isSell = current.includes("매도");
+            const wasBuy = prev.includes("매수");
+            const wasSell = prev.includes("매도");
+            let tag = "";
+            let tagType: "danger" | "success" | "warning" | "default" = "default";
+            if (isBuy && !wasBuy) { tag = "매수 전환"; tagType = "danger"; }
+            else if (isSell && !wasSell) { tag = "매도 전환"; tagType = "success"; }
+            else if (!isBuy && !isSell && wasBuy) { tag = "매수→중립"; tagType = "warning"; }
+            else if (!isBuy && !isSell && wasSell) { tag = "매도→중립"; tagType = "warning"; }
+            else { tag = "신호 변동"; tagType = "warning"; }
+            // 정렬 우선순위: 매수전환 > 매도전환 > 나머지
+            const order = tag === "매수 전환" ? 0 : tag === "매도 전환" ? 1 : 2;
+            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === sc.code);
+            return { ...sc, _tag: tag, _tagType: tagType, _current: current, _order: order, _detail: detail };
+          });
+          items.sort((a: any, b: any) => a._order - b._order);
+          if (items.length === 0) return <div className="text-xs t-text-dim text-center py-4">최근 5일간 신호 변동 종목 없음</div>;
+          return (<>
+          <div className="space-y-1.5">
+            {items.map((sc: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+                onClick={() => sc._detail ? setStockDetail(sc._detail) : setStockDetail({ name: sc.name, code: sc.code, _noData: true })}>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm font-medium truncate">{sc.name}</span>
+                    {signalBadge(sc._current)}
+                  </div>
+                  <div className="text-[10px] t-text-dim mt-0.5">
+                    {(sc.signals || []).filter(Boolean).join(" → ")}
+                  </div>
                 </div>
+                <Badge variant={sc._tagType}>{sc._tag}</Badge>
               </div>
-              <Badge variant={sc.consistency === "일관" ? "success" : sc.consistency === "변동" ? "danger" : "warning"}>
-                {sc.consistency === "일관" ? `${sc.days}일 연속` : sc.consistency === "변동" ? "신호 불안정" : "부분 일치"}
-              </Badge>
-            </div>
-          ))}
-          <p className="text-[10px] t-text-dim">연속 동일 신호 = 높은 신뢰도 · 잦은 변동 = 주의</p>
-        </div>
-        {!signalConsistency?.length && <Empty />}
+            ))}
+          </div>
+          <p className="text-[10px] t-text-dim mt-1.5">최근 5일 내 시그널이 변경된 종목만 표시</p>
+          </>);
+        })()}
       </section>
 
       {/* ===== 시스템 카테고리 ===== */}
       <div id="cat-system" className="scroll-mt-24" />
 
-      {/* 시뮬레이션 히스토리 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="sim_history" timestamp={ts} count={simulationHistory?.length ?? 0}>시뮬레이션 히스토리</SectionHeader>
-        <div className="space-y-1.5">
-          {(simulationHistory || []).map((sh, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="text-xs t-text-sub">{sh.date}</div>
-              <div className="flex gap-3 text-xs shrink-0">
-                <div className="text-center">
-                  <div className="t-text-dim">거래수</div>
-                  <div className="font-medium">{sh.total_trades}</div>
-                </div>
-                <div className="text-center">
-                  <div className="t-text-dim">승률</div>
-                  <div className={`font-medium ${(sh.win_rate || 0) >= 50 ? "text-red-600" : "text-blue-600"}`}>{sh.win_rate}%</div>
-                </div>
-                <div className="text-center">
-                  <div className="t-text-dim">수익</div>
-                  <div className={`font-medium ${(sh.avg_return || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                    {(sh.avg_return || 0) >= 0 ? "+" : ""}{sh.avg_return?.toFixed(1)}%
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {!simulationHistory?.length && <Empty />}
-      </section>
 
       {/* 장중 종목별 수급 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="intraday_flow" timestamp={ts} count={intradayStockFlow?.length ?? 0}>장중 종목별 수급</SectionHeader>
+        {(() => {
+          const nameMap: Record<string, string> = {};
+          for (const s of allStockList) if (s.code) nameMap[s.code] = s.name;
+          const scannerMap: Record<string, any> = {};
+          for (const s of crossSignal || []) if (s.code) scannerMap[s.code] = s;
+          for (const s of smartMoney || []) if (s.code && !scannerMap[s.code]) scannerMap[s.code] = s;
+          const items = (intradayStockFlow || []).map((isf: any) => {
+            const f = isf.foreign || 0;
+            const inst = isf.institution || 0;
+            const tag = f > 0 && inst > 0 ? "쌍끌이 매수" : f < 0 && inst < 0 ? "쌍끌이 매도" : null;
+            return { ...isf, _name: nameMap[isf.code] || isf.code, _tag: tag, _sig: scannerMap[isf.code]?.signal || null, _detail: scannerMap[isf.code] };
+          });
+          // 쌍끌이 매수 → 쌍끌이 매도 → 나머지 (각 그룹 내 abs(foreign) 순)
+          const order = (t: string | null) => t === "쌍끌이 매수" ? 0 : t === "쌍끌이 매도" ? 1 : 2;
+          items.sort((a: any, b: any) => order(a._tag) - order(b._tag) || Math.abs(b.foreign || 0) - Math.abs(a.foreign || 0));
+          return (<>
         <div className="space-y-1.5">
-          {(intradayStockFlow || []).slice(0, 10).map((isf, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+          {items.slice(0, 15).map((isf: any, i: number) => (
+            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+              onClick={() => isf._detail ? setStockDetail(isf._detail) : setStockDetail({ name: isf._name, code: isf.code, _noData: true })}>
               <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{isf.name || isf.code}</div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-medium truncate">{isf._name}</span>
+                  {isf._tag && (
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${isf._tag === "쌍끌이 매수" ? "bg-red-500/15 text-red-400" : "bg-blue-500/15 text-blue-400"}`}>{isf._tag}</span>
+                  )}
+                  {isf._sig && signalBadge(isf._sig)}
+                </div>
                 <div className="text-xs t-text-sub">
-                  {isf.name ? isf.code : ""}
+                  {isf.code}
                   {isf.current_price > 0 && <span className="ml-1">{isf.current_price?.toLocaleString()}원</span>}
                   {isf.change_rate != null && (
                     <span className={`ml-1 ${(isf.change_rate || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
@@ -3009,26 +3219,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
             </div>
           ))}
-          <p className="text-[10px] t-text-dim">최근 장중 가집계 시점 기준 종목별 투자자 동향</p>
+          <p className="text-[10px] t-text-dim">외국인 수급 변동 상위 종목 · 장중 가집계 기준</p>
         </div>
+          </>);
+        })()}
         {!intradayStockFlow?.length && <Empty />}
-      </section>
-
-      {/* 매매 일지 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="journal" timestamp={ts} count={tradingJournal?.entries?.length ?? 0}>매매 일지</SectionHeader>
-        <div className="space-y-1.5">
-          {(tradingJournal?.entries || []).map((e: any, i: number) => (
-            <div key={i} className="p-2.5 t-card-alt rounded-lg">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium">{e.name}</span>
-                <Badge variant={e.action === "매수" ? "danger" : "blue"}>{e.action}</Badge>
-              </div>
-              <div className="text-xs t-text-sub">{e.date} · {e.reason}</div>
-            </div>
-          ))}
-        </div>
-        {!(tradingJournal?.entries || []).length && <Empty />}
       </section>
 
       {/* 최상단 이동 플로팅 버튼 */}
@@ -3045,7 +3240,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       </>}
       {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨, 대시보드만) */}
       {!isPortfolioPage && page !== "auto-trader" && <>
-      <div className="fixed bottom-0 left-0 right-0 z-20 px-3" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
+      <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pt-1.5 pb-1" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'calc(env(safe-area-inset-bottom, 8px) + 4px)' }}>
         <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
           {categories.map((cat) => (
             <button
@@ -3054,7 +3249,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 setActiveCategory(cat.id);
                 document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className="flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium rounded-lg transition-all duration-200"
+              className="flex-1 flex items-center justify-center gap-1 py-3 text-xs font-medium rounded-lg transition-all duration-200"
               style={activeCategory === cat.id
                 ? { background: 'var(--bg-pill-active)', color: 'var(--text-pill-active)', boxShadow: 'var(--shadow-card)' }
                 : { color: 'var(--text-tertiary)' }}
