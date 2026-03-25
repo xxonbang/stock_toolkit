@@ -46,6 +46,18 @@ async function requestSellAll(trades: Trade[]): Promise<number> {
   return count;
 }
 
+function parseBuyMode(mode: string | undefined): { chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean } {
+  const defaults = { chart: true, indicator: true, top_leader: false, all_leaders: false };
+  if (!mode) return defaults;
+  // 레거시 값 변환
+  if (mode === "and") return { chart: true, indicator: true, top_leader: false, all_leaders: false };
+  if (mode === "or") return { chart: true, indicator: false, top_leader: false, all_leaders: false };
+  if (mode === "leader") return { chart: false, indicator: false, top_leader: false, all_leaders: true };
+  if (mode === "none") return { chart: false, indicator: false, top_leader: false, all_leaders: false };
+  const flags = mode.split(",");
+  return { chart: flags.includes("chart"), indicator: flags.includes("indicator"), top_leader: flags.includes("top_leader"), all_leaders: flags.includes("all_leaders") };
+}
+
 export default function AutoTrader() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,7 +76,7 @@ export default function AutoTrader() {
   const sessionExpiredRef = useRef(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showBuyHelp, setShowBuyHelp] = useState(false);
-  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; leader: boolean }>({ chart: true, indicator: true, leader: false });
+  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false });
 
   useEffect(() => {
     function loadData(u: any) {
@@ -76,9 +88,7 @@ export default function AutoTrader() {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
-          // buy_signal_mode → 토글 상태 파싱
-          const flags = (buy_signal_mode || "chart,indicator").split(",");
-          setBuyToggles({ chart: flags.includes("chart"), indicator: flags.includes("indicator"), leader: flags.includes("leader") });
+          setBuyToggles(parseBuyMode(buy_signal_mode));
         }).catch(() => {});
       } else {
         setLoading(false);
@@ -237,8 +247,7 @@ export default function AutoTrader() {
     fetchTrades();
     getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
       setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
-      const flags = (buy_signal_mode || "chart,indicator").split(",");
-      setBuyToggles({ chart: flags.includes("chart"), indicator: flags.includes("indicator"), leader: flags.includes("leader") });
+      setBuyToggles(parseBuyMode(buy_signal_mode));
     }).catch(() => {});
   };
 
@@ -341,9 +350,10 @@ export default function AutoTrader() {
         </div>
         <div className="space-y-0.5">
           {([
-            { key: "chart", label: "차트 시그널", desc: "AI 차트 분석" },
-            { key: "indicator", label: "지표 시그널", desc: "API 기술 지표" },
-            { key: "leader", label: "대장주", desc: "시그널 무관" },
+            { key: "chart", label: "차트 시그널", desc: "AI 차트 분석 매수 신호" },
+            { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
+            { key: "top_leader", label: "대장주 1위", desc: "테마별 거래대금 1위만" },
+            { key: "all_leaders", label: "대장주 전체", desc: "모든 테마 대장주 포함" },
           ] as const).map(opt => {
             const isOn = buyToggles[opt.key];
             return (
@@ -355,10 +365,12 @@ export default function AutoTrader() {
                 <button
                   onClick={async () => {
                     const next = { ...buyToggles, [opt.key]: !isOn };
-                    if (!next.chart && !next.indicator && !next.leader) return;
+                    // top_leader와 all_leaders는 상호 배타
+                    if (opt.key === "top_leader" && !isOn) next.all_leaders = false;
+                    if (opt.key === "all_leaders" && !isOn) next.top_leader = false;
                     const prev = { ...buyToggles };
                     setBuyToggles(next);
-                    const mode = [next.chart && "chart", next.indicator && "indicator", next.leader && "leader"].filter(Boolean).join(",");
+                    const mode = [next.chart && "chart", next.indicator && "indicator", next.top_leader && "top_leader", next.all_leaders && "all_leaders"].filter(Boolean).join(",") || "none";
                     const ok = await setAlertConfig({ buy_signal_mode: mode });
                     if (!ok) setBuyToggles(prev);
                   }}
@@ -373,13 +385,13 @@ export default function AutoTrader() {
           })}
         </div>
         <div className="mt-2 pt-1.5 border-t text-[9px] t-text-dim" style={{ borderColor: "var(--border)" }}>
-          {buyToggles.leader
-            ? "대장주 전체 매수 (시그널 무관)"
-            : buyToggles.chart && buyToggles.indicator
-              ? "차트 + 지표 모두 충족 시 매수 (AND)"
-              : buyToggles.chart
-                ? "차트 시그널 충족 시 매수"
-                : "지표 시그널 충족 시 매수"}
+          {(() => {
+            const { chart, indicator, top_leader, all_leaders } = buyToggles;
+            const parts = [chart && "차트", indicator && "지표", top_leader && "대장주1위", all_leaders && "대장주전체"].filter(Boolean) as string[];
+            if (parts.length === 0) return "매집 중지 (모든 조건 OFF)";
+            if (parts.length === 1) return `${parts[0]} 조건만 적용`;
+            return `${parts.join(" + ")} 모두 충족 시 매수 (AND)`;
+          })()}
         </div>
       </div>
 
@@ -437,16 +449,13 @@ export default function AutoTrader() {
             </div>
             <div className="px-4 pb-4 text-[11px] t-text-sub leading-relaxed space-y-2.5">
               <p>ON 상태인 토글들의 조건이 <span className="font-semibold t-text">AND</span>로 결합됩니다.</p>
-              <table className="w-full text-[10px]">
-                <thead><tr className="t-text-dim"><th className="text-left py-1">차트</th><th className="text-left py-1">지표</th><th className="text-left py-1">대장주</th><th className="text-left py-1">결과</th></tr></thead>
-                <tbody className="t-text-sub">
-                  <tr><td className="py-0.5">ON</td><td>ON</td><td>-</td><td>차트+지표 모두 충족</td></tr>
-                  <tr><td className="py-0.5">ON</td><td>-</td><td>ON</td><td>차트 시그널 충족</td></tr>
-                  <tr><td className="py-0.5">-</td><td>ON</td><td>ON</td><td>지표 시그널 충족</td></tr>
-                  <tr><td className="py-0.5">-</td><td>-</td><td>ON</td><td>전체 통과</td></tr>
-                </tbody>
-              </table>
-              <p className="t-text-dim">대장주: cross_signal 포함 자체가 조건이므로 단독 ON 시 시그널 무관 전체 매수</p>
+              <div className="space-y-1.5 text-[10px]">
+                <div><span className="font-semibold t-text">차트 시그널</span> — AI 차트 분석 매수 신호</div>
+                <div><span className="font-semibold t-text">지표 시그널</span> — API 기술 지표 매수 신호</div>
+                <div><span className="font-semibold t-text">대장주 1위</span> — 각 테마 내 거래대금 1위 종목만</div>
+                <div><span className="font-semibold t-text">대장주 전체</span> — 모든 테마의 모든 대장주 포함</div>
+              </div>
+              <p className="t-text-dim">대장주 1위와 전체는 상호 배타 (하나만 선택 가능)</p>
             </div>
           </div>
         </div>

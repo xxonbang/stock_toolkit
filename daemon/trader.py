@@ -70,8 +70,8 @@ def _order_headers(token: str, tr_id: str) -> dict:
 
 
 def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
-    """고확신 종목 필터. mode: 콤마 구분 토글 ('chart,indicator') 또는 레거시 ('and','or','leader')."""
-    if not signals:
+    """고확신 종목 필터. mode: 콤마 구분 토글 ('chart,indicator,top_leader') 또는 레거시."""
+    if not signals or mode == "none":
         return []
     # 레거시 모드 → 토글 플래그 변환
     if mode == "and":
@@ -79,16 +79,28 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
     elif mode == "or":
         return [s for s in signals if s.get("vision_signal") in BUY_SIGNALS or s.get("api_signal") in BUY_SIGNALS]
     elif mode == "leader":
-        flags = {"leader"}
+        flags = {"all_leaders"}
     else:
         flags = set(mode.split(","))
-    # 각 ON 토글은 AND 조건 — leader는 cross_signal 포함 자체가 조건(항상 충족)이므로 추가 필터 없음
+    # top_leader: 원본 기준으로 테마별 거래대금 1위 코드 집합 산출
+    top_codes: set[str] | None = None
+    if "top_leader" in flags:
+        theme_best: dict[str, tuple[str, int]] = {}  # theme → (code, volume)
+        for s in signals:
+            theme = s.get("theme", "")
+            vol = (s.get("api_data") or {}).get("ranking", {}).get("volume", 0)
+            if theme not in theme_best or vol > theme_best[theme][1]:
+                theme_best[theme] = (s.get("code", ""), vol)
+        top_codes = {code for code, _ in theme_best.values()}
+    # all_leaders: 추가 필터 없음 — cross_signal 전체가 대장주이므로 시그널 조건만 적용
+    # 시그널 + 대장주 조건 AND 필터
     need_chart = "chart" in flags
     need_indicator = "indicator" in flags
     return [
         s for s in signals
         if (not need_chart or s.get("vision_signal") in BUY_SIGNALS)
         and (not need_indicator or s.get("api_signal") in BUY_SIGNALS)
+        and (top_codes is None or s.get("code", "") in top_codes)
     ]
 
 
