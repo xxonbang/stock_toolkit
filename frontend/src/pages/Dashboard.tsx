@@ -255,11 +255,18 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       let source = "";
       if (supaUser && codes.length > 0) {
         try {
-          const kisData = await fetchKisPrices(codes);
-          for (const [code, p] of Object.entries(kisData)) {
-            if (p.current_price) priceMap[code] = p.current_price;
+          // 세션 유효성 먼저 확인 — 무효 시 Edge Function hang 방지
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.access_token) {
+            const kisData = await Promise.race([
+              fetchKisPrices(codes),
+              new Promise<never>((_, reject) => setTimeout(() => reject(new Error("KIS timeout")), 8000)),
+            ]);
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) priceMap[code] = p.current_price;
+            }
+            if (Object.keys(priceMap).length > 0) source = "KIS";
           }
-          if (Object.keys(priceMap).length > 0) source = "KIS";
         } catch (e) {
           console.warn("KIS Edge Function 실패:", e);
         }
@@ -1365,7 +1372,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {/* 내 포트폴리오 — 포트폴리오 탭에서만 표시 */}
       {isPortfolioPage && (!supaUser ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="text-3xl mb-3">📊</div>
+          <div className="mb-3 flex justify-center"><BarChart3 size={28} className="t-text-dim" /></div>
           <div className="text-sm font-semibold t-text mb-1">내 포트폴리오</div>
           <div className="text-[12px] t-text-sub mb-4">로그인하면 보유 종목을 관리하고<br/>실시간 수익률을 확인할 수 있습니다.</div>
           <button onClick={() => setShowLogin(true)}
@@ -1373,7 +1380,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </section>
       ) : !portfolio ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="text-2xl mb-2">📊</div>
+          <div className="mb-2 flex justify-center"><BarChart3 size={24} className="t-text-dim animate-pulse" /></div>
           <div className="text-sm t-text-sub">포트폴리오 데이터 로딩 중...</div>
         </section>
       ) : (() => {
@@ -1468,24 +1475,51 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               );
             })}
           </div>
-          {/* 리밸런싱 제안 — 실제 보유 데이터 기반 계산 */}
+          {/* 리밸런싱 제안 — 시그널+수급+위험 기반 */}
           {(() => {
             const h = portfolio.holdings || [];
-            const suggestions: string[] = [];
-            if (h.length > 0 && h.length < 3) suggestions.push(`보유 ${h.length}종목 — 최소 3~5종목 분산 권장`);
-            const sectors = h.map((x: any) => x.sector).filter(Boolean);
-            if (sectors.length > 0 && new Set(sectors).size < sectors.length) suggestions.push("동일 섹터 편중 — 섹터 분산 필요");
+            const riskMap: Record<string, any> = {};
+            for (const r of riskMonitor || []) if (r.code) riskMap[r.code] = r;
+            const streakMap: Record<string, number> = {};
+            for (const r of (consecutiveSignals?.and_condition || [])) if (r.code) streakMap[r.code] = r.streak;
+            for (const r of (consecutiveSignals?.or_condition || [])) if (r.code && !streakMap[r.code]) streakMap[r.code] = r.streak;
+
+            type Suggestion = { text: string; priority: number; type: "danger" | "warn" | "opportunity" };
+            const suggestions: Suggestion[] = [];
+
             for (const x of h) {
+              const sig = x.signal || "";
+              const isSell = sig.includes("매도");
+              const risk = riskMap[x.code];
+              const riskLevel = risk?.level || "";
+              const foreignNet = x.foreign_net ?? 0;
               const pr = x.profit_rate ?? 0;
-              if (pr <= -5) suggestions.push(`${x.name} 손실 ${pr}% — 손절 검토`);
-              else if (pr >= 20) suggestions.push(`${x.name} 수익 +${pr}% — 익절 검토`);
+              const streak = streakMap[x.code];
+              const items: Suggestion[] = [];
+
+              if (isSell && riskLevel === "높음") items.push({ text: `${x.name} 매도 신호 + 고위험 — 즉시 비중 축소 검토`, priority: 1, type: "danger" });
+              else if (isSell) items.push({ text: `${x.name} 매도 신호 감지 — 비중 축소 검토`, priority: 2, type: "warn" });
+              if (foreignNet < 0 && (riskLevel === "주의" || riskLevel === "높음")) items.push({ text: `${x.name} 외국인 이탈 + ${riskLevel} — 주의 필요`, priority: 3, type: "warn" });
+              if (streak && streak >= 2) items.push({ text: `${x.name} ${streak}일 연속 매집 신호 — 추가 매수 검토`, priority: 4, type: "opportunity" });
+              if (pr <= -5) items.push({ text: `${x.name} 손실 ${pr}% — 손절 검토`, priority: 5, type: "warn" });
+              else if (pr >= 20) items.push({ text: `${x.name} 수익 +${pr}% — 익절 검토`, priority: 6, type: "opportunity" });
+
+              items.sort((a, b) => a.priority - b.priority);
+              suggestions.push(...items.slice(0, 2));
             }
+            const sectors = h.map((x: any) => x.sector).filter(Boolean);
+            if (sectors.length > 0 && new Set(sectors).size < sectors.length) suggestions.push({ text: "동일 섹터 편중 — 섹터 분산 필요", priority: 7, type: "warn" });
+
             if (suggestions.length === 0) return null;
+            suggestions.sort((a, b) => a.priority - b.priority);
+            const typeColor = { danger: "text-red-400", warn: "text-amber-400", opportunity: "text-emerald-400" };
             return (
               <div className="bg-orange-500/8 border border-orange-500/15 rounded-lg p-2.5 mb-3">
                 <div className="text-xs font-medium text-orange-400 mb-1">리밸런싱 제안</div>
                 {suggestions.map((s, i) => (
-                  <div key={i} className="text-xs t-text-sub">· {s}</div>
+                  <div key={i} className="text-xs t-text-sub">
+                    <span className={typeColor[s.type]}>·</span> {s.text}
+                  </div>
                 ))}
               </div>
             );
@@ -1499,7 +1533,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             <button onClick={() => {
               // DB holdings 우선, 없으면 portfolio.holdings 사용
               const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
-              setEditHoldings(JSON.parse(JSON.stringify(source)));
+              // portfolio.json 섹터 정보 자동 병합
+              const sectorMap: Record<string, string> = {};
+              for (const h of portfolio.holdings || []) if (h.code && h.sector) sectorMap[h.code] = h.sector;
+              const merged = JSON.parse(JSON.stringify(source)).map((h: any) => ({
+                ...h, sector: h.sector || sectorMap[h.code] || "",
+              }));
+              setEditHoldings(merged);
               setShowPortfolioEdit(true);
             }}
               className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
@@ -1515,7 +1555,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-bold t-text">포트폴리오 편집</h3>
-              <button onClick={() => setShowPortfolioEdit(false)} className="text-lg t-text-dim hover:t-text">✕</button>
+              <button onClick={() => setShowPortfolioEdit(false)} className="t-text-dim hover:t-text"><X size={18} /></button>
             </div>
             <div className="space-y-3 mb-4">
               {editHoldings.map((h: any, i: number) => (
@@ -1525,7 +1565,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <button onClick={() => setEditHoldings(editHoldings.filter((_: any, j: number) => j !== i))}
                       className="text-xs text-red-400 hover:text-red-300">삭제</button>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">평균단가</label>
                       <input type="number" value={h.avg_price || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, avg_price: Number(e.target.value)}; setEditHoldings(v); }}
@@ -1534,11 +1574,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <div>
                       <label className="text-[10px] t-text-dim block mb-0.5">수량</label>
                       <input type="number" value={h.quantity || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, quantity: Number(e.target.value)}; setEditHoldings(v); }}
-                        className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
-                    </div>
-                    <div>
-                      <label className="text-[10px] t-text-dim block mb-0.5">섹터</label>
-                      <input type="text" value={h.sector || ""} onChange={e => { const v = [...editHoldings]; v[i] = {...h, sector: e.target.value}; setEditHoldings(v); }}
                         className="w-full text-[16px] p-1.5 rounded-lg t-card border t-border-light t-text" />
                     </div>
                   </div>
@@ -1600,7 +1635,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     <button key={si}
                       onClick={() => {
                         if (!editHoldings.find((h: any) => h.code === s.code)) {
-                          setEditHoldings([...editHoldings, { name: s.name, code: s.code, sector: "", avg_price: 0, quantity: 0 }]);
+                          const autoSector = (portfolio?.holdings || []).find((h: any) => h.code === s.code)?.sector || "";
+                          setEditHoldings([...editHoldings, { name: s.name, code: s.code, sector: autoSector, avg_price: 0, quantity: 0 }]);
                         }
                         setStockSearch("");
                         setSearchResults([]);

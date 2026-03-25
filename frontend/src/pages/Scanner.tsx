@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Search, RotateCcw, Filter, Sun, Moon } from "lucide-react";
+import { Search, RotateCcw, Filter, Sun, Moon, MoreVertical } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
@@ -107,7 +107,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
               </button>
             )}
             <div className="relative">
-              <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
+              <button onClick={() => setShowHeaderMenu(!showHeaderMenu)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub"><MoreVertical size={16} /></button>
               {showHeaderMenu && (
                 <>
                   <div className="fixed inset-0 z-30" onClick={() => setShowHeaderMenu(false)} />
