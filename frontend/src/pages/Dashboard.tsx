@@ -2097,7 +2097,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               const inv = investorMap[a.code];
               const isCross = crossCodes.has(a.code);
               return (
-              <div key={i} className={`flex items-center justify-between p-2 border rounded-lg gap-2 ${cls.color}`}>
+              <div key={i} onClick={() => {
+                const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === a.code);
+                setStockDetail(detail || { name: a.name, code: a.code, _noData: true });
+              }} className={`flex items-center justify-between p-2 border rounded-lg gap-2 cursor-pointer hover:opacity-80 transition ${cls.color}`}>
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap size={14} className="text-red-400 shrink-0" />
                   <div className="min-w-0">
@@ -2129,7 +2132,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   {rest.map((a, i) => {
                     const cls = classify(a);
                     return (
-                    <div key={i} className={`flex items-center justify-between p-2 border rounded-lg gap-2 opacity-60 ${cls.color}`}>
+                    <div key={i} onClick={() => {
+                      const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === a.code);
+                      setStockDetail(detail || { name: a.name, code: a.code, _noData: true });
+                    }} className={`flex items-center justify-between p-2 border rounded-lg gap-2 opacity-60 cursor-pointer hover:opacity-80 transition ${cls.color}`}>
                       <div className="flex items-center gap-2 min-w-0">
                         <Zap size={12} className="text-red-400 shrink-0" />
                         <div className="min-w-0">
