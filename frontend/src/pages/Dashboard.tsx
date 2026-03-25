@@ -919,40 +919,35 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               {globalSearchQuery.length >= 2 && (() => {
                 const q = globalSearchQuery.toLowerCase();
                 const match = (s: any) => (s?.name || "").toLowerCase().includes(q) || (s?.code || "").includes(q);
-                const sections: { label: string; items: { stock: any; detail: string }[] }[] = [];
+                const sections: { label: string; sectionId: string; items: { stock: any; detail: string }[] }[] = [];
                 // AI 주목 종목 (cross_signal)
                 const csMatches = (crossSignal || []).filter(match);
-                if (csMatches.length) sections.push({ label: "교차 신호 (대장주)", items: csMatches.map(s => ({ stock: s, detail: `vision: ${s.vision_signal || "-"} | api: ${s.api_signal || "-"} | dual: ${s.dual_signal || "-"}` })) });
-                // 스마트 머니
+                if (csMatches.length) sections.push({ label: "교차 신호 (대장주)", sectionId: "cross", items: csMatches.map(s => ({ stock: s, detail: `vision: ${s.vision_signal || "-"} | api: ${s.api_signal || "-"} | dual: ${s.dual_signal || "-"}` })) });
                 const smMatches = (smartMoney || []).filter(match);
-                if (smMatches.length) sections.push({ label: "스마트 머니", items: smMatches.map(s => ({ stock: s, detail: `점수: ${s.smart_money_score || "-"} | api: ${s.api_signal || "-"} | 외인: ${s.foreign_net > 0 ? "매수" : s.foreign_net < 0 ? "매도" : "-"}` })) });
-                // 이상 거래
+                if (smMatches.length) sections.push({ label: "스마트 머니", sectionId: "smartmoney", items: smMatches.map(s => ({ stock: s, detail: `점수: ${s.smart_money_score || "-"} | api: ${s.api_signal || "-"} | 외인: ${s.foreign_net > 0 ? "매수" : s.foreign_net < 0 ? "매도" : "-"}` })) });
                 const anMatches = (anomalies || []).filter(match);
-                if (anMatches.length) sections.push({ label: "이상 거래 감지", items: anMatches.map(a => ({ stock: a, detail: `${a.type || ""} | ${a.change_rate != null ? (a.change_rate >= 0 ? "+" : "") + a.change_rate + "%" : ""} | 거래량 x${a.ratio || "-"}` })) });
-                // 연속 시그널
+                if (anMatches.length) sections.push({ label: "이상 거래 감지", sectionId: "anomaly", items: anMatches.map(a => ({ stock: a, detail: `${a.type || ""} | ${a.change_rate != null ? (a.change_rate >= 0 ? "+" : "") + a.change_rate + "%" : ""} | 거래량 x${a.ratio || "-"}` })) });
                 const consAll = [...(consecutiveSignals?.and_condition || []), ...(consecutiveSignals?.or_condition || [])];
                 const consMatches = consAll.filter(match);
-                if (consMatches.length) sections.push({ label: "연속 시그널", items: consMatches.map(r => ({ stock: r, detail: `${r.streak}일 연속 | ${r.dates?.[r.dates.length - 1] || ""}` })) });
-                // 위험 종목
+                if (consMatches.length) sections.push({ label: "연속 시그널", sectionId: "consecutive", items: consMatches.map(r => ({ stock: r, detail: `${r.streak}일 연속 | ${r.dates?.[r.dates.length - 1] || ""}` })) });
                 const riskMatches = (riskMonitor || []).filter(match);
-                if (riskMatches.length) sections.push({ label: "위험 종목", items: riskMatches.map(r => ({ stock: r, detail: `등급: ${r.level || "-"} | ${(r.warnings || []).join(", ")}` })) });
-                // 숏스퀴즈
+                if (riskMatches.length) sections.push({ label: "위험 종목", sectionId: "risk", items: riskMatches.map(r => ({ stock: r, detail: `등급: ${r.level || "-"} | ${(r.warnings || []).join(", ")}` })) });
                 const sqMatches = (shortSqueeze || []).filter(match);
-                if (sqMatches.length) sections.push({ label: "역발상 시그널", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.squeeze_score || "-"}` })) });
-                // 갭 분석
+                if (sqMatches.length) sections.push({ label: "역발상 시그널", sectionId: "squeeze", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.squeeze_score || "-"}` })) });
                 const gapMatches = (gapAnalysis || []).filter(match);
-                if (gapMatches.length) sections.push({ label: "갭 분석", items: gapMatches.map(g => ({ stock: g, detail: `${g.direction || ""} ${g.gap_pct}%` })) });
-                // 밸류에이션
+                if (gapMatches.length) sections.push({ label: "갭 분석", sectionId: "gap", items: gapMatches.map(g => ({ stock: g, detail: `${g.direction || ""} ${g.gap_pct}%` })) });
                 const valMatches = (valuation || []).filter(match);
-                if (valMatches.length) sections.push({ label: "밸류에이션", items: valMatches.map(v => ({ stock: v, detail: `점수: ${v.value_score || "-"} | PER: ${v.per || "-"}` })) });
-                // 포트폴리오
+                if (valMatches.length) sections.push({ label: "밸류에이션", sectionId: "valuation", items: valMatches.map(v => ({ stock: v, detail: `점수: ${v.value_score || "-"} | PER: ${v.per || "-"}` })) });
                 const pfMatches = (portfolio?.holdings || []).filter(match);
-                if (pfMatches.length) sections.push({ label: "내 포트폴리오", items: pfMatches.map((h: any) => ({ stock: h, detail: `${h.quantity || 0}주 | 수익률: ${h.return_pct != null ? h.return_pct + "%" : "-"}` })) });
+                if (pfMatches.length) sections.push({ label: "내 포트폴리오", sectionId: "portfolio", items: pfMatches.map((h: any) => ({ stock: h, detail: `${h.quantity || 0}주 | 수익률: ${h.return_pct != null ? h.return_pct + "%" : "-"}` })) });
 
                 if (!sections.length) return <div className="text-center py-8 text-sm t-text-dim">"{globalSearchQuery}" 검색 결과 없음</div>;
                 return sections.map(sec => (
                   <div key={sec.label} className="mb-4">
-                    <div className="text-[11px] font-semibold t-text-sub mb-1.5">{sec.label} ({sec.items.length})</div>
+                    <div onClick={() => {
+                      setShowStockSearch(false);
+                      setTimeout(() => document.getElementById(sec.sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    }} className="text-[11px] font-semibold t-text-sub mb-1.5 cursor-pointer hover:text-blue-500 transition">{sec.label} ({sec.items.length})</div>
                     <div className="space-y-1">
                       {sec.items.map((item, j) => (
                         <div key={j} onClick={() => {
