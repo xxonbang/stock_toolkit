@@ -1435,7 +1435,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <div className="space-y-1.5 mb-3">
             {portfolio.holdings?.map((h: any, i: number) => {
               const isExcluded = excludedCodes.has(h.code);
-              const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === h.code);
+              const detail = [...(crossSignal || []), ...(smartMoney || []), ...(portfolioRaw?.holdings || [])].find((s: any) => s.code === h.code);
               return (
               <div key={i} className={`p-2.5 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors ${isExcluded ? "opacity-40" : ""}`}
                 onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: h.name, code: h.code, _noData: true })}>
