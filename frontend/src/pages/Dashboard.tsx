@@ -1251,7 +1251,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           {/* 글로벌 매크로 */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">글로벌 매크로</div>
+              <div className="text-xs font-semibold t-text mb-2">글로벌 매크로</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {(["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"] as string[]).map(symbol => {
                   const macro = indicatorHistory.macro as Record<string, any[]>;
@@ -1263,7 +1263,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "KOSPI200": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)" };
                   return (
                     <div key={symbol} className="t-card-alt rounded-lg p-2">
-                      <div className="text-[10px] t-text-dim mb-0.5">{nameMap[symbol] || symbol}</div>
+                      <div className="text-[11px] font-medium t-text-sub mb-0.5">{nameMap[symbol] || symbol}</div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-sm font-semibold t-text">{latest.price?.toLocaleString()}</span>
                         {latest.change_pct != null && (
@@ -1286,11 +1286,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           {/* 주요 선물 */}
           {performance.futures?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">주요 선물</div>
+              <div className="text-xs font-semibold t-text mb-2">주요 선물</div>
               <div className="grid grid-cols-3 gap-1.5">
                 {performance.futures.map((ft: any, i: number) => (
                   <div key={i} className="t-card-alt rounded-lg p-2 text-center">
-                    <div className="text-[10px] t-text-dim truncate">{ft.name}</div>
+                    <div className="text-[11px] font-medium t-text-sub truncate">{ft.name}</div>
                     <div className="text-sm font-semibold t-text">{ft.price?.toLocaleString()}</div>
                     <div className={`text-[10px] font-medium ${(ft.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
                       {ft.change_pct >= 0 ? "▲" : "▼"}{Math.abs(ft.change_pct)}%
@@ -1304,14 +1304,14 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           {/* 환율 */}
           {performance.exchange?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">환율</div>
+              <div className="text-xs font-semibold t-text mb-2">환율</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {performance.exchange.slice(0, 4).map((r: any, i: number) => {
                   const label: Record<string, string> = { USD: "원/달러", JPY: "원/엔", EUR: "원/유로", CNY: "원/위안" };
                   const cur = r.currency || r.name || "";
                   return (
                     <div key={i} className="t-card-alt rounded-lg p-2">
-                      <div className="text-[10px] t-text-dim mb-0.5">{label[cur] || cur}</div>
+                      <div className="text-[11px] font-medium t-text-sub mb-0.5">{label[cur] || cur}</div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-sm font-semibold t-text">{r.rate?.toLocaleString()}</span>
                         {r.change_rate != null && (
