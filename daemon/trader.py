@@ -718,6 +718,29 @@ async def sell_all_positions_market():
     invalidate_cache()
 
 
+async def schedule_sell_check():
+    """30초마다 보유종목 현재가 REST API 조회 → 익절/손절/수동매도 체크 (WebSocket 백업)"""
+    from daemon.main import is_market_hours, is_market_day
+    while True:
+        await asyncio.sleep(30)
+        if not is_market_day() or not is_market_hours():
+            continue
+        try:
+            positions = await get_active_positions(force_refresh=True)
+            targets = [p for p in positions if p["status"] in ("filled", "sell_requested")]
+            if not targets:
+                continue
+            for pos in targets:
+                code = pos["code"]
+                price = await _get_current_price(code)
+                if price <= 0:
+                    continue
+                await check_positions_for_sell({"code": code, "price": price})
+                await asyncio.sleep(0.3)  # API 호출 간격
+        except Exception as e:
+            logger.error(f"매도 폴링 체크 오류: {e}")
+
+
 async def _get_current_price(code: str) -> int:
     """KIS API로 현재가 조회"""
     token = await _ensure_mock_token()

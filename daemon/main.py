@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market
+from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market, schedule_sell_check
 from daemon.github_monitor import check_workflow_completion
 from daemon.http_session import close_session
 
@@ -237,6 +237,7 @@ async def main():
         schedule_refresh(),
         schedule_auto_trade(),
         schedule_eod_close(),
+        schedule_sell_check(),
         telegram_worker(),
     )
     try:
