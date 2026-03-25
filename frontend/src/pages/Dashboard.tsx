@@ -143,7 +143,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
   const [signalConsistency, setSignalConsistency] = useState<any[] | null>(null);
-  const [simulationHistory, setSimulationHistory] = useState<any[] | null>(null);
   const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
   const [consecutiveSignals, setConsecutiveSignals] = useState<any>(null);
@@ -222,7 +221,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       dataService.getForecastAccuracy().then(setForecastAccuracy),
       dataService.getVolumeProfile().then(setVolumeProfile),
       dataService.getSignalConsistency().then(setSignalConsistency),
-      dataService.getSimulationHistory().then(setSimulationHistory),
       dataService.getIntradayStockFlow().then(setIntradayStockFlow),
       dataService.getStockMaster().then((m: any) => { if (m?.stocks) setAllStockList(m.stocks.map((s: any) => ({ code: s.code, name: s.name, market: s.market || "" }))); }),
       dataService.getIndicatorHistory().then(setIndicatorHistory),
@@ -3040,57 +3038,60 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
       {/* 신호 일관성 추적 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="consistency" timestamp={ts} count={signalConsistency?.length ?? 0}>신호 일관성</SectionHeader>
-        <div className="space-y-1.5">
-          {(signalConsistency || []).slice(0, 8).map((sc, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{sc.name}</div>
-                <div className="text-xs t-text-sub">
-                  {sc.signals?.join(" → ")} ({sc.days}일)
+        <SectionHeader id="consistency" timestamp={ts}>신호 변동 모니터</SectionHeader>
+        {(() => {
+          // 실제 변화가 있는 종목만 필터 + 변동 방향 분류
+          const items = (signalConsistency || []).filter((sc: any) => {
+            const sigs = (sc.signals || []).filter(Boolean);
+            return new Set(sigs).size > 1;
+          }).map((sc: any) => {
+            const sigs = (sc.signals || []).filter(Boolean);
+            const current = sc.current || sigs[sigs.length - 1] || "중립";
+            const prev = sigs.length >= 2 ? sigs[sigs.length - 2] : "중립";
+            const isBuy = current.includes("매수");
+            const isSell = current.includes("매도");
+            const wasBuy = prev.includes("매수");
+            const wasSell = prev.includes("매도");
+            let tag = "";
+            let tagType: "danger" | "success" | "warning" | "default" = "default";
+            if (isBuy && !wasBuy) { tag = "매수 전환"; tagType = "danger"; }
+            else if (isSell && !wasSell) { tag = "매도 전환"; tagType = "success"; }
+            else if (!isBuy && !isSell && wasBuy) { tag = "매수→중립"; tagType = "warning"; }
+            else if (!isBuy && !isSell && wasSell) { tag = "매도→중립"; tagType = "warning"; }
+            else { tag = "신호 변동"; tagType = "warning"; }
+            // 정렬 우선순위: 매수전환 > 매도전환 > 나머지
+            const order = tag === "매수 전환" ? 0 : tag === "매도 전환" ? 1 : 2;
+            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === sc.code);
+            return { ...sc, _tag: tag, _tagType: tagType, _current: current, _order: order, _detail: detail };
+          });
+          items.sort((a: any, b: any) => a._order - b._order);
+          if (items.length === 0) return <div className="text-xs t-text-dim text-center py-4">최근 5일간 신호 변동 종목 없음</div>;
+          return (<>
+          <div className="space-y-1.5">
+            {items.map((sc: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+                onClick={() => sc._detail ? setStockDetail(sc._detail) : setStockDetail({ name: sc.name, code: sc.code, _noData: true })}>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm font-medium truncate">{sc.name}</span>
+                    {signalBadge(sc._current)}
+                  </div>
+                  <div className="text-[10px] t-text-dim mt-0.5">
+                    {(sc.signals || []).filter(Boolean).join(" → ")}
+                  </div>
                 </div>
+                <Badge variant={sc._tagType}>{sc._tag}</Badge>
               </div>
-              <Badge variant={sc.consistency === "일관" ? "success" : sc.consistency === "변동" ? "danger" : "warning"}>
-                {sc.consistency === "일관" ? `${sc.days}일 연속` : sc.consistency === "변동" ? "신호 불안정" : "부분 일치"}
-              </Badge>
-            </div>
-          ))}
-          <p className="text-[10px] t-text-dim">연속 동일 신호 = 높은 신뢰도 · 잦은 변동 = 주의</p>
-        </div>
-        {!signalConsistency?.length && <Empty />}
+            ))}
+          </div>
+          <p className="text-[10px] t-text-dim mt-1.5">최근 5일 내 시그널이 변경된 종목만 표시</p>
+          </>);
+        })()}
       </section>
 
       {/* ===== 시스템 카테고리 ===== */}
       <div id="cat-system" className="scroll-mt-24" />
 
-      {/* 시뮬레이션 히스토리 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="sim_history" timestamp={ts} count={simulationHistory?.length ?? 0}>시뮬레이션 히스토리</SectionHeader>
-        <div className="space-y-1.5">
-          {(simulationHistory || []).map((sh, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="text-xs t-text-sub">{sh.date}</div>
-              <div className="flex gap-3 text-xs shrink-0">
-                <div className="text-center">
-                  <div className="t-text-dim">거래수</div>
-                  <div className="font-medium">{sh.total_trades}</div>
-                </div>
-                <div className="text-center">
-                  <div className="t-text-dim">승률</div>
-                  <div className={`font-medium ${(sh.win_rate || 0) >= 50 ? "text-red-600" : "text-blue-600"}`}>{sh.win_rate}%</div>
-                </div>
-                <div className="text-center">
-                  <div className="t-text-dim">수익</div>
-                  <div className={`font-medium ${(sh.avg_return || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                    {(sh.avg_return || 0) >= 0 ? "+" : ""}{sh.avg_return?.toFixed(1)}%
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {!simulationHistory?.length && <Empty />}
-      </section>
 
       {/* 장중 종목별 수급 */}
       <section className="t-card rounded-xl p-4">
