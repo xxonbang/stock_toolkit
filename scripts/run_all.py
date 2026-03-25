@@ -769,6 +769,33 @@ def main():
     macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
     exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
     inv_trend = (macro_ind.get("investor_trend") or []) if isinstance(macro_ind, dict) else []
+    # macro-indicators.json이 없을 때 indicator_history.json의 macro에서 폴백
+    if not macro_ind_list:
+        ind_hist = loader.get_indicator_history()
+        ind_macro = ind_hist.get("macro", {}) if isinstance(ind_hist, dict) else {}
+        # theme_analysis 원본도 없으면 results/ 또는 frontend/public/data/ 에서 폴백
+        if not ind_macro:
+            for fallback in [results_dir / "indicator_history.json", Path("frontend/public/data/indicator_history.json")]:
+                if fallback.exists():
+                    with open(fallback) as _f:
+                        fb = json.load(_f)
+                    ind_macro = fb.get("macro", {}) if isinstance(fb, dict) else {}
+                    if not exchange_data:
+                        exchange_data = fb.get("exchange", {}) if isinstance(fb, dict) else {}
+                    if not inv_trend:
+                        inv_trend = (fb.get("investor_trend") or []) if isinstance(fb, dict) else []
+                    if ind_macro:
+                        break
+        name_map = {"NQ=F": "나스닥선물", "KOSPI200": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)"}
+        for sym in ["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"]:
+            arr = ind_macro.get(sym, [])
+            if isinstance(arr, list) and arr:
+                entry = arr[-1]
+                macro_ind_list.append({"symbol": sym, "name": name_map.get(sym, sym), "price": entry.get("price"), "change_pct": entry.get("change_pct")})
+        if not exchange_data and isinstance(ind_hist, dict):
+            exchange_data = ind_hist.get("exchange", {})
+        if not inv_trend and isinstance(ind_hist, dict):
+            inv_trend = ind_hist.get("investor_trend") or []
     # 글로벌 매크로 점수 계산 (NQ=F, SOXX, EWY, KORU, MU, KOSPI200)
     m_score, m_contributions = calculate_macro_score(macro_ind_list)
     sentiment_score = calculate_sentiment(
@@ -1785,6 +1812,16 @@ def main():
 
     # 매크로 추세 (indicator-history) + 트렌드 분석
     ind_history = loader.get_indicator_history()
+    # 외부 소스가 비었으면 기존 results 파일의 macro/exchange/futures/investor_trend 보존
+    if isinstance(ind_history, dict) and not ind_history.get("macro"):
+        existing_path = results_dir / "indicator_history.json"
+        if existing_path.exists():
+            with open(existing_path) as _f:
+                existing = json.load(_f)
+            if isinstance(existing, dict):
+                for keep_key in ["macro", "exchange", "futures", "investor_trend", "updated_at"]:
+                    if keep_key in existing and keep_key not in ind_history:
+                        ind_history[keep_key] = existing[keep_key]
     # F&G/VIX 과거 비교 추가
     fg_raw = loader.get_fear_greed()
     if isinstance(fg_raw, dict) and isinstance(ind_history, dict):
