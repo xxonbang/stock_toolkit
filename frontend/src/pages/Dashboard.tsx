@@ -7,6 +7,7 @@ import {
 import {
   TrendingUp, TrendingDown, Shield,
   Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X, HelpCircle,
+  Globe, Flame, Target, AlertTriangle, Lightbulb, Search as SearchIcon, Bot, Circle, Pin,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -80,6 +81,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
   const [stockDetail, setStockDetail] = useState<any>(null);
   const [showDualExp, setShowDualExp] = useState(false);
+  const [showMacroHelp, setShowMacroHelp] = useState(false);
+  const [showStockSearch, setShowStockSearch] = useState(false);
+  const [globalSearchQuery, setGlobalSearchQuery] = useState("");
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [showHealthHelp, setShowHealthHelp] = useState(false);
@@ -148,6 +152,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
+
+  // 모달/bottom sheet 열림 시 body 스크롤 잠금
+  const anyModalOpen = !!(stockDetail || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showPortfolioEdit || showStockSearch);
+  useEffect(() => {
+    document.body.style.overflow = anyModalOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [anyModalOpen]);
 
   // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
   useEffect(() => {
@@ -390,11 +401,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
 
   // 카테고리 퀵 네비게이션
   const categories = [
-    { id: "cat-market", label: "시장", icon: "📊" },
-    { id: "cat-signal", label: "신호", icon: "🎯" },
-    { id: "cat-analysis", label: "분석", icon: "🔍" },
-    { id: "cat-strategy", label: "전략", icon: "⚡" },
-    { id: "cat-system", label: "시스템", icon: "🤖" },
+    { id: "cat-market", label: "시장", icon: <BarChart3 size={14} /> },
+    { id: "cat-signal", label: "신호", icon: <Target size={14} /> },
+    { id: "cat-analysis", label: "분석", icon: <SearchIcon size={14} /> },
+    { id: "cat-strategy", label: "전략", icon: <Zap size={14} /> },
+    { id: "cat-system", label: "시스템", icon: <Bot size={14} /> },
   ];
   const [activeCategory, setActiveCategory] = useState("cat-market");
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -738,7 +749,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {/* 분석 데이터 없음 안내 */}
             {stockDetail._noData && (
               <div className="text-center py-8">
-                <div className="text-2xl mb-2">📊</div>
+                <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
                 <div className="text-sm t-text-sub mb-1">분석 데이터가 아직 없습니다</div>
                 <div className="text-[11px] t-text-dim">이 종목은 현재 AI 분석 대상에 포함되지 않았습니다.<br/>다음 분석 시점에 포함될 수 있습니다.</div>
               </div>
@@ -858,10 +869,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div>
                 <div className="text-[10px] t-text-dim mb-1">단계</div>
                 <div className="text-sm font-medium t-text">
-                  {lifecyclePopup.stage === "탄생" && "🟢 탄생 — 테마 초기 등장. 대장주 중심으로 관심 종목 형성 시작."}
-                  {lifecyclePopup.stage === "성장" && "🟡 성장 — 테마 확산 중. 종목 수와 거래량 증가, 수익 기대 구간."}
-                  {lifecyclePopup.stage === "과열" && "🔴 과열 — 급등 후 과열 경고. 차익 실현 및 리스크 관리 필요."}
-                  {lifecyclePopup.stage === "쇠퇴" && "⚪ 쇠퇴 — 관심 감소, 거래량 축소. 신규 진입 비추천."}
+                  {lifecyclePopup.stage === "탄생" && <><Circle size={12} className="inline text-emerald-400 fill-emerald-400 mr-1" /> 탄생 — 테마 초기 등장. 대장주 중심으로 관심 종목 형성 시작.</>}
+                  {lifecyclePopup.stage === "성장" && <><Circle size={12} className="inline text-amber-400 fill-amber-400 mr-1" /> 성장 — 테마 확산 중. 종목 수와 거래량 증가, 수익 기대 구간.</>}
+                  {lifecyclePopup.stage === "과열" && <><Circle size={12} className="inline text-red-400 fill-red-400 mr-1" /> 과열 — 급등 후 과열 경고. 차익 실현 및 리스크 관리 필요.</>}
+                  {lifecyclePopup.stage === "쇠퇴" && <><Circle size={12} className="inline text-gray-400 fill-gray-400 mr-1" /> 쇠퇴 — 관심 감소, 거래량 축소. 신규 진입 비추천.</>}
                 </div>
               </div>
               {lifecyclePopup.strategy && (
@@ -891,6 +902,81 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <div className="fixed max-w-[260px] px-3 py-2 rounded-xl text-xs t-text-sub shadow-lg"
             style={{ background: "var(--bg-card)", border: "1px solid var(--border)", top: badgePopup.y, left: Math.min(badgePopup.x, window.innerWidth - 270), transform: "translateX(-50%)" }}>
             <span className="font-semibold t-text">{badgePopup.label}</span> — {badgePopup.desc}
+          </div>
+        </div>,
+        document.body
+      )}
+      {/* 종목 검색 모달 */}
+      {showStockSearch && createPortal(
+        <div className="fixed inset-0 z-[9999]" onClick={() => setShowStockSearch(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="fixed top-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto t-card sm:max-w-lg sm:mx-auto sm:mt-16 sm:rounded-xl" onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 t-card p-4 border-b t-border-light">
+              <div className="flex items-center gap-2">
+                <SearchIcon size={16} className="t-text-dim shrink-0" />
+                <input
+                  autoFocus
+                  value={globalSearchQuery}
+                  onChange={e => setGlobalSearchQuery(e.target.value)}
+                  placeholder="종목명 또는 코드 검색..."
+                  className="flex-1 text-sm bg-transparent t-text outline-none"
+                />
+                <button onClick={() => setShowStockSearch(false)} className="t-text-dim"><X size={18} /></button>
+              </div>
+            </div>
+            <div className="p-4">
+              {globalSearchQuery.length >= 2 && (() => {
+                const q = globalSearchQuery.toLowerCase();
+                const match = (s: any) => (s?.name || "").toLowerCase().includes(q) || (s?.code || "").includes(q);
+                const sections: { label: string; sectionId: string; items: { stock: any; detail: string }[] }[] = [];
+                // AI 주목 종목 (cross_signal)
+                const csMatches = (crossSignal || []).filter(match);
+                if (csMatches.length) sections.push({ label: "교차 신호 (대장주)", sectionId: "cross", items: csMatches.map(s => ({ stock: s, detail: `vision: ${s.vision_signal || "-"} | api: ${s.api_signal || "-"} | dual: ${s.dual_signal || "-"}` })) });
+                const smMatches = (smartMoney || []).filter(match);
+                if (smMatches.length) sections.push({ label: "스마트 머니", sectionId: "smartmoney", items: smMatches.map(s => ({ stock: s, detail: `점수: ${s.smart_money_score || "-"} | api: ${s.api_signal || "-"} | 외인: ${s.foreign_net > 0 ? "매수" : s.foreign_net < 0 ? "매도" : "-"}` })) });
+                const anMatches = (anomalies || []).filter(match);
+                if (anMatches.length) sections.push({ label: "이상 거래 감지", sectionId: "anomaly", items: anMatches.map(a => ({ stock: a, detail: `${a.type || ""} | ${a.change_rate != null ? (a.change_rate >= 0 ? "+" : "") + a.change_rate + "%" : ""} | 거래량 x${a.ratio || "-"}` })) });
+                const consAll = [...(consecutiveSignals?.and_condition || []), ...(consecutiveSignals?.or_condition || [])];
+                const consMatches = consAll.filter(match);
+                if (consMatches.length) sections.push({ label: "연속 시그널", sectionId: "consecutive", items: consMatches.map(r => ({ stock: r, detail: `${r.streak}일 연속 | ${r.dates?.[r.dates.length - 1] || ""}` })) });
+                const riskMatches = (riskMonitor || []).filter(match);
+                if (riskMatches.length) sections.push({ label: "위험 종목", sectionId: "risk", items: riskMatches.map(r => ({ stock: r, detail: `등급: ${r.level || "-"} | ${(r.warnings || []).join(", ")}` })) });
+                const sqMatches = (shortSqueeze || []).filter(match);
+                if (sqMatches.length) sections.push({ label: "역발상 시그널", sectionId: "squeeze", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.squeeze_score || "-"}` })) });
+                const gapMatches = (gapAnalysis || []).filter(match);
+                if (gapMatches.length) sections.push({ label: "갭 분석", sectionId: "gap", items: gapMatches.map(g => ({ stock: g, detail: `${g.direction || ""} ${g.gap_pct}%` })) });
+                const valMatches = (valuation || []).filter(match);
+                if (valMatches.length) sections.push({ label: "밸류에이션", sectionId: "valuation", items: valMatches.map(v => ({ stock: v, detail: `점수: ${v.value_score || "-"} | PER: ${v.per || "-"}` })) });
+                const pfMatches = (portfolio?.holdings || []).filter(match);
+                if (pfMatches.length) sections.push({ label: "내 포트폴리오", sectionId: "portfolio", items: pfMatches.map((h: any) => ({ stock: h, detail: `${h.quantity || 0}주 | 수익률: ${h.return_pct != null ? h.return_pct + "%" : "-"}` })) });
+
+                if (!sections.length) return <div className="text-center py-8 text-sm t-text-dim">"{globalSearchQuery}" 검색 결과 없음</div>;
+                return sections.map(sec => (
+                  <div key={sec.label} className="mb-4">
+                    <div onClick={() => {
+                      setShowStockSearch(false);
+                      setTimeout(() => document.getElementById(sec.sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    }} className="text-[11px] font-semibold t-text-sub mb-1.5 cursor-pointer hover:text-blue-500 transition">{sec.label} ({sec.items.length})</div>
+                    <div className="space-y-1">
+                      {sec.items.map((item, j) => (
+                        <div key={j} onClick={() => {
+                          const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === item.stock.code);
+                          setStockDetail(detail || { name: item.stock.name, code: item.stock.code, _noData: true });
+                          setShowStockSearch(false);
+                        }} className="flex items-center justify-between p-2 t-card-alt rounded-lg cursor-pointer hover:opacity-80 transition border t-border-light">
+                          <div className="min-w-0">
+                            <span className="text-sm font-medium t-text">{item.stock.name}</span>
+                            <span className="text-[10px] t-text-dim ml-1.5">{item.stock.code}</span>
+                          </div>
+                          <div className="text-[10px] t-text-dim shrink-0 max-w-[50%] text-right truncate">{item.detail}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ));
+              })()}
+              {globalSearchQuery.length < 2 && <div className="text-center py-8 text-sm t-text-dim">2글자 이상 입력하세요</div>}
+            </div>
           </div>
         </div>,
         document.body
@@ -938,6 +1024,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="t-text-sub" />}
               </button>
             )}
+            <button onClick={() => { setShowStockSearch(true); setGlobalSearchQuery(""); }} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub" title="종목 검색">
+              <SearchIcon size={16} />
+            </button>
             <button onClick={() => setShowHeaderMenu(true)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
           </div>
         </div>
@@ -1058,9 +1147,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           if (title.includes("전략") || title.includes("제안")) return "전략 제안";
           return title;
         };
-        const iconMap: Record<string, string> = {
-          "글로벌 환경": "🌍", "오늘의 주목 테마": "🔥", "고확신 종목": "🎯",
-          "주의 종목": "⚠️", "전략 제안": "💡",
+        const iconMap: Record<string, React.ReactNode> = {
+          "글로벌 환경": <Globe size={16} />, "오늘의 주목 테마": <Flame size={16} />, "고확신 종목": <Target size={16} />,
+          "주의 종목": <AlertTriangle size={16} />, "전략 제안": <Lightbulb size={16} />,
         };
         const accentMap: Record<string, string> = {
           "글로벌 환경": "border-l-slate-400", "오늘의 주목 테마": "border-l-cyan-400",
@@ -1069,8 +1158,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         // 종목명(코드) 패턴을 클릭 가능한 요소로 변환
         const allStockData = [...(crossSignal || []), ...(smartMoney || [])];
         const renderTextWithStockLinks = (text: string) => {
+          // HTML 태그 제거 (briefing 데이터에 <font> 등 포함 가능)
+          const cleaned = text.replace(/<[^>]+>/g, "");
           // "종목명(6자리코드)" 패턴 매칭
-          const parts = text.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
+          const parts = cleaned.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
           return parts.map((part, k) => {
             const m = part.match(/^(.+)\((\d{6})\)$/);
             if (m) {
@@ -1121,7 +1212,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               return (
               <div key={i} className={`rounded-xl border t-border-light border-l-[3px] ${accentMap[key] || "border-l-gray-400"} t-card-alt p-4`}>
                 <div className="flex items-center gap-2 mb-2.5">
-                  <span className="text-base">{iconMap[key] || "📌"}</span>
+                  <span className="text-base">{iconMap[key] || <Pin size={16} />}</span>
                   <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
                 </div>
                 <div className="space-y-1">
@@ -1137,7 +1228,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             {performance?.theme_forecast?.themes?.length > 0 && (
               <div className="rounded-xl border t-border-light border-l-[3px] border-l-cyan-400/60 t-card-alt p-4">
                 <div className="flex items-center gap-2 mb-2.5">
-                  <span className="text-base">🔥</span>
+                  <Flame size={16} />
                   <span className="text-[13px] font-bold t-text tracking-tight">오늘의 주목 테마</span>
                 </div>
                 {performance.theme_forecast.market_context && (
@@ -1231,33 +1322,68 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <Gauge value={vixVal} max={50} label="VIX 변동성" color={vixColor} />
               <p className="text-xs t-text-sub">{vixLabel}</p>
             </div>
-            {performance.kospi && (
-              <div className="flex items-center gap-2 min-w-0">
-                {(performance.kospi.change || 0) >= 0
-                  ? <TrendingUp size={14} className="text-red-400 shrink-0" />
-                  : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
-                <div className="min-w-0">
-                  <div className="text-sm font-medium">{performance.kospi.current?.toLocaleString()}</div>
-                  <div className="text-xs t-text-sub">KOSPI {performance.kospi.change != null && <span className={`${(performance.kospi.change || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>{performance.kospi.change >= 0 ? "▲" : "▼"}{Math.abs(performance.kospi.change || 0).toFixed(2)}</span>}</div>
+            {performance.kospi?.current && (() => {
+              const k = performance.kospi;
+              const chg = k.change ?? (k.ma5 ? +(k.current - k.ma5).toFixed(2) : null);
+              const pct = chg != null && k.ma5 ? +(chg / k.ma5 * 100).toFixed(2) : null;
+              const up = (chg || 0) >= 0;
+              return (
+                <div className="flex items-center gap-2 min-w-0">
+                  {up ? <TrendingUp size={14} className="text-red-400 shrink-0" /> : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium">{k.current.toLocaleString()}</div>
+                    <div className="text-xs t-text-sub">KOSPI {chg != null && <span className={up ? "text-red-500" : "text-blue-500"}>{up ? "▲" : "▼"}{Math.abs(chg).toFixed(2)}{pct != null && ` (${up ? "+" : ""}${pct.toFixed(2)}%)`}</span>}</div>
+                  </div>
                 </div>
-              </div>
-            )}
-            {performance.kosdaq && (
-              <div className="flex items-center gap-2 min-w-0">
-                {(performance.kosdaq.change || 0) >= 0
-                  ? <TrendingUp size={14} className="text-red-400 shrink-0" />
-                  : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
-                <div className="min-w-0">
-                  <div className="text-sm font-medium">{performance.kosdaq.current?.toLocaleString()}</div>
-                  <div className="text-xs t-text-sub">KOSDAQ {performance.kosdaq.change != null && <span className={`${(performance.kosdaq.change || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>{performance.kosdaq.change >= 0 ? "▲" : "▼"}{Math.abs(performance.kosdaq.change || 0).toFixed(2)}</span>}</div>
+              );
+            })()}
+            {performance.kosdaq?.current && (() => {
+              const k = performance.kosdaq;
+              const chg = k.change ?? (k.ma5 ? +(k.current - k.ma5).toFixed(2) : null);
+              const pct = chg != null && k.ma5 ? +(chg / k.ma5 * 100).toFixed(2) : null;
+              const up = (chg || 0) >= 0;
+              return (
+                <div className="flex items-center gap-2 min-w-0">
+                  {up ? <TrendingUp size={14} className="text-red-400 shrink-0" /> : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium">{k.current.toLocaleString()}</div>
+                    <div className="text-xs t-text-sub">KOSDAQ {chg != null && <span className={up ? "text-red-500" : "text-blue-500"}>{up ? "▲" : "▼"}{Math.abs(chg).toFixed(2)}{pct != null && ` (${up ? "+" : ""}${pct.toFixed(2)}%)`}</span>}</div>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
           {/* 글로벌 매크로 */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">글로벌 매크로</div>
+              <div className="text-xs font-semibold t-text mb-2 flex items-center justify-between">
+                <span>글로벌 매크로</span>
+                {sentiment?.components?.macro_score?.value != null && (
+                  <div className="flex items-center gap-1.5 relative">
+                    <span onClick={() => setShowMacroHelp(!showMacroHelp)} className="w-4 h-4 rounded-full border t-border-light text-[9px] font-medium t-text-dim flex items-center justify-center cursor-pointer hover:t-text-sub hover:border-current">?</span>
+                    <span className={`text-[11px] font-bold ${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
+                      {sentiment.components.macro_score.value}/10
+                    </span>
+                    {showMacroHelp && (
+                      <div className="absolute right-0 top-6 w-72 p-3 rounded-xl t-card border t-border-light shadow-lg z-10" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="text-[11px] font-semibold t-text">글로벌 매크로 점수</div>
+                          <span onClick={() => setShowMacroHelp(false)} className="text-[10px] t-text-dim cursor-pointer">닫기</span>
+                        </div>
+                        <div className="text-[10px] t-text-sub leading-relaxed space-y-1.5">
+                          <p>6개 글로벌 지표의 변동률을 가중평균하여 0~10점으로 산출합니다. 5점이 중립, 5 이상 강세, 미만 약세.</p>
+                          <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 mt-1">
+                            <span>나스닥(NQ) <b>×2.0</b></span><span>반도체(SOXX) <b>×2.0</b></span>
+                            <span>KOSPI200 <b>×1.5</b></span><span>한국ETF(EWY) <b>×1.0</b></span>
+                            <span>마이크론(MU) <b>×1.0</b></span><span>한국3X(KORU) <b>×0.5</b></span>
+                          </div>
+                          <p className="t-text-dim">이 점수는 시장 심리지수(100점)에서 10점 비중으로 반영됩니다.</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {(["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"] as string[]).map(symbol => {
                   const macro = indicatorHistory.macro as Record<string, any[]>;
@@ -1269,7 +1395,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "KOSPI200": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)" };
                   return (
                     <div key={symbol} className="t-card-alt rounded-lg p-2">
-                      <div className="text-[10px] t-text-dim mb-0.5">{nameMap[symbol] || symbol}</div>
+                      <div className="text-[11px] font-medium t-text-sub mb-0.5">{nameMap[symbol] || symbol}</div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-sm font-semibold t-text">{latest.price?.toLocaleString()}</span>
                         {latest.change_pct != null && (
@@ -1292,11 +1418,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           {/* 주요 선물 */}
           {performance.futures?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">주요 선물</div>
+              <div className="text-xs font-semibold t-text mb-2">주요 선물</div>
               <div className="grid grid-cols-3 gap-1.5">
                 {performance.futures.map((ft: any, i: number) => (
                   <div key={i} className="t-card-alt rounded-lg p-2 text-center">
-                    <div className="text-[10px] t-text-dim truncate">{ft.name}</div>
+                    <div className="text-[11px] font-medium t-text-sub truncate">{ft.name}</div>
                     <div className="text-sm font-semibold t-text">{ft.price?.toLocaleString()}</div>
                     <div className={`text-[10px] font-medium ${(ft.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
                       {ft.change_pct >= 0 ? "▲" : "▼"}{Math.abs(ft.change_pct)}%
@@ -1310,14 +1436,14 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           {/* 환율 */}
           {performance.exchange?.length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-medium t-text-sub mb-1.5">환율</div>
+              <div className="text-xs font-semibold t-text mb-2">환율</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {performance.exchange.slice(0, 4).map((r: any, i: number) => {
                   const label: Record<string, string> = { USD: "원/달러", JPY: "원/엔", EUR: "원/유로", CNY: "원/위안" };
                   const cur = r.currency || r.name || "";
                   return (
                     <div key={i} className="t-card-alt rounded-lg p-2">
-                      <div className="text-[10px] t-text-dim mb-0.5">{label[cur] || cur}</div>
+                      <div className="text-[11px] font-medium t-text-sub mb-0.5">{label[cur] || cur}</div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-sm font-semibold t-text">{r.rate?.toLocaleString()}</span>
                         {r.change_rate != null && (
@@ -1374,7 +1500,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {/* 내 포트폴리오 — 포트폴리오 탭에서만 표시 */}
       {isPortfolioPage && (!supaUser ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="mb-3 flex justify-center"><BarChart3 size={28} className="t-text-dim" /></div>
+          <BarChart3 size={28} className="mx-auto mb-3 t-text-dim" />
           <div className="text-sm font-semibold t-text mb-1">내 포트폴리오</div>
           <div className="text-[12px] t-text-sub mb-4">로그인하면 보유 종목을 관리하고<br/>실시간 수익률을 확인할 수 있습니다.</div>
           <button onClick={() => setShowLogin(true)}
@@ -1382,7 +1508,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </section>
       ) : !portfolio ? (
         <section className="t-card rounded-xl p-6 text-center">
-          <div className="mb-2 flex justify-center"><BarChart3 size={24} className="t-text-dim animate-pulse" /></div>
+          <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
           <div className="text-sm t-text-sub">포트폴리오 데이터 로딩 중...</div>
         </section>
       ) : (() => {
@@ -1839,14 +1965,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         const allBuy: { s: any; cat: string; score: number }[] = [];
 
         const classify = (s: any) => {
-          const vs = s.vision_signal || s.signal || "";
-          const as_ = s.api_signal || "";
           const buys = new Set(["매수", "적극매수"]);
+          const hasVision = buys.has(s.vision_signal || "");
+          const hasApi = buys.has(s.api_signal || "");
           const isCross = crossCodeSet.has(s.code);
-          const bothBuy = buys.has(vs) && buys.has(as_);
-          if (isCross && bothBuy) return "고확신";
+          if (hasVision && hasApi && isCross) return "고확신";
           if (isCross) return "대장주";
-          if (bothBuy) return "매수 일치";
+          if (hasVision && hasApi) return "매수 일치";
           return "매수";
         };
 
@@ -1860,8 +1985,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           }
         });
         (smartMoney || []).forEach((s: any) => {
+          if (seen.has(s.code)) return;
           const buys = new Set(["매수", "적극매수"]);
-          if (buys.has(s.signal) && !seen.has(s.code)) {
+          const hasVision = buys.has(s.vision_signal || "");
+          const hasApi = buys.has(s.api_signal || "");
+          // vision 또는 api 중 하나라도 매수 신호가 있어야 포함
+          if (hasVision || hasApi) {
             allBuy.push({ s, cat: classify(s), score: s.smart_money_score || 0 });
             seen.add(s.code);
           }
@@ -1870,10 +1999,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         allBuy.sort((a, b) => (catOrder[a.cat] ?? 9) - (catOrder[b.cat] ?? 9) || b.score - a.score);
 
         const catStyle: Record<string, { bg: string; text: string; border: string }> = {
-          "고확신": { bg: "bg-red-500/15", text: "text-red-400", border: "border-red-500/20" },
-          "대장주": { bg: "bg-orange-500/12", text: "text-orange-400", border: "border-orange-500/20" },
-          "매수 일치": { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/15" },
-          "매수": { bg: "bg-gray-500/8", text: "t-text-sub", border: "border-gray-500/10" },
+          "고확신": { bg: "t-card-alt", text: "text-red-500", border: "border-l-[3px] border-l-red-500 border t-border-light" },
+          "대장주": { bg: "t-card-alt", text: "text-orange-500", border: "border-l-[3px] border-l-orange-400 border t-border-light" },
+          "매수 일치": { bg: "t-card-alt", text: "text-blue-500", border: "border-l-[3px] border-l-blue-400 border t-border-light" },
+          "매수": { bg: "t-card-alt", text: "t-text", border: "border t-border-light" },
         };
 
         // 카테고리별 그룹핑
@@ -1905,9 +2034,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                           className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border cursor-pointer hover:opacity-80 transition ${style.bg} ${style.border}`}>
                           <div className="flex items-center gap-1.5 min-w-0">
                             <span className={`text-[13px] font-medium truncate ${style.text}`}>{s.name}</span>
-                            {streak && <span className="text-[9px] px-1 py-0.5 rounded bg-amber-500/15 text-amber-400">{streak}일 연속</span>}
+                            {streak && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-500 font-medium">{streak}일 연속</span>}
                             {foreignNet != null && foreignNet !== 0 && (
-                              <span className={`text-[9px] px-1 py-0.5 rounded ${foreignNet > 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
+                              <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${foreignNet > 0 ? "bg-red-500/10 text-red-500" : "bg-blue-500/10 text-blue-500"}`}>
                                 외인{foreignNet > 0 ? "↑" : "↓"}
                               </span>
                             )}
@@ -1959,7 +2088,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         const renderList = (items: any[], color: string, showStreak: boolean) => {
           const sorted = sortByFreshness(items);
           const active = sorted.filter((r: any) => freshness(r) !== "ended");
-          const ended = sorted.filter((r: any) => freshness(r) === "ended");
           return (
             <>
               {active.map((r: any, i: number) => (
@@ -1976,43 +2104,50 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   </button>
                 </div>
               ))}
-              {ended.length > 0 && (
-                <details className="mt-1">
-                  <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({ended.length})</summary>
-                  {ended.map((r: any, i: number) => (
-                    <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0 opacity-40">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[13px] font-medium t-text">{r.name}</span>
-                        <span className="text-[10px] t-text-dim">{r.code}</span>
-                        {badge("ended")}
-                      </div>
-                      <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
-                        className="flex items-center gap-2 hover:opacity-70 transition">
-                        <span className={`text-[11px] font-semibold t-text-dim`}>{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
-                        <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
-                      </button>
-                    </div>
-                  ))}
-                </details>
-              )}
             </>
           );
         };
         return (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="consecutive" timestamp={ts}>연속 시그널</SectionHeader>
-          {consecutiveSignals.and_condition?.length > 0 && (
-            <div className="mb-3">
-              <div className="text-[11px] font-semibold text-red-400 mb-1.5">🔥 매수 + 대장주 동시 (AND)</div>
-              <div className="space-y-1">{renderList(consecutiveSignals.and_condition, "text-red-400", true)}</div>
-            </div>
-          )}
-          {consecutiveSignals.or_condition?.length > 0 && (
-            <div>
-              <div className="text-[11px] font-semibold text-amber-400 mb-1.5">📊 매수 또는 대장주 (OR)</div>
-              <div className="space-y-1">{renderList(consecutiveSignals.or_condition.slice(0, 15), "text-amber-400", false)}</div>
-            </div>
-          )}
+          {(() => {
+            const andItems = consecutiveSignals.and_condition || [];
+            const orItems = consecutiveSignals.or_condition || [];
+            const andActive = andItems.filter((r: any) => freshness(r) !== "ended");
+            const orActive = orItems.filter((r: any) => freshness(r) !== "ended");
+            const allEnded = [...andItems, ...orItems].filter((r: any) => freshness(r) === "ended");
+            return <>
+              {andActive.length > 0 && (
+                <div className="mb-3">
+                  <div className="text-[11px] font-semibold text-red-400 mb-1.5 flex items-center gap-1"><Flame size={12} /> 매수 + 대장주 동시 (AND)</div>
+                  <div className="space-y-1">{renderList(andItems, "text-red-400", true)}</div>
+                </div>
+              )}
+              {orActive.length > 0 && (
+                <div>
+                  <div className="text-[11px] font-semibold text-amber-400 mb-1.5 flex items-center gap-1"><BarChart3 size={12} /> 매수 또는 대장주 (OR)</div>
+                  <div className="space-y-1">{renderList(orItems.slice(0, 15), "text-amber-400", false)}</div>
+                </div>
+              )}
+              {andActive.length === 0 && orActive.length === 0 && allEnded.length > 0 && (
+                <div className="text-[11px] t-text-dim">현재 활성 연속 신호 없음</div>
+              )}
+              {allEnded.length > 0 && (andActive.length > 0 || orActive.length > 0) && (
+                <details className="mt-2">
+                  <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({allEnded.length})</summary>
+                  {allEnded.map((r: any, i: number) => (
+                    <div key={i} className="flex items-center justify-between py-1 opacity-40">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[12px] t-text">{r.name}</span>
+                        <span className="text-[10px] t-text-dim">{r.code}</span>
+                      </div>
+                      <span className="text-[10px] t-text-dim">{r.streak}일 · {r.dates?.[r.dates.length - 1]}</span>
+                    </div>
+                  ))}
+                </details>
+              )}
+            </>;
+          })()}
         </section>
         );
       })()}
@@ -2051,7 +2186,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     </span>
                   )}
                   {intra.validation && (() => {
-                    const sig = s.vision_signal || s.signal || s.api_signal || "";
+                    const sig = s.vision_signal || s.api_signal || "";
                     const isBuy = ["매수", "적극매수"].includes(sig);
                     const isSell = ["매도", "적극매도"].includes(sig);
                     const arrow = intra.validation === "신호 유효" ? (isBuy ? "↑ 매수 유효" : isSell ? "↓ 매도 유효" : null) : intra.validation;
@@ -2163,7 +2298,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               const inv = investorMap[a.code];
               const isCross = crossCodes.has(a.code);
               return (
-              <div key={i} className={`flex items-center justify-between p-2 border rounded-lg gap-2 ${cls.color}`}>
+              <div key={i} onClick={() => {
+                const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === a.code);
+                setStockDetail(detail || { name: a.name, code: a.code, _noData: true });
+              }} className={`flex items-center justify-between p-2 border rounded-lg gap-2 cursor-pointer hover:opacity-80 transition ${cls.color}`}>
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap size={14} className="text-red-400 shrink-0" />
                   <div className="min-w-0">
@@ -2195,7 +2333,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   {rest.map((a, i) => {
                     const cls = classify(a);
                     return (
-                    <div key={i} className={`flex items-center justify-between p-2 border rounded-lg gap-2 opacity-60 ${cls.color}`}>
+                    <div key={i} onClick={() => {
+                      const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === a.code);
+                      setStockDetail(detail || { name: a.name, code: a.code, _noData: true });
+                    }} className={`flex items-center justify-between p-2 border rounded-lg gap-2 opacity-60 cursor-pointer hover:opacity-80 transition ${cls.color}`}>
                       <div className="flex items-center gap-2 min-w-0">
                         <Zap size={12} className="text-red-400 shrink-0" />
                         <div className="min-w-0">
@@ -2322,7 +2463,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                           </span>
                         )}
                         {intra.validation && (() => {
-                          const sig2 = s.vision_signal || s.signal || s.api_signal || "";
+                          const sig2 = s.vision_signal || s.api_signal || "";
                           const isBuy2 = ["매수", "적극매수"].includes(sig2);
                           const isSell2 = ["매도", "적극매도"].includes(sig2);
                           const arrow2 = intra.validation === "신호 유효" ? (isBuy2 ? "↑ 매수 유효" : isSell2 ? "↓ 매도 유효" : null) : intra.validation;
@@ -2400,6 +2541,19 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               );
             })}
           </div>
+            {(simulation?.length ?? 0) > 0 && (() => {
+              const main = (simulation || []).find((s: any) => !s.strategy?.includes("적극") && !s.strategy?.includes("stop"));
+              const wr = main?.win_rate ?? 0;
+              const avg = main?.returns?.mean ?? 0;
+              return (
+                <div className="mt-3 p-2.5 rounded-lg bg-amber-500/8 border border-amber-500/15 text-[10px] t-text-sub leading-relaxed">
+                  <span className="font-semibold text-amber-500">해석 안내</span>
+                  {wr <= 55 && <span> · 승률 {wr}%는 동전 던지기 수준으로 신호만으로 방향 예측이 어렵습니다.</span>}
+                  {avg > 0 && <span> · 평균수익이 양수인 이유는 소수의 큰 수익이 다수의 소손실을 상쇄하는 구조입니다.</span>}
+                  <span> · 과거 백테스트 결과이며 미래 수익을 보장하지 않습니다.</span>
+                </div>
+              );
+            })()}
             {!simulation?.length && <Empty />}
         </section>
       )}
@@ -2411,25 +2565,23 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <div className="space-y-3">
             {(pattern || []).filter((p: any) => p.matches?.length > 0).map((p: any, i: number) => (
               <div key={i}>
-                <div className="font-medium text-sm flex items-center gap-1 mb-1.5">
-                  <LineChart size={14} className="t-text-dim shrink-0" />
-                  <span className="truncate">{p.name}</span>
-                  <span className="text-xs t-text-dim shrink-0">{p.code}</span>
+                <div className="text-[12px] font-medium t-text flex items-center gap-1.5 mb-2">
+                  <LineChart size={13} className="t-text-dim shrink-0" />
+                  {p.name} <span className="t-text-dim font-normal">{p.code}</span>
                 </div>
                 {p.matches?.slice(0, 3).map((m: any, j: number) => {
                   const dateLabel = m.date ? m.date.slice(5) : "";
                   const matchName = m.name || m.code || "?";
                   const dr = m.daily_returns || {};
+                  const sim = (m.similarity * 100).toFixed(0);
                   return (
-                  <div key={j} className="border-b t-border-light last:border-0 py-1.5">
-                    <div className="flex justify-between text-xs gap-2 mb-1">
-                      <span className="t-text-sub truncate">· {dateLabel} {matchName} {(m.similarity * 100).toFixed(0)}%</span>
-                    </div>
-                    <div className="flex gap-1 ml-3">
+                  <div key={j} className="ml-5 mb-2 last:mb-0">
+                    <div className="text-[11px] t-text-sub mb-1">{dateLabel} {matchName} <span className="t-text-dim">{sim}%</span></div>
+                    <div className="flex gap-1">
                       {[1,2,3,4,5].map(d => {
                         const v = dr[`d${d}`];
                         return v != null ? (
-                          <span key={d} className={`text-[10px] px-1 py-0.5 rounded ${v >= 0 ? "text-red-500 bg-red-50 dark:bg-red-900/20" : "text-blue-500 bg-blue-50 dark:bg-blue-900/20"}`}>
+                          <span key={d} className={`text-[10px] px-1.5 py-0.5 rounded ${v >= 0 ? "text-red-500 bg-red-500/8" : "text-blue-500 bg-blue-500/8"}`}>
                             D{d} {v >= 0 ? "+" : ""}{v.toFixed(1)}
                           </span>
                         ) : null;
@@ -2454,20 +2606,46 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="news" timestamp={ts}>뉴스 임팩트</SectionHeader>
           <div className="space-y-3">
-            {Object.entries(newsImpact || {}).filter(([cat, data]) => cat !== "generated_at" && typeof data === "object" && data?.count > 0).map(([cat, data]: [string, any]) => (
-              <div key={cat} className="p-3 t-card-alt rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <Badge variant="purple">{cat}</Badge>
-                  <span className="text-xs t-text-dim">{data.count}건</span>
-                </div>
-                {data.titles?.slice(0, 2).map((t: any, i: number) => (
-                  <div key={i} className="text-xs t-text-sub mb-1 flex justify-between gap-2">
-                    <span className="truncate min-w-0">{t.title}</span>
-                    <span className="shrink-0 t-text-dim">{t.stock}</span>
+            {(() => {
+              // 관심 종목 코드셋 (매수 신호)
+              const watchCodes = new Set([...(crossSignal || []), ...(smartMoney || [])].map((s: any) => s.name));
+              const entries = Object.entries(newsImpact || {}).filter(([cat, data]) => cat !== "generated_at" && typeof data === "object" && data?.count > 0);
+              return entries.map(([cat, data]: [string, any]) => {
+                // 관심 종목 뉴스 우선 정렬
+                const titles = [...(data.titles || [])].sort((a: any, b: any) => {
+                  const aw = watchCodes.has(a.stock) ? 0 : 1;
+                  const bw = watchCodes.has(b.stock) ? 0 : 1;
+                  return aw - bw;
+                });
+                return (
+                <div key={cat} className="p-3 t-card-alt rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <Badge variant="purple">{cat}</Badge>
+                    <span className="text-xs t-text-dim">{data.count}건</span>
                   </div>
-                ))}
-              </div>
-            ))}
+                  {titles.slice(0, 3).map((t: any, i: number) => (
+                    <div key={i} onClick={() => {
+                      if (t.code) {
+                        const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === t.code);
+                        setStockDetail(detail || { name: t.stock, code: t.code, _noData: true });
+                      }
+                    }} className={`text-xs t-text-sub mb-1.5 flex items-center gap-2 ${t.code ? "cursor-pointer hover:opacity-70" : ""}`}>
+                      <span className="truncate min-w-0">{t.title}</span>
+                      <span className="shrink-0 flex items-center gap-1">
+                        {watchCodes.has(t.stock) && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-400">관심</span>}
+                        <span className="t-text-dim">{t.stock}</span>
+                        {t.change_rate != null && (
+                          <span className={`font-medium ${t.change_rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {t.change_rate >= 0 ? "+" : ""}{t.change_rate}%
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                );
+              });
+            })()}
           </div>
             {!Object.keys(newsImpact || {}).length && <Empty />}
         </section>
@@ -2479,16 +2657,25 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <SectionHeader id="gap" timestamp={ts} count={gapAnalysis?.length ?? 0}>갭 분석</SectionHeader>
           <div className="space-y-1.5">
             {(gapAnalysis || []).slice(0, 6).map((g, i) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+              <div key={i} onClick={() => {
+                const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === g.code);
+                setStockDetail(detail || { name: g.name, code: g.code, _noData: true });
+              }} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:opacity-80 transition">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{g.name}</div>
-                  <div className="text-xs t-text-sub">{g.direction}</div>
+                  <div className="text-[10px] t-text-dim">
+                    {g.direction} · 시가 {g.open_price?.toLocaleString() || "-"} / 전일 {g.prev_close?.toLocaleString() || "-"}
+                  </div>
                 </div>
                 <div className="text-right shrink-0">
                   <div className={`text-sm font-bold ${g.gap_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
                     {g.gap_pct >= 0 ? "+" : ""}{g.gap_pct}%
                   </div>
-                  <div className="text-[10px] t-text-dim">메꿈 확률 {g.fill_probability}%</div>
+                  {g.filled != null && (
+                    <div className={`text-[10px] font-medium ${g.filled ? "text-emerald-500" : "t-text-dim"}`}>
+                      {g.filled ? "갭 메꿈" : `현재 ${g.change_rate >= 0 ? "+" : ""}${g.change_rate}%`}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

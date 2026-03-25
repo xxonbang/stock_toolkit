@@ -12,8 +12,8 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
     desc: "공포·탐욕 지수(Fear & Greed)는 시장 심리를 0~100으로 측정합니다. 25 미만은 극단적 공포(매수 기회), 75 이상은 극단적 탐욕(과열 주의)입니다. VIX는 S&P 500 옵션 기반 변동성 지수로, 12 미만은 극저변동(안정), 12~20은 정상, 20~30은 불안(경계), 30 이상은 공포(급변동)입니다. 환율, F&G 추세, 글로벌 매크로 8개 지표, AI 테마 예측, 매크로 추세 히스토리를 종합 표시합니다.",
   },
   signals: {
-    title: "신호 분포",
-    desc: "분석 대상 전체 종목의 매매 신호를 5단계로 분류한 결과입니다. 적극매수/매수가 많으면 시장이 긍정적, 매도/적극매도가 많으면 부정적 흐름입니다.",
+    title: "AI 주목 종목",
+    desc: "AI 분석 결과 매수 신호가 있는 종목을 신뢰도 순으로 분류합니다.\n\n■ 카테고리 분류 기준\n· 고확신: 테마 대장주 + Vision AI 매수 + KIS API 매수 (두 독립 분석 일치)\n· 대장주: 테마 대장주(교차 신호)이지만 한쪽만 매수 또는 한쪽이 중립\n· 매수 일치: 대장주는 아니지만 Vision AI와 KIS API 양쪽 모두 매수\n· 매수: 한쪽(Vision 또는 KIS)만 매수 신호\n\n■ 대장주란?\n테마 분석에서 해당 테마를 대표하는 종목으로 선정된 주식입니다. 교차 신호(cross_signal) 데이터에 포함된 종목이 대장주입니다.\n\n■ 뱃지\n· N일 연속: 연속으로 매수 신호가 발생한 일수\n· 외인↑/↓: 외국인 순매수/순매도 방향",
   },
   cross: {
     title: "교차 신호",
@@ -45,7 +45,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   news: {
     title: "뉴스 임팩트",
-    desc: "종목 관련 뉴스를 카테고리별로 분류하고, 해당 뉴스가 주가에 미친 영향을 분석합니다. 실적·정책·수급 등 유형별로 과거 평균 임팩트를 참고할 수 있습니다.",
+    desc: "AI 분석 종목의 관련 뉴스를 카테고리별로 분류하고, 해당 종목의 당일 등락률을 함께 표시합니다.\n\n■ 카테고리\n· 이슈: 일반 시장 이슈 및 테마 뉴스\n· 수급: 외국인·기관 매매 관련 뉴스\n· 실적: 매출·영업이익 등 실적 관련\n· 종목뉴스: 개별 종목 재료·공시\n\n■ 표시 정보\n· 관심 뱃지: AI 매수 신호가 있는 종목의 뉴스\n· 등락률: 해당 종목의 당일 주가 변동률\n· 관심 종목 뉴스가 상단에 우선 표시됩니다\n\n뉴스를 클릭하면 해당 종목의 상세 분석을 확인할 수 있습니다.",
   },
   sector: {
     title: "테마별 자금 흐름",
@@ -61,7 +61,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   gap: {
     title: "갭 분석",
-    desc: "전일 종가 대비 시가가 크게 벌어진(갭) 종목입니다. 갭 상승은 호재 반영, 갭 하락은 악재 반영입니다. 갭 메꿈 확률은 과거 유사 갭이 이후 메워진 비율입니다.",
+    desc: "전일 종가 대비 당일 시가가 2% 이상 벌어진(갭) 종목입니다. KIS API로 실시간 시가/전일종가를 조회하여 산출합니다.\n\n■ 갭업: 시가 > 전일종가 → 장 시작 전 호재 반영\n■ 갭다운: 시가 < 전일종가 → 장 시작 전 악재 반영\n\n■ 갭 메꿈\n갭업 후 현재가가 전일종가 이하로 하락하면 '갭 메꿈' 표시. 갭이 메꿔지면 상승 동력이 약해진 것으로 판단합니다.\n\n종목 클릭 시 상세 분석을 확인할 수 있습니다.",
   },
   valuation: {
     title: "밸류에이션 스크리너",
@@ -190,7 +190,7 @@ export function SectionHeader({
 
   return (
     <>
-      <div className="flex items-center gap-2 mb-3">
+      <div id={id} className="flex items-center gap-2 mb-3 scroll-mt-24">
         <h2 className="text-base font-semibold t-text shrink-0">
           {children}
           {count != null && (

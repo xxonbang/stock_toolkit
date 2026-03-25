@@ -194,14 +194,14 @@ def main():
         code = sig.get("code", "")
         inv = investor_data.get(code, {})
         foreign_net = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
-        signal = sig.get("vision_signal", "")
+        vision_sig = sig.get("vision_signal") or ""
         conf = sig.get("vision_confidence", 0) or 0
-        api_sig = sig.get("api_signal", "")
+        api_sig = sig.get("api_signal") or ""
         match_st = sig.get("match_status", "")
         score = 50
-        if signal in ("적극매수",):
+        if vision_sig in ("적극매수",):
             score += 30
-        elif signal in ("매수",):
+        elif vision_sig in ("매수",):
             score += 15
         if api_sig in ("적극매수",):
             score += 20
@@ -210,16 +210,21 @@ def main():
         score += int((conf or 0) * 20)
         if isinstance(foreign_net, (int, float)) and foreign_net > 0:
             score += 10
-        # 이중 검증 보너스
-        if signal in ("매수", "적극매수") and api_sig in ("매수", "적극매수"):
+        # 이중 검증: vision_signal과 api_signal 모두 실제 값이 있어야 함
+        buys = ("매수", "적극매수")
+        has_vision = vision_sig in buys
+        has_api = api_sig in buys
+        if has_vision and has_api:
             score += 10
             dual = "고확신"
-        elif signal in ("매수", "적극매수"):
+        elif has_vision:
             dual = "확인필요"
-        elif api_sig in ("매수", "적극매수"):
+        elif has_api:
             dual = "KIS매수"
-        else:
+        elif vision_sig and api_sig and vision_sig != api_sig:
             dual = "혼조"
+        else:
+            dual = ""
         # kis_analysis 4차원 점수
         ka = kis_analysis_map.get(code, {})
         ka_scores = ka.get("scores", {}) if isinstance(ka, dict) else {}
@@ -227,7 +232,7 @@ def main():
             smart_money_results.append({
                 "code": code, "name": sig.get("name", ""),
                 "smart_money_score": min(score, 99),
-                "signal": signal, "foreign_net": foreign_net,
+                "signal": vision_sig, "vision_signal": vision_sig, "foreign_net": foreign_net,
                 "api_signal": api_sig, "match_status": match_st,
                 "dual_signal": dual,
                 "tech_score": ka_scores.get("technical", ka.get("technical_score")),
@@ -514,8 +519,18 @@ def main():
 
     # Phase 3
     print("=== Phase 3: 분석 ===")
-    # 뉴스 임팩트 — combined signals의 vision_news에서 추출
-    news_impact = {}
+    # 뉴스 임팩트 — combined signals의 vision_news에서 추출 + 등락률 매칭
+    news_impact: dict = {}
+    # 종목별 등락률 맵 (intraday 우선, change_rate 폴백)
+    change_map: dict = {}
+    for sig in combined:
+        cr = (sig.get("intraday") or {}).get("change_rate") if isinstance(sig.get("intraday"), dict) else None
+        if cr is None:
+            cr = sig.get("change_rate")
+        if sig.get("code"):
+            change_map[sig["code"]] = cr
+        if sig.get("name"):
+            change_map[sig["name"]] = cr
     for sig in combined[:30]:
         news_list = sig.get("vision_news", [])
         for n in news_list[:1]:
@@ -528,11 +543,14 @@ def main():
                   "이슈"
             if cat not in news_impact:
                 news_impact[cat] = {"count": 0, "titles": []}
+            stock_name = sig.get("name", "")
             news_impact[cat]["count"] += 1
             news_impact[cat]["titles"].append({
                 "title": title,
-                "stock": sig.get("name", ""),
-                "signal": sig.get("vision_signal", ""),
+                "stock": stock_name,
+                "code": sig.get("code", ""),
+                "signal": sig.get("vision_signal") or "",
+                "change_rate": change_map.get(stock_name) or change_map.get(sig.get("code", "")),
             })
     with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
         json.dump(news_impact, f, ensure_ascii=False, indent=2)
@@ -748,7 +766,7 @@ def main():
 
     # Phase 5: 신규 모듈
     print("=== Phase 5: 신규 분석 ===")
-    from modules.sentiment_index import calculate_sentiment, classify_sentiment
+    from modules.sentiment_index import calculate_sentiment, classify_sentiment, calculate_macro_score
     from modules.gap_analyzer import detect_gaps
     from modules.valuation_screener import calculate_value_score
     from modules.volume_price_divergence import detect_divergence
@@ -764,8 +782,43 @@ def main():
     fg = macro.get("fear_greed", {})
     vix_data = macro.get("vix", {})
     kospi_data = latest.get("kospi_index", loader.get_market_status() if hasattr(loader, 'get_market_status') else {})
+    # 매크로 전체 지표 반영
+    macro_ind = loader.get_macro_indicators()
+    macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
+    exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
+    inv_trend = (macro_ind.get("investor_trend") or []) if isinstance(macro_ind, dict) else []
+    # macro-indicators.json이 없을 때 indicator_history.json의 macro에서 폴백
+    if not macro_ind_list:
+        ind_hist = loader.get_indicator_history()
+        ind_macro = ind_hist.get("macro", {}) if isinstance(ind_hist, dict) else {}
+        # theme_analysis 원본도 없으면 results/ 또는 frontend/public/data/ 에서 폴백
+        if not ind_macro:
+            for fallback in [results_dir / "indicator_history.json", Path("frontend/public/data/indicator_history.json")]:
+                if fallback.exists():
+                    with open(fallback) as _f:
+                        fb = json.load(_f)
+                    ind_macro = fb.get("macro", {}) if isinstance(fb, dict) else {}
+                    if not exchange_data:
+                        exchange_data = fb.get("exchange", {}) if isinstance(fb, dict) else {}
+                    if not inv_trend:
+                        inv_trend = (fb.get("investor_trend") or []) if isinstance(fb, dict) else []
+                    if ind_macro:
+                        break
+        name_map = {"NQ=F": "나스닥선물", "KOSPI200": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)"}
+        for sym in ["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"]:
+            arr = ind_macro.get(sym, [])
+            if isinstance(arr, list) and arr:
+                entry = arr[-1]
+                macro_ind_list.append({"symbol": sym, "name": name_map.get(sym, sym), "price": entry.get("price"), "change_pct": entry.get("change_pct")})
+        if not exchange_data and isinstance(ind_hist, dict):
+            exchange_data = ind_hist.get("exchange", {})
+        if not inv_trend and isinstance(ind_hist, dict):
+            inv_trend = ind_hist.get("investor_trend") or []
+    # 글로벌 매크로 점수 계산 (NQ=F, SOXX, EWY, KORU, MU, KOSPI200)
+    m_score, m_contributions = calculate_macro_score(macro_ind_list)
     sentiment_score = calculate_sentiment(
-        fg.get("score", 50), vix_data.get("current", 20), kospi_data, 0, 50, 0, 0
+        fg.get("score", 50), vix_data.get("current", 20), kospi_data, 0, 50, 0, 0,
+        macro_score=m_score,
     )
     sentiment_info = classify_sentiment(sentiment_score)
     sentiment_result = {
@@ -775,14 +828,9 @@ def main():
         "components": {
             "fear_greed": {"value": round(fg.get("score", 0), 1)},
             "vix": {"value": vix_data.get("current", 0)},
+            "macro_score": {"value": m_score, "contributions": m_contributions},
         }
     }
-    # 매크로 전체 지표 반영
-    macro_ind = loader.get_macro_indicators()
-    macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
-    exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
-    inv_trend = (macro_ind.get("investor_trend") or []) if isinstance(macro_ind, dict) else []
-
     sentiment_result["components"]["macro"] = [
         {"symbol": ind.get("symbol", ""), "name": ind.get("name", ""),
          "price": ind.get("price"), "change_pct": ind.get("change_pct")}
@@ -794,20 +842,44 @@ def main():
     with open(results_dir / "sentiment.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
 
-    # 갭 분석 — change_rate > 5%를 갭으로 처리
-    all_rising = rising_stocks
+    # 갭 분석 — KIS API로 시가/전일종가 조회 후 진짜 갭(시가-전일종가 차이) 분석
     gap_results = []
-    for s in all_rising:
-        change = s.get("change_rate", 0)
-        if abs(change) >= 5:
-            gap_results.append({
-                "code": s.get("code", ""),
-                "name": s.get("name", ""),
-                "gap_pct": round(change, 2),
-                "direction": "상승 갭" if change > 0 else "하락 갭",
-                "volume_rate": s.get("volume_rate", 100),
-                "fill_probability": round(max(30, min(85, 70 - abs(change) * 2)), 0),
-            })
+    try:
+        from core.kis_client import KISClient
+        kis_gap = KISClient()
+        # 분석 대상: combined 상위 30종목
+        gap_codes = [s.get("code") for s in combined[:30] if s.get("code")]
+        if gap_codes:
+            gap_prices = kis_gap.get_prices_batch(gap_codes)
+            for code, pdata in gap_prices.items():
+                open_p = pdata.get("open", 0)
+                prev_close = pdata.get("prev_close", 0)
+                if prev_close <= 0 or open_p <= 0:
+                    continue
+                gap_pct = round((open_p - prev_close) / prev_close * 100, 2)
+                if abs(gap_pct) < 2:
+                    continue
+                name = next((s.get("name", "") for s in combined if s.get("code") == code), code)
+                current = pdata.get("current_price", 0)
+                # 갭 메꿈 여부: 갭업 후 현재가가 전일종가 이하로 내려왔으면 메꿈
+                filled = False
+                if gap_pct > 0 and current <= prev_close:
+                    filled = True
+                elif gap_pct < 0 and current >= prev_close:
+                    filled = True
+                gap_results.append({
+                    "code": code, "name": name,
+                    "gap_pct": gap_pct,
+                    "direction": "갭업" if gap_pct > 0 else "갭다운",
+                    "open_price": open_p,
+                    "prev_close": prev_close,
+                    "current_price": current,
+                    "change_rate": pdata.get("change_rate", 0),
+                    "filled": filled,
+                })
+            print(f"  [갭분석] {len(gap_prices)}종목 조회 → 갭 {len(gap_results)}건 감지")
+    except Exception as e:
+        print(f"  [갭분석] KIS 조회 실패: {e}")
     gap_results.sort(key=lambda x: abs(x["gap_pct"]), reverse=True)
     with open(results_dir / "gap_analysis.json", "w", encoding="utf-8") as f:
         json.dump(gap_results[:10], f, ensure_ascii=False, indent=2)
@@ -943,6 +1015,16 @@ def main():
     gold_chg = gold_f.get("change_pct", 0)
     if gold_chg and abs(gold_chg) > 1:
         factors.append(f"금 선물 {gold_chg:+.2f}% {'(안전자산 선호)' if gold_chg > 0 else '(위험선호)'}")
+    # 글로벌 ETF 지표 → 프리마켓 예측에 반영
+    macro_by_sym = {ind.get("symbol"): ind for ind in macro_ind_list}
+    soxx_chg = (macro_by_sym.get("SOXX") or {}).get("change_pct", 0) or 0
+    if soxx_chg and abs(soxx_chg) > 1:
+        score_pm += 0.3 if soxx_chg > 0 else -0.3
+        factors.append(f"SOXX(반도체) {soxx_chg:+.2f}% {'(반도체 강세)' if soxx_chg > 0 else '(반도체 약세)'}")
+    ewy_chg = (macro_by_sym.get("EWY") or {}).get("change_pct", 0) or 0
+    if ewy_chg and abs(ewy_chg) > 1.5:
+        score_pm += 0.3 if ewy_chg > 0 else -0.3
+        factors.append(f"EWY(한국ETF) {ewy_chg:+.2f}% {'(외국인 한국 강세)' if ewy_chg > 0 else '(외국인 한국 약세)'}")
     fg_val = fg.get("score", 50)
     if fg_val < 25:
         score_pm -= 0.5
@@ -981,6 +1063,11 @@ def main():
             {"name": f.get("name"), "price": f.get("price"), "change_pct": f.get("change_pct"), "status": f.get("status")}
             for f in futures_data if isinstance(f, dict)
         ],
+        "macro_etf": [
+            {"symbol": c["symbol"], "name": c["name"], "change_pct": c["change_pct"], "impact": c["impact"]}
+            for c in m_contributions
+        ],
+        "macro_score": m_score,
         "market_context": market_context[:500] if market_context else None,
         "us_market_summary": us_market_summary[:300] if us_market_summary else None,
         "investor_trend_5d": recent_inv_trend,
@@ -1652,7 +1739,7 @@ def main():
                 title = art.get("title", "") if isinstance(art, dict) else ""
                 if title:
                     news_impact[cat]["count"] += 1
-                    news_impact[cat]["titles"].append({"title": title, "stock": stock_name, "signal": ""})
+                    news_impact[cat]["titles"].append({"title": title, "stock": stock_name, "code": code_or_key, "signal": "", "change_rate": change_map.get(stock_name) or change_map.get(code_or_key)})
         with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
             json.dump(news_impact, f, ensure_ascii=False, indent=2)
 
@@ -1767,6 +1854,16 @@ def main():
 
     # 매크로 추세 (indicator-history) + 트렌드 분석
     ind_history = loader.get_indicator_history()
+    # 외부 소스가 비었으면 기존 results 파일의 macro/exchange/futures/investor_trend 보존
+    if isinstance(ind_history, dict) and not ind_history.get("macro"):
+        existing_path = results_dir / "indicator_history.json"
+        if existing_path.exists():
+            with open(existing_path) as _f:
+                existing = json.load(_f)
+            if isinstance(existing, dict):
+                for keep_key in ["macro", "exchange", "futures", "investor_trend", "updated_at"]:
+                    if keep_key in existing and keep_key not in ind_history:
+                        ind_history[keep_key] = existing[keep_key]
     # F&G/VIX 과거 비교 추가
     fg_raw = loader.get_fear_greed()
     if isinstance(fg_raw, dict) and isinstance(ind_history, dict):
