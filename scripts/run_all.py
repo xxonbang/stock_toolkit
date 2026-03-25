@@ -748,7 +748,7 @@ def main():
 
     # Phase 5: 신규 모듈
     print("=== Phase 5: 신규 분석 ===")
-    from modules.sentiment_index import calculate_sentiment, classify_sentiment
+    from modules.sentiment_index import calculate_sentiment, classify_sentiment, calculate_macro_score
     from modules.gap_analyzer import detect_gaps
     from modules.valuation_screener import calculate_value_score
     from modules.volume_price_divergence import detect_divergence
@@ -764,8 +764,16 @@ def main():
     fg = macro.get("fear_greed", {})
     vix_data = macro.get("vix", {})
     kospi_data = latest.get("kospi_index", loader.get_market_status() if hasattr(loader, 'get_market_status') else {})
+    # 매크로 전체 지표 반영
+    macro_ind = loader.get_macro_indicators()
+    macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
+    exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
+    inv_trend = (macro_ind.get("investor_trend") or []) if isinstance(macro_ind, dict) else []
+    # 글로벌 매크로 점수 계산 (NQ=F, SOXX, EWY, KORU, MU, KOSPI200)
+    m_score, m_contributions = calculate_macro_score(macro_ind_list)
     sentiment_score = calculate_sentiment(
-        fg.get("score", 50), vix_data.get("current", 20), kospi_data, 0, 50, 0, 0
+        fg.get("score", 50), vix_data.get("current", 20), kospi_data, 0, 50, 0, 0,
+        macro_score=m_score,
     )
     sentiment_info = classify_sentiment(sentiment_score)
     sentiment_result = {
@@ -775,14 +783,9 @@ def main():
         "components": {
             "fear_greed": {"value": round(fg.get("score", 0), 1)},
             "vix": {"value": vix_data.get("current", 0)},
+            "macro_score": {"value": m_score, "contributions": m_contributions},
         }
     }
-    # 매크로 전체 지표 반영
-    macro_ind = loader.get_macro_indicators()
-    macro_ind_list = macro_ind.get("indicators", []) if isinstance(macro_ind, dict) else []
-    exchange_data = macro_ind.get("exchange", {}) if isinstance(macro_ind, dict) else {}
-    inv_trend = (macro_ind.get("investor_trend") or []) if isinstance(macro_ind, dict) else []
-
     sentiment_result["components"]["macro"] = [
         {"symbol": ind.get("symbol", ""), "name": ind.get("name", ""),
          "price": ind.get("price"), "change_pct": ind.get("change_pct")}
@@ -943,6 +946,16 @@ def main():
     gold_chg = gold_f.get("change_pct", 0)
     if gold_chg and abs(gold_chg) > 1:
         factors.append(f"금 선물 {gold_chg:+.2f}% {'(안전자산 선호)' if gold_chg > 0 else '(위험선호)'}")
+    # 글로벌 ETF 지표 → 프리마켓 예측에 반영
+    macro_by_sym = {ind.get("symbol"): ind for ind in macro_ind_list}
+    soxx_chg = (macro_by_sym.get("SOXX") or {}).get("change_pct", 0) or 0
+    if soxx_chg and abs(soxx_chg) > 1:
+        score_pm += 0.3 if soxx_chg > 0 else -0.3
+        factors.append(f"SOXX(반도체) {soxx_chg:+.2f}% {'(반도체 강세)' if soxx_chg > 0 else '(반도체 약세)'}")
+    ewy_chg = (macro_by_sym.get("EWY") or {}).get("change_pct", 0) or 0
+    if ewy_chg and abs(ewy_chg) > 1.5:
+        score_pm += 0.3 if ewy_chg > 0 else -0.3
+        factors.append(f"EWY(한국ETF) {ewy_chg:+.2f}% {'(외국인 한국 강세)' if ewy_chg > 0 else '(외국인 한국 약세)'}")
     fg_val = fg.get("score", 50)
     if fg_val < 25:
         score_pm -= 0.5
@@ -981,6 +994,11 @@ def main():
             {"name": f.get("name"), "price": f.get("price"), "change_pct": f.get("change_pct"), "status": f.get("status")}
             for f in futures_data if isinstance(f, dict)
         ],
+        "macro_etf": [
+            {"symbol": c["symbol"], "name": c["name"], "change_pct": c["change_pct"], "impact": c["impact"]}
+            for c in m_contributions
+        ],
+        "macro_score": m_score,
         "market_context": market_context[:500] if market_context else None,
         "us_market_summary": us_market_summary[:300] if us_market_summary else None,
         "investor_trend_5d": recent_inv_trend,

@@ -984,6 +984,22 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
             )}
           </div>
+          {/* 글로벌 ETF 매크로 */}
+          {premarket.macro_etf?.length > 0 && (
+            <div className="mt-2">
+              <div className="text-[10px] font-semibold t-text-sub mb-1.5">글로벌 ETF 영향도</div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {premarket.macro_etf.map((etf: any) => (
+                  <div key={etf.symbol} className={`rounded-lg p-1.5 text-center border ${etf.impact >= 0 ? "border-red-500/15 bg-red-500/5" : "border-blue-500/15 bg-blue-500/5"}`}>
+                    <div className="text-[10px] font-medium t-text-sub">{etf.name}</div>
+                    <div className={`text-[11px] font-semibold ${etf.change_pct >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                      {etf.change_pct >= 0 ? "+" : ""}{etf.change_pct}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
       )}
 
@@ -1214,6 +1230,23 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div className="flex justify-between text-[10px] t-text-dim">
                 <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
               </div>
+              {/* 매크로 기여도 */}
+              {sentiment.components?.macro_score?.contributions?.length > 0 && (
+                <div className="mt-2 pt-2 border-t t-border-light">
+                  <div className="text-[10px] font-semibold t-text-sub mb-1">
+                    글로벌 매크로 점수: <span className={`${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
+                      {sentiment.components.macro_score.value}/10
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {sentiment.components.macro_score.contributions.map((c: any) => (
+                      <span key={c.symbol} className={`text-[10px] px-1.5 py-0.5 rounded ${c.impact >= 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
+                        {c.name} {c.change_pct >= 0 ? "+" : ""}{c.change_pct}%
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
           <div className="grid grid-cols-2 gap-4">
