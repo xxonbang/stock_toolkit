@@ -1256,7 +1256,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 <span>글로벌 매크로</span>
                 {sentiment?.components?.macro_score?.value != null && (
                   <div className="flex items-center gap-1.5 relative">
-                    <span onClick={() => setShowMacroHelp(!showMacroHelp)} className="text-[11px] t-text-dim cursor-pointer hover:t-text-sub">?</span>
+                    <span onClick={() => setShowMacroHelp(!showMacroHelp)} className="w-4 h-4 rounded-full border t-border-light text-[9px] font-medium t-text-dim flex items-center justify-center cursor-pointer hover:t-text-sub hover:border-current">?</span>
                     <span className={`text-[11px] font-bold ${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
                       {sentiment.components.macro_score.value}/10
                     </span>
