@@ -1888,6 +1888,28 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           const sorted = sortByFreshness(items);
           const active = sorted.filter((r: any) => freshness(r) !== "ended");
           const ended = sorted.filter((r: any) => freshness(r) === "ended");
+          // 활성 신호가 없으면 섹션 자체를 숨김
+          if (active.length === 0 && ended.length > 0) {
+            return (
+              <details className="mt-1">
+                <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호만 {ended.length}건</summary>
+                {ended.map((r: any, i: number) => (
+                  <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0 opacity-40">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[13px] font-medium t-text">{r.name}</span>
+                      <span className="text-[10px] t-text-dim">{r.code}</span>
+                      {badge("ended")}
+                    </div>
+                    <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
+                      className="flex items-center gap-2 hover:opacity-70 transition">
+                      <span className="text-[11px] font-semibold t-text-dim">{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
+                      <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
+                    </button>
+                  </div>
+                ))}
+              </details>
+            );
+          }
           return (
             <>
               {active.map((r: any, i: number) => (
