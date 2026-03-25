@@ -2420,6 +2420,19 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               );
             })}
           </div>
+            {(simulation?.length ?? 0) > 0 && (() => {
+              const main = (simulation || []).find((s: any) => !s.strategy?.includes("적극") && !s.strategy?.includes("stop"));
+              const wr = main?.win_rate ?? 0;
+              const avg = main?.returns?.mean ?? 0;
+              return (
+                <div className="mt-3 p-2.5 rounded-lg bg-amber-500/8 border border-amber-500/15 text-[10px] t-text-sub leading-relaxed">
+                  <span className="font-semibold text-amber-500">해석 안내</span>
+                  {wr <= 55 && <span> · 승률 {wr}%는 동전 던지기 수준으로 신호만으로 방향 예측이 어렵습니다.</span>}
+                  {avg > 0 && <span> · 평균수익이 양수인 이유는 소수의 큰 수익이 다수의 소손실을 상쇄하는 구조입니다.</span>}
+                  <span> · 과거 백테스트 결과이며 미래 수익을 보장하지 않습니다.</span>
+                </div>
+              );
+            })()}
             {!simulation?.length && <Empty />}
         </section>
       )}
