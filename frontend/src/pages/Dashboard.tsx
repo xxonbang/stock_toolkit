@@ -1764,14 +1764,13 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         const allBuy: { s: any; cat: string; score: number }[] = [];
 
         const classify = (s: any) => {
-          const vs = s.vision_signal || s.signal || "";
-          const as_ = s.api_signal || "";
           const buys = new Set(["매수", "적극매수"]);
+          const hasVision = buys.has(s.vision_signal || "");
+          const hasApi = buys.has(s.api_signal || "");
           const isCross = crossCodeSet.has(s.code);
-          const bothBuy = buys.has(vs) && buys.has(as_);
-          if (isCross && bothBuy) return "고확신";
+          if (hasVision && hasApi && isCross) return "고확신";
           if (isCross) return "대장주";
-          if (bothBuy) return "매수 일치";
+          if (hasVision && hasApi) return "매수 일치";
           return "매수";
         };
 
@@ -1785,8 +1784,12 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           }
         });
         (smartMoney || []).forEach((s: any) => {
+          if (seen.has(s.code)) return;
           const buys = new Set(["매수", "적극매수"]);
-          if (buys.has(s.signal) && !seen.has(s.code)) {
+          const hasVision = buys.has(s.vision_signal || "");
+          const hasApi = buys.has(s.api_signal || "");
+          // vision 또는 api 중 하나라도 매수 신호가 있어야 포함
+          if (hasVision || hasApi) {
             allBuy.push({ s, cat: classify(s), score: s.smart_money_score || 0 });
             seen.add(s.code);
           }
