@@ -519,8 +519,18 @@ def main():
 
     # Phase 3
     print("=== Phase 3: 분석 ===")
-    # 뉴스 임팩트 — combined signals의 vision_news에서 추출
-    news_impact = {}
+    # 뉴스 임팩트 — combined signals의 vision_news에서 추출 + 등락률 매칭
+    news_impact: dict = {}
+    # 종목별 등락률 맵 (intraday 우선, change_rate 폴백)
+    change_map: dict = {}
+    for sig in combined:
+        cr = (sig.get("intraday") or {}).get("change_rate") if isinstance(sig.get("intraday"), dict) else None
+        if cr is None:
+            cr = sig.get("change_rate")
+        if sig.get("code"):
+            change_map[sig["code"]] = cr
+        if sig.get("name"):
+            change_map[sig["name"]] = cr
     for sig in combined[:30]:
         news_list = sig.get("vision_news", [])
         for n in news_list[:1]:
@@ -533,11 +543,14 @@ def main():
                   "이슈"
             if cat not in news_impact:
                 news_impact[cat] = {"count": 0, "titles": []}
+            stock_name = sig.get("name", "")
             news_impact[cat]["count"] += 1
             news_impact[cat]["titles"].append({
                 "title": title,
-                "stock": sig.get("name", ""),
-                "signal": sig.get("vision_signal", ""),
+                "stock": stock_name,
+                "code": sig.get("code", ""),
+                "signal": sig.get("vision_signal") or "",
+                "change_rate": change_map.get(stock_name) or change_map.get(sig.get("code", "")),
             })
     with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
         json.dump(news_impact, f, ensure_ascii=False, indent=2)
@@ -1702,7 +1715,7 @@ def main():
                 title = art.get("title", "") if isinstance(art, dict) else ""
                 if title:
                     news_impact[cat]["count"] += 1
-                    news_impact[cat]["titles"].append({"title": title, "stock": stock_name, "signal": ""})
+                    news_impact[cat]["titles"].append({"title": title, "stock": stock_name, "code": code_or_key, "signal": "", "change_rate": change_map.get(stock_name) or change_map.get(code_or_key)})
         with open(results_dir / "news_impact.json", "w", encoding="utf-8") as f:
             json.dump(news_impact, f, ensure_ascii=False, indent=2)
 

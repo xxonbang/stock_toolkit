@@ -2485,20 +2485,46 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="news" timestamp={ts}>뉴스 임팩트</SectionHeader>
           <div className="space-y-3">
-            {Object.entries(newsImpact || {}).filter(([cat, data]) => cat !== "generated_at" && typeof data === "object" && data?.count > 0).map(([cat, data]: [string, any]) => (
-              <div key={cat} className="p-3 t-card-alt rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <Badge variant="purple">{cat}</Badge>
-                  <span className="text-xs t-text-dim">{data.count}건</span>
-                </div>
-                {data.titles?.slice(0, 2).map((t: any, i: number) => (
-                  <div key={i} className="text-xs t-text-sub mb-1 flex justify-between gap-2">
-                    <span className="truncate min-w-0">{t.title}</span>
-                    <span className="shrink-0 t-text-dim">{t.stock}</span>
+            {(() => {
+              // 관심 종목 코드셋 (매수 신호)
+              const watchCodes = new Set([...(crossSignal || []), ...(smartMoney || [])].map((s: any) => s.name));
+              const entries = Object.entries(newsImpact || {}).filter(([cat, data]) => cat !== "generated_at" && typeof data === "object" && data?.count > 0);
+              return entries.map(([cat, data]: [string, any]) => {
+                // 관심 종목 뉴스 우선 정렬
+                const titles = [...(data.titles || [])].sort((a: any, b: any) => {
+                  const aw = watchCodes.has(a.stock) ? 0 : 1;
+                  const bw = watchCodes.has(b.stock) ? 0 : 1;
+                  return aw - bw;
+                });
+                return (
+                <div key={cat} className="p-3 t-card-alt rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <Badge variant="purple">{cat}</Badge>
+                    <span className="text-xs t-text-dim">{data.count}건</span>
                   </div>
-                ))}
-              </div>
-            ))}
+                  {titles.slice(0, 3).map((t: any, i: number) => (
+                    <div key={i} onClick={() => {
+                      if (t.code) {
+                        const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === t.code);
+                        setStockDetail(detail || { name: t.stock, code: t.code, _noData: true });
+                      }
+                    }} className={`text-xs t-text-sub mb-1.5 flex items-center gap-2 ${t.code ? "cursor-pointer hover:opacity-70" : ""}`}>
+                      <span className="truncate min-w-0">{t.title}</span>
+                      <span className="shrink-0 flex items-center gap-1">
+                        {watchCodes.has(t.stock) && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-400">관심</span>}
+                        <span className="t-text-dim">{t.stock}</span>
+                        {t.change_rate != null && (
+                          <span className={`font-medium ${t.change_rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {t.change_rate >= 0 ? "+" : ""}{t.change_rate}%
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                );
+              });
+            })()}
           </div>
             {!Object.keys(newsImpact || {}).length && <Empty />}
         </section>
