@@ -1226,28 +1226,36 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <Gauge value={vixVal} max={50} label="VIX 변동성" color={vixColor} />
               <p className="text-xs t-text-sub">{vixLabel}</p>
             </div>
-            {performance.kospi && (
-              <div className="flex items-center gap-2 min-w-0">
-                {(performance.kospi.change || 0) >= 0
-                  ? <TrendingUp size={14} className="text-red-400 shrink-0" />
-                  : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
-                <div className="min-w-0">
-                  <div className="text-sm font-medium">{performance.kospi.current?.toLocaleString()}</div>
-                  <div className="text-xs t-text-sub">KOSPI {performance.kospi.change != null && <span className={`${(performance.kospi.change || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>{performance.kospi.change >= 0 ? "▲" : "▼"}{Math.abs(performance.kospi.change || 0).toFixed(2)}</span>}</div>
+            {performance.kospi?.current && (() => {
+              const k = performance.kospi;
+              const chg = k.change ?? (k.ma5 ? +(k.current - k.ma5).toFixed(2) : null);
+              const pct = chg != null && k.ma5 ? +(chg / k.ma5 * 100).toFixed(2) : null;
+              const up = (chg || 0) >= 0;
+              return (
+                <div className="flex items-center gap-2 min-w-0">
+                  {up ? <TrendingUp size={14} className="text-red-400 shrink-0" /> : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium">{k.current.toLocaleString()}</div>
+                    <div className="text-xs t-text-sub">KOSPI {chg != null && <span className={up ? "text-red-500" : "text-blue-500"}>{up ? "▲" : "▼"}{Math.abs(chg).toFixed(2)}{pct != null && ` (${up ? "+" : ""}${pct.toFixed(2)}%)`}</span>}</div>
+                  </div>
                 </div>
-              </div>
-            )}
-            {performance.kosdaq && (
-              <div className="flex items-center gap-2 min-w-0">
-                {(performance.kosdaq.change || 0) >= 0
-                  ? <TrendingUp size={14} className="text-red-400 shrink-0" />
-                  : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
-                <div className="min-w-0">
-                  <div className="text-sm font-medium">{performance.kosdaq.current?.toLocaleString()}</div>
-                  <div className="text-xs t-text-sub">KOSDAQ {performance.kosdaq.change != null && <span className={`${(performance.kosdaq.change || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>{performance.kosdaq.change >= 0 ? "▲" : "▼"}{Math.abs(performance.kosdaq.change || 0).toFixed(2)}</span>}</div>
+              );
+            })()}
+            {performance.kosdaq?.current && (() => {
+              const k = performance.kosdaq;
+              const chg = k.change ?? (k.ma5 ? +(k.current - k.ma5).toFixed(2) : null);
+              const pct = chg != null && k.ma5 ? +(chg / k.ma5 * 100).toFixed(2) : null;
+              const up = (chg || 0) >= 0;
+              return (
+                <div className="flex items-center gap-2 min-w-0">
+                  {up ? <TrendingUp size={14} className="text-red-400 shrink-0" /> : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium">{k.current.toLocaleString()}</div>
+                    <div className="text-xs t-text-sub">KOSDAQ {chg != null && <span className={up ? "text-red-500" : "text-blue-500"}>{up ? "▲" : "▼"}{Math.abs(chg).toFixed(2)}{pct != null && ` (${up ? "+" : ""}${pct.toFixed(2)}%)`}</span>}</div>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
           {/* 글로벌 매크로 */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
