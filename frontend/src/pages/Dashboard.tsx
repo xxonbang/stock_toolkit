@@ -224,6 +224,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       dataService.getSignalConsistency().then(setSignalConsistency),
       dataService.getSimulationHistory().then(setSimulationHistory),
       dataService.getIntradayStockFlow().then(setIntradayStockFlow),
+      dataService.getStockMaster().then((m: any) => { if (m?.stocks) setAllStockList(m.stocks.map((s: any) => ({ code: s.code, name: s.name, market: s.market || "" }))); }),
       dataService.getIndicatorHistory().then(setIndicatorHistory),
       dataService.getConsecutiveSignals().then(setConsecutiveSignals),
     ];
@@ -3094,13 +3095,36 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       {/* 장중 종목별 수급 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="intraday_flow" timestamp={ts} count={intradayStockFlow?.length ?? 0}>장중 종목별 수급</SectionHeader>
+        {(() => {
+          const nameMap: Record<string, string> = {};
+          for (const s of allStockList) if (s.code) nameMap[s.code] = s.name;
+          const scannerMap: Record<string, any> = {};
+          for (const s of crossSignal || []) if (s.code) scannerMap[s.code] = s;
+          for (const s of smartMoney || []) if (s.code && !scannerMap[s.code]) scannerMap[s.code] = s;
+          const items = (intradayStockFlow || []).map((isf: any) => {
+            const f = isf.foreign || 0;
+            const inst = isf.institution || 0;
+            const tag = f > 0 && inst > 0 ? "쌍끌이 매수" : f < 0 && inst < 0 ? "쌍끌이 매도" : null;
+            return { ...isf, _name: nameMap[isf.code] || isf.code, _tag: tag, _sig: scannerMap[isf.code]?.signal || null, _detail: scannerMap[isf.code] };
+          });
+          // 쌍끌이 매수 → 쌍끌이 매도 → 나머지 (각 그룹 내 abs(foreign) 순)
+          const order = (t: string | null) => t === "쌍끌이 매수" ? 0 : t === "쌍끌이 매도" ? 1 : 2;
+          items.sort((a: any, b: any) => order(a._tag) - order(b._tag) || Math.abs(b.foreign || 0) - Math.abs(a.foreign || 0));
+          return (<>
         <div className="space-y-1.5">
-          {(intradayStockFlow || []).slice(0, 10).map((isf, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+          {items.slice(0, 15).map((isf: any, i: number) => (
+            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+              onClick={() => isf._detail ? setStockDetail(isf._detail) : setStockDetail({ name: isf._name, code: isf.code, _noData: true })}>
               <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{isf.name || isf.code}</div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-medium truncate">{isf._name}</span>
+                  {isf._tag && (
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${isf._tag === "쌍끌이 매수" ? "bg-red-500/15 text-red-400" : "bg-blue-500/15 text-blue-400"}`}>{isf._tag}</span>
+                  )}
+                  {isf._sig && signalBadge(isf._sig)}
+                </div>
                 <div className="text-xs t-text-sub">
-                  {isf.name ? isf.code : ""}
+                  {isf.code}
                   {isf.current_price > 0 && <span className="ml-1">{isf.current_price?.toLocaleString()}원</span>}
                   {isf.change_rate != null && (
                     <span className={`ml-1 ${(isf.change_rate || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
@@ -3121,8 +3145,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
             </div>
           ))}
-          <p className="text-[10px] t-text-dim">최근 장중 가집계 시점 기준 종목별 투자자 동향</p>
+          <p className="text-[10px] t-text-dim">외국인 수급 변동 상위 종목 · 장중 가집계 기준</p>
         </div>
+          </>);
+        })()}
         {!intradayStockFlow?.length && <Empty />}
       </section>
 
