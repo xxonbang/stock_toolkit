@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import {
   TrendingUp, TrendingDown, Shield,
-  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X,
+  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X, HelpCircle,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -82,6 +82,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [showDualExp, setShowDualExp] = useState(false);
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
+  const [showHealthHelp, setShowHealthHelp] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [headerRefreshing, setHeaderRefreshing] = useState(false);
@@ -1527,12 +1528,48 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               </div>
             );
           })()}
-          {/* 건강도 */}
+          {/* 건강도 — 다차원 가중 점수 */}
+          {(() => {
+            const h = portfolio.holdings || [];
+            const n = h.length || 1;
+            // 1) 수익 건전성 (30점) — 평균 수익률 기반
+            const avgPr = h.reduce((s: number, x: any) => s + (x.profit_rate ?? 0), 0) / n;
+            const profitScore = Math.max(0, 30 + Math.min(avgPr, 0) * 1.5); // 손실 1%당 -1.5점, 최대 -30
+            // 2) 시그널 정합성 (25점) — 매도 신호 종목 비중
+            const sellCount = h.filter((x: any) => (x.signal || "").includes("매도")).length;
+            const signalScore = Math.max(0, 25 - (sellCount / n) * 50);
+            // 3) 수급 방향 (20점) — 외국인 순매도 종목 비중
+            const foreignSellCount = h.filter((x: any) => (x.foreign_net ?? 0) < 0).length;
+            const supplyScore = Math.max(0, 20 - (foreignSellCount / n) * 40);
+            // 4) 분산도 (15점) — HHI + 종목 수
+            const sectors = h.map((x: any) => x.sector).filter(Boolean);
+            const sectorCounts: Record<string, number> = {};
+            sectors.forEach((s: string) => { sectorCounts[s] = (sectorCounts[s] || 0) + 1; });
+            const hhi = Object.values(sectorCounts).reduce((s: number, c: number) => s + (c / n) ** 2, 0);
+            let diverseScore = 15 * (1 - hhi);
+            if (n < 3) diverseScore = Math.max(0, diverseScore - 5);
+            diverseScore = Math.max(0, diverseScore);
+            // 5) 위험 노출 (10점) — riskMonitor 기반
+            const riskMap2: Record<string, string> = {};
+            for (const r of riskMonitor || []) if (r.code) riskMap2[r.code] = r.level;
+            const highRiskCount = h.filter((x: any) => riskMap2[x.code] === "높음").length;
+            const cautionCount = h.filter((x: any) => riskMap2[x.code] === "주의").length;
+            const riskScore = Math.max(0, 10 - (highRiskCount / n) * 20 - (cautionCount / n) * 8);
+            const total = Math.round(profitScore + signalScore + supplyScore + diverseScore + riskScore);
+            const healthColor = total >= 70 ? "text-emerald-500" : total >= 50 ? "text-amber-500" : "text-red-500";
+            const healthLabel = total >= 70 ? "양호" : total >= 50 ? "보통" : "개선 필요";
+            const axes = [
+              { label: "수익", score: Math.round(profitScore), max: 30 },
+              { label: "시그널", score: Math.round(signalScore), max: 25 },
+              { label: "수급", score: Math.round(supplyScore), max: 20 },
+              { label: "분산", score: Math.round(diverseScore), max: 15 },
+              { label: "위험", score: Math.round(riskScore), max: 10 },
+            ];
+            return (<>
           <div className="flex items-center gap-2 text-xs t-text-dim">
-            <span>건강도 {portfolio.health_score}/100</span>
-            <span className={`font-medium ${portfolio.health_score >= 70 ? "text-emerald-500" : portfolio.health_score >= 50 ? "text-amber-500" : "text-red-500"}`}>
-              {portfolio.health_score >= 70 ? "양호" : portfolio.health_score >= 50 ? "보통" : "개선 필요"}
-            </span>
+            <span>건강도 {total}/100</span>
+            <span className={`font-medium ${healthColor}`}>{healthLabel}</span>
+            <button onClick={() => setShowHealthHelp(true)} className="t-text-dim hover:t-text-sub"><HelpCircle size={13} /></button>
             <button onClick={() => {
               // DB holdings 우선, 없으면 portfolio.holdings 사용
               const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
@@ -1547,6 +1584,52 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             }}
               className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
           </div>
+          {/* 건강도 축별 바 */}
+          <div className="flex gap-1 mt-1.5">
+            {axes.map((a) => (
+              <div key={a.label} className="flex-1" title={`${a.label} ${a.score}/${a.max}`}>
+                <div className="h-1 rounded-full bg-gray-700 overflow-hidden">
+                  <div className="h-full rounded-full transition-all" style={{ width: `${(a.score / a.max) * 100}%`, backgroundColor: (a.score / a.max) >= 0.7 ? "#10b981" : (a.score / a.max) >= 0.4 ? "#f59e0b" : "#ef4444" }} />
+                </div>
+                <div className="text-[8px] t-text-dim text-center mt-0.5">{a.label}</div>
+              </div>
+            ))}
+          </div>
+          {/* 건강도 설명 팝업 */}
+          {showHealthHelp && createPortal(
+            <div className="fixed inset-0 z-[9999]" onClick={() => setShowHealthHelp(false)}>
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+              <div className="fixed bottom-0 left-0 right-0 z-[10000] max-h-[70vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-md sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2"
+                onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold t-text">건강도 계산 방법</h3>
+                  <button onClick={() => setShowHealthHelp(false)} className="t-text-dim hover:t-text"><X size={16} /></button>
+                </div>
+                <div className="space-y-2 text-xs t-text-sub">
+                  <p className="t-text font-medium">5개 축의 합산 점수 (100점 만점)</p>
+                  {axes.map((a) => (
+                    <div key={a.label} className="flex items-center gap-2">
+                      <span className="font-medium t-text w-12">{a.label}</span>
+                      <div className="flex-1 h-1.5 rounded-full bg-gray-700 overflow-hidden">
+                        <div className="h-full rounded-full" style={{ width: `${(a.score / a.max) * 100}%`, backgroundColor: (a.score / a.max) >= 0.7 ? "#10b981" : (a.score / a.max) >= 0.4 ? "#f59e0b" : "#ef4444" }} />
+                      </div>
+                      <span className="w-14 text-right">{a.score}/{a.max}</span>
+                    </div>
+                  ))}
+                  <div className="border-t t-border-light pt-2 mt-2 space-y-1.5 text-[11px]">
+                    <div><span className="font-medium t-text">수익 (30점)</span> — 보유 종목 평균 수익률 기반. 손실 1%당 1.5점 감점</div>
+                    <div><span className="font-medium t-text">시그널 (25점)</span> — 매도/적극매도 신호 종목 비중이 높을수록 감점</div>
+                    <div><span className="font-medium t-text">수급 (20점)</span> — 외국인 순매도 종목 비중이 높을수록 감점</div>
+                    <div><span className="font-medium t-text">분산 (15점)</span> — 섹터 집중도(HHI) + 종목 수 3개 미만 시 추가 감점</div>
+                    <div><span className="font-medium t-text">위험 (10점)</span> — 고위험/주의 등급 종목 비중이 높을수록 감점</div>
+                  </div>
+                </div>
+              </div>
+            </div>,
+            document.body
+          )}
+          </>);
+          })()}
         </section>
         );
       })())}

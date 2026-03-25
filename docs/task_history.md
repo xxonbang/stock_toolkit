@@ -2,6 +2,17 @@
 
 ## 2026-03-25
 
+### [버그픽스] 포트폴리오 종목 상세 팝업 데이터 누락 수정 (2026-03-25 22:05 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 팝업 검색 대상에 portfolioRaw.holdings 추가 — crossSignal/smartMoney에 없는 보유 종목도 분석 데이터 표시
+- **원인:** crossSignal(4건)+smartMoney(20건)에만 검색하여 포트폴리오 종목이 누락
+- **커밋:** `d851f25`
+
+### [기능] 포트폴리오 종목 카드 클릭 시 상세 팝업 표시 (2026-03-25 21:55 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 포트폴리오 종목 카드 클릭 시 대시보드와 동일한 종목 상세 팝업 표시 (crossSignal/smartMoney 데이터 활용). 체크박스 stopPropagation 처리.
+- **커밋:** `3e7b432`
+
 ### [개선] 포트폴리오 탭 — 세션 hang 방지, Lucide 아이콘, 리밸런싱 시그널 기반 (2026-03-25 21:50 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/Scanner.tsx`
 - **내용:** refresh 버튼 세션 유효성 사전 확인+8초 타임아웃, 이모지→Lucide 아이콘 교체, 편집 모달 섹터 입력 제거+자동 병합, 리밸런싱 제안을 시그널/수급/위험/연속매집 데이터 기반으로 교체 (위험도별 색상, 종목당 최대 2개, 우선순위 정렬)
