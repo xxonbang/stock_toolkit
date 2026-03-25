@@ -1402,6 +1402,17 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 className="p-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition disabled:opacity-50">
                 <RefreshCw size={16} className={`text-emerald-500 ${priceRefreshing ? "animate-spin" : ""}`} />
               </button>
+              <button onClick={() => {
+                const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
+                const sectorMap: Record<string, string> = {};
+                for (const hh of portfolio.holdings || []) if (hh.code && hh.sector) sectorMap[hh.code] = hh.sector;
+                const merged = JSON.parse(JSON.stringify(source)).map((hh: any) => ({
+                  ...hh, sector: hh.sector || sectorMap[hh.code] || "",
+                }));
+                setEditHoldings(merged);
+                setShowPortfolioEdit(true);
+              }}
+                className="text-[11px] px-2.5 py-1.5 rounded-xl border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
             </div>
           </div>
           {/* 총 손익 요약 — 체크된 종목만 계산 */}
@@ -1570,19 +1581,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             <span>건강도 {total}/100</span>
             <span className={`font-medium ${healthColor}`}>{healthLabel}</span>
             <button onClick={() => setShowHealthHelp(true)} className="t-text-dim hover:t-text-sub"><HelpCircle size={13} /></button>
-            <button onClick={() => {
-              // DB holdings 우선, 없으면 portfolio.holdings 사용
-              const source = dbHoldings.length > 0 ? dbHoldings : (portfolio.holdings || []);
-              // portfolio.json 섹터 정보 자동 병합
-              const sectorMap: Record<string, string> = {};
-              for (const h of portfolio.holdings || []) if (h.code && h.sector) sectorMap[h.code] = h.sector;
-              const merged = JSON.parse(JSON.stringify(source)).map((h: any) => ({
-                ...h, sector: h.sector || sectorMap[h.code] || "",
-              }));
-              setEditHoldings(merged);
-              setShowPortfolioEdit(true);
-            }}
-              className="ml-auto text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
           </div>
           {/* 건강도 축별 바 */}
           <div className="flex gap-1 mt-1.5">
@@ -3161,7 +3159,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       </>}
       {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨, 대시보드만) */}
       {!isPortfolioPage && page !== "auto-trader" && <>
-      <div className="fixed bottom-0 left-0 right-0 z-20 px-3" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
+      <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pt-1.5 pb-1" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'calc(env(safe-area-inset-bottom, 8px) + 4px)' }}>
         <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
           {categories.map((cat) => (
             <button
@@ -3170,7 +3168,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 setActiveCategory(cat.id);
                 document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className="flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium rounded-lg transition-all duration-200"
+              className="flex-1 flex items-center justify-center gap-1 py-3 text-xs font-medium rounded-lg transition-all duration-200"
               style={activeCategory === cat.id
                 ? { background: 'var(--bg-pill-active)', color: 'var(--text-pill-active)', boxShadow: 'var(--shadow-card)' }
                 : { color: 'var(--text-tertiary)' }}
