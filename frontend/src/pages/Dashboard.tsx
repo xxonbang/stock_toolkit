@@ -1214,23 +1214,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div className="flex justify-between text-[10px] t-text-dim">
                 <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
               </div>
-              {/* 매크로 기여도 */}
-              {sentiment.components?.macro_score?.contributions?.length > 0 && (
-                <div className="mt-2 pt-2 border-t t-border-light">
-                  <div className="text-[10px] font-semibold t-text-sub mb-1">
-                    글로벌 매크로 점수: <span className={`${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
-                      {sentiment.components.macro_score.value}/10
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {sentiment.components.macro_score.contributions.map((c: any) => (
-                      <span key={c.symbol} className={`text-[10px] px-1.5 py-0.5 rounded ${c.impact >= 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
-                        {c.name} {c.change_pct >= 0 ? "+" : ""}{c.change_pct}%
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           )}
           <div className="grid grid-cols-2 gap-4">
@@ -1268,7 +1251,14 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           {/* 글로벌 매크로 */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-semibold t-text mb-2">글로벌 매크로</div>
+              <div className="text-xs font-semibold t-text mb-2 flex items-center justify-between">
+                <span>글로벌 매크로</span>
+                {sentiment?.components?.macro_score?.value != null && (
+                  <span className={`text-[11px] font-bold ${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
+                    {sentiment.components.macro_score.value}/10
+                  </span>
+                )}
+              </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {(["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"] as string[]).map(symbol => {
                   const macro = indicatorHistory.macro as Record<string, any[]>;
