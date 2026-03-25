@@ -7,7 +7,7 @@ import {
 import {
   TrendingUp, TrendingDown, Shield,
   Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, RefreshCw, X,
-  Globe, Flame, Target, AlertTriangle, Lightbulb, Search, Bot, Circle, Pin,
+  Globe, Flame, Target, AlertTriangle, Lightbulb, Search as SearchIcon, Bot, Circle, Pin,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -82,6 +82,8 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [stockDetail, setStockDetail] = useState<any>(null);
   const [showDualExp, setShowDualExp] = useState(false);
   const [showMacroHelp, setShowMacroHelp] = useState(false);
+  const [showStockSearch, setShowStockSearch] = useState(false);
+  const [globalSearchQuery, setGlobalSearchQuery] = useState("");
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
@@ -154,7 +156,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   dbHoldingsRef.current = dbHoldings;
 
   // 모달/bottom sheet 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(stockDetail || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showPortfolioEdit);
+  const anyModalOpen = !!(stockDetail || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showPortfolioEdit || showStockSearch);
   useEffect(() => {
     document.body.style.overflow = anyModalOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -396,7 +398,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const categories = [
     { id: "cat-market", label: "시장", icon: <BarChart3 size={14} /> },
     { id: "cat-signal", label: "신호", icon: <Target size={14} /> },
-    { id: "cat-analysis", label: "분석", icon: <Search size={14} /> },
+    { id: "cat-analysis", label: "분석", icon: <SearchIcon size={14} /> },
     { id: "cat-strategy", label: "전략", icon: <Zap size={14} /> },
     { id: "cat-system", label: "시스템", icon: <Bot size={14} /> },
   ];
@@ -895,6 +897,86 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         </div>,
         document.body
       )}
+      {/* 종목 검색 모달 */}
+      {showStockSearch && createPortal(
+        <div className="fixed inset-0 z-[9999]" onClick={() => setShowStockSearch(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="fixed top-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto t-card sm:max-w-lg sm:mx-auto sm:mt-16 sm:rounded-xl" onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 t-card p-4 border-b t-border-light">
+              <div className="flex items-center gap-2">
+                <SearchIcon size={16} className="t-text-dim shrink-0" />
+                <input
+                  autoFocus
+                  value={globalSearchQuery}
+                  onChange={e => setGlobalSearchQuery(e.target.value)}
+                  placeholder="종목명 또는 코드 검색..."
+                  className="flex-1 text-sm bg-transparent t-text outline-none"
+                />
+                <button onClick={() => setShowStockSearch(false)} className="t-text-dim"><X size={18} /></button>
+              </div>
+            </div>
+            <div className="p-4">
+              {globalSearchQuery.length >= 2 && (() => {
+                const q = globalSearchQuery.toLowerCase();
+                const match = (s: any) => (s?.name || "").toLowerCase().includes(q) || (s?.code || "").includes(q);
+                const sections: { label: string; items: { stock: any; detail: string }[] }[] = [];
+                // AI 주목 종목 (cross_signal)
+                const csMatches = (crossSignal || []).filter(match);
+                if (csMatches.length) sections.push({ label: "교차 신호 (대장주)", items: csMatches.map(s => ({ stock: s, detail: `vision: ${s.vision_signal || "-"} | api: ${s.api_signal || "-"} | dual: ${s.dual_signal || "-"}` })) });
+                // 스마트 머니
+                const smMatches = (smartMoney || []).filter(match);
+                if (smMatches.length) sections.push({ label: "스마트 머니", items: smMatches.map(s => ({ stock: s, detail: `점수: ${s.smart_money_score || "-"} | api: ${s.api_signal || "-"} | 외인: ${s.foreign_net > 0 ? "매수" : s.foreign_net < 0 ? "매도" : "-"}` })) });
+                // 이상 거래
+                const anMatches = (anomalies || []).filter(match);
+                if (anMatches.length) sections.push({ label: "이상 거래 감지", items: anMatches.map(a => ({ stock: a, detail: `${a.type || ""} | ${a.change_rate != null ? (a.change_rate >= 0 ? "+" : "") + a.change_rate + "%" : ""} | 거래량 x${a.ratio || "-"}` })) });
+                // 연속 시그널
+                const consAll = [...(consecutiveSignals?.and_condition || []), ...(consecutiveSignals?.or_condition || [])];
+                const consMatches = consAll.filter(match);
+                if (consMatches.length) sections.push({ label: "연속 시그널", items: consMatches.map(r => ({ stock: r, detail: `${r.streak}일 연속 | ${r.dates?.[r.dates.length - 1] || ""}` })) });
+                // 위험 종목
+                const riskMatches = (riskMonitor || []).filter(match);
+                if (riskMatches.length) sections.push({ label: "위험 종목", items: riskMatches.map(r => ({ stock: r, detail: `등급: ${r.level || "-"} | ${(r.warnings || []).join(", ")}` })) });
+                // 숏스퀴즈
+                const sqMatches = (shortSqueeze || []).filter(match);
+                if (sqMatches.length) sections.push({ label: "역발상 시그널", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.squeeze_score || "-"}` })) });
+                // 갭 분석
+                const gapMatches = (gapAnalysis || []).filter(match);
+                if (gapMatches.length) sections.push({ label: "갭 분석", items: gapMatches.map(g => ({ stock: g, detail: `${g.direction || ""} ${g.gap_pct}%` })) });
+                // 밸류에이션
+                const valMatches = (valuation || []).filter(match);
+                if (valMatches.length) sections.push({ label: "밸류에이션", items: valMatches.map(v => ({ stock: v, detail: `점수: ${v.value_score || "-"} | PER: ${v.per || "-"}` })) });
+                // 포트폴리오
+                const pfMatches = (portfolio?.holdings || []).filter(match);
+                if (pfMatches.length) sections.push({ label: "내 포트폴리오", items: pfMatches.map((h: any) => ({ stock: h, detail: `${h.quantity || 0}주 | 수익률: ${h.return_pct != null ? h.return_pct + "%" : "-"}` })) });
+
+                if (!sections.length) return <div className="text-center py-8 text-sm t-text-dim">"{globalSearchQuery}" 검색 결과 없음</div>;
+                return sections.map(sec => (
+                  <div key={sec.label} className="mb-4">
+                    <div className="text-[11px] font-semibold t-text-sub mb-1.5">{sec.label} ({sec.items.length})</div>
+                    <div className="space-y-1">
+                      {sec.items.map((item, j) => (
+                        <div key={j} onClick={() => {
+                          const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === item.stock.code);
+                          setStockDetail(detail || { name: item.stock.name, code: item.stock.code, _noData: true });
+                          setShowStockSearch(false);
+                        }} className="flex items-center justify-between p-2 t-card-alt rounded-lg cursor-pointer hover:opacity-80 transition border t-border-light">
+                          <div className="min-w-0">
+                            <span className="text-sm font-medium t-text">{item.stock.name}</span>
+                            <span className="text-[10px] t-text-dim ml-1.5">{item.stock.code}</span>
+                          </div>
+                          <div className="text-[10px] t-text-dim shrink-0 max-w-[50%] text-right truncate">{item.detail}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ));
+              })()}
+              {globalSearchQuery.length < 2 && <div className="text-center py-8 text-sm t-text-dim">2글자 이상 입력하세요</div>}
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
       {/* 토스트 메시지 */}
       {toastMsg && createPortal(
         <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 rounded-xl text-sm font-medium text-white shadow-lg animate-pulse"
@@ -938,6 +1020,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="t-text-sub" />}
               </button>
             )}
+            <button onClick={() => { setShowStockSearch(true); setGlobalSearchQuery(""); }} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub" title="종목 검색">
+              <SearchIcon size={16} />
+            </button>
             <button onClick={() => setShowHeaderMenu(true)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
           </div>
         </div>
