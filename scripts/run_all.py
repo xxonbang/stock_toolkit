@@ -842,20 +842,44 @@ def main():
     with open(results_dir / "sentiment.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_result, f, ensure_ascii=False, indent=2)
 
-    # 갭 분석 — change_rate > 5%를 갭으로 처리
-    all_rising = rising_stocks
+    # 갭 분석 — KIS API로 시가/전일종가 조회 후 진짜 갭(시가-전일종가 차이) 분석
     gap_results = []
-    for s in all_rising:
-        change = s.get("change_rate", 0)
-        if abs(change) >= 5:
-            gap_results.append({
-                "code": s.get("code", ""),
-                "name": s.get("name", ""),
-                "gap_pct": round(change, 2),
-                "direction": "상승 갭" if change > 0 else "하락 갭",
-                "volume_rate": s.get("volume_rate", 100),
-                "fill_probability": round(max(30, min(85, 70 - abs(change) * 2)), 0),
-            })
+    try:
+        from core.kis_client import KISClient
+        kis_gap = KISClient()
+        # 분석 대상: combined 상위 30종목
+        gap_codes = [s.get("code") for s in combined[:30] if s.get("code")]
+        if gap_codes:
+            gap_prices = kis_gap.get_prices_batch(gap_codes)
+            for code, pdata in gap_prices.items():
+                open_p = pdata.get("open", 0)
+                prev_close = pdata.get("prev_close", 0)
+                if prev_close <= 0 or open_p <= 0:
+                    continue
+                gap_pct = round((open_p - prev_close) / prev_close * 100, 2)
+                if abs(gap_pct) < 2:
+                    continue
+                name = next((s.get("name", "") for s in combined if s.get("code") == code), code)
+                current = pdata.get("current_price", 0)
+                # 갭 메꿈 여부: 갭업 후 현재가가 전일종가 이하로 내려왔으면 메꿈
+                filled = False
+                if gap_pct > 0 and current <= prev_close:
+                    filled = True
+                elif gap_pct < 0 and current >= prev_close:
+                    filled = True
+                gap_results.append({
+                    "code": code, "name": name,
+                    "gap_pct": gap_pct,
+                    "direction": "갭업" if gap_pct > 0 else "갭다운",
+                    "open_price": open_p,
+                    "prev_close": prev_close,
+                    "current_price": current,
+                    "change_rate": pdata.get("change_rate", 0),
+                    "filled": filled,
+                })
+            print(f"  [갭분석] {len(gap_prices)}종목 조회 → 갭 {len(gap_results)}건 감지")
+    except Exception as e:
+        print(f"  [갭분석] KIS 조회 실패: {e}")
     gap_results.sort(key=lambda x: abs(x["gap_pct"]), reverse=True)
     with open(results_dir / "gap_analysis.json", "w", encoding="utf-8") as f:
         json.dump(gap_results[:10], f, ensure_ascii=False, indent=2)

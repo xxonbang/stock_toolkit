@@ -2536,16 +2536,25 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <SectionHeader id="gap" timestamp={ts} count={gapAnalysis?.length ?? 0}>갭 분석</SectionHeader>
           <div className="space-y-1.5">
             {(gapAnalysis || []).slice(0, 6).map((g, i) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+              <div key={i} onClick={() => {
+                const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === g.code);
+                setStockDetail(detail || { name: g.name, code: g.code, _noData: true });
+              }} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:opacity-80 transition">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{g.name}</div>
-                  <div className="text-xs t-text-sub">{g.direction}</div>
+                  <div className="text-[10px] t-text-dim">
+                    {g.direction} · 시가 {g.open_price?.toLocaleString() || "-"} / 전일 {g.prev_close?.toLocaleString() || "-"}
+                  </div>
                 </div>
                 <div className="text-right shrink-0">
                   <div className={`text-sm font-bold ${g.gap_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
                     {g.gap_pct >= 0 ? "+" : ""}{g.gap_pct}%
                   </div>
-                  <div className="text-[10px] t-text-dim">메꿈 확률 {g.fill_probability}%</div>
+                  {g.filled != null && (
+                    <div className={`text-[10px] font-medium ${g.filled ? "text-emerald-500" : "t-text-dim"}`}>
+                      {g.filled ? "갭 메꿈" : `현재 ${g.change_rate >= 0 ? "+" : ""}${g.change_rate}%`}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
