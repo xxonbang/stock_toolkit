@@ -1979,7 +1979,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     </span>
                   )}
                   {intra.validation && (() => {
-                    const sig = s.vision_signal || s.signal || s.api_signal || "";
+                    const sig = s.vision_signal || s.api_signal || "";
                     const isBuy = ["매수", "적극매수"].includes(sig);
                     const isSell = ["매도", "적극매도"].includes(sig);
                     const arrow = intra.validation === "신호 유효" ? (isBuy ? "↑ 매수 유효" : isSell ? "↓ 매도 유효" : null) : intra.validation;
@@ -2250,7 +2250,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                           </span>
                         )}
                         {intra.validation && (() => {
-                          const sig2 = s.vision_signal || s.signal || s.api_signal || "";
+                          const sig2 = s.vision_signal || s.api_signal || "";
                           const isBuy2 = ["매수", "적극매수"].includes(sig2);
                           const isSell2 = ["매도", "적극매도"].includes(sig2);
                           const arrow2 = intra.validation === "신호 유효" ? (isBuy2 ? "↑ 매수 유효" : isSell2 ? "↓ 매도 유효" : null) : intra.validation;

@@ -194,14 +194,14 @@ def main():
         code = sig.get("code", "")
         inv = investor_data.get(code, {})
         foreign_net = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
-        signal = sig.get("vision_signal", "")
+        vision_sig = sig.get("vision_signal") or ""
         conf = sig.get("vision_confidence", 0) or 0
-        api_sig = sig.get("api_signal", "")
+        api_sig = sig.get("api_signal") or ""
         match_st = sig.get("match_status", "")
         score = 50
-        if signal in ("적극매수",):
+        if vision_sig in ("적극매수",):
             score += 30
-        elif signal in ("매수",):
+        elif vision_sig in ("매수",):
             score += 15
         if api_sig in ("적극매수",):
             score += 20
@@ -210,16 +210,21 @@ def main():
         score += int((conf or 0) * 20)
         if isinstance(foreign_net, (int, float)) and foreign_net > 0:
             score += 10
-        # 이중 검증 보너스
-        if signal in ("매수", "적극매수") and api_sig in ("매수", "적극매수"):
+        # 이중 검증: vision_signal과 api_signal 모두 실제 값이 있어야 함
+        buys = ("매수", "적극매수")
+        has_vision = vision_sig in buys
+        has_api = api_sig in buys
+        if has_vision and has_api:
             score += 10
             dual = "고확신"
-        elif signal in ("매수", "적극매수"):
+        elif has_vision:
             dual = "확인필요"
-        elif api_sig in ("매수", "적극매수"):
+        elif has_api:
             dual = "KIS매수"
-        else:
+        elif vision_sig and api_sig and vision_sig != api_sig:
             dual = "혼조"
+        else:
+            dual = ""
         # kis_analysis 4차원 점수
         ka = kis_analysis_map.get(code, {})
         ka_scores = ka.get("scores", {}) if isinstance(ka, dict) else {}
@@ -227,7 +232,7 @@ def main():
             smart_money_results.append({
                 "code": code, "name": sig.get("name", ""),
                 "smart_money_score": min(score, 99),
-                "signal": signal, "foreign_net": foreign_net,
+                "signal": vision_sig, "vision_signal": vision_sig, "foreign_net": foreign_net,
                 "api_signal": api_sig, "match_status": match_st,
                 "dual_signal": dual,
                 "tech_score": ka_scores.get("technical", ka.get("technical_score")),
