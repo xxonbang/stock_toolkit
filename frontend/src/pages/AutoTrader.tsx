@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, RefreshCw } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, RefreshCw, Loader2, Lock, TimerOff, Inbox, Check, X, LogIn, HelpCircle } from "lucide-react";
 import { supabase, STORAGE_KEY, setAccessToken, fetchKisPrices } from "../lib/supabase";
 import { getTradePct, setAlertConfig } from "../lib/supabase";
 
@@ -62,7 +62,9 @@ export default function AutoTrader() {
   const [pctResult, setPctResult] = useState("");
   const [sessionExpired, setSessionExpired] = useState(false);
   const sessionExpiredRef = useRef(false);
-  const [buySignalMode, setBuySignalMode] = useState<"and" | "or" | "leader">("and");
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showBuyHelp, setShowBuyHelp] = useState(false);
+  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; leader: boolean }>({ chart: true, indicator: true, leader: false });
 
   useEffect(() => {
     function loadData(u: any) {
@@ -74,7 +76,9 @@ export default function AutoTrader() {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
-          setBuySignalMode(buy_signal_mode === "or" ? "or" : buy_signal_mode === "leader" ? "leader" : "and");
+          // buy_signal_mode → 토글 상태 파싱
+          const flags = (buy_signal_mode || "chart,indicator").split(",");
+          setBuyToggles({ chart: flags.includes("chart"), indicator: flags.includes("indicator"), leader: flags.includes("leader") });
         }).catch(() => {});
       } else {
         setLoading(false);
@@ -222,26 +226,44 @@ export default function AutoTrader() {
   if (loading || !authChecked) {
     return (
       <div className="text-center py-20 t-text-sub">
-        <div className="text-2xl mb-2">📊</div>
+        <Loader2 size={28} className="mx-auto mb-2 t-text-sub animate-spin" />
         데이터 로딩 중...
       </div>
     );
   }
 
+  const handleLoginSuccess = (u: any, token: string) => {
+    setAccessToken(token); setUser(u); setSessionExpired(false); sessionExpiredRef.current = false; setShowLoginModal(false);
+    fetchTrades();
+    getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
+      setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
+      const flags = (buy_signal_mode || "chart,indicator").split(",");
+      setBuyToggles({ chart: flags.includes("chart"), indicator: flags.includes("indicator"), leader: flags.includes("leader") });
+    }).catch(() => {});
+  };
+
   if (!user) {
     return (
-      <div className="text-center py-20 t-text-sub">
-        <div className="text-3xl mb-3">{sessionExpired ? "⏰" : "🔒"}</div>
-        <div className="text-sm font-medium t-text mb-1">{sessionExpired ? "세션이 만료되었습니다" : "로그인이 필요합니다"}</div>
-        <div className="text-xs t-text-dim">{sessionExpired ? "다시 로그인해주세요" : "모의투자 현황을 확인하려면 로그인해주세요"}</div>
-      </div>
+      <>
+        <div className="text-center py-20 t-text-sub">
+          {sessionExpired ? <TimerOff size={32} className="mx-auto mb-3 t-text-sub" /> : <Lock size={32} className="mx-auto mb-3 t-text-sub" />}
+          <div className="text-sm font-medium t-text mb-1">{sessionExpired ? "세션이 만료되었습니다" : "로그인이 필요합니다"}</div>
+          <div className="text-xs t-text-dim mb-5">{sessionExpired ? "다시 로그인해주세요" : "모의투자 현황을 확인하려면 로그인해주세요"}</div>
+          <button onClick={() => setShowLoginModal(true)}
+            className="inline-flex items-center gap-2 text-[13px] font-medium px-5 py-2.5 rounded-xl text-white bg-blue-600 hover:bg-blue-500 transition">
+            <LogIn size={15} />
+            로그인
+          </button>
+        </div>
+        {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} onSuccess={handleLoginSuccess} />}
+      </>
     );
   }
 
   if (trades.length === 0) {
     return (
       <div className="text-center py-20 t-text-sub">
-        <div className="text-3xl mb-3">📭</div>
+        <Inbox size={32} className="mx-auto mb-3 t-text-sub" />
         <div className="text-sm font-medium t-text mb-1">매매 이력 없음</div>
         <div className="text-xs t-text-dim">자동매매가 실행되면 여기에 표시됩니다</div>
       </div>
@@ -253,90 +275,111 @@ export default function AutoTrader() {
       {/* 익절/손절 설정 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-red-500 font-medium">익절 +{takeProfit}%</span>
-            <span className="t-text-dim">/</span>
-            <span className="text-blue-500 font-medium">손절 {stopLoss}%</span>
-            <span className="t-text-dim">/</span>
-            <span className="text-amber-500 font-medium">급락 {trailingStop}%</span>
-            <span className="t-text-dim">· 15:15 (+3%↑ 보유)</span>
+          <div className="flex items-center gap-3 text-[11px]">
+            {[
+              { label: "익절", value: `+${takeProfit}%`, color: "var(--success)" },
+              { label: "손절", value: `${stopLoss}%`, color: "#3b82f6" },
+              { label: "급락", value: `${trailingStop}%`, color: "#f59e0b" },
+            ].map(item => (
+              <div key={item.label} className="flex items-center gap-1">
+                <span className="t-text-dim">{item.label}</span>
+                <span className="font-semibold" style={{ color: item.color }}>{item.value}</span>
+              </div>
+            ))}
           </div>
           <button onClick={() => setShowPctEdit(!showPctEdit)}
-            className="p-1.5 rounded-lg t-text-dim hover:t-text transition">
-            <Settings size={14} />
+            className="p-1 rounded-lg t-text-dim hover:t-text transition">
+            <Settings size={13} />
           </button>
         </div>
         {showPctEdit && (
-          <div className="mt-3 pt-3 border-t t-border-light space-y-3">
-            <div className="flex gap-3">
-              <div className="flex-1">
-                <div className="text-[10px] t-text-dim mb-1">익절 (%)</div>
-                <input type="number" step="0.5" min="0.5" max="30" value={takeProfit}
-                  onChange={e => setTakeProfit(parseFloat(e.target.value) || 7.0)}
-                  className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
-                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-              </div>
-              <div className="flex-1">
-                <div className="text-[10px] t-text-dim mb-1">손절 (%)</div>
-                <input type="number" step="0.5" min="-30" max="-0.5" value={stopLoss}
-                  onChange={e => setStopLoss(parseFloat(e.target.value) || -2.0)}
-                  className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
-                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-              </div>
-              <div className="flex-1">
-                <div className="text-[10px] t-text-dim mb-1">급락 (%)</div>
-                <input type="number" step="0.5" min="-30" max="-0.5" value={trailingStop}
-                  onChange={e => setTrailingStop(parseFloat(e.target.value) || -3.0)}
-                  className="w-full text-[13px] px-3 py-2 rounded-lg t-text outline-none"
-                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-              </div>
+          <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
+            <div className="flex gap-2">
+              {[
+                { label: "익절", value: takeProfit, set: setTakeProfit, min: 0.5, max: 30, fallback: 7.0, color: "var(--success)" },
+                { label: "손절", value: stopLoss, set: setStopLoss, min: -30, max: -0.5, fallback: -2.0, color: "#3b82f6" },
+                { label: "급락", value: trailingStop, set: setTrailingStop, min: -30, max: -0.5, fallback: -3.0, color: "#f59e0b" },
+              ].map(f => (
+                <div key={f.label} className="flex-1">
+                  <div className="text-[9px] font-medium mb-1" style={{ color: f.color }}>{f.label} (%)</div>
+                  <input type="number" step="0.5" min={f.min} max={f.max} value={f.value}
+                    onChange={e => f.set(parseFloat(e.target.value) || f.fallback)}
+                    className="w-full text-[12px] px-2.5 py-1.5 rounded-lg t-text outline-none transition focus:ring-1 focus:ring-blue-500/30"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+                </div>
+              ))}
             </div>
-            <button disabled={pctSaving} onClick={async () => {
-              setPctSaving(true);
-              const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss, trailing_stop_pct: trailingStop });
-              setPctResult(ok ? "✓ 저장 완료" : "✕ 저장 실패");
-              setTimeout(() => setPctResult(""), 2000);
-              setPctSaving(false);
-            }}
-              className="w-full text-[12px] font-medium py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
-              {pctSaving ? "저장 중..." : "저장"}
-            </button>
-            {pctResult && (
-              <div className={`text-[11px] text-center ${pctResult.includes("실패") ? "text-red-400" : "text-emerald-400"}`}>{pctResult}</div>
-            )}
+            <div className="flex items-center gap-2">
+              <button disabled={pctSaving} onClick={async () => {
+                setPctSaving(true);
+                const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss, trailing_stop_pct: trailingStop });
+                setPctResult(ok ? "saved" : "failed");
+                setTimeout(() => setPctResult(""), 2000);
+                setPctSaving(false);
+              }}
+                className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                {pctSaving ? "저장 중..." : "저장"}
+              </button>
+              {pctResult && (
+                <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
+                  {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
+                  {pctResult === "failed" ? "실패" : "완료"}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
 
-      {/* 매집 신호 기준 */}
+      {/* 매집 종목 선정 기준 — 토글 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
-        <div className="flex items-center justify-between gap-2">
-          <div className="text-xs t-text-dim leading-relaxed">
-            <div className="font-medium t-text mb-1">매집 종목 선정 기준</div>
-            <div className="flex rounded-lg overflow-hidden border t-border-light">
-              {([
-                { value: "and", label: "AND", desc: "차트+지표 모두", color: "bg-blue-600" },
-                { value: "or", label: "OR", desc: "차트 또는 지표", color: "bg-amber-600" },
-                { value: "leader", label: "대장주", desc: "시그널 무관", color: "bg-emerald-600" },
-              ] as const).map(opt => (
-                <button key={opt.value} onClick={async () => {
-                  if (buySignalMode === opt.value) return;
-                  const prev = buySignalMode;
-                  setBuySignalMode(opt.value);
-                  const ok = await setAlertConfig({ buy_signal_mode: opt.value });
-                  if (!ok) setBuySignalMode(prev);
-                }}
-                  className={`flex-1 py-2 text-center transition ${
-                    buySignalMode === opt.value
-                      ? `${opt.color} text-white`
-                      : "t-text-dim hover:t-text"
-                  }`}>
-                  <div className="text-[11px] font-semibold">{opt.label}</div>
-                  <div className="text-[9px] opacity-70">{opt.desc}</div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] font-semibold t-text">매집 종목 선정 기준</span>
+          <button onClick={() => setShowBuyHelp(true)} className="t-text-dim hover:t-text transition">
+            <HelpCircle size={13} />
+          </button>
+        </div>
+        <div className="space-y-0.5">
+          {([
+            { key: "chart", label: "차트 시그널", desc: "AI 차트 분석" },
+            { key: "indicator", label: "지표 시그널", desc: "API 기술 지표" },
+            { key: "leader", label: "대장주", desc: "시그널 무관" },
+          ] as const).map(opt => {
+            const isOn = buyToggles[opt.key];
+            return (
+              <div key={opt.key} className="flex items-center justify-between py-1.5">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="text-[11px] font-medium" style={{ color: isOn ? "var(--text-primary)" : "var(--text-secondary)" }}>{opt.label}</span>
+                  <span className="text-[9px] t-text-dim">{opt.desc}</span>
+                </div>
+                <button
+                  onClick={async () => {
+                    const next = { ...buyToggles, [opt.key]: !isOn };
+                    if (!next.chart && !next.indicator && !next.leader) return;
+                    const prev = { ...buyToggles };
+                    setBuyToggles(next);
+                    const mode = [next.chart && "chart", next.indicator && "indicator", next.leader && "leader"].filter(Boolean).join(",");
+                    const ok = await setAlertConfig({ buy_signal_mode: mode });
+                    if (!ok) setBuyToggles(prev);
+                  }}
+                  className="relative flex-shrink-0 ml-2 w-8 h-[16px] rounded-full transition-colors duration-200"
+                  style={{ background: isOn ? "#3b82f6" : "var(--border)" }}>
+                  <span
+                    className="absolute top-[2px] left-[2px] w-[12px] h-[12px] rounded-full bg-white shadow-sm transition-transform duration-200"
+                    style={{ transform: isOn ? "translateX(16px)" : "translateX(0)" }} />
                 </button>
-              ))}
-            </div>
-          </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-2 pt-1.5 border-t text-[9px] t-text-dim" style={{ borderColor: "var(--border)" }}>
+          {buyToggles.leader
+            ? "대장주 전체 매수 (시그널 무관)"
+            : buyToggles.chart && buyToggles.indicator
+              ? "차트 + 지표 모두 충족 시 매수 (AND)"
+              : buyToggles.chart
+                ? "차트 시그널 충족 시 매수"
+                : "지표 시그널 충족 시 매수"}
         </div>
       </div>
 
@@ -382,6 +425,32 @@ export default function AutoTrader() {
       )}
 
       <HistoryByDate trades={closed} />
+
+      {showBuyHelp && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setShowBuyHelp(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+          <div className="relative w-full max-w-[320px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
+            <div className="px-4 pt-4 pb-3 flex items-center justify-between">
+              <h3 className="text-sm font-bold t-text">매집 종목 선정 기준</h3>
+              <button onClick={() => setShowBuyHelp(false)} className="p-1 rounded-lg t-text-dim hover:t-text transition"><X size={16} /></button>
+            </div>
+            <div className="px-4 pb-4 text-[11px] t-text-sub leading-relaxed space-y-2.5">
+              <p>ON 상태인 토글들의 조건이 <span className="font-semibold t-text">AND</span>로 결합됩니다.</p>
+              <table className="w-full text-[10px]">
+                <thead><tr className="t-text-dim"><th className="text-left py-1">차트</th><th className="text-left py-1">지표</th><th className="text-left py-1">대장주</th><th className="text-left py-1">결과</th></tr></thead>
+                <tbody className="t-text-sub">
+                  <tr><td className="py-0.5">ON</td><td>ON</td><td>-</td><td>차트+지표 모두 충족</td></tr>
+                  <tr><td className="py-0.5">ON</td><td>-</td><td>ON</td><td>차트 시그널 충족</td></tr>
+                  <tr><td className="py-0.5">-</td><td>ON</td><td>ON</td><td>지표 시그널 충족</td></tr>
+                  <tr><td className="py-0.5">-</td><td>-</td><td>ON</td><td>전체 통과</td></tr>
+                </tbody>
+              </table>
+              <p className="t-text-dim">대장주: cross_signal 포함 자체가 조건이므로 단독 ON 시 시그널 무관 전체 매수</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -564,6 +633,60 @@ function HistoryByDate({ trades }: { trades: Trade[] }) {
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function LoginModal({ onClose, onSuccess }: { onClose: () => void; onSuccess: (user: any, token: string) => void }) {
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => { if (!loading) onClose(); }}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+      <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
+        style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
+        <div className="px-5 pt-5 pb-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-base font-bold t-text">로그인</h3>
+            <button onClick={() => { if (!loading) onClose(); }} className="p-1 rounded-lg t-text-dim hover:t-text transition">
+              <X size={18} />
+            </button>
+          </div>
+          <p className="text-[11px] t-text-dim mt-1">모의투자 현황을 확인하려면 로그인해주세요</p>
+        </div>
+        <form className="px-5 pb-5" onSubmit={async (e) => {
+          e.preventDefault();
+          if (loading || !email.trim() || !pw) return;
+          setError(""); setLoading(true);
+          try {
+            const { data, error: err } = await supabase.auth.signInWithPassword({ email: email.trim(), password: pw });
+            if (err) {
+              setError(err.message.includes("Invalid login") ? "이메일 또는 비밀번호가 올바르지 않습니다" : err.message);
+              return;
+            }
+            if (data?.session) onSuccess(data.session.user, data.session.access_token ?? "");
+            else setError("로그인 응답에 세션이 없습니다");
+          } catch (e: any) {
+            setError(e?.message || "네트워크 오류");
+          } finally { setLoading(false); }
+        }}>
+          {error && <div className="text-[11px] text-red-400 mb-3 p-2.5 rounded-lg" style={{ background: "rgba(239,68,68,0.08)" }}>{error}</div>}
+          <input type="email" placeholder="이메일" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" autoFocus
+            className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-2 outline-none"
+            style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+          <input type="password" placeholder="비밀번호" value={pw} onChange={e => setPw(e.target.value)} autoComplete="current-password"
+            className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-4 outline-none"
+            style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+          <button type="submit" disabled={loading || !email.trim() || !pw}
+            className="w-full flex items-center justify-center gap-2 text-[13px] font-medium py-2.5 rounded-xl text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+            {loading ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
+            {loading ? "로그인 중..." : "로그인"}
+          </button>
+        </form>
       </div>
     </div>
   );

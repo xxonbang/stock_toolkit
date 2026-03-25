@@ -70,21 +70,25 @@ def _order_headers(token: str, tr_id: str) -> dict:
 
 
 def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
-    """고확신 종목 필터. mode: 'and'=vision+api 모두, 'or'=둘 중 하나, 'leader'=대장주 전체."""
+    """고확신 종목 필터. mode: 콤마 구분 토글 ('chart,indicator') 또는 레거시 ('and','or','leader')."""
     if not signals:
         return []
-    if mode == "leader":
-        return list(signals)  # cross_signal에 포함 = 이미 대장주, 시그널 무관
-    if mode == "or":
-        return [
-            s for s in signals
-            if s.get("vision_signal") in BUY_SIGNALS
-            or s.get("api_signal") in BUY_SIGNALS
-        ]
+    # 레거시 모드 → 토글 플래그 변환
+    if mode == "and":
+        flags = {"chart", "indicator"}
+    elif mode == "or":
+        return [s for s in signals if s.get("vision_signal") in BUY_SIGNALS or s.get("api_signal") in BUY_SIGNALS]
+    elif mode == "leader":
+        flags = {"leader"}
+    else:
+        flags = set(mode.split(","))
+    # 각 ON 토글은 AND 조건 — leader는 cross_signal 포함 자체가 조건(항상 충족)이므로 추가 필터 없음
+    need_chart = "chart" in flags
+    need_indicator = "indicator" in flags
     return [
         s for s in signals
-        if s.get("vision_signal") in BUY_SIGNALS
-        and s.get("api_signal") in BUY_SIGNALS
+        if (not need_chart or s.get("vision_signal") in BUY_SIGNALS)
+        and (not need_indicator or s.get("api_signal") in BUY_SIGNALS)
     ]
 
 
