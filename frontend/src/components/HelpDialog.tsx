@@ -194,7 +194,7 @@ export function SectionHeader({
 
   return (
     <>
-      <div className="flex items-center gap-2 mb-3">
+      <div id={id} className="flex items-center gap-2 mb-3 scroll-mt-24">
         <h2 className="text-base font-semibold t-text shrink-0">
           {children}
           {count != null && (
