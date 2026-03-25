@@ -2,6 +2,11 @@
 
 ## 2026-03-25
 
+### [버그픽스+개선] 세션 만료 오판 수정 + 매집 기준 세그먼트 UI (2026-03-25 17:40 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** fetchTrades에서 Promise.race 타임아웃 제거, 인증 에러(jwt/token/auth)만 세션 만료 처리. 매집 기준 토글을 AND/OR/대장주 3개 세그먼트 버튼으로 변경.
+- **커밋:** `68e1db6`
+
 ### [버그픽스] 모의투자 세션 만료 후 무한 로딩 재발 방지 (2026-03-25 17:25 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** sessionExpiredRef로 세션 만료 확정 시 onAuthStateChange/handleVisibility의 loadData 재호출 차단. Supabase SDK 백그라운드 토큰 갱신이 무한 로딩을 유발하는 문제 해결.

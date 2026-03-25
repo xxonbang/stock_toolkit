@@ -328,7 +328,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           getAlertMode().then(setAlertModeState).catch(() => {});
         }
       }
-    } catch { /* 파싱 실패 시 로그인 화면 표시 */ }
+    } catch { /* 파싱 실패 */ }
+    // 세션 복원 실패 시 로그인 모달 표시
+    if (!localStorage.getItem(STORAGE_KEY)) setShowLogin(true);
 
     const authed = { current: false };
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -429,7 +431,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
     <div className="max-w-2xl mx-auto px-4 pt-0 pb-16 space-y-5">
       {/* 로그인 모달 */}
       {showLogin && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => { if (!loginLoading) setShowLogin(false); }}>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => { if (!loginLoading && supaUser) setShowLogin(false); }}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
           <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
             style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
@@ -437,9 +439,11 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
             <div className="px-5 pt-5 pb-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-bold t-text">로그인</h3>
+                {supaUser && (
                 <button onClick={() => { if (!loginLoading) setShowLogin(false); }} className="p-1 rounded-lg t-text-dim hover:t-text transition">
                   <X size={18} />
                 </button>
+                )}
               </div>
               <p className="text-[11px] t-text-dim mt-1">포트폴리오 관리 및 실시간 시세 조회</p>
             </div>
@@ -450,7 +454,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               setLoginError("");
               setLoginLoading(true);
               try {
-                const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail.trim(), password: loginPw });
+                const { data, error } = await Promise.race([
+                  supabase.auth.signInWithPassword({ email: loginEmail.trim(), password: loginPw }),
+                  new Promise<never>((_, reject) => setTimeout(() => reject(new Error("로그인 응답 시간 초과. 다시 시도해주세요.")), 10000)),
+                ]);
                 if (error) {
                   const msg = error.message.includes("rate limit") ? "잠시 후 다시 시도해주세요"
                     : error.message.includes("Invalid login") ? "이메일 또는 비밀번호가 올바르지 않습니다"
@@ -526,8 +533,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   setAccessToken(null);
                   localStorage.removeItem(STORAGE_KEY);
                   supabase.auth.signOut().catch(() => {});
-                  setToastMsg("로그아웃되었습니다");
-                  setTimeout(() => setToastMsg(""), 2500);
+                  setShowLogin(true);
                 }}
                   style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#ef4444", background: "none", border: "none", cursor: "pointer" }}>
                   <span>↪</span> 로그아웃
