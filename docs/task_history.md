@@ -2,6 +2,11 @@
 
 ## 2026-03-25
 
+### [개선] 포트폴리오 탭 — 세션 hang 방지, Lucide 아이콘, 리밸런싱 시그널 기반 (2026-03-25 21:50 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/Scanner.tsx`
+- **내용:** refresh 버튼 세션 유효성 사전 확인+8초 타임아웃, 이모지→Lucide 아이콘 교체, 편집 모달 섹터 입력 제거+자동 병합, 리밸런싱 제안을 시그널/수급/위험/연속매집 데이터 기반으로 교체 (위험도별 색상, 종목당 최대 2개, 우선순위 정렬)
+- **커밋:** `c12b88c`
+
 ### [버그픽스] 모의투자 세션 만료 후 무한 로딩 재발 방지 (2026-03-25 17:25 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** sessionExpiredRef로 세션 만료 확정 시 onAuthStateChange/handleVisibility의 loadData 재호출 차단. Supabase SDK 백그라운드 토큰 갱신이 무한 로딩을 유발하는 문제 해결.

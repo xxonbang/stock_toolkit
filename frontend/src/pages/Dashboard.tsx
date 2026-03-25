@@ -1435,8 +1435,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <div className="space-y-1.5 mb-3">
             {portfolio.holdings?.map((h: any, i: number) => {
               const isExcluded = excludedCodes.has(h.code);
+              const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === h.code);
               return (
-              <div key={i} className={`p-2.5 t-card-alt rounded-lg ${isExcluded ? "opacity-40" : ""}`}>
+              <div key={i} className={`p-2.5 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors ${isExcluded ? "opacity-40" : ""}`}
+                onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: h.name, code: h.code, _noData: true })}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 min-w-0">
                     <input type="checkbox" checked={!isExcluded}
@@ -1445,6 +1447,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                         next.has(h.code) ? next.delete(h.code) : next.add(h.code);
                         return next;
                       })}
+                      onClick={(e) => e.stopPropagation()}
                       className="w-4 h-4 rounded accent-blue-500 shrink-0 cursor-pointer" />
                     <div className="min-w-0">
                       <span className="text-sm font-medium t-text">{h.name}</span>
