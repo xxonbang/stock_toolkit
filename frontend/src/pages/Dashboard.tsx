@@ -1887,29 +1887,6 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         const renderList = (items: any[], color: string, showStreak: boolean) => {
           const sorted = sortByFreshness(items);
           const active = sorted.filter((r: any) => freshness(r) !== "ended");
-          const ended = sorted.filter((r: any) => freshness(r) === "ended");
-          // 활성 신호가 없으면 섹션 자체를 숨김
-          if (active.length === 0 && ended.length > 0) {
-            return (
-              <details className="mt-1">
-                <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호만 {ended.length}건</summary>
-                {ended.map((r: any, i: number) => (
-                  <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0 opacity-40">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[13px] font-medium t-text">{r.name}</span>
-                      <span className="text-[10px] t-text-dim">{r.code}</span>
-                      {badge("ended")}
-                    </div>
-                    <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
-                      className="flex items-center gap-2 hover:opacity-70 transition">
-                      <span className="text-[11px] font-semibold t-text-dim">{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
-                      <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
-                    </button>
-                  </div>
-                ))}
-              </details>
-            );
-          }
           return (
             <>
               {active.map((r: any, i: number) => (
@@ -1926,43 +1903,50 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                   </button>
                 </div>
               ))}
-              {ended.length > 0 && (
-                <details className="mt-1">
-                  <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({ended.length})</summary>
-                  {ended.map((r: any, i: number) => (
-                    <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0 opacity-40">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[13px] font-medium t-text">{r.name}</span>
-                        <span className="text-[10px] t-text-dim">{r.code}</span>
-                        {badge("ended")}
-                      </div>
-                      <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
-                        className="flex items-center gap-2 hover:opacity-70 transition">
-                        <span className={`text-[11px] font-semibold t-text-dim`}>{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
-                        <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
-                      </button>
-                    </div>
-                  ))}
-                </details>
-              )}
             </>
           );
         };
         return (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="consecutive" timestamp={ts}>연속 시그널</SectionHeader>
-          {consecutiveSignals.and_condition?.length > 0 && (
-            <div className="mb-3">
-              <div className="text-[11px] font-semibold text-red-400 mb-1.5 flex items-center gap-1"><Flame size={12} /> 매수 + 대장주 동시 (AND)</div>
-              <div className="space-y-1">{renderList(consecutiveSignals.and_condition, "text-red-400", true)}</div>
-            </div>
-          )}
-          {consecutiveSignals.or_condition?.length > 0 && (
-            <div>
-              <div className="text-[11px] font-semibold text-amber-400 mb-1.5 flex items-center gap-1"><BarChart3 size={12} /> 매수 또는 대장주 (OR)</div>
-              <div className="space-y-1">{renderList(consecutiveSignals.or_condition.slice(0, 15), "text-amber-400", false)}</div>
-            </div>
-          )}
+          {(() => {
+            const andItems = consecutiveSignals.and_condition || [];
+            const orItems = consecutiveSignals.or_condition || [];
+            const andActive = andItems.filter((r: any) => freshness(r) !== "ended");
+            const orActive = orItems.filter((r: any) => freshness(r) !== "ended");
+            const allEnded = [...andItems, ...orItems].filter((r: any) => freshness(r) === "ended");
+            return <>
+              {andActive.length > 0 && (
+                <div className="mb-3">
+                  <div className="text-[11px] font-semibold text-red-400 mb-1.5 flex items-center gap-1"><Flame size={12} /> 매수 + 대장주 동시 (AND)</div>
+                  <div className="space-y-1">{renderList(andItems, "text-red-400", true)}</div>
+                </div>
+              )}
+              {orActive.length > 0 && (
+                <div>
+                  <div className="text-[11px] font-semibold text-amber-400 mb-1.5 flex items-center gap-1"><BarChart3 size={12} /> 매수 또는 대장주 (OR)</div>
+                  <div className="space-y-1">{renderList(orItems.slice(0, 15), "text-amber-400", false)}</div>
+                </div>
+              )}
+              {andActive.length === 0 && orActive.length === 0 && allEnded.length > 0 && (
+                <div className="text-[11px] t-text-dim">현재 활성 연속 신호 없음</div>
+              )}
+              {allEnded.length > 0 && (andActive.length > 0 || orActive.length > 0) && (
+                <details className="mt-2">
+                  <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({allEnded.length})</summary>
+                  {allEnded.map((r: any, i: number) => (
+                    <div key={i} className="flex items-center justify-between py-1 opacity-40">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[12px] t-text">{r.name}</span>
+                        <span className="text-[10px] t-text-dim">{r.code}</span>
+                      </div>
+                      <span className="text-[10px] t-text-dim">{r.streak}일 · {r.dates?.[r.dates.length - 1]}</span>
+                    </div>
+                  ))}
+                </details>
+              )}
+            </>;
+          })()}
         </section>
         );
       })()}
