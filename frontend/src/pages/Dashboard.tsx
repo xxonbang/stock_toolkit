@@ -81,6 +81,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
   const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
   const [stockDetail, setStockDetail] = useState<any>(null);
   const [showDualExp, setShowDualExp] = useState(false);
+  const [showMacroHelp, setShowMacroHelp] = useState(false);
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
@@ -1254,9 +1255,29 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
               <div className="text-xs font-semibold t-text mb-2 flex items-center justify-between">
                 <span>글로벌 매크로</span>
                 {sentiment?.components?.macro_score?.value != null && (
-                  <span className={`text-[11px] font-bold ${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
-                    {sentiment.components.macro_score.value}/10
-                  </span>
+                  <div className="flex items-center gap-1.5 relative">
+                    <span onClick={() => setShowMacroHelp(!showMacroHelp)} className="text-[11px] t-text-dim cursor-pointer hover:t-text-sub">?</span>
+                    <span className={`text-[11px] font-bold ${(sentiment.components.macro_score.value ?? 5) >= 5 ? "text-red-400" : "text-blue-400"}`}>
+                      {sentiment.components.macro_score.value}/10
+                    </span>
+                    {showMacroHelp && (
+                      <div className="absolute right-0 top-6 w-72 p-3 rounded-xl t-card border t-border-light shadow-lg z-10" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="text-[11px] font-semibold t-text">글로벌 매크로 점수</div>
+                          <span onClick={() => setShowMacroHelp(false)} className="text-[10px] t-text-dim cursor-pointer">닫기</span>
+                        </div>
+                        <div className="text-[10px] t-text-sub leading-relaxed space-y-1.5">
+                          <p>6개 글로벌 지표의 변동률을 가중평균하여 0~10점으로 산출합니다. 5점이 중립, 5 이상 강세, 미만 약세.</p>
+                          <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 mt-1">
+                            <span>나스닥(NQ) <b>×2.0</b></span><span>반도체(SOXX) <b>×2.0</b></span>
+                            <span>KOSPI200 <b>×1.5</b></span><span>한국ETF(EWY) <b>×1.0</b></span>
+                            <span>마이크론(MU) <b>×1.0</b></span><span>한국3X(KORU) <b>×0.5</b></span>
+                          </div>
+                          <p className="t-text-dim">이 점수는 시장 심리지수(100점)에서 10점 비중으로 반영됩니다.</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
               <div className="grid grid-cols-2 gap-1.5">
