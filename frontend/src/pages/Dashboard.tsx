@@ -2443,37 +2443,45 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
           <SectionHeader id="pattern" timestamp={ts}>차트 패턴 매칭</SectionHeader>
           <div className="space-y-3">
             {(pattern || []).filter((p: any) => p.matches?.length > 0).map((p: any, i: number) => (
-              <div key={i}>
-                <div className="font-medium text-sm flex items-center gap-1 mb-1.5">
-                  <LineChart size={14} className="t-text-dim shrink-0" />
-                  <span className="truncate">{p.name}</span>
-                  <span className="text-xs t-text-dim shrink-0">{p.code}</span>
+              <div key={i} className="p-3 t-card-alt rounded-xl border t-border-light">
+                <div className="font-medium text-sm flex items-center gap-2 mb-2.5 pb-2 border-b t-border-light">
+                  <LineChart size={14} className="text-blue-400 shrink-0" />
+                  <span className="truncate t-text">{p.name}</span>
+                  <span className="text-[10px] t-text-dim shrink-0">{p.code}</span>
                 </div>
+                <div className="space-y-2.5">
                 {p.matches?.slice(0, 3).map((m: any, j: number) => {
                   const dateLabel = m.date ? m.date.slice(5) : "";
                   const matchName = m.name || m.code || "?";
                   const dr = m.daily_returns || {};
+                  const sim = (m.similarity * 100).toFixed(0);
                   return (
-                  <div key={j} className="border-b t-border-light last:border-0 py-1.5">
-                    <div className="flex justify-between text-xs gap-2 mb-1">
-                      <span className="t-text-sub truncate">· {dateLabel} {matchName} {(m.similarity * 100).toFixed(0)}%</span>
+                  <div key={j}>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[11px] font-medium t-text">{dateLabel} {matchName}</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${+sim >= 97 ? "bg-emerald-500/12 text-emerald-500" : +sim >= 90 ? "bg-blue-500/10 text-blue-400" : "bg-gray-500/10 t-text-dim"}`}>{sim}%</span>
                     </div>
-                    <div className="flex gap-1 ml-3">
+                    <div className="flex gap-1">
                       {[1,2,3,4,5].map(d => {
                         const v = dr[`d${d}`];
-                        return v != null ? (
-                          <span key={d} className={`text-[10px] px-1 py-0.5 rounded ${v >= 0 ? "text-red-500 bg-red-50 dark:bg-red-900/20" : "text-blue-500 bg-blue-50 dark:bg-blue-900/20"}`}>
-                            D{d} {v >= 0 ? "+" : ""}{v.toFixed(1)}
+                        if (v == null) return null;
+                        const abs = Math.abs(v);
+                        const intensity = abs >= 20 ? "font-bold" : abs >= 10 ? "font-semibold" : "font-medium";
+                        return (
+                          <span key={d} className={`text-[10px] px-1.5 py-1 rounded-md flex-1 text-center ${intensity} ${v >= 0 ? "text-red-500 bg-red-500/8" : "text-blue-500 bg-blue-500/8"}`}>
+                            <span className="text-[8px] t-text-dim block">D{d}</span>
+                            {v >= 0 ? "+" : ""}{v.toFixed(1)}
                           </span>
-                        ) : null;
+                        );
                       })}
                     </div>
                   </div>
                   );
                 })}
+                </div>
               </div>
             ))}
-            <p className="text-[10px] t-text-dim">D1~D5 = 패턴 발생 후 각 거래일의 실제 수익률(%)</p>
+            <p className="text-[10px] t-text-dim mt-1">D1~D5 = 패턴 발생 후 각 거래일의 실제 수익률(%). 유사도가 높을수록 참고 가치 높음.</p>
           </div>
             {!pattern?.length && <Empty />}
         </section>
