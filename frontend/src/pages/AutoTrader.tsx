@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, RefreshCw, Loader2, Lock, TimerOff, Inbox, Check, X, LogIn, HelpCircle } from "lucide-react";
 import { supabase, STORAGE_KEY, setAccessToken, fetchKisPrices } from "../lib/supabase";
 import { getTradePct, setAlertConfig } from "../lib/supabase";
@@ -77,6 +78,9 @@ export default function AutoTrader() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showBuyHelp, setShowBuyHelp] = useState(false);
   const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false });
+  const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false });
+  const [buySaving, setBuySaving] = useState(false);
+  const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
 
   useEffect(() => {
     function loadData(u: any) {
@@ -88,7 +92,7 @@ export default function AutoTrader() {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
-          setBuyToggles(parseBuyMode(buy_signal_mode));
+          { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
         }).catch(() => {});
       } else {
         setLoading(false);
@@ -363,16 +367,11 @@ export default function AutoTrader() {
                   <span className="text-[9px] t-text-dim">{opt.desc}</span>
                 </div>
                 <button
-                  onClick={async () => {
+                  onClick={() => {
                     const next = { ...buyToggles, [opt.key]: !isOn };
-                    // top_leader와 all_leaders는 상호 배타
                     if (opt.key === "top_leader" && !isOn) next.all_leaders = false;
                     if (opt.key === "all_leaders" && !isOn) next.top_leader = false;
-                    const prev = { ...buyToggles };
                     setBuyToggles(next);
-                    const mode = [next.chart && "chart", next.indicator && "indicator", next.top_leader && "top_leader", next.all_leaders && "all_leaders"].filter(Boolean).join(",") || "none";
-                    const ok = await setAlertConfig({ buy_signal_mode: mode });
-                    if (!ok) setBuyToggles(prev);
                   }}
                   className="relative flex-shrink-0 ml-2 w-8 h-[16px] rounded-full transition-colors duration-200"
                   style={{ background: isOn ? "#3b82f6" : "var(--border)" }}>
@@ -384,14 +383,43 @@ export default function AutoTrader() {
             );
           })}
         </div>
-        <div className="mt-2 pt-1.5 border-t text-[9px] t-text-dim" style={{ borderColor: "var(--border)" }}>
-          {(() => {
-            const { chart, indicator, top_leader, all_leaders } = buyToggles;
-            const parts = [chart && "차트", indicator && "지표", top_leader && "대장주1위", all_leaders && "대장주전체"].filter(Boolean) as string[];
-            if (parts.length === 0) return "매집 중지 (모든 조건 OFF)";
-            if (parts.length === 1) return `${parts[0]} 조건만 적용`;
-            return `${parts.join(" + ")} 모두 충족 시 매수 (AND)`;
-          })()}
+        {/* 조합 미리보기 + 확인 버튼 */}
+        <div className="mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
+          <div className="text-[10px] t-text-sub mb-2">
+            {(() => {
+              const { chart, indicator, top_leader, all_leaders } = buyToggles;
+              const parts = [chart && "차트", indicator && "지표", top_leader && "대장주1위", all_leaders && "대장주전체"].filter(Boolean) as string[];
+              if (parts.length === 0) return "매집 중지 — 모든 조건 OFF, 종목을 매집하지 않습니다";
+              if (parts.length === 1) return `${parts[0]} 조건만 적용하여 매집 종목을 선정합니다`;
+              return `${parts.join(" + ")} 조건을 모두 충족하는 종목만 매집합니다 (AND)`;
+            })()}
+          </div>
+          {(buyToggles.chart !== savedToggles.chart || buyToggles.indicator !== savedToggles.indicator || buyToggles.top_leader !== savedToggles.top_leader || buyToggles.all_leaders !== savedToggles.all_leaders) && (
+            <div className="flex items-center gap-2">
+              <button disabled={buySaving} onClick={async () => {
+                setBuySaving(true);
+                const mode = [buyToggles.chart && "chart", buyToggles.indicator && "indicator", buyToggles.top_leader && "top_leader", buyToggles.all_leaders && "all_leaders"].filter(Boolean).join(",") || "none";
+                const ok = await setAlertConfig({ buy_signal_mode: mode });
+                if (ok) {
+                  setSavedToggles({ ...buyToggles });
+                  setToastMsg({ text: "매집 기준이 저장되었습니다", type: "ok" });
+                } else {
+                  setBuyToggles({ ...savedToggles });
+                  setToastMsg({ text: "저장 실패 — 다시 시도해주세요", type: "fail" });
+                }
+                setTimeout(() => setToastMsg(null), 2500);
+                setBuySaving(false);
+              }}
+                className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                {buySaving ? "저장 중..." : "확인"}
+              </button>
+              <button onClick={() => setBuyToggles({ ...savedToggles })}
+                className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80"
+                style={{ borderColor: "var(--border)" }}>
+                취소
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -459,6 +487,15 @@ export default function AutoTrader() {
             </div>
           </div>
         </div>
+      )}
+
+      {toastMsg && createPortal(
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium text-white shadow-lg"
+          style={{ background: toastMsg.type === "fail" ? "rgba(220,38,38,0.92)" : "rgba(30,30,30,0.92)", backdropFilter: "blur(8px)" }}>
+          {toastMsg.type === "fail" ? <X size={14} /> : <Check size={14} />}
+          {toastMsg.text}
+        </div>,
+        document.body
       )}
     </div>
   );
