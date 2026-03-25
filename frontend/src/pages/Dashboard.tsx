@@ -219,7 +219,7 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       dataService.getTradingValue().then(setTradingValue),
       dataService.getPaperTrading().then(setPaperTrading),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
-      dataService.getVolumeProfile().then(setVolumeProfile),
+      fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
       dataService.getSignalConsistency().then(setSignalConsistency),
       dataService.getIntradayStockFlow().then(setIntradayStockFlow),
       dataService.getStockMaster().then((m: any) => { if (m?.stocks) setAllStockList(m.stocks.map((s: any) => ({ code: s.code, name: s.name, market: s.market || "" }))); }),
@@ -3015,23 +3015,36 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         {!(forecastAccuracy?.predictions || []).length && <Empty />}
       </section>
 
-      {/* Volume Profile 지지/저항 */}
+      {/* Volume Profile 지지/저항 경보 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="volume_profile" timestamp={ts} count={volumeProfile?.length ?? 0}>매물대 지지/저항</SectionHeader>
         <div className="space-y-1.5">
-          {(volumeProfile || []).slice(0, 8).map((vp, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{vp.name}</div>
+          {(volumeProfile || []).slice(0, 12).map((vp: any, i: number) => {
+            const cp = vp.current_price || 0;
+            const sup = vp.support || 0;
+            const res = vp.resistance || 0;
+            const status = vp.status || "";
+            const hasAlert = !!status;
+            const gapSup = sup && cp ? Math.round((cp - sup) / sup * 100) : 0;
+            const gapRes = res && cp ? Math.round((res - cp) / cp * 100) : 0;
+            const statusColor = status.includes("이탈") ? "bg-red-500/15 text-red-400" : status.includes("지지") ? "bg-emerald-500/15 text-emerald-400" : status.includes("돌파") ? "bg-blue-500/15 text-blue-400" : "bg-amber-500/15 text-amber-400";
+            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === vp.code);
+            return (
+            <div key={i} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+              onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: vp.name, code: vp.code, _noData: true })}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium truncate">{vp.name}</span>
+                {hasAlert && <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${statusColor}`}>{status}</span>}
               </div>
-              <div className="flex gap-2 text-xs shrink-0">
-                {vp.poc_1week ? <div className="text-center"><div className="t-text-dim">1주 POC</div><div className="font-medium">{vp.poc_1week?.toLocaleString()}원</div></div> : null}
-                {vp.poc_1month ? <div className="text-center"><div className="t-text-dim">1개월 POC</div><div className="font-medium">{vp.poc_1month?.toLocaleString()}원</div></div> : null}
-                {vp.poc_3month ? <div className="text-center"><div className="t-text-dim">3개월 POC</div><div className="font-medium">{vp.poc_3month?.toLocaleString()}원</div></div> : null}
+              <div className="flex items-center gap-2 text-[10px]">
+                {cp > 0 && <span className="t-text">현재 {cp.toLocaleString()}원</span>}
+                {sup > 0 && <span className="t-text-dim">지지 {sup.toLocaleString()}<span className={gapSup >= 0 ? "text-red-500" : "text-blue-500"}> ({gapSup >= 0 ? "+" : ""}{gapSup}%)</span></span>}
+                {res > 0 && res !== sup && <span className="t-text-dim">저항 {res.toLocaleString()}<span className={gapRes <= 0 ? "text-red-500" : "text-blue-500"}> ({gapRes >= 0 ? "+" : ""}{-gapRes}%)</span></span>}
               </div>
             </div>
-          ))}
-          <p className="text-[10px] t-text-dim">POC = 가장 많이 거래된 핵심 가격대 (지지/저항선)</p>
+            );
+          })}
+          <p className="text-[10px] t-text-dim">매물대 지지/저항선 근접 종목만 표시 · 현재가 대비 괴리율</p>
         </div>
         {!volumeProfile?.length && <Empty />}
       </section>
