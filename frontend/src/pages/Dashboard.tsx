@@ -967,13 +967,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                 {premarket.prediction}
               </span>
             </div>
-            {premarket.key_factors?.length > 0 && (() => {
-              // macro_etf 그리드에 이미 표시되는 항목은 key_factors에서 제외
-              const macroSymbols = (premarket.macro_etf || []).map((e: any) => e.name);
-              const filtered = premarket.key_factors.filter((f: string) => !macroSymbols.some((n: string) => f.includes(n)));
-              if (!filtered.length) return null;
-              return <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-                {filtered.map((f: string, i: number) => {
+            {premarket.key_factors?.length > 0 && (
+              <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                {premarket.key_factors.map((f: string, i: number) => {
                   const isPositive = f.includes("+") || f.includes("상승") || f.includes("매수");
                   const isNegative = f.includes("-") || f.includes("하락") || f.includes("공포") || f.includes("경고") || f.includes("우려");
                   return (
@@ -985,25 +981,9 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
                     </div>
                   );
                 })}
-              </div>;
-            })()}
-          </div>
-          {/* 글로벌 매크로 지표 */}
-          {premarket.macro_etf?.length > 0 && (
-            <div className="mt-2">
-              <div className="text-[10px] font-semibold t-text-sub mb-1.5">글로벌 매크로 영향도</div>
-              <div className="grid grid-cols-3 gap-1.5">
-                {premarket.macro_etf.map((etf: any) => (
-                  <div key={etf.symbol} className={`rounded-lg p-1.5 text-center border ${etf.impact >= 0 ? "border-red-500/15 bg-red-500/5" : "border-blue-500/15 bg-blue-500/5"}`}>
-                    <div className="text-[10px] font-medium t-text-sub">{etf.name}</div>
-                    <div className={`text-[11px] font-semibold ${etf.change_pct >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                      {etf.change_pct >= 0 ? "+" : ""}{etf.change_pct}%
-                    </div>
-                  </div>
-                ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </section>
       )}
 
