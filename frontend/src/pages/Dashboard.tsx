@@ -1060,8 +1060,10 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
         // 종목명(코드) 패턴을 클릭 가능한 요소로 변환
         const allStockData = [...(crossSignal || []), ...(smartMoney || [])];
         const renderTextWithStockLinks = (text: string) => {
+          // HTML 태그 제거 (briefing 데이터에 <font> 등 포함 가능)
+          const cleaned = text.replace(/<[^>]+>/g, "");
           // "종목명(6자리코드)" 패턴 매칭
-          const parts = text.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
+          const parts = cleaned.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
           return parts.map((part, k) => {
             const m = part.match(/^(.+)\((\d{6})\)$/);
             if (m) {
