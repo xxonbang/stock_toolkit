@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, RefreshCw } from "lucide-react";
 import { supabase, STORAGE_KEY, setAccessToken, fetchKisPrices } from "../lib/supabase";
 import { getTradePct, setAlertConfig } from "../lib/supabase";
@@ -61,6 +61,7 @@ export default function AutoTrader() {
   const [pctSaving, setPctSaving] = useState(false);
   const [pctResult, setPctResult] = useState("");
   const [sessionExpired, setSessionExpired] = useState(false);
+  const sessionExpiredRef = useRef(false);
   const [buySignalMode, setBuySignalMode] = useState<"and" | "or" | "leader">("and");
 
   useEffect(() => {
@@ -104,6 +105,7 @@ export default function AutoTrader() {
     }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (sessionExpiredRef.current) return;  // 세션 만료 확정 → 재시도 차단
       if (session?.user) {
         setAccessToken(session.access_token ?? null);
       }
@@ -112,6 +114,7 @@ export default function AutoTrader() {
 
     // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응)
     const handleVisibility = () => {
+      if (sessionExpiredRef.current) return;  // 세션 만료 확정 → 재시도 차단
       if (document.visibilityState === "visible") {
         supabase.auth.getSession().then(({ data: { session } }) => {
           if (session?.user) {
@@ -136,7 +139,7 @@ export default function AutoTrader() {
         ),
       ]);
       if (error) {
-        setSessionExpired(true);
+        setSessionExpired(true); sessionExpiredRef.current = true;
         setUser(null);
         setLoading(false);
         return;
