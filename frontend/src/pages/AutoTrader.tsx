@@ -94,6 +94,8 @@ export default function AutoTrader() {
   const [buySaving, setBuySaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
   const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
+  const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped">("fixed");
+  const [strategySaving, setStrategySaving] = useState(false);
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [simulations, setSimulations] = useState<any[]>([]);
 
@@ -111,7 +113,7 @@ export default function AutoTrader() {
         }).catch(() => {});
         // strategy_type 로드
         Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
-          if (cfg?.strategy_type) setStrategyType(cfg.strategy_type);
+          if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
         }).catch(() => {});
         getStrategySimulations().then(setSimulations);
       } else {
@@ -278,7 +280,7 @@ export default function AutoTrader() {
       { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
     }).catch(() => {});
     Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
-      if (cfg?.strategy_type) setStrategyType(cfg.strategy_type);
+      if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
     }).catch(() => {});
     getStrategySimulations().then(setSimulations);
   };
@@ -316,14 +318,11 @@ export default function AutoTrader() {
       {/* 투자 전략 선택 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="text-[11px] font-semibold t-text mb-2">투자 전략</div>
-        <div className="flex gap-2 mb-2">
+        <div className="flex gap-2">
           {(["stepped", "fixed"] as const).map(st => (
-            <button key={st} onClick={async () => {
+            <button key={st} onClick={() => {
               setStrategyType(st);
-              await setAlertConfig({ strategy_type: st });
-              if (st === "stepped") {
-                setShowPctEdit(false);
-              }
+              if (st === "stepped") setShowPctEdit(false);
             }}
               className={`flex-1 text-[11px] py-2 rounded-lg font-medium transition ${
                 strategyType === st
@@ -336,14 +335,35 @@ export default function AutoTrader() {
           ))}
         </div>
         {strategyType === "stepped" && (
-          <div className="text-[9px] t-text-dim p-2 rounded-lg" style={{ background: "var(--bg)" }}>
-            <div className="font-medium t-text-sub mb-1">Step 구간</div>
-            <div className="grid grid-cols-5 gap-1 text-center">
-              {["+5%→본전", "+10%→+5%", "+15%→+10%", "+20%→+15%", "+25%+→고점-3%"].map(s => (
-                <span key={s}>{s}</span>
+          <div className="text-[9px] t-text-dim p-2 mt-2 rounded-lg" style={{ background: "var(--bg)" }}>
+            <div className="font-medium t-text-sub mb-1.5">Step 구간</div>
+            <div className="space-y-0.5">
+              {[
+                { trigger: "+5%", stop: "본전(0%)" },
+                { trigger: "+10%", stop: "+5%" },
+                { trigger: "+15%", stop: "+10%" },
+                { trigger: "+20%", stop: "+15%" },
+                { trigger: "+25%+", stop: "고점 −3%" },
+              ].map(s => (
+                <div key={s.trigger} className="flex justify-between">
+                  <span>{s.trigger} 도달</span>
+                  <span className="t-text-sub">→ stop {s.stop}</span>
+                </div>
               ))}
             </div>
           </div>
+        )}
+        {strategyType !== savedStrategyType && (
+          <button disabled={strategySaving} onClick={async () => {
+            setStrategySaving(true);
+            const ok = await setAlertConfig({ strategy_type: strategyType });
+            if (ok) setSavedStrategyType(strategyType);
+            setToastMsg({ text: ok ? "전략 변경 완료" : "전략 변경 실패", type: ok ? "ok" : "fail" });
+            setStrategySaving(false);
+          }}
+            className="w-full mt-2 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+            {strategySaving ? "저장 중..." : "전략 변경 확인"}
+          </button>
         )}
         {/* 전략 비교 펼치기/접기 */}
         <button onClick={() => setShowStrategyCompare(!showStrategyCompare)}
