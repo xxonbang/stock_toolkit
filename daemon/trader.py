@@ -480,12 +480,13 @@ MAX_DAILY_LOSS_PCT = -10.0  # 당일 누적 손실 한도 (%)
 
 async def run_buy_process():
     # 당일 누적 손실 체크 — 한도 초과 시 매수 중단
-    sold_today = await _get_sold_today_trades()
-    if sold_today:
-        total_loss = sum(t.get("pnl_pct", 0) for t in sold_today)
+    sold_today_rows = await _get_sold_today_trades()
+    if sold_today_rows:
+        total_loss = sum(t.get("pnl_pct", 0) for t in sold_today_rows)
         if total_loss <= MAX_DAILY_LOSS_PCT:
             logger.warning(f"당일 누적 손실 {total_loss:.1f}% — 매수 중단 (한도 {MAX_DAILY_LOSS_PCT}%)")
             return
+    sold_today_codes = {r["code"] for r in sold_today_rows if r.get("code")}
 
     cross_data = await fetch_json(f"{DATA_BASE_URL}/cross_signal.json")
     if not isinstance(cross_data, list):
@@ -501,14 +502,13 @@ async def run_buy_process():
 
     # 이미 보유/주문 중이거나 당일 매도된 종목 제외
     buy_candidates = []
-    sold_today = await _get_sold_today_codes()
     for t in targets:
         code = t["code"]
         name = t.get("name", "")
         if await is_already_held_or_ordered(code):
             logger.info(f"이미 보유/주문중 — {name}({code}) 스킵")
             continue
-        if code in sold_today:
+        if code in sold_today_codes:
             logger.info(f"당일 매도 종목 — {name}({code}) 재매수 방지 스킵")
             continue
         price = 0
@@ -574,24 +574,6 @@ async def _get_sold_today_trades() -> list[dict]:
         logger.warning(f"당일 매도 종목 조회 실패: {e}")
     return []
 
-
-async def _get_sold_today_codes() -> set[str]:
-    """당일 매도된 종목 코드 조회 (재매수 방지)"""
-    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
-    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
-        return set()
-    try:
-        session = await get_session()
-        today_utc = _today_utc_start()
-        url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sold&sold_at=gte.{today_utc}&select=code"
-        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-        async with session.get(url, headers=headers) as resp:
-            if resp.status == 200:
-                rows = await resp.json()
-                return {r["code"] for r in rows if r.get("code")}
-    except Exception as e:
-        logger.warning(f"당일 매도 종목 조회 실패: {e}")
-    return set()
 
 
 _trade_config_cache: dict | None = None
