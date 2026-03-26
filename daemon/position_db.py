@@ -122,8 +122,14 @@ async def update_position_quantity(position_id: str, quantity: int):
 
 async def update_position_sold(position_id: str, sell_price: int, pnl_pct: float, reason: str):
     url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=eq.{position_id}"
-    body = {"status": "sold", "sell_price": sell_price, "pnl_pct": round(pnl_pct, 2), "sell_reason": reason, "sold_at": "now()"}
-    await _supabase_request("PATCH", url, json=body)
+    body = {"status": "sold", "pnl_pct": round(pnl_pct, 2), "sell_reason": reason, "sold_at": "now()"}
+    if sell_price and sell_price > 0:
+        body["sell_price"] = sell_price
+    result = await _supabase_request("PATCH", url, json=body)
+    # sell_price 컬럼 미존재 시 재시도 (DB migration 전 호환)
+    if result is None and "sell_price" in body:
+        del body["sell_price"]
+        await _supabase_request("PATCH", url, json=body)
     invalidate_cache()
     unmark_selling(position_id)
 

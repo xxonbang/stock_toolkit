@@ -937,8 +937,9 @@ async def sell_all_positions_market():
 
 async def schedule_sell_check():
     """30초마다 보유종목 현재가 REST API 조회 → 익절/손절/수동매도 체크 (WebSocket 백업)"""
-    from daemon.main import is_market_hours, is_market_day, _shutdown
-    while not _shutdown:
+    from daemon import main as _main
+    from daemon.main import is_market_hours, is_market_day
+    while not _main._shutdown:
         await asyncio.sleep(30)
         if not is_market_day() or not is_market_hours():
             continue
