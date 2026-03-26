@@ -5,7 +5,7 @@ import time
 from datetime import datetime, timezone, timedelta
 from daemon.config import (
     KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_ACCOUNT_NO, KIS_MOCK_BASE_URL,
-    TRADE_AMOUNT_PER_STOCK, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT,
+    TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT, TRADE_MIN_AMOUNT_PER_STOCK,
     DATA_BASE_URL,
 )
 from daemon.position_db import (
@@ -168,14 +168,6 @@ async def is_upper_limit(code: str, price: int) -> bool:
     except Exception as e:
         logger.warning(f"상한가 조회 오류 ({code}): {e}")
     return False
-
-
-async def place_buy_order(code: str, name: str, price: int) -> bool:
-    quantity = calc_quantity(TRADE_AMOUNT_PER_STOCK, price)
-    if quantity <= 0:
-        logger.warning(f"매수 수량 0 — {name}({code}) 가격 {price}원")
-        return False
-    return await place_buy_order_with_qty(code, name, price, quantity)
 
 
 _MAX_FILL_RETRIES = 3
@@ -480,7 +472,17 @@ async def fetch_available_balance() -> int:
     return 0
 
 
+MAX_DAILY_LOSS_PCT = -10.0  # 당일 누적 손실 한도 (%)
+
 async def run_buy_process():
+    # 당일 누적 손실 체크 — 한도 초과 시 매수 중단
+    sold_today = await _get_sold_today_trades()
+    if sold_today:
+        total_loss = sum(t.get("pnl_pct", 0) for t in sold_today)
+        if total_loss <= MAX_DAILY_LOSS_PCT:
+            logger.warning(f"당일 누적 손실 {total_loss:.1f}% — 매수 중단 (한도 {MAX_DAILY_LOSS_PCT}%)")
+            return
+
     cross_data = await fetch_json(f"{DATA_BASE_URL}/cross_signal.json")
     if not isinstance(cross_data, list):
         logger.warning("cross_signal.json 로드 실패")
@@ -530,11 +532,10 @@ async def run_buy_process():
         logger.warning("가용 잔고 없음 — 매수 중단")
         return
 
-    MIN_AMOUNT_PER_STOCK = 1_000_000  # 종목당 최소 100만원
-    if balance <= MIN_AMOUNT_PER_STOCK:
+    if balance <= TRADE_MIN_AMOUNT_PER_STOCK:
         actual_candidates = buy_candidates[:1]
     else:
-        max_stocks = balance // MIN_AMOUNT_PER_STOCK
+        max_stocks = balance // TRADE_MIN_AMOUNT_PER_STOCK
         actual_candidates = buy_candidates[:max_stocks]
     amount_per_stock = balance // len(actual_candidates)
     logger.info(f"매수 대상 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
@@ -546,17 +547,38 @@ async def run_buy_process():
         await place_buy_order_with_qty(c["code"], c["name"], c["price"], quantity)
 
 
+def _today_utc_start() -> str:
+    """KST 0시를 UTC로 변환한 타임스탬프"""
+    _KST = timezone(timedelta(hours=9))
+    return (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+
+
+async def _get_sold_today_trades() -> list[dict]:
+    """당일 매도된 종목 전체 조회 (pnl_pct 포함)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return []
+    try:
+        session = await get_session()
+        today_utc = _today_utc_start()
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sold&sold_at=gte.{today_utc}&select=code,pnl_pct"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        async with session.get(url, headers=headers) as resp:
+            if resp.status == 200:
+                return await resp.json()
+    except Exception as e:
+        logger.warning(f"당일 매도 종목 조회 실패: {e}")
+    return []
+
+
 async def _get_sold_today_codes() -> set[str]:
     """당일 매도된 종목 코드 조회 (재매수 방지)"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return set()
-    _KST = timezone(timedelta(hours=9))
-    today = datetime.now(_KST).strftime("%Y-%m-%d")
     try:
         session = await get_session()
-        # KST 0시를 UTC로 변환 (KST-9h = 전일 15:00 UTC)
-        today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        today_utc = _today_utc_start()
         url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sold&sold_at=gte.{today_utc}&select=code"
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
         async with session.get(url, headers=headers) as resp:
@@ -895,9 +917,10 @@ async def sell_all_positions_market():
                 result = await _kis_order_market("VTTC0801U", pos_now["code"], pos_now["quantity"])
                 if result:
                     filled_qty = await _verify_sell_fill(pos_now["code"], pos_now["quantity"])
+                    retry_buy_price = pos_now.get("filled_price") or pos_now.get("order_price", 0)
                     cp = await _get_current_price(pos_now["code"])
-                    sp = cp if cp > 0 else buy_price
-                    pnl = calc_pnl_pct(buy_price, sp)
+                    sp = cp if cp > 0 else retry_buy_price
+                    pnl = calc_pnl_pct(retry_buy_price, sp)
                     if filled_qty >= pos_now["quantity"]:
                         await update_position_sold(position_id, sp, pnl, "eod_close")
                         logger.info(f"장 마감 재시도 성공: {pos_now['name']}({pos_now['code']})")
@@ -914,8 +937,8 @@ async def sell_all_positions_market():
 
 async def schedule_sell_check():
     """30초마다 보유종목 현재가 REST API 조회 → 익절/손절/수동매도 체크 (WebSocket 백업)"""
-    from daemon.main import is_market_hours, is_market_day
-    while True:
+    from daemon.main import is_market_hours, is_market_day, _shutdown
+    while not _shutdown:
         await asyncio.sleep(30)
         if not is_market_day() or not is_market_hours():
             continue
@@ -971,6 +994,9 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _retry: bool =
     try:
         session = await get_session()
         async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
+            if resp.status != 200:
+                logger.error(f"시장가 주문 HTTP {resp.status}: {code} {tr_id}")
+                return None
             data = await resp.json()
             if data.get("rt_cd") == "0":
                 return data
@@ -980,7 +1006,7 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _retry: bool =
                 _reset_token()
                 await asyncio.sleep(1)
                 return await _kis_order_market(tr_id, code, quantity, _retry=False)
-            logger.error(f"시장가 주문 실패: {msg}")
+            logger.error(f"시장가 주문 실패 ({code}): {msg}")
     except Exception as e:
         logger.error(f"시장가 주문 오류: {e}")
     return None

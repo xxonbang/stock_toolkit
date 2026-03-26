@@ -141,6 +141,15 @@ async def schedule_refresh():
             continue
         try:
             await refresh_subscriptions()
+            # heartbeat: 보유종목 요약
+            from daemon.position_db import get_active_positions, calc_pnl_pct
+            positions = await get_active_positions(force_refresh=True)
+            held = [p for p in positions if p["status"] in ("filled", "sell_requested")]
+            if held:
+                summary = ", ".join(f"{p.get('name','')}({p.get('code','')})" for p in held[:5])
+                logger.info(f"[heartbeat] 보유 {len(held)}종목: {summary}")
+            elif is_market_hours():
+                logger.info("[heartbeat] 보유종목 없음")
         except Exception as e:
             logger.error(f"구독 갱신 실패: {e}")
 
@@ -231,7 +240,18 @@ async def main():
     except Exception as e:
         logger.warning(f"시작 시 peak 초기화 실패: {e}")
 
-    # sell_requested 종목은 시작 시 selling lock 설정하지 않음 — schedule_sell_check가 처리
+    # sell_requested 종목을 filled로 복구 (이전 세션 미처리 수동 매도 → schedule_sell_check가 재처리)
+    try:
+        from daemon.position_db import get_active_positions as _get_pos2, _supabase_request
+        from daemon.config import SUPABASE_URL as _SU
+        sr_positions = [p for p in await _get_pos2(force_refresh=True) if p["status"] == "sell_requested"]
+        for p in sr_positions:
+            url = f"{_SU}/rest/v1/auto_trades?id=eq.{p['id']}"
+            await _supabase_request("PATCH", url, json={"status": "filled"})
+            logger.info(f"sell_requested → filled 복구: {p.get('name')}({p.get('code')})")
+    except Exception as e:
+        logger.warning(f"sell_requested 복구 실패: {e}")
+
     _alert_codes = await fetch_subscription_codes()
     _trade_codes = await fetch_trade_codes()
 
