@@ -69,6 +69,12 @@ def _order_headers(token: str, tr_id: str) -> dict:
     }
 
 
+def _parse_account() -> tuple[str, str]:
+    """KIS_MOCK_ACCOUNT_NO를 (CANO, ACNT_PRDT_CD) 튜플로 파싱"""
+    parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    return parts[0], parts[1] if len(parts) > 1 else "01"
+
+
 def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
     """고확신 종목 필터. mode: 콤마 구분 토글 ('chart,indicator,top_leader') 또는 레거시."""
     if not signals or mode == "none":
@@ -123,10 +129,10 @@ async def _kis_order(tr_id: str, code: str, quantity: int, price: int, retry: bo
     if not token:
         return None
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    cano, acnt_cd = _parse_account()
     body = {
-        "CANO": account_parts[0],
-        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
+        "CANO": cano,
+        "ACNT_PRDT_CD": acnt_cd,
         "PDNO": code,
         "ORD_DVSN": "00",
         "ORD_QTY": str(quantity),
@@ -178,8 +184,7 @@ async def _cancel_unfilled(code: str) -> int | None:
     token = await _ensure_mock_token()
     if not token:
         return None
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
-    cano, acnt_cd = account_parts[0], account_parts[1] if len(account_parts) > 1 else "01"
+    cano, acnt_cd = _parse_account()
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
     params = {
         "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
@@ -231,8 +236,7 @@ async def _cancel_unfilled_sell(code: str) -> int | None:
     token = await _ensure_mock_token()
     if not token:
         return None
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
-    cano, acnt_cd = account_parts[0], account_parts[1] if len(account_parts) > 1 else "01"
+    cano, acnt_cd = _parse_account()
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
     params = {
         "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
@@ -438,11 +442,11 @@ async def fetch_available_balance() -> int:
     token = await _ensure_mock_token()
     if not token:
         return 0
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    cano, acnt_cd = _parse_account()
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-psbl-order"
     params = {
-        "CANO": account_parts[0],
-        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
+        "CANO": cano,
+        "ACNT_PRDT_CD": acnt_cd,
         "PDNO": "005930",
         "ORD_UNPR": "0",
         "ORD_DVSN": "00",
@@ -697,9 +701,7 @@ async def cancel_all_pending_orders():
     token = await _ensure_mock_token()
     if not token:
         return
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
-    cano = account_parts[0]
-    acnt_cd = account_parts[1] if len(account_parts) > 1 else "01"
+    cano, acnt_cd = _parse_account()
 
     # KIS 모의투자 미체결 조회
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
@@ -983,10 +985,10 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _retry: bool =
     if not token:
         return None
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
-    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    cano, acnt_cd = _parse_account()
     body = {
-        "CANO": account_parts[0],
-        "ACNT_PRDT_CD": account_parts[1] if len(account_parts) > 1 else "01",
+        "CANO": cano,
+        "ACNT_PRDT_CD": acnt_cd,
         "PDNO": code,
         "ORD_DVSN": "01",  # 시장가
         "ORD_QTY": str(quantity),
