@@ -59,6 +59,18 @@ function parseBuyMode(mode: string | undefined): { chart: boolean; indicator: bo
   return { chart: flags.includes("chart"), indicator: flags.includes("indicator"), top_leader: flags.includes("top_leader"), all_leaders: flags.includes("all_leaders") };
 }
 
+function restoreSessionFromStorage(): { access_token: string | null; user: any } | null {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return null;
+    const raw = JSON.parse(stored);
+    const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
+    const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
+    if (parsed?.user) return { access_token: parsed.access_token ?? null, user: parsed.user };
+    return null;
+  } catch { return null; }
+}
+
 export default function AutoTrader() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
@@ -100,24 +112,11 @@ export default function AutoTrader() {
     }
 
     // localStorage에서 즉시 세션 복원 (getUser() hang 방지)
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const raw = JSON.parse(stored);
-        const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
-        const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
-        if (parsed?.user) {
-          setAccessToken(parsed.access_token ?? null);
-          loadData(parsed.user);
-        } else {
-          setAuthChecked(true);
-          setLoading(false);
-        }
-      } else {
-        setAuthChecked(true);
-        setLoading(false);
-      }
-    } catch {
+    const restored = restoreSessionFromStorage();
+    if (restored) {
+      setAccessToken(restored.access_token);
+      loadData(restored.user);
+    } else {
       setAuthChecked(true);
       setLoading(false);
     }
@@ -151,18 +150,11 @@ export default function AutoTrader() {
           loadData(session.user);
         } else if (!sessionExpiredRef.current) {
           // 타임아웃 또는 세션 없음 — localStorage에서 재시도
-          try {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-              const raw = JSON.parse(stored);
-              const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
-              const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
-              if (parsed?.user) {
-                setAccessToken(parsed.access_token ?? null);
-                loadData(parsed.user);
-              }
-            }
-          } catch {}
+          const fallback = restoreSessionFromStorage();
+          if (fallback) {
+            setAccessToken(fallback.access_token);
+            loadData(fallback.user);
+          }
         }
       }).catch(() => {});
     };

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useOutletContext } from "react-router-dom";
 import {
@@ -70,8 +70,8 @@ export default function Portfolio() {
   }, [anyModalOpen]);
 
   // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
-  useEffect(() => {
-    if (!portfolioRaw?.holdings) return;
+  const mergedPortfolio = useMemo(() => {
+    if (!portfolioRaw?.holdings) return null;
     const serverHoldings = portfolioRaw.holdings;
     const userHoldings = dbHoldings.length > 0 ? dbHoldings : serverHoldings;
     const merged = userHoldings.map((lh: any) => {
@@ -94,12 +94,16 @@ export default function Portfolio() {
     const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
     const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
     merged.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-    setPortfolio({ ...portfolioRaw, holdings: merged, summary: {
+    return { ...portfolioRaw, holdings: merged, summary: {
       total_invested: totalInv, total_value: totalVal,
       total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
       total_profit_amount: totalVal - totalInv, total_holdings: merged.length,
-    }});
+    }};
   }, [dbHoldings, portfolioRaw]);
+
+  useEffect(() => {
+    if (mergedPortfolio) setPortfolio(mergedPortfolio);
+  }, [mergedPortfolio]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {

@@ -5,6 +5,10 @@ const CRONJOB_API_KEY = import.meta.env.VITE_CRONJOB_API_KEY || "";
 const MANUAL_DATA_JOB = "7376450";
 const MANUAL_FULL_JOB = "7376451";
 
+const RELOAD_TIMEOUT = 150000;     // 2.5분 — 페이지 자동 리로드
+const BUTTON_COOLDOWN = 90000;     // 90초 — 버튼 비활성 유지
+const JOB_DISABLE_TIMEOUT = 75000; // 75초 — Job 비활성화 타이머
+
 async function disableJob(jobId: string) {
   try {
     await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
@@ -26,7 +30,7 @@ async function triggerManualJob(jobId: string): Promise<boolean> {
     if (!res.ok) return false;
 
     // 2) 즉시 비활성화 예약 — 75초 후 (cron 1회 실행 보장 후 비활성화)
-    setTimeout(() => disableJob(jobId), 75000);
+    setTimeout(() => disableJob(jobId), JOB_DISABLE_TIMEOUT);
 
     // 3) 안전장치: 페이지 이탈 시에도 비활성화
     const cleanup = () => disableJob(jobId);
@@ -40,7 +44,7 @@ async function triggerManualJob(jobId: string): Promise<boolean> {
       window.removeEventListener("beforeunload", cleanup);
       window.removeEventListener("pagehide", cleanup);
       document.removeEventListener("visibilitychange", onVisChange);
-    }, 76000);
+    }, JOB_DISABLE_TIMEOUT + 1000);
 
     return true;
   } catch {
@@ -62,7 +66,7 @@ export default function RefreshButtons({ menuMode }: { menuMode?: boolean } = {}
       if (ok) {
         setResult("갱신 시작! 약 2분 후 자동 반영");
         // Auto-reload after 2.5 minutes
-        setTimeout(() => window.location.reload(), 150000);
+        setTimeout(() => window.location.reload(), RELOAD_TIMEOUT);
       } else {
         setResult("요청 실패");
       }
@@ -70,7 +74,7 @@ export default function RefreshButtons({ menuMode }: { menuMode?: boolean } = {}
       setResult("네트워크 오류");
     }
     // 90초간 버튼 비활성 유지 (중복 트리거 방지)
-    setTimeout(() => setLoading(null), 90000);
+    setTimeout(() => setLoading(null), BUTTON_COOLDOWN);
     setTimeout(() => setResult(null), 8000);
   }
 
