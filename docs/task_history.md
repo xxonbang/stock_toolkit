@@ -1,5 +1,72 @@
 # Task History
 
+## 2026-03-26
+
+### [버그픽스] iOS PWA 백그라운드 복귀 시 무한 로딩 수정 (2026-03-26 16:20 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`, `frontend/src/pages/Dashboard.tsx`
+- **내용:** getSession()에 5초 타임아웃 추가, 타임아웃 시 localStorage 폴백, TOKEN_REFRESHED에서 sessionExpired 자동 해제
+- **커밋:** `53afc1e`
+
+### [버그픽스] 모의투자 미체결 조회 API 404 대응 (2026-03-26 15:23 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** KIS 모의투자 inquire-nccs API 미지원(404). 미체결 조회 실패 시 시장가 즉시체결 간주(return ordered_qty)
+- **커밋:** `f6612fc`
+
+### [버그픽스] 재검증 신규 이슈 2건 수정 (2026-03-26 15:18 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/position_db.py`
+- **내용:** _shutdown import 값 복사 버그(모듈 참조로 수정), sell_price DB 컬럼 미존재 시 fallback
+- **커밋:** `139d556`
+
+### [개선] 최종 검증 12건 조치 (2026-03-26 15:14 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`, `daemon/position_db.py`, `daemon/config.py`
+- **내용:** sell_price DB 저장, EOD 재시도 buy_price 스코프 버그, schedule_sell_check shutdown 감지, heartbeat 로깅, 당일 누적 손실 한도(-10%), sell_requested→filled 복구, dead code 제거, HTTP 상태 로깅, config 캐시 30초, MIN_AMOUNT_PER_STOCK config 이동
+- **커밋:** `cb30756`
+
+### [개선] 보유/모니터링 전략 검증 11건 조치 (2026-03-26 14:57 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`
+- **내용:** startup cleanup(pending 정리+peak 초기화), sell_requested EOD 포함, 금요일 carry ×1.5, 공휴일 다년도, flash spike 방지(+5%), hold_days filled_at 우선, config 캐시 30초
+- **커밋:** `4dd5f51`
+
+### [버그픽스] 매수/매도 로직 전수 검증 8건 조치 (2026-03-26 14:45 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** EOD _verify_sell_fill 추가, 미체결 조회 실패 처리, _kis_order_market 토큰 재시도, place_sell_order try/except, EOD 실패 재시도, _peak_prices 정리, timezone UTC 변환
+- **커밋:** `afe24ba`
+
+### [버그픽스] 통합 시나리오 검증 5건 조치 (2026-03-26 13:11 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`
+- **내용:** EOD price=0 재조회, 매도 실패 _peak_prices 정리, check_positions_for_sell .get() 방어, 데몬 재시작 첫 체크 skip, EOD 15:15~15:20 윈도우+당일 1회 보장
+- **커밋:** `9d09999`
+
+### [버그픽스] 매수 루프 방지 — 당일 재매수 차단 + 상한가 사전 필터 (2026-03-26 13:00 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** _get_sold_today_codes 당일 매도 종목 재매수 방지, 상한가 체크를 분배 전 수행하여 균등 재분배
+- **커밋:** `a1ff5d0`
+
+### [버그픽스] 매도 체결 확인 추가 (2026-03-26 14:35 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** _cancel_unfilled_sell + _verify_sell_fill 추가, 전량/부분/미체결 분기 처리
+- **커밋:** `559a452`
+
+### [개선] 매도 실시간 처리 — 30초 REST API 폴링 백업 (2026-03-26 09:00 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`
+- **내용:** schedule_sell_check 30초마다 보유종목 현재가 REST API 조회, WebSocket 백업
+- **커밋:** `dbe1df4`
+
+### [개선] cross_signal 데이터 수집 UNION 방식 + KIS API 가격 보강 (2026-03-26 11:10 KST)
+- **변경 파일:** `modules/cross_signal.py`, `scripts/run_all.py`, `daemon/trader.py`
+- **내용:** signal-pulse 매수종목 ∪ theme-analyzer 대장주 전체 수집, api_data 없는 종목에 KIS API 가격 보강, run_buy_process 현재가 폴백
+- **커밋:** `55fe0d8`, `f007e5d`
+
+### [기능] 보유일수 연동 익절/보유 기준 (2026-03-26 01:00 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** D+0~D+4+ 익절 기준(7→10→15→20→25%), 장 마감 보유 기준(3→5→8→12→15%), MAX_HOLD_DAYS 제거, 프론트엔드 미니 테이블
+- **커밋:** `e314fa3`
+
+### [기능] 모의투자 탭 UI/UX 대폭 개선 (2026-03-26 00:30 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 토글 기반 매집 기준(차트/지표/대장주1위/대장주전체), 확인/취소 UX, 토스트 알림, 로그인 모달, Lucide 아이콘, 설정 디자인 세련화, parseBuyMode 레거시 호환
+- **커밋:** `827974a`, `79922d9`, `76a2555`
+
 ## 2026-03-25
 
 ### [개선] 모의투자 제거 + 예측 적중률 압축 + 거래대금 TOP 개선 (2026-03-26 00:05 KST)
