@@ -138,6 +138,31 @@ def should_sell(buy_price: int, current_price: int, take_profit: float = TRADE_T
     return None
 
 
+# Stepped Trailing 파라미터 (고정값)
+_STEPPED_LEVELS = [
+    (25.0, None),   # +25%+ → peak - trailing_pct (동적)
+    (20.0, 15.0),   # +20% 도달 → stop +15%
+    (15.0, 10.0),   # +15% 도달 → stop +10%
+    (10.0, 5.0),    # +10% 도달 → stop +5%
+    (5.0, 0.0),     # +5% 도달 → stop 0% (본전)
+]
+
+
+def calc_stepped_stop_pct(peak_pnl_pct: float, trailing_pct: float) -> float:
+    """Stepped Trailing: 고점 수익률 기반 stop 위치 계산.
+    peak_pnl_pct: 매수가 대비 고점 수익률 (%)
+    trailing_pct: trailing stop % (음수, 기본 -3.0)
+    Returns: stop 수익률 (%, 이 아래로 내려가면 매도)
+    """
+    for level, stop in _STEPPED_LEVELS:
+        if peak_pnl_pct >= level:
+            if stop is None:
+                # +25% 이상: 고점 기준 trailing
+                return peak_pnl_pct + trailing_pct  # e.g., 27% + (-3%) = 24%
+            return stop
+    return -999.0  # step 미도달 → stepped stop 미작동, 기본 SL만 적용
+
+
 async def _kis_order(tr_id: str, code: str, quantity: int, price: int, retry: bool = True) -> dict | None:
     """KIS 모의투자 주문 공통 — 토큰 만료 시 1회 재시도"""
     token = await _ensure_mock_token()
@@ -626,17 +651,36 @@ async def check_positions_for_sell(current_price_data: dict):
         hold_days = _calc_hold_days(pos)
         effective_tp = get_tiered_tp(tp, hold_days)
 
-        reason = should_sell(buy_price, current_price, take_profit=effective_tp, stop_loss=sl)
+        strategy_type = config.get("strategy_type", "fixed")
 
-        # trailing stop: 수익 중(pnl > 0)이고 고점 대비 c% 하락
-        if not reason:
+        if strategy_type == "stepped":
+            # Stepped Trailing: 고정 TP 없음, stepped stop만 적용
             pnl = calc_pnl_pct(buy_price, current_price)
-            peak = _peak_prices.get(peak_key, current_price)
-            if pnl > 0 and peak > 0:
-                drop = (current_price - peak) / peak * 100
+
+            # 기본 손절 체크
+            if pnl <= sl:
+                reason = "stop_loss"
+            else:
+                # 고점 수익률 기준 stepped stop 계산
+                peak = _peak_prices.get(peak_key, current_price)
+                peak_pnl = calc_pnl_pct(buy_price, peak)
                 ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
-                if drop <= ts_pct:
-                    reason = "trailing_stop"
+                stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct)
+                if stepped_stop > -999.0 and pnl <= stepped_stop:
+                    reason = "stepped_trailing"
+        else:
+            # Fixed: 현행 로직 그대로
+            reason = should_sell(buy_price, current_price, take_profit=effective_tp, stop_loss=sl)
+
+            # trailing stop: 수익 중(pnl > 0)이고 고점 대비 c% 하락
+            if not reason:
+                pnl = calc_pnl_pct(buy_price, current_price)
+                peak = _peak_prices.get(peak_key, current_price)
+                if pnl > 0 and peak > 0:
+                    drop = (current_price - peak) / peak * 100
+                    ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
+                    if drop <= ts_pct:
+                        reason = "trailing_stop"
 
         if reason:
             if not try_mark_selling(position_id):
