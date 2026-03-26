@@ -1,11 +1,26 @@
 """전체 모듈 실행 (Phase 1~4)"""
 import sys
 import json
+import logging
 import shutil
 import argparse
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("run_all")
+
+# === 분석 임계값 상수 ===
+RSI_OVERBOUGHT = 80
+RSI_OVERSOLD = 20
+VOLUME_SPIKE_RATIO = 200  # %
+FEAR_GREED_EXTREME_FEAR = 25
+FEAR_GREED_FEAR = 45
+FEAR_GREED_NEUTRAL = 55
+FEAR_GREED_GREED = 75
+MIN_CONFIDENCE = 0.5
+CONSECUTIVE_DAYS_THRESHOLD = 3
 
 from config.settings import THEME_DATA_PATH, SIGNAL_DATA_PATH
 from core.data_loader import DataLoader
@@ -38,7 +53,7 @@ def main():
     results_dir.mkdir(exist_ok=True)
 
     # Phase 1
-    print(f"=== Phase 1: 알림 & 브리핑 (mode={args.mode}) ===", flush=True)
+    logger.info(f"=== Phase 1: 알림 & 브리핑 (mode={args.mode}) ===")
     if use_ai:
         cross_matches = run_cross_signal(loader, send_message)
     else:
@@ -54,7 +69,7 @@ def main():
     fg = macro.get("fear_greed", {})
     vix_d = macro.get("vix", {})
     fg_score = fg.get("score", 50)
-    regime = "극단적 공포" if fg_score < 25 else "공포" if fg_score < 45 else "중립" if fg_score < 55 else "탐욕" if fg_score < 75 else "극단적 탐욕"
+    regime = "극단적 공포" if fg_score < FEAR_GREED_EXTREME_FEAR else "공포" if fg_score < FEAR_GREED_FEAR else "중립" if fg_score < FEAR_GREED_NEUTRAL else "탐욕" if fg_score < FEAR_GREED_GREED else "극단적 탐욕"
     report["current_regime"] = regime
     report["fear_greed"] = {"score": round(fg_score, 1), "rating": fg.get("rating", "")}
     report["vix"] = {"current": vix_d.get("current", 0), "rating": vix_d.get("rating", "")}
@@ -111,30 +126,30 @@ def main():
     # data-only 모드: 기존 briefing.json 보존 (full에서 생성된 결과 유지)
     briefing_path = results_dir / "briefing.json"
     if not use_ai and briefing_path.exists():
-        print("  data-only 모드: 기존 briefing.json 보존", flush=True)
+        logger.info("  data-only 모드: 기존 briefing.json 보존")
     if use_ai:
         import traceback
-        print("  Gemini 브리핑 생성 시작...", flush=True)
+        logger.info("  Gemini 브리핑 생성 시작...")
         try:
             from config.settings import GEMINI_API_KEYS as _gkeys
-            print(f"  Gemini API 키: {len(_gkeys)}개 로드됨", flush=True)
+            logger.info(f"  Gemini API 키: {len(_gkeys)}개 로드됨")
             if not _gkeys:
-                print("  [경고] Gemini API 키가 비어있음!", flush=True)
+                logger.warning("  Gemini API 키가 비어있음!")
             else:
                 gemini = GeminiClient()
                 brief = generate_morning_brief(gemini, loader)
                 if brief:
                     with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
                         json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
-                    print(f"  브리핑 생성 완료 ({len(brief)}자)", flush=True)
+                    logger.info(f"  브리핑 생성 완료 ({len(brief)}자)")
                 else:
-                    print("  [경고] Gemini가 빈 응답 반환", flush=True)
+                    logger.warning("  Gemini가 빈 응답 반환")
         except Exception as e:
-            print(f"  브리핑 생성 실패: {e}", flush=True)
+            logger.error(f"  브리핑 생성 실패: {e}")
             traceback.print_exc()
 
     # Phase 2
-    print("=== Phase 2: 모니터링 ===")
+    logger.info("=== Phase 2: 모니터링 ===")
     latest = loader.get_latest()
     # 실제 데이터 구조: rising.kospi/kosdaq, volume.kospi/kosdaq, falling.kospi/kosdaq
     rising = latest.get("rising", {})
@@ -157,7 +172,7 @@ def main():
         seen_codes.add(code)
         vol_rate = s.get("volume_rate", 100)
         change = s.get("change_rate", 0)
-        if vol_rate > 200:
+        if vol_rate > VOLUME_SPIKE_RATIO:
             anomalies.append({"type": "거래량 폭발", "code": code, "name": s.get("name", ""), "ratio": round(vol_rate / 100, 1), "change_rate": change})
         if abs(change) > 10:
             anomalies.append({"type": "가격 급변", "code": code, "name": s.get("name", ""), "change_rate": change})
@@ -170,9 +185,9 @@ def main():
         if isinstance(ph_anom, list) and ph_anom:
             rsi_a = ph_anom[-1].get("rsi_14", 0) or 0
             name_a = gem_anom.get("name", code_anom)
-            if rsi_a > 80 and code_anom not in seen_codes:
+            if rsi_a > RSI_OVERBOUGHT and code_anom not in seen_codes:
                 anomalies.append({"type": "RSI 과매수", "code": code_anom, "name": name_a, "rsi": round(rsi_a, 1)})
-            elif rsi_a < 20 and rsi_a > 0 and code_anom not in seen_codes:
+            elif rsi_a < RSI_OVERSOLD and rsi_a > 0 and code_anom not in seen_codes:
                 anomalies.append({"type": "RSI 과매도", "code": code_anom, "name": name_a, "rsi": round(rsi_a, 1)})
 
     with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
@@ -264,7 +279,7 @@ def main():
             sig_time = dt2.fromisoformat(signal_generated_at)
             signal_age_hours = round((now_kst - sig_time).total_seconds() / 3600, 1)
         except Exception as e:
-            print(f"  signal_age 계산 실패: {e}")
+            logger.error(f"  signal_age 계산 실패: {e}")
             signal_age_hours = 0
 
     # 등락률/거래량 빠른 조회 맵 구성
@@ -294,7 +309,7 @@ def main():
         elif cr > 2: score += 8
         elif cr < -5: score -= 15
         elif cr < -2: score -= 8
-        if vr > 200: score += 10
+        if vr > VOLUME_SPIKE_RATIO: score += 10
         elif vr > 100: score += 5
         if fn > 0: score += 10
         elif fn < -100000: score -= 10
@@ -353,7 +368,7 @@ def main():
             from core.kis_client import KISClient
             kis = KISClient()
             codes = [m["code"] for m in need_enrich if m.get("code")]
-            print(f"  [KIS] cross_signal {len(codes)}종목 가격 보강 시작", flush=True)
+            logger.info(f"  [KIS] cross_signal {len(codes)}종목 가격 보강 시작")
             prices = kis.get_prices_batch(codes)
             for m in need_enrich:
                 code = m.get("code", "")
@@ -371,9 +386,9 @@ def main():
                         "low": p.get("low", 0),
                     }
                     m["api_data"]["ranking"] = {"volume": p.get("volume", 0)}
-            print(f"  [KIS] 가격 보강 완료: {len(prices)}/{len(codes)}종목", flush=True)
+            logger.info(f"  [KIS] 가격 보강 완료: {len(prices)}/{len(codes)}종목")
         except Exception as e:
-            print(f"  [KIS] 가격 보강 실패: {e}", flush=True)
+            logger.error(f"  [KIS] 가격 보강 실패: {e}")
 
     with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
         json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
@@ -389,7 +404,7 @@ def main():
         cr = s.get("change_rate", 0)
         vr = s.get("volume_rate", 0)
         code = s.get("code", "")
-        if cr >= 15 and vr >= 200:
+        if cr >= 15 and vr >= VOLUME_SPIKE_RATIO:
             # 기존 신호 확인
             sig_match = next((c for c in combined if c.get("code") == code), None)
             existing_signal = sig_match.get("vision_signal", "") if sig_match else ""
@@ -548,7 +563,7 @@ def main():
         json.dump(scanner_stocks, f, ensure_ascii=False, indent=2)
 
     # Phase 3
-    print("=== Phase 3: 분석 ===")
+    logger.info("=== Phase 3: 분석 ===")
     # 뉴스 임팩트 — combined signals의 vision_news에서 추출 + 등락률 매칭
     news_impact: dict = {}
     # 종목별 등락률 맵 (intraday 우선, change_rate 폴백)
@@ -588,7 +603,7 @@ def main():
     history = loader.get_theme_history()
 
     # 시나리오 시뮬레이션 — stock-history 일봉 기반 수익률 역산
-    print("  시나리오 시뮬레이션...")
+    logger.info("  시나리오 시뮬레이션...")
     stock_hist = loader.get_stock_history()
     # stock_hist: {code: {code, changes: [{date, close, ...}]}}
     # 종목별 날짜→종가 맵 구축
@@ -638,7 +653,7 @@ def main():
     for eh in enriched_history:
         seen_dates[eh["date"]] = eh
     enriched_history = sorted(seen_dates.values(), key=lambda x: x["date"])
-    print(f"    enriched: {len(enriched_history)}일, {sum(len(e['stocks']) for e in enriched_history)}종목")
+    logger.info(f"    enriched: {len(enriched_history)}일, {sum(len(e['stocks']) for e in enriched_history)}종목")
 
     default_strategies = [
         "signal=매수 hold=5",
@@ -650,12 +665,12 @@ def main():
         strat = parse_strategy(strat_str)
         result = simulate_strategy(enriched_history, strat)
         sim_results.append(result)
-    print(f"    시뮬레이션 완료: {sum(r['total_trades'] for r in sim_results)}건 거래")
+    logger.info(f"    시뮬레이션 완료: {sum(r['total_trades'] for r in sim_results)}건 거래")
     with open(results_dir / "simulation.json", "w", encoding="utf-8") as f:
         json.dump(sim_results, f, ensure_ascii=False, indent=2)
 
     # 패턴 매칭 — intraday-history 30분봉 기반 교차 비교
-    print("  패턴 매칭...")
+    logger.info("  패턴 매칭...")
     pattern_results = []
     buy_stocks = cross_matches or [s for s in combined if s.get("vision_signal") in ("매수", "적극매수")]
 
@@ -725,7 +740,7 @@ def main():
                 "future_return": daily_rets["d5"],
                 "daily_returns": daily_rets,
             })
-    print(f"    과거 패턴 풀: {len(hist_patterns)}건")
+    logger.info(f"    과거 패턴 풀: {len(hist_patterns)}건")
 
     # 대상 종목의 현재 패턴 추출 + 과거 풀과 비교
     if buy_stocks and hist_patterns:
@@ -774,7 +789,7 @@ def main():
         json.dump(pattern_results, f, ensure_ascii=False, indent=2)
 
     # Phase 4
-    print("=== Phase 4: 라이프사이클 ===")
+    logger.info("=== Phase 4: 라이프사이클 ===")
     themes = loader.get_themes()
     # change_rate 맵 구성 (rising/falling/volume에서)
     change_rate_map = {}
@@ -795,7 +810,7 @@ def main():
         json.dump(lifecycle_results, f, ensure_ascii=False, indent=2)
 
     # Phase 5: 신규 모듈
-    print("=== Phase 5: 신규 분석 ===")
+    logger.info("=== Phase 5: 신규 분석 ===")
     from modules.sentiment_index import calculate_sentiment, classify_sentiment, calculate_macro_score
     from modules.gap_analyzer import detect_gaps
     from modules.valuation_screener import calculate_value_score
@@ -907,9 +922,9 @@ def main():
                     "change_rate": pdata.get("change_rate", 0),
                     "filled": filled,
                 })
-            print(f"  [갭분석] {len(gap_prices)}종목 조회 → 갭 {len(gap_results)}건 감지")
+            logger.info(f"  [갭분석] {len(gap_prices)}종목 조회 → 갭 {len(gap_results)}건 감지")
     except Exception as e:
-        print(f"  [갭분석] KIS 조회 실패: {e}")
+        logger.error(f"  [갭분석] KIS 조회 실패: {e}")
     gap_results.sort(key=lambda x: abs(x["gap_pct"]), reverse=True)
     with open(results_dir / "gap_analysis.json", "w", encoding="utf-8") as f:
         json.dump(gap_results[:10], f, ensure_ascii=False, indent=2)
@@ -1056,10 +1071,10 @@ def main():
         score_pm += 0.3 if ewy_chg > 0 else -0.3
         factors.append(f"EWY(한국ETF) {ewy_chg:+.2f}% {'(외국인 한국 강세)' if ewy_chg > 0 else '(외국인 한국 약세)'}")
     fg_val = fg.get("score", 50)
-    if fg_val < 25:
+    if fg_val < FEAR_GREED_EXTREME_FEAR:
         score_pm -= 0.5
         factors.append(f"F&G {round(fg_val, 1)} (극단적 공포)")
-    elif fg_val > 75:
+    elif fg_val > FEAR_GREED_GREED:
         score_pm += 0.5
         factors.append(f"F&G {round(fg_val, 1)} (극단적 탐욕)")
     vix_cur = vix_d.get("current", 20)
@@ -1152,7 +1167,7 @@ def main():
         json.dump(squeeze_results[:10], f, ensure_ascii=False, indent=2)
 
     # Phase 6: 추가 모듈 JSON 생성
-    print("=== Phase 6: 추가 분석 ===")
+    logger.info("=== Phase 6: 추가 분석 ===")
     from modules.supply_cluster import classify_supply_regime, get_regime_strategy
     from modules.exit_optimizer import calculate_optimal_exit
     from modules.event_calendar import build_event_calendar
@@ -1319,9 +1334,9 @@ def main():
             for code, pdata in kis_prices.items():
                 price_map[code] = pdata["current_price"]
             if kis_prices:
-                print(f"  [KIS] 포트폴리오 {len(kis_prices)}종목 실시간 시세 조회 완료")
+                logger.info(f"  [KIS] 포트폴리오 {len(kis_prices)}종목 실시간 시세 조회 완료")
         except Exception as e:
-            print(f"  [KIS] 실시간 시세 조회 실패: {e}")
+            logger.error(f"  [KIS] 실시간 시세 조회 실패: {e}")
 
     total_invested = 0
     total_value = 0
@@ -1403,7 +1418,7 @@ def main():
         }, f, ensure_ascii=False, indent=2)
 
     # Phase 7: 추가 데이터 (DART, 상관관계 등)
-    print("=== Phase 7: 추가 데이터 ===")
+    logger.info("=== Phase 7: 추가 데이터 ===")
     import os
     dart_key = os.getenv("DART_API_KEY", "")
 
@@ -1427,7 +1442,7 @@ def main():
                             "date": item.get("rcept_dt", ""),
                         })
             except Exception as e:
-                print(f"  DART 내부자 조회 실패: {e}")
+                logger.error(f"  DART 내부자 조회 실패: {e}")
     with open(results_dir / "insider_trades.json", "w", encoding="utf-8") as f:
         json.dump(insider_results[:10], f, ensure_ascii=False, indent=2)
 
@@ -1523,7 +1538,7 @@ def main():
                 for item in r.json().get("list", []):
                     earnings_items.append({"corp_name": item.get("corp_name",""), "date": item.get("rcept_dt",""), "report_type": item.get("report_nm","")[:30]})
         except Exception as e:
-            print(f"  DART 공시 조회 실패: {e}")
+            logger.error(f"  DART 공시 조회 실패: {e}")
     with open(results_dir / "earnings_calendar.json", "w", encoding="utf-8") as f:
         json.dump({"items": earnings_items}, f, ensure_ascii=False, indent=2)
 
@@ -1913,7 +1928,7 @@ def main():
         json.dump(ind_history if isinstance(ind_history, dict) else {}, f, ensure_ascii=False, indent=2)
 
     # === Tier 3: 신규 분석 ===
-    print("=== Phase 8: 확장 분석 ===")
+    logger.info("=== Phase 8: 확장 분석 ===")
 
     # 장중 종목별 수급 추적 (investor-intraday data 필드)
     intraday_stock_tracker = []
@@ -1977,7 +1992,7 @@ def main():
                 continue
             cup = s.get("consecutive_up_days", 0) or 0
             cdown = s.get("consecutive_down_days", 0) or 0
-            if cup >= 3:
+            if cup >= CONSECUTIVE_DAYS_THRESHOLD:
                 inv_s = investor_data.get(s.get("code", ""), {})
                 fn = (inv_s.get("foreign_net") or 0) if isinstance(inv_s, dict) else 0
                 consecutive_monitor["up"].append({
@@ -1985,7 +2000,7 @@ def main():
                     "days": cup, "change_rate": s.get("change_rate", 0),
                     "foreign_net": fn,
                 })
-            if cdown >= 3:
+            if cdown >= CONSECUTIVE_DAYS_THRESHOLD:
                 inv_s = investor_data.get(s.get("code", ""), {})
                 fn = (inv_s.get("foreign_net") or 0) if isinstance(inv_s, dict) else 0
                 consecutive_monitor["down"].append({
@@ -2270,7 +2285,7 @@ def main():
             with open(json_file, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
         except Exception as e:
-            print(f"  타임스탬프 삽입 실패 ({json_file.name}): {e}")
+            logger.error(f"  타임스탬프 삽입 실패 ({json_file.name}): {e}")
 
     # 프론트엔드 데이터 복사
     frontend_data = Path(__file__).parent.parent / "frontend" / "public" / "data"
@@ -2278,7 +2293,7 @@ def main():
     for json_file in results_dir.glob("*.json"):
         shutil.copy2(json_file, frontend_data / json_file.name)
 
-    print(f"=== 전체 완료 (mode={args.mode}) ===")
+    logger.info(f"=== 전체 완료 (mode={args.mode}) ===")
 
 
 if __name__ == "__main__":
