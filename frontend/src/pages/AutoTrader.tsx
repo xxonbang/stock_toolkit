@@ -48,7 +48,7 @@ async function requestSellAll(trades: Trade[]): Promise<number> {
 }
 
 function parseBuyMode(mode: string | undefined): { chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean } {
-  const defaults = { chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false };
+  const defaults = { chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false };
   if (!mode) return defaults;
   // 레거시 값 변환
   if (mode === "and") return { chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false };
@@ -89,8 +89,8 @@ export default function AutoTrader() {
   const sessionExpiredRef = useRef(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showBuyHelp, setShowBuyHelp] = useState(false);
-  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false });
-  const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false });
+  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
+  const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [buySaving, setBuySaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
   const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
