@@ -19,6 +19,7 @@ class DataLoader:
 
     def clear_cache(self):
         self._cache.clear()
+        self._stock_index = None
 
     # --- Theme Analysis ---
     def get_latest(self) -> dict:
@@ -128,23 +129,39 @@ class DataLoader:
             "indicators": self.get_macro_indicators(),
         }
 
-    def get_stock(self, code: str) -> dict | None:
-        result = {"code": code}
+    _stock_index: dict[str, dict] | None = None
+
+    def _build_stock_index(self) -> dict[str, dict]:
+        """코드 → 종목 데이터 인덱스 구축 (O(1) 조회용)"""
+        index: dict[str, dict] = {}
         latest = self.get_latest()
         for key in ["rising_stocks", "falling_stocks", "volume_top", "trading_value_top"]:
             for stock in latest.get(key, []):
-                if stock.get("code") == code:
-                    result.update(stock)
-                    break
+                code = stock.get("code")
+                if code:
+                    if code not in index:
+                        index[code] = {"code": code}
+                    index[code].update(stock)
         for theme in self.get_themes():
             for leader in theme.get("leaders", []):
-                if leader.get("code") == code:
-                    result["theme"] = theme.get("name")
-                    result["theme_rank"] = theme.get("rank")
-                    result["is_leader"] = True
-                    break
+                code = leader.get("code")
+                if code:
+                    if code not in index:
+                        index[code] = {"code": code}
+                    index[code].update(leader)
+                    index[code]["theme"] = theme.get("name")
+                    index[code]["theme_rank"] = theme.get("rank")
+                    index[code]["is_leader"] = True
         for signal in self.get_combined_signals():
-            if signal.get("code") == code:
-                result["signal"] = signal
-                break
-        return result if result.get("name") else None
+            code = signal.get("code")
+            if code:
+                if code not in index:
+                    index[code] = {"code": code}
+                index[code]["signal"] = signal
+        return index
+
+    def get_stock(self, code: str) -> dict | None:
+        """종목 코드로 데이터 조회 (인덱스 기반 O(1))"""
+        if self._stock_index is None:
+            self._stock_index = self._build_stock_index()
+        return self._stock_index.get(code)
