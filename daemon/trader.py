@@ -332,6 +332,7 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
             pass
         return True
     unmark_selling(position_id)
+    _peak_prices.pop(position_id, None)  # 매도 실패 시에도 고점 추적 정리
     logger.error(f"매도 실패: {name}({code}) {reason}")
     await send_telegram(f"<b>⚠️ 매도 실패</b>\n{name} ({code})\n사유: {reason}\n수동 확인 필요")
     return False
@@ -484,8 +485,10 @@ async def _get_trade_config() -> dict:
 
 async def check_positions_for_sell(current_price_data: dict):
     """보유 포지션 수익률 체크 → 익절/손절/수동매도 (캐시 + 중복 매도 방지)"""
-    code = current_price_data["code"]
-    current_price = current_price_data["price"]
+    code = current_price_data.get("code", "")
+    current_price = current_price_data.get("price", 0)
+    if not code or current_price <= 0:
+        return
 
     config = await _get_trade_config()
     tp = config.get("take_profit_pct", TRADE_TAKE_PROFIT_PCT)
@@ -733,6 +736,9 @@ async def sell_all_positions_market():
         current_price = pos.get("_current_price") or await _get_current_price(pos["code"])
         result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
         if result:
+            # 매도 후 실제 체결가 재조회 (current_price=0일 때 대비)
+            if current_price <= 0:
+                current_price = await _get_current_price(pos["code"])
             sell_price = current_price if current_price > 0 else buy_price
             pnl = calc_pnl_pct(buy_price, sell_price)
             pnl_amount = (sell_price - buy_price) * pos["quantity"]

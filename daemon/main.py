@@ -148,6 +148,7 @@ async def schedule_refresh():
 
 
 _last_workflow_time: str | None = None
+_first_trade_check_done: bool = False  # 데몬 시작 후 첫 체크 시 현재 워크플로우 시각만 기록
 
 
 async def trigger_subscription_refresh():
@@ -160,17 +161,22 @@ async def trigger_subscription_refresh():
 
 async def schedule_auto_trade():
     """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스 (장중만)"""
-    global _last_workflow_time, _buy_running
+    global _last_workflow_time, _buy_running, _first_trade_check_done
     while not _shutdown:
         await asyncio.sleep(300)
         if _shutdown or not is_market_day() or not is_market_hours():
             continue
         if _buy_running:
-            continue  # 이전 매수 프로세스 아직 실행 중
+            continue
         try:
             completed, new_time = await check_workflow_completion(_last_workflow_time)
             if completed:
                 _last_workflow_time = new_time
+                # 데몬 시작 후 첫 체크: 현재 시각만 기록하고 매수 실행 안 함 (오래된 워크플로우 방지)
+                if not _first_trade_check_done:
+                    _first_trade_check_done = True
+                    logger.info(f"데몬 시작 후 첫 체크 — 워크플로우 시각 기록: {new_time}")
+                    continue
                 _buy_running = True
                 logger.info("theme-analysis 완료 감지 — 매수 프로세스 시작")
                 try:
@@ -182,20 +188,24 @@ async def schedule_auto_trade():
 
 
 async def schedule_eod_close():
-    """15:15에 보유 전 포지션 시장가 매도 (당일 청산)"""
+    """15:15~15:20 사이에 보유 전 포지션 시장가 매도 (당일 청산)"""
+    _eod_done_date: str = ""  # 당일 실행 완료 여부
     while not _shutdown:
         await asyncio.sleep(30)
         if _shutdown or not is_market_day():
             continue
         now = datetime.now(KST)
-        if now.hour == 15 and now.minute == 15:
+        today = now.strftime("%Y-%m-%d")
+        if _eod_done_date == today:
+            continue  # 오늘 이미 실행됨
+        # 15:15~15:20 윈도우 (5분 폭, 30초 폴링으로 놓칠 확률 거의 0)
+        if now.hour == 15 and 15 <= now.minute <= 20:
             logger.info("15:15 장 마감 청산 시작")
             try:
                 await sell_all_positions_market()
             except Exception as e:
                 logger.error(f"장 마감 청산 오류: {e}")
-            # 다음 체크까지 10분 대기 (중복 실행 방지)
-            await asyncio.sleep(600)
+            _eod_done_date = today
 
 
 async def main():
