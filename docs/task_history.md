@@ -2,6 +2,16 @@
 
 ## 2026-03-26
 
+### [리팩토링] 보유일 계산 유틸리티 _calc_hold_days() 추출 (2026-03-26 23:10 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** check_positions_for_sell()과 EOD 함수에서 중복된 보유일수 계산 로직을 `_calc_hold_days()` 유틸리티로 추출, `_KST` 모듈 레벨 상수화
+- **커밋:** `b600172`
+
+### [리팩토링] 계정번호 파싱 유틸리티 _parse_account() 추출 (2026-03-26 22:50 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** KIS_MOCK_ACCOUNT_NO 파싱 로직 6곳 중복을 `_parse_account()` 함수로 추출
+- **커밋:** `8cb04e4`
+
 ### [버그픽스] iOS PWA 백그라운드 복귀 시 무한 로딩 수정 (2026-03-26 16:20 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`, `frontend/src/pages/Dashboard.tsx`
 - **내용:** getSession()에 5초 타임아웃 추가, 타임아웃 시 localStorage 폴백, TOKEN_REFRESHED에서 sessionExpired 자동 해제
