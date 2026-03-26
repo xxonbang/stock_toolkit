@@ -69,6 +69,21 @@ def _order_headers(token: str, tr_id: str) -> dict:
     }
 
 
+_KST = timezone(timedelta(hours=9))
+
+
+def _calc_hold_days(pos: dict) -> int:
+    """포지션의 보유일수 계산 (KST 기준)"""
+    created = pos.get("filled_at") or pos.get("created_at", "")
+    if not created:
+        return 0
+    try:
+        created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
+        return (datetime.now(_KST).date() - created_date).days
+    except Exception:
+        return 0
+
+
 def _parse_account() -> tuple[str, str]:
     """KIS_MOCK_ACCOUNT_NO를 (CANO, ACNT_PRDT_CD) 튜플로 파싱"""
     parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
@@ -503,7 +518,6 @@ async def run_buy_process():
 
 def _today_utc_start() -> str:
     """KST 0시를 UTC로 변환한 타임스탬프"""
-    _KST = timezone(timedelta(hours=9))
     return (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
 
 
@@ -590,16 +604,7 @@ async def check_positions_for_sell(current_price_data: dict):
                 _peak_prices[peak_key] = current_price
 
         # 보유일수 계산 → 익절 기준 연동
-        _KST = timezone(timedelta(hours=9))
-        hold_days = 0
-        created = pos.get("filled_at") or pos.get("created_at", "")
-        if created:
-            try:
-                created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
-                today = datetime.now(_KST).date()
-                hold_days = (today - created_date).days
-            except Exception:
-                pass
+        hold_days = _calc_hold_days(pos)
         effective_tp = get_tiered_tp(tp, hold_days)
 
         reason = should_sell(buy_price, current_price, take_profit=effective_tp, stop_loss=sl)
@@ -727,7 +732,6 @@ async def sell_all_positions_market():
     to_sell = []
     to_carry = []
 
-    _KST = timezone(timedelta(hours=9))
     today = datetime.now(_KST).date()
 
     for pos in filled:
@@ -737,14 +741,7 @@ async def sell_all_positions_market():
             continue
 
         # 보유일 계산
-        hold_days = 0
-        created = pos.get("filled_at") or pos.get("created_at", "")
-        if created:
-            try:
-                created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
-                hold_days = (today - created_date).days
-            except Exception:
-                pass
+        hold_days = _calc_hold_days(pos)
 
         current_price = await _get_current_price(pos["code"])
         pnl = calc_pnl_pct(buy_price, current_price) if current_price > 0 else 0
