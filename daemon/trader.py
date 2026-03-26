@@ -295,8 +295,8 @@ async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled_sell(code)
         if unfilled is None:
-            logger.warning(f"매도 미체결 조회 실패: {code} — 체결 확인 불가, 주문수량 그대로 반영")
-            return ordered_qty
+            logger.warning(f"매도 미체결 조회 실패: {code} — 체결 미확인, 안전하게 0 반환")
+            return 0
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
@@ -323,8 +323,8 @@ async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled(code)
         if unfilled is None:
-            logger.warning(f"미체결 조회 실패: {code} — 체결 확인 불가, 주문수량 그대로 반영")
-            return ordered_qty
+            logger.warning(f"미체결 조회 실패: {code} — 체결 미확인, 안전하게 0 반환")
+            return 0
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
@@ -388,50 +388,51 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
 
 
 async def place_sell_order(code: str, name: str, price: int, quantity: int, position_id: str, reason: str, buy_price: int) -> bool:
-    # 시장가 매도 + 체결 확인
-    result = await _kis_order_market("VTTC0801U", code, quantity)
-    if result:
-        filled_qty = await _verify_sell_fill(code, quantity)
-        if filled_qty <= 0:
-            # 체결 0주 → 매도 실패 처리
-            unmark_selling(position_id)
+    try:
+        result = await _kis_order_market("VTTC0801U", code, quantity)
+        if result:
+            filled_qty = await _verify_sell_fill(code, quantity)
+            if filled_qty <= 0:
+                unmark_selling(position_id)
+                _peak_prices.pop(position_id, None)
+                logger.warning(f"매도 체결 0주: {name}({code}) — 매도 실패 처리")
+                await send_telegram(f"<b>⚠️ 매도 미체결</b>\n{name} ({code})\n사유: {reason}\n체결 0주, 수동 확인 필요")
+                return False
+            pnl = calc_pnl_pct(buy_price, price)
+            reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
+            reason_label = reason_labels.get(reason, reason)
+            emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
             _peak_prices.pop(position_id, None)
-            logger.warning(f"매도 체결 0주: {name}({code}) — 매도 실패 처리")
-            await send_telegram(f"<b>⚠️ 매도 미체결</b>\n{name} ({code})\n사유: {reason}\n체결 0주, 수동 확인 필요")
-            return False
-        pnl = calc_pnl_pct(buy_price, price)
-        reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
-        reason_label = reason_labels.get(reason, reason)
-        emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
+            if filled_qty < quantity:
+                await update_position_quantity(position_id, quantity - filled_qty)
+                unmark_selling(position_id)
+                logger.warning(f"매도 부분체결: {name}({code}) {filled_qty}/{quantity}주, 잔여 {quantity - filled_qty}주")
+            else:
+                await update_position_sold(position_id, price, pnl, reason)
+            logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%) {filled_qty}주")
+            await send_telegram(
+                f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
+                f"<b>{name} ({code})</b>\n"
+                f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
+                f"수익률: {pnl:+.2f}% ({filled_qty}주)"
+                + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
+            )
+            try:
+                from daemon.main import trigger_subscription_refresh
+                asyncio.ensure_future(trigger_subscription_refresh())
+            except Exception:
+                pass
+            return True
+        unmark_selling(position_id)
         _peak_prices.pop(position_id, None)
-        if filled_qty < quantity:
-            # 부분체결: 남은 수량으로 업데이트, status=filled 유지 (다음 체크에서 재시도)
-            await update_position_quantity(position_id, quantity - filled_qty)
-            unmark_selling(position_id)
-            logger.warning(f"매도 부분체결: {name}({code}) {filled_qty}/{quantity}주, 잔여 {quantity - filled_qty}주")
-        else:
-            # 전량 체결: sold 처리
-            await update_position_sold(position_id, price, pnl, reason)
-        logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%) {filled_qty}주")
-        await send_telegram(
-            f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
-            f"<b>{name} ({code})</b>\n"
-            f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
-            f"수익률: {pnl:+.2f}% ({filled_qty}주)"
-            + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
-        )
-        # 매도 후 구독 갱신 (보유 종목 변경 반영)
-        try:
-            from daemon.main import trigger_subscription_refresh
-            asyncio.ensure_future(trigger_subscription_refresh())
-        except Exception:
-            pass
-        return True
-    unmark_selling(position_id)
-    _peak_prices.pop(position_id, None)  # 매도 실패 시에도 고점 추적 정리
-    logger.error(f"매도 실패: {name}({code}) {reason}")
-    await send_telegram(f"<b>⚠️ 매도 실패</b>\n{name} ({code})\n사유: {reason}\n수동 확인 필요")
-    return False
+        logger.error(f"매도 실패: {name}({code}) {reason}")
+        await send_telegram(f"<b>⚠️ 매도 실패</b>\n{name} ({code})\n사유: {reason}\n수동 확인 필요")
+        return False
+    except Exception as e:
+        unmark_selling(position_id)
+        _peak_prices.pop(position_id, None)
+        logger.error(f"매도 처리 오류: {name}({code}) {e}")
+        return False
 
 
 def _reset_token():
@@ -554,7 +555,9 @@ async def _get_sold_today_codes() -> set[str]:
     today = datetime.now(_KST).strftime("%Y-%m-%d")
     try:
         session = await get_session()
-        url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sold&sold_at=gte.{today}T00:00:00&select=code"
+        # KST 0시를 UTC로 변환 (KST-9h = 전일 15:00 UTC)
+        today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sold&sold_at=gte.{today_utc}&select=code"
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
         async with session.get(url, headers=headers) as resp:
             if resp.status == 200:
@@ -823,6 +826,7 @@ async def sell_all_positions_market():
         return
 
     logger.info(f"장 마감 청산: {len(to_sell)}종목 매도, {len(to_carry)}종목 익일 보유")
+    failed_positions = []
     for pos in to_sell:
         position_id = pos["id"]
         if is_selling(position_id):
@@ -830,25 +834,74 @@ async def sell_all_positions_market():
         mark_selling(position_id)
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
         current_price = pos.get("_current_price") or await _get_current_price(pos["code"])
-        result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
-        if result:
-            # 매도 후 실제 체결가 재조회 (current_price=0일 때 대비)
-            if current_price <= 0:
-                current_price = await _get_current_price(pos["code"])
-            sell_price = current_price if current_price > 0 else buy_price
-            pnl = calc_pnl_pct(buy_price, sell_price)
-            pnl_amount = (sell_price - buy_price) * pos["quantity"]
-            await update_position_sold(position_id, sell_price, pnl, "eod_close")
-            logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pnl:+.2f}%")
-            await send_telegram(
-                f"<b>🔔 장 마감 청산</b>\n"
-                f"<b>{pos['name']} ({pos['code']})</b>\n"
-                f"매수가: {buy_price:,}원 → 현재가: {sell_price:,}원\n"
-                f"수익률: {pnl:+.2f}% ({pnl_amount:+,}원)\n"
-                f"{pos['quantity']}주 시장가 매도"
-            )
-        else:
+        try:
+            result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+            if result:
+                filled_qty = await _verify_sell_fill(pos["code"], pos["quantity"])
+                if current_price <= 0:
+                    current_price = await _get_current_price(pos["code"])
+                sell_price = current_price if current_price > 0 else buy_price
+                pnl = calc_pnl_pct(buy_price, sell_price)
+                _peak_prices.pop(position_id, None)
+                if filled_qty >= pos["quantity"]:
+                    await update_position_sold(position_id, sell_price, pnl, "eod_close")
+                    logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pnl:+.2f}%")
+                elif filled_qty > 0:
+                    await update_position_quantity(position_id, pos["quantity"] - filled_qty)
+                    unmark_selling(position_id)
+                    failed_positions.append(pos)
+                    logger.warning(f"장 마감 부분체결: {pos['name']}({pos['code']}) {filled_qty}/{pos['quantity']}주")
+                else:
+                    unmark_selling(position_id)
+                    failed_positions.append(pos)
+                    logger.warning(f"장 마감 미체결: {pos['name']}({pos['code']})")
+                await send_telegram(
+                    f"<b>🔔 장 마감 청산</b>\n"
+                    f"<b>{pos['name']} ({pos['code']})</b>\n"
+                    f"매수가: {buy_price:,}원 → 매도가: {sell_price:,}원\n"
+                    f"수익률: {pnl:+.2f}% ({filled_qty}주)"
+                    + (f"\n⚠️ 부분체결 ({pos['quantity']}주 중 {filled_qty}주)" if filled_qty < pos["quantity"] else "")
+                )
+            else:
+                unmark_selling(position_id)
+                failed_positions.append(pos)
+        except Exception as e:
             unmark_selling(position_id)
+            _peak_prices.pop(position_id, None)
+            failed_positions.append(pos)
+            logger.error(f"장 마감 매도 오류: {pos['name']}({pos['code']}) {e}")
+        await asyncio.sleep(0.3)
+    # 실패 종목 1회 재시도
+    if failed_positions:
+        logger.info(f"장 마감 미체결 {len(failed_positions)}종목 재시도")
+        await asyncio.sleep(3)
+        for pos in failed_positions:
+            position_id = pos["id"]
+            if is_selling(position_id):
+                continue
+            try:
+                remaining = (await get_active_positions(force_refresh=True))
+                pos_now = next((p for p in remaining if p["id"] == position_id and p["status"] == "filled"), None)
+                if not pos_now:
+                    continue
+                mark_selling(position_id)
+                result = await _kis_order_market("VTTC0801U", pos_now["code"], pos_now["quantity"])
+                if result:
+                    filled_qty = await _verify_sell_fill(pos_now["code"], pos_now["quantity"])
+                    cp = await _get_current_price(pos_now["code"])
+                    sp = cp if cp > 0 else buy_price
+                    pnl = calc_pnl_pct(buy_price, sp)
+                    if filled_qty >= pos_now["quantity"]:
+                        await update_position_sold(position_id, sp, pnl, "eod_close")
+                        logger.info(f"장 마감 재시도 성공: {pos_now['name']}({pos_now['code']})")
+                    else:
+                        unmark_selling(position_id)
+                        logger.warning(f"장 마감 재시도 실패: {pos_now['name']}({pos_now['code']}) 체결 {filled_qty}주")
+                else:
+                    unmark_selling(position_id)
+            except Exception as e:
+                unmark_selling(position_id)
+                logger.error(f"장 마감 재시도 오류: {pos.get('name')} {e}")
     invalidate_cache()
 
 
@@ -893,8 +946,8 @@ async def _get_current_price(code: str) -> int:
     return 0
 
 
-async def _kis_order_market(tr_id: str, code: str, quantity: int) -> dict | None:
-    """KIS 모의투자 시장가 주문"""
+async def _kis_order_market(tr_id: str, code: str, quantity: int, _retry: bool = True) -> dict | None:
+    """KIS 모의투자 시장가 주문 (토큰 만료 시 1회 재시도)"""
     token = await _ensure_mock_token()
     if not token:
         return None
@@ -914,7 +967,13 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int) -> dict | None
             data = await resp.json()
             if data.get("rt_cd") == "0":
                 return data
-            logger.error(f"시장가 주문 실패: {data.get('msg1', '')}")
+            msg = data.get("msg1", "")
+            if _retry and ("만료" in msg or "token" in msg.lower()):
+                logger.warning("시장가 주문 토큰 만료 — 재발급 후 재시도")
+                _reset_token()
+                await asyncio.sleep(1)
+                return await _kis_order_market(tr_id, code, quantity, _retry=False)
+            logger.error(f"시장가 주문 실패: {msg}")
     except Exception as e:
         logger.error(f"시장가 주문 오류: {e}")
     return None
