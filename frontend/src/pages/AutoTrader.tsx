@@ -536,8 +536,8 @@ export default function AutoTrader() {
           {([
             { key: "chart", label: "차트 시그널", desc: "AI 차트 분석 매수 신호" },
             { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
-            { key: "top_leader", label: "대장주 1위", desc: "테마별 거래대금 1위만" },
             { key: "all_leaders", label: "대장주 전체", desc: "모든 테마 대장주 포함" },
+            { key: "top_leader", label: "대장주 1위", desc: "테마별 거래대금 1위만 (독립 모드)" },
             { key: "fallback_top_leader", label: "Fallback 대장주 1위", desc: "AND 조건 매칭 0건 시 대장주 1위로 대체" },
           ] as const).map(opt => {
             const isOn = buyToggles[opt.key];
