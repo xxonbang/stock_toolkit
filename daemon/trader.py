@@ -366,6 +366,21 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             task.add_done_callback(lambda t: logger.warning(f"구독 갱신 실패: {t.exception()}") if not t.cancelled() and t.exception() else None)
         except Exception:
             pass
+        # 비선택 전략 가상 시뮬레이션 생성
+        try:
+            config = await _get_trade_config()
+            active_strategy = config.get("strategy_type", "fixed")
+            sim_strategy = "stepped" if active_strategy == "fixed" else "fixed"
+            trade_id = position["id"]
+            user_id = position.get("user_id", "")
+            asyncio.ensure_future(_create_simulation(
+                trade_id=trade_id,
+                strategy_type=sim_strategy,
+                entry_price=price,
+                user_id=user_id,
+            ))
+        except Exception as e:
+            logger.warning(f"가상 시뮬레이션 생성 호출 오류: {e}")
         return True
     # KIS 주문 실패 → DB pending 정리
     from daemon.position_db import delete_position
@@ -695,6 +710,9 @@ async def check_positions_for_sell(current_price_data: dict):
                 buy_price=buy_price,
             )
 
+    # 가상 시뮬레이션 체크
+    await _check_simulations(current_price_data)
+
 
 async def cancel_all_pending_orders():
     """KIS 미체결 주문 전체 취소 + DB pending 정리"""
@@ -956,6 +974,117 @@ async def schedule_sell_check():
                 await asyncio.sleep(0.3)  # API 호출 간격
         except Exception as e:
             logger.error(f"매도 폴링 체크 오류: {e}")
+
+
+async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int, user_id: str):
+    """비선택 전략의 가상 포지션 생성"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    try:
+        session = await get_session()
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
+        body = {
+            "trade_id": trade_id,
+            "strategy_type": strategy_type,
+            "entry_price": entry_price,
+            "status": "open",
+            "peak_price": entry_price,
+            "stepped_stop_pct": -2.0,
+            "user_id": user_id,
+        }
+        async with session.post(url, json=body, headers=headers) as resp:
+            if resp.status in (200, 201):
+                logger.info(f"가상 시뮬레이션 생성: {strategy_type} entry={entry_price}")
+            else:
+                logger.warning(f"가상 시뮬레이션 생성 실패: {resp.status}")
+    except Exception as e:
+        logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
+
+
+async def _check_simulations(current_price_data: dict):
+    """open 상태의 가상 포지션 체크 → 가상 매도 조건 충족 시 업데이트"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    code = current_price_data.get("code", "")
+    current_price = current_price_data.get("price", 0)
+    if not code or current_price <= 0:
+        return
+
+    try:
+        session = await get_session()
+        # open 상태의 가상 포지션 중 해당 종목 조회 (trade_id로 auto_trades.code와 조인)
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&select=id,strategy_type,entry_price,peak_price,stepped_stop_pct,trade_id"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return
+            sims = await resp.json()
+
+        config = await _get_trade_config()
+        tp = config.get("take_profit_pct", TRADE_TAKE_PROFIT_PCT)
+        sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
+        ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
+
+        for sim in sims:
+            entry_price = sim["entry_price"]
+            peak_price = sim.get("peak_price", entry_price)
+            sim_id = sim["id"]
+            strategy = sim["strategy_type"]
+            pnl = calc_pnl_pct(entry_price, current_price)
+
+            # Update peak
+            new_peak = max(peak_price, current_price)
+
+            exit_reason = None
+            exit_price = None
+
+            if strategy == "fixed":
+                # 고정 TP 전략 시뮬레이션
+                hold_days = 0  # 가상은 당일 기준
+                effective_tp = get_tiered_tp(tp, hold_days)
+                result = should_sell(entry_price, current_price, take_profit=effective_tp, stop_loss=sl)
+                if result:
+                    exit_reason = result
+                    exit_price = current_price
+                elif pnl > 0 and new_peak > 0:
+                    drop = (current_price - new_peak) / new_peak * 100
+                    if drop <= ts_pct:
+                        exit_reason = "trailing_stop"
+                        exit_price = current_price
+
+            elif strategy == "stepped":
+                # Stepped Trailing 시뮬레이션
+                if pnl <= sl:
+                    exit_reason = "stop_loss"
+                    exit_price = current_price
+                else:
+                    peak_pnl = calc_pnl_pct(entry_price, new_peak)
+                    stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct)
+                    if stepped_stop > -999.0 and pnl <= stepped_stop:
+                        exit_reason = "stepped_trailing"
+                        exit_price = current_price
+
+            # Update simulation record
+            update_body = {"peak_price": new_peak}
+            if exit_reason:
+                update_body.update({
+                    "status": "closed",
+                    "exit_price": exit_price,
+                    "exit_reason": exit_reason,
+                    "pnl_pct": round(pnl, 2),
+                    "exited_at": datetime.now(_KST).isoformat(),
+                })
+
+            patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim_id}"
+            patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+            async with session.patch(patch_url, json=update_body, headers=patch_headers) as resp:
+                pass  # best-effort update
+
+    except Exception as e:
+        logger.warning(f"가상 시뮬레이션 체크 오류: {e}")
 
 
 async def _get_current_price(code: str) -> int:
