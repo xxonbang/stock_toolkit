@@ -550,19 +550,13 @@ export default function AutoTrader() {
                 <button
                   onClick={() => {
                     const next = { ...buyToggles, [opt.key]: !isOn };
-                    // 대장주 1위/전체 ON → 차트/지표/fallback OFF (상호배타)
-                    if ((opt.key === "top_leader" || opt.key === "all_leaders") && !isOn) {
+                    // 대장주 1위 ON → 나머지 전부 OFF (독립 모드)
+                    if (opt.key === "top_leader" && !isOn) {
                       next.chart = false; next.indicator = false;
-                      next.fallback_top_leader = false;
-                      if (opt.key === "top_leader") next.all_leaders = false;
-                      if (opt.key === "all_leaders") next.top_leader = false;
+                      next.all_leaders = false; next.fallback_top_leader = false;
                     }
-                    // 차트/지표 ON → 대장주 1위/전체 OFF (fallback은 유지 가능)
-                    if ((opt.key === "chart" || opt.key === "indicator") && !isOn) {
-                      next.top_leader = false; next.all_leaders = false;
-                    }
-                    // fallback ON → 대장주 1위 OFF (차트/지표/대장주전체와 공존)
-                    if (opt.key === "fallback_top_leader" && !isOn) {
+                    // 차트/지표/대장주전체/fallback ON → 대장주 1위 OFF (공존 가능)
+                    if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders" || opt.key === "fallback_top_leader") && !isOn) {
                       next.top_leader = false;
                     }
                     setBuyToggles(next);
@@ -582,8 +576,7 @@ export default function AutoTrader() {
           <div className="text-[10px] t-text-sub mb-2">
             {(() => {
               const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
-              if (top_leader) return "테마별 거래대금 1위 종목만 매집 (차트/지표 무관)";
-              if (all_leaders && !fallback_top_leader) return "모든 테마 대장주 매집 (차트/지표 무관)";
+              if (top_leader) return "테마별 거래대금 1위 종목만 매집 (독립 모드)";
               const parts = [chart && "차트", indicator && "지표", all_leaders && "대장주전체"].filter(Boolean) as string[];
               if (parts.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF";
               let desc = parts.length === 1 ? `${parts[0]} 조건 매집` : parts.length >= 2 ? `${parts.join(" + ")} AND 조건 매집` : "";
