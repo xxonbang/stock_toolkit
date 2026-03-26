@@ -91,5 +91,16 @@ async def telegram_worker():
                     body = await resp.text()
                     logger.error(f"Telegram 발송 실패 ({resp.status}): {body}")
         except Exception as e:
-            logger.error(f"Telegram 발송 오류: {e}")
+            logger.error(f"텔레그램 발송 실패 (1차): {e}")
+            await asyncio.sleep(2)
+            try:
+                # 1회 재시도
+                session = await get_session()
+                async with session.post(url, json=payload) as resp2:
+                    if resp2.status == 200:
+                        logger.info("텔레그램 재시도 성공")
+                    else:
+                        logger.error(f"텔레그램 재시도 실패: HTTP {resp2.status}")
+            except Exception as e2:
+                logger.error(f"텔레그램 재시도 실패: {e2}")
         await asyncio.sleep(1)  # 초당 1건 제한

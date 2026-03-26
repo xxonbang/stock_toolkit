@@ -9,6 +9,7 @@ from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.ws")
 
+# KIS WebSocket 체결 데이터 필드 인덱스 (KIS 실시간 시세 프로토콜 기반, 변경 시 KIS API 문서 참조)
 IDX_CODE = 0
 IDX_TIME = 2
 IDX_PRICE = 3
