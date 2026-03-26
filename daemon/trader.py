@@ -465,8 +465,8 @@ async def run_buy_process():
         logger.info(f"고확신 매수 대상 없음 (모드: {buy_mode})")
         return
 
-    # 이미 보유/주문 중이거나 당일 매도된 종목 제외
-    buy_candidates = []
+    # Pass 1: 보유/주문/당일매도 필터링 (현재가 API 호출 없음)
+    need_price = []
     for t in targets:
         code = t["code"]
         name = t.get("name", "")
@@ -480,16 +480,30 @@ async def run_buy_process():
         api_data = t.get("api_data", {})
         if api_data:
             price = api_data.get("price", {}).get("current", 0)
-        if price <= 0:
-            price = await _get_current_price(code)
-        if price <= 0:
-            logger.warning(f"현재가 없음 — {name}({code}) 스킵")
+        need_price.append({"code": code, "name": name, "price": price, "_need_fetch": price <= 0})
+
+    if not need_price:
+        logger.info("매수 가능 종목 없음")
+        return
+
+    # Pass 2: 현재가 병렬 조회
+    fetch_targets = [c for c in need_price if c["_need_fetch"]]
+    if fetch_targets:
+        prices = await asyncio.gather(*[_get_current_price(c["code"]) for c in fetch_targets])
+        for c, p in zip(fetch_targets, prices):
+            c["price"] = p
+
+    # Pass 3: 가격 없는 종목 제거 + 상한가 체크
+    buy_candidates = []
+    for c in need_price:
+        if c["price"] <= 0:
+            logger.warning(f"현재가 없음 — {c['name']}({c['code']}) 스킵")
             continue
         # 상한가 사전 체크 (분배 전에 걸러냄)
-        if await is_upper_limit(code, price):
-            logger.info(f"상한가 종목 스킵 — {name}({code}) {price:,}원")
+        if await is_upper_limit(c["code"], c["price"]):
+            logger.info(f"상한가 종목 스킵 — {c['name']}({c['code']}) {c['price']:,}원")
             continue
-        buy_candidates.append({"code": code, "name": name, "price": price})
+        buy_candidates.append({"code": c["code"], "name": c["name"], "price": c["price"]})
 
     if not buy_candidates:
         logger.info("매수 가능 종목 없음")
