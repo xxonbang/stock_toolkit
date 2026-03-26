@@ -264,12 +264,18 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     };
     document.addEventListener("visibilitychange", handleVisibility);
 
-    // 장중 5분, 장외 10분 자동 폴링
-    const now = new Date();
-    const h = now.getHours();
-    const isMarketHours = h >= 9 && h < 16;
-    const interval = setInterval(loadAllData, isMarketHours ? 5 * 60 * 1000 : 10 * 60 * 1000);
-    return () => { clearInterval(interval); subscription.unsubscribe(); document.removeEventListener("visibilitychange", handleVisibility); };
+    // 장중 5분, 장외 10분 자동 폴링 (매 틱마다 장중/장외 재판단)
+    let pollTimer: ReturnType<typeof setTimeout> | null = null;
+    const schedulePoll = () => {
+      const h = new Date().getHours();
+      const delay = (h >= 9 && h < 16) ? 5 * 60 * 1000 : 10 * 60 * 1000;
+      pollTimer = setTimeout(() => {
+        if (document.visibilityState === "visible") loadAllData();
+        schedulePoll();
+      }, delay);
+    };
+    schedulePoll();
+    return () => { if (pollTimer) clearTimeout(pollTimer); subscription.unsubscribe(); document.removeEventListener("visibilitychange", handleVisibility); };
   }, []);
 
   // 공통 타임스탬프 (performance.json 기준, 대부분 동일 시점)
