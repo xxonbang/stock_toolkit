@@ -2,6 +2,15 @@
 
 ## 2026-03-26
 
+### [기능] Stepped Trailing 매도 로직 구현 (2026-03-27 00:16 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** `calc_stepped_stop_pct()` 함수 추가 및 `check_positions_for_sell()`에 strategy_type별 분기 로직 구현. stepped 전략: 고정 TP 없이 고점 수익률 기반 5단계 stop 상향(+5%→본전, +10%→+5%, +15%→+10%, +20%→+15%, +25%+→동적 trailing). fixed 전략은 기존 로직 유지
+- **커밋:** `9877269`
+
+### [진단] 최적 익절(Take-Profit) 전략 연구 (2026-03-27 04:30 KST)
+- **변경 파일:** `docs/research/2026-03-26-takeprofit-strategy.md`
+- **내용:** 고정 TP +7% vs Trailing-only vs Hybrid 전략 비교 연구. 학술/실증 자료 8건+ 조사. 상한가 종목에서 +7% TP가 잠재 수익의 77% 차단하는 문제 분석. **1순위 권장: Stepped Trailing (고정 TP 제거 + 단계별 stop 상향)**, 2순위: 50% 분할매도 Hybrid. Breakeven stop(+5% 도달 시 stop→0%)으로 round-trip 리스크 차단 가능
+
 ### [진단] 진입 타이밍 + 종목 선별 전략 연구 (2026-03-27 03:30 KST)
 - **변경 파일:** `docs/research/2026-03-26-entry-timing.md`, `docs/research/2026-03-26-volatility-stoploss.md`
 - **내용:** 당일 19종목 실전 데이터 기반 진입 전략 연구. 초기 4종목(손절) 분석에서 "지정가 매수 전환"을 권장했으나, 19종목 확대 검증 결과 **상한가 직행 종목의 수익이 손절 손실을 크게 상쇄**하여 결론 반전. 현재 시스템(시장가+손절-2%)이 지정가 대비 5배 유리. 진짜 개선 방향은 손절폭/진입 타이밍이 아닌 **종목 선별력 강화 + 오후 급등 포착**
