@@ -561,9 +561,9 @@ export default function AutoTrader() {
                     if ((opt.key === "chart" || opt.key === "indicator") && !isOn) {
                       next.top_leader = false; next.all_leaders = false;
                     }
-                    // fallback ON → 대장주 1위/전체 OFF (차트/지표와 공존)
+                    // fallback ON → 대장주 1위 OFF (차트/지표/대장주전체와 공존)
                     if (opt.key === "fallback_top_leader" && !isOn) {
-                      next.top_leader = false; next.all_leaders = false;
+                      next.top_leader = false;
                     }
                     setBuyToggles(next);
                   }}
@@ -582,11 +582,11 @@ export default function AutoTrader() {
           <div className="text-[10px] t-text-sub mb-2">
             {(() => {
               const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
-              if (top_leader) return "테마별 거래대금 1위 종목만 매집합니다 (차트/지표 무관)";
-              if (all_leaders) return "모든 테마 대장주를 매집합니다 (차트/지표 무관)";
-              const signals = [chart && "차트", indicator && "지표"].filter(Boolean) as string[];
-              if (signals.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF";
-              let desc = signals.length === 1 ? `${signals[0]} 시그널 종목 매집` : signals.length === 2 ? "차트 + 지표 AND 조건 매집" : "";
+              if (top_leader) return "테마별 거래대금 1위 종목만 매집 (차트/지표 무관)";
+              if (all_leaders && !fallback_top_leader) return "모든 테마 대장주 매집 (차트/지표 무관)";
+              const parts = [chart && "차트", indicator && "지표", all_leaders && "대장주전체"].filter(Boolean) as string[];
+              if (parts.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF";
+              let desc = parts.length === 1 ? `${parts[0]} 조건 매집` : parts.length >= 2 ? `${parts.join(" + ")} AND 조건 매집` : "";
               if (fallback_top_leader) desc += desc ? " → 0건 시 대장주 1위로 대체" : "대장주 1위로 매집";
               return desc;
             })()}
