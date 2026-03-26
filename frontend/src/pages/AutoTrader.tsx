@@ -123,7 +123,12 @@ export default function AutoTrader() {
     }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (sessionExpiredRef.current) return;  // 세션 만료 확정 → 재시도 차단
+      if (_event === "TOKEN_REFRESHED" || _event === "SIGNED_IN") {
+        // 토큰 갱신/로그인 시 세션 만료 상태 해제
+        sessionExpiredRef.current = false;
+        setSessionExpired(false);
+      }
+      if (sessionExpiredRef.current) return;
       if (session?.user) {
         setAccessToken(session.access_token ?? null);
       }
@@ -132,15 +137,34 @@ export default function AutoTrader() {
 
     // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응)
     const handleVisibility = () => {
-      if (sessionExpiredRef.current) return;  // 세션 만료 확정 → 재시도 차단
-      if (document.visibilityState === "visible") {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-          if (session?.user) {
-            setAccessToken(session.access_token ?? null);
-            loadData(session.user);
-          }
-        }).catch(() => {});
-      }
+      if (document.visibilityState !== "visible") return;
+      // getSession()에 5초 타임아웃 — iOS PWA hang 방지
+      const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000));
+      Promise.race([
+        supabase.auth.getSession().then(({ data: { session } }) => session),
+        timeout,
+      ]).then((session) => {
+        if (session?.user) {
+          setAccessToken(session.access_token ?? null);
+          sessionExpiredRef.current = false;
+          setSessionExpired(false);
+          loadData(session.user);
+        } else if (!sessionExpiredRef.current) {
+          // 타임아웃 또는 세션 없음 — localStorage에서 재시도
+          try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+              const raw = JSON.parse(stored);
+              const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
+              const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
+              if (parsed?.user) {
+                setAccessToken(parsed.access_token ?? null);
+                loadData(parsed.user);
+              }
+            }
+          } catch {}
+        }
+      }).catch(() => {});
     };
     document.addEventListener("visibilitychange", handleVisibility);
 

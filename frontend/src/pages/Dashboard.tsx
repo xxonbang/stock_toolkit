@@ -366,16 +366,36 @@ export default function Dashboard({ onToggleTheme, isDark, page }: { onToggleThe
       }
       // session이 null이지만 SIGNED_OUT이 아닌 경우 → 기존 상태 유지
     });
-    // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응)
+    // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응, 5초 타임아웃)
     const handleVisibility = () => {
-      if (document.visibilityState === "visible") {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-          if (session?.user) {
-            setSupaUser(session.user);
-            setAccessToken(session.access_token ?? null);
-          }
-        }).catch(() => {});
-      }
+      if (document.visibilityState !== "visible") return;
+      const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000));
+      Promise.race([
+        supabase.auth.getSession().then(({ data: { session } }) => session),
+        timeout,
+      ]).then((session) => {
+        if (session?.user) {
+          setSupaUser(session.user);
+          setAccessToken(session.access_token ?? null);
+          fetchHoldingsFromDB().then(setDbHoldings).catch(() => {});
+          getAlertMode().then(setAlertModeState).catch(() => {});
+        } else {
+          // 타임아웃 또는 세션 없음 — localStorage에서 재시도
+          try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+              const raw = JSON.parse(stored);
+              const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
+              const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
+              if (parsed?.user) {
+                setSupaUser(parsed.user);
+                setAccessToken(parsed.access_token ?? null);
+                fetchHoldingsFromDB().then(setDbHoldings).catch(() => {});
+              }
+            }
+          } catch {}
+        }
+      }).catch(() => {});
     };
     document.addEventListener("visibilitychange", handleVisibility);
 
