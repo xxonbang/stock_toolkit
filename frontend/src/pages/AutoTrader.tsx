@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, RefreshCw, Loader2, Lock, TimerOff, Inbox, Check, X, LogIn, HelpCircle } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, ChevronRight, RefreshCw, Loader2, Lock, TimerOff, Inbox, Check, X, LogIn, HelpCircle } from "lucide-react";
 import { supabase, STORAGE_KEY, setAccessToken, fetchKisPrices } from "../lib/supabase";
-import { getTradePct, setAlertConfig } from "../lib/supabase";
+import { getTradePct, setAlertConfig, getStrategySimulations } from "../lib/supabase";
 
 interface Trade {
   id: string;
@@ -93,6 +93,9 @@ export default function AutoTrader() {
   const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false });
   const [buySaving, setBuySaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
+  const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
+  const [showStrategyCompare, setShowStrategyCompare] = useState(false);
+  const [simulations, setSimulations] = useState<any[]>([]);
 
   useEffect(() => {
     function loadData(u: any) {
@@ -106,6 +109,11 @@ export default function AutoTrader() {
           setTrailingStop(trailing_stop);
           { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
         }).catch(() => {});
+        // strategy_type 로드
+        Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
+          if (cfg?.strategy_type) setStrategyType(cfg.strategy_type);
+        }).catch(() => {});
+        getStrategySimulations().then(setSimulations);
       } else {
         setLoading(false);
       }
@@ -269,6 +277,10 @@ export default function AutoTrader() {
       setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
       { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
     }).catch(() => {});
+    Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
+      if (cfg?.strategy_type) setStrategyType(cfg.strategy_type);
+    }).catch(() => {});
+    getStrategySimulations().then(setSimulations);
   };
 
   if (!user) {
@@ -301,9 +313,98 @@ export default function AutoTrader() {
 
   return (
     <div className="space-y-4">
+      {/* 투자 전략 선택 */}
+      <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
+        <div className="text-[11px] font-semibold t-text mb-2">투자 전략</div>
+        <div className="flex gap-2 mb-2">
+          {(["stepped", "fixed"] as const).map(st => (
+            <button key={st} onClick={async () => {
+              setStrategyType(st);
+              await setAlertConfig({ strategy_type: st });
+              if (st === "stepped") {
+                setShowPctEdit(false);
+              }
+            }}
+              className={`flex-1 text-[11px] py-2 rounded-lg font-medium transition ${
+                strategyType === st
+                  ? "bg-blue-600 text-white"
+                  : "t-text-sub hover:t-text"
+              }`}
+              style={strategyType !== st ? { background: "var(--bg)", border: "1px solid var(--border)" } : {}}>
+              {st === "stepped" ? "Stepped Trailing" : "고정 익절/손절"}
+            </button>
+          ))}
+        </div>
+        {strategyType === "stepped" && (
+          <div className="text-[9px] t-text-dim p-2 rounded-lg" style={{ background: "var(--bg)" }}>
+            <div className="font-medium t-text-sub mb-1">Step 구간</div>
+            <div className="grid grid-cols-5 gap-1 text-center">
+              {["+5%→본전", "+10%→+5%", "+15%→+10%", "+20%→+15%", "+25%+→고점-3%"].map(s => (
+                <span key={s}>{s}</span>
+              ))}
+            </div>
+          </div>
+        )}
+        {/* 전략 비교 펼치기/접기 */}
+        <button onClick={() => setShowStrategyCompare(!showStrategyCompare)}
+          className="w-full mt-2 text-[10px] t-text-dim flex items-center gap-1 hover:t-text transition">
+          <ChevronRight size={10} className={`transition-transform ${showStrategyCompare ? "rotate-90" : ""}`} />
+          전략 비교 성과
+        </button>
+        {showStrategyCompare && (
+          <div className="mt-2 pt-2 space-y-2" style={{ borderTop: "1px solid var(--border)" }}>
+            {(() => {
+              const soldTrades = trades.filter(t => t.status === "sold");
+              const realPnl = soldTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0);
+              const closedSims = simulations.filter(s => s.status === "closed");
+              const simPnl = closedSims.reduce((sum, s) => sum + (s.pnl_pct || 0), 0);
+              const simStrategy = closedSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
+              const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
+              const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
+
+              return (
+                <>
+                  <div className="flex gap-2">
+                    <div className="flex-1 p-2 rounded-lg text-center" style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제)</div>
+                      <div className={`text-sm font-bold ${realPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                        {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
+                      </div>
+                      <div className="text-[9px] t-text-dim">{soldTrades.length}건</div>
+                    </div>
+                    <div className="flex-1 p-2 rounded-lg text-center" style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상)</div>
+                      <div className={`text-sm font-bold ${simPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                        {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
+                      </div>
+                      <div className="text-[9px] t-text-dim">{closedSims.length}건</div>
+                    </div>
+                  </div>
+                  {closedSims.length === 0 && soldTrades.length === 0 && (
+                    <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
+                  )}
+                </>
+              );
+            })()}
+          </div>
+        )}
+      </div>
+
       {/* 익절/손절 설정 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="flex items-center justify-between">
+          {strategyType === "stepped" ? (
+            <div className="flex items-center gap-3 text-[11px]">
+              <div className="flex items-center gap-1">
+                <span className="t-text-dim">전략</span>
+                <span className="font-semibold text-blue-400">Stepped Trailing</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="t-text-dim">손절</span>
+                <span className="font-semibold" style={{ color: "#3b82f6" }}>{stopLoss}%</span>
+              </div>
+            </div>
+          ) : (
           <div className="flex items-center gap-3 text-[11px]">
             {[
               { label: "익절", value: `+${takeProfit}%↑`, color: "var(--success)" },
@@ -316,12 +417,43 @@ export default function AutoTrader() {
               </div>
             ))}
           </div>
+          )}
           <button onClick={() => setShowPctEdit(!showPctEdit)}
             className="p-1 rounded-lg t-text-dim hover:t-text transition">
             <Settings size={13} />
           </button>
         </div>
-        {showPctEdit && (
+        {showPctEdit && strategyType === "stepped" && (
+          <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
+            <div className="text-[10px] t-text-dim">Stepped Trailing 모드에서는 손절만 조정 가능합니다</div>
+            <div className="w-1/3">
+              <div className="text-[9px] font-medium mb-1" style={{ color: "#3b82f6" }}>손절 (%)</div>
+              <input type="number" step="0.5" min={-30} max={-0.5} value={stopLoss}
+                onChange={e => setStopLoss(parseFloat(e.target.value) || -2.0)}
+                className="w-full text-[12px] px-2.5 py-1.5 rounded-lg t-text outline-none transition focus:ring-1 focus:ring-blue-500/30"
+                style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+            </div>
+            <div className="flex items-center gap-2">
+              <button disabled={pctSaving} onClick={async () => {
+                setPctSaving(true);
+                const ok = await setAlertConfig({ stop_loss_pct: stopLoss });
+                setPctResult(ok ? "saved" : "failed");
+                setTimeout(() => setPctResult(""), 2000);
+                setPctSaving(false);
+              }}
+                className="text-[11px] font-medium py-1.5 px-4 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                {pctSaving ? "저장 중..." : "저장"}
+              </button>
+              {pctResult && (
+                <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
+                  {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
+                  {pctResult === "failed" ? "실패" : "완료"}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {showPctEdit && strategyType !== "stepped" && (
           <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
             <div className="flex gap-2">
               {[
