@@ -49,12 +49,12 @@ async def fetch_json(url: str) -> list | dict | None:
 
 async def fetch_alert_config() -> dict:
     """Supabase alert_config에서 전체 설정 조회"""
-    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and"}
+    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed"}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return defaults
     try:
         session = await get_session()
-        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode&limit=1"
+        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type&limit=1"
         headers = {
             "apikey": SUPABASE_SECRET_KEY,
             "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
@@ -70,6 +70,7 @@ async def fetch_alert_config() -> dict:
                         "stop_loss_pct": float(row.get("stop_loss_pct") or TRADE_STOP_LOSS_PCT),
                         "trailing_stop_pct": float(row.get("trailing_stop_pct") or TRADE_TRAILING_STOP_PCT),
                         "buy_signal_mode": row.get("buy_signal_mode") or "and",
+                        "strategy_type": row.get("strategy_type") or "fixed",
                     }
     except Exception as e:
         logger.warning(f"설정 조회 실패: {e}")
