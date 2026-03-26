@@ -93,6 +93,14 @@ def mark_selling(position_id: str):
     _selling_locks.add(position_id)
 
 
+def try_mark_selling(position_id: str) -> bool:
+    """원자적 check-and-set: 이미 매도 중이면 False, 아니면 락 설정 후 True"""
+    if position_id in _selling_locks:
+        return False
+    _selling_locks.add(position_id)
+    return True
+
+
 def unmark_selling(position_id: str):
     _selling_locks.discard(position_id)
 

@@ -12,7 +12,7 @@ from daemon.position_db import (
     is_already_held_or_ordered, insert_buy_order, update_position_filled,
     update_position_sold, update_position_quantity, get_active_positions,
     calc_quantity, calc_pnl_pct,
-    is_selling, mark_selling, unmark_selling,
+    is_selling, mark_selling, unmark_selling, try_mark_selling,
 )
 from daemon.notifier import send_telegram
 from daemon.stock_manager import fetch_json, fetch_alert_config
@@ -337,7 +337,8 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
         # 매수 후 구독 갱신 (모의투자 종목 WebSocket 수신 시작)
         try:
             from daemon.main import trigger_subscription_refresh
-            asyncio.ensure_future(trigger_subscription_refresh())
+            task = asyncio.ensure_future(trigger_subscription_refresh())
+            task.add_done_callback(lambda t: logger.warning(f"구독 갱신 실패: {t.exception()}") if not t.cancelled() and t.exception() else None)
         except Exception:
             pass
         return True
@@ -365,6 +366,8 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
             emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
             _peak_prices.pop(position_id, None)
             if filled_qty < quantity:
+                # NOTE: update_position_quantity()가 unmark_selling() 전에 실행되므로
+                # 재매도 시 줄어든 잔여 수량으로만 주문됨 (이중 매도 아님)
                 await update_position_quantity(position_id, quantity - filled_qty)
                 unmark_selling(position_id)
                 logger.warning(f"매도 부분체결: {name}({code}) {filled_qty}/{quantity}주, 잔여 {quantity - filled_qty}주")
@@ -380,7 +383,8 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
             )
             try:
                 from daemon.main import trigger_subscription_refresh
-                asyncio.ensure_future(trigger_subscription_refresh())
+                task = asyncio.ensure_future(trigger_subscription_refresh())
+                task.add_done_callback(lambda t: logger.warning(f"구독 갱신 실패: {t.exception()}") if not t.cancelled() and t.exception() else None)
             except Exception:
                 pass
             return True
@@ -556,12 +560,13 @@ async def _get_sold_today_trades() -> list[dict]:
 
 _trade_config_cache: dict | None = None
 _trade_config_time: float = 0
+_TRADE_CONFIG_TTL = 30  # seconds
 
 async def _get_trade_config() -> dict:
     """익절/손절 설정 조회 (30초 캐시)"""
     global _trade_config_cache, _trade_config_time
     now = time.time()
-    if _trade_config_cache and (now - _trade_config_time) < 30:
+    if _trade_config_cache and (now - _trade_config_time) < _TRADE_CONFIG_TTL:
         return _trade_config_cache
     _trade_config_cache = await fetch_alert_config()
     _trade_config_time = now
@@ -634,7 +639,8 @@ async def check_positions_for_sell(current_price_data: dict):
                     reason = "trailing_stop"
 
         if reason:
-            mark_selling(position_id)  # 락 설정
+            if not try_mark_selling(position_id):
+                continue  # 다른 태스크가 먼저 mark함
             await place_sell_order(
                 code=code,
                 name=pos["name"],
@@ -885,7 +891,11 @@ async def schedule_sell_check():
     from daemon import main as _main
     from daemon.main import is_market_hours, is_market_day
     while not _main._shutdown:
-        await asyncio.sleep(30)
+        # 30초 대기 (shutdown 시 즉시 탈출)
+        for _ in range(30):
+            if _main._shutdown:
+                return
+            await asyncio.sleep(1)
         if not is_market_day() or not is_market_hours():
             continue
         try:
