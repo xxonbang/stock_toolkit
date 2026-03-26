@@ -2,6 +2,16 @@
 
 ## 2026-03-26
 
+### [기능] 전략 선택 UI + 비교 성과 표시 (2026-03-27 06:15 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`, `frontend/src/lib/supabase.ts`
+- **내용:** Stepped Trailing / 고정 익절 전략 전환 UI, 전략 비교 성과 펼치기/접기 카드, strategyType에 따른 익절/손절 설정 분기(stepped 시 손절만 편집 가능). supabase.ts에 strategy_type 지원 추가 및 getStrategySimulations() 함수 추가
+- **커밋:** `3cf1790`
+
+### [기능] 가상 시뮬레이션 기록/추적 구현 (2026-03-27 05:30 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** 매수 시 비선택 전략의 가상 포지션을 `strategy_simulations` 테이블에 생성하고, 현재가 체크 시 가상 매도 조건(fixed: TP/SL/trailing, stepped: SL/stepped_trailing)을 평가하여 자동 close. `_create_simulation()`, `_check_simulations()` 함수 추가, `place_buy_order_with_qty()`와 `check_positions_for_sell()`에 훅 연결
+- **커밋:** `b2b274b`
+
 ### [기능] Stepped Trailing 매도 로직 구현 (2026-03-27 00:16 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** `calc_stepped_stop_pct()` 함수 추가 및 `check_positions_for_sell()`에 strategy_type별 분기 로직 구현. stepped 전략: 고정 TP 없이 고점 수익률 기반 5단계 stop 상향(+5%→본전, +10%→+5%, +15%→+10%, +20%→+15%, +25%+→동적 trailing). fixed 전략은 기존 로직 유지
