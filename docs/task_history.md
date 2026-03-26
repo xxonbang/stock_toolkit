@@ -2,6 +2,36 @@
 
 ## 2026-03-26
 
+### [개선] run_all.py print→logging 전환 + 매직 넘버 상수 추출 (2026-03-27 02:00 KST)
+- **변경 파일:** `scripts/run_all.py`
+- **내용:** 전체 31개 print() 호출을 logging(logger.info/error/warning)으로 전환, RSI/거래량/F&G/연속일수 등 10개 매직 넘버를 파일 상단 상수로 추출
+- **커밋:** `ea8c2b3`
+
+### [리팩토링] Dashboard 섹션별 컴포넌트 분리 (2026-03-27 01:10 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/dashboard/BriefingSection.tsx`, `FocusedStockSection.tsx`, `ConsecutiveSignalSection.tsx`, `LifecycleSection.tsx`, `RiskMonitorSection.tsx`, `SimulationSection.tsx`
+- **내용:** Dashboard.tsx의 6개 IIFE 섹션(AI 모닝 브리핑, AI 주목 종목, 연속 시그널, 테마 라이프사이클, 위험 종목 모니터, 전략 시뮬레이션)을 개별 컴포넌트로 추출, 2893→2313줄(~20% 감소), 미사용 import/상수 정리
+- **커밋:** `784f59c`
+
+### [개선] Frontend 구조 개선 3건 (2026-03-27 00:30 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`, `frontend/src/components/RefreshButtons.tsx`, `frontend/src/pages/Portfolio.tsx`
+- **내용:** AutoTrader 세션 복원 중복 로직을 restoreSessionFromStorage 헬퍼로 추출, RefreshButtons 매직 넘버(150000/90000/75000) 상수화, Portfolio 병합 계산을 useEffect→useMemo 변환
+- **커밋:** `64c4b8c`
+
+### [개선] data_loader get_stock() O(1) 인덱스 조회 최적화 (2026-03-27 00:05 KST)
+- **변경 파일:** `core/data_loader.py`
+- **내용:** get_stock()의 O(m+n×l+s) 순차 탐색을 _build_stock_index()로 인덱스 구축 후 O(1) dict 조회로 개선, clear_cache() 시 인덱스도 초기화
+- **커밋:** `45ba28b`
+
+### [개선] daemon P3 소규모 개선 5건 (2026-03-26 21:38 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/position_db.py`
+- **내용:** TTL 상수화, schedule_sell_check 종료 개선(1초 단위 shutdown 체크), ensure_future done_callback 추가, 부분체결 방어 코멘트, try_mark_selling 원자적 check-and-set 도입
+- **커밋:** `3b9ba1f`
+
+### [개선] run_buy_process 현재가 조회 asyncio.gather 병렬화 (2026-03-26 23:50 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** run_buy_process()에서 현재가 조회를 순차 for-loop → asyncio.gather 병렬 호출로 변경, N종목×2초 → ~2초로 단축
+- **커밋:** `94b568e`
+
 ### [리팩토링] 토큰 재시도 파라미터명 통일 (2026-03-26 23:40 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** `_kis_order_market`의 `_retry` → `retry`로 변경, `_kis_order`와 파라미터명 통일
