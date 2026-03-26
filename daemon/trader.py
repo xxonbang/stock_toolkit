@@ -505,6 +505,10 @@ async def run_buy_process():
     config = await fetch_alert_config()
     buy_mode = config.get("buy_signal_mode", "and")
     targets = filter_high_confidence(cross_data, mode=buy_mode)
+    # fallback_top_leader: AND 조건 매칭 0건 시 대장주 1위로 대체
+    if not targets and "fallback_top_leader" in buy_mode:
+        logger.info(f"AND 조건 매칭 0건 — fallback_top_leader 모드로 전환")
+        targets = filter_high_confidence(cross_data, mode="top_leader")
     if not targets:
         logger.info(f"고확신 매수 대상 없음 (모드: {buy_mode})")
         return

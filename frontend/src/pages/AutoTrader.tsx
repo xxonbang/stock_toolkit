@@ -47,16 +47,16 @@ async function requestSellAll(trades: Trade[]): Promise<number> {
   return count;
 }
 
-function parseBuyMode(mode: string | undefined): { chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean } {
-  const defaults = { chart: true, indicator: true, top_leader: false, all_leaders: false };
+function parseBuyMode(mode: string | undefined): { chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean } {
+  const defaults = { chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false };
   if (!mode) return defaults;
   // 레거시 값 변환
-  if (mode === "and") return { chart: true, indicator: true, top_leader: false, all_leaders: false };
-  if (mode === "or") return { chart: true, indicator: false, top_leader: false, all_leaders: false };
-  if (mode === "leader") return { chart: false, indicator: false, top_leader: false, all_leaders: true };
-  if (mode === "none") return { chart: false, indicator: false, top_leader: false, all_leaders: false };
+  if (mode === "and") return { chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false };
+  if (mode === "or") return { chart: true, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false };
+  if (mode === "leader") return { chart: false, indicator: false, top_leader: false, all_leaders: true, fallback_top_leader: false };
+  if (mode === "none") return { chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false };
   const flags = mode.split(",");
-  return { chart: flags.includes("chart"), indicator: flags.includes("indicator"), top_leader: flags.includes("top_leader"), all_leaders: flags.includes("all_leaders") };
+  return { chart: flags.includes("chart"), indicator: flags.includes("indicator"), top_leader: flags.includes("top_leader"), all_leaders: flags.includes("all_leaders"), fallback_top_leader: flags.includes("fallback_top_leader") };
 }
 
 function restoreSessionFromStorage(): { access_token: string | null; user: any } | null {
@@ -89,8 +89,8 @@ export default function AutoTrader() {
   const sessionExpiredRef = useRef(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showBuyHelp, setShowBuyHelp] = useState(false);
-  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false });
-  const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false });
+  const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false });
+  const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: true, indicator: true, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [buySaving, setBuySaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
   const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
@@ -538,6 +538,7 @@ export default function AutoTrader() {
             { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
             { key: "top_leader", label: "대장주 1위", desc: "테마별 거래대금 1위만" },
             { key: "all_leaders", label: "대장주 전체", desc: "모든 테마 대장주 포함" },
+            { key: "fallback_top_leader", label: "Fallback 대장주 1위", desc: "AND 조건 매칭 0건 시 대장주 1위로 대체" },
           ] as const).map(opt => {
             const isOn = buyToggles[opt.key];
             return (
@@ -551,6 +552,8 @@ export default function AutoTrader() {
                     const next = { ...buyToggles, [opt.key]: !isOn };
                     if (opt.key === "top_leader" && !isOn) next.all_leaders = false;
                     if (opt.key === "all_leaders" && !isOn) next.top_leader = false;
+                    if (opt.key === "fallback_top_leader" && !isOn) { next.top_leader = false; next.all_leaders = false; }
+                    if ((opt.key === "top_leader" || opt.key === "all_leaders") && !isOn) next.fallback_top_leader = false;
                     setBuyToggles(next);
                   }}
                   className="relative flex-shrink-0 ml-2 w-8 h-[16px] rounded-full transition-colors duration-200"
@@ -567,18 +570,19 @@ export default function AutoTrader() {
         <div className="mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
           <div className="text-[10px] t-text-sub mb-2">
             {(() => {
-              const { chart, indicator, top_leader, all_leaders } = buyToggles;
+              const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
               const parts = [chart && "차트", indicator && "지표", top_leader && "대장주1위", all_leaders && "대장주전체"].filter(Boolean) as string[];
-              if (parts.length === 0) return "매집 중지 — 모든 조건 OFF, 종목을 매집하지 않습니다";
-              if (parts.length === 1) return `${parts[0]} 조건만 적용하여 매집 종목을 선정합니다`;
-              return `${parts.join(" + ")} 조건을 모두 충족하는 종목만 매집합니다 (AND)`;
+              if (parts.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF, 종목을 매집하지 않습니다";
+              let desc = parts.length === 0 ? "" : parts.length === 1 ? `${parts[0]} 조건 적용` : `${parts.join(" + ")} AND 조건`;
+              if (fallback_top_leader) desc += desc ? " → 매칭 없으면 대장주 1위로 대체" : "대장주 1위로 매집";
+              return desc;
             })()}
           </div>
-          {(buyToggles.chart !== savedToggles.chart || buyToggles.indicator !== savedToggles.indicator || buyToggles.top_leader !== savedToggles.top_leader || buyToggles.all_leaders !== savedToggles.all_leaders) && (
+          {(buyToggles.chart !== savedToggles.chart || buyToggles.indicator !== savedToggles.indicator || buyToggles.top_leader !== savedToggles.top_leader || buyToggles.all_leaders !== savedToggles.all_leaders || buyToggles.fallback_top_leader !== savedToggles.fallback_top_leader) && (
             <div className="flex items-center gap-2">
               <button disabled={buySaving} onClick={async () => {
                 setBuySaving(true);
-                const mode = [buyToggles.chart && "chart", buyToggles.indicator && "indicator", buyToggles.top_leader && "top_leader", buyToggles.all_leaders && "all_leaders"].filter(Boolean).join(",") || "none";
+                const mode = [buyToggles.chart && "chart", buyToggles.indicator && "indicator", buyToggles.top_leader && "top_leader", buyToggles.all_leaders && "all_leaders", buyToggles.fallback_top_leader && "fallback_top_leader"].filter(Boolean).join(",") || "none";
                 const ok = await setAlertConfig({ buy_signal_mode: mode });
                 if (ok) {
                   setSavedToggles({ ...buyToggles });
