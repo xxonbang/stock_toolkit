@@ -572,10 +572,10 @@ _trade_config_cache: dict | None = None
 _trade_config_time: float = 0
 
 async def _get_trade_config() -> dict:
-    """익절/손절 설정 조회 (60초 캐시)"""
+    """익절/손절 설정 조회 (30초 캐시)"""
     global _trade_config_cache, _trade_config_time
     now = time.time()
-    if _trade_config_cache and (now - _trade_config_time) < 60:
+    if _trade_config_cache and (now - _trade_config_time) < 30:
         return _trade_config_cache
     _trade_config_cache = await fetch_alert_config()
     _trade_config_time = now
@@ -622,15 +622,19 @@ async def check_positions_for_sell(current_price_data: dict):
         if buy_price <= 0:
             continue
 
-        # 고점 추적 (trailing stop용)
+        # 고점 추적 (trailing stop용, flash spike 방지: 이전 peak 대비 +5% 초과 점프 무시)
         peak_key = position_id
-        if current_price > _peak_prices.get(peak_key, 0):
-            _peak_prices[peak_key] = current_price
+        prev_peak = _peak_prices.get(peak_key, 0)
+        if current_price > prev_peak:
+            if prev_peak > 0 and (current_price - prev_peak) / prev_peak > 0.05:
+                pass  # flash spike — peak 갱신 안 함
+            else:
+                _peak_prices[peak_key] = current_price
 
         # 보유일수 계산 → 익절 기준 연동
         _KST = timezone(timedelta(hours=9))
         hold_days = 0
-        created = pos.get("created_at", "")
+        created = pos.get("filled_at") or pos.get("created_at", "")
         if created:
             try:
                 created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
@@ -759,7 +763,7 @@ async def sell_all_positions_market():
 
     # 2) 보유 포지션 분류
     positions = await get_active_positions(force_refresh=True)
-    filled = [p for p in positions if p["status"] == "filled"]
+    filled = [p for p in positions if p["status"] in ("filled", "sell_requested")]
     if not filled:
         logger.info("장 마감 청산: 보유 포지션 없음")
         return
@@ -778,7 +782,7 @@ async def sell_all_positions_market():
 
         # 보유일 계산
         hold_days = 0
-        created = pos.get("created_at", "")
+        created = pos.get("filled_at") or pos.get("created_at", "")
         if created:
             try:
                 created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
@@ -791,8 +795,11 @@ async def sell_all_positions_market():
         pos["_current_price"] = current_price
         pos["_pnl"] = pnl
 
-        # 보유일수 연동 장 마감 보유 기준
+        # 보유일수 연동 장 마감 보유 기준 (금요일/연휴 전날은 기준 상향)
         carry_threshold = get_carry_threshold(hold_days)
+        # 금요일 또는 다음 영업일까지 2일 이상 → carry 기준 1.5배
+        if today.weekday() == 4:  # 금요일
+            carry_threshold = carry_threshold * 1.5
         if pnl >= carry_threshold:
             to_carry.append(pos)
             pos["_hold_days"] = hold_days

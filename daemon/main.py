@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market, schedule_sell_check
+from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market, schedule_sell_check, cancel_all_pending_orders
 from daemon.github_monitor import check_workflow_completion
 from daemon.http_session import close_session
 
@@ -41,17 +41,15 @@ _trade_codes: set[str] = set()  # 모의투자용 (auto_trades filled)
 
 KST = timezone(timedelta(hours=9))
 
-# 한국 공휴일 (2026년 기준, 매년 초 업데이트 필요)
-KR_HOLIDAYS_2026 = {
-    "01-01", "01-28", "01-29", "01-30",  # 신정, 설날 연휴
-    "03-01",                              # 삼일절
-    "05-05", "05-24",                     # 어린이날, 부처님오신날
-    "06-06",                              # 현충일
-    "08-15",                              # 광복절
-    "09-24", "09-25", "09-26",            # 추석 연휴
-    "10-03", "10-09",                     # 개천절, 한글날
-    "12-25",                              # 크리스마스
+# 한국 공휴일 (고정 공휴일 + 연도별 음력 공휴일)
+_KR_FIXED_HOLIDAYS = {"01-01", "03-01", "05-05", "06-06", "08-15", "10-03", "10-09", "12-25"}
+_KR_LUNAR_HOLIDAYS = {
+    2026: {"01-28", "01-29", "01-30", "05-24", "09-24", "09-25", "09-26"},  # 설날, 부처님오신날, 추석
+    2027: {"02-16", "02-17", "02-18", "05-13", "10-13", "10-14", "10-15"},
 }
+
+def _get_holidays(year: int) -> set[str]:
+    return _KR_FIXED_HOLIDAYS | _KR_LUNAR_HOLIDAYS.get(year, set())
 
 
 def is_market_day() -> bool:
@@ -59,7 +57,7 @@ def is_market_day() -> bool:
     now = datetime.now(KST)
     if now.weekday() >= 5:  # 토(5), 일(6)
         return False
-    if now.strftime("%m-%d") in KR_HOLIDAYS_2026:
+    if now.strftime("%m-%d") in _get_holidays(now.year):
         return False
     return True
 
@@ -213,6 +211,27 @@ async def main():
 
     logger.info("WebSocket 알림 데몬 시작")
 
+    # startup cleanup: stale pending 정리 + peak 초기화
+    try:
+        await cancel_all_pending_orders()
+        logger.info("시작 시 pending 주문 정리 완료")
+    except Exception as e:
+        logger.warning(f"시작 시 pending 정리 실패: {e}")
+    try:
+        from daemon.trader import _peak_prices, _get_current_price
+        from daemon.position_db import get_active_positions as _get_positions
+        positions = await _get_positions(force_refresh=True)
+        for pos in positions:
+            if pos["status"] == "filled":
+                price = await _get_current_price(pos["code"])
+                if price > 0:
+                    _peak_prices[pos["id"]] = price
+        if _peak_prices:
+            logger.info(f"시작 시 peak 초기화: {len(_peak_prices)}종목")
+    except Exception as e:
+        logger.warning(f"시작 시 peak 초기화 실패: {e}")
+
+    # sell_requested 종목은 시작 시 selling lock 설정하지 않음 — schedule_sell_check가 처리
     _alert_codes = await fetch_subscription_codes()
     _trade_codes = await fetch_trade_codes()
 
