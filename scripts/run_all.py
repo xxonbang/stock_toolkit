@@ -345,6 +345,36 @@ def main():
     # Overlay 적용: cross_signal
     if cross_matches:
         cross_matches = [_apply_overlay(m) for m in cross_matches]
+
+    # KIS API로 가격/지표 보강 (api_data 없는 종목)
+    need_enrich = [m for m in (cross_matches or []) if not (m.get("api_data") or {}).get("price", {}).get("current")]
+    if need_enrich:
+        try:
+            from core.kis_client import KISClient
+            kis = KISClient()
+            codes = [m["code"] for m in need_enrich if m.get("code")]
+            print(f"  [KIS] cross_signal {len(codes)}종목 가격 보강 시작", flush=True)
+            prices = kis.get_prices_batch(codes)
+            for m in need_enrich:
+                code = m.get("code", "")
+                p = prices.get(code)
+                if p:
+                    if not m.get("api_data"):
+                        m["api_data"] = {}
+                    m["api_data"]["price"] = {
+                        "current": p.get("current_price", 0),
+                        "change": p.get("change_price", 0),
+                        "change_rate_pct": p.get("change_rate", 0),
+                        "prev_close": p.get("prev_close", 0),
+                        "open": p.get("open", 0),
+                        "high": p.get("high", 0),
+                        "low": p.get("low", 0),
+                    }
+                    m["api_data"]["ranking"] = {"volume": p.get("volume", 0)}
+            print(f"  [KIS] 가격 보강 완료: {len(prices)}/{len(codes)}종목", flush=True)
+        except Exception as e:
+            print(f"  [KIS] 가격 보강 실패: {e}", flush=True)
+
     with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
         json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
 
