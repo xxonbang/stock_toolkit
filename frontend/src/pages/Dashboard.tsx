@@ -2,26 +2,21 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation, Outlet } from "react-router-dom";
 import {
-  ScatterChart, Scatter, XAxis, YAxis, Tooltip,
-  ResponsiveContainer, Cell,
-} from "recharts";
-import {
-  TrendingUp, TrendingDown, Shield,
-  Activity, BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, X,
-  Globe, Flame, Target, AlertTriangle, Lightbulb, Search as SearchIcon, Bot, Circle, Pin,
+  TrendingUp, TrendingDown,
+  BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, X,
+  Target, Search as SearchIcon, Bot, Circle,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
 import RefreshButtons from "../components/RefreshButtons";
+import BriefingSection from "../components/dashboard/BriefingSection";
+import FocusedStockSection from "../components/dashboard/FocusedStockSection";
+import ConsecutiveSignalSection from "../components/dashboard/ConsecutiveSignalSection";
+import LifecycleSection from "../components/dashboard/LifecycleSection";
+import RiskMonitorSection from "../components/dashboard/RiskMonitorSection";
+import SimulationSection from "../components/dashboard/SimulationSection";
 import { supabase, getAlertMode, setAlertMode, setAccessToken, STORAGE_KEY } from "../lib/supabase";
 import type { AlertMode } from "../lib/supabase";
-
-const STAGE_FILL: Record<string, string> = {
-  "탄생": "#22c55e", "성장": "#eab308", "과열": "#ef4444", "쇠퇴": "#9ca3af",
-};
-const STAGE_DOT: Record<string, string> = {
-  "탄생": "bg-green-500", "성장": "bg-yellow-500", "과열": "bg-red-500", "쇠퇴": "bg-gray-400",
-};
 
 function Gauge({ value, max, label, color }: { value: number; max: number; label: string; color: string }) {
   const pct = Math.min(100, (value / max) * 100);
@@ -974,208 +969,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* AI 모닝 브리핑 */}
-      {briefing?.morning && (() => {
-        const raw = briefing.morning as string;
-        // HTML 태그 정리
-        const strip = (s: string) => s.replace(/<\/?[bi]>/g, "").replace(/<br\s*\/?>/gi, "\n").replace(/&nbsp;/g, " ").trim();
-        // 범용 섹션 파서: Gemini 형식 변동에 대응
-        let sections: { title: string; body: string }[] = [];
-        // 모든 가능한 제목 패턴을 순서대로 시도
-        const patterns = [
-          // 1) 줄바꿈 + "<b>N. 제목</b>" — 최상위 섹션만 (서브 항목 제외)
-          /\n\s*<b>(\d+\.\s*[^<\n]{2,30}?)\s*<\/b>/g,
-          // 2) "**N. 제목**"
-          /\*\*(\d+\.\s*[^*\n]{2,30}?)\*\*/g,
-        ];
-        for (const regex of patterns) {
-          if (sections.length >= 2) break;
-          sections = [];
-          const matches = [...raw.matchAll(regex)];
-          // 첫 매칭이 날짜/타이틀이면 건너뛰기
-          const filtered = matches.filter(m => {
-            const t = strip(m[1]);
-            return t && t.length >= 2 && t.length <= 30 && !t.includes("모닝") && !t.includes("브리프") && !t.includes("년 ");
-          });
-          if (filtered.length >= 2) {
-            for (let i = 0; i < filtered.length; i++) {
-              const title = strip(filtered[i][1]).replace(/:$/, "").replace(/^\d+\.\s*/, "");
-              const start = filtered[i].index! + filtered[i][0].length;
-              const end = i < filtered.length - 1 ? filtered[i + 1].index! : raw.length;
-              const body = strip(raw.slice(start, end)).replace(/\n\d+\.\s*$/, "").replace(/^\d+\.\s*/, "");
-              if (title) sections.push({ title, body });
-            }
-          }
-        }
-        // 최종 폴백
-        if (sections.length < 2) {
-          sections = [{ title: "AI 분석", body: strip(raw) }];
-        }
-        // "주목 테마" 섹션은 테마 예측 카드에 통합 → AI 브리핑에서 제거
-        const hasThemeForecast = performance?.theme_forecast?.themes?.length > 0;
-        if (hasThemeForecast) {
-          sections = sections.filter(sec => {
-            const t = sec.title;
-            return !(t.includes("테마") && (t.includes("주목") || t.includes("주요")));
-          });
-        }
-        // "주목 테마" 섹션의 촉매 설명을 추출 (테마 예측 카드에서 활용)
-        const themeCatalystMap: Record<string, string> = {};
-        const origThemeSec = raw.match(/\d+\.\s*<b>[^<]*주목[^<]*<\/b>([\s\S]*?)(?=\d+\.\s*<b>|$)/);
-        if (origThemeSec) {
-          const lines = origThemeSec[1].replace(/<\/?[bi]>/g, "").split("\n").filter((l: string) => l.trim());
-          for (const line of lines) {
-            const m = line.match(/[✔️✅·\-\*]\s*(.+?)\s*\((.+)\)/);
-            if (m) themeCatalystMap[m[1].trim()] = m[2].trim();
-          }
-        }
-        const matchKey = (title: string) => {
-          if (title.includes("글로벌") || title.includes("환경") || title.includes("시장")) return "글로벌 환경";
-          if (title.includes("테마") && (title.includes("주목") || title.includes("주요"))) return "오늘의 주목 테마";
-          if (title.includes("핵심") || title.includes("고확신") || title.includes("관심") || title.includes("종목")) return "고확신 종목";
-          if (title.includes("주의") || title.includes("위험")) return "주의 종목";
-          if (title.includes("전략") || title.includes("제안")) return "전략 제안";
-          return title;
-        };
-        const iconMap: Record<string, React.ReactNode> = {
-          "글로벌 환경": <Globe size={16} />, "오늘의 주목 테마": <Flame size={16} />, "고확신 종목": <Target size={16} />,
-          "주의 종목": <AlertTriangle size={16} />, "전략 제안": <Lightbulb size={16} />,
-        };
-        const accentMap: Record<string, string> = {
-          "글로벌 환경": "border-l-slate-400", "오늘의 주목 테마": "border-l-cyan-400",
-          "고확신 종목": "border-l-emerald-400", "주의 종목": "border-l-rose-400", "전략 제안": "border-l-indigo-400",
-        };
-        // 종목명(코드) 패턴을 클릭 가능한 요소로 변환
-        const allStockData = [...(crossSignal || []), ...(smartMoney || [])];
-        const renderTextWithStockLinks = (text: string) => {
-          // HTML 태그 제거 (briefing 데이터에 <font> 등 포함 가능)
-          const cleaned = text.replace(/<[^>]+>/g, "");
-          // "종목명(6자리코드)" 패턴 매칭
-          const parts = cleaned.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
-          return parts.map((part, k) => {
-            const m = part.match(/^(.+)\((\d{6})\)$/);
-            if (m) {
-              const name = m[1].trim();
-              const code = m[2];
-              const detail = allStockData.find((s: any) => s.code === code);
-              return (
-                <span key={k}
-                  onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name, code, _noData: true })}
-                  className="font-semibold text-blue-400 cursor-pointer hover:underline"
-                >{name}({code})</span>
-              );
-            }
-            return <span key={k}>{part}</span>;
-          });
-        };
-        // 본문 라인 렌더링
-        const renderBody = (body: string) => {
-          return body.split("\n").filter(l => l.trim()).map((line: string, j: number) => {
-            let trimmed = line.trim();
-            // 잔여 번호 제거 ("2.", "3." 등 단독 라인 또는 앞쪽 번호)
-            if (/^\d+\.\s*$/.test(trimmed)) return null;
-            trimmed = trimmed.replace(/^\d+\.\s*/, "");
-            // 앞쪽 콜론 제거 (": 설명" → "설명")
-            trimmed = trimmed.replace(/^:\s*/, "");
-            if (!trimmed) return null;
-            // 체크 항목 (✔️, ✅, ·, -, *)
-            if (/^[✔️✅·\-\*]/.test(trimmed)) {
-              const text = trimmed.replace(/^[✔️✅·\-\*]+\s*/, "");
-              if (!text) return null;
-              return (
-                <div key={j} className="flex items-start gap-2 py-0.5">
-                  <span className="text-emerald-400 mt-0.5 text-[10px]">●</span>
-                  <span className="t-text-sub text-[13px] leading-relaxed">{renderTextWithStockLinks(text)}</span>
-                </div>
-              );
-            }
-            // 주의/전략 라벨 제거
-            const cleaned = trimmed.replace(/^(주의 종목:|전략 제안:)\s*/i, "");
-            return <p key={j} className="t-text text-[13px] leading-[1.7]">{renderTextWithStockLinks(cleaned)}</p>;
-          }).filter(Boolean);
-        };
-        return (
-          <section className="space-y-3">
-            <SectionHeader id="briefing" timestamp={briefTs}>AI 모닝 브리핑</SectionHeader>
-            {sections.map((sec: any, i: number) => {
-              const key = matchKey(sec.title);
-              return (
-              <div key={i} className={`rounded-xl border t-border-light border-l-[3px] ${accentMap[key] || "border-l-gray-400"} t-card-alt p-4`}>
-                <div className="flex items-center gap-2 mb-2.5">
-                  <span className="text-base">{iconMap[key] || <Pin size={16} />}</span>
-                  <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
-                </div>
-                <div className="space-y-1">
-                  {renderBody(sec.body).length > 0
-                    ? renderBody(sec.body)
-                    : <p className="text-[12px] t-text-dim italic">해당 항목 없음</p>
-                  }
-                </div>
-              </div>
-              );
-            })}
-            {/* 오늘의 테마 예측 — AI 브리핑 주목 테마 통합 */}
-            {performance?.theme_forecast?.themes?.length > 0 && (
-              <div className="rounded-xl border t-border-light border-l-[3px] border-l-cyan-400/60 t-card-alt p-4">
-                <div className="flex items-center gap-2 mb-2.5">
-                  <Flame size={16} />
-                  <span className="text-[13px] font-bold t-text tracking-tight">오늘의 주목 테마</span>
-                </div>
-                {performance.theme_forecast.market_context && (
-                  <p className="text-[13px] t-text-sub leading-[1.7] mb-3">
-                    {performance.theme_forecast.market_context}
-                  </p>
-                )}
-                <div className="space-y-0">
-                  {performance.theme_forecast.themes.slice(0, 5).map((t: any, i: number) => {
-                    const themeName = t.theme_name || t.name || "";
-                    const conf = t.confidence;
-                    const confLabel = typeof conf === "number" ? `${conf}%` : conf || "";
-                    const isHigh = confLabel.includes("높") || (typeof conf === "number" && conf >= 70);
-                    const isMid = confLabel.includes("보통") || (typeof conf === "number" && conf >= 40 && conf < 70);
-                    // 촉매: theme_forecast 원본 우선, AI 브리핑 파싱 폴백
-                    const catalyst = t.catalyst || Object.entries(themeCatalystMap).find(([k]) => themeName.includes(k) || k.includes(themeName))?.[1] || "";
-                    const description = t.description || "";
-                    const leaders = (t.leader_stocks || []).slice(0, 3);
-                    return (
-                      <div key={i} className="py-2.5 border-b t-border-light last:border-b-0">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[13px] font-medium t-text">{themeName}</span>
-                          {confLabel && (
-                            <span onClick={() => setConfExp({ theme: themeName, confidence: confLabel, catalyst, description } as any)}
-                              className={`text-[11px] font-semibold px-2 py-0.5 rounded-full shrink-0 cursor-pointer ${
-                              isHigh ? "bg-emerald-500/10 text-emerald-500" :
-                              isMid ? "bg-amber-500/10 text-amber-500" :
-                              "bg-gray-500/10 t-text-dim"
-                            }`}>{confLabel}</span>
-                          )}
-                        </div>
-                        {(catalyst || leaders.length > 0) && (
-                          <div className="mt-1.5 space-y-1">
-                            {catalyst && <div className="text-[12px] t-text-sub leading-relaxed">{catalyst}</div>}
-                            {leaders.length > 0 && (
-                              <div className="flex flex-wrap gap-1">
-                                {leaders.map((l: any, li: number) => {
-                                  const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === l.code);
-                                  return (
-                                    <span key={li}
-                                      onClick={(e) => { e.stopPropagation(); detail ? setStockDetail(detail) : setStockDetail({ name: l.name, code: l.code, _noData: true }); }}
-                                      className="text-[11px] px-1.5 py-0.5 rounded bg-blue-500/8 t-text-sub cursor-pointer hover:bg-blue-500/20 transition-colors"
-                                    >{l.name}</span>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </section>
-        );
-      })()}
+      {briefing?.morning && <BriefingSection briefing={briefing} performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} briefTs={briefTs} setStockDetail={setStockDetail} setConfExp={setConfExp} />}
 
       {/* 시장 현황 (심리 온도계 통합) */}
       {performance && (
@@ -1386,211 +1180,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* AI 주목 종목 */}
-      {performance?.by_source?.combined && (() => {
-        const c = performance.by_source.combined;
-        const total = c.total || 0;
-
-        // 교차 신호 코드 셋 + 연속 신호 맵
-        const crossCodeSet = new Set((crossSignal || []).map((s: any) => s.code));
-        const streakMap: Record<string, number> = {};
-        for (const r of (consecutiveSignals?.and_condition || [])) if (r.code) streakMap[r.code] = r.streak;
-        for (const r of (consecutiveSignals?.or_condition || [])) if (r.code && !streakMap[r.code]) streakMap[r.code] = r.streak;
-
-        // 수급 맵 (smartMoney)
-        const supplyMap: Record<string, number> = {};
-        for (const sm of (smartMoney || [])) if (sm?.code) supplyMap[sm.code] = sm.foreign_net || 0;
-
-        // 매수 종목 수집 + 카테고리 분류
-        const seen = new Set<string>();
-        const allBuy: { s: any; cat: string; score: number }[] = [];
-
-        const classify = (s: any) => {
-          const buys = new Set(["매수", "적극매수"]);
-          const hasVision = buys.has(s.vision_signal || "");
-          const hasApi = buys.has(s.api_signal || "");
-          const isCross = crossCodeSet.has(s.code);
-          if (hasVision && hasApi && isCross) return "고확신";
-          if (isCross) return "대장주";
-          if (hasVision && hasApi) return "매수 일치";
-          return "매수";
-        };
-
-        const catOrder: Record<string, number> = { "고확신": 0, "대장주": 1, "매수 일치": 2, "매수": 3 };
-
-        (crossSignal || []).forEach((s: any) => {
-          if (!seen.has(s.code)) {
-            const cat = classify(s);
-            allBuy.push({ s, cat, score: (s.confidence || 0) * 100 });
-            seen.add(s.code);
-          }
-        });
-        (smartMoney || []).forEach((s: any) => {
-          if (seen.has(s.code)) return;
-          const buys = new Set(["매수", "적극매수"]);
-          const hasVision = buys.has(s.vision_signal || "");
-          const hasApi = buys.has(s.api_signal || "");
-          // vision 또는 api 중 하나라도 매수 신호가 있어야 포함
-          if (hasVision || hasApi) {
-            allBuy.push({ s, cat: classify(s), score: s.smart_money_score || 0 });
-            seen.add(s.code);
-          }
-        });
-
-        allBuy.sort((a, b) => (catOrder[a.cat] ?? 9) - (catOrder[b.cat] ?? 9) || b.score - a.score);
-
-        const catStyle: Record<string, { bg: string; text: string; border: string }> = {
-          "고확신": { bg: "t-card-alt", text: "text-red-500", border: "border-l-[3px] border-l-red-500 border t-border-light" },
-          "대장주": { bg: "t-card-alt", text: "text-orange-500", border: "border-l-[3px] border-l-orange-400 border t-border-light" },
-          "매수 일치": { bg: "t-card-alt", text: "text-blue-500", border: "border-l-[3px] border-l-blue-400 border t-border-light" },
-          "매수": { bg: "t-card-alt", text: "t-text", border: "border t-border-light" },
-        };
-
-        // 카테고리별 그룹핑
-        const groups: Record<string, typeof allBuy> = {};
-        for (const item of allBuy) {
-          (groups[item.cat] ??= []).push(item);
-        }
-
-        return (
-          <section className="t-card rounded-xl p-4">
-            <SectionHeader id="signals" timestamp={ts}>AI 주목 종목</SectionHeader>
-            <div className="text-xs t-text-sub mb-3">
-              AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {allBuy.length}종목</span>
-            </div>
-            {["고확신", "대장주", "매수 일치", "매수"].map(cat => {
-              const items = groups[cat];
-              if (!items?.length) return null;
-              const style = catStyle[cat];
-              return (
-                <div key={cat} className="mb-2.5">
-                  <div className="text-[10px] t-text-dim mb-1">{cat} ({items.length})</div>
-                  <div className="space-y-1">
-                    {items.map(({ s }, i) => {
-                      const streak = streakMap[s.code];
-                      const foreignNet = supplyMap[s.code];
-                      const intra = s.intraday || {};
-                      return (
-                        <div key={i} onClick={() => setStockDetail(s)}
-                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border cursor-pointer hover:opacity-80 transition ${style.bg} ${style.border}`}>
-                          <div className="flex items-center gap-1.5 min-w-0">
-                            <span className={`text-[13px] font-medium truncate ${style.text}`}>{s.name}</span>
-                            {streak && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-500 font-medium">{streak}일 연속</span>}
-                            {foreignNet != null && foreignNet !== 0 && (
-                              <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${foreignNet > 0 ? "bg-red-500/10 text-red-500" : "bg-blue-500/10 text-blue-500"}`}>
-                                외인{foreignNet > 0 ? "↑" : "↓"}
-                              </span>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-1.5 shrink-0 text-[10px] t-text-dim">
-                            {s.theme && <span className="truncate max-w-[80px]">{s.theme}</span>}
-                            {intra.change_rate != null && intra.change_rate !== 0 && (
-                              <span className={intra.change_rate >= 0 ? "text-red-400 font-medium" : "text-blue-400 font-medium"}>
-                                {intra.change_rate >= 0 ? "+" : ""}{intra.change_rate}%
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-            {allBuy.length === 0 && <Empty text="현재 매수 신호 종목 없음" />}
-          </section>
-        );
-      })()}
+      {performance?.by_source?.combined && <FocusedStockSection performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} consecutiveSignals={consecutiveSignals} ts={ts} setStockDetail={setStockDetail} />}
 
       {/* ===== 신호 카테고리 ===== */}
       <div id="cat-signal" className="scroll-mt-24" />
 
       {/* 연속 시그널 추적 */}
-      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && (() => {
-        const today = new Date().toISOString().slice(0, 10);
-        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-        const freshness = (r: any) => {
-          const last = r.dates?.[r.dates.length - 1] || "";
-          if (last >= today) return "active";
-          if (last >= yesterday) return "watch";
-          return "ended";
-        };
-        const badge = (f: string) => f === "active"
-          ? <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-medium">진행 중</span>
-          : f === "watch"
-          ? <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 font-medium">관찰</span>
-          : <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gray-500/15 text-gray-400 font-medium">종료</span>;
-        const sortByFreshness = (arr: any[]) => [...arr].sort((a, b) => {
-          const la = a.dates?.[a.dates.length - 1] || "";
-          const lb = b.dates?.[b.dates.length - 1] || "";
-          if (la !== lb) return lb.localeCompare(la);
-          return (b.streak || 0) - (a.streak || 0);
-        });
-        const renderList = (items: any[], color: string, showStreak: boolean) => {
-          const sorted = sortByFreshness(items);
-          const active = sorted.filter((r: any) => freshness(r) !== "ended");
-          return (
-            <>
-              {active.map((r: any, i: number) => (
-                <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[13px] font-medium t-text">{r.name}</span>
-                    <span className="text-[10px] t-text-dim">{r.code}</span>
-                    {badge(freshness(r))}
-                  </div>
-                  <button onClick={() => r.dates?.length && setStreakPopup({ name: r.name, dates: r.dates })}
-                    className="flex items-center gap-2 hover:opacity-70 transition">
-                    <span className={`text-[11px] font-bold ${color}`}>{showStreak ? `${r.streak}일 연속` : `${r.streak}일`}</span>
-                    <span className="text-[10px] t-text-dim">{r.dates?.[r.dates.length - 1]}</span>
-                  </button>
-                </div>
-              ))}
-            </>
-          );
-        };
-        return (
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="consecutive" timestamp={ts}>연속 시그널</SectionHeader>
-          {(() => {
-            const andItems = consecutiveSignals.and_condition || [];
-            const orItems = consecutiveSignals.or_condition || [];
-            const andActive = andItems.filter((r: any) => freshness(r) !== "ended");
-            const orActive = orItems.filter((r: any) => freshness(r) !== "ended");
-            const allEnded = [...andItems, ...orItems].filter((r: any) => freshness(r) === "ended");
-            return <>
-              {andActive.length > 0 && (
-                <div className="mb-3">
-                  <div className="text-[11px] font-semibold text-red-400 mb-1.5 flex items-center gap-1"><Flame size={12} /> 매수 + 대장주 동시 (AND)</div>
-                  <div className="space-y-1">{renderList(andItems, "text-red-400", true)}</div>
-                </div>
-              )}
-              {orActive.length > 0 && (
-                <div>
-                  <div className="text-[11px] font-semibold text-amber-400 mb-1.5 flex items-center gap-1"><BarChart3 size={12} /> 매수 또는 대장주 (OR)</div>
-                  <div className="space-y-1">{renderList(orItems.slice(0, 15), "text-amber-400", false)}</div>
-                </div>
-              )}
-              {andActive.length === 0 && orActive.length === 0 && allEnded.length > 0 && (
-                <div className="text-[11px] t-text-dim">현재 활성 연속 신호 없음</div>
-              )}
-              {allEnded.length > 0 && (andActive.length > 0 || orActive.length > 0) && (
-                <details className="mt-2">
-                  <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({allEnded.length})</summary>
-                  {allEnded.map((r: any, i: number) => (
-                    <div key={i} className="flex items-center justify-between py-1 opacity-40">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[12px] t-text">{r.name}</span>
-                        <span className="text-[10px] t-text-dim">{r.code}</span>
-                      </div>
-                      <span className="text-[10px] t-text-dim">{r.streak}일 · {r.dates?.[r.dates.length - 1]}</span>
-                    </div>
-                  ))}
-                </details>
-              )}
-            </>;
-          })()}
-        </section>
-        );
-      })()}
+      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && <ConsecutiveSignalSection consecutiveSignals={consecutiveSignals} ts={ts} setStreakPopup={setStreakPopup} />}
 
       {/* 교차 신호 */}
       {(
@@ -1651,45 +1247,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* 테마 라이프사이클 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="lifecycle" timestamp={ts} count={lifecycle?.length ?? 0}>테마 라이프사이클</SectionHeader>
-          <div className="t-card-alt rounded-lg p-2 mb-3">
-            <ResponsiveContainer width="100%" height={160}>
-              <ScatterChart margin={{ top: 5, right: 5, bottom: 20, left: 0 }}>
-                <XAxis dataKey="stock_count" type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={{ stroke: '#e5e7eb' }} label={{ value: '종목수', position: 'bottom', fill: '#9ca3af', fontSize: 10, offset: -5 }} />
-                <YAxis dataKey="avg_change" type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={{ stroke: '#e5e7eb' }} label={{ value: '%', position: 'top', fill: '#9ca3af', fontSize: 10, offset: -5 }} />
-                <Tooltip content={({ payload }) => {
-                  if (!payload?.length) return null;
-                  const d = payload[0].payload;
-                  return (<div className="bg-white border border-gray-200 rounded-lg shadow p-2 text-xs"><div className="font-semibold">{d.theme}</div><div className="t-text-sub">{d.stage} · {d.stock_count}종목 · {d.avg_change >= 0 ? "+" : ""}{d.avg_change}%</div></div>);
-                }} />
-                <Scatter data={lifecycle || []}>{(lifecycle || []).map((l: any, i: number) => (<Cell key={i} fill={STAGE_FILL[l.stage] || "#6b7280"} r={Math.max(6, l.stock_count * 3)} />))}</Scatter>
-              </ScatterChart>
-            </ResponsiveContainer>
-            <div className="flex justify-center gap-3 text-xs t-text-dim">
-              {Object.entries(STAGE_DOT).map(([s, c]) => (
-                <span key={s} className="flex items-center gap-1"><span className={`w-2 h-2 rounded-full ${c}`} />{s}</span>
-              ))}
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            {(lifecycle || []).map((l: any, i: number) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <button onClick={() => l.stocks?.length && setLifecyclePopup({ theme: l.theme, stocks: l.stocks, stage: l.stage, strategy: l.strategy })}
-                  className="text-sm font-medium truncate min-w-0 text-left hover:underline">{l.theme}</button>
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-xs t-text-sub">{l.avg_change >= 0 ? "+" : ""}{l.avg_change}%</span>
-                  <button onClick={() => setLifecyclePopup({ theme: l.theme, stocks: l.stocks || [], stage: l.stage, strategy: l.strategy })}>
-                    <Badge variant={l.stage === "과열" ? "danger" : l.stage === "성장" ? "warning" : l.stage === "탄생" ? "success" : "default"}>{l.stage}</Badge>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-            {!lifecycle?.length && <Empty />}
-        </section>
-      )}
+      <LifecycleSection lifecycle={lifecycle} ts={ts} setLifecyclePopup={setLifecyclePopup} />
 
       {/* 이상 거래 감지 */}
       {(() => {
@@ -1798,87 +1356,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       })()}
 
       {/* 위험 종목 모니터 */}
-      {(() => {
-        const risks = riskMonitor || [];
-        if (!risks.length) return (
-          <section className="t-card rounded-xl p-4">
-            <SectionHeader id="risk" timestamp={ts} count={0}>위험 종목 모니터</SectionHeader>
-            <Empty />
-          </section>
-        );
-
-        // 보유 종목 코드 셋 (포트폴리오는 별도 페이지로 분리)
-        const holdCodes = new Set<string>();
-
-        // 위험도 점수: warnings 개수 + level 가중치
-        const scored = risks.map((r: any) => {
-          const warnCount = r.warnings?.length || 0;
-          const levelScore = r.level === "높음" ? 2 : 1;
-          const isHeld = holdCodes.has(r.code);
-          return { ...r, score: warnCount * levelScore + (isHeld ? 100 : 0), isHeld };
-        }).sort((a: any, b: any) => b.score - a.score);
-
-        const held = scored.filter((r: any) => r.isHeld);
-        const notHeld = scored.filter((r: any) => !r.isHeld);
-        const show = notHeld.slice(0, 8);
-        const rest = notHeld.slice(8);
-
-        const gradeStyle = (r: any) => {
-          const wc = r.warnings?.length || 0;
-          if (r.level === "높음" && wc >= 2) return { grade: "위험", color: "text-red-500", bg: "bg-red-500/10 border-red-500/20" };
-          if (r.level === "높음" || wc >= 2) return { grade: "경고", color: "text-orange-500", bg: "bg-orange-500/8 border-orange-500/15" };
-          return { grade: "주의", color: "text-amber-500", bg: "bg-amber-500/6 border-amber-500/10" };
-        };
-
-        const renderItem = (r: any, i: number, dim = false) => {
-          const g = gradeStyle(r);
-          const foreignAmt = r.foreign_net ? Math.abs(r.foreign_net) : 0;
-          const foreignStr = foreignAmt >= 100000000 ? `${(foreignAmt / 100000000).toFixed(1)}억` : foreignAmt >= 10000 ? `${Math.round(foreignAmt / 10000)}만` : "";
-          return (
-            <div key={i} className={`p-2 rounded-lg border ${g.bg} ${dim ? "opacity-50" : ""}`}>
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <Shield size={14} className={`shrink-0 ${g.color}`} />
-                  <span className="text-sm font-medium truncate">{r.name}</span>
-                  <span className={`text-[9px] px-1 py-0.5 rounded font-medium ${g.color}`}>{g.grade}</span>
-                  {r.isHeld && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400 font-medium">보유 중</span>}
-                </div>
-                <div className="text-right text-[10px] shrink-0 t-text-dim">
-                  {foreignStr && <div className="text-blue-400">외인 -{foreignStr}</div>}
-                </div>
-              </div>
-              <div className="flex gap-1 mt-1 ml-6 flex-wrap">
-                {r.warnings?.map((w: string, j: number) => (
-                  <span key={j} className={`text-[10px] ${g.color}`}>{w}</span>
-                ))}
-              </div>
-            </div>
-          );
-        };
-
-        return (
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="risk" timestamp={ts} count={risks.length}>위험 종목 모니터</SectionHeader>
-          <div className="space-y-1.5">
-            {held.length > 0 && (
-              <div className="mb-2">
-                <div className="text-[10px] text-red-400 font-semibold mb-1">내 보유 종목 주의</div>
-                {held.map((r: any, i: number) => renderItem(r, i))}
-              </div>
-            )}
-            {show.map((r: any, i: number) => renderItem(r, i))}
-            {rest.length > 0 && (
-              <details className="mt-1">
-                <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">더 보기 ({rest.length})</summary>
-                <div className="space-y-1.5 mt-1.5">
-                  {rest.map((r: any, i: number) => renderItem(r, i, true))}
-                </div>
-              </details>
-            )}
-          </div>
-        </section>
-        );
-      })()}
+      <RiskMonitorSection riskMonitor={riskMonitor} ts={ts} />
 
       {/* 스마트 머니 TOP */}
       {(
@@ -1938,65 +1416,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* 전략 시뮬레이션 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="simulation" timestamp={ts}>전략 시뮬레이션</SectionHeader>
-          <div className="space-y-2">
-            {(simulation || []).map((s, i) => {
-              const strategyLabel = (s.strategy || "")
-                .replace("signal=적극매수", "적극매수 신호")
-                .replace("signal=매수", "매수 신호")
-                .replace(/hold=(\d+)/, "→ $1일 보유")
-                .replace(/stop=(-?\d+)/, "· 손절 $1%");
-              return (
-                <div key={i} className="p-3 t-card-alt rounded-lg">
-                  <div className="text-xs text-blue-600 font-medium mb-2 flex items-center gap-1">
-                    <Activity size={12} className="shrink-0" />
-                    <span className="truncate">{strategyLabel || s.strategy}</span>
-                  </div>
-                  {s.total_trades > 0 ? (
-                    <div className="grid grid-cols-3 gap-2 text-center">
-                      <div>
-                        <div className="text-[10px] t-text-dim">총 거래</div>
-                        <div className="text-sm font-semibold">{s.total_trades}건</div>
-                      </div>
-                      <div>
-                        <div className="text-[10px] t-text-dim">승률</div>
-                        <div className={`text-sm font-semibold ${s.win_rate >= 50 ? "text-red-600" : "text-blue-600"}`}>{s.win_rate}%</div>
-                      </div>
-                      <div>
-                        <div className="text-[10px] t-text-dim">평균수익</div>
-                        <div className={`text-sm font-semibold ${(s.returns?.mean || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                          {s.returns?.mean >= 0 ? "+" : ""}{s.returns?.mean?.toFixed(1)}%
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="text-xs t-text-dim text-center py-2">
-                      <div>데이터 부족 — 시그널 히스토리 축적 필요</div>
-                      <div className="text-[10px] mt-0.5">일봉 데이터와 시그널 이력이 5일 이상 누적되면 결과 표시</div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-            {(simulation?.length ?? 0) > 0 && (() => {
-              const main = (simulation || []).find((s: any) => !s.strategy?.includes("적극") && !s.strategy?.includes("stop"));
-              const wr = main?.win_rate ?? 0;
-              const avg = main?.returns?.mean ?? 0;
-              return (
-                <div className="mt-3 p-2.5 rounded-lg bg-amber-500/8 border border-amber-500/15 text-[10px] t-text-sub leading-relaxed">
-                  <span className="font-semibold text-amber-500">해석 안내</span>
-                  {wr <= 55 && <span> · 승률 {wr}%는 동전 던지기 수준으로 신호만으로 방향 예측이 어렵습니다.</span>}
-                  {avg > 0 && <span> · 평균수익이 양수인 이유는 소수의 큰 수익이 다수의 소손실을 상쇄하는 구조입니다.</span>}
-                  <span> · 과거 백테스트 결과이며 미래 수익을 보장하지 않습니다.</span>
-                </div>
-              );
-            })()}
-            {!simulation?.length && <Empty />}
-        </section>
-      )}
+      <SimulationSection simulation={simulation} ts={ts} />
 
       {/* 차트 패턴 매칭 */}
       {(
