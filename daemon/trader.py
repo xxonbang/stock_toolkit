@@ -395,13 +395,17 @@ async def run_buy_process():
         logger.info(f"고확신 매수 대상 없음 (모드: {buy_mode})")
         return
 
-    # 이미 보유/주문 중인 종목 제외
+    # 이미 보유/주문 중이거나 당일 매도된 종목 제외
     buy_candidates = []
+    sold_today = await _get_sold_today_codes()
     for t in targets:
         code = t["code"]
         name = t.get("name", "")
         if await is_already_held_or_ordered(code):
             logger.info(f"이미 보유/주문중 — {name}({code}) 스킵")
+            continue
+        if code in sold_today:
+            logger.info(f"당일 매도 종목 — {name}({code}) 재매수 방지 스킵")
             continue
         price = 0
         api_data = t.get("api_data", {})
@@ -411,6 +415,10 @@ async def run_buy_process():
             price = await _get_current_price(code)
         if price <= 0:
             logger.warning(f"현재가 없음 — {name}({code}) 스킵")
+            continue
+        # 상한가 사전 체크 (분배 전에 걸러냄)
+        if await is_upper_limit(code, price):
+            logger.info(f"상한가 종목 스킵 — {name}({code}) {price:,}원")
             continue
         buy_candidates.append({"code": code, "name": name, "price": price})
 
@@ -426,20 +434,38 @@ async def run_buy_process():
 
     MIN_AMOUNT_PER_STOCK = 1_000_000  # 종목당 최소 100만원
     if balance <= MIN_AMOUNT_PER_STOCK:
-        # 100만원 이하: 1종목만 매수
         actual_candidates = buy_candidates[:1]
     else:
-        # 100만원 초과: 종목당 100만원 기준으로 매수 가능 종목 수 결정
         max_stocks = balance // MIN_AMOUNT_PER_STOCK
         actual_candidates = buy_candidates[:max_stocks]
     amount_per_stock = balance // len(actual_candidates)
-    logger.info(f"고확신 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
+    logger.info(f"매수 대상 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
 
     for c in actual_candidates:
         quantity = calc_quantity(amount_per_stock, c["price"])
         if quantity <= 0:
             continue
         await place_buy_order_with_qty(c["code"], c["name"], c["price"], quantity)
+
+
+async def _get_sold_today_codes() -> set[str]:
+    """당일 매도된 종목 코드 조회 (재매수 방지)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return set()
+    _KST = timezone(timedelta(hours=9))
+    today = datetime.now(_KST).strftime("%Y-%m-%d")
+    try:
+        session = await get_session()
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sold&sold_at=gte.{today}T00:00:00&select=code"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        async with session.get(url, headers=headers) as resp:
+            if resp.status == 200:
+                rows = await resp.json()
+                return {r["code"] for r in rows if r.get("code")}
+    except Exception as e:
+        logger.warning(f"당일 매도 종목 조회 실패: {e}")
+    return set()
 
 
 _trade_config_cache: dict | None = None
