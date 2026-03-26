@@ -287,8 +287,8 @@ async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled_sell(code)
         if unfilled is None:
-            logger.warning(f"매도 미체결 조회 실패: {code} — 체결 미확인, 안전하게 0 반환")
-            return 0
+            logger.warning(f"매도 미체결 조회 실패: {code} — 모의투자 시장가 즉시체결 간주")
+            return ordered_qty
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
@@ -315,8 +315,8 @@ async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled(code)
         if unfilled is None:
-            logger.warning(f"미체결 조회 실패: {code} — 체결 미확인, 안전하게 0 반환")
-            return 0
+            logger.warning(f"미체결 조회 실패: {code} — 모의투자 시장가 즉시체결 간주")
+            return ordered_qty
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
