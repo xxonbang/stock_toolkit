@@ -16,6 +16,9 @@ from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_po
 from daemon.github_monitor import check_workflow_completion
 from daemon.http_session import close_session
 
+_DB_REFRESH_INTERVAL = 600  # seconds (10분)
+_GITHUB_CHECK_INTERVAL = 300  # seconds (5분)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
@@ -136,7 +139,7 @@ async def refresh_subscriptions():
 async def schedule_refresh():
     """10분마다 구독 종목 갱신 (장 운영일만)"""
     while not _shutdown:
-        await asyncio.sleep(600)
+        await asyncio.sleep(_DB_REFRESH_INTERVAL)
         if _shutdown or not is_market_day():
             continue
         try:
@@ -170,7 +173,7 @@ async def schedule_auto_trade():
     """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스 (장중만)"""
     global _last_workflow_time, _buy_running, _first_trade_check_done
     while not _shutdown:
-        await asyncio.sleep(300)
+        await asyncio.sleep(_GITHUB_CHECK_INTERVAL)
         if _shutdown or not is_market_day() or not is_market_hours():
             continue
         if _buy_running:
@@ -217,6 +220,9 @@ async def schedule_eod_close():
 
 async def main():
     global ws_client, _alert_codes, _trade_codes
+
+    from daemon.config import validate_required_env
+    validate_required_env()
 
     logger.info("WebSocket 알림 데몬 시작")
 

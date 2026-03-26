@@ -10,7 +10,7 @@ logger = logging.getLogger("daemon.position")
 # 포지션 캐시 (초당 수백 회 조회 방지)
 _positions_cache: list[dict] = []
 _cache_time: float = 0
-_CACHE_TTL = 5  # 5초 캐시
+_CACHE_TTL = 15  # seconds (5초 → 15초로 증가, 빈번한 DB 조회 감소)
 
 # 매도 진행 중 종목 락 (중복 매도 방지)
 _selling_locks: set[str] = set()

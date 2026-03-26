@@ -1,6 +1,8 @@
 """aiohttp 세션 싱글톤 — 전역 connection pool 재사용"""
 import aiohttp
 
+_DEFAULT_TIMEOUT = 15  # seconds
+
 _session: aiohttp.ClientSession | None = None
 
 
@@ -8,7 +10,7 @@ async def get_session() -> aiohttp.ClientSession:
     global _session
     if _session is None or _session.closed:
         _session = aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=15),
+            timeout=aiohttp.ClientTimeout(total=_DEFAULT_TIMEOUT),
             connector=aiohttp.TCPConnector(limit=20),
         )
     return _session
