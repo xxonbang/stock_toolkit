@@ -17,6 +17,27 @@ class KISClient:
         self.access_token = ""
         self._token_expires_at = None
 
+    def _kis_headers(self, tr_id: str) -> dict:
+        """KIS API 공통 헤더 (tr_id만 상이)"""
+        return {
+            "Content-Type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.app_key,
+            "appsecret": self.app_secret,
+            "tr_id": tr_id,
+            "custtype": "P",
+        }
+
+    def _supa_headers(self, with_content_type: bool = False) -> dict:
+        """Supabase API 공통 헤더"""
+        h = {
+            "apikey": self._supa_key,
+            "Authorization": f"Bearer {self._supa_key}",
+        }
+        if with_content_type:
+            h["Content-Type"] = "application/json"
+        return h
+
     def _get_token_from_supabase(self) -> str | None:
         """Supabase api_credentials에서 유효한 access_token 조회"""
         if not SUPABASE_URL or not self._supa_key:
@@ -29,10 +50,7 @@ class KISClient:
                 "is_active": "eq.true",
                 "select": "credential_value,expires_at",
             }
-            headers = {
-                "apikey": self._supa_key,
-                "Authorization": f"Bearer {self._supa_key}",
-            }
+            headers = self._supa_headers()
             res = requests.get(url, params=params, headers=headers, timeout=10)
             if res.status_code == 200 and res.json():
                 row = res.json()[0]
@@ -84,11 +102,7 @@ class KISClient:
             now = datetime.now(timezone.utc)
             expires = now + timedelta(hours=23)
             url = f"{SUPABASE_URL}/rest/v1/api_credentials"
-            headers = {
-                "apikey": self._supa_key,
-                "Authorization": f"Bearer {self._supa_key}",
-                "Content-Type": "application/json",
-            }
+            headers = self._supa_headers(with_content_type=True)
             # 기존 행 UPDATE (signal-pulse와 호환: 평문 토큰 저장)
             body = {
                 "credential_value": token,
@@ -131,14 +145,7 @@ class KISClient:
             return None
         try:
             url = f"{BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-            headers = {
-                "Content-Type": "application/json; charset=utf-8",
-                "authorization": f"Bearer {self.access_token}",
-                "appkey": self.app_key,
-                "appsecret": self.app_secret,
-                "tr_id": "FHKST01010100",
-                "custtype": "P",
-            }
+            headers = self._kis_headers("FHKST01010100")
             params = {
                 "FID_COND_MRKT_DIV_CODE": "J",
                 "FID_INPUT_ISCD": stock_code,
@@ -180,14 +187,7 @@ class KISClient:
             return None
         try:
             url = f"{BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn"
-            headers = {
-                "Content-Type": "application/json; charset=utf-8",
-                "authorization": f"Bearer {self.access_token}",
-                "appkey": self.app_key,
-                "appsecret": self.app_secret,
-                "tr_id": "FHKST01010200",
-                "custtype": "P",
-            }
+            headers = self._kis_headers("FHKST01010200")
             params = {
                 "FID_COND_MRKT_DIV_CODE": "J",
                 "FID_INPUT_ISCD": stock_code,
@@ -235,14 +235,7 @@ class KISClient:
             return None
         try:
             url = f"{BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-investor"
-            headers = {
-                "Content-Type": "application/json; charset=utf-8",
-                "authorization": f"Bearer {self.access_token}",
-                "appkey": self.app_key,
-                "appsecret": self.app_secret,
-                "tr_id": "FHKST01010900",
-                "custtype": "P",
-            }
+            headers = self._kis_headers("FHKST01010900")
             params = {
                 "FID_COND_MRKT_DIV_CODE": "J",
                 "FID_INPUT_ISCD": stock_code,
