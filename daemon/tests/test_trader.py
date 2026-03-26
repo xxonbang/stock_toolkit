@@ -32,11 +32,13 @@ def test_filter_high_confidence_or_mode():
 
 def test_filter_high_confidence_leader_mode():
     signals = [
-        {"code": "005930", "vision_signal": "매수", "api_signal": "매수"},
-        {"code": "000660", "vision_signal": "중립", "api_signal": "중립"},
+        {"code": "005930", "vision_signal": "매수", "api_signal": "매수", "theme": "반도체"},
+        {"code": "000660", "vision_signal": "중립", "api_signal": "중립", "theme": "반도체"},
+        {"code": "999999", "vision_signal": "매수", "api_signal": "매수"},  # 대장주 아님 (theme 없음)
     ]
     result = filter_high_confidence(signals, mode="leader")
-    assert len(result) == 2  # 대장주 전체 통과, 시그널 무관
+    assert len(result) == 2  # 대장주(theme 있는)만 통과, 시그널 무관
+    assert all(s.get("theme") for s in result)
 
 
 def test_filter_high_confidence_empty():

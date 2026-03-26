@@ -82,17 +82,20 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
         flags = {"all_leaders"}
     else:
         flags = set(mode.split(","))
-    # top_leader: 원본 기준으로 테마별 거래대금 1위 코드 집합 산출
+    # top_leader: 대장주(theme 보유) 중 테마별 거래대금 1위 코드 집합 산출
     top_codes: set[str] | None = None
     if "top_leader" in flags:
         theme_best: dict[str, tuple[str, int]] = {}  # theme → (code, volume)
         for s in signals:
-            theme = s.get("theme", "")
+            theme = s.get("theme")
+            if not theme:
+                continue  # 대장주가 아닌 종목은 top_leader 대상 아님
             vol = (s.get("api_data") or {}).get("ranking", {}).get("volume", 0)
             if theme not in theme_best or vol > theme_best[theme][1]:
                 theme_best[theme] = (s.get("code", ""), vol)
         top_codes = {code for code, _ in theme_best.values()}
-    # all_leaders: 추가 필터 없음 — cross_signal 전체가 대장주이므로 시그널 조건만 적용
+    # all_leaders: theme 필드가 있는 종목만 (대장주)
+    need_all_leaders = "all_leaders" in flags
     # 시그널 + 대장주 조건 AND 필터
     need_chart = "chart" in flags
     need_indicator = "indicator" in flags
@@ -101,6 +104,7 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
         if (not need_chart or s.get("vision_signal") in BUY_SIGNALS)
         and (not need_indicator or s.get("api_signal") in BUY_SIGNALS)
         and (top_codes is None or s.get("code", "") in top_codes)
+        and (not need_all_leaders or s.get("theme"))
     ]
 
 
@@ -403,6 +407,8 @@ async def run_buy_process():
         api_data = t.get("api_data", {})
         if api_data:
             price = api_data.get("price", {}).get("current", 0)
+        if price <= 0:
+            price = await _get_current_price(code)
         if price <= 0:
             logger.warning(f"현재가 없음 — {name}({code}) 스킵")
             continue
