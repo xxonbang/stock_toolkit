@@ -559,6 +559,14 @@ export default function AutoTrader() {
                     if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders" || opt.key === "fallback_top_leader") && !isOn) {
                       next.top_leader = false;
                     }
+                    // fallback은 차트/지표/대장주전체 중 하나 이상 ON일 때만 가능
+                    if (opt.key === "fallback_top_leader" && !isOn) {
+                      if (!next.chart && !next.indicator && !next.all_leaders) return;
+                    }
+                    // 차트/지표/대장주전체 모두 OFF가 되면 fallback도 OFF
+                    if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders") && isOn) {
+                      if (!next.chart && !next.indicator && !next.all_leaders) next.fallback_top_leader = false;
+                    }
                     setBuyToggles(next);
                   }}
                   className="relative flex-shrink-0 ml-2 w-8 h-[16px] rounded-full transition-colors duration-200"
