@@ -2,6 +2,26 @@
 
 ## 2026-03-26
 
+### [리팩토링] 토큰 재시도 파라미터명 통일 (2026-03-26 23:40 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** `_kis_order_market`의 `_retry` → `retry`로 변경, `_kis_order`와 파라미터명 통일
+- **커밋:** `1871fd4`
+
+### [버그픽스] Dashboard 폴링 간격 버그 수정 (2026-03-26 23:30 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** setInterval→setTimeout 재귀 방식으로 변경하여 장중→장외 전환 시 폴링 간격 동적 재판단, 탭 비활성 시 폴링 스킵
+- **커밋:** `443eff1`
+
+### [리팩토링] 미체결 취소 함수 통합 (2026-03-26 23:20 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** `_cancel_unfilled` + `_cancel_unfilled_sell` 통합, `is_sell` 파라미터로 매수/매도 구분, 50줄 중복 제거
+- **커밋:** `95cdc63`
+
+### [개선] 당일 매도 조회 중복 쿼리 통합 (2026-03-26 23:15 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** `_get_sold_today_trades` + `_get_sold_today_codes` 동일 쿼리 2회 → 1회로 통합, `_get_sold_today_codes` 삭제
+- **커밋:** `f9a1018`
+
 ### [리팩토링] 보유일 계산 유틸리티 _calc_hold_days() 추출 (2026-03-26 23:10 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** check_positions_for_sell()과 EOD 함수에서 중복된 보유일수 계산 로직을 `_calc_hold_days()` 유틸리티로 추출, `_KST` 모듈 레벨 상수화
