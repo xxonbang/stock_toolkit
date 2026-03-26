@@ -908,7 +908,7 @@ async def _get_current_price(code: str) -> int:
     return 0
 
 
-async def _kis_order_market(tr_id: str, code: str, quantity: int, _retry: bool = True) -> dict | None:
+async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = True) -> dict | None:
     """KIS 모의투자 시장가 주문 (토큰 만료 시 1회 재시도)"""
     token = await _ensure_mock_token()
     if not token:
@@ -933,11 +933,11 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _retry: bool =
             if data.get("rt_cd") == "0":
                 return data
             msg = data.get("msg1", "")
-            if _retry and ("만료" in msg or "token" in msg.lower()):
+            if retry and ("만료" in msg or "token" in msg.lower()):
                 logger.warning("시장가 주문 토큰 만료 — 재발급 후 재시도")
                 _reset_token()
                 await asyncio.sleep(1)
-                return await _kis_order_market(tr_id, code, quantity, _retry=False)
+                return await _kis_order_market(tr_id, code, quantity, retry=False)
             logger.error(f"시장가 주문 실패 ({code}): {msg}")
     except Exception as e:
         logger.error(f"시장가 주문 오류: {e}")
