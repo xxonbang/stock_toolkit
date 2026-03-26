@@ -234,6 +234,87 @@ async def _cancel_unfilled(code: str) -> int | None:
     return unfilled_qty
 
 
+async def _cancel_unfilled_sell(code: str) -> int | None:
+    """매도 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환."""
+    token = await _ensure_mock_token()
+    if not token:
+        return None
+    account_parts = KIS_MOCK_ACCOUNT_NO.split("-") if "-" in KIS_MOCK_ACCOUNT_NO else [KIS_MOCK_ACCOUNT_NO[:8], KIS_MOCK_ACCOUNT_NO[8:]]
+    cano, acnt_cd = account_parts[0], account_parts[1] if len(account_parts) > 1 else "01"
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
+    params = {
+        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+        "INQR_STRT_DT": "", "INQR_END_DT": "",
+        "SLL_BUY_DVSN_CD": "01", "INQR_DVSN": "00",  # 01=매도
+        "PDNO": "", "CCLD_DVSN": "01",
+        "ORD_GNO_BRNO": "", "ODNO": "",
+        "INQR_DVSN_3": "00", "INQR_DVSN_1": "",
+        "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+    }
+    unfilled_qty = 0
+    try:
+        session = await get_session()
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return None
+            for order in data.get("output", []):
+                if order.get("pdno") != code:
+                    continue
+                rmn = int(order.get("rmn_qty", "0") or "0")
+                if rmn <= 0:
+                    continue
+                unfilled_qty += rmn
+                odno = order.get("odno", "")
+                if odno:
+                    cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
+                    cancel_body = {
+                        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+                        "KRX_FWDG_ORD_ORGNO": "", "ORGN_ODNO": odno,
+                        "ORD_DVSN": "00", "RVSE_CNCL_DVSN_CD": "02",
+                        "ORD_QTY": str(rmn), "ORD_UNPR": "0", "QTY_ALL_ORD_YN": "Y",
+                    }
+                    async with session.post(cancel_url, json=cancel_body, headers=_order_headers(token, "VTTC0803U")) as cresp:
+                        cdata = await cresp.json()
+                        if cdata.get("rt_cd") == "0":
+                            logger.info(f"매도 미체결 취소: {code} 잔여 {rmn}주")
+                        else:
+                            logger.warning(f"매도 미체결 취소 실패: {code} {cdata.get('msg1', '')}")
+                    await asyncio.sleep(0.3)
+    except Exception as e:
+        logger.error(f"매도 미체결 조회 오류: {e}")
+        return None
+    return unfilled_qty
+
+
+async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
+    """매도 주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry"""
+    total_filled = 0
+    remaining = ordered_qty
+    for attempt in range(1, _MAX_FILL_RETRIES + 1):
+        await asyncio.sleep(1)
+        unfilled = await _cancel_unfilled_sell(code)
+        if unfilled is None:
+            logger.warning(f"매도 미체결 조회 실패: {code} — 체결 확인 불가, 주문수량 그대로 반영")
+            return ordered_qty
+        filled_this_round = remaining - unfilled
+        total_filled += filled_this_round
+        if unfilled == 0:
+            break  # 전량 체결
+        remaining = unfilled
+        if attempt < _MAX_FILL_RETRIES:
+            logger.info(f"매도 미체결 재주문 ({attempt}/{_MAX_FILL_RETRIES}): {code} {remaining}주")
+            result = await _kis_order_market("VTTC0801U", code, remaining)
+            if not result:
+                logger.warning(f"매도 재주문 실패: {code} {remaining}주")
+                break
+        else:
+            logger.info(f"매도 최대 재시도 도달: {code} 최종 체결 {total_filled}주 / 주문 {ordered_qty}주")
+    if total_filled != ordered_qty:
+        logger.warning(f"매도 부분체결: {code} 주문 {ordered_qty}주 → 체결 {total_filled}주")
+    return total_filled
+
+
 async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
     """주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry"""
     total_filled = 0
@@ -307,22 +388,37 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
 
 
 async def place_sell_order(code: str, name: str, price: int, quantity: int, position_id: str, reason: str, buy_price: int) -> bool:
-    # 시장가 매도 (지정가 미체결 방지)
+    # 시장가 매도 + 체결 확인
     result = await _kis_order_market("VTTC0801U", code, quantity)
     if result:
+        filled_qty = await _verify_sell_fill(code, quantity)
+        if filled_qty <= 0:
+            # 체결 0주 → 매도 실패 처리
+            unmark_selling(position_id)
+            _peak_prices.pop(position_id, None)
+            logger.warning(f"매도 체결 0주: {name}({code}) — 매도 실패 처리")
+            await send_telegram(f"<b>⚠️ 매도 미체결</b>\n{name} ({code})\n사유: {reason}\n체결 0주, 수동 확인 필요")
+            return False
         pnl = calc_pnl_pct(buy_price, price)
-        await update_position_sold(position_id, price, pnl, reason)
         reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
         reason_label = reason_labels.get(reason, reason)
         emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
-        # 고점 추적 정리
         _peak_prices.pop(position_id, None)
-        logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%)")
+        if filled_qty < quantity:
+            # 부분체결: 남은 수량으로 업데이트, status=filled 유지 (다음 체크에서 재시도)
+            await update_position_quantity(position_id, quantity - filled_qty)
+            unmark_selling(position_id)
+            logger.warning(f"매도 부분체결: {name}({code}) {filled_qty}/{quantity}주, 잔여 {quantity - filled_qty}주")
+        else:
+            # 전량 체결: sold 처리
+            await update_position_sold(position_id, price, pnl, reason)
+        logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%) {filled_qty}주")
         await send_telegram(
             f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
             f"<b>{name} ({code})</b>\n"
             f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
-            f"수익률: {pnl:+.2f}% ({quantity}주)"
+            f"수익률: {pnl:+.2f}% ({filled_qty}주)"
+            + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
         )
         # 매도 후 구독 갱신 (보유 종목 변경 반영)
         try:
