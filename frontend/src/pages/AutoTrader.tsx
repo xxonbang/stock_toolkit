@@ -559,9 +559,9 @@ export default function AutoTrader() {
                     if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders" || opt.key === "fallback_top_leader") && !isOn) {
                       next.top_leader = false;
                     }
-                    // fallback은 차트/지표/대장주전체 중 하나 이상 ON일 때만 가능
+                    // fallback ON → 차트/지표/대장주전체 자동 ON
                     if (opt.key === "fallback_top_leader" && !isOn) {
-                      if (!next.chart && !next.indicator && !next.all_leaders) return;
+                      next.chart = true; next.indicator = true; next.all_leaders = true;
                     }
                     // 차트/지표/대장주전체 모두 OFF가 되면 fallback도 OFF
                     if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders") && isOn) {
