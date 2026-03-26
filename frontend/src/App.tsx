@@ -1,6 +1,8 @@
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Dashboard from './pages/Dashboard'
+import Portfolio from './pages/Portfolio'
+import AutoTrader from './pages/AutoTrader'
 import Scanner from './pages/Scanner'
 
 
@@ -35,10 +37,12 @@ export default function App() {
     <HashRouter>
       <div className="min-h-screen pb-4" style={{ background: 'var(--bg)' }}>
         <Routes>
-          <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />} />
-          <Route path="/portfolio" element={<Dashboard onToggleTheme={toggle} isDark={dark} page="portfolio" />} />
+          <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />}>
+            <Route index element={null} />
+            <Route path="portfolio" element={<Portfolio />} />
+            <Route path="auto-trader" element={<AutoTrader />} />
+          </Route>
           <Route path="/scanner" element={<Scanner onToggleTheme={toggle} isDark={dark} />} />
-          <Route path="/auto-trader" element={<Dashboard onToggleTheme={toggle} isDark={dark} page="auto-trader" />} />
         </Routes>
       </div>
     </HashRouter>
