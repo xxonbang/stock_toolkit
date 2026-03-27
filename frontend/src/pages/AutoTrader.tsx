@@ -256,6 +256,25 @@ export default function AutoTrader() {
   }, 0);
   const totalInvested = active.reduce((s, t) => s + (t.filled_price ?? t.order_price) * t.quantity, 0);
 
+  // 미실현 포함 계산
+  const [summaryTab, setSummaryTab] = useState<"realized" | "all">("realized");
+  const unrealizedPnl = active.reduce((s, t) => {
+    const bp = t.filled_price ?? t.order_price;
+    const cp = prices[t.code]?.price || 0;
+    return s + (cp > 0 && bp > 0 ? (cp - bp) * t.quantity : 0);
+  }, 0);
+  const unrealizedPnlPct = active.map(t => {
+    const bp = t.filled_price ?? t.order_price;
+    const cp = prices[t.code]?.price || 0;
+    return cp > 0 && bp > 0 ? (cp - bp) / bp * 100 : 0;
+  });
+  const allTotalTrades = totalTrades + active.length;
+  const allWins = wins + unrealizedPnlPct.filter(p => p > 0).length;
+  const allLosses = losses + unrealizedPnlPct.filter(p => p < 0).length;
+  const allWinRate = allTotalTrades > 0 ? ((allWins / allTotalTrades) * 100).toFixed(1) : "0.0";
+  const allAvgPnl = allTotalTrades > 0 ? ((closed.reduce((s, t) => s + (t.pnl_pct ?? 0), 0) + unrealizedPnlPct.reduce((s, p) => s + p, 0)) / allTotalTrades).toFixed(2) : "0.00";
+  const allTotalPnl = totalPnl + unrealizedPnl;
+
   async function handleSell(trade: Trade) {
     setSelling(prev => new Set(prev).add(trade.id));
     const ok = await requestSell(trade.id);
@@ -793,11 +812,29 @@ export default function AutoTrader() {
       </details>
 
       {/* 성과 요약 */}
-      <div className="grid grid-cols-2 gap-3">
-        <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
-        <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
-        <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--up)" : "var(--down)"} />
-        <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
+      <div>
+        <div className="flex gap-1 mb-3 p-0.5 rounded-lg" style={{ background: "var(--bg-pill)" }}>
+          {([["realized", "실현 손익"], ["all", "미실현 포함"]] as const).map(([key, label]) => (
+            <button key={key} onClick={() => setSummaryTab(key)}
+              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${summaryTab === key ? "t-text shadow-sm" : "t-text-dim"}`}
+              style={summaryTab === key ? { background: "var(--bg-pill-active)" } : {}}>
+              {label}
+            </button>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          {summaryTab === "realized" ? (<>
+            <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
+            <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
+            <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--up)" : "var(--down)"} />
+            <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
+          </>) : (<>
+            <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${allTotalTrades}건`} sub={`승 ${allWins} / 패 ${allLosses}`} />
+            <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${allWinRate}%`} sub={`평균 수익률 ${allAvgPnl}%`} />
+            <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(allTotalPnl))} color={allTotalPnl >= 0 ? "var(--up)" : "var(--down)"} sub={`미실현 ${formatKRW(Math.round(unrealizedPnl))}`} />
+            <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
+          </>)}
+        </div>
       </div>
 
       {active.length > 0 && (
