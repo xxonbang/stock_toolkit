@@ -2,6 +2,12 @@
 
 ## 2026-03-26
 
+### [버그픽스] 시장가 주문 실제 체결가 사용 (2026-03-27 10:48 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** 매수/매도 시 주문 전 현재가 대신 KIS inquire-daily-ccld API로 실제 체결 단가 조회. `_get_actual_fill_price()` 함수 추가, `place_buy_order_with_qty()`와 `place_sell_order()`에서 실제 체결가 사용 (조회 실패 시 기존 가격 fallback)
+- **원인:** 시장가 주문은 매도호가에 체결되어 주문 전 현재가(최근 체결가)와 차이 발생
+- **커밋:** `f7cbe9f`
+
 ### [기능] 전략 선택 UI + 비교 성과 표시 (2026-03-27 06:15 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`, `frontend/src/lib/supabase.ts`
 - **내용:** Stepped Trailing / 고정 익절 전략 전환 UI, 전략 비교 성과 펼치기/접기 카드, strategyType에 따른 익절/손절 설정 분기(stepped 시 손절만 편집 가능). supabase.ts에 strategy_type 지원 추가 및 getStrategySimulations() 함수 추가
