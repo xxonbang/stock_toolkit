@@ -15,6 +15,7 @@ interface Trade {
   status: string;
   pnl_pct: number | null;
   sell_reason: string | null;
+  sell_price: number | null;
   created_at: string;
   filled_at: string | null;
   sold_at: string | null;
@@ -801,9 +802,22 @@ function TradeRow({ trade, type, onSell, selling, currentPrice }: {
           )}
         </div>
       )}
-      {type === "closed" && trade.sell_reason && (
-        <div className="text-xs mt-1" style={{ color: trade.sell_reason === "take_profit" ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "#3b82f6" }}>
-          {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : "손절"}
+      {type === "closed" && (
+        <div className="text-xs mt-1 space-y-0.5">
+          {trade.sell_reason && (
+            <div style={{ color: (trade.sell_reason === "take_profit" || trade.sell_reason === "stepped_trailing") ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "#3b82f6" }}>
+              {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "stepped_trailing" ? "Stepped 익절" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : trade.sell_reason === "stop_loss" ? "손절" : trade.sell_reason || "매도"}
+              {trade.sell_price ? ` (${trade.sell_price.toLocaleString("ko-KR")}원)` : ""}
+            </div>
+          )}
+          <div className="flex items-center justify-between t-text-dim">
+            {trade.sold_at && <span>매도 {formatDate(trade.sold_at)}</span>}
+            {trade.pnl_pct != null && trade.filled_price && (
+              <span style={{ color: trade.pnl_pct >= 0 ? "var(--success)" : "#3b82f6" }} className="font-medium">
+                {trade.pnl_pct >= 0 ? "+" : ""}{Math.round(trade.filled_price * trade.quantity * trade.pnl_pct / 100).toLocaleString("ko-KR")}원
+              </span>
+            )}
+          </div>
         </div>
       )}
     </div>
