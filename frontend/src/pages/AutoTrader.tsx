@@ -100,6 +100,7 @@ export default function AutoTrader() {
   const [strategySaving, setStrategySaving] = useState(false);
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | null>(null);
+  const [excludedDates, setExcludedDates] = useState<Set<string>>(new Set());
   const [simulations, setSimulations] = useState<any[]>([]);
 
   useEffect(() => {
@@ -599,16 +600,7 @@ export default function AutoTrader() {
                         <h3 className="text-sm font-bold t-text mb-3">
                           {strategyDetail === "real" ? `${realLabel} (실제)` : `${simLabel} (가상)`}
                         </h3>
-                        {/* 합산 */}
-                        <div className="flex items-center gap-3 mb-3 p-2.5 rounded-lg" style={{ background: "var(--bg)" }}>
-                          <div className={`text-lg font-bold tabular-nums ${(strategyDetail === "real" ? realPnl : simPnl) >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                            {(strategyDetail === "real" ? realPnl : simPnl) >= 0 ? "+" : ""}{(strategyDetail === "real" ? realPnl : simPnl).toFixed(2)}%
-                          </div>
-                          <div className="text-[10px] t-text-dim">
-                            {strategyDetail === "real" ? allRealTrades.length : allSims.length}건
-                          </div>
-                        </div>
-                        {/* 종목 리스트 — 날짜별 그룹핑 */}
+                        {/* 종목 리스트 — 날짜별 그룹핑 + 체크박스 */}
                         {(() => {
                           const items = strategyDetail === "real"
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
@@ -616,7 +608,6 @@ export default function AutoTrader() {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `${s.entry_price?.toLocaleString()}원` };
                               });
-                          // 날짜별 그룹핑
                           const grouped: Record<string, typeof items> = {};
                           for (const item of items) {
                             const key = item._date;
@@ -625,19 +616,43 @@ export default function AutoTrader() {
                           }
                           const dates = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
                           const todayStr = new Date().toISOString().slice(0, 10);
+                          // 체크된 날짜의 합산
+                          const includedItems = items.filter(it => !excludedDates.has(it._date));
+                          const filteredPnl = includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0);
+                          const allChecked = excludedDates.size === 0;
 
                           return (
-                            <div className="space-y-3">
+                            <>
+                            {/* 합산 + 전체선택 */}
+                            <div className="flex items-center justify-between mb-3 p-2.5 rounded-lg" style={{ background: "var(--bg)" }}>
+                              <div className="flex items-center gap-3">
+                                <div className={`text-lg font-bold tabular-nums ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                  {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
+                                </div>
+                                <div className="text-[10px] t-text-dim">{includedItems.length}건</div>
+                              </div>
+                              <button onClick={() => setExcludedDates(allChecked ? new Set(dates) : new Set())}
+                                className="text-[10px] t-text-dim hover:t-text transition px-2 py-1 rounded-lg" style={{ border: "1px solid var(--border)" }}>
+                                {allChecked ? "전체 해제" : "전체 선택"}
+                              </button>
+                            </div>
+                            <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
                                 const dayPnl = group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0);
                                 const isToday = date === todayStr || date === "보유";
+                                const isChecked = !excludedDates.has(date);
                                 return (
                                   <details key={date} open={isToday}>
-                                    <summary className="flex items-center justify-between px-2 py-1.5 rounded-lg cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden hover:opacity-80 transition" style={{ background: "var(--bg)" }}>
+                                    <summary className={`flex items-center justify-between px-2.5 py-2 rounded-xl cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden transition ${isChecked ? "" : "opacity-40"}`}
+                                      style={{ background: "var(--bg-card-alt)", border: "1px solid var(--border-light)" }}>
                                       <div className="flex items-center gap-2">
+                                        <input type="checkbox" checked={isChecked}
+                                          onChange={(e) => { e.stopPropagation(); setExcludedDates(prev => { const s = new Set(prev); isChecked ? s.add(date) : s.delete(date); return s; }); }}
+                                          onClick={(e) => e.stopPropagation()}
+                                          className="custom-check" />
                                         <ChevronDown size={12} className="t-text-dim transition-transform [details:not([open])>&]:-rotate-90" />
-                                        <span className="text-[11px] font-medium t-text">{date}</span>
+                                        <span className="text-[11px] font-semibold t-text">{date}</span>
                                         <span className="text-[10px] t-text-dim">{group.length}건</span>
                                       </div>
                                       <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
@@ -646,7 +661,7 @@ export default function AutoTrader() {
                                     </summary>
                                     <div className="space-y-1 mt-1">
                                       {group.map((item: any, i: number) => (
-                                        <div key={i} className="flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
+                                        <div key={i} className={`flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg ${isChecked ? "" : "opacity-40"}`} style={{ background: "var(--bg)" }}>
                                           <div className="flex items-center gap-2 min-w-0">
                                             <span className="t-text font-medium truncate">{item._displayName}</span>
                                             <span className="text-[10px] t-text-dim">{item._displaySub}</span>
@@ -663,6 +678,7 @@ export default function AutoTrader() {
                                 );
                               })}
                             </div>
+                            </>
                           );
                         })()}
                       </div>
