@@ -564,6 +564,8 @@ async def run_buy_process():
     balance = await fetch_available_balance()
     if balance <= 0:
         logger.warning("가용 잔고 없음 — 매수 중단")
+        names = ", ".join(c["name"] for c in buy_candidates[:5])
+        await send_telegram(f"⚠️ 매수 실패: 가용 잔고 없음\n대상 종목: {names}\n잔고: {balance:,}원")
         return
 
     if balance <= TRADE_MIN_AMOUNT_PER_STOCK:
@@ -574,11 +576,17 @@ async def run_buy_process():
     amount_per_stock = balance // len(actual_candidates)
     logger.info(f"매수 대상 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
 
+    bought = 0
     for c in actual_candidates:
         quantity = calc_quantity(amount_per_stock, c["price"])
         if quantity <= 0:
+            logger.info(f"잔고 부족으로 매수 불가 — {c['name']}({c['code']}) {c['price']:,}원, 종목당 {amount_per_stock:,}원")
             continue
         await place_buy_order_with_qty(c["code"], c["name"], c["price"], quantity)
+        bought += 1
+    if bought == 0 and actual_candidates:
+        names = ", ".join(c["name"] for c in actual_candidates)
+        await send_telegram(f"⚠️ 매수 실패: 잔고 부족\n대상: {names}\n잔고: {balance:,}원, 종목당 {amount_per_stock:,}원")
 
 
 def _today_utc_start() -> str:
