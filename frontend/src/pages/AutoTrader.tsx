@@ -362,7 +362,26 @@ export default function AutoTrader() {
     <div className="space-y-4">
       {/* 투자 전략 선택 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
-        <div className="text-[11px] font-semibold t-text mb-2">투자 전략</div>
+        <div className="text-[11px] font-semibold t-text mb-1">투자 전략</div>
+        {/* 현재 적용 중인 설정 */}
+        <div className="text-[10px] t-text-dim mb-2 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 flex-wrap" style={{ background: "var(--bg)" }}>
+          <span className="font-medium t-text-sub">적용 중:</span>
+          <span className={savedStrategyType === "stepped" ? "text-blue-500" : "text-amber-500"}>
+            {savedStrategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절"}
+          </span>
+          <span className="t-text-dim">·</span>
+          <span className={savedResearchOptimal ? "text-indigo-500" : "text-emerald-500"}>
+            {savedResearchOptimal ? "연구 최적 전략" : (() => {
+              const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = savedToggles;
+              if (top_leader) return "대장주 1위";
+              const parts = [chart && "차트", indicator && "지표", all_leaders && "대장주"].filter(Boolean) as string[];
+              if (parts.length === 0 && !fallback_top_leader) return "매집 중지";
+              let desc = parts.join("+");
+              if (fallback_top_leader) desc += desc ? "+FB" : "대장주 1위";
+              return desc || "수동";
+            })()}
+          </span>
+        </div>
         <div className="flex gap-2">
           {(["stepped", "fixed"] as const).map(st => (
             <button key={st} onClick={() => {
