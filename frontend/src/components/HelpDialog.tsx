@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { HelpCircle, X } from "lucide-react";
 
@@ -165,6 +165,79 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
 };
 
+/* 색상 키워드 → 실제 색상 매핑 */
+const COLOR_MAP: Record<string, string> = {
+  "초록": "#22c55e", "녹색": "#22c55e", "빨강": "#ef4444", "빨간": "#ef4444",
+  "주황": "#f97316", "파랑": "#3b82f6", "파란": "#3b82f6", "노랑": "#eab308",
+};
+const COLOR_RE = new RegExp(`(${Object.keys(COLOR_MAP).join("|")})`, "g");
+
+/** desc 문자열을 구조화된 JSX로 변환 */
+function renderHelpDesc(desc: string) {
+  const paragraphs = desc.split("\n\n");
+  return paragraphs.map((para, pi) => {
+    const lines = para.split("\n");
+    const elements: React.ReactNode[] = [];
+    let bullets: string[] = [];
+
+    const flushBullets = () => {
+      if (bullets.length === 0) return;
+      elements.push(
+        <ul key={`b-${pi}-${elements.length}`} className="space-y-1 ml-1">
+          {bullets.map((b, bi) => (
+            <li key={bi} className="flex gap-1.5 text-sm t-text-sub leading-relaxed">
+              <span className="t-text-dim shrink-0">·</span>
+              <span>{colorize(b)}</span>
+            </li>
+          ))}
+        </ul>
+      );
+      bullets = [];
+    };
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("■")) {
+        flushBullets();
+        elements.push(
+          <h4 key={`h-${pi}-${elements.length}`} className="text-[13px] font-semibold t-text mt-3 mb-1">
+            {trimmed.replace(/^■\s*/, "")}
+          </h4>
+        );
+      } else if (trimmed.startsWith("·")) {
+        bullets.push(trimmed.replace(/^·\s*/, ""));
+      } else if (trimmed) {
+        flushBullets();
+        elements.push(
+          <p key={`p-${pi}-${elements.length}`} className="text-sm t-text-sub leading-relaxed">
+            {colorize(trimmed)}
+          </p>
+        );
+      }
+    }
+    flushBullets();
+    return <div key={pi} className={pi > 0 ? "mt-3" : ""}>{elements}</div>;
+  });
+}
+
+/** 색상 키워드 앞에 컬러 칩(●) 삽입 */
+function colorize(text: string): React.ReactNode {
+  const parts = text.split(COLOR_RE);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) => {
+    const color = COLOR_MAP[part];
+    if (color) {
+      return (
+        <span key={i} className="inline-flex items-center gap-0.5">
+          <span className="inline-block w-2 h-2 rounded-full shrink-0" style={{ background: color }} />
+          <span>{part}</span>
+        </span>
+      );
+    }
+    return part;
+  });
+}
+
 export function SectionHeader({
   id,
   children,
@@ -177,16 +250,44 @@ export function SectionHeader({
   timestamp?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const popRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ top: number; left: number; arrowLeft: number } | null>(null);
   const help = SECTION_HELP[id];
 
+  const updatePos = useCallback(() => {
+    if (!btnRef.current) return;
+    const r = btnRef.current.getBoundingClientRect();
+    const popW = Math.min(340, window.innerWidth - 24);
+    // 팝오버를 아이콘 아래 중앙 정렬, 화면 밖 나가지 않도록 clamp
+    let left = r.left + r.width / 2 - popW / 2;
+    left = Math.max(12, Math.min(left, window.innerWidth - popW - 12));
+    const arrowLeft = r.left + r.width / 2 - left;
+    setPos({ top: r.bottom + 8, left, arrowLeft });
+  }, []);
+
+  const handleOpen = () => {
+    updatePos();
+    setOpen(true);
+  };
+
+  // 외부 클릭 닫기
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [open]);
+    if (!open) return;
+    const onClickOutside = (e: MouseEvent) => {
+      if (popRef.current && !popRef.current.contains(e.target as Node) &&
+          btnRef.current && !btnRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onScroll = () => updatePos();
+    document.addEventListener("mousedown", onClickOutside);
+    window.addEventListener("scroll", onScroll, true);
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener("scroll", onScroll, true);
+    };
+  }, [open, updatePos]);
 
   return (
     <>
@@ -201,7 +302,8 @@ export function SectionHeader({
         </h2>
         {help && (
           <button
-            onClick={() => setOpen(true)}
+            ref={btnRef}
+            onClick={() => open ? setOpen(false) : handleOpen()}
             className="t-text-dim hover:text-blue-500 transition"
           >
             <HelpCircle size={16} />
@@ -211,30 +313,31 @@ export function SectionHeader({
           <span className="ml-auto text-[11px] t-text-sub shrink-0">{timestamp}</span>
         )}
       </div>
-      {open && help && createPortal(
+      {open && help && pos && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/30 anim-fade-in"
-          onClick={() => setOpen(false)}
+          ref={popRef}
+          className="fixed z-[9999] anim-scale-in"
+          style={{ top: pos.top, left: pos.left, width: Math.min(340, window.innerWidth - 24) }}
         >
+          {/* 화살표 */}
           <div
-            className="t-card rounded-t-2xl sm:rounded-2xl shadow-xl max-w-sm w-full max-h-[80vh] flex flex-col anim-slide-up sm:anim-scale-in"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* 드래그 핸들 + 닫기 버튼 */}
-            <div className="flex items-center justify-center relative px-4 pt-3 shrink-0">
-              <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
+            className="absolute -top-[6px] w-3 h-3 rotate-45 t-card border-l border-t t-border-light"
+            style={{ left: pos.arrowLeft - 6 }}
+          />
+          <div className="t-card rounded-xl shadow-lg border t-border-light max-h-[60vh] flex flex-col overflow-hidden">
+            {/* 헤더 */}
+            <div className="flex items-center justify-between px-4 pt-3 pb-2 shrink-0">
+              <h3 className="text-[13px] font-semibold t-text">{help.title}</h3>
               <button
                 onClick={() => setOpen(false)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text-sub transition"
+                className="p-1.5 -mr-1.5 t-text-dim hover:t-text-sub transition rounded-lg"
+                aria-label="닫기"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
-            <div className="flex items-center p-4 pb-2 shrink-0 sticky top-0 t-card rounded-t-2xl z-10">
-              <h3 className="font-semibold t-text">{help.title}</h3>
-            </div>
             <div className="overflow-y-auto px-4 pb-4">
-              <p className="text-sm t-text-sub leading-relaxed whitespace-pre-line">{help.desc}</p>
+              {renderHelpDesc(help.desc)}
             </div>
           </div>
         </div>,
