@@ -857,8 +857,11 @@ def get_carry_threshold(hold_days: int) -> float:
     return _CARRY_THRESHOLDS[idx]
 
 async def sell_all_positions_market():
-    """장 마감 청산 — 수익 +3% 이상은 익일 보유, 나머지 시장가 매도"""
+    """장 마감 청산 — 손절 미도달 종목은 익일 보유, 수동매도 요청 및 매수가 불명 종목만 매도"""
     from daemon.position_db import invalidate_cache
+
+    config = await _get_trade_config()
+    sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
 
     # 1) 미체결 주문 취소
     await cancel_all_pending_orders()
@@ -877,29 +880,32 @@ async def sell_all_positions_market():
 
     for pos in filled:
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+
+        # 수동 매도 요청(sell_requested)은 무조건 매도
+        if pos["status"] == "sell_requested":
+            to_sell.append(pos)
+            pos["_current_price"] = await _get_current_price(pos["code"])
+            pos["_pnl"] = calc_pnl_pct(buy_price, pos["_current_price"]) if buy_price > 0 and pos["_current_price"] > 0 else 0
+            continue
+
         if buy_price <= 0:
             to_sell.append(pos)
             continue
 
-        # 보유일 계산
         hold_days = _calc_hold_days(pos)
 
         current_price = await _get_current_price(pos["code"])
         pnl = calc_pnl_pct(buy_price, current_price) if current_price > 0 else 0
         pos["_current_price"] = current_price
         pos["_pnl"] = pnl
+        pos["_hold_days"] = hold_days
 
-        # 보유일수 연동 장 마감 보유 기준 (금요일/연휴 전날은 기준 상향)
-        carry_threshold = get_carry_threshold(hold_days)
-        # 금요일 또는 다음 영업일까지 2일 이상 → carry 기준 1.5배
-        if today.weekday() == 4:  # 금요일
-            carry_threshold = carry_threshold * 1.5
-        if pnl >= carry_threshold:
-            to_carry.append(pos)
-            pos["_hold_days"] = hold_days
-            pos["_carry_threshold"] = carry_threshold
-        else:
+        # 판정: 손절 기준 이하 → 매도, 그 외 → 익일 보유
+        # (장중에 -2%에서 이미 손절되므로 여기 도달하는 경우는 드묾)
+        if pnl <= sl:
             to_sell.append(pos)
+        else:
+            to_carry.append(pos)
         await asyncio.sleep(0.2)
 
     # 익일 보유 종목: 고점 추적 초기화 (익일 시가부터 새로 추적)
@@ -911,12 +917,11 @@ async def sell_all_positions_market():
         carry_lines = []
         for pos in to_carry:
             d = pos.get("_hold_days", 0)
-            thr = pos.get("_carry_threshold", 3)
-            carry_lines.append(f"  {pos['name']}({pos['code']}) {pos['_pnl']:+.2f}% (D+{d}, 기준 +{thr}%)")
+            carry_lines.append(f"  {pos['name']}({pos['code']}) {pos['_pnl']:+.2f}% (D+{d})")
         logger.info(f"익일 보유: {len(to_carry)}종목")
         await send_telegram(
             f"<b>📌 익일 보유 ({len(to_carry)}종목)</b>\n"
-            f"보유일별 기준 충족 → 보유 유지\n\n"
+            f"손절 미도달 → 보유 유지 (익일 -2% 손절 적용)\n\n"
             + "\n".join(carry_lines)
         )
 
