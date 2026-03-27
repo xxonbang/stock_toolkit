@@ -674,6 +674,7 @@ async def check_positions_for_sell(current_price_data: dict):
         effective_tp = get_tiered_tp(tp, hold_days)
 
         strategy_type = config.get("strategy_type", "fixed")
+        reason = None
 
         if strategy_type == "stepped":
             # Stepped Trailing: 고정 TP 없음, stepped stop만 적용
