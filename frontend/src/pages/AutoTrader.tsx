@@ -547,6 +547,142 @@ export default function AutoTrader() {
           </div>
         )}
         </div>
+        {/* 매집 종목 선정 기준 */}
+        <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-semibold t-text">매집 종목 선정</span>
+            <button onClick={(e) => { e.preventDefault(); setShowBuyHelp(true); }} className="t-text-dim hover:t-text transition">
+              <HelpCircle size={13} />
+            </button>
+          </div>
+          {/* 모드 전환: 연구 최적 vs 수동 설정 */}
+          <div className="flex gap-1 p-0.5 rounded-lg mb-2" style={{ background: "var(--bg-pill)" }}>
+            <button onClick={() => setUseResearchOptimal(true)}
+              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
+              style={useResearchOptimal ? { background: "var(--bg-pill-active)" } : {}}>
+              연구 최적 전략
+            </button>
+            <button onClick={() => setUseResearchOptimal(false)}
+              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${!useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
+              style={!useResearchOptimal ? { background: "var(--bg-pill-active)" } : {}}>
+              수동 설정
+            </button>
+          </div>
+          {/* 연구 최적 전략 설명 */}
+          {useResearchOptimal && (
+            <div>
+              <div className="p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
+                <div className="text-[11px] font-semibold t-text mb-1">5팩터 스코어 Top-2 자동 선정</div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>API 매수</span><span className="t-text-dim">+30점 (적극매수 +10 추가)</span></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#8b5cf6" }}>Vision 매수</span><span className="t-text-dim">+20점 (적극매수 +5 추가)</span></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>대장주 1등</span><span className="t-text-dim">+25점 / 전체 +15점</span></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>저가주</span><span className="t-text-dim">&lt;2만원 +5점</span></div>
+                </div>
+                <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
+                  가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
+                </div>
+              </div>
+              {useResearchOptimal !== savedResearchOptimal && (
+                <div className="flex items-center gap-2 mt-2">
+                  <button disabled={buySaving} onClick={async () => {
+                    setBuySaving(true);
+                    const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
+                    if (ok) { setSavedResearchOptimal(true); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "연구 최적 전략 적용 완료", type: "ok" }); }
+                    else { setUseResearchOptimal(savedResearchOptimal); setToastMsg({ text: "저장 실패", type: "fail" }); }
+                    setTimeout(() => setToastMsg(null), 2500); setBuySaving(false);
+                  }} className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                    {buySaving ? "저장 중..." : "확인"}
+                  </button>
+                  <button onClick={() => setUseResearchOptimal(savedResearchOptimal)} className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80" style={{ borderColor: "var(--border)" }}>취소</button>
+                </div>
+              )}
+            </div>
+          )}
+          {/* 수동 설정 — 기존 토글 */}
+          {!useResearchOptimal && <div className="space-y-0.5">
+            {([
+              { key: "chart", label: "차트 시그널", desc: "AI 차트 분석 매수 신호" },
+              { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
+              { key: "all_leaders", label: "대장주 전체", desc: "모든 테마 대장주 포함" },
+              { key: "top_leader", label: "대장주 1위", desc: "테마별 거래대금 1위만 (독립 모드)" },
+              { key: "fallback_top_leader", label: "Fallback 대장주 1위", desc: "AND 조건 매칭 0건 시 대장주 1위로 대체" },
+            ] as const).map(opt => {
+              const isOn = buyToggles[opt.key];
+              return (
+                <div key={opt.key} className="flex items-center justify-between py-1.5">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[11px] font-medium" style={{ color: isOn ? "var(--text-primary)" : "var(--text-secondary)" }}>{opt.label}</span>
+                    <span className="text-[9px] t-text-dim">{opt.desc}</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const next = { ...buyToggles, [opt.key]: !isOn };
+                      if (opt.key === "top_leader" && !isOn) {
+                        next.chart = false; next.indicator = false;
+                        next.all_leaders = false; next.fallback_top_leader = false;
+                      }
+                      if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders" || opt.key === "fallback_top_leader") && !isOn) {
+                        next.top_leader = false;
+                      }
+                      if (opt.key === "fallback_top_leader" && !isOn) {
+                        next.chart = true; next.indicator = true; next.all_leaders = true;
+                      }
+                      if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders") && isOn) {
+                        if (!next.chart && !next.indicator && !next.all_leaders) next.fallback_top_leader = false;
+                      }
+                      setBuyToggles(next);
+                    }}
+                    className="relative flex-shrink-0 ml-2 w-8 h-[16px] rounded-full transition-colors duration-200"
+                    style={{ background: isOn ? "#3b82f6" : "var(--border)" }}>
+                    <span
+                      className="absolute top-[2px] left-[2px] w-[12px] h-[12px] rounded-full bg-white shadow-sm transition-transform duration-200"
+                      style={{ transform: isOn ? "translateX(16px)" : "translateX(0)" }} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>}
+          {!useResearchOptimal && <div className="mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
+            <div className="text-[10px] t-text-sub mb-2">
+              {(() => {
+                const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
+                if (top_leader) return "테마별 거래대금 1위 종목만 매집 (독립 모드)";
+                const parts = [chart && "차트", indicator && "지표", all_leaders && "대장주전체"].filter(Boolean) as string[];
+                if (parts.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF";
+                let desc = parts.length === 1 ? `${parts[0]} 조건 매집` : parts.length >= 2 ? `${parts.join(" + ")} AND 조건 매집` : "";
+                if (fallback_top_leader) desc += desc ? " → 0건 시 대장주 1위로 대체" : "대장주 1위로 매집";
+                return desc;
+              })()}
+            </div>
+            {(buyToggles.chart !== savedToggles.chart || buyToggles.indicator !== savedToggles.indicator || buyToggles.top_leader !== savedToggles.top_leader || buyToggles.all_leaders !== savedToggles.all_leaders || buyToggles.fallback_top_leader !== savedToggles.fallback_top_leader) && (
+              <div className="flex items-center gap-2">
+                <button disabled={buySaving} onClick={async () => {
+                  setBuySaving(true);
+                  const mode = [buyToggles.chart && "chart", buyToggles.indicator && "indicator", buyToggles.top_leader && "top_leader", buyToggles.all_leaders && "all_leaders", buyToggles.fallback_top_leader && "fallback_top_leader"].filter(Boolean).join(",") || "none";
+                  const ok = await setAlertConfig({ buy_signal_mode: mode });
+                  if (ok) {
+                    setSavedToggles({ ...buyToggles });
+                    setToastMsg({ text: "매집 기준이 저장되었습니다", type: "ok" });
+                  } else {
+                    setBuyToggles({ ...savedToggles });
+                    setToastMsg({ text: "저장 실패 — 다시 시도해주세요", type: "fail" });
+                  }
+                  setTimeout(() => setToastMsg(null), 2500);
+                  setBuySaving(false);
+                }}
+                  className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                  {buySaving ? "저장 중..." : "확인"}
+                </button>
+                <button onClick={() => setBuyToggles({ ...savedToggles })}
+                  className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80"
+                  style={{ borderColor: "var(--border)" }}>
+                  취소
+                </button>
+              </div>
+            )}
+          </div>}
+        </div>
         {/* 전략 비교 펼치기/접기 */}
         <button onClick={() => setShowStrategyCompare(!showStrategyCompare)}
           className="w-full mt-3 pt-3 text-[10px] t-text-dim flex items-center gap-1 hover:t-text transition"
@@ -722,154 +858,6 @@ export default function AutoTrader() {
           </div>
         )}
       </div>
-
-      {/* 매집 종목 선정 기준 설정 — 토글 */}
-      <details open className="rounded-xl border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
-        <summary className="flex items-center justify-between p-3 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
-          <div className="flex items-center gap-1">
-            <ChevronRight size={10} className="transition-transform [[open]>&]:rotate-90 t-text-dim shrink-0" />
-            <span className="text-[11px] font-semibold t-text">매집 종목 선정 기준 설정</span>
-          </div>
-          <button onClick={(e) => { e.preventDefault(); setShowBuyHelp(true); }} className="t-text-dim hover:t-text transition">
-            <HelpCircle size={13} />
-          </button>
-        </summary>
-        {/* 모드 전환: 연구 최적 vs 수동 설정 */}
-        <div className="px-3 pt-1 pb-2">
-          <div className="flex gap-1 p-0.5 rounded-lg" style={{ background: "var(--bg-pill)" }}>
-            <button onClick={() => setUseResearchOptimal(true)}
-              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
-              style={useResearchOptimal ? { background: "var(--bg-pill-active)" } : {}}>
-              연구 최적 전략
-            </button>
-            <button onClick={() => setUseResearchOptimal(false)}
-              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${!useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
-              style={!useResearchOptimal ? { background: "var(--bg-pill-active)" } : {}}>
-              수동 설정
-            </button>
-          </div>
-        </div>
-
-        {/* 연구 최적 전략 설명 */}
-        {useResearchOptimal && (
-          <div className="px-3 pb-3">
-            <div className="p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
-              <div className="text-[11px] font-semibold t-text mb-1">5팩터 스코어 Top-2 자동 선정</div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>API 매수</span><span className="t-text-dim">+30점 (적극매수 +10 추가)</span></div>
-                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#8b5cf6" }}>Vision 매수</span><span className="t-text-dim">+20점 (적극매수 +5 추가)</span></div>
-                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>대장주 1등</span><span className="t-text-dim">+25점 / 전체 +15점</span></div>
-                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>저가주</span><span className="t-text-dim">&lt;2만원 +5점</span></div>
-              </div>
-              <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
-                가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
-              </div>
-            </div>
-            {useResearchOptimal !== savedResearchOptimal && (
-              <div className="flex items-center gap-2 mt-2">
-                <button disabled={buySaving} onClick={async () => {
-                  setBuySaving(true);
-                  const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
-                  if (ok) { setSavedResearchOptimal(true); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "연구 최적 전략 적용 완료", type: "ok" }); }
-                  else { setUseResearchOptimal(savedResearchOptimal); setToastMsg({ text: "저장 실패", type: "fail" }); }
-                  setTimeout(() => setToastMsg(null), 2500); setBuySaving(false);
-                }} className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
-                  {buySaving ? "저장 중..." : "확인"}
-                </button>
-                <button onClick={() => setUseResearchOptimal(savedResearchOptimal)} className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80" style={{ borderColor: "var(--border)" }}>취소</button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* 수동 설정 — 기존 토글 */}
-        {!useResearchOptimal && <div className="px-3 pb-3 space-y-0.5">
-          {([
-            { key: "chart", label: "차트 시그널", desc: "AI 차트 분석 매수 신호" },
-            { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
-            { key: "all_leaders", label: "대장주 전체", desc: "모든 테마 대장주 포함" },
-            { key: "top_leader", label: "대장주 1위", desc: "테마별 거래대금 1위만 (독립 모드)" },
-            { key: "fallback_top_leader", label: "Fallback 대장주 1위", desc: "AND 조건 매칭 0건 시 대장주 1위로 대체" },
-          ] as const).map(opt => {
-            const isOn = buyToggles[opt.key];
-            return (
-              <div key={opt.key} className="flex items-center justify-between py-1.5">
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="text-[11px] font-medium" style={{ color: isOn ? "var(--text-primary)" : "var(--text-secondary)" }}>{opt.label}</span>
-                  <span className="text-[9px] t-text-dim">{opt.desc}</span>
-                </div>
-                <button
-                  onClick={() => {
-                    const next = { ...buyToggles, [opt.key]: !isOn };
-                    // 대장주 1위 ON → 나머지 전부 OFF (독립 모드)
-                    if (opt.key === "top_leader" && !isOn) {
-                      next.chart = false; next.indicator = false;
-                      next.all_leaders = false; next.fallback_top_leader = false;
-                    }
-                    // 차트/지표/대장주전체/fallback ON → 대장주 1위 OFF (공존 가능)
-                    if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders" || opt.key === "fallback_top_leader") && !isOn) {
-                      next.top_leader = false;
-                    }
-                    // fallback ON → 차트/지표/대장주전체 자동 ON
-                    if (opt.key === "fallback_top_leader" && !isOn) {
-                      next.chart = true; next.indicator = true; next.all_leaders = true;
-                    }
-                    // 차트/지표/대장주전체 모두 OFF가 되면 fallback도 OFF
-                    if ((opt.key === "chart" || opt.key === "indicator" || opt.key === "all_leaders") && isOn) {
-                      if (!next.chart && !next.indicator && !next.all_leaders) next.fallback_top_leader = false;
-                    }
-                    setBuyToggles(next);
-                  }}
-                  className="relative flex-shrink-0 ml-2 w-8 h-[16px] rounded-full transition-colors duration-200"
-                  style={{ background: isOn ? "#3b82f6" : "var(--border)" }}>
-                  <span
-                    className="absolute top-[2px] left-[2px] w-[12px] h-[12px] rounded-full bg-white shadow-sm transition-transform duration-200"
-                    style={{ transform: isOn ? "translateX(16px)" : "translateX(0)" }} />
-                </button>
-              </div>
-            );
-          })}
-        </div>}
-        {!useResearchOptimal && <div className="mx-3 mb-3 mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
-          <div className="text-[10px] t-text-sub mb-2">
-            {(() => {
-              const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
-              if (top_leader) return "테마별 거래대금 1위 종목만 매집 (독립 모드)";
-              const parts = [chart && "차트", indicator && "지표", all_leaders && "대장주전체"].filter(Boolean) as string[];
-              if (parts.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF";
-              let desc = parts.length === 1 ? `${parts[0]} 조건 매집` : parts.length >= 2 ? `${parts.join(" + ")} AND 조건 매집` : "";
-              if (fallback_top_leader) desc += desc ? " → 0건 시 대장주 1위로 대체" : "대장주 1위로 매집";
-              return desc;
-            })()}
-          </div>
-          {(buyToggles.chart !== savedToggles.chart || buyToggles.indicator !== savedToggles.indicator || buyToggles.top_leader !== savedToggles.top_leader || buyToggles.all_leaders !== savedToggles.all_leaders || buyToggles.fallback_top_leader !== savedToggles.fallback_top_leader) && (
-            <div className="flex items-center gap-2">
-              <button disabled={buySaving} onClick={async () => {
-                setBuySaving(true);
-                const mode = [buyToggles.chart && "chart", buyToggles.indicator && "indicator", buyToggles.top_leader && "top_leader", buyToggles.all_leaders && "all_leaders", buyToggles.fallback_top_leader && "fallback_top_leader"].filter(Boolean).join(",") || "none";
-                const ok = await setAlertConfig({ buy_signal_mode: mode });
-                if (ok) {
-                  setSavedToggles({ ...buyToggles });
-                  setToastMsg({ text: "매집 기준이 저장되었습니다", type: "ok" });
-                } else {
-                  setBuyToggles({ ...savedToggles });
-                  setToastMsg({ text: "저장 실패 — 다시 시도해주세요", type: "fail" });
-                }
-                setTimeout(() => setToastMsg(null), 2500);
-                setBuySaving(false);
-              }}
-                className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
-                {buySaving ? "저장 중..." : "확인"}
-              </button>
-              <button onClick={() => setBuyToggles({ ...savedToggles })}
-                className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80"
-                style={{ borderColor: "var(--border)" }}>
-                취소
-              </button>
-            </div>
-          )}
-        </div>}
-      </details>
 
       {/* 성과 요약 */}
       <div>
