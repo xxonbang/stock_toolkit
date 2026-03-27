@@ -73,13 +73,23 @@ _KST = timezone(timedelta(hours=9))
 
 
 def _calc_hold_days(pos: dict) -> int:
-    """포지션의 보유일수 계산 (KST 기준)"""
+    """포지션의 보유 거래일수 계산 (주말/공휴일 제외, KST 기준)"""
     created = pos.get("filled_at") or pos.get("created_at", "")
     if not created:
         return 0
     try:
+        from daemon.main import _get_holidays
         created_date = datetime.fromisoformat(created.replace("Z", "+00:00")).astimezone(_KST).date()
-        return (datetime.now(_KST).date() - created_date).days
+        today = datetime.now(_KST).date()
+        if created_date >= today:
+            return 0
+        count = 0
+        d = created_date + timedelta(days=1)
+        while d <= today:
+            if d.weekday() < 5 and d.strftime("%m-%d") not in _get_holidays(d.year):
+                count += 1
+            d += timedelta(days=1)
+        return count
     except Exception:
         return 0
 
