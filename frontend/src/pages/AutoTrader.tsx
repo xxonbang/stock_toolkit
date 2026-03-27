@@ -608,37 +608,63 @@ export default function AutoTrader() {
                             {strategyDetail === "real" ? allRealTrades.length : allSims.length}건
                           </div>
                         </div>
-                        {/* 종목 리스트 */}
-                        <div className="space-y-1">
-                          {strategyDetail === "real" && allRealTrades.map((t: any, i: number) => (
-                            <div key={i} className="flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
-                              <div className="flex items-center gap-2 min-w-0">
-                                <span className="t-text font-medium truncate">{t.name}</span>
-                                <span className="text-[10px] t-text-dim">{t.code}</span>
-                                {t._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
-                              </div>
-                              <span className={`tabular-nums font-bold shrink-0 ${(t.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                {(t.pnl_pct ?? 0) >= 0 ? "+" : ""}{(t.pnl_pct ?? 0).toFixed(2)}%
-                              </span>
+                        {/* 종목 리스트 — 날짜별 그룹핑 */}
+                        {(() => {
+                          const items = strategyDetail === "real"
+                            ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
+                            : allSims.map((s: any) => {
+                                const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
+                                return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `${s.entry_price?.toLocaleString()}원` };
+                              });
+                          // 날짜별 그룹핑
+                          const grouped: Record<string, typeof items> = {};
+                          for (const item of items) {
+                            const key = item._date;
+                            if (!grouped[key]) grouped[key] = [];
+                            grouped[key].push(item);
+                          }
+                          const dates = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
+                          const todayStr = new Date().toISOString().slice(0, 10);
+
+                          return (
+                            <div className="space-y-3">
+                              {dates.map(date => {
+                                const group = grouped[date];
+                                const dayPnl = group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0);
+                                const isToday = date === todayStr || date === "보유";
+                                return (
+                                  <details key={date} open={isToday}>
+                                    <summary className="flex items-center justify-between px-2 py-1.5 rounded-lg cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden hover:opacity-80 transition" style={{ background: "var(--bg)" }}>
+                                      <div className="flex items-center gap-2">
+                                        <ChevronDown size={12} className="t-text-dim transition-transform [details:not([open])>&]:-rotate-90" />
+                                        <span className="text-[11px] font-medium t-text">{date}</span>
+                                        <span className="text-[10px] t-text-dim">{group.length}건</span>
+                                      </div>
+                                      <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                        {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
+                                      </span>
+                                    </summary>
+                                    <div className="space-y-1 mt-1">
+                                      {group.map((item: any, i: number) => (
+                                        <div key={i} className="flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
+                                          <div className="flex items-center gap-2 min-w-0">
+                                            <span className="t-text font-medium truncate">{item._displayName}</span>
+                                            <span className="text-[10px] t-text-dim">{item._displaySub}</span>
+                                            {item._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
+                                            {item._isCapped && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400">{(item.pnl_pct ?? 0) >= 0 ? "익절" : "손절"}</span>}
+                                          </div>
+                                          <span className={`tabular-nums font-bold shrink-0 ${(item.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                            {(item.pnl_pct ?? 0) >= 0 ? "+" : ""}{(item.pnl_pct ?? 0).toFixed(2)}%
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </details>
+                                );
+                              })}
                             </div>
-                          ))}
-                          {strategyDetail === "sim" && allSims.map((s: any, i: number) => {
-                            const matchTrade = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
-                            return (
-                            <div key={i} className="flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
-                              <div className="flex items-center gap-2 min-w-0">
-                                <span className="t-text font-medium truncate">{s._name || matchTrade?.name || "—"}</span>
-                                <span className="text-[10px] t-text-dim tabular-nums">{s.entry_price?.toLocaleString()}원</span>
-                                {s._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
-                                {s._isCapped && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400">{(s.pnl_pct ?? 0) >= 0 ? "익절" : "손절"}</span>}
-                              </div>
-                              <span className={`tabular-nums font-bold shrink-0 ${(s.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                {(s.pnl_pct ?? 0) >= 0 ? "+" : ""}{(s.pnl_pct ?? 0).toFixed(2)}%
-                              </span>
-                            </div>
-                            );
-                          })}
-                        </div>
+                          );
+                        })()}
                       </div>
                     </div>,
                     document.body
