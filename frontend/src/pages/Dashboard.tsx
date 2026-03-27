@@ -832,7 +832,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 const riskMatches = (riskMonitor || []).filter(match);
                 if (riskMatches.length) sections.push({ label: "위험 종목", sectionId: "risk", items: riskMatches.map(r => ({ stock: r, detail: `등급: ${r.level || "-"} | ${(r.warnings || []).join(", ")}` })) });
                 const sqMatches = (shortSqueeze || []).filter(match);
-                if (sqMatches.length) sections.push({ label: "역발상 시그널", sectionId: "squeeze", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.squeeze_score || "-"}` })) });
+                if (sqMatches.length) sections.push({ label: "수급 다이버전스", sectionId: "squeeze", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.divergence_score ?? s.squeeze_score ?? "-"}` })) });
                 const valMatches = (valuation || []).filter(match);
                 if (valMatches.length) sections.push({ label: "밸류에이션", sectionId: "valuation", items: valMatches.map(v => ({ stock: v, detail: `점수: ${v.value_score || "-"} | PER: ${v.per || "-"}` })) });
 
@@ -1553,27 +1553,28 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
 
-      {/* 공매도 역발상 */}
+      {/* 수급 다이버전스 */}
       {(
         <section className="t-card rounded-xl p-4">
-          <SectionHeader id="squeeze" timestamp={ts} count={shortSqueeze?.length ?? 0}>역발상 시그널</SectionHeader>
+          <SectionHeader id="squeeze" timestamp={ts} count={shortSqueeze?.length ?? 0}>수급 다이버전스</SectionHeader>
           <div className="space-y-1.5">
             {(shortSqueeze || []).slice(0, 6).map((s, i) => (
               <div key={i} className="flex items-center justify-between p-2 bg-orange-500/10 border border-orange-500/20 rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{s.name}</div>
-                  <div className="text-xs t-text-sub truncate">{s.overheating}</div>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  {signalBadge(s.signal)}
-                  <div className="text-right shrink-0">
-                    <div className="text-sm font-bold text-orange-600">{s.squeeze_score}</div>
-                    <div className="text-[10px] t-text-dim">역발상</div>
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {(s.factors || []).map((f: string, j: number) => (
+                      <span key={j} className="text-[10px] px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-600 dark:text-orange-400">{f}</span>
+                    ))}
                   </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-sm font-bold text-orange-600">{s.divergence_score ?? s.squeeze_score}</div>
+                  <div className="text-[10px] t-text-dim">스코어</div>
                 </div>
               </div>
             ))}
-            <p className="text-[10px] t-text-dim">과열 경고 + 외국인 매수 전환 = 역발상 매수 기회</p>
+            <p className="text-[10px] t-text-dim">가격 하락 + 수급 유입 괴리 = 반전 가능성</p>
           </div>
             {!shortSqueeze?.length && <Empty />}
         </section>
@@ -1997,50 +1998,62 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         {!memberTrading?.length && <Empty />}
       </section>
 
-      {/* 거래대금 TOP */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="trading_value" timestamp={ts} count={tradingValue?.length ?? 0}>거래대금 TOP</SectionHeader>
-        <div className="space-y-1.5">
-          {(tradingValue || []).slice(0, 10).map((tv: any, i: number) => {
-            const vr = tv.volume_rate || 0;
-            const cr = tv.change_rate || 0;
-            const isSurge = vr >= 200 && cr >= 10;
-            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === tv.code);
-            return (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
-              onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: tv.name, code: tv.code, _noData: true })}>
-              <div className="flex items-center gap-2 min-w-0">
-                <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold flex items-center justify-center shrink-0">
-                  {tv.rank || i + 1}
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1">
-                    <span className="text-sm font-medium truncate">{tv.name}</span>
-                    {tv.is_new && <span className="text-[9px] px-1 py-0.5 rounded bg-blue-500/15 text-blue-400 font-medium">NEW</span>}
-                    {isSurge && <span className="text-[9px] px-1 py-0.5 rounded bg-red-500/15 text-red-400 font-medium">폭증+급등</span>}
+      {/* 거래대금 이상 감지 — 조건 충족 종목만 표시, 0건이면 섹션 숨김 */}
+      {(() => {
+        const highlights = (tradingValue || []).filter((tv: any) => {
+          const vr = tv.volume_rate || 0;
+          const cr = tv.change_rate || 0;
+          return tv.flow_signal || (vr >= 200 && cr >= 10) || tv.is_new;
+        });
+        if (!highlights.length) return null;
+        return (
+        <section className="t-card rounded-xl p-4">
+          <SectionHeader id="trading_value" timestamp={ts} count={highlights.length}>거래대금 이상 감지</SectionHeader>
+          <div className="space-y-1.5">
+            {highlights.map((tv: any, i: number) => {
+              const vr = tv.volume_rate || 0;
+              const cr = tv.change_rate || 0;
+              const isSurge = vr >= 200 && cr >= 10;
+              const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === tv.code);
+              const flowColor: Record<string, string> = {
+                "자금 급유입": "bg-red-500/15 text-red-400",
+                "자금 유입": "bg-amber-500/10 text-amber-400",
+                "자금 소폭 이탈": "bg-blue-500/10 text-blue-400",
+                "자금 이탈": "bg-blue-500/15 text-blue-500",
+              };
+              return (
+              <div key={i} className="flex items-center justify-between p-2.5 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
+                onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: tv.name, code: tv.code, _noData: true })}>
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold flex items-center justify-center shrink-0">
+                    {tv.rank || i + 1}
                   </div>
-                  <div className="flex items-center gap-1.5 text-[10px] t-text-dim">
-                    {vr > 0 && <span>거래량 {vr >= 100 ? `${Math.round(vr)}%` : `${vr.toFixed(0)}%`}</span>}
-                    {tv.rank_change != null && tv.rank_change !== 0 && (
-                      <span className={tv.rank_change > 0 ? "text-red-500" : "text-blue-500"}>
-                        {tv.rank_change > 0 ? `+${tv.rank_change}` : tv.rank_change}
-                      </span>
-                    )}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-sm font-medium truncate">{tv.name}</span>
+                      {tv.market && <span className="text-[9px] t-text-dim">{tv.market === "KOSDAQ" ? "코스닥" : "코스피"}</span>}
+                      {tv.is_new && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400 font-medium">신규진입</span>}
+                      {isSurge && <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/15 text-red-400 font-medium">폭증+급등</span>}
+                      {tv.flow_signal && <span className={`text-[9px] px-1.5 py-0.5 rounded font-medium ${flowColor[tv.flow_signal] || "t-muted t-text-sub"}`}>{tv.flow_signal}</span>}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[10px] t-text-dim mt-0.5">
+                      {vr > 0 && <span>거래량 {Math.round(vr)}%</span>}
+                      {tv.trading_value && <span>· {(tv.trading_value / 100000000).toFixed(0)}억</span>}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className={`text-sm font-medium tabular-nums ${cr >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    {cr >= 0 ? "+" : ""}{cr}%
                   </div>
                 </div>
               </div>
-              <div className="text-right shrink-0 text-xs">
-                <div className={`font-medium ${cr >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                  {cr >= 0 ? "+" : ""}{cr}%
-                </div>
-                {tv.trading_value && <div className="t-text-dim">{(tv.trading_value / 100000000).toFixed(0)}억</div>}
-              </div>
-            </div>
-            );
-          })}
-        </div>
-        {!tradingValue?.length && <Empty />}
-      </section>
+              );
+            })}
+          </div>
+        </section>
+        );
+      })()}
 
       {/* 예측 적중률 */}
       <section className="t-card rounded-xl p-4">
