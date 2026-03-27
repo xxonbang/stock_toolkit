@@ -659,7 +659,7 @@ export default function AutoTrader() {
                                         {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
                                       </span>
                                     </summary>
-                                    <div className="space-y-1 mt-1">
+                                    <div className="ml-4 mt-1.5 pl-3 space-y-1 border-l-2" style={{ borderColor: 'var(--border)' }}>
                                       {group.map((item: any, i: number) => (
                                         <div key={i} className={`flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg ${isChecked ? "" : "opacity-40"}`} style={{ background: "var(--bg)" }}>
                                           <div className="flex items-center gap-2 min-w-0">
