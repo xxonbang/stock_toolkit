@@ -124,7 +124,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [correlationData, setCorrelationData] = useState<any>(null);
   const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
   const [aiMentor, setAiMentor] = useState<any>(null);
-  const [memberTrading, setMemberTrading] = useState<any[] | null>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
@@ -173,7 +172,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       dataService.getCorrelation().then(setCorrelationData),
       dataService.getEarningsCalendar().then(setEarningsCalendar),
       dataService.getAiMentor().then(setAiMentor),
-      dataService.getMemberTrading().then(setMemberTrading),
       dataService.getTradingValue().then(setTradingValue),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
       fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
@@ -1975,27 +1973,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             ))}
           </div>
         ) : <Empty />}
-      </section>
-
-      {/* 증권사 매매 동향 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="member" timestamp={ts} count={memberTrading?.length ?? 0}>증권사 매매 동향</SectionHeader>
-        <div className="space-y-1.5">
-          {(memberTrading || []).slice(0, 6).map((m, i) => (
-            <div key={i} className="p-2 t-card-alt rounded-lg">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium truncate">{m.name}</span>
-                <span className={`text-xs font-medium ${(m.foreign_net || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                  외국인 {m.foreign_net >= 0 ? "+" : ""}{(m.foreign_net / 1000).toFixed(0)}천주
-                </span>
-              </div>
-              <div className="text-xs t-text-sub truncate">
-                매수: {m.buy_top5?.map((b: any) => typeof b === "string" ? b : b?.name || b?.member || "").filter(Boolean).join(", ") || "-"}
-              </div>
-            </div>
-          ))}
-        </div>
-        {!memberTrading?.length && <Empty />}
       </section>
 
       {/* 거래대금 이상 감지 — 조건 충족 종목만 표시, 0건이면 섹션 숨김 */}

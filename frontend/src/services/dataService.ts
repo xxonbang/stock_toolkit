@@ -44,7 +44,6 @@ export const dataService = {
   getEarningsCalendar: () => fetchJson<any>("earnings_calendar.json"),
   getAiMentor: () => fetchJson<any>("ai_mentor.json"),
   getTradingJournal: () => fetchJson<any>("trading_journal.json"),
-  getMemberTrading: () => fetchJson<any[]>("member_trading.json"),
   getTradingValue: () => fetchJson<any[]>("trading_value.json"),
   getPaperTrading: () => fetchJson<any>("paper_trading_latest.json"),
   getForecastAccuracy: () => fetchJson<any>("forecast_accuracy.json"),
