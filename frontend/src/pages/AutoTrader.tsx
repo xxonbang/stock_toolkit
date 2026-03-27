@@ -455,7 +455,7 @@ export default function AutoTrader() {
                   {pctSaving ? "저장 중..." : "저장"}
                 </button>
                 {pctResult && (
-                  <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
+                  <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-green-400"}`}>
                     {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
                     {pctResult === "failed" ? "실패" : "완료"}
                   </div>
@@ -492,7 +492,7 @@ export default function AutoTrader() {
                   {pctSaving ? "저장 중..." : "저장"}
                 </button>
                 {pctResult && (
-                  <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
+                  <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-green-400"}`}>
                     {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
                     {pctResult === "failed" ? "실패" : "완료"}
                   </div>
@@ -538,16 +538,16 @@ export default function AutoTrader() {
                     {(() => {
                       const realWins = realPnl >= simPnl;
                       return <>
-                    <div className={`flex-1 p-2 rounded-lg text-center border ${realWins ? "border-emerald-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
+                    <div className={`flex-1 p-2 rounded-lg text-center border ${realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
                       <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제) {realWins && soldTrades.length > 0 && "✓"}</div>
-                      <div className={`text-sm font-bold tabular-nums ${realPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                      <div className={`text-sm font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                       </div>
                       <div className="text-[9px] t-text-dim">{soldTrades.length}건</div>
                     </div>
-                    <div className={`flex-1 p-2 rounded-lg text-center border ${!realWins ? "border-emerald-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
+                    <div className={`flex-1 p-2 rounded-lg text-center border ${!realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
                       <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상) {!realWins && closedSims.length > 0 && "✓"}</div>
-                      <div className={`text-sm font-bold tabular-nums ${simPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                      <div className={`text-sm font-bold tabular-nums ${simPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
                       </div>
                       <div className="text-[9px] t-text-dim">{closedSims.length}건</div>
@@ -669,7 +669,7 @@ export default function AutoTrader() {
       <div className="grid grid-cols-2 gap-3">
         <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
         <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
-        <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--success)" : "#3b82f6"} />
+        <SummaryCard icon={<DollarSign size={16} />} label="총 수익" value={formatKRW(Math.round(totalPnl))} color={totalPnl >= 0 ? "var(--up)" : "var(--down)"} />
         <SummaryCard icon={<Clock size={16} />} label="보유 중" value={`${active.length}종목`} sub={`투자금 ${formatKRW(totalInvested)}`} />
       </div>
 
@@ -679,7 +679,7 @@ export default function AutoTrader() {
             <h2 className="text-sm font-semibold t-text">보유 중</h2>
             <span className="text-xs px-1.5 py-0.5 rounded-full t-card-alt t-text-sub">{active.length}</span>
             {priceTime && (
-              <span className="text-[10px] text-emerald-400 ml-1 tabular-nums">{priceTime}</span>
+              <span className="text-[10px] text-green-400 ml-1 tabular-nums">{priceTime}</span>
             )}
             <button onClick={refreshPrices} disabled={priceRefreshing}
               className="ml-auto text-[11px] px-2 py-1 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1">
@@ -804,14 +804,8 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
         <div className="flex items-center gap-2 shrink-0">
           {type === "closed" && (
             <span className="text-xs font-bold px-2.5 py-1 rounded-lg tabular-nums"
-              style={{ color: pnl >= 0 ? "var(--success)" : "#3b82f6", background: pnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)" }}>
+              style={{ color: pnl >= 0 ? "var(--up)" : "var(--down)", background: pnl >= 0 ? "rgba(239,68,68,0.1)" : "rgba(59,130,246,0.1)" }}>
               {pnl >= 0 ? "+" : ""}{pnl.toFixed(2)}%
-            </span>
-          )}
-          {type === "active" && livePnl !== null && (
-            <span className="text-xs font-bold px-2.5 py-1 rounded-lg tabular-nums"
-              style={{ color: livePnl >= 0 ? "var(--success)" : "#3b82f6", background: livePnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)" }}>
-              내 수익 {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
             </span>
           )}
           {type === "active" && (
@@ -830,31 +824,38 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
       </div>
       {/* 2단계: 현재가 + 당일등락률 + 손익금 (active만) */}
       {type === "active" && currentPrice != null && (
-        <div className="flex items-center justify-between mb-1.5">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-[15px] font-bold t-text tabular-nums">{formatKRW(currentPrice)}</span>
+        <div className="flex justify-between mb-1.5">
+          <div>
+            <div className="text-[15px] font-bold t-text tabular-nums">{formatKRW(currentPrice)}</div>
             {todayChangeRate != null && todayChangeRate !== 0 && (
-              <span className="text-[11px] font-medium tabular-nums" style={{ color: todayChangeRate >= 0 ? "var(--up)" : "var(--down)" }}>
-                당일 {todayChangeRate >= 0 ? "+" : ""}{todayChangeRate.toFixed(2)}%
-              </span>
+              <div className="text-[11px] font-medium tabular-nums t-text-sub">
+                당일 <span style={{ color: todayChangeRate >= 0 ? "#f97316" : "#8b5cf6" }}>{todayChangeRate >= 0 ? "+" : ""}{todayChangeRate.toFixed(2)}%</span>
+              </div>
             )}
           </div>
           {livePnlAmount !== null && (
-            <span className="text-[14px] font-bold tabular-nums" style={{ color: livePnlAmount >= 0 ? "var(--success)" : "#3b82f6" }}>
-              {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
-            </span>
+            <div className="text-right" style={{ color: livePnlAmount >= 0 ? "var(--up)" : "var(--down)" }}>
+              <div className="text-[14px] font-bold tabular-nums">
+                {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
+              </div>
+              {livePnl !== null && (
+                <div className="text-[11px] font-semibold tabular-nums">
+                  {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
+                </div>
+              )}
+            </div>
           )}
         </div>
       )}
       {/* 3단계: 매수 상세 — compact dimmed */}
       <div className="flex items-center justify-between text-[10px] t-text-dim">
         <span>{formatKRW(buyPrice)} × {trade.quantity.toLocaleString()}주 ({formatKRW(amount)})</span>
-        <span>{formatDate(trade.created_at)}</span>
+        <span>매수 {formatDate(trade.created_at)}</span>
       </div>
       {type === "closed" && (
         <div className="text-xs mt-1 space-y-0.5">
           {trade.sell_reason && (
-            <div style={{ color: (trade.sell_reason === "take_profit" || trade.sell_reason === "stepped_trailing") ? "var(--success)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "#3b82f6" }}>
+            <div style={{ color: (trade.sell_reason === "take_profit" || trade.sell_reason === "stepped_trailing") ? "var(--up)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "var(--down)" }}>
               {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "stepped_trailing" ? "Stepped 익절" : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : trade.sell_reason === "stop_loss" ? "손절" : trade.sell_reason || "매도"}
               {trade.sell_price ? ` (${trade.sell_price.toLocaleString("ko-KR")}원)` : ""}
             </div>
@@ -862,7 +863,7 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
           <div className="flex items-center justify-between t-text-dim">
             {trade.sold_at && <span>매도 {formatDate(trade.sold_at)}</span>}
             {trade.pnl_pct != null && trade.filled_price && (
-              <span style={{ color: trade.pnl_pct >= 0 ? "var(--success)" : "#3b82f6" }} className="font-medium">
+              <span style={{ color: trade.pnl_pct >= 0 ? "var(--up)" : "var(--down)" }} className="font-medium">
                 {trade.pnl_pct >= 0 ? "+" : ""}{Math.round(trade.filled_price * trade.quantity * trade.pnl_pct / 100).toLocaleString("ko-KR")}원
               </span>
             )}
