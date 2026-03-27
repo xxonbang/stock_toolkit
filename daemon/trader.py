@@ -635,6 +635,8 @@ async def run_buy_process():
         if targets:
             scores = ", ".join(f"{t.get('name','')}({t.get('_score',0)}점)" for t in targets)
             logger.info(f"연구 최적 전략: {len(targets)}종목 선정 — {scores}")
+        else:
+            logger.info("연구 최적 전략: 조건 충족 종목 없음 (20점 이상 + 5만원 미만)")
     else:
         # 기존 로직: 토글 기반 필터
         has_fallback = "fallback_top_leader" in buy_mode
