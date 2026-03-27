@@ -986,30 +986,8 @@ def main():
                 val_entry["w52_position"] = round((current_price - w52_low) / (w52_high - w52_low) * 100, 1) if w52_high != w52_low else 50
             val_results.append(val_entry)
         else:
-            # kis_gemini 없으면 criteria_data 폴백
-            crit = criteria_map.get(code, {}) if criteria_map else {}
-            mc = crit.get("market_cap_range", {}) if isinstance(crit, dict) else {}
-            ma = crit.get("ma_alignment", {}) if isinstance(crit, dict) else {}
-            mc_met = mc.get("met", False) if isinstance(mc, dict) else False
-            ma_met = ma.get("met", False) if isinstance(ma, dict) else False
-            if not mc_met:
-                continue
-            score = 50
-            if ma_met:
-                score += 25
-            signal = sig.get("vision_signal", "")
-            if signal in ("매수", "적극매수"):
-                score += 15
-            inv = investor_data.get(code, {})
-            fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
-            if fn > 0:
-                score += 10
-            val_results.append({
-                "code": code, "name": sig.get("name", ""),
-                "signal": signal, "ma_aligned": ma_met,
-                "market_cap_ok": True, "foreign_net": fn,
-                "value_score": min(score, 99),
-            })
+            # 펀더멘탈 데이터 없는 종목은 밸류에이션 대상에서 제외
+            continue
     val_results.sort(key=lambda x: x.get("value_score", 0), reverse=True)
     with open(results_dir / "valuation.json", "w", encoding="utf-8") as f:
         json.dump(val_results[:15], f, ensure_ascii=False, indent=2)
