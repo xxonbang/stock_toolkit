@@ -123,7 +123,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [orderbook, setOrderbook] = useState<any[] | null>(null);
   const [correlationData, setCorrelationData] = useState<any>(null);
   const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
-  const [aiMentor, setAiMentor] = useState<any>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
@@ -171,7 +170,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       dataService.getOrderbook().then(setOrderbook),
       dataService.getCorrelation().then(setCorrelationData),
       dataService.getEarningsCalendar().then(setEarningsCalendar),
-      dataService.getAiMentor().then(setAiMentor),
       dataService.getTradingValue().then(setTradingValue),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
       fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
@@ -1958,21 +1956,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           ))}
         </div>
         {!(earningsCalendar?.items || []).length && <Empty />}
-      </section>
-
-      {/* AI 투자 멘토 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="mentor" timestamp={ts}>AI 투자 멘토</SectionHeader>
-        {aiMentor?.advice?.length ? (
-          <div className="space-y-2">
-            {aiMentor.advice.map((a: any, i: number) => (
-              <div key={i} className="p-2.5 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
-                <div className="text-xs font-medium text-indigo-700 mb-1">{a.category}</div>
-                <div className="text-sm t-text">{a.message}</div>
-              </div>
-            ))}
-          </div>
-        ) : <Empty />}
       </section>
 
       {/* 거래대금 이상 감지 — 조건 충족 종목만 표시, 0건이면 섹션 숨김 */}
