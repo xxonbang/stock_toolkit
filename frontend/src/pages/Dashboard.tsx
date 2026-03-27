@@ -121,7 +121,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [consensus, setConsensus] = useState<any[] | null>(null);
   const [auction, setAuction] = useState<any[] | null>(null);
   const [orderbook, setOrderbook] = useState<any[] | null>(null);
-  const [correlationData, setCorrelationData] = useState<any>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
@@ -167,7 +166,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       dataService.getConsensus().then(setConsensus),
       dataService.getAuction().then(setAuction),
       dataService.getOrderbook().then(setOrderbook),
-      dataService.getCorrelation().then(setCorrelationData),
       dataService.getTradingValue().then(setTradingValue),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
       fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
@@ -1912,30 +1910,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         {!orderbook?.length && <Empty />}
       </section>
 
-      {/* 상관관계 네트워크 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="correlation" timestamp={ts}>상관관계 네트워크</SectionHeader>
-        {correlationData?.pairs?.length ? (
-          <div className="space-y-1.5">
-            {correlationData.pairs.map((p: any, i: number) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <div className="text-sm min-w-0">
-                  <span className="font-medium">{p.stock_a}</span>
-                  <span className="t-text-dim mx-1">↔</span>
-                  <span className="font-medium">{p.stock_b}</span>
-                </div>
-                <div className="shrink-0">
-                  <div className={`w-12 h-2 t-muted rounded-full overflow-hidden`}>
-                    <div className={`h-full rounded-full ${p.correlation > 0.7 ? "bg-red-400" : p.correlation > 0.3 ? "bg-amber-400" : "bg-green-400"}`} style={{width: `${Math.abs(p.correlation) * 100}%`}} />
-                  </div>
-                  <div className="text-[10px] t-text-sub text-right">{p.correlation?.toFixed(2)} {Math.abs(p.correlation) > 0.7 ? "높음" : Math.abs(p.correlation) > 0.3 ? "보통" : "낮음"}</div>
-                </div>
-              </div>
-            ))}
-            <p className="text-[10px] t-text-dim">0.7 이상 = 높은 상관 (분산 효과 낮음)</p>
-          </div>
-        ) : <Empty />}
-      </section>
 
       {/* 거래대금 이상 감지 — 조건 충족 종목만 표시, 0건이면 섹션 숨김 */}
       {(() => {

@@ -40,7 +40,6 @@ export const dataService = {
   getConsensus: () => fetchJson<any[]>("consensus.json"),
   getAuction: () => fetchJson<any[]>("auction.json"),
   getOrderbook: () => fetchJson<any[]>("orderbook.json"),
-  getCorrelation: () => fetchJson<any>("correlation.json"),
   getTradingJournal: () => fetchJson<any>("trading_journal.json"),
   getTradingValue: () => fetchJson<any[]>("trading_value.json"),
   getPaperTrading: () => fetchJson<any>("paper_trading_latest.json"),
