@@ -219,6 +219,45 @@ async def is_upper_limit(code: str, price: int) -> bool:
 _MAX_FILL_RETRIES = 3
 
 
+async def _get_actual_fill_price(code: str, is_sell: bool = False) -> int:
+    """KIS 일별주문체결조회로 실제 체결 단가 조회. 실패 시 0 반환."""
+    token = await _ensure_mock_token()
+    if not token:
+        return 0
+    cano, acnt_cd = _parse_account()
+    today = datetime.now(_KST).strftime("%Y%m%d")
+    sll_buy = "01" if is_sell else "02"
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-daily-ccld"
+    params = {
+        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+        "INQR_STRT_DT": today, "INQR_END_DT": today,
+        "SLL_BUY_DVSN_CD": sll_buy, "INQR_DVSN": "00",
+        "PDNO": "", "CCLD_DVSN": "00",
+        "ORD_GNO_BRNO": "", "ODNO": "",
+        "INQR_DVSN_3": "00", "INQR_DVSN_1": "",
+        "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+    }
+    try:
+        session = await get_session()
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                logger.debug(f"체결가 조회 실패: {code} rt_cd={data.get('rt_cd')} {data.get('msg1', '')}")
+                return 0
+            for order in data.get("output1", []):
+                if order.get("pdno") != code:
+                    continue
+                avg_price = int(order.get("avg_prvs", "0") or "0")
+                if avg_price > 0:
+                    return avg_price
+                fill_price = int(order.get("ccld_prc", "0") or "0")
+                if fill_price > 0:
+                    return fill_price
+    except Exception as e:
+        logger.debug(f"체결가 조회 오류: {code} {e}")
+    return 0
+
+
 async def _cancel_unfilled(code: str, is_sell: bool = False) -> int | None:
     """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환. 조회 실패 시 None."""
     sll_buy = "01" if is_sell else "02"
@@ -348,15 +387,17 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             await delete_position(position["id"])
             logger.warning(f"체결 0주 → pending 삭제: {name}({code})")
             return False
-        await update_position_filled(position["id"], price)
+        actual_price = await _get_actual_fill_price(code, is_sell=False)
+        fill_price = actual_price if actual_price > 0 else price
+        await update_position_filled(position["id"], fill_price)
         if filled_qty != quantity:
             await update_position_quantity(position["id"], filled_qty)
-        logger.info(f"매수 체결: {name}({code}) {price:,}원 × {filled_qty}주 (시장가)")
+        logger.info(f"매수 체결: {name}({code}) {fill_price:,}원 × {filled_qty}주 (시장가)")
         await send_telegram(
             f"<b>📥 자동 매수 체결</b>\n"
             f"<b>{name} ({code})</b>\n"
-            f"가격: {price:,}원 × {filled_qty}주\n"
-            f"금액: {price * filled_qty:,}원"
+            f"가격: {fill_price:,}원 × {filled_qty}주\n"
+            f"금액: {fill_price * filled_qty:,}원"
             + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
         )
         # 매수 후 구독 갱신 (모의투자 종목 WebSocket 수신 시작)
@@ -376,7 +417,7 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             asyncio.ensure_future(_create_simulation(
                 trade_id=trade_id,
                 strategy_type=sim_strategy,
-                entry_price=price,
+                entry_price=fill_price,
                 user_id=user_id,
             ))
         except Exception as e:
@@ -400,7 +441,9 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 logger.warning(f"매도 체결 0주: {name}({code}) — 매도 실패 처리")
                 await send_telegram(f"<b>⚠️ 매도 미체결</b>\n{name} ({code})\n사유: {reason}\n체결 0주, 수동 확인 필요")
                 return False
-            pnl = calc_pnl_pct(buy_price, price)
+            actual_price = await _get_actual_fill_price(code, is_sell=True)
+            sell_price = actual_price if actual_price > 0 else price
+            pnl = calc_pnl_pct(buy_price, sell_price)
             reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
             reason_label = reason_labels.get(reason, reason)
             emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
@@ -412,12 +455,12 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 unmark_selling(position_id)
                 logger.warning(f"매도 부분체결: {name}({code}) {filled_qty}/{quantity}주, 잔여 {quantity - filled_qty}주")
             else:
-                await update_position_sold(position_id, price, pnl, reason)
+                await update_position_sold(position_id, sell_price, pnl, reason)
             logger.info(f"매도 체결: {name}({code}) {reason_label} ({pnl:+.1f}%) {filled_qty}주")
             await send_telegram(
                 f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
                 f"<b>{name} ({code})</b>\n"
-                f"매수가: {buy_price:,}원 → 매도가: {price:,}원\n"
+                f"매수가: {buy_price:,}원 → 매도가: {sell_price:,}원\n"
                 f"수익률: {pnl:+.2f}% ({filled_qty}주)"
                 + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
             )
