@@ -2,6 +2,15 @@
 
 ## 2026-03-27
 
+### [개선] 역발상 시그널 → 수급 다이버전스 재설계 (2026-03-27 23:00 KST)
+- **변경 파일:** `scripts/run_all.py`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`
+- **내용:** 단일팩터(과열+외국인) 기반 역발상 시그널을 5팩터 수급 다이버전스로 재설계. 가격 하락/외국인 순매수/기관 순매수/RSI 과매도/거래량 급증 스코어링. 프론트엔드 팩터 태그 표시, 도움말 업데이트. falling 종목 중복 경로 제거.
+
+### [개선] 거래대금 TOP → 거래대금 이상 감지 리포지셔닝 (2026-03-27 22:30 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`
+- **내용:** 30개 전체 나열에서 flow_signal/폭증+급등/신규진입 조건 필터링으로 전환. 0건이면 섹션 숨김. flow_signal 뱃지 색상 분류, 시장 구분 표시 추가.
+- **커밋:** `4a355fe`
+
 ### [버그픽스] 전략 비교 시뮬레이션 로직 수정 + UI 개선 (2026-03-27 16:00 KST)
 - **변경 파일:** `daemon/trader.py`, `daemon/stock_manager.py`, `daemon/config.py`, `daemon/ws_client.py`, `frontend/src/pages/AutoTrader.tsx`, `frontend/vite.config.ts`, `frontend/src/services/dataService.ts`
 - **내용:**

@@ -1120,51 +1120,73 @@ def main():
     with open(results_dir / "premarket.json", "w", encoding="utf-8") as f:
         json.dump(premarket_report, f, ensure_ascii=False, indent=2)
 
-    # 역발상 시그널 — criteria_data 기반 (공매도/골든크로스 필드 추가)
-    squeeze_results = []
+    # 수급 다이버전스 — 가격 하락 vs 수급 유입 괴리 탐지
+    divergence_results = []
+    # RSI 과매도 종목 셋 구성
+    rsi_oversold_map = {}
+    for a in anomalies:
+        if a.get("type") == "RSI 과매도":
+            rsi_oversold_map[a["code"]] = a.get("rsi", 0)
+    # falling_stocks를 코드별 맵으로
+    falling_map = {}
+    for s in falling_stocks:
+        code = s.get("code", "")
+        if code:
+            falling_map[code] = s
+    # combined + falling 종목 모두 대상
+    all_codes = set()
+    candidates = []
     for sig in combined:
         code = sig.get("code", "")
-        crit = criteria_map.get(code, {})
+        if code and code not in all_codes:
+            all_codes.add(code)
+            candidates.append({"code": code, "name": sig.get("name", "")})
+    for s in falling_stocks:
+        code = s.get("code", "")
+        if code and code not in all_codes:
+            all_codes.add(code)
+            candidates.append({"code": code, "name": s.get("name", "")})
+
+    for item in candidates:
+        code = item["code"]
         inv = investor_data.get(code, {})
         foreign_net = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
-        overheating = crit.get("overheating_alert", {}) if isinstance(crit, dict) else {}
-        supply = crit.get("supply_demand", {}) if isinstance(crit, dict) else {}
-        short_selling = crit.get("short_selling_alert", {}) if isinstance(crit, dict) else {}
-        golden_cross = crit.get("golden_cross", {}) if isinstance(crit, dict) else {}
-        is_oh = overheating.get("met", False) if isinstance(overheating, dict) else False
-        has_supply = supply.get("met", False) if isinstance(supply, dict) else False
-        is_short = short_selling.get("met", False) if isinstance(short_selling, dict) else False
-        is_gc = golden_cross.get("met", False) if isinstance(golden_cross, dict) else False
+        institution_net = (inv.get("institution_net") or 0) if isinstance(inv, dict) else 0
+        fall = falling_map.get(code, {})
+        change_rate = fall.get("change_rate", 0)
+        vol_rate = fall.get("volume_rate", 100)
+        rsi = rsi_oversold_map.get(code, 0)
 
         score = 0
-        reasons = []
-        if is_short and foreign_net > 0:
-            score += 40
-            reasons.append("공매도 과열 + 외국인 매수")
-        if is_oh and foreign_net > 0:
-            score += 30
-            reasons.append("과열 + 외국인 순매수")
-        elif has_supply and foreign_net > 100000:
-            score += 25
-            reasons.append("수급 양호 + 대량 외국인 매수")
-        if is_gc:
+        factors = []
+        if change_rate < -3:
             score += 15
-            reasons.append("골든크로스")
-        score = min(score + int(foreign_net / 100000) * 5, 99) if score > 0 else 0
+            factors.append(f"하락 {change_rate}%")
+        if foreign_net > 0:
+            score += 25
+            factors.append(f"외국인 +{round(foreign_net/10000)}만주")
+        if institution_net > 0:
+            score += 20
+            factors.append("기관 매수")
+        if rsi and rsi < 30:
+            score += 20
+            factors.append(f"RSI {rsi}")
+        if vol_rate > 200:
+            score += 20
+            factors.append(f"거래량 {round(vol_rate/100, 1)}배")
 
-        if score > 30:
-            squeeze_results.append({
-                "code": code, "name": sig.get("name", ""),
-                "signal": sig.get("vision_signal", ""),
+        if score >= 35 and len(factors) >= 2:
+            divergence_results.append({
+                "code": code, "name": item["name"],
+                "divergence_score": min(score, 99),
+                "factors": factors,
+                "change_rate": change_rate,
                 "foreign_net": foreign_net,
-                "short_selling": is_short,
-                "golden_cross": is_gc,
-                "reasons": reasons,
-                "squeeze_score": score,
+                "institution_net": institution_net,
             })
-    squeeze_results.sort(key=lambda x: x.get("squeeze_score", 0), reverse=True)
+    divergence_results.sort(key=lambda x: x.get("divergence_score", 0), reverse=True)
     with open(results_dir / "short_squeeze.json", "w", encoding="utf-8") as f:
-        json.dump(squeeze_results[:10], f, ensure_ascii=False, indent=2)
+        json.dump(divergence_results[:10], f, ensure_ascii=False, indent=2)
 
     # Phase 6: 추가 모듈 JSON 생성
     logger.info("=== Phase 6: 추가 분석 ===")
@@ -1711,21 +1733,13 @@ def main():
     with open(results_dir / "trading_value.json", "w", encoding="utf-8") as f:
         json.dump(trading_value_stocks, f, ensure_ascii=False, indent=2)
 
-    # falling 종목 역발상 추가
+    # falling 종목 이상거래 추가 (하락+거래량폭발)
     for s in falling_stocks:
         vol_rate = s.get("volume_rate", 100)
         change = s.get("change_rate", 0)
         code = s.get("code", "")
-        inv = investor_data.get(code, {})
-        fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
         if vol_rate > 300 and change < -5:
             anomalies.append({"type": "하락+거래량폭발", "code": code, "name": s.get("name", ""), "change_rate": change, "ratio": round(vol_rate/100, 1)})
-        if fn > 100000 and change < -3:
-            squeeze_results.append({"code": code, "name": s.get("name", ""), "signal": "역발상", "foreign_net": fn, "overheating": f"하락 {change}% but 외국인 매수", "squeeze_score": min(80, 40+int(fn/80000))})
-    # 역발상 재저장 (falling 추가분 포함)
-    squeeze_results.sort(key=lambda x: x.get("squeeze_score", 0), reverse=True)
-    with open(results_dir / "short_squeeze.json", "w", encoding="utf-8") as f:
-        json.dump(squeeze_results[:10], f, ensure_ascii=False, indent=2)
     # 이상거래 재저장 (falling 추가분 포함)
     with open(results_dir / "anomalies.json", "w", encoding="utf-8") as f:
         json.dump(anomalies, f, ensure_ascii=False, indent=2)
