@@ -176,6 +176,10 @@ async def schedule_auto_trade():
         await asyncio.sleep(_GITHUB_CHECK_INTERVAL)
         if _shutdown or not is_market_day() or not is_market_hours():
             continue
+        # 09:05 이전 매수 차단 — 개장 직후 고변동성 시간대 회피
+        now_hm = datetime.now(KST)
+        if now_hm.hour == 9 and now_hm.minute < 5:
+            continue
         if _buy_running:
             continue
         try:
