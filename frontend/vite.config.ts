@@ -24,7 +24,20 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,json,png}'],
+        globPatterns: ['**/*.{js,css,html,png}'],
+        globIgnores: ['data/**'],
+        navigateFallback: 'index.html',
+        runtimeCaching: [
+          {
+            urlPattern: /\/data\/.*\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'data-json',
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 10 },
+              networkTimeoutSeconds: 5,
+            },
+          },
+        ],
       },
     }),
   ],

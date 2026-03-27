@@ -1,6 +1,6 @@
 """구독 종목 관리 — GitHub Pages JSON 폴링 + Supabase 알림 설정"""
 import logging
-from daemon.config import DATA_BASE_URL, SUPABASE_URL, SUPABASE_SECRET_KEY, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT
+from daemon.config import DATA_BASE_URL, SUPABASE_URL, SUPABASE_SECRET_KEY, TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT, TRADE_FLASH_SPIKE_PCT
 from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.stocks")
@@ -49,12 +49,12 @@ async def fetch_json(url: str) -> list | dict | None:
 
 async def fetch_alert_config() -> dict:
     """Supabase alert_config에서 전체 설정 조회"""
-    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed"}
+    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed", "flash_spike_pct": TRADE_FLASH_SPIKE_PCT}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return defaults
     try:
         session = await get_session()
-        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type&limit=1"
+        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type,flash_spike_pct&limit=1"
         headers = {
             "apikey": SUPABASE_SECRET_KEY,
             "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
@@ -71,6 +71,7 @@ async def fetch_alert_config() -> dict:
                         "trailing_stop_pct": float(row.get("trailing_stop_pct") or TRADE_TRAILING_STOP_PCT),
                         "buy_signal_mode": row.get("buy_signal_mode") or "and",
                         "strategy_type": row.get("strategy_type") or "fixed",
+                        "flash_spike_pct": float(row.get("flash_spike_pct") or TRADE_FLASH_SPIKE_PCT),
                     }
     except Exception as e:
         logger.warning(f"설정 조회 실패: {e}")

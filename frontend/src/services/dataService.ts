@@ -1,11 +1,8 @@
 const BASE_URL = import.meta.env.BASE_URL + "data/";
 
-// 캐시된 데이터를 즉시 반환하면서 백그라운드에서 최신 데이터 가져오기
 async function fetchJson<T>(path: string): Promise<T | null> {
   try {
-    const res = await fetch(BASE_URL + path, {
-      headers: { "Cache-Control": "max-age=60, stale-while-revalidate=300" },
-    });
+    const res = await fetch(BASE_URL + path, { cache: "no-cache" });
     if (!res.ok) return null;
     return res.json();
   } catch {

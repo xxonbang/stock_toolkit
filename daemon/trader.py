@@ -313,15 +313,23 @@ async def _cancel_unfilled(code: str, is_sell: bool = False) -> int | None:
 
 
 async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
-    """매도 주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry"""
+    """매도 주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry.
+    API 조회 실패 시 체결 0주로 보수적 간주 (실투자 대비)."""
     total_filled = 0
     remaining = ordered_qty
+    api_fail_count = 0
     for attempt in range(1, _MAX_FILL_RETRIES + 1):
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled(code, is_sell=True)
         if unfilled is None:
-            logger.warning(f"매도 미체결 조회 실패: {code} — 모의투자 시장가 즉시체결 간주")
-            return ordered_qty
+            api_fail_count += 1
+            logger.warning(f"매도 미체결 조회 실패 ({api_fail_count}회): {code} — 재시도")
+            if attempt < _MAX_FILL_RETRIES:
+                continue  # API 실패 시 재시도
+            else:
+                # 최종 실패: 보수적으로 체결 0주 간주 (호출자가 재처리)
+                logger.warning(f"매도 미체결 조회 {_MAX_FILL_RETRIES}회 연속 실패: {code} — 체결 0주 간주")
+                return total_filled
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
@@ -341,15 +349,22 @@ async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
 
 
 async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
-    """주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry"""
+    """주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry.
+    API 조회 실패 시 체결 0주로 보수적 간주 (실투자 대비)."""
     total_filled = 0
     remaining = ordered_qty
+    api_fail_count = 0
     for attempt in range(1, _MAX_FILL_RETRIES + 1):
         await asyncio.sleep(1)
         unfilled = await _cancel_unfilled(code)
         if unfilled is None:
-            logger.warning(f"미체결 조회 실패: {code} — 모의투자 시장가 즉시체결 간주")
-            return ordered_qty
+            api_fail_count += 1
+            logger.warning(f"미체결 조회 실패 ({api_fail_count}회): {code} — 재시도")
+            if attempt < _MAX_FILL_RETRIES:
+                continue
+            else:
+                logger.warning(f"미체결 조회 {_MAX_FILL_RETRIES}회 연속 실패: {code} — 체결 0주 간주")
+                return total_filled
         filled_this_round = remaining - unfilled
         total_filled += filled_this_round
         if unfilled == 0:
@@ -658,7 +673,15 @@ async def _get_sold_today_trades() -> list[dict]:
 
 _trade_config_cache: dict | None = None
 _trade_config_time: float = 0
-_TRADE_CONFIG_TTL = 30  # seconds
+_TRADE_CONFIG_TTL = 5  # seconds (전략 변경 즉시 반영 위해 5초로 단축)
+
+
+def invalidate_trade_config_cache():
+    """전략 변경 시 외부에서 호출하여 즉시 캐시 무효화"""
+    global _trade_config_cache, _trade_config_time
+    _trade_config_cache = None
+    _trade_config_time = 0
+
 
 async def _get_trade_config() -> dict:
     """익절/손절 설정 조회 (30초 캐시)"""
@@ -711,11 +734,12 @@ async def check_positions_for_sell(current_price_data: dict):
         if buy_price <= 0:
             continue
 
-        # 고점 추적 (trailing stop용, flash spike 방지: 이전 peak 대비 +5% 초과 점프 무시)
+        # 고점 추적 (trailing stop용, flash spike 방지)
         peak_key = position_id
         prev_peak = _peak_prices.get(peak_key, 0)
+        flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
         if current_price > prev_peak:
-            if prev_peak > 0 and (current_price - prev_peak) / prev_peak > 0.05:
+            if prev_peak > 0 and (current_price - prev_peak) / prev_peak > flash_spike_pct:
                 pass  # flash spike — peak 갱신 안 함
             else:
                 _peak_prices[peak_key] = current_price

@@ -347,23 +347,30 @@ export default function AutoTrader() {
           ))}
         </div>
         {strategyType === "stepped" && (
-          <div className="text-[9px] t-text-dim p-2 mt-2 rounded-lg" style={{ background: "var(--bg)" }}>
-            <div className="font-medium t-text-sub mb-1.5">Step 구간</div>
-            <div className="space-y-0.5">
+          <details className="mt-2 rounded-lg" style={{ background: "var(--bg)" }}>
+            <summary className="flex items-center gap-1 p-2.5 text-[9px] font-medium t-text-sub cursor-pointer hover:t-text transition select-none list-none [&::-webkit-details-marker]:hidden">
+              <ChevronRight size={10} className="transition-transform [[open]>&]:rotate-90 shrink-0" />
+              Step 구간
+            </summary>
+            <div className="px-2.5 pb-2.5 space-y-1">
               {[
-                { trigger: "+5%", stop: "본전(0%)" },
-                { trigger: "+10%", stop: "+5%" },
-                { trigger: "+15%", stop: "+10%" },
-                { trigger: "+20%", stop: "+15%" },
-                { trigger: "+25%+", stop: "고점 −3%" },
-              ].map(s => (
-                <div key={s.trigger} className="flex justify-between">
-                  <span>{s.trigger} 도달</span>
-                  <span className="t-text-sub">→ stop {s.stop}</span>
+                { trigger: "+5%", stop: "0%", color: "#94a3b8", barW: "20%" },
+                { trigger: "+10%", stop: "+5%", color: "#22c55e", barW: "40%" },
+                { trigger: "+15%", stop: "+10%", color: "#22c55e", barW: "60%" },
+                { trigger: "+20%", stop: "+15%", color: "#16a34a", barW: "80%" },
+                { trigger: "+25%+", stop: `고점${trailingStop}%`, color: "#15803d", barW: "100%" },
+              ].map((s, i) => (
+                <div key={s.trigger} className="flex items-center gap-2 text-[10px]">
+                  <div className="w-1 h-4 rounded-full shrink-0" style={{ background: s.color, opacity: 0.5 + i * 0.12 }} />
+                  <span className="w-11 shrink-0 font-semibold tabular-nums t-text">{s.trigger}</span>
+                  <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: 'var(--bg-muted)' }}>
+                    <div className="h-full rounded-full" style={{ width: s.barW, background: s.color, opacity: 0.4 }} />
+                  </div>
+                  <span className="w-16 shrink-0 text-right tabular-nums t-text-sub">stop {s.stop}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </details>
         )}
         {strategyType !== savedStrategyType && (
           <button disabled={strategySaving} onClick={async () => {
@@ -377,14 +384,145 @@ export default function AutoTrader() {
             {strategySaving ? "저장 중..." : "전략 변경 확인"}
           </button>
         )}
+        {/* 익절/손절 설정 — 전략 카드 내부 */}
+        <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
+          <div className="flex items-center justify-between">
+            {strategyType === "stepped" ? (
+              <div className="flex items-center gap-3 text-[11px]">
+                <div className="flex items-center gap-1">
+                  <span className="t-text-dim">익절</span>
+                  <span className="font-semibold" style={{ color: "var(--success)" }}>자동추종</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="t-text-dim">손절</span>
+                  <span className="font-semibold" style={{ color: "#3b82f6" }}>{stopLoss}%</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="t-text-dim">급락</span>
+                  <span className="font-semibold" style={{ color: "#f59e0b" }}>{trailingStop}%</span>
+                </div>
+              </div>
+            ) : (
+            <div className="flex items-center gap-3 text-[11px]">
+              {[
+                { label: "익절", value: `+${takeProfit}%↑`, color: "var(--success)" },
+                { label: "손절", value: `${stopLoss}%`, color: "#3b82f6" },
+                { label: "급락", value: `${trailingStop}%`, color: "#f59e0b" },
+              ].map(item => (
+                <div key={item.label} className="flex items-center gap-1">
+                  <span className="t-text-dim">{item.label}</span>
+                  <span className="font-semibold" style={{ color: item.color }}>{item.value}</span>
+                </div>
+              ))}
+            </div>
+            )}
+            <button onClick={() => setShowPctEdit(!showPctEdit)}
+              className="p-1 rounded-lg t-text-dim hover:t-text transition">
+              <Settings size={13} />
+            </button>
+          </div>
+        {showPctEdit && strategyType === "stepped" && (
+          <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
+            {/* 익절 — 수치 대신 설명 */}
+            <div className="p-2.5 rounded-lg" style={{ background: "var(--bg)" }}>
+              <div className="text-[9px] font-medium mb-1.5" style={{ color: "var(--success)" }}>익절</div>
+              <div className="text-[10px] t-text-sub leading-relaxed">Stepped 전략은 고정 익절 없이, 수익률 구간별로 stop이 자동 상향되어 상승분을 최대한 추종합니다.</div>
+            </div>
+            {/* 손절 + 급락 입력 + 저장 버튼 한 줄 */}
+            <div className="flex gap-2 items-end">
+              {[
+                { label: "손절", desc: "매수가 대비 기본 하한선", value: stopLoss, set: setStopLoss, min: -30, max: -0.5, fallback: -2.0, color: "#3b82f6" },
+                { label: "급락", desc: "+25% 이상 고점 대비", value: trailingStop, set: setTrailingStop, min: -30, max: -0.5, fallback: -3.0, color: "#f59e0b" },
+              ].map(f => (
+                <div key={f.label} className="flex-1">
+                  <div className="text-[9px] font-medium mb-0.5" style={{ color: f.color }}>{f.label} (%)</div>
+                  <div className="text-[8px] t-text-dim mb-1">{f.desc}</div>
+                  <input type="number" step="0.5" min={f.min} max={f.max} value={f.value}
+                    onChange={e => f.set(parseFloat(e.target.value) || f.fallback)}
+                    className="w-full text-[12px] px-2.5 py-1.5 rounded-lg t-text outline-none transition focus:ring-1 focus:ring-blue-500/30"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+                </div>
+              ))}
+              <div className="flex items-center gap-1.5 shrink-0 pb-0.5">
+                <button disabled={pctSaving} onClick={async () => {
+                  setPctSaving(true);
+                  const ok = await setAlertConfig({ stop_loss_pct: stopLoss, trailing_stop_pct: trailingStop });
+                  setPctResult(ok ? "saved" : "failed");
+                  setTimeout(() => setPctResult(""), 2000);
+                  setPctSaving(false);
+                }}
+                  className="text-[11px] font-medium py-1.5 px-4 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                  {pctSaving ? "저장 중..." : "저장"}
+                </button>
+                {pctResult && (
+                  <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
+                    {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
+                    {pctResult === "failed" ? "실패" : "완료"}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        {showPctEdit && strategyType !== "stepped" && (
+          <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
+            <div className="flex gap-2 items-end">
+              {[
+                { label: "익절", value: takeProfit, set: setTakeProfit, min: 0.5, max: 30, fallback: 7.0, color: "var(--success)" },
+                { label: "손절", value: stopLoss, set: setStopLoss, min: -30, max: -0.5, fallback: -2.0, color: "#3b82f6" },
+                { label: "급락", value: trailingStop, set: setTrailingStop, min: -30, max: -0.5, fallback: -3.0, color: "#f59e0b" },
+              ].map(f => (
+                <div key={f.label} className="flex-1">
+                  <div className="text-[9px] font-medium mb-1" style={{ color: f.color }}>{f.label} (%)</div>
+                  <input type="number" step="0.5" min={f.min} max={f.max} value={f.value}
+                    onChange={e => f.set(parseFloat(e.target.value) || f.fallback)}
+                    className="w-full text-[12px] px-2.5 py-1.5 rounded-lg t-text outline-none transition focus:ring-1 focus:ring-blue-500/30"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
+                </div>
+              ))}
+              <div className="flex items-center gap-1.5 shrink-0 pb-0.5">
+                <button disabled={pctSaving} onClick={async () => {
+                  setPctSaving(true);
+                  const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss, trailing_stop_pct: trailingStop });
+                  setPctResult(ok ? "saved" : "failed");
+                  setTimeout(() => setPctResult(""), 2000);
+                  setPctSaving(false);
+                }}
+                  className="text-[11px] font-medium py-1.5 px-4 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                  {pctSaving ? "저장 중..." : "저장"}
+                </button>
+                {pctResult && (
+                  <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
+                    {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
+                    {pctResult === "failed" ? "실패" : "완료"}
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* 보유일별 익절/보유 기준 미니 테이블 */}
+            <div className="text-[9px] t-text-dim p-2 rounded-lg" style={{ background: "var(--bg)" }}>
+              <div className="flex gap-1 mb-1 font-medium t-text-sub">
+                {["D+0","D+1","D+2","D+3","D+4+"].map(d => <span key={d} className="flex-1 text-center">{d}</span>)}
+              </div>
+              <div className="flex gap-1" style={{ color: "var(--success)" }}>
+                {[0,3,8,13,18].map((off,i) => <span key={i} className="flex-1 text-center font-medium">+{takeProfit+off}%</span>)}
+              </div>
+              <div className="flex gap-1 mt-0.5 t-text-dim">
+                {[3,5,8,12,15].map((thr,i) => <span key={i} className="flex-1 text-center">≥{thr}%보유</span>)}
+              </div>
+            </div>
+          </div>
+        )}
+        </div>
         {/* 전략 비교 펼치기/접기 */}
         <button onClick={() => setShowStrategyCompare(!showStrategyCompare)}
-          className="w-full mt-2 text-[10px] t-text-dim flex items-center gap-1 hover:t-text transition">
+          className="w-full mt-3 pt-3 text-[10px] t-text-dim flex items-center gap-1 hover:t-text transition"
+          style={{ borderTop: "1px solid var(--border)" }}>
           <ChevronRight size={10} className={`transition-transform ${showStrategyCompare ? "rotate-90" : ""}`} />
           전략 비교 성과
         </button>
         {showStrategyCompare && (
-          <div className="mt-2 pt-2 space-y-2" style={{ borderTop: "1px solid var(--border)" }}>
+          <div className="mt-2 space-y-2">
             {(() => {
               const soldTrades = trades.filter(t => t.status === "sold");
               const realPnl = soldTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0);
@@ -427,129 +565,18 @@ export default function AutoTrader() {
         )}
       </div>
 
-      {/* 익절/손절 설정 */}
-      <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
-        <div className="flex items-center justify-between">
-          {strategyType === "stepped" ? (
-            <div className="flex items-center gap-3 text-[11px]">
-              <div className="flex items-center gap-1">
-                <span className="t-text-dim">전략</span>
-                <span className="font-semibold text-blue-400">Stepped Trailing</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="t-text-dim">손절</span>
-                <span className="font-semibold" style={{ color: "#3b82f6" }}>{stopLoss}%</span>
-              </div>
-            </div>
-          ) : (
-          <div className="flex items-center gap-3 text-[11px]">
-            {[
-              { label: "익절", value: `+${takeProfit}%↑`, color: "var(--success)" },
-              { label: "손절", value: `${stopLoss}%`, color: "#3b82f6" },
-              { label: "급락", value: `${trailingStop}%`, color: "#f59e0b" },
-            ].map(item => (
-              <div key={item.label} className="flex items-center gap-1">
-                <span className="t-text-dim">{item.label}</span>
-                <span className="font-semibold" style={{ color: item.color }}>{item.value}</span>
-              </div>
-            ))}
+      {/* 매집 종목 선정 기준 설정 — 토글 */}
+      <details open className="rounded-xl border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
+        <summary className="flex items-center justify-between p-3 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
+          <div className="flex items-center gap-1">
+            <ChevronRight size={10} className="transition-transform [[open]>&]:rotate-90 t-text-dim shrink-0" />
+            <span className="text-[11px] font-semibold t-text">매집 종목 선정 기준 설정</span>
           </div>
-          )}
-          <button onClick={() => setShowPctEdit(!showPctEdit)}
-            className="p-1 rounded-lg t-text-dim hover:t-text transition">
-            <Settings size={13} />
-          </button>
-        </div>
-        {showPctEdit && strategyType === "stepped" && (
-          <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
-            <div className="text-[10px] t-text-dim">Stepped Trailing 모드에서는 손절만 조정 가능합니다</div>
-            <div className="w-1/3">
-              <div className="text-[9px] font-medium mb-1" style={{ color: "#3b82f6" }}>손절 (%)</div>
-              <input type="number" step="0.5" min={-30} max={-0.5} value={stopLoss}
-                onChange={e => setStopLoss(parseFloat(e.target.value) || -2.0)}
-                className="w-full text-[12px] px-2.5 py-1.5 rounded-lg t-text outline-none transition focus:ring-1 focus:ring-blue-500/30"
-                style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-            </div>
-            <div className="flex items-center gap-2">
-              <button disabled={pctSaving} onClick={async () => {
-                setPctSaving(true);
-                const ok = await setAlertConfig({ stop_loss_pct: stopLoss });
-                setPctResult(ok ? "saved" : "failed");
-                setTimeout(() => setPctResult(""), 2000);
-                setPctSaving(false);
-              }}
-                className="text-[11px] font-medium py-1.5 px-4 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
-                {pctSaving ? "저장 중..." : "저장"}
-              </button>
-              {pctResult && (
-                <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
-                  {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
-                  {pctResult === "failed" ? "실패" : "완료"}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        {showPctEdit && strategyType !== "stepped" && (
-          <div className="mt-2.5 pt-2.5 space-y-2.5" style={{ borderTop: "1px solid var(--border)" }}>
-            <div className="flex gap-2">
-              {[
-                { label: "익절", value: takeProfit, set: setTakeProfit, min: 0.5, max: 30, fallback: 7.0, color: "var(--success)" },
-                { label: "손절", value: stopLoss, set: setStopLoss, min: -30, max: -0.5, fallback: -2.0, color: "#3b82f6" },
-                { label: "급락", value: trailingStop, set: setTrailingStop, min: -30, max: -0.5, fallback: -3.0, color: "#f59e0b" },
-              ].map(f => (
-                <div key={f.label} className="flex-1">
-                  <div className="text-[9px] font-medium mb-1" style={{ color: f.color }}>{f.label} (%)</div>
-                  <input type="number" step="0.5" min={f.min} max={f.max} value={f.value}
-                    onChange={e => f.set(parseFloat(e.target.value) || f.fallback)}
-                    className="w-full text-[12px] px-2.5 py-1.5 rounded-lg t-text outline-none transition focus:ring-1 focus:ring-blue-500/30"
-                    style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-                </div>
-              ))}
-            </div>
-            {/* 보유일별 익절/보유 기준 미니 테이블 */}
-            <div className="text-[9px] t-text-dim p-2 rounded-lg" style={{ background: "var(--bg)" }}>
-              <div className="flex gap-1 mb-1 font-medium t-text-sub">
-                {["D+0","D+1","D+2","D+3","D+4+"].map(d => <span key={d} className="flex-1 text-center">{d}</span>)}
-              </div>
-              <div className="flex gap-1" style={{ color: "var(--success)" }}>
-                {[0,3,8,13,18].map((off,i) => <span key={i} className="flex-1 text-center font-medium">+{takeProfit+off}%</span>)}
-              </div>
-              <div className="flex gap-1 mt-0.5 t-text-dim">
-                {[3,5,8,12,15].map((thr,i) => <span key={i} className="flex-1 text-center">≥{thr}%보유</span>)}
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button disabled={pctSaving} onClick={async () => {
-                setPctSaving(true);
-                const ok = await setAlertConfig({ take_profit_pct: takeProfit, stop_loss_pct: stopLoss, trailing_stop_pct: trailingStop });
-                setPctResult(ok ? "saved" : "failed");
-                setTimeout(() => setPctResult(""), 2000);
-                setPctSaving(false);
-              }}
-                className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
-                {pctSaving ? "저장 중..." : "저장"}
-              </button>
-              {pctResult && (
-                <div className={`flex items-center gap-1 text-[10px] ${pctResult === "failed" ? "text-red-400" : "text-emerald-400"}`}>
-                  {pctResult === "failed" ? <X size={11} /> : <Check size={11} />}
-                  {pctResult === "failed" ? "실패" : "완료"}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 매집 종목 선정 기준 — 토글 */}
-      <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-[11px] font-semibold t-text">매집 종목 선정 기준</span>
-          <button onClick={() => setShowBuyHelp(true)} className="t-text-dim hover:t-text transition">
+          <button onClick={(e) => { e.preventDefault(); setShowBuyHelp(true); }} className="t-text-dim hover:t-text transition">
             <HelpCircle size={13} />
           </button>
-        </div>
-        <div className="space-y-0.5">
+        </summary>
+        <div className="px-3 pb-3 space-y-0.5">
           {([
             { key: "chart", label: "차트 시그널", desc: "AI 차트 분석 매수 신호" },
             { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
@@ -597,7 +624,7 @@ export default function AutoTrader() {
           })}
         </div>
         {/* 조합 미리보기 + 확인 버튼 */}
-        <div className="mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
+        <div className="mx-3 mb-3 mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
           <div className="text-[10px] t-text-sub mb-2">
             {(() => {
               const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
@@ -636,7 +663,7 @@ export default function AutoTrader() {
             </div>
           )}
         </div>
-      </div>
+      </details>
 
       {/* 성과 요약 */}
       <div className="grid grid-cols-2 gap-3">
@@ -690,7 +717,7 @@ export default function AutoTrader() {
           <div className="relative w-full max-w-[320px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
             style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
             <div className="px-4 pt-4 pb-3 flex items-center justify-between">
-              <h3 className="text-sm font-bold t-text">매집 종목 선정 기준</h3>
+              <h3 className="text-sm font-bold t-text">매집 종목 선정 기준 설정</h3>
               <button onClick={() => setShowBuyHelp(false)} className="p-1 rounded-lg t-text-dim hover:t-text transition"><X size={16} /></button>
             </div>
             <div className="px-4 pb-4 text-[11px] t-text-sub leading-relaxed space-y-2.5">

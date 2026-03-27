@@ -155,8 +155,18 @@ class KISWebSocketClient:
             except Exception as e:
                 retry_count += 1
                 logger.warning(f"WebSocket 끊김 ({retry_count}/{max_retries}): {e}")
-                if self._running and retry_count < max_retries:
-                    await asyncio.sleep(2)
+                if self._running:
+                    if retry_count >= max_retries:
+                        # 최대 재시도 도달 → 알림 후 대기 시간 늘려서 계속 재시도
+                        try:
+                            from daemon.trader import send_telegram
+                            await send_telegram(f"⚠️ WebSocket {max_retries}회 연속 실패 — 30초 폴링으로 운영 중. 60초 후 재시도.")
+                        except Exception:
+                            pass
+                        await asyncio.sleep(60)
+                        retry_count = 0  # 리셋 후 재시도 계속
+                    else:
+                        await asyncio.sleep(2)
 
         logger.info("WebSocket 클라이언트 종료")
 
