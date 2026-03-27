@@ -954,19 +954,26 @@ def main():
         w52_low = fdata.get("w52_lwpr") or 0
         current_price = fdata.get("stck_prpr") or 0
 
-        # kis_gemini 또는 fundamental_data에 PER이 있으면 실제 스코어링
-        if per and 0 < per < 30:
+        # PER/PBR/ROE 중 하나라도 양수 데이터가 있으면 펀더멘탈 스코어링
+        has_fundamental = (per and per > 0) or (pbr and pbr > 0) or (roe and roe > 0)
+        if has_fundamental:
             score = 0
-            score += max(0, min(25, int((20 - per) * 1.25)))
-            score += max(0, min(20, int((1.5 - pbr) * 13))) if pbr else 0
-            score += max(0, min(20, int(roe * 1.3))) if roe else 0
-            score += max(0, min(15, int((30 - opm) * 0.5))) if opm else 0
-            score += max(0, min(10, int((100 - debt) * 0.1))) if debt else 0
+            if per and per > 0:
+                score += max(0, min(25, int((20 - per) * 1.25)))
+            if pbr and pbr > 0:
+                score += max(0, min(20, int((1.5 - pbr) * 13)))
+            if roe and roe > 0:
+                score += max(0, min(20, int(roe * 1.3)))
+            if opm and opm > 0:
+                score += max(0, min(15, int(opm * 0.5)))
+            if debt and 0 < debt < 200:
+                score += max(0, min(10, int((100 - debt) * 0.1)))
             score += 10 if sig.get("vision_signal") in ("매수", "적극매수") else 0
 
             val_entry = {
                 "code": code, "name": sig.get("name", ""),
-                "per": round(per, 1), "pbr": round(pbr, 2),
+                "per": round(per, 1) if per else None,
+                "pbr": round(pbr, 2) if pbr else None,
                 "peg": round(peg, 2) if peg else None,
                 "roe": round(roe, 1) if roe else None,
                 "opm": round(opm, 1) if opm else None,
