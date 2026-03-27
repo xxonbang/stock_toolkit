@@ -457,12 +457,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <div className="px-5 pt-5 pb-1">
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-bold t-text">설정</h3>
-                <button onClick={() => setShowSettings(false)} className="p-1 rounded-lg t-text-dim hover:t-text transition">
+                <button onClick={() => setShowSettings(false)} className="p-2 -mr-1 rounded-lg t-text-dim hover:t-text transition">
                   <X size={18} />
                 </button>
               </div>
             </div>
-            <div className="px-5 pb-6 space-y-5 pt-4">
+            <div className="px-5 pb-6 space-y-4 pt-3">
               {!supaUser ? (
                 <div className="text-center py-6">
                   <div className="text-2xl mb-2">🔒</div>
@@ -474,38 +474,37 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               ) : <>
               {/* 계정 정보 */}
               <div>
-                <div className="text-[11px] t-text-dim mb-1.5">계정</div>
+                <div className="text-[12px] font-semibold t-text-sub mb-1.5">계정</div>
                 <div className="text-[13px] t-text px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
                   {supaUser.email}
                 </div>
               </div>
-              {/* 현재 설정 요약 */}
-              <div className="px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                <div className="text-[10px] t-text-dim mb-1">현재 설정</div>
-                <div className="text-[12px] font-medium t-text">
-                  알림: {alertMode === "all" ? "교차신호 + 포트폴리오" : alertMode === "portfolio_only" ? "포트폴리오만" : "전체 OFF"}
-                </div>
-              </div>
               {/* 알림 대상 */}
               <div>
-                <div className="text-[11px] t-text-dim mb-2">실시간 알림 대상</div>
+                <div className="text-[12px] font-semibold t-text-sub mb-2">실시간 알림 대상</div>
                 <div className="space-y-1.5">
                   {([["all", "교차신호 + 포트폴리오", "교차 신호와 포트폴리오 종목 모두 알림"], ["portfolio_only", "포트폴리오만", "보유 종목만 알림"], ["off", "전체 OFF", "모든 알림 중단"]] as [AlertMode, string, string][]).map(([mode, label, desc]) => {
                     const selected = (pendingAlertMode ?? alertMode) === mode;
+                    const isOff = mode === "off";
                     return (
                     <button key={mode} disabled={!supaUser}
                       onClick={() => { if (supaUser) setPendingAlertMode(mode); }}
-                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition ${!supaUser ? "opacity-40 cursor-not-allowed" : ""} ${selected
-                        ? mode === "off" ? "bg-red-600/15 border-red-500/40" : "bg-blue-600/15 border-blue-500/40"
+                      className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition ${!supaUser ? "opacity-40 cursor-not-allowed" : ""} ${selected
+                        ? isOff ? "bg-red-600/10 border-red-500/40" : "bg-blue-600/10 border-blue-500/40"
                         : "hover:opacity-80"}`}
                       style={{ border: `1px solid ${selected ? undefined : "var(--border)"}` }}>
-                      <div className="text-left">
-                        <div className={`text-[13px] font-medium ${selected ? (mode === "off" ? "text-red-400" : "text-blue-400") : "t-text"}`}>{label}</div>
-                        <div className="text-[10px] t-text-dim">{desc}</div>
+                      {/* 라디오 인디케이터 */}
+                      <div className={`w-[18px] h-[18px] rounded-full border-2 shrink-0 flex items-center justify-center transition ${
+                        selected
+                          ? isOff ? "border-red-400 bg-red-400" : "border-blue-400 bg-blue-400"
+                          : "border-gray-400"
+                      }`}>
+                        {selected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                       </div>
-                      {selected && (
-                        <div className={`text-xs font-bold ${mode === "off" ? "text-red-400" : "text-blue-400"}`}>✓</div>
-                      )}
+                      <div className="text-left flex-1">
+                        <div className={`text-[13px] font-medium ${selected ? (isOff ? "text-red-400" : "text-blue-400") : isOff ? "t-text-sub" : "t-text"}`}>{label}</div>
+                        <div className={`text-[10px] ${isOff && !selected ? "t-text-dim" : "t-text-dim"}`}>{desc}</div>
+                      </div>
                     </button>
                     );
                   })}
