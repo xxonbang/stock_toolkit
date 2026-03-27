@@ -258,21 +258,24 @@ export default function Portfolio() {
         const filtVal = included.reduce((s: number, h: any) => s + (h.current_value || 0), 0);
         const filtRate = filtInv ? Math.round((filtVal - filtInv) / filtInv * 10000) / 100 : 0;
         return filtInv > 0 ? (
-        <div className="flex items-center justify-between mb-3 p-3 t-card-alt rounded-xl">
+        <div className="flex items-center justify-between mb-3 p-3 rounded-xl border" style={{
+          background: filtRate > 0 ? 'rgba(239,68,68,0.04)' : filtRate < 0 ? 'rgba(59,130,246,0.04)' : 'var(--bg-card-alt)',
+          borderColor: filtRate > 0 ? 'rgba(239,68,68,0.12)' : filtRate < 0 ? 'rgba(59,130,246,0.12)' : 'var(--border-light)',
+        }}>
           <div>
             <div className="text-[10px] t-text-dim">총 투자금</div>
-            <div className="text-sm font-semibold t-text">{filtInv.toLocaleString()}원</div>
+            <div className="text-sm font-semibold t-text tabular-nums">{filtInv.toLocaleString()}원</div>
           </div>
           <div>
             <div className="text-[10px] t-text-dim">평가금</div>
-            <div className="text-sm font-semibold t-text">{filtVal.toLocaleString()}원</div>
+            <div className="text-sm font-semibold t-text tabular-nums">{filtVal.toLocaleString()}원</div>
           </div>
           <div className="text-right">
             <div className="text-[10px] t-text-dim">총 수익률</div>
-            <div className={`text-sm font-bold ${profitColor(filtRate)}`}>
+            <div className={`text-sm font-bold tabular-nums ${profitColor(filtRate)}`}>
               {filtRate >= 0 ? "+" : ""}{filtRate}%
             </div>
-            <div className={`text-[10px] font-medium ${profitColor(filtVal - filtInv)}`}>
+            <div className={`text-[10px] font-medium tabular-nums ${profitColor(filtVal - filtInv)}`}>
               {filtVal - filtInv >= 0 ? "+" : ""}{(filtVal - filtInv).toLocaleString()}원
             </div>
           </div>
@@ -285,7 +288,7 @@ export default function Portfolio() {
           const isExcluded = excludedCodes.has(h.code);
           const detail = [...(crossSignal || []), ...(smartMoney || []), ...(portfolioRaw?.holdings || [])].find((s: any) => s.code === h.code);
           return (
-          <div key={i} className={`p-2.5 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors ${isExcluded ? "opacity-40" : ""}`}
+          <div key={i} className={`p-2.5 t-card-alt rounded-lg cursor-pointer card-hover ${isExcluded ? "opacity-40" : ""}`}
             onClick={() => detail ? onStockDetail(detail) : onStockDetail({ name: h.name, code: h.code, _noData: true })}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 min-w-0">
@@ -296,7 +299,7 @@ export default function Portfolio() {
                     return next;
                   })}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-4 h-4 rounded accent-blue-500 shrink-0 cursor-pointer" />
+                  className="custom-check" />
                 <div className="min-w-0">
                   <span className="text-sm font-medium t-text">{h.name}</span>
                   <span className="text-[10px] t-text-dim ml-1">{h.code}</span>
@@ -304,9 +307,15 @@ export default function Portfolio() {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {h.profit_rate != null && h.current_price > 0 && (
-                  <span className={`text-xs font-bold ${profitColor(h.profit_rate)}`}>
-                    {h.profit_rate >= 0 ? "+" : ""}{h.profit_rate}%
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-10 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--bg-muted)' }}>
+                      <div className={`h-full rounded-full ${h.profit_rate >= 0 ? "bg-red-400" : "bg-blue-400"}`}
+                        style={{ width: `${Math.min(100, Math.abs(h.profit_rate) * 3)}%` }} />
+                    </div>
+                    <span className={`text-xs font-bold tabular-nums ${profitColor(h.profit_rate)}`}>
+                      {h.profit_rate >= 0 ? "+" : ""}{h.profit_rate}%
+                    </span>
+                  </div>
                 )}
                 {signalBadge(h.signal)}
               </div>
@@ -433,12 +442,16 @@ export default function Portfolio() {
       {showHealthHelp && createPortal(
         <div className="fixed inset-0 z-[9999]" onClick={() => setShowHealthHelp(false)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="fixed bottom-0 left-0 right-0 z-[10000] max-h-[70vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-md sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2"
+          <div className="fixed bottom-0 left-0 right-0 z-[10000] max-h-[70vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-md sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
             onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold t-text">건강도 계산 방법</h3>
-              <button onClick={() => setShowHealthHelp(false)} className="t-text-dim hover:t-text"><X size={16} /></button>
+            {/* 드래그 핸들 + 닫기 */}
+            <div className="flex items-center justify-center relative mb-3">
+              <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
+              <button onClick={() => setShowHealthHelp(false)} className="absolute right-0 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text transition">
+                <X size={16} />
+              </button>
             </div>
+            <h3 className="text-sm font-bold t-text mb-3">건강도 계산 방법</h3>
             <div className="space-y-2 text-xs t-text-sub">
               <p className="t-text font-medium">5개 축의 합산 점수 (100점 만점)</p>
               {axes.map((a) => (
@@ -469,12 +482,16 @@ export default function Portfolio() {
     {showPortfolioEdit && (
       <div className="fixed inset-0 z-[60]" onClick={() => setShowPortfolioEdit(false)}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-        <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2"
+        <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
           style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-bold t-text">포트폴리오 편집</h3>
-            <button onClick={() => setShowPortfolioEdit(false)} className="t-text-dim hover:t-text"><X size={18} /></button>
+          {/* 드래그 핸들 + 닫기 */}
+          <div className="flex items-center justify-center relative mb-3">
+            <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
+            <button onClick={() => setShowPortfolioEdit(false)} className="absolute right-0 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text transition">
+              <X size={18} />
+            </button>
           </div>
+          <h3 className="text-base font-bold t-text mb-4">포트폴리오 편집</h3>
           <div className="space-y-3 mb-4">
             {editHoldings.map((h: any, i: number) => (
               <div key={i} className="p-3 t-card-alt rounded-xl">

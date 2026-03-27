@@ -35,15 +35,15 @@ export default function SimulationSection({ simulation, ts }: {
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div>
                     <div className="text-[10px] t-text-dim">총 거래</div>
-                    <div className="text-sm font-semibold">{s.total_trades}건</div>
+                    <div className="text-sm font-semibold tabular-nums">{s.total_trades}건</div>
                   </div>
                   <div>
                     <div className="text-[10px] t-text-dim">승률</div>
-                    <div className={`text-sm font-semibold ${s.win_rate >= 50 ? "text-red-600" : "text-blue-600"}`}>{s.win_rate}%</div>
+                    <div className={`text-sm font-semibold tabular-nums ${s.win_rate >= 50 ? "text-red-600" : "text-blue-600"}`}>{s.win_rate}%</div>
                   </div>
                   <div>
                     <div className="text-[10px] t-text-dim">평균수익</div>
-                    <div className={`text-sm font-semibold ${(s.returns?.mean || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
+                    <div className={`text-sm font-semibold tabular-nums ${(s.returns?.mean || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
                       {s.returns?.mean >= 0 ? "+" : ""}{s.returns?.mean?.toFixed(1)}%
                     </div>
                   </div>

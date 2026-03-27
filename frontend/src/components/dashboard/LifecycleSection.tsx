@@ -48,12 +48,12 @@ export default function LifecycleSection({ lifecycle, ts, setLifecyclePopup }: {
       <div className="t-card-alt rounded-lg p-2 mb-3">
         <ResponsiveContainer width="100%" height={160}>
           <ScatterChart margin={{ top: 5, right: 5, bottom: 20, left: 0 }}>
-            <XAxis dataKey="stock_count" type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={{ stroke: '#e5e7eb' }} label={{ value: '종목수', position: 'bottom', fill: '#9ca3af', fontSize: 10, offset: -5 }} />
-            <YAxis dataKey="avg_change" type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={{ stroke: '#e5e7eb' }} label={{ value: '%', position: 'top', fill: '#9ca3af', fontSize: 10, offset: -5 }} />
+            <XAxis dataKey="stock_count" type="number" tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }} axisLine={{ stroke: 'var(--border)' }} label={{ value: '종목수', position: 'bottom', fill: 'var(--text-tertiary)', fontSize: 10, offset: -5 }} />
+            <YAxis dataKey="avg_change" type="number" tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }} axisLine={{ stroke: 'var(--border)' }} label={{ value: '%', position: 'top', fill: 'var(--text-tertiary)', fontSize: 10, offset: -5 }} />
             <Tooltip content={({ payload }) => {
               if (!payload?.length) return null;
               const d = payload[0].payload;
-              return (<div className="bg-white border border-gray-200 rounded-lg shadow p-2 text-xs"><div className="font-semibold">{d.theme}</div><div className="t-text-sub">{d.stage} · {d.stock_count}종목 · {d.avg_change >= 0 ? "+" : ""}{d.avg_change}%</div></div>);
+              return (<div className="t-card rounded-lg shadow-lg p-2 text-xs"><div className="font-semibold t-text">{d.theme}</div><div className="t-text-sub">{d.stage} · {d.stock_count}종목 · {d.avg_change >= 0 ? "+" : ""}{d.avg_change}%</div></div>);
             }} />
             <Scatter data={lifecycle || []}>{(lifecycle || []).map((l: any, i: number) => (<Cell key={i} fill={STAGE_FILL[l.stage] || "#6b7280"} r={Math.max(6, l.stock_count * 3)} />))}</Scatter>
           </ScatterChart>

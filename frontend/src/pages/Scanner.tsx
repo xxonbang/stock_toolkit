@@ -97,7 +97,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
       <div className="sticky z-10 -mx-4 px-4 pt-2 pb-0 backdrop-blur-md" style={{ top: 'env(safe-area-inset-top, 0px)', background: 'var(--bg-header)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="flex items-center justify-between h-10">
           <a href="#/" className="text-lg font-bold t-text flex items-center gap-2 shrink-0">
-            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0" />
+            <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo" className="w-5 h-5 shrink-0 hover:rotate-12 transition-transform" />
             Stock Toolkit
           </a>
           <div className="flex items-center gap-1 shrink-0">
@@ -121,11 +121,17 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
             </div>
           </div>
         </div>
-        <div className="flex -mx-1">
-          <a href="#/" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">대시보드</a>
-          <a href="#/portfolio" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">포트폴리오</a>
-          <a href="#/scanner" className="flex-1 text-center py-3 text-sm font-semibold t-accent border-b-[3px] border-current">스캐너</a>
-          <a href="#/auto-trader" className="flex-1 text-center py-3 text-sm font-medium t-text-dim hover:t-text-sub transition border-b-[3px] border-transparent">모의투자</a>
+        <div className="flex -mx-1 relative">
+          {[
+            { href: "#/", label: "대시보드" },
+            { href: "#/portfolio", label: "포트폴리오" },
+            { href: "#/scanner", label: "스캐너" },
+            { href: "#/auto-trader", label: "모의투자" },
+          ].map((tab, idx) => {
+            const active = tab.href === "#/scanner";
+            return <a key={tab.href} href={tab.href} className={`flex-1 text-center py-3 text-sm font-medium transition-colors ${active ? "font-semibold t-accent" : "t-text-dim hover:t-text-sub"}`}>{tab.label}</a>;
+          })}
+          <div className="absolute bottom-0 h-[3px] rounded-full transition-all duration-300 ease-out" style={{ background: 'var(--accent)', width: '25%', left: '50%' }} />
         </div>
       </div>
       <div className="h-3" />
@@ -215,7 +221,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
           ) : (
             <div className="space-y-1.5">
               {results.map((s, i) => (
-                <div key={i} className="flex items-center justify-between p-3 t-card-alt rounded-lg">
+                <div key={i} className="flex items-center justify-between p-3 t-card-alt rounded-lg card-hover">
                   <div>
                     <span className="text-sm font-medium t-text">{s.name}</span>
                     <span className="text-xs t-text-dim ml-1">{s.code}</span>
@@ -264,10 +270,16 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
   );
 }
 
+const FILTER_GROUP_COLORS: Record<string, string> = {
+  "매매 신호": "bg-red-400", "위험도": "bg-amber-400", "RSI": "bg-purple-400",
+  "이중 검증": "bg-emerald-400", "기술적 패턴": "bg-blue-400", "수급·시장": "bg-cyan-400", "테마": "bg-pink-400",
+};
+
 function FilterGroup({ label, desc, children }: { label: string; desc: string; children: React.ReactNode }) {
   return (
     <div className="py-1.5 border-b t-border-light last:border-b-0">
       <div className="flex items-baseline gap-2 mb-2">
+        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${FILTER_GROUP_COLORS[label] || "bg-gray-400"}`} />
         <span className="text-[13px] font-semibold t-text">{label}</span>
         <span className="text-[10px] t-text-dim">{desc}</span>
       </div>

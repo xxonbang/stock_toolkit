@@ -94,7 +94,53 @@ body::before {
 .t-down { color: var(--down); }
 .t-accent { color: var(--accent); }
 
-/* 스크롤바 다크 모드 */
-.dark ::-webkit-scrollbar { width: 4px; }
-.dark ::-webkit-scrollbar-track { background: var(--bg); }
-.dark ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+/* 스크롤바 — 라이트+다크 모두 */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* 숫자 고정폭 (수익률, 금액 등 정렬용) */
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* 모달 배경 페이드인 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* 바텀시트 슬라이드업 */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+/* 센터 모달 스케일인 */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* 토스트 슬라이드 다운 + 페이드아웃 */
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, -12px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes toastOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.anim-fade-in { animation: fadeIn 0.2s ease-out; }
+.anim-slide-up { animation: slideUp 0.3s ease-out; }
+.anim-scale-in { animation: scaleIn 0.2s ease-out; }
+.anim-toast { animation: toastIn 0.25s ease-out, toastOut 2.5s ease-in 0.5s forwards; }
+
+/* 카드 인터랙션 hover */
+.card-hover { transition: box-shadow 0.15s, transform 0.15s; }
+.card-hover:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); transform: translateY(-1px); }
+.dark .card-hover:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+/* 모바일 데이터 영역 텍스트 선택 방지 */
+.no-select { -webkit-user-select: none; user-select: none; }
+
+/* 커스텀 체크박스 */
+.custom-check { appearance: none; width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--border); background: var(--bg); cursor: pointer; position: relative; transition: background 0.15s, border-color 0.15s; flex-shrink: 0; }
+.custom-check:checked { background: var(--accent); border-color: var(--accent); }
+.custom-check:checked::after { content: "✓"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700; }

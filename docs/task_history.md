@@ -1,5 +1,20 @@
 # Task History
 
+## 2026-03-27
+
+### [개선] 프론트엔드 UI/디자인 대규모 개선 (2026-03-27 12:55 KST)
+- **변경 파일:** `frontend/src/index.css`, `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/Scanner.tsx`, `frontend/src/pages/Portfolio.tsx`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/components/HelpDialog.tsx`, `frontend/src/components/dashboard/FocusedStockSection.tsx`, `frontend/src/components/dashboard/LifecycleSection.tsx`, `frontend/src/components/dashboard/SimulationSection.tsx`
+- **내용:** 데이터 표시 일절 변경 없이 순수 UI/디자인만 개선. 10개 Phase로 나누어 순차 진행.
+  - CSS 기반: tabular-nums, 모달/토스트 애니메이션(fadeIn/slideUp/scaleIn/toastIn), card-hover, custom-check, 라이트 모드 스크롤바, no-select
+  - 헤더: 페이지 탭 슬라이딩 인디케이터, 카테고리 퀵네비 pill 슬라이딩 배경, 드롭다운 메뉴 인라인→t-card 통일
+  - 카드/레이아웃: 카테고리 전환점 디바이더 라벨(신호/분석/전략/시스템), AI 주목 종목 카테고리 뱃지 스타일, 종목 카드 card-hover
+  - 데이터 시각화: Gauge 바 높이 증가+transition, 심리 온도계 dot 마커, LifecycleSection 차트 다크모드 수정(축/툴팁)
+  - 모달/토스트: 바텀시트 드래그 핸들, 모달 진입 애니메이션, 토스트 pulse→slide+실패 빨강 배경
+  - 포트폴리오: 수익률 영역 배경 tint(수익=빨강/손실=파랑), 커스텀 체크박스, 미니 수익률 바
+  - 모의투자: 전략 비교 승자 강조+✓, 매매 이력 상태별 좌측 accent border
+  - 스캐너: 필터 그룹 색상 dot, 검색 결과 card-hover
+  - 마이크로: 로고 hover 회전, 수치 tabular-nums, 모바일 no-select
+
 ## 2026-03-26
 
 ### [버그픽스] 시장가 주문 실제 체결가 사용 (2026-03-27 10:48 KST)

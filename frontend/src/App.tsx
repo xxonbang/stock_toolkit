@@ -35,7 +35,7 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div className="min-h-screen pb-4" style={{ background: 'var(--bg)' }}>
+      <div className="min-h-screen pb-4 no-select" style={{ background: 'var(--bg)' }}>
         <Routes>
           <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />}>
             <Route index element={null} />

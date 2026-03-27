@@ -110,7 +110,15 @@ export default function FocusedStockSection({ performance, crossSignal, smartMon
         const style = catStyle[cat];
         return (
           <div key={cat} className="mb-2.5">
-            <div className="text-[10px] t-text-dim mb-1">{cat} ({items.length})</div>
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${
+                cat === "고확신" ? "bg-red-500/10 text-red-400" :
+                cat === "대장주" ? "bg-orange-500/10 text-orange-400" :
+                cat === "매수 일치" ? "bg-blue-500/10 text-blue-400" :
+                "t-card-alt t-text-sub"
+              }`}>{cat}</span>
+              <span className="text-[10px] t-text-dim">{items.length}종목</span>
+            </div>
             <div className="space-y-1">
               {items.map(({ s }, i) => {
                 const streak = streakMap[s.code];
@@ -118,7 +126,7 @@ export default function FocusedStockSection({ performance, crossSignal, smartMon
                 const intra = s.intraday || {};
                 return (
                   <div key={i} onClick={() => setStockDetail(s)}
-                    className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border cursor-pointer hover:opacity-80 transition ${style.bg} ${style.border}`}>
+                    className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border cursor-pointer card-hover ${style.bg} ${style.border}`}>
                     <div className="flex items-center gap-1.5 min-w-0">
                       <span className={`text-[13px] font-medium truncate ${style.text}`}>{s.name}</span>
                       {streak && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-500 font-medium">{streak}일 연속</span>}

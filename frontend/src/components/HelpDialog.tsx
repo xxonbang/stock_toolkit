@@ -213,21 +213,25 @@ export function SectionHeader({
       </div>
       {open && help && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/30"
+          className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/30 anim-fade-in"
           onClick={() => setOpen(false)}
         >
           <div
-            className="t-card rounded-t-2xl sm:rounded-2xl shadow-xl max-w-sm w-full max-h-[80vh] flex flex-col"
+            className="t-card rounded-t-2xl sm:rounded-2xl shadow-xl max-w-sm w-full max-h-[80vh] flex flex-col anim-slide-up sm:anim-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center p-4 pb-2 shrink-0 sticky top-0 t-card rounded-t-2xl z-10">
-              <h3 className="font-semibold t-text">{help.title}</h3>
+            {/* 드래그 핸들 + 닫기 버튼 */}
+            <div className="flex items-center justify-center relative px-4 pt-3 shrink-0">
+              <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
               <button
                 onClick={() => setOpen(false)}
-                className="t-text-dim hover:t-text-sub shrink-0 ml-2"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text-sub transition"
               >
                 <X size={18} />
               </button>
+            </div>
+            <div className="flex items-center p-4 pb-2 shrink-0 sticky top-0 t-card rounded-t-2xl z-10">
+              <h3 className="font-semibold t-text">{help.title}</h3>
             </div>
             <div className="overflow-y-auto px-4 pb-4">
               <p className="text-sm t-text-sub leading-relaxed whitespace-pre-line">{help.desc}</p>

@@ -22,12 +22,12 @@ function Gauge({ value, max, label, color }: { value: number; max: number; label
   const pct = Math.min(100, (value / max) * 100);
   return (
     <div>
-      <div className="flex justify-between text-xs mb-1">
+      <div className="flex justify-between text-xs mb-1.5">
         <span className="t-text-sub">{label}</span>
-        <span className="font-medium t-text">{value}</span>
+        <span className="font-semibold t-text tabular-nums">{value}</span>
       </div>
-      <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--bg-muted)' }}>
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
+      <div className="relative h-2 rounded-full overflow-hidden" style={{ background: 'var(--bg-muted)' }}>
+        <div className={`h-full rounded-full ${color} transition-all duration-500`} style={{ width: `${pct}%` }} />
       </div>
     </div>
   );
@@ -331,9 +331,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     <div className="max-w-2xl mx-auto px-4 pt-0 pb-16 space-y-5">
       {/* 로그인 모달 */}
       {showLogin && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => { if (!loginLoading && supaUser) setShowLogin(false); }}>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 anim-fade-in" onClick={() => { if (!loginLoading && supaUser) setShowLogin(false); }}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
+          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden anim-scale-in" onClick={e => e.stopPropagation()}
             style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
             {/* 헤더 */}
             <div className="px-5 pt-5 pb-3">
@@ -410,20 +410,20 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {showHeaderMenu && createPortal(
         <>
           <div onClick={() => setShowHeaderMenu(false)}
-            style={{ position: "fixed", inset: 0, zIndex: 100000, background: "rgba(0,0,0,0.3)", backdropFilter: "blur(2px)" }} />
-          <div style={{ position: "fixed", top: 52, right: 16, zIndex: 100001, width: 200, borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.12)", background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-            <div style={{ padding: 4 }}>
+            className="fixed inset-0 z-[9998] bg-black/30 backdrop-blur-sm anim-fade-in" />
+          <div className="fixed z-[9999] w-[200px] t-card rounded-2xl shadow-lg overflow-hidden anim-scale-in" style={{ top: 52, right: 16 }}>
+            <div className="p-1">
               <button onClick={() => setShowHeaderMenu(false)}
-                style={{ width: "100%", display: "flex", justifyContent: "flex-end", padding: "6px 8px", background: "none", border: "none", cursor: "pointer" }}>
-                <X size={16} style={{ color: "var(--text-tertiary)" }} />
+                className="w-full flex justify-end p-1.5 t-text-dim hover:t-text transition">
+                <X size={16} />
               </button>
               <RefreshButtons menuMode />
-              <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
+              <div className="border-t t-border-light my-1" />
               <button onClick={() => { setShowHeaderMenu(false); setShowSettings(true); }}
-                style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "var(--text-secondary)", background: "none", border: "none", cursor: "pointer" }}>
-                <span style={{ fontSize: 18 }}>⚙</span> 설정
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] t-text-sub hover:t-text transition">
+                <span className="text-[18px]">⚙</span> 설정
               </button>
-              <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }} />
+              <div className="border-t t-border-light my-1" />
               {supaUser ? (
                 <button onClick={() => {
                   setShowHeaderMenu(false);
@@ -433,12 +433,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   supabase.auth.signOut().catch(() => {});
                   setShowLogin(true);
                 }}
-                  style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#ef4444", background: "none", border: "none", cursor: "pointer" }}>
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-red-400 hover:bg-red-500/10 transition">
                   <span>↪</span> 로그아웃
                 </button>
               ) : (
                 <button onClick={() => { setShowHeaderMenu(false); setShowLogin(true); }}
-                  style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 8, fontSize: 13, color: "#3b82f6", background: "none", border: "none", cursor: "pointer" }}>
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-blue-400 hover:bg-blue-500/10 transition">
                   <span>→</span> 로그인
                 </button>
               )}
@@ -449,9 +449,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
       {/* 설정 팝업 */}
       {showSettings && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setShowSettings(false)}>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 anim-fade-in" onClick={() => setShowSettings(false)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden"
+          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden anim-scale-in"
             style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}
             onClick={e => e.stopPropagation()}>
             <div className="px-5 pt-5 pb-1">
@@ -583,7 +583,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {stockDetail && createPortal(
         <div className="fixed inset-0 z-[9999]" onClick={() => { setStockDetail(null); setShowDualExp(false); }}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-          <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
+          <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 2.5rem)' }} onClick={e => e.stopPropagation()}>
+            {/* 드래그 핸들 + 닫기 버튼 */}
+            <div className="flex items-center justify-center relative mb-3">
+              <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
+              <button onClick={() => { setStockDetail(null); setShowDualExp(false); }} className="absolute right-0 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text transition">
+                <X size={18} />
+              </button>
+            </div>
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -627,7 +634,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     </div>
                   );
                 })()}
-                <button onClick={() => { setStockDetail(null); setShowDualExp(false); }} className="text-lg t-text-dim hover:t-text">✕</button>
               </div>
             </div>
             {/* 분석 데이터 없음 안내 */}
@@ -865,8 +871,10 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
       {/* 토스트 메시지 */}
       {toastMsg && createPortal(
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 rounded-xl text-sm font-medium text-white shadow-lg animate-pulse"
-          style={{ background: "rgba(30,30,30,0.9)", backdropFilter: "blur(8px)" }}>
+        <div className={`fixed top-16 left-1/2 z-[9999] px-4 py-2.5 rounded-xl text-sm font-medium shadow-lg anim-toast ${
+          toastMsg.includes("실패") ? "text-red-200" : "text-white"
+        }`}
+          style={{ background: toastMsg.includes("실패") ? "rgba(127,29,29,0.9)" : "rgba(30,30,30,0.9)", backdropFilter: "blur(8px)", transform: "translateX(-50%)" }}>
           {toastMsg}
         </div>,
         document.body
@@ -887,7 +895,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             }}
           >
             <img src={import.meta.env.BASE_URL + "favicon.svg"} alt="logo"
-              className="w-5 h-5 shrink-0" />
+              className="w-5 h-5 shrink-0 hover:rotate-12 transition-transform" />
             Stock Toolkit
           </h1>
           <div className="flex items-center gap-1.5 shrink-0">
@@ -913,16 +921,22 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           </div>
         </div>
         {/* 페이지 탭 */}
-        <div className="flex -mx-1">
+        <div className="flex -mx-1 relative">
           {[
             { href: "#/", label: "대시보드", path: "/" },
             { href: "#/portfolio", label: "포트폴리오", path: "/portfolio" },
             { href: "#/scanner", label: "스캐너", path: "/scanner" },
             { href: "#/auto-trader", label: "모의투자", path: "/auto-trader" },
-          ].map(tab => {
+          ].map((tab, idx, arr) => {
             const active = location.pathname === tab.path;
-            return <a key={tab.path} href={tab.href} className={`flex-1 text-center py-3 text-sm font-medium transition border-b-[3px] ${active ? "font-semibold t-accent border-current" : "t-text-dim hover:t-text-sub border-transparent"}`}>{tab.label}</a>;
+            return <a key={tab.path} href={tab.href} className={`flex-1 text-center py-3 text-sm font-medium transition-colors ${active ? "font-semibold t-accent" : "t-text-dim hover:t-text-sub"}`}>{tab.label}</a>;
           })}
+          {/* 슬라이딩 인디케이터 */}
+          <div className="absolute bottom-0 h-[3px] rounded-full transition-all duration-300 ease-out" style={{
+            background: 'var(--accent)',
+            width: '25%',
+            left: `${["/", "/portfolio", "/scanner", "/auto-trader"].indexOf(location.pathname) * 25}%`,
+          }} />
         </div>
       </div>
       {/* 헤더-컨텐츠 여백 */}
@@ -934,7 +948,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* ===== 시장 카테고리 (대시보드만) ===== */}
       {isIndexRoute && <>
-      <div id="cat-market" className="scroll-mt-24" />
+      <div id="cat-market" className="scroll-mt-24 mt-3" />
 
       {/* 장전 프리마켓 */}
       {premarket && (
@@ -980,7 +994,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {sentiment && (
             <div className="mb-4 pb-4 border-b t-border-light">
               <div className="flex items-center gap-4 mb-2">
-                <div className="text-2xl font-bold t-text">{sentiment.score}<span className="text-xs font-normal t-text-dim">/100</span></div>
+                <div className="text-2xl font-bold t-text tabular-nums">{sentiment.score}<span className="text-xs font-normal t-text-dim">/100</span></div>
                 <div>
                   <div className={`text-sm font-semibold ${sentiment.score < 30 ? "text-blue-600" : sentiment.score < 60 ? "t-text-sub" : "text-red-600"}`}>
                     {sentiment.label}
@@ -988,8 +1002,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   <div className="text-[10px] t-text-dim">{sentiment.strategy}</div>
                 </div>
               </div>
-              <div className="h-1.5 t-muted rounded-full overflow-hidden mb-1.5">
-                <div className={`h-full rounded-full ${sentiment.score < 30 ? "bg-blue-500" : sentiment.score < 60 ? "bg-gray-400" : "bg-red-500"}`} style={{ width: `${sentiment.score}%` }} />
+              <div className="relative h-2 t-muted rounded-full overflow-hidden mb-1.5">
+                <div className={`h-full rounded-full transition-all duration-500 ${sentiment.score < 30 ? "bg-blue-500" : sentiment.score < 60 ? "bg-gray-400" : "bg-red-500"}`} style={{ width: `${sentiment.score}%` }} />
+                {/* 현재 위치 마커 */}
+                <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm transition-all duration-500"
+                  style={{ left: `${sentiment.score}%`, marginLeft: -6, background: sentiment.score < 30 ? '#3b82f6' : sentiment.score < 60 ? '#9ca3af' : '#ef4444' }} />
               </div>
               <div className="flex justify-between text-[10px] t-text-dim">
                 <span>극단적 공포 0</span><span>중립 50</span><span>극단적 탐욕 100</span>
@@ -1183,7 +1200,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {performance?.by_source?.combined && <FocusedStockSection performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} consecutiveSignals={consecutiveSignals} ts={ts} setStockDetail={setStockDetail} />}
 
       {/* ===== 신호 카테고리 ===== */}
-      <div id="cat-signal" className="scroll-mt-24" />
+      <div id="cat-signal" className="scroll-mt-24 flex items-center gap-3 mt-6 mb-1">
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+        <span className="text-[10px] font-semibold tracking-wider t-text-dim">신호</span>
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+      </div>
 
       {/* 연속 시그널 추적 */}
       {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && <ConsecutiveSignalSection consecutiveSignals={consecutiveSignals} ts={ts} setStreakPopup={setStreakPopup} />}
@@ -1459,7 +1480,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* ===== 분석 카테고리 ===== */}
-      <div id="cat-analysis" className="scroll-mt-24" />
+      <div id="cat-analysis" className="scroll-mt-24 flex items-center gap-3 mt-6 mb-1">
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+        <span className="text-[10px] font-semibold tracking-wider t-text-dim">분석</span>
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+      </div>
 
       {/* 뉴스 임팩트 */}
       {(
@@ -1677,7 +1702,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* ===== 전략 카테고리 ===== */}
-      <div id="cat-strategy" className="scroll-mt-24" />
+      <div id="cat-strategy" className="scroll-mt-24 flex items-center gap-3 mt-6 mb-1">
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+        <span className="text-[10px] font-semibold tracking-wider t-text-dim">전략</span>
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+      </div>
 
       {/* 손절/익절 최적화 */}
       {(
@@ -2210,7 +2239,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       </section>
 
       {/* ===== 시스템 카테고리 ===== */}
-      <div id="cat-system" className="scroll-mt-24" />
+      <div id="cat-system" className="scroll-mt-24 flex items-center gap-3 mt-6 mb-1">
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+        <span className="text-[10px] font-semibold tracking-wider t-text-dim">시스템</span>
+        <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
+      </div>
 
 
       {/* 장중 종목별 수급 */}
@@ -2288,7 +2321,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 카테고리 퀵 점프 — 하단 고정 (최상위 레벨, 대시보드만) */}
       {isIndexRoute && <>
       <div className="fixed bottom-0 left-0 right-0 z-20 px-3 pt-1.5 pb-1" style={{ background: 'var(--bg-nav)', borderTop: '1px solid var(--border)', paddingBottom: 'calc(env(safe-area-inset-bottom, 8px) + 4px)' }}>
-        <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto">
+        <div className="flex gap-1 rounded-xl p-1 max-w-2xl mx-auto relative" style={{ background: 'var(--bg-pill)' }}>
+          {/* 슬라이딩 pill 배경 */}
+          <div className="absolute rounded-lg transition-all duration-300 ease-out" style={{
+            background: 'var(--bg-pill-active)',
+            boxShadow: 'var(--shadow-card)',
+            width: `calc(${100 / categories.length}% - 4px)`,
+            height: 'calc(100% - 8px)',
+            top: '4px',
+            left: `calc(${categories.findIndex(c => c.id === activeCategory) * (100 / categories.length)}% + 2px)`,
+          }} />
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -2296,10 +2338,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 setActiveCategory(cat.id);
                 document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className="flex-1 flex items-center justify-center gap-1 py-3 text-xs font-medium rounded-lg transition-all duration-200"
-              style={activeCategory === cat.id
-                ? { background: 'var(--bg-pill-active)', color: 'var(--text-pill-active)', boxShadow: 'var(--shadow-card)' }
-                : { color: 'var(--text-tertiary)' }}
+              className="relative z-10 flex-1 flex items-center justify-center gap-1 py-3 text-xs font-medium rounded-lg transition-colors duration-200"
+              style={{ color: activeCategory === cat.id ? 'var(--text-pill-active)' : 'var(--text-tertiary)' }}
             >
               <span className="text-[10px]">{cat.icon}</span>
               {cat.label}

@@ -386,20 +386,25 @@ export default function AutoTrader() {
               return (
                 <>
                   <div className="flex gap-2">
-                    <div className="flex-1 p-2 rounded-lg text-center" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제)</div>
-                      <div className={`text-sm font-bold ${realPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                    {(() => {
+                      const realWins = realPnl >= simPnl;
+                      return <>
+                    <div className={`flex-1 p-2 rounded-lg text-center border ${realWins ? "border-emerald-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제) {realWins && soldTrades.length > 0 && "✓"}</div>
+                      <div className={`text-sm font-bold tabular-nums ${realPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
                         {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                       </div>
                       <div className="text-[9px] t-text-dim">{soldTrades.length}건</div>
                     </div>
-                    <div className="flex-1 p-2 rounded-lg text-center" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상)</div>
-                      <div className={`text-sm font-bold ${simPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                    <div className={`flex-1 p-2 rounded-lg text-center border ${!realWins ? "border-emerald-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상) {!realWins && closedSims.length > 0 && "✓"}</div>
+                      <div className={`text-sm font-bold tabular-nums ${simPnl >= 0 ? "text-emerald-400" : "text-red-400"}`}>
                         {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
                       </div>
                       <div className="text-[9px] t-text-dim">{closedSims.length}건</div>
                     </div>
+                      </>;
+                    })()}
                   </div>
                   {closedSims.length === 0 && soldTrades.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
@@ -689,8 +694,8 @@ export default function AutoTrader() {
       )}
 
       {toastMsg && createPortal(
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium text-white shadow-lg"
-          style={{ background: toastMsg.type === "fail" ? "rgba(220,38,38,0.92)" : "rgba(30,30,30,0.92)", backdropFilter: "blur(8px)" }}>
+        <div className="fixed top-16 left-1/2 z-[9999] flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium text-white shadow-lg anim-toast"
+          style={{ background: toastMsg.type === "fail" ? "rgba(220,38,38,0.92)" : "rgba(30,30,30,0.92)", backdropFilter: "blur(8px)", transform: "translateX(-50%)" }}>
           {toastMsg.type === "fail" ? <X size={14} /> : <Check size={14} />}
           {toastMsg.text}
         </div>,
@@ -738,9 +743,14 @@ function TradeRow({ trade, type, onSell, selling, currentPrice }: {
   const livePnl = currentPrice && buyPrice > 0 ? ((currentPrice - buyPrice) / buyPrice * 100) : null;
   const livePnlAmount = currentPrice && buyPrice > 0 ? (currentPrice - buyPrice) * trade.quantity : null;
 
+  const accentBorder = type === "active" ? "border-l-[3px] border-l-blue-400"
+    : type === "sell_requested" ? "border-l-[3px] border-l-amber-400"
+    : type === "pending" ? "border-l-[3px] border-l-gray-400"
+    : "border-l-[3px] border-l-transparent";
+
   return (
     <div
-      className="rounded-xl p-3 border"
+      className={`rounded-xl p-3 border ${accentBorder}`}
       style={{ background: "var(--bg-card)", borderColor: "var(--border)", boxShadow: "var(--shadow-card)" }}
     >
       <div className="flex items-center justify-between mb-1">
