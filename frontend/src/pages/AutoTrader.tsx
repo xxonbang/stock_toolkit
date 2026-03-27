@@ -92,6 +92,8 @@ export default function AutoTrader() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showBuyHelp, setShowBuyHelp] = useState(false);
   const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
+  const [useResearchOptimal, setUseResearchOptimal] = useState(false);
+  const [savedResearchOptimal, setSavedResearchOptimal] = useState(false);
   const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [buySaving, setBuySaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
@@ -113,7 +115,12 @@ export default function AutoTrader() {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
-          { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
+          if (buy_signal_mode === "research_optimal") {
+            setUseResearchOptimal(true); setSavedResearchOptimal(true);
+          } else {
+            setUseResearchOptimal(false); setSavedResearchOptimal(false);
+            const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t);
+          }
         }).catch(() => {});
         // strategy_type 로드
         Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
@@ -310,7 +317,12 @@ export default function AutoTrader() {
     fetchTrades();
     getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
       setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
-      { const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t); }
+      if (buy_signal_mode === "research_optimal") {
+        setUseResearchOptimal(true); setSavedResearchOptimal(true);
+      } else {
+        setUseResearchOptimal(false); setSavedResearchOptimal(false);
+        const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t);
+      }
     }).catch(() => {});
     Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
       if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
@@ -722,7 +734,56 @@ export default function AutoTrader() {
             <HelpCircle size={13} />
           </button>
         </summary>
-        <div className="px-3 pb-3 space-y-0.5">
+        {/* 모드 전환: 연구 최적 vs 수동 설정 */}
+        <div className="px-3 pt-1 pb-2">
+          <div className="flex gap-1 p-0.5 rounded-lg" style={{ background: "var(--bg-pill)" }}>
+            <button onClick={() => setUseResearchOptimal(true)}
+              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
+              style={useResearchOptimal ? { background: "var(--bg-pill-active)" } : {}}>
+              연구 최적 전략
+            </button>
+            <button onClick={() => setUseResearchOptimal(false)}
+              className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${!useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
+              style={!useResearchOptimal ? { background: "var(--bg-pill-active)" } : {}}>
+              수동 설정
+            </button>
+          </div>
+        </div>
+
+        {/* 연구 최적 전략 설명 */}
+        {useResearchOptimal && (
+          <div className="px-3 pb-3">
+            <div className="p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
+              <div className="text-[11px] font-semibold t-text mb-1">5팩터 스코어 Top-2 자동 선정</div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>API 매수</span><span className="t-text-dim">+30점 (적극매수 +10 추가)</span></div>
+                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#8b5cf6" }}>Vision 매수</span><span className="t-text-dim">+20점 (적극매수 +5 추가)</span></div>
+                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>대장주 1등</span><span className="t-text-dim">+25점 / 전체 +15점</span></div>
+                <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>저가주</span><span className="t-text-dim">&lt;2만원 +5점</span></div>
+              </div>
+              <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
+                가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
+              </div>
+            </div>
+            {useResearchOptimal !== savedResearchOptimal && (
+              <div className="flex items-center gap-2 mt-2">
+                <button disabled={buySaving} onClick={async () => {
+                  setBuySaving(true);
+                  const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
+                  if (ok) { setSavedResearchOptimal(true); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "연구 최적 전략 적용 완료", type: "ok" }); }
+                  else { setUseResearchOptimal(savedResearchOptimal); setToastMsg({ text: "저장 실패", type: "fail" }); }
+                  setTimeout(() => setToastMsg(null), 2500); setBuySaving(false);
+                }} className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+                  {buySaving ? "저장 중..." : "확인"}
+                </button>
+                <button onClick={() => setUseResearchOptimal(savedResearchOptimal)} className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80" style={{ borderColor: "var(--border)" }}>취소</button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 수동 설정 — 기존 토글 */}
+        {!useResearchOptimal && <div className="px-3 pb-3 space-y-0.5">
           {([
             { key: "chart", label: "차트 시그널", desc: "AI 차트 분석 매수 신호" },
             { key: "indicator", label: "지표 시그널", desc: "API 기술 지표 매수 신호" },
@@ -768,9 +829,8 @@ export default function AutoTrader() {
               </div>
             );
           })}
-        </div>
-        {/* 조합 미리보기 + 확인 버튼 */}
-        <div className="mx-3 mb-3 mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
+        </div>}
+        {!useResearchOptimal && <div className="mx-3 mb-3 mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
           <div className="text-[10px] t-text-sub mb-2">
             {(() => {
               const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
@@ -808,7 +868,7 @@ export default function AutoTrader() {
               </button>
             </div>
           )}
-        </div>
+        </div>}
       </details>
 
       {/* 성과 요약 */}

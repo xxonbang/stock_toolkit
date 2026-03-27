@@ -139,6 +139,62 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
     ]
 
 
+def select_research_optimal(signals: list | None, max_price: int = 50000, top_n: int = 2, min_score: int = 20) -> list[dict]:
+    """연구 최적 전략: 5팩터 스코어링으로 Top-N 종목 선정.
+    팩터: api매수(30) + api적극매수(+10) + vision매수(20) + vision적극매수(+5)
+          + 대장주1등(25)/전체(15) + 저가주<2만(5)
+    가격 < max_price 필터, 최소 min_score점, 상위 top_n개 반환.
+    """
+    if not signals:
+        return []
+
+    # 대장주 1등 코드 집합 산출 (theme별 거래대금 1위)
+    theme_best: dict[str, tuple[str, int]] = {}
+    for s in signals:
+        theme = s.get("theme")
+        if not theme:
+            continue
+        vol = (s.get("api_data") or {}).get("ranking", {}).get("volume", 0)
+        if theme not in theme_best or vol > theme_best[theme][1]:
+            theme_best[theme] = (s.get("code", ""), vol)
+    top1_codes = {code for code, _ in theme_best.values()}
+
+    scored = []
+    for s in signals:
+        code = s.get("code", "")
+        price = (s.get("api_data") or {}).get("price", {}).get("current", 0)
+        if price <= 0 or price >= max_price:
+            continue
+
+        score = 0
+        # 팩터 1: api 매수 신호
+        api_sig = s.get("api_signal", "")
+        if api_sig in BUY_SIGNALS:
+            score += 30
+            if api_sig == "적극매수":
+                score += 10
+        # 팩터 2: vision 매수 신호
+        vis_sig = s.get("vision_signal", "")
+        if vis_sig in BUY_SIGNALS:
+            score += 20
+            if vis_sig == "적극매수":
+                score += 5
+        # 팩터 3: 대장주
+        if code in top1_codes:
+            score += 25
+        elif s.get("theme"):
+            score += 15
+        # 팩터 4: 저가주
+        if price < 20000:
+            score += 5
+
+        if score >= min_score:
+            scored.append({**s, "_score": score})
+
+    scored.sort(key=lambda x: -x["_score"])
+    return scored[:top_n]
+
+
 def should_sell(buy_price: int, current_price: int, take_profit: float = TRADE_TAKE_PROFIT_PCT, stop_loss: float = TRADE_STOP_LOSS_PCT) -> str | None:
     pnl = calc_pnl_pct(buy_price, current_price)
     if pnl >= take_profit:
@@ -572,14 +628,22 @@ async def run_buy_process():
 
     config = await fetch_alert_config()
     buy_mode = config.get("buy_signal_mode", "and")
-    # fallback_top_leader는 별도 처리 — 원래 조건에서 제외
-    has_fallback = "fallback_top_leader" in buy_mode
-    primary_mode = buy_mode.replace(",fallback_top_leader", "").replace("fallback_top_leader,", "").replace("fallback_top_leader", "") or "none"
-    targets = filter_high_confidence(cross_data, mode=primary_mode)
-    # fallback: 원래 조건 매칭 0건 시 대장주 1위로 대체
-    if not targets and has_fallback:
-        logger.info(f"1차 조건({primary_mode}) 매칭 0건 — fallback 대장주 1위로 전환")
-        targets = filter_high_confidence(cross_data, mode="top_leader")
+
+    if buy_mode == "research_optimal":
+        # 연구 최적 전략: 5팩터 스코어 Top-2
+        targets = select_research_optimal(cross_data)
+        if targets:
+            scores = ", ".join(f"{t.get('name','')}({t.get('_score',0)}점)" for t in targets)
+            logger.info(f"연구 최적 전략: {len(targets)}종목 선정 — {scores}")
+    else:
+        # 기존 로직: 토글 기반 필터
+        has_fallback = "fallback_top_leader" in buy_mode
+        primary_mode = buy_mode.replace(",fallback_top_leader", "").replace("fallback_top_leader,", "").replace("fallback_top_leader", "") or "none"
+        targets = filter_high_confidence(cross_data, mode=primary_mode)
+        if not targets and has_fallback:
+            logger.info(f"1차 조건({primary_mode}) 매칭 0건 — fallback 대장주 1위로 전환")
+            targets = filter_high_confidence(cross_data, mode="top_leader")
+
     if not targets:
         logger.info(f"고확신 매수 대상 없음 (모드: {buy_mode})")
         return
@@ -636,12 +700,17 @@ async def run_buy_process():
         await send_telegram(f"⚠️ 매수 실패: 가용 잔고 없음\n대상 종목: {names}\n잔고: {balance:,}원")
         return
 
-    if balance <= TRADE_MIN_AMOUNT_PER_STOCK:
+    if buy_mode == "research_optimal":
+        # 연구 최적: 100% 자본을 최대 2종목에 균등 배분
+        actual_candidates = buy_candidates[:2]
+        amount_per_stock = balance // max(len(actual_candidates), 1)
+    elif balance <= TRADE_MIN_AMOUNT_PER_STOCK:
         actual_candidates = buy_candidates[:1]
+        amount_per_stock = balance
     else:
         max_stocks = balance // TRADE_MIN_AMOUNT_PER_STOCK
         actual_candidates = buy_candidates[:max_stocks]
-    amount_per_stock = balance // len(actual_candidates)
+        amount_per_stock = balance // len(actual_candidates)
     logger.info(f"매수 대상 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
 
     bought = 0
