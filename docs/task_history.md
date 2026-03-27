@@ -2,6 +2,11 @@
 
 ## 2026-03-27
 
+### [개선] HelpDialog bottom sheet → 팝오버 방식 + 텍스트 구조화 (2026-03-27 16:20 KST)
+- **변경 파일:** `frontend/src/components/HelpDialog.tsx`
+- **내용:** 도움말 UI를 전체화면 bottom sheet에서 클릭 위치 기반 팝오버로 변경. desc 텍스트를 구조화 렌더링(■→소제목, ·→불릿), 색상 키워드에 컬러 칩 자동 표시, 닫기 버튼 접근성 개선.
+- **커밋:** c99b01c
+
 ### [개선] 프론트엔드 UI/디자인 대규모 개선 (2026-03-27 12:55 KST)
 - **변경 파일:** `frontend/src/index.css`, `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/Scanner.tsx`, `frontend/src/pages/Portfolio.tsx`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/components/HelpDialog.tsx`, `frontend/src/components/dashboard/FocusedStockSection.tsx`, `frontend/src/components/dashboard/LifecycleSection.tsx`, `frontend/src/components/dashboard/SimulationSection.tsx`
 - **내용:** 데이터 표시 일절 변경 없이 순수 UI/디자인만 개선. 10개 Phase로 나누어 순차 진행.
