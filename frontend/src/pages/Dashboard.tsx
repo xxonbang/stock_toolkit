@@ -122,7 +122,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [auction, setAuction] = useState<any[] | null>(null);
   const [orderbook, setOrderbook] = useState<any[] | null>(null);
   const [correlationData, setCorrelationData] = useState<any>(null);
-  const [earningsCalendar, setEarningsCalendar] = useState<any>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
   const [volumeProfile, setVolumeProfile] = useState<any[] | null>(null);
@@ -169,7 +168,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       dataService.getAuction().then(setAuction),
       dataService.getOrderbook().then(setOrderbook),
       dataService.getCorrelation().then(setCorrelationData),
-      dataService.getEarningsCalendar().then(setEarningsCalendar),
       dataService.getTradingValue().then(setTradingValue),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
       fetch(import.meta.env.BASE_URL + "data/volume_profile_alerts.json").then(r => r.ok ? r.json() : null).then(d => { if (d?.length) setVolumeProfile(d); else dataService.getVolumeProfile().then(setVolumeProfile); }).catch(() => dataService.getVolumeProfile().then(setVolumeProfile)),
@@ -1937,25 +1935,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <p className="text-[10px] t-text-dim">0.7 이상 = 높은 상관 (분산 효과 낮음)</p>
           </div>
         ) : <Empty />}
-      </section>
-
-      {/* 실적 프리뷰 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="earnings" timestamp={ts} count={earningsCalendar?.items?.length ?? 0}>실적 프리뷰</SectionHeader>
-        <div className="space-y-1.5">
-          {(earningsCalendar?.items || []).slice(0, 6).map((e: any, i: number) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{e.corp_name || e.name}</div>
-                <div className="text-xs t-text-sub">{e.report_type || "실적 공시"}</div>
-              </div>
-              <div className="text-right shrink-0">
-                <div className="text-xs t-text">{e.date}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {!(earningsCalendar?.items || []).length && <Empty />}
       </section>
 
       {/* 거래대금 이상 감지 — 조건 충족 종목만 표시, 0건이면 섹션 숨김 */}
