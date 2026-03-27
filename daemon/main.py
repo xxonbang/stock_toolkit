@@ -66,12 +66,12 @@ def is_market_day() -> bool:
 
 
 def is_market_hours() -> bool:
-    """현재 장중 시간인지 (08:30 ~ 16:00 KST, 장 마감 후 동시호가까지 포함)"""
+    """현재 장중 시간인지 (09:00 ~ 15:30 KST)"""
     now = datetime.now(KST)
     h, m = now.hour, now.minute
-    if h < 8 or (h == 8 and m < 30):
+    if h < 9:
         return False
-    if h >= 16:
+    if h > 15 or (h == 15 and m > 30):
         return False
     return True
 

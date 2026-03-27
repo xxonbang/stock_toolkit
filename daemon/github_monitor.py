@@ -32,7 +32,7 @@ def is_new_completion(latest_time: str, last_seen_time: str | None) -> bool:
 
 
 def _is_valid_trigger(time_str: str) -> bool:
-    """완료 시각이 오늘(KST) 장중(08:30~16:00)인지 확인.
+    """완료 시각이 오늘(KST) 장중(09:00~15:30)인지 확인.
     심야/새벽 완료분이 장 시작 시 매수를 유발하는 것을 방지."""
     try:
         completed = datetime.fromisoformat(time_str.replace("Z", "+00:00")).astimezone(_KST)
@@ -40,8 +40,10 @@ def _is_valid_trigger(time_str: str) -> bool:
         if completed.date() != today:
             return False
         h, m = completed.hour, completed.minute
-        if h < 8 or (h == 8 and m < 30) or h >= 16:
-            return False  # 장중 아닌 시간 완료 → 무시
+        if h < 9:
+            return False
+        if h > 15 or (h == 15 and m > 30):
+            return False
         return True
     except Exception:
         return False
