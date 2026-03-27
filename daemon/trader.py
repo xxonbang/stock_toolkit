@@ -428,7 +428,7 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             active_strategy = config.get("strategy_type", "fixed")
             sim_strategy = "stepped" if active_strategy == "fixed" else "fixed"
             trade_id = position["id"]
-            user_id = position.get("user_id", "")
+            user_id = config.get("user_id", "") or position.get("user_id", "")
             asyncio.ensure_future(_create_simulation(
                 trade_id=trade_id,
                 strategy_type=sim_strategy,
@@ -1035,6 +1035,26 @@ async def sell_all_positions_market():
                 logger.error(f"장 마감 재시도 오류: {pos.get('name')} {e}")
     invalidate_cache()
 
+    # EOD: 매도된 포지션에 연결된 open 시뮬레이션도 close 처리
+    try:
+        sold_ids = [pos["id"] for pos in to_sell]
+        if sold_ids:
+            session = await get_session()
+            headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
+            for tid in sold_ids:
+                sold_pos = next((p for p in to_sell if p["id"] == tid), None)
+                if not sold_pos:
+                    continue
+                cp = sold_pos.get("_current_price", 0)
+                bp = sold_pos.get("filled_price") or sold_pos.get("order_price", 0)
+                sim_pnl = round(calc_pnl_pct(bp, cp), 2) if bp > 0 and cp > 0 else 0
+                patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{tid}&status=eq.open"
+                body = {"status": "closed", "exit_price": cp if cp > 0 else bp, "pnl_pct": sim_pnl, "exit_reason": "eod_close", "exited_at": datetime.now(_KST).isoformat()}
+                async with session.patch(patch_url, json=body, headers=headers) as resp:
+                    pass
+    except Exception as e:
+        logger.warning(f"EOD 시뮬레이션 close 오류: {e}")
+
 
 async def schedule_sell_check():
     """30초마다 보유종목 현재가 REST API 조회 → 익절/손절/수동매도 체크 (WebSocket 백업)"""
@@ -1068,6 +1088,9 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
     """비선택 전략의 가상 포지션 생성"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    if not user_id:
+        logger.warning("가상 시뮬레이션 생성 스킵: user_id 없음")
         return
     try:
         session = await get_session()
@@ -1103,13 +1126,24 @@ async def _check_simulations(current_price_data: dict):
 
     try:
         session = await get_session()
-        # open 상태의 가상 포지션 중 해당 종목 조회 (trade_id로 auto_trades.code와 조인)
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&select=id,strategy_type,entry_price,peak_price,stepped_stop_pct,trade_id"
+        # open 상태의 가상 포지션 중 해당 종목만 조회 (trade_id → auto_trades.code 매칭)
+        # 1) 해당 code의 auto_trades id 목록 조회
+        positions = await get_active_positions()
+        trade_ids_for_code = [p["id"] for p in positions if p.get("code") == code]
+        if not trade_ids_for_code:
+            return
+
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        # 2) 해당 trade_id에 연결된 open 시뮬레이션만 조회
+        trade_id_filter = ",".join(trade_ids_for_code)
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&trade_id=in.({trade_id_filter})&select=id,strategy_type,entry_price,peak_price,stepped_stop_pct,trade_id"
         async with session.get(url, headers=headers) as resp:
             if resp.status != 200:
                 return
             sims = await resp.json()
+
+        if not sims:
+            return
 
         config = await _get_trade_config()
         tp = config.get("take_profit_pct", TRADE_TAKE_PROFIT_PCT)
@@ -1130,8 +1164,9 @@ async def _check_simulations(current_price_data: dict):
             exit_price = None
 
             if strategy == "fixed":
-                # 고정 TP 전략 시뮬레이션
-                hold_days = 0  # 가상은 당일 기준
+                # 고정 TP 전략 시뮬레이션 — 실제 포지션의 보유일수 참조
+                matched_pos = next((p for p in positions if p["id"] == sim["trade_id"]), None)
+                hold_days = _calc_hold_days(matched_pos) if matched_pos else 0
                 effective_tp = get_tiered_tp(tp, hold_days)
                 result = should_sell(entry_price, current_price, take_profit=effective_tp, stop_loss=sl)
                 if result:

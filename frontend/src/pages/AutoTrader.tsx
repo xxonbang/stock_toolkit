@@ -99,6 +99,7 @@ export default function AutoTrader() {
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | null>(null);
   const [simulations, setSimulations] = useState<any[]>([]);
 
   useEffect(() => {
@@ -525,38 +526,122 @@ export default function AutoTrader() {
           <div className="mt-2 space-y-2">
             {(() => {
               const soldTrades = trades.filter(t => t.status === "sold");
-              const realPnl = soldTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0);
+              const activeTrades = trades.filter(t => t.status === "filled");
+              // 보유 중 종목의 미실현 PnL 계산
+              const activeWithPnl = activeTrades.map(t => {
+                const cp = prices[t.code]?.price || 0;
+                const bp = t.filled_price ?? t.order_price;
+                const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
+                return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
+              });
+              const allRealTrades = [...soldTrades.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
+              const realPnl = allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0);
+
               const closedSims = simulations.filter(s => s.status === "closed");
-              const simPnl = closedSims.reduce((sum, s) => sum + (s.pnl_pct || 0), 0);
-              const simStrategy = closedSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
+              const openSims = simulations.filter(s => s.status === "open");
+              // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
+              const openSimsWithPnl = openSims.map((s: any) => {
+                const matchTrade = activeTrades.find(t => t.id === s.trade_id);
+                const cp = matchTrade ? (prices[matchTrade.code]?.price || 0) : 0;
+                let pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
+                let isCapped = false;
+                // fixed 전략 시뮬레이션: TP/SL 초과 시 cap
+                if (s.strategy_type === "fixed") {
+                  if (pnl >= takeProfit) { pnl = takeProfit; isCapped = true; }
+                  if (pnl <= stopLoss) { pnl = stopLoss; isCapped = true; }
+                }
+                return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: !isCapped, _isCapped: isCapped, _name: matchTrade?.name };
+              });
+              const allSims = [...closedSims.map((s: any) => ({ ...s, _isActive: false })), ...openSimsWithPnl];
+              const simPnl = allSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0);
+
+              const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
               const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
+              const realWins = realPnl >= simPnl;
 
               return (
                 <>
                   <div className="flex gap-2">
-                    {(() => {
-                      const realWins = realPnl >= simPnl;
-                      return <>
-                    <div className={`flex-1 p-2 rounded-lg text-center border ${realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제) {realWins && soldTrades.length > 0 && "✓"}</div>
+                    <button onClick={() => setStrategyDetail("real")}
+                      className={`flex-1 p-2 rounded-lg text-center border cursor-pointer transition ${realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제) {realWins && allRealTrades.length > 0 && "✓"}</div>
                       <div className={`text-sm font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                       </div>
-                      <div className="text-[9px] t-text-dim">{soldTrades.length}건</div>
-                    </div>
-                    <div className={`flex-1 p-2 rounded-lg text-center border ${!realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상) {!realWins && closedSims.length > 0 && "✓"}</div>
+                      <div className="text-[9px] t-text-dim">{allRealTrades.length}건</div>
+                    </button>
+                    <button onClick={() => setStrategyDetail("sim")}
+                      className={`flex-1 p-2 rounded-lg text-center border cursor-pointer transition ${!realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상) {!realWins && allSims.length > 0 && "✓"}</div>
                       <div className={`text-sm font-bold tabular-nums ${simPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
                       </div>
-                      <div className="text-[9px] t-text-dim">{closedSims.length}건</div>
-                    </div>
-                      </>;
-                    })()}
+                      <div className="text-[9px] t-text-dim">{allSims.length}건</div>
+                    </button>
                   </div>
-                  {closedSims.length === 0 && soldTrades.length === 0 && (
+                  {allRealTrades.length === 0 && allSims.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
+                  )}
+                  {/* 바텀시트 */}
+                  {strategyDetail && createPortal(
+                    <div className="fixed inset-0 z-[9999] anim-fade-in" onClick={() => setStrategyDetail(null)}>
+                      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+                      <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[70vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
+                        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }} onClick={e => e.stopPropagation()}>
+                        {/* 드래그 핸들 + 닫기 */}
+                        <div className="flex items-center justify-center relative mb-3">
+                          <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
+                          <button onClick={() => setStrategyDetail(null)} className="absolute right-0 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text transition">
+                            <X size={18} />
+                          </button>
+                        </div>
+                        <h3 className="text-sm font-bold t-text mb-3">
+                          {strategyDetail === "real" ? `${realLabel} (실제)` : `${simLabel} (가상)`}
+                        </h3>
+                        {/* 합산 */}
+                        <div className="flex items-center gap-3 mb-3 p-2.5 rounded-lg" style={{ background: "var(--bg)" }}>
+                          <div className={`text-lg font-bold tabular-nums ${(strategyDetail === "real" ? realPnl : simPnl) >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                            {(strategyDetail === "real" ? realPnl : simPnl) >= 0 ? "+" : ""}{(strategyDetail === "real" ? realPnl : simPnl).toFixed(2)}%
+                          </div>
+                          <div className="text-[10px] t-text-dim">
+                            {strategyDetail === "real" ? allRealTrades.length : allSims.length}건
+                          </div>
+                        </div>
+                        {/* 종목 리스트 */}
+                        <div className="space-y-1">
+                          {strategyDetail === "real" && allRealTrades.map((t: any, i: number) => (
+                            <div key={i} className="flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
+                              <div className="flex items-center gap-2 min-w-0">
+                                <span className="t-text font-medium truncate">{t.name}</span>
+                                <span className="text-[10px] t-text-dim">{t.code}</span>
+                                {t._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
+                              </div>
+                              <span className={`tabular-nums font-bold shrink-0 ${(t.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                {(t.pnl_pct ?? 0) >= 0 ? "+" : ""}{(t.pnl_pct ?? 0).toFixed(2)}%
+                              </span>
+                            </div>
+                          ))}
+                          {strategyDetail === "sim" && allSims.map((s: any, i: number) => {
+                            const matchTrade = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
+                            return (
+                            <div key={i} className="flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
+                              <div className="flex items-center gap-2 min-w-0">
+                                <span className="t-text font-medium truncate">{s._name || matchTrade?.name || "—"}</span>
+                                <span className="text-[10px] t-text-dim tabular-nums">{s.entry_price?.toLocaleString()}원</span>
+                                {s._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
+                                {s._isCapped && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400">{(s.pnl_pct ?? 0) >= 0 ? "익절" : "손절"}</span>}
+                              </div>
+                              <span className={`tabular-nums font-bold shrink-0 ${(s.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                {(s.pnl_pct ?? 0) >= 0 ? "+" : ""}{(s.pnl_pct ?? 0).toFixed(2)}%
+                              </span>
+                            </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>,
+                    document.body
                   )}
                 </>
               );
@@ -875,7 +960,18 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
 }
 
 function HistoryByDate({ trades }: { trades: Trade[] }) {
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+  const today = new Date();
+  const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => {
+    // 오늘 이외 날짜는 기본 접기
+    const s = new Set<string>();
+    for (const t of trades) {
+      const d = new Date(t.created_at);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      if (key !== todayKey) s.add(key);
+    }
+    return s;
+  });
 
   if (trades.length === 0) {
     return (
