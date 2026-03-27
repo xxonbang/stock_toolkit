@@ -132,6 +132,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [intradayStockFlow, setIntradayStockFlow] = useState<any[] | null>(null);
   const [indicatorHistory, setIndicatorHistory] = useState<any>(null);
   const [consecutiveSignals, setConsecutiveSignals] = useState<any>(null);
+  const [forecastExpanded, setForecastExpanded] = useState<Set<string>>(new Set());
 
   // 모달/bottom sheet 열림 시 body 스크롤 잠금
   const anyModalOpen = !!(stockDetail || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showStockSearch);
@@ -832,8 +833,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 if (riskMatches.length) sections.push({ label: "위험 종목", sectionId: "risk", items: riskMatches.map(r => ({ stock: r, detail: `등급: ${r.level || "-"} | ${(r.warnings || []).join(", ")}` })) });
                 const sqMatches = (shortSqueeze || []).filter(match);
                 if (sqMatches.length) sections.push({ label: "역발상 시그널", sectionId: "squeeze", items: sqMatches.map(s => ({ stock: s, detail: `점수: ${s.squeeze_score || "-"}` })) });
-                const gapMatches = (gapAnalysis || []).filter(match);
-                if (gapMatches.length) sections.push({ label: "갭 분석", sectionId: "gap", items: gapMatches.map(g => ({ stock: g, detail: `${g.direction || ""} ${g.gap_pct}%` })) });
                 const valMatches = (valuation || []).filter(match);
                 if (valMatches.length) sections.push({ label: "밸류에이션", sectionId: "valuation", items: valMatches.map(v => ({ stock: v, detail: `점수: ${v.value_score || "-"} | PER: ${v.per || "-"}` })) });
 
@@ -1209,13 +1208,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && <ConsecutiveSignalSection consecutiveSignals={consecutiveSignals} ts={ts} setStreakPopup={setStreakPopup} />}
 
       {/* 교차 신호 */}
-      {(
+      {(() => {
+        const gapMap = new Map((gapAnalysis || []).filter((g: any) => Math.abs(g.gap_pct) >= 2).map((g: any) => [g.code, g]));
+        return (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="cross" timestamp={ts} count={crossSignal?.length ?? 0}>교차 신호</SectionHeader>
           <div className="space-y-2">
             {(crossSignal || []).map((s, i) => {
               const intra = s.intraday || {};
               const ageH = s.signal_age_hours || 0;
+              const gap = gapMap.get(s.code) as any;
               const ageLbl = ageH >= 12 ? "매우 오래됨" : ageH >= 6 ? "오래됨" : ageH >= 3 ? "주의" : "최근";
               const ageColor = ageH >= 12 ? "text-gray-400" : ageH >= 6 ? "text-amber-400" : ageH >= 3 ? "text-yellow-400" : "text-emerald-400";
               return (
@@ -1226,6 +1228,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     <span className="text-xs t-text-dim ml-1">{s.code}</span>
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0">
+                    {gap && (
+                      <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${gap.gap_pct >= 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
+                        {gap.gap_pct >= 0 ? "▲" : "▼"}시가 {gap.gap_pct >= 0 ? "+" : ""}{gap.gap_pct}%
+                      </span>
+                    )}
                     {s.dual_signal && (
                       <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "KIS매수" ? "blue" : s.dual_signal === "혼조" ? "warning" : "default"}>
                         {s.dual_signal}
@@ -1264,7 +1271,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           </div>
             {!crossSignal?.length && <Empty />}
         </section>
-      )}
+        );
+      })()}
 
       {/* 테마 라이프사이클 */}
       <LifecycleSection lifecycle={lifecycle} ts={ts} setLifecyclePopup={setLifecyclePopup} />
@@ -1379,12 +1387,15 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       <RiskMonitorSection riskMonitor={riskMonitor} ts={ts} />
 
       {/* 스마트 머니 TOP */}
-      {(
+      {(() => {
+        const gapMap2 = new Map((gapAnalysis || []).filter((g: any) => Math.abs(g.gap_pct) >= 2).map((g: any) => [g.code, g]));
+        return (
         <section className="t-card rounded-xl p-4">
           <SectionHeader id="smartmoney" timestamp={ts} count={smartMoney?.length ?? 0}>스마트 머니 TOP</SectionHeader>
           <div className="space-y-1.5">
             {(smartMoney || []).slice(0, 8).map((s, i) => {
               const intra = s.intraday || {};
+              const gap = gapMap2.get(s.code) as any;
               return (
               <div key={i} onClick={() => setStockDetail(s)} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/20 hover:border transition-colors">
                 <div className="flex items-center justify-between gap-2">
@@ -1395,6 +1406,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     <div className="min-w-0">
                       <span className="text-sm font-medium truncate block t-text">{s.name}</span>
                       <div className="flex items-center gap-1.5 mt-0.5">
+                        {gap && (
+                          <span className={`text-[10px] font-medium px-1 py-0.5 rounded ${gap.gap_pct >= 0 ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
+                            {gap.gap_pct >= 0 ? "▲" : "▼"}시가 {gap.gap_pct >= 0 ? "+" : ""}{gap.gap_pct}%
+                          </span>
+                        )}
                         {s.dual_signal && (
                           <span className={`text-[10px] ${s.dual_signal === "고확신" ? "text-emerald-500" : s.dual_signal === "KIS매수" ? "text-blue-400" : "t-text-dim"}`}>
                             {s.dual_signal}
@@ -1433,7 +1449,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           </div>
             {!smartMoney?.length && <Empty />}
         </section>
-      )}
+        );
+      })()}
 
       {/* 전략 시뮬레이션 */}
       <SimulationSection simulation={simulation} ts={ts} />
@@ -1535,38 +1552,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </section>
       )}
 
-      {/* 갭 분석 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="gap" timestamp={ts} count={gapAnalysis?.length ?? 0}>갭 분석</SectionHeader>
-          <div className="space-y-1.5">
-            {(gapAnalysis || []).slice(0, 6).map((g, i) => (
-              <div key={i} onClick={() => {
-                const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === g.code);
-                setStockDetail(detail || { name: g.name, code: g.code, _noData: true });
-              }} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:opacity-80 transition">
-                <div className="min-w-0">
-                  <div className="text-sm font-medium truncate">{g.name}</div>
-                  <div className="text-[10px] t-text-dim">
-                    {g.direction} · 시가 {g.open_price?.toLocaleString() || "-"} / 전일 {g.prev_close?.toLocaleString() || "-"}
-                  </div>
-                </div>
-                <div className="text-right shrink-0">
-                  <div className={`text-sm font-bold ${g.gap_pct >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                    {g.gap_pct >= 0 ? "+" : ""}{g.gap_pct}%
-                  </div>
-                  {g.filled != null && (
-                    <div className={`text-[10px] font-medium ${g.filled ? "text-emerald-500" : "t-text-dim"}`}>
-                      {g.filled ? "갭 메꿈" : `현재 ${g.change_rate >= 0 ? "+" : ""}${g.change_rate}%`}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-            {!gapAnalysis?.length && <Empty />}
-        </section>
-      )}
 
       {/* 공매도 역발상 */}
       {(
@@ -2125,19 +2110,63 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             {dates.slice(0, 5).map((d) => {
               const info = byDate[d];
               const rate = info.total ? Math.round(info.hits / info.total * 100) : 0;
-              // 적중/미적중 테마를 각각 중복 제거
               const hitThemes = [...new Set(info.themes.filter(t => t.hit).map(t => t.name))];
               const missThemes = [...new Set(info.themes.filter(t => !t.hit).map(t => t.name))];
+              const expanded = forecastExpanded.has(d);
+              const rateColor = rate >= 60 ? "text-emerald-400" : rate >= 40 ? "text-amber-400" : "text-red-400";
+              const barColor = rate >= 60 ? "bg-emerald-400" : rate >= 40 ? "bg-amber-400" : "bg-red-400";
               return (
-              <div key={d} className="p-2 t-card-alt rounded-lg">
-                <div className="flex justify-between text-xs t-text-sub mb-1">
-                  <span>{d}</span>
-                  <span className={rate >= 60 ? "text-emerald-400" : rate >= 40 ? "text-amber-400" : "text-red-400"}>{info.hits}/{info.total} 적중 ({rate}%)</span>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {hitThemes.map((t, j) => <Badge key={`h${j}`} variant="success">{t}</Badge>)}
-                  {missThemes.map((t, j) => <Badge key={`m${j}`} variant="default">{t}</Badge>)}
-                </div>
+              <div key={d} className="t-card-alt rounded-lg overflow-hidden">
+                <button
+                  className="w-full p-2.5 flex items-center gap-3 text-left"
+                  onClick={() => setForecastExpanded(prev => {
+                    const next = new Set(prev);
+                    next.has(d) ? next.delete(d) : next.add(d);
+                    return next;
+                  })}
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs t-text-sub">{d}</span>
+                      <span className={`text-xs font-medium ${rateColor}`}>{info.hits}/{info.total} 적중 ({rate}%)</span>
+                    </div>
+                    {/* 적중률 바 */}
+                    <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
+                      <div className={`h-full rounded-full transition-all duration-500 ${barColor}`} style={{ width: `${rate}%` }} />
+                    </div>
+                  </div>
+                  <svg className={`w-4 h-4 shrink-0 t-text-dim transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {expanded && (
+                  <div className="px-2.5 pb-2.5 space-y-1.5">
+                    {hitThemes.length > 0 && (
+                      <div>
+                        <div className="text-[10px] text-emerald-400 font-medium mb-1">✓ 적중 ({hitThemes.length})</div>
+                        <div className="space-y-0.5">
+                          {hitThemes.map((t, j) => (
+                            <div key={j} className="flex items-center gap-1.5 text-[11px] t-text-sub py-0.5 px-1.5 rounded" style={{ background: 'var(--bg)' }}>
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                              <span className="truncate">{t}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {missThemes.length > 0 && (
+                      <div>
+                        <div className="text-[10px] t-text-dim font-medium mb-1">✗ 미적중 ({missThemes.length})</div>
+                        <div className="space-y-0.5">
+                          {missThemes.map((t, j) => (
+                            <div key={j} className="flex items-center gap-1.5 text-[11px] t-text-dim py-0.5 px-1.5 rounded" style={{ background: 'var(--bg)' }}>
+                              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--border)' }} />
+                              <span className="truncate">{t}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               );
             })}
