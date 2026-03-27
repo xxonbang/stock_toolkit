@@ -2,6 +2,24 @@
 
 ## 2026-03-27
 
+### [버그픽스] 전략 비교 시뮬레이션 로직 수정 + UI 개선 (2026-03-27 16:00 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/stock_manager.py`, `daemon/config.py`, `daemon/ws_client.py`, `frontend/src/pages/AutoTrader.tsx`, `frontend/vite.config.ts`, `frontend/src/services/dataService.ts`
+- **내용:**
+  - daemon: _check_simulations 종목 필터 누락 수정, hold_days 하드코딩 제거, EOD 시뮬레이션 close 추가, user_id alert_config에서 조회, flash_spike_pct DB관리, config 캐시 5초 단축, WS 무한 재시도+알림, 미체결 보수적 처리
+  - frontend: 모의투자 카드 정보 계층 재구성, +수익 빨강/-파랑 색상, 전략 비교 바텀시트(날짜별 그룹핑+접기), fixed 전략 TP/SL cap, Step 구간 시각화, 매집 기준 접기/펼치기
+  - PWA: data/*.json precache 제거 → NetworkFirst, cache: no-cache
+- **커밋:** `50a2586`, `342d60e`, `2473482`, `71b6f82`
+
+### [개선] 예측 적중률 일별 카드 UI 개선 (2026-03-27 22:20 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 일별 태그 범람 해결(접기/펼치기), 적중률 progress bar 추가, 적중/미적중 ✓/✗ 그룹 분리, Badge→dot+truncate 리스트로 변경.
+- **커밋:** `28f1340` (갭 분석 리팩토링과 동일 커밋에 포함)
+
+### [리팩토링] 갭 분석 섹션 제거 + 뱃지 흡수 (2026-03-27 22:15 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`
+- **내용:** 독립 섹션으로 가치가 낮은 갭 분석 섹션을 제거하고, 갭 정보를 교차 신호·스마트 머니 카드에 `▼시가 -4.6%` / `▲시가 +3.2%` 뱃지로 통합. 검색 통합 부분도 정리.
+- **커밋:** `28f1340`
+
 ### [개선] HelpDialog bottom sheet → 팝오버 방식 + 텍스트 구조화 (2026-03-27 16:20 KST)
 - **변경 파일:** `frontend/src/components/HelpDialog.tsx`
 - **내용:** 도움말 UI를 전체화면 bottom sheet에서 클릭 위치 기반 팝오버로 변경. desc 텍스트를 구조화 렌더링(■→소제목, ·→불릿), 색상 키워드에 컬러 칩 자동 표시, 닫기 버튼 접근성 개선.
