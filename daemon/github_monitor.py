@@ -31,12 +31,18 @@ def is_new_completion(latest_time: str, last_seen_time: str | None) -> bool:
     return latest_time > last_seen_time
 
 
-def _is_today_kst(time_str: str) -> bool:
-    """완료 시각이 오늘(KST) 날짜인지 확인"""
+def _is_valid_trigger(time_str: str) -> bool:
+    """완료 시각이 오늘(KST) 장중(08:30~16:00)인지 확인.
+    심야/새벽 완료분이 장 시작 시 매수를 유발하는 것을 방지."""
     try:
         completed = datetime.fromisoformat(time_str.replace("Z", "+00:00")).astimezone(_KST)
         today = datetime.now(_KST).date()
-        return completed.date() == today
+        if completed.date() != today:
+            return False
+        h, m = completed.hour, completed.minute
+        if h < 8 or (h == 8 and m < 30) or h >= 16:
+            return False  # 장중 아닌 시간 완료 → 무시
+        return True
     except Exception:
         return False
 
@@ -61,8 +67,8 @@ async def check_workflow_completion(last_seen_time: str | None) -> tuple[bool, s
                 runs = parse_workflow_runs(data)
                 for run in runs:
                     latest_time = run["updated_at"]
-                    if not _is_today_kst(latest_time):
-                        continue  # 오늘이 아닌 완료는 무시
+                    if not _is_valid_trigger(latest_time):
+                        continue  # 오늘 장중이 아닌 완료는 무시
                     if is_new_completion(latest_time, last_seen_time):
                         logger.info(f"워크플로우 완료 감지 (오늘): {latest_time}")
                         return True, latest_time
