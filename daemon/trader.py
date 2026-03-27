@@ -942,9 +942,13 @@ async def sell_all_positions_market():
             to_carry.append(pos)
         await asyncio.sleep(0.2)
 
-    # 익일 보유 종목: 고점 추적 초기화 (익일 시가부터 새로 추적)
+    # 익일 보유 종목: peak을 당일 종가로 리셋 (stepped 구간 보호 유지 + 전날 장중 고점 제거)
     for pos in to_carry:
-        _peak_prices.pop(pos.get("id", ""), None)
+        cp = pos.get("_current_price", 0)
+        if cp > 0:
+            _peak_prices[pos.get("id", "")] = cp
+        else:
+            _peak_prices.pop(pos.get("id", ""), None)
 
     # 익일 보유 종목 알림
     if to_carry:
