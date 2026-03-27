@@ -81,8 +81,9 @@ export default function AutoTrader() {
   const [takeProfit, setTakeProfit] = useState(7.0);
   const [stopLoss, setStopLoss] = useState(-2.0);
   const [trailingStop, setTrailingStop] = useState(-3.0);
-  const [prices, setPrices] = useState<Record<string, number>>({});
+  const [prices, setPrices] = useState<Record<string, { price: number; changeRate: number }>>({});
   const [priceRefreshing, setPriceRefreshing] = useState(false);
+  const [priceTime, setPriceTime] = useState("");
   const [showPctEdit, setShowPctEdit] = useState(false);
   const [pctSaving, setPctSaving] = useState(false);
   const [pctResult, setPctResult] = useState("");
@@ -195,9 +196,9 @@ export default function AutoTrader() {
         const activeCodes = (data as Trade[]).filter(t => t.status === "filled").map(t => t.code).filter(Boolean);
         if (activeCodes.length > 0) {
           fetchKisPrices(activeCodes).then(kisData => {
-            const map: Record<string, number> = {};
+            const map: Record<string, { price: number; changeRate: number }> = {};
             for (const [code, p] of Object.entries(kisData)) {
-              if (p.current_price) map[code] = p.current_price;
+              if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
             }
             if (Object.keys(map).length > 0) setPrices(map);
           }).catch(() => {});
@@ -216,13 +217,23 @@ export default function AutoTrader() {
     setPriceRefreshing(true);
     try {
       const kisData = await fetchKisPrices(codes);
-      const map: Record<string, number> = {};
+      const map: Record<string, { price: number; changeRate: number }> = {};
       for (const [code, p] of Object.entries(kisData)) {
-        if (p.current_price) map[code] = p.current_price;
+        if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
       }
-      if (Object.keys(map).length > 0) setPrices(map);
+      if (Object.keys(map).length > 0) {
+        setPrices(map);
+        const now = new Date();
+        const h = now.getHours();
+        setPriceTime(`${h < 12 ? "오전" : "오후"} ${h === 0 ? 12 : h > 12 ? h - 12 : h}:${now.getMinutes().toString().padStart(2, "0")}`);
+      } else {
+        setToastMsg({ text: "시세 조회 실패 — 장 운영시간에 다시 시도해주세요", type: "fail" });
+        setTimeout(() => setToastMsg(null), 3000);
+      }
     } catch (e) {
       console.warn("시세 조회 실패:", e);
+      setToastMsg({ text: "시세 조회 실패 — 네트워크를 확인해주세요", type: "fail" });
+      setTimeout(() => setToastMsg(null), 3000);
     }
     setPriceRefreshing(false);
   }
@@ -640,6 +651,9 @@ export default function AutoTrader() {
           <div className="flex items-center gap-2 mb-2">
             <h2 className="text-sm font-semibold t-text">보유 중</h2>
             <span className="text-xs px-1.5 py-0.5 rounded-full t-card-alt t-text-sub">{active.length}</span>
+            {priceTime && (
+              <span className="text-[10px] text-emerald-400 ml-1 tabular-nums">{priceTime}</span>
+            )}
             <button onClick={refreshPrices} disabled={priceRefreshing}
               className="ml-auto text-[11px] px-2 py-1 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1">
               <RefreshCw size={12} className={priceRefreshing ? "animate-spin" : ""} />
@@ -654,7 +668,7 @@ export default function AutoTrader() {
             {active.map((t) => (
               <TradeRow key={t.id} trade={t} type="active"
                 onSell={() => handleSell(t)} selling={selling.has(t.id)}
-                currentPrice={prices[t.code]} />
+                currentPrice={prices[t.code]?.price} todayChangeRate={prices[t.code]?.changeRate} />
             ))}
           </div>
         </div>
@@ -730,12 +744,13 @@ function Section({ title, count, children }: { title: string; count: number; chi
   );
 }
 
-function TradeRow({ trade, type, onSell, selling, currentPrice }: {
+function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate }: {
   trade: Trade;
   type: "active" | "pending" | "closed" | "sell_requested";
   onSell?: () => void;
   selling?: boolean;
   currentPrice?: number;
+  todayChangeRate?: number;
 }) {
   const buyPrice = trade.filled_price ?? trade.order_price;
   const amount = buyPrice * trade.quantity;
@@ -753,65 +768,62 @@ function TradeRow({ trade, type, onSell, selling, currentPrice }: {
       className={`rounded-xl p-3 border ${accentBorder}`}
       style={{ background: "var(--bg-card)", borderColor: "var(--border)", boxShadow: "var(--shadow-card)" }}
     >
-      <div className="flex items-center justify-between mb-1">
-        <div className="flex items-center gap-2">
-          <span className="font-semibold text-sm t-text">{trade.name}</span>
-          <span className="text-xs t-text-sub">{trade.code}</span>
+      {/* 1단계: 종목명 + 수익률 뱃지 + 액션 */}
+      <div className="flex items-center justify-between mb-1.5">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="font-semibold text-[15px] t-text truncate">{trade.name}</span>
+          <span className="text-[11px] t-text-dim shrink-0">{trade.code}</span>
         </div>
-        {type === "closed" && (
-          <span
-            className="text-xs font-semibold px-2 py-0.5 rounded-full"
-            style={{
-              color: pnl >= 0 ? "var(--success)" : "#3b82f6",
-              background: pnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)",
-            }}
-          >
-            {pnl >= 0 ? "+" : ""}{pnl.toFixed(2)}%
-          </span>
-        )}
-        {type === "active" && livePnl !== null && (
-          <span
-            className="text-xs font-semibold px-2 py-0.5 rounded-full"
-            style={{
-              color: livePnl >= 0 ? "var(--success)" : "#3b82f6",
-              background: livePnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)",
-            }}
-          >
-            {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
-          </span>
-        )}
-        {type === "active" && (
-          <button onClick={onSell} disabled={selling}
-            className="text-[11px] px-2.5 py-1 rounded-lg font-medium text-red-400 border border-red-400/30 hover:bg-red-500/10 transition disabled:opacity-40">
-            {selling ? "요청 중..." : "매도"}
-          </button>
-        )}
-        {type === "pending" && (
-          <span className="text-xs px-2 py-0.5 rounded-full t-card-alt t-text-sub">주문 대기</span>
-        )}
-        {type === "sell_requested" && (
-          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.1)", color: "var(--danger)" }}>
-            매도 대기
-          </span>
-        )}
-      </div>
-      <div className="flex items-center justify-between text-xs t-text-sub">
-        <div>
-          {formatKRW(buyPrice)} × {trade.quantity.toLocaleString()}주
-          <span className="ml-1">({formatKRW(amount)})</span>
+        <div className="flex items-center gap-2 shrink-0">
+          {type === "closed" && (
+            <span className="text-xs font-bold px-2.5 py-1 rounded-lg tabular-nums"
+              style={{ color: pnl >= 0 ? "var(--success)" : "#3b82f6", background: pnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)" }}>
+              {pnl >= 0 ? "+" : ""}{pnl.toFixed(2)}%
+            </span>
+          )}
+          {type === "active" && livePnl !== null && (
+            <span className="text-xs font-bold px-2.5 py-1 rounded-lg tabular-nums"
+              style={{ color: livePnl >= 0 ? "var(--success)" : "#3b82f6", background: livePnl >= 0 ? "rgba(34,197,94,0.1)" : "rgba(59,130,246,0.1)" }}>
+              내 수익 {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
+            </span>
+          )}
+          {type === "active" && (
+            <button onClick={onSell} disabled={selling}
+              className="text-[11px] px-2.5 py-1 rounded-lg font-medium text-red-400 border border-red-400/30 hover:bg-red-500/10 transition disabled:opacity-40">
+              {selling ? "요청 중..." : "매도"}
+            </button>
+          )}
+          {type === "pending" && (
+            <span className="text-xs px-2 py-0.5 rounded-full t-card-alt t-text-sub">주문 대기</span>
+          )}
+          {type === "sell_requested" && (
+            <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.1)", color: "var(--danger)" }}>매도 대기</span>
+          )}
         </div>
-        <div>{formatDate(trade.created_at)}</div>
       </div>
+      {/* 2단계: 현재가 + 당일등락률 + 손익금 (active만) */}
       {type === "active" && currentPrice != null && (
-        <div className="flex items-center justify-between text-xs mt-1.5 pt-1.5 border-t t-border-light">
-          <span className="t-text-sub">현재가 <span className="t-text font-medium">{formatKRW(currentPrice)}</span></span>
+        <div className="flex items-center justify-between mb-1.5">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[15px] font-bold t-text tabular-nums">{formatKRW(currentPrice)}</span>
+            {todayChangeRate != null && todayChangeRate !== 0 && (
+              <span className="text-[11px] font-medium tabular-nums" style={{ color: todayChangeRate >= 0 ? "var(--up)" : "var(--down)" }}>
+                당일 {todayChangeRate >= 0 ? "+" : ""}{todayChangeRate.toFixed(2)}%
+              </span>
+            )}
+          </div>
           {livePnlAmount !== null && (
-            <span style={{ color: livePnlAmount >= 0 ? "var(--success)" : "#3b82f6" }} className="font-medium">
+            <span className="text-[14px] font-bold tabular-nums" style={{ color: livePnlAmount >= 0 ? "var(--success)" : "#3b82f6" }}>
               {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
             </span>
           )}
         </div>
       )}
+      {/* 3단계: 매수 상세 — compact dimmed */}
+      <div className="flex items-center justify-between text-[10px] t-text-dim">
+        <span>{formatKRW(buyPrice)} × {trade.quantity.toLocaleString()}주 ({formatKRW(amount)})</span>
+        <span>{formatDate(trade.created_at)}</span>
+      </div>
       {type === "closed" && (
         <div className="text-xs mt-1 space-y-0.5">
           {trade.sell_reason && (
