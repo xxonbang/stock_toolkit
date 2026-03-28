@@ -633,9 +633,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
           <div className="fixed z-[61] rounded-2xl t-card border t-border-light shadow-2xl overflow-hidden" style={{ left, top, width: pw, maxHeight: maxH }} onClick={e => e.stopPropagation()}>
             {/* 헤더 */}
-            <div className="px-4 pt-3 pb-2 border-b t-border-light">
-              <div className="text-[13px] font-bold t-text">{stockActionTarget.data.name || stockActionTarget.data.code}</div>
-              <div className="text-[10px] t-text-dim">{stockActionTarget.data.code}</div>
+            <div className="px-4 pt-3 pb-2 border-b t-border-light flex items-start justify-between">
+              <div>
+                <div className="text-[13px] font-bold t-text">{stockActionTarget.data.name || stockActionTarget.data.code}</div>
+                <div className="text-[10px] t-text-dim">{stockActionTarget.data.code}</div>
+              </div>
+              <button onClick={() => setStockActionTarget(null)} className="p-0.5 t-text-dim hover:t-text transition"><X size={16} /></button>
             </div>
             {/* 메뉴 */}
             <div className="overflow-y-auto" style={{ maxHeight: maxH - 56 }}>
@@ -1303,7 +1306,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       </div>
 
       {/* 연속 시그널 추적 */}
-      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && <ConsecutiveSignalSection consecutiveSignals={consecutiveSignals} ts={ts} setStreakPopup={setStreakPopup} />}
+      {consecutiveSignals && (consecutiveSignals.and_condition?.length > 0 || consecutiveSignals.or_condition?.length > 0) && <ConsecutiveSignalSection consecutiveSignals={consecutiveSignals} ts={ts} setStreakPopup={setStreakPopup} setStockDetail={setStockActionTarget} />}
 
       {/* 교차 신호 */}
       {(() => {
@@ -1482,7 +1485,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       })()}
 
       {/* 위험 종목 모니터 */}
-      <RiskMonitorSection riskMonitor={riskMonitor} ts={ts} />
+      <RiskMonitorSection riskMonitor={riskMonitor} ts={ts} setStockDetail={setStockActionTarget} />
 
       {/* 스마트 머니 TOP */}
       {(() => {
@@ -1560,7 +1563,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <div className="space-y-3">
             {(pattern || []).filter((p: any) => p.matches?.length > 0).map((p: any, i: number) => (
               <div key={i}>
-                <div className="text-[12px] font-medium t-text flex items-center gap-1.5 mb-2">
+                <div className="text-[12px] font-medium t-text flex items-center gap-1.5 mb-2 cursor-pointer" onClick={() => setStockActionTarget(p)}>
                   <LineChart size={13} className="t-text-dim shrink-0" />
                   {p.name} <span className="t-text-dim font-normal">{p.code}</span>
                 </div>
@@ -1790,7 +1793,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div className="mt-2 pt-2 border-t t-border-light">
                 <div className="text-xs font-medium t-text-sub mb-1.5">종목별 프로그램 순매수</div>
                 {programTrading.by_stock.slice(0, 5).map((ps: any, i: number) => (
-                  <div key={i} className="flex items-center justify-between text-xs py-1">
+                  <div key={i} className="flex items-center justify-between text-xs py-1 cursor-pointer hover:opacity-70" onClick={() => setStockActionTarget(ps)}>
                     <span className="t-text truncate">{ps.name}</span>
                     <span className={`font-medium ${ps.program_net >= 0 ? "text-red-600" : "text-blue-600"}`}>
                       {ps.program_net >= 0 ? "+" : ""}{(ps.program_net / 1000).toFixed(0)}천주
@@ -1805,7 +1808,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 시간대별 수익률 */}
       <section className="t-card rounded-xl p-4">
-        <SectionHeader id="heatmap" timestamp={ts}>시간대별 수익률</SectionHeader>
+        <SectionHeader id="heatmap" timestamp={ts}>시간대별 시장 수급</SectionHeader>
         {heatmap?.snapshots?.length ? (
           <div className="space-y-1.5">
             {heatmap.snapshots.map((snap: any, i: number) => (
@@ -1813,15 +1816,15 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 <div className="text-xs t-text-sub">{snap.time}</div>
                 <div className="flex gap-3 text-xs">
                   <span className={`font-medium ${(snap.foreign || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                    외국인 {snap.foreign >= 0 ? "+" : ""}{(snap.foreign / 100000000).toFixed(1)}억
+                    외국인 {snap.foreign >= 0 ? "+" : ""}{Math.abs(snap.foreign || 0) >= 10000 ? `${(snap.foreign / 10000).toFixed(0)}만주` : `${(snap.foreign || 0).toLocaleString()}주`}
                   </span>
                   <span className={`font-medium ${(snap.institution || 0) >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                    기관 {snap.institution >= 0 ? "+" : ""}{(snap.institution / 100000000).toFixed(1)}억
+                    기관 {snap.institution >= 0 ? "+" : ""}{Math.abs(snap.institution || 0) >= 10000 ? `${(snap.institution / 10000).toFixed(0)}만주` : `${(snap.institution || 0).toLocaleString()}주`}
                   </span>
                 </div>
               </div>
             ))}
-            <p className="text-[10px] t-text-dim">장중 시간대별 외국인·기관 순매매 추이</p>
+            <p className="text-[10px] t-text-dim">KOSPI+KOSDAQ 합산 · 장중 시간대별 외국인·기관 순매매</p>
           </div>
         ) : heatmap?.hours ? (
           <div className="grid grid-cols-7 gap-1">

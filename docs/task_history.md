@@ -2,6 +2,11 @@
 
 ## 2026-03-28
 
+### [기능] 종목 액션 팝업 + D등급 제거 + 스크롤 프로그레스바 + 다수 UI 개선 (2026-03-28 KST)
+- **변경 파일:** `Dashboard.tsx`, `dataService.ts`, `HelpDialog.tsx`, `BriefingSection.tsx`, `run_all.py`, `test_cross_signal.py`
+- **내용:** 종목 클릭 시 액션 팝업(상세/포함 섹션/네이버), D등급 6개 섹션 제거, 스크롤 프로그레스바, 브리핑 종목명 클릭, 밸류에이션 AI보너스 제거+계산식 도움말, 테마 자금 흐름 generated_at 버그 수정, 팝업 스크롤 잠금+시프트 방지
+- **커밋:** `09ec573`
+
 ### [리팩토링] D등급 6개 섹션 제거 + 테스트 수정 + 연구 문서 (2026-03-28 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/services/dataService.ts`, `tests/test_cross_signal.py`, `docs/research/2026-03-28-dashboard-evaluation.md`, `docs/research/2026-03-28-implementation-plan.md`
 - **내용:** 하드코딩/플레이스홀더 D등급 6개 섹션 제거(테마전이/손절익절/이벤트캘린더/내부자/컨센서스/동시호가). test_cross_signal.py 2건 실패 수정(UNION 로직+dual_signal 명칭 반영). 투자지표 유효성 연구 14차 120+회 검증 확정 결론 문서 추가.

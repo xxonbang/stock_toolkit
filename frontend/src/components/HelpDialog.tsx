@@ -17,7 +17,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   cross: {
     title: "교차 신호",
-    desc: "테마 분석(대장주)과 기술적 분석(매수 신호)이 동시에 일치하는 종목입니다.\n\n■ 신호 검증 상태\n· 신호 유효: AI 분석 방향대로 가격이 움직이는 중 (매수→상승, 매도→하락)\n· 중립: 소폭 변동(-2%~0%), 아직 판단 보류\n· 신호 약화: 분석 반대 방향으로 -2%~-5% 이동 중 → 주의\n· 신호 무효화: 분석 반대 방향으로 -5% 이상 이동 → 신호 틀림, 재검토 필요\n\n■ 신호 나이: 신호 생성 후 경과 시간. 오래될수록 신뢰도 감소.\n■ 장중 변화율: 오늘 시가 대비 현재 등락률.",
+    desc: "테마 대장주와 AI 매수 신호가 일치하는 종목입니다.\n\n[신호 출처]\n• Vision AI: 차트 이미지를 AI가 분석하여 매수/매도 판정\n• KIS API: 수급, 밸류에이션, 뉴스 등 정량 데이터 기반 AI 판정\n• 쌍방매수: Vision + KIS 모두 매수 신호\n\n[신호 검증 상태]\n• 신호 유효: AI 분석 방향대로 가격이 움직이는 중\n• 중립: 소폭 변동(-2%~0%), 판단 보류\n• 신호 약화: 반대 방향 -2%~-5% → 주의\n• 신호 무효화: 반대 방향 -5% 이상 → 재검토 필요\n\n[신호 나이]\n신호 생성 후 경과 시간. 오래될수록 신뢰도 감소.",
   },
   lifecycle: {
     title: "테마 라이프사이클",
@@ -93,7 +93,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   program: {
     title: "프로그램 매매",
-    desc: "기관의 차익거래(선물-현물 가격차 이용)와 비차익거래(포트폴리오 리밸런싱) 현황입니다. 프로그램 순매수 전환은 기관 자금 유입, 순매도 전환은 유출을 의미합니다.",
+    desc: "투자자 유형별(연기금, 보험, 은행 등) 프로그램 매매 순매수 금액입니다.\n\n[읽는 법]\n• 연기금/보험 대량 순매수 → 기관이 시장을 긍정적으로 판단, 시장 지지 기대\n• 연기금/보험 대량 순매도 → 기관이 위험 회피, 시장 약세 신호\n\n[종목별 프로그램 순매수]\n특정 종목에 기관 자금이 집중 유입/유출되는지 확인할 수 있습니다.\n\n상단은 시장 전체 분위기 참고용, 하단 종목별 데이터가 개별 종목 판단에 더 유용합니다.",
   },
   heatmap: {
     title: "시간대별 수익률",
@@ -113,7 +113,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   orderbook: {
     title: "호가창 압력",
-    desc: "매수 호가 물량 vs 매도 호가 물량의 비율로 단기 가격 방향을 추정합니다. 매수벽이 두꺼우면 하방 지지, 매도벽이 두꺼우면 상방 저항을 의미합니다.",
+    desc: "호가창에서 사려는 사람이 많은지, 팔려는 사람이 많은지를 보여줍니다.\n\n매수우위 90% = 호가창 물량 10개 중 9개가 매수 주문\n매도우위 10% = 대부분이 매도 주문\n\n[선정 기준]\n매수·매도 비율이 한쪽으로 크게 치우친 종목 20개를 표시합니다 (매수 10개 + 매도 10개).\n50:50에 가까운 종목은 제외됩니다.",
   },
   journal: {
     title: "매매 일지",
@@ -306,18 +306,15 @@ export function SectionHeader({
           <span className="ml-auto text-[11px] t-text-sub shrink-0">{timestamp}</span>
         )}
       </div>
-      {open && help && pos && createPortal(
-        <div
-          ref={popRef}
-          className="fixed z-[9999] anim-scale-in"
-          style={{ top: pos.top, left: pos.left, width: Math.min(340, window.innerWidth - 24) }}
-        >
-          {/* 화살표 */}
+      {open && help && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4" onClick={() => setOpen(false)}>
+          <div className="absolute inset-0 bg-black/30" />
           <div
-            className="absolute -top-[6px] w-3 h-3 rotate-45 t-card border-l border-t t-border-light"
-            style={{ left: pos.arrowLeft - 6 }}
-          />
-          <div className="t-card rounded-xl shadow-lg border t-border-light max-h-[60vh] flex flex-col overflow-hidden">
+            ref={popRef}
+            className="relative z-10 t-card rounded-xl shadow-lg border t-border-light max-h-[70vh] flex flex-col overflow-hidden anim-scale-in"
+            style={{ width: Math.min(340, window.innerWidth - 32) }}
+            onClick={e => e.stopPropagation()}
+          >
             {/* 헤더 */}
             <div className="flex items-center justify-between px-4 pt-3 pb-2 shrink-0">
               <h3 className="text-[13px] font-semibold t-text">{help.title}</h3>

@@ -11,8 +11,9 @@ function Empty({ text = "현재 해당 데이터 없음" }: { text?: string }) {
   );
 }
 
-export default function RiskMonitorSection({ riskMonitor, ts }: {
+export default function RiskMonitorSection({ riskMonitor, ts, setStockDetail }: {
   riskMonitor: any[] | null;
+  setStockDetail?: (v: any) => void;
   ts: string;
 }) {
   const risks = riskMonitor || [];
@@ -51,7 +52,7 @@ export default function RiskMonitorSection({ riskMonitor, ts }: {
     const foreignAmt = r.foreign_net ? Math.abs(r.foreign_net) : 0;
     const foreignStr = foreignAmt >= 100000000 ? `${(foreignAmt / 100000000).toFixed(1)}억` : foreignAmt >= 10000 ? `${Math.round(foreignAmt / 10000)}만` : "";
     return (
-      <div key={i} className={`p-2 rounded-lg border ${g.bg} ${dim ? "opacity-50" : ""}`}>
+      <div key={i} className={`p-2 rounded-lg border ${g.bg} ${dim ? "opacity-50" : ""} cursor-pointer`} onClick={() => setStockDetail?.(r)}>
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <Shield size={14} className={`shrink-0 ${g.color}`} />

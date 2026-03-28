@@ -1,10 +1,11 @@
 import { Flame, BarChart3 } from "lucide-react";
 import { SectionHeader } from "../HelpDialog";
 
-export default function ConsecutiveSignalSection({ consecutiveSignals, ts, setStreakPopup }: {
+export default function ConsecutiveSignalSection({ consecutiveSignals, ts, setStreakPopup, setStockDetail }: {
   consecutiveSignals: any;
   ts: string;
   setStreakPopup: (v: { name: string; dates: string[] } | null) => void;
+  setStockDetail?: (v: any) => void;
 }) {
   const today = new Date().toISOString().slice(0, 10);
   const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
@@ -32,7 +33,7 @@ export default function ConsecutiveSignalSection({ consecutiveSignals, ts, setSt
       <>
         {active.map((r: any, i: number) => (
           <div key={i} className="flex items-center justify-between py-1.5 border-b t-border-light last:border-b-0">
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 cursor-pointer" onClick={() => setStockDetail?.(r)}>
               <span className="text-[13px] font-medium t-text">{r.name}</span>
               <span className="text-[10px] t-text-dim">{r.code}</span>
               {badge(freshness(r))}
@@ -77,7 +78,7 @@ export default function ConsecutiveSignalSection({ consecutiveSignals, ts, setSt
             <summary className="text-[10px] t-text-dim cursor-pointer hover:underline py-1">종료된 신호 ({allEnded.length})</summary>
             {allEnded.map((r: any, i: number) => (
               <div key={i} className="flex items-center justify-between py-1 opacity-40">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 cursor-pointer" onClick={() => setStockDetail?.(r)}>
                   <span className="text-[12px] t-text">{r.name}</span>
                   <span className="text-[10px] t-text-dim">{r.code}</span>
                 </div>
