@@ -112,14 +112,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [divergence, setDivergence] = useState<any[] | null>(null);
   const [premarket, setPremarket] = useState<any>(null);
   const [supplyCluster, setSupplyCluster] = useState<any>(null);
-  const [exitOptimizer, setExitOptimizer] = useState<any[] | null>(null);
-  const [eventCalendar, setEventCalendar] = useState<any>(null);
-  const [propagation, setPropagation] = useState<any[] | null>(null);
   const [programTrading, setProgramTrading] = useState<any>(null);
   const [heatmap, setHeatmap] = useState<any>(null);
-  const [insiderTrades, setInsiderTrades] = useState<any[] | null>(null);
-  const [consensus, setConsensus] = useState<any[] | null>(null);
-  const [auction, setAuction] = useState<any[] | null>(null);
   const [orderbook, setOrderbook] = useState<any[] | null>(null);
   const [tradingValue, setTradingValue] = useState<any[] | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<any>(null);
@@ -157,14 +151,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       dataService.getVolumeDivergence().then(setDivergence),
       dataService.getPremarket().then(setPremarket),
       dataService.getSupplyCluster().then(setSupplyCluster),
-      dataService.getExitOptimizer().then(setExitOptimizer),
-      dataService.getEventCalendar().then(setEventCalendar),
-      dataService.getThemePropagation().then(setPropagation),
       dataService.getProgramTrading().then(setProgramTrading),
       dataService.getIntradayHeatmap().then(setHeatmap),
-      dataService.getInsiderTrades().then(setInsiderTrades),
-      dataService.getConsensus().then(setConsensus),
-      dataService.getAuction().then(setAuction),
       dataService.getOrderbook().then(setOrderbook),
       dataService.getTradingValue().then(setTradingValue),
       dataService.getForecastAccuracy().then(setForecastAccuracy),
@@ -1657,87 +1645,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </section>
       )}
 
-      {/* 테마 전이 예측 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="propagation" timestamp={ts} count={propagation?.length ?? 0}>테마 전이 예측</SectionHeader>
-          <div className="space-y-2">
-            {(propagation || []).map((p, i) => (
-              <div key={i} className="p-2.5 bg-violet-500/10 border border-violet-500/20 rounded-lg">
-                <div className="text-sm font-medium t-text mb-1">{p.theme}</div>
-                <div className="text-xs t-text-sub">
-                  <span className="text-violet-600 font-medium">{p.leader}</span>
-                  <span className="t-text-dim mx-1">→</span>
-                  {p.followers?.join(", ")}
-                </div>
-                <div className="text-[10px] t-text-dim mt-1">예상 전이 시간: ~{p.lag_minutes}분</div>
-              </div>
-            ))}
-          </div>
-            {!propagation?.length && <Empty />}
-        </section>
-      )}
-
       {/* ===== 전략 카테고리 ===== */}
       <div id="cat-strategy" className="scroll-mt-24 flex items-center gap-3 mt-6 mb-1">
         <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
         <span className="text-[10px] font-semibold tracking-wider t-text-dim">전략</span>
         <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
       </div>
-
-      {/* 손절/익절 최적화 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="exit" timestamp={ts} count={exitOptimizer?.length ?? 0}>손절/익절 최적화</SectionHeader>
-          <div className="space-y-1.5">
-            {(exitOptimizer || []).slice(0, 6).map((e, i) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <div className="min-w-0">
-                  <div className="text-sm font-medium truncate">{e.name}</div>
-                  <div className="text-xs t-text-sub">{e.signal}</div>
-                </div>
-                <div className="flex gap-3 shrink-0 text-xs">
-                  <div className="text-center">
-                    <div className="text-blue-600 font-medium">{e.stop_loss}%</div>
-                    <div className="text-[10px] t-text-dim">손절</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-red-600 font-medium">+{e.take_profit}%</div>
-                    <div className="text-[10px] t-text-dim">익절</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-amber-600 font-medium">{e.trailing_stop}%</div>
-                    <div className="text-[10px] t-text-dim">추적</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <p className="text-[10px] t-text-dim">추적 = 최고점 대비 하락 시 자동 매도 기준</p>
-          </div>
-            {!exitOptimizer?.length && <Empty />}
-        </section>
-      )}
-
-      {/* 이벤트 캘린더 */}
-      {(
-        <section className="t-card rounded-xl p-4">
-          <SectionHeader id="events" timestamp={ts} count={eventCalendar?.events?.length ?? 0}>이벤트 캘린더</SectionHeader>
-          <div className="space-y-1.5">
-            {(eventCalendar?.events || []).map((ev: any, i: number) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-                <div className="min-w-0">
-                  <div className="text-sm font-medium">{ev.name}</div>
-                  <div className="text-xs t-text-sub">{ev.date}</div>
-                </div>
-                <Badge variant={ev.impact === "high" ? "danger" : ev.impact === "medium" ? "warning" : "default"}>
-                  {ev.impact === "high" ? "고영향" : ev.impact === "medium" ? "중영향" : "저영향"}
-                </Badge>
-              </div>
-            ))}
-          </div>
-            {!(eventCalendar?.events || []).length && <Empty />}
-        </section>
-      )}
 
       {/* 프로그램 매매 */}
       <section className="t-card rounded-xl p-4">
@@ -1807,76 +1720,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         {!heatmap?.snapshots?.length && <p className="text-[10px] t-text-dim mt-2">시간대별 평균 수익률 (양수=상승 경향, 음수=하락 경향)</p>}
       </section>
 
-      {/* 내부자 거래 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="insider" timestamp={ts} count={insiderTrades?.length ?? 0}>내부자 거래</SectionHeader>
-        <div className="space-y-1.5">
-          {(insiderTrades || []).map((t, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{t.name || t.corp_name}</div>
-                <div className="text-xs t-text-sub">{t.executive} · {t.position}</div>
-              </div>
-              <div className="text-right shrink-0">
-                <div className={`text-xs font-medium ${t.type === "매수" ? "text-red-600" : "text-blue-600"}`}>{t.type} {t.shares?.toLocaleString()}주</div>
-                <div className="text-[10px] t-text-dim">{t.date}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {!insiderTrades?.length && <Empty />}
-      </section>
 
-      {/* 컨센서스 괴리 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="consensus" timestamp={ts} count={consensus?.length ?? 0}>컨센서스 괴리</SectionHeader>
-        <div className="space-y-1.5">
-          {(consensus || []).map((c, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{c.name}</div>
-                <div className="text-xs t-text-sub">
-                  {c.current_price > 0 ? `현재가 ${c.current_price?.toLocaleString()}원` : "매수 신호 종목"}
-                </div>
-              </div>
-              <div className="text-right shrink-0">
-                {c.target_price > 0 ? (
-                  <>
-                    <div className="text-xs font-medium text-amber-600">목표 {c.target_price?.toLocaleString()}원</div>
-                    <div className={`text-[10px] ${c.gap_pct >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                      괴리 {c.gap_pct >= 0 ? "+" : ""}{c.gap_pct}%
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-xs t-text-dim">목표가 수집 중</div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        {!consensus?.length && <Empty />}
-      </section>
-
-      {/* 동시호가 분석 */}
-      <section className="t-card rounded-xl p-4">
-        <SectionHeader id="auction" timestamp={ts} count={auction?.length ?? 0}>동시호가 분석</SectionHeader>
-        <div className="space-y-1.5">
-          {(auction || []).map((a, i) => (
-            <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
-              <div className="min-w-0">
-                <div className="text-sm font-medium truncate">{a.name}</div>
-                <div className="text-xs t-text-sub">{a.session === "opening" ? "시가" : "종가"} 동시호가</div>
-              </div>
-              <div className="text-right shrink-0">
-                <div className={`text-xs font-medium ${a.pressure === "매수우위" ? "text-red-600" : "text-blue-600"}`}>{a.pressure}</div>
-                <div className="text-[10px] t-text-dim">비율 {a.ratio}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {!auction?.length && <Empty />}
-        <p className="text-[10px] t-text-dim mt-1">장중 실시간 호가 기반 · 휴장 시 최근 데이터</p>
-      </section>
 
       {/* 호가창 압력 */}
       <section className="t-card rounded-xl p-4">

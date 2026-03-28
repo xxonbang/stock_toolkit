@@ -2,6 +2,24 @@
 
 ## 2026-03-28
 
+### [진단] 대시보드 히스토리 데이터 활용도 분석 (2026-03-28 KST)
+- **변경 파일:** `docs/research/2026-03-28-historical-utilization.md`
+- **내용:** 7개 대시보드 섹션별 히스토리 데이터 활용 현황 분석. 핵심 발견: (1) 교차 신호가 연속 시그널 데이터 미참조(프론트 수정만으로 즉시 개선 가능), (2) 이상 거래가 60일 평균 미사용(전일 대비만 사용), (3) 차트 패턴/예측 적중률/연속 시그널은 이미 히스토리 적극 활용 중.
+
+### [개선] 42일 백테스트 최종 합성 — 100-round 결론 비교 (2026-03-28 KST)
+- **변경 파일:** `docs/research/2026-03-28-backtest-synthesis.md`
+- **내용:** 42일 백테스트 3개 병렬 분석(알파, 소스비교, 신뢰도) 결과를 100-round 대시보드 평가 결론과 비교. 핵심 3개 결론 뒤집힘 확인: 알파 부호 반전(-0.95%→+1.53%p), 쌍방매수 최안정→최열위, Confidence 무효→역방향 예측력(p=0.01).
+
+### [개선] 호가창 압력 장중 실시간 평균 기반으로 개선 (2026-03-28 KST)
+- **변경 파일:** `daemon/alert_rules.py`, `daemon/main.py`, `scripts/run_all.py`, `frontend/src/pages/Dashboard.tsx`
+- **내용:** 장 마감 후 스냅샷 1회 → 장중 호가 수신 시 bid_ratio 누적 평균으로 개선. 15:15 장 마감 시 Supabase `orderbook_avg` 테이블에 저장, run_all.py에서 우선 사용. 프론트에 데이터 소스·샘플 수 표시.
+- **커밋:** `f9fd563`
+
+### [리팩토링] dual_signal 명칭 통일 + 텔레그램 종목 선정 알림 (2026-03-28 KST)
+- **변경 파일:** `modules/cross_signal.py`, `scripts/run_all.py`, `daemon/trader.py`, `bot/handlers.py`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/dashboard/FocusedStockSection.tsx`, `frontend/src/components/dashboard/BriefingSection.tsx`
+- **내용:** dual_signal 값 명칭 통일(고확신→쌍방매수, 확인필요→Vision매수, KIS매수→API매수). 종목 선정 완료 시 점수 산출 내역·종목 상세 포함 텔레그램 알림 추가. 선정 0건 시 텔레그램 알림 추가.
+- **커밋:** `f41d548`
+
 ### [개선] 5팩터 동점 시 타이브레이커 추가 (2026-03-28 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** `select_research_optimal` 동점 종목 발생 시 입력 순서 의존 대신 명확한 타이브레이커 적용. 1차 거래대금(높은순), 2차 등락률(높은순), 3차 현재가(낮은순).
