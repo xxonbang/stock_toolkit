@@ -191,7 +191,15 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
         if score >= min_score:
             scored.append({**s, "_score": score})
 
-    scored.sort(key=lambda x: -x["_score"])
+    def _sort_key(x):
+        ad = x.get("api_data") or {}
+        return (
+            -x["_score"],
+            -(ad.get("ranking") or {}).get("volume", 0),
+            -(ad.get("price") or {}).get("change_rate_pct", 0),
+            (ad.get("price") or {}).get("current", 0),
+        )
+    scored.sort(key=_sort_key)
     return scored[:top_n]
 
 
