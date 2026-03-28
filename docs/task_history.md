@@ -2,6 +2,11 @@
 
 ## 2026-03-28
 
+### [리팩토링] D등급 6개 섹션 제거 + 테스트 수정 + 연구 문서 (2026-03-28 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/services/dataService.ts`, `tests/test_cross_signal.py`, `docs/research/2026-03-28-dashboard-evaluation.md`, `docs/research/2026-03-28-implementation-plan.md`
+- **내용:** 하드코딩/플레이스홀더 D등급 6개 섹션 제거(테마전이/손절익절/이벤트캘린더/내부자/컨센서스/동시호가). test_cross_signal.py 2건 실패 수정(UNION 로직+dual_signal 명칭 반영). 투자지표 유효성 연구 14차 120+회 검증 확정 결론 문서 추가.
+- **커밋:** `7bc1fde`
+
 ### [진단] 대시보드 히스토리 데이터 활용도 분석 (2026-03-28 KST)
 - **변경 파일:** `docs/research/2026-03-28-historical-utilization.md`
 - **내용:** 7개 대시보드 섹션별 히스토리 데이터 활용 현황 분석. 핵심 발견: (1) 교차 신호가 연속 시그널 데이터 미참조(프론트 수정만으로 즉시 개선 가능), (2) 이상 거래가 60일 평균 미사용(전일 대비만 사용), (3) 차트 패턴/예측 적중률/연속 시그널은 이미 히스토리 적극 활용 중.

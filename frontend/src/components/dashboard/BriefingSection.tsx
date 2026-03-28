@@ -17,11 +17,14 @@ function Badge({ children, variant = "default" }: { children: React.ReactNode; v
   );
 }
 
-export default function BriefingSection({ briefing, performance, crossSignal, smartMoney, briefTs, setStockDetail, setConfExp }: {
+export default function BriefingSection({ briefing, performance, crossSignal, smartMoney, anomalies, riskMonitor, allStockList, briefTs, setStockDetail, setConfExp }: {
   briefing: any;
   performance: any;
   crossSignal: any;
   smartMoney: any;
+  anomalies?: any;
+  riskMonitor?: any;
+  allStockList?: any[];
   briefTs: string;
   setStockDetail: (v: any) => void;
   setConfExp: (v: any) => void;
@@ -96,23 +99,29 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
     "고확신 종목": "border-l-emerald-400", "주의 종목": "border-l-rose-400", "전략 제안": "border-l-indigo-400",
   };
   // 종목명(코드) 패턴을 클릭 가능한 요소로 변환
-  const allStockData = [...(crossSignal || []), ...(smartMoney || [])];
+  const allStockData = [...(crossSignal || []), ...(smartMoney || []), ...(anomalies || []), ...(riskMonitor || []), ...(allStockList || [])];
+  // 종목명→데이터 매핑 (이름 기반 매칭용)
+  const stockByName: Record<string, any> = {};
+  for (const s of allStockData) {
+    if (s?.name) stockByName[s.name] = s;
+  }
   const renderTextWithStockLinks = (text: string) => {
-    // HTML 태그 제거 (briefing 데이터에 <font> 등 포함 가능)
     const cleaned = text.replace(/<[^>]+>/g, "");
-    // "종목명(6자리코드)" 패턴 매칭
-    const parts = cleaned.split(/([가-힣A-Za-z\s]+\(\d{6}\))/g);
+    // 1차: "종목명(6자리코드)" 패턴
+    // 2차: "종목명 (매수)" 또는 "종목명:" 패턴 (브리핑 텍스트)
+    const stockNames = Object.keys(stockByName).filter(n => n.length >= 3).sort((a, b) => b.length - a.length);
+    if (!stockNames.length) return <>{cleaned}</>;
+    const namePattern = stockNames.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+    const regex = new RegExp(`(${namePattern})`, "g");
+    const parts = cleaned.split(regex);
     return parts.map((part, k) => {
-      const m = part.match(/^(.+)\((\d{6})\)$/);
-      if (m) {
-        const name = m[1].trim();
-        const code = m[2];
-        const detail = allStockData.find((s: any) => s.code === code);
+      const detail = stockByName[part];
+      if (detail) {
         return (
           <span key={k}
-            onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name, code, _noData: true })}
+            onClick={(e) => { e.stopPropagation(); setStockDetail(detail); }}
             className="font-semibold text-blue-400 cursor-pointer hover:underline"
-          >{name}({code})</span>
+          >{part}</span>
         );
       }
       return <span key={k}>{part}</span>;

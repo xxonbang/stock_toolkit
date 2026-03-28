@@ -968,7 +968,7 @@ def main():
                 score += max(0, min(15, int(opm * 0.5)))
             if debt and 0 < debt < 200:
                 score += max(0, min(10, int((100 - debt) * 0.1)))
-            score += 10 if sig.get("vision_signal") in ("매수", "적극매수") else 0
+            # vision_signal 보너스 제거 (연구 결과: 예측력 없음, 밸류에이션과 무관)
 
             val_entry = {
                 "code": code, "name": sig.get("name", ""),

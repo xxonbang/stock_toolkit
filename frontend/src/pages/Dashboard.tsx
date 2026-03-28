@@ -4,7 +4,8 @@ import { useLocation, Outlet } from "react-router-dom";
 import {
   TrendingUp, TrendingDown,
   BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, X,
-  Target, Search as SearchIcon, Bot, Circle,
+  Target, Search as SearchIcon, Bot, Circle, ExternalLink,
+  FileText, Shield, RefreshCw, Ruler, BookOpen, Landmark, Activity, ArrowUpDown, Flame,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { SectionHeader } from "../components/HelpDialog";
@@ -76,6 +77,17 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [smartMoney, setSmartMoney] = useState<any[] | null>(null);
   const [crossSignal, setCrossSignal] = useState<any[] | null>(null);
   const [stockDetail, setStockDetail] = useState<any>(null);
+  const [stockActionTarget, _setStockActionTarget] = useState<{ data: any; x: number; y: number } | null>(null);
+  const lastClickPos = useRef({ x: 0, y: 0 });
+  useEffect(() => {
+    const handler = (e: MouseEvent) => { lastClickPos.current = { x: e.clientX, y: e.clientY }; };
+    window.addEventListener("click", handler, true);
+    return () => window.removeEventListener("click", handler, true);
+  }, []);
+  const setStockActionTarget = (data: any) => {
+    if (!data) { _setStockActionTarget(null); return; }
+    _setStockActionTarget({ data, x: lastClickPos.current.x, y: lastClickPos.current.y });
+  };
   const [showDualExp, setShowDualExp] = useState(false);
   const [showMacroHelp, setShowMacroHelp] = useState(false);
   const [showStockSearch, setShowStockSearch] = useState(false);
@@ -125,10 +137,17 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [forecastExpanded, setForecastExpanded] = useState<Set<string>>(new Set());
 
   // 모달/bottom sheet 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(stockDetail || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showStockSearch);
+  const anyModalOpen = !!(stockDetail || stockActionTarget || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showStockSearch);
   useEffect(() => {
-    document.body.style.overflow = anyModalOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (anyModalOpen) {
+      const sw = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${sw}px`;
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
+    return () => { document.body.style.overflow = ""; document.body.style.paddingRight = ""; };
   }, [anyModalOpen]);
 
   const loadAllData = (showToast = false) => {
@@ -582,6 +601,82 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>,
         document.body
       )}
+      {/* 종목 액션 선택 팝업 */}
+      {stockActionTarget && (() => {
+        const pw = 260;
+        const maxH = 320;
+        const pad = 8;
+        const cx = stockActionTarget.x;
+        const cy = stockActionTarget.y;
+        // 화면 밖으로 안 나가도록 위치 계산
+        const left = Math.max(pad, Math.min(cx - pw / 2, window.innerWidth - pw - pad));
+        // 아래 공간 부족하면 위로
+        const spaceBelow = window.innerHeight - cy - pad;
+        const top = spaceBelow >= maxH ? cy + 8 : Math.max(pad, cy - maxH - 8);
+
+        const code = stockActionTarget.data.code;
+        const match = (s: any) => s?.code === code;
+        const found: { label: string; sectionId: string; icon: string }[] = [];
+        if ((crossSignal || []).some(match)) found.push({ label: "교차 신호", sectionId: "cross", icon: "zap" });
+        if ((smartMoney || []).some(match)) found.push({ label: "스마트 머니", sectionId: "smartmoney", icon: "landmark" });
+        if ((anomalies || []).some(match)) found.push({ label: "이상 거래 감지", sectionId: "anomaly", icon: "flame" });
+        const consAll = [...(consecutiveSignals?.and_condition || []), ...(consecutiveSignals?.or_condition || [])];
+        if (consAll.some(match)) found.push({ label: "연속 시그널", sectionId: "consecutive", icon: "activity" });
+        if ((riskMonitor || []).some(match)) found.push({ label: "위험 종목", sectionId: "risk", icon: "shield" });
+        if ((shortSqueeze || []).some(match)) found.push({ label: "수급 다이버전스", sectionId: "squeeze", icon: "refresh" });
+        if ((valuation || []).some(match)) found.push({ label: "밸류에이션", sectionId: "valuation", icon: "ruler" });
+        if ((orderbook || []).some(match)) found.push({ label: "호가창 압력", sectionId: "orderbook", icon: "updown" });
+        if ((intradayStockFlow || []).some(match)) found.push({ label: "장중 수급", sectionId: "intraday_flow", icon: "landmark2" });
+
+        return createPortal(
+        <div className="fixed inset-0 z-[9999]" onClick={() => setStockActionTarget(null)}>
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
+          <div className="fixed z-[61] rounded-2xl t-card border t-border-light shadow-2xl overflow-hidden" style={{ left, top, width: pw, maxHeight: maxH }} onClick={e => e.stopPropagation()}>
+            {/* 헤더 */}
+            <div className="px-4 pt-3 pb-2 border-b t-border-light">
+              <div className="text-[13px] font-bold t-text">{stockActionTarget.data.name || stockActionTarget.data.code}</div>
+              <div className="text-[10px] t-text-dim">{stockActionTarget.data.code}</div>
+            </div>
+            {/* 메뉴 */}
+            <div className="overflow-y-auto" style={{ maxHeight: maxH - 56 }}>
+              <button onClick={() => { setStockDetail(stockActionTarget.data); setStockActionTarget(null); }} className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-blue-500/8 transition text-left border-b t-border-light">
+                <FileText size={14} className="t-text-dim shrink-0" />
+                <div>
+                  <div className="text-[12px] font-medium t-text">종목 상세 정보</div>
+                  <div className="text-[10px] t-text-dim">AI 분석, 뉴스, 신호 확인</div>
+                </div>
+              </button>
+              {found.length > 0 && (
+                <div className="border-b t-border-light">
+                  <div className="px-4 pt-2 pb-1 text-[10px] font-semibold t-text-dim tracking-wide">포함 섹션 ({found.length})</div>
+                  {found.map(f => (
+                    <button key={f.sectionId} onClick={() => {
+                      setStockActionTarget(null);
+                      setTimeout(() => document.getElementById(f.sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    }} className="w-full flex items-center gap-2.5 px-4 py-2 hover:bg-blue-500/8 transition text-left">
+                      {f.icon === "zap" && <Zap size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "landmark" && <Landmark size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "flame" && <Flame size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "activity" && <Activity size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "shield" && <Shield size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "refresh" && <RefreshCw size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "ruler" && <Ruler size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "updown" && <ArrowUpDown size={13} className="t-text-dim shrink-0" />}
+                      {f.icon === "landmark2" && <Landmark size={13} className="t-text-dim shrink-0" />}
+                      <span className="text-[12px] t-text">{f.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <a href={`https://m.stock.naver.com/domestic/stock/${stockActionTarget.data.code}/total`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-blue-500/8 transition">
+                <ExternalLink size={13} className="t-text-dim" />
+                <span className="text-[12px] t-text">네이버 증권에서 보기</span>
+              </a>
+            </div>
+          </div>
+        </div>,
+        document.body
+      ); })()}
       {/* 종목 상세 팝업 */}
       {stockDetail && createPortal(
         <div className="fixed inset-0 z-[9999]" onClick={() => { setStockDetail(null); setShowDualExp(false); }}>
@@ -850,7 +945,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       {sec.items.map((item, j) => (
                         <div key={j} onClick={() => {
                           const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === item.stock.code);
-                          setStockDetail(detail || { name: item.stock.name, code: item.stock.code, _noData: true });
+                          setStockActionTarget(detail || { name: item.stock.name, code: item.stock.code, _noData: true });
                           setShowStockSearch(false);
                         }} className="flex items-center justify-between p-2 t-card-alt rounded-lg cursor-pointer hover:opacity-80 transition border t-border-light">
                           <div className="min-w-0">
@@ -984,7 +1079,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* AI 모닝 브리핑 */}
-      {briefing?.morning && <BriefingSection briefing={briefing} performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} briefTs={briefTs} setStockDetail={setStockDetail} setConfExp={setConfExp} />}
+      {briefing?.morning && <BriefingSection briefing={briefing} performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} anomalies={anomalies} riskMonitor={riskMonitor} allStockList={allStockList} briefTs={briefTs} setStockDetail={setStockActionTarget} setConfExp={setConfExp} />}
 
       {/* 시장 현황 (심리 온도계 통합) */}
       {performance && (
@@ -1198,7 +1293,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       )}
 
       {/* AI 주목 종목 */}
-      {performance?.by_source?.combined && <FocusedStockSection performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} consecutiveSignals={consecutiveSignals} ts={ts} setStockDetail={setStockDetail} />}
+      {performance?.by_source?.combined && <FocusedStockSection performance={performance} crossSignal={crossSignal} smartMoney={smartMoney} consecutiveSignals={consecutiveSignals} ts={ts} setStockDetail={setStockActionTarget} />}
 
       {/* ===== 신호 카테고리 ===== */}
       <div id="cat-signal" className="scroll-mt-24 flex items-center gap-3 mt-6 mb-1">
@@ -1224,7 +1319,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               const ageLbl = ageH >= 12 ? "매우 오래됨" : ageH >= 6 ? "오래됨" : ageH >= 3 ? "주의" : "최근";
               const ageColor = ageH >= 12 ? "text-gray-400" : ageH >= 6 ? "text-amber-400" : ageH >= 3 ? "text-yellow-400" : "text-emerald-400";
               return (
-              <div key={i} onClick={() => setStockDetail(s)} className="p-2.5 t-card-alt border t-border-light rounded-lg cursor-pointer hover:border-blue-500/30 transition-colors">
+              <div key={i} onClick={() => setStockActionTarget(s)} className="p-2.5 t-card-alt border t-border-light rounded-lg cursor-pointer hover:border-blue-500/30 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 mr-2">
                     <span className="font-medium text-sm t-text">{s.name}</span>
@@ -1329,7 +1424,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               return (
               <div key={i} onClick={() => {
                 const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === a.code);
-                setStockDetail(detail || { name: a.name, code: a.code, _noData: true });
+                setStockActionTarget(detail || { name: a.name, code: a.code, _noData: true });
               }} className={`flex items-center justify-between p-2 border rounded-lg gap-2 cursor-pointer hover:opacity-80 transition ${cls.color}`}>
                 <div className="flex items-center gap-2 min-w-0">
                   <Zap size={14} className="text-red-400 shrink-0" />
@@ -1364,7 +1459,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     return (
                     <div key={i} onClick={() => {
                       const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === a.code);
-                      setStockDetail(detail || { name: a.name, code: a.code, _noData: true });
+                      setStockActionTarget(detail || { name: a.name, code: a.code, _noData: true });
                     }} className={`flex items-center justify-between p-2 border rounded-lg gap-2 opacity-60 cursor-pointer hover:opacity-80 transition ${cls.color}`}>
                       <div className="flex items-center gap-2 min-w-0">
                         <Zap size={12} className="text-red-400 shrink-0" />
@@ -1400,7 +1495,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               const intra = s.intraday || {};
               const gap = gapMap2.get(s.code) as any;
               return (
-              <div key={i} onClick={() => setStockDetail(s)} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/20 hover:border transition-colors">
+              <div key={i} onClick={() => setStockActionTarget(s)} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/20 hover:border transition-colors">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
                     <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold flex items-center justify-center shrink-0">
@@ -1531,7 +1626,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                     <div key={i} onClick={() => {
                       if (t.code) {
                         const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === t.code);
-                        setStockDetail(detail || { name: t.stock, code: t.code, _noData: true });
+                        setStockActionTarget(detail || { name: t.stock, code: t.code, _noData: true });
                       }
                     }} className={`text-xs t-text-sub mb-1.5 flex items-center gap-2 ${t.code ? "cursor-pointer hover:opacity-70" : ""}`}>
                       <span className="truncate min-w-0">{t.title}</span>
@@ -1562,7 +1657,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="squeeze" timestamp={ts} count={shortSqueeze?.length ?? 0}>수급 다이버전스</SectionHeader>
           <div className="space-y-1.5">
             {(shortSqueeze || []).slice(0, 6).map((s, i) => (
-              <div key={i} className="flex items-center justify-between p-2 bg-orange-500/10 border border-orange-500/20 rounded-lg gap-2">
+              <div key={i} className="flex items-center justify-between p-2 bg-orange-500/10 border border-orange-500/20 rounded-lg gap-2 cursor-pointer" onClick={() => setStockActionTarget(s)}>
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{s.name}</div>
                   <div className="flex flex-wrap gap-1 mt-1">
@@ -1589,7 +1684,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="valuation" timestamp={ts} count={valuation?.length ?? 0}>밸류에이션 스크리너</SectionHeader>
           <div className="space-y-1.5">
             {(valuation || []).slice(0, 6).map((v, i) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer" onClick={() => setStockActionTarget(v)}>
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{v.name}</div>
                   <div className="text-xs t-text-sub leading-relaxed">
@@ -1599,7 +1694,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  {signalBadge(v.signal)}
                   <div className="text-right shrink-0">
                     <div className="text-sm font-bold text-green-700">{v.value_score}</div>
                     <div className="text-[10px] t-text-dim">밸류</div>
@@ -1619,7 +1713,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="divergence" timestamp={ts} count={divergence?.length ?? 0}>거래량-가격 괴리</SectionHeader>
           <div className="space-y-1.5">
             {(divergence || []).slice(0, 6).map((d, i) => (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer" onClick={() => setStockActionTarget(d)}>
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{d.name}</div>
                   <div className="text-xs t-text-sub">{d.type}</div>
@@ -1644,6 +1738,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <SectionHeader id="sector" timestamp={ts}>테마별 자금 흐름</SectionHeader>
           <div className="space-y-1.5">
             {Object.entries(sectors || {})
+              .filter(([name]) => name !== "generated_at")
               .sort(([, a]: any, [, b]: any) => (b.total_foreign_net || 0) - (a.total_foreign_net || 0))
               .map(([name, data]: [string, any]) => {
                 const net = data.total_foreign_net || 0;
@@ -1755,7 +1850,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           {(orderbook || []).map((o, i) => {
             const buyPct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
             return (
-              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
+              <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer" onClick={() => setStockActionTarget(o)}>
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{o.name}</div>
                   {o.sample_count ? (
@@ -1808,7 +1903,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               };
               return (
               <div key={i} className="flex items-center justify-between p-2.5 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
-                onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: tv.name, code: tv.code, _noData: true })}>
+                onClick={() => setStockActionTarget(detail || { name: tv.name, code: tv.code, _noData: true })}>
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold flex items-center justify-center shrink-0">
                     {tv.rank || i + 1}
@@ -1989,7 +2084,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === vp.code);
             return (
             <div key={i} className="p-2 t-card-alt rounded-lg cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
-              onClick={() => detail ? setStockDetail(detail) : setStockDetail({ name: vp.name, code: vp.code, _noData: true })}>
+              onClick={() => setStockActionTarget(detail || { name: vp.name, code: vp.code, _noData: true })}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm font-medium truncate">{vp.name}</span>
                 {hasAlert && <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${statusColor}`}>{status}</span>}
@@ -2045,7 +2140,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           <div className="space-y-1.5">
             {items.map((sc: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
-                onClick={() => sc._detail ? setStockDetail(sc._detail) : setStockDetail({ name: sc.name, code: sc.code, _noData: true })}>
+                onClick={() => setStockActionTarget(sc._detail || { name: sc.name, code: sc.code, _noData: true })}>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm font-medium truncate">{sc.name}</span>
@@ -2094,11 +2189,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         <div className="space-y-1.5">
           {items.slice(0, 15).map((isf: any, i: number) => (
             <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2 cursor-pointer hover:border-blue-500/30 hover:border transition-colors"
-              onClick={() => isf._detail ? setStockDetail(isf._detail) : setStockDetail({ name: isf._name, code: isf.code, _noData: true })}>
+              onClick={() => setStockActionTarget(isf._detail || { name: isf._name, code: isf.code, _noData: true })}>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-medium truncate">{isf._name}</span>
-                  <a href={`https://m.stock.naver.com/domestic/stock/${isf.code}/total`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 t-text-dim hover:text-blue-500">🔗</a>
+                  <a href={`https://m.stock.naver.com/domestic/stock/${isf.code}/total`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 t-text-dim hover:text-blue-500"><ExternalLink size={12} /></a>
                   {isf._tag && (
                     <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${isf._tag === "쌍끌이 매수" ? "bg-red-500/15 text-red-400" : "bg-blue-500/15 text-blue-400"}`}>{isf._tag}</span>
                   )}

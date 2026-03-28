@@ -61,7 +61,7 @@ export const SECTION_HELP: Record<string, { title: string; desc: string }> = {
   },
   valuation: {
     title: "밸류에이션 스크리너",
-    desc: "PER(주가수익비율)이 낮고 저평가된 종목입니다. PER이 낮을수록 이익 대비 주가가 싸다는 의미입니다. PBR(주가순자산비율) 1 미만은 자산가치보다 주가가 낮은 상태입니다.",
+    desc: "재무 지표 기반 종합 밸류 스코어 (최대 90점).\n\n[계산식]\n• PER 점수 (25점): (20 - PER) × 1.25 — PER이 낮을수록 고점수\n• PBR 점수 (20점): (1.5 - PBR) × 13 — PBR이 낮을수록 고점수\n• ROE 점수 (20점): ROE × 1.3 — ROE가 높을수록 고점수\n• 영업이익률 (15점): OPM × 0.5\n• 부채비율 (10점): (100 - 부채비율) × 0.1 — 부채가 낮을수록 고점수",
   },
   divergence: {
     title: "거래량-가격 괴리",
@@ -250,6 +250,19 @@ export function SectionHeader({
     updatePos();
     setOpen(true);
   };
+
+  // 팝업 열릴 때 스크롤 잠금 (레이아웃 시프트 방지)
+  useEffect(() => {
+    if (open) {
+      const sw = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${sw}px`;
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
+    return () => { document.body.style.overflow = ""; document.body.style.paddingRight = ""; };
+  }, [open]);
 
   // 외부 클릭 닫기
   useEffect(() => {
