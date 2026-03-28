@@ -97,16 +97,38 @@ async def on_execution(data: dict):
 
 
 async def on_asking_price(data: dict):
-    """호가 데이터 수신 콜백 — 알림용 종목만 호가 벽/수급 반전 검사"""
+    """호가 데이터 수신 콜백 — 호가 누적 + 알림용 벽/수급 반전 검사"""
     code = data.get("code", "")
+    alerts = alert_engine.check_asking_price(data)
     if code not in _alert_codes:
         return
-    alerts = alert_engine.check_asking_price(data)
     for alert in alerts:
         name = get_stock_name(alert["code"])
         msg = format_alert(alert, stock_name=name)
         logger.info(f"알림 발송: {alert['type']} {alert['code']}")
         await send_telegram(msg)
+
+
+async def save_orderbook_averages():
+    """장중 누적 호가 압력 평균을 Supabase에 저장"""
+    from daemon.position_db import _supabase_request
+    from daemon.config import SUPABASE_URL
+    averages = alert_engine.get_orderbook_averages()
+    if not averages:
+        logger.info("호가 누적 데이터 없음 — 저장 스킵")
+        return
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+    # 종목명 매핑
+    for item in averages:
+        item["name"] = get_stock_name(item["code"]) or item["code"]
+        item["date"] = today
+    # 기존 당일 데이터 삭제 후 삽입
+    url = f"{SUPABASE_URL}/rest/v1/orderbook_avg?date=eq.{today}"
+    await _supabase_request("DELETE", url)
+    url = f"{SUPABASE_URL}/rest/v1/orderbook_avg"
+    await _supabase_request("POST", url, json=averages)
+    logger.info(f"호가 평균 저장 완료: {len(averages)}종목")
+    alert_engine.reset_orderbook_accum()
 
 
 async def refresh_subscriptions():
@@ -219,6 +241,11 @@ async def schedule_eod_close():
                 await sell_all_positions_market()
             except Exception as e:
                 logger.error(f"장 마감 청산 오류: {e}")
+            # 호가창 압력 장중 평균 저장
+            try:
+                await save_orderbook_averages()
+            except Exception as e:
+                logger.error(f"호가 평균 저장 오류: {e}")
             _eod_done_date = today
 
 

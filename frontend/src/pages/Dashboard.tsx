@@ -1881,6 +1881,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       {/* 호가창 압력 */}
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="orderbook" timestamp={ts} count={orderbook?.length ?? 0}>호가창 압력</SectionHeader>
+        {orderbook?.[0]?.source === "realtime_avg" && (
+          <div className="text-[10px] t-text-dim mb-2">📊 장중 실시간 평균 기반</div>
+        )}
         <div className="space-y-1.5">
           {(orderbook || []).map((o, i) => {
             const buyPct = o.bid_volume && o.ask_volume ? Math.round(o.bid_volume / (o.bid_volume + o.ask_volume) * 100) : (o.buy_pct || 50);
@@ -1888,11 +1891,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div key={i} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-medium truncate">{o.name}</div>
-                  {(o.bid_volume != null || o.ask_volume != null) && (
+                  {o.sample_count ? (
+                    <div className="text-xs t-text-sub">샘플 {o.sample_count.toLocaleString()}회</div>
+                  ) : (o.bid_volume != null || o.ask_volume != null) ? (
                     <div className="text-xs t-text-sub">
                       매수 {o.bid_volume?.toLocaleString()}주 · 매도 {o.ask_volume?.toLocaleString()}주
                     </div>
-                  )}
+                  ) : null}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <div className="w-16 h-2 t-muted rounded-full overflow-hidden flex">

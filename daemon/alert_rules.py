@@ -18,6 +18,8 @@ class AlertEngine:
         self._targets: dict[str, float] = {}
         # 수급 추적: {code: deque of (timestamp, bid_ratio)}
         self._supply_history: dict[str, deque] = {}
+        # 호가창 압력 장중 누적: {code: {"bid_sum": float, "count": int, "ask_total": int, "bid_total": int}}
+        self._orderbook_accum: dict[str, dict] = {}
 
     def check(self, data: dict, tick_volume: int | None = None) -> list[dict]:
         code = data["code"]
@@ -126,6 +128,14 @@ class AlertEngine:
         if total > 0:
             bid_ratio = total_bid / total
             now = time.time()
+            # 장중 누적 (평균 산출용)
+            if code not in self._orderbook_accum:
+                self._orderbook_accum[code] = {"bid_sum": 0.0, "count": 0, "ask_total": 0, "bid_total": 0}
+            acc = self._orderbook_accum[code]
+            acc["bid_sum"] += bid_ratio
+            acc["count"] += 1
+            acc["ask_total"] += total_ask
+            acc["bid_total"] += total_bid
             if code not in self._supply_history:
                 self._supply_history[code] = deque()
             history = self._supply_history[code]
@@ -183,6 +193,26 @@ class AlertEngine:
         if not items:
             return 0.0
         return sum(v for _, v in items) / len(items)
+
+    def get_orderbook_averages(self) -> list[dict]:
+        """장중 누적 호가 압력 평균 반환"""
+        results = []
+        for code, acc in self._orderbook_accum.items():
+            if acc["count"] == 0:
+                continue
+            avg_bid_ratio = acc["bid_sum"] / acc["count"]
+            results.append({
+                "code": code,
+                "avg_buy_pct": round(avg_bid_ratio * 100, 1),
+                "sample_count": acc["count"],
+                "total_ask_volume": acc["ask_total"],
+                "total_bid_volume": acc["bid_total"],
+            })
+        return results
+
+    def reset_orderbook_accum(self):
+        """장 마감 시 누적 데이터 초기화"""
+        self._orderbook_accum.clear()
 
     def _can_alert(self, code: str, alert_type: str) -> bool:
         key = (code, alert_type)

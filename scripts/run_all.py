@@ -1467,46 +1467,76 @@ def main():
     with open(results_dir / "auction.json", "w", encoding="utf-8") as f:
         json.dump(auction_results, f, ensure_ascii=False, indent=2)
 
-    # 호가창 압력 — kis_gemini 전체 종목에서 불균형 큰 순으로 선별
-    all_orderbook = []
-    if gemini_stocks:
-        for code, gem in gemini_stocks.items():
-            ob = gem.get("order_book", {}) if isinstance(gem, dict) else {}
-            if not ob:
-                continue
-            ask = ob.get("total_ask_volume", ob.get("ask_volume_total", 0)) or 0
-            bid = ob.get("total_bid_volume", ob.get("bid_volume_total", 0)) or 0
-            total = ask + bid
-            if total <= 0:
-                continue
-            buy_pct = round(bid / total * 100)
-            # 50%에서 얼마나 벗어났는지 = 불균형 정도
-            imbalance = abs(buy_pct - 50)
-            if imbalance < 5:
-                continue  # 불균형 5% 미만은 제외 (의미 없음)
-            ratio = ob.get("bid_ask_ratio", 1.0) or 1.0
-            all_orderbook.append({
-                "name": gem.get("name", code), "code": code,
-                "ask_volume": ask, "bid_volume": bid,
-                "bid_ask_ratio": round(ratio, 2),
-                "buy_pct": buy_pct,
-                "imbalance": imbalance,
-                "best_ask": ob.get("best_ask", 0),
-                "best_bid": ob.get("best_bid", 0),
-            })
-    # 매수 우위 TOP 10 + 매도 우위 TOP 10 (불균형 큰 순)
-    buy_dominant = sorted([o for o in all_orderbook if o["buy_pct"] > 50], key=lambda x: x["buy_pct"], reverse=True)[:10]
-    sell_dominant = sorted([o for o in all_orderbook if o["buy_pct"] < 50], key=lambda x: x["buy_pct"])[:10]
-    orderbook_results = buy_dominant + sell_dominant
+    # 호가창 압력 — Supabase 장중 평균 우선, 없으면 kis_gemini 스냅샷 폴백
+    import os, requests as _req
+    _sb_url = os.getenv("SUPABASE_URL", "")
+    _sb_key = os.getenv("SUPABASE_SECRET_KEY") or os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+    orderbook_results = []
+    if _sb_url and _sb_key:
+        try:
+            from datetime import date as _date
+            today = _date.today().isoformat()
+            resp = _req.get(
+                f"{_sb_url}/rest/v1/orderbook_avg?date=eq.{today}&select=*",
+                headers={"apikey": _sb_key, "Authorization": f"Bearer {_sb_key}"},
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                avg_data = resp.json()
+                if avg_data:
+                    for row in avg_data:
+                        buy_pct = row.get("avg_buy_pct", 50)
+                        if abs(buy_pct - 50) < 5:
+                            continue
+                        orderbook_results.append({
+                            "name": row.get("name", row.get("code", "")),
+                            "code": row.get("code", ""),
+                            "buy_pct": round(buy_pct),
+                            "sample_count": row.get("sample_count", 0),
+                            "source": "realtime_avg",
+                        })
+                    logger.info(f"호가 장중 평균: Supabase에서 {len(orderbook_results)}종목 로드")
+        except Exception as e:
+            logger.warning(f"Supabase 호가 평균 조회 실패: {e}")
+
+    # Supabase 데이터 없으면 kis_gemini 스냅샷 폴백
     if not orderbook_results:
-        # 폴백: combined signals + investor_data 기반
+        all_orderbook = []
+        if gemini_stocks:
+            for code, gem in gemini_stocks.items():
+                ob = gem.get("order_book", {}) if isinstance(gem, dict) else {}
+                if not ob:
+                    continue
+                ask = ob.get("total_ask_volume", ob.get("ask_volume_total", 0)) or 0
+                bid = ob.get("total_bid_volume", ob.get("bid_volume_total", 0)) or 0
+                total = ask + bid
+                if total <= 0:
+                    continue
+                buy_pct = round(bid / total * 100)
+                imbalance = abs(buy_pct - 50)
+                if imbalance < 5:
+                    continue
+                all_orderbook.append({
+                    "name": gem.get("name", code), "code": code,
+                    "ask_volume": ask, "bid_volume": bid,
+                    "buy_pct": buy_pct, "imbalance": imbalance,
+                    "source": "snapshot",
+                })
+        buy_dominant = sorted([o for o in all_orderbook if o["buy_pct"] > 50], key=lambda x: x["buy_pct"], reverse=True)[:10]
+        sell_dominant = sorted([o for o in all_orderbook if o["buy_pct"] < 50], key=lambda x: x["buy_pct"])[:10]
+        orderbook_results = buy_dominant + sell_dominant
+    if not orderbook_results:
         for sig in combined[:5]:
             code = sig.get("code", "")
             inv = investor_data.get(code, {})
             fn = (inv.get("foreign_net") or 0) if isinstance(inv, dict) else 0
             buy_pct = min(90, max(10, 50 + (fn / 50000)))
-            orderbook_results.append({"name": sig.get("name",""), "code": code, "buy_pct": round(buy_pct)})
-    # imbalance 키 제거 (프론트엔드 불필요)
+            orderbook_results.append({"name": sig.get("name",""), "code": code, "buy_pct": round(buy_pct), "source": "fallback"})
+
+    # 정렬 (매수우위 TOP 10 + 매도우위 TOP 10)
+    buy_dom = sorted([o for o in orderbook_results if o.get("buy_pct", 50) > 50], key=lambda x: x["buy_pct"], reverse=True)[:10]
+    sell_dom = sorted([o for o in orderbook_results if o.get("buy_pct", 50) < 50], key=lambda x: x["buy_pct"])[:10]
+    orderbook_results = buy_dom + sell_dom
     for o in orderbook_results:
         o.pop("imbalance", None)
     with open(results_dir / "orderbook.json", "w", encoding="utf-8") as f:
