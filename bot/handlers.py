@@ -27,7 +27,7 @@ def handle_top() -> str:
     signals = loader.get_combined_signals()
     matches = find_cross_signals(themes, signals)
     if not matches:
-        return "현재 고확신 종목이 없습니다."
+        return "현재 매수 신호 종목이 없습니다."
     return format_cross_signal_alert(matches)
 
 

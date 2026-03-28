@@ -56,13 +56,13 @@ export default function FocusedStockSection({ performance, crossSignal, smartMon
     const hasVision = buys.has(s.vision_signal || "");
     const hasApi = buys.has(s.api_signal || "");
     const isCross = crossCodeSet.has(s.code);
-    if (hasVision && hasApi && isCross) return "고확신";
+    if (hasVision && hasApi && isCross) return "쌍방매수";
     if (isCross) return "대장주";
     if (hasVision && hasApi) return "매수 일치";
     return "매수";
   };
 
-  const catOrder: Record<string, number> = { "고확신": 0, "대장주": 1, "매수 일치": 2, "매수": 3 };
+  const catOrder: Record<string, number> = { "쌍방매수": 0, "대장주": 1, "매수 일치": 2, "매수": 3 };
 
   (crossSignal || []).forEach((s: any) => {
     if (!seen.has(s.code)) {
@@ -86,7 +86,7 @@ export default function FocusedStockSection({ performance, crossSignal, smartMon
   allBuy.sort((a, b) => (catOrder[a.cat] ?? 9) - (catOrder[b.cat] ?? 9) || b.score - a.score);
 
   const catStyle: Record<string, { bg: string; text: string; border: string }> = {
-    "고확신": { bg: "t-card-alt", text: "text-red-500", border: "border-l-[3px] border-l-red-500 border t-border-light" },
+    "쌍방매수": { bg: "t-card-alt", text: "text-red-500", border: "border-l-[3px] border-l-red-500 border t-border-light" },
     "대장주": { bg: "t-card-alt", text: "text-orange-500", border: "border-l-[3px] border-l-orange-400 border t-border-light" },
     "매수 일치": { bg: "t-card-alt", text: "text-blue-500", border: "border-l-[3px] border-l-blue-400 border t-border-light" },
     "매수": { bg: "t-card-alt", text: "t-text", border: "border t-border-light" },
@@ -104,7 +104,7 @@ export default function FocusedStockSection({ performance, crossSignal, smartMon
       <div className="text-xs t-text-sub mb-3">
         AI 분석 {total}종목 중 <span className="text-red-500 font-semibold">매수 신호 {allBuy.length}종목</span>
       </div>
-      {["고확신", "대장주", "매수 일치", "매수"].map(cat => {
+      {["쌍방매수", "대장주", "매수 일치", "매수"].map(cat => {
         const items = groups[cat];
         if (!items?.length) return null;
         const style = catStyle[cat];
@@ -112,7 +112,7 @@ export default function FocusedStockSection({ performance, crossSignal, smartMon
           <div key={cat} className="mb-2.5">
             <div className="flex items-center gap-1.5 mb-1.5">
               <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${
-                cat === "고확신" ? "bg-red-500/10 text-red-400" :
+                cat === "쌍방매수" ? "bg-red-500/10 text-red-400" :
                 cat === "대장주" ? "bg-orange-500/10 text-orange-400" :
                 cat === "매수 일치" ? "bg-blue-500/10 text-blue-400" :
                 "t-card-alt t-text-sub"

@@ -82,7 +82,7 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
   const matchKey = (title: string) => {
     if (title.includes("글로벌") || title.includes("환경") || title.includes("시장")) return "글로벌 환경";
     if (title.includes("테마") && (title.includes("주목") || title.includes("주요"))) return "오늘의 주목 테마";
-    if (title.includes("핵심") || title.includes("고확신") || title.includes("관심") || title.includes("종목")) return "고확신 종목";
+    if (title.includes("핵심") || title.includes("고확신") || title.includes("쌍방") || title.includes("관심") || title.includes("종목")) return "주목 종목";
     if (title.includes("주의") || title.includes("위험")) return "주의 종목";
     if (title.includes("전략") || title.includes("제안")) return "전략 제안";
     return title;

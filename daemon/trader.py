@@ -101,7 +101,7 @@ def _parse_account() -> tuple[str, str]:
 
 
 def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict]:
-    """고확신 종목 필터. mode: 콤마 구분 토글 ('chart,indicator,top_leader') 또는 레거시."""
+    """매수 종목 필터. mode: 콤마 구분 토글 ('chart,indicator,top_leader') 또는 레거시."""
     if not signals or mode == "none":
         return []
     # 레거시 모드 → 토글 플래그 변환
@@ -167,29 +167,37 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
             continue
 
         score = 0
+        details = []
         # 팩터 1: api 매수 신호
         api_sig = s.get("api_signal", "")
         if api_sig in BUY_SIGNALS:
             score += 30
+            details.append(f"API매수+30")
             if api_sig == "적극매수":
                 score += 10
+                details.append(f"적극매수+10")
         # 팩터 2: vision 매수 신호
         vis_sig = s.get("vision_signal", "")
         if vis_sig in BUY_SIGNALS:
             score += 20
+            details.append(f"Vision매수+20")
             if vis_sig == "적극매수":
                 score += 5
+                details.append(f"적극매수+5")
         # 팩터 3: 대장주
         if code in top1_codes:
             score += 25
+            details.append(f"대장주1등+25")
         elif s.get("theme"):
             score += 15
+            details.append(f"테마소속+15")
         # 팩터 4: 저가주
         if price < 20000:
             score += 5
+            details.append(f"저가주+5")
 
         if score >= min_score:
-            scored.append({**s, "_score": score})
+            scored.append({**s, "_score": score, "_score_detail": details})
 
     def _sort_key(x):
         ad = x.get("api_data") or {}
@@ -643,6 +651,51 @@ async def run_buy_process():
         if targets:
             scores = ", ".join(f"{t.get('name','')}({t.get('_score',0)}점)" for t in targets)
             logger.info(f"연구 최적 전략: {len(targets)}종목 선정 — {scores}")
+            # 선정 과정 + 최종 종목 텔레그램 발송
+            # 스코어 충족 종목 수 (top_n 슬라이싱 전)
+            all_scored = select_research_optimal(cross_data, top_n=999)
+            lines = [f"<b>📊 연구 최적 전략 — 종목 선정 완료</b>"]
+            lines.append(f"")
+            lines.append(f"<b>[선정 과정]</b>")
+            lines.append(f"전체 후보: {len(cross_data)}종목")
+            lines.append(f"가격 + 최소점수 통과: {len(all_scored)}종목")
+            lines.append(f"최종 선정: Top-{len(targets)}종목")
+            for i, t in enumerate(targets, 1):
+                ad = t.get("api_data") or {}
+                pr = ad.get("price") or {}
+                rk = ad.get("ranking") or {}
+                val = ad.get("valuation") or {}
+                kf = t.get("api_key_factors") or {}
+                intra = t.get("intraday") or {}
+                lines.append(f"")
+                lines.append(f"<b>[{i}] {t.get('name', '')} ({t['code']}) — {t.get('_score', 0)}점</b>")
+                # 점수 산출 내역
+                detail = t.get("_score_detail", [])
+                if detail:
+                    lines.append(f"  산출: {' / '.join(detail)} = {t.get('_score', 0)}점")
+                # 가격 정보
+                lines.append(f"  현재가: {pr.get('current', 0):,}원 ({pr.get('change_rate_pct', 0):+.2f}%)")
+                lines.append(f"  시가/고가/저가: {pr.get('open', 0):,} / {pr.get('high', 0):,} / {pr.get('low', 0):,}")
+                # 거래 정보
+                tv = rk.get('trading_value', 0)
+                tv_str = f"{tv / 100_000_000:,.0f}억" if tv >= 100_000_000 else f"{tv:,}"
+                lines.append(f"  거래량: {rk.get('volume', 0):,} (순위 {rk.get('volume_rank', '-')}위)")
+                lines.append(f"  거래대금: {tv_str}")
+                # 신호
+                lines.append(f"  API: {t.get('api_signal', '-')}({t.get('api_confidence', 0):.0%}) / Vision: {t.get('vision_signal', '-')}({t.get('vision_confidence', 0):.0%})")
+                lines.append(f"  확신도: {t.get('dual_signal', '-')} ({t.get('confidence', 0):.0%})")
+                # 수급
+                lines.append(f"  수급: 외국인 {kf.get('foreign_flow', '-')} / 기관 {kf.get('institution_flow', '-')}")
+                # 밸류에이션
+                per = val.get('per')
+                pbr = val.get('pbr')
+                per_s = f"{per:.1f}" if per else "-"
+                pbr_s = f"{pbr:.2f}" if pbr else "-"
+                lines.append(f"  PER: {per_s} / PBR: {pbr_s}")
+                # 테마
+                if t.get("theme"):
+                    lines.append(f"  테마: {t.get('theme', '')}")
+            await send_telegram("\n".join(lines))
         else:
             logger.info("연구 최적 전략: 조건 충족 종목 없음 (20점 이상 + 5만원 미만)")
     else:
@@ -655,7 +708,8 @@ async def run_buy_process():
             targets = filter_high_confidence(cross_data, mode="top_leader")
 
     if not targets:
-        logger.info(f"고확신 매수 대상 없음 (모드: {buy_mode})")
+        logger.info(f"매수 대상 없음 (모드: {buy_mode})")
+        await send_telegram(f"📭 매수 대상 없음 (모드: {buy_mode})")
         return
 
     # Pass 1: 보유/주문/당일매도 필터링 (현재가 API 호출 없음)

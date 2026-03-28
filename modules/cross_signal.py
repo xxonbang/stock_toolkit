@@ -34,11 +34,11 @@ def find_cross_signals(themes: list, combined_signals: list) -> list:
             if code in leader_map:
                 entry.update(leader_map[code])
             if vs in buy_signals and as_ in buy_signals:
-                entry["dual_signal"] = "고확신"
+                entry["dual_signal"] = "쌍방매수"
             elif vs in buy_signals:
-                entry["dual_signal"] = "확인필요"
+                entry["dual_signal"] = "Vision매수"
             elif as_ in buy_signals:
-                entry["dual_signal"] = "KIS매수"
+                entry["dual_signal"] = "API매수"
             result_map[code] = entry
 
     # 3b) 대장주 중 아직 수집되지 않은 종목 추가
@@ -61,7 +61,7 @@ def find_cross_signals(themes: list, combined_signals: list) -> list:
 def format_cross_signal_alert(matches: list) -> str:
     if not matches:
         return ""
-    lines = ["<b>[고확신 매매 후보] 크로스 시그널</b>", "━" * 20]
+    lines = ["<b>[매매 후보] 크로스 시그널</b>", "━" * 20]
     for m in matches:
         sig = m.get('vision_signal', m.get('signal', '-'))
         dual = f" [{m['dual_signal']}]" if m.get('dual_signal') else ""

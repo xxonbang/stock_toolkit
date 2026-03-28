@@ -599,22 +599,22 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   const vs = stockDetail.vision_signal || "";
                   const as_ = stockDetail.api_signal || "";
                   const buysSet = new Set(["매수", "적극매수"]);
-                  const ds = buysSet.has(vs) && buysSet.has(as_) ? "고확신"
-                    : buysSet.has(vs) ? "확인필요"
-                    : buysSet.has(as_) ? "KIS매수"
+                  const ds = buysSet.has(vs) && buysSet.has(as_) ? "쌍방매수"
+                    : buysSet.has(vs) ? "Vision매수"
+                    : buysSet.has(as_) ? "API매수"
                     : vs && as_ && vs !== as_ ? "혼조" : "";
                   if (!ds) return null;
                   const explanations: Record<string, string> = {
-                    "고확신": `Vision AI(${vs})와 KIS API(${as_}) 양쪽 모두 매수 신호가 일치합니다. 두 독립 분석의 합의로 신뢰도가 높습니다.`,
-                    "확인필요": `Vision AI는 매수(${vs}) 신호이나, KIS API는 ${as_ || "없음"}입니다. 한쪽만 매수이므로 추가 확인이 필요합니다.`,
-                    "KIS매수": `KIS API만 매수(${as_}) 신호이고, Vision AI는 ${vs || "없음"}입니다. KIS 정량 분석 기반이며 AI 차트 판단은 미동의 상태입니다.`,
+                    "쌍방매수": `Vision AI(${vs})와 KIS API(${as_}) 양쪽 모두 매수 신호가 일치합니다. 두 독립 분석의 합의로 신뢰도가 높습니다.`,
+                    "Vision매수": `Vision AI는 매수(${vs}) 신호이나, KIS API는 ${as_ || "없음"}입니다. Vision AI 차트 분석 기반 단독 매수 신호입니다.`,
+                    "API매수": `KIS API만 매수(${as_}) 신호이고, Vision AI는 ${vs || "없음"}입니다. KIS 정량 분석 기반 단독 매수 신호입니다.`,
                     "혼조": `Vision AI(${vs})와 KIS API(${as_})의 판단이 서로 다릅니다. 신중한 접근이 필요합니다.`,
                   };
                   return (
                     <div className="relative">
                       <span onClick={(e) => { e.stopPropagation(); setShowDualExp(!showDualExp); }} className={`text-[11px] font-semibold px-2 py-0.5 rounded-full cursor-pointer ${
-                        ds === "고확신" ? "bg-emerald-500/10 text-emerald-500" :
-                        ds === "KIS매수" ? "bg-blue-500/10 text-blue-500" :
+                        ds === "쌍방매수" ? "bg-emerald-500/10 text-emerald-500" :
+                        ds === "API매수" ? "bg-blue-500/10 text-blue-500" :
                         "bg-amber-500/10 text-amber-500"
                       }`}>{ds}</span>
                       {showDualExp && (
@@ -1226,7 +1226,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       </span>
                     )}
                     {s.dual_signal && (
-                      <Badge variant={s.dual_signal === "고확신" ? "success" : s.dual_signal === "KIS매수" ? "blue" : s.dual_signal === "혼조" ? "warning" : "default"}>
+                      <Badge variant={s.dual_signal === "쌍방매수" ? "success" : s.dual_signal === "API매수" ? "blue" : s.dual_signal === "혼조" ? "warning" : "default"}>
                         {s.dual_signal}
                       </Badge>
                     )}
@@ -1404,7 +1404,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                           </span>
                         )}
                         {s.dual_signal && (
-                          <span className={`text-[10px] ${s.dual_signal === "고확신" ? "text-emerald-500" : s.dual_signal === "KIS매수" ? "text-blue-400" : "t-text-dim"}`}>
+                          <span className={`text-[10px] ${s.dual_signal === "쌍방매수" ? "text-emerald-500" : s.dual_signal === "API매수" ? "text-blue-400" : "t-text-dim"}`}>
                             {s.dual_signal}
                           </span>
                         )}

@@ -231,11 +231,11 @@ def main():
         has_api = api_sig in buys
         if has_vision and has_api:
             score += 10
-            dual = "고확신"
+            dual = "쌍방매수"
         elif has_vision:
-            dual = "확인필요"
+            dual = "Vision매수"
         elif has_api:
-            dual = "KIS매수"
+            dual = "API매수"
         elif vision_sig and api_sig and vision_sig != api_sig:
             dual = "혼조"
         else:
