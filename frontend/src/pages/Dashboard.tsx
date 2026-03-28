@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation, Outlet } from "react-router-dom";
 import {
@@ -301,15 +301,38 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
     return () => observer.disconnect();
   }, []);
 
-  // 스크롤 위치 감지 — 최상단 버튼 표시
+  // 스크롤 위치 감지 — 최상단 버튼 + 프로그레스바
+  const progressRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 600);
+    let raf = 0;
+    const onScroll = () => {
+      setShowScrollTop(window.scrollY > 600);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0;
+        if (progressRef.current) {
+          progressRef.current.style.width = `${pct * 100}%`;
+        }
+      });
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
   }, []);
 
   return (
     <div className="max-w-2xl mx-auto px-4 pt-0 pb-16 space-y-5">
+      {/* 스크롤 프로그레스바 */}
+      {createPortal(
+        <div className="fixed top-0 left-0 right-0 z-[9999] h-[3px] pointer-events-none" style={{ background: 'transparent' }}>
+          <div
+            ref={progressRef}
+            className="h-full"
+            style={{ width: '0%', background: 'var(--accent, #3b82f6)', willChange: 'width' }}
+          />
+        </div>,
+        document.body
+      )}
       {/* 로그인 모달 */}
       {showLogin && createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 anim-fade-in" onClick={() => { if (!loginLoading && supaUser) setShowLogin(false); }}>
@@ -2075,6 +2098,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-medium truncate">{isf._name}</span>
+                  <a href={`https://m.stock.naver.com/domestic/stock/${isf.code}/total`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 t-text-dim hover:text-blue-500">🔗</a>
                   {isf._tag && (
                     <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${isf._tag === "쌍끌이 매수" ? "bg-red-500/15 text-red-400" : "bg-blue-500/15 text-blue-400"}`}>{isf._tag}</span>
                   )}
