@@ -7,7 +7,7 @@ const MANUAL_FULL_JOB = "7376451";
 
 const RELOAD_TIMEOUT = 150000;     // 2.5분 — 페이지 자동 리로드
 const BUTTON_COOLDOWN = 90000;     // 90초 — 버튼 비활성 유지
-const JOB_DISABLE_DELAY = 90000;   // 90초 — cron 1회 실행 보장 후 비활성화
+const JOB_DISABLE_DELAY = 65000;   // 65초 — cron 1회 실행(최대 60초 대기) 보장 + 2회 실행 방지
 
 async function disableJob(jobId: string) {
   for (let i = 0; i < 3; i++) {
