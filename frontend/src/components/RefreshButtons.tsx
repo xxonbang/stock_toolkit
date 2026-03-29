@@ -7,21 +7,28 @@ const MANUAL_FULL_JOB = "7376451";
 
 const RELOAD_TIMEOUT = 150000;     // 2.5분 — 페이지 자동 리로드
 const BUTTON_COOLDOWN = 90000;     // 90초 — 버튼 비활성 유지
-const JOB_DISABLE_TIMEOUT = 75000; // 75초 — Job 비활성화 타이머
+const JOB_DISABLE_DELAY = 90000;   // 90초 — cron 1회 실행 보장 후 비활성화
 
 async function disableJob(jobId: string) {
-  try {
-    await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
-      method: "PATCH",
-      headers: { Authorization: `Bearer ${CRONJOB_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ job: { enabled: false } }),
-    });
-  } catch {}
+  for (let i = 0; i < 3; i++) {
+    try {
+      const res = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${CRONJOB_API_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ job: { enabled: false } }),
+      });
+      if (res.ok) return;
+      console.warn(`disableJob attempt ${i + 1} failed: ${res.status}`);
+    } catch (e) {
+      console.warn(`disableJob attempt ${i + 1} error:`, e);
+    }
+    await new Promise(r => setTimeout(r, 2000));
+  }
 }
 
 async function triggerManualJob(jobId: string): Promise<boolean> {
   try {
-    // 1) 활성화 — cron이 1분 내 1회 실행
+    // 1) 활성화 — cron-job.org가 매분(h=-1,m=-1) 스케줄이므로 다음 정각(분)에 1회 실행
     const res = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${CRONJOB_API_KEY}`, "Content-Type": "application/json" },
@@ -29,22 +36,17 @@ async function triggerManualJob(jobId: string): Promise<boolean> {
     });
     if (!res.ok) return false;
 
-    // 2) 즉시 비활성화 예약 — 75초 후 (cron 1회 실행 보장 후 비활성화)
-    setTimeout(() => disableJob(jobId), JOB_DISABLE_TIMEOUT);
+    // 2) 90초 후 비활성화 — cron 1회 실행(최대 60초 대기) + 여유 30초
+    //    활성화 직후 비활성화하면 다음 분 도달 전에 꺼져서 1회도 실행 안 될 수 있음
+    setTimeout(() => disableJob(jobId), JOB_DISABLE_DELAY);
 
-    // 3) 안전장치: 페이지 이탈 시에도 비활성화
+    // 3) 안전장치: 120초에 한번 더 비활성화 (첫 시도 실패 대비)
+    setTimeout(() => disableJob(jobId), JOB_DISABLE_DELAY + 30000);
+
+    // 4) 페이지 이탈 시에도 비활성화
     const cleanup = () => disableJob(jobId);
     window.addEventListener("beforeunload", cleanup, { once: true });
     window.addEventListener("pagehide", cleanup, { once: true });
-    // visibilitychange로 백그라운드 전환도 감지
-    const onVisChange = () => { if (document.hidden) { disableJob(jobId); document.removeEventListener("visibilitychange", onVisChange); } };
-    document.addEventListener("visibilitychange", onVisChange);
-    // 75초 후 이벤트 리스너 정리
-    setTimeout(() => {
-      window.removeEventListener("beforeunload", cleanup);
-      window.removeEventListener("pagehide", cleanup);
-      document.removeEventListener("visibilitychange", onVisChange);
-    }, JOB_DISABLE_TIMEOUT + 1000);
 
     return true;
   } catch {
