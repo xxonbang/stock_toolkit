@@ -7,7 +7,6 @@ const MANUAL_FULL_JOB = "7376451";
 
 const RELOAD_TIMEOUT = 150000;     // 2.5분 — 페이지 자동 리로드
 const BUTTON_COOLDOWN = 90000;     // 90초 — 버튼 비활성 유지
-const JOB_DISABLE_DELAY = 65000;   // 65초 — cron 1회 실행(최대 60초 대기) 보장 + 2회 실행 방지
 
 async function disableJob(jobId: string) {
   for (let i = 0; i < 3; i++) {
@@ -28,22 +27,25 @@ async function disableJob(jobId: string) {
 
 async function triggerManualJob(jobId: string): Promise<boolean> {
   try {
-    // 1) 활성화 — cron-job.org가 매분(h=-1,m=-1) 스케줄이므로 다음 정각(분)에 1회 실행
-    const res = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
+    // 1) 활성화
+    const enableRes = await fetch(`https://api.cron-job.org/jobs/${jobId}`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${CRONJOB_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({ job: { enabled: true } }),
     });
-    if (!res.ok) return false;
+    if (!enableRes.ok) return false;
 
-    // 2) 90초 후 비활성화 — cron 1회 실행(최대 60초 대기) + 여유 30초
-    //    활성화 직후 비활성화하면 다음 분 도달 전에 꺼져서 1회도 실행 안 될 수 있음
-    setTimeout(() => disableJob(jobId), JOB_DISABLE_DELAY);
+    // 2) 다음 정각(분)까지 대기 시간 계산 → 정각 직후 비활성화
+    //    매분 cron이므로 다음 :00초에 실행됨. 그 직후(+5초)에 비활성화하면 정확히 1회만 실행
+    const now = new Date();
+    const secsToNextMin = 60 - now.getSeconds();
+    const disableAt = (secsToNextMin + 5) * 1000; // 다음 정각 + 5초 여유
 
-    // 3) 안전장치: 120초에 한번 더 비활성화 (첫 시도 실패 대비)
-    setTimeout(() => disableJob(jobId), JOB_DISABLE_DELAY + 30000);
+    setTimeout(() => disableJob(jobId), disableAt);
+    // 안전장치: 한번 더
+    setTimeout(() => disableJob(jobId), disableAt + 30000);
 
-    // 4) 페이지 이탈 시에도 비활성화
+    // 3) 페이지 이탈 시에도 비활성화
     const cleanup = () => disableJob(jobId);
     window.addEventListener("beforeunload", cleanup, { once: true });
     window.addEventListener("pagehide", cleanup, { once: true });
