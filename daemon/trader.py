@@ -28,6 +28,8 @@ _peak_prices: dict[str, int] = {}
 _access_token = ""
 _token_issued_at: float = 0
 _TOKEN_TTL = 3500  # KIS 토큰 유효기간 ~1시간, 여유 두고 58분
+_RATE_LIMIT_RETRIES = 3  # rate limit 재시도 횟수
+_RATE_LIMIT_BASE_SEC = 2  # 재시도 기본 대기 (2, 4, 6초)
 
 
 async def _ensure_mock_token() -> str | None:
@@ -300,22 +302,31 @@ async def _kis_order(tr_id: str, code: str, quantity: int, price: int, retry: bo
 
 
 async def is_upper_limit(code: str, price: int) -> bool:
-    """현재가가 상한가인지 확인"""
+    """현재가가 상한가인지 확인 (rate limit 시 재시도)"""
     token = await _ensure_mock_token()
     if not token:
         return False
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
     params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
-    try:
-        session = await get_session()
-        async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") == "0":
-                upper = int(data.get("output", {}).get("stck_mxpr", "0"))
-                if upper > 0 and price >= upper:
-                    return True
-    except Exception as e:
-        logger.warning(f"상한가 조회 오류 ({code}): {e}")
+    for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
+        try:
+            session = await get_session()
+            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
+                data = await resp.json()
+                if data.get("rt_cd") == "0":
+                    upper = int(data.get("output", {}).get("stck_mxpr", "0"))
+                    if upper > 0 and price >= upper:
+                        return True
+                    return False
+                msg = data.get("msg1", "")
+                if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
+                    await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                    continue
+        except Exception as e:
+            if attempt < _RATE_LIMIT_RETRIES:
+                await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                continue
+            logger.warning(f"상한가 조회 오류 ({code}): {e}")
     return False
 
 
@@ -638,7 +649,7 @@ def _reset_token():
     _token_issued_at = 0
 
 
-async def fetch_available_balance(retries: int = 3) -> int:
+async def fetch_available_balance() -> int:
     """KIS 모의투자 계좌 예수금 조회 (rate limit 시 재시도)"""
     token = await _ensure_mock_token()
     if not token:
@@ -662,7 +673,7 @@ async def fetch_available_balance(retries: int = 3) -> int:
         "tr_id": "VTTC8908R",
         "custtype": "P",
     }
-    for attempt in range(1, retries + 1):
+    for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
         try:
             session = await get_session()
             async with session.get(url, params=params, headers=headers) as resp:
@@ -673,15 +684,15 @@ async def fetch_available_balance(retries: int = 3) -> int:
                     logger.info(f"가용 잔고: {balance:,}원")
                     return balance
                 msg = data.get("msg1", "")
-                if "초과" in msg and attempt < retries:
-                    logger.warning(f"잔고 조회 rate limit ({attempt}/{retries}) — {attempt * 2}초 후 재시도")
-                    await asyncio.sleep(attempt * 2)
+                if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
+                    logger.warning(f"잔고 조회 rate limit ({attempt}/{_RATE_LIMIT_RETRIES}) — {attempt * _RATE_LIMIT_BASE_SEC}초 후 재시도")
+                    await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
                     continue
                 logger.warning(f"잔고 조회 실패: {msg}")
         except Exception as e:
             logger.error(f"잔고 조회 오류: {e}")
-            if attempt < retries:
-                await asyncio.sleep(attempt * 2)
+            if attempt < _RATE_LIMIT_RETRIES:
+                await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
                 continue
     return 0
 
@@ -1432,25 +1443,33 @@ async def _check_simulations(current_price_data: dict):
 
 
 async def _get_current_price(code: str) -> int:
-    """KIS API로 현재가 조회"""
+    """KIS API로 현재가 조회 (rate limit 시 재시도)"""
     token = await _ensure_mock_token()
     if not token:
         return 0
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
     params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
-    try:
-        session = await get_session()
-        async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") == "0":
-                return int(data.get("output", {}).get("stck_prpr", "0"))
-    except Exception as e:
-        logger.warning(f"현재가 조회 실패 ({code}): {e}")
+    for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
+        try:
+            session = await get_session()
+            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
+                data = await resp.json()
+                if data.get("rt_cd") == "0":
+                    return int(data.get("output", {}).get("stck_prpr", "0"))
+                msg = data.get("msg1", "")
+                if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
+                    await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                    continue
+        except Exception as e:
+            if attempt < _RATE_LIMIT_RETRIES:
+                await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                continue
+            logger.warning(f"현재가 조회 실패 ({code}): {e}")
     return 0
 
 
 async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = True) -> dict | None:
-    """KIS 모의투자 시장가 주문 (토큰 만료 시 1회 재시도)"""
+    """KIS 모의투자 시장가 주문 (토큰 만료/rate limit 시 재시도)"""
     token = await _ensure_mock_token()
     if not token:
         return None
@@ -1464,22 +1483,31 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = 
         "ORD_QTY": str(quantity),
         "ORD_UNPR": "0",
     }
-    try:
-        session = await get_session()
-        async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
-            if resp.status != 200:
-                logger.error(f"시장가 주문 HTTP {resp.status}: {code} {tr_id}")
+    for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
+        try:
+            session = await get_session()
+            async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
+                if resp.status != 200:
+                    logger.error(f"시장가 주문 HTTP {resp.status}: {code} {tr_id}")
+                    return None
+                data = await resp.json()
+                if data.get("rt_cd") == "0":
+                    return data
+                msg = data.get("msg1", "")
+                if retry and ("만료" in msg or "token" in msg.lower()):
+                    logger.warning("시장가 주문 토큰 만료 — 재발급 후 재시도")
+                    _reset_token()
+                    await asyncio.sleep(1)
+                    return await _kis_order_market(tr_id, code, quantity, retry=False)
+                if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
+                    logger.warning(f"시장가 주문 rate limit ({attempt}/{_RATE_LIMIT_RETRIES}): {code} — {attempt * _RATE_LIMIT_BASE_SEC}초 후 재시도")
+                    await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                    continue
+                logger.error(f"시장가 주문 실패 ({code}): {msg}")
                 return None
-            data = await resp.json()
-            if data.get("rt_cd") == "0":
-                return data
-            msg = data.get("msg1", "")
-            if retry and ("만료" in msg or "token" in msg.lower()):
-                logger.warning("시장가 주문 토큰 만료 — 재발급 후 재시도")
-                _reset_token()
-                await asyncio.sleep(1)
-                return await _kis_order_market(tr_id, code, quantity, retry=False)
-            logger.error(f"시장가 주문 실패 ({code}): {msg}")
-    except Exception as e:
-        logger.error(f"시장가 주문 오류: {e}")
+        except Exception as e:
+            if attempt < _RATE_LIMIT_RETRIES:
+                await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                continue
+            logger.error(f"시장가 주문 오류: {e}")
     return None
