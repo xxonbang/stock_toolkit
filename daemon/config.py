@@ -50,7 +50,7 @@ TRADE_MIN_AMOUNT_PER_STOCK = 1_000_000  # 종목당 최소 투자금 (원)
 TRADE_TAKE_PROFIT_PCT = 7.0             # 익절 기준 (%) — 백테스트 최적 균형 조합
 TRADE_STOP_LOSS_PCT = -2.0           # 손절 기준 (%) — 백테스트 최적
 TRADE_TRAILING_STOP_PCT = -3.0       # 급락 손절 (%, 고점 대비 낙폭) — 백테스트 최적
-TRADE_FLASH_SPIKE_PCT = 5.0          # flash spike 필터 (%, 이전 peak 대비 초과 점프 무시)
+TRADE_FLASH_SPIKE_PCT = 15.0         # flash spike 필터 (%, 이전 peak 대비 초과 점프 무시)
 
 
 def validate_required_env():

@@ -2,6 +2,13 @@
 
 ## 2026-03-30
 
+### [버그픽스] fetch_alert_config 전체 설정 무시 버그 수정 (2026-03-30 13:35 KST)
+- **변경 파일:** `daemon/stock_manager.py`
+- **내용:** SELECT 쿼리에 DB 미존재 컬럼 `flash_spike_pct` 포함으로 400 에러 발생 → 전체 설정이 기본값(fixed, all, criteria_filter=false)으로 동작. SELECT에서 해당 컬럼 제거.
+- **원인:** `flash_spike_pct` 컬럼 ALTER TABLE SQL이 Supabase에 미적용 상태에서 코드에 추가됨. 에러 시 `defaults` dict 반환하는 fallback이 모든 사용자 설정을 무시.
+- **영향:** strategy_type(stepped→fixed), alert_mode(portfolio_only→all), criteria_filter(true→false) 모두 기본값으로 동작. 비보유 종목 알림, fixed 전략 동작, 과열필터 미적용 문제의 근본 원인.
+- **커밋:** `7989aa3`
+
 ### [버그픽스] 매도 실패 시 무한 재시도 루프 방지 (2026-03-30 11:10 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** KIS 매도 주문 실패(잔고 없음) 또는 미체결 조회 실패 시 현재가 기반 DB 즉시 정리. 예외 발생 시에도 포지션 종료 보장. 기존에는 unmark_selling 후 30초마다 재시도 → 텔레그램 스팸 발생.
