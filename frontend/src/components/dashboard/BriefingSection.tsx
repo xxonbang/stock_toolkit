@@ -109,7 +109,8 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
     const cleaned = text.replace(/<[^>]+>/g, "");
     // 1차: "종목명(6자리코드)" 패턴
     // 2차: "종목명 (매수)" 또는 "종목명:" 패턴 (브리핑 텍스트)
-    const stockNames = Object.keys(stockByName).filter(n => n.length >= 3).sort((a, b) => b.length - a.length);
+    // 영문 대문자만 3~4글자(ETF/외국주식 약어)는 오탐 가능성 높으므로 제외
+    const stockNames = Object.keys(stockByName).filter(n => n.length >= 2 && !/^[A-Z]{2,4}$/.test(n)).sort((a, b) => b.length - a.length);
     if (!stockNames.length) return <>{cleaned}</>;
     const namePattern = stockNames.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
     const regex = new RegExp(`(${namePattern})`, "g");
