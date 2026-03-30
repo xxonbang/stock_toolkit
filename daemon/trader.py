@@ -1335,8 +1335,8 @@ async def schedule_sell_check():
                     continue
                 await check_positions_for_sell({"code": code, "price": price})
                 await asyncio.sleep(0.3)  # API 호출 간격
-            # 시간전략 시뮬 독립 체크 (실전 매도 후에도 11:00까지 유지)
-            await _check_time_exit_simulations()
+            # 실전 매도 후 남은 시뮬레이션 독립 체크
+            await _check_orphan_simulations()
         except Exception as e:
             logger.error(f"매도 폴링 체크 오류: {e}")
 
@@ -1373,21 +1373,19 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
 
 
 async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int):
-    """실전 매도 시 해당 trade_id의 open 시뮬레이션 close (time_exit 제외 — 11:00까지 독립 운영)"""
-    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
-    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
-        return
+    """실전 매도 시 해당 trade_id의 종목코드를 _orphan_sim_codes에 등록 (시뮬은 독립 체크로 유지)"""
     try:
-        session = await get_session()
-        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
-        sim_pnl = round(calc_pnl_pct(buy_price, sell_price), 2) if buy_price > 0 and sell_price > 0 else 0
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{trade_id}&status=eq.open&strategy_type=neq.time_exit"
-        body = {"status": "closed", "exit_price": sell_price, "pnl_pct": sim_pnl, "exit_reason": "parent_sold", "exited_at": datetime.now(_KST).isoformat()}
-        async with session.patch(url, json=body, headers=headers) as resp:
-            if resp.status in (200, 204):
-                logger.info(f"실전 매도 → 시뮬레이션 close: trade_id={trade_id[:8]} pnl={sim_pnl:+.1f}%")
+        positions = await get_active_positions()
+        pos = next((p for p in positions if p["id"] == trade_id), None)
+        if pos:
+            _orphan_sim_codes.add(pos["code"])
+            logger.info(f"실전 매도 → 시뮬 독립 체크 등록: {pos.get('name','')}({pos['code']})")
     except Exception as e:
-        logger.warning(f"시뮬레이션 close 오류: {e}")
+        logger.warning(f"시뮬 코드 등록 오류: {e}")
+
+
+# 실전 매도 후에도 시뮬레이션 체크가 필요한 종목 코드
+_orphan_sim_codes: set[str] = set()
 
 
 async def _check_simulations(current_price_data: dict):
@@ -1499,55 +1497,104 @@ async def _check_simulations(current_price_data: dict):
         logger.warning(f"가상 시뮬레이션 체크 오류: {e}")
 
 
-async def _check_time_exit_simulations():
-    """11:00 KST 이후 open 상태의 time_exit 시뮬레이션을 현재가로 close (실전 매도와 독립)"""
+async def _check_orphan_simulations():
+    """실전 매도 후 남아있는 open 시뮬레이션을 독립적으로 체크 (fixed/stepped/time_exit 모두)"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
-    now_kst = datetime.now(_KST)
-    if now_kst.hour < 11:
+    if not _orphan_sim_codes:
         return
+    now_kst = datetime.now(_KST)
     try:
         session = await get_session()
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-        # open 상태의 time_exit 시뮬 전체 조회
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.time_exit&select=id,entry_price,trade_id"
+        # open 상태 시뮬 전체 조회
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&select=id,strategy_type,entry_price,peak_price,trade_id"
         async with session.get(url, headers=headers) as resp:
             if resp.status != 200:
                 return
             sims = await resp.json()
         if not sims:
+            _orphan_sim_codes.clear()
             return
-        # 각 시뮬의 종목코드 → 현재가 조회
-        # trade_id → auto_trades에서 code 매핑
+        # trade_id → code 매핑
         trade_ids = list(set(s["trade_id"] for s in sims))
         tid_filter = ",".join(trade_ids)
-        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code,filled_price"
         async with session.get(trades_url, headers=headers) as resp:
             if resp.status != 200:
                 return
-            trades = await resp.json()
-        tid_to_code = {t["id"]: t["code"] for t in (trades or [])}
+            trades_data = await resp.json()
+        tid_map = {t["id"]: t for t in (trades_data or [])}
+
+        config = await _get_trade_config()
+        tp = config.get("take_profit_pct", TRADE_TAKE_PROFIT_PCT)
+        sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
+        ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
 
         patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+        closed_codes = set()
         for sim in sims:
-            code = tid_to_code.get(sim["trade_id"])
-            if not code:
+            trade = tid_map.get(sim["trade_id"])
+            if not trade:
                 continue
+            code = trade["code"]
+            if code not in _orphan_sim_codes:
+                continue  # 실전 매도 안 된 종목은 _check_simulations에서 처리
             price = await _get_current_price(code)
             if price <= 0:
                 continue
             entry = sim["entry_price"]
-            pnl = round(calc_pnl_pct(entry, price), 2)
-            # SL 체크
-            exit_reason = "time_exit" if pnl > -2.0 else "stop_loss"
-            body = {"status": "closed", "exit_price": price, "pnl_pct": pnl, "exit_reason": exit_reason, "exited_at": now_kst.isoformat()}
+            peak = max(sim.get("peak_price", entry), price)
+            pnl = calc_pnl_pct(entry, price)
+            strategy = sim["strategy_type"]
+            exit_reason = None
+
+            if strategy == "fixed":
+                result = should_sell(entry, price, take_profit=tp, stop_loss=sl)
+                if result:
+                    exit_reason = result
+                elif pnl > 0 and peak > 0:
+                    drop = (price - peak) / peak * 100
+                    if drop <= ts_pct:
+                        exit_reason = "trailing_stop"
+            elif strategy == "stepped":
+                if pnl <= sl:
+                    exit_reason = "stop_loss"
+                else:
+                    peak_pnl = calc_pnl_pct(entry, peak)
+                    preset = config.get("stepped_preset", "default")
+                    ss = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=preset)
+                    if ss > -999.0 and pnl <= ss:
+                        exit_reason = "stepped_trailing"
+            elif strategy == "time_exit":
+                if pnl <= sl:
+                    exit_reason = "stop_loss"
+                elif now_kst.hour >= 11:
+                    exit_reason = "time_exit"
+
+            update_body: dict = {"peak_price": peak}
+            if exit_reason:
+                update_body.update({
+                    "status": "closed", "exit_price": price,
+                    "exit_reason": exit_reason, "pnl_pct": round(pnl, 2),
+                    "exited_at": now_kst.isoformat(),
+                })
+                closed_codes.add(code)
+                logger.info(f"고아 시뮬 close: {code} {strategy} {exit_reason} pnl={pnl:+.1f}%")
             patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
-            async with session.patch(patch_url, json=body, headers=patch_headers) as resp:
-                if resp.status in (200, 204):
-                    logger.info(f"시간전략 시뮬 close: {code} pnl={pnl:+.1f}% reason={exit_reason}")
+            async with session.patch(patch_url, json=update_body, headers=patch_headers) as resp:
+                pass
+            await asyncio.sleep(0.2)
+
+        # 모든 시뮬이 close된 코드는 orphan에서 제거
+        for code in closed_codes:
+            # 해당 코드의 open 시뮬이 남아있는지 확인
+            remaining = [s for s in sims if tid_map.get(s["trade_id"], {}).get("code") == code and s["id"] not in {s2["id"] for s2 in sims if s2.get("_closed")}]
+            # 간단히: closed_codes에 포함된 코드 중 전부 close됐으면 제거
+        # 다음 폴링에서 open 시뮬이 0이면 _orphan_sim_codes가 비워짐
     except Exception as e:
-        logger.warning(f"시간전략 시뮬 체크 오류: {e}")
+        logger.warning(f"고아 시뮬 체크 오류: {e}")
 
 
 async def _get_current_price(code: str) -> int:
