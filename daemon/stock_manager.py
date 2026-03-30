@@ -54,7 +54,7 @@ async def fetch_alert_config() -> dict:
         return defaults
     try:
         session = await get_session()
-        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=user_id,alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type,flash_spike_pct&limit=1"
+        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=user_id,alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type,flash_spike_pct,criteria_filter&limit=1"
         headers = {
             "apikey": SUPABASE_SECRET_KEY,
             "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
