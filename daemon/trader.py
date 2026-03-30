@@ -485,6 +485,11 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             logger.warning(f"체결 0주 → pending 삭제: {name}({code})")
             return False
         actual_price = await _get_actual_fill_price(code, is_sell=False)
+        if actual_price <= 0:
+            # 체결가 조회 실패 → 현재가를 fallback (주문가는 전일종가라 부정확)
+            actual_price = await _get_current_price(code)
+            if actual_price > 0:
+                logger.info(f"체결가 조회 실패, 현재가 fallback: {name}({code}) {actual_price:,}원")
         fill_price = actual_price if actual_price > 0 else price
         await update_position_filled(position["id"], fill_price)
         if filled_qty != quantity:
@@ -545,6 +550,10 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 await send_telegram(f"<b>⚠️ 매도 미체결</b>\n{name} ({code})\n사유: {reason}\n체결 0주, 수동 확인 필요")
                 return False
             actual_price = await _get_actual_fill_price(code, is_sell=True)
+            if actual_price <= 0:
+                actual_price = await _get_current_price(code)
+                if actual_price > 0:
+                    logger.info(f"매도 체결가 조회 실패, 현재가 fallback: {name}({code}) {actual_price:,}원")
             sell_price = actual_price if actual_price > 0 else price
             pnl = calc_pnl_pct(buy_price, sell_price)
             reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
