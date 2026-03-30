@@ -1,6 +1,36 @@
 # Task History
 
+## 2026-03-30
+
+### [버그픽스] 매도 실패 시 무한 재시도 루프 방지 (2026-03-30 11:10 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** KIS 매도 주문 실패(잔고 없음) 또는 미체결 조회 실패 시 현재가 기반 DB 즉시 정리. 예외 발생 시에도 포지션 종료 보장. 기존에는 unmark_selling 후 30초마다 재시도 → 텔레그램 스팸 발생.
+- **원인:** KIS 모의투자 "잔고내역이 없습니다" 반환 시 매도 실패 → selling 마크 해제 → 다음 가격 체크에서 재시도 → 무한 루프.
+- **커밋:** `62bf00f`
+
+### [버그픽스] 체결가 조회 실패 시 현재가 fallback 추가 (2026-03-30 10:35 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** 모의투자 API 체결가 조회 404 실패 시 현재가 REST API를 fallback으로 사용(매수/매도 양쪽). 기존에는 전일종가를 체결가로 기록하여 PnL 왜곡 → 불필요한 손절 발동.
+- **원인:** KIS 모의투자 서버가 체결 조회 API에 404 반환 → _get_actual_fill_price() 실패 → 주문가(전일종가)를 체결가로 기록. 실제 시가 대비 3~8% 높은 가격이 기록되어 매수 즉시 손절 발동.
+- **커밋:** `21b2b27`
+
+### [개선] 데몬 시작 직후 첫 워크플로우 매수 스킵 → 15분 경과 기반으로 변경 (2026-03-30 10:00 KST)
+- **변경 파일:** `daemon/main.py`
+- **내용:** _first_trade_check_done/_first_sp_check_done 플래그 제거. _is_stale_completion() 도입하여 완료 후 15분 이내면 데몬 시작 직후라도 즉시 매수 실행. 재시작 시 오래된 워크플로우 중복 매수 방지.
+- **커밋:** `240d49f`
+
+### [버그픽스] 매수 직후 손절 체크 공백 제거 + Stepped 손익 라벨 수정 (2026-03-30 09:40 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 매수 체결 직후 즉시 현재가 조회→손절 체크 추가(기존 30초 공백 제거). ensure_future→await로 WebSocket 구독 갱신 완료 보장. stepped_trailing 매도 시 실제 PnL 기준 익절/손절 라벨 분기.
+- **원인:** 매수 후 WebSocket 구독 갱신이 비동기(ensure_future)로 지연되어, 구독 전 가격 하락을 감지 못해 -2% 손절 초과 손실(-8%까지) 발생. 프론트에서 손실인데 "Stepped 익절"로 표시되는 라벨 버그.
+- **커밋:** `e9fbe4f`
+
 ## 2026-03-28
+
+### [기능] signal-pulse 완료 감지 → deploy-pages 트리거 → 매수 실행 (2026-03-30 KST)
+- **변경 파일:** `daemon/config.py`, `daemon/github_monitor.py`, `daemon/main.py`
+- **내용:** daemon에 signal-pulse analyze.yml 완료 감시 추가. 완료 감지 시 deploy-pages 직접 트리거(data-only), 완료 대기 후 최신 cross_signal.json으로 매수 실행. _buy_running 플래그로 theme-analyzer/signal-pulse 동시 매수 방지.
+- **커밋:** `ff158dc`
 
 ### [기능] 종목 액션 팝업 + D등급 제거 + 스크롤 프로그레스바 + 다수 UI 개선 (2026-03-28 KST)
 - **변경 파일:** `Dashboard.tsx`, `dataService.ts`, `HelpDialog.tsx`, `BriefingSection.tsx`, `run_all.py`, `test_cross_signal.py`
