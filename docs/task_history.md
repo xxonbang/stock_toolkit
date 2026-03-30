@@ -2,6 +2,16 @@
 
 ## 2026-03-30
 
+### [기능] 시간전략(09:30→11:00) 시뮬레이션 추가 (2026-03-30 21:55 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 매수 시 time_exit 가상 포지션 자동 생성. 11:00 KST 이후 현재가 매도, SL=-2% 병행. 실전 매도 시 open 시뮬 일괄 close. 프론트엔드 전략 비교 UI에서 time_exit 제외 (데이터 축적 전용). 2~4주 데이터 축적 후 실전 전환 판단 예정.
+- **커밋:** `9c8f8f9`
+
+### [기능] 호가창 압력 이모지→Lucide + 종목선정 기준 설명 (2026-03-30 17:40 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`, `frontend/src/components/HelpDialog.tsx`
+- **내용:** 📊 이모지를 BarChart3 Lucide 아이콘으로 변경. HelpDialog에 데이터 소스(장중 WebSocket/장외 KIS 스냅샷)와 선정 기준(편향 ±5%p, 매수/매도 각 10개) 상세 설명 추가.
+- **커밋:** `4681598`
+
 ### [개선] 모의투자 화면 가독성 개선 — 폰트/간격/정렬 (2026-03-30 17:30 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** 섹션 제목 11→12px, TradeRow 매수 상세 10→11px, SummaryCard 값 lg→xl, 매매 이력 날짜 헤더 13px semibold, 전략 비교 카드 라벨 9→10px/수익률 sm→base/패딩 p-2→p-3.
