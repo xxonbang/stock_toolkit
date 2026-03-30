@@ -1107,8 +1107,8 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
       {type === "closed" && (
         <div className="text-xs mt-1 space-y-0.5">
           {trade.sell_reason && (
-            <div style={{ color: (trade.sell_reason === "take_profit" || (trade.sell_reason === "stepped_trailing" && (trade.pnl_pct ?? 0) >= 0)) ? "var(--up)" : trade.sell_reason === "eod_close" ? "var(--text-secondary)" : "var(--down)" }}>
-              {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "stepped_trailing" ? ((trade.pnl_pct ?? 0) >= 0 ? "Stepped 익절" : "Stepped 손절") : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : trade.sell_reason === "stop_loss" ? "손절" : trade.sell_reason || "매도"}
+            <div style={{ color: (trade.sell_reason === "take_profit" || (trade.sell_reason === "stepped_trailing" && (trade.pnl_pct ?? 0) >= 0)) ? "var(--up)" : trade.sell_reason === "eod_close" || trade.sell_reason === "false_stop" ? "var(--text-secondary)" : "var(--down)" }}>
+              {trade.sell_reason === "take_profit" ? "익절" : trade.sell_reason === "stepped_trailing" ? ((trade.pnl_pct ?? 0) >= 0 ? "Stepped 익절" : "Stepped 손절") : trade.sell_reason === "eod_close" ? "장 마감 청산" : trade.sell_reason === "trailing_stop" ? "급락 손절" : trade.sell_reason === "manual_sell" ? "수동 매도" : trade.sell_reason === "stop_loss" ? "손절" : trade.sell_reason === "false_stop" ? "오류 매도" : trade.sell_reason || "매도"}
               {trade.sell_price ? ` (${trade.sell_price.toLocaleString("ko-KR")}원)` : ""}
             </div>
           )}
