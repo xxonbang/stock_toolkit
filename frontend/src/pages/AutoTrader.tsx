@@ -107,7 +107,7 @@ export default function AutoTrader() {
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
     return () => { document.body.style.overflow = ""; };
@@ -814,9 +814,18 @@ export default function AutoTrader() {
               const allRealTrades = [...soldTrades.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
               const realPnl = allRealTrades.length > 0 ? allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allRealTrades.length : 0;
 
-              // time_exit 시뮬은 비교 대상에서 제외 (데이터 축적 전용)
               const closedSims = simulations.filter(s => s.status === "closed" && s.strategy_type !== "time_exit");
               const openSims = simulations.filter(s => s.status === "open" && s.strategy_type !== "time_exit");
+              // 시간전략 시뮬레이션 별도 집계
+              const timeClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "time_exit");
+              const timeOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "time_exit");
+              const allTimeSims = [...timeClosedSims, ...timeOpenSims.map((s: any) => {
+                const mt = activeTrades.find(t => t.id === s.trade_id);
+                const cp = mt ? (prices[mt.code]?.price || 0) : 0;
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
+                return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _name: mt?.name };
+              })];
+              const timePnl = allTimeSims.length > 0 ? allTimeSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allTimeSims.length : 0;
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = activeTrades.find(t => t.id === s.trade_id);
@@ -857,6 +866,16 @@ export default function AutoTrader() {
                       <div className="text-[10px] t-text-dim mt-0.5">{allSims.length}건</div>
                     </button>
                   </div>
+                  {allTimeSims.length > 0 && (
+                    <button onClick={() => setStrategyDetail("time")}
+                      className="w-full mt-2 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[10px] t-text-dim mb-1">시간전략 09:30→11:00 (가상)</div>
+                      <div className={`text-base font-bold tabular-nums ${timePnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                        {timePnl >= 0 ? "+" : ""}{timePnl.toFixed(1)}%
+                      </div>
+                      <div className="text-[10px] t-text-dim mt-0.5">{allTimeSims.length}건</div>
+                    </button>
+                  )}
                   {allRealTrades.length === 0 && allSims.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
                   )}
@@ -875,7 +894,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3">
-                            {strategyDetail === "real" ? `${realLabel} (실제)` : `${simLabel} (가상)`}
+                            {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : `${simLabel} (가상)`}
                           </h3>
                         </div>
                         <div className="flex-1 overflow-y-auto px-5 pb-5">
@@ -883,7 +902,7 @@ export default function AutoTrader() {
                         {(() => {
                           const items = strategyDetail === "real"
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
-                            : allSims.map((s: any) => {
+                            : (strategyDetail === "time" ? allTimeSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `${s.entry_price?.toLocaleString()}원` };
                               });
