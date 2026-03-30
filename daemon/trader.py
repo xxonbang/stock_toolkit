@@ -707,58 +707,15 @@ async def run_buy_process():
     config = await fetch_alert_config()
     buy_mode = config.get("buy_signal_mode", "and")
 
+    all_scored = []  # 스코어 충족 전체 (research_optimal용)
     if buy_mode == "research_optimal":
         # 연구 최적 전략: 5팩터 스코어 Top-2
         use_criteria = config.get("criteria_filter", False)
-        targets = select_research_optimal(cross_data, criteria_filter=use_criteria)
+        all_scored = select_research_optimal(cross_data, top_n=999, criteria_filter=use_criteria)
+        targets = all_scored[:2]
         if targets:
             scores = ", ".join(f"{t.get('name','')}({t.get('_score',0)}점)" for t in targets)
             logger.info(f"연구 최적 전략: {len(targets)}종목 선정 — {scores}")
-            # 선정 과정 + 최종 종목 텔레그램 발송
-            # 스코어 충족 종목 수 (top_n 슬라이싱 전)
-            all_scored = select_research_optimal(cross_data, top_n=999)
-            lines = [f"<b>📊 연구 최적 전략 — 종목 선정 완료</b>"]
-            lines.append(f"")
-            lines.append(f"<b>[선정 과정]</b>")
-            lines.append(f"전체 후보: {len(cross_data)}종목")
-            lines.append(f"가격 + 최소점수 통과: {len(all_scored)}종목")
-            lines.append(f"최종 선정: Top-{len(targets)}종목")
-            for i, t in enumerate(targets, 1):
-                ad = t.get("api_data") or {}
-                pr = ad.get("price") or {}
-                rk = ad.get("ranking") or {}
-                val = ad.get("valuation") or {}
-                kf = t.get("api_key_factors") or {}
-                intra = t.get("intraday") or {}
-                lines.append(f"")
-                lines.append(f"<b>[{i}] {t.get('name', '')} ({t['code']}) — {t.get('_score', 0)}점</b>")
-                # 점수 산출 내역
-                detail = t.get("_score_detail", [])
-                if detail:
-                    lines.append(f"  산출: {' / '.join(detail)} = {t.get('_score', 0)}점")
-                # 가격 정보
-                lines.append(f"  현재가: {pr.get('current', 0):,}원 ({pr.get('change_rate_pct', 0):+.2f}%)")
-                lines.append(f"  시가/고가/저가: {pr.get('open', 0):,} / {pr.get('high', 0):,} / {pr.get('low', 0):,}")
-                # 거래 정보
-                tv = rk.get('trading_value', 0)
-                tv_str = f"{tv / 100_000_000:,.0f}억" if tv >= 100_000_000 else f"{tv:,}"
-                lines.append(f"  거래량: {rk.get('volume', 0):,} (순위 {rk.get('volume_rank', '-')}위)")
-                lines.append(f"  거래대금: {tv_str}")
-                # 신호
-                lines.append(f"  API: {t.get('api_signal', '-')}({t.get('api_confidence', 0):.0%}) / Vision: {t.get('vision_signal', '-')}({t.get('vision_confidence', 0):.0%})")
-                lines.append(f"  확신도: {t.get('dual_signal', '-')} ({t.get('confidence', 0):.0%})")
-                # 수급
-                lines.append(f"  수급: 외국인 {kf.get('foreign_flow', '-')} / 기관 {kf.get('institution_flow', '-')}")
-                # 밸류에이션
-                per = val.get('per')
-                pbr = val.get('pbr')
-                per_s = f"{per:.1f}" if per else "-"
-                pbr_s = f"{pbr:.2f}" if pbr else "-"
-                lines.append(f"  PER: {per_s} / PBR: {pbr_s}")
-                # 테마
-                if t.get("theme"):
-                    lines.append(f"  테마: {t.get('theme', '')}")
-            await send_telegram("\n".join(lines))
         else:
             logger.info("연구 최적 전략: 조건 충족 종목 없음 (20점 이상 + 5만원 미만)")
     else:
@@ -777,14 +734,18 @@ async def run_buy_process():
 
     # Pass 1: 보유/주문/당일매도 필터링 (현재가 API 호출 없음)
     need_price = []
+    skipped_held = []
+    skipped_sold_today = []
     for t in targets:
         code = t["code"]
         name = t.get("name", "")
         if await is_already_held_or_ordered(code):
             logger.info(f"이미 보유/주문중 — {name}({code}) 스킵")
+            skipped_held.append(name)
             continue
         if code in sold_today_codes:
             logger.info(f"당일 매도 종목 — {name}({code}) 재매수 방지 스킵")
+            skipped_sold_today.append(name)
             continue
         price = 0
         api_data = t.get("api_data", {})
@@ -839,6 +800,39 @@ async def run_buy_process():
         actual_candidates = buy_candidates[:max_stocks]
         amount_per_stock = balance // len(actual_candidates)
     logger.info(f"매수 대상 {len(buy_candidates)}종목 중 {len(actual_candidates)}종목 매수, 잔고 {balance:,}원, 종목당 {amount_per_stock:,}원")
+
+    # 종합 보고 텔레그램 발송
+    rpt = [f"<b>📋 매수 프로세스 보고 ({buy_mode})</b>"]
+    rpt.append(f"")
+    rpt.append(f"<b>[1단계] 종목 선정</b>")
+    rpt.append(f"전체 후보: {len(cross_data)}종목")
+    if buy_mode == "research_optimal" and all_scored:
+        rpt.append(f"스코어 충족 (≥20점, &lt;5만원): {len(all_scored)}종목")
+        for i, s in enumerate(all_scored[:10], 1):
+            mark = "→ " if s in targets else "   "
+            detail = " / ".join(s.get("_score_detail", []))
+            rpt.append(f"  {mark}{i}. {s.get('name','')} <b>{s.get('_score',0)}점</b> ({detail})")
+        if len(all_scored) > 10:
+            rpt.append(f"  ... 외 {len(all_scored) - 10}종목")
+    rpt.append(f"선정: {len(targets)}종목")
+    rpt.append(f"")
+    rpt.append(f"<b>[2단계] 필터링</b>")
+    if skipped_held:
+        rpt.append(f"보유중 스킵: {', '.join(skipped_held)}")
+    if skipped_sold_today:
+        rpt.append(f"당일매도 스킵: {', '.join(skipped_sold_today[:10])}")
+        if len(skipped_sold_today) > 10:
+            rpt.append(f"  ... 외 {len(skipped_sold_today) - 10}종목")
+    rpt.append(f"매수 가능: {len(buy_candidates)}종목")
+    rpt.append(f"")
+    rpt.append(f"<b>[3단계] 매수 실행</b>")
+    rpt.append(f"잔고: {balance:,}원 | 종목당: {amount_per_stock:,}원")
+    for c in actual_candidates:
+        qty = calc_quantity(amount_per_stock, c["price"])
+        rpt.append(f"  📥 {c['name']} ({c['code']}) {c['price']:,}원 × {qty}주")
+    if len(buy_candidates) > len(actual_candidates):
+        rpt.append(f"  ⏭ 잔고 한도 초과 {len(buy_candidates) - len(actual_candidates)}종목 제외")
+    await send_telegram("\n".join(rpt))
 
     bought = 0
     for c in actual_candidates:
