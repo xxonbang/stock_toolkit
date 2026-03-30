@@ -13,7 +13,7 @@ from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
 from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market, schedule_sell_check, cancel_all_pending_orders
-from daemon.github_monitor import check_workflow_completion
+from daemon.github_monitor import check_workflow_completion, check_signal_pulse_completion, trigger_deploy_pages, wait_for_deploy_completion
 from daemon.http_session import close_session
 
 _DB_REFRESH_INTERVAL = 600  # seconds (10분)
@@ -223,6 +223,50 @@ async def schedule_auto_trade():
             logger.error(f"자동매매 루프 오류: {e}")
 
 
+_last_signal_pulse_time: str | None = None
+_first_sp_check_done = False
+
+
+async def schedule_signal_pulse_trade():
+    """5분마다 signal-pulse 워크플로우 완료 확인 → deploy-pages 트리거 → 매수 프로세스"""
+    global _last_signal_pulse_time, _buy_running, _first_sp_check_done
+    while not _shutdown:
+        await asyncio.sleep(_GITHUB_CHECK_INTERVAL)
+        if _shutdown or not is_market_day() or not is_market_hours():
+            continue
+        now_hm = datetime.now(KST)
+        if now_hm.hour == 9 and now_hm.minute < 5:
+            continue
+        if _buy_running:
+            continue
+        try:
+            completed, new_time = await check_signal_pulse_completion(_last_signal_pulse_time)
+            if completed:
+                _last_signal_pulse_time = new_time
+                if not _first_sp_check_done:
+                    _first_sp_check_done = True
+                    logger.info(f"데몬 시작 후 첫 signal-pulse 체크 — 시각 기록: {new_time}")
+                    continue
+                _buy_running = True
+                logger.info("signal-pulse 완료 감지 — deploy-pages 트리거")
+                try:
+                    triggered = await trigger_deploy_pages()
+                    if triggered:
+                        logger.info("deploy-pages 완료 대기 중...")
+                        deploy_ok = await wait_for_deploy_completion(timeout_sec=600, poll_sec=30)
+                        if deploy_ok:
+                            logger.info("deploy-pages 완료 — 매수 프로세스 시작")
+                            await run_buy_process()
+                        else:
+                            logger.warning("deploy-pages 완료 대기 실패 — 매수 스킵")
+                    else:
+                        logger.warning("deploy-pages 트리거 실패 — 매수 스킵")
+                finally:
+                    _buy_running = False
+        except Exception as e:
+            logger.error(f"signal-pulse 자동매매 루프 오류: {e}")
+
+
 async def schedule_eod_close():
     """15:15~15:20 사이에 보유 전 포지션 시장가 매도 (당일 청산)"""
     _eod_done_date: str = ""  # 당일 실행 완료 여부
@@ -322,6 +366,7 @@ async def main():
         ws_client.connect(),
         schedule_refresh(),
         schedule_auto_trade(),
+        schedule_signal_pulse_trade(),
         schedule_eod_close(),
         schedule_sell_check(),
         telegram_worker(),

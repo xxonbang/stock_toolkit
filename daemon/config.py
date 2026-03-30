@@ -30,6 +30,14 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 GITHUB_REPO = os.getenv("GITHUB_REPO", "xxonbang/theme-analyzer")
 GITHUB_WORKFLOW = os.getenv("GITHUB_WORKFLOW", "daily-theme-analysis.yml")
 
+# signal-pulse 감시
+SIGNAL_PULSE_REPO = "xxonbang/signal-pulse"
+SIGNAL_PULSE_WORKFLOW = "analyze.yml"
+
+# deploy-pages 트리거
+DEPLOY_REPO = "xxonbang/stock_toolkit"
+DEPLOY_WORKFLOW = "deploy-pages.yml"
+
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY", "")
 
