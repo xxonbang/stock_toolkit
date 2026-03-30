@@ -2,6 +2,16 @@
 
 ## 2026-03-30
 
+### [기능] Stepped Trailing 프리셋 선택 — 기본/공격형 토글 (2026-03-30 17:10 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/stock_manager.py`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/lib/supabase.ts`
+- **내용:** Stepped Trailing Step 구간을 기본(5/10/15/20/25)/공격형(7/15/20/25/30) 프리셋으로 선택 가능. DB `stepped_preset` 컬럼 추가. daemon에서 프리셋별 `_STEPPED_PRESETS` 분기 적용. 141종목 200일 백테스트 기반 공격형이 평균PnL +0.29%p 우위.
+- **커밋:** `6e5b1ba`
+
+### [개선] flash_spike_pct 임계값 5% → 15% 상향 (2026-03-30 16:45 KST)
+- **변경 파일:** `daemon/config.py`, `daemon/stock_manager.py`
+- **내용:** 테마주/소형주 장중 5% 이상 급등이 빈번하여, 정상 급등도 peak 갱신 무시되는 문제. 임계값을 15%로 상향하여 실제 불가능한 수준만 필터.
+- **커밋:** `239def2`
+
 ### [버그픽스] fetch_alert_config 전체 설정 무시 버그 수정 (2026-03-30 13:35 KST)
 - **변경 파일:** `daemon/stock_manager.py`
 - **내용:** SELECT 쿼리에 DB 미존재 컬럼 `flash_spike_pct` 포함으로 400 에러 발생 → 전체 설정이 기본값(fixed, all, criteria_filter=false)으로 동작. SELECT에서 해당 컬럼 제거.
