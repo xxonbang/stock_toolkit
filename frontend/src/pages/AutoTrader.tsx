@@ -706,17 +706,6 @@ export default function AutoTrader() {
             })}
           </div>}
           {!useResearchOptimal && <div className="mt-2 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
-            <div className="text-[10px] t-text-sub mb-2">
-              {(() => {
-                const { chart, indicator, top_leader, all_leaders, fallback_top_leader } = buyToggles;
-                if (top_leader) return "테마별 거래대금 1위 종목만 매집 (독립 모드)";
-                const parts = [chart && "차트", indicator && "지표", all_leaders && "대장주전체"].filter(Boolean) as string[];
-                if (parts.length === 0 && !fallback_top_leader) return "매집 중지 — 모든 조건 OFF";
-                let desc = parts.length === 1 ? `${parts[0]} 조건 매집` : parts.length >= 2 ? `${parts.join(" + ")} AND 조건 매집` : "";
-                if (fallback_top_leader) desc += desc ? " → 0건 시 대장주 1위로 대체" : "대장주 1위로 매집";
-                return desc;
-              })()}
-            </div>
             {(buyToggles.chart !== savedToggles.chart || buyToggles.indicator !== savedToggles.indicator || buyToggles.top_leader !== savedToggles.top_leader || buyToggles.all_leaders !== savedToggles.all_leaders || buyToggles.fallback_top_leader !== savedToggles.fallback_top_leader) && (
               <div className="flex items-center gap-2">
                 <button disabled={buySaving} onClick={async () => {
