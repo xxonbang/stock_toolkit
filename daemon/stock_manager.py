@@ -54,7 +54,7 @@ async def fetch_alert_config() -> dict:
         return defaults
     try:
         session = await get_session()
-        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=user_id,alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type,flash_spike_pct,criteria_filter&limit=1"
+        url = f"{SUPABASE_URL}/rest/v1/alert_config?select=user_id,alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type,criteria_filter&limit=1"
         headers = {
             "apikey": SUPABASE_SECRET_KEY,
             "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
@@ -71,7 +71,7 @@ async def fetch_alert_config() -> dict:
                         "trailing_stop_pct": float(row.get("trailing_stop_pct") or TRADE_TRAILING_STOP_PCT),
                         "buy_signal_mode": row.get("buy_signal_mode") or "and",
                         "strategy_type": row.get("strategy_type") or "fixed",
-                        "flash_spike_pct": float(row.get("flash_spike_pct") or TRADE_FLASH_SPIKE_PCT),
+                        "flash_spike_pct": TRADE_FLASH_SPIKE_PCT,
                         "criteria_filter": bool(row.get("criteria_filter", False)),
                         "user_id": row.get("user_id") or "",
                     }
