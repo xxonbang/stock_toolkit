@@ -243,27 +243,37 @@ def should_sell(buy_price: int, current_price: int, take_profit: float = TRADE_T
     return None
 
 
-# Stepped Trailing 파라미터 (고정값)
-_STEPPED_LEVELS = [
-    (25.0, None),   # +25%+ → peak - trailing_pct (동적)
-    (20.0, 15.0),   # +20% 도달 → stop +15%
-    (15.0, 10.0),   # +15% 도달 → stop +10%
-    (10.0, 5.0),    # +10% 도달 → stop +5%
-    (5.0, 0.0),     # +5% 도달 → stop 0% (본전)
-]
+# Stepped Trailing 프리셋
+_STEPPED_PRESETS = {
+    "default": [
+        (25.0, None),   # +25%+ → peak - trailing_pct (동적)
+        (20.0, 15.0),   # +20% 도달 → stop +15%
+        (15.0, 10.0),   # +15% 도달 → stop +10%
+        (10.0, 5.0),    # +10% 도달 → stop +5%
+        (5.0, 0.0),     # +5% 도달 → stop 0% (본전)
+    ],
+    "aggressive": [
+        (30.0, None),   # +30%+ → peak - trailing_pct (동적)
+        (25.0, 20.0),   # +25% 도달 → stop +20%
+        (20.0, 15.0),   # +20% 도달 → stop +15%
+        (15.0, 7.0),    # +15% 도달 → stop +7%
+        (7.0, 0.0),     # +7% 도달 → stop 0% (본전)
+    ],
+}
 
 
-def calc_stepped_stop_pct(peak_pnl_pct: float, trailing_pct: float) -> float:
+def calc_stepped_stop_pct(peak_pnl_pct: float, trailing_pct: float, preset: str = "default") -> float:
     """Stepped Trailing: 고점 수익률 기반 stop 위치 계산.
     peak_pnl_pct: 매수가 대비 고점 수익률 (%)
     trailing_pct: trailing stop % (음수, 기본 -3.0)
+    preset: "default" 또는 "aggressive"
     Returns: stop 수익률 (%, 이 아래로 내려가면 매도)
     """
-    for level, stop in _STEPPED_LEVELS:
+    levels = _STEPPED_PRESETS.get(preset, _STEPPED_PRESETS["default"])
+    for level, stop in levels:
         if peak_pnl_pct >= level:
             if stop is None:
-                # +25% 이상: 고점 기준 trailing
-                return peak_pnl_pct + trailing_pct  # e.g., 27% + (-3%) = 24%
+                return peak_pnl_pct + trailing_pct
             return stop
     return -999.0  # step 미도달 → stepped stop 미작동, 기본 SL만 적용
 
@@ -553,13 +563,16 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             active_strategy = config.get("strategy_type", "fixed")
             sim_strategy = "stepped" if active_strategy == "fixed" else "fixed"
             trade_id = position["id"]
-            user_id = config.get("user_id", "") or position.get("user_id", "")
-            asyncio.ensure_future(_create_simulation(
-                trade_id=trade_id,
-                strategy_type=sim_strategy,
-                entry_price=fill_price,
-                user_id=user_id,
-            ))
+            user_id = config.get("user_id") or ""
+            if not user_id:
+                logger.warning(f"가상 시뮬레이션 스킵: user_id 없음 (config)")
+            else:
+                asyncio.ensure_future(_create_simulation(
+                    trade_id=trade_id,
+                    strategy_type=sim_strategy,
+                    entry_price=fill_price,
+                    user_id=user_id,
+                ))
         except Exception as e:
             logger.warning(f"가상 시뮬레이션 생성 호출 오류: {e}")
         return True
@@ -991,7 +1004,8 @@ async def check_positions_for_sell(current_price_data: dict):
                 peak = _peak_prices.get(peak_key, current_price)
                 peak_pnl = calc_pnl_pct(buy_price, peak)
                 ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
-                stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct)
+                stepped_preset = config.get("stepped_preset", "default")
+                stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=stepped_preset)
                 if stepped_stop > -999.0 and pnl <= stepped_stop:
                     reason = "stepped_trailing"
         else:
@@ -1341,7 +1355,8 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
             if resp.status in (200, 201):
                 logger.info(f"가상 시뮬레이션 생성: {strategy_type} entry={entry_price}")
             else:
-                logger.warning(f"가상 시뮬레이션 생성 실패: {resp.status}")
+                err_body = await resp.text()
+                logger.warning(f"가상 시뮬레이션 생성 실패: {resp.status} {err_body[:200]}")
     except Exception as e:
         logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
 
@@ -1417,7 +1432,8 @@ async def _check_simulations(current_price_data: dict):
                     exit_price = current_price
                 else:
                     peak_pnl = calc_pnl_pct(entry_price, new_peak)
-                    stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct)
+                    stepped_preset = config.get("stepped_preset", "default")
+                    stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=stepped_preset)
                     if stepped_stop > -999.0 and pnl <= stepped_stop:
                         exit_reason = "stepped_trailing"
                         exit_price = current_price
