@@ -1852,7 +1852,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       <section className="t-card rounded-xl p-4">
         <SectionHeader id="orderbook" timestamp={ts} count={orderbook?.length ?? 0}>호가창 압력</SectionHeader>
         {orderbook?.[0]?.source === "realtime_avg" && (
-          <div className="text-[10px] t-text-dim mb-2">📊 장중 실시간 평균 기반</div>
+          <div className="flex items-center gap-1 text-[10px] t-text-dim mb-2"><BarChart3 size={11} /> 장중 실시간 평균 기반</div>
         )}
         <div className="space-y-1.5">
           {(orderbook || []).map((o, i) => {
