@@ -386,7 +386,7 @@ export default function AutoTrader() {
       {/* 모의투자 실행 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold t-text">모의투자 실행</span>
+          <span className="text-xs font-semibold t-text">모의투자 실행</span>
           <button onClick={() => setTradeEnabled(!tradeEnabled)}
             className={`w-10 h-5 rounded-full transition-colors relative ${tradeEnabled ? "bg-blue-500" : "bg-gray-300"}`}>
             <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${tradeEnabled ? "translate-x-5" : "translate-x-0.5"}`} />
@@ -416,7 +416,7 @@ export default function AutoTrader() {
 
       {/* 투자 전략 선택 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
-        <div className="text-[11px] font-semibold t-text mb-1">투자 전략</div>
+        <div className="text-xs font-semibold t-text mb-1.5">투자 전략</div>
         {/* 현재 적용 중인 설정 */}
         <div className="text-[10px] t-text-dim mb-2 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 flex-wrap" style={{ background: "var(--bg)" }}>
           <span className="font-medium t-text-sub">적용 중:</span>
@@ -653,7 +653,7 @@ export default function AutoTrader() {
         {/* 매집 종목 선정 기준 */}
         <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[11px] font-semibold t-text">매집 종목 선정</span>
+            <span className="text-xs font-semibold t-text">매집 종목 선정</span>
             <button onClick={(e) => { e.preventDefault(); setShowBuyHelp(true); }} className="t-text-dim hover:t-text transition">
               <HelpCircle size={13} />
             </button>
@@ -840,20 +840,20 @@ export default function AutoTrader() {
                 <>
                   <div className="flex gap-2">
                     <button onClick={() => setStrategyDetail("real")}
-                      className="flex-1 p-2 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제)</div>
-                      <div className={`text-sm font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[10px] t-text-dim mb-1">{realLabel} (실제)</div>
+                      <div className={`text-base font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                       </div>
-                      <div className="text-[9px] t-text-dim">{allRealTrades.length}건</div>
+                      <div className="text-[10px] t-text-dim mt-0.5">{allRealTrades.length}건</div>
                     </button>
                     <button onClick={() => setStrategyDetail("sim")}
-                      className="flex-1 p-2 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상)</div>
-                      <div className={`text-sm font-bold tabular-nums ${simPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[10px] t-text-dim mb-1">{simLabel} (가상)</div>
+                      <div className={`text-base font-bold tabular-nums ${simPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
                       </div>
-                      <div className="text-[9px] t-text-dim">{allSims.length}건</div>
+                      <div className="text-[10px] t-text-dim mt-0.5">{allSims.length}건</div>
                     </button>
                   </div>
                   {allRealTrades.length === 0 && allSims.length === 0 && (
@@ -1073,12 +1073,12 @@ export default function AutoTrader() {
 function SummaryCard({ icon, label, value, sub, color }: { icon: React.ReactNode; label: string; value: string; sub?: string; color?: string }) {
   return (
     <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)", boxShadow: "var(--shadow-card)" }}>
-      <div className="flex items-center gap-1.5 mb-1">
+      <div className="flex items-center gap-1.5 mb-1.5">
         <span className="t-text-sub">{icon}</span>
-        <span className="text-xs t-text-sub">{label}</span>
+        <span className="text-[11px] font-medium t-text-sub">{label}</span>
       </div>
-      <div className="text-lg font-bold" style={{ color: color || "var(--text-primary)" }}>{value}</div>
-      {sub && <div className="text-xs t-text-sub mt-0.5">{sub}</div>}
+      <div className="text-xl font-bold" style={{ color: color || "var(--text-primary)" }}>{value}</div>
+      {sub && <div className="text-[11px] t-text-sub mt-1">{sub}</div>}
     </div>
   );
 }
@@ -1172,7 +1172,7 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
         </div>
       )}
       {/* 3단계: 매수 상세 — compact dimmed */}
-      <div className="flex items-center justify-between text-[10px] t-text-dim">
+      <div className="flex items-center justify-between text-[11px] t-text-dim">
         <span>{formatKRW(buyPrice)} × {trade.quantity.toLocaleString()}주 ({formatKRW(amount)})</span>
         <span>매수 {formatDate(trade.created_at)}</span>
       </div>
@@ -1261,10 +1261,10 @@ function HistoryByDate({ trades }: { trades: Trade[] }) {
                 style={{ background: "var(--bg)" }}>
                 <div className="flex items-center gap-2">
                   <ChevronDown size={14} className={`t-text-dim transition-transform ${isOpen ? "" : "-rotate-90"}`} />
-                  <span className="text-xs font-medium t-text">{date}</span>
-                  <span className="text-[10px] t-text-dim">{items.length}건</span>
+                  <span className="text-[13px] font-semibold t-text">{date}</span>
+                  <span className="text-[11px] t-text-dim">{items.length}건</span>
                 </div>
-                <span className={`text-[11px] font-medium ${avgPnl > 0 ? "text-red-500" : avgPnl < 0 ? "text-blue-500" : "t-text-dim"}`}>
+                <span className={`text-xs font-semibold tabular-nums ${avgPnl > 0 ? "text-red-500" : avgPnl < 0 ? "text-blue-500" : "t-text-dim"}`}>
                   평균 {avgPnl >= 0 ? "+" : ""}{avgPnl.toFixed(2)}%
                 </span>
               </button>
