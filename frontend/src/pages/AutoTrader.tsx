@@ -814,8 +814,9 @@ export default function AutoTrader() {
               const allRealTrades = [...soldTrades.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
               const realPnl = allRealTrades.length > 0 ? allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allRealTrades.length : 0;
 
-              const closedSims = simulations.filter(s => s.status === "closed");
-              const openSims = simulations.filter(s => s.status === "open");
+              // time_exit 시뮬은 비교 대상에서 제외 (데이터 축적 전용)
+              const closedSims = simulations.filter(s => s.status === "closed" && s.strategy_type !== "time_exit");
+              const openSims = simulations.filter(s => s.status === "open" && s.strategy_type !== "time_exit");
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = activeTrades.find(t => t.id === s.trade_id);

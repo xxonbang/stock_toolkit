@@ -573,6 +573,13 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
                     entry_price=fill_price,
                     user_id=user_id,
                 ))
+                # 시간전략(11:00 매도) 시뮬레이션도 생성
+                asyncio.ensure_future(_create_simulation(
+                    trade_id=trade_id,
+                    strategy_type="time_exit",
+                    entry_price=fill_price,
+                    user_id=user_id,
+                ))
         except Exception as e:
             logger.warning(f"가상 시뮬레이션 생성 호출 오류: {e}")
         return True
@@ -639,6 +646,8 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 f"수익률: {pnl:+.2f}% ({filled_qty}주)"
                 + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
             )
+            # 실전 매도 시 남아있는 open 시뮬레이션 close (time_exit 포함)
+            asyncio.ensure_future(_close_open_simulations(position_id, sell_price, buy_price))
             try:
                 from daemon.main import trigger_subscription_refresh
                 task = asyncio.ensure_future(trigger_subscription_refresh())
@@ -1361,6 +1370,24 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
         logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
 
 
+async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int):
+    """실전 매도 시 해당 trade_id의 open 시뮬레이션 일괄 close"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    try:
+        session = await get_session()
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
+        sim_pnl = round(calc_pnl_pct(buy_price, sell_price), 2) if buy_price > 0 and sell_price > 0 else 0
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{trade_id}&status=eq.open"
+        body = {"status": "closed", "exit_price": sell_price, "pnl_pct": sim_pnl, "exit_reason": "parent_sold", "exited_at": datetime.now(_KST).isoformat()}
+        async with session.patch(url, json=body, headers=headers) as resp:
+            if resp.status in (200, 204):
+                logger.info(f"실전 매도 → 시뮬레이션 close: trade_id={trade_id[:8]} pnl={sim_pnl:+.1f}%")
+    except Exception as e:
+        logger.warning(f"시뮬레이션 close 오류: {e}")
+
+
 async def _check_simulations(current_price_data: dict):
     """open 상태의 가상 포지션 체크 → 가상 매도 조건 충족 시 업데이트"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
@@ -1436,6 +1463,18 @@ async def _check_simulations(current_price_data: dict):
                     stepped_stop = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=stepped_preset)
                     if stepped_stop > -999.0 and pnl <= stepped_stop:
                         exit_reason = "stepped_trailing"
+                        exit_price = current_price
+
+            elif strategy == "time_exit":
+                # 시간전략 시뮬레이션: SL=-2% + 11:00 KST 자동 매도
+                if pnl <= sl:
+                    exit_reason = "stop_loss"
+                    exit_price = current_price
+                else:
+                    now_kst = datetime.now(_KST)
+                    # 11:00 KST 이후면 현재가로 매도
+                    if now_kst.hour >= 11:
+                        exit_reason = "time_exit"
                         exit_price = current_price
 
             # Update simulation record
