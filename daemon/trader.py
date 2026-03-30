@@ -497,13 +497,19 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             f"금액: {fill_price * filled_qty:,}원"
             + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
         )
-        # 매수 후 구독 갱신 (모의투자 종목 WebSocket 수신 시작)
+        # 매수 직후 즉시 손절 체크 (WebSocket 구독 전 공백 제거)
+        try:
+            cur_price = await _get_current_price(code)
+            if cur_price > 0:
+                await check_positions_for_sell({"code": code, "price": cur_price})
+        except Exception as e:
+            logger.warning(f"매수 직후 손절 체크 오류: {e}")
+        # 구독 갱신 (WebSocket 실시간 감시 시작)
         try:
             from daemon.main import trigger_subscription_refresh
-            task = asyncio.ensure_future(trigger_subscription_refresh())
-            task.add_done_callback(lambda t: logger.warning(f"구독 갱신 실패: {t.exception()}") if not t.cancelled() and t.exception() else None)
-        except Exception:
-            pass
+            await trigger_subscription_refresh()
+        except Exception as e:
+            logger.warning(f"구독 갱신 실패: {e}")
         # 비선택 전략 가상 시뮬레이션 생성
         try:
             config = await _get_trade_config()
