@@ -638,8 +638,8 @@ def _reset_token():
     _token_issued_at = 0
 
 
-async def fetch_available_balance() -> int:
-    """KIS 모의투자 계좌 예수금 조회"""
+async def fetch_available_balance(retries: int = 3) -> int:
+    """KIS 모의투자 계좌 예수금 조회 (rate limit 시 재시도)"""
     token = await _ensure_mock_token()
     if not token:
         return 0
@@ -662,18 +662,27 @@ async def fetch_available_balance() -> int:
         "tr_id": "VTTC8908R",
         "custtype": "P",
     }
-    try:
-        session = await get_session()
-        async with session.get(url, params=params, headers=headers) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") == "0":
-                output = data.get("output", {})
-                balance = int(output.get("ord_psbl_cash", "0"))
-                logger.info(f"가용 잔고: {balance:,}원")
-                return balance
-            logger.warning(f"잔고 조회 실패: {data.get('msg1', '')}")
-    except Exception as e:
-        logger.error(f"잔고 조회 오류: {e}")
+    for attempt in range(1, retries + 1):
+        try:
+            session = await get_session()
+            async with session.get(url, params=params, headers=headers) as resp:
+                data = await resp.json()
+                if data.get("rt_cd") == "0":
+                    output = data.get("output", {})
+                    balance = int(output.get("ord_psbl_cash", "0"))
+                    logger.info(f"가용 잔고: {balance:,}원")
+                    return balance
+                msg = data.get("msg1", "")
+                if "초과" in msg and attempt < retries:
+                    logger.warning(f"잔고 조회 rate limit ({attempt}/{retries}) — {attempt * 2}초 후 재시도")
+                    await asyncio.sleep(attempt * 2)
+                    continue
+                logger.warning(f"잔고 조회 실패: {msg}")
+        except Exception as e:
+            logger.error(f"잔고 조회 오류: {e}")
+            if attempt < retries:
+                await asyncio.sleep(attempt * 2)
+                continue
     return 0
 
 
