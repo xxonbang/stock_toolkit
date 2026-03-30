@@ -504,7 +504,12 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
               {/* 알림 대상 */}
               <div>
-                <div className="text-[12px] font-semibold t-text-sub mb-2">실시간 알림 대상</div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-[12px] font-semibold t-text-sub">실시간 알림 대상</div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 font-medium">
+                    현재: {alertMode === "all" ? "교차+포트폴리오" : alertMode === "portfolio_only" ? "포트폴리오만" : "OFF"}
+                  </span>
+                </div>
                 <div className="space-y-1.5">
                   {([["all", "교차신호 + 포트폴리오", "교차 신호와 포트폴리오 종목 모두 알림"], ["portfolio_only", "포트폴리오만", "보유 종목만 알림"], ["off", "전체 OFF", "모든 알림 중단"]] as [AlertMode, string, string][]).map(([mode, label, desc]) => {
                     const selected = (pendingAlertMode ?? alertMode) === mode;
