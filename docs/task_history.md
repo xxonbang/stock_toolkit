@@ -2,15 +2,61 @@
 
 ## 2026-03-30
 
+### [개선] 모의투자 화면 가독성 개선 — 폰트/간격/정렬 (2026-03-30 17:30 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 섹션 제목 11→12px, TradeRow 매수 상세 10→11px, SummaryCard 값 lg→xl, 매매 이력 날짜 헤더 13px semibold, 전략 비교 카드 라벨 9→10px/수익률 sm→base/패딩 p-2→p-3.
+- **커밋:** `18e90bc`
+
+### [버그픽스] 전략 비교 수익률 합계→평균으로 변경 + 빨간 테두리 제거 (2026-03-30 17:20 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 전략 비교 PnL을 합계→평균으로 변경(매매 이력과 동일 기준). 가상 전략 우위 시 빨간 border/체크마크 제거.
+- **커밋:** `f42a8fe`, `8c680f5`
+
+### [버그픽스] 전략 비교 바텀시트 — 뒷면 스크롤 잠금 + 헤더 고정 (2026-03-30 17:15 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 바텀시트 열림 시 body overflow hidden(뒷면 스크롤 방지). 핸들바/닫기/제목을 flex-shrink-0으로 고정, 콘텐츠만 스크롤.
+- **커밋:** `6baabb9`
+
 ### [기능] Stepped Trailing 프리셋 선택 — 기본/공격형 토글 (2026-03-30 17:10 KST)
 - **변경 파일:** `daemon/trader.py`, `daemon/stock_manager.py`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/lib/supabase.ts`
 - **내용:** Stepped Trailing Step 구간을 기본(5/10/15/20/25)/공격형(7/15/20/25/30) 프리셋으로 선택 가능. DB `stepped_preset` 컬럼 추가. daemon에서 프리셋별 `_STEPPED_PRESETS` 분기 적용. 141종목 200일 백테스트 기반 공격형이 평균PnL +0.29%p 우위.
 - **커밋:** `6e5b1ba`
 
+### [버그픽스] 가상 시뮬레이션 생성 실패(400) — user_id 빈문자열 방지 (2026-03-30 17:00 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** user_id가 빈 값이면 시뮬레이션 생성 스킵(UUID 파싱 에러 방지). 생성 실패 시 응답 본문 로깅 추가.
+- **커밋:** `7981baf`
+
+### [버그픽스] stepped_trailing 텔레그램 라벨 추가 + _buy_running→asyncio.Lock (2026-03-30 16:50 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`
+- **내용:** reason_labels/emoji에 stepped_trailing 키 추가. _buy_running boolean→asyncio.Lock으로 교체하여 매수 프로세스 동시 실행 방지 보장.
+- **커밋:** `3efd030`
+
+### [개선] KIS API rate limit 방어 — 주요 함수에 재시도 로직 통합 (2026-03-30 16:48 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** _get_current_price, _kis_order_market, is_upper_limit, fetch_available_balance에 rate limit 3회 재시도(2/4/6초) 추가. _RATE_LIMIT_RETRIES, _RATE_LIMIT_BASE_SEC 상수화.
+- **커밋:** `810b317`
+
 ### [개선] flash_spike_pct 임계값 5% → 15% 상향 (2026-03-30 16:45 KST)
 - **변경 파일:** `daemon/config.py`, `daemon/stock_manager.py`
 - **내용:** 테마주/소형주 장중 5% 이상 급등이 빈번하여, 정상 급등도 peak 갱신 무시되는 문제. 임계값을 15%로 상향하여 실제 불가능한 수준만 필터.
 - **커밋:** `239def2`
+
+### [기능] 매수 프로세스 종합 보고 텔레그램 메시지 추가 (2026-03-30 14:00 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** 매수 실행 시 1단계(스코어링 과정) → 2단계(보유/당일매도 필터링) → 3단계(잔고 배분/매수 대상) 종합 보고 텔레그램 발송.
+- **커밋:** `b14bbc6`
+
+### [기능] 모의투자 실행 ON/OFF 토글 추가 (2026-03-30 13:50 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 투자 전략 섹션 위에 '모의투자 실행' 섹션+토글 배치. OFF 시 buy_signal_mode=none(매수 중지), ON 시 research_optimal(재개). 확인 버튼 방식.
+- **커밋:** `a8eb519`
+
+### [버그픽스] setAlertConfig에서 buy_signal_mode 덮어쓰기 버그 수정 (2026-03-30 12:30 KST)
+- **변경 파일:** `frontend/src/lib/supabase.ts`
+- **내용:** select 쿼리에 buy_signal_mode, criteria_filter 누락 → 다른 설정 변경 시 기본값으로 덮어쓰기되는 치명적 버그 수정.
+- **원인:** 연구 최적 전략 적용 후 전략 타입 등 다른 설정 변경 시 buy_signal_mode가 "and"로 리셋.
+- **커밋:** `d0c8f62`
 
 ### [버그픽스] fetch_alert_config 전체 설정 무시 버그 수정 (2026-03-30 13:35 KST)
 - **변경 파일:** `daemon/stock_manager.py`
