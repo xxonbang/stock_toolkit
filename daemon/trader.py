@@ -606,9 +606,9 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                     logger.info(f"매도 체결가 조회 실패, 현재가 fallback: {name}({code}) {actual_price:,}원")
             sell_price = actual_price if actual_price > 0 else price
             pnl = calc_pnl_pct(buy_price, sell_price)
-            reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
+            reason_labels = {"take_profit": "익절", "stop_loss": "손절", "trailing_stop": "급락 손절", "stepped_trailing": "Stepped 청산", "manual_sell": "수동 매도", "eod_close": "장 마감 청산"}
             reason_label = reason_labels.get(reason, reason)
-            emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
+            emoji = {"take_profit": "💰", "stop_loss": "🛑", "trailing_stop": "📉", "stepped_trailing": "📊", "manual_sell": "✋", "eod_close": "🔔"}.get(reason, "📊")
             _peak_prices.pop(position_id, None)
             if filled_qty < quantity:
                 # NOTE: update_position_quantity()가 unmark_selling() 전에 실행되므로
