@@ -1335,6 +1335,8 @@ async def schedule_sell_check():
                     continue
                 await check_positions_for_sell({"code": code, "price": price})
                 await asyncio.sleep(0.3)  # API 호출 간격
+            # 시간전략 시뮬 독립 체크 (실전 매도 후에도 11:00까지 유지)
+            await _check_time_exit_simulations()
         except Exception as e:
             logger.error(f"매도 폴링 체크 오류: {e}")
 
@@ -1371,7 +1373,7 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
 
 
 async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int):
-    """실전 매도 시 해당 trade_id의 open 시뮬레이션 일괄 close"""
+    """실전 매도 시 해당 trade_id의 open 시뮬레이션 close (time_exit 제외 — 11:00까지 독립 운영)"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
@@ -1379,7 +1381,7 @@ async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int
         session = await get_session()
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
         sim_pnl = round(calc_pnl_pct(buy_price, sell_price), 2) if buy_price > 0 and sell_price > 0 else 0
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{trade_id}&status=eq.open"
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{trade_id}&status=eq.open&strategy_type=neq.time_exit"
         body = {"status": "closed", "exit_price": sell_price, "pnl_pct": sim_pnl, "exit_reason": "parent_sold", "exited_at": datetime.now(_KST).isoformat()}
         async with session.patch(url, json=body, headers=headers) as resp:
             if resp.status in (200, 204):
@@ -1495,6 +1497,57 @@ async def _check_simulations(current_price_data: dict):
 
     except Exception as e:
         logger.warning(f"가상 시뮬레이션 체크 오류: {e}")
+
+
+async def _check_time_exit_simulations():
+    """11:00 KST 이후 open 상태의 time_exit 시뮬레이션을 현재가로 close (실전 매도와 독립)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    now_kst = datetime.now(_KST)
+    if now_kst.hour < 11:
+        return
+    try:
+        session = await get_session()
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        # open 상태의 time_exit 시뮬 전체 조회
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.time_exit&select=id,entry_price,trade_id"
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return
+            sims = await resp.json()
+        if not sims:
+            return
+        # 각 시뮬의 종목코드 → 현재가 조회
+        # trade_id → auto_trades에서 code 매핑
+        trade_ids = list(set(s["trade_id"] for s in sims))
+        tid_filter = ",".join(trade_ids)
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+        async with session.get(trades_url, headers=headers) as resp:
+            if resp.status != 200:
+                return
+            trades = await resp.json()
+        tid_to_code = {t["id"]: t["code"] for t in (trades or [])}
+
+        patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+        for sim in sims:
+            code = tid_to_code.get(sim["trade_id"])
+            if not code:
+                continue
+            price = await _get_current_price(code)
+            if price <= 0:
+                continue
+            entry = sim["entry_price"]
+            pnl = round(calc_pnl_pct(entry, price), 2)
+            # SL 체크
+            exit_reason = "time_exit" if pnl > -2.0 else "stop_loss"
+            body = {"status": "closed", "exit_price": price, "pnl_pct": pnl, "exit_reason": exit_reason, "exited_at": now_kst.isoformat()}
+            patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
+            async with session.patch(patch_url, json=body, headers=patch_headers) as resp:
+                if resp.status in (200, 204):
+                    logger.info(f"시간전략 시뮬 close: {code} pnl={pnl:+.1f}% reason={exit_reason}")
+    except Exception as e:
+        logger.warning(f"시간전략 시뮬 체크 오류: {e}")
 
 
 async def _get_current_price(code: str) -> int:
