@@ -98,6 +98,8 @@ export default function AutoTrader() {
   const [savedCriteriaFilter, setSavedCriteriaFilter] = useState(false);
   const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [buySaving, setBuySaving] = useState(false);
+  const [tradeEnabled, setTradeEnabled] = useState(false);
+  const [savedTradeEnabled, setSavedTradeEnabled] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
   const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped">("fixed");
@@ -118,6 +120,8 @@ export default function AutoTrader() {
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
           setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
+          const active = buy_signal_mode !== "none" && buy_signal_mode !== "";
+          setTradeEnabled(active); setSavedTradeEnabled(active);
           if (buy_signal_mode === "research_optimal") {
             setUseResearchOptimal(true); setSavedResearchOptimal(true);
           } else {
@@ -321,6 +325,8 @@ export default function AutoTrader() {
     getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode, criteria_filter }) => {
       setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
       setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
+      const active = buy_signal_mode !== "none" && buy_signal_mode !== "";
+      setTradeEnabled(active); setSavedTradeEnabled(active);
       if (buy_signal_mode === "research_optimal") {
         setUseResearchOptimal(true); setSavedResearchOptimal(true);
       } else {
@@ -368,22 +374,31 @@ export default function AutoTrader() {
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold t-text">모의투자 실행</span>
-          <button onClick={async () => {
-            const isCurrentlyActive = savedResearchOptimal || Object.values(savedToggles).some(Boolean);
-            if (isCurrentlyActive) {
-              const ok = await setAlertConfig({ buy_signal_mode: "none" });
-              if (ok) { setSavedResearchOptimal(false); setUseResearchOptimal(false); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setBuyToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "모의투자 중지", type: "ok" }); }
-              else setToastMsg({ text: "저장 실패", type: "fail" });
-            } else {
-              const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
-              if (ok) { setSavedResearchOptimal(true); setUseResearchOptimal(true); setToastMsg({ text: "모의투자 재개 (연구 최적)", type: "ok" }); }
-              else setToastMsg({ text: "저장 실패", type: "fail" });
-            }
-            setTimeout(() => setToastMsg(null), 2500);
-          }} className={`w-10 h-5 rounded-full transition-colors relative ${(savedResearchOptimal || Object.values(savedToggles).some(Boolean)) ? "bg-blue-500" : "bg-gray-300"}`}>
-            <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${(savedResearchOptimal || Object.values(savedToggles).some(Boolean)) ? "translate-x-5" : "translate-x-0.5"}`} />
+          <button onClick={() => setTradeEnabled(!tradeEnabled)}
+            className={`w-10 h-5 rounded-full transition-colors relative ${tradeEnabled ? "bg-blue-500" : "bg-gray-300"}`}>
+            <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${tradeEnabled ? "translate-x-5" : "translate-x-0.5"}`} />
           </button>
         </div>
+        {tradeEnabled !== savedTradeEnabled && (
+          <div className="flex items-center gap-2 mt-2">
+            <button disabled={buySaving} onClick={async () => {
+              setBuySaving(true);
+              if (!tradeEnabled) {
+                const ok = await setAlertConfig({ buy_signal_mode: "none" });
+                if (ok) { setSavedTradeEnabled(false); setSavedResearchOptimal(false); setUseResearchOptimal(false); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setBuyToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "모의투자 중지", type: "ok" }); }
+                else { setTradeEnabled(savedTradeEnabled); setToastMsg({ text: "저장 실패", type: "fail" }); }
+              } else {
+                const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
+                if (ok) { setSavedTradeEnabled(true); setSavedResearchOptimal(true); setUseResearchOptimal(true); setToastMsg({ text: "모의투자 재개 (연구 최적)", type: "ok" }); }
+                else { setTradeEnabled(savedTradeEnabled); setToastMsg({ text: "저장 실패", type: "fail" }); }
+              }
+              setTimeout(() => setToastMsg(null), 2500); setBuySaving(false);
+            }} className="flex-1 text-[11px] font-medium py-1.5 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
+              {buySaving ? "저장 중..." : "확인"}
+            </button>
+            <button onClick={() => setTradeEnabled(savedTradeEnabled)} className="text-[11px] font-medium py-1.5 px-3 rounded-lg t-text-sub border transition hover:opacity-80" style={{ borderColor: "var(--border)" }}>취소</button>
+          </div>
+        )}
       </div>
 
       {/* 투자 전략 선택 */}
