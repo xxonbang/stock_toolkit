@@ -104,6 +104,8 @@ export default function AutoTrader() {
   const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
+  const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
+  const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | null>(null);
   const [excludedDates, setExcludedDates] = useState<Set<string>>(new Set());
@@ -132,6 +134,10 @@ export default function AutoTrader() {
         // strategy_type 로드
         Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
           if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
+        }).catch(() => {});
+        // stepped_preset 별도 로드 (컬럼 미존재 시 안전)
+        Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
+          if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
         }).catch(() => {});
         getStrategySimulations().then(setSimulations);
       } else {
@@ -337,6 +343,9 @@ export default function AutoTrader() {
     Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
       if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
     }).catch(() => {});
+    Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
+      if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
+    }).catch(() => {});
     getStrategySimulations().then(setSimulations);
   };
 
@@ -408,7 +417,7 @@ export default function AutoTrader() {
         <div className="text-[10px] t-text-dim mb-2 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 flex-wrap" style={{ background: "var(--bg)" }}>
           <span className="font-medium t-text-sub">적용 중:</span>
           <span className={savedStrategyType === "stepped" ? "text-blue-500" : "text-amber-500"}>
-            {savedStrategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절"}
+            {savedStrategyType === "stepped" ? `Stepped Trailing${savedSteppedPreset === "aggressive" ? " (공격형)" : ""}` : "고정 익절/손절"}
           </span>
           <span className="t-text-dim">·</span>
           <span className={savedResearchOptimal ? "text-indigo-500" : "text-emerald-500"}>
@@ -444,24 +453,54 @@ export default function AutoTrader() {
             <summary className="flex items-center gap-1 p-2.5 text-[9px] font-medium t-text-sub cursor-pointer hover:t-text transition select-none list-none [&::-webkit-details-marker]:hidden">
               <ChevronRight size={10} className="transition-transform [[open]>&]:rotate-90 shrink-0" />
               Step 구간
+              <span className="ml-auto text-[8px] font-semibold" style={{ color: savedSteppedPreset === "aggressive" ? "#2563eb" : "var(--text-secondary)" }}>
+                {savedSteppedPreset === "aggressive" ? "공격형" : "기본"}
+              </span>
             </summary>
-            <div className="px-2.5 pb-2.5 space-y-1">
-              {[
-                { trigger: "+5%", stop: "0%", color: "#94a3b8", barW: "20%" },
-                { trigger: "+10%", stop: "+5%", color: "#22c55e", barW: "40%" },
-                { trigger: "+15%", stop: "+10%", color: "#22c55e", barW: "60%" },
-                { trigger: "+20%", stop: "+15%", color: "#16a34a", barW: "80%" },
-                { trigger: "+25%+", stop: `고점${trailingStop}%`, color: "#15803d", barW: "100%" },
-              ].map((s, i) => (
-                <div key={s.trigger} className="flex items-center gap-2 text-[10px]">
-                  <div className="w-1 h-4 rounded-full shrink-0" style={{ background: s.color, opacity: 0.5 + i * 0.12 }} />
-                  <span className="w-11 shrink-0 font-semibold tabular-nums t-text">{s.trigger}</span>
-                  <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: 'var(--bg-muted)' }}>
-                    <div className="h-full rounded-full" style={{ width: s.barW, background: s.color, opacity: 0.4 }} />
+            <div className="px-2.5 pb-2.5">
+              <div className="flex gap-1 mb-2">
+                {([["default", "기본"], ["aggressive", "공격형"]] as const).map(([key, label]) => (
+                  <button key={key} onClick={() => setSteppedPreset(key)}
+                    className="flex-1 text-[9px] font-medium py-1 rounded-md transition"
+                    style={{ background: steppedPreset === key ? "var(--blue-600, #2563eb)" : "var(--bg-muted)", color: steppedPreset === key ? "#fff" : "var(--text-secondary)" }}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <div className="space-y-1">
+                {(steppedPreset === "aggressive" ? [
+                  { trigger: "+7%", stop: "0%", color: "#94a3b8", barW: "20%" },
+                  { trigger: "+15%", stop: "+7%", color: "#22c55e", barW: "40%" },
+                  { trigger: "+20%", stop: "+15%", color: "#22c55e", barW: "60%" },
+                  { trigger: "+25%", stop: "+20%", color: "#16a34a", barW: "80%" },
+                  { trigger: "+30%+", stop: `고점${trailingStop}%`, color: "#15803d", barW: "100%" },
+                ] : [
+                  { trigger: "+5%", stop: "0%", color: "#94a3b8", barW: "20%" },
+                  { trigger: "+10%", stop: "+5%", color: "#22c55e", barW: "40%" },
+                  { trigger: "+15%", stop: "+10%", color: "#22c55e", barW: "60%" },
+                  { trigger: "+20%", stop: "+15%", color: "#16a34a", barW: "80%" },
+                  { trigger: "+25%+", stop: `고점${trailingStop}%`, color: "#15803d", barW: "100%" },
+                ]).map((s, i) => (
+                  <div key={s.trigger} className="flex items-center gap-2 text-[10px]">
+                    <div className="w-1 h-4 rounded-full shrink-0" style={{ background: s.color, opacity: 0.5 + i * 0.12 }} />
+                    <span className="w-11 shrink-0 font-semibold tabular-nums t-text">{s.trigger}</span>
+                    <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: 'var(--bg-muted)' }}>
+                      <div className="h-full rounded-full" style={{ width: s.barW, background: s.color, opacity: 0.4 }} />
+                    </div>
+                    <span className="w-16 shrink-0 text-right tabular-nums t-text-sub">stop {s.stop}</span>
                   </div>
-                  <span className="w-16 shrink-0 text-right tabular-nums t-text-sub">stop {s.stop}</span>
-                </div>
-              ))}
+                ))}
+              </div>
+              {steppedPreset !== savedSteppedPreset && (
+                <button onClick={async () => {
+                  const ok = await setAlertConfig({ stepped_preset: steppedPreset });
+                  if (ok) setSavedSteppedPreset(steppedPreset);
+                  setToastMsg({ text: ok ? "Step 구간 변경 완료" : "변경 실패", type: ok ? "ok" : "fail" });
+                }}
+                  className="w-full mt-2 text-[10px] font-medium py-1 rounded-md text-white bg-blue-600 hover:bg-blue-500 transition">
+                  Step 구간 변경 확인
+                </button>
+              )}
             </div>
           </details>
         )}

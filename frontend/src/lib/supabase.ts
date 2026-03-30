@@ -146,7 +146,7 @@ export async function getAlertMode(): Promise<AlertMode> {
 }
 
 /** 알림 설정 변경 (모드 + 익절/손절/trailing stop) */
-export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number; trailing_stop_pct?: number; buy_signal_mode?: string; strategy_type?: string; criteria_filter?: boolean }): Promise<boolean> {
+export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number; trailing_stop_pct?: number; buy_signal_mode?: string; strategy_type?: string; criteria_filter?: boolean; stepped_preset?: string }): Promise<boolean> {
   try {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return false;
@@ -154,6 +154,12 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
     const { data: existing } = await supabase.from("alert_config")
       .select("alert_mode, take_profit_pct, stop_loss_pct, trailing_stop_pct, strategy_type, buy_signal_mode, criteria_filter")
       .eq("user_id", user.id).maybeSingle();
+    // stepped_preset 별도 조회 (컬럼 미존재 시 안전)
+    let existingPreset: string | null = null;
+    try {
+      const { data: ep } = await supabase.from("alert_config").select("stepped_preset").eq("user_id", user.id).maybeSingle();
+      existingPreset = ep?.stepped_preset ?? null;
+    } catch {}
     const merged: Record<string, any> = {
       user_id: user.id,
       alert_mode: updates.alert_mode ?? existing?.alert_mode ?? "all",
@@ -165,8 +171,19 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
       criteria_filter: updates.criteria_filter ?? existing?.criteria_filter ?? false,
       updated_at: new Date().toISOString(),
     };
+    if (updates.stepped_preset !== undefined) merged.stepped_preset = updates.stepped_preset;
+    else if (existingPreset) merged.stepped_preset = existingPreset;
     const { error } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
-    if (error) { console.error("설정 변경 실패:", error.code, error.message, error.details); return false; }
+    if (error) {
+      // stepped_preset 컬럼 미존재 시 제거 후 재시도
+      if (error.message?.includes("stepped_preset")) {
+        delete merged.stepped_preset;
+        const { error: e2 } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
+        if (e2) { console.error("설정 변경 실패:", e2.code, e2.message); return false; }
+        return true;
+      }
+      console.error("설정 변경 실패:", error.code, error.message, error.details); return false;
+    }
     return true;
   } catch (e) {
     console.error("setAlertConfig 예외:", e);

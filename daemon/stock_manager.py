@@ -64,7 +64,7 @@ async def fetch_alert_config() -> dict:
                 rows = await resp.json()
                 if rows and isinstance(rows, list):
                     row = rows[0]
-                    return {
+                    result = {
                         "alert_mode": row.get("alert_mode") or "all",
                         "take_profit_pct": float(row.get("take_profit_pct") or TRADE_TAKE_PROFIT_PCT),
                         "stop_loss_pct": float(row.get("stop_loss_pct") or TRADE_STOP_LOSS_PCT),
@@ -73,8 +73,20 @@ async def fetch_alert_config() -> dict:
                         "strategy_type": row.get("strategy_type") or "fixed",
                         "flash_spike_pct": TRADE_FLASH_SPIKE_PCT,
                         "criteria_filter": bool(row.get("criteria_filter", False)),
+                        "stepped_preset": "default",
                         "user_id": row.get("user_id") or "",
                     }
+                    # stepped_preset 별도 조회 (컬럼 미존재 시 안전)
+                    try:
+                        sp_url = f"{SUPABASE_URL}/rest/v1/alert_config?select=stepped_preset&limit=1"
+                        async with session.get(sp_url, headers=headers) as sp_resp:
+                            if sp_resp.status == 200:
+                                sp_rows = await sp_resp.json()
+                                if sp_rows and sp_rows[0].get("stepped_preset"):
+                                    result["stepped_preset"] = sp_rows[0]["stepped_preset"]
+                    except Exception:
+                        pass
+                    return result
     except Exception as e:
         logger.warning(f"설정 조회 실패: {e}")
     return defaults
