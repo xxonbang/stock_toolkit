@@ -791,6 +791,14 @@ async def run_buy_process():
             continue
         await place_buy_order_with_qty(c["code"], c["name"], c["price"], quantity)
         bought += 1
+    if bought > 0:
+        # 매수 직후 WebSocket 구독 즉시 갱신 — 손절 감시 지연 방지
+        try:
+            from daemon.main import trigger_subscription_refresh
+            await trigger_subscription_refresh()
+            logger.info(f"매수 후 구독 즉시 갱신 완료 ({bought}종목)")
+        except Exception as e:
+            logger.warning(f"매수 후 구독 갱신 실패: {e}")
     if bought == 0 and actual_candidates:
         names = ", ".join(c["name"] for c in actual_candidates)
         await send_telegram(f"⚠️ 매수 실패: 잔고 부족\n대상: {names}\n잔고: {balance:,}원, 종목당 {amount_per_stock:,}원")
