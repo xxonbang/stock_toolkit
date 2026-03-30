@@ -835,22 +835,21 @@ export default function AutoTrader() {
               const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
               const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
-              const realWins = realPnl >= simPnl;
 
               return (
                 <>
                   <div className="flex gap-2">
                     <button onClick={() => setStrategyDetail("real")}
-                      className={`flex-1 p-2 rounded-lg text-center border cursor-pointer transition ${realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제) {realWins && allRealTrades.length > 0 && "✓"}</div>
+                      className="flex-1 p-2 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{realLabel} (실제)</div>
                       <div className={`text-sm font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                       </div>
                       <div className="text-[9px] t-text-dim">{allRealTrades.length}건</div>
                     </button>
                     <button onClick={() => setStrategyDetail("sim")}
-                      className={`flex-1 p-2 rounded-lg text-center border cursor-pointer transition ${!realWins ? "border-red-500/30" : "border-transparent"}`} style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상) {!realWins && allSims.length > 0 && "✓"}</div>
+                      className="flex-1 p-2 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim mb-0.5">{simLabel} (가상)</div>
                       <div className={`text-sm font-bold tabular-nums ${simPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                         {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
                       </div>
