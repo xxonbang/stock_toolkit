@@ -180,7 +180,7 @@ async def schedule_refresh():
 
 
 _last_workflow_time: str | None = None
-_first_trade_check_done: bool = False  # 데몬 시작 후 첫 체크 시 현재 워크플로우 시각만 기록
+_STALE_THRESHOLD_MIN = 15  # 완료 후 15분 초과 시 오래된 것으로 간주
 
 
 async def trigger_subscription_refresh():
@@ -191,9 +191,19 @@ async def trigger_subscription_refresh():
         logger.error(f"구독 즉시 갱신 실패: {e}")
 
 
+def _is_stale_completion(time_str: str) -> bool:
+    """완료 시각이 현재로부터 _STALE_THRESHOLD_MIN분 초과 경과했는지 확인."""
+    try:
+        completed = datetime.fromisoformat(time_str.replace("Z", "+00:00"))
+        age_min = (datetime.now(timezone.utc) - completed).total_seconds() / 60
+        return age_min > _STALE_THRESHOLD_MIN
+    except Exception:
+        return True
+
+
 async def schedule_auto_trade():
     """5분마다 theme-analysis 워크플로우 완료 확인 → 매수 프로세스 (장중만)"""
-    global _last_workflow_time, _buy_running, _first_trade_check_done
+    global _last_workflow_time, _buy_running
     while not _shutdown:
         await asyncio.sleep(_GITHUB_CHECK_INTERVAL)
         if _shutdown or not is_market_day() or not is_market_hours():
@@ -208,10 +218,9 @@ async def schedule_auto_trade():
             completed, new_time = await check_workflow_completion(_last_workflow_time)
             if completed:
                 _last_workflow_time = new_time
-                # 데몬 시작 후 첫 체크: 현재 시각만 기록하고 매수 실행 안 함 (오래된 워크플로우 방지)
-                if not _first_trade_check_done:
-                    _first_trade_check_done = True
-                    logger.info(f"데몬 시작 후 첫 체크 — 워크플로우 시각 기록: {new_time}")
+                # 완료 후 15분 초과 → 오래된 워크플로우, 시각만 기록
+                if _is_stale_completion(new_time):
+                    logger.info(f"오래된 워크플로우 스킵 — 시각 기록: {new_time}")
                     continue
                 _buy_running = True
                 logger.info("theme-analysis 완료 감지 — 매수 프로세스 시작")
@@ -224,12 +233,11 @@ async def schedule_auto_trade():
 
 
 _last_signal_pulse_time: str | None = None
-_first_sp_check_done = False
 
 
 async def schedule_signal_pulse_trade():
     """5분마다 signal-pulse 워크플로우 완료 확인 → deploy-pages 트리거 → 매수 프로세스"""
-    global _last_signal_pulse_time, _buy_running, _first_sp_check_done
+    global _last_signal_pulse_time, _buy_running
     while not _shutdown:
         await asyncio.sleep(_GITHUB_CHECK_INTERVAL)
         if _shutdown or not is_market_day() or not is_market_hours():
@@ -243,9 +251,9 @@ async def schedule_signal_pulse_trade():
             completed, new_time = await check_signal_pulse_completion(_last_signal_pulse_time)
             if completed:
                 _last_signal_pulse_time = new_time
-                if not _first_sp_check_done:
-                    _first_sp_check_done = True
-                    logger.info(f"데몬 시작 후 첫 signal-pulse 체크 — 시각 기록: {new_time}")
+                # 완료 후 15분 초과 → 오래된 워크플로우, 시각만 기록
+                if _is_stale_completion(new_time):
+                    logger.info(f"오래된 signal-pulse 스킵 — 시각 기록: {new_time}")
                     continue
                 _buy_running = True
                 logger.info("signal-pulse 완료 감지 — deploy-pages 트리거")
