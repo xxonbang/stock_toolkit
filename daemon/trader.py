@@ -1290,23 +1290,16 @@ async def sell_all_positions_market():
                 logger.error(f"장 마감 재시도 오류: {pos.get('name')} {e}")
     invalidate_cache()
 
-    # EOD: 매도된 포지션에 연결된 open 시뮬레이션도 close 처리
+    # EOD: 모든 open 시뮬레이션 일괄 close (orphan 포함)
     try:
-        sold_ids = [pos["id"] for pos in to_sell]
-        if sold_ids:
-            session = await get_session()
-            headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
-            for tid in sold_ids:
-                sold_pos = next((p for p in to_sell if p["id"] == tid), None)
-                if not sold_pos:
-                    continue
-                cp = sold_pos.get("_current_price", 0)
-                bp = sold_pos.get("filled_price") or sold_pos.get("order_price", 0)
-                sim_pnl = round(calc_pnl_pct(bp, cp), 2) if bp > 0 and cp > 0 else 0
-                patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{tid}&status=eq.open"
-                body = {"status": "closed", "exit_price": cp if cp > 0 else bp, "pnl_pct": sim_pnl, "exit_reason": "eod_close", "exited_at": datetime.now(_KST).isoformat()}
-                async with session.patch(patch_url, json=body, headers=headers) as resp:
-                    pass
+        session = await get_session()
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
+        eod_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open"
+        eod_body = {"status": "closed", "exit_reason": "eod_close", "exited_at": datetime.now(_KST).isoformat()}
+        async with session.patch(eod_url, json=eod_body, headers=headers) as resp:
+            if resp.status in (200, 204):
+                logger.info("EOD: 모든 open 시뮬레이션 일괄 close")
+        _orphan_sim_codes.clear()
     except Exception as e:
         logger.warning(f"EOD 시뮬레이션 close 오류: {e}")
 
