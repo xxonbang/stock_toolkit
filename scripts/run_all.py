@@ -390,6 +390,18 @@ def main():
         except Exception as e:
             logger.error(f"  [KIS] 가격 보강 실패: {e}")
 
+    # criteria_data overlay → cross_signal에 과열 필터 필드 추가
+    theme_criteria = latest.get("criteria_data", {})
+    if theme_criteria and cross_matches:
+        for m in cross_matches:
+            code = m.get("code", "")
+            crit = theme_criteria.get(code, {})
+            if crit:
+                met_count = sum(1 for k, v in crit.items() if isinstance(v, dict) and v.get("met") and k != "all_met")
+                m["_criteria_met_count"] = met_count
+                m["_top30_trading_value"] = isinstance(crit.get("top30_trading_value"), dict) and crit["top30_trading_value"].get("met", False)
+                m["_ma_aligned"] = isinstance(crit.get("ma_alignment"), dict) and crit["ma_alignment"].get("met", False)
+
     with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
         json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)
 

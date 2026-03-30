@@ -49,7 +49,7 @@ async def fetch_json(url: str) -> list | dict | None:
 
 async def fetch_alert_config() -> dict:
     """Supabase alert_config에서 전체 설정 조회"""
-    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed", "flash_spike_pct": TRADE_FLASH_SPIKE_PCT}
+    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed", "flash_spike_pct": TRADE_FLASH_SPIKE_PCT, "criteria_filter": False}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return defaults
     try:
@@ -72,6 +72,7 @@ async def fetch_alert_config() -> dict:
                         "buy_signal_mode": row.get("buy_signal_mode") or "and",
                         "strategy_type": row.get("strategy_type") or "fixed",
                         "flash_spike_pct": float(row.get("flash_spike_pct") or TRADE_FLASH_SPIKE_PCT),
+                        "criteria_filter": bool(row.get("criteria_filter", False)),
                         "user_id": row.get("user_id") or "",
                     }
     except Exception as e:

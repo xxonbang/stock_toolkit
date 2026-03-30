@@ -139,10 +139,11 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
     ]
 
 
-def select_research_optimal(signals: list | None, max_price: int = 50000, top_n: int = 2, min_score: int = 20) -> list[dict]:
+def select_research_optimal(signals: list | None, max_price: int = 50000, top_n: int = 2, min_score: int = 20, criteria_filter: bool = False) -> list[dict]:
     """연구 최적 전략: 5팩터 스코어링으로 Top-N 종목 선정.
     팩터: api매수(30) + api적극매수(+10) + vision매수(20) + vision적극매수(+5)
           + 대장주1등(25)/전체(15) + 저가주<2만(5)
+    criteria_filter=True: 거래대금TOP30/MA정배열 종목 감점, criteria 5개+ 제외
     가격 < max_price 필터, 최소 min_score점, 상위 top_n개 반환.
     """
     if not signals:
@@ -198,6 +199,26 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
 
         if score >= min_score:
             scored.append({**s, "_score": score, "_score_detail": details})
+
+    # criteria_filter 적용: 과열 종목 감점/제외
+    if criteria_filter:
+        filtered = []
+        for item in scored:
+            met_count = item.get("_criteria_met_count", 0)
+            is_top30 = item.get("_top30_trading_value", False)
+            is_ma = item.get("_ma_aligned", False)
+            # criteria 5개 이상 충족 → 과열로 제외
+            if met_count >= 5:
+                continue
+            # 감점
+            if is_top30:
+                item["_score"] -= 15
+                item.setdefault("_score_detail", []).append("과열(TOP30)-15")
+            if is_ma:
+                item["_score"] -= 10
+                item.setdefault("_score_detail", []).append("과열(정배열)-10")
+            filtered.append(item)
+        scored = filtered
 
     def _sort_key(x):
         ad = x.get("api_data") or {}
@@ -662,7 +683,8 @@ async def run_buy_process():
 
     if buy_mode == "research_optimal":
         # 연구 최적 전략: 5팩터 스코어 Top-2
-        targets = select_research_optimal(cross_data)
+        use_criteria = config.get("criteria_filter", False)
+        targets = select_research_optimal(cross_data, criteria_filter=use_criteria)
         if targets:
             scores = ", ".join(f"{t.get('name','')}({t.get('_score',0)}점)" for t in targets)
             logger.info(f"연구 최적 전략: {len(targets)}종목 선정 — {scores}")

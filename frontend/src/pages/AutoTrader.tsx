@@ -94,6 +94,8 @@ export default function AutoTrader() {
   const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [useResearchOptimal, setUseResearchOptimal] = useState(false);
   const [savedResearchOptimal, setSavedResearchOptimal] = useState(false);
+  const [criteriaFilter, setCriteriaFilter] = useState(false);
+  const [savedCriteriaFilter, setSavedCriteriaFilter] = useState(false);
   const [savedToggles, setSavedToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [buySaving, setBuySaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
@@ -111,10 +113,11 @@ export default function AutoTrader() {
       setAuthChecked(true);
       if (u) {
         fetchTrades();
-        getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
+        getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode, criteria_filter }) => {
           setTakeProfit(take_profit);
           setStopLoss(stop_loss);
           setTrailingStop(trailing_stop);
+          setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
           if (buy_signal_mode === "research_optimal") {
             setUseResearchOptimal(true); setSavedResearchOptimal(true);
           } else {
@@ -315,8 +318,9 @@ export default function AutoTrader() {
   const handleLoginSuccess = (u: any, token: string) => {
     setAccessToken(token); setUser(u); setSessionExpired(false); sessionExpiredRef.current = false; setShowLoginModal(false);
     fetchTrades();
-    getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode }) => {
+    getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode, criteria_filter }) => {
       setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
+      setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
       if (buy_signal_mode === "research_optimal") {
         setUseResearchOptimal(true); setSavedResearchOptimal(true);
       } else {
@@ -600,6 +604,23 @@ export default function AutoTrader() {
                 </div>
                 <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
                   가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
+                </div>
+                {/* 과열 필터 토글 */}
+                <div className="mt-2 pt-2 border-t t-border-light flex items-center justify-between">
+                  <div>
+                    <div className="text-[11px] font-medium t-text">과열 종목 필터</div>
+                    <div className="text-[9px] t-text-dim">거래대금 TOP30 · MA정배열 종목 감점, 5개+ 충족 시 제외</div>
+                  </div>
+                  <button onClick={async () => {
+                    const next = !criteriaFilter;
+                    setCriteriaFilter(next);
+                    const ok = await setAlertConfig({ criteria_filter: next });
+                    if (ok) { setSavedCriteriaFilter(next); setToastMsg({ text: next ? "과열 필터 ON" : "과열 필터 OFF", type: "ok" }); }
+                    else { setCriteriaFilter(savedCriteriaFilter); setToastMsg({ text: "저장 실패", type: "fail" }); }
+                    setTimeout(() => setToastMsg(null), 2500);
+                  }} className={`w-10 h-5 rounded-full transition-colors relative ${criteriaFilter ? "bg-blue-500" : "bg-gray-300"}`}>
+                    <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${criteriaFilter ? "translate-x-5" : "translate-x-0.5"}`} />
+                  </button>
                 </div>
               </div>
               {useResearchOptimal !== savedResearchOptimal && (

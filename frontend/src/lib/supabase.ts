@@ -146,7 +146,7 @@ export async function getAlertMode(): Promise<AlertMode> {
 }
 
 /** 알림 설정 변경 (모드 + 익절/손절/trailing stop) */
-export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number; trailing_stop_pct?: number; buy_signal_mode?: string; strategy_type?: string }): Promise<boolean> {
+export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number; trailing_stop_pct?: number; buy_signal_mode?: string; strategy_type?: string; criteria_filter?: boolean }): Promise<boolean> {
   try {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return false;
@@ -179,8 +179,8 @@ export async function setAlertMode(mode: AlertMode): Promise<boolean> {
 }
 
 /** 익절/손절/trailing stop 조회 */
-export async function getTradePct(): Promise<{ take_profit: number; stop_loss: number; trailing_stop: number; buy_signal_mode: string }> {
-  const defaults = { take_profit: 7.0, stop_loss: -2.0, trailing_stop: -3.0, buy_signal_mode: "and" };
+export async function getTradePct(): Promise<{ take_profit: number; stop_loss: number; trailing_stop: number; buy_signal_mode: string; criteria_filter: boolean }> {
+  const defaults = { take_profit: 7.0, stop_loss: -2.0, trailing_stop: -3.0, buy_signal_mode: "and", criteria_filter: false };
   try {
     const { data } = await supabase
       .from("alert_config")
@@ -192,11 +192,13 @@ export async function getTradePct(): Promise<{ take_profit: number; stop_loss: n
       stop_loss: data?.stop_loss_pct ?? defaults.stop_loss,
       trailing_stop: data?.trailing_stop_pct ?? defaults.trailing_stop,
       buy_signal_mode: defaults.buy_signal_mode,
+      criteria_filter: defaults.criteria_filter,
     };
-    // buy_signal_mode는 별도 조회 (컬럼 미존재 시 안전)
+    // buy_signal_mode, criteria_filter 별도 조회 (컬럼 미존재 시 안전)
     try {
-      const { data: d2 } = await supabase.from("alert_config").select("buy_signal_mode").limit(1).maybeSingle();
+      const { data: d2 } = await supabase.from("alert_config").select("buy_signal_mode,criteria_filter").limit(1).maybeSingle();
       if (d2?.buy_signal_mode) result.buy_signal_mode = d2.buy_signal_mode;
+      if (d2?.criteria_filter != null) result.criteria_filter = !!d2.criteria_filter;
     } catch {}
     return result;
   } catch {
