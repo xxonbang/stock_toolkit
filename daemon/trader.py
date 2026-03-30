@@ -678,8 +678,18 @@ async def fetch_available_balance() -> int:
 
 
 MAX_DAILY_LOSS_PCT = -10.0  # 당일 누적 손실 한도 (%)
+MAX_HOLDING_STOCKS = 18     # 최대 보유 종목 수 (WebSocket 40슬롯 중 알림용 2슬롯 확보)
 
 async def run_buy_process():
+    # 보유 종목 수 체크 — WebSocket 슬롯 한도 초과 방지
+    from daemon.position_db import get_active_positions
+    positions = await get_active_positions(force_refresh=True)
+    held = [p for p in positions if p.get("status") in ("filled", "sell_requested")]
+    if len(held) >= MAX_HOLDING_STOCKS:
+        logger.warning(f"보유 종목 {len(held)}개 — WebSocket 한도({MAX_HOLDING_STOCKS}) 도달, 매수 중단")
+        await send_telegram(f"⚠️ 매수 차단: 보유 {len(held)}종목 (한도 {MAX_HOLDING_STOCKS})\nWebSocket 슬롯 부족으로 손절 감시 불가 방지")
+        return
+
     # 당일 누적 손실 체크 — 한도 초과 시 매수 중단
     sold_today_rows = await _get_sold_today_trades()
     if sold_today_rows:
