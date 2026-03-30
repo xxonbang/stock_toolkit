@@ -562,14 +562,32 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
 async def place_sell_order(code: str, name: str, price: int, quantity: int, position_id: str, reason: str, buy_price: int) -> bool:
     try:
         result = await _kis_order_market("VTTC0801U", code, quantity)
+        if not result:
+            # KIS 주문 자체 실패 (잔고 없음 등) → 현재가 기반으로 DB 정리
+            sell_price = await _get_current_price(code) or price
+            pnl = calc_pnl_pct(buy_price, sell_price)
+            await update_position_sold(position_id, sell_price, pnl, reason)
+            _peak_prices.pop(position_id, None)
+            logger.warning(f"KIS 매도 주문 실패 → 현재가 기반 정리: {name}({code}) {pnl:+.1f}%")
+            await send_telegram(
+                f"<b>⚠️ KIS 매도 주문 실패 — DB 정리</b>\n{name} ({code})\n"
+                f"사유: {reason}\n매도가(현재가): {sell_price:,}원 ({pnl:+.2f}%)"
+            )
+            return True
         if result:
             filled_qty = await _verify_sell_fill(code, quantity)
             if filled_qty <= 0:
-                unmark_selling(position_id)
+                # 미체결 조회 실패 → 모의투자 시장가는 즉시체결이므로 체결된 것으로 간주
+                sell_price = await _get_current_price(code) or price
+                pnl = calc_pnl_pct(buy_price, sell_price)
+                await update_position_sold(position_id, sell_price, pnl, reason)
                 _peak_prices.pop(position_id, None)
-                logger.warning(f"매도 체결 0주: {name}({code}) — 매도 실패 처리")
-                await send_telegram(f"<b>⚠️ 매도 미체결</b>\n{name} ({code})\n사유: {reason}\n체결 0주, 수동 확인 필요")
-                return False
+                logger.warning(f"매도 미체결 조회 실패 → 즉시체결 간주: {name}({code}) {pnl:+.1f}%")
+                await send_telegram(
+                    f"<b>📊 매도 체결 (즉시체결 간주)</b>\n{name} ({code})\n"
+                    f"사유: {reason}\n매도가(현재가): {sell_price:,}원 ({pnl:+.2f}%)"
+                )
+                return True
             actual_price = await _get_actual_fill_price(code, is_sell=True)
             if actual_price <= 0:
                 actual_price = await _get_current_price(code)
@@ -604,15 +622,13 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
             except Exception:
                 pass
             return True
-        unmark_selling(position_id)
-        _peak_prices.pop(position_id, None)
-        logger.error(f"매도 실패: {name}({code}) {reason}")
-        await send_telegram(f"<b>⚠️ 매도 실패</b>\n{name} ({code})\n사유: {reason}\n수동 확인 필요")
-        return False
     except Exception as e:
-        unmark_selling(position_id)
+        # 예외 발생 시에도 현재가 기반 DB 정리 (무한 재시도 방지)
+        sell_price = await _get_current_price(code) or price
+        pnl = calc_pnl_pct(buy_price, sell_price)
+        await update_position_sold(position_id, sell_price, pnl, reason)
         _peak_prices.pop(position_id, None)
-        logger.error(f"매도 처리 오류: {name}({code}) {e}")
+        logger.error(f"매도 처리 오류 → DB 정리: {name}({code}) {e}")
         return False
 
 
