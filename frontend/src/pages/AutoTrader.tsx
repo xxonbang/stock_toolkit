@@ -865,21 +865,21 @@ export default function AutoTrader() {
                       </div>
                       <div className="text-[10px] t-text-dim mt-0.5">{allSims.length}건</div>
                     </button>
+                    <button onClick={() => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined}
+                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[10px] t-text-dim mb-1">시간전략 (가상)</div>
+                      {allTimeSims.length > 0 ? (
+                        <>
+                          <div className={`text-base font-bold tabular-nums ${timePnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                            {timePnl >= 0 ? "+" : ""}{timePnl.toFixed(1)}%
+                          </div>
+                          <div className="text-[10px] t-text-dim mt-0.5">{allTimeSims.length}건</div>
+                        </>
+                      ) : (
+                        <div className="text-[10px] t-text-dim mt-1">축적 중</div>
+                      )}
+                    </button>
                   </div>
-                  <button onClick={() => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined}
-                    className="w-full mt-2 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                    <div className="text-[10px] t-text-dim mb-1">시간전략 09:30→11:00 (가상)</div>
-                    {allTimeSims.length > 0 ? (
-                      <>
-                        <div className={`text-base font-bold tabular-nums ${timePnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                          {timePnl >= 0 ? "+" : ""}{timePnl.toFixed(1)}%
-                        </div>
-                        <div className="text-[10px] t-text-dim mt-0.5">{allTimeSims.length}건</div>
-                      </>
-                    ) : (
-                      <div className="text-[10px] t-text-dim mt-1">데이터 축적 중</div>
-                    )}
-                  </button>
                   {allRealTrades.length === 0 && allSims.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
                   )}
