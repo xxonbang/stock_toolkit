@@ -812,7 +812,7 @@ export default function AutoTrader() {
                 return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
               });
               const allRealTrades = [...soldTrades.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
-              const realPnl = allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0);
+              const realPnl = allRealTrades.length > 0 ? allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allRealTrades.length : 0;
 
               const closedSims = simulations.filter(s => s.status === "closed");
               const openSims = simulations.filter(s => s.status === "open");
@@ -830,7 +830,7 @@ export default function AutoTrader() {
                 return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: !isCapped, _isCapped: isCapped, _name: matchTrade?.name };
               });
               const allSims = [...closedSims.map((s: any) => ({ ...s, _isActive: false })), ...openSimsWithPnl];
-              const simPnl = allSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0);
+              const simPnl = allSims.length > 0 ? allSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allSims.length : 0;
 
               const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
               const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
@@ -897,7 +897,7 @@ export default function AutoTrader() {
                           const todayStr = new Date().toISOString().slice(0, 10);
                           // 체크된 날짜의 합산
                           const includedItems = items.filter(it => !excludedDates.has(it._date));
-                          const filteredPnl = includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0);
+                          const filteredPnl = includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0;
                           const allChecked = excludedDates.size === 0;
 
                           return (
