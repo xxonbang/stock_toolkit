@@ -647,7 +647,7 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
             )
             # 실전 매도 시 남아있는 open 시뮬레이션 close (time_exit 포함)
-            asyncio.ensure_future(_close_open_simulations(position_id, sell_price, buy_price))
+            asyncio.ensure_future(_close_open_simulations(position_id, sell_price, buy_price, code=code))
             try:
                 from daemon.main import trigger_subscription_refresh
                 task = asyncio.ensure_future(trigger_subscription_refresh())
@@ -1372,16 +1372,13 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
         logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
 
 
-async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int):
-    """실전 매도 시 해당 trade_id의 종목코드를 _orphan_sim_codes에 등록 (시뮬은 독립 체크로 유지)"""
-    try:
-        positions = await get_active_positions()
-        pos = next((p for p in positions if p["id"] == trade_id), None)
-        if pos:
-            _orphan_sim_codes.add(pos["code"])
-            logger.info(f"실전 매도 → 시뮬 독립 체크 등록: {pos.get('name','')}({pos['code']})")
-    except Exception as e:
-        logger.warning(f"시뮬 코드 등록 오류: {e}")
+async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int, code: str = ""):
+    """실전 매도 시 해당 종목코드를 _orphan_sim_codes에 등록 (시뮬은 독립 체크로 유지)"""
+    if code:
+        _orphan_sim_codes.add(code)
+        logger.info(f"실전 매도 → 시뮬 독립 체크 등록: {code}")
+    else:
+        logger.warning(f"_close_open_simulations: code 없음, trade_id={trade_id[:8]}")
 
 
 # 실전 매도 후에도 시뮬레이션 체크가 필요한 종목 코드
@@ -1587,12 +1584,20 @@ async def _check_orphan_simulations():
                 pass
             await asyncio.sleep(0.2)
 
-        # 모든 시뮬이 close된 코드는 orphan에서 제거
-        for code in closed_codes:
-            # 해당 코드의 open 시뮬이 남아있는지 확인
-            remaining = [s for s in sims if tid_map.get(s["trade_id"], {}).get("code") == code and s["id"] not in {s2["id"] for s2 in sims if s2.get("_closed")}]
-            # 간단히: closed_codes에 포함된 코드 중 전부 close됐으면 제거
-        # 다음 폴링에서 open 시뮬이 0이면 _orphan_sim_codes가 비워짐
+        # close된 코드의 open 시뮬이 남아있는지 재조회 → 없으면 orphan 제거
+        if closed_codes:
+            check_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&select=trade_id"
+            async with session.get(check_url, headers=headers) as resp:
+                if resp.status == 200:
+                    remaining = await resp.json()
+                    remaining_codes = set()
+                    for r in (remaining or []):
+                        t = tid_map.get(r.get("trade_id"))
+                        if t:
+                            remaining_codes.add(t["code"])
+                    for code in list(_orphan_sim_codes):
+                        if code not in remaining_codes:
+                            _orphan_sim_codes.discard(code)
     except Exception as e:
         logger.warning(f"고아 시뮬 체크 오류: {e}")
 

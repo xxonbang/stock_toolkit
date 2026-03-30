@@ -344,6 +344,30 @@ async def main():
     except Exception as e:
         logger.warning(f"시작 시 peak 초기화 실패: {e}")
 
+    # 시작 시 orphan 시뮬 코드 복원 (open 시뮬 중 실전 포지션이 없는 종목)
+    try:
+        from daemon.trader import _orphan_sim_codes
+        from daemon.config import SUPABASE_URL as _SU2, SUPABASE_SECRET_KEY as _SK2
+        if _SU2 and _SK2:
+            _sess = await get_session()
+            _hdrs = {"apikey": _SK2, "Authorization": f"Bearer {_SK2}"}
+            async with _sess.get(f"{_SU2}/rest/v1/strategy_simulations?status=eq.open&select=trade_id", headers=_hdrs) as _resp:
+                if _resp.status == 200:
+                    _open_sims = await _resp.json()
+                    _open_tids = list(set(s["trade_id"] for s in (_open_sims or [])))
+                    if _open_tids:
+                        _tid_f = ",".join(_open_tids)
+                        async with _sess.get(f"{_SU2}/rest/v1/auto_trades?id=in.({_tid_f})&select=id,code,status", headers=_hdrs) as _r2:
+                            if _r2.status == 200:
+                                _trades = await _r2.json()
+                                for t in (_trades or []):
+                                    if t.get("status") == "sold" and t.get("code"):
+                                        _orphan_sim_codes.add(t["code"])
+                    if _orphan_sim_codes:
+                        logger.info(f"시작 시 orphan 시뮬 복원: {len(_orphan_sim_codes)}종목")
+    except Exception as e:
+        logger.warning(f"orphan 시뮬 복원 실패: {e}")
+
     # sell_requested 종목을 filled로 복구 (이전 세션 미처리 수동 매도 → schedule_sell_check가 재처리)
     try:
         from daemon.position_db import get_active_positions as _get_pos2, _supabase_request
