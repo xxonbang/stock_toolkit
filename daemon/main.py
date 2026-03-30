@@ -158,6 +158,27 @@ async def refresh_subscriptions():
     logger.info(f"구독 갱신: 알림 {len(new_alert)}종목, 모의투자 {len(new_trade)}종목, 실구독 {len(combined)}종목")
 
 
+_last_alert_mode: str = ""
+
+
+async def schedule_config_watch():
+    """30초마다 alert_config 변경 감지 → 변경 시 구독 즉시 갱신"""
+    global _last_alert_mode
+    while not _shutdown:
+        await asyncio.sleep(30)
+        if _shutdown or not is_market_day():
+            continue
+        try:
+            from daemon.stock_manager import fetch_alert_mode
+            mode = await fetch_alert_mode()
+            if _last_alert_mode and mode != _last_alert_mode:
+                logger.info(f"alert_mode 변경 감지: {_last_alert_mode} → {mode} — 구독 즉시 갱신")
+                await refresh_subscriptions()
+            _last_alert_mode = mode
+        except Exception:
+            pass
+
+
 async def schedule_refresh():
     """10분마다 구독 종목 갱신 (장 운영일만)"""
     while not _shutdown:
@@ -373,6 +394,7 @@ async def main():
     tasks = asyncio.gather(
         ws_client.connect(),
         schedule_refresh(),
+        schedule_config_watch(),
         schedule_auto_trade(),
         schedule_signal_pulse_trade(),
         schedule_eod_close(),
