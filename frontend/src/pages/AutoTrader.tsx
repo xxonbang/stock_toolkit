@@ -108,6 +108,10 @@ export default function AutoTrader() {
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | null>(null);
+  useEffect(() => {
+    if (strategyDetail) { document.body.style.overflow = "hidden"; }
+    return () => { document.body.style.overflow = ""; };
+  }, [strategyDetail]);
   const [excludedDates, setExcludedDates] = useState<Set<string>>(new Set());
   const [simulations, setSimulations] = useState<any[]>([]);
 
@@ -860,18 +864,21 @@ export default function AutoTrader() {
                   {strategyDetail && createPortal(
                     <div className="fixed inset-0 z-[9999] anim-fade-in" onClick={() => setStrategyDetail(null)}>
                       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-                      <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[70vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-5 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
+                      <div className="fixed bottom-0 left-0 right-0 z-[61] max-h-[70vh] flex flex-col rounded-t-2xl t-card border-t t-border-light sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
                         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }} onClick={e => e.stopPropagation()}>
-                        {/* 드래그 핸들 + 닫기 */}
-                        <div className="flex items-center justify-center relative mb-3">
-                          <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
-                          <button onClick={() => setStrategyDetail(null)} className="absolute right-0 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text transition">
-                            <X size={18} />
-                          </button>
+                        {/* 드래그 핸들 + 닫기 (고정) */}
+                        <div className="flex-shrink-0 px-5 pt-5">
+                          <div className="flex items-center justify-center relative mb-3">
+                            <div className="w-8 h-1 rounded-full sm:hidden" style={{ background: 'var(--border)' }} />
+                            <button onClick={() => setStrategyDetail(null)} className="absolute right-0 top-1/2 -translate-y-1/2 p-1 t-text-dim hover:t-text transition">
+                              <X size={18} />
+                            </button>
+                          </div>
+                          <h3 className="text-sm font-bold t-text mb-3">
+                            {strategyDetail === "real" ? `${realLabel} (실제)` : `${simLabel} (가상)`}
+                          </h3>
                         </div>
-                        <h3 className="text-sm font-bold t-text mb-3">
-                          {strategyDetail === "real" ? `${realLabel} (실제)` : `${simLabel} (가상)`}
-                        </h3>
+                        <div className="flex-1 overflow-y-auto px-5 pb-5">
                         {/* 종목 리스트 — 날짜별 그룹핑 + 체크박스 */}
                         {(() => {
                           const items = strategyDetail === "real"
@@ -953,6 +960,7 @@ export default function AutoTrader() {
                             </>
                           );
                         })()}
+                        </div>
                       </div>
                     </div>,
                     document.body
