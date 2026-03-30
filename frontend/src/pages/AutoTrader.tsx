@@ -364,6 +364,28 @@ export default function AutoTrader() {
 
   return (
     <div className="space-y-4">
+      {/* 모의투자 실행 */}
+      <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-semibold t-text">모의투자 실행</span>
+          <button onClick={async () => {
+            const isCurrentlyActive = savedResearchOptimal || Object.values(savedToggles).some(Boolean);
+            if (isCurrentlyActive) {
+              const ok = await setAlertConfig({ buy_signal_mode: "none" });
+              if (ok) { setSavedResearchOptimal(false); setUseResearchOptimal(false); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setBuyToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "모의투자 중지", type: "ok" }); }
+              else setToastMsg({ text: "저장 실패", type: "fail" });
+            } else {
+              const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
+              if (ok) { setSavedResearchOptimal(true); setUseResearchOptimal(true); setToastMsg({ text: "모의투자 재개 (연구 최적)", type: "ok" }); }
+              else setToastMsg({ text: "저장 실패", type: "fail" });
+            }
+            setTimeout(() => setToastMsg(null), 2500);
+          }} className={`w-10 h-5 rounded-full transition-colors relative ${(savedResearchOptimal || Object.values(savedToggles).some(Boolean)) ? "bg-blue-500" : "bg-gray-300"}`}>
+            <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${(savedResearchOptimal || Object.values(savedToggles).some(Boolean)) ? "translate-x-5" : "translate-x-0.5"}`} />
+          </button>
+        </div>
+      </div>
+
       {/* 투자 전략 선택 */}
       <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}>
         <div className="text-[11px] font-semibold t-text mb-1">투자 전략</div>
@@ -573,26 +595,7 @@ export default function AutoTrader() {
         {/* 매집 종목 선정 기준 */}
         <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
           <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-semibold t-text">매집 종목 선정</span>
-              <button onClick={async () => {
-                const isCurrentlyActive = savedResearchOptimal || Object.values(savedToggles).some(Boolean);
-                if (isCurrentlyActive) {
-                  // 매집 중지: none으로 변경
-                  const ok = await setAlertConfig({ buy_signal_mode: "none" });
-                  if (ok) { setSavedResearchOptimal(false); setUseResearchOptimal(false); setSavedToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setBuyToggles({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false }); setToastMsg({ text: "매집 중지", type: "ok" }); }
-                  else setToastMsg({ text: "저장 실패", type: "fail" });
-                } else {
-                  // 매집 재개: research_optimal로 변경
-                  const ok = await setAlertConfig({ buy_signal_mode: "research_optimal" });
-                  if (ok) { setSavedResearchOptimal(true); setUseResearchOptimal(true); setToastMsg({ text: "매집 재개 (연구 최적)", type: "ok" }); }
-                  else setToastMsg({ text: "저장 실패", type: "fail" });
-                }
-                setTimeout(() => setToastMsg(null), 2500);
-              }} className={`w-9 h-[18px] rounded-full transition-colors relative ${(savedResearchOptimal || Object.values(savedToggles).some(Boolean)) ? "bg-blue-500" : "bg-gray-300"}`}>
-                <div className={`absolute top-[2px] w-[14px] h-[14px] rounded-full bg-white shadow transition-transform ${(savedResearchOptimal || Object.values(savedToggles).some(Boolean)) ? "translate-x-[18px]" : "translate-x-[2px]"}`} />
-              </button>
-            </div>
+            <span className="text-[11px] font-semibold t-text">매집 종목 선정</span>
             <button onClick={(e) => { e.preventDefault(); setShowBuyHelp(true); }} className="t-text-dim hover:t-text transition">
               <HelpCircle size={13} />
             </button>
