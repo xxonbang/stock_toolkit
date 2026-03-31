@@ -1,5 +1,24 @@
 # Task History
 
+## 2026-03-31
+
+### [버그픽스] time_exit 시뮬 11:00 이후 매수 시 즉시 close 방지 (2026-03-31 13:20 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** 13:00 signal-pulse 오후 분석 후 매수 시 time_exit 시뮬이 `now_kst.hour >= 11` 조건으로 즉시 close되는 문제. 11:00 KST 이전 매수에서만 time_exit 시뮬 생성하도록 조건 추가.
+- **커밋:** `b850202`
+
+### [버그픽스] 매수 체결 확인 — 잔고 차분 검증 + pending 삭제 제거 (2026-03-31 12:58 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** KIS 미체결 조회 API(inquire-nccs) 404 실패 시 pending 삭제 → 잔고 API(inquire-balance) fallback으로 변경. pre_balance(매수 전)→post_balance(매수 후) 차분으로 정확한 체결 수량 산출. 기존 로직은 KIS 계좌에 실제 보유 중인 주식을 DB에서 삭제하여 매도 관리 불가 유발.
+- **원인:** KIS 모의투자 서버가 inquire-nccs API에 지속적 404 반환. 시장가 즉시체결인데 "체결 0주→pending 삭제" 처리.
+- **영향:** 오늘(3/31) 태경케미컬 325주, 흥구석유 166주가 KIS 계좌에 보유 중이나 DB 미등록 → 손절 미처리(-8%, -6%).
+- **커밋:** `46f4434`
+
+### [버그픽스] 시뮬레이션 독립 운영 hole 5건 수정 (2026-03-31 12:30 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/main.py`
+- **내용:** (1) _close_open_simulations에 code 직접 전달 (2) orphan_sim_codes DB 재조회 정리 (3) daemon 시작 시 orphan 복원 (4) EOD 모든 open 시뮬 일괄 close. 실전 매도 후에도 시뮬이 자체 조건까지 독립 체크되도록 보장.
+- **커밋:** `be9ca2d`, `1d11d5e`, `1e2bfe5`
+
 ## 2026-03-30
 
 ### [기능] 시간전략(09:30→11:00) 시뮬레이션 추가 (2026-03-30 21:55 KST)
