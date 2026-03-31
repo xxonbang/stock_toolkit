@@ -379,6 +379,46 @@ async def _get_actual_fill_price(code: str, is_sell: bool = False) -> int:
                     return fill_price
     except Exception as e:
         logger.debug(f"체결가 조회 오류: {code} {e}")
+    # fallback: 잔고 조회 API의 매수 평균단가
+    try:
+        balance_price = await _get_balance_avg_price(code)
+        if balance_price > 0:
+            logger.info(f"체결가 잔고 fallback: {code} {balance_price:,}원")
+            return balance_price
+    except Exception:
+        pass
+    return 0
+
+
+async def _get_balance_avg_price(code: str) -> int:
+    """잔고 조회 API에서 특정 종목의 매수 평균단가 조회"""
+    try:
+        token = await _ensure_mock_token()
+        if not token:
+            return 0
+        session = await get_session()
+        acnt = KIS_MOCK_ACCOUNT_NO.split("-")
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-balance"
+        headers = {
+            "authorization": f"Bearer {token}",
+            "appkey": KIS_MOCK_APP_KEY, "appsecret": KIS_MOCK_APP_SECRET,
+            "tr_id": "VTTC8434R", "content-type": "application/json; charset=utf-8",
+        }
+        params = {
+            "CANO": acnt[0], "ACNT_PRDT_CD": acnt[1] if len(acnt) > 1 else "01",
+            "AFHR_FLPR_YN": "N", "OFL_YN": "", "INQR_DVSN": "02", "UNPR_DVSN": "01",
+            "FUND_STTL_ICLD_YN": "N", "FNCG_AMT_AUTO_RDPT_YN": "N", "PRCS_DVSN": "00",
+            "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+        }
+        async with session.get(url, headers=headers, params=params) as resp:
+            if resp.status == 200:
+                data = await resp.json()
+                for item in data.get("output1", []):
+                    if item.get("pdno") == code:
+                        avg = item.get("pchs_avg_pric", "0")
+                        return int(float(avg))
+    except Exception as e:
+        logger.warning(f"잔고 평단가 조회 실패: {code} {e}")
     return 0
 
 
