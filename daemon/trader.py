@@ -547,18 +547,24 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
     if not position:
         return False
 
+    # 매수 전 기존 잔고 기록 (추가 매수 시 기존 보유분 차감용)
+    pre_balance = await _check_balance_qty(code)
+
     # 시장가 매수 (지정가 미체결 방지)
     result = await _kis_order_market("VTTC0802U", code, quantity)
     if result:
         filled_qty = await _verify_fill_with_retry(code, quantity)
         if filled_qty <= 0:
-            # 미체결 조회 실패 → 잔고 API로 실제 보유 확인
-            balance_qty = await _check_balance_qty(code)
-            if balance_qty > 0:
-                filled_qty = min(balance_qty, quantity)
+            # 미체결 조회 실패 → 잔고 API로 실제 체결분 확인
+            post_balance = await _check_balance_qty(code)
+            if post_balance > pre_balance:
+                filled_qty = post_balance - pre_balance
+                logger.info(f"잔고 차분으로 체결 검증: {name}({code}) {filled_qty}주 (잔고 {pre_balance}→{post_balance})")
+            elif post_balance > 0 and pre_balance == 0:
+                filled_qty = min(post_balance, quantity)
                 logger.info(f"잔고 확인으로 체결 검증: {name}({code}) {filled_qty}주")
             else:
-                # 잔고에도 없으면 시장가 즉시체결 간주
+                # 잔고에도 변화 없으면 시장가 즉시체결 간주 (최후 수단)
                 filled_qty = quantity
                 logger.warning(f"미체결+잔고 조회 모두 실패 → 즉시체결 간주: {name}({code}) {quantity}주")
         actual_price = await _get_actual_fill_price(code, is_sell=False)
