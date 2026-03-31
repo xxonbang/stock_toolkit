@@ -761,7 +761,6 @@ async def fetch_available_balance() -> int:
     return 0
 
 
-MAX_DAILY_LOSS_PCT = -10.0  # 당일 누적 손실 한도 (%)
 MAX_HOLDING_STOCKS = 18     # 최대 보유 종목 수 (WebSocket 40슬롯 중 알림용 2슬롯 확보)
 
 async def run_buy_process():
@@ -774,13 +773,7 @@ async def run_buy_process():
         await send_telegram(f"⚠️ 매수 차단: 보유 {len(held)}종목 (한도 {MAX_HOLDING_STOCKS})\nWebSocket 슬롯 부족으로 손절 감시 불가 방지")
         return
 
-    # 당일 누적 손실 체크 — 한도 초과 시 매수 중단
     sold_today_rows = await _get_sold_today_trades()
-    if sold_today_rows:
-        total_loss = sum(t.get("pnl_pct", 0) for t in sold_today_rows)
-        if total_loss <= MAX_DAILY_LOSS_PCT:
-            logger.warning(f"당일 누적 손실 {total_loss:.1f}% — 매수 중단 (한도 {MAX_DAILY_LOSS_PCT}%)")
-            return
     sold_today_codes = {r["code"] for r in sold_today_rows if r.get("code")}
 
     cross_data = await fetch_json(f"{DATA_BASE_URL}/cross_signal.json")
