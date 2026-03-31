@@ -521,11 +521,9 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
     if result:
         filled_qty = await _verify_fill_with_retry(code, quantity)
         if filled_qty <= 0:
-            # 체결 0주 → DB 정리
-            from daemon.position_db import delete_position
-            await delete_position(position["id"])
-            logger.warning(f"체결 0주 → pending 삭제: {name}({code})")
-            return False
+            # 모의투자 시장가 = 즉시체결 → 미체결 조회 실패 시 체결 간주
+            filled_qty = quantity
+            logger.warning(f"미체결 조회 실패 → 즉시체결 간주: {name}({code}) {quantity}주")
         actual_price = await _get_actual_fill_price(code, is_sell=False)
         if actual_price <= 0:
             # 체결가 조회 실패 → 현재가를 fallback (주문가는 전일종가라 부정확)
