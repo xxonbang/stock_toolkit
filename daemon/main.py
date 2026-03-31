@@ -347,6 +347,7 @@ async def main():
     # 시작 시 orphan 시뮬 코드 복원 (open 시뮬 중 실전 포지션이 없는 종목)
     try:
         from daemon.trader import _orphan_sim_codes
+        from daemon.http_session import get_session
         from daemon.config import SUPABASE_URL as _SU2, SUPABASE_SECRET_KEY as _SK2
         if _SU2 and _SK2:
             _sess = await get_session()
