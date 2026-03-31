@@ -472,6 +472,37 @@ async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
     return total_filled
 
 
+async def _check_balance_qty(code: str) -> int:
+    """KIS 잔고 조회 API로 특정 종목 보유 수량 확인 (미체결 조회 실패 시 fallback)"""
+    try:
+        token = await _ensure_mock_token()
+        if not token:
+            return 0
+        session = await get_session()
+        acnt = KIS_MOCK_ACCOUNT_NO.split("-")
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-balance"
+        headers = {
+            "authorization": f"Bearer {token}",
+            "appkey": KIS_MOCK_APP_KEY, "appsecret": KIS_MOCK_APP_SECRET,
+            "tr_id": "VTTC8434R", "content-type": "application/json; charset=utf-8",
+        }
+        params = {
+            "CANO": acnt[0], "ACNT_PRDT_CD": acnt[1] if len(acnt) > 1 else "01",
+            "AFHR_FLPR_YN": "N", "OFL_YN": "", "INQR_DVSN": "02", "UNPR_DVSN": "01",
+            "FUND_STTL_ICLD_YN": "N", "FNCG_AMT_AUTO_RDPT_YN": "N", "PRCS_DVSN": "00",
+            "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+        }
+        async with session.get(url, headers=headers, params=params) as resp:
+            if resp.status == 200:
+                data = await resp.json()
+                for item in data.get("output1", []):
+                    if item.get("pdno") == code:
+                        return int(item.get("hldg_qty", 0))
+    except Exception as e:
+        logger.warning(f"잔고 조회 실패: {code} {e}")
+    return 0
+
+
 async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
     """주문 후 체결 확인 → 미체결분 취소 후 재주문, 최대 3회 retry.
     API 조회 실패 시 체결 0주로 보수적 간주 (실투자 대비)."""
@@ -521,9 +552,15 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
     if result:
         filled_qty = await _verify_fill_with_retry(code, quantity)
         if filled_qty <= 0:
-            # 모의투자 시장가 = 즉시체결 → 미체결 조회 실패 시 체결 간주
-            filled_qty = quantity
-            logger.warning(f"미체결 조회 실패 → 즉시체결 간주: {name}({code}) {quantity}주")
+            # 미체결 조회 실패 → 잔고 API로 실제 보유 확인
+            balance_qty = await _check_balance_qty(code)
+            if balance_qty > 0:
+                filled_qty = min(balance_qty, quantity)
+                logger.info(f"잔고 확인으로 체결 검증: {name}({code}) {filled_qty}주")
+            else:
+                # 잔고에도 없으면 시장가 즉시체결 간주
+                filled_qty = quantity
+                logger.warning(f"미체결+잔고 조회 모두 실패 → 즉시체결 간주: {name}({code}) {quantity}주")
         actual_price = await _get_actual_fill_price(code, is_sell=False)
         if actual_price <= 0:
             # 체결가 조회 실패 → 현재가를 fallback (주문가는 전일종가라 부정확)
