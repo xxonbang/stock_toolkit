@@ -66,6 +66,7 @@ export default function Portfolio() {
   const [avgDownQty, setAvgDownQty] = useState("");
   const [showBulkAvgDown, setShowBulkAvgDown] = useState(false);
   const [bulkInputs, setBulkInputs] = useState<Record<string, { price: string; qty: string }>>({});
+  const [bulkExcluded, setBulkExcluded] = useState<Set<string>>(new Set());
 
   // 모달 열림 시 body 스크롤 잠금
   const anyModalOpen = !!(showPortfolioEdit);
@@ -295,6 +296,7 @@ export default function Portfolio() {
             if (h.profit_rate < 0) inputs[h.code] = { price: h.current_price?.toString() || "", qty: "" };
           }
           setBulkInputs(inputs);
+          setBulkExcluded(new Set());
           setShowBulkAvgDown(true);
         }}
           className="w-full mb-3 py-2 rounded-xl text-[11px] font-medium text-blue-500 border border-blue-500/20 hover:bg-blue-500/5 transition">
@@ -706,11 +708,13 @@ export default function Portfolio() {
           <div className="flex-1 overflow-y-auto px-5 pb-5">
             {/* 종목별 입력 */}
             <div className="space-y-3 mb-4">
-              {(portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0).map((h: any) => {
+              {(portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0 && !bulkExcluded.has(h.code)).map((h: any) => {
                 const input = bulkInputs[h.code] || { price: "", qty: "" };
                 return (
-                  <div key={h.code} className="t-card-alt rounded-lg p-3">
-                    <div className="flex items-center justify-between mb-2">
+                  <div key={h.code} className="t-card-alt rounded-lg p-3 relative">
+                    <button onClick={() => setBulkExcluded(prev => { const s = new Set(prev); s.add(h.code); return s; })}
+                      className="absolute top-2 right-2 p-0.5 t-text-dim hover:t-text transition rounded-full hover:bg-black/5"><X size={14} /></button>
+                    <div className="flex items-center justify-between mb-2 pr-5">
                       <div>
                         <span className="text-[12px] font-medium t-text">{h.name}</span>
                         <span className={`text-[10px] ml-1.5 font-medium ${profitColor(h.profit_rate)}`}>{h.profit_rate}%</span>
@@ -731,7 +735,7 @@ export default function Portfolio() {
             </div>
             {/* 종합 결과 */}
             {(() => {
-              const holdings = (portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0);
+              const holdings = (portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0 && !bulkExcluded.has(h.code));
               let oldTotalInv = 0, oldTotalVal = 0, newTotalInv = 0, newTotalVal = 0, addTotalCost = 0;
               const details: { name: string; oldAvg: number; newAvg: number; oldPnl: number; newPnl: number }[] = [];
               for (const h of holdings) {
