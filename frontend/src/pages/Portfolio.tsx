@@ -112,13 +112,13 @@ export default function Portfolio() {
     if (mergedPortfolio) setPortfolio(mergedPortfolio);
   }, [mergedPortfolio]);
 
-  // 탭 진입 시 최초 1회 자동 시세 갱신 (portfolio 설정 후)
+  // 탭 진입 시 최초 1회 자동 시세 갱신 (DB 로딩 완료 + portfolio 설정 후)
   useEffect(() => {
-    if (!autoRefreshed.current && portfolio?.holdings?.length > 0) {
+    if (!autoRefreshed.current && portfolio?.holdings?.length > 0 && !dbLoading) {
       autoRefreshed.current = true;
       refreshPortfolioPrices();
     }
-  }, [portfolio]);
+  }, [portfolio, dbLoading]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {
