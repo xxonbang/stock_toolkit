@@ -1859,8 +1859,8 @@ async def _get_current_price(code: str) -> int:
     return 0
 
 
-async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = True) -> dict | None:
-    """KIS 모의투자 시장가 주문 (토큰 만료/rate limit 시 재시도)"""
+async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = True, _pre_balance: int | None = None) -> dict | None:
+    """KIS 모의투자 시장가 주문 (토큰 만료/rate limit 시 재시도, 중복 체결 방지)"""
     token = await _ensure_mock_token()
     if not token:
         return None
@@ -1874,8 +1874,18 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = 
         "ORD_QTY": str(quantity),
         "ORD_UNPR": "0",
     }
+    # 매수 주문 시 재시도 전 잔고 비교용 기록
+    is_buy = tr_id == "VTTC0802U"
+    if _pre_balance is None and is_buy:
+        _pre_balance = await _check_balance_qty(code)
     for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
         try:
+            # rate limit 재시도 전 — 이전 주문이 이미 체결됐는지 잔고 확인
+            if attempt > 1 and is_buy:
+                cur_bal = await _check_balance_qty(code)
+                if _pre_balance is not None and cur_bal > _pre_balance:
+                    logger.warning(f"rate limit 재시도 중단 — 이미 체결 감지: {code} 잔고 {_pre_balance}→{cur_bal}")
+                    return {"rt_cd": "0", "msg1": "이미 체결 (잔고 확인)"}
             session = await get_session()
             async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
                 if resp.status != 200:
@@ -1889,7 +1899,7 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = 
                     logger.warning("시장가 주문 토큰 만료 — 재발급 후 재시도")
                     _reset_token()
                     await asyncio.sleep(1)
-                    return await _kis_order_market(tr_id, code, quantity, retry=False)
+                    return await _kis_order_market(tr_id, code, quantity, retry=False, _pre_balance=_pre_balance)
                 if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
                     logger.warning(f"시장가 주문 rate limit ({attempt}/{_RATE_LIMIT_RETRIES}): {code} — {attempt * _RATE_LIMIT_BASE_SEC}초 후 재시도")
                     await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
