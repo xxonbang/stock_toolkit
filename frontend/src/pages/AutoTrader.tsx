@@ -849,56 +849,32 @@ export default function AutoTrader() {
               const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
+              const cards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
+                { key: "real", label: `${realLabel} (실제)`, pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
+                { key: "sim", label: `${simLabel} (가상)`, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
+                { key: "time", label: "시간전략 (가상)", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
+                { key: "api_leader", label: "API∧대장주 (가상)", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
+              ];
+
               return (
                 <>
-                  <div className="flex gap-2">
-                    <button onClick={() => setStrategyDetail("real")}
-                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                      <div className="text-[10px] t-text-dim mb-1">{realLabel} (실제)</div>
-                      <div className={`text-base font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                        {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
-                      </div>
-                      <div className="text-[10px] t-text-dim mt-0.5">{allRealTrades.length}건</div>
-                    </button>
-                    <button onClick={() => setStrategyDetail("sim")}
-                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                      <div className="text-[10px] t-text-dim mb-1">{simLabel} (가상)</div>
-                      <div className={`text-base font-bold tabular-nums ${simPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                        {simPnl >= 0 ? "+" : ""}{simPnl.toFixed(1)}%
-                      </div>
-                      <div className="text-[10px] t-text-dim mt-0.5">{allSims.length}건</div>
-                    </button>
-                    <button onClick={() => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined}
-                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                      <div className="text-[10px] t-text-dim mb-1">시간전략 (가상)</div>
-                      {allTimeSims.length > 0 ? (
-                        <>
-                          <div className={`text-base font-bold tabular-nums ${timePnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                            {timePnl >= 0 ? "+" : ""}{timePnl.toFixed(1)}%
-                          </div>
-                          <div className="text-[10px] t-text-dim mt-0.5">{allTimeSims.length}건</div>
-                        </>
-                      ) : (
-                        <div className="text-[10px] t-text-dim mt-1">축적 중</div>
-                      )}
-                    </button>
-                  </div>
-                  {/* 2행: 연구 시뮬 */}
-                  <div className="flex gap-2 mt-2">
-                    <button onClick={() => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined}
-                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                      <div className="text-[10px] t-text-dim mb-1">API∧대장주 (가상)</div>
-                      {apiLeaderSims.length > 0 ? (
-                        <>
-                          <div className={`text-base font-bold tabular-nums ${apiLeaderPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                            {apiLeaderPnl >= 0 ? "+" : ""}{apiLeaderPnl.toFixed(1)}%
-                          </div>
-                          <div className="text-[10px] t-text-dim mt-0.5">{apiLeaderSims.length}건</div>
-                        </>
-                      ) : (
-                        <div className="text-[10px] t-text-dim mt-1">축적 중</div>
-                      )}
-                    </button>
+                  <div className="grid grid-cols-2 gap-2">
+                    {cards.map(c => (
+                      <button key={c.key} onClick={c.onClick}
+                        className="p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                        <div className="text-[10px] t-text-dim mb-1">{c.label}</div>
+                        {c.count > 0 ? (
+                          <>
+                            <div className={`text-base font-bold tabular-nums ${c.pnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                              {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
+                            </div>
+                            <div className="text-[10px] t-text-dim mt-0.5">{c.count}건</div>
+                          </>
+                        ) : (
+                          <div className="text-[10px] t-text-dim mt-1">축적 중</div>
+                        )}
+                      </button>
+                    ))}
                   </div>
                   {allRealTrades.length === 0 && allSims.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
