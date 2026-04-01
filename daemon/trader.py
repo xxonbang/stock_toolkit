@@ -1481,14 +1481,16 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         # API 매수 필수
         if api_sig not in ("매수", "적극매수"):
             continue
-        # 대장주 필수
-        is_leader = code in top1_codes or bool(s.get("theme"))
-        if not is_leader:
+        # 대장주 Top5 필수 (테마별 거래대금 1위 또는 theme_rank 1~5)
+        rank = s.get("theme_rank")
+        is_top1 = code in top1_codes
+        is_top5 = is_top1 or (rank is not None and rank <= 5)
+        if not is_top5:
             continue
         score = 40 if api_sig == "적극매수" else 30
-        if code in top1_codes:
+        if is_top1:
             score += 25
-        elif s.get("theme"):
+        else:
             score += 15
         if price < 20000:
             score += 5
