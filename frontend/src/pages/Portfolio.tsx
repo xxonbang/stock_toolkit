@@ -774,11 +774,11 @@ export default function Portfolio() {
                       <div className="text-[9px] t-text-dim">평단 {(h.avg_price||0).toLocaleString()} × {h.quantity}주</div>
                     </div>
                     <div className="flex gap-2">
-                      <input type="number" value={input.price} placeholder={`매수가 (${h.current_price?.toLocaleString() || ""})`}
-                        onChange={e => setBulkInputs(prev => ({ ...prev, [h.code]: { ...input, price: e.target.value } }))}
+                      <input type="text" inputMode="numeric" value={input.price ? Number(input.price).toLocaleString() : ""} placeholder={`매수가 (${h.current_price?.toLocaleString() || ""})`}
+                        onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ""); setBulkInputs(prev => ({ ...prev, [h.code]: { ...input, price: v } })); }}
                         className="flex-1 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
-                      <input type="number" value={input.qty} placeholder="수량"
-                        onChange={e => setBulkInputs(prev => ({ ...prev, [h.code]: { ...input, qty: e.target.value } }))}
+                      <input type="text" inputMode="numeric" value={input.qty ? Number(input.qty).toLocaleString() : ""} placeholder="수량"
+                        onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ""); setBulkInputs(prev => ({ ...prev, [h.code]: { ...input, qty: v } })); }}
                         className="w-20 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
                     </div>
                   </div>
@@ -896,12 +896,14 @@ export default function Portfolio() {
               <div className="space-y-2 mb-3">
                 <div>
                   <label className="text-[10px] t-text-dim mb-1 block">추가 매수가 (원)</label>
-                  <input type="number" value={avgDownPrice} onChange={e => setAvgDownPrice(e.target.value)} placeholder={avgDownTarget.current_price?.toString() || ""}
+                  <input type="text" inputMode="numeric" value={avgDownPrice ? Number(avgDownPrice).toLocaleString() : ""} placeholder={avgDownTarget.current_price?.toLocaleString() || ""}
+                    onChange={e => setAvgDownPrice(e.target.value.replace(/[^0-9]/g, ""))}
                     className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
                 </div>
                 <div>
                   <label className="text-[10px] t-text-dim mb-1 block">추가 수량 (주)</label>
-                  <input type="number" value={avgDownQty} onChange={e => setAvgDownQty(e.target.value)} placeholder="수량"
+                  <input type="text" inputMode="numeric" value={avgDownQty ? Number(avgDownQty).toLocaleString() : ""} placeholder="수량"
+                    onChange={e => setAvgDownQty(e.target.value.replace(/[^0-9]/g, ""))}
                     className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
                 </div>
               </div>
@@ -944,7 +946,7 @@ export default function Portfolio() {
               <div className="space-y-2 mb-3">
                 <div>
                   <label className="text-[10px] t-text-dim mb-1 block">목표 평균단가 (원)</label>
-                  <input type="number" value={targetAvg} onChange={e => setTargetAvg(e.target.value)} placeholder="원하는 평균단가"
+                  <input type="text" inputMode="numeric" value={targetAvg ? Number(targetAvg).toLocaleString() : ""} onChange={e => setTargetAvg(e.target.value.replace(/[^0-9]/g, ""))} placeholder="원하는 평균단가"
                     className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
                 </div>
                 <div className="flex gap-1 mb-1">
@@ -959,7 +961,7 @@ export default function Portfolio() {
                 </div>
                 <div>
                   <label className="text-[10px] t-text-dim mb-1 block">{targetMode === "qty" ? "매수 예정가 (원)" : "추가 수량 (주)"}</label>
-                  <input type="number" value={targetInput} onChange={e => setTargetInput(e.target.value)}
+                  <input type="text" inputMode="numeric" value={targetInput ? Number(targetInput).toLocaleString() : ""} onChange={e => setTargetInput(e.target.value.replace(/[^0-9]/g, ""))}
                     placeholder={targetMode === "qty" ? (avgDownTarget.current_price?.toString() || "") : "수량"}
                     className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
                 </div>
@@ -1012,11 +1014,11 @@ export default function Portfolio() {
                 {multiSteps.map((step, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="text-[10px] t-text-dim w-5 shrink-0">{i + 1}차</span>
-                    <input type="number" value={step.price} placeholder="매수가"
-                      onChange={e => { const s = [...multiSteps]; s[i] = { ...s[i], price: e.target.value }; setMultiSteps(s); }}
+                    <input type="text" inputMode="numeric" value={step.price ? Number(step.price).toLocaleString() : ""} placeholder="매수가"
+                      onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ""); const s = [...multiSteps]; s[i] = { ...s[i], price: v }; setMultiSteps(s); }}
                       className="flex-1 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
-                    <input type="number" value={step.qty} placeholder="수량"
-                      onChange={e => { const s = [...multiSteps]; s[i] = { ...s[i], qty: e.target.value }; setMultiSteps(s); }}
+                    <input type="text" inputMode="numeric" value={step.qty ? Number(step.qty).toLocaleString() : ""} placeholder="수량"
+                      onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ""); const s = [...multiSteps]; s[i] = { ...s[i], qty: v }; setMultiSteps(s); }}
                       className="w-20 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
                     {multiSteps.length > 1 && (
                       <button onClick={() => setMultiSteps(s => s.filter((_, j) => j !== i))} className="t-text-dim hover:t-text"><X size={12} /></button>
