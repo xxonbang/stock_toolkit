@@ -86,6 +86,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   }, []);
   const setStockActionTarget = (data: any) => {
     if (!data) { _setStockActionTarget(null); return; }
+    // crossSignal/smartMoney에서 동일 종목의 상세 데이터를 자동 병합
+    if (data.code && !data.vision_signal && !data.api_signal) {
+      const rich = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === data.code);
+      if (rich) { data = { ...data, ...rich }; }
+    }
     _setStockActionTarget({ data, x: lastClickPos.current.x, y: lastClickPos.current.y });
   };
   const [showDualExp, setShowDualExp] = useState(false);
@@ -744,10 +749,20 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             </div>
             {/* 분석 데이터 없음 안내 */}
             {stockDetail._noData && (
-              <div className="text-center py-8">
-                <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
-                <div className="text-sm t-text-sub mb-1">분석 데이터가 아직 없습니다</div>
-                <div className="text-[11px] t-text-dim">이 종목은 현재 AI 분석 대상에 포함되지 않았습니다.<br/>다음 분석 시점에 포함될 수 있습니다.</div>
+              <div className="py-4">
+                {/* 보유 데이터 표시 */}
+                {(stockDetail.buy_pct || stockDetail.change_rate || stockDetail.volume || stockDetail.current_price) && (
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {stockDetail.current_price > 0 && <div className="t-card-alt rounded-lg p-2.5"><div className="text-[10px] t-text-dim mb-1">현재가</div><div className="text-xs font-semibold t-text">{stockDetail.current_price?.toLocaleString()}원</div></div>}
+                    {stockDetail.change_rate != null && <div className="t-card-alt rounded-lg p-2.5"><div className="text-[10px] t-text-dim mb-1">등락률</div><div className={`text-xs font-semibold ${stockDetail.change_rate >= 0 ? "text-red-500" : "text-blue-500"}`}>{stockDetail.change_rate >= 0 ? "+" : ""}{stockDetail.change_rate?.toFixed(2)}%</div></div>}
+                    {stockDetail.volume > 0 && <div className="t-card-alt rounded-lg p-2.5"><div className="text-[10px] t-text-dim mb-1">거래량</div><div className="text-xs font-semibold t-text">{(stockDetail.volume / 10000).toFixed(1)}만주</div></div>}
+                    {stockDetail.buy_pct > 0 && <div className="t-card-alt rounded-lg p-2.5"><div className="text-[10px] t-text-dim mb-1">매수 비율</div><div className="text-xs font-semibold t-text">{stockDetail.buy_pct}%</div></div>}
+                  </div>
+                )}
+                <div className="text-center py-4">
+                  <BarChart3 size={20} className="mx-auto mb-2 t-text-dim" />
+                  <div className="text-[11px] t-text-dim">AI 분석 대상에 포함되지 않은 종목입니다.<br/>다음 분석 시점에 포함될 수 있습니다.</div>
+                </div>
               </div>
             )}
             {/* 신호 요약 */}
