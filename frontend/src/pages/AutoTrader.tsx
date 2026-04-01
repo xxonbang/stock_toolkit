@@ -859,18 +859,19 @@ export default function AutoTrader() {
                 <>
                   {/* 실제 전략 */}
                   <button onClick={() => setStrategyDetail("real")}
-                    className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                    className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
                     <div className="text-[10px] t-text-sub font-medium mb-1">{realLabel} (실제)</div>
                     <div className={`text-lg font-bold tabular-nums ${realPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
                       {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                     </div>
                     <div className="text-[10px] t-text-sub mt-0.5">{allRealTrades.length}건</div>
+                    <ChevronRight size={12} className="absolute right-2 top-1/2 -translate-y-1/2 t-text-dim opacity-40 group-hover:opacity-100 transition" />
                   </button>
                   {/* 가상 전략 3개 */}
                   <div className="flex gap-2 mt-2">
                     {simCards.map(c => (
                       <button key={c.key} onClick={c.onClick}
-                        className="flex-1 p-2.5 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                        className="flex-1 p-2.5 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
                         <div className="text-[9px] t-text-sub font-medium mb-1">{c.label}</div>
                         {c.count > 0 ? (
                           <>
@@ -878,6 +879,7 @@ export default function AutoTrader() {
                               {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
                             </div>
                             <div className="text-[9px] t-text-sub mt-0.5">{c.count}건</div>
+                            <ChevronRight size={10} className="absolute right-1.5 top-1/2 -translate-y-1/2 t-text-dim opacity-30 group-hover:opacity-100 transition" />
                           </>
                         ) : (
                           <div className="text-[9px] t-text-sub mt-1">축적 중</div>
