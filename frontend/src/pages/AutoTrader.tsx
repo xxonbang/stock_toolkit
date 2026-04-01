@@ -107,7 +107,7 @@ export default function AutoTrader() {
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
     return () => { document.body.style.overflow = ""; };
@@ -814,8 +814,8 @@ export default function AutoTrader() {
               const allRealTrades = [...soldTrades.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
               const realPnl = allRealTrades.length > 0 ? allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allRealTrades.length : 0;
 
-              const closedSims = simulations.filter(s => s.status === "closed" && s.strategy_type !== "time_exit");
-              const openSims = simulations.filter(s => s.status === "open" && s.strategy_type !== "time_exit");
+              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","api_leader"].includes(s.strategy_type));
+              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","api_leader"].includes(s.strategy_type));
               // 시간전략 시뮬레이션 별도 집계
               const timeClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "time_exit");
               const timeOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "time_exit");
@@ -826,6 +826,9 @@ export default function AutoTrader() {
                 return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _name: mt?.name };
               })];
               const timePnl = allTimeSims.length > 0 ? allTimeSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allTimeSims.length : 0;
+              // API∧대장주 시뮬
+              const apiLeaderSims = simulations.filter(s => s.strategy_type === "api_leader");
+              const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = activeTrades.find(t => t.id === s.trade_id);
@@ -880,6 +883,23 @@ export default function AutoTrader() {
                       )}
                     </button>
                   </div>
+                  {/* 2행: 연구 시뮬 */}
+                  <div className="flex gap-2 mt-2">
+                    <button onClick={() => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined}
+                      className="flex-1 p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                      <div className="text-[10px] t-text-dim mb-1">API∧대장주 (가상)</div>
+                      {apiLeaderSims.length > 0 ? (
+                        <>
+                          <div className={`text-base font-bold tabular-nums ${apiLeaderPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                            {apiLeaderPnl >= 0 ? "+" : ""}{apiLeaderPnl.toFixed(1)}%
+                          </div>
+                          <div className="text-[10px] t-text-dim mt-0.5">{apiLeaderSims.length}건</div>
+                        </>
+                      ) : (
+                        <div className="text-[10px] t-text-dim mt-1">축적 중</div>
+                      )}
+                    </button>
+                  </div>
                   {allRealTrades.length === 0 && allSims.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
                   )}
@@ -898,7 +918,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3">
-                            {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API∧대장주 (가상)" : `${simLabel} (가상)`}
                           </h3>
                         </div>
                         <div className="flex-1 overflow-y-auto px-5 pb-5">
@@ -906,7 +926,7 @@ export default function AutoTrader() {
                         {(() => {
                           const items = strategyDetail === "real"
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
-                            : (strategyDetail === "time" ? allTimeSims : allSims).map((s: any) => {
+                            : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `${s.entry_price?.toLocaleString()}원` };
                               });

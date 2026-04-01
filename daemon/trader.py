@@ -971,6 +971,12 @@ async def run_buy_process():
         names = ", ".join(c["name"] for c in actual_candidates)
         await send_telegram(f"⚠️ 매수 실패: 잔고 부족\n대상: {names}\n잔고: {balance:,}원, 종목당 {amount_per_stock:,}원")
 
+    # 연구 시뮬: "API∧대장주" 종목 선정 가상 포지션 생성
+    try:
+        await _create_api_leader_simulations(cross_data, config)
+    except Exception as e:
+        logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
+
 
 def _today_utc_start() -> str:
     """KST 0시를 UTC로 변환한 타임스탬프"""
@@ -1440,6 +1446,83 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
         logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
 
 
+async def _create_api_leader_simulations(cross_data: list, config: dict):
+    """연구 시뮬: API매수∧대장주 Top-2를 별도 선정하여 가상 포지션 생성 (strategy_type=api_leader)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    user_id = config.get("user_id", "")
+    if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+
+    # API매수 AND 대장주 조건으로 별도 선정
+    top1_codes = set()
+    for s in cross_data:
+        theme = s.get("theme")
+        if not theme:
+            continue
+        vol = (s.get("api_data") or {}).get("ranking", {}).get("volume", 0)
+        existing = top1_codes  # 간단히 theme별 1위 산출은 select_research_optimal과 동일
+    # select_research_optimal의 로직 재활용하되 API 필수 조건 추가
+    scored = []
+    theme_best: dict[str, tuple[str, int]] = {}
+    for s in cross_data:
+        theme = s.get("theme")
+        if theme:
+            vol = (s.get("api_data") or {}).get("ranking", {}).get("volume", 0)
+            if theme not in theme_best or vol > theme_best[theme][1]:
+                theme_best[theme] = (s.get("code", ""), vol)
+    top1_codes = {code for code, _ in theme_best.values()}
+
+    for s in cross_data:
+        code = s.get("code", "")
+        api_sig = s.get("api_signal", "")
+        price = (s.get("api_data") or {}).get("price", {}).get("current", 0)
+        if price < 1000 or price >= 50000:
+            continue
+        # API 매수 필수
+        if api_sig not in ("매수", "적극매수"):
+            continue
+        # 대장주 필수
+        is_leader = code in top1_codes or bool(s.get("theme"))
+        if not is_leader:
+            continue
+        score = 40 if api_sig == "적극매수" else 30
+        if code in top1_codes:
+            score += 25
+        elif s.get("theme"):
+            score += 15
+        if price < 20000:
+            score += 5
+        scored.append({"code": code, "name": s.get("name", ""), "price": price, "score": score})
+
+    scored.sort(key=lambda x: -x["score"])
+    top2 = scored[:2]
+    if not top2:
+        return
+
+    session = await get_session()
+    headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
+    for item in top2:
+        body = {
+            "trade_id": f"api_leader_{item['code']}_{datetime.now(_KST).strftime('%Y%m%d')}",
+            "strategy_type": "api_leader",
+            "entry_price": item["price"],
+            "status": "open",
+            "peak_price": item["price"],
+            "stepped_stop_pct": -2.0,
+            "user_id": user_id,
+        }
+        try:
+            url = f"{SUPABASE_URL}/rest/v1/strategy_simulations"
+            async with session.post(url, json=body, headers=headers) as resp:
+                if resp.status in (200, 201):
+                    logger.info(f"API∧대장주 시뮬 생성: {item['name']}({item['code']}) {item['price']:,}원 {item['score']}점")
+                else:
+                    err = await resp.text()
+                    logger.warning(f"API∧대장주 시뮬 생성 실패: {resp.status} {err[:100]}")
+        except Exception as e:
+            logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
+
+
 async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int, code: str = ""):
     """실전 매도 시 해당 종목코드를 _orphan_sim_codes에 등록 (시뮬은 독립 체크로 유지)"""
     if code:
@@ -1562,11 +1645,75 @@ async def _check_simulations(current_price_data: dict):
         logger.warning(f"가상 시뮬레이션 체크 오류: {e}")
 
 
-async def _check_orphan_simulations():
-    """실전 매도 후 남아있는 open 시뮬레이션을 독립적으로 체크 (fixed/stepped/time_exit 모두)"""
+async def _check_api_leader_simulations():
+    """api_leader 시뮬레이션 독립 체크 — Stepped 공격형 조건으로 매도"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
+    now_kst = datetime.now(_KST)
+    try:
+        session = await get_session()
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.api_leader&select=id,entry_price,peak_price,trade_id"
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return
+            sims = await resp.json()
+        if not sims:
+            return
+
+        config = await _get_trade_config()
+        sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
+        ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
+        preset = config.get("stepped_preset", "default")
+        patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+
+        for sim in sims:
+            # trade_id에서 종목코드 추출: api_leader_CODE_DATE
+            parts = sim["trade_id"].split("_")
+            code = parts[2] if len(parts) >= 3 else ""
+            if not code:
+                continue
+            price = await _get_current_price(code)
+            if price <= 0:
+                continue
+            entry = sim["entry_price"]
+            peak = max(sim.get("peak_price", entry), price)
+            pnl = calc_pnl_pct(entry, price)
+            exit_reason = None
+
+            # Stepped 공격형 조건 적용
+            if pnl <= sl:
+                exit_reason = "stop_loss"
+            else:
+                peak_pnl = calc_pnl_pct(entry, peak)
+                ss = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=preset)
+                if ss > -999.0 and pnl <= ss:
+                    exit_reason = "stepped_trailing"
+
+            update_body: dict = {"peak_price": peak}
+            if exit_reason:
+                update_body.update({
+                    "status": "closed", "exit_price": price,
+                    "exit_reason": exit_reason, "pnl_pct": round(pnl, 2),
+                    "exited_at": now_kst.isoformat(),
+                })
+                logger.info(f"API∧대장주 시뮬 close: {code} {exit_reason} pnl={pnl:+.1f}%")
+            patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
+            async with session.patch(patch_url, json=update_body, headers=patch_headers) as resp:
+                pass
+            await asyncio.sleep(0.2)
+    except Exception as e:
+        logger.warning(f"API∧대장주 시뮬 체크 오류: {e}")
+
+
+async def _check_orphan_simulations():
+    """실전 매도 후 남아있는 시뮬 + api_leader 시뮬을 독립적으로 체크"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    # api_leader 시뮬도 체크 (orphan_sim_codes 없어도 실행)
+    await _check_api_leader_simulations()
     if not _orphan_sim_codes:
         return
     now_kst = datetime.now(_KST)
