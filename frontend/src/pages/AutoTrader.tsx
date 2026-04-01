@@ -689,8 +689,8 @@ export default function AutoTrader() {
                 {/* 과열 필터 토글 */}
                 <div className="mt-2 pt-2 border-t t-border-light flex items-center justify-between">
                   <div>
-                    <div className="text-[11px] font-medium t-text">과열 종목 필터</div>
-                    <div className="text-[9px] t-text-dim">거래대금 TOP30 · MA정배열 종목 감점, 5개+ 충족 시 제외</div>
+                    <div className="text-[11px] font-medium t-text">Criteria 필터</div>
+                    <div className="text-[9px] t-text-dim">가점: 수급+10 · 골든크로스+8 · 저항돌파+5 | 감점: TOP30-15 · 정배열-10 · 과열-8 · 시총-5</div>
                   </div>
                   <button onClick={async () => {
                     const next = !criteriaFilter;

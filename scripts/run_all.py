@@ -401,6 +401,11 @@ def main():
                 m["_criteria_met_count"] = met_count
                 m["_top30_trading_value"] = isinstance(crit.get("top30_trading_value"), dict) and crit["top30_trading_value"].get("met", False)
                 m["_ma_aligned"] = isinstance(crit.get("ma_alignment"), dict) and crit["ma_alignment"].get("met", False)
+                m["_supply_demand"] = isinstance(crit.get("supply_demand"), dict) and crit["supply_demand"].get("met", False)
+                m["_golden_cross"] = isinstance(crit.get("golden_cross"), dict) and crit["golden_cross"].get("met", False)
+                m["_resistance_breakout"] = isinstance(crit.get("resistance_breakout"), dict) and crit["resistance_breakout"].get("met", False)
+                m["_overheating"] = isinstance(crit.get("overheating"), dict) and crit["overheating"].get("met", False)
+                m["_market_cap"] = isinstance(crit.get("market_cap"), dict) and crit["market_cap"].get("met", False)
 
     with open(results_dir / "cross_signal.json", "w", encoding="utf-8") as f:
         json.dump(cross_matches or [], f, ensure_ascii=False, indent=2)

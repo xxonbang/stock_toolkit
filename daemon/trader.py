@@ -202,23 +202,37 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
         if score >= min_score:
             scored.append({**s, "_score": score, "_score_detail": details})
 
-    # criteria_filter 적용: 과열 종목 감점/제외
+    # criteria_filter 적용: 가점(선반영 안 된 긍정 신호) + 감점(이미 선반영된 역지표)
     if criteria_filter:
         filtered = []
         for item in scored:
             met_count = item.get("_criteria_met_count", 0)
-            is_top30 = item.get("_top30_trading_value", False)
-            is_ma = item.get("_ma_aligned", False)
             # criteria 5개 이상 충족 → 과열로 제외
             if met_count >= 5:
                 continue
-            # 감점
-            if is_top30:
+            # 감점 (역지표: 이미 시장에 선반영)
+            if item.get("_top30_trading_value"):
                 item["_score"] -= 15
                 item.setdefault("_score_detail", []).append("과열(TOP30)-15")
-            if is_ma:
+            if item.get("_ma_aligned"):
                 item["_score"] -= 10
                 item.setdefault("_score_detail", []).append("과열(정배열)-10")
+            if item.get("_overheating"):
+                item["_score"] -= 8
+                item.setdefault("_score_detail", []).append("과열(과열)-8")
+            if item.get("_market_cap"):
+                item["_score"] -= 5
+                item.setdefault("_score_detail", []).append("과열(시가총액)-5")
+            # 가점 (선반영 안 된 긍정 신호)
+            if item.get("_supply_demand"):
+                item["_score"] += 10
+                item.setdefault("_score_detail", []).append("수급양호+10")
+            if item.get("_golden_cross"):
+                item["_score"] += 8
+                item.setdefault("_score_detail", []).append("골든크로스+8")
+            if item.get("_resistance_breakout"):
+                item["_score"] += 5
+                item.setdefault("_score_detail", []).append("저항돌파+5")
             filtered.append(item)
         scored = filtered
 
