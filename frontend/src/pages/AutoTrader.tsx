@@ -971,19 +971,37 @@ export default function AutoTrader() {
                                       </span>
                                     </summary>
                                     <div className="ml-4 mt-1.5 pl-3 space-y-1 border-l-2" style={{ borderColor: 'var(--border)' }}>
-                                      {group.map((item: any, i: number) => (
-                                        <div key={i} className={`flex items-center justify-between text-[11px] px-2.5 py-2 rounded-lg ${isChecked ? "" : "opacity-40"}`} style={{ background: "var(--bg)" }}>
-                                          <div className="flex items-center gap-2 min-w-0">
-                                            <span className="t-text font-medium truncate">{item._displayName}</span>
-                                            <span className="text-[10px] t-text-dim">{item._displaySub}</span>
-                                            {item._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
-                                            {item._isCapped && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400">{(item.pnl_pct ?? 0) >= 0 ? "익절" : "손절"}</span>}
+                                      {group.map((item: any, i: number) => {
+                                        const buyPrice = item.entry_price || item.filled_price || item.order_price || 0;
+                                        const sellPrice = item.exit_price || item.sell_price || 0;
+                                        const buyTime = (item.filled_at || item.created_at || "")?.slice(11, 16);
+                                        const sellTime = (item.exited_at || item.sold_at || "")?.slice(11, 16);
+                                        const formatTime = (t: string) => {
+                                          if (!t) return "";
+                                          const [h, m] = t.split(":").map(Number);
+                                          const kh = (h + 9) % 24;  // UTC→KST
+                                          return `${kh}:${m.toString().padStart(2, "0")}`;
+                                        };
+                                        return (
+                                        <div key={i} className={`text-[11px] px-2.5 py-2 rounded-lg ${isChecked ? "" : "opacity-40"}`} style={{ background: "var(--bg)" }}>
+                                          <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 min-w-0">
+                                              <span className="t-text font-medium truncate">{item._displayName}</span>
+                                              {item._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
+                                              {item._isCapped && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400">{(item.pnl_pct ?? 0) >= 0 ? "익절" : "손절"}</span>}
+                                              {item.exit_reason && !item._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full t-text-dim" style={{ background: "var(--bg-muted)" }}>{item.exit_reason === "stop_loss" ? "손절" : item.exit_reason === "take_profit" ? "익절" : item.exit_reason === "time_exit" ? "시간매도" : item.exit_reason === "stepped_trailing" ? "Stepped" : item.exit_reason === "eod_close" ? "장마감" : item.exit_reason}</span>}
+                                            </div>
+                                            <span className={`tabular-nums font-bold shrink-0 ${(item.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                              {(item.pnl_pct ?? 0) >= 0 ? "+" : ""}{(item.pnl_pct ?? 0).toFixed(2)}%
+                                            </span>
                                           </div>
-                                          <span className={`tabular-nums font-bold shrink-0 ${(item.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                            {(item.pnl_pct ?? 0) >= 0 ? "+" : ""}{(item.pnl_pct ?? 0).toFixed(2)}%
-                                          </span>
+                                          <div className="flex items-center gap-3 mt-1 text-[9px] t-text-dim">
+                                            {buyPrice > 0 && <span>매수 {buyPrice.toLocaleString()}원{buyTime ? ` ${formatTime(buyTime)}` : ""}</span>}
+                                            {sellPrice > 0 && <span>→ 매도 {sellPrice.toLocaleString()}원{sellTime ? ` ${formatTime(sellTime)}` : ""}</span>}
+                                          </div>
                                         </div>
-                                      ))}
+                                        );
+                                      })}
                                     </div>
                                   </details>
                                 );
