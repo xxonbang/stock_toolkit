@@ -64,6 +64,11 @@ export default function Portfolio() {
   const [avgDownTarget, setAvgDownTarget] = useState<any>(null);
   const [avgDownPrice, setAvgDownPrice] = useState("");
   const [avgDownQty, setAvgDownQty] = useState("");
+  const [avgDownTab, setAvgDownTab] = useState<"basic" | "target" | "multi">("basic");
+  const [targetAvg, setTargetAvg] = useState("");
+  const [targetMode, setTargetMode] = useState<"qty" | "price">("qty");  // qty: 가격→수량, price: 수량→가격
+  const [targetInput, setTargetInput] = useState("");
+  const [multiSteps, setMultiSteps] = useState<{ price: string; qty: string }[]>([{ price: "", qty: "" }]);
   const [showBulkAvgDown, setShowBulkAvgDown] = useState(false);
   const [bulkInputs, setBulkInputs] = useState<Record<string, { price: string; qty: string }>>({});
   const [bulkExcluded, setBulkExcluded] = useState<Set<string>>(new Set());
@@ -846,80 +851,210 @@ export default function Portfolio() {
       </div>,
       document.body
     )}
-    {/* 개별 물타기 계산기 */}
+    {/* 개별 물타기 계산기 (A/B/C 탭) */}
     {avgDownTarget && createPortal(
       <div className="fixed inset-0 z-[9999] flex items-center justify-center anim-fade-in" onClick={() => setAvgDownTarget(null)}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-        <div className="relative z-10 mx-6 max-w-sm w-full rounded-2xl p-5 t-card border t-border-light" onClick={e => e.stopPropagation()}>
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-bold t-text">물타기 계산기</h4>
-            <button onClick={() => setAvgDownTarget(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
-          </div>
-          {/* 현재 보유 */}
-          <div className="t-card-alt rounded-lg p-3 mb-3">
-            <div className="text-[10px] t-text-dim mb-2">현재 보유</div>
-            <div className="text-sm font-medium t-text mb-1">{avgDownTarget.name} <span className="text-[10px] t-text-dim">{avgDownTarget.code}</span></div>
-            <div className="grid grid-cols-3 gap-2 text-[10px]">
-              <div><span className="t-text-dim">평단가</span><div className="font-medium t-text">{(avgDownTarget.avg_price || 0).toLocaleString()}원</div></div>
-              <div><span className="t-text-dim">보유수량</span><div className="font-medium t-text">{(avgDownTarget.quantity || 0).toLocaleString()}주</div></div>
-              <div><span className="t-text-dim">현재가</span><div className="font-medium t-text">{(avgDownTarget.current_price || 0).toLocaleString()}원</div></div>
+        <div className="relative z-10 mx-6 max-w-sm w-full max-h-[85vh] flex flex-col rounded-2xl t-card border t-border-light" onClick={e => e.stopPropagation()}>
+          <div className="px-5 pt-5 pb-0 shrink-0">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-sm font-bold t-text">물타기 계산기</h4>
+              <button onClick={() => setAvgDownTarget(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
+            </div>
+            {/* 현재 보유 */}
+            <div className="t-card-alt rounded-lg p-3 mb-3">
+              <div className="text-sm font-medium t-text mb-1">{avgDownTarget.name} <span className="text-[10px] t-text-dim">{avgDownTarget.code}</span></div>
+              <div className="grid grid-cols-3 gap-2 text-[10px]">
+                <div><span className="t-text-dim">평단가</span><div className="font-medium t-text">{(avgDownTarget.avg_price || 0).toLocaleString()}원</div></div>
+                <div><span className="t-text-dim">수량</span><div className="font-medium t-text">{(avgDownTarget.quantity || 0).toLocaleString()}주</div></div>
+                <div><span className="t-text-dim">현재가</span><div className="font-medium t-text">{(avgDownTarget.current_price || 0).toLocaleString()}원</div></div>
+              </div>
+            </div>
+            {/* 탭 */}
+            <div className="flex gap-1 mb-3">
+              {([["basic","기본"],["target","목표 역산"],["multi","분할매수"]] as const).map(([k,l]) => (
+                <button key={k} onClick={() => setAvgDownTab(k)}
+                  className="flex-1 text-[10px] font-medium py-1.5 rounded-lg transition"
+                  style={{ background: avgDownTab === k ? "var(--blue-600,#2563eb)" : "var(--bg-muted)", color: avgDownTab === k ? "#fff" : "var(--text-secondary)" }}>
+                  {l}
+                </button>
+              ))}
             </div>
           </div>
-          {/* 추가 매수 입력 */}
-          <div className="space-y-2 mb-4">
-            <div>
-              <label className="text-[10px] t-text-dim mb-1 block">추가 매수 가격 (원)</label>
-              <input type="number" value={avgDownPrice} onChange={e => setAvgDownPrice(e.target.value)} placeholder={avgDownTarget.current_price?.toString() || ""}
-                className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
-            </div>
-            <div>
-              <label className="text-[10px] t-text-dim mb-1 block">추가 매수 수량 (주)</label>
-              <input type="number" value={avgDownQty} onChange={e => setAvgDownQty(e.target.value)} placeholder="수량 입력"
-                className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
-            </div>
-          </div>
-          {/* 계산 결과 */}
-          {(() => {
-            const curAvg = avgDownTarget.avg_price || 0;
-            const curQty = avgDownTarget.quantity || 0;
-            const addPrice = Number(avgDownPrice) || 0;
-            const addQty = Number(avgDownQty) || 0;
-            if (!addPrice || !addQty || !curAvg || !curQty) return null;
-            const newAvg = Math.round((curAvg * curQty + addPrice * addQty) / (curQty + addQty));
-            const newQty = curQty + addQty;
-            const totalCost = curAvg * curQty + addPrice * addQty;
-            const cp = avgDownTarget.current_price || 0;
-            const newPnl = cp > 0 ? ((cp - newAvg) / newAvg * 100) : 0;
-            const oldPnl = cp > 0 ? ((cp - curAvg) / curAvg * 100) : 0;
-            const breakEvenPct = curAvg > 0 ? ((newAvg - cp) / cp * 100) : 0;
-            return (
-              <div className="t-card-alt rounded-lg p-3 space-y-2">
-                <div className="text-[10px] t-text-dim mb-1">물타기 결과</div>
-                <div className="grid grid-cols-2 gap-2 text-[11px]">
-                  <div><span className="t-text-dim">새 평단가</span><div className="font-bold t-text text-sm">{newAvg.toLocaleString()}원</div></div>
-                  <div><span className="t-text-dim">총 수량</span><div className="font-bold t-text text-sm">{newQty.toLocaleString()}주</div></div>
-                  <div><span className="t-text-dim">추가 투자금</span><div className="font-medium t-text">{(addPrice * addQty).toLocaleString()}원</div></div>
-                  <div><span className="t-text-dim">총 투자금</span><div className="font-medium t-text">{totalCost.toLocaleString()}원</div></div>
+          <div className="flex-1 overflow-y-auto px-5 pb-5">
+            {/* A: 기본 물타기 */}
+            {avgDownTab === "basic" && (<>
+              <div className="space-y-2 mb-3">
+                <div>
+                  <label className="text-[10px] t-text-dim mb-1 block">추가 매수가 (원)</label>
+                  <input type="number" value={avgDownPrice} onChange={e => setAvgDownPrice(e.target.value)} placeholder={avgDownTarget.current_price?.toString() || ""}
+                    className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
                 </div>
-                <div className="border-t t-border-light pt-2 mt-2">
-                  <div className="flex items-center justify-between text-[11px]">
-                    <span className="t-text-dim">수익률 변화</span>
-                    <span>
-                      <span className={oldPnl >= 0 ? "text-red-500" : "text-blue-500"}>{oldPnl >= 0 ? "+" : ""}{oldPnl.toFixed(2)}%</span>
-                      <span className="t-text-dim mx-1">→</span>
-                      <span className={`font-bold ${newPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{newPnl >= 0 ? "+" : ""}{newPnl.toFixed(2)}%</span>
-                    </span>
-                  </div>
-                  {cp > 0 && newAvg > cp && (
-                    <div className="flex items-center justify-between text-[11px] mt-1">
-                      <span className="t-text-dim">본전까지</span>
-                      <span className="font-medium text-amber-500">+{breakEvenPct.toFixed(2)}% 상승 필요</span>
-                    </div>
-                  )}
+                <div>
+                  <label className="text-[10px] t-text-dim mb-1 block">추가 수량 (주)</label>
+                  <input type="number" value={avgDownQty} onChange={e => setAvgDownQty(e.target.value)} placeholder="수량"
+                    className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
                 </div>
               </div>
-            );
-          })()}
+              {(() => {
+                const curAvg = avgDownTarget.avg_price || 0, curQty = avgDownTarget.quantity || 0;
+                const addP = Number(avgDownPrice) || 0, addQ = Number(avgDownQty) || 0;
+                if (!addP || !addQ || !curAvg || !curQty) return null;
+                const newAvg = Math.round((curAvg * curQty + addP * addQ) / (curQty + addQ));
+                const cp = avgDownTarget.current_price || 0;
+                const oldPnl = cp > 0 ? (cp - curAvg) / curAvg * 100 : 0;
+                const newPnl = cp > 0 ? (cp - newAvg) / newAvg * 100 : 0;
+                return (
+                  <div className="t-card-alt rounded-lg p-3 space-y-2">
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div><span className="t-text-dim">새 평단가</span><div className="font-bold t-text text-sm">{newAvg.toLocaleString()}원</div></div>
+                      <div><span className="t-text-dim">총 수량</span><div className="font-bold t-text text-sm">{(curQty + addQ).toLocaleString()}주</div></div>
+                      <div><span className="t-text-dim">추가 투자금</span><div className="font-medium t-text">{(addP * addQ).toLocaleString()}원</div></div>
+                      <div><span className="t-text-dim">총 투자금</span><div className="font-medium t-text">{(curAvg * curQty + addP * addQ).toLocaleString()}원</div></div>
+                    </div>
+                    <div className="border-t t-border-light pt-2 flex items-center justify-between text-[11px]">
+                      <span className="t-text-dim">수익률</span>
+                      <span>
+                        <span className={oldPnl >= 0 ? "text-red-500" : "text-blue-500"}>{oldPnl >= 0 ? "+" : ""}{oldPnl.toFixed(2)}%</span>
+                        <span className="t-text-dim mx-1">→</span>
+                        <span className={`font-bold ${newPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{newPnl >= 0 ? "+" : ""}{newPnl.toFixed(2)}%</span>
+                      </span>
+                    </div>
+                    {cp > 0 && newAvg > cp && (
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="t-text-dim">본전까지</span>
+                        <span className="font-medium text-amber-500">+{((newAvg - cp) / cp * 100).toFixed(2)}% 상승 필요</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+            </>)}
+            {/* B: 목표 평균단가 역산 */}
+            {avgDownTab === "target" && (<>
+              <div className="space-y-2 mb-3">
+                <div>
+                  <label className="text-[10px] t-text-dim mb-1 block">목표 평균단가 (원)</label>
+                  <input type="number" value={targetAvg} onChange={e => setTargetAvg(e.target.value)} placeholder="원하는 평균단가"
+                    className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
+                </div>
+                <div className="flex gap-1 mb-1">
+                  <button onClick={() => setTargetMode("qty")} className="flex-1 text-[10px] py-1 rounded-md transition"
+                    style={{ background: targetMode === "qty" ? "var(--blue-600,#2563eb)" : "var(--bg-muted)", color: targetMode === "qty" ? "#fff" : "var(--text-secondary)" }}>
+                    매수가 입력 → 수량 계산
+                  </button>
+                  <button onClick={() => setTargetMode("price")} className="flex-1 text-[10px] py-1 rounded-md transition"
+                    style={{ background: targetMode === "price" ? "var(--blue-600,#2563eb)" : "var(--bg-muted)", color: targetMode === "price" ? "#fff" : "var(--text-secondary)" }}>
+                    수량 입력 → 매수가 계산
+                  </button>
+                </div>
+                <div>
+                  <label className="text-[10px] t-text-dim mb-1 block">{targetMode === "qty" ? "매수 예정가 (원)" : "추가 수량 (주)"}</label>
+                  <input type="number" value={targetInput} onChange={e => setTargetInput(e.target.value)}
+                    placeholder={targetMode === "qty" ? (avgDownTarget.current_price?.toString() || "") : "수량"}
+                    className="w-full px-3 py-2 rounded-lg text-sm t-text border t-border-light" style={{ background: "var(--bg)" }} />
+                </div>
+              </div>
+              {(() => {
+                const curAvg = avgDownTarget.avg_price || 0, curQty = avgDownTarget.quantity || 0;
+                const tAvg = Number(targetAvg) || 0, inp = Number(targetInput) || 0;
+                if (!tAvg || !inp || !curAvg || !curQty || tAvg >= curAvg) return tAvg >= curAvg && tAvg > 0
+                  ? <div className="text-[11px] text-amber-500 text-center py-2">목표 평단가는 현재 평단가({curAvg.toLocaleString()}원)보다 낮아야 합니다</div>
+                  : null;
+                if (targetMode === "qty") {
+                  // 매수가(inp) → 필요 수량 계산: (curAvg*curQty + inp*X) / (curQty+X) = tAvg → X = curQty*(curAvg-tAvg)/(tAvg-inp)
+                  if (inp >= tAvg) return <div className="text-[11px] text-amber-500 text-center py-2">매수 예정가가 목표 평단가보다 낮아야 합니다</div>;
+                  const needQty = Math.ceil(curQty * (curAvg - tAvg) / (tAvg - inp));
+                  const totalCost = inp * needQty;
+                  return (
+                    <div className="t-card-alt rounded-lg p-3 space-y-1 text-[11px]">
+                      <div className="flex justify-between"><span className="t-text-dim">필요 수량</span><span className="font-bold t-text text-sm">{needQty.toLocaleString()}주</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">추가 투자금</span><span className="font-medium t-text">{totalCost.toLocaleString()}원</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">총 투자금</span><span className="font-medium t-text">{(curAvg * curQty + totalCost).toLocaleString()}원</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">총 수량</span><span className="font-medium t-text">{(curQty + needQty).toLocaleString()}주</span></div>
+                    </div>
+                  );
+                } else {
+                  // 수량(inp) → 필요 매수가 계산: (curAvg*curQty + X*inp) / (curQty+inp) = tAvg → X = (tAvg*(curQty+inp) - curAvg*curQty)/inp
+                  const needPrice = Math.round((tAvg * (curQty + inp) - curAvg * curQty) / inp);
+                  if (needPrice <= 0) return <div className="text-[11px] text-amber-500 text-center py-2">해당 수량으로는 목표 달성 불가</div>;
+                  return (
+                    <div className="t-card-alt rounded-lg p-3 space-y-1 text-[11px]">
+                      <div className="flex justify-between"><span className="t-text-dim">필요 매수가</span><span className="font-bold t-text text-sm">{needPrice.toLocaleString()}원</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">추가 투자금</span><span className="font-medium t-text">{(needPrice * inp).toLocaleString()}원</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">총 투자금</span><span className="font-medium t-text">{(curAvg * curQty + needPrice * inp).toLocaleString()}원</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">총 수량</span><span className="font-medium t-text">{(curQty + inp).toLocaleString()}주</span></div>
+                    </div>
+                  );
+                }
+              })()}
+            </>)}
+            {/* C: 다단계 분할매수 */}
+            {avgDownTab === "multi" && (<>
+              <div className="space-y-2 mb-3">
+                {multiSteps.map((step, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <span className="text-[10px] t-text-dim w-5 shrink-0">{i + 1}차</span>
+                    <input type="number" value={step.price} placeholder="매수가"
+                      onChange={e => { const s = [...multiSteps]; s[i] = { ...s[i], price: e.target.value }; setMultiSteps(s); }}
+                      className="flex-1 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
+                    <input type="number" value={step.qty} placeholder="수량"
+                      onChange={e => { const s = [...multiSteps]; s[i] = { ...s[i], qty: e.target.value }; setMultiSteps(s); }}
+                      className="w-20 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
+                    {multiSteps.length > 1 && (
+                      <button onClick={() => setMultiSteps(s => s.filter((_, j) => j !== i))} className="t-text-dim hover:t-text"><X size={12} /></button>
+                    )}
+                  </div>
+                ))}
+                <button onClick={() => setMultiSteps(s => [...s, { price: "", qty: "" }])}
+                  className="w-full text-[10px] py-1.5 rounded-lg border border-dashed t-border-light t-text-dim hover:t-text transition">
+                  + 단계 추가
+                </button>
+              </div>
+              {(() => {
+                const curAvg = avgDownTarget.avg_price || 0, curQty = avgDownTarget.quantity || 0;
+                const cp = avgDownTarget.current_price || 0;
+                if (!curAvg || !curQty) return null;
+                let runAvg = curAvg, runQty = curQty, runCost = curAvg * curQty;
+                const rows: { step: number; price: number; qty: number; avg: number; totalQty: number; totalCost: number; pnl: number }[] = [];
+                for (const step of multiSteps) {
+                  const p = Number(step.price) || 0, q = Number(step.qty) || 0;
+                  if (!p || !q) continue;
+                  runCost += p * q;
+                  runQty += q;
+                  runAvg = Math.round(runCost / runQty);
+                  rows.push({ step: rows.length + 1, price: p, qty: q, avg: runAvg, totalQty: runQty, totalCost: runCost, pnl: cp > 0 ? (cp - runAvg) / runAvg * 100 : 0 });
+                }
+                if (!rows.length) return null;
+                return (
+                  <div className="t-card-alt rounded-lg p-3">
+                    <div className="text-[10px] t-text-dim mb-2">단계별 결과</div>
+                    <div className="space-y-1.5">
+                      {rows.map(r => (
+                        <div key={r.step} className="flex items-center justify-between text-[11px] pb-1.5 border-b t-border-light last:border-0">
+                          <div>
+                            <span className="font-medium t-text">{r.step}차</span>
+                            <span className="t-text-dim ml-1">{r.price.toLocaleString()}원 × {r.qty}주</span>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold t-text">{r.avg.toLocaleString()}원</div>
+                            <div className={`text-[10px] ${r.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{r.pnl >= 0 ? "+" : ""}{r.pnl.toFixed(2)}%</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="border-t t-border-light pt-2 mt-2 grid grid-cols-2 gap-2 text-[10px]">
+                      <div><span className="t-text-dim">총 추가 투자</span><div className="font-medium t-text">{(rows[rows.length-1].totalCost - curAvg * curQty).toLocaleString()}원</div></div>
+                      <div><span className="t-text-dim">총 투자금</span><div className="font-medium t-text">{rows[rows.length-1].totalCost.toLocaleString()}원</div></div>
+                      {cp > 0 && rows[rows.length-1].avg > cp && (
+                        <div className="col-span-2"><span className="t-text-dim">본전까지</span> <span className="font-medium text-amber-500">+{((rows[rows.length-1].avg - cp) / cp * 100).toFixed(2)}% 상승 필요</span></div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+            </>)}
+          </div>
         </div>
       </div>,
       document.body
