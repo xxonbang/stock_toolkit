@@ -405,7 +405,7 @@ export default function Portfolio() {
                   평가손익 {h.profit_amount >= 0 ? "+" : ""}{h.profit_amount.toLocaleString()}원
                 </div>
                 {h.profit_rate < 0 && (
-                  <button onClick={(e) => { e.stopPropagation(); setAvgDownTarget(h); setAvgDownPrice(h.current_price?.toString() || ""); setAvgDownQty(""); }}
+                  <button onClick={(e) => { e.stopPropagation(); setAvgDownTarget(h); setAvgDownPrice(h.current_price?.toString() || ""); setAvgDownQty(""); setAvgDownTab("basic"); setTargetAvg(""); setTargetInput(""); setMultiSteps([{ price: "", qty: "" }]); }}
                     className="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition">
                     물타기
                   </button>
