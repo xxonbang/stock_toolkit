@@ -818,31 +818,33 @@ export default function Portfolio() {
               const newRate = newTotalInv > 0 ? (newTotalVal - newTotalInv) / newTotalInv * 100 : 0;
               return (
                 <div className="rounded-xl border t-border-light overflow-hidden">
-                  {/* 상단: 수익률 + 투자금 통합 */}
-                  <div className="p-3" style={{ background: "var(--bg)" }}>
-                    <div className="flex items-end justify-between mb-2">
-                      <div>
-                        <div className="text-[9px] t-text-dim">수익률</div>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className={`text-[13px] tabular-nums ${oldRate >= 0 ? "text-red-400" : "text-blue-400"}`}>{oldRate >= 0 ? "+" : ""}{oldRate.toFixed(2)}%</span>
-                          <span className="text-[11px] t-text-dim">→</span>
-                          <span className={`text-[17px] font-bold tabular-nums ${newRate >= 0 ? "text-red-500" : "text-blue-500"}`}>{newRate >= 0 ? "+" : ""}{newRate.toFixed(2)}%</span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-[9px] t-text-dim">추가 / 총 투자금</div>
-                        <div className="text-[11px] font-medium t-text tabular-nums mt-0.5">{addTotalCost.toLocaleString()} / {(oldTotalInv + addTotalCost).toLocaleString()}원</div>
-                      </div>
+                  {/* 수익률 */}
+                  <div className="px-4 py-3 text-center border-b t-border-light" style={{ background: "var(--bg)" }}>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className={`text-sm tabular-nums ${oldRate >= 0 ? "text-red-400" : "text-blue-400"}`}>{oldRate >= 0 ? "+" : ""}{oldRate.toFixed(2)}%</span>
+                      <span className="t-text-dim">→</span>
+                      <span className={`text-xl font-bold tabular-nums ${newRate >= 0 ? "text-red-500" : "text-blue-500"}`}>{newRate >= 0 ? "+" : ""}{newRate.toFixed(2)}%</span>
+                    </div>
+                  </div>
+                  {/* 투자금 2열 */}
+                  <div className="grid grid-cols-2 border-b t-border-light text-center">
+                    <div className="py-2 border-r t-border-light">
+                      <div className="text-[9px] t-text-dim">추가 투자금</div>
+                      <div className="text-[11px] font-bold t-text tabular-nums">{addTotalCost.toLocaleString()}원</div>
+                    </div>
+                    <div className="py-2">
+                      <div className="text-[9px] t-text-dim">총 투자금</div>
+                      <div className="text-[11px] font-bold t-text tabular-nums">{(oldTotalInv + addTotalCost).toLocaleString()}원</div>
                     </div>
                   </div>
                   {/* 종목별 */}
                   {details.map((d, i) => (
-                    <div key={d.name} className={`px-3 py-2 flex items-center justify-between ${i > 0 ? "border-t t-border-light" : ""}`}>
+                    <div key={d.name} className={`px-4 py-2.5 flex items-center justify-between ${i > 0 ? "border-t t-border-light" : ""}`}>
                       <div className="min-w-0">
                         <div className="text-[11px] font-semibold t-text">{d.name}</div>
                         <div className="text-[9px] t-text-dim tabular-nums">{d.oldAvg.toLocaleString()} → {d.newAvg.toLocaleString()}원</div>
                       </div>
-                      <div className="flex items-center gap-1 tabular-nums shrink-0">
+                      <div className="flex items-center gap-1 tabular-nums shrink-0 ml-2">
                         <span className={`text-[10px] ${d.oldPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>{d.oldPnl.toFixed(1)}%</span>
                         <span className="text-[9px] t-text-dim">→</span>
                         <span className={`text-[12px] font-bold ${d.newPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{d.newPnl.toFixed(1)}%</span>
