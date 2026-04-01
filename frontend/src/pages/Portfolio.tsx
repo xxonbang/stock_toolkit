@@ -78,6 +78,8 @@ export default function Portfolio() {
   // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
   const mergedPortfolio = useMemo(() => {
     if (!portfolioRaw?.holdings) return null;
+    // 로그인 상태에서 DB 로딩 중이면 오래된 서버 데이터 표시 방지
+    if (supaUser && dbLoading) return null;
     const serverHoldings = portfolioRaw.holdings;
     const userHoldings = dbHoldings.length > 0 ? dbHoldings : serverHoldings;
     const merged = userHoldings.map((lh: any) => {
