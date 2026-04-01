@@ -957,7 +957,8 @@ export default function Portfolio() {
               </div>
               {(() => {
                 const curAvg = avgDownTarget.avg_price || 0, curQty = avgDownTarget.quantity || 0;
-                const tAvg = Number(targetAvg) || 0, inp = Number(targetInput) || 0;
+                const tAvg = Number(targetAvg) || 0;
+                const inp = Number(targetInput) || (targetMode === "qty" ? (avgDownTarget.current_price || 0) : 0);
                 if (!tAvg || !inp || !curAvg || !curQty || tAvg >= curAvg) return tAvg >= curAvg && tAvg > 0
                   ? <div className="text-[11px] text-amber-500 text-center py-2">목표 평단가는 현재 평단가({curAvg.toLocaleString()}원)보다 낮아야 합니다</div>
                   : null;
