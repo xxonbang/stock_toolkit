@@ -995,9 +995,9 @@ export default function AutoTrader() {
                                               {(item.pnl_pct ?? 0) >= 0 ? "+" : ""}{(item.pnl_pct ?? 0).toFixed(2)}%
                                             </span>
                                           </div>
-                                          <div className="flex items-center gap-3 mt-1 text-[9px] t-text-dim">
-                                            {buyPrice > 0 && <span>매수 {buyPrice.toLocaleString()}원{buyTime ? ` ${formatTime(buyTime)}` : ""}</span>}
-                                            {sellPrice > 0 && <span>→ 매도 {sellPrice.toLocaleString()}원{sellTime ? ` ${formatTime(sellTime)}` : ""}</span>}
+                                          <div className="flex items-center gap-1 mt-1 text-[9px] t-text-sub">
+                                            {buyPrice > 0 && <><span className="t-text-dim">매수</span> <span className="font-medium tabular-nums">{buyPrice.toLocaleString()}</span>{buyTime && <span className="t-text-dim ml-0.5">{formatTime(buyTime)}</span>}</>}
+                                            {sellPrice > 0 && <><span className="t-text-dim ml-2">→</span> <span className="t-text-dim ml-1">매도</span> <span className="font-medium tabular-nums">{sellPrice.toLocaleString()}</span>{sellTime && <span className="t-text-dim ml-0.5">{formatTime(sellTime)}</span>}</>}
                                           </div>
                                         </div>
                                         );
