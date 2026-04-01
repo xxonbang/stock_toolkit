@@ -64,6 +64,8 @@ export default function Portfolio() {
   const [avgDownTarget, setAvgDownTarget] = useState<any>(null);
   const [avgDownPrice, setAvgDownPrice] = useState("");
   const [avgDownQty, setAvgDownQty] = useState("");
+  const [showBulkAvgDown, setShowBulkAvgDown] = useState(false);
+  const [bulkInputs, setBulkInputs] = useState<Record<string, { price: string; qty: string }>>({});
 
   // 모달 열림 시 body 스크롤 잠금
   const anyModalOpen = !!(showPortfolioEdit);
@@ -285,6 +287,20 @@ export default function Portfolio() {
         </div>
         ) : null;
       })()}
+      {/* 종합 물타기 버튼 */}
+      {portfolio.holdings?.some((h: any) => h.profit_rate < 0) && (
+        <button onClick={() => {
+          const inputs: Record<string, { price: string; qty: string }> = {};
+          for (const h of portfolio.holdings || []) {
+            if (h.profit_rate < 0) inputs[h.code] = { price: h.current_price?.toString() || "", qty: "" };
+          }
+          setBulkInputs(inputs);
+          setShowBulkAvgDown(true);
+        }}
+          className="w-full mb-3 py-2 rounded-xl text-[11px] font-medium text-blue-500 border border-blue-500/20 hover:bg-blue-500/5 transition">
+          종합 물타기 계산기
+        </button>
+      )}
       {/* 종목별 */}
       <div className="space-y-1.5 mb-3">
         {portfolio.holdings?.map((h: any, i: number) => {
@@ -678,7 +694,108 @@ export default function Portfolio() {
         </div>
       </div>
     )}
-    {/* 물타기 계산기 */}
+    {/* 종합 물타기 계산기 */}
+    {showBulkAvgDown && createPortal(
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center anim-fade-in" onClick={() => setShowBulkAvgDown(false)}>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+        <div className="relative z-10 mx-4 max-w-md w-full max-h-[80vh] flex flex-col rounded-2xl t-card border t-border-light" onClick={e => e.stopPropagation()}>
+          <div className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
+            <h4 className="text-sm font-bold t-text">종합 물타기 계산기</h4>
+            <button onClick={() => setShowBulkAvgDown(false)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
+          </div>
+          <div className="flex-1 overflow-y-auto px-5 pb-5">
+            {/* 종목별 입력 */}
+            <div className="space-y-3 mb-4">
+              {(portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0).map((h: any) => {
+                const input = bulkInputs[h.code] || { price: "", qty: "" };
+                return (
+                  <div key={h.code} className="t-card-alt rounded-lg p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <span className="text-[12px] font-medium t-text">{h.name}</span>
+                        <span className={`text-[10px] ml-1.5 font-medium ${profitColor(h.profit_rate)}`}>{h.profit_rate}%</span>
+                      </div>
+                      <div className="text-[9px] t-text-dim">평단 {(h.avg_price||0).toLocaleString()} × {h.quantity}주</div>
+                    </div>
+                    <div className="flex gap-2">
+                      <input type="number" value={input.price} placeholder={`매수가 (${h.current_price?.toLocaleString() || ""})`}
+                        onChange={e => setBulkInputs(prev => ({ ...prev, [h.code]: { ...input, price: e.target.value } }))}
+                        className="flex-1 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
+                      <input type="number" value={input.qty} placeholder="수량"
+                        onChange={e => setBulkInputs(prev => ({ ...prev, [h.code]: { ...input, qty: e.target.value } }))}
+                        className="w-20 px-2 py-1.5 rounded-lg text-[11px] t-text border t-border-light" style={{ background: "var(--bg)" }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {/* 종합 결과 */}
+            {(() => {
+              const holdings = (portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0);
+              let oldTotalInv = 0, oldTotalVal = 0, newTotalInv = 0, newTotalVal = 0, addTotalCost = 0;
+              const details: { name: string; oldAvg: number; newAvg: number; oldPnl: number; newPnl: number }[] = [];
+              for (const h of holdings) {
+                const curAvg = h.avg_price || 0;
+                const curQty = h.quantity || 0;
+                const cp = h.current_price || 0;
+                const input = bulkInputs[h.code] || { price: "", qty: "" };
+                const addPrice = Number(input.price) || 0;
+                const addQty = Number(input.qty) || 0;
+                oldTotalInv += curAvg * curQty;
+                oldTotalVal += cp * curQty;
+                if (addPrice > 0 && addQty > 0) {
+                  const newAvg = Math.round((curAvg * curQty + addPrice * addQty) / (curQty + addQty));
+                  const newQty = curQty + addQty;
+                  newTotalInv += newAvg * newQty;
+                  newTotalVal += cp * newQty;
+                  addTotalCost += addPrice * addQty;
+                  const oldPnl = cp > 0 && curAvg > 0 ? (cp - curAvg) / curAvg * 100 : 0;
+                  const newPnl = cp > 0 && newAvg > 0 ? (cp - newAvg) / newAvg * 100 : 0;
+                  details.push({ name: h.name, oldAvg: curAvg, newAvg, oldPnl, newPnl });
+                } else {
+                  newTotalInv += curAvg * curQty;
+                  newTotalVal += cp * curQty;
+                }
+              }
+              if (!details.length) return <div className="text-[11px] t-text-dim text-center py-3">추가 매수 수량을 입력하세요</div>;
+              const oldRate = oldTotalInv > 0 ? (oldTotalVal - oldTotalInv) / oldTotalInv * 100 : 0;
+              const newRate = newTotalInv > 0 ? (newTotalVal - newTotalInv) / newTotalInv * 100 : 0;
+              return (
+                <div className="t-card-alt rounded-lg p-3 space-y-2">
+                  <div className="text-[10px] t-text-dim font-medium mb-2">종합 결과</div>
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
+                    <div><span className="t-text-dim">추가 투자금</span><div className="font-bold t-text">{addTotalCost.toLocaleString()}원</div></div>
+                    <div><span className="t-text-dim">총 수익률 변화</span>
+                      <div>
+                        <span className={oldRate >= 0 ? "text-red-500" : "text-blue-500"}>{oldRate >= 0 ? "+" : ""}{oldRate.toFixed(2)}%</span>
+                        <span className="t-text-dim mx-1">→</span>
+                        <span className={`font-bold ${newRate >= 0 ? "text-red-500" : "text-blue-500"}`}>{newRate >= 0 ? "+" : ""}{newRate.toFixed(2)}%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-t t-border-light pt-2 mt-2 space-y-1">
+                    {details.map(d => (
+                      <div key={d.name} className="flex items-center justify-between text-[10px]">
+                        <span className="t-text font-medium">{d.name}</span>
+                        <span>
+                          <span className="t-text-dim">{d.oldAvg.toLocaleString()}→{d.newAvg.toLocaleString()}원</span>
+                          <span className="mx-1 t-text-dim">|</span>
+                          <span className={d.oldPnl >= 0 ? "text-red-500" : "text-blue-500"}>{d.oldPnl.toFixed(1)}%</span>
+                          <span className="t-text-dim mx-0.5">→</span>
+                          <span className={`font-bold ${d.newPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{d.newPnl.toFixed(1)}%</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+      </div>,
+      document.body
+    )}
+    {/* 개별 물타기 계산기 */}
     {avgDownTarget && createPortal(
       <div className="fixed inset-0 z-[9999] flex items-center justify-center anim-fade-in" onClick={() => setAvgDownTarget(null)}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
