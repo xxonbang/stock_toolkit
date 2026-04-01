@@ -112,13 +112,49 @@ export default function Portfolio() {
     if (mergedPortfolio) setPortfolio(mergedPortfolio);
   }, [mergedPortfolio]);
 
-  // 탭 진입 시 최초 1회 자동 시세 갱신 (DB 로딩 완료 + portfolio 설정 후)
+  // 탭 진입 시 최초 1회 자동 시세 갱신 (DB 로딩 완료 + mergedPortfolio 확정 후)
   useEffect(() => {
-    if (!autoRefreshed.current && portfolio?.holdings?.length > 0 && !dbLoading) {
+    if (!autoRefreshed.current && !dbLoading && mergedPortfolio?.holdings?.length > 0) {
       autoRefreshed.current = true;
-      refreshPortfolioPrices();
+      // mergedPortfolio 기반으로 직접 시세 갱신 (portfolio state 클로저 문제 회피)
+      const codes = mergedPortfolio.holdings.map((h: any) => h.code).filter(Boolean);
+      if (codes.length > 0 && supaUser) {
+        (async () => {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session?.access_token) return;
+            const kisData = await Promise.race([
+              fetchKisPrices(codes),
+              new Promise<never>((_, rej) => setTimeout(() => rej(new Error("timeout")), 8000)),
+            ]);
+            const priceMap: Record<string, number> = {};
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) priceMap[code] = p.current_price;
+            }
+            if (Object.keys(priceMap).length === 0) return;
+            setPortfolio((prev: any) => {
+              if (!prev?.holdings) return prev;
+              const updated = prev.holdings.map((h: any) => {
+                const cp = priceMap[h.code] || h.current_price || 0;
+                const ap = h.avg_price || 0;
+                const qty = h.quantity || 0;
+                return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+                  profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
+              });
+              const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
+              const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
+              updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
+              const now = new Date(); const hh = now.getHours();
+              setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
+              return { ...prev, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
+                total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+                total_profit_amount: totalVal - totalInv, total_holdings: updated.length }};
+            });
+          } catch {}
+        })();
+      }
     }
-  }, [portfolio, dbLoading]);
+  }, [mergedPortfolio, dbLoading, supaUser]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {
