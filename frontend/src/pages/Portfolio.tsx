@@ -816,51 +816,39 @@ export default function Portfolio() {
               if (!details.length) return <div className="text-[11px] t-text-dim text-center py-3">추가 매수 수량을 입력하세요</div>;
               const oldRate = oldTotalInv > 0 ? (oldTotalVal - oldTotalInv) / oldTotalInv * 100 : 0;
               const newRate = newTotalInv > 0 ? (newTotalVal - newTotalInv) / newTotalInv * 100 : 0;
-              const improved = newRate > oldRate;
               return (
-                <div className="space-y-3">
-                  {/* 수익률 변화 카드 */}
-                  <div className="rounded-xl p-4" style={{ background: improved ? "linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.02))" : "linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.02))", border: `1px solid ${improved ? "rgba(34,197,94,0.15)" : "rgba(59,130,246,0.15)"}` }}>
-                    <div className="text-[10px] t-text-sub mb-2 text-center">물타기 후 수익률</div>
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="text-center">
-                        <div className={`text-sm tabular-nums ${oldRate >= 0 ? "text-red-400" : "text-blue-400"}`}>{oldRate >= 0 ? "+" : ""}{oldRate.toFixed(2)}%</div>
-                        <div className="text-[9px] t-text-dim mt-0.5">현재</div>
+                <div className="rounded-xl border t-border-light overflow-hidden">
+                  {/* 상단: 수익률 + 투자금 통합 */}
+                  <div className="p-3" style={{ background: "var(--bg)" }}>
+                    <div className="flex items-end justify-between mb-2">
+                      <div>
+                        <div className="text-[9px] t-text-dim">수익률</div>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`text-[13px] tabular-nums ${oldRate >= 0 ? "text-red-400" : "text-blue-400"}`}>{oldRate >= 0 ? "+" : ""}{oldRate.toFixed(2)}%</span>
+                          <span className="text-[11px] t-text-dim">→</span>
+                          <span className={`text-[17px] font-bold tabular-nums ${newRate >= 0 ? "text-red-500" : "text-blue-500"}`}>{newRate >= 0 ? "+" : ""}{newRate.toFixed(2)}%</span>
+                        </div>
                       </div>
-                      <div className="text-lg t-text-dim">→</div>
-                      <div className="text-center">
-                        <div className={`text-2xl font-bold tabular-nums ${newRate >= 0 ? "text-red-500" : "text-blue-500"}`}>{newRate >= 0 ? "+" : ""}{newRate.toFixed(2)}%</div>
-                        <div className="text-[9px] t-text-dim mt-0.5">물타기 후</div>
+                      <div className="text-right">
+                        <div className="text-[9px] t-text-dim">추가 / 총 투자금</div>
+                        <div className="text-[11px] font-medium t-text tabular-nums mt-0.5">{addTotalCost.toLocaleString()} / {(oldTotalInv + addTotalCost).toLocaleString()}원</div>
                       </div>
-                    </div>
-                  </div>
-                  {/* 투자금 */}
-                  <div className="flex gap-2">
-                    <div className="flex-1 rounded-lg p-2.5 text-center" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">추가 투자금</div>
-                      <div className="text-[12px] font-bold t-text tabular-nums">{addTotalCost.toLocaleString()}원</div>
-                    </div>
-                    <div className="flex-1 rounded-lg p-2.5 text-center" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim mb-0.5">총 투자금</div>
-                      <div className="text-[12px] font-bold t-text tabular-nums">{(oldTotalInv + addTotalCost).toLocaleString()}원</div>
                     </div>
                   </div>
                   {/* 종목별 */}
-                  <div className="space-y-1.5">
-                    {details.map(d => (
-                      <div key={d.name} className="rounded-lg p-2.5 flex items-center justify-between" style={{ background: "var(--bg)" }}>
-                        <div>
-                          <div className="text-[11px] font-semibold t-text">{d.name}</div>
-                          <div className="text-[9px] t-text-dim tabular-nums mt-0.5">평단 {d.oldAvg.toLocaleString()} → {d.newAvg.toLocaleString()}원</div>
-                        </div>
-                        <div className="flex items-center gap-1.5 tabular-nums shrink-0">
-                          <span className={`text-[11px] ${d.oldPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>{d.oldPnl.toFixed(1)}%</span>
-                          <span className="text-[10px] t-text-dim">→</span>
-                          <span className={`text-[12px] font-bold ${d.newPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{d.newPnl.toFixed(1)}%</span>
-                        </div>
+                  {details.map((d, i) => (
+                    <div key={d.name} className={`px-3 py-2 flex items-center justify-between ${i > 0 ? "border-t t-border-light" : ""}`}>
+                      <div className="min-w-0">
+                        <div className="text-[11px] font-semibold t-text">{d.name}</div>
+                        <div className="text-[9px] t-text-dim tabular-nums">{d.oldAvg.toLocaleString()} → {d.newAvg.toLocaleString()}원</div>
                       </div>
-                    ))}
-                  </div>
+                      <div className="flex items-center gap-1 tabular-nums shrink-0">
+                        <span className={`text-[10px] ${d.oldPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>{d.oldPnl.toFixed(1)}%</span>
+                        <span className="text-[9px] t-text-dim">→</span>
+                        <span className={`text-[12px] font-bold ${d.newPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>{d.newPnl.toFixed(1)}%</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               );
             })()}
