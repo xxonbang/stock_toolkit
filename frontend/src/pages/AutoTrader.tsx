@@ -849,29 +849,38 @@ export default function AutoTrader() {
               const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
-              const cards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
-                { key: "real", label: `${realLabel} (실제)`, pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
-                { key: "sim", label: `${simLabel} (가상)`, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
-                { key: "time", label: "시간전략 (가상)", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
-                { key: "api_leader", label: "API∧대장주 (가상)", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
+              const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
+                { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
+                { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
+                { key: "api_leader", label: "API∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
               ];
 
               return (
                 <>
-                  <div className="grid grid-cols-2 gap-2">
-                    {cards.map(c => (
+                  {/* 실제 전략 */}
+                  <button onClick={() => setStrategyDetail("real")}
+                    className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                    <div className="text-[10px] t-text-dim mb-1">{realLabel} (실제)</div>
+                    <div className={`text-lg font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                      {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
+                    </div>
+                    <div className="text-[10px] t-text-dim mt-0.5">{allRealTrades.length}건</div>
+                  </button>
+                  {/* 가상 전략 3개 */}
+                  <div className="flex gap-2 mt-2">
+                    {simCards.map(c => (
                       <button key={c.key} onClick={c.onClick}
-                        className="p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                        <div className="text-[10px] t-text-dim mb-1">{c.label}</div>
+                        className="flex-1 p-2.5 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                        <div className="text-[9px] t-text-dim mb-1">{c.label}</div>
                         {c.count > 0 ? (
                           <>
-                            <div className={`text-base font-bold tabular-nums ${c.pnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                            <div className={`text-sm font-bold tabular-nums ${c.pnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                               {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
                             </div>
-                            <div className="text-[10px] t-text-dim mt-0.5">{c.count}건</div>
+                            <div className="text-[9px] t-text-dim mt-0.5">{c.count}건</div>
                           </>
                         ) : (
-                          <div className="text-[10px] t-text-dim mt-1">축적 중</div>
+                          <div className="text-[9px] t-text-dim mt-1">축적 중</div>
                         )}
                       </button>
                     ))}
