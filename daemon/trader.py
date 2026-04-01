@@ -166,7 +166,7 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
     for s in signals:
         code = s.get("code", "")
         price = (s.get("api_data") or {}).get("price", {}).get("current", 0)
-        if price <= 0 or price >= max_price:
+        if price <= 0 or price >= max_price or price < 1000:
             continue
 
         score = 0
