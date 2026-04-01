@@ -108,6 +108,7 @@ export default function AutoTrader() {
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | null>(null);
+  const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
     return () => { document.body.style.overflow = ""; };
@@ -904,8 +905,9 @@ export default function AutoTrader() {
                               <X size={18} />
                             </button>
                           </div>
-                          <h3 className="text-sm font-bold t-text mb-3">
+                          <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
                             {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API∧대장주 (가상)" : `${simLabel} (가상)`}
+                            <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                           </h3>
                         </div>
                         <div className="flex-1 overflow-y-auto px-5 pb-5">
@@ -990,6 +992,27 @@ export default function AutoTrader() {
                             </>
                           );
                         })()}
+                        </div>
+                      </div>
+                    </div>,
+                    document.body
+                  )}
+                  {/* 전략 설명 팝업 */}
+                  {strategyHelpOpen && createPortal(
+                    <div className="fixed inset-0 z-[10000] flex items-center justify-center anim-fade-in" onClick={() => setStrategyHelpOpen(null)}>
+                      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+                      <div className="relative z-10 mx-6 max-w-sm w-full rounded-2xl p-5 t-card border t-border-light" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center justify-between mb-3">
+                          <h4 className="text-sm font-bold t-text">
+                            {strategyHelpOpen === "real" ? "Stepped Trailing" : strategyHelpOpen === "sim" ? "고정 익절/손절" : strategyHelpOpen === "time" ? "시간전략" : "API∧대장주"}
+                          </h4>
+                          <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
+                        </div>
+                        <div className="text-[11px] t-text-sub leading-relaxed whitespace-pre-line">
+                          {strategyHelpOpen === "real" ? "실전 적용 중인 Stepped Trailing 전략입니다.\n\n매수가 대비 고점 수익률에 따라 단계별 stop 위치가 올라갑니다. 고점에서 일정 비율 하락하면 자동 매도됩니다.\n\nSL: -2% (기본 손절)\n공격형: +7%→0%, +15%→+7%, +20%→+15%, +25%→+20%, +30%+→고점-3%"
+                           : strategyHelpOpen === "sim" ? "고정 익절/손절 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 고정 TP/SL 조건으로 매도 시뮬레이션합니다.\n\nTP: +7% (보유일수 연동 상향)\nSL: -2%\nTrailing: 고점 대비 -3% 하락 시 매도"
+                           : strategyHelpOpen === "time" ? "시간 기반 매도 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 11:00 KST에 무조건 매도합니다.\n\n매수: 09:30 (실전과 동일)\n매도: 11:00 KST (시장 열기 피크)\nSL: -2% (11:00 전 손절)\n\n장 초반 모멘텀만 캡처하는 단기 전략으로, 오버나이트 리스크가 없습니다."
+                           : "API매수 시그널 + 대장주 교집합 종목 선정 시뮬레이션입니다.\n\n실전과 다른 종목을 선정하여 가상 포지션을 생성합니다.\n\n종목 선정: API 매수 신호 필수 + 테마 대장주 필수\n매도 조건: Stepped Trailing 공격형과 동일\n\n연구 결과 D+5 수익률 +14.06%(15건)으로 현행 +7.27% 대비 우위. 데이터 축적 후 실전 전환 여부 판단 예정."}
                         </div>
                       </div>
                     </div>,
