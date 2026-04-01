@@ -917,7 +917,7 @@ export default function AutoTrader() {
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
                             : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
-                                return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `${s.entry_price?.toLocaleString()}원` };
+                                return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
                               });
                           const grouped: Record<string, typeof items> = {};
                           for (const item of items) {
