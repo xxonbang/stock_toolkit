@@ -967,12 +967,19 @@ export default function Portfolio() {
                   if (inp >= tAvg) return <div className="text-[11px] text-amber-500 text-center py-2">매수 예정가가 목표 평단가보다 낮아야 합니다</div>;
                   const needQty = Math.ceil(curQty * (curAvg - tAvg) / (tAvg - inp));
                   const totalCost = inp * needQty;
+                  const curInv = curAvg * curQty;
+                  const ratio = totalCost / curInv;
                   return (
                     <div className="t-card-alt rounded-lg p-3 space-y-1 text-[11px]">
                       <div className="flex justify-between"><span className="t-text-dim">필요 수량</span><span className="font-bold t-text text-sm">{needQty.toLocaleString()}주</span></div>
                       <div className="flex justify-between"><span className="t-text-dim">추가 투자금</span><span className="font-medium t-text">{totalCost.toLocaleString()}원</span></div>
-                      <div className="flex justify-between"><span className="t-text-dim">총 투자금</span><span className="font-medium t-text">{(curAvg * curQty + totalCost).toLocaleString()}원</span></div>
+                      <div className="flex justify-between"><span className="t-text-dim">총 투자금</span><span className="font-medium t-text">{(curInv + totalCost).toLocaleString()}원</span></div>
                       <div className="flex justify-between"><span className="t-text-dim">총 수량</span><span className="font-medium t-text">{(curQty + needQty).toLocaleString()}주</span></div>
+                      {ratio > 3 && (
+                        <div className="text-[10px] text-amber-500 mt-1 pt-1 border-t t-border-light">
+                          ⚠️ 추가 투자금이 현재 투자금의 {ratio.toFixed(1)}배입니다. 매수 예정가를 낮추거나 목표 평단가를 높여보세요.
+                        </div>
+                      )}
                     </div>
                   );
                 } else {
