@@ -821,7 +821,8 @@ export default function Portfolio() {
                   <div className="text-[10px] t-text-dim font-medium mb-2">종합 결과</div>
                   <div className="grid grid-cols-2 gap-2 text-[11px]">
                     <div><span className="t-text-dim">추가 투자금</span><div className="font-bold t-text">{addTotalCost.toLocaleString()}원</div></div>
-                    <div><span className="t-text-dim">총 수익률 변화</span>
+                    <div><span className="t-text-dim">총 투자금</span><div className="font-bold t-text">{(oldTotalInv + addTotalCost).toLocaleString()}원</div></div>
+                    <div className="col-span-2"><span className="t-text-dim">총 수익률 변화</span>
                       <div>
                         <span className={oldRate >= 0 ? "text-red-500" : "text-blue-500"}>{oldRate >= 0 ? "+" : ""}{oldRate.toFixed(2)}%</span>
                         <span className="t-text-dim mx-1">→</span>
