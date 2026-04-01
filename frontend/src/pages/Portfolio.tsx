@@ -109,16 +109,16 @@ export default function Portfolio() {
 
   const autoRefreshed = useRef(false);
   useEffect(() => {
-    if (mergedPortfolio) {
-      setPortfolio(mergedPortfolio);
-      // 탭 진입 시 최초 1회 자동 시세 갱신
-      if (!autoRefreshed.current && mergedPortfolio.holdings?.length > 0) {
-        autoRefreshed.current = true;
-        // portfolio state 반영 후 실행되도록 setTimeout
-        setTimeout(() => refreshPortfolioPrices(), 300);
-      }
-    }
+    if (mergedPortfolio) setPortfolio(mergedPortfolio);
   }, [mergedPortfolio]);
+
+  // 탭 진입 시 최초 1회 자동 시세 갱신 (portfolio 설정 후)
+  useEffect(() => {
+    if (!autoRefreshed.current && portfolio?.holdings?.length > 0) {
+      autoRefreshed.current = true;
+      refreshPortfolioPrices();
+    }
+  }, [portfolio]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {
