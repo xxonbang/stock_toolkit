@@ -687,21 +687,24 @@ export default function AutoTrader() {
                   가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
                 </div>
                 {/* 과열 필터 토글 */}
-                <div className="mt-2 pt-2 border-t t-border-light flex items-center justify-between">
-                  <div>
-                    <div className="text-[11px] font-medium t-text">Criteria 필터</div>
-                    <div className="text-[9px] t-text-dim">가점: 수급+10 · 골든크로스+8 · 저항돌파+5 | 감점: TOP30-15 · 정배열-10 · 과열-8 · 시총-5</div>
-                  </div>
+                <div className="mt-2 pt-2 border-t t-border-light">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="text-[11px] font-medium t-text">Criteria 가감점 필터</div>
                   <button onClick={async () => {
                     const next = !criteriaFilter;
                     setCriteriaFilter(next);
                     const ok = await setAlertConfig({ criteria_filter: next });
-                    if (ok) { setSavedCriteriaFilter(next); setToastMsg({ text: next ? "과열 필터 ON" : "과열 필터 OFF", type: "ok" }); }
+                    if (ok) { setSavedCriteriaFilter(next); setToastMsg({ text: next ? "Criteria 필터 ON" : "Criteria 필터 OFF", type: "ok" }); }
                     else { setCriteriaFilter(savedCriteriaFilter); setToastMsg({ text: "저장 실패", type: "fail" }); }
                     setTimeout(() => setToastMsg(null), 2500);
                   }} className={`w-10 h-5 rounded-full transition-colors relative ${criteriaFilter ? "bg-blue-500" : "bg-gray-300"}`}>
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${criteriaFilter ? "translate-x-5" : "translate-x-0.5"}`} />
                   </button>
+                  </div>
+                  <div className="text-[9px] t-text-dim leading-relaxed">
+                    가점: 수급+10 · 골든크로스+8 · 저항돌파+5<br/>
+                    감점: TOP30-15 · 정배열-10 · 과열-8 · 시총-5 · 5개+ 제외
+                  </div>
                 </div>
               </div>
               {useResearchOptimal !== savedResearchOptimal && (
