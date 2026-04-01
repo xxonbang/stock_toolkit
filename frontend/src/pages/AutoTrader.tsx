@@ -860,27 +860,27 @@ export default function AutoTrader() {
                   {/* 실제 전략 */}
                   <button onClick={() => setStrategyDetail("real")}
                     className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                    <div className="text-[10px] t-text-dim mb-1">{realLabel} (실제)</div>
-                    <div className={`text-lg font-bold tabular-nums ${realPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                    <div className="text-[10px] t-text-sub font-medium mb-1">{realLabel} (실제)</div>
+                    <div className={`text-lg font-bold tabular-nums ${realPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
                       {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
                     </div>
-                    <div className="text-[10px] t-text-dim mt-0.5">{allRealTrades.length}건</div>
+                    <div className="text-[10px] t-text-sub mt-0.5">{allRealTrades.length}건</div>
                   </button>
                   {/* 가상 전략 3개 */}
                   <div className="flex gap-2 mt-2">
                     {simCards.map(c => (
                       <button key={c.key} onClick={c.onClick}
                         className="flex-1 p-2.5 rounded-lg text-center border border-transparent cursor-pointer transition" style={{ background: "var(--bg)" }}>
-                        <div className="text-[9px] t-text-dim mb-1">{c.label}</div>
+                        <div className="text-[9px] t-text-sub font-medium mb-1">{c.label}</div>
                         {c.count > 0 ? (
                           <>
-                            <div className={`text-sm font-bold tabular-nums ${c.pnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                            <div className={`text-sm font-bold tabular-nums ${c.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
                               {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
                             </div>
-                            <div className="text-[9px] t-text-dim mt-0.5">{c.count}건</div>
+                            <div className="text-[9px] t-text-sub mt-0.5">{c.count}건</div>
                           </>
                         ) : (
-                          <div className="text-[9px] t-text-dim mt-1">축적 중</div>
+                          <div className="text-[9px] t-text-sub mt-1">축적 중</div>
                         )}
                       </button>
                     ))}
