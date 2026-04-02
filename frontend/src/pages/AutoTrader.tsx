@@ -220,9 +220,13 @@ export default function AutoTrader() {
       }
       if (data) {
         setTrades(data as Trade[]);
-        const activeCodes = (data as Trade[]).filter(t => t.status === "filled").map(t => t.code).filter(Boolean);
-        if (activeCodes.length > 0) {
-          fetchKisPrices(activeCodes).then(kisData => {
+        // filled + 최근 7일 이내 sold 종목 모두 시세 조회 (시뮬레이션 open 포지션 대응)
+        const recentCutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+        const priceCodes = [...new Set((data as Trade[])
+          .filter(t => t.status === "filled" || (t.status === "sold" && t.created_at >= recentCutoff))
+          .map(t => t.code).filter(Boolean))];
+        if (priceCodes.length > 0) {
+          fetchKisPrices(priceCodes).then(kisData => {
             const map: Record<string, { price: number; changeRate: number }> = {};
             for (const [code, p] of Object.entries(kisData)) {
               if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
