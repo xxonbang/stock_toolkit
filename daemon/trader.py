@@ -1463,6 +1463,7 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
 async def _create_api_leader_simulations(cross_data: list, config: dict):
     """연구 시뮬: API매수∧대장주 Top-2를 별도 선정하여 가상 포지션 생성 (strategy_type=api_leader)"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    from daemon.position_db import _supabase_request
     user_id = config.get("user_id", "")
     if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
@@ -1518,8 +1519,18 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
     session = await get_session()
     headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
     for item in top2:
+        # api_leader용 가상 auto_trades 레코드 생성 (trade_id UUID 필수)
+        virtual_trade = await _supabase_request("POST",
+            f"{SUPABASE_URL}/rest/v1/auto_trades",
+            json={"code": item["code"], "name": item["name"], "side": "buy",
+                  "order_price": item["price"], "quantity": 0, "status": "sim_only"},
+            retries=0)
+        if not virtual_trade:
+            logger.warning(f"API∧대장주 가상 trade 생성 실패: {item['name']}")
+            continue
+        vt = virtual_trade[0] if isinstance(virtual_trade, list) else virtual_trade
         body = {
-            "trade_id": f"api_leader_{item['code']}_{datetime.now(_KST).strftime('%Y%m%d')}",
+            "trade_id": vt["id"],
             "strategy_type": "api_leader",
             "entry_price": item["price"],
             "status": "open",
@@ -1687,10 +1698,18 @@ async def _check_api_leader_simulations():
         preset = config.get("stepped_preset", "default")
         patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
 
+        # trade_id → code 매핑 일괄 조회
+        trade_ids = list(set(s["trade_id"] for s in sims))
+        tid_filter = ",".join(trade_ids)
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+        async with session.get(trades_url, headers=headers) as tresp:
+            if tresp.status != 200:
+                return
+            trades_data = await tresp.json()
+        tid_to_code = {t["id"]: t["code"] for t in (trades_data or [])}
+
         for sim in sims:
-            # trade_id에서 종목코드 추출: api_leader_CODE_DATE
-            parts = sim["trade_id"].split("_")
-            code = parts[2] if len(parts) >= 3 else ""
+            code = tid_to_code.get(sim["trade_id"], "")
             if not code:
                 continue
             price = await _get_current_price(code)
