@@ -1564,15 +1564,18 @@ async def _check_simulations(current_price_data: dict):
 
     try:
         session = await get_session()
-        # open 상태의 가상 포지션 중 해당 종목만 조회 (trade_id → auto_trades.code 매칭)
-        # 1) 해당 code의 auto_trades id 목록 조회
-        positions = await get_active_positions()
-        trade_ids_for_code = [p["id"] for p in positions if p.get("code") == code]
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        # 해당 code의 auto_trades id 목록 조회 (sold 포함 — 실전 매도 후에도 시뮬은 open일 수 있음)
+        code_url = f"{SUPABASE_URL}/rest/v1/auto_trades?code=eq.{code}&select=id,created_at,status"
+        async with session.get(code_url, headers=headers) as code_resp:
+            if code_resp.status != 200:
+                return
+            code_rows = await code_resp.json()
+        trade_ids_for_code = [r["id"] for r in (code_rows or [])]
         if not trade_ids_for_code:
             return
 
-        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-        # 2) 해당 trade_id에 연결된 open 시뮬레이션만 조회
+        # 해당 trade_id에 연결된 open 시뮬레이션만 조회
         trade_id_filter = ",".join(trade_ids_for_code)
         url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&trade_id=in.({trade_id_filter})&select=id,strategy_type,entry_price,peak_price,stepped_stop_pct,trade_id"
         async with session.get(url, headers=headers) as resp:
@@ -1603,7 +1606,7 @@ async def _check_simulations(current_price_data: dict):
 
             if strategy == "fixed":
                 # 고정 TP 전략 시뮬레이션 — 실제 포지션의 보유일수 참조
-                matched_pos = next((p for p in positions if p["id"] == sim["trade_id"]), None)
+                matched_pos = next((r for r in code_rows if r["id"] == sim["trade_id"]), None)
                 hold_days = _calc_hold_days(matched_pos) if matched_pos else 0
                 effective_tp = get_tiered_tp(tp, hold_days)
                 result = should_sell(entry_price, current_price, take_profit=effective_tp, stop_loss=sl)
