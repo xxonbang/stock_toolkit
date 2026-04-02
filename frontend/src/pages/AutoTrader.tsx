@@ -828,7 +828,7 @@ export default function AutoTrader() {
               const timeClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "time_exit");
               const timeOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "time_exit");
               const allTimeSims = [...timeClosedSims, ...timeOpenSims.map((s: any) => {
-                const mt = activeTrades.find(t => t.id === s.trade_id);
+                const mt = trades.find(t => t.id === s.trade_id);
                 const cp = mt ? (prices[mt.code]?.price || 0) : 0;
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
                 return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _name: mt?.name };
@@ -839,7 +839,7 @@ export default function AutoTrader() {
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
-                const matchTrade = activeTrades.find(t => t.id === s.trade_id);
+                const matchTrade = trades.find(t => t.id === s.trade_id);
                 const cp = matchTrade ? (prices[matchTrade.code]?.price || 0) : 0;
                 let pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
                 let isCapped = false;
