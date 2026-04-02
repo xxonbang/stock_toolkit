@@ -1385,15 +1385,39 @@ async def sell_all_positions_market():
                 logger.error(f"장 마감 재시도 오류: {pos.get('name')} {e}")
     invalidate_cache()
 
-    # EOD: 모든 open 시뮬레이션 일괄 close (orphan 포함)
+    # EOD: 모든 open 시뮬레이션 개별 close (exit_price/pnl_pct 포함)
     try:
         session = await get_session()
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
-        eod_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open"
-        eod_body = {"status": "closed", "exit_reason": "eod_close", "exited_at": datetime.now(_KST).isoformat()}
-        async with session.patch(eod_url, json=eod_body, headers=headers) as resp:
-            if resp.status in (200, 204):
-                logger.info("EOD: 모든 open 시뮬레이션 일괄 close")
+        eod_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&select=id,trade_id,entry_price"
+        async with session.get(eod_url, headers={k: v for k, v in headers.items() if k != "Prefer"}) as resp:
+            if resp.status != 200:
+                logger.warning("EOD 시뮬 조회 실패")
+            else:
+                open_sims = await resp.json()
+                if open_sims:
+                    # trade_id → code 매핑
+                    tids = list(set(s["trade_id"] for s in open_sims))
+                    tid_filter = ",".join(tids)
+                    tr_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+                    async with session.get(tr_url, headers={k: v for k, v in headers.items() if k != "Prefer"}) as tr_resp:
+                        trades_map = {t["id"]: t["code"] for t in (await tr_resp.json() if tr_resp.status == 200 else [])}
+                    now_iso = datetime.now(_KST).isoformat()
+                    closed_count = 0
+                    for sim in open_sims:
+                        code = trades_map.get(sim["trade_id"], "")
+                        entry = sim["entry_price"]
+                        price = await _get_current_price(code) if code else 0
+                        pnl = calc_pnl_pct(entry, price) if price > 0 and entry > 0 else 0
+                        body = {"status": "closed", "exit_reason": "eod_close", "exit_price": price or entry, "pnl_pct": round(pnl, 2), "exited_at": now_iso}
+                        patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
+                        async with session.patch(patch_url, json=body, headers=headers) as pr:
+                            if pr.status in (200, 204):
+                                closed_count += 1
+                        await asyncio.sleep(0.1)
+                    logger.info(f"EOD: {closed_count}/{len(open_sims)}건 시뮬레이션 개별 close")
+                else:
+                    logger.info("EOD: open 시뮬레이션 없음")
         _orphan_sim_codes.clear()
     except Exception as e:
         logger.warning(f"EOD 시뮬레이션 close 오류: {e}")
@@ -1602,6 +1626,8 @@ async def _check_simulations(current_price_data: dict):
         sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
         ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
 
+        flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
+
         for sim in sims:
             entry_price = sim["entry_price"]
             peak_price = sim.get("peak_price", entry_price)
@@ -1609,8 +1635,13 @@ async def _check_simulations(current_price_data: dict):
             strategy = sim["strategy_type"]
             pnl = calc_pnl_pct(entry_price, current_price)
 
-            # Update peak
-            new_peak = max(peak_price, current_price)
+            # Update peak (flash spike 방지: 급등 시 peak 갱신 차단)
+            new_peak = peak_price
+            if current_price > peak_price:
+                if peak_price > 0 and (current_price - peak_price) / peak_price > flash_spike_pct:
+                    pass  # flash spike — peak 갱신 안 함
+                else:
+                    new_peak = current_price
 
             exit_reason = None
             exit_price = None
@@ -1695,7 +1726,7 @@ async def _check_api_leader_simulations():
         config = await _get_trade_config()
         sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
         ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
-        preset = config.get("stepped_preset", "default")
+        preset = "aggressive"  # api_leader는 항상 Stepped 공격형
         patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
 
         # trade_id → code 매핑 일괄 조회

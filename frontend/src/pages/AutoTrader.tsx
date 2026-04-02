@@ -223,7 +223,7 @@ export default function AutoTrader() {
         // filled + 최근 7일 이내 sold 종목 모두 시세 조회 (시뮬레이션 open 포지션 대응)
         const recentCutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
         const priceCodes = [...new Set((data as Trade[])
-          .filter(t => t.status === "filled" || (t.status === "sold" && t.created_at >= recentCutoff))
+          .filter(t => t.status === "filled" || t.status === "sim_only" || (t.status === "sold" && t.created_at >= recentCutoff))
           .map(t => t.code).filter(Boolean))];
         if (priceCodes.length > 0) {
           fetchKisPrices(priceCodes).then(kisData => {
