@@ -1203,6 +1203,18 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
         <div className="flex items-center gap-2 min-w-0">
           <span className="font-semibold text-[15px] t-text truncate">{trade.name}</span>
           <span className="text-[11px] t-text-dim shrink-0">{trade.code}</span>
+          {type === "active" && (() => {
+            const filled = trade.filled_at || trade.created_at;
+            if (!filled) return null;
+            const buyDate = new Date(filled);
+            const now = new Date();
+            const buyDay = new Date(buyDate.getFullYear(), buyDate.getMonth(), buyDate.getDate());
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            let biz = 0;
+            const d = new Date(buyDay);
+            while (d < today) { d.setDate(d.getDate() + 1); const dow = d.getDay(); if (dow !== 0 && dow !== 6) biz++; }
+            return <span className="text-[10px] font-medium shrink-0" style={{ color: "var(--text-sub)" }}>D{biz > 0 ? `+${biz}` : ""}</span>;
+          })()}
         </div>
         <div className="flex items-center gap-2 shrink-0">
           {type === "closed" && (
