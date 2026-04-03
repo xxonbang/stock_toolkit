@@ -694,7 +694,7 @@ export default function AutoTrader() {
                 {/* 과열 필터 토글 */}
                 <div className="mt-2 pt-2 border-t t-border-light">
                   <div className="flex items-center justify-between mb-1">
-                    <div className="text-[11px] font-medium t-text">Criteria 가감점 필터</div>
+                    <div className="text-[11px] font-medium t-text">Criteria 가점 필터</div>
                   <button onClick={async () => {
                     const next = !criteriaFilter;
                     setCriteriaFilter(next);
