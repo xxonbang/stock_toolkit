@@ -1213,7 +1213,14 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
             let biz = 0;
             const d = new Date(buyDay);
             while (d < today) { d.setDate(d.getDate() + 1); const dow = d.getDay(); if (dow !== 0 && dow !== 6) biz++; }
-            return <span className="text-[10px] font-medium shrink-0" style={{ color: "var(--text-sub)" }}>D{biz > 0 ? `+${biz}` : ""}</span>;
+            const label = biz === 0 ? "D" : `D+${biz}`;
+            const opacity = Math.min(0.4 + biz * 0.12, 1);
+            return (
+              <span className="shrink-0 text-[9px] font-semibold tracking-wider px-1.5 py-0.5 rounded-md"
+                style={{ background: `rgba(99,102,241,${opacity * 0.12})`, color: `rgba(99,102,241,${opacity})` }}>
+                {label}
+              </span>
+            );
           })()}
         </div>
         <div className="flex items-center gap-2 shrink-0">
