@@ -1433,6 +1433,8 @@ async def schedule_sell_check():
                     continue
                 await check_positions_for_sell({"code": code, "price": price})
                 await asyncio.sleep(0.3)  # API 호출 간격
+            # 시뮬레이션 미생성 종목 자동 보완 (수동 매수 등 daemon 외부 경로 대응)
+            await _ensure_simulations_for_filled(targets)
             # 실전 매도 후 남은 시뮬레이션 독립 체크
             await _check_orphan_simulations()
         except Exception as e:
@@ -1768,6 +1770,50 @@ async def _check_api_leader_simulations():
             await asyncio.sleep(0.2)
     except Exception as e:
         logger.warning(f"API∧대장주 시뮬 체크 오류: {e}")
+
+
+async def _ensure_simulations_for_filled(positions: list[dict]):
+    """filled 종목 중 시뮬레이션이 없는 것을 자동 생성 (수동 매수 등 daemon 외부 경로 대응)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    filled = [p for p in positions if p.get("status") == "filled"]
+    if not filled:
+        return
+    try:
+        session = await get_session()
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        # 현재 open/closed 시뮬이 있는 trade_id 조회
+        tids = ",".join(p["id"] for p in filled)
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=in.({tids})&select=trade_id,strategy_type"
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return
+            existing = await resp.json()
+        existing_set = set((e["trade_id"], e["strategy_type"]) for e in (existing or []))
+
+        config = await _get_trade_config()
+        active_strategy = config.get("strategy_type", "fixed")
+        sim_strategy = "stepped" if active_strategy == "fixed" else "fixed"
+        user_id = config.get("user_id") or ""
+        if not user_id:
+            return
+
+        for pos in filled:
+            tid = pos["id"]
+            entry = pos.get("filled_price") or pos.get("order_price", 0)
+            if entry <= 0:
+                continue
+            # 반대 전략 시뮬 누락 시 생성
+            if (tid, sim_strategy) not in existing_set:
+                await _create_simulation(tid, sim_strategy, entry, user_id)
+                logger.info(f"시뮬 자동 보완: {pos.get('name','')}({pos.get('code','')}) {sim_strategy} entry={entry}")
+            # time_exit 누락 시 생성 (11:00 전이면)
+            if (tid, "time_exit") not in existing_set and datetime.now(_KST).hour < 11:
+                await _create_simulation(tid, "time_exit", entry, user_id)
+                logger.info(f"시뮬 자동 보완: {pos.get('name','')}({pos.get('code','')}) time_exit entry={entry}")
+    except Exception as e:
+        logger.warning(f"시뮬 자동 보완 오류: {e}")
 
 
 async def _check_orphan_simulations():
