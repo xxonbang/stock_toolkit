@@ -1799,17 +1799,20 @@ async def _ensure_simulations_for_filled(positions: list[dict]):
         if not user_id:
             return
 
+        # trade_id별 시뮬 존재 여부
+        tids_with_sim = set(e["trade_id"] for e in (existing or []))
+
         for pos in filled:
             tid = pos["id"]
+            if tid in tids_with_sim:
+                continue  # 이미 시뮬이 하나라도 있으면 스킵 (daemon 매수 종목)
             entry = pos.get("filled_price") or pos.get("order_price", 0)
             if entry <= 0:
                 continue
-            # 반대 전략 시뮬 누락 시 생성
-            if (tid, sim_strategy) not in existing_set:
-                await _create_simulation(tid, sim_strategy, entry, user_id)
-                logger.info(f"시뮬 자동 보완: {pos.get('name','')}({pos.get('code','')}) {sim_strategy} entry={entry}")
-            # time_exit 누락 시 생성 (11:00 전이면)
-            if (tid, "time_exit") not in existing_set and datetime.now(_KST).hour < 11:
+            # 시뮬이 전혀 없는 종목 = daemon 외부 경로 매수 → 반대 전략 + time_exit 생성
+            await _create_simulation(tid, sim_strategy, entry, user_id)
+            logger.info(f"시뮬 자동 보완: {pos.get('name','')}({pos.get('code','')}) {sim_strategy} entry={entry}")
+            if datetime.now(_KST).hour < 11:
                 await _create_simulation(tid, "time_exit", entry, user_id)
                 logger.info(f"시뮬 자동 보완: {pos.get('name','')}({pos.get('code','')}) time_exit entry={entry}")
     except Exception as e:
