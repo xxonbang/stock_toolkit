@@ -1,5 +1,16 @@
 # Task History
 
+## 2026-04-02
+
+### [진단] 5팩터×Criteria 가감점 조합 백테스트 v2 — 학습/검증 분리 연구 (2026-04-02 23:30 KST)
+- **변경 파일:** `scripts/collect_daily_ohlcv.py` (신규), `scripts/backtest_factor_v2.py` (신규), `scripts/backtest_factor_combo.py` (신규)
+- **생성 파일:** `results/daily_ohlcv_all.json` (353MB, 2618종목×500일봉), `results/backtest_factor_v2.json`, `results/backtest_factor_combo.json`, `docs/research/2026-04-02-factor-combo.md`, `docs/research/2026-04-02-factor-v2.md`
+- **내용:**
+  - KIS API로 전종목(2,618) 500일 일봉 수집 (14분, 실패 0건)
+  - 유효 유니버스 1,309종목 (300일+ & 거래대금 10억+), 440일 기간
+  - 학습(221일)/검증(219일) 분리 Out-of-Sample 백테스트 26,190건 실행
+  - 결론: 감점 시스템(정배열/과열/TOP30/시총) 일관되게 역효과 또는 무효. 모멘텀/대장주 독립 기여도 0. 저가주+수급+골든크로스+저항돌파 조합이 현재 설정 대비 검증에서도 우수 (trim +1.97% vs +1.18%, 승률 48.4% vs 38.8%)
+
 ## 2026-04-01
 
 ### [기능] API매수∧대장주Top5 종목 선정 시뮬레이션 추가 (2026-04-01 14:35 KST)

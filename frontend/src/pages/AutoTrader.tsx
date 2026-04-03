@@ -706,8 +706,7 @@ export default function AutoTrader() {
                   </button>
                   </div>
                   <div className="text-[9px] t-text-dim leading-relaxed">
-                    가점: 수급+10 · 골든크로스+8 · 저항돌파+5<br/>
-                    감점: TOP30-15 · 정배열-10 · 과열-8 · 시총-5 · 5개+ 제외
+                    가점: 수급+10 · 골든크로스+5 · 저항돌파+5
                   </div>
                 </div>
               </div>

@@ -145,7 +145,7 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
     """연구 최적 전략: 5팩터 스코어링으로 Top-N 종목 선정.
     팩터: api매수(30) + api적극매수(+10) + vision매수(20) + vision적극매수(+5)
           + 대장주1등(25)/전체(15) + 저가주<2만(5)
-    criteria_filter=True: 거래대금TOP30/MA정배열 종목 감점, criteria 5개+ 제외
+    criteria_filter=True: 수급+10, 골든크로스+5, 저항돌파+5 가점 적용
     가격 < max_price 필터, 최소 min_score점, 상위 top_n개 반환.
     """
     if not signals:
@@ -202,39 +202,18 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
         if score >= min_score:
             scored.append({**s, "_score": score, "_score_detail": details})
 
-    # criteria_filter 적용: 가점(선반영 안 된 긍정 신호) + 감점(이미 선반영된 역지표)
+    # criteria_filter 적용: 가점만 (감점은 백테스트 v2에서 일관 역효과 확인 → 제거)
     if criteria_filter:
-        filtered = []
         for item in scored:
-            met_count = item.get("_criteria_met_count", 0)
-            # criteria 5개 이상 충족 → 과열로 제외
-            if met_count >= 5:
-                continue
-            # 감점 (역지표: 이미 시장에 선반영)
-            if item.get("_top30_trading_value"):
-                item["_score"] -= 15
-                item.setdefault("_score_detail", []).append("과열(TOP30)-15")
-            if item.get("_ma_aligned"):
-                item["_score"] -= 10
-                item.setdefault("_score_detail", []).append("과열(정배열)-10")
-            if item.get("_overheating"):
-                item["_score"] -= 8
-                item.setdefault("_score_detail", []).append("과열(과열)-8")
-            if item.get("_market_cap"):
-                item["_score"] -= 5
-                item.setdefault("_score_detail", []).append("과열(시가총액)-5")
-            # 가점 (선반영 안 된 긍정 신호)
             if item.get("_supply_demand"):
                 item["_score"] += 10
                 item.setdefault("_score_detail", []).append("수급양호+10")
             if item.get("_golden_cross"):
-                item["_score"] += 8
-                item.setdefault("_score_detail", []).append("골든크로스+8")
+                item["_score"] += 5
+                item.setdefault("_score_detail", []).append("골든크로스+5")
             if item.get("_resistance_breakout"):
                 item["_score"] += 5
                 item.setdefault("_score_detail", []).append("저항돌파+5")
-            filtered.append(item)
-        scored = filtered
 
     def _sort_key(x):
         ad = x.get("api_data") or {}
