@@ -686,6 +686,7 @@ export default function AutoTrader() {
                   <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#8b5cf6" }}>Vision 매수</span><span className="t-text-dim">+20점 (적극매수 +5 추가)</span></div>
                   <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>대장주 1등</span><span className="t-text-dim">+25점 / 전체 +15점</span></div>
                   <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>저가주</span><span className="t-text-dim">&lt;2만원 +5점</span></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>급락반등</span><span className="t-text-dim">-10%↓ &amp; 외인50만주↑ +35점</span></div>
                 </div>
                 <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
                   가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
