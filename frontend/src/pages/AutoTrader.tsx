@@ -974,7 +974,10 @@ export default function AutoTrader() {
                                 const isToday = date === todayStr || date === "보유";
                                 const isChecked = !excludedDates.has(date);
                                 return (
-                                  <details key={date} open={isToday}>
+                                  <details key={date} open={isToday} onToggle={(e) => {
+                                    const el = e.currentTarget;
+                                    if (el.open) requestAnimationFrame(() => el.scrollIntoView({ behavior: "smooth", block: "nearest" }));
+                                  }}>
                                     <summary className={`flex items-center justify-between px-2.5 py-2 rounded-xl cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden transition ${isChecked ? "" : "opacity-40"}`}
                                       style={{ background: "var(--bg-card-alt)", border: "1px solid var(--border-light)" }}>
                                       <div className="flex items-center gap-2">
