@@ -860,7 +860,7 @@ export default function AutoTrader() {
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
                 { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
                 { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
-                { key: "api_leader", label: "API매수∧대장주Top5", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
+                { key: "api_leader", label: "API매수∧대장주Top5", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => setStrategyDetail("api_leader") },
               ];
 
               return (
@@ -926,6 +926,19 @@ export default function AutoTrader() {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
                               });
+                          if (items.length === 0) {
+                            return (
+                              <div className="text-center py-10 space-y-3">
+                                <div className="text-2xl">📭</div>
+                                <div className="text-sm font-medium t-text">아직 데이터가 없습니다</div>
+                                <div className="text-xs t-text-dim leading-relaxed">
+                                  {strategyDetail === "api_leader"
+                                    ? "API매수 신호와 테마 대장주Top5 조건을\n동시에 충족하는 종목이 발생하면 자동 시뮬레이션됩니다."
+                                    : "매매가 실행되면 자동으로 시뮬레이션이 생성됩니다."}
+                                </div>
+                              </div>
+                            );
+                          }
                           const grouped: Record<string, typeof items> = {};
                           for (const item of items) {
                             const key = item._date;
