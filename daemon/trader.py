@@ -1733,7 +1733,15 @@ async def _check_api_leader_simulations():
             if price <= 0:
                 continue
             entry = sim["entry_price"]
-            peak = max(sim.get("peak_price", entry), price)
+            prev_peak = sim.get("peak_price", entry)
+            flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
+            if price > prev_peak:
+                if prev_peak > 0 and (price - prev_peak) / prev_peak > flash_spike_pct:
+                    peak = prev_peak
+                else:
+                    peak = price
+            else:
+                peak = prev_peak
             pnl = calc_pnl_pct(entry, price)
             exit_reason = None
 
@@ -1787,7 +1795,7 @@ async def _check_orphan_simulations():
         # trade_id → code 매핑
         trade_ids = list(set(s["trade_id"] for s in sims))
         tid_filter = ",".join(trade_ids)
-        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code,filled_price"
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code,filled_price,created_at"
         async with session.get(trades_url, headers=headers) as resp:
             if resp.status != 200:
                 return
@@ -1812,13 +1820,24 @@ async def _check_orphan_simulations():
             if price <= 0:
                 continue
             entry = sim["entry_price"]
-            peak = max(sim.get("peak_price", entry), price)
+            prev_peak = sim.get("peak_price", entry)
+            # flash spike 방지: 급등 시 peak 갱신 차단
+            flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
+            if price > prev_peak:
+                if prev_peak > 0 and (price - prev_peak) / prev_peak > flash_spike_pct:
+                    peak = prev_peak  # flash spike — peak 유지
+                else:
+                    peak = price
+            else:
+                peak = prev_peak
             pnl = calc_pnl_pct(entry, price)
             strategy = sim["strategy_type"]
             exit_reason = None
 
             if strategy == "fixed":
-                result = should_sell(entry, price, take_profit=tp, stop_loss=sl)
+                hold_days = _calc_hold_days(trade) if trade else 0
+                effective_tp = get_tiered_tp(tp, hold_days)
+                result = should_sell(entry, price, take_profit=effective_tp, stop_loss=sl)
                 if result:
                     exit_reason = result
                 elif pnl > 0 and peak > 0:
