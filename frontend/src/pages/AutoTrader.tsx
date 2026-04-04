@@ -101,13 +101,13 @@ export default function AutoTrader() {
   const [tradeEnabled, setTradeEnabled] = useState(false);
   const [savedTradeEnabled, setSavedTradeEnabled] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "ok" | "fail" } | null>(null);
-  const [strategyType, setStrategyType] = useState<"fixed" | "stepped">("fixed");
-  const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped">("fixed");
+  const [strategyType, setStrategyType] = useState<"fixed" | "stepped" | "gapup">("fixed");
+  const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped" | "gapup">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "five_factor" | null>(null);
   const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
@@ -425,8 +425,8 @@ export default function AutoTrader() {
         {/* 현재 적용 중인 설정 */}
         <div className="text-[10px] t-text-dim mb-2 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 flex-wrap" style={{ background: "var(--bg)" }}>
           <span className="font-medium t-text-sub">적용 중:</span>
-          <span className={savedStrategyType === "stepped" ? "text-blue-500" : "text-amber-500"}>
-            {savedStrategyType === "stepped" ? `Stepped Trailing${savedSteppedPreset === "aggressive" ? " (공격형)" : ""}` : "고정 익절/손절"}
+          <span className={savedStrategyType === "gapup" ? "text-red-500" : savedStrategyType === "stepped" ? "text-blue-500" : "text-amber-500"}>
+            {savedStrategyType === "gapup" ? "갭업 모멘텀" : savedStrategyType === "stepped" ? `Stepped Trailing${savedSteppedPreset === "aggressive" ? " (공격형)" : ""}` : "고정 익절/손절"}
           </span>
           <span className="t-text-dim">·</span>
           <span className={savedResearchOptimal ? "text-indigo-500" : "text-emerald-500"}>
@@ -442,21 +442,34 @@ export default function AutoTrader() {
           </span>
         </div>
         <div className="flex gap-2">
-          {(["stepped", "fixed"] as const).map(st => (
+          {(["gapup", "stepped", "fixed"] as const).map(st => (
             <button key={st} onClick={() => {
               setStrategyType(st);
-              if (st === "stepped") setShowPctEdit(false);
+              if (st !== "fixed") setShowPctEdit(false);
             }}
               className={`flex-1 text-[11px] py-2 rounded-lg font-medium transition ${
                 strategyType === st
-                  ? "bg-blue-600 text-white"
+                  ? (st === "gapup" ? "bg-red-500 text-white" : "bg-blue-600 text-white")
                   : "t-text-sub hover:t-text"
               }`}
               style={strategyType !== st ? { background: "var(--bg)", border: "1px solid var(--border)" } : {}}>
-              {st === "stepped" ? "Stepped Trailing" : "고정 익절/손절"}
+              {st === "gapup" ? "갭업 모멘텀" : st === "stepped" ? "Stepped Trailing" : "고정 익절/손절"}
             </button>
           ))}
         </div>
+        {strategyType === "gapup" && (
+          <div className="mt-2 p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>갭업</span><span className="t-text-dim">시가 갭업 2~5%</span></div>
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>MA200</span><span className="t-text-dim">현재가 &gt; 200일 이동평균</span></div>
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>스캔</span><span className="t-text-dim">09:01 200종목 스캔 → 09:30 거래량 보완</span></div>
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>매도</span><span className="t-text-dim">당일 15:15 장 마감 청산</span></div>
+            </div>
+            <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
+              상위 2종목 | 자본 100% 배분 | 오버나이트 리스크 없음
+            </div>
+          </div>
+        )}
         {strategyType === "stepped" && (
           <details className="mt-2 rounded-lg" style={{ background: "var(--bg)" }}>
             <summary className="flex items-center gap-1 p-2.5 text-[9px] font-medium t-text-sub cursor-pointer hover:t-text transition select-none list-none [&::-webkit-details-marker]:hidden">
@@ -525,7 +538,8 @@ export default function AutoTrader() {
             {strategySaving ? "저장 중..." : "전략 변경 확인"}
           </button>
         )}
-        {/* 익절/손절 설정 — 전략 카드 내부 */}
+        {/* 익절/손절 설정 — 전략 카드 내부 (갭업에서는 숨김) */}
+        {strategyType !== "gapup" && (
         <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
           <div className="flex items-center justify-between">
             {strategyType === "stepped" ? (
@@ -655,6 +669,7 @@ export default function AutoTrader() {
           </div>
         )}
         </div>
+        )}
         {/* 매집 종목 선정 기준 */}
         <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
           <div className="flex items-center justify-between mb-2">
@@ -680,16 +695,35 @@ export default function AutoTrader() {
           {useResearchOptimal && (
             <div>
               <div className="p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
-                <div className="text-[11px] font-semibold t-text mb-1">갭업 모멘텀 (실제 매매)</div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>갭업</span><span className="t-text-dim">시가 갭업 2~5%</span></div>
-                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>MA200</span><span className="t-text-dim">현재가 &gt; 200일 이동평균</span></div>
-                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>매도</span><span className="t-text-dim">당일 15:15 장 마감 청산</span></div>
-                </div>
-                <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
-                  상위 2종목 | 자본 100% 배분 | 5팩터 스코어는 시뮬레이션으로 추적
-                </div>
-                {/* 과열 필터 토글 */}
+                {strategyType === "gapup" ? (
+                  <>
+                    <div className="text-[11px] font-semibold t-text mb-1">갭업 모멘텀 종목 선정</div>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>09:01</span><span className="t-text-dim">200종목 스캔 → 갭업 2~5% + MA200 필터</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>09:30</span><span className="t-text-dim">매수 0건 시 → 거래량 2배 필터 추가 재스캔</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
+                    </div>
+                    <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
+                      자본 100% 배분 | 5팩터 스코어는 시뮬레이션으로 추적
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-[11px] font-semibold t-text mb-1">5팩터 스코어 Top-2 자동 선정</div>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>API 매수</span><span className="t-text-dim">+30점 (적극매수 +10 추가)</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#8b5cf6" }}>Vision 매수</span><span className="t-text-dim">+20점 (적극매수 +5 추가)</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>대장주 1등</span><span className="t-text-dim">+25점 / 전체 +15점</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>저가주</span><span className="t-text-dim">&lt;2만원 +5점</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>급락반등</span><span className="t-text-dim">-10%↓ &amp; 외인50만주↑ +35점</span></div>
+                    </div>
+                    <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
+                      가격 &lt; 5만원 | 최소 20점 | 상위 2종목 | 자본 100% 배분
+                    </div>
+                  </>
+                )}
+                {/* Criteria 가점 필터 — Stepped Trailing 선택 시에만 */}
+                {strategyType === "stepped" && (
                 <div className="mt-2 pt-2 border-t t-border-light">
                   <div className="flex items-center justify-between mb-1">
                     <div className="text-[11px] font-medium t-text">Criteria 가점 필터</div>
@@ -708,6 +742,7 @@ export default function AutoTrader() {
                     가점: 수급+10 · 골든크로스+5 · 저항돌파+5
                   </div>
                 </div>
+                )}
               </div>
               {useResearchOptimal !== savedResearchOptimal && (
                 <div className="flex items-center gap-2 mt-2">
@@ -835,6 +870,9 @@ export default function AutoTrader() {
               // API매수∧테마대장주 시뮬
               const apiLeaderSims = simulations.filter(s => s.strategy_type === "api_leader");
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
+              // 5팩터 스코어 시뮬
+              const fiveFactorSims = simulations.filter(s => s.strategy_type === "five_factor");
+              const fiveFactorPnl = fiveFactorSims.length > 0 ? fiveFactorSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / fiveFactorSims.length : 0;
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = trades.find(t => t.id === s.trade_id);
@@ -852,13 +890,14 @@ export default function AutoTrader() {
               const simPnl = allSims.length > 0 ? allSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allSims.length : 0;
 
               const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
-              const realLabel = strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
+              const realLabel = strategyType === "gapup" ? "갭업 모멘텀" : strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
                 { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
                 { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
-                { key: "api_leader", label: "API매수∧테마대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => setStrategyDetail("api_leader") },
+                { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
+                { key: "five_factor", label: "5팩터 스코어", pnl: fiveFactorPnl, count: fiveFactorSims.length, onClick: () => fiveFactorSims.length > 0 ? setStrategyDetail("five_factor") : undefined },
               ];
 
               return (
@@ -911,7 +950,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧테마대장주 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : strategyDetail === "five_factor" ? "5팩터 스코어 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                           </h3>
                         </div>
@@ -920,7 +959,7 @@ export default function AutoTrader() {
                         {(() => {
                           const items = strategyDetail === "real"
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
-                            : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
+                            : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : strategyDetail === "five_factor" ? fiveFactorSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
                               });
