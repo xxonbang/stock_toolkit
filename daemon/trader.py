@@ -1076,26 +1076,28 @@ async def run_buy_process():
         logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
 
 
-async def run_gapup_scan_and_buy():
-    """장 시작 갭업 스캔: stock-master 상위 200종목 현재가 조회 → 갭업 2~5% + MA200 + 거래량2배 → 즉시 매수.
-    09:01 KST에 호출됨 (schedule_gapup_open에서).
+async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
+    """장 시작 갭업 스캔: 상위 200종목 조회 → 갭업 2~5% + MA200 → 즉시 매수.
+    require_volume=True: 거래량 2배 필터 추가 (09:30 보완 매수용).
+    Returns: 매수 종목 수.
     """
     import json
     from pathlib import Path
 
-    logger.info("갭업 스캔 시작 — stock-master 상위 200종목 조회")
+    vol_label = "+거래량2배" if require_volume else ""
+    logger.info(f"갭업 스캔 시작{vol_label} — stock-master 상위 200종목 조회")
 
     # 1) stock-master에서 전종목 코드+이름 로드
     master_path = Path(__file__).parent.parent / "results" / "stock-master.json"
     if not master_path.exists():
         logger.warning("stock-master.json 없음 — 갭업 스캔 중단")
-        return
+        return 0
     with open(master_path, encoding="utf-8") as f:
         master = json.load(f)
     all_stocks = master.get("stocks", [])
     if not all_stocks:
         logger.warning("stock-master 종목 0개 — 갭업 스캔 중단")
-        return
+        return 0
 
     # MA200 캐시 로드
     ma200_map = _load_ma200_cache()
@@ -1111,7 +1113,7 @@ async def run_gapup_scan_and_buy():
     token = await _ensure_mock_token()
     if not token:
         logger.warning("토큰 없음 — 갭업 스캔 중단")
-        return
+        return 0
 
     async def _fetch_detail(code: str) -> dict | None:
         try:
@@ -1151,9 +1153,12 @@ async def run_gapup_scan_and_buy():
             if ma200 > 0 and cur_price <= ma200:
                 continue
 
-            # 갭업 2~5% (거래량 필터 제외: 09:01 시점에 전일비 거래량 판단 불가)
+            # 갭업 2~5%
             if 2 <= gap_pct < 5:
                 vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
+                # 09:30 보완 모드: 거래량 2배(200%) 필터 추가
+                if require_volume and vol_rate < 200:
+                    continue
                 candidates.append({
                     "code": code, "name": name, "price": cur_price,
                     "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
@@ -1163,8 +1168,9 @@ async def run_gapup_scan_and_buy():
     logger.info(f"갭업 스캔 결과: {len(candidates)}종목 조건 충족")
 
     if not candidates:
-        await send_telegram("📭 갭업 스캔: 조건 충족 종목 없음 (갭업2~5% + MA200↑ + 거래량2배)")
-        return
+        cond = "갭업2~5% + MA200↑ + 거래량2배" if require_volume else "갭업2~5% + MA200↑"
+        await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
+        return 0
 
     # 거래량 순 정렬, 상위 2종목
     candidates.sort(key=lambda x: -x["vol_rate"])
@@ -1183,19 +1189,20 @@ async def run_gapup_scan_and_buy():
 
     if not buy_targets:
         await send_telegram("📭 갭업 스캔: 후보 있으나 보유중/상한가로 매수 불가")
-        return
+        return 0
 
     # 잔고 조회 + 매수
     balance = await fetch_available_balance()
     if balance <= 0:
         names = ", ".join(t["name"] for t in buy_targets)
         await send_telegram(f"⚠️ 갭업 매수 실패: 잔고 없음\n대상: {names}")
-        return
+        return 0
 
     amount_per = balance // len(buy_targets)
 
     # 텔레그램 보고
-    rpt = [f"<b>📈 갭업 모멘텀 스캔 매수</b>"]
+    scan_label = "📈 갭업 모멘텀 09:30 보완 매수" if require_volume else "📈 갭업 모멘텀 스캔 매수"
+    rpt = [f"<b>{scan_label}</b>"]
     rpt.append(f"스캔: {len(scan_targets)}종목 → 조건충족: {len(candidates)}종목")
     rpt.append(f"잔고: {balance:,}원 | 종목당: {amount_per:,}원")
     for t in buy_targets:
@@ -1218,6 +1225,7 @@ async def run_gapup_scan_and_buy():
         except Exception as e:
             logger.warning(f"갭업 매수 후 구독 갱신 실패: {e}")
     logger.info(f"갭업 스캔 매수 완료: {bought}종목")
+    return bought
 
 
 def _today_utc_start() -> str:

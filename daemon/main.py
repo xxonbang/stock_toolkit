@@ -291,27 +291,45 @@ async def schedule_signal_pulse_trade():
 
 
 async def schedule_gapup_open():
-    """09:01 KST에 갭업 모멘텀 스캔 + 매수 (1일 1회)"""
+    """09:01 갭업 스캔 + 매수, 09:30 보완 매수 (09:01에 0건인 경우만)"""
     _gapup_done_date: str = ""
+    _gapup_bought: bool = False  # 09:01에 매수 성공 여부
+    _fallback_done: bool = False  # 09:30 보완 실행 여부
     while not _shutdown:
         await asyncio.sleep(10)
         if _shutdown or not is_market_day():
             continue
         now = datetime.now(KST)
         today = now.strftime("%Y-%m-%d")
-        if _gapup_done_date == today:
-            continue
-        # 09:01~09:03 윈도우
-        if now.hour == 9 and 1 <= now.minute <= 3:
+        if _gapup_done_date != today:
+            _gapup_bought = False
+            _fallback_done = False
+
+        # 09:01~09:03: 1차 스캔 (MA200 only)
+        if now.hour == 9 and 1 <= now.minute <= 3 and _gapup_done_date != today:
             if _buy_lock.locked():
                 continue
             async with _buy_lock:
                 logger.info("09:01 갭업 모멘텀 스캔 시작")
                 try:
-                    await run_gapup_scan_and_buy()
+                    bought = await run_gapup_scan_and_buy()
+                    _gapup_bought = bought > 0 if isinstance(bought, int) else False
                 except Exception as e:
                     logger.error(f"갭업 스캔 오류: {e}")
                 _gapup_done_date = today
+
+        # 09:30~09:33: 보완 매수 (09:01에 0건인 경우만, 거래량 2배 필터 추가)
+        if (now.hour == 9 and 30 <= now.minute <= 33
+                and _gapup_done_date == today and not _gapup_bought and not _fallback_done):
+            if _buy_lock.locked():
+                continue
+            async with _buy_lock:
+                logger.info("09:30 갭업 보완 스캔 시작 (09:01 매수 0건 → 거래량 필터 추가)")
+                try:
+                    await run_gapup_scan_and_buy(require_volume=True)
+                except Exception as e:
+                    logger.error(f"갭업 보완 스캔 오류: {e}")
+                _fallback_done = True
 
 
 async def schedule_eod_close():
