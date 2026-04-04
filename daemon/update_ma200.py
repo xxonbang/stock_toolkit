@@ -107,5 +107,30 @@ async def update_ma200():
     await close_session()
 
 
+async def update_stock_master():
+    """stock-master.json을 GitHub Pages에서 다운로드 (주 1회)"""
+    import aiohttp
+    from datetime import datetime, timezone, timedelta
+    KST = timezone(timedelta(hours=9))
+
+    url = "https://xxonbang.github.io/stock_toolkit/data/stock-master.json"
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as resp:
+                if resp.status == 200:
+                    data = await resp.json()
+                    stocks = data.get("stocks", [])
+                    if stocks:
+                        MASTER_PATH.parent.mkdir(parents=True, exist_ok=True)
+                        MASTER_PATH.write_text(json.dumps(data, ensure_ascii=False))
+                        print(f"stock-master.json 갱신: {len(stocks)}종목")
+                    else:
+                        print("stock-master.json 갱신 실패: 종목 0건")
+                else:
+                    print(f"stock-master.json 다운로드 실패: HTTP {resp.status}")
+    except Exception as e:
+        print(f"stock-master.json 갱신 오류: {e}")
+
+
 if __name__ == "__main__":
     asyncio.run(update_ma200())
