@@ -674,9 +674,11 @@ export default function AutoTrader() {
         <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-semibold t-text">매집 종목 선정</span>
+            {strategyType !== "gapup" && (
             <button onClick={(e) => { e.preventDefault(); setShowBuyHelp(true); }} className="t-text-dim hover:t-text transition">
               <HelpCircle size={13} />
             </button>
+            )}
           </div>
           {/* 모드 전환: 연구 최적 vs 수동 설정 (갭업에서는 숨김) */}
           {strategyType !== "gapup" && (
