@@ -1755,29 +1755,40 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
 
 
 async def _create_stepped_simulations(scored_top2: list, config: dict):
-    """기존 5팩터 스코어링 종목을 시뮬레이션으로 추적 (strategy_type=stepped)"""
+    """기존 5팩터 스코어링 종목을 시뮬레이션으로 추적 (strategy_type=stepped).
+    가상 auto_trades(sim_only) 레코드를 먼저 생성하여 UUID를 확보한 뒤 시뮬 생성.
+    """
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     from daemon.position_db import _supabase_request
     user_id = config.get("user_id", "")
     if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
     today = datetime.now(_KST).strftime("%Y%m%d")
-    # 이미 오늘 생성된 stepped 시뮬이 있으면 스킵
+    # 이미 오늘 생성된 stepped sim_only가 있으면 스킵
     existing = await _supabase_request(
         "GET",
-        f"{SUPABASE_URL}/rest/v1/strategy_simulations?strategy_type=eq.stepped&status=eq.open&user_id=eq.{user_id}&select=trade_id",
+        f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&side=eq.buy&select=code,created_at",
     )
-    existing_ids = {r.get("trade_id", "") for r in (existing or [])}
+    today_iso = datetime.now(_KST).strftime("%Y-%m-%d")
+    existing_codes_today = {r.get("code") for r in (existing or []) if (r.get("created_at") or "")[:10] == today_iso}
     for item in scored_top2:
         code = item.get("code", "")
+        name = item.get("name", code)
         price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
-        if price <= 0:
+        if price <= 0 or code in existing_codes_today:
             continue
-        trade_id = f"stepped_{code}_{today}"
-        if trade_id in existing_ids:
+        # 가상 auto_trades 레코드 생성 (trade_id UUID 확보용)
+        virtual_trade = await _supabase_request("POST",
+            f"{SUPABASE_URL}/rest/v1/auto_trades",
+            json={"code": code, "name": name, "side": "buy",
+                  "order_price": price, "quantity": 0, "status": "sim_only"},
+            retries=0)
+        if not virtual_trade:
+            logger.warning(f"Stepped 시뮬 가상 trade 생성 실패: {name}")
             continue
+        vt = virtual_trade[0] if isinstance(virtual_trade, list) else virtual_trade
         body = {
-            "trade_id": trade_id,
+            "trade_id": vt["id"],
             "strategy_type": "stepped",
             "entry_price": price,
             "status": "open",
@@ -1792,8 +1803,7 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
                        "Content-Type": "application/json", "Prefer": "return=minimal"}
             async with session.post(url, json=body, headers=headers) as resp:
                 if resp.status in (200, 201):
-                    name = item.get("name", code)
-                    logger.info(f"5팩터 시뮬 생성: {name}({code}) {price:,}원 score={item.get('_score',0)}")
+                    logger.info(f"Stepped 시뮬 생성: {name}({code}) {price:,}원 score={item.get('_score',0)}")
         except Exception as e:
             logger.warning(f"5팩터 시뮬 생성 오류: {code} {e}")
 
@@ -2121,11 +2131,18 @@ async def _check_stepped():
         preset = config.get("stepped_preset", "default")
         patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
 
+        # trade_id → code 매핑 (auto_trades 조인)
+        trade_ids = list(set(s["trade_id"] for s in sims))
+        tid_filter = ",".join(trade_ids)
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+        async with session.get(trades_url, headers=headers) as tresp:
+            if tresp.status != 200:
+                return
+            trades_data = await tresp.json()
+        tid_to_code = {t["id"]: t["code"] for t in (trades_data or [])}
+
         for sim in sims:
-            # trade_id = "stepped_{code}_{date}" → code 추출
-            tid = sim.get("trade_id", "")
-            parts = tid.split("_")
-            code = parts[2] if len(parts) >= 3 else ""
+            code = tid_to_code.get(sim["trade_id"], "")
             if not code:
                 continue
             price = await _get_current_price(code)
