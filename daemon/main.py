@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, sell_all_positions_market, schedule_sell_check, cancel_all_pending_orders
+from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, sell_all_positions_market, sell_all_positions_force, schedule_sell_check, cancel_all_pending_orders
 from daemon.github_monitor import check_workflow_completion, check_signal_pulse_completion, trigger_deploy_pages, wait_for_deploy_completion
 from daemon.http_session import close_session
 
@@ -343,7 +343,7 @@ async def schedule_gapup_open():
                 async with _buy_lock:
                     logger.info(f"09:00 갭업 전환 — 기존 보유 {len(held)}종목 전량 매도 시작")
                     try:
-                        await sell_all_positions_market()
+                        await sell_all_positions_force()
                     except Exception as e:
                         logger.error(f"갭업 전환 매도 오류: {e}")
 
@@ -387,11 +387,12 @@ async def schedule_eod_close():
             continue  # 오늘 이미 실행됨
         # 15:15~15:20 윈도우 (5분 폭, 30초 폴링으로 놓칠 확률 거의 0)
         if now.hour == 15 and 15 <= now.minute <= 20:
-            logger.info("15:15 장 마감 청산 시작")
-            try:
-                await sell_all_positions_market()
-            except Exception as e:
-                logger.error(f"장 마감 청산 오류: {e}")
+            async with _buy_lock:
+                logger.info("15:15 장 마감 청산 시작")
+                try:
+                    await sell_all_positions_force()
+                except Exception as e:
+                    logger.error(f"장 마감 청산 오류: {e}")
             # 호가창 압력 장중 평균 저장
             try:
                 await save_orderbook_averages()

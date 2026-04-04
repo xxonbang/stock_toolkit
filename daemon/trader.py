@@ -665,7 +665,7 @@ async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
     return total_filled
 
 
-async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: int) -> bool:
+async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: int, skip_sim: bool = False) -> bool:
     """수량을 직접 지정하여 시장가 매수 (미체결 방지)"""
     if await is_upper_limit(code, price):
         logger.info(f"상한가 종목 스킵 — {name}({code}) {price:,}원")
@@ -725,32 +725,33 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
             await trigger_subscription_refresh()
         except Exception as e:
             logger.warning(f"구독 갱신 실패: {e}")
-        # 비선택 전략 가상 시뮬레이션 생성
-        try:
-            config = await _get_trade_config()
-            active_strategy = config.get("strategy_type", "fixed")
-            sim_strategy = "stepped" if active_strategy == "fixed" else "fixed"
-            trade_id = position["id"]
-            user_id = config.get("user_id") or ""
-            if not user_id:
-                logger.warning(f"가상 시뮬레이션 스킵: user_id 없음 (config)")
-            else:
-                asyncio.ensure_future(_create_simulation(
-                    trade_id=trade_id,
-                    strategy_type=sim_strategy,
-                    entry_price=fill_price,
-                    user_id=user_id,
-                ))
-                # 시간전략(11:00 매도) 시뮬레이션 — 11:00 이전 매수에서만 생성
-                if datetime.now(_KST).hour < 11:
+        # 비선택 전략 가상 시뮬레이션 생성 (갭업 매수에서는 스킵 — 당일 청산이므로 시뮬 무의미)
+        if not skip_sim:
+            try:
+                config = await _get_trade_config()
+                active_strategy = config.get("strategy_type", "fixed")
+                sim_strategy = "stepped" if active_strategy == "fixed" else "fixed"
+                trade_id = position["id"]
+                user_id = config.get("user_id") or ""
+                if not user_id:
+                    logger.warning(f"가상 시뮬레이션 스킵: user_id 없음 (config)")
+                else:
                     asyncio.ensure_future(_create_simulation(
                         trade_id=trade_id,
-                        strategy_type="time_exit",
+                        strategy_type=sim_strategy,
                         entry_price=fill_price,
                         user_id=user_id,
                     ))
-        except Exception as e:
-            logger.warning(f"가상 시뮬레이션 생성 호출 오류: {e}")
+                    # 시간전략(11:00 매도) 시뮬레이션 — 11:00 이전 매수에서만 생성
+                    if datetime.now(_KST).hour < 11:
+                        asyncio.ensure_future(_create_simulation(
+                            trade_id=trade_id,
+                            strategy_type="time_exit",
+                            entry_price=fill_price,
+                            user_id=user_id,
+                        ))
+            except Exception as e:
+                logger.warning(f"가상 시뮬레이션 생성 호출 오류: {e}")
         return True
     # KIS 주문 실패 → DB pending 정리
     from daemon.position_db import delete_position
@@ -913,16 +914,11 @@ async def run_buy_process():
 
     all_scored = []  # 스코어 충족 전체 (research_optimal용)
     if buy_mode == "research_optimal":
-        # 실제 매매: 갭업 모멘텀 전략 (갭업 2~5% + 거래량 2배)
-        targets = select_gapup_momentum(cross_data, top_n=2)
-        if targets:
-            names = ", ".join(f"{t.get('name','')}(갭업{t.get('_gap_pct',0):+.1f}%)" for t in targets)
-            logger.info(f"갭업 모멘텀 전략: {len(targets)}종목 선정 — {names}")
-        else:
-            logger.info("갭업 모멘텀 전략: 조건 충족 종목 없음 (갭업2~5% + 거래량2배)")
-        # 시뮬레이션: 기존 5팩터 스코어링 (가상 포지션으로 성과 추적)
+        # 갭업 모멘텀 실제 매매는 schedule_gapup_open()에서 처리 (09:01/09:30)
+        # 여기서는 5팩터 시뮬레이션만 생성
         use_criteria = config.get("criteria_filter", False)
         all_scored = select_research_optimal(cross_data, top_n=999, criteria_filter=use_criteria)
+        targets = []  # 실제 매수 없음 (갭업은 별도 스케줄)
     else:
         # 기존 로직: 토글 기반 필터
         has_fallback = "fallback_top_leader" in buy_mode
@@ -1215,7 +1211,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         qty = calc_quantity(amount_per, t["price"])
         if qty <= 0:
             continue
-        await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty)
+        await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty, skip_sim=True)
         bought += 1
 
     if bought > 0:
@@ -1461,6 +1457,71 @@ def get_carry_threshold(hold_days: int) -> float:
     """보유일수 연동 장 마감 보유 기준 반환"""
     idx = min(max(hold_days, 0), len(_CARRY_THRESHOLDS) - 1)
     return _CARRY_THRESHOLDS[idx]
+
+async def sell_all_positions_force():
+    """전량 강제 매도 — 갭업 당일청산용. 수익/손실 불문 전 포지션 시장가 매도."""
+    from daemon.position_db import invalidate_cache
+    await cancel_all_pending_orders()
+    positions = await get_active_positions(force_refresh=True)
+    filled = [p for p in positions if p["status"] in ("filled", "sell_requested")]
+    if not filled:
+        logger.info("강제 매도: 보유 포지션 없음")
+        return
+    logger.info(f"강제 매도: {len(filled)}종목 전량 매도 시작")
+    for pos in filled:
+        position_id = pos["id"]
+        if is_selling(position_id):
+            continue
+        mark_selling(position_id)
+        buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+        current_price = await _get_current_price(pos["code"])
+        pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
+        try:
+            result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+            sell_price = current_price
+            if result:
+                actual = await _get_actual_fill_price(pos["code"], is_sell=True)
+                if actual > 0:
+                    sell_price = actual
+                    pnl = calc_pnl_pct(buy_price, sell_price)
+            await update_position_sold(position_id, sell_price, pnl, "eod_close")
+            _peak_prices.pop(position_id, None)
+            logger.info(f"강제 매도: {pos['name']}({pos['code']}) {pnl:+.1f}%")
+        except Exception as e:
+            logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
+            unmark_selling(position_id)
+        await asyncio.sleep(0.3)
+    # open 시뮬레이션 일괄 close
+    try:
+        await _close_all_open_simulations()
+    except Exception as e:
+        logger.warning(f"시뮬 일괄 close 오류: {e}")
+    invalidate_cache()
+
+
+async def _close_all_open_simulations():
+    """open 상태 시뮬레이션 전체 close (당일 청산용)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    session = await get_session()
+    headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
+               "Content-Type": "application/json"}
+    now_iso = datetime.now(_KST).isoformat()
+    url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open"
+    async with session.get(url, headers=headers) as resp:
+        if resp.status != 200:
+            return
+        sims = await resp.json()
+    for sim in (sims or []):
+        patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
+        body = {"status": "closed", "exit_reason": "eod_close", "exited_at": now_iso}
+        async with session.patch(patch_url, json=body, headers=headers) as resp2:
+            pass
+        await asyncio.sleep(0.1)
+    if sims:
+        logger.info(f"시뮬 일괄 close: {len(sims)}건")
+
 
 async def sell_all_positions_market():
     """장 마감 청산 — 손절 미도달 종목은 익일 보유, 수동매도 요청 및 매수가 불명 종목만 매도"""
