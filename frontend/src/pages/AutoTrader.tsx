@@ -107,7 +107,7 @@ export default function AutoTrader() {
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "five_factor" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "five_factor" | "gapup" | null>(null);
   const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
@@ -904,10 +904,12 @@ export default function AutoTrader() {
               return (
                 <>
                   {/* 실제 전략: 갭업 모멘텀 */}
-                  <div className="w-full p-3 rounded-lg text-center border border-transparent" style={{ background: "var(--bg)" }}>
+                  <button onClick={() => setStrategyDetail("gapup")}
+                    className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
                     <div className="text-[10px] t-text-sub font-medium mb-1">갭업 모멘텀 (실제)</div>
                     <div className="text-[9px] t-text-dim mt-1">축적 중</div>
-                  </div>
+                    <ChevronRight size={12} className="absolute right-2 top-1/2 -translate-y-1/2 t-text-dim opacity-40 group-hover:opacity-100 transition" />
+                  </button>
                   {/* 가상 전략 */}
                   <div className="flex gap-2 mt-2 flex-wrap">
                     {simCards.map(c => (
@@ -946,14 +948,16 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : strategyDetail === "five_factor" ? "5팩터 스코어 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "gapup" ? "갭업 모멘텀 (실제)" : strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : strategyDetail === "five_factor" ? "5팩터 스코어 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                           </h3>
                         </div>
                         <div className="flex-1 overflow-y-auto px-5 pb-5">
                         {/* 종목 리스트 — 날짜별 그룹핑 + 체크박스 */}
                         {(() => {
-                          const items = strategyDetail === "real"
+                          const items = strategyDetail === "gapup"
+                            ? ([] as any[])  // 갭업 거래 데이터 축적 중
+                            : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
                             : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : strategyDetail === "five_factor" ? fiveFactorSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
@@ -1078,12 +1082,13 @@ export default function AutoTrader() {
                       <div className="relative z-10 mx-6 max-w-sm w-full rounded-2xl p-5 t-card border t-border-light" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="text-sm font-bold t-text">
-                            {strategyHelpOpen === "real" ? "5팩터+Stepped" : strategyHelpOpen === "sim" ? "고정 익절/손절" : strategyHelpOpen === "time" ? "시간전략" : "API매수∧대장주"}
+                            {strategyHelpOpen === "gapup" ? "갭업 모멘텀" : strategyHelpOpen === "real" ? "5팩터+Stepped" : strategyHelpOpen === "sim" ? "고정 익절/손절" : strategyHelpOpen === "time" ? "시간전략" : "API매수∧대장주"}
                           </h4>
                           <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
                         </div>
                         <div className="text-[11px] t-text-sub leading-relaxed whitespace-pre-line">
-                          {strategyHelpOpen === "real" ? "기존 실전 적용했던 5팩터 스코어 + Stepped Trailing 전략입니다.\n현재는 갭업 모멘텀으로 전환되어 가상 추적 중입니다.\n\n[종목 선정: 5팩터 스코어]\n① API 매수 +30점 (적극매수 +10 추가)\n② Vision 매수 +20점 (적극매수 +5 추가)\n③ 대장주 1등 +25점 / 테마소속 +15점\n④ 저가주 <2만원 +5점\n⑤ 급락반등 -10%↓&외인50만주↑ +35점\n→ 최소 20점 이상, 상위 2종목 선정\n\n[Criteria 가점 필터 (선택)]\n수급 양호 +10 / 골든크로스 +5 / 저항돌파 +5\n\n[매도: Stepped Trailing 공격형]\n+7%→본전, +15%→+7%, +20%→+15%\n+25%→+20%, +30%+→고점-3%\nSL: -2% (기본 손절)"
+                          {strategyHelpOpen === "gapup" ? "30개 전략 백테스트에서 Sharpe·PF·승률·일관성 모두 1위를 기록한 갭업 모멘텀 전략입니다.\n\n[종목 선정]\n① 전일 종가 대비 시가 갭업 2~5%\n② 현재가 > MA200 (200일 이동평균)\n③ 1,000원 ≤ 현재가 < 200,000원\n→ 거래량 순 상위 2종목 선정\n\n[매매 타이밍]\n09:01 — 200종목 스캔 → 즉시 매수\n09:30 — 09:01 매수 0건 시 보완 스캔\n         (거래량 전일 대비 2배 필터 추가)\n15:15 — 전 포지션 당일 청산\n\n[백테스트 성과 (검증기간)]\ntrim +5.63% | 승률 73.5% | Sharpe 0.639\nPF 6.17 | 오버나이트 리스크 없음"
+                           : strategyHelpOpen === "real" ? "기존 실전 적용했던 5팩터 스코어 + Stepped Trailing 전략입니다.\n현재는 갭업 모멘텀으로 전환되어 가상 추적 중입니다.\n\n[종목 선정: 5팩터 스코어]\n① API 매수 +30점 (적극매수 +10 추가)\n② Vision 매수 +20점 (적극매수 +5 추가)\n③ 대장주 1등 +25점 / 테마소속 +15점\n④ 저가주 <2만원 +5점\n⑤ 급락반등 -10%↓&외인50만주↑ +35점\n→ 최소 20점 이상, 상위 2종목 선정\n\n[Criteria 가점 필터 (선택)]\n수급 양호 +10 / 골든크로스 +5 / 저항돌파 +5\n\n[매도: Stepped Trailing 공격형]\n+7%→본전, +15%→+7%, +20%→+15%\n+25%→+20%, +30%+→고점-3%\nSL: -2% (기본 손절)"
                            : strategyHelpOpen === "sim" ? "고정 익절/손절 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 고정 TP/SL 조건으로 매도 시뮬레이션합니다.\n\nTP: +7% (보유일수 연동 상향)\nSL: -2%\nTrailing: 고점 대비 -3% 하락 시 매도"
                            : strategyHelpOpen === "time" ? "시간 기반 매도 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 11:00 KST에 무조건 매도합니다.\n\n매수: 09:30 (실전과 동일)\n매도: 11:00 KST (시장 열기 피크)\nSL: -2% (11:00 전 손절)\n\n장 초반 모멘텀만 캡처하는 단기 전략으로, 오버나이트 리스크가 없습니다."
                            : "API 매수 시그널 + 테마 대장주 교집합 종목 선정 시뮬레이션입니다.\n\n[종목 선정 조건 (모두 AND)]\n① API 신호 = 매수 또는 적극매수\n② 가격: 1,000원 ≤ 현재가 < 50,000원\n③ AI 예측 테마 대장주 Top5\n→ 상위 2종목 선정 (스코어 순)\n\n[매도 조건]\nStepped Trailing 공격형과 동일\nSL: -2% (기본 손절)"}
