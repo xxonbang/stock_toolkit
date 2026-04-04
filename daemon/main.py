@@ -305,6 +305,21 @@ async def schedule_gapup_open():
             _gapup_bought = False
             _fallback_done = False
 
+        # 09:00~09:01: 기존 보유 종목 전량 매도 (갭업 전략 전환용 — 당일 청산 전략이므로 전일 잔여분 정리)
+        if now.hour == 9 and now.minute == 0 and _gapup_done_date != today:
+            if _buy_lock.locked():
+                continue
+            from daemon.position_db import get_active_positions as _gap
+            positions = await _gap(force_refresh=True)
+            held = [p for p in positions if p.get("status") in ("filled", "sell_requested")]
+            if held:
+                async with _buy_lock:
+                    logger.info(f"09:00 갭업 전환 — 기존 보유 {len(held)}종목 전량 매도 시작")
+                    try:
+                        await sell_all_positions_market()
+                    except Exception as e:
+                        logger.error(f"갭업 전환 매도 오류: {e}")
+
         # 09:01~09:03: 1차 스캔 (MA200 only)
         if now.hour == 9 and 1 <= now.minute <= 3 and _gapup_done_date != today:
             if _buy_lock.locked():
