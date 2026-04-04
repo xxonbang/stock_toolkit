@@ -874,7 +874,7 @@ export default function AutoTrader() {
               // API매수∧테마대장주 시뮬
               const apiLeaderSims = simulations.filter(s => s.strategy_type === "api_leader");
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
-              // five_factor는 closedSims/openSims에 이미 포함 (stepped과 동일 전략)
+              // sim_stepped는 closedSims/openSims에 이미 포함 (stepped과 동일 매도 전략)
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = trades.find(t => t.id === s.trade_id);

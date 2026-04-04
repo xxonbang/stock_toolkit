@@ -1061,7 +1061,7 @@ async def run_buy_process():
     # 시뮬레이션 생성: 5팩터 스코어 종목 (기존 전략을 가상으로 추적)
     if buy_mode == "research_optimal" and all_scored:
         try:
-            await _create_5factor_simulations(all_scored[:2], config)
+            await _create_stepped_simulations(all_scored[:2], config)
         except Exception as e:
             logger.warning(f"5팩터 시뮬 생성 오류: {e}")
 
@@ -1754,18 +1754,18 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
         logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
 
 
-async def _create_5factor_simulations(scored_top2: list, config: dict):
-    """기존 5팩터 스코어링 종목을 시뮬레이션으로 추적 (strategy_type=five_factor)"""
+async def _create_stepped_simulations(scored_top2: list, config: dict):
+    """기존 5팩터 스코어링 종목을 시뮬레이션으로 추적 (strategy_type=sim_stepped)"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     from daemon.position_db import _supabase_request
     user_id = config.get("user_id", "")
     if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
     today = datetime.now(_KST).strftime("%Y%m%d")
-    # 이미 오늘 생성된 five_factor 시뮬이 있으면 스킵
+    # 이미 오늘 생성된 sim_stepped 시뮬이 있으면 스킵
     existing = await _supabase_request(
         "GET",
-        f"{SUPABASE_URL}/rest/v1/strategy_simulations?strategy_type=eq.five_factor&status=eq.open&user_id=eq.{user_id}&select=trade_id",
+        f"{SUPABASE_URL}/rest/v1/strategy_simulations?strategy_type=eq.sim_stepped&status=eq.open&user_id=eq.{user_id}&select=trade_id",
     )
     existing_ids = {r.get("trade_id", "") for r in (existing or [])}
     for item in scored_top2:
@@ -1773,12 +1773,12 @@ async def _create_5factor_simulations(scored_top2: list, config: dict):
         price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
         if price <= 0:
             continue
-        trade_id = f"five_factor_{code}_{today}"
+        trade_id = f"sim_stepped_{code}_{today}"
         if trade_id in existing_ids:
             continue
         body = {
             "trade_id": trade_id,
-            "strategy_type": "five_factor",
+            "strategy_type": "sim_stepped",
             "entry_price": price,
             "status": "open",
             "peak_price": price,
@@ -2098,8 +2098,8 @@ async def _check_api_leader_simulations():
         logger.warning(f"API∧대장주 시뮬 체크 오류: {e}")
 
 
-async def _check_five_factor_simulations():
-    """five_factor 시뮬레이션 독립 체크 — Stepped 기본형 조건으로 매도"""
+async def _check_sim_stepped():
+    """sim_stepped 시뮬레이션 독립 체크 — Stepped 기본형 조건으로 매도"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
@@ -2107,7 +2107,7 @@ async def _check_five_factor_simulations():
     try:
         session = await get_session()
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.five_factor&select=id,entry_price,peak_price,trade_id"
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.sim_stepped&select=id,entry_price,peak_price,trade_id"
         async with session.get(url, headers=headers) as resp:
             if resp.status != 200:
                 return
@@ -2122,7 +2122,7 @@ async def _check_five_factor_simulations():
         patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
 
         for sim in sims:
-            # trade_id = "five_factor_{code}_{date}" → code 추출
+            # trade_id = "sim_stepped_{code}_{date}" → code 추출
             tid = sim.get("trade_id", "")
             parts = tid.split("_")
             code = parts[2] if len(parts) >= 3 else ""
@@ -2221,9 +2221,9 @@ async def _check_orphan_simulations():
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
-    # api_leader + five_factor 시뮬 독립 체크 (orphan_sim_codes 없어도 실행)
+    # api_leader + sim_stepped 시뮬 독립 체크 (orphan_sim_codes 없어도 실행)
     await _check_api_leader_simulations()
-    await _check_five_factor_simulations()
+    await _check_sim_stepped()
     if not _orphan_sim_codes:
         return
     now_kst = datetime.now(_KST)
