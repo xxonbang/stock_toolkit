@@ -290,6 +290,33 @@ async def schedule_signal_pulse_trade():
             logger.error(f"signal-pulse 자동매매 루프 오류: {e}")
 
 
+async def schedule_ma200_update():
+    """매주 월요일 08:50 KST에 MA200 캐시 갱신"""
+    _ma200_done_week: str = ""
+    while not _shutdown:
+        await asyncio.sleep(30)
+        if _shutdown:
+            continue
+        now = datetime.now(KST)
+        week_key = now.strftime("%Y-W%W")
+        if _ma200_done_week == week_key:
+            continue
+        # 월요일(0) 08:50~08:55
+        if now.weekday() == 0 and now.hour == 8 and 50 <= now.minute <= 55:
+            logger.info("MA200 캐시 주간 갱신 시작")
+            try:
+                from daemon.update_ma200 import update_ma200
+                await update_ma200()
+                # 캐시 리로드 (메모리 캐시 무효화)
+                from daemon.trader import _load_ma200_cache
+                if hasattr(_load_ma200_cache, "_ma200_cache"):
+                    delattr(_load_ma200_cache, "_ma200_cache")
+                logger.info("MA200 캐시 갱신 + 리로드 완료")
+            except Exception as e:
+                logger.error(f"MA200 갱신 오류: {e}")
+            _ma200_done_week = week_key
+
+
 async def schedule_gapup_open():
     """09:01 갭업 스캔 + 매수, 09:30 보완 매수 (09:01에 0건인 경우만)"""
     _gapup_done_date: str = ""
@@ -471,6 +498,7 @@ async def main():
         ws_client.connect(),
         schedule_refresh(),
         schedule_config_watch(),
+        schedule_ma200_update(),
         schedule_gapup_open(),
         schedule_auto_trade(),
         schedule_signal_pulse_trade(),
