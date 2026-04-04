@@ -291,18 +291,18 @@ async def schedule_signal_pulse_trade():
 
 
 async def schedule_ma200_update():
-    """매주 월요일 08:50 KST에 MA200 캐시 갱신"""
-    _ma200_done_week: str = ""
+    """매 거래일 08:50 KST에 MA200 캐시 갱신"""
+    _ma200_done_date: str = ""
     while not _shutdown:
         await asyncio.sleep(30)
-        if _shutdown:
+        if _shutdown or not is_market_day():
             continue
         now = datetime.now(KST)
-        week_key = now.strftime("%Y-W%W")
-        if _ma200_done_week == week_key:
+        today = now.strftime("%Y-%m-%d")
+        if _ma200_done_date == today:
             continue
-        # 월요일(0) 08:50~08:55
-        if now.weekday() == 0 and now.hour == 8 and 50 <= now.minute <= 55:
+        # 08:50~08:55
+        if now.hour == 8 and 50 <= now.minute <= 55:
             logger.info("MA200 캐시 주간 갱신 시작")
             try:
                 from daemon.update_ma200 import update_ma200
@@ -314,7 +314,7 @@ async def schedule_ma200_update():
                 logger.info("MA200 캐시 갱신 + 리로드 완료")
             except Exception as e:
                 logger.error(f"MA200 갱신 오류: {e}")
-            _ma200_done_week = week_key
+            _ma200_done_date = today
 
 
 async def schedule_gapup_open():
