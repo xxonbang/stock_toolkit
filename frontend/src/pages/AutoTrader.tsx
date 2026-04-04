@@ -708,7 +708,7 @@ export default function AutoTrader() {
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
                     </div>
                     <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
-                      자본 100% 배분 | 5팩터 스코어는 시뮬레이션으로 추적
+                      자본 100% 배분
                     </div>
                   </>
                 ) : (
