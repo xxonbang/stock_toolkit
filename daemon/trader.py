@@ -755,22 +755,22 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
                 if not user_id:
                     logger.warning(f"가상 시뮬레이션 스킵: user_id 없음 (config)")
                 else:
-                    asyncio.ensure_future(_create_simulation(
+                    await _create_simulation(
                         trade_id=trade_id,
                         strategy_type=sim_strategy,
                         entry_price=fill_price,
                         user_id=user_id,
-                    ))
+                    )
                     # 시간전략(11:00 매도) 시뮬레이션 — 11:00 이전 매수에서만 생성
                     if datetime.now(_KST).hour < 11:
-                        asyncio.ensure_future(_create_simulation(
+                        await _create_simulation(
                             trade_id=trade_id,
                             strategy_type="time_exit",
                             entry_price=fill_price,
                             user_id=user_id,
-                        ))
+                        )
             except Exception as e:
-                logger.warning(f"가상 시뮬레이션 생성 호출 오류: {e}")
+                logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
         return True
     # KIS 주문 실패 → DB pending 정리
     from daemon.position_db import delete_position
@@ -1516,6 +1516,7 @@ async def sell_all_positions_force():
             logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
             unmark_selling(position_id)
         await asyncio.sleep(0.3)
+    _orphan_sim_codes.clear()
     invalidate_cache()
 
 

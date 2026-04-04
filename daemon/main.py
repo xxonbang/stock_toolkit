@@ -390,11 +390,22 @@ async def schedule_eod_close():
         # 15:15~15:20 윈도우 (5분 폭, 30초 폴링으로 놓칠 확률 거의 0)
         if now.hour == 15 and 15 <= now.minute <= 20:
             async with _buy_lock:
-                logger.info("15:15 장 마감 청산 시작")
-                try:
-                    await sell_all_positions_force()
-                except Exception as e:
-                    logger.error(f"장 마감 청산 오류: {e}")
+                # 전략에 따라 분기: 갭업 모멘텀=전량 강제 청산, 기타=손절 미도달 익일 보유
+                from daemon.stock_manager import fetch_alert_config as _eod_cfg
+                eod_config = await _eod_cfg()
+                eod_mode = eod_config.get("buy_signal_mode", "and")
+                if eod_mode == "research_optimal":
+                    logger.info("15:15 장 마감 — 갭업 전략 전량 강제 청산")
+                    try:
+                        await sell_all_positions_force()
+                    except Exception as e:
+                        logger.error(f"장 마감 강제 청산 오류: {e}")
+                else:
+                    logger.info("15:15 장 마감 — 손절 미도달 익일 보유")
+                    try:
+                        await sell_all_positions_market()
+                    except Exception as e:
+                        logger.error(f"장 마감 청산 오류: {e}")
             # 호가창 압력 장중 평균 저장
             try:
                 await save_orderbook_averages()
