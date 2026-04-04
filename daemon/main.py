@@ -308,10 +308,12 @@ async def schedule_ma200_update():
                 from daemon.update_ma200 import update_ma200
                 await update_ma200()
                 # 캐시 리로드 (메모리 캐시 무효화)
-                from daemon.trader import _load_ma200_cache
+                from daemon.trader import _load_ma200_cache, _load_ma20_cache
                 if hasattr(_load_ma200_cache, "_ma200_cache"):
                     delattr(_load_ma200_cache, "_ma200_cache")
-                logger.info("MA200 캐시 갱신 + 리로드 완료")
+                if hasattr(_load_ma20_cache, "_ma20_cache"):
+                    delattr(_load_ma20_cache, "_ma20_cache")
+                logger.info("MA200+MA20 캐시 갱신 + 리로드 완료")
             except Exception as e:
                 logger.error(f"MA200 갱신 오류: {e}")
             _ma200_done_date = today

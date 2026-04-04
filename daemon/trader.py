@@ -179,7 +179,26 @@ def _load_ma200_cache() -> dict[str, float]:
     return result
 
 
-def select_gapup_momentum(signals: list | None, top_n: int = 2) -> list[dict]:
+def _load_ma20_cache() -> dict[str, float]:
+    """종목별 MA20 캐시 로드"""
+    import json
+    from pathlib import Path
+    cache_attr = "_ma20_cache"
+    if hasattr(_load_ma20_cache, cache_attr):
+        return getattr(_load_ma20_cache, cache_attr)
+    result = {}
+    cache_path = Path(__file__).parent / "ma20_cache.json"
+    if cache_path.exists():
+        try:
+            with open(cache_path, encoding="utf-8") as f:
+                result = json.load(f)
+        except Exception:
+            pass
+    setattr(_load_ma20_cache, cache_attr, result)
+    return result
+
+
+def select_gapup_momentum(signals: list | None, top_n: int = 1) -> list[dict]:
     """갭업 모멘텀 전략: 갭업 2~5% + MA200 위 + 거래량 2배 종목 선정.
     시가 매수 → 당일 종가 매도 (schedule_eod_close에서 처리).
     """
@@ -1095,8 +1114,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         logger.warning("stock-master 종목 0개 — 갭업 스캔 중단")
         return 0
 
-    # MA200 캐시 로드
+    # MA 캐시 로드
     ma200_map = _load_ma200_cache()
+    ma20_map = _load_ma20_cache()
 
     # 2) 상위 200종목 현재가 병렬 조회 (거래대금 상위는 사전 판별 불가 → 무작위 200 대신, MA200 보유 종목 우선)
     # MA200이 있는 종목 = daily_ohlcv에 수집된 종목 = 유동성 있는 종목
@@ -1149,6 +1169,11 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
             if ma200 > 0 and cur_price <= ma200:
                 continue
 
+            # MA20 필터 (종가 > MA20 = 단기 상승 추세)
+            ma20 = ma20_map.get(code, 0)
+            if ma20 > 0 and cur_price <= ma20:
+                continue
+
             # 갭업 2~5%
             if 2 <= gap_pct < 5:
                 vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
@@ -1168,9 +1193,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 
-    # 거래량 순 정렬, 상위 2종목
+    # 거래량 순 정렬, 상위 1종목 (집중 투자 — 백테스트에서 1종목이 최고 성과)
     candidates.sort(key=lambda x: -x["vol_rate"])
-    targets = candidates[:2]
+    targets = candidates[:1]
 
     # 보유/주문 중 필터
     buy_targets = []

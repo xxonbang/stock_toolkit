@@ -50,6 +50,7 @@ async def update_ma200():
     session = await get_session()
     updated = 0
     failed = 0
+    prev_closes = {}  # code → 전일 종가 (MA20 갱신용)
 
     for i in range(0, len(codes), 50):
         batch = codes[i:i+50]
@@ -72,6 +73,7 @@ async def update_ma200():
                 prev_close = int(data.get("output", {}).get("stck_sdpr", "0"))
                 if prev_close <= 0:
                     continue
+                prev_closes[code] = prev_close  # MA20 갱신용 저장
                 # MA200 근사 갱신: 새 MA200 ≈ 기존 × (199/200) + 전일종가 × (1/200)
                 old_ma = cache.get(code, 0)
                 if old_ma > 0:
@@ -88,6 +90,19 @@ async def update_ma200():
     CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False))
     print(f"\nMA200 캐시 갱신 완료: {updated}종목 갱신, {failed}건 실패")
     print(f"저장: {CACHE_PATH}")
+
+    # MA20 캐시 갱신 (19/20 근사 — MA20은 변동이 크지만 필터 용도로 충분)
+    MA20_PATH = Path(__file__).parent / "ma20_cache.json"
+    if MA20_PATH.exists():
+        ma20_cache = json.loads(MA20_PATH.read_text())
+        ma20_updated = 0
+        for code, prev_close in prev_closes.items():
+            if code in ma20_cache and prev_close > 0:
+                old_ma20 = ma20_cache[code]
+                ma20_cache[code] = round(old_ma20 * (19/20) + prev_close * (1/20), 2)
+                ma20_updated += 1
+        MA20_PATH.write_text(json.dumps(ma20_cache, ensure_ascii=False))
+        print(f"MA20 캐시 갱신: {ma20_updated}종목")
 
     await close_session()
 
