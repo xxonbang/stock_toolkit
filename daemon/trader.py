@@ -1139,7 +1139,7 @@ async def run_gapup_scan_and_buy():
             cur_price = int(out.get("stck_prpr", "0"))
             open_price = int(out.get("stck_oprc", "0"))
             prev_close = int(out.get("stck_sdpr", "0"))
-            acml_vol = int(out.get("acml_vol", "0"))
+            vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")  # 전일 대비 거래량 비율(%)
 
             if cur_price < 1000 or cur_price >= 200000:
                 continue
@@ -1153,13 +1153,14 @@ async def run_gapup_scan_and_buy():
             if ma200 > 0 and cur_price <= ma200:
                 continue
 
-            # 거래량 조건: 50만주+ (전일거래량 비교 불가하므로 절대 거래량 기준)
-            vol_ok = acml_vol > 500000
+            # 거래량 조건: 전일 대비 200%+ (2배)
+            if vol_rate < 200:
+                continue
 
-            if 2 <= gap_pct < 5 and vol_ok:
+            if 2 <= gap_pct < 5:
                 candidates.append({
                     "code": code, "name": name, "price": cur_price,
-                    "gap_pct": round(gap_pct, 2), "vol_rate": acml_vol,
+                    "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
                 })
         await asyncio.sleep(0.1)  # 배치 간 여유
 
