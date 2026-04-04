@@ -141,12 +141,41 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
     ]
 
 
+def _load_ma200_cache() -> dict[str, float]:
+    """daily_ohlcv_all.json에서 종목별 MA200 계산 (캐시)"""
+    import json
+    from pathlib import Path
+    cache_attr = "_ma200_cache"
+    if hasattr(_load_ma200_cache, cache_attr):
+        return getattr(_load_ma200_cache, cache_attr)
+    result = {}
+    path = Path(__file__).parent.parent / "results" / "daily_ohlcv_all.json"
+    if not path.exists():
+        return result
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        for code, info in data.items():
+            bars = info.get("bars", [])
+            if len(bars) < 200:
+                continue
+            closes = [int(b.get("stck_clpr", "0")) for b in bars[-200:]]
+            closes = [c for c in closes if c > 0]
+            if len(closes) >= 200:
+                result[code] = sum(closes) / len(closes)
+    except Exception:
+        pass
+    setattr(_load_ma200_cache, cache_attr, result)
+    return result
+
+
 def select_gapup_momentum(signals: list | None, top_n: int = 2) -> list[dict]:
     """갭업 모멘텀 전략: 갭업 2~5% + MA200 위 + 거래량 2배 종목 선정.
     시가 매수 → 당일 종가 매도 (schedule_eod_close에서 처리).
     """
     if not signals:
         return []
+    ma200_map = _load_ma200_cache()
     candidates = []
     for s in signals:
         code = s.get("code", "")
@@ -157,7 +186,6 @@ def select_gapup_momentum(signals: list | None, top_n: int = 2) -> list[dict]:
         current = price_data.get("current", 0)
         prev_close = price_data.get("prev_close", 0)
         open_price = price_data.get("open", 0) or current
-        high_52w = price_data.get("high_52week", 0)
         volume = ranking.get("volume", 0)
         volume_rate = ranking.get("volume_rate_vs_prev", 0)
 
@@ -168,20 +196,21 @@ def select_gapup_momentum(signals: list | None, top_n: int = 2) -> list[dict]:
 
         # 갭업 계산: 시가 대비 전일종가
         gap_pct = (open_price - prev_close) / prev_close * 100 if prev_close > 0 and open_price > 0 else 0
-        # MA200 근사: 52주 고가/저가 중간값 대비 현재가 위치 (cross_signal에 MA200 없으므로)
-        # 대안: 현재가 > 전일종가 (상승 추세 간접 확인)
-        # 더 정확한 방법: recent_changes로 장기 추세 확인
-        recent = price_data.get("recent_changes", []) if isinstance(price_data, dict) else []
+
+        # MA200 필터: daily_ohlcv_all.json에서 계산된 값 사용
+        ma200 = ma200_map.get(code, 0)
+        if ma200 > 0 and current <= ma200:
+            continue  # MA200 아래면 제외
 
         # 거래량 조건: volume_rate_vs_prev >= 200 (전일 대비 2배)
-        vol_ok = volume_rate >= 200 or volume > 500000  # 거래량 비율 200%+ 또는 절대 거래량 50만주+
+        vol_ok = volume_rate >= 200 or volume > 500000
 
         if 2 <= gap_pct < 5 and vol_ok:
             candidates.append({
                 **s,
                 "_gap_pct": round(gap_pct, 2),
                 "_score": round(gap_pct * 10, 1),
-                "_score_detail": [f"갭업+{gap_pct:.1f}%", f"거래량{volume_rate:.0f}%"],
+                "_score_detail": [f"갭업+{gap_pct:.1f}%", f"거래량{volume_rate:.0f}%", f"MA200>{ma200:,.0f}" if ma200 > 0 else "MA200?"],
             })
 
     # 거래량 순 정렬
