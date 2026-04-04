@@ -934,10 +934,20 @@ async def run_buy_process():
     all_scored = []  # 스코어 충족 전체 (research_optimal용)
     if buy_mode == "research_optimal":
         # 갭업 모멘텀 실제 매매는 schedule_gapup_open()에서 처리 (09:01/09:30)
-        # 여기서는 5팩터 시뮬레이션만 생성
+        # 여기서는 5팩터 시뮬레이션만 생성하고 return
         use_criteria = config.get("criteria_filter", False)
         all_scored = select_research_optimal(cross_data, top_n=999, criteria_filter=use_criteria)
-        targets = []  # 실제 매수 없음 (갭업은 별도 스케줄)
+        if all_scored:
+            try:
+                await _create_stepped_simulations(all_scored[:2], config)
+            except Exception as e:
+                logger.warning(f"5팩터 시뮬 생성 오류: {e}")
+        try:
+            await _create_api_leader_simulations(cross_data, config)
+        except Exception as e:
+            logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
+        logger.info(f"research_optimal: 5팩터 시뮬 {len(all_scored)}건 처리, 실매매는 갭업 스케줄에서")
+        return
     else:
         # 기존 로직: 토글 기반 필터
         has_fallback = "fallback_top_leader" in buy_mode
@@ -1077,14 +1087,8 @@ async def run_buy_process():
         names = ", ".join(c["name"] for c in actual_candidates)
         await send_telegram(f"⚠️ 매수 실패: 잔고 부족\n대상: {names}\n잔고: {balance:,}원, 종목당 {amount_per_stock:,}원")
 
-    # 시뮬레이션 생성: 5팩터 스코어 종목 (기존 전략을 가상으로 추적)
-    if buy_mode == "research_optimal" and all_scored:
-        try:
-            await _create_stepped_simulations(all_scored[:2], config)
-        except Exception as e:
-            logger.warning(f"5팩터 시뮬 생성 오류: {e}")
-
-    # 연구 시뮬: "API∧대장주" 종목 선정 가상 포지션 생성
+    # 시뮬레이션: research_optimal 모드에서는 위에서 이미 처리하고 return했으므로
+    # 여기는 기타 모드(토글 기반)에서의 시뮬 생성
     try:
         await _create_api_leader_simulations(cross_data, config)
     except Exception as e:
