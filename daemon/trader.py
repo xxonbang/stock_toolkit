@@ -1509,6 +1509,7 @@ async def sell_all_positions_force():
         mark_selling(position_id)
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
         current_price = await _get_current_price(pos["code"])
+        pos["_current_price"] = current_price
         pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
         try:
             result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
@@ -1525,6 +1526,14 @@ async def sell_all_positions_force():
             logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
             unmark_selling(position_id)
         await asyncio.sleep(0.3)
+    # 텔레그램 보고
+    sold_names = [f"{pos['name']}({pos.get('_pnl', 0):+.1f}%)" if '_pnl' in pos else pos['name'] for pos in filled if pos["id"] not in {p["id"] for p in filled if is_selling(p["id"])}]
+    if filled:
+        await send_telegram(
+            f"<b>🔄 전량 강제 매도 완료</b>\n"
+            f"{len(filled)}종목 매도\n"
+            + "\n".join(f"  {pos['name']}({pos['code']}) {calc_pnl_pct(pos.get('filled_price') or pos.get('order_price', 0), pos.get('_current_price', 0)):+.1f}%" if pos.get('_current_price') else f"  {pos['name']}({pos['code']})" for pos in filled)
+        )
     _orphan_sim_codes.clear()
     invalidate_cache()
 
