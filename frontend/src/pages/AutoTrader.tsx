@@ -678,7 +678,8 @@ export default function AutoTrader() {
               <HelpCircle size={13} />
             </button>
           </div>
-          {/* 모드 전환: 연구 최적 vs 수동 설정 */}
+          {/* 모드 전환: 연구 최적 vs 수동 설정 (갭업에서는 숨김) */}
+          {strategyType !== "gapup" && (
           <div className="flex gap-1 p-0.5 rounded-lg mb-2" style={{ background: "var(--bg-pill)" }}>
             <button onClick={() => setUseResearchOptimal(true)}
               className={`flex-1 text-[11px] font-medium py-1.5 rounded-md transition ${useResearchOptimal ? "t-text shadow-sm" : "t-text-dim"}`}
@@ -691,8 +692,9 @@ export default function AutoTrader() {
               수동 설정
             </button>
           </div>
-          {/* 연구 최적 전략 설명 */}
-          {useResearchOptimal && (
+          )}
+          {/* 연구 최적 전략 설명 (갭업은 항상 표시) */}
+          {(strategyType === "gapup" || useResearchOptimal) && (
             <div>
               <div className="p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
                 {strategyType === "gapup" ? (
