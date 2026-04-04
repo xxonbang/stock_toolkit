@@ -141,6 +141,54 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
     ]
 
 
+def select_gapup_momentum(signals: list | None, top_n: int = 2) -> list[dict]:
+    """갭업 모멘텀 전략: 갭업 2~5% + MA200 위 + 거래량 2배 종목 선정.
+    시가 매수 → 당일 종가 매도 (schedule_eod_close에서 처리).
+    """
+    if not signals:
+        return []
+    candidates = []
+    for s in signals:
+        code = s.get("code", "")
+        api_data = s.get("api_data") or {}
+        price_data = api_data.get("price", {})
+        ranking = api_data.get("ranking", {})
+
+        current = price_data.get("current", 0)
+        prev_close = price_data.get("prev_close", 0)
+        open_price = price_data.get("open", 0) or current
+        high_52w = price_data.get("high_52week", 0)
+        volume = ranking.get("volume", 0)
+        volume_rate = ranking.get("volume_rate_vs_prev", 0)
+
+        if current <= 0 or prev_close <= 0:
+            continue
+        if current < 1000 or current >= 200000:
+            continue
+
+        # 갭업 계산: 시가 대비 전일종가
+        gap_pct = (open_price - prev_close) / prev_close * 100 if prev_close > 0 and open_price > 0 else 0
+        # MA200 근사: 52주 고가/저가 중간값 대비 현재가 위치 (cross_signal에 MA200 없으므로)
+        # 대안: 현재가 > 전일종가 (상승 추세 간접 확인)
+        # 더 정확한 방법: recent_changes로 장기 추세 확인
+        recent = price_data.get("recent_changes", []) if isinstance(price_data, dict) else []
+
+        # 거래량 조건: volume_rate_vs_prev >= 200 (전일 대비 2배)
+        vol_ok = volume_rate >= 200 or volume > 500000  # 거래량 비율 200%+ 또는 절대 거래량 50만주+
+
+        if 2 <= gap_pct < 5 and vol_ok:
+            candidates.append({
+                **s,
+                "_gap_pct": round(gap_pct, 2),
+                "_score": round(gap_pct * 10, 1),
+                "_score_detail": [f"갭업+{gap_pct:.1f}%", f"거래량{volume_rate:.0f}%"],
+            })
+
+    # 거래량 순 정렬
+    candidates.sort(key=lambda x: -(x.get("api_data") or {}).get("ranking", {}).get("volume", 0))
+    return candidates[:top_n]
+
+
 def select_research_optimal(signals: list | None, max_price: int = 50000, top_n: int = 2, min_score: int = 20, criteria_filter: bool = False) -> list[dict]:
     """연구 최적 전략: 5팩터 스코어링으로 Top-N 종목 선정.
     팩터: api매수(30) + api적극매수(+10) + vision매수(20) + vision적극매수(+5)
@@ -826,15 +874,16 @@ async def run_buy_process():
 
     all_scored = []  # 스코어 충족 전체 (research_optimal용)
     if buy_mode == "research_optimal":
-        # 연구 최적 전략: 5팩터 스코어 Top-2
+        # 실제 매매: 갭업 모멘텀 전략 (갭업 2~5% + 거래량 2배)
+        targets = select_gapup_momentum(cross_data, top_n=2)
+        if targets:
+            names = ", ".join(f"{t.get('name','')}(갭업{t.get('_gap_pct',0):+.1f}%)" for t in targets)
+            logger.info(f"갭업 모멘텀 전략: {len(targets)}종목 선정 — {names}")
+        else:
+            logger.info("갭업 모멘텀 전략: 조건 충족 종목 없음 (갭업2~5% + 거래량2배)")
+        # 시뮬레이션: 기존 5팩터 스코어링 (가상 포지션으로 성과 추적)
         use_criteria = config.get("criteria_filter", False)
         all_scored = select_research_optimal(cross_data, top_n=999, criteria_filter=use_criteria)
-        targets = all_scored[:2]
-        if targets:
-            scores = ", ".join(f"{t.get('name','')}({t.get('_score',0)}점)" for t in targets)
-            logger.info(f"연구 최적 전략: {len(targets)}종목 선정 — {scores}")
-        else:
-            logger.info("연구 최적 전략: 조건 충족 종목 없음 (20점 이상 + 5만원 미만)")
     else:
         # 기존 로직: 토글 기반 필터
         has_fallback = "fallback_top_leader" in buy_mode
@@ -923,14 +972,17 @@ async def run_buy_process():
     rpt.append(f"")
     rpt.append(f"<b>[1단계] 종목 선정</b>")
     rpt.append(f"전체 후보: {len(cross_data)}종목")
-    if buy_mode == "research_optimal" and all_scored:
-        rpt.append(f"스코어 충족 (≥20점, &lt;5만원): {len(all_scored)}종목")
-        for i, s in enumerate(all_scored[:10], 1):
-            mark = "→ " if s in targets else "   "
-            detail = " / ".join(s.get("_score_detail", []))
-            rpt.append(f"  {mark}{i}. {s.get('name','')} <b>{s.get('_score',0)}점</b> ({detail})")
-        if len(all_scored) > 10:
-            rpt.append(f"  ... 외 {len(all_scored) - 10}종목")
+    if buy_mode == "research_optimal":
+        # 갭업 모멘텀 실제 매매 보고
+        for t in targets:
+            detail = " / ".join(t.get("_score_detail", []))
+            rpt.append(f"  📈 {t.get('name','')} ({detail})")
+        # 5팩터 시뮬 보고
+        if all_scored:
+            rpt.append(f"[시뮬] 5팩터 충족: {len(all_scored)}종목")
+            for i, s in enumerate(all_scored[:5], 1):
+                detail = " / ".join(s.get("_score_detail", []))
+                rpt.append(f"  {i}. {s.get('name','')} {s.get('_score',0)}점 ({detail})")
     rpt.append(f"선정: {len(targets)}종목")
     rpt.append(f"")
     rpt.append(f"<b>[2단계] 필터링</b>")
@@ -970,6 +1022,13 @@ async def run_buy_process():
     if bought == 0 and actual_candidates:
         names = ", ".join(c["name"] for c in actual_candidates)
         await send_telegram(f"⚠️ 매수 실패: 잔고 부족\n대상: {names}\n잔고: {balance:,}원, 종목당 {amount_per_stock:,}원")
+
+    # 시뮬레이션 생성: 5팩터 스코어 종목 (기존 전략을 가상으로 추적)
+    if buy_mode == "research_optimal" and all_scored:
+        try:
+            await _create_5factor_simulations(all_scored[:2], config)
+        except Exception as e:
+            logger.warning(f"5팩터 시뮬 생성 오류: {e}")
 
     # 연구 시뮬: "API∧대장주" 종목 선정 가상 포지션 생성
     try:
@@ -1470,6 +1529,50 @@ async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int
                 logger.warning(f"가상 시뮬레이션 생성 실패: {resp.status} {err_body[:200]}")
     except Exception as e:
         logger.warning(f"가상 시뮬레이션 생성 오류: {e}")
+
+
+async def _create_5factor_simulations(scored_top2: list, config: dict):
+    """기존 5팩터 스코어링 종목을 시뮬레이션으로 추적 (strategy_type=five_factor)"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    from daemon.position_db import _supabase_request
+    user_id = config.get("user_id", "")
+    if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    today = datetime.now(_KST).strftime("%Y%m%d")
+    # 이미 오늘 생성된 five_factor 시뮬이 있으면 스킵
+    existing = await _supabase_request(
+        "GET",
+        f"{SUPABASE_URL}/rest/v1/strategy_simulations?strategy_type=eq.five_factor&status=eq.open&user_id=eq.{user_id}&select=trade_id",
+    )
+    existing_ids = {r.get("trade_id", "") for r in (existing or [])}
+    for item in scored_top2:
+        code = item.get("code", "")
+        price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
+        if price <= 0:
+            continue
+        trade_id = f"five_factor_{code}_{today}"
+        if trade_id in existing_ids:
+            continue
+        body = {
+            "trade_id": trade_id,
+            "strategy_type": "five_factor",
+            "entry_price": price,
+            "status": "open",
+            "peak_price": price,
+            "stepped_stop_pct": -2.0,
+            "user_id": user_id,
+        }
+        try:
+            session = await get_session()
+            url = f"{SUPABASE_URL}/rest/v1/strategy_simulations"
+            headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
+                       "Content-Type": "application/json", "Prefer": "return=minimal"}
+            async with session.post(url, json=body, headers=headers) as resp:
+                if resp.status in (200, 201):
+                    name = item.get("name", code)
+                    logger.info(f"5팩터 시뮬 생성: {name}({code}) {price:,}원 score={item.get('_score',0)}")
+        except Exception as e:
+            logger.warning(f"5팩터 시뮬 생성 오류: {code} {e}")
 
 
 async def _create_api_leader_simulations(cross_data: list, config: dict):
