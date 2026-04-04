@@ -683,7 +683,7 @@ export default function AutoTrader() {
                 <div className="text-[11px] font-semibold t-text mb-1">갭업 모멘텀 (실제 매매)</div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>갭업</span><span className="t-text-dim">시가 갭업 2~5%</span></div>
-                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>거래량</span><span className="t-text-dim">전일 대비 2배+</span></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>MA200</span><span className="t-text-dim">현재가 &gt; 200일 이동평균</span></div>
                   <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>매도</span><span className="t-text-dim">당일 15:15 장 마감 청산</span></div>
                 </div>
                 <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">

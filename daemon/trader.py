@@ -1139,8 +1139,6 @@ async def run_gapup_scan_and_buy():
             cur_price = int(out.get("stck_prpr", "0"))
             open_price = int(out.get("stck_oprc", "0"))
             prev_close = int(out.get("stck_sdpr", "0"))
-            vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")  # 전일 대비 거래량 비율(%)
-
             if cur_price < 1000 or cur_price >= 200000:
                 continue
             if open_price <= 0 or prev_close <= 0:
@@ -1153,11 +1151,9 @@ async def run_gapup_scan_and_buy():
             if ma200 > 0 and cur_price <= ma200:
                 continue
 
-            # 거래량 조건: 전일 대비 200%+ (2배)
-            if vol_rate < 200:
-                continue
-
+            # 갭업 2~5% (거래량 필터 제외: 09:01 시점에 전일비 거래량 판단 불가)
             if 2 <= gap_pct < 5:
+                vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
                 candidates.append({
                     "code": code, "name": name, "price": cur_price,
                     "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
