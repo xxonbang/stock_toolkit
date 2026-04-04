@@ -336,11 +336,15 @@ async def schedule_gapup_open():
 
         # 갭업 전략 활성화 여부 확인 (buy_signal_mode=research_optimal일 때만)
         if _gapup_done_date != today and now.hour == 9 and now.minute <= 3:
-            from daemon.stock_manager import fetch_alert_config as _gapup_cfg
-            _gc = await _gapup_cfg()
-            if _gc.get("buy_signal_mode") != "research_optimal":
-                _gapup_done_date = today  # 갭업 비활성 → 오늘은 스킵
-                continue
+            try:
+                from daemon.stock_manager import fetch_alert_config as _gapup_cfg
+                _gc = await _gapup_cfg()
+                if _gc.get("buy_signal_mode") != "research_optimal":
+                    _gapup_done_date = today  # 갭업 비활성 → 오늘은 스킵
+                    continue
+            except Exception as e:
+                logger.error(f"갭업 설정 조회 실패: {e}")
+                continue  # 설정 조회 실패 시 이번 루프 스킵 (다음 10초에 재시도)
 
         # 09:00~09:01: 기존 보유 종목 전량 매도 (갭업 전략 전환용 — 당일 청산 전략이므로 전일 잔여분 정리)
         if now.hour == 9 and now.minute == 0 and _gapup_done_date != today:
