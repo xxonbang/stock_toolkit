@@ -107,7 +107,7 @@ export default function AutoTrader() {
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "five_factor" | "gapup" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "gapup" | null>(null);
   const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
@@ -874,9 +874,7 @@ export default function AutoTrader() {
               // API매수∧테마대장주 시뮬
               const apiLeaderSims = simulations.filter(s => s.strategy_type === "api_leader");
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
-              // 5팩터 스코어 시뮬
-              const fiveFactorSims = simulations.filter(s => s.strategy_type === "five_factor");
-              const fiveFactorPnl = fiveFactorSims.length > 0 ? fiveFactorSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / fiveFactorSims.length : 0;
+              // five_factor는 closedSims/openSims에 이미 포함 (stepped과 동일 전략)
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = trades.find(t => t.id === s.trade_id);
@@ -952,7 +950,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "gapup" ? "갭업 모멘텀 (실제)" : strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : strategyDetail === "five_factor" ? "5팩터 스코어 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "gapup" ? "갭업 모멘텀 (실제)" : strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                           </h3>
                         </div>
@@ -963,7 +961,7 @@ export default function AutoTrader() {
                             ? ([] as any[])  // 갭업 거래 데이터 축적 중
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
-                            : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : strategyDetail === "five_factor" ? fiveFactorSims : allSims).map((s: any) => {
+                            : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
                               });
