@@ -890,30 +890,26 @@ export default function AutoTrader() {
               const simPnl = allSims.length > 0 ? allSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allSims.length : 0;
 
               const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
-              const realLabel = strategyType === "gapup" ? "갭업 모멘텀" : strategyType === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
+              // 실제 카드: 갭업 모멘텀 거래만 (TODO: 갭업 거래 분류 추가 시 필터)
+              // 현재는 allRealTrades가 기존 5팩터 거래이므로, 기존 거래를 "5팩터+Stepped (가상)"으로 표시
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
+                { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
                 { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
                 { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
-                { key: "five_factor", label: "5팩터 스코어", pnl: fiveFactorPnl, count: fiveFactorSims.length, onClick: () => fiveFactorSims.length > 0 ? setStrategyDetail("five_factor") : undefined },
               ];
 
               return (
                 <>
-                  {/* 실제 전략 */}
-                  <button onClick={() => setStrategyDetail("real")}
-                    className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
-                    <div className="text-[10px] t-text-sub font-medium mb-1">{realLabel} (실제)</div>
-                    <div className={`text-lg font-bold tabular-nums ${realPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                      {realPnl >= 0 ? "+" : ""}{realPnl.toFixed(1)}%
-                    </div>
-                    <div className="text-[10px] t-text-sub mt-0.5">{allRealTrades.length}건</div>
-                    <ChevronRight size={12} className="absolute right-2 top-1/2 -translate-y-1/2 t-text-dim opacity-40 group-hover:opacity-100 transition" />
-                  </button>
-                  {/* 가상 전략 3개 */}
-                  <div className="flex gap-2 mt-2">
+                  {/* 실제 전략: 갭업 모멘텀 */}
+                  <div className="w-full p-3 rounded-lg text-center border border-transparent" style={{ background: "var(--bg)" }}>
+                    <div className="text-[10px] t-text-sub font-medium mb-1">갭업 모멘텀 (실제)</div>
+                    <div className="text-[9px] t-text-dim mt-1">축적 중</div>
+                  </div>
+                  {/* 가상 전략 */}
+                  <div className="flex gap-2 mt-2 flex-wrap">
                     {simCards.map(c => (
                       <button key={c.key} onClick={c.onClick}
                         className="flex-1 p-2.5 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
@@ -950,7 +946,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "real" ? `${realLabel} (실제)` : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : strategyDetail === "five_factor" ? "5팩터 스코어 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : strategyDetail === "five_factor" ? "5팩터 스코어 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                           </h3>
                         </div>
