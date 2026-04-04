@@ -1355,7 +1355,12 @@ async def check_positions_for_sell(current_price_data: dict):
         effective_tp = get_tiered_tp(tp, hold_days)
 
         strategy_type = config.get("strategy_type", "fixed")
+        buy_mode = config.get("buy_signal_mode", "and")
         reason = None
+
+        # 갭업 모멘텀 전략: 장중 TP/SL 미적용 (15:15 전량 청산만)
+        if buy_mode == "research_optimal":
+            continue
 
         if strategy_type == "stepped":
             # Stepped Trailing: 고정 TP 없음, stepped stop만 적용
