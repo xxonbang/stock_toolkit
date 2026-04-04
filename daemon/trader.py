@@ -142,29 +142,39 @@ def filter_high_confidence(signals: list | None, mode: str = "and") -> list[dict
 
 
 def _load_ma200_cache() -> dict[str, float]:
-    """daily_ohlcv_all.json에서 종목별 MA200 계산 (캐시)"""
+    """종목별 MA200 캐시 로드 (ma200_cache.json 우선, 없으면 daily_ohlcv_all.json에서 계산)"""
     import json
     from pathlib import Path
     cache_attr = "_ma200_cache"
     if hasattr(_load_ma200_cache, cache_attr):
         return getattr(_load_ma200_cache, cache_attr)
     result = {}
+    # 1순위: 가벼운 캐시 파일 (48KB)
+    cache_path = Path(__file__).parent / "ma200_cache.json"
+    if cache_path.exists():
+        try:
+            with open(cache_path, encoding="utf-8") as f:
+                result = json.load(f)
+            setattr(_load_ma200_cache, cache_attr, result)
+            return result
+        except Exception:
+            pass
+    # 2순위: 전체 데이터에서 계산 (353MB)
     path = Path(__file__).parent.parent / "results" / "daily_ohlcv_all.json"
-    if not path.exists():
-        return result
-    try:
-        with open(path, encoding="utf-8") as f:
-            data = json.load(f)
-        for code, info in data.items():
-            bars = info.get("bars", [])
-            if len(bars) < 200:
-                continue
-            closes = [int(b.get("stck_clpr", "0")) for b in bars[-200:]]
-            closes = [c for c in closes if c > 0]
-            if len(closes) >= 200:
-                result[code] = sum(closes) / len(closes)
-    except Exception:
-        pass
+    if path.exists():
+        try:
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+            for code, info in data.items():
+                bars = info.get("bars", [])
+                if len(bars) < 200:
+                    continue
+                closes = [int(b.get("stck_clpr", "0")) for b in bars[-200:]]
+                closes = [c for c in closes if c > 0]
+                if len(closes) >= 200:
+                    result[code] = sum(closes) / len(closes)
+        except Exception:
+            pass
     setattr(_load_ma200_cache, cache_attr, result)
     return result
 
