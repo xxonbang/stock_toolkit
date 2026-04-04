@@ -1491,36 +1491,7 @@ async def sell_all_positions_force():
             logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
             unmark_selling(position_id)
         await asyncio.sleep(0.3)
-    # open 시뮬레이션 일괄 close
-    try:
-        await _close_all_open_simulations()
-    except Exception as e:
-        logger.warning(f"시뮬 일괄 close 오류: {e}")
     invalidate_cache()
-
-
-async def _close_all_open_simulations():
-    """open 상태 시뮬레이션 전체 close (당일 청산용)"""
-    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
-    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
-        return
-    session = await get_session()
-    headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
-               "Content-Type": "application/json"}
-    now_iso = datetime.now(_KST).isoformat()
-    url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open"
-    async with session.get(url, headers=headers) as resp:
-        if resp.status != 200:
-            return
-        sims = await resp.json()
-    for sim in (sims or []):
-        patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
-        body = {"status": "closed", "exit_reason": "eod_close", "exited_at": now_iso}
-        async with session.patch(patch_url, json=body, headers=headers) as resp2:
-            pass
-        await asyncio.sleep(0.1)
-    if sims:
-        logger.info(f"시뮬 일괄 close: {len(sims)}건")
 
 
 async def sell_all_positions_market():
@@ -2127,6 +2098,77 @@ async def _check_api_leader_simulations():
         logger.warning(f"API∧대장주 시뮬 체크 오류: {e}")
 
 
+async def _check_five_factor_simulations():
+    """five_factor 시뮬레이션 독립 체크 — Stepped 기본형 조건으로 매도"""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    now_kst = datetime.now(_KST)
+    try:
+        session = await get_session()
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.five_factor&select=id,entry_price,peak_price,trade_id"
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return
+            sims = await resp.json()
+        if not sims:
+            return
+
+        config = await _get_trade_config()
+        sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
+        ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
+        preset = config.get("stepped_preset", "default")
+        patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+
+        for sim in sims:
+            # trade_id = "five_factor_{code}_{date}" → code 추출
+            tid = sim.get("trade_id", "")
+            parts = tid.split("_")
+            code = parts[2] if len(parts) >= 3 else ""
+            if not code:
+                continue
+            price = await _get_current_price(code)
+            if price <= 0:
+                continue
+            entry = sim["entry_price"]
+            prev_peak = sim.get("peak_price", entry)
+            flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
+            if price > prev_peak:
+                if prev_peak > 0 and (price - prev_peak) / prev_peak > flash_spike_pct:
+                    peak = prev_peak
+                else:
+                    peak = price
+            else:
+                peak = prev_peak
+            pnl = calc_pnl_pct(entry, price)
+            exit_reason = None
+
+            # Stepped 기본형 조건 적용
+            if pnl <= sl:
+                exit_reason = "stop_loss"
+            else:
+                peak_pnl = calc_pnl_pct(entry, peak)
+                ss = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=preset)
+                if ss > -999.0 and pnl <= ss:
+                    exit_reason = "stepped_trailing"
+
+            update_body: dict = {"peak_price": peak}
+            if exit_reason:
+                update_body.update({
+                    "status": "closed", "exit_price": price,
+                    "exit_reason": exit_reason, "pnl_pct": round(pnl, 2),
+                    "exited_at": now_kst.isoformat(),
+                })
+                logger.info(f"5팩터 시뮬 close: {code} {exit_reason} pnl={pnl:+.1f}%")
+            patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
+            async with session.patch(patch_url, json=update_body, headers=patch_headers) as resp:
+                pass
+            await asyncio.sleep(0.2)
+    except Exception as e:
+        logger.warning(f"5팩터 시뮬 체크 오류: {e}")
+
+
 async def _ensure_simulations_for_filled(positions: list[dict]):
     """filled 종목 중 시뮬레이션이 없는 것을 자동 생성 (수동 매수 등 daemon 외부 경로 대응)"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
@@ -2179,8 +2221,9 @@ async def _check_orphan_simulations():
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
-    # api_leader 시뮬도 체크 (orphan_sim_codes 없어도 실행)
+    # api_leader + five_factor 시뮬 독립 체크 (orphan_sim_codes 없어도 실행)
     await _check_api_leader_simulations()
+    await _check_five_factor_simulations()
     if not _orphan_sim_codes:
         return
     now_kst = datetime.now(_KST)
