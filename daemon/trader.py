@@ -1066,6 +1066,153 @@ async def run_buy_process():
         logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
 
 
+async def run_gapup_scan_and_buy():
+    """장 시작 갭업 스캔: stock-master 상위 200종목 현재가 조회 → 갭업 2~5% + MA200 + 거래량2배 → 즉시 매수.
+    09:01 KST에 호출됨 (schedule_gapup_open에서).
+    """
+    import json
+    from pathlib import Path
+
+    logger.info("갭업 스캔 시작 — stock-master 상위 200종목 조회")
+
+    # 1) stock-master에서 전종목 코드+이름 로드
+    master_path = Path(__file__).parent.parent / "results" / "stock-master.json"
+    if not master_path.exists():
+        logger.warning("stock-master.json 없음 — 갭업 스캔 중단")
+        return
+    with open(master_path, encoding="utf-8") as f:
+        master = json.load(f)
+    all_stocks = master.get("stocks", [])
+    if not all_stocks:
+        logger.warning("stock-master 종목 0개 — 갭업 스캔 중단")
+        return
+
+    # MA200 캐시 로드
+    ma200_map = _load_ma200_cache()
+
+    # 2) 상위 200종목 현재가 병렬 조회 (거래대금 상위는 사전 판별 불가 → 무작위 200 대신, MA200 보유 종목 우선)
+    # MA200이 있는 종목 = daily_ohlcv에 수집된 종목 = 유동성 있는 종목
+    scan_targets = [s for s in all_stocks if s["code"] in ma200_map][:200]
+    if not scan_targets:
+        scan_targets = all_stocks[:200]
+    logger.info(f"갭업 스캔 대상: {len(scan_targets)}종목")
+
+    # 배치 상세 조회 (시가, 전일종가, 거래량 포함)
+    token = await _ensure_mock_token()
+    if not token:
+        logger.warning("토큰 없음 — 갭업 스캔 중단")
+        return
+
+    async def _fetch_detail(code: str) -> dict | None:
+        try:
+            session = await get_session()
+            url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+            params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
+                data = await resp.json()
+                if data.get("rt_cd") != "0":
+                    return None
+                return data.get("output", {})
+        except Exception:
+            return None
+
+    # 50건씩 배치 조회 (rate limit 준수)
+    candidates = []
+    for batch_start in range(0, len(scan_targets), 50):
+        batch = scan_targets[batch_start:batch_start + 50]
+        results = await asyncio.gather(*[_fetch_detail(s["code"]) for s in batch])
+        for stock, out in zip(batch, results):
+            if not out:
+                continue
+            code = stock["code"]
+            name = stock.get("name", code)
+            cur_price = int(out.get("stck_prpr", "0"))
+            open_price = int(out.get("stck_oprc", "0"))
+            prev_close = int(out.get("stck_sdpr", "0"))
+            acml_vol = int(out.get("acml_vol", "0"))
+
+            if cur_price < 1000 or cur_price >= 200000:
+                continue
+            if open_price <= 0 or prev_close <= 0:
+                continue
+
+            gap_pct = (open_price - prev_close) / prev_close * 100
+
+            # MA200 필터
+            ma200 = ma200_map.get(code, 0)
+            if ma200 > 0 and cur_price <= ma200:
+                continue
+
+            # 거래량 조건: 50만주+ (전일거래량 비교 불가하므로 절대 거래량 기준)
+            vol_ok = acml_vol > 500000
+
+            if 2 <= gap_pct < 5 and vol_ok:
+                candidates.append({
+                    "code": code, "name": name, "price": cur_price,
+                    "gap_pct": round(gap_pct, 2), "vol_rate": acml_vol,
+                })
+        await asyncio.sleep(0.1)  # 배치 간 여유
+
+    logger.info(f"갭업 스캔 결과: {len(candidates)}종목 조건 충족")
+
+    if not candidates:
+        await send_telegram("📭 갭업 스캔: 조건 충족 종목 없음 (갭업2~5% + MA200↑ + 거래량2배)")
+        return
+
+    # 거래량 순 정렬, 상위 2종목
+    candidates.sort(key=lambda x: -x["vol_rate"])
+    targets = candidates[:2]
+
+    # 보유/주문 중 필터
+    buy_targets = []
+    for t in targets:
+        if await is_already_held_or_ordered(t["code"]):
+            logger.info(f"이미 보유/주문중 — {t['name']}({t['code']}) 스킵")
+            continue
+        if await is_upper_limit(t["code"], t["price"]):
+            logger.info(f"상한가 스킵 — {t['name']}({t['code']})")
+            continue
+        buy_targets.append(t)
+
+    if not buy_targets:
+        await send_telegram("📭 갭업 스캔: 후보 있으나 보유중/상한가로 매수 불가")
+        return
+
+    # 잔고 조회 + 매수
+    balance = await fetch_available_balance()
+    if balance <= 0:
+        names = ", ".join(t["name"] for t in buy_targets)
+        await send_telegram(f"⚠️ 갭업 매수 실패: 잔고 없음\n대상: {names}")
+        return
+
+    amount_per = balance // len(buy_targets)
+
+    # 텔레그램 보고
+    rpt = [f"<b>📈 갭업 모멘텀 스캔 매수</b>"]
+    rpt.append(f"스캔: {len(scan_targets)}종목 → 조건충족: {len(candidates)}종목")
+    rpt.append(f"잔고: {balance:,}원 | 종목당: {amount_per:,}원")
+    for t in buy_targets:
+        qty = calc_quantity(amount_per, t["price"])
+        rpt.append(f"  📥 {t['name']} ({t['code']}) 갭업+{t['gap_pct']:.1f}% 거래량{t['vol_rate']:.0f}% {t['price']:,}원 × {qty}주")
+    await send_telegram("\n".join(rpt))
+
+    bought = 0
+    for t in buy_targets:
+        qty = calc_quantity(amount_per, t["price"])
+        if qty <= 0:
+            continue
+        await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty)
+        bought += 1
+
+    if bought > 0:
+        try:
+            from daemon.main import trigger_subscription_refresh
+            await trigger_subscription_refresh()
+        except Exception as e:
+            logger.warning(f"갭업 매수 후 구독 갱신 실패: {e}")
+    logger.info(f"갭업 스캔 매수 완료: {bought}종목")
+
+
 def _today_utc_start() -> str:
     """KST 0시를 UTC로 변환한 타임스탬프"""
     return (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")

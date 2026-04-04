@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process, sell_all_positions_market, schedule_sell_check, cancel_all_pending_orders
+from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, sell_all_positions_market, schedule_sell_check, cancel_all_pending_orders
 from daemon.github_monitor import check_workflow_completion, check_signal_pulse_completion, trigger_deploy_pages, wait_for_deploy_completion
 from daemon.http_session import close_session
 
@@ -290,6 +290,30 @@ async def schedule_signal_pulse_trade():
             logger.error(f"signal-pulse 자동매매 루프 오류: {e}")
 
 
+async def schedule_gapup_open():
+    """09:01 KST에 갭업 모멘텀 스캔 + 매수 (1일 1회)"""
+    _gapup_done_date: str = ""
+    while not _shutdown:
+        await asyncio.sleep(10)
+        if _shutdown or not is_market_day():
+            continue
+        now = datetime.now(KST)
+        today = now.strftime("%Y-%m-%d")
+        if _gapup_done_date == today:
+            continue
+        # 09:01~09:03 윈도우
+        if now.hour == 9 and 1 <= now.minute <= 3:
+            if _buy_lock.locked():
+                continue
+            async with _buy_lock:
+                logger.info("09:01 갭업 모멘텀 스캔 시작")
+                try:
+                    await run_gapup_scan_and_buy()
+                except Exception as e:
+                    logger.error(f"갭업 스캔 오류: {e}")
+                _gapup_done_date = today
+
+
 async def schedule_eod_close():
     """15:15~15:20 사이에 보유 전 포지션 시장가 매도 (당일 청산)"""
     _eod_done_date: str = ""  # 당일 실행 완료 여부
@@ -414,6 +438,7 @@ async def main():
         ws_client.connect(),
         schedule_refresh(),
         schedule_config_watch(),
+        schedule_gapup_open(),
         schedule_auto_trade(),
         schedule_signal_pulse_trade(),
         schedule_eod_close(),
