@@ -1193,9 +1193,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 
-    # 거래량 순 정렬, 상위 1종목 (집중 투자 — 백테스트에서 1종목이 최고 성과)
+    # 거래량 순 정렬, 상위 2종목
     candidates.sort(key=lambda x: -x["vol_rate"])
-    targets = candidates[:1]
+    targets = candidates[:2]
 
     # 보유/주문 중 필터
     buy_targets = []
