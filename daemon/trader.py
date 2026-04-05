@@ -1178,8 +1178,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
             if ma20 > 0 and cur_price <= ma20:
                 continue
 
-            # 갭업 2~5%
-            if 2 <= gap_pct < 5:
+            # 갭업 1~5%
+            if 1 <= gap_pct < 5:
                 vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
                 # 09:30 보완 모드: 거래량 2배(200%) 필터 추가
                 if require_volume and vol_rate < 200:
@@ -1193,7 +1193,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
     logger.info(f"갭업 스캔 결과: {len(candidates)}종목 조건 충족")
 
     if not candidates:
-        cond = "갭업2~5% + MA200↑ + 거래량2배" if require_volume else "갭업2~5% + MA200↑"
+        cond = "갭업1~5% + MA200↑ + 거래량2배" if require_volume else "갭업1~5% + MA200↑"
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 

@@ -460,7 +460,7 @@ export default function AutoTrader() {
         {strategyType === "gapup" && (
           <div className="mt-2 p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
             <div className="space-y-1">
-              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>갭업</span><span className="t-text-dim">시가 갭업 2~5%</span></div>
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>갭업</span><span className="t-text-dim">시가 갭업 1~5%</span></div>
               <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>MA200</span><span className="t-text-dim">현재가 &gt; 200일 이동평균</span></div>
               <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>스캔</span><span className="t-text-dim">09:01 200종목 스캔 → 09:30 거래량 보완</span></div>
               <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>매도</span><span className="t-text-dim">당일 15:15 장 마감 청산</span></div>
@@ -703,7 +703,7 @@ export default function AutoTrader() {
                   <>
                     <div className="text-[11px] font-semibold t-text mb-1">갭업 모멘텀 종목 선정</div>
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>09:01</span><span className="t-text-dim">200종목 스캔 → 갭업 2~5% + MA200 필터</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>09:01</span><span className="t-text-dim">200종목 스캔 → 갭업 1~5% + MA200 필터</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>09:30</span><span className="t-text-dim">매수 0건 시 → 거래량 2배 필터 추가 재스캔</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
                     </div>
@@ -1089,7 +1089,7 @@ export default function AutoTrader() {
                           <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
                         </div>
                         <div className="text-[11px] t-text-sub leading-relaxed whitespace-pre-line">
-                          {strategyHelpOpen === "gapup" ? "30개 전략 백테스트에서 Sharpe·PF·승률·일관성 모두 1위를 기록한 갭업 모멘텀 전략입니다.\n\n[종목 선정]\n① 전일 종가 대비 시가 갭업 2~5%\n② 현재가 > MA200 (200일 이동평균)\n③ 1,000원 ≤ 현재가 < 200,000원\n→ 거래량 순 상위 2종목 선정\n\n[매매 타이밍]\n09:01 — 200종목 스캔 → 즉시 매수\n09:30 — 09:01 매수 0건 시 보완 스캔\n         (거래량 전일 대비 2배 필터 추가)\n15:15 — 전 포지션 당일 청산\n\n[백테스트 성과 (검증기간)]\ntrim +5.63% | 승률 73.5% | Sharpe 0.639\nPF 6.17 | 오버나이트 리스크 없음"
+                          {strategyHelpOpen === "gapup" ? "30개 전략 백테스트에서 Sharpe·PF·승률·일관성 모두 1위를 기록한 갭업 모멘텀 전략입니다.\n\n[종목 선정]\n① 전일 종가 대비 시가 갭업 1~5%\n② 현재가 > MA200 (200일 이동평균)\n③ 1,000원 ≤ 현재가 < 200,000원\n→ 거래량 순 상위 2종목 선정\n\n[매매 타이밍]\n09:01 — 200종목 스캔 → 즉시 매수\n09:30 — 09:01 매수 0건 시 보완 스캔\n         (거래량 전일 대비 2배 필터 추가)\n15:15 — 전 포지션 당일 청산\n\n[백테스트 성과 (검증기간)]\ntrim +5.63% | 승률 73.5% | Sharpe 0.639\nPF 6.17 | 오버나이트 리스크 없음"
                            : strategyHelpOpen === "real" ? "기존 실전 적용했던 5팩터 스코어 + Stepped Trailing 전략입니다.\n현재는 갭업 모멘텀으로 전환되어 가상 추적 중입니다.\n\n[종목 선정: 5팩터 스코어]\n① API 매수 +30점 (적극매수 +10 추가)\n② Vision 매수 +20점 (적극매수 +5 추가)\n③ 대장주 1등 +25점 / 테마소속 +15점\n④ 저가주 <2만원 +5점\n⑤ 급락반등 -10%↓&외인50만주↑ +35점\n→ 최소 20점 이상, 상위 2종목 선정\n\n[Criteria 가점 필터 (선택)]\n수급 양호 +10 / 골든크로스 +5 / 저항돌파 +5\n\n[매도: Stepped Trailing 공격형]\n+7%→본전, +15%→+7%, +20%→+15%\n+25%→+20%, +30%+→고점-3%\nSL: -2% (기본 손절)"
                            : strategyHelpOpen === "sim" ? "고정 익절/손절 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 고정 TP/SL 조건으로 매도 시뮬레이션합니다.\n\nTP: +7% (보유일수 연동 상향)\nSL: -2%\nTrailing: 고점 대비 -3% 하락 시 매도"
                            : strategyHelpOpen === "time" ? "시간 기반 매도 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 11:00 KST에 무조건 매도합니다.\n\n매수: 09:30 (실전과 동일)\n매도: 11:00 KST (시장 열기 피크)\nSL: -2% (11:00 전 손절)\n\n장 초반 모멘텀만 캡처하는 단기 전략으로, 오버나이트 리스크가 없습니다."
