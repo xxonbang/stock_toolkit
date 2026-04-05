@@ -1527,12 +1527,19 @@ async def sell_all_positions_force():
             unmark_selling(position_id)
         await asyncio.sleep(0.3)
     # 텔레그램 보고
-    sold_names = [f"{pos['name']}({pos.get('_pnl', 0):+.1f}%)" if '_pnl' in pos else pos['name'] for pos in filled if pos["id"] not in {p["id"] for p in filled if is_selling(p["id"])}]
     if filled:
+        lines = []
+        for pos in filled:
+            bp = pos.get("filled_price") or pos.get("order_price", 0)
+            cp = pos.get("_current_price", 0)
+            if bp > 0 and cp > 0:
+                pnl_val = calc_pnl_pct(bp, cp)
+                lines.append(f"  {pos['name']}({pos['code']}) {pnl_val:+.1f}%")
+            else:
+                lines.append(f"  {pos['name']}({pos['code']})")
         await send_telegram(
             f"<b>🔄 전량 강제 매도 완료</b>\n"
-            f"{len(filled)}종목 매도\n"
-            + "\n".join(f"  {pos['name']}({pos['code']}) {calc_pnl_pct(pos.get('filled_price') or pos.get('order_price', 0), pos.get('_current_price', 0)):+.1f}%" if pos.get('_current_price') else f"  {pos['name']}({pos['code']})" for pos in filled)
+            f"{len(filled)}종목 매도\n" + "\n".join(lines)
         )
     _orphan_sim_codes.clear()
     invalidate_cache()
