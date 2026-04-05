@@ -349,8 +349,8 @@ async def schedule_gapup_open():
                 logger.error(f"갭업 설정 조회 실패: {e}")
                 continue  # 설정 조회 실패 시 이번 루프 스킵 (다음 10초에 재시도)
 
-        # 09:00~09:01: 기존 보유 종목 전량 매도 (갭업 전략 전환용 — 당일 청산 전략이므로 전일 잔여분 정리)
-        if now.hour == 9 and now.minute == 0 and _gapup_done_date != today:
+        # 09:00~09:03: 기존 보유 종목 전량 매도 (갭업 스캔 전 잔여분 정리, 데몬 재시작 대비)
+        if now.hour == 9 and now.minute <= 3 and _gapup_done_date != today:
             if _buy_lock.locked():
                 continue
             from daemon.position_db import get_active_positions as _gap
