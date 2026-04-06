@@ -1230,13 +1230,24 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
     await send_telegram("\n".join(rpt))
 
     bought = 0
-    for t in buy_targets:
-        qty = calc_quantity(amount_per, t["price"])
-        if qty <= 0:
-            continue
-        success = await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty, skip_sim=True)
-        if success:
-            bought += 1
+    remaining_buys = [(t, calc_quantity(amount_per, t["price"])) for t in buy_targets if calc_quantity(amount_per, t["price"]) > 0]
+    for round_num in range(1, 4):  # 최대 3라운드 재시도
+        if not remaining_buys:
+            break
+        if round_num > 1:
+            logger.info(f"갭업 매수 {round_num}라운드: {len(remaining_buys)}종목 재시도 ({round_num * 5}초 대기)")
+            await asyncio.sleep(round_num * 5)
+        failed_buys = []
+        for t, qty in remaining_buys:
+            success = await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty, skip_sim=True)
+            if success:
+                bought += 1
+            else:
+                failed_buys.append((t, qty))
+        remaining_buys = failed_buys
+    if remaining_buys:
+        names = ", ".join(t["name"] for t, _ in remaining_buys)
+        await send_telegram(f"<b>🚨 갭업 매수 최종 실패</b>\n{names}\n3라운드 재시도 소진")
 
     if bought > 0:
         try:
@@ -1497,33 +1508,48 @@ async def sell_all_positions_force():
         logger.info("강제 매도: 보유 포지션 없음")
         return
     logger.info(f"강제 매도: {len(filled)}종목 전량 매도 시작")
-    for pos in filled:
-        position_id = pos["id"]
-        if is_selling(position_id):
-            continue
-        mark_selling(position_id)
-        buy_price = pos.get("filled_price") or pos.get("order_price", 0)
-        current_price = await _get_current_price(pos["code"])
-        pos["_current_price"] = current_price
-        pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
-        try:
-            result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
-            if not result:
-                logger.error(f"강제 매도 KIS 주문 실패: {pos['name']}({pos['code']}) — DB 미변경")
-                unmark_selling(position_id)
+    remaining = list(filled)
+    for round_num in range(1, 4):  # 최대 3라운드 재시도
+        if not remaining:
+            break
+        if round_num > 1:
+            logger.info(f"강제 매도 {round_num}라운드: {len(remaining)}종목 재시도 ({round_num * 5}초 대기)")
+            await asyncio.sleep(round_num * 5)
+        failed = []
+        for pos in remaining:
+            position_id = pos["id"]
+            if is_selling(position_id):
                 continue
-            sell_price = current_price
-            actual = await _get_actual_fill_price(pos["code"], is_sell=True)
-            if actual > 0:
-                sell_price = actual
-                pnl = calc_pnl_pct(buy_price, sell_price)
-            await update_position_sold(position_id, sell_price, pnl, "eod_close")
-            _peak_prices.pop(position_id, None)
-            logger.info(f"강제 매도: {pos['name']}({pos['code']}) {pnl:+.1f}%")
-        except Exception as e:
-            logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
-            unmark_selling(position_id)
-        await asyncio.sleep(0.3)
+            mark_selling(position_id)
+            buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+            current_price = await _get_current_price(pos["code"])
+            pos["_current_price"] = current_price
+            pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
+            try:
+                result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+                if not result:
+                    logger.error(f"강제 매도 실패 ({round_num}R): {pos['name']}({pos['code']})")
+                    unmark_selling(position_id)
+                    failed.append(pos)
+                    continue
+                sell_price = current_price
+                actual = await _get_actual_fill_price(pos["code"], is_sell=True)
+                if actual > 0:
+                    sell_price = actual
+                    pnl = calc_pnl_pct(buy_price, sell_price)
+                await update_position_sold(position_id, sell_price, pnl, "eod_close")
+                _peak_prices.pop(position_id, None)
+                logger.info(f"강제 매도: {pos['name']}({pos['code']}) {pnl:+.1f}%")
+            except Exception as e:
+                logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
+                unmark_selling(position_id)
+                failed.append(pos)
+            await asyncio.sleep(0.3)
+        remaining = failed
+    if remaining:
+        names = ", ".join(p["name"] for p in remaining)
+        logger.error(f"강제 매도 최종 실패: {names}")
+        await send_telegram(f"<b>🚨 강제 매도 실패 ({len(remaining)}종목)</b>\n{names}\n3라운드 재시도 소진")
     # 텔레그램 보고
     if filled:
         lines = []
@@ -2430,62 +2456,65 @@ async def _get_current_price(code: str) -> int:
     return 0
 
 
-async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = True, _pre_balance: int | None = None) -> dict | None:
-    """KIS 모의투자 시장가 주문 (토큰 만료/rate limit 시 재시도, 중복 체결 방지)"""
-    token = await _ensure_mock_token()
-    if not token:
-        return None
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
-    cano, acnt_cd = _parse_account()
-    body = {
-        "CANO": cano,
-        "ACNT_PRDT_CD": acnt_cd,
-        "PDNO": code,
-        "ORD_DVSN": "01",  # 시장가
-        "ORD_QTY": str(quantity),
-        "ORD_UNPR": "0",
-    }
-    # 매수 주문 시 재시도 전 잔고 비교용 기록
+_ORDER_MAX_RETRIES = 5  # 주문 최대 재시도 횟수
+_ORDER_BASE_WAIT = 3    # 재시도 기본 대기 (초)
+
+
+async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: int | None = None) -> dict | None:
+    """KIS 모의투자 시장가 주문 — 실패 시 토큰 재발급 + 최대 5회 재시도"""
     is_buy = tr_id == "VTTC0802U"
     if _pre_balance is None and is_buy:
         _pre_balance = await _check_balance_qty(code)
-    for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
+
+    for attempt in range(1, _ORDER_MAX_RETRIES + 1):
+        token = await _ensure_mock_token()
+        if not token:
+            # 토큰 발급 실패 → 리셋 후 재시도
+            _reset_token()
+            await asyncio.sleep(_ORDER_BASE_WAIT)
+            continue
+
+        # 매수 재시도 전 — 이전 주문이 이미 체결됐는지 잔고 확인
+        if attempt > 1 and is_buy:
+            cur_bal = await _check_balance_qty(code)
+            if _pre_balance is not None and cur_bal > _pre_balance:
+                logger.warning(f"재시도 중단 — 이미 체결 감지: {code} 잔고 {_pre_balance}→{cur_bal}")
+                return {"rt_cd": "0", "msg1": "이미 체결 (잔고 확인)"}
+
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-cash"
+        cano, acnt_cd = _parse_account()
+        body = {
+            "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+            "PDNO": code, "ORD_DVSN": "01", "ORD_QTY": str(quantity), "ORD_UNPR": "0",
+        }
         try:
-            # rate limit 재시도 전 — 이전 주문이 이미 체결됐는지 잔고 확인
-            if attempt > 1 and is_buy:
-                cur_bal = await _check_balance_qty(code)
-                if _pre_balance is not None and cur_bal > _pre_balance:
-                    logger.warning(f"rate limit 재시도 중단 — 이미 체결 감지: {code} 잔고 {_pre_balance}→{cur_bal}")
-                    return {"rt_cd": "0", "msg1": "이미 체결 (잔고 확인)"}
             session = await get_session()
             async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
                 if resp.status != 200:
-                    # HTTP 500 등 서버 오류 → 토큰 재발급 후 재시도
-                    logger.error(f"시장가 주문 HTTP {resp.status}: {code} {tr_id}")
-                    if retry and resp.status in (500, 401, 403):
-                        logger.warning(f"서버 오류 {resp.status} — 토큰 재발급 후 재시도")
-                        _reset_token()
-                        await asyncio.sleep(2)
-                        return await _kis_order_market(tr_id, code, quantity, retry=False, _pre_balance=_pre_balance)
-                    return None
+                    logger.error(f"주문 HTTP {resp.status} ({attempt}/{_ORDER_MAX_RETRIES}): {code} {tr_id}")
+                    _reset_token()
+                    await asyncio.sleep(_ORDER_BASE_WAIT * attempt)
+                    continue
                 data = await resp.json()
                 if data.get("rt_cd") == "0":
                     return data
                 msg = data.get("msg1", "")
-                if retry and ("만료" in msg or "token" in msg.lower()):
-                    logger.warning("시장가 주문 토큰 만료 — 재발급 후 재시도")
+                if "만료" in msg or "token" in msg.lower() or "유효하지" in msg:
+                    logger.warning(f"토큰 오류 ({attempt}/{_ORDER_MAX_RETRIES}): {msg}")
                     _reset_token()
-                    await asyncio.sleep(1)
-                    return await _kis_order_market(tr_id, code, quantity, retry=False, _pre_balance=_pre_balance)
-                if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
-                    logger.warning(f"시장가 주문 rate limit ({attempt}/{_RATE_LIMIT_RETRIES}): {code} — {attempt * _RATE_LIMIT_BASE_SEC}초 후 재시도")
-                    await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                    await asyncio.sleep(_ORDER_BASE_WAIT)
                     continue
-                logger.error(f"시장가 주문 실패 ({code}): {msg}")
-                return None
-        except Exception as e:
-            if attempt < _RATE_LIMIT_RETRIES:
-                await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                if "초과" in msg:
+                    logger.warning(f"rate limit ({attempt}/{_ORDER_MAX_RETRIES}): {code}")
+                    await asyncio.sleep(_ORDER_BASE_WAIT * attempt)
+                    continue
+                logger.error(f"주문 실패 ({attempt}/{_ORDER_MAX_RETRIES}) {code}: {msg}")
+                await asyncio.sleep(_ORDER_BASE_WAIT)
                 continue
-            logger.error(f"시장가 주문 오류: {e}")
+        except Exception as e:
+            logger.error(f"주문 오류 ({attempt}/{_ORDER_MAX_RETRIES}) {code}: {e}")
+            await asyncio.sleep(_ORDER_BASE_WAIT * attempt)
+            continue
+
+    logger.error(f"주문 최종 실패 ({_ORDER_MAX_RETRIES}회 재시도 소진): {code} {tr_id}")
     return None
