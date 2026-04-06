@@ -30,6 +30,15 @@ function formatDate(iso: string) {
   return d.toLocaleDateString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
+/** UTC ISO 문자열 → KST 날짜 (YYYY-MM-DD) */
+function toKstDate(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  const kst = new Date(d.getTime() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().slice(0, 10);
+}
+
 async function requestSell(tradeId: string): Promise<boolean> {
   const { error } = await supabase
     .from("auto_trades")
@@ -1011,19 +1020,19 @@ export default function AutoTrader() {
                         {/* 종목 리스트 — 날짜별 그룹핑 + 체크박스 */}
                         {(() => {
                           const items = strategyDetail === "gapup"
-                            ? allGapupTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
+                            ? allGapupTrades.map((t: any) => ({ ...t, _date: toKstDate(t.created_at) || "보유", _displayName: t.name, _displaySub: t.code }))
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => {
                                 const mt = trades.find(tr => tr.id === t.trade_id);
                                 const simCode = mt?.code || "";
-                                const mtCreated = mt?.created_at?.slice(0, 10) || "";
+                                const mtCreated = toKstDate(mt?.created_at);
                                 const origSold = simCode ? soldTrades.filter(tr => tr.code === simCode && (tr.created_at || "") < (mt?.created_at || "")).pop() : null;
-                                const displayDate = origSold?.created_at?.slice(0, 10) || mtCreated || t.created_at?.slice(0, 10) || "보유";
+                                const displayDate = toKstDate(origSold?.created_at) || mtCreated || toKstDate(t.created_at) || "보유";
                                 return { ...t, _date: displayDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
                               })
                             : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
-                                return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
+                                return { ...s, _date: toKstDate(mt?.created_at) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
                               });
                           if (items.length === 0) {
                             return (
@@ -1045,7 +1054,7 @@ export default function AutoTrader() {
                             grouped[key].push(item);
                           }
                           const dates = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
-                          const todayStr = new Date().toISOString().slice(0, 10);
+                          const todayStr = toKstDate(new Date().toISOString());
                           // 체크된 날짜의 합산
                           const includedItems = items.filter(it => !excludedDates.has(it._date));
                           const closedOnly = includedItems.filter(it => !it._isActive);

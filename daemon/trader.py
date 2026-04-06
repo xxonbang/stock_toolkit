@@ -1260,10 +1260,10 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         except Exception:
             return None
 
-    # 50건씩 배치 조회 (rate limit 준수)
+    # 5건씩 배치 조회 (KIS 모의투자 rate limit: 초당 ~5건)
     candidates = []
-    for batch_start in range(0, len(scan_targets), 50):
-        batch = scan_targets[batch_start:batch_start + 50]
+    for batch_start in range(0, len(scan_targets), 5):
+        batch = scan_targets[batch_start:batch_start + 5]
         results = await asyncio.gather(*[_fetch_detail(s["code"]) for s in batch])
         for stock, out in zip(batch, results):
             if not out:
@@ -1300,7 +1300,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                     "code": code, "name": name, "price": cur_price,
                     "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
                 })
-        await asyncio.sleep(0.1)  # 배치 간 여유
+        await asyncio.sleep(0.5)  # 배치 간 rate limit 방어
 
     logger.info(f"갭업 스캔 결과: {len(candidates)}종목 기본 조건 충족")
 
