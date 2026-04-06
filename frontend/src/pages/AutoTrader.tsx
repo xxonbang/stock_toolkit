@@ -1048,7 +1048,10 @@ export default function AutoTrader() {
                           const todayStr = new Date().toISOString().slice(0, 10);
                           // 체크된 날짜의 합산
                           const includedItems = items.filter(it => !excludedDates.has(it._date));
+                          const closedOnly = includedItems.filter(it => !it._isActive);
+                          const activeOnly = includedItems.filter(it => it._isActive);
                           const filteredPnl = includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0;
+                          const closedPnl = closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0;
                           const allChecked = excludedDates.size === 0;
 
                           return (
@@ -1059,13 +1062,18 @@ export default function AutoTrader() {
                                 <div className={`text-lg font-bold tabular-nums ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                                   {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
                                 </div>
-                                <div className="text-[10px] t-text-dim">{includedItems.length}건</div>
+                                <div className="text-[10px] t-text-dim">{includedItems.length}건{activeOnly.length > 0 ? ` (보유 ${activeOnly.length})` : ""}</div>
                               </div>
                               <button onClick={() => setExcludedDates(allChecked ? new Set(dates) : new Set())}
                                 className="text-[10px] t-text-dim hover:t-text transition px-2 py-1 rounded-lg" style={{ border: "1px solid var(--border)" }}>
                                 {allChecked ? "전체 해제" : "전체 선택"}
                               </button>
                             </div>
+                            {activeOnly.length > 0 && (
+                              <div className="text-[9px] t-text-dim mb-2 px-2.5">
+                                확정 수익률 (보유 제외): <span className={`font-semibold ${closedPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>{closedPnl >= 0 ? "+" : ""}{closedPnl.toFixed(2)}%</span> ({closedOnly.length}건)
+                              </div>
+                            )}
                             <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
@@ -1087,6 +1095,7 @@ export default function AutoTrader() {
                                         <ChevronDown size={12} className="t-text-dim transition-transform [details:not([open])>&]:-rotate-90" />
                                         <span className="text-[11px] font-semibold t-text">{date}</span>
                                         <span className="text-[10px] t-text-dim">{group.length}건</span>
+                                        {group.some((it: any) => it._isActive) && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-400">보유 {group.filter((it: any) => it._isActive).length}</span>}
                                       </div>
                                       <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                                         {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
