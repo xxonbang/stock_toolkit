@@ -29,7 +29,7 @@ const PRESETS: { key: string; label: string; icon: any; desc: string; color: str
   { key: "smart_money", label: "스마트머니", icon: Sparkles, desc: "스마트머니 점수 70+ & 매수 신호", color: "text-purple-400",
     apply: s => (s._smart_money_score || 0) >= 70 && (s.signal === "매수" || s.signal === "적극매수") },
   { key: "value", label: "저평가 반등", icon: Target, desc: "저PER 또는 5팩터 고점수 + 순매수 + 매수", color: "text-blue-400",
-    apply: s => ((s._per > 0 && s._per < 15) || (s.total_score || 0) >= 30) && s.foreign_flow === "순매수" && (s.signal === "매수" || s.signal === "적극매수") },
+    apply: s => ((s._per > 0 && s._per < 15) || ((parseFloat(s.tech_score) || 0) + (parseFloat(s.material_score) || 0)) >= 12) && s.foreign_flow === "순매수" && (s.signal === "매수" || s.signal === "적극매수") },
   { key: "danger", label: "위험 경고", icon: AlertTriangle, desc: "매도 + 높음 + 순매도", color: "text-red-500",
     apply: s => (s.signal === "매도" || s.signal === "적극매도") && s.risk_level === "높음" },
   { key: "gapup", label: "갭업 후보", icon: Zap, desc: "갭업 + MA200↑ + 과열X", color: "text-amber-400",
@@ -92,8 +92,9 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         investScore += sigScore;
         // 스마트머니 20점
         investScore += Math.min(20, Math.round((sm.smart_money_score || 0) / 5));
-        // 5팩터 스코어 20점
-        investScore += Math.min(20, Math.round((s.total_score || 0) / 5));
+        // 기술+재료 스코어 20점
+        const combinedScore = (parseFloat(s.tech_score) || 0) + (parseFloat(s.material_score) || 0);
+        investScore += Math.min(20, Math.round(combinedScore));
         // 수급 15점
         if (s.foreign_flow === "순매수") investScore += 10;
         if (s.match_status === "match") investScore += 5;
@@ -331,7 +332,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
                   <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                     <ScoreBadge label="종합" value={s._invest_score} max={100} />
                     {s._smart_money_score > 0 && <ScoreBadge label="스마트" value={s._smart_money_score} max={100} />}
-                    {s.total_score > 0 && <ScoreBadge label="5팩터" value={s.total_score} max={100} />}
+                    {((parseFloat(s.tech_score) || 0) + (parseFloat(s.material_score) || 0)) > 0 && <ScoreBadge label="기술+재료" value={Math.round((parseFloat(s.tech_score) || 0) + (parseFloat(s.material_score) || 0))} max={20} />}
                     {s.foreign_flow && (
                       <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${s.foreign_flow === "순매수" ? "bg-red-500/10 text-red-400" : "bg-blue-500/10 text-blue-400"}`}>
                         외국인 {s.foreign_flow}
