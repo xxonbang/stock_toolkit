@@ -2,9 +2,15 @@
 
 ## 2026-04-06
 
+### [버그픽스] 갭업 카드에 과거 5팩터 매도 기록 혼입 방지 (2026-04-06 15:35 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 격리 리팩토링에서 갭업 카드가 모든 sold auto_trades를 포함하던 문제 발견. 첫 stepped simulation 생성일을 갭업 전환 시점으로 동적 감지하여 그 이후 거래만 표시.
+- **커밋:** `2aebf8a`
+
 ### [개선] 전략 비교 카드 데이터 소스 완전 격리 (2026-04-06 15:30 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** 갭업 카드는 auto_trades만, 5팩터+Stepped 카드는 strategy_simulations(stepped)만 사용하도록 완전 분리. gapupCodes/steppedSimInfo/filteredSold 등 복잡한 교차 필터링 로직 제거. 갭업-5팩터 간 종목 간섭 근본 해소.
+- **커밋:** `3dba9f6`
 
 ## 2026-04-04
 
