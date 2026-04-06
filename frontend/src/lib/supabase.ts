@@ -238,7 +238,7 @@ export async function getStrategySimulations(): Promise<any[]> {
       .select("*")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
-      .limit(100);
+      .limit(500);
     if (error) { console.error("시뮬레이션 조회 실패:", error); return []; }
     return data || [];
   } catch { return []; }

@@ -1343,8 +1343,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                         continue
                     filtered.append(c)
             except Exception as e:
-                logger.warning(f"일봉 조회 실패 {c['code']}: {e} — 필터 통과 처리")
-                filtered.append(c)
+                logger.warning(f"과열 제외: {c['name']}({c['code']}) 일봉 조회 오류 — {e}")
+                # 판단 불가 → 보수적으로 제외 (과열 종목 매수 방지)
             await asyncio.sleep(0.3)  # rate limit 방어
         logger.info(f"과열 필터 후: {len(filtered)}종목 (제외 {len(candidates) - len(filtered)}종목)")
         candidates = filtered
@@ -1791,6 +1791,9 @@ async def sell_all_positions_market():
                 if current_price <= 0:
                     current_price = await _get_current_price(pos["code"])
                 sell_price = current_price if current_price > 0 else buy_price
+                actual = await _get_actual_fill_price(pos["code"], is_sell=True)
+                if actual > 0:
+                    sell_price = actual
                 pnl = calc_pnl_pct(buy_price, sell_price)
                 _peak_prices.pop(position_id, None)
                 if filled_qty >= pos["quantity"]:
@@ -1841,6 +1844,9 @@ async def sell_all_positions_market():
                     retry_buy_price = pos_now.get("filled_price") or pos_now.get("order_price", 0)
                     cp = await _get_current_price(pos_now["code"])
                     sp = cp if cp > 0 else retry_buy_price
+                    actual = await _get_actual_fill_price(pos_now["code"], is_sell=True)
+                    if actual > 0:
+                        sp = actual
                     pnl = calc_pnl_pct(retry_buy_price, sp)
                     if filled_qty >= pos_now["quantity"]:
                         await update_position_sold(position_id, sp, pnl, "eod_close")
