@@ -1514,12 +1514,15 @@ async def sell_all_positions_force():
         pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
         try:
             result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+            if not result:
+                logger.error(f"강제 매도 KIS 주문 실패: {pos['name']}({pos['code']}) — DB 미변경")
+                unmark_selling(position_id)
+                continue
             sell_price = current_price
-            if result:
-                actual = await _get_actual_fill_price(pos["code"], is_sell=True)
-                if actual > 0:
-                    sell_price = actual
-                    pnl = calc_pnl_pct(buy_price, sell_price)
+            actual = await _get_actual_fill_price(pos["code"], is_sell=True)
+            if actual > 0:
+                sell_price = actual
+                pnl = calc_pnl_pct(buy_price, sell_price)
             await update_position_sold(position_id, sell_price, pnl, "eod_close")
             _peak_prices.pop(position_id, None)
             logger.info(f"강제 매도: {pos['name']}({pos['code']}) {pnl:+.1f}%")
