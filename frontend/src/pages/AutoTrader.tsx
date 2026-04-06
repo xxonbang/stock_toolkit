@@ -850,14 +850,8 @@ export default function AutoTrader() {
             {(() => {
               const soldTrades = trades.filter(t => t.status === "sold");
               const activeTrades = trades.filter(t => t.status === "filled");
-              // 보유 중 종목의 미실현 PnL 계산
-              const activeWithPnl = activeTrades.map(t => {
-                const cp = prices[t.code]?.price || 0;
-                const bp = t.filled_price ?? t.order_price;
-                const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
-                return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
-              });
-              // stepped 시뮬 (5팩터 가상 추적분)을 실거래와 합산
+              // === 완전 분리: 각 카드는 하나의 데이터 소스만 사용 ===
+              // 5팩터+Stepped 카드: strategy_simulations type=stepped ONLY
               const steppedClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "stepped");
               const steppedOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "stepped").map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
@@ -865,30 +859,7 @@ export default function AutoTrader() {
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
                 return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true, _name: mt?.name };
               });
-              // 시뮬로 전환된 종목: 시뮬의 trade_id(sim_only)와 연결된 sold 기록만 제외
-              // (같은 code의 이전 eod_close는 유지)
-              const steppedSimTradeIds = new Set([...steppedClosedSims, ...steppedOpenSims].map((s: any) => s.trade_id));
-              // sim_only의 code 목록 + 해당 sim_only의 created_at 이후 sold만 제거
-              const steppedSimInfo = [...steppedClosedSims, ...steppedOpenSims].map((s: any) => {
-                const mt = trades.find(t => t.id === s.trade_id);
-                return { code: mt?.code || "", simCreated: s.created_at || "" };
-              }).filter(x => x.code);
-              // 5팩터 카드에서 제외할 eod_close: 시뮬 전환분 + 갭업 매수분
-              const steppedSimCodeSet = new Set(steppedSimInfo.map(si => si.code));
-              // 갭업 매수 종목 코드 (filled + sim_only가 아닌 실매수 종목)
-              const gapupCodes = new Set(activeTrades.map(t => t.code));
-              const filteredSold = soldTrades.filter(t => {
-                if (t.sell_reason !== "eod_close") return true;
-                // 갭업 매수 후 eod_close → 갭업 카드로 (5팩터에서 제외)
-                if (gapupCodes.has(t.code)) return false;
-                // 시뮬 전환 종목의 eod_close → 시뮬이 대체 (5팩터에서 제외)
-                const simMatch = steppedSimInfo.find(si => si.code === t.code);
-                if (!simMatch) return true;
-                return (t.sold_at || "") < simMatch.simCreated;
-              });
-              // 5팩터 카드: 이전 전략 sold + stepped 시뮬만
               const allRealTrades = [
-                ...filteredSold.map(t => ({ ...t, _isActive: false })),
                 ...steppedClosedSims.map((s: any) => ({ ...s, _isActive: false })),
                 ...steppedOpenSims,
               ];
@@ -910,7 +881,6 @@ export default function AutoTrader() {
               // API매수∧테마대장주 시뮬
               const apiLeaderSims = simulations.filter(s => s.strategy_type === "api_leader");
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
-              // stepped 시뮬 (독립 생성분 포함)은 closedSims/openSims에 포함
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = trades.find(t => t.id === s.trade_id);
@@ -930,8 +900,6 @@ export default function AutoTrader() {
               const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
-              // 실제 카드: 갭업 모멘텀 거래만 (TODO: 갭업 거래 분류 추가 시 필터)
-              // 현재는 allRealTrades가 기존 5팩터 거래이므로, 기존 거래를 "5팩터+Stepped (가상)"으로 표시
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
                 { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
                 { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
@@ -939,9 +907,15 @@ export default function AutoTrader() {
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
               ];
 
-              // 갭업 카드: 갭업 매수 후 eod_close 매도 + 현재 보유
-              const gapupSold = soldTrades.filter(t => t.sell_reason === "eod_close" && gapupCodes.has(t.code));
-              const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
+              // 갭업 카드: auto_trades 전체 (sim_only 제외) — 현재 유일한 실전 전략
+              const gapupSold = soldTrades;
+              const gapupActive = activeTrades.map(t => {
+                const cp = prices[t.code]?.price || 0;
+                const bp = t.filled_price ?? t.order_price;
+                const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
+                return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
+              });
+              const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...gapupActive];
               const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
 
               return (

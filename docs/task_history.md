@@ -1,5 +1,22 @@
 # Task History
 
+## 2026-04-06
+
+### [개선] 전략 비교 카드 데이터 소스 완전 격리 (2026-04-06 15:30 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 갭업 카드는 auto_trades만, 5팩터+Stepped 카드는 strategy_simulations(stepped)만 사용하도록 완전 분리. gapupCodes/steppedSimInfo/filteredSold 등 복잡한 교차 필터링 로직 제거. 갭업-5팩터 간 종목 간섭 근본 해소.
+
+## 2026-04-04
+
+### [기능] 갭업 모멘텀을 실제 매매로, 5팩터 스코어링을 시뮬레이션으로 전환 (2026-04-04 22:26 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 30개 전략 백테스트 결과 갭업 모멘텀(갭업 2~5% + 거래량 2배) 전략이 Sharpe/PF/승률/일관성 모두 1위 확인. 실제 매매를 갭업 모멘텀으로 전환하고, 기존 5팩터 스코어링은 strategy_type=five_factor 시뮬레이션으로 가상 추적. UI 전략 설명 갱신.
+- **커밋:** `900a412`
+
+### [진단] 30대 자동매매 전략 백테스트 + 갭업 모멘텀 심층 분석 (2026-04-04 21:00 KST)
+- **생성 파일:** `scripts/backtest_10strategies.py`, `scripts/backtest_10strategies_v2.py`, `scripts/backtest_10strategies_v3.py`, `scripts/backtest_gapup_deep.py`, `docs/research/2026-04-04-strategy-comparison.md`
+- **내용:** 인터넷 리서치 기반 30개 전략 도출 → 1,309종목×300일 학습/검증 분리 백테스트. 갭업 모멘텀이 유일하게 현재 시스템 전 지표 압도 (trim +4.30% vs +1.00%, 승률 66.4% vs 45.0%, 부트스트랩 100% 유의). 손절 테스트에서 SL-3%가 MDD 15.4%로 최적이나, 손절없음이 수익 극대화.
+
 ## 2026-04-03
 
 ### [기능] 급락반등 팩터 추가 (2026-04-03 09:20 KST)
