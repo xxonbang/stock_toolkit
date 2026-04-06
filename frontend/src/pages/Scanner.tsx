@@ -28,8 +28,8 @@ const PRESETS: { key: string; label: string; icon: any; desc: string; color: str
     apply: s => s.golden_cross || s.high_breakout || s.ma_aligned },
   { key: "smart_money", label: "스마트머니", icon: Sparkles, desc: "스마트머니 점수 70+ & 매수 신호", color: "text-purple-400",
     apply: s => (s._smart_money_score || 0) >= 70 && (s.signal === "매수" || s.signal === "적극매수") },
-  { key: "value", label: "저평가 반등", icon: Target, desc: "PER<15 + 순매수 + 매수 신호", color: "text-blue-400",
-    apply: s => s._per > 0 && s._per < 15 && s.foreign_flow === "순매수" && (s.signal === "매수" || s.signal === "적극매수") },
+  { key: "value", label: "저평가 반등", icon: Target, desc: "저PER 또는 5팩터 고점수 + 순매수 + 매수", color: "text-blue-400",
+    apply: s => ((s._per > 0 && s._per < 15) || (s.total_score || 0) >= 30) && s.foreign_flow === "순매수" && (s.signal === "매수" || s.signal === "적극매수") },
   { key: "danger", label: "위험 경고", icon: AlertTriangle, desc: "매도 + 높음 + 순매도", color: "text-red-500",
     apply: s => (s.signal === "매도" || s.signal === "적극매도") && s.risk_level === "높음" },
   { key: "gapup", label: "갭업 후보", icon: Zap, desc: "갭업 + MA200↑ + 과열X", color: "text-amber-400",
@@ -116,7 +116,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
           _trading_value: (apiData.ranking || {}).trading_value || 0,
           _foreign_net: s.foreign_net || 0,
           _gap_pct: gp.gap_pct || 0,
-          _above_ma200: !!(cs._ma_aligned || cs._golden_cross),
+          _above_ma200: !!(s.ma_aligned || s.golden_cross || cs._ma_aligned || cs._golden_cross),
           _consistency: "",
           _signal_age: cs.signal_age_hours || 0,
           _cs: cs,
@@ -168,6 +168,10 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
   }
 
   function handlePreset(preset: typeof PRESETS[0]) {
+    // 상세 필터 상태 리셋 (프리셋과 불일치 방지)
+    setSignals(new Set()); setRisks(new Set()); setFlows(new Set()); setMarkets(new Set());
+    setThemeOnly(false); setGoldenCross(false); setHighBreakout(false);
+    setMaAligned(false); setDualMatch(false);
     setActivePreset(preset.key);
     setResults(sortStocks(allStocks.filter(preset.apply)));
     setFilterCollapsed(true);
@@ -229,8 +233,8 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
         <div className="text-[11px] font-semibold t-text mb-2">빠른 검색</div>
         <div className="grid grid-cols-3 gap-1.5">
           {PRESETS.map(p => (
-            <button key={p.key} onClick={() => handlePreset(p)}
-              className={`p-2 rounded-lg text-left transition-all ${activePreset === p.key ? "ring-2 ring-blue-500/50 shadow-sm" : "hover:opacity-80"}`}
+            <button key={p.key} onClick={() => allStocks.length > 0 && handlePreset(p)} disabled={allStocks.length === 0}
+              className={`p-2 rounded-lg text-left transition-all ${activePreset === p.key ? "ring-2 ring-blue-500/50 shadow-sm" : "hover:opacity-80"} ${allStocks.length === 0 ? "opacity-40" : ""}`}
               style={{ background: "var(--bg-card)" }}>
               <div className="flex items-center gap-1.5 mb-0.5">
                 <p.icon size={12} className={p.color} />
