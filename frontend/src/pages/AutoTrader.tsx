@@ -907,8 +907,12 @@ export default function AutoTrader() {
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
               ];
 
-              // 갭업 카드: auto_trades 전체 (sim_only 제외) — 현재 유일한 실전 전략
-              const gapupSold = soldTrades;
+              // 갭업 전환 시점 = 첫 stepped simulation 생성일 (그 이후 auto_trades만 갭업)
+              const gapupCutoff = [...steppedClosedSims, ...steppedOpenSims]
+                .map((s: any) => s.created_at).filter(Boolean).sort()[0]?.slice(0, 10) || "";
+              const gapupSold = gapupCutoff
+                ? soldTrades.filter(t => (t.created_at || "").slice(0, 10) >= gapupCutoff)
+                : soldTrades;
               const gapupActive = activeTrades.map(t => {
                 const cp = prices[t.code]?.price || 0;
                 const bp = t.filled_price ?? t.order_price;
