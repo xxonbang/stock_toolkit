@@ -1966,11 +1966,14 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
     session = await get_session()
     headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
     for item in top2:
+        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격)
+        real_price = await _get_current_price(item["code"])
+        entry_price = real_price if real_price > 0 else item["price"]
         # api_leader용 가상 auto_trades 레코드 생성 (trade_id UUID 필수)
         virtual_trade = await _supabase_request("POST",
             f"{SUPABASE_URL}/rest/v1/auto_trades",
             json={"code": item["code"], "name": item["name"], "side": "buy",
-                  "order_price": item["price"], "quantity": 0, "status": "sim_only"},
+                  "order_price": entry_price, "quantity": 0, "status": "sim_only"},
             retries=0)
         if not virtual_trade:
             logger.warning(f"API∧대장주 가상 trade 생성 실패: {item['name']}")
@@ -1979,9 +1982,9 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         body = {
             "trade_id": vt["id"],
             "strategy_type": "api_leader",
-            "entry_price": item["price"],
+            "entry_price": entry_price,
             "status": "open",
-            "peak_price": item["price"],
+            "peak_price": entry_price,
             "stepped_stop_pct": -2.0,
             "user_id": user_id,
         }
@@ -1989,7 +1992,7 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
             url = f"{SUPABASE_URL}/rest/v1/strategy_simulations"
             async with session.post(url, json=body, headers=headers) as resp:
                 if resp.status in (200, 201):
-                    logger.info(f"API∧대장주 시뮬 생성: {item['name']}({item['code']}) {item['price']:,}원 {item['score']}점")
+                    logger.info(f"API∧대장주 시뮬 생성: {item['name']}({item['code']}) {entry_price:,}원 {item['score']}점")
                 else:
                     err = await resp.text()
                     logger.warning(f"API∧대장주 시뮬 생성 실패: {resp.status} {err[:100]}")
