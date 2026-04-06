@@ -1260,14 +1260,14 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
 
             gap_pct = (open_price - prev_close) / prev_close * 100
 
-            # MA200 필터
+            # MA200 필터 (값 없으면 판단 불가 → 제외)
             ma200 = ma200_map.get(code, 0)
-            if ma200 > 0 and cur_price <= ma200:
+            if ma200 <= 0 or cur_price <= ma200:
                 continue
 
-            # MA20 필터 (종가 > MA20 = 단기 상승 추세)
+            # MA20 필터 (값 없으면 판단 불가 → 제외)
             ma20 = ma20_map.get(code, 0)
-            if ma20 > 0 and cur_price <= ma20:
+            if ma20 <= 0 or cur_price <= ma20:
                 continue
 
             # 갭업 1~5%
@@ -1672,14 +1672,28 @@ async def sell_all_positions_force():
                     unmark_selling(position_id)
                     failed.append(pos)
                     continue
+                # 체결 확인
+                filled_qty = await _verify_sell_fill(pos["code"], pos["quantity"])
+                if filled_qty <= 0:
+                    # 미체결 조회 실패 → 모의투자 시장가 즉시체결 간주
+                    filled_qty = pos["quantity"]
+                    logger.warning(f"강제 매도 체결 조회 실패 → 즉시체결 간주: {pos['name']}({pos['code']})")
                 sell_price = current_price
                 actual = await _get_actual_fill_price(pos["code"], is_sell=True)
                 if actual > 0:
                     sell_price = actual
                     pnl = calc_pnl_pct(buy_price, sell_price)
-                await update_position_sold(position_id, sell_price, pnl, "eod_close")
-                _peak_prices.pop(position_id, None)
-                logger.info(f"강제 매도: {pos['name']}({pos['code']}) {pnl:+.1f}%")
+                if filled_qty < pos["quantity"]:
+                    # 부분체결: 잔여 수량 DB 업데이트, 다음 라운드에서 재시도
+                    await update_position_quantity(position_id, pos["quantity"] - filled_qty)
+                    unmark_selling(position_id)
+                    pos["quantity"] = pos["quantity"] - filled_qty
+                    failed.append(pos)
+                    logger.warning(f"강제 매도 부분체결: {pos['name']}({pos['code']}) {filled_qty}/{pos['quantity']+filled_qty}주")
+                else:
+                    await update_position_sold(position_id, sell_price, pnl, "eod_close")
+                    _peak_prices.pop(position_id, None)
+                logger.info(f"강제 매도: {pos['name']}({pos['code']}) {pnl:+.1f}% ({filled_qty}주)")
             except Exception as e:
                 logger.error(f"강제 매도 오류: {pos['name']}({pos['code']}) {e}")
                 unmark_selling(position_id)
