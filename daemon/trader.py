@@ -1226,8 +1226,12 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
     if not master_path.exists():
         logger.warning("stock-master.json 없음 — 갭업 스캔 중단")
         return 0
-    with open(master_path, encoding="utf-8") as f:
-        master = json.load(f)
+    try:
+        with open(master_path, encoding="utf-8") as f:
+            master = json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        logger.error(f"stock-master.json 파싱 실패 — 갭업 스캔 중단: {e}")
+        return 0
     all_stocks = master.get("stocks", [])
     if not all_stocks:
         logger.warning("stock-master 종목 0개 — 갭업 스캔 중단")
@@ -1637,6 +1641,15 @@ async def sell_all_positions_force():
                 continue
             mark_selling(position_id)
             buy_price = pos.get("filled_price") or pos.get("order_price", 0)
+            # 중복 매도 방어: KIS 잔고 확인 (OOM 재시작 시 이전 매도 이미 체결 가능)
+            bal = await _check_balance_qty(pos["code"])
+            if bal <= 0:
+                logger.info(f"강제 매도 스킵 (잔고 0 — 이미 체결): {pos['name']}({pos['code']})")
+                sell_price = await _get_current_price(pos["code"]) or buy_price
+                pnl = calc_pnl_pct(buy_price, sell_price)
+                await update_position_sold(position_id, sell_price, pnl, "eod_close")
+                _peak_prices.pop(position_id, None)
+                continue
             current_price = await _get_current_price(pos["code"])
             pos["_current_price"] = current_price
             pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
@@ -1657,7 +1670,10 @@ async def sell_all_positions_force():
                 actual = await _get_actual_fill_price(pos["code"], is_sell=True)
                 if actual > 0:
                     sell_price = actual
-                    pnl = calc_pnl_pct(buy_price, sell_price)
+                if sell_price <= 0:
+                    sell_price = buy_price  # 최종 fallback: 매수가 (0 저장 방지)
+                    logger.warning(f"강제 매도 체결가 조회 실패 → 매수가 fallback: {pos['name']}({pos['code']})")
+                pnl = calc_pnl_pct(buy_price, sell_price)
                 if filled_qty < pos["quantity"]:
                     # 부분체결: 잔여 수량 DB 업데이트, 다음 라운드에서 재시도
                     await update_position_quantity(position_id, pos["quantity"] - filled_qty)
