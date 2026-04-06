@@ -2463,7 +2463,13 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, retry: bool = 
             session = await get_session()
             async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
                 if resp.status != 200:
+                    # HTTP 500 등 서버 오류 → 토큰 재발급 후 재시도
                     logger.error(f"시장가 주문 HTTP {resp.status}: {code} {tr_id}")
+                    if retry and resp.status in (500, 401, 403):
+                        logger.warning(f"서버 오류 {resp.status} — 토큰 재발급 후 재시도")
+                        _reset_token()
+                        await asyncio.sleep(2)
+                        return await _kis_order_market(tr_id, code, quantity, retry=False, _pre_balance=_pre_balance)
                     return None
                 data = await resp.json()
                 if data.get("rt_cd") == "0":
