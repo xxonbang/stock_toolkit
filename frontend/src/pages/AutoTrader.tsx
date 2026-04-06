@@ -870,9 +870,11 @@ export default function AutoTrader() {
                 return mt?.code || "";
               }).filter(Boolean));
               const filteredSold = soldTrades.filter(t => !(steppedSimCodes.has(t.code) && t.sell_reason === "eod_close"));
+              // 갭업 매수 종목은 5팩터 카드에서 제외 (갭업 카드에 표시)
+              // 갭업 매수분 = 오늘 매수된 filled (갭업 전략 전환 후 생성된 것)
+              // 5팩터 카드에는 이전 전략의 sold + stepped 시뮬만 표시
               const allRealTrades = [
                 ...filteredSold.map(t => ({ ...t, _isActive: false })),
-                ...activeWithPnl,
                 ...steppedClosedSims.map((s: any) => ({ ...s, _isActive: false })),
                 ...steppedOpenSims,
               ];
@@ -923,13 +925,29 @@ export default function AutoTrader() {
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
               ];
 
+              // 갭업 모멘텀 실제 거래: 현재 보유(filled) + 갭업 전환 후 sold (eod_close)
+              const gapupTrades = [...activeWithPnl, ...soldTrades.filter(t => t.sell_reason === "eod_close" && steppedSimCodes.has(t.code) === false)];
+              // 갭업 전환 시점 이후 매도분만 (4/6~)
+              const gapupSoldAfterSwitch = soldTrades.filter(t => t.sold_at && t.sold_at >= "2026-04-06" && t.sell_reason === "eod_close" && !steppedSimCodes.has(t.code));
+              const allGapupTrades = [...gapupSoldAfterSwitch.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
+              const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
+
               return (
                 <>
                   {/* 실제 전략: 갭업 모멘텀 */}
                   <button onClick={() => setStrategyDetail("gapup")}
                     className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
                     <div className="text-[10px] t-text-sub font-medium mb-1">갭업 모멘텀 (실제)</div>
-                    <div className="text-[9px] t-text-dim mt-1">축적 중</div>
+                    {allGapupTrades.length > 0 ? (
+                      <>
+                        <div className={`text-lg font-bold tabular-nums ${gapupPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          {gapupPnl >= 0 ? "+" : ""}{gapupPnl.toFixed(1)}%
+                        </div>
+                        <div className="text-[10px] t-text-sub mt-0.5">{allGapupTrades.length}건</div>
+                      </>
+                    ) : (
+                      <div className="text-[9px] t-text-dim mt-1">축적 중</div>
+                    )}
                     <ChevronRight size={12} className="absolute right-2 top-1/2 -translate-y-1/2 t-text-dim opacity-40 group-hover:opacity-100 transition" />
                   </button>
                   {/* 가상 전략 */}
@@ -978,7 +996,7 @@ export default function AutoTrader() {
                         {/* 종목 리스트 — 날짜별 그룹핑 + 체크박스 */}
                         {(() => {
                           const items = strategyDetail === "gapup"
-                            ? ([] as any[])  // 갭업 거래 데이터 축적 중
+                            ? allGapupTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => {
                                 // stepped 시뮬은 원본 sold 거래의 날짜+종목명 사용
