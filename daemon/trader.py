@@ -27,19 +27,33 @@ _peak_prices: dict[str, int] = {}
 
 _access_token = ""
 _token_issued_at: float = 0
+_token_last_refresh: float = 0  # 마지막 발급 시도 시각 (쿨다운용)
 _TOKEN_TTL = 3500  # KIS 토큰 유효기간 ~1시간, 여유 두고 58분
+_TOKEN_COOLDOWN = 65  # 재발급 쿨다운 (KIS 1분 제한 대비 65초)
+_TOKEN_ACTIVATE_WAIT = 5  # 발급 후 활성화 대기 (초)
 _RATE_LIMIT_RETRIES = 3  # rate limit 재시도 횟수
 _RATE_LIMIT_BASE_SEC = 2  # 재시도 기본 대기 (2, 4, 6초)
 
 
 async def _ensure_mock_token() -> str | None:
-    """모의투자 토큰 발급 — 만료 시 자동 재발급"""
-    global _access_token, _token_issued_at
+    """모의투자 토큰 발급 — 만료 시 자동 재발급 (쿨다운 + 활성화 대기)"""
+    global _access_token, _token_issued_at, _token_last_refresh
     now = time.time()
+
+    # 유효한 토큰이 있으면 그대로 사용
     if _access_token and (now - _token_issued_at) < _TOKEN_TTL:
         return _access_token
+
+    # 쿨다운: 마지막 발급 시도로부터 65초 미경과 시 대기
+    since_last = now - _token_last_refresh
+    if _token_last_refresh > 0 and since_last < _TOKEN_COOLDOWN:
+        wait = _TOKEN_COOLDOWN - since_last
+        logger.info(f"토큰 쿨다운 대기: {wait:.0f}초")
+        await asyncio.sleep(wait)
+
     # 재발급
     _access_token = ""
+    _token_last_refresh = time.time()
     url = f"{KIS_MOCK_BASE_URL}/oauth2/tokenP"
     body = {
         "grant_type": "client_credentials",
@@ -51,9 +65,16 @@ async def _ensure_mock_token() -> str | None:
         async with session.post(url, json=body) as resp:
             if resp.status == 200:
                 data = await resp.json()
+                if "error_code" in data:
+                    logger.warning(f"토큰 발급 제한: {data.get('error_description', '')}")
+                    return None
                 _access_token = data.get("access_token", "")
-                _token_issued_at = now
-                logger.info("모의투자 토큰 발급 완료")
+                if not _access_token:
+                    return None
+                _token_issued_at = time.time()
+                # 활성화 대기: KIS 모의투자 토큰은 발급 직후 비활성 상태일 수 있음
+                logger.info(f"토큰 발급 완료, {_TOKEN_ACTIVATE_WAIT}초 활성화 대기")
+                await asyncio.sleep(_TOKEN_ACTIVATE_WAIT)
                 return _access_token
     except Exception as e:
         logger.error(f"모의투자 토큰 발급 실패: {e}")
@@ -2469,9 +2490,8 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: 
     for attempt in range(1, _ORDER_MAX_RETRIES + 1):
         token = await _ensure_mock_token()
         if not token:
-            # 토큰 발급 실패 → 리셋 후 재시도
-            _reset_token()
-            await asyncio.sleep(_ORDER_BASE_WAIT)
+            # 토큰 발급 실패 → _ensure_mock_token 내부에서 쿨다운 처리됨
+            logger.warning(f"토큰 없음 ({attempt}/{_ORDER_MAX_RETRIES}): {code}")
             continue
 
         # 매수 재시도 전 — 이전 주문이 이미 체결됐는지 잔고 확인
@@ -2492,7 +2512,8 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: 
             async with session.post(url, json=body, headers=_order_headers(token, tr_id)) as resp:
                 if resp.status != 200:
                     logger.error(f"주문 HTTP {resp.status} ({attempt}/{_ORDER_MAX_RETRIES}): {code} {tr_id}")
-                    _reset_token()
+                    if resp.status in (401, 403):
+                        _reset_token()  # 인증 오류만 토큰 리셋
                     await asyncio.sleep(_ORDER_BASE_WAIT * attempt)
                     continue
                 data = await resp.json()
@@ -2501,9 +2522,8 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: 
                 msg = data.get("msg1", "")
                 if "만료" in msg or "token" in msg.lower() or "유효하지" in msg:
                     logger.warning(f"토큰 오류 ({attempt}/{_ORDER_MAX_RETRIES}): {msg}")
-                    _reset_token()
-                    await asyncio.sleep(_ORDER_BASE_WAIT)
-                    continue
+                    _reset_token()  # 토큰 관련 오류만 리셋
+                    continue  # _ensure_mock_token에서 쿨다운 처리
                 if "초과" in msg:
                     logger.warning(f"rate limit ({attempt}/{_ORDER_MAX_RETRIES}): {code}")
                     await asyncio.sleep(_ORDER_BASE_WAIT * attempt)
