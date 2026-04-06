@@ -1240,8 +1240,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         qty = calc_quantity(amount_per, t["price"])
         if qty <= 0:
             continue
-        await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty, skip_sim=True)
-        bought += 1
+        success = await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty, skip_sim=True)
+        if success:
+            bought += 1
 
     if bought > 0:
         try:
