@@ -783,17 +783,14 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
     try:
         result = await _kis_order_market("VTTC0801U", code, quantity)
         if not result:
-            # KIS 주문 자체 실패 (잔고 없음 등) → 현재가 기반으로 DB 정리
-            sell_price = await _get_current_price(code) or price
-            pnl = calc_pnl_pct(buy_price, sell_price)
-            await update_position_sold(position_id, sell_price, pnl, reason)
-            _peak_prices.pop(position_id, None)
-            logger.warning(f"KIS 매도 주문 실패 → 현재가 기반 정리: {name}({code}) {pnl:+.1f}%")
+            # KIS 주문 실패 → DB 미변경 (KIS/DB 불일치 방지)
+            logger.error(f"KIS 매도 주문 실패 — DB 미변경: {name}({code})")
+            unmark_selling(position_id)
             await send_telegram(
-                f"<b>⚠️ KIS 매도 주문 실패 — DB 정리</b>\n{name} ({code})\n"
-                f"사유: {reason}\n매도가(현재가): {sell_price:,}원 ({pnl:+.2f}%)"
+                f"<b>⚠️ KIS 매도 주문 실패</b>\n{name} ({code})\n"
+                f"사유: {reason}\nDB 상태 유지 (filled) — 다음 체크에서 재시도"
             )
-            return True
+            return False
         if result:
             filled_qty = await _verify_sell_fill(code, quantity)
             if filled_qty <= 0:
@@ -845,12 +842,9 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 pass
             return True
     except Exception as e:
-        # 예외 발생 시에도 현재가 기반 DB 정리 (무한 재시도 방지)
-        sell_price = await _get_current_price(code) or price
-        pnl = calc_pnl_pct(buy_price, sell_price)
-        await update_position_sold(position_id, sell_price, pnl, reason)
-        _peak_prices.pop(position_id, None)
-        logger.error(f"매도 처리 오류 → DB 정리: {name}({code}) {e}")
+        # 예외 발생 시 DB 미변경 (KIS/DB 불일치 방지)
+        logger.error(f"매도 처리 오류 — DB 미변경: {name}({code}) {e}")
+        unmark_selling(position_id)
         return False
 
 
