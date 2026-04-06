@@ -722,7 +722,7 @@ export default function AutoTrader() {
                             ))}
                           </div>
                           <span className="text-[8px] t-text-dim">
-                            {gapupSl === "none" ? "15:15 전량 청산 · trim +5.1% · SR 0.64 · PF 7.0" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · trim +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · trim +4.6% · V자반등 허용"}
+                            {gapupSl === "none" ? "15:15 전량 청산 · 평균수익 +5.1% · 승률 70.6%" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · 평균수익 +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · 평균수익 +4.6% · V자반등 허용"}
                           </span>
                         </div>
                       </div>
