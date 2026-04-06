@@ -1645,10 +1645,14 @@ async def sell_all_positions_force():
             bal = await _check_balance_qty(pos["code"])
             if bal <= 0:
                 logger.info(f"강제 매도 스킵 (잔고 0 — 이미 체결): {pos['name']}({pos['code']})")
-                sell_price = await _get_current_price(pos["code"]) or buy_price
+                # 실체결가 우선 조회, 없으면 현재가, 최종 fallback은 매수가
+                sell_price = await _get_actual_fill_price(pos["code"], is_sell=True)
+                if sell_price <= 0:
+                    sell_price = await _get_current_price(pos["code"]) or buy_price
                 pnl = calc_pnl_pct(buy_price, sell_price)
                 await update_position_sold(position_id, sell_price, pnl, "eod_close")
                 _peak_prices.pop(position_id, None)
+                unmark_selling(position_id)
                 continue
             current_price = await _get_current_price(pos["code"])
             pos["_current_price"] = current_price
