@@ -105,6 +105,7 @@ export default function AutoTrader() {
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped" | "gapup">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
+  const [gapupSl, setGapupSl] = useState<"none" | "-5" | "-6">("none");
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "gapup" | null>(null);
@@ -708,34 +709,22 @@ export default function AutoTrader() {
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>09:30</span><span className="t-text-dim">매수 0건 시 → 거래량 2배 필터 추가 재스캔</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>필터</span><span className="t-text-dim">3일변동성 &lt;13% + 3일누적수익률 &lt;20%</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
-                    </div>
-                    <div className="pt-2 border-t t-border-light">
-                      <div className="text-[10px] font-semibold t-text mb-1.5">리스크 모드</div>
-                      <div className="space-y-1.5">
-                        <label className="flex items-start gap-2 cursor-pointer">
-                          <input type="radio" name="gapup_risk" defaultChecked className="mt-0.5 accent-blue-500" />
-                          <div>
-                            <span className="text-[10px] font-medium t-text">A. 공격</span>
-                            <span className="text-[9px] t-text-dim ml-1">장중 손절 없이 15:15 청산</span>
-                            <div className="text-[8px] t-text-dim mt-0.5">trim +5.1% · SR 0.64 · PF 7.0 · 5%초과손실 5%</div>
+                      <div className="flex items-start gap-2">
+                        <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
+                        <div className="flex flex-col gap-1">
+                          <div className="flex gap-1">
+                            {([["none", "없음"], ["-5", "-5%"], ["-6", "-6%"]] as const).map(([val, label]) => (
+                              <button key={val} onClick={() => setGapupSl(val as any)}
+                                className={`px-2 py-0.5 rounded-full text-[9px] font-medium transition ${gapupSl === val ? "bg-blue-500 text-white" : "t-text-dim"}`}
+                                style={gapupSl !== val ? { background: "var(--bg-card-alt)" } : {}}>
+                                {label}
+                              </button>
+                            ))}
                           </div>
-                        </label>
-                        <label className="flex items-start gap-2 cursor-pointer">
-                          <input type="radio" name="gapup_risk" className="mt-0.5 accent-blue-500" />
-                          <div>
-                            <span className="text-[10px] font-medium t-text">B. 균형</span>
-                            <span className="text-[9px] t-text-dim ml-1">장중 -5% 손절</span>
-                            <div className="text-[8px] t-text-dim mt-0.5">trim +4.4% · SR 0.59 · PF 5.9 · 5%초과손실 0%</div>
-                          </div>
-                        </label>
-                        <label className="flex items-start gap-2 cursor-pointer">
-                          <input type="radio" name="gapup_risk" className="mt-0.5 accent-blue-500" />
-                          <div>
-                            <span className="text-[10px] font-medium t-text">C. 절충</span>
-                            <span className="text-[9px] t-text-dim ml-1">장중 -6% 손절</span>
-                            <div className="text-[8px] t-text-dim mt-0.5">trim +4.6% · SR 0.61 · PF 6.2 · V자반등 허용</div>
-                          </div>
-                        </label>
+                          <span className="text-[8px] t-text-dim">
+                            {gapupSl === "none" ? "15:15 전량 청산 · trim +5.1% · SR 0.64 · PF 7.0" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · trim +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · trim +4.6% · V자반등 허용"}
+                          </span>
+                        </div>
                       </div>
                     </div>
                     <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
