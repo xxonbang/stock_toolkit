@@ -706,7 +706,37 @@ export default function AutoTrader() {
                     <div className="space-y-1">
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>09:01</span><span className="t-text-dim">200종목 스캔 → 갭업 1~5% + MA200 필터</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>09:30</span><span className="t-text-dim">매수 0건 시 → 거래량 2배 필터 추가 재스캔</span></div>
-                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>필터</span><span className="t-text-dim">3일변동성 &lt;13% + 3일누적수익률 &lt;20%</span></div>
+                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
+                    </div>
+                    <div className="pt-2 border-t t-border-light">
+                      <div className="text-[10px] font-semibold t-text mb-1.5">리스크 모드</div>
+                      <div className="space-y-1.5">
+                        <label className="flex items-start gap-2 cursor-pointer">
+                          <input type="radio" name="gapup_risk" defaultChecked className="mt-0.5 accent-blue-500" />
+                          <div>
+                            <span className="text-[10px] font-medium t-text">A. 공격</span>
+                            <span className="text-[9px] t-text-dim ml-1">장중 손절 없이 15:15 청산</span>
+                            <div className="text-[8px] t-text-dim mt-0.5">trim +5.1% · SR 0.64 · PF 7.0 · 5%초과손실 5%</div>
+                          </div>
+                        </label>
+                        <label className="flex items-start gap-2 cursor-pointer">
+                          <input type="radio" name="gapup_risk" className="mt-0.5 accent-blue-500" />
+                          <div>
+                            <span className="text-[10px] font-medium t-text">B. 균형</span>
+                            <span className="text-[9px] t-text-dim ml-1">장중 -5% 손절</span>
+                            <div className="text-[8px] t-text-dim mt-0.5">trim +4.4% · SR 0.59 · PF 5.9 · 5%초과손실 0%</div>
+                          </div>
+                        </label>
+                        <label className="flex items-start gap-2 cursor-pointer">
+                          <input type="radio" name="gapup_risk" className="mt-0.5 accent-blue-500" />
+                          <div>
+                            <span className="text-[10px] font-medium t-text">C. 절충</span>
+                            <span className="text-[9px] t-text-dim ml-1">장중 -6% 손절</span>
+                            <div className="text-[8px] t-text-dim mt-0.5">trim +4.6% · SR 0.61 · PF 6.2 · V자반등 허용</div>
+                          </div>
+                        </label>
+                      </div>
                     </div>
                     <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
                       자본 100% 배분
