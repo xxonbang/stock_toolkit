@@ -291,7 +291,7 @@ async def schedule_signal_pulse_trade():
 
 
 async def schedule_ma200_update():
-    """매 거래일 08:50 KST에 MA200 캐시 갱신"""
+    """매 거래일 20:00 KST에 MA200 캐시 갱신 (장중 API 경합 방지)"""
     _ma200_done_date: str = ""
     while not _shutdown:
         await asyncio.sleep(30)
@@ -301,8 +301,8 @@ async def schedule_ma200_update():
         today = now.strftime("%Y-%m-%d")
         if _ma200_done_date == today:
             continue
-        # 08:50~08:55
-        if now.hour == 8 and 50 <= now.minute <= 55:
+        # 20:00~20:05
+        if now.hour == 20 and 0 <= now.minute <= 5:
             logger.info("MA200 캐시 주간 갱신 시작")
             try:
                 from daemon.update_ma200 import update_ma200, update_stock_master, cleanup_old_sim_only
