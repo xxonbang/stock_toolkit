@@ -856,11 +856,25 @@ export default function AutoTrader() {
                 const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
                 return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
               });
-              const allRealTrades = [...soldTrades.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
+              // stepped 시뮬 (5팩터 가상 추적분)을 실거래와 합산
+              const steppedClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "stepped");
+              const steppedOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "stepped").map((s: any) => {
+                const mt = trades.find(t => t.id === s.trade_id);
+                const cp = mt ? (prices[mt.code]?.price || 0) : 0;
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
+                return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true, _name: mt?.name };
+              });
+              const allRealTrades = [
+                ...soldTrades.map(t => ({ ...t, _isActive: false })),
+                ...activeWithPnl,
+                ...steppedClosedSims.map((s: any) => ({ ...s, _isActive: false })),
+                ...steppedOpenSims,
+              ];
               const realPnl = allRealTrades.length > 0 ? allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allRealTrades.length : 0;
 
-              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","api_leader"].includes(s.strategy_type));
-              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","api_leader"].includes(s.strategy_type));
+              // stepped 시뮬은 5팩터+Stepped 카드에 합산, 나머지(fixed)만 sim 카드
+              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","api_leader","stepped"].includes(s.strategy_type));
+              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","api_leader","stepped"].includes(s.strategy_type));
               // 시간전략 시뮬레이션 별도 집계
               const timeClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "time_exit");
               const timeOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "time_exit");
@@ -960,7 +974,14 @@ export default function AutoTrader() {
                           const items = strategyDetail === "gapup"
                             ? ([] as any[])  // 갭업 거래 데이터 축적 중
                             : strategyDetail === "real"
-                            ? allRealTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
+                            ? allRealTrades.map((t: any) => {
+                                // stepped 시뮬은 trade_id로 종목명 조회
+                                if (t.strategy_type === "stepped") {
+                                  const mt = trades.find(tr => tr.id === t.trade_id);
+                                  return { ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
+                                }
+                                return { ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code };
+                              })
                             : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
                                 return { ...s, _date: mt?.created_at?.slice(0, 10) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
