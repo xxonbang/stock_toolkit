@@ -1870,7 +1870,10 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
     for item in scored_top2:
         code = item.get("code", "")
         name = item.get("name", code)
-        price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
+        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격이므로)
+        price = await _get_current_price(code)
+        if price <= 0:
+            price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
         if price <= 0 or code in existing_codes_today:
             continue
         # 가상 auto_trades 레코드 생성 (trade_id UUID 확보용)
