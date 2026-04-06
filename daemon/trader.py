@@ -1282,10 +1282,52 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                 })
         await asyncio.sleep(0.1)  # 배치 간 여유
 
-    logger.info(f"갭업 스캔 결과: {len(candidates)}종목 조건 충족")
+    logger.info(f"갭업 스캔 결과: {len(candidates)}종목 기본 조건 충족")
+
+    # 3일변동성 + 3일누적수익률 필터 (후보 종목만 일봉 조회)
+    if candidates:
+        filtered = []
+        for c in candidates:
+            try:
+                session = await get_session()
+                url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+                params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": c["code"],
+                          "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
+                async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
+                    data = await resp.json()
+                    bars = data.get("output", [])[:5]  # 최근 5일봉 (오늘 포함)
+                    if len(bars) < 4:
+                        filtered.append(c)  # 데이터 부족 시 통과 (안전)
+                        continue
+                    # bars[0]=오늘, bars[1]=전일, bars[2]=2일전, bars[3]=3일전
+                    # 3일 변동성: 전일~3일전의 (고가-저가)/저가 평균
+                    ranges = []
+                    for b in bars[1:4]:
+                        h = int(b.get("stck_hgpr", "0"))
+                        lo = int(b.get("stck_lwpr", "0"))
+                        if lo > 0:
+                            ranges.append((h - lo) / lo * 100)
+                    avg_range_3 = sum(ranges) / len(ranges) if ranges else 0
+                    # 3일 누적수익률: 전일종가 / 3일전종가 - 1
+                    prev_close = int(bars[1].get("stck_clpr", "0"))
+                    close_3d_ago = int(bars[3].get("stck_clpr", "0")) if len(bars) >= 4 else 0
+                    cum_3d = (prev_close - close_3d_ago) / close_3d_ago * 100 if close_3d_ago > 0 else 0
+                    if avg_range_3 >= 13:
+                        logger.info(f"과열 제외: {c['name']}({c['code']}) 3일변동성={avg_range_3:.1f}%")
+                        continue
+                    if cum_3d >= 20:
+                        logger.info(f"과열 제외: {c['name']}({c['code']}) 3일누적={cum_3d:.1f}%")
+                        continue
+                    filtered.append(c)
+            except Exception as e:
+                logger.warning(f"일봉 조회 실패 {c['code']}: {e} — 필터 통과 처리")
+                filtered.append(c)
+            await asyncio.sleep(0.3)  # rate limit 방어
+        logger.info(f"과열 필터 후: {len(filtered)}종목 (제외 {len(candidates) - len(filtered)}종목)")
+        candidates = filtered
 
     if not candidates:
-        cond = "갭업1~5% + MA200↑ + 거래량2배" if require_volume else "갭업1~5% + MA200↑"
+        cond = "갭업1~5% + MA200↑ + 과열필터" + ("+거래량2배" if require_volume else "")
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 
