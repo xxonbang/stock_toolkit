@@ -864,8 +864,14 @@ export default function AutoTrader() {
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
                 return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true, _name: mt?.name };
               });
+              // 시뮬로 전환된 종목의 실거래 "장마감" 기록 제외 (시뮬이 대체)
+              const steppedSimCodes = new Set([...steppedClosedSims, ...steppedOpenSims].map((s: any) => {
+                const mt = trades.find(t => t.id === s.trade_id);
+                return mt?.code || "";
+              }).filter(Boolean));
+              const filteredSold = soldTrades.filter(t => !(steppedSimCodes.has(t.code) && t.sell_reason === "eod_close"));
               const allRealTrades = [
-                ...soldTrades.map(t => ({ ...t, _isActive: false })),
+                ...filteredSold.map(t => ({ ...t, _isActive: false })),
                 ...activeWithPnl,
                 ...steppedClosedSims.map((s: any) => ({ ...s, _isActive: false })),
                 ...steppedOpenSims,
