@@ -975,10 +975,11 @@ export default function AutoTrader() {
                             ? ([] as any[])  // 갭업 거래 데이터 축적 중
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => {
-                                // stepped 시뮬은 trade_id로 종목명 조회
+                                // stepped 시뮬은 원본 거래의 날짜+종목명 사용
                                 if (t.strategy_type === "stepped") {
                                   const mt = trades.find(tr => tr.id === t.trade_id);
-                                  return { ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
+                                  const origDate = mt?.created_at?.slice(0, 10) || t.created_at?.slice(0, 10) || "보유";
+                                  return { ...t, _date: origDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
                                 }
                                 return { ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code };
                               })
