@@ -762,11 +762,12 @@ async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
 
 
 async def _check_balance_qty(code: str) -> int:
-    """KIS 잔고 조회 API로 특정 종목 보유 수량 확인 (미체결 조회 실패 시 fallback)"""
+    """KIS 잔고 조회 API로 특정 종목 보유 수량 확인.
+    반환: 보유 수량 (0 이상) 또는 -1 (조회 실패)."""
     try:
         token = await _ensure_mock_token()
         if not token:
-            return 0
+            return -1  # 조회 실패
         session = await get_session()
         acnt = KIS_MOCK_ACCOUNT_NO.split("-")
         url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-balance"
@@ -787,9 +788,10 @@ async def _check_balance_qty(code: str) -> int:
                 for item in data.get("output1", []):
                     if item.get("pdno") == code:
                         return int(item.get("hldg_qty", 0))
+                return 0  # 종목이 잔고에 없음 = 보유 0주
     except Exception as e:
         logger.warning(f"잔고 조회 실패: {code} {e}")
-    return 0
+    return -1  # 조회 실패
 
 
 async def _verify_fill_with_retry(code: str, ordered_qty: int) -> int:
@@ -838,6 +840,8 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
 
     # 매수 전 기존 잔고 기록 (추가 매수 시 기존 보유분 차감용)
     pre_balance = await _check_balance_qty(code)
+    if pre_balance < 0:
+        pre_balance = 0  # 조회 실패 시 0으로 간주 (매수 방향이므로 안전)
 
     # 시장가 매수 (지정가 미체결 방지)
     result = await _kis_order_market("VTTC0802U", code, quantity)
@@ -1688,7 +1692,7 @@ async def sell_all_positions_force():
             buy_price = pos.get("filled_price") or pos.get("order_price", 0)
             # 중복 매도 방어: KIS 잔고 확인 (OOM 재시작 시 이전 매도 이미 체결 가능)
             bal = await _check_balance_qty(pos["code"])
-            if bal <= 0:
+            if bal == 0:  # 잔고 0 = 이미 체결 확인 (bal=-1은 조회 실패 → 정상 매도 진행)
                 logger.info(f"강제 매도 스킵 (잔고 0 — 이미 체결): {pos['name']}({pos['code']})")
                 # 실체결가 우선 조회, 없으면 현재가, 최종 fallback은 매수가
                 sell_price = await _get_actual_fill_price(pos["code"], is_sell=True)
@@ -2756,6 +2760,8 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: 
     is_buy = tr_id == "VTTC0802U"
     if _pre_balance is None and is_buy:
         _pre_balance = await _check_balance_qty(code)
+        if _pre_balance < 0:
+            _pre_balance = None  # 조회 실패 시 잔고 비교 비활성화
 
     for attempt in range(1, _ORDER_MAX_RETRIES + 1):
         token = await _ensure_mock_token()
@@ -2767,7 +2773,7 @@ async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: 
         # 매수 재시도 전 — 이전 주문이 이미 체결됐는지 잔고 확인
         if attempt > 1 and is_buy:
             cur_bal = await _check_balance_qty(code)
-            if _pre_balance is not None and cur_bal > _pre_balance:
+            if _pre_balance is not None and cur_bal >= 0 and cur_bal > _pre_balance:
                 logger.warning(f"재시도 중단 — 이미 체결 감지: {code} 잔고 {_pre_balance}→{cur_bal}")
                 return {"rt_cd": "0", "msg1": "이미 체결 (잔고 확인)"}
 
