@@ -627,10 +627,57 @@ async def _get_balance_avg_price(code: str) -> int:
 
 
 async def _cancel_unfilled(code: str, is_sell: bool = False) -> int | None:
-    """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환. 조회 실패 시 None.
-    모의투자는 inquire-nccs 미지원 → 시장가 즉시체결 간주, 미체결 0 반환."""
-    # 모의투자: 미체결 API 미지원 (404), 시장가 즉시체결이므로 미체결 0
-    return 0
+    """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환. 조회 실패 시 None."""
+    sll_buy = "01" if is_sell else "02"
+    label = "매도 " if is_sell else ""
+    token = await _ensure_mock_token()
+    if not token:
+        return None
+    cano, acnt_cd = _parse_account()
+    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
+    params = {
+        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+        "INQR_STRT_DT": "", "INQR_END_DT": "",
+        "SLL_BUY_DVSN_CD": sll_buy, "INQR_DVSN": "00",
+        "PDNO": "", "CCLD_DVSN": "01",
+        "ORD_GNO_BRNO": "", "ODNO": "",
+        "INQR_DVSN_3": "00", "INQR_DVSN_1": "",
+        "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+    }
+    unfilled_qty = 0
+    try:
+        session = await get_session()
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return None
+            for order in data.get("output", []):
+                if order.get("pdno") != code:
+                    continue
+                rmn = int(order.get("rmn_qty", "0") or "0")
+                if rmn <= 0:
+                    continue
+                unfilled_qty += rmn
+                odno = order.get("odno", "")
+                if odno:
+                    cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
+                    cancel_body = {
+                        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+                        "KRX_FWDG_ORD_ORGNO": "", "ORGN_ODNO": odno,
+                        "ORD_DVSN": "00", "RVSE_CNCL_DVSN_CD": "02",
+                        "ORD_QTY": str(rmn), "ORD_UNPR": "0", "QTY_ALL_ORD_YN": "Y",
+                    }
+                    async with session.post(cancel_url, json=cancel_body, headers=_order_headers(token, "VTTC0803U")) as cresp:
+                        cdata = await cresp.json()
+                        if cdata.get("rt_cd") == "0":
+                            logger.info(f"{label}미체결 취소: {code} 잔여 {rmn}주")
+                        else:
+                            logger.warning(f"{label}미체결 취소 실패: {code} {cdata.get('msg1', '')}")
+                    await asyncio.sleep(0.3)
+    except Exception as e:
+        logger.error(f"{label}미체결 조회/취소 오류: {e}")
+        return None
+    return unfilled_qty
     cano, acnt_cd = _parse_account()
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
     params = {
