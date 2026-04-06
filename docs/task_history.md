@@ -2,6 +2,11 @@
 
 ## 2026-04-06
 
+### [기능] 모의투자 토큰 Supabase 공유 (2026-04-06 16:45 KST)
+- **변경 파일:** `daemon/trader.py`
+- **내용:** `_ensure_mock_token()`에 Supabase `api_credentials` 조회/저장 추가. `service_name='kis_mock'`으로 실투자와 분리. 재시작 시 쿨다운(65초)+활성화(10초) 대기 없이 즉시 토큰 로드. Supabase 실패 시 기존 로직 fallback.
+- **커밋:** `0d99485`
+
 ### [버그픽스] MA200 캐시 갱신 rate limit 방어 (2026-04-06 16:00 KST)
 - **변경 파일:** `daemon/update_ma200.py`
 - **내용:** KIS 모의투자 API rate limit으로 2,577종목 중 84% 갱신 실패. 동시 요청 50→5건, 배치 대기 0.1→0.5초로 조정. 실패 사유 로깅 추가.
