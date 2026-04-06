@@ -1080,8 +1080,7 @@ export default function AutoTrader() {
                                           <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2 min-w-0">
                                               <span className="t-text font-medium truncate">{item._displayName}</span>
-                                              {item._isActive && item.strategy_type === "stepped" && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400">시뮬 보유</span>}
-                              {item._isActive && !item.strategy_type && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
+                                              {item._isActive && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400">보유</span>}
                                               {item._isCapped && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400">{(item.pnl_pct ?? 0) >= 0 ? "익절" : "손절"}</span>}
                                               {(item.exit_reason || item.sell_reason) && !item._isActive && (() => { const r = item.exit_reason || item.sell_reason; return <span className="text-[9px] px-1.5 py-0.5 rounded-full t-text-dim" style={{ background: "var(--bg-muted)" }}>{r === "stop_loss" ? "손절" : r === "take_profit" ? "익절" : r === "time_exit" ? "시간매도" : r === "stepped_trailing" ? "Stepped" : r === "trailing_stop" ? "급락손절" : r === "eod_close" ? "장마감" : r === "manual_sell" ? "수동매도" : r === "false_stop" ? "오류매도" : r === "parent_sold" ? "실전매도" : r}</span>; })()}
                                             </div>
