@@ -2,6 +2,16 @@
 
 ## 2026-04-06
 
+### [버그픽스] MA200 캐시 갱신 rate limit 방어 (2026-04-06 16:00 KST)
+- **변경 파일:** `daemon/update_ma200.py`
+- **내용:** KIS 모의투자 API rate limit으로 2,577종목 중 84% 갱신 실패. 동시 요청 50→5건, 배치 대기 0.1→0.5초로 조정. 실패 사유 로깅 추가.
+- **커밋:** `5e2c638`
+
+### [버그픽스] 손익금액 pnl_pct 반올림 오차 해소 (2026-04-06 15:45 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:** sell_price가 있으면 (sell_price - filled_price) × quantity로 정확 계산. pnl_pct(round 2) 역산 시 발생하던 15원 오차 해소.
+- **커밋:** `e402bdd`
+
 ### [버그픽스] 갭업 카드에 과거 5팩터 매도 기록 혼입 방지 (2026-04-06 15:35 KST)
 - **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
 - **내용:** 격리 리팩토링에서 갭업 카드가 모든 sold auto_trades를 포함하던 문제 발견. 첫 stepped simulation 생성일을 갭업 전환 시점으로 동적 감지하여 그 이후 거래만 표시.

@@ -53,7 +53,7 @@ async def update_ma200():
     prev_closes = {}  # code → 전일 종가 (MA20 갱신용)
     fail_reasons = {}  # 실패 사유 집계
 
-    BATCH_SIZE = 5  # KIS 모의투자 rate limit: 초당 ~5건
+    BATCH_SIZE = 3  # KIS 모의투자 rate limit: 초당 ~3건
     for i in range(0, len(codes), BATCH_SIZE):
         batch = codes[i:i+BATCH_SIZE]
         tasks = []
@@ -72,10 +72,25 @@ async def update_ma200():
             try:
                 data = await resp.json()
                 if data.get("rt_cd") != "0":
-                    failed += 1
-                    reason = data.get("msg1", "unknown")[:30]
-                    fail_reasons[reason] = fail_reasons.get(reason, 0) + 1
-                    continue
+                    msg = data.get("msg1", "")
+                    if "초과" in msg:
+                        # rate limit — 1초 대기 후 재시도 1회
+                        await asyncio.sleep(1)
+                        retry_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+                        retry_params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+                        async with session.get(retry_url, params=retry_params, headers=_order_headers(token, "FHKST01010100")) as retry_resp:
+                            retry_data = await retry_resp.json()
+                            if retry_data.get("rt_cd") == "0":
+                                data = retry_data  # 재시도 성공 → 아래 로직으로
+                            else:
+                                failed += 1
+                                fail_reasons[msg[:30]] = fail_reasons.get(msg[:30], 0) + 1
+                                continue
+                    else:
+                        failed += 1
+                        reason = msg[:30] or "unknown"
+                        fail_reasons[reason] = fail_reasons.get(reason, 0) + 1
+                        continue
                 prev_close = int(data.get("output", {}).get("stck_sdpr", "0"))
                 if prev_close <= 0:
                     continue
