@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 from daemon.config import (
     KIS_MOCK_APP_KEY, KIS_MOCK_APP_SECRET, KIS_MOCK_ACCOUNT_NO, KIS_MOCK_BASE_URL,
     TRADE_TAKE_PROFIT_PCT, TRADE_STOP_LOSS_PCT, TRADE_TRAILING_STOP_PCT, TRADE_MIN_AMOUNT_PER_STOCK,
-    DATA_BASE_URL,
+    DATA_BASE_URL, SUPABASE_URL, SUPABASE_SECRET_KEY,
 )
 from daemon.position_db import (
     is_already_held_or_ordered, insert_buy_order, update_position_filled,
@@ -35,23 +35,98 @@ _RATE_LIMIT_RETRIES = 3  # rate limit 재시도 횟수
 _RATE_LIMIT_BASE_SEC = 2  # 재시도 기본 대기 (2, 4, 6초)
 
 
+async def _load_token_from_supabase() -> str | None:
+    """Supabase api_credentials에서 모의투자 토큰 로드 (유효 시에만 반환)"""
+    try:
+        url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis_mock&credential_type=eq.access_token&is_active=eq.true&select=credential_value,expires_at"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        session = await get_session()
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return None
+            rows = await resp.json()
+            if not rows:
+                return None
+            row = rows[0]
+            expires_at = row.get("expires_at", "")
+            if not expires_at:
+                return None
+            # 만료 체크 (UTC 기준)
+            from datetime import datetime as _dt, timezone as _tz
+            exp = _dt.fromisoformat(expires_at.replace("Z", "+00:00"))
+            if exp.tzinfo is None:
+                exp = exp.replace(tzinfo=_tz.utc)
+            remaining = (exp - _dt.now(_tz.utc)).total_seconds()
+            if remaining < 120:  # 2분 미만이면 만료 임박 → 재발급
+                return None
+            import json as _json
+            token_data = _json.loads(row["credential_value"])
+            token = token_data.get("access_token", "")
+            if not token:
+                return None
+            logger.info(f"Supabase에서 모의투자 토큰 로드 (잔여 {remaining/60:.0f}분)")
+            return token
+    except Exception as e:
+        logger.debug(f"Supabase 토큰 로드 실패 (fallback): {e}")
+        return None
+
+
+async def _save_token_to_supabase(token: str, issued_at: float) -> None:
+    """모의투자 토큰을 Supabase api_credentials에 저장 (upsert)"""
+    try:
+        import json as _json
+        from datetime import datetime as _dt, timezone as _tz
+        issued = _dt.fromtimestamp(issued_at, tz=_tz.utc)
+        expires = _dt.fromtimestamp(issued_at + _TOKEN_TTL, tz=_tz.utc)
+        token_data = _json.dumps({"access_token": token, "issued_at": issued.isoformat(), "expires_at": expires.isoformat()})
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=representation"}
+        session = await get_session()
+        # 기존 레코드 확인
+        check_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis_mock&credential_type=eq.access_token&select=id"
+        async with session.get(check_url, headers=headers) as resp:
+            existing = await resp.json() if resp.status == 200 else []
+        if existing:
+            # 업데이트
+            url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis_mock&credential_type=eq.access_token"
+            body = {"credential_value": token_data, "expires_at": expires.isoformat(), "is_active": True}
+            async with session.patch(url, json=body, headers=headers) as resp:
+                if resp.status in (200, 204):
+                    logger.info("Supabase에 모의투자 토큰 저장 완료")
+        else:
+            # 신규 삽입
+            url = f"{SUPABASE_URL}/rest/v1/api_credentials"
+            body = {"service_name": "kis_mock", "credential_type": "access_token", "credential_value": token_data, "expires_at": expires.isoformat(), "is_active": True, "description": "KIS 모의투자 토큰 (daemon 자동 갱신)"}
+            async with session.post(url, json=body, headers=headers) as resp:
+                if resp.status in (200, 201):
+                    logger.info("Supabase에 모의투자 토큰 신규 저장")
+    except Exception as e:
+        logger.debug(f"Supabase 토큰 저장 실패 (무시): {e}")
+
+
 async def _ensure_mock_token() -> str | None:
-    """모의투자 토큰 발급 — 만료 시 자동 재발급 (쿨다운 + 활성화 대기)"""
+    """모의투자 토큰 발급 — Supabase 공유 + 메모리 캐시 + 쿨다운"""
     global _access_token, _token_issued_at, _token_last_refresh
     now = time.time()
 
-    # 유효한 토큰이 있으면 그대로 사용
+    # 1. 메모리 캐시에 유효한 토큰이 있으면 그대로 사용
     if _access_token and (now - _token_issued_at) < _TOKEN_TTL:
         return _access_token
 
-    # 쿨다운: 마지막 발급 시도로부터 65초 미경과 시 대기
+    # 2. Supabase에서 공유 토큰 로드 시도
+    shared = await _load_token_from_supabase()
+    if shared:
+        _access_token = shared
+        _token_issued_at = now  # 메모리 TTL 리셋
+        return _access_token
+
+    # 3. 쿨다운: 마지막 발급 시도로부터 65초 미경과 시 대기
     since_last = now - _token_last_refresh
     if _token_last_refresh > 0 and since_last < _TOKEN_COOLDOWN:
         wait = _TOKEN_COOLDOWN - since_last
         logger.info(f"토큰 쿨다운 대기: {wait:.0f}초")
         await asyncio.sleep(wait)
 
-    # 재발급
+    # 4. KIS API로 재발급
     _access_token = ""
     _token_last_refresh = time.time()
     url = f"{KIS_MOCK_BASE_URL}/oauth2/tokenP"
@@ -75,6 +150,8 @@ async def _ensure_mock_token() -> str | None:
                 # 활성화 대기: KIS 모의투자 토큰은 발급 직후 비활성 상태일 수 있음
                 logger.info(f"토큰 발급 완료, {_TOKEN_ACTIVATE_WAIT}초 활성화 대기")
                 await asyncio.sleep(_TOKEN_ACTIVATE_WAIT)
+                # 5. Supabase에 저장 (다른 프로세스와 공유)
+                await _save_token_to_supabase(_access_token, _token_issued_at)
                 return _access_token
     except Exception as e:
         logger.error(f"모의투자 토큰 발급 실패: {e}")
