@@ -1632,6 +1632,8 @@ async def sell_all_positions_force():
         for pos in remaining:
             position_id = pos["id"]
             if is_selling(position_id):
+                # 다른 경로에서 매도 진행 중 → 이번 라운드 스킵, 다음 라운드에서 재확인
+                failed.append(pos)
                 continue
             mark_selling(position_id)
             buy_price = pos.get("filled_price") or pos.get("order_price", 0)
@@ -2073,8 +2075,21 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
             async with session.post(url, json=body, headers=headers) as resp:
                 if resp.status in (200, 201):
                     logger.info(f"Stepped 시뮬 생성: {name}({code}) {price:,}원 score={item.get('_score',0)}")
+                else:
+                    # 시뮬 생성 실패 → orphan sim_only 삭제
+                    logger.warning(f"Stepped 시뮬 INSERT 실패 → sim_only 삭제: {name}({code})")
+                    from daemon.position_db import delete_position
+                    try:
+                        await delete_position(vt["id"])
+                    except Exception:
+                        pass
         except Exception as e:
-            logger.warning(f"5팩터 시뮬 생성 오류: {code} {e}")
+            logger.warning(f"5팩터 시뮬 생성 오류 → sim_only 삭제: {code} {e}")
+            from daemon.position_db import delete_position
+            try:
+                await delete_position(vt["id"])
+            except Exception:
+                pass
 
 
 async def _create_api_leader_simulations(cross_data: list, config: dict):
@@ -2169,9 +2184,19 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
                     logger.info(f"API∧대장주 시뮬 생성: {item['name']}({item['code']}) {entry_price:,}원 {item['score']}점")
                 else:
                     err = await resp.text()
-                    logger.warning(f"API∧대장주 시뮬 생성 실패: {resp.status} {err[:100]}")
+                    logger.warning(f"API∧대장주 시뮬 생성 실패 → sim_only 삭제: {resp.status} {err[:100]}")
+                    from daemon.position_db import delete_position
+                    try:
+                        await delete_position(vt["id"])
+                    except Exception:
+                        pass
         except Exception as e:
-            logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
+            logger.warning(f"API∧대장주 시뮬 생성 오류 → sim_only 삭제: {e}")
+            from daemon.position_db import delete_position
+            try:
+                await delete_position(vt["id"])
+            except Exception:
+                pass
 
 
 async def _close_open_simulations(trade_id: str, sell_price: int, buy_price: int, code: str = ""):
