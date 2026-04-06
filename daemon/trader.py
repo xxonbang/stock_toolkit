@@ -1579,61 +1579,11 @@ async def check_positions_for_sell(current_price_data: dict):
 
 
 async def cancel_all_pending_orders():
-    """KIS 미체결 주문 전체 취소 + DB pending 정리"""
+    """KIS 미체결 주문 전체 취소 + DB pending 정리.
+    KIS 모의투자는 inquire-nccs API 미지원(404)이므로 DB 정리만 수행."""
     from daemon.position_db import invalidate_cache, delete_position
-    token = await _ensure_mock_token()
-    if not token:
-        return
-    cano, acnt_cd = _parse_account()
-
-    # KIS 모의투자 미체결 조회
-    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
-    params = {
-        "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
-        "INQR_STRT_DT": "", "INQR_END_DT": "",
-        "SLL_BUY_DVSN_CD": "00", "INQR_DVSN": "00",
-        "PDNO": "", "CCLD_DVSN": "01",
-        "ORD_GNO_BRNO": "", "ODNO": "",
-        "INQR_DVSN_3": "00", "INQR_DVSN_1": "",
-        "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
-    }
-    session = await get_session()
-    try:
-        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8001R")) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") != "0":
-                logger.warning(f"미체결 조회 실패: {data.get('msg1', '')}")
-                return
-            orders = data.get("output", [])
-            if not orders:
-                logger.info("미체결 주문 없음")
-                return
-            logger.info(f"미체결 {len(orders)}건 취소 시작")
-            for order in orders:
-                odno = order.get("odno", "")
-                code = order.get("pdno", "")
-                qty = order.get("psbl_qty", order.get("ord_qty", "0"))
-                # 주문 취소
-                cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
-                cancel_body = {
-                    "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
-                    "KRX_FWDG_ORD_ORGNO": "",
-                    "ORGN_ODNO": odno,
-                    "ORD_DVSN": "00",
-                    "RVSE_CNCL_DVSN_CD": "02",  # 취소
-                    "ORD_QTY": str(qty),
-                    "ORD_UNPR": "0",
-                    "QTY_ALL_ORD_YN": "Y",
-                }
-                async with session.post(cancel_url, json=cancel_body, headers=_order_headers(token, "VTTC0803U")) as cresp:
-                    cdata = await cresp.json()
-                    if cdata.get("rt_cd") == "0":
-                        logger.info(f"미체결 취소: {code} 주문번호={odno}")
-                    else:
-                        logger.warning(f"미체결 취소 실패: {code} {cdata.get('msg1', '')}")
-                await asyncio.sleep(0.3)
-    except Exception as e:
-        logger.error(f"미체결 취소 오류: {e}")
+    # KIS 모의투자는 미체결 조회 API 미지원 → 시장가 즉시체결이므로 스킵
+    logger.info("모의투자: 미체결 API 스킵 (시장가 즉시체결 간주), DB pending 정리")
 
     # DB pending 정리
     positions = await get_active_positions(force_refresh=True)
@@ -2069,7 +2019,14 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
         f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&side=eq.buy&select=code,created_at",
     )
     today_iso = datetime.now(_KST).strftime("%Y-%m-%d")
-    existing_codes_today = {r.get("code") for r in (existing or []) if (r.get("created_at") or "")[:10] == today_iso}
+    # created_at은 UTC → KST 변환 후 날짜 비교
+    def _to_kst_date(utc_str: str) -> str:
+        try:
+            dt = datetime.fromisoformat(utc_str.replace("Z", "+00:00"))
+            return dt.astimezone(_KST).strftime("%Y-%m-%d")
+        except Exception:
+            return utc_str[:10] if utc_str else ""
+    existing_codes_today = {r.get("code") for r in (existing or []) if _to_kst_date(r.get("created_at", "")) == today_iso}
     for item in scored_top2:
         code = item.get("code", "")
         name = item.get("name", code)

@@ -154,6 +154,10 @@ export default function AutoTrader() {
         Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
           if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
         }).catch(() => {});
+        // gapup_sl 로드
+        Promise.resolve(supabase.from("alert_config").select("gapup_sl").limit(1).maybeSingle()).then(({ data: cfg }) => {
+          if (cfg?.gapup_sl) setGapupSl(cfg.gapup_sl);
+        }).catch(() => {});
         getStrategySimulations().then(setSimulations);
       } else {
         setLoading(false);
@@ -278,6 +282,9 @@ export default function AutoTrader() {
       setTimeout(() => setToastMsg(null), 3000);
     }
     setPriceRefreshing(false);
+    // 시뮬레이션 + 거래 내역도 함께 갱신
+    getStrategySimulations().then(setSimulations).catch(() => {});
+    fetchTrades();
   }
 
   const active = trades.filter((t) => t.status === "filled");
@@ -723,7 +730,7 @@ export default function AutoTrader() {
                         <div className="flex flex-col gap-1">
                           <div className="flex gap-1">
                             {([["none", "없음"], ["-5", "-5%"], ["-6", "-6%"]] as const).map(([val, label]) => (
-                              <button key={val} onClick={() => setGapupSl(val as any)}
+                              <button key={val} onClick={() => { setGapupSl(val as any); setAlertConfig({ gapup_sl: val }); }}
                                 className={`px-2 py-0.5 rounded-full text-[9px] font-medium transition ${gapupSl === val ? "bg-blue-500 text-white" : "t-text-dim"}`}
                                 style={gapupSl !== val ? { background: "var(--bg-card-alt)" } : {}}>
                                 {label}
