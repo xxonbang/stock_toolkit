@@ -1923,6 +1923,10 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
             price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
         if price <= 0 or code in existing_codes_today:
             continue
+        # 상한가 종목은 시뮬 생성 제외 (실제 매수 불가능)
+        if await is_upper_limit(code, price):
+            logger.info(f"Stepped 시뮬 스킵 (상한가): {name}({code}) {price:,}원")
+            continue
         # 가상 auto_trades 레코드 생성 (trade_id UUID 확보용)
         virtual_trade = await _supabase_request("POST",
             f"{SUPABASE_URL}/rest/v1/auto_trades",
@@ -2016,6 +2020,10 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격)
         real_price = await _get_current_price(item["code"])
         entry_price = real_price if real_price > 0 else item["price"]
+        # 상한가 종목은 시뮬 생성 제외 (실제 매수 불가능)
+        if await is_upper_limit(item["code"], entry_price):
+            logger.info(f"API∧대장주 시뮬 스킵 (상한가): {item['name']}({item['code']}) {entry_price:,}원")
+            continue
         # api_leader용 가상 auto_trades 레코드 생성 (trade_id UUID 필수)
         virtual_trade = await _supabase_request("POST",
             f"{SUPABASE_URL}/rest/v1/auto_trades",
