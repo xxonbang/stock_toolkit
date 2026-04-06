@@ -30,7 +30,7 @@ _token_issued_at: float = 0
 _token_last_refresh: float = 0  # 마지막 발급 시도 시각 (쿨다운용)
 _TOKEN_TTL = 3500  # KIS 토큰 유효기간 ~1시간, 여유 두고 58분
 _TOKEN_COOLDOWN = 65  # 재발급 쿨다운 (KIS 1분 제한 대비 65초)
-_TOKEN_ACTIVATE_WAIT = 5  # 발급 후 활성화 대기 (초)
+_TOKEN_ACTIVATE_WAIT = 10  # 발급 후 활성화 대기 (초, KIS 모의투자 토큰 활성화 지연 대비)
 _RATE_LIMIT_RETRIES = 3  # rate limit 재시도 횟수
 _RATE_LIMIT_BASE_SEC = 2  # 재시도 기본 대기 (2, 4, 6초)
 

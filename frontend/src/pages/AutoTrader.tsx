@@ -864,12 +864,22 @@ export default function AutoTrader() {
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
                 return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true, _name: mt?.name };
               });
-              // 시뮬로 전환된 종목의 실거래 "장마감" 기록 제외 (시뮬이 대체)
-              const steppedSimCodes = new Set([...steppedClosedSims, ...steppedOpenSims].map((s: any) => {
+              // 시뮬로 전환된 종목: 시뮬의 trade_id(sim_only)와 연결된 sold 기록만 제외
+              // (같은 code의 이전 eod_close는 유지)
+              const steppedSimTradeIds = new Set([...steppedClosedSims, ...steppedOpenSims].map((s: any) => s.trade_id));
+              // sim_only의 code 목록 + 해당 sim_only의 created_at 이후 sold만 제거
+              const steppedSimInfo = [...steppedClosedSims, ...steppedOpenSims].map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
-                return mt?.code || "";
-              }).filter(Boolean));
-              const filteredSold = soldTrades.filter(t => !(steppedSimCodes.has(t.code) && t.sell_reason === "eod_close"));
+                return { code: mt?.code || "", simCreated: s.created_at || "" };
+              }).filter(x => x.code);
+              const filteredSold = soldTrades.filter(t => {
+                if (t.sell_reason !== "eod_close") return true;
+                // 이 종목에 대한 시뮬이 있고, 시뮬 생성 이후의 eod_close만 제외
+                const simMatch = steppedSimInfo.find(si => si.code === t.code);
+                if (!simMatch) return true;
+                // sold_at이 시뮬 생성일 이후인 경우만 제외 (이전 기록은 유지)
+                return (t.sold_at || "") < simMatch.simCreated;
+              });
               // 갭업 매수 종목은 5팩터 카드에서 제외 (갭업 카드에 표시)
               // 갭업 매수분 = 오늘 매수된 filled (갭업 전략 전환 후 생성된 것)
               // 5팩터 카드에는 이전 전략의 sold + stepped 시뮬만 표시
@@ -925,11 +935,12 @@ export default function AutoTrader() {
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
               ];
 
-              // 갭업 모멘텀 실제 거래: 현재 보유(filled) + 갭업 전환 후 sold (eod_close)
-              const gapupTrades = [...activeWithPnl, ...soldTrades.filter(t => t.sell_reason === "eod_close" && steppedSimCodes.has(t.code) === false)];
-              // 갭업 전환 시점 이후 매도분만 (4/6~)
-              const gapupSoldAfterSwitch = soldTrades.filter(t => t.sold_at && t.sold_at >= "2026-04-06" && t.sell_reason === "eod_close" && !steppedSimCodes.has(t.code));
-              const allGapupTrades = [...gapupSoldAfterSwitch.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
+              // 갭업 모멘텀 실제 거래: 현재 보유(filled) + 5팩터 카드에서 제외된 eod_close 외의 매도
+              // 5팩터 filteredSold에서 제외된 것 = 시뮬 전환 후 eod_close = 갭업 전략에 의한 매도가 아님
+              // 갭업 카드: 현재 보유 + 향후 갭업 eod_close 매도 (시뮬 전환 종목 제외)
+              const steppedSimCodeSet = new Set(steppedSimInfo.map(si => si.code));
+              const gapupSold = soldTrades.filter(t => t.sell_reason === "eod_close" && !steppedSimCodeSet.has(t.code) && !filteredSold.includes(t));
+              const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...activeWithPnl];
               const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
 
               return (
