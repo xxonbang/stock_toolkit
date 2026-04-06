@@ -295,7 +295,7 @@ export default function Scanner({ onToggleTheme, isDark }: { onToggleTheme?: () 
               {activePreset ? PRESETS.find(p => p.key === activePreset)?.label : "검색 결과"}
               <span className="t-text-dim font-normal text-xs ml-1">({results.length}종목)</span>
             </h2>
-            <select value={sortKey} onChange={e => { setSortKey(e.target.value as SortKey); setResults(prev => prev ? sortStocks([...prev]) : null); }}
+            <select value={sortKey} onChange={e => { const newKey = e.target.value as SortKey; setSortKey(newKey); setResults(prev => { if (!prev) return null; const sorted = [...prev]; switch (newKey) { case "score": sorted.sort((a, b) => b._invest_score - a._invest_score); break; case "smart": sorted.sort((a, b) => b._smart_money_score - a._smart_money_score); break; case "change": sorted.sort((a, b) => b._change_rate - a._change_rate); break; case "foreign": sorted.sort((a, b) => b._foreign_net - a._foreign_net); break; case "trading": sorted.sort((a, b) => b._trading_value - a._trading_value); break; case "confidence": sorted.sort((a, b) => (b.confidence || 0) - (a.confidence || 0)); break; } return sorted; }); }}
               className="text-[10px] t-text-sub rounded-lg px-2 py-1 border t-border-light" style={{ background: "var(--bg)" }}>
               {SORT_OPTIONS.map(o => <option key={o.key} value={o.key}>{o.label}순</option>)}
             </select>
