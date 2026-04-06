@@ -408,6 +408,10 @@ export default function Portfolio() {
               <div className="flex items-baseline gap-1.5 text-[10px] tabular-nums mt-0.5">
                 <span className="t-text-dim">현재</span>
                 <span className="t-text font-medium">{h.current_price.toLocaleString()}</span>
+                <span className="t-text-dim mx-0.5">×</span>
+                <span className="t-text font-medium">{h.quantity}주</span>
+                <span className="t-text-dim mx-0.5">=</span>
+                <span className="t-text font-medium">{(h.current_price * (h.quantity || 0)).toLocaleString()}원</span>
               </div>
             )}
             {h.profit_amount != null && h.current_price > 0 && (
