@@ -1815,8 +1815,55 @@ async def schedule_sell_check():
             await _ensure_simulations_for_filled(targets)
             # 실전 매도 후 남은 시뮬레이션 독립 체크
             await _check_orphan_simulations()
+            # 5분마다 KIS 평단가 sync (분할 매수 시 DB 평단가 불일치 보정)
+            await _sync_avg_prices(targets)
         except Exception as e:
             logger.error(f"매도 폴링 체크 오류: {e}")
+
+
+_last_price_sync: float = 0
+
+
+async def _sync_avg_prices(positions: list):
+    """KIS 잔고 API의 실제 평단가(pchs_avg_pric)로 DB filled_price 갱신 (5분마다)"""
+    global _last_price_sync
+    now = time.time()
+    if now - _last_price_sync < 300:  # 5분 쿨다운
+        return
+    _last_price_sync = now
+
+    token = await _ensure_mock_token()
+    if not token:
+        return
+    cano, acnt_cd = _parse_account()
+    try:
+        session = await get_session()
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-balance"
+        params = {
+            "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
+            "AFHR_FLPR_YN": "N", "OFL_YN": "", "INQR_DVSN": "02",
+            "UNPR_DVSN": "01", "FUND_STTL_ICLD_YN": "N",
+            "FNCG_AMT_AUTO_RDPT_YN": "N", "PRCS_DVSN": "00",
+            "CTX_AREA_FK100": "", "CTX_AREA_NK100": "",
+        }
+        async with session.get(url, params=params, headers=_order_headers(token, "VTTC8434R")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return
+            kis_holdings = {s.get("pdno", ""): int(float(s.get("pchs_avg_pric", "0")))
+                           for s in data.get("output1", []) if s.get("pdno")}
+        # DB와 비교하여 차이 있으면 갱신
+        for pos in positions:
+            if pos["status"] != "filled":
+                continue
+            code = pos.get("code", "")
+            db_price = pos.get("filled_price") or 0
+            kis_price = kis_holdings.get(code, 0)
+            if kis_price > 0 and db_price > 0 and abs(kis_price - db_price) > 1:
+                await update_position_filled(pos["id"], kis_price)
+                logger.info(f"평단가 sync: {pos.get('name','')}({code}) {db_price:,}→{kis_price:,}원")
+    except Exception as e:
+        logger.warning(f"평단가 sync 오류: {e}")
 
 
 async def _create_simulation(trade_id: str, strategy_type: str, entry_price: int, user_id: str):

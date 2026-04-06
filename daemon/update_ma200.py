@@ -107,6 +107,31 @@ async def update_ma200():
     await close_session()
 
 
+async def cleanup_old_sim_only():
+    """30일 이상 된 sim_only auto_trades + closed 시뮬레이션 정리"""
+    import os
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
+    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+        return
+    from datetime import datetime, timezone, timedelta
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    import aiohttp
+    try:
+        async with aiohttp.ClientSession() as session:
+            headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+            # 30일+ sim_only 삭제
+            del_url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&created_at=lt.{cutoff}"
+            async with session.delete(del_url, headers=headers) as resp:
+                print(f"sim_only 정리: HTTP {resp.status}")
+            # 30일+ closed 시뮬 삭제
+            sim_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.closed&created_at=lt.{cutoff}"
+            async with session.delete(sim_url, headers=headers) as resp:
+                print(f"closed 시뮬 정리: HTTP {resp.status}")
+    except Exception as e:
+        print(f"정리 오류: {e}")
+
+
 async def update_stock_master():
     """stock-master.json을 GitHub Pages에서 다운로드 (주 1회)"""
     import aiohttp

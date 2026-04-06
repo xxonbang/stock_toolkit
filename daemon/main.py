@@ -305,11 +305,12 @@ async def schedule_ma200_update():
         if now.hour == 8 and 50 <= now.minute <= 55:
             logger.info("MA200 캐시 주간 갱신 시작")
             try:
-                from daemon.update_ma200 import update_ma200, update_stock_master
+                from daemon.update_ma200 import update_ma200, update_stock_master, cleanup_old_sim_only
                 await update_ma200()
-                # 월요일에만 stock-master.json 갱신 (신규 상장/상폐 반영)
+                # 월요일에만 stock-master 갱신 + 30일+ 데이터 정리
                 if now.weekday() == 0:
                     await update_stock_master()
+                    await cleanup_old_sim_only()
                 # 캐시 리로드 (메모리 캐시 무효화)
                 from daemon.trader import _load_ma200_cache, _load_ma20_cache
                 if hasattr(_load_ma200_cache, "_ma200_cache"):
