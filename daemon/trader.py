@@ -872,7 +872,10 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
         return True
     # KIS 주문 실패 → DB pending 정리
     from daemon.position_db import delete_position
-    await delete_position(position["id"])
+    try:
+        await delete_position(position["id"])
+    except Exception as e:
+        logger.error(f"매수 실패 pending 삭제 오류 (orphan 가능): {name}({code}) {e}")
     logger.warning(f"매수 실패 → pending 삭제: {name}({code})")
     return False
 
