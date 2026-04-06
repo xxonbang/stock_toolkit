@@ -393,18 +393,23 @@ export default function Portfolio() {
                 {signalBadge(h.signal)}
               </div>
             </div>
-            <div className="grid grid-cols-[1fr_1fr_auto_auto_auto] gap-x-3 gap-y-0.5 mt-1.5 text-[10px]">
-              <div className="t-text-dim">평단</div>
-              <div className="t-text-dim">현재</div>
-              <div className="t-text-dim text-center">수량</div>
-              <div className="t-text-dim text-right">투자금</div>
-              <div className="t-text-dim text-right">비중</div>
-              <div className="t-text tabular-nums">{(h.avg_price || 0).toLocaleString()}</div>
-              <div className="t-text tabular-nums">{h.current_price > 0 ? h.current_price.toLocaleString() : "—"}</div>
-              <div className="t-text tabular-nums text-center">{h.quantity}주</div>
-              <div className="t-text tabular-nums text-right">{((h.avg_price || 0) * (h.quantity || 0)).toLocaleString()}</div>
-              <div className="t-text tabular-nums text-right">{h.weight}%</div>
+            <div className="flex items-baseline justify-between mt-1.5 text-[10px] tabular-nums">
+              <div className="flex items-baseline gap-1.5">
+                <span className="t-text-dim">평단</span>
+                <span className="t-text font-medium">{(h.avg_price || 0).toLocaleString()}</span>
+                <span className="t-text-dim mx-0.5">×</span>
+                <span className="t-text font-medium">{h.quantity}주</span>
+                <span className="t-text-dim mx-0.5">=</span>
+                <span className="t-text font-medium">{((h.avg_price || 0) * (h.quantity || 0)).toLocaleString()}원</span>
+              </div>
+              <span className="t-text-dim shrink-0">비중 {h.weight}%</span>
             </div>
+            {h.current_price > 0 && (
+              <div className="flex items-baseline gap-1.5 text-[10px] tabular-nums mt-0.5">
+                <span className="t-text-dim">현재</span>
+                <span className="t-text font-medium">{h.current_price.toLocaleString()}</span>
+              </div>
+            )}
             {h.profit_amount != null && h.current_price > 0 && (
               <div className="flex items-center justify-between mt-0.5">
                 <div className={`text-[10px] font-medium ${profitColor(h.profit_amount)}`}>
