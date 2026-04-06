@@ -725,22 +725,20 @@ export default function AutoTrader() {
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>09:30</span><span className="t-text-dim">매수 0건 시 → 거래량 2배 필터 추가 재스캔</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>필터</span><span className="t-text-dim">3일변동성 &lt;13% + 3일누적수익률 &lt;20%</span></div>
                       <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>선정</span><span className="t-text-dim">거래량 순 상위 2종목 즉시 매수</span></div>
-                      <div className="flex items-start gap-2">
+                      <div className="flex items-center gap-2">
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
-                        <div className="flex flex-col gap-1">
-                          <div className="flex gap-1">
-                            {([["none", "없음"], ["-5", "-5%"], ["-6", "-6%"]] as const).map(([val, label]) => (
-                              <button key={val} onClick={() => { setGapupSl(val as any); setAlertConfig({ gapup_sl: val }); }}
-                                className={`px-2 py-0.5 rounded-full text-[9px] font-medium transition ${gapupSl === val ? "bg-blue-500 text-white" : "t-text-dim"}`}
-                                style={gapupSl !== val ? { background: "var(--bg-card-alt)" } : {}}>
-                                {label}
-                              </button>
-                            ))}
-                          </div>
-                          <span className="text-[8px] t-text-dim">
-                            {gapupSl === "none" ? "15:15 전량 청산 · 평균수익 +5.1% · 승률 70.6%" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · 평균수익 +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · 평균수익 +4.6% · V자반등 허용"}
-                          </span>
+                        <div className="flex items-center gap-1.5">
+                          {([["none", "없음"], ["-5", "-5%"], ["-6", "-6%"]] as const).map(([val, label]) => (
+                            <button key={val} onClick={() => { setGapupSl(val as any); setAlertConfig({ gapup_sl: val }); }}
+                              className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${gapupSl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
+                              style={gapupSl === val ? { background: val === "none" ? "#3b82f6" : val === "-5" ? "#f59e0b" : "#8b5cf6" } : { background: "var(--bg-card-alt)" }}>
+                              {label}
+                            </button>
+                          ))}
                         </div>
+                      </div>
+                      <div className="ml-[calc(2ch+0.5rem)] text-[8px] t-text-dim -mt-0.5">
+                        {gapupSl === "none" ? "15:15 전량 청산 · 평균수익 +5.1% · 승률 70.6%" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · 평균수익 +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · 평균수익 +4.6% · V자반등 허용"}
                       </div>
                     </div>
                     <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">

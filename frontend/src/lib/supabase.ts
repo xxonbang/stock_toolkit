@@ -177,9 +177,12 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
     if (updates.gapup_sl !== undefined) merged.gapup_sl = updates.gapup_sl;
     const { error } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
     if (error) {
-      // stepped_preset 컬럼 미존재 시 제거 후 재시도
-      if (error.message?.includes("stepped_preset")) {
-        delete merged.stepped_preset;
+      // 컬럼 미존재 시 해당 필드 제거 후 재시도
+      const optionalCols = ["stepped_preset", "gapup_sl"];
+      const errMsg = error.message || "";
+      const culprit = optionalCols.find(col => errMsg.includes(col));
+      if (culprit) {
+        delete merged[culprit];
         const { error: e2 } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
         if (e2) { console.error("설정 변경 실패:", e2.code, e2.message); return false; }
         return true;
