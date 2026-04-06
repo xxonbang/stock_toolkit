@@ -324,10 +324,10 @@ def select_gapup_momentum(signals: list | None, top_n: int = 1) -> list[dict]:
         # 갭업 계산: 시가 대비 전일종가
         gap_pct = (open_price - prev_close) / prev_close * 100 if prev_close > 0 and open_price > 0 else 0
 
-        # MA200 필터: daily_ohlcv_all.json에서 계산된 값 사용
+        # MA200 필터 (값 없으면 판단 불가 → 제외)
         ma200 = ma200_map.get(code, 0)
-        if ma200 > 0 and current <= ma200:
-            continue  # MA200 아래면 제외
+        if ma200 <= 0 or current <= ma200:
+            continue
 
         # 거래량 조건: volume_rate_vs_prev >= 200 (전일 대비 2배)
         vol_ok = volume_rate >= 200 or volume > 500000
@@ -627,12 +627,10 @@ async def _get_balance_avg_price(code: str) -> int:
 
 
 async def _cancel_unfilled(code: str, is_sell: bool = False) -> int | None:
-    """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환. 조회 실패 시 None."""
-    sll_buy = "01" if is_sell else "02"
-    label = "매도 " if is_sell else ""
-    token = await _ensure_mock_token()
-    if not token:
-        return None
+    """KIS 미체결 조회 → 해당 종목 미체결분 취소, 미체결 수량 반환. 조회 실패 시 None.
+    모의투자는 inquire-nccs 미지원 → 시장가 즉시체결 간주, 미체결 0 반환."""
+    # 모의투자: 미체결 API 미지원 (404), 시장가 즉시체결이므로 미체결 0
+    return 0
     cano, acnt_cd = _parse_account()
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/inquire-nccs"
     params = {
