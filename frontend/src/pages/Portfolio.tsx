@@ -393,40 +393,40 @@ export default function Portfolio() {
                 {signalBadge(h.signal)}
               </div>
             </div>
-            <div className="flex items-baseline justify-between mt-1.5 text-[10px] tabular-nums">
-              <div className="flex items-baseline gap-1.5">
-                <span className="t-text-dim">평단</span>
-                <span className="t-text font-medium">{(h.avg_price || 0).toLocaleString()}</span>
-                <span className="t-text-dim mx-0.5">×</span>
-                <span className="t-text font-medium">{h.quantity}주</span>
-                <span className="t-text-dim mx-0.5">=</span>
-                <span className="t-text font-medium">{((h.avg_price || 0) * (h.quantity || 0)).toLocaleString()}원</span>
+            {/* 투자 정보 테이블 */}
+            <div className="mt-2 rounded-lg text-[10px] tabular-nums overflow-hidden" style={{ background: "var(--bg)" }}>
+              <div className="grid grid-cols-[2.5rem_1fr_auto_1fr] gap-x-2 px-3 py-1.5" style={{ borderBottom: "1px solid var(--border-light)" }}>
+                <span className="t-text-dim">매수</span>
+                <span className="t-text text-right">{(h.avg_price || 0).toLocaleString()}</span>
+                <span className="t-text-dim text-center">×{h.quantity}</span>
+                <span className="t-text font-medium text-right">{((h.avg_price || 0) * (h.quantity || 0)).toLocaleString()}원</span>
               </div>
-              <span className="t-text-dim shrink-0">비중 {h.weight}%</span>
-            </div>
-            {h.current_price > 0 && (
-              <div className="flex items-baseline gap-1.5 text-[10px] tabular-nums mt-0.5">
-                <span className="t-text-dim">현재</span>
-                <span className="t-text font-medium">{h.current_price.toLocaleString()}</span>
-                <span className="t-text-dim mx-0.5">×</span>
-                <span className="t-text font-medium">{h.quantity}주</span>
-                <span className="t-text-dim mx-0.5">=</span>
-                <span className="t-text font-medium">{(h.current_price * (h.quantity || 0)).toLocaleString()}원</span>
-              </div>
-            )}
-            {h.profit_amount != null && h.current_price > 0 && (
-              <div className="flex items-center justify-between mt-0.5">
-                <div className={`text-[10px] font-medium ${profitColor(h.profit_amount)}`}>
-                  평가손익 {h.profit_amount >= 0 ? "+" : ""}{h.profit_amount.toLocaleString()}원
+              {h.current_price > 0 && (
+                <div className="grid grid-cols-[2.5rem_1fr_auto_1fr] gap-x-2 px-3 py-1.5">
+                  <span className="t-text-dim">현재</span>
+                  <span className="t-text text-right">{h.current_price.toLocaleString()}</span>
+                  <span className="t-text-dim text-center">×{h.quantity}</span>
+                  <span className="t-text font-medium text-right">{(h.current_price * (h.quantity || 0)).toLocaleString()}원</span>
                 </div>
-                {h.profit_rate < 0 && (
-                  <button onClick={(e) => { e.stopPropagation(); setAvgDownTarget(h); setAvgDownPrice(h.current_price?.toString() || ""); setAvgDownQty(""); setAvgDownTab("basic"); setTargetAvg(""); setTargetInput(""); setMultiSteps([{ price: "", qty: "" }]); }}
-                    className="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition">
-                    물타기
-                  </button>
+              )}
+            </div>
+            {/* 손익 + 비중 + 물타기 */}
+            <div className="flex items-center justify-between mt-1.5 px-0.5">
+              <div className="flex items-center gap-2">
+                {h.profit_amount != null && h.current_price > 0 && (
+                  <span className={`text-[10px] font-semibold ${profitColor(h.profit_amount)}`}>
+                    {h.profit_amount >= 0 ? "+" : ""}{h.profit_amount.toLocaleString()}원
+                  </span>
                 )}
+                <span className="text-[9px] t-text-dim">비중 {h.weight}%</span>
               </div>
-            )}
+              {h.profit_rate != null && h.profit_rate < 0 && (
+                <button onClick={(e) => { e.stopPropagation(); setAvgDownTarget(h); setAvgDownPrice(h.current_price?.toString() || ""); setAvgDownQty(""); setAvgDownTab("basic"); setTargetAvg(""); setTargetInput(""); setMultiSteps([{ price: "", qty: "" }]); }}
+                  className="text-[9px] px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-500 font-medium hover:bg-blue-500/20 transition">
+                  물타기
+                </button>
+              )}
+            </div>
           </div>
           );
         })}
