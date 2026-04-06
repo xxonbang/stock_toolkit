@@ -950,6 +950,26 @@ def _reset_token():
     global _access_token, _token_issued_at
     _access_token = ""
     _token_issued_at = 0
+    # Supabase 구 토큰도 무효화 (비동기 불가 → is_active=false로 마킹)
+    try:
+        import asyncio
+        asyncio.ensure_future(_invalidate_supabase_token())
+    except Exception:
+        pass  # best-effort
+
+
+async def _invalidate_supabase_token():
+    """Supabase의 kis_mock 토큰 비활성화 (구 토큰 재로드 방지)"""
+    try:
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
+                    "Content-Type": "application/json"}
+        session = await get_session()
+        url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis_mock&credential_type=eq.access_token"
+        async with session.patch(url, json={"is_active": False}, headers=headers) as resp:
+            if resp.status in (200, 204):
+                logger.info("Supabase 모의투자 토큰 무효화 완료")
+    except Exception:
+        pass  # best-effort
 
 
 async def fetch_available_balance() -> int:
@@ -1297,8 +1317,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                     data = await resp.json()
                     bars = data.get("output", [])[:5]  # 최근 5일봉 (오늘 포함)
                     if len(bars) < 4:
-                        filtered.append(c)  # 데이터 부족 시 통과 (안전)
-                        continue
+                        logger.info(f"과열 제외: {c['name']}({c['code']}) 일봉 부족({len(bars)}일)")
+                        continue  # 데이터 부족 = 신규 상장 등 → 과열 판단 불가 → 제외
                     # bars[0]=오늘, bars[1]=전일, bars[2]=2일전, bars[3]=3일전
                     # 3일 변동성: 전일~3일전의 (고가-저가)/저가 평균
                     ranges = []

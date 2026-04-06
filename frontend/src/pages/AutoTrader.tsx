@@ -931,7 +931,7 @@ export default function AutoTrader() {
                 .map((s: any) => s.created_at).filter(Boolean).sort()[0]?.slice(0, 10) || "";
               const gapupSold = gapupCutoff
                 ? soldTrades.filter(t => (t.created_at || "").slice(0, 10) >= gapupCutoff)
-                : soldTrades;
+                : [];  // stepped sim 0건 = 갭업 전환 전 → 과거 5팩터 기록 제외
               const gapupActive = activeTrades.map(t => {
                 const cp = prices[t.code]?.price || 0;
                 const bp = t.filled_price ?? t.order_price;
