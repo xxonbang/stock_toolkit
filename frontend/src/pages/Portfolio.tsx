@@ -397,6 +397,7 @@ export default function Portfolio() {
               <span>평단 {(h.avg_price || 0).toLocaleString()}</span>
               {h.current_price > 0 && <span>현재 {h.current_price.toLocaleString()}</span>}
               <span>{h.quantity}주</span>
+              <span>{((h.avg_price || 0) * (h.quantity || 0)).toLocaleString()}원</span>
               <span>비중 {h.weight}%</span>
             </div>
             {h.profit_amount != null && h.current_price > 0 && (
