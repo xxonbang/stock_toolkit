@@ -1002,8 +1002,9 @@ export default function AutoTrader() {
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
                             {strategyDetail === "gapup" ? "갭업 모멘텀 (실제)" : strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
+                            {priceTime && <span className="ml-auto text-[9px] text-green-400 tabular-nums shrink-0">{priceTime}</span>}
                             <button onClick={(e) => { e.stopPropagation(); refreshPrices(); }} disabled={priceRefreshing}
-                              className="ml-auto text-[10px] px-2 py-0.5 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1 shrink-0">
+                              className={`${priceTime ? "ml-1" : "ml-auto"} text-[10px] px-2 py-0.5 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1 shrink-0`}>
                               <RefreshCw size={10} className={priceRefreshing ? "animate-spin" : ""} />
                               시세
                             </button>
