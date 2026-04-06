@@ -942,9 +942,9 @@ export default function AutoTrader() {
 
               // 갭업 전환 시점 = 첫 stepped simulation 생성일 (그 이후 auto_trades만 갭업)
               const gapupCutoff = [...steppedClosedSims, ...steppedOpenSims]
-                .map((s: any) => s.created_at).filter(Boolean).sort()[0]?.slice(0, 10) || "";
+                .map((s: any) => toKstDate(s.created_at)).filter(Boolean).sort()[0] || "";
               const gapupSold = gapupCutoff
-                ? soldTrades.filter(t => (t.created_at || "").slice(0, 10) >= gapupCutoff)
+                ? soldTrades.filter(t => toKstDate(t.created_at) >= gapupCutoff)
                 : [];  // stepped sim 0건 = 갭업 전환 전 → 과거 5팩터 기록 제외
               const gapupActive = activeTrades.map(t => {
                 const cp = prices[t.code]?.price || 0;
