@@ -45,15 +45,17 @@ async def update_ma200():
         print("토큰 발급 실패")
         return
 
-    # 전종목 전일 종가 조회 (50건씩 배치)
+    # 전종목 전일 종가 조회 (5건씩 배치 — KIS rate limit 방어)
     codes = list(cache.keys())
     session = await get_session()
     updated = 0
     failed = 0
     prev_closes = {}  # code → 전일 종가 (MA20 갱신용)
+    fail_reasons = {}  # 실패 사유 집계
 
-    for i in range(0, len(codes), 50):
-        batch = codes[i:i+50]
+    BATCH_SIZE = 5  # KIS 모의투자 rate limit: 초당 ~5건
+    for i in range(0, len(codes), BATCH_SIZE):
+        batch = codes[i:i+BATCH_SIZE]
         tasks = []
         for code in batch:
             url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
@@ -64,11 +66,15 @@ async def update_ma200():
         for code, resp in zip(batch, responses):
             if isinstance(resp, Exception):
                 failed += 1
+                reason = type(resp).__name__
+                fail_reasons[reason] = fail_reasons.get(reason, 0) + 1
                 continue
             try:
                 data = await resp.json()
                 if data.get("rt_cd") != "0":
                     failed += 1
+                    reason = data.get("msg1", "unknown")[:30]
+                    fail_reasons[reason] = fail_reasons.get(reason, 0) + 1
                     continue
                 prev_close = int(data.get("output", {}).get("stck_sdpr", "0"))
                 if prev_close <= 0:
@@ -79,12 +85,17 @@ async def update_ma200():
                 if old_ma > 0:
                     cache[code] = round(old_ma * (199/200) + prev_close * (1/200), 2)
                     updated += 1
-            except Exception:
+            except Exception as e:
                 failed += 1
+                reason = type(e).__name__
+                fail_reasons[reason] = fail_reasons.get(reason, 0) + 1
 
-        if (i // 50) % 10 == 0:
-            print(f"  진행: {i+len(batch)}/{len(codes)} (갱신={updated}, 실패={failed})")
-        await asyncio.sleep(0.1)
+        if i % 500 == 0 and i > 0:
+            print(f"  진행: {i}/{len(codes)} (갱신={updated}, 실패={failed})")
+        await asyncio.sleep(0.5)
+
+    if fail_reasons:
+        print(f"  실패 사유: {fail_reasons}")
 
     # 저장
     CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False))
