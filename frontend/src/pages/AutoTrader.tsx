@@ -1010,14 +1010,16 @@ export default function AutoTrader() {
                             ? allGapupTrades.map((t: any) => ({ ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code }))
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => {
-                                // stepped 시뮬은 원본 sold 거래의 날짜+종목명 사용
+                                // stepped 시뮬: sim_only의 원본 거래 날짜 or sim_only 자체 날짜
                                 if (t.strategy_type === "stepped") {
                                   const mt = trades.find(tr => tr.id === t.trade_id);
                                   const simCode = mt?.code || "";
-                                  // sim_only의 code로 원본 sold 거래를 역추적
-                                  const origTrade = simCode ? soldTrades.find(tr => tr.code === simCode) : null;
-                                  const origDate = origTrade?.created_at?.slice(0, 10) || t.created_at?.slice(0, 10) || "보유";
-                                  return { ...t, _date: origDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
+                                  // 4종목 전환분: sim_only(4/4)보다 이전에 같은 code의 filled→sold 기록이 있으면 해당 날짜
+                                  // 신규 시뮬: sim_only created_at 사용
+                                  const mtCreated = mt?.created_at?.slice(0, 10) || "";
+                                  const origSold = simCode ? soldTrades.filter(tr => tr.code === simCode && (tr.created_at || "") < (mt?.created_at || "")).pop() : null;
+                                  const displayDate = origSold?.created_at?.slice(0, 10) || mtCreated || t.created_at?.slice(0, 10) || "보유";
+                                  return { ...t, _date: displayDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
                                 }
                                 return { ...t, _date: t.created_at?.slice(0, 10) || "보유", _displayName: t.name, _displaySub: t.code };
                               })
