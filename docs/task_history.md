@@ -2,6 +2,11 @@
 
 ## 2026-04-06
 
+### [기능] 갭업 스캔 과열 필터 + 손절 옵션 UI (2026-04-06 17:50 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** 갭업 후보에 3일변동성<13%+3일누적<20% 필터 추가 (과열 종목 제외). UI에 손절 옵션(없음/-5%/-6%) 칩 버튼 추가. 4차 백테스트 연구 기반.
+- **커밋:** `9a072cd`
+
 ### [기능] 모의투자 토큰 Supabase 공유 (2026-04-06 16:45 KST)
 - **변경 파일:** `daemon/trader.py`
 - **내용:** `_ensure_mock_token()`에 Supabase `api_credentials` 조회/저장 추가. `service_name='kis_mock'`으로 실투자와 분리. 재시작 시 쿨다운(65초)+활성화(10초) 대기 없이 즉시 토큰 로드. Supabase 실패 시 기존 로직 fallback.
