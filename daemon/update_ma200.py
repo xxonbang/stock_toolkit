@@ -99,9 +99,8 @@ async def update_ma200():
                 old_ma = cache.get(code, 0)
                 if old_ma > 0:
                     cache[code] = round(old_ma * (199/200) + prev_close * (1/200), 2)
-                else:
-                    cache[code] = prev_close  # 초기값: 전일 종가로 설정
-                updated += 1
+                    updated += 1
+                # old_ma=0이면 갱신하지 않음 (1일 종가로 MA200을 대체하면 왜곡)
             except Exception as e:
                 failed += 1
                 reason = type(e).__name__
