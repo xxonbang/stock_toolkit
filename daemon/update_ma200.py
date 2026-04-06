@@ -108,23 +108,9 @@ async def update_ma200():
 
 
 async def cleanup_old_sim_only():
-    """30일 이상 된 sim_only auto_trades 정리 (시뮬 이력은 유지)"""
-    import os
-    sys.path.insert(0, str(Path(__file__).parent.parent))
-    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
-    if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
-        return
-    from datetime import datetime, timezone, timedelta
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
-    import aiohttp
-    try:
-        async with aiohttp.ClientSession() as session:
-            headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-            del_url = f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&created_at=lt.{cutoff}"
-            async with session.delete(del_url, headers=headers) as resp:
-                print(f"sim_only 정리: HTTP {resp.status}")
-    except Exception as e:
-        print(f"정리 오류: {e}")
+    """현재는 삭제 없음 — sim_only는 시뮬 trade_id 참조에 필요하므로 유지.
+    연 ~1,000건 (0.5MB) 수준으로 Supabase 용량 문제 없음."""
+    pass
 
 
 async def update_stock_master():
