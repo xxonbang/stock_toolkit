@@ -281,7 +281,7 @@ export default function AutoTrader() {
   const avgPnl = totalTrades > 0 ? (closed.reduce((s, t) => s + (t.pnl_pct ?? 0), 0) / totalTrades).toFixed(2) : "0.00";
   const totalPnl = closed.reduce((s, t) => {
     const buy = t.filled_price ?? t.order_price;
-    const pnl = (t.pnl_pct ?? 0) / 100 * buy * t.quantity;
+    const pnl = t.sell_price && buy > 0 ? (t.sell_price - buy) * t.quantity : (t.pnl_pct ?? 0) / 100 * buy * t.quantity;
     return s + pnl;
   }, 0);
   const totalInvested = active.reduce((s, t) => s + (t.filled_price ?? t.order_price) * t.quantity, 0);
@@ -1392,7 +1392,7 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
             {trade.sold_at && <span>매도 {formatDate(trade.sold_at)}</span>}
             {trade.pnl_pct != null && trade.filled_price && (
               <span style={{ color: trade.pnl_pct >= 0 ? "var(--up)" : "var(--down)" }} className="font-medium">
-                {trade.pnl_pct >= 0 ? "+" : ""}{Math.round(trade.filled_price * trade.quantity * trade.pnl_pct / 100).toLocaleString("ko-KR")}원
+                {trade.pnl_pct >= 0 ? "+" : ""}{Math.round(trade.sell_price && trade.filled_price > 0 ? (trade.sell_price - trade.filled_price) * trade.quantity : trade.filled_price * trade.quantity * trade.pnl_pct / 100).toLocaleString("ko-KR")}원
               </span>
             )}
           </div>
