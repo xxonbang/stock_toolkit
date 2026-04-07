@@ -1379,7 +1379,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
             ma20 = ma20_map.get(code, 0)
             if ma20 <= 0 or cur_price <= ma20:
                 continue
-            if 1 <= gap_pct < 5:
+            if 0 <= gap_pct < 5:
                 vol_rate = item["vol_rate"]
                 if require_volume and vol_rate < 200:
                     continue
@@ -1478,7 +1478,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                 ma20 = ma20_map.get(code, 0)
                 if ma20 <= 0 or cur_price <= ma20:
                     continue
-                if 1 <= gap_pct < 5:
+                if 0 <= gap_pct < 5:
                     vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
                     if require_volume and vol_rate < 200:
                         continue
