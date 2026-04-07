@@ -260,7 +260,7 @@ export default function AutoTrader() {
   async function refreshPrices() {
     if (priceRefreshing) return;
     const recentCutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const codes = [...new Set(trades.filter(t => t.status === "filled" || (t.status === "sold" && t.created_at >= recentCutoff)).map(t => t.code).filter(Boolean))];
+    const codes = [...new Set(trades.filter(t => t.status === "filled" || t.status === "sim_only" || (t.status === "sold" && t.created_at >= recentCutoff)).map(t => t.code).filter(Boolean))];
     if (!codes.length) return;
     setPriceRefreshing(true);
     // 시세 + 시뮬 + 거래 내역을 모두 병렬 실행
@@ -915,8 +915,8 @@ export default function AutoTrader() {
               const steppedOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "stepped").map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
                 const cp = mt ? (prices[mt.code]?.price || 0) : 0;
-                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
-                return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true, _name: mt?.name };
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
+                return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _isActive: true, _name: mt?.name, _noPrice: cp <= 0 };
               });
               const allRealTrades = [
                 ...steppedClosedSims.map((s: any) => ({ ...s, _isActive: false })),
@@ -1176,7 +1176,7 @@ export default function AutoTrader() {
                                               {(item.exit_reason || item.sell_reason) && !item._isActive && (() => { const r = item.exit_reason || item.sell_reason; return <span className="text-[9px] px-1.5 py-0.5 rounded-full t-text-dim" style={{ background: "var(--bg-muted)" }}>{r === "stop_loss" ? "손절" : r === "take_profit" ? "익절" : r === "time_exit" ? "시간매도" : r === "stepped_trailing" ? "Stepped" : r === "trailing_stop" ? "급락손절" : r === "eod_close" ? "장마감" : r === "manual_sell" ? "수동매도" : r === "false_stop" ? "오류매도" : r === "parent_sold" ? "실전매도" : r}</span>; })()}
                                             </div>
                                             <span className={`tabular-nums font-bold shrink-0 ${(item.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                              {(item.pnl_pct ?? 0) >= 0 ? "+" : ""}{(item.pnl_pct ?? 0).toFixed(2)}%
+                                              {item._noPrice ? "시세 없음" : `${(item.pnl_pct ?? 0) >= 0 ? "+" : ""}${(item.pnl_pct ?? 0).toFixed(2)}%`}
                                             </span>
                                           </div>
                                           <div className="flex items-center gap-1 mt-1 text-[9px] t-text-sub">
