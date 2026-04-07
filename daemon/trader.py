@@ -583,14 +583,15 @@ async def _get_actual_fill_price(code: str, is_sell: bool = False) -> int:
                     return fill_price
     except Exception as e:
         logger.debug(f"체결가 조회 오류: {code} {e}")
-    # fallback: 잔고 조회 API의 매수 평균단가
-    try:
-        balance_price = await _get_balance_avg_price(code)
-        if balance_price > 0:
-            logger.info(f"체결가 잔고 fallback: {code} {balance_price:,}원")
-            return balance_price
-    except Exception:
-        pass
+    # fallback: 잔고 조회 API의 매수 평균단가 (매수 시에만 — 매도 시 매수가가 반환되므로 부정확)
+    if not is_sell:
+        try:
+            balance_price = await _get_balance_avg_price(code)
+            if balance_price > 0:
+                logger.info(f"체결가 잔고 fallback: {code} {balance_price:,}원")
+                return balance_price
+        except Exception:
+            pass
     return 0
 
 
