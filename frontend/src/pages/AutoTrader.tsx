@@ -1034,7 +1034,9 @@ export default function AutoTrader() {
                                 const mtCreated = toKstDate(mt?.created_at);
                                 const origSold = simCode ? soldTrades.filter(tr => tr.code === simCode && (tr.created_at || "") < (mt?.created_at || "")).pop() : null;
                                 const displayDate = toKstDate(origSold?.created_at) || mtCreated || toKstDate(t.created_at) || "보유";
-                                return { ...t, _date: displayDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
+                                // origSold의 시간 정보를 사용 (날짜+시간 출처 통일)
+                                const origTime = origSold?.filled_at || origSold?.created_at || mt?.created_at || t.created_at;
+                                return { ...t, _date: displayDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원", filled_at: origTime, created_at: origTime };
                               })
                             : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = trades.find(t => t.id === s.trade_id);
