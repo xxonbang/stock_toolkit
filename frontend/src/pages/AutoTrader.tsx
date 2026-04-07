@@ -933,8 +933,8 @@ export default function AutoTrader() {
               const allTimeSims = [...timeClosedSims, ...timeOpenSims.map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
                 const cp = mt ? (prices[mt.code]?.price || 0) : 0;
-                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
-                return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _name: mt?.name };
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
+                return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _name: mt?.name, _noPrice: cp <= 0 };
               })];
               const timePnl = allTimeSims.length > 0 ? allTimeSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allTimeSims.length : 0;
               // API매수∧테마대장주 시뮬
@@ -944,14 +944,14 @@ export default function AutoTrader() {
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = trades.find(t => t.id === s.trade_id);
                 const cp = matchTrade ? (prices[matchTrade.code]?.price || 0) : 0;
+                const noPrice = cp <= 0;
                 let pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : 0;
                 let isCapped = false;
-                // fixed 전략 시뮬레이션: TP/SL 초과 시 cap
-                if (s.strategy_type === "fixed") {
+                if (s.strategy_type === "fixed" && !noPrice) {
                   if (pnl >= takeProfit) { pnl = takeProfit; isCapped = true; }
                   if (pnl <= stopLoss) { pnl = stopLoss; isCapped = true; }
                 }
-                return { ...s, pnl_pct: Math.round(pnl * 100) / 100, _isActive: !isCapped, _isCapped: isCapped, _name: matchTrade?.name };
+                return { ...s, pnl_pct: noPrice ? null : Math.round(pnl * 100) / 100, _isActive: !isCapped, _isCapped: isCapped, _name: matchTrade?.name, _noPrice: noPrice };
               });
               const allSims = [...closedSims.map((s: any) => ({ ...s, _isActive: false })), ...openSimsWithPnl];
               const simPnl = allSims.length > 0 ? allSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allSims.length : 0;

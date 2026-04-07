@@ -1415,8 +1415,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                             logger.info(f"VR 과열 제외: {c['name']}({c['code']})")
                             continue
                         vr_filtered.append(c)
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.warning(f"VR 과열 제외: {c['name']}({c['code']}) 오류 — {e}")
                 await asyncio.sleep(0.3)
             vr_candidates = vr_filtered
 
@@ -1821,6 +1821,7 @@ async def sell_all_positions_force():
                 if sell_price <= 0:
                     sell_price = await _get_current_price(pos["code"]) or buy_price
                 pnl = calc_pnl_pct(buy_price, sell_price)
+                pos["_current_price"] = sell_price  # 텔레그램 보고용
                 await update_position_sold(position_id, sell_price, pnl, "eod_close")
                 _peak_prices.pop(position_id, None)
                 unmark_selling(position_id)
