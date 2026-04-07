@@ -115,6 +115,8 @@ export default function AutoTrader() {
   const [strategySaving, setStrategySaving] = useState(false);
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
   const [gapupSl, setGapupSl] = useState<"none" | "-5" | "-6">("none");
+  const [savedGapupSl, setSavedGapupSl] = useState<"none" | "-5" | "-6">("none");
+  const [gapupSlSaving, setGapupSlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "gapup" | null>(null);
@@ -156,7 +158,7 @@ export default function AutoTrader() {
         }).catch(() => {});
         // gapup_sl 로드
         Promise.resolve(supabase.from("alert_config").select("gapup_sl").limit(1).maybeSingle()).then(({ data: cfg }) => {
-          if (cfg?.gapup_sl) setGapupSl(cfg.gapup_sl);
+          if (cfg?.gapup_sl) { setGapupSl(cfg.gapup_sl); setSavedGapupSl(cfg.gapup_sl); }
         }).catch(() => {});
         getStrategySimulations().then(setSimulations);
       } else {
@@ -733,12 +735,30 @@ export default function AutoTrader() {
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
                         <div className="flex items-center gap-1.5">
                           {([["none", "없음"], ["-5", "-5%"], ["-6", "-6%"]] as const).map(([val, label]) => (
-                            <button key={val} onClick={() => { setGapupSl(val as any); setAlertConfig({ gapup_sl: val }); }}
+                            <button key={val} onClick={() => setGapupSl(val as any)}
                               className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${gapupSl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
                               style={gapupSl === val ? { background: val === "none" ? "#3b82f6" : val === "-5" ? "#f59e0b" : "#8b5cf6" } : { background: "var(--bg-card-alt)" }}>
                               {label}
                             </button>
                           ))}
+                          {gapupSl !== savedGapupSl && (
+                            <button onClick={async () => {
+                              setGapupSlSaving(true);
+                              const ok = await setAlertConfig({ gapup_sl: gapupSl });
+                              if (ok) {
+                                setSavedGapupSl(gapupSl);
+                                setToastMsg({ text: `손절 옵션 변경: ${gapupSl === "none" ? "없음" : gapupSl + "%"}`, type: "ok" });
+                              } else {
+                                setGapupSl(savedGapupSl);
+                                setToastMsg({ text: "손절 옵션 변경 실패", type: "fail" });
+                              }
+                              setTimeout(() => setToastMsg(null), 2500);
+                              setGapupSlSaving(false);
+                            }} disabled={gapupSlSaving}
+                              className="px-2 py-0.5 rounded-md text-[9px] font-semibold bg-emerald-500 text-white hover:bg-emerald-400 transition disabled:opacity-50">
+                              {gapupSlSaving ? "..." : "확인"}
+                            </button>
+                          )}
                         </div>
                       </div>
                       <div className="ml-[calc(2ch+0.5rem)] text-[8px] t-text-dim -mt-0.5">
