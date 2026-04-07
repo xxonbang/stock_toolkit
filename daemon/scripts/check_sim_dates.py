@@ -32,7 +32,7 @@ async def main():
             url3 = f"{base}/auto_trades?code=eq.{code}&status=eq.sold&created_at=lt.{tr.get('created_at','')}&select=name,created_at&order=created_at.desc&limit=1"
             async with session.get(url3, headers=headers) as resp3:
                 sold = await resp3.json()
-            orig_date = sold[0]["created_at"][:19] if sold else "없음"
+            orig_date = sold[0]["created_at"][:19] if isinstance(sold, list) and sold else "없음"
         else:
             orig_date = "?"
 
