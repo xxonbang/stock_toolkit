@@ -1372,7 +1372,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                           "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
                 async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
                     data = await resp.json()
-                    bars = data.get("output", [])[:5]  # 최근 5일봉 (오늘 포함)
+                    bars = data.get("output", [])[:6]  # 최근 6일봉 (오늘 + 전일~5일전, MA5용)
                     if len(bars) < 4:
                         logger.info(f"과열 제외: {c['name']}({c['code']}) 일봉 부족({len(bars)}일)")
                         continue  # 데이터 부족 = 신규 상장 등 → 과열 판단 불가 → 제외
@@ -1395,6 +1395,14 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                     if cum_3d >= 20:
                         logger.info(f"과열 제외: {c['name']}({c['code']}) 3일누적={cum_3d:.1f}%")
                         continue
+                    # MA5 필터: 전일종가 ≤ MA5 (단기 조정 후 갭업 = 신규 모멘텀)
+                    # bars[1]~bars[5] = 전일~5일전 종가로 MA5 계산
+                    if len(bars) >= 6:
+                        closes_5d = [int(bars[j].get("stck_clpr", "0")) for j in range(1, 6)]
+                        ma5 = sum(closes_5d) / 5 if all(v > 0 for v in closes_5d) else 0
+                        if ma5 > 0 and prev_close > ma5:
+                            logger.info(f"MA5 제외: {c['name']}({c['code']}) 전일종가={prev_close:,} > MA5={ma5:,.0f}")
+                            continue
                     filtered.append(c)
             except Exception as e:
                 logger.warning(f"과열 제외: {c['name']}({c['code']}) 일봉 조회 오류 — {e}")
