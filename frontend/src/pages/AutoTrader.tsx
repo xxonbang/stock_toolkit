@@ -741,28 +741,30 @@ export default function AutoTrader() {
                               {label}
                             </button>
                           ))}
-                          {gapupSl !== savedGapupSl && (
-                            <button onClick={async () => {
-                              setGapupSlSaving(true);
-                              const ok = await setAlertConfig({ gapup_sl: gapupSl });
-                              if (ok) {
-                                setSavedGapupSl(gapupSl);
-                                setToastMsg({ text: `손절 옵션 변경: ${gapupSl === "none" ? "없음" : gapupSl + "%"}`, type: "ok" });
-                              } else {
-                                setGapupSl(savedGapupSl);
-                                setToastMsg({ text: "손절 옵션 변경 실패", type: "fail" });
-                              }
-                              setTimeout(() => setToastMsg(null), 2500);
-                              setGapupSlSaving(false);
-                            }} disabled={gapupSlSaving}
-                              className="px-2 py-0.5 rounded-md text-[9px] font-semibold bg-emerald-500 text-white hover:bg-emerald-400 transition disabled:opacity-50">
-                              {gapupSlSaving ? "..." : "확인"}
-                            </button>
-                          )}
                         </div>
                       </div>
-                      <div className="ml-[calc(2ch+0.5rem)] text-[8px] t-text-dim -mt-0.5">
-                        {gapupSl === "none" ? "15:15 전량 청산 · 평균수익 +5.1% · 승률 70.6%" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · 평균수익 +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · 평균수익 +4.6% · V자반등 허용"}
+                      <div className="flex items-center justify-between ml-[calc(2ch+0.5rem)] -mt-0.5">
+                        <span className="text-[8px] t-text-dim">
+                          {gapupSl === "none" ? "15:15 전량 청산 · 평균수익 +5.1% · 승률 70.6%" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도 · 평균수익 +4.4% · 대형손실 0%" : "장중 -6% 도달 시 즉시 매도 · 평균수익 +4.6% · V자반등 허용"}
+                        </span>
+                        {gapupSl !== savedGapupSl && (
+                          <button onClick={async () => {
+                            setGapupSlSaving(true);
+                            const ok = await setAlertConfig({ gapup_sl: gapupSl });
+                            if (ok) {
+                              setSavedGapupSl(gapupSl);
+                              setToastMsg({ text: `손절 옵션 변경: ${gapupSl === "none" ? "없음" : gapupSl + "%"}`, type: "ok" });
+                            } else {
+                              setGapupSl(savedGapupSl);
+                              setToastMsg({ text: "손절 옵션 변경 실패", type: "fail" });
+                            }
+                            setTimeout(() => setToastMsg(null), 2500);
+                            setGapupSlSaving(false);
+                          }} disabled={gapupSlSaving}
+                            className="text-[9px] font-semibold px-3 py-0.5 rounded-md bg-emerald-500 text-white hover:bg-emerald-400 transition disabled:opacity-50 shrink-0 ml-2">
+                            {gapupSlSaving ? "저장 중..." : "변경 확인"}
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
