@@ -1260,8 +1260,63 @@ async def run_buy_process():
         logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
 
 
+async def _fetch_volume_rank(token: str) -> list[dict]:
+    """KIS 거래량순위 API — 1회 호출로 상위 30종목 획득. 실패 시 빈 리스트."""
+    try:
+        session = await get_session()
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/volume-rank"
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J", "FID_COND_SCR_DIV_CODE": "20101",
+            "FID_INPUT_ISCD": "0000", "FID_DIV_CLS_CODE": "0", "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "111111111", "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_INPUT_PRICE_1": "0", "FID_INPUT_PRICE_2": "0",
+            "FID_VOL_CNT": "0", "FID_INPUT_DATE_1": "",
+        }
+        async with session.get(url, params=params, headers=_order_headers(token, "FHPST01710000")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return []
+            items = data.get("output", [])
+            result = []
+            for item in items:
+                code = item.get("mksc_shrn_iscd", "")
+                if not code:
+                    continue
+                result.append({
+                    "code": code,
+                    "name": item.get("hts_kor_isnm", code),
+                    "price": int(item.get("stck_prpr", "0") or "0"),
+                    "open_price": int(item.get("stck_oprc", "0") or "0"),
+                    "prev_close": int(item.get("stck_sdpr", "0") or "0"),
+                    "vol_rate": float(item.get("prdy_vrss_vol_rate", "0") or "0"),
+                    "change_rate": float(item.get("prdy_ctrt", "0") or "0"),
+                })
+            return result
+    except Exception as e:
+        logger.warning(f"volume-rank 조회 실패: {e}")
+        return []
+
+
+async def _fetch_asking_price(token: str, code: str) -> dict | None:
+    """KIS 호가잔량 조회 — 매수/매도 잔량 합계 반환."""
+    try:
+        session = await get_session()
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn"
+        params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+        async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010200")) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return None
+            out = data.get("output1", {})
+            total_ask = int(out.get("total_askp_rsqn", "0") or "0")  # 매도 잔량 합계
+            total_bid = int(out.get("total_bidp_rsqn", "0") or "0")  # 매수 잔량 합계
+            return {"ask": total_ask, "bid": total_bid, "ratio": total_bid / total_ask if total_ask > 0 else 0}
+    except Exception:
+        return None
+
+
 async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
-    """장 시작 갭업 스캔: 상위 200종목 조회 → 갭업 2~5% + MA200 → 즉시 매수.
+    """장 시작 갭업 스캔: volume-rank 우선 → fallback 200종목 개별 조회.
     require_volume=True: 거래량 2배 필터 추가 (09:30 보완 매수용).
     Returns: 매수 종목 수.
     """
@@ -1298,110 +1353,179 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         scan_targets = all_stocks[:200]
     logger.info(f"갭업 스캔 대상: {len(scan_targets)}종목")
 
-    # 배치 상세 조회 (시가, 전일종가, 거래량 포함)
     token = await _ensure_mock_token()
     if not token:
         logger.warning("토큰 없음 — 갭업 스캔 중단")
         return 0
 
-    async def _fetch_detail(code: str) -> dict | None:
-        try:
-            session = await get_session()
-            url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-            params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
-            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
-                data = await resp.json()
-                if data.get("rt_cd") != "0":
-                    return None
-                return data.get("output", {})
-        except Exception:
-            return None
-
-    # 5건씩 배치 조회 (KIS 모의투자 rate limit: 초당 ~5건)
-    candidates = []
-    for batch_start in range(0, len(scan_targets), 5):
-        batch = scan_targets[batch_start:batch_start + 5]
-        results = await asyncio.gather(*[_fetch_detail(s["code"]) for s in batch])
-        for stock, out in zip(batch, results):
-            if not out:
-                continue
-            code = stock["code"]
-            name = stock.get("name", code)
-            cur_price = int(out.get("stck_prpr", "0"))
-            open_price = int(out.get("stck_oprc", "0"))
-            prev_close = int(out.get("stck_sdpr", "0"))
+    # === 우선 경로: volume-rank API (1회 호출, 상위 30종목) ===
+    vr_candidates = []
+    vr_items = await _fetch_volume_rank(token)
+    if vr_items:
+        logger.info(f"volume-rank: {len(vr_items)}종목 조회 완료")
+        for item in vr_items:
+            code = item["code"]
+            cur_price = item["price"]
+            open_price = item["open_price"]
+            prev_close = item["prev_close"]
             if cur_price < 1000 or cur_price >= 200000:
                 continue
             if open_price <= 0 or prev_close <= 0:
                 continue
-
             gap_pct = (open_price - prev_close) / prev_close * 100
-
-            # MA200 필터 (값 없으면 판단 불가 → 제외)
             ma200 = ma200_map.get(code, 0)
             if ma200 <= 0 or cur_price <= ma200:
                 continue
-
-            # MA20 필터 (값 없으면 판단 불가 → 제외)
             ma20 = ma20_map.get(code, 0)
             if ma20 <= 0 or cur_price <= ma20:
                 continue
-
-            # 갭업 1~5%
             if 1 <= gap_pct < 5:
-                vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
-                # 09:30 보완 모드: 거래량 2배(200%) 필터 추가
+                vol_rate = item["vol_rate"]
                 if require_volume and vol_rate < 200:
                     continue
-                candidates.append({
-                    "code": code, "name": name, "price": cur_price,
+                vr_candidates.append({
+                    "code": code, "name": item["name"], "price": cur_price,
                     "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
                 })
-        await asyncio.sleep(0.5)  # 배치 간 rate limit 방어
+        # 과열 필터 (기존과 동일 — 일봉 조회)
+        if vr_candidates:
+            vr_filtered = []
+            for c in vr_candidates:
+                try:
+                    session = await get_session()
+                    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+                    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": c["code"],
+                              "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
+                    async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
+                        data = await resp.json()
+                        bars = data.get("output", [])[:5]
+                        if len(bars) < 4:
+                            continue
+                        ranges = []
+                        for b in bars[1:4]:
+                            bh = int(b.get("stck_hgpr", "0"))
+                            blo = int(b.get("stck_lwpr", "0"))
+                            if blo > 0:
+                                ranges.append((bh - blo) / blo * 100)
+                        avg_range_3 = sum(ranges) / len(ranges) if ranges else 0
+                        prev_cl = int(bars[1].get("stck_clpr", "0"))
+                        close_3d = int(bars[3].get("stck_clpr", "0"))
+                        cum_3d = (prev_cl - close_3d) / close_3d * 100 if close_3d > 0 else 0
+                        if avg_range_3 >= 13 or cum_3d >= 20:
+                            logger.info(f"VR 과열 제외: {c['name']}({c['code']})")
+                            continue
+                        vr_filtered.append(c)
+                except Exception:
+                    pass
+                await asyncio.sleep(0.3)
+            vr_candidates = vr_filtered
 
-    logger.info(f"갭업 스캔 결과: {len(candidates)}종목 기본 조건 충족")
+        # volume-rank에서 2종목 이상 확보 시 → 호가잔량으로 최종 선정
+        if len(vr_candidates) >= 2:
+            vr_candidates.sort(key=lambda x: -x["vol_rate"])
+            top5 = vr_candidates[:5]
+            # TOP5에 대해 호가잔량 조회 → 매수잔량/매도잔량 비율 부여
+            for t in top5:
+                asking = await _fetch_asking_price(token, t["code"])
+                t["bid_ask_ratio"] = asking["ratio"] if asking else 0
+                await asyncio.sleep(0.3)
+            # 매수잔량 > 매도잔량 종목 우선, 이후 vol_rate 순
+            top5.sort(key=lambda x: (-1 if x["bid_ask_ratio"] > 1 else 0, -x["vol_rate"]))
+            candidates = top5
+            logger.info(f"volume-rank 경로: {len(vr_candidates)}종목 → TOP{min(5, len(top5))} 호가 확인")
+            # 아래 기존 스캔 건너뛰고 매수 단계로 이동
+        else:
+            if vr_items:
+                logger.info(f"volume-rank {len(vr_items)}종목 중 갭업 조건 {len(vr_candidates)}종목 → fallback")
+            vr_candidates = []  # fallback으로 진행
 
-    # 3일변동성 + 3일누적수익률 필터 (후보 종목만 일봉 조회)
-    if candidates:
-        filtered = []
-        for c in candidates:
+    # === fallback 경로: 기존 200종목 개별 조회 ===
+    # volume-rank 성공 시 candidates 확정, 실패 시 fallback
+    candidates = vr_candidates if len(vr_candidates) >= 2 else []
+
+    # === fallback 경로: 기존 200종목 개별 조회 ===
+    if not candidates:
+        async def _fetch_detail(code: str) -> dict | None:
             try:
                 session = await get_session()
-                url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
-                params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": c["code"],
-                          "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
-                async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
+                url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+                params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+                async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
                     data = await resp.json()
-                    bars = data.get("output", [])[:5]  # 최근 5일봉 (오늘 + 전일~3일전)
-                    if len(bars) < 4:
-                        logger.info(f"과열 제외: {c['name']}({c['code']}) 일봉 부족({len(bars)}일)")
-                        continue  # 데이터 부족 = 신규 상장 등 → 과열 판단 불가 → 제외
-                    # bars[0]=오늘, bars[1]=전일, bars[2]=2일전, bars[3]=3일전
-                    # 3일 변동성: 전일~3일전의 (고가-저가)/저가 평균
-                    ranges = []
-                    for b in bars[1:4]:
-                        h = int(b.get("stck_hgpr", "0"))
-                        lo = int(b.get("stck_lwpr", "0"))
-                        if lo > 0:
-                            ranges.append((h - lo) / lo * 100)
-                    avg_range_3 = sum(ranges) / len(ranges) if ranges else 0
-                    # 3일 누적수익률: 전일종가 / 3일전종가 - 1
-                    prev_close = int(bars[1].get("stck_clpr", "0"))
-                    close_3d_ago = int(bars[3].get("stck_clpr", "0")) if len(bars) >= 4 else 0
-                    cum_3d = (prev_close - close_3d_ago) / close_3d_ago * 100 if close_3d_ago > 0 else 0
-                    if avg_range_3 >= 13:
-                        logger.info(f"과열 제외: {c['name']}({c['code']}) 3일변동성={avg_range_3:.1f}%")
+                    if data.get("rt_cd") != "0":
+                        return None
+                    return data.get("output", {})
+            except Exception:
+                return None
+
+        logger.info(f"fallback: 200종목 개별 조회 시작")
+        candidates = []
+        for batch_start in range(0, len(scan_targets), 5):
+            batch = scan_targets[batch_start:batch_start + 5]
+            results = await asyncio.gather(*[_fetch_detail(s["code"]) for s in batch])
+            for stock, out in zip(batch, results):
+                if not out:
+                    continue
+                code = stock["code"]
+                name = stock.get("name", code)
+                cur_price = int(out.get("stck_prpr", "0"))
+                open_price = int(out.get("stck_oprc", "0"))
+                prev_close = int(out.get("stck_sdpr", "0"))
+                if cur_price < 1000 or cur_price >= 200000:
+                    continue
+                if open_price <= 0 or prev_close <= 0:
+                    continue
+                gap_pct = (open_price - prev_close) / prev_close * 100
+                ma200 = ma200_map.get(code, 0)
+                if ma200 <= 0 or cur_price <= ma200:
+                    continue
+                ma20 = ma20_map.get(code, 0)
+                if ma20 <= 0 or cur_price <= ma20:
+                    continue
+                if 1 <= gap_pct < 5:
+                    vol_rate = float(out.get("prdy_vrss_vol_rate", "0") or "0")
+                    if require_volume and vol_rate < 200:
                         continue
-                    if cum_3d >= 20:
-                        logger.info(f"과열 제외: {c['name']}({c['code']}) 3일누적={cum_3d:.1f}%")
-                        continue
-                    filtered.append(c)
-            except Exception as e:
-                logger.warning(f"과열 제외: {c['name']}({c['code']}) 일봉 조회 오류 — {e}")
-                # 판단 불가 → 보수적으로 제외 (과열 종목 매수 방지)
-            await asyncio.sleep(0.3)  # rate limit 방어
-        logger.info(f"과열 필터 후: {len(filtered)}종목 (제외 {len(candidates) - len(filtered)}종목)")
-        candidates = filtered
+                    candidates.append({
+                        "code": code, "name": name, "price": cur_price,
+                        "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
+                    })
+            await asyncio.sleep(0.5)
+        logger.info(f"갭업 스캔 결과: {len(candidates)}종목 기본 조건 충족")
+        # 과열 필터
+        if candidates:
+            filtered = []
+            for c in candidates:
+                try:
+                    session = await get_session()
+                    url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+                    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": c["code"],
+                              "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
+                    async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
+                        data = await resp.json()
+                        bars = data.get("output", [])[:5]
+                        if len(bars) < 4:
+                            logger.info(f"과열 제외: {c['name']}({c['code']}) 일봉 부족")
+                            continue
+                        ranges = []
+                        for b in bars[1:4]:
+                            bh = int(b.get("stck_hgpr", "0"))
+                            blo = int(b.get("stck_lwpr", "0"))
+                            if blo > 0:
+                                ranges.append((bh - blo) / blo * 100)
+                        avg_range_3 = sum(ranges) / len(ranges) if ranges else 0
+                        prev_cl = int(bars[1].get("stck_clpr", "0"))
+                        close_3d = int(bars[3].get("stck_clpr", "0"))
+                        cum_3d = (prev_cl - close_3d) / close_3d * 100 if close_3d > 0 else 0
+                        if avg_range_3 >= 13 or cum_3d >= 20:
+                            logger.info(f"과열 제외: {c['name']}({c['code']})")
+                            continue
+                        filtered.append(c)
+                except Exception as e:
+                    logger.warning(f"과열 제외: {c['name']}({c['code']}) 오류 — {e}")
+                await asyncio.sleep(0.3)
+            logger.info(f"과열 필터 후: {len(filtered)}종목 (제외 {len(candidates) - len(filtered)}종목)")
+            candidates = filtered
 
     if not candidates:
         cond = "갭업1~5% + MA200↑ + 과열필터" + ("+거래량2배" if require_volume else "")
@@ -1409,7 +1533,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         return 0
 
     # 거래량 순 정렬, 상위 2종목
-    candidates.sort(key=lambda x: -x["vol_rate"])
+    candidates.sort(key=lambda x: -x.get("vol_rate", 0))
     targets = candidates[:2]
 
     # 보유/주문 중 필터
