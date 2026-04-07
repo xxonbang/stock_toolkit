@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Dashboard from './pages/Dashboard'
 import Portfolio from './pages/Portfolio'
@@ -25,16 +25,22 @@ function useTheme() {
   return { dark, toggle: () => setDark(!dark) };
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 export default function App() {
   const { dark, toggle } = useTheme();
 
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    window.scrollTo(0, 0);
   }, []);
 
   return (
     <HashRouter>
+      <ScrollToTop />
       <div className="min-h-screen pb-4 no-select" style={{ background: 'var(--bg)' }}>
         <Routes>
           <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />}>
