@@ -1558,13 +1558,26 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
     amount_per = balance // len(buy_targets)
 
     # 텔레그램 보고
-    scan_label = "📈 갭업 모멘텀 09:30 보완 매수" if require_volume else "📈 갭업 모멘텀 스캔 매수"
+    scan_label = "📈 갭업 모멘텀 09:30 보완" if require_volume else "📈 갭업 모멘텀 스캔"
+    scan_path = "VR" if any("bid_ask_ratio" in c for c in candidates) else "개별조회"
     rpt = [f"<b>{scan_label}</b>"]
-    rpt.append(f"스캔: {len(scan_targets)}종목 → 조건충족: {len(candidates)}종목")
+    rpt.append(f"")
+    rpt.append(f"<b>[스캔]</b> {scan_path} | 대상 {len(scan_targets)}종목")
+    rpt.append(f"갭0~5%+MA200↑+MA20↑: {len(candidates)}종목")
     rpt.append(f"잔고: {balance:,}원 | 종목당: {amount_per:,}원")
+    rpt.append(f"")
+    rpt.append(f"<b>[매수 대상]</b>")
     for t in buy_targets:
         qty = calc_quantity(amount_per, t["price"])
-        rpt.append(f"  📥 {t['name']} ({t['code']}) 갭업+{t['gap_pct']:.1f}% 거래량{t['vol_rate']:.0f}% {t['price']:,}원 × {qty}주")
+        ma200_val = ma200_map.get(t["code"], 0)
+        ma20_val = ma20_map.get(t["code"], 0)
+        bid_ratio = t.get("bid_ask_ratio", 0)
+        bid_info = f" 호가{bid_ratio:.1f}" if bid_ratio > 0 else ""
+        invest = t["price"] * qty
+        rpt.append(f"  📥 <b>{t['name']}</b> ({t['code']})")
+        rpt.append(f"     갭+{t['gap_pct']:.1f}% | 거래량 {t['vol_rate']:.0f}%{bid_info}")
+        rpt.append(f"     {t['price']:,}원 × {qty}주 = {invest:,}원")
+        rpt.append(f"     MA200 {ma200_val:,.0f} | MA20 {ma20_val:,.0f}")
     await send_telegram("\n".join(rpt))
 
     bought = 0
@@ -1874,18 +1887,27 @@ async def sell_all_positions_force():
     # 텔레그램 보고
     if filled:
         lines = []
+        total_pnl_amt = 0
         for pos in filled:
             bp = pos.get("filled_price") or pos.get("order_price", 0)
             cp = pos.get("_current_price", 0)
+            qty = pos.get("quantity", 0)
             if bp > 0 and cp > 0:
                 pnl_val = calc_pnl_pct(bp, cp)
+                pnl_amt = (cp - bp) * qty
+                total_pnl_amt += pnl_amt
                 lines.append(f"  {pos['name']}({pos['code']}) {pnl_val:+.1f}%")
+                lines.append(f"     {bp:,} → {cp:,}원 × {qty}주 ({pnl_amt:+,}원)")
             else:
                 lines.append(f"  {pos['name']}({pos['code']})")
-        await send_telegram(
-            f"<b>🔄 전량 강제 매도 완료</b>\n"
-            f"{len(filled)}종목 매도\n" + "\n".join(lines)
-        )
+        rpt_lines = [
+            f"<b>🔄 전량 강제 매도 완료</b>",
+            f"{len(filled)}종목 매도",
+        ] + lines + [
+            f"",
+            f"<b>당일 합계: {total_pnl_amt:+,}원</b>",
+        ]
+        await send_telegram("\n".join(rpt_lines))
     _orphan_sim_codes.clear()
     invalidate_cache()
 
