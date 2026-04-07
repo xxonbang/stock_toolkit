@@ -1037,7 +1037,7 @@ export default function AutoTrader() {
                                 return { ...t, _date: displayDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
                               })
                             : (strategyDetail === "time" ? allTimeSims : strategyDetail === "api_leader" ? apiLeaderSims : allSims).map((s: any) => {
-                                const mt = [...soldTrades, ...activeTrades].find(t => t.id === s.trade_id);
+                                const mt = trades.find(t => t.id === s.trade_id);
                                 return { ...s, _date: toKstDate(mt?.created_at) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
                               });
                           if (items.length === 0) {
