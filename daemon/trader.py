@@ -1440,11 +1440,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
             vr_candidates = []  # fallback으로 진행
 
     # === fallback 경로: 기존 200종목 개별 조회 ===
-    # volume-rank 성공 시 candidates 확정, 실패 시 fallback
-    candidates = vr_candidates if len(vr_candidates) >= 2 else []
-
-    # === fallback 경로: 기존 200종목 개별 조회 ===
-    if not candidates:
+    if len(vr_candidates) < 2:
         async def _fetch_detail(code: str) -> dict | None:
             try:
                 session = await get_session()
@@ -1532,8 +1528,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 
-    # 거래량 순 정렬, 상위 2종목
-    candidates.sort(key=lambda x: -x.get("vol_rate", 0))
+    # 거래량 순 정렬, 상위 2종목 (volume-rank 경로에서는 이미 호가 기반 정렬 완료)
+    if not any("bid_ask_ratio" in c for c in candidates):
+        candidates.sort(key=lambda x: -x.get("vol_rate", 0))
     targets = candidates[:2]
 
     # 보유/주문 중 필터
