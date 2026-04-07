@@ -282,9 +282,10 @@ export default function AutoTrader() {
       setTimeout(() => setToastMsg(null), 3000);
     }
     setPriceRefreshing(false);
-    // 시뮬레이션 + 거래 내역도 함께 갱신
+    // 시뮬레이션 + 거래 내역도 함께 갱신 (시세는 이미 조회했으므로 trades만 DB에서)
     getStrategySimulations().then(setSimulations).catch(() => {});
-    fetchTrades();
+    Promise.resolve(supabase.from("auto_trades").select("*").order("created_at", { ascending: false }))
+      .then(({ data }) => { if (data) setTrades(data as Trade[]); }).catch(() => {});
   }
 
   const active = trades.filter((t) => t.status === "filled");
