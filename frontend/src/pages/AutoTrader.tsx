@@ -1122,14 +1122,25 @@ export default function AutoTrader() {
                                       {group.map((item: any, i: number) => {
                                         const buyPrice = item.entry_price || item.filled_price || item.order_price || 0;
                                         const sellPrice = item.exit_price || item.sell_price || 0;
-                                        const buyTime = (item.filled_at || item.created_at || "")?.slice(11, 16);
-                                        const sellTime = (item.exited_at || item.sold_at || "")?.slice(11, 16);
-                                        const formatTime = (t: string) => {
+                                        const buyIso = item.filled_at || item.created_at || "";
+                                        const sellIso = item.exited_at || item.sold_at || "";
+                                        const buyDateKst = toKstDate(buyIso);
+                                        const sellDateKst = toKstDate(sellIso);
+                                        const formatTimeKst = (iso: string) => {
+                                          if (!iso) return "";
+                                          const t = iso.slice(11, 16);
                                           if (!t) return "";
                                           const [h, m] = t.split(":").map(Number);
-                                          const kh = (h + 9) % 24;  // UTC→KST
+                                          const kh = (h + 9) % 24;
                                           return `${kh}:${m.toString().padStart(2, "0")}`;
                                         };
+                                        const formatDateShort = (d: string) => {
+                                          if (!d || d.length < 10) return "";
+                                          return `${d.slice(5, 7)}/${d.slice(8, 10)}`;
+                                        };
+                                        const groupDate = date;
+                                        const buyDateLabel = buyDateKst && buyDateKst !== groupDate ? formatDateShort(buyDateKst) + " " : "";
+                                        const sellDateLabel = sellDateKst && sellDateKst !== groupDate ? formatDateShort(sellDateKst) + " " : "";
                                         return (
                                         <div key={i} className={`text-[11px] px-2.5 py-2 rounded-lg ${isChecked ? "" : "opacity-40"}`} style={{ background: "var(--bg)" }}>
                                           <div className="flex items-center justify-between">
@@ -1144,8 +1155,8 @@ export default function AutoTrader() {
                                             </span>
                                           </div>
                                           <div className="flex items-center gap-1 mt-1 text-[9px] t-text-sub">
-                                            {buyPrice > 0 && <><span className="t-text-dim">매수</span> <span className="font-medium tabular-nums">{buyPrice.toLocaleString()}</span>{buyTime && <span className="t-text-dim ml-0.5">{formatTime(buyTime)}</span>}</>}
-                                            {sellPrice > 0 && <><span className="t-text-dim ml-2">→</span> <span className="t-text-dim ml-1">매도</span> <span className="font-medium tabular-nums">{sellPrice.toLocaleString()}</span>{sellTime && <span className="t-text-dim ml-0.5">{formatTime(sellTime)}</span>}</>}
+                                            {buyPrice > 0 && <><span className="t-text-dim">매수</span> <span className="font-medium tabular-nums">{buyPrice.toLocaleString()}</span><span className="t-text-dim ml-0.5">{buyDateLabel}{formatTimeKst(buyIso)}</span></>}
+                                            {sellPrice > 0 && <><span className="t-text-dim ml-2">→</span> <span className="t-text-dim ml-1">매도</span> <span className="font-medium tabular-nums">{sellPrice.toLocaleString()}</span><span className="t-text-dim ml-0.5">{sellDateLabel}{formatTimeKst(sellIso)}</span></>}
                                           </div>
                                         </div>
                                         );
