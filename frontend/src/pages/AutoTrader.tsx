@@ -258,23 +258,30 @@ export default function AutoTrader() {
   async function refreshPrices() {
     if (priceRefreshing) return;
     const recentCutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const codes = [...new Set(trades.filter(t => t.status === "filled" || t.status === "sim_only" || (t.status === "sold" && t.created_at >= recentCutoff)).map(t => t.code).filter(Boolean))];
+    const codes = [...new Set(trades.filter(t => t.status === "filled" || (t.status === "sold" && t.created_at >= recentCutoff)).map(t => t.code).filter(Boolean))];
     if (!codes.length) return;
     setPriceRefreshing(true);
+    // 시세 + 시뮬 + 거래 내역을 모두 병렬 실행
+    const pricePromise = fetchKisPrices(codes).catch(() => null);
+    getStrategySimulations().then(setSimulations).catch(() => {});
+    Promise.resolve(supabase.from("auto_trades").select("*").order("created_at", { ascending: false }))
+      .then(({ data }) => { if (data) setTrades(data as Trade[]); }).catch(() => {});
     try {
-      const kisData = await fetchKisPrices(codes);
-      const map: Record<string, { price: number; changeRate: number }> = {};
-      for (const [code, p] of Object.entries(kisData)) {
-        if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
-      }
-      if (Object.keys(map).length > 0) {
-        setPrices(map);
-        const now = new Date();
-        const h = now.getHours();
-        setPriceTime(`${h < 12 ? "오전" : "오후"} ${h === 0 ? 12 : h > 12 ? h - 12 : h}:${now.getMinutes().toString().padStart(2, "0")}`);
-      } else {
-        setToastMsg({ text: "시세 조회 실패 — 장 운영시간에 다시 시도해주세요", type: "fail" });
-        setTimeout(() => setToastMsg(null), 3000);
+      const kisData = await pricePromise;
+      if (kisData) {
+        const map: Record<string, { price: number; changeRate: number }> = {};
+        for (const [code, p] of Object.entries(kisData)) {
+          if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
+        }
+        if (Object.keys(map).length > 0) {
+          setPrices(map);
+          const now = new Date();
+          const h = now.getHours();
+          setPriceTime(`${h < 12 ? "오전" : "오후"} ${h === 0 ? 12 : h > 12 ? h - 12 : h}:${now.getMinutes().toString().padStart(2, "0")}`);
+        } else {
+          setToastMsg({ text: "시세 조회 실패 — 장 운영시간에 다시 시도해주세요", type: "fail" });
+          setTimeout(() => setToastMsg(null), 3000);
+        }
       }
     } catch (e) {
       console.warn("시세 조회 실패:", e);
@@ -282,10 +289,6 @@ export default function AutoTrader() {
       setTimeout(() => setToastMsg(null), 3000);
     }
     setPriceRefreshing(false);
-    // 시뮬레이션 + 거래 내역도 함께 갱신 (시세는 이미 조회했으므로 trades만 DB에서)
-    getStrategySimulations().then(setSimulations).catch(() => {});
-    Promise.resolve(supabase.from("auto_trades").select("*").order("created_at", { ascending: false }))
-      .then(({ data }) => { if (data) setTrades(data as Trade[]); }).catch(() => {});
   }
 
   const active = trades.filter((t) => t.status === "filled");
