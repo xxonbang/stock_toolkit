@@ -50,7 +50,7 @@ export default function Portfolio() {
   const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
-  const [dbLoaded, setDbLoaded] = useState(!supaUser);  // 로그인 시 DB 로드 완료까지 false
+  const [dbLoading, setDbLoading] = useState(false);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
@@ -83,15 +83,15 @@ export default function Portfolio() {
   // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
   const mergedPortfolio = useMemo(() => {
     if (!portfolioRaw?.holdings) return null;
-    // 로그인 상태에서 DB 로드 미완료면 정적 데이터 표시 차단
-    if (!dbLoaded) return null;
+    // 로그인 상태에서 DB 로딩 중이면 오래된 서버 데이터 표시 방지
+    if (supaUser && dbLoading) return null;
     const serverHoldings = portfolioRaw.holdings;
     const userHoldings = dbHoldings.length > 0 ? dbHoldings : serverHoldings;
     const merged = userHoldings.map((lh: any) => {
       const server = serverHoldings.find((sh: any) => sh.code === lh.code) || {};
       const avgPrice = lh.avg_price || 0;
       const qty = lh.quantity || 0;
-      const cp = (server as any).current_price || lh.current_price || 0;
+      const cp = supaUser ? 0 : ((server as any).current_price || lh.current_price || 0);
       return {
         ...server, ...lh,
         avg_price: avgPrice,
@@ -112,67 +112,56 @@ export default function Portfolio() {
       total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
       total_profit_amount: totalVal - totalInv, total_holdings: merged.length,
     }};
-  }, [dbHoldings, portfolioRaw, dbLoaded]);
+  }, [dbHoldings, portfolioRaw]);
 
   const autoRefreshed = useRef(false);
-
-  // mergedPortfolio → portfolio 반영
-  // 로그인 시: KIS 시세 갱신 완료 후에만 portfolio 설정 (정적 시세 노출 방지)
-  // 비로그인 시: mergedPortfolio를 바로 portfolio로 설정
   useEffect(() => {
-    if (!mergedPortfolio) return;
-    if (!supaUser) {
-      setPortfolio(mergedPortfolio);
-      return;
-    }
-    // 로그인 상태: KIS 시세 갱신 후 portfolio 설정
-    if (autoRefreshed.current) {
-      // 이미 KIS 갱신 완료됨 — DB 변경 등으로 mergedPortfolio가 재계산된 경우
-      setPortfolio(mergedPortfolio);
-      return;
-    }
-    // 첫 진입: KIS 시세 갱신 시도
-    autoRefreshed.current = true;
-    const codes = mergedPortfolio.holdings.map((h: any) => h.code).filter(Boolean);
-    if (codes.length === 0) {
-      setPortfolio(mergedPortfolio);
-      return;
-    }
-    (async () => {
-      let priceMap: Record<string, number> = {};
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.access_token) {
-          const kisData = await Promise.race([
-            fetchKisPrices(codes),
-            new Promise<never>((_, rej) => setTimeout(() => rej(new Error("timeout")), 8000)),
-          ]);
-          for (const [code, p] of Object.entries(kisData)) {
-            if (p.current_price) priceMap[code] = p.current_price;
-          }
-        }
-      } catch {}
-      // KIS 성공 시 실시간 시세, 실패 시 정적 시세(portfolio.json) fallback
-      const base = mergedPortfolio;
-      const updated = base.holdings.map((h: any) => {
-        const cp = priceMap[h.code] || h.current_price || 0;
-        const ap = h.avg_price || 0;
-        const qty = h.quantity || 0;
-        return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
-          profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
-      });
-      const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
-      const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
-      updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
-      if (Object.keys(priceMap).length > 0) {
-        const now = new Date(); const hh = now.getHours();
-        setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
-      }
-      setPortfolio({ ...base, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
-        total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-        total_profit_amount: totalVal - totalInv, total_holdings: updated.length }});
-    })();
+    if (mergedPortfolio) setPortfolio(mergedPortfolio);
   }, [mergedPortfolio]);
+
+  // 탭 진입 시 최초 1회 자동 시세 갱신 (DB 로딩 완료 + mergedPortfolio 확정 후)
+  useEffect(() => {
+    if (!autoRefreshed.current && !dbLoading && mergedPortfolio?.holdings?.length > 0) {
+      autoRefreshed.current = true;
+      // mergedPortfolio 기반으로 직접 시세 갱신 (portfolio state 클로저 문제 회피)
+      const codes = mergedPortfolio.holdings.map((h: any) => h.code).filter(Boolean);
+      if (codes.length > 0 && supaUser) {
+        (async () => {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session?.access_token) return;
+            const kisData = await Promise.race([
+              fetchKisPrices(codes),
+              new Promise<never>((_, rej) => setTimeout(() => rej(new Error("timeout")), 8000)),
+            ]);
+            const priceMap: Record<string, number> = {};
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) priceMap[code] = p.current_price;
+            }
+            if (Object.keys(priceMap).length === 0) return;
+            setPortfolio((prev: any) => {
+              if (!prev?.holdings) return prev;
+              const updated = prev.holdings.map((h: any) => {
+                const cp = priceMap[h.code] || h.current_price || 0;
+                const ap = h.avg_price || 0;
+                const qty = h.quantity || 0;
+                return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+                  profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
+              });
+              const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
+              const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
+              updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
+              const now = new Date(); const hh = now.getHours();
+              setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
+              return { ...prev, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
+                total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+                total_profit_amount: totalVal - totalInv, total_holdings: updated.length }};
+            });
+          } catch {}
+        })();
+      }
+    }
+  }, [mergedPortfolio, dbLoading, supaUser]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {
@@ -185,11 +174,10 @@ export default function Portfolio() {
   // 로그인 상태 시 DB에서 보유 종목 로드
   useEffect(() => {
     if (supaUser) {
-      setDbLoaded(false);
-      fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoaded(true));
+      setDbLoading(true);
+      fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoading(false));
     } else {
       setDbHoldings([]);
-      setDbLoaded(true);
     }
   }, [supaUser]);
 
