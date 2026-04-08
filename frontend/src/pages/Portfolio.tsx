@@ -51,6 +51,7 @@ export default function Portfolio() {
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
   const [dbLoading, setDbLoading] = useState(false);
+  const [pricesLoaded, setPricesLoaded] = useState(!supaUser);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
@@ -91,7 +92,7 @@ export default function Portfolio() {
       const server = serverHoldings.find((sh: any) => sh.code === lh.code) || {};
       const avgPrice = lh.avg_price || 0;
       const qty = lh.quantity || 0;
-      const cp = supaUser ? 0 : ((server as any).current_price || lh.current_price || 0);
+      const cp = (server as any).current_price || lh.current_price || 0;
       return {
         ...server, ...lh,
         avg_price: avgPrice,
@@ -158,7 +159,9 @@ export default function Portfolio() {
                 total_profit_amount: totalVal - totalInv, total_holdings: updated.length }};
             });
           } catch {}
-        })();
+        })().finally(() => setPricesLoaded(true));
+      } else {
+        setPricesLoaded(true);
       }
     }
   }, [mergedPortfolio, dbLoading, supaUser]);
@@ -269,7 +272,7 @@ export default function Portfolio() {
     );
   }
 
-  if (!portfolio) {
+  if (!portfolio || !pricesLoaded) {
     return (
       <section className="t-card rounded-xl p-6 text-center">
         <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
