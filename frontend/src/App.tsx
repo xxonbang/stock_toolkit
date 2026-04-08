@@ -27,7 +27,13 @@ function useTheme() {
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    // 즉시 실행 + DOM 레이아웃 안정화 후 재실행 (Outlet 교체 시 레이아웃 시프트 대응)
+    window.scrollTo(0, 0);
+    const raf = requestAnimationFrame(() => window.scrollTo(0, 0));
+    const timer = setTimeout(() => window.scrollTo(0, 0), 100);
+    return () => { cancelAnimationFrame(raf); clearTimeout(timer); };
+  }, [pathname]);
   return null;
 }
 
