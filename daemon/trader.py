@@ -1848,7 +1848,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = 
                 headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
                            "Content-Type": "application/json", "Prefer": "return=representation"}
                 body = {"code": t["code"], "name": t["name"], "side": "buy",
-                        "order_price": t["price"], "quantity": 0, "status": "sim_only"}
+                        "order_price": t["price"], "quantity": 0, "status": "sim_only",
+                        "sell_reason": "gapup_sim"}
                 async with session.post(url, json=body, headers=headers) as resp:
                     if resp.status in (200, 201):
                         recorded += 1

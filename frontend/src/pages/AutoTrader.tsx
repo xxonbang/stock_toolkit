@@ -960,7 +960,7 @@ export default function AutoTrader() {
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
               // 갭업 모멘텀 시뮬 (sim_only 거래 중 거래대금 전략 전환 이후)
-              const gapupSimTrades = trades.filter(t => t.status === "sim_only" && toKstDate(t.created_at) >= gapupCutoff);
+              const gapupSimTrades = trades.filter(t => t.status === "sim_only" && t.sell_reason === "gapup_sim");
               const gapupSimPnl = gapupSimTrades.length > 0 ? gapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / gapupSimTrades.length : 0;
 
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
