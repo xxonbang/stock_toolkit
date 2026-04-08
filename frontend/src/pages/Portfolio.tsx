@@ -46,7 +46,6 @@ interface PortfolioContext {
 export default function Portfolio() {
   const { supaUser, onShowLogin, onStockDetail, setToastMsg, crossSignal, smartMoney, riskMonitor, consecutiveSignals } = useOutletContext<PortfolioContext>();
   const [portfolio, setPortfolio] = useState<any>(null);
-  const [portfolioRaw, setPortfolioRaw] = useState<any>(null);
   const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
@@ -83,39 +82,27 @@ export default function Portfolio() {
     return () => { document.body.style.overflow = ""; };
   }, [anyModalOpen]);
 
-  // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
+  // DB 보유종목 기반 포트폴리오 구성 (current_price는 KIS에서 채움)
   const mergedPortfolio = useMemo(() => {
-    if (!portfolioRaw?.holdings) return null;
-    // 로그인 상태에서 DB 로딩 중이면 오래된 서버 데이터 표시 방지
-    if (supaUser && dbLoading) return null;
-    const serverHoldings = portfolioRaw.holdings;
-    const userHoldings = dbHoldings.length > 0 ? dbHoldings : serverHoldings;
-    const merged = userHoldings.map((lh: any) => {
-      const server = serverHoldings.find((sh: any) => sh.code === lh.code) || {};
+    if (dbHoldings.length === 0) return null;
+    const merged = dbHoldings.map((lh) => {
       const avgPrice = lh.avg_price || 0;
       const qty = lh.quantity || 0;
-      const cp = (server as any).current_price || lh.current_price || 0;
       return {
-        ...server, ...lh,
-        avg_price: avgPrice,
-        quantity: qty,
-        current_price: cp,
-        signal: (server as any).signal || "분석 대상 외",
-        profit_rate: avgPrice && cp ? Math.round((cp - avgPrice) / avgPrice * 10000) / 100 : 0,
-        profit_amount: avgPrice && cp ? (cp - avgPrice) * qty : 0,
-        invested: avgPrice * qty,
-        current_value: cp * qty,
+        code: lh.code, name: lh.name,
+        avg_price: avgPrice, quantity: qty,
+        current_price: 0, signal: "",
+        profit_rate: 0, profit_amount: 0,
+        invested: avgPrice * qty, current_value: 0, weight: 0,
       };
     });
-    const totalInv = merged.reduce((s: number, h: any) => s + h.invested, 0);
-    const totalVal = merged.reduce((s: number, h: any) => s + h.current_value, 0);
-    merged.forEach((h: any) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
-    return { ...portfolioRaw, holdings: merged, summary: {
-      total_invested: totalInv, total_value: totalVal,
-      total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-      total_profit_amount: totalVal - totalInv, total_holdings: merged.length,
+    const totalInv = merged.reduce((s, h) => s + h.invested, 0);
+    merged.forEach((h) => { h.weight = totalInv ? Math.round(h.invested / totalInv * 100) : 0; });
+    return { holdings: merged, summary: {
+      total_invested: totalInv, total_value: 0,
+      total_profit_rate: 0, total_profit_amount: 0, total_holdings: merged.length,
     }};
-  }, [dbHoldings, portfolioRaw]);
+  }, [dbHoldings]);
 
   const autoRefreshed = useRef(false);
   useEffect(() => {
@@ -165,9 +152,8 @@ export default function Portfolio() {
     })();
   }, [mergedPortfolio, dbLoading]);
 
-  // 포트폴리오 데이터 로드
+  // stock-master 로드 (종목 검색용)
   useEffect(() => {
-    dataService.getPortfolio().then((p) => { if (p) setPortfolioRaw(p); });
     dataService.getStockMaster().then((m: any) => {
       if (m?.stocks) setAllStockList(m.stocks.map((s: any) => ({ code: s.code, name: s.name, market: s.market || "" })));
     });
@@ -215,15 +201,9 @@ export default function Portfolio() {
       }
       if (!source) {
         try {
-          const [tvRes, pfRes] = await Promise.all([
-            fetch(import.meta.env.BASE_URL + "data/trading_value.json"),
-            fetch(import.meta.env.BASE_URL + "data/portfolio.json"),
-          ]);
+          const tvRes = await fetch(import.meta.env.BASE_URL + "data/trading_value.json");
           if (tvRes.ok) for (const s of await tvRes.json() || []) {
             if (s.code && s.current_price && !priceMap[s.code]) priceMap[s.code] = s.current_price;
-          }
-          if (pfRes.ok) for (const h of (await pfRes.json())?.holdings || []) {
-            if (h.code && h.current_price && !priceMap[h.code]) priceMap[h.code] = h.current_price;
           }
           if (Object.keys(priceMap).length > 0) source = "캐시";
         } catch {}
@@ -370,7 +350,7 @@ export default function Portfolio() {
       <div className="space-y-1.5 mb-3">
         {portfolio.holdings?.map((h: any, i: number) => {
           const isExcluded = excludedCodes.has(h.code);
-          const detail = [...(crossSignal || []), ...(smartMoney || []), ...(portfolioRaw?.holdings || [])].find((s: any) => s.code === h.code);
+          const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === h.code);
           return (
           <div key={i} className={`p-2.5 t-card-alt rounded-lg cursor-pointer card-hover ${isExcluded ? "opacity-40" : ""}`}
             onClick={() => detail ? onStockDetail(detail) : onStockDetail({ name: h.name, code: h.code, _noData: true })}>
