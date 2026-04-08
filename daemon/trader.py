@@ -1366,7 +1366,7 @@ async def _fetch_asking_price(token: str, code: str) -> dict | None:
 
 async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
     """장 시작 갭업 스캔: volume-rank 우선 → fallback 200종목 개별 조회.
-    require_volume=True: 거래량 2배 필터 추가 (09:30 보완 매수용).
+    require_volume=True: 거래량 2배 필터 추가 (09:10 보완 매수용).
     Returns: 매수 종목 수.
     """
     import json
@@ -1632,7 +1632,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
     amount_per = balance // len(buy_targets)
 
     # 텔레그램 보고
-    scan_label = "📈 갭업 모멘텀 09:30 보완" if require_volume else "📈 갭업 모멘텀 스캔"
+    scan_label = "📈 갭업 모멘텀 09:10 보완" if require_volume else "📈 갭업 모멘텀 스캔"
     scan_path = "VR" if any("bid_ask_ratio" in c for c in candidates) else "개별조회"
     rpt = [f"<b>{scan_label}</b>"]
     rpt.append(f"")

@@ -378,13 +378,13 @@ async def schedule_gapup_open():
                     logger.error(f"갭업 스캔 오류: {e}")
                 _gapup_done_date = today
 
-        # 09:30~09:33: 보완 매수 (09:01에 0건인 경우만, 거래량 2배 필터 추가)
-        if (now.hour == 9 and 30 <= now.minute <= 33
+        # 09:10~09:13: 보완 매수 (09:01에 0건인 경우만, 거래량 2배 필터 추가)
+        if (now.hour == 9 and 10 <= now.minute <= 13
                 and _gapup_done_date == today and not _gapup_bought and not _fallback_done):
             if _buy_lock.locked():
                 continue
             async with _buy_lock:
-                logger.info("09:30 갭업 보완 스캔 시작 (09:01 매수 0건 → 거래량 필터 추가)")
+                logger.info("09:10 갭업 보완 스캔 시작 (09:01 매수 0건 → 거래량 필터 추가)")
                 try:
                     await run_gapup_scan_and_buy(require_volume=True)
                 except Exception as e:
