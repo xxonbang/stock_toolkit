@@ -51,7 +51,6 @@ export default function Portfolio() {
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
   const [dbLoading, setDbLoading] = useState(false);
-  const [pricesLoaded, setPricesLoaded] = useState(false);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
@@ -95,7 +94,7 @@ export default function Portfolio() {
       const server = serverHoldings.find((sh: any) => sh.code === lh.code) || {};
       const avgPrice = lh.avg_price || 0;
       const qty = lh.quantity || 0;
-      const cp = supaUser ? 0 : ((server as any).current_price || lh.current_price || 0);
+      const cp = (server as any).current_price || lh.current_price || 0;
       return {
         ...server, ...lh,
         avg_price: avgPrice,
@@ -119,58 +118,57 @@ export default function Portfolio() {
   }, [dbHoldings, portfolioRaw]);
 
   const autoRefreshed = useRef(false);
-
-  // mergedPortfolio + KIS 시세(선행 조회) 결합 → portfolio 확정
   useEffect(() => {
-    if (!mergedPortfolio || !pricesLoaded) return;
-    if (autoRefreshed.current) { setPortfolio(mergedPortfolio); return; }
-    autoRefreshed.current = true;
-    const priceMap = kisPriceRef.current;
-    if (Object.keys(priceMap).length === 0) { setPortfolio(mergedPortfolio); return; }
-    const updated = mergedPortfolio.holdings.map((h: any) => {
-      const cp = priceMap[h.code] || h.current_price || 0;
-      const ap = h.avg_price || 0;
-      const qty = h.quantity || 0;
-      return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
-        profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
-    });
-    const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
-    const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
-    updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
-    const now = new Date(); const hh = now.getHours();
-    setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
-    setPortfolio({ ...mergedPortfolio, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
-      total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-      total_profit_amount: totalVal - totalInv, total_holdings: updated.length }});
-  }, [mergedPortfolio, pricesLoaded]);
+    if (mergedPortfolio) setPortfolio(mergedPortfolio);
+  }, [mergedPortfolio]);
 
-  // 마운트 즉시 KIS 시세 선행 조회 (DB/portfolioRaw 로딩과 병렬)
-  const kisPriceRef = useRef<Record<string, number>>({});
+  // 탭 진입 시 최초 1회 KIS 시세 갱신
   useEffect(() => {
-    if (!supaUser) { setPricesLoaded(true); return; }
-    (async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session?.access_token) return;
-        const holdings = await fetchHoldingsFromDB();
-        const codes = holdings.map(h => h.code).filter(Boolean);
-        if (codes.length === 0) return;
-        const kisData = await fetchKisPrices(codes);
-        for (const [code, p] of Object.entries(kisData)) {
-          if (p.current_price) kisPriceRef.current[code] = p.current_price;
-        }
-        // 누락 종목 개별 재조회
-        const missing = codes.filter(c => !kisPriceRef.current[c]);
-        if (missing.length > 0) {
-          const retries = await Promise.allSettled(missing.map(c => searchKisStock(c)));
-          retries.forEach((r, i) => {
-            if (r.status === "fulfilled" && r.value?.current_price) kisPriceRef.current[missing[i]] = r.value.current_price;
-          });
-        }
-      } catch {}
-      setPricesLoaded(true);
-    })();
-  }, [supaUser]);
+    if (!autoRefreshed.current && !dbLoading && mergedPortfolio?.holdings?.length > 0) {
+      autoRefreshed.current = true;
+      const codes = mergedPortfolio.holdings.map((h: any) => h.code).filter(Boolean);
+      if (codes.length > 0 && supaUser) {
+        (async () => {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session?.access_token) return;
+            const kisData = await fetchKisPrices(codes);
+            const priceMap: Record<string, number> = {};
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) priceMap[code] = p.current_price;
+            }
+            // 누락 종목 개별 재조회
+            const missing = codes.filter((c: string) => !priceMap[c]);
+            if (missing.length > 0) {
+              const retries = await Promise.allSettled(missing.map((c: string) => searchKisStock(c)));
+              retries.forEach((r, i) => {
+                if (r.status === "fulfilled" && r.value?.current_price) priceMap[missing[i]] = r.value.current_price;
+              });
+            }
+            if (Object.keys(priceMap).length === 0) return;
+            setPortfolio((prev: any) => {
+              if (!prev?.holdings) return prev;
+              const updated = prev.holdings.map((h: any) => {
+                const cp = priceMap[h.code] || h.current_price || 0;
+                const ap = h.avg_price || 0;
+                const qty = h.quantity || 0;
+                return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+                  profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
+              });
+              const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
+              const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
+              updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
+              const now = new Date(); const hh = now.getHours();
+              setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
+              return { ...prev, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
+                total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+                total_profit_amount: totalVal - totalInv, total_holdings: updated.length }};
+            });
+          } catch {}
+        })();
+      }
+    }
+  }, [mergedPortfolio, dbLoading, supaUser]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {
@@ -278,7 +276,7 @@ export default function Portfolio() {
     );
   }
 
-  if (!portfolio || !pricesLoaded) {
+  if (!portfolio) {
     return (
       <section className="t-card rounded-xl p-6 text-center">
         <BarChart3 size={24} className="mx-auto mb-2 t-text-dim" />
