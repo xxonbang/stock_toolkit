@@ -106,7 +106,7 @@ export default function Portfolio() {
 
   const autoRefreshed = useRef(false);
   useEffect(() => {
-    if (!mergedPortfolio || dbLoading) return;
+    if (!mergedPortfolio) return;
     // 이후 변경(편집 등)은 바로 반영
     if (autoRefreshed.current) { setPortfolio(mergedPortfolio); return; }
     // 첫 진입: KIS 시세 조회 후 portfolio 설정 (완료까지 null 유지 → 로딩 표시)
@@ -150,7 +150,7 @@ export default function Portfolio() {
         setPortfolio(mergedPortfolio);
       }
     })();
-  }, [mergedPortfolio, dbLoading]);
+  }, [mergedPortfolio]);
 
   // stock-master 로드 (종목 검색용)
   useEffect(() => {
