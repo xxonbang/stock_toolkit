@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, run_tv_scan_and_buy, sell_all_positions_market, sell_all_positions_force, schedule_sell_check, cancel_all_pending_orders
+from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, run_tv_scan_and_buy, sell_all_positions_market, sell_all_positions_force, schedule_sell_check, cancel_all_pending_orders, close_gapup_sim_records
 from daemon.github_monitor import check_workflow_completion, check_signal_pulse_completion, trigger_deploy_pages, wait_for_deploy_completion
 from daemon.http_session import close_session
 
@@ -360,8 +360,8 @@ async def schedule_gapup_open():
                     except Exception as e:
                         logger.error(f"전환 매도 오류: {e}")
 
-        # 09:05~09:08: 거래대금 모멘텀 실전 매수
-        if now.hour == 9 and 5 <= now.minute <= 8 and _done_date != today:
+        # 09:05~09:10: 거래대금 모멘텀 실전 매수 (#9 윈도우 확장)
+        if now.hour == 9 and 5 <= now.minute <= 10 and _done_date != today:
             if _buy_lock.locked():
                 continue
             async with _buy_lock:
@@ -370,12 +370,12 @@ async def schedule_gapup_open():
                     await run_tv_scan_and_buy()
                 except Exception as e:
                     logger.error(f"거래대금 스캔 오류: {e}")
-                # 기존 갭업 전략 종목 선정 결과를 sim_only로 기록 (비교용)
-                try:
-                    await run_gapup_scan_and_buy(sim_only=True)
-                except Exception as e:
-                    logger.warning(f"갭업 시뮬 기록 오류: {e}")
                 _done_date = today
+            # #8 기존 갭업 sim_only를 _buy_lock 밖에서 실행 (rate limit 경합 방지)
+            try:
+                await run_gapup_scan_and_buy(sim_only=True)
+            except Exception as e:
+                logger.warning(f"갭업 시뮬 기록 오류: {e}")
 
 
 async def schedule_eod_close():
@@ -397,7 +397,11 @@ async def schedule_eod_close():
                 eod_config = await _eod_cfg()
                 eod_mode = eod_config.get("buy_signal_mode", "and")
                 if eod_mode == "research_optimal":
-                    logger.info("15:15 장 마감 — 갭업 전략 전량 강제 청산")
+                    logger.info("15:15 장 마감 — 거래대금 전략 전량 강제 청산")
+                    try:
+                        await close_gapup_sim_records()  # #7 gapup_sim P&L 기록
+                    except Exception as e:
+                        logger.warning(f"gapup_sim P&L 기록 오류: {e}")
                     try:
                         await sell_all_positions_force()
                     except Exception as e:

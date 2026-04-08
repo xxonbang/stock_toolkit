@@ -1409,10 +1409,31 @@ async def _get_yesterday_trade_codes() -> set[str]:
     return set()
 
 
+async def _has_tv_traded_today() -> bool:
+    """당일 거래대금 전략 매수 이력 확인 (재시작 중복매수 방어)."""
+    try:
+        today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?created_at=gte.{today_utc}&status=neq.sim_only&select=id&limit=1"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        session = await get_session()
+        async with session.get(url, headers=headers) as resp:
+            if resp.status == 200:
+                rows = await resp.json()
+                return len(rows) > 0
+    except Exception as e:
+        logger.warning(f"당일 매수 이력 조회 실패: {e}")
+    return False
+
+
 async def run_tv_scan_and_buy() -> int:
     """거래대금 기반 종목 선정 — volume-rank API → 거래대금 순 → TOP2 매수.
     필터: 가격대 1천~20만, 상승 출발, 갭<15%, 전일 매매 종목 1일 쿨다운.
     Returns: 매수 종목 수."""
+    # #2 재시작 중복매수 방어: 당일 이미 매수 이력 있으면 스킵
+    if await _has_tv_traded_today():
+        logger.info("거래대금 스캔 스킵 — 당일 이미 매수 완료")
+        return 0
+
     logger.info("거래대금 스캔 시작 — volume-rank API")
 
     token = await _ensure_mock_token()
@@ -1425,7 +1446,9 @@ async def run_tv_scan_and_buy() -> int:
     if not vr_items:
         await send_telegram("📭 거래대금 스캔: volume-rank API 조회 실패")
         return 0
-    logger.info(f"volume-rank: {len(vr_items)}종목 조회 완료")
+    # #3 acml_tr_pbmn 필드 검증 로깅
+    sample = vr_items[0] if vr_items else {}
+    logger.info(f"volume-rank: {len(vr_items)}종목 (acml_tr_pbmn={sample.get('acml_tr_pbmn', 'N/A')}, acml_vol={sample.get('acml_vol', 'N/A')})")
 
     # 전일 매매 종목 (1일 쿨다운)
     yesterday_codes = await _get_yesterday_trade_codes()
@@ -1447,24 +1470,25 @@ async def run_tv_scan_and_buy() -> int:
         # 상승 출발
         if change_rate <= 0:
             continue
-        # 갭 < 15%
+        # 갭 < 15% (open/prev 없으면 등락률로 대체 — #5 장중 등락률은 갭보다 클 수 있음)
         if open_price > 0 and prev_close > 0:
             gap_pct = (open_price - prev_close) / prev_close * 100
-            if gap_pct >= 15:
-                continue
         else:
-            gap_pct = change_rate  # open/prev 없으면 등락률로 대체
-            if gap_pct >= 15:
-                continue
+            gap_pct = change_rate
+        if gap_pct >= 15:
+            continue
         # 1일 쿨다운
         if code in yesterday_codes:
             logger.info(f"쿨다운 제외: {item['name']}({code})")
             continue
 
-        # 거래대금: API에서 직접 제공되면 사용, 없으면 현재가 × 누적거래량
+        # 거래대금: API 필드 → fallback 현재가×누적거래량
         trading_value = item.get("acml_tr_pbmn", 0)
         if trading_value <= 0:
             trading_value = cur_price * item.get("acml_vol", 0)
+        # #4 거래대금 0인 종목 제외 (장 초반 미집계 방어)
+        if trading_value <= 0:
+            continue
 
         candidates.append({
             "code": code, "name": item["name"], "price": cur_price,
@@ -2029,9 +2053,14 @@ async def check_positions_for_sell(current_price_data: dict):
         buy_mode = config.get("buy_signal_mode", "and")
         reason = None
 
-        # 갭업 모멘텀 전략: 장중 TP/SL 미적용 (15:15 전량 청산만)
+        # 거래대금 모멘텀: 장중 TP/SL 미적용 (15:15 전량 청산), 비상 손절만 적용
         if buy_mode == "research_optimal":
-            continue
+            pnl = calc_pnl_pct(buy_price, current_price)
+            if pnl <= -15:
+                reason = "stop_loss"
+                logger.warning(f"비상 손절 발동: {name}({code}) {pnl:.1f}%")
+            else:
+                continue
 
         if strategy_type == "stepped":
             # Stepped Trailing: 고정 TP 없음, stepped stop만 적용
@@ -2112,6 +2141,32 @@ def get_carry_threshold(hold_days: int) -> float:
     """보유일수 연동 장 마감 보유 기준 반환"""
     idx = min(max(hold_days, 0), len(_CARRY_THRESHOLDS) - 1)
     return _CARRY_THRESHOLDS[idx]
+
+async def close_gapup_sim_records():
+    """당일 gapup_sim 레코드에 종가 P&L 기록 (#7 sim P&L 추적)."""
+    try:
+        today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?created_at=gte.{today_utc}&sell_reason=eq.gapup_sim&status=eq.sim_only&select=id,code,order_price"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        session = await get_session()
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200: return
+            sims = await resp.json()
+        if not sims: return
+        token = await _ensure_mock_token()
+        for sim in sims:
+            cp = await _get_current_price(sim["code"]) if token else 0
+            bp = sim.get("order_price", 0)
+            pnl = round((cp - bp) / bp * 100, 2) if cp > 0 and bp > 0 else 0
+            patch_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=eq.{sim['id']}"
+            patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+            async with session.patch(patch_url, json={"sell_price": cp, "pnl_pct": pnl, "sold_at": datetime.now(_KST).isoformat()}, headers=patch_headers) as _:
+                pass
+            await asyncio.sleep(0.3)
+        logger.info(f"gapup_sim P&L 기록: {len(sims)}건")
+    except Exception as e:
+        logger.warning(f"gapup_sim P&L 기록 실패: {e}")
+
 
 async def sell_all_positions_force():
     """전량 강제 매도 — 갭업 당일청산용. 수익/손실 불문 전 포지션 시장가 매도."""
