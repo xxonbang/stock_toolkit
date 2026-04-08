@@ -861,6 +861,32 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
                 # 잔고에도 변화 없으면 시장가 즉시체결 간주 (최후 수단)
                 filled_qty = quantity
                 logger.warning(f"미체결+잔고 조회 모두 실패 → 즉시체결 간주: {name}({code}) {quantity}주")
+        # 부분체결 잔량 재주문 (최대 2회 추가 시도)
+        if 0 < filled_qty < quantity:
+            remaining = quantity - filled_qty
+            for retry in range(1, 3):
+                logger.info(f"부분체결 잔량 재주문 ({retry}/2): {name}({code}) {remaining}주")
+                await asyncio.sleep(2)
+                retry_result = await _kis_order_market("VTTC0802U", code, remaining)
+                if not retry_result:
+                    logger.warning(f"잔량 재주문 실패: {name}({code}) {remaining}주")
+                    break
+                await asyncio.sleep(1)
+                post_bal = await _check_balance_qty(code)
+                if post_bal < 0:
+                    logger.warning(f"잔량 재주문 후 잔고 조회 실패: {name}({code})")
+                    break
+                new_filled = post_bal - pre_balance
+                if new_filled > filled_qty:
+                    added = new_filled - filled_qty
+                    filled_qty = min(new_filled, quantity)
+                    remaining = quantity - filled_qty
+                    logger.info(f"잔량 추가 체결: {name}({code}) +{added}주 → 총 {filled_qty}주")
+                if remaining <= 0:
+                    break
+            if remaining > 0:
+                logger.warning(f"부분체결 최종: {name}({code}) {filled_qty}/{quantity}주 (잔량 {remaining}주 미체결)")
+
         actual_price = await _get_actual_fill_price(code, is_sell=False)
         if actual_price <= 0:
             # 체결가 조회 실패 → 현재가를 fallback (주문가는 전일종가라 부정확)
