@@ -50,7 +50,7 @@ export default function Portfolio() {
   const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
-  const [dbLoading, setDbLoading] = useState(false);
+  const [dbLoading, setDbLoading] = useState(!!supaUser);  // 로그인 시 초기부터 로딩 상태
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
