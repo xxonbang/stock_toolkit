@@ -1432,8 +1432,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                 vol_rate = item["vol_rate"]
                 if require_volume and vol_rate < 200:
                     continue
-                # 전일 거래대금 (inquire-price 보충 시 채워짐, 없으면 0)
-                prev_tv = 0  # VR 경로에서는 과열 필터 일봉에서 보충
+                # 전일 거래대금 (과열 필터 일봉에서 보충)
+                prev_tv = 0
                 vr_candidates.append({
                     "code": code, "name": item["name"], "price": cur_price,
                     "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
@@ -1450,7 +1450,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                               "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
                     async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
                         data = await resp.json()
-                        bars = data.get("output", [])[:5]
+                        bars = data.get("output", [])[:21]
                         if len(bars) < 4:
                             continue
                         ranges = []
@@ -1471,6 +1471,18 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                         c["prev_tv"] = prev_tv_raw / 1e8  # 억원
                         if c["prev_tv"] < 3:
                             logger.info(f"VR 거래대금 제외: {c['name']}({c['code']}) TV={c['prev_tv']:.1f}억")
+                            continue
+                        # 20일 평균 거래대금(avgTV) ≥ 10억 필터
+                        tv_list = []
+                        for b in bars[1:21]:
+                            bv = int(b.get("acml_vol", "0") or "0")
+                            bc = int(b.get("stck_clpr", "0") or "0")
+                            if bv > 0 and bc > 0:
+                                tv_list.append(bv * bc)
+                        avg_tv = (sum(tv_list) / len(tv_list) / 1e8) if tv_list else 0
+                        c["avg_tv"] = round(avg_tv, 1)
+                        if avg_tv < 10:
+                            logger.info(f"VR avgTV 제외: {c['name']}({c['code']}) avgTV={avg_tv:.1f}억")
                             continue
                         vr_filtered.append(c)
                 except Exception as e:
@@ -1562,7 +1574,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                               "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
                     async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
                         data = await resp.json()
-                        bars = data.get("output", [])[:5]
+                        bars = data.get("output", [])[:21]
                         if len(bars) < 4:
                             logger.info(f"과열 제외: {c['name']}({c['code']}) 일봉 부족")
                             continue
@@ -1585,6 +1597,18 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                         if c["prev_tv"] < 3:
                             logger.info(f"거래대금 제외: {c['name']}({c['code']}) TV={c['prev_tv']:.1f}억")
                             continue
+                        # 20일 평균 거래대금(avgTV) ≥ 10억 필터
+                        tv_list = []
+                        for b in bars[1:21]:
+                            bv = int(b.get("acml_vol", "0") or "0")
+                            bc = int(b.get("stck_clpr", "0") or "0")
+                            if bv > 0 and bc > 0:
+                                tv_list.append(bv * bc)
+                        avg_tv = (sum(tv_list) / len(tv_list) / 1e8) if tv_list else 0
+                        c["avg_tv"] = round(avg_tv, 1)
+                        if avg_tv < 10:
+                            logger.info(f"avgTV 제외: {c['name']}({c['code']}) avgTV={avg_tv:.1f}억")
+                            continue
                         filtered.append(c)
                 except Exception as e:
                     logger.warning(f"과열 제외: {c['name']}({c['code']}) 오류 — {e}")
@@ -1593,7 +1617,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
             candidates = filtered
 
     if not candidates:
-        cond = "갭0~5% + MA200↑ + 과열필터 + TV≥3억" + ("+거래량2배" if require_volume else "")
+        cond = "갭0~5% + MA200↑ + 과열필터 + TV≥3억 + avgTV≥10억" + ("+거래량2배" if require_volume else "")
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 
@@ -1651,7 +1675,8 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         rpt.append(f"  📥 <b>{t['name']}</b> ({t['code']})")
         score_info = f" 스코어{t.get('_score', 0):.0f}" if t.get("_score") else ""
         tv_info = f" TV{t.get('prev_tv', 0):.0f}억" if t.get("prev_tv") else ""
-        rpt.append(f"     갭+{t['gap_pct']:.1f}% | 거래량 {t['vol_rate']:.0f}%{bid_info}{tv_info}{score_info}")
+        avg_tv_info = f" avgTV{t.get('avg_tv', 0):.0f}억" if t.get("avg_tv") else ""
+        rpt.append(f"     갭+{t['gap_pct']:.1f}% | 거래량 {t['vol_rate']:.0f}%{bid_info}{tv_info}{avg_tv_info}{score_info}")
         rpt.append(f"     {t['price']:,}원 × {qty}주 = {invest:,}원")
         rpt.append(f"     MA200 {ma200_val:,.0f} | MA20 {ma20_val:,.0f}")
     await send_telegram("\n".join(rpt))
