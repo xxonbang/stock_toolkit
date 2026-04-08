@@ -92,7 +92,7 @@ export default function Portfolio() {
       const server = serverHoldings.find((sh: any) => sh.code === lh.code) || {};
       const avgPrice = lh.avg_price || 0;
       const qty = lh.quantity || 0;
-      const cp = (server as any).current_price || lh.current_price || 0;
+      const cp = supaUser ? 0 : ((server as any).current_price || lh.current_price || 0);
       return {
         ...server, ...lh,
         avg_price: avgPrice,
