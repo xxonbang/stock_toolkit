@@ -56,7 +56,10 @@ export default function Portfolio() {
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [livePriceTime, setLivePriceTime] = useState("");
-  const [excludedCodes, setExcludedCodes] = useState<Set<string>>(new Set());
+  const [excludedCodes, setExcludedCodes] = useState<Set<string>>(() => {
+    try { const s = localStorage.getItem("portfolio_excluded"); return s ? new Set(JSON.parse(s)) : new Set(); } catch { return new Set(); }
+  });
+  useEffect(() => { localStorage.setItem("portfolio_excluded", JSON.stringify([...excludedCodes])); }, [excludedCodes]);
   const [showHealthHelp, setShowHealthHelp] = useState(false);
   const [stockSearch, setStockSearch] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
