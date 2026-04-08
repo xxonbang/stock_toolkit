@@ -1261,37 +1261,86 @@ async def run_buy_process():
 
 
 async def _fetch_volume_rank(token: str) -> list[dict]:
-    """KIS 거래량순위 API — 1회 호출로 상위 30종목 획득. 실패 시 빈 리스트."""
+    """KIS 거래량순위 API (실투자 도메인) — 상위 30종목 획득 후 시가/전일종가 추가 조회.
+    순위분석 API는 모의투자 미지원 → 실투자 앱키+Supabase 토큰 사용.
+    실패 시 빈 리스트 (fallback으로 기존 200종목 스캔)."""
+    REAL_URL = "https://openapi.koreainvestment.com:9443"
     try:
+        # 실투자 토큰 로드 (Supabase api_credentials service_name='kis')
+        from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
         session = await get_session()
-        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/volume-rank"
+        sb_headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        sb_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis&credential_type=eq.access_token&is_active=eq.true&select=credential_value"
+        async with session.get(sb_url, headers=sb_headers) as sb_resp:
+            sb_data = await sb_resp.json()
+        if not sb_data or not isinstance(sb_data, list) or not sb_data[0].get("credential_value"):
+            logger.debug("volume-rank: 실투자 토큰 없음 → fallback")
+            return []
+        import json as _json
+        real_token = _json.loads(sb_data[0]["credential_value"]).get("access_token", "")
+        if not real_token:
+            return []
+
+        from daemon.config import KIS_APP_KEY, KIS_APP_SECRET
+        real_headers = {
+            "Content-Type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {real_token}",
+            "appkey": KIS_APP_KEY, "appsecret": KIS_APP_SECRET,
+            "tr_id": "FHPST01710000", "custtype": "P",
+        }
         params = {
-            "FID_COND_MRKT_DIV_CODE": "J", "FID_COND_SCR_DIV_CODE": "20101",
+            "FID_COND_MRKT_DIV_CODE": "J", "FID_COND_SCR_DIV_CODE": "20171",
             "FID_INPUT_ISCD": "0000", "FID_DIV_CLS_CODE": "0", "FID_BLNG_CLS_CODE": "0",
-            "FID_TRGT_CLS_CODE": "111111111", "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_TRGT_CLS_CODE": "111111111", "FID_TRGT_EXLS_CLS_CODE": "0000000000",
             "FID_INPUT_PRICE_1": "0", "FID_INPUT_PRICE_2": "0",
             "FID_VOL_CNT": "0", "FID_INPUT_DATE_1": "",
         }
-        async with session.get(url, params=params, headers=_order_headers(token, "FHPST01710000")) as resp:
+        async with session.get(f"{REAL_URL}/uapi/domestic-stock/v1/quotations/volume-rank", params=params, headers=real_headers) as resp:
             data = await resp.json()
-            if data.get("rt_cd") != "0":
+            if data.get("rt_cd") != "0" or not data.get("output"):
                 return []
-            items = data.get("output", [])
-            result = []
-            for item in items:
-                code = item.get("mksc_shrn_iscd", "")
-                if not code:
+            items = data["output"]
+
+        # 30종목의 시가/전일종가를 개별 inquire-price로 추가 조회 (모의투자 토큰 사용)
+        result = []
+        for item in items:
+            code = item.get("mksc_shrn_iscd", "")
+            if not code:
+                continue
+            result.append({
+                "code": code,
+                "name": item.get("hts_kor_isnm", code),
+                "price": int(item.get("stck_prpr", "0") or "0"),
+                "open_price": 0,  # 아래에서 채움
+                "prev_close": 0,  # 아래에서 채움
+                "vol_rate": float(item.get("vol_inrt", "0") or "0"),  # 거래량 증가율
+                "change_rate": float(item.get("prdy_ctrt", "0") or "0"),
+            })
+
+        # 시가/전일종가 보충 (모의투자 inquire-price, 5건 배치)
+        for i in range(0, len(result), 5):
+            batch = result[i:i+5]
+            tasks = []
+            for r in batch:
+                url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+                p = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": r["code"]}
+                tasks.append(session.get(url, params=p, headers=_order_headers(token, "FHKST01010100")))
+            resps = await asyncio.gather(*tasks, return_exceptions=True)
+            for r, resp in zip(batch, resps):
+                if isinstance(resp, Exception):
                     continue
-                result.append({
-                    "code": code,
-                    "name": item.get("hts_kor_isnm", code),
-                    "price": int(item.get("stck_prpr", "0") or "0"),
-                    "open_price": int(item.get("stck_oprc", "0") or "0"),
-                    "prev_close": int(item.get("stck_sdpr", "0") or "0"),
-                    "vol_rate": float(item.get("prdy_vrss_vol_rate", "0") or "0"),
-                    "change_rate": float(item.get("prdy_ctrt", "0") or "0"),
-                })
-            return result
+                try:
+                    d = await resp.json()
+                    out = d.get("output", {})
+                    r["open_price"] = int(out.get("stck_oprc", "0") or "0")
+                    r["prev_close"] = int(out.get("stck_sdpr", "0") or "0")
+                    r["vol_rate"] = float(out.get("prdy_vrss_vol_rate", "0") or "0")
+                except Exception:
+                    pass
+            await asyncio.sleep(0.5)
+
+        logger.info(f"volume-rank: {len(result)}종목 (실투자 API + 시가/종가 보충)")
+        return result
     except Exception as e:
         logger.warning(f"volume-rank 조회 실패: {e}")
         return []
