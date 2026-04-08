@@ -50,7 +50,7 @@ export default function Portfolio() {
   const [dbHoldings, setDbHoldings] = useState<PortfolioHolding[]>([]);
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
-  const [dbLoading, setDbLoading] = useState(!!supaUser);  // 로그인 시 초기부터 로딩 상태
+  const [dbLoaded, setDbLoaded] = useState(!supaUser);  // 로그인 시 DB 로드 완료까지 false
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
@@ -83,8 +83,8 @@ export default function Portfolio() {
   // portfolioRaw 또는 dbHoldings 변경 시 병합 — DB avg_price가 항상 우선
   const mergedPortfolio = useMemo(() => {
     if (!portfolioRaw?.holdings) return null;
-    // 로그인 상태에서 DB 로딩 중이면 오래된 서버 데이터 표시 방지
-    if (supaUser && dbLoading) return null;
+    // 로그인 상태에서 DB 로드 미완료면 정적 데이터 표시 차단
+    if (!dbLoaded) return null;
     const serverHoldings = portfolioRaw.holdings;
     const userHoldings = dbHoldings.length > 0 ? dbHoldings : serverHoldings;
     const merged = userHoldings.map((lh: any) => {
@@ -112,7 +112,7 @@ export default function Portfolio() {
       total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
       total_profit_amount: totalVal - totalInv, total_holdings: merged.length,
     }};
-  }, [dbHoldings, portfolioRaw]);
+  }, [dbHoldings, portfolioRaw, dbLoaded]);
 
   const autoRefreshed = useRef(false);
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function Portfolio() {
 
   // 탭 진입 시 최초 1회 자동 시세 갱신 (DB 로딩 완료 + mergedPortfolio 확정 후)
   useEffect(() => {
-    if (!autoRefreshed.current && !dbLoading && mergedPortfolio?.holdings?.length > 0) {
+    if (!autoRefreshed.current && dbLoaded && mergedPortfolio?.holdings?.length > 0) {
       autoRefreshed.current = true;
       // mergedPortfolio 기반으로 직접 시세 갱신 (portfolio state 클로저 문제 회피)
       const codes = mergedPortfolio.holdings.map((h: any) => h.code).filter(Boolean);
@@ -161,7 +161,7 @@ export default function Portfolio() {
         })();
       }
     }
-  }, [mergedPortfolio, dbLoading, supaUser]);
+  }, [mergedPortfolio, dbLoaded, supaUser]);
 
   // 포트폴리오 데이터 로드
   useEffect(() => {
@@ -174,10 +174,11 @@ export default function Portfolio() {
   // 로그인 상태 시 DB에서 보유 종목 로드
   useEffect(() => {
     if (supaUser) {
-      setDbLoading(true);
-      fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoading(false));
+      setDbLoaded(false);
+      fetchHoldingsFromDB().then(setDbHoldings).catch(() => {}).finally(() => setDbLoaded(true));
     } else {
       setDbHoldings([]);
+      setDbLoaded(true);
     }
   }, [supaUser]);
 
