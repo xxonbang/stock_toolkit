@@ -1432,9 +1432,12 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                 vol_rate = item["vol_rate"]
                 if require_volume and vol_rate < 200:
                     continue
+                # 전일 거래대금 (inquire-price 보충 시 채워짐, 없으면 0)
+                prev_tv = 0  # VR 경로에서는 과열 필터 일봉에서 보충
                 vr_candidates.append({
                     "code": code, "name": item["name"], "price": cur_price,
                     "gap_pct": round(gap_pct, 2), "vol_rate": round(vol_rate, 0),
+                    "prev_tv": prev_tv,
                 })
         # 과열 필터 (기존과 동일 — 일봉 조회)
         if vr_candidates:
@@ -1463,6 +1466,12 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                         if avg_range_3 >= 13 or cum_3d >= 20:
                             logger.info(f"VR 과열 제외: {c['name']}({c['code']})")
                             continue
+                        # 전일 거래대금 보충 + TV≥3억 필터
+                        prev_tv_raw = int(bars[1].get("acml_tr_pbmn", "0") or "0")
+                        c["prev_tv"] = prev_tv_raw / 1e8  # 억원
+                        if c["prev_tv"] < 3:
+                            logger.info(f"VR 거래대금 제외: {c['name']}({c['code']}) TV={c['prev_tv']:.1f}억")
+                            continue
                         vr_filtered.append(c)
                 except Exception as e:
                     logger.warning(f"VR 과열 제외: {c['name']}({c['code']}) 오류 — {e}")
@@ -1471,15 +1480,20 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
 
         # volume-rank에서 2종목 이상 확보 시 → 호가잔량으로 최종 선정
         if len(vr_candidates) >= 2:
-            vr_candidates.sort(key=lambda x: -x["vol_rate"])
+            import math as _math
+            # 비율×log(전일TV) 스코어로 정렬
+            for c in vr_candidates:
+                log_tv = _math.log(max(c["prev_tv"] * 1e8, 1))
+                c["_score"] = c["vol_rate"] * log_tv
+            vr_candidates.sort(key=lambda x: -x["_score"])
             top5 = vr_candidates[:5]
             # TOP5에 대해 호가잔량 조회 → 매수잔량/매도잔량 비율 부여
             for t in top5:
                 asking = await _fetch_asking_price(token, t["code"])
                 t["bid_ask_ratio"] = asking["ratio"] if asking else 0
                 await asyncio.sleep(0.3)
-            # 매수잔량 > 매도잔량 종목 우선, 이후 vol_rate 순
-            top5.sort(key=lambda x: (-1 if x["bid_ask_ratio"] > 1 else 0, -x["vol_rate"]))
+            # 매수잔량 > 매도잔량 종목 우선, 이후 스코어 순
+            top5.sort(key=lambda x: (-1 if x["bid_ask_ratio"] > 1 else 0, -x.get("_score", 0)))
             candidates = top5
             logger.info(f"volume-rank 경로: {len(vr_candidates)}종목 → TOP{min(5, len(top5))} 호가 확인")
             # 아래 기존 스캔 건너뛰고 매수 단계로 이동
@@ -1565,6 +1579,12 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                         if avg_range_3 >= 13 or cum_3d >= 20:
                             logger.info(f"과열 제외: {c['name']}({c['code']})")
                             continue
+                        # 전일 거래대금 보충 + TV≥3억 필터
+                        prev_tv_raw = int(bars[1].get("acml_tr_pbmn", "0") or "0")
+                        c["prev_tv"] = prev_tv_raw / 1e8  # 억원
+                        if c["prev_tv"] < 3:
+                            logger.info(f"거래대금 제외: {c['name']}({c['code']}) TV={c['prev_tv']:.1f}억")
+                            continue
                         filtered.append(c)
                 except Exception as e:
                     logger.warning(f"과열 제외: {c['name']}({c['code']}) 오류 — {e}")
@@ -1573,13 +1593,18 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
             candidates = filtered
 
     if not candidates:
-        cond = "갭업1~5% + MA200↑ + 과열필터" + ("+거래량2배" if require_volume else "")
+        cond = "갭0~5% + MA200↑ + 과열필터 + TV≥3억" + ("+거래량2배" if require_volume else "")
         await send_telegram(f"📭 갭업 스캔: 조건 충족 종목 없음 ({cond})")
         return 0
 
-    # 거래량 순 정렬, 상위 2종목 (volume-rank 경로에서는 이미 호가 기반 정렬 완료)
+    # 비율×log(전일TV) 스코어 정렬 (VR 경로에서는 이미 호가 기반 정렬 완료)
     if not any("bid_ask_ratio" in c for c in candidates):
-        candidates.sort(key=lambda x: -x.get("vol_rate", 0))
+        import math as _math
+        for c in candidates:
+            if "_score" not in c:
+                log_tv = _math.log(max(c.get("prev_tv", 0) * 1e8, 1))
+                c["_score"] = c.get("vol_rate", 0) * log_tv
+        candidates.sort(key=lambda x: -x.get("_score", 0))
     targets = candidates[:2]
 
     # 보유/주문 중 필터
@@ -1624,7 +1649,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         bid_info = f" 호가{bid_ratio:.1f}" if bid_ratio > 0 else ""
         invest = t["price"] * qty
         rpt.append(f"  📥 <b>{t['name']}</b> ({t['code']})")
-        rpt.append(f"     갭+{t['gap_pct']:.1f}% | 거래량 {t['vol_rate']:.0f}%{bid_info}")
+        score_info = f" 스코어{t.get('_score', 0):.0f}" if t.get("_score") else ""
+        tv_info = f" TV{t.get('prev_tv', 0):.0f}억" if t.get("prev_tv") else ""
+        rpt.append(f"     갭+{t['gap_pct']:.1f}% | 거래량 {t['vol_rate']:.0f}%{bid_info}{tv_info}{score_info}")
         rpt.append(f"     {t['price']:,}원 × {qty}주 = {invest:,}원")
         rpt.append(f"     MA200 {ma200_val:,.0f} | MA20 {ma20_val:,.0f}")
     await send_telegram("\n".join(rpt))
