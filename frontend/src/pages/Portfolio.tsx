@@ -109,6 +109,8 @@ export default function Portfolio() {
   const kisPrices = useRef<Record<string, number>>({});
   const mergedRef = useRef(mergedPortfolio);
   mergedRef.current = mergedPortfolio;
+  // 마운트 즉시 세션 선행 조회 (DB fetch와 병렬)
+  const sessionPromise = useRef(supabase.auth.getSession());
 
   const applyPrices = (mp: any, pm: Record<string, number>) => {
     const updated = mp.holdings.map((h: any) => {
@@ -140,7 +142,7 @@ export default function Portfolio() {
     (async () => {
       let priceMap: Record<string, number> = {};
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await sessionPromise.current;
         if (session?.access_token && codes.length > 0) {
           const kisData = await fetchKisPrices(codes);
           for (const [code, p] of Object.entries(kisData)) {
