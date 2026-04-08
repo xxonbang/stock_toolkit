@@ -364,7 +364,16 @@ export default function Portfolio() {
           종합 물타기 계산기
         </button>
       )}
-      {/* 종목별 */}
+      {/* 전체 선택/취소 + 종목별 */}
+      {portfolio.holdings?.length > 1 && (
+        <div className="flex justify-end mb-1">
+          <button className="text-xs t-text-dim px-2 py-1 rounded" onClick={() => {
+            const allCodes = portfolio.holdings.map((h: any) => h.code);
+            const allExcluded = allCodes.every((c: string) => excludedCodes.has(c));
+            setExcludedCodes(allExcluded ? new Set() : new Set(allCodes));
+          }}>{portfolio.holdings.every((h: any) => excludedCodes.has(h.code)) ? "전체 선택" : "전체 취소"}</button>
+        </div>
+      )}
       <div className="space-y-1.5 mb-3">
         {portfolio.holdings?.map((h: any, i: number) => {
           const isExcluded = excludedCodes.has(h.code);
@@ -767,7 +776,7 @@ export default function Portfolio() {
             });
             setShowPortfolioEdit(false);
           }} className="w-full text-sm font-medium py-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">
-            {supaUser ? "저장 (클라우드)" : "저장 (로컬)"}
+            {supaUser ? "저장" : "저장 (로컬)"}
           </button>
         </div>
       </div>
