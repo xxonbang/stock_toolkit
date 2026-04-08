@@ -119,7 +119,7 @@ export default function AutoTrader() {
   const [gapupSlSaving, setGapupSlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "gapup" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"real" | "sim" | "time" | "api_leader" | "gapup" | "gapup_sim" | null>(null);
   const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
@@ -959,7 +959,12 @@ export default function AutoTrader() {
               const simStrategy = closedSims[0]?.strategy_type || openSims[0]?.strategy_type || (strategyType === "stepped" ? "fixed" : "stepped");
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
+              // 갭업 모멘텀 시뮬 (sim_only 거래 중 거래대금 전략 전환 이후)
+              const gapupSimTrades = trades.filter(t => t.status === "sim_only" && toKstDate(t.created_at) >= gapupCutoff);
+              const gapupSimPnl = gapupSimTrades.length > 0 ? gapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / gapupSimTrades.length : 0;
+
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
+                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: gapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
                 { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
                 { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
                 { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
@@ -1037,7 +1042,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "gapup" ? "거래대금 모멘텀 (실제)" : strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "gapup" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "real" ? "5팩터+Stepped (가상)" : strategyDetail === "time" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "api_leader" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                             {priceTime && <span className="ml-auto text-[9px] text-green-400 tabular-nums shrink-0">{priceTime}</span>}
                             <button onClick={(e) => { e.stopPropagation(); refreshPrices(); }} disabled={priceRefreshing}
@@ -1052,6 +1057,8 @@ export default function AutoTrader() {
                         {(() => {
                           const items = strategyDetail === "gapup"
                             ? allGapupTrades.map((t: any) => ({ ...t, _date: toKstDate(t.created_at) || "보유", _displayName: t.name, _displaySub: t.code }))
+                            : strategyDetail === "gapup_sim"
+                            ? gapupSimTrades.map((t: any) => ({ ...t, _date: toKstDate(t.created_at) || "—", _displayName: t.name, _displaySub: `시뮬 ${t.order_price?.toLocaleString()}원`, _isActive: false }))
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => {
                                 const mt = trades.find(tr => tr.id === t.trade_id);
@@ -1206,12 +1213,13 @@ export default function AutoTrader() {
                       <div className="relative z-10 mx-6 max-w-sm w-full rounded-2xl p-5 t-card border t-border-light" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="text-sm font-bold t-text">
-                            {strategyHelpOpen === "gapup" ? "거래대금 모멘텀" : strategyHelpOpen === "real" ? "5팩터+Stepped" : strategyHelpOpen === "sim" ? "고정 익절/손절" : strategyHelpOpen === "time" ? "시간전략" : "API매수∧대장주"}
+                            {strategyHelpOpen === "gapup" ? "거래대금 모멘텀" : strategyHelpOpen === "gapup_sim" ? "갭업 모멘텀" : strategyHelpOpen === "real" ? "5팩터+Stepped" : strategyHelpOpen === "sim" ? "고정 익절/손절" : strategyHelpOpen === "time" ? "시간전략" : "API매수∧대장주"}
                           </h4>
                           <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
                         </div>
                         <div className="text-[11px] t-text-sub leading-relaxed whitespace-pre-line">
                           {strategyHelpOpen === "gapup" ? "장 초반 거래대금 상위 종목에 집중 투자하는 당일 매매 전략입니다.\n\n[종목 선정]\n① 거래대금 상위 (volume-rank API)\n② 상승 출발 (등락률 > 0%)\n③ 갭 < 15% (급등 후 폭락 방지)\n④ 1,000원 ≤ 현재가 < 200,000원\n⑤ 전일 매매 종목 1일 쿨다운\n→ 거래대금 순 상위 2종목 선정\n\n[매매 타이밍]\n09:05 — volume-rank 스캔 → 즉시 매수\n15:15 — 전 포지션 당일 청산\n\n[백테스트 성과 (304거래일)]\n평균 +4.46% | 승률 69% | 15개월 연속 플러스\n오버나이트 리스크 없음"
+                           : strategyHelpOpen === "gapup_sim" ? "기존 갭업 모멘텀 전략의 종목 선정 결과를 가상으로 추적하는 시뮬레이션입니다.\n\n[종목 선정]\n① 갭업 0~5% + MA200↑ + MA20↑\n② 과열 필터 + 거래대금 ≥ 3억\n③ vol_rate × log(TV) 스코어 정렬\n→ 상위 2종목 선정 (매수 없이 기록만)\n\n거래대금 모멘텀과 종목 선정 결과를 비교하기 위한 용도입니다."
                            : strategyHelpOpen === "real" ? "기존 실전 적용했던 5팩터 스코어 + Stepped Trailing 전략입니다.\n현재는 거래대금 모멘텀으로 전환되어 가상 추적 중입니다.\n\n[종목 선정: 5팩터 스코어]\n① API 매수 +30점 (적극매수 +10 추가)\n② Vision 매수 +20점 (적극매수 +5 추가)\n③ 대장주 1등 +25점 / 테마소속 +15점\n④ 저가주 <2만원 +5점\n⑤ 급락반등 -10%↓&외인50만주↑ +35점\n→ 최소 20점 이상, 상위 2종목 선정\n\n[Criteria 가점 필터 (선택)]\n수급 양호 +10 / 골든크로스 +5 / 저항돌파 +5\n\n[매도: Stepped Trailing 공격형]\n+7%→본전, +15%→+7%, +20%→+15%\n+25%→+20%, +30%+→고점-3%\nSL: -2% (기본 손절)"
                            : strategyHelpOpen === "sim" ? "고정 익절/손절 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 고정 TP/SL 조건으로 매도 시뮬레이션합니다.\n\nTP: +7% (보유일수 연동 상향)\nSL: -2%\nTrailing: 고점 대비 -3% 하락 시 매도"
                            : strategyHelpOpen === "time" ? "시간 기반 매도 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 11:00 KST에 무조건 매도합니다.\n\n매수: 09:30 (실전과 동일)\n매도: 11:00 KST (시장 열기 피크)\nSL: -2% (11:00 전 손절)\n\n장 초반 모멘텀만 캡처하는 단기 전략으로, 오버나이트 리스크가 없습니다."
