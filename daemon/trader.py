@@ -1393,11 +1393,11 @@ async def _fetch_asking_price(token: str, code: str) -> dict | None:
 
 
 async def _get_yesterday_trade_codes() -> set[str]:
-    """전일 매매 종목 코드 조회 (1일 쿨다운용)."""
+    """직전 거래일 매매 종목 코드 조회 (1일 쿨다운용). 주말/공휴일 대비 3일 lookback."""
     try:
-        yesterday_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(days=1, hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        lookback_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(days=3, hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
         today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
-        url = f"{SUPABASE_URL}/rest/v1/auto_trades?and=(created_at.gte.{yesterday_utc},created_at.lt.{today_utc})&select=code"
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?and=(created_at.gte.{lookback_utc},created_at.lt.{today_utc})&status=neq.sim_only&select=code"
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
         session = await get_session()
         async with session.get(url, headers=headers) as resp:
@@ -2058,7 +2058,7 @@ async def check_positions_for_sell(current_price_data: dict):
             pnl = calc_pnl_pct(buy_price, current_price)
             if pnl <= -15:
                 reason = "stop_loss"
-                logger.warning(f"비상 손절 발동: {name}({code}) {pnl:.1f}%")
+                logger.warning(f"비상 손절 발동: {pos['name']}({code}) {pnl:.1f}%")
             else:
                 continue
 
