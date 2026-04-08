@@ -1390,10 +1390,171 @@ async def _fetch_asking_price(token: str, code: str) -> dict | None:
         return None
 
 
-async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
+async def _get_yesterday_trade_codes() -> set[str]:
+    """전일 매매 종목 코드 조회 (1일 쿨다운용)."""
+    try:
+        yesterday_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(days=1, hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?created_at=gte.{yesterday_utc}&created_at=lt.{today_utc}&select=code"
+        headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+        session = await get_session()
+        async with session.get(url, headers=headers) as resp:
+            if resp.status == 200:
+                rows = await resp.json()
+                return {r["code"] for r in rows if r.get("code")}
+    except Exception as e:
+        logger.warning(f"전일 매매 종목 조회 실패: {e}")
+    return set()
+
+
+async def run_tv_scan_and_buy() -> int:
+    """거래대금 기반 종목 선정 — volume-rank API → 거래대금 순 → TOP2 매수.
+    필터: 가격대 1천~20만, 상승 출발, 갭<15%, 전일 매매 종목 1일 쿨다운.
+    Returns: 매수 종목 수."""
+    logger.info("거래대금 스캔 시작 — volume-rank API")
+
+    token = await _ensure_mock_token()
+    if not token:
+        logger.warning("토큰 없음 — 거래대금 스캔 중단")
+        return 0
+
+    # volume-rank API 조회 (실투자 도메인, 상위 30종목)
+    vr_items = await _fetch_volume_rank(token)
+    if not vr_items:
+        await send_telegram("📭 거래대금 스캔: volume-rank API 조회 실패")
+        return 0
+    logger.info(f"volume-rank: {len(vr_items)}종목 조회 완료")
+
+    # 전일 매매 종목 (1일 쿨다운)
+    yesterday_codes = await _get_yesterday_trade_codes()
+    if yesterday_codes:
+        logger.info(f"전일 매매 쿨다운: {len(yesterday_codes)}종목 제외")
+
+    # 필터 + 거래대금 순 정렬
+    candidates = []
+    for item in vr_items:
+        code = item["code"]
+        cur_price = item["price"]
+        open_price = item["open_price"]
+        prev_close = item["prev_close"]
+        change_rate = item.get("change_rate", 0)
+
+        # 가격대 필터
+        if cur_price < 1000 or cur_price >= 200000:
+            continue
+        # 상승 출발
+        if change_rate <= 0:
+            continue
+        # 갭 < 15%
+        if open_price > 0 and prev_close > 0:
+            gap_pct = (open_price - prev_close) / prev_close * 100
+            if gap_pct >= 15:
+                continue
+        else:
+            gap_pct = change_rate  # open/prev 없으면 등락률로 대체
+            if gap_pct >= 15:
+                continue
+        # 1일 쿨다운
+        if code in yesterday_codes:
+            logger.info(f"쿨다운 제외: {item['name']}({code})")
+            continue
+
+        # 거래대금 추정 (volume-rank에서 직접 제공하지 않으므로 price × vol_rate로 프록시)
+        # _fetch_volume_rank는 거래량 순위 API이므로, 이미 거래 활발한 종목이 상위
+        # 실제 거래대금 = 현재가 × 누적거래량 (inquire-price에서 보충 가능하지만 API 호출 절약)
+        # volume-rank 결과 자체가 거래량 순이므로, 현재가 × 거래량비율로 거래대금 프록시 생성
+        tv_proxy = cur_price * item.get("vol_rate", 0)
+
+        candidates.append({
+            "code": code, "name": item["name"], "price": cur_price,
+            "gap_pct": round(gap_pct, 1), "change_rate": round(change_rate, 1),
+            "vol_rate": round(item.get("vol_rate", 0), 0),
+            "tv_proxy": tv_proxy,
+        })
+
+    # 거래대금 프록시 순 정렬
+    candidates.sort(key=lambda x: -x["tv_proxy"])
+    targets = candidates[:2]
+
+    if not targets:
+        await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<15%+가격1천~20만+쿨다운)")
+        return 0
+
+    # 보유/주문 중 필터
+    buy_targets = []
+    for t in targets:
+        if await is_already_held_or_ordered(t["code"]):
+            logger.info(f"이미 보유/주문중 — {t['name']}({t['code']}) 스킵")
+            continue
+        if await is_upper_limit(t["code"], t["price"]):
+            logger.info(f"상한가 스킵 — {t['name']}({t['code']})")
+            continue
+        buy_targets.append(t)
+
+    if not buy_targets:
+        await send_telegram("📭 거래대금 스캔: 후보 있으나 보유중/상한가로 매수 불가")
+        return 0
+
+    # 잔고 조회
+    balance = await fetch_available_balance()
+    if balance <= 0:
+        names = ", ".join(t["name"] for t in buy_targets)
+        await send_telegram(f"⚠️ 거래대금 매수 실패: 잔고 없음\n대상: {names}")
+        return 0
+
+    amount_per = balance // len(buy_targets)
+
+    # 텔레그램 보고
+    rpt = [f"<b>📊 거래대금 모멘텀 스캔</b>"]
+    rpt.append(f"")
+    rpt.append(f"<b>[스캔]</b> VR API | 필터 통과 {len(candidates)}종목")
+    rpt.append(f"잔고: {balance:,}원 | 종목당: {amount_per:,}원")
+    rpt.append(f"")
+    rpt.append(f"<b>[매수 대상]</b>")
+    for t in buy_targets:
+        qty = calc_quantity(amount_per, t["price"])
+        invest = t["price"] * qty
+        rpt.append(f"  📥 <b>{t['name']}</b> ({t['code']})")
+        rpt.append(f"     등락{t['change_rate']:+.1f}% | 갭{t['gap_pct']:+.1f}% | 거래량{t['vol_rate']:.0f}%")
+        rpt.append(f"     {t['price']:,}원 × {qty}주 = {invest:,}원")
+    await send_telegram("\n".join(rpt))
+
+    # 매수 실행
+    bought = 0
+    remaining_buys = [(t, calc_quantity(amount_per, t["price"])) for t in buy_targets if calc_quantity(amount_per, t["price"]) > 0]
+    for round_num in range(1, 4):
+        if not remaining_buys:
+            break
+        if round_num > 1:
+            logger.info(f"거래대금 매수 {round_num}라운드: {len(remaining_buys)}종목 재시도")
+            await asyncio.sleep(round_num * 5)
+        failed_buys = []
+        for t, qty in remaining_buys:
+            success = await place_buy_order_with_qty(t["code"], t["name"], t["price"], qty, skip_sim=True)
+            if success:
+                bought += 1
+            else:
+                failed_buys.append((t, qty))
+        remaining_buys = failed_buys
+    if remaining_buys:
+        names = ", ".join(t["name"] for t, _ in remaining_buys)
+        await send_telegram(f"<b>🚨 거래대금 매수 최종 실패</b>\n{names}\n3라운드 재시도 소진")
+
+    if bought > 0:
+        try:
+            from daemon.main import trigger_subscription_refresh
+            await trigger_subscription_refresh()
+        except Exception as e:
+            logger.warning(f"거래대금 매수 후 구독 갱신 실패: {e}")
+    logger.info(f"거래대금 스캔 매수 완료: {bought}종목")
+    return bought
+
+
+async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = False) -> int:
     """장 시작 갭업 스캔: volume-rank 우선 → fallback 200종목 개별 조회.
     require_volume=True: 거래량 2배 필터 추가 (09:10 보완 매수용).
-    Returns: 매수 종목 수.
+    sim_only=True: 매수 없이 종목 선정 결과만 auto_trades에 sim_only로 기록.
+    Returns: 매수(또는 기록) 종목 수.
     """
     import json
     from pathlib import Path
@@ -1672,7 +1833,29 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
         await send_telegram("📭 갭업 스캔: 후보 있으나 보유중/상한가로 매수 불가")
         return 0
 
-    # 잔고 조회 + 매수
+    # === sim_only 모드: 매수 없이 auto_trades에 sim_only로 기록 ===
+    if sim_only:
+        recorded = 0
+        rpt = [f"<b>📈 갭업 시뮬 기록</b> (sim_only)"]
+        for t in buy_targets[:2]:
+            try:
+                session = await get_session()
+                url = f"{SUPABASE_URL}/rest/v1/auto_trades"
+                headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
+                           "Content-Type": "application/json", "Prefer": "return=representation"}
+                body = {"code": t["code"], "name": t["name"], "side": "buy",
+                        "order_price": t["price"], "quantity": 0, "status": "sim_only"}
+                async with session.post(url, json=body, headers=headers) as resp:
+                    if resp.status in (200, 201):
+                        recorded += 1
+                        rpt.append(f"  {t['name']}({t['code']}) {t['price']:,}원 갭{t['gap_pct']:+.1f}%")
+            except Exception as e:
+                logger.warning(f"갭업 시뮬 기록 실패: {t['name']} — {e}")
+        await send_telegram("\n".join(rpt))
+        logger.info(f"갭업 시뮬 기록 완료: {recorded}종목")
+        return recorded
+
+    # === 실전 매수 ===
     balance = await fetch_available_balance()
     if balance <= 0:
         names = ", ".join(t["name"] for t in buy_targets)
@@ -1681,7 +1864,6 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
 
     amount_per = balance // len(buy_targets)
 
-    # 텔레그램 보고
     scan_label = "📈 갭업 모멘텀 09:10 보완" if require_volume else "📈 갭업 모멘텀 스캔"
     scan_path = "VR" if any("bid_ask_ratio" in c for c in candidates) else "개별조회"
     rpt = [f"<b>{scan_label}</b>"]
@@ -1709,7 +1891,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
 
     bought = 0
     remaining_buys = [(t, calc_quantity(amount_per, t["price"])) for t in buy_targets if calc_quantity(amount_per, t["price"]) > 0]
-    for round_num in range(1, 4):  # 최대 3라운드 재시도
+    for round_num in range(1, 4):
         if not remaining_buys:
             break
         if round_num > 1:

@@ -12,7 +12,7 @@ from daemon.ws_client import KISWebSocketClient
 from daemon.alert_rules import AlertEngine
 from daemon.notifier import format_alert, send_telegram, telegram_worker
 from daemon.stock_manager import fetch_subscription_codes, fetch_trade_codes, get_stock_name
-from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, sell_all_positions_market, sell_all_positions_force, schedule_sell_check, cancel_all_pending_orders
+from daemon.trader import check_positions_for_sell, run_buy_process, run_gapup_scan_and_buy, run_tv_scan_and_buy, sell_all_positions_market, sell_all_positions_force, schedule_sell_check, cancel_all_pending_orders
 from daemon.github_monitor import check_workflow_completion, check_signal_pulse_completion, trigger_deploy_pages, wait_for_deploy_completion
 from daemon.http_session import close_session
 
@@ -324,34 +324,29 @@ async def schedule_ma200_update():
 
 
 async def schedule_gapup_open():
-    """09:01 갭업 스캔 + 매수, 09:30 보완 매수 (09:01에 0건인 경우만)"""
-    _gapup_done_date: str = ""
-    _gapup_bought: bool = False  # 09:01에 매수 성공 여부
-    _fallback_done: bool = False  # 09:30 보완 실행 여부
+    """09:05 거래대금 모멘텀 실전 매수 + 기존 갭업 시뮬레이션 기록"""
+    _done_date: str = ""
     while not _shutdown:
         await asyncio.sleep(10)
         if _shutdown or not is_market_day():
             continue
         now = datetime.now(KST)
         today = now.strftime("%Y-%m-%d")
-        if _gapup_done_date != today:
-            _gapup_bought = False
-            _fallback_done = False
 
-        # 갭업 전략 활성화 여부 확인 (buy_signal_mode=research_optimal일 때만)
-        if _gapup_done_date != today and now.hour == 9 and now.minute <= 3:
+        # 전략 활성화 여부 확인 (buy_signal_mode=research_optimal일 때만)
+        if _done_date != today and now.hour == 9 and now.minute <= 4:
             try:
                 from daemon.stock_manager import fetch_alert_config as _gapup_cfg
                 _gc = await _gapup_cfg()
                 if _gc.get("buy_signal_mode") != "research_optimal":
-                    _gapup_done_date = today  # 갭업 비활성 → 오늘은 스킵
+                    _done_date = today
                     continue
             except Exception as e:
-                logger.error(f"갭업 설정 조회 실패: {e}")
-                continue  # 설정 조회 실패 시 이번 루프 스킵 (다음 10초에 재시도)
+                logger.error(f"전략 설정 조회 실패: {e}")
+                continue
 
-        # 09:00~09:03: 기존 보유 종목 전량 매도 (갭업 스캔 전 잔여분 정리, 데몬 재시작 대비)
-        if now.hour == 9 and now.minute <= 3 and _gapup_done_date != today:
+        # 09:00~09:04: 기존 보유 종목 전량 매도 (잔여분 정리)
+        if now.hour == 9 and now.minute <= 4 and _done_date != today:
             if _buy_lock.locked():
                 continue
             from daemon.position_db import get_active_positions as _gap
@@ -359,37 +354,28 @@ async def schedule_gapup_open():
             held = [p for p in positions if p.get("status") in ("filled", "sell_requested")]
             if held:
                 async with _buy_lock:
-                    logger.info(f"09:00 갭업 전환 — 기존 보유 {len(held)}종목 전량 매도 시작")
+                    logger.info(f"09:00 전환 — 기존 보유 {len(held)}종목 전량 매도 시작")
                     try:
                         await sell_all_positions_force()
                     except Exception as e:
-                        logger.error(f"갭업 전환 매도 오류: {e}")
+                        logger.error(f"전환 매도 오류: {e}")
 
-        # 09:01~09:03: 1차 스캔 (MA200 only)
-        if now.hour == 9 and 1 <= now.minute <= 3 and _gapup_done_date != today:
+        # 09:05~09:08: 거래대금 모멘텀 실전 매수
+        if now.hour == 9 and 5 <= now.minute <= 8 and _done_date != today:
             if _buy_lock.locked():
                 continue
             async with _buy_lock:
-                logger.info("09:01 갭업 모멘텀 스캔 시작")
+                logger.info("09:05 거래대금 모멘텀 스캔 시작")
                 try:
-                    bought = await run_gapup_scan_and_buy()
-                    _gapup_bought = bought > 0 if isinstance(bought, int) else False
+                    await run_tv_scan_and_buy()
                 except Exception as e:
-                    logger.error(f"갭업 스캔 오류: {e}")
-                _gapup_done_date = today
-
-        # 09:10~09:13: 보완 매수 (09:01에 0건인 경우만, 거래량 2배 필터 추가)
-        if (now.hour == 9 and 10 <= now.minute <= 13
-                and _gapup_done_date == today and not _gapup_bought and not _fallback_done):
-            if _buy_lock.locked():
-                continue
-            async with _buy_lock:
-                logger.info("09:10 갭업 보완 스캔 시작 (09:01 매수 0건 → 거래량 필터 추가)")
+                    logger.error(f"거래대금 스캔 오류: {e}")
+                # 기존 갭업 전략 종목 선정 결과를 sim_only로 기록 (비교용)
                 try:
-                    await run_gapup_scan_and_buy(require_volume=True)
+                    await run_gapup_scan_and_buy(sim_only=True)
                 except Exception as e:
-                    logger.error(f"갭업 보완 스캔 오류: {e}")
-                _fallback_done = True
+                    logger.warning(f"갭업 시뮬 기록 오류: {e}")
+                _done_date = today
 
 
 async def schedule_eod_close():
