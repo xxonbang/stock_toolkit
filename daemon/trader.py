@@ -1341,6 +1341,8 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
                 "prev_close": 0,  # 아래에서 채움
                 "vol_rate": float(item.get("vol_inrt", "0") or "0"),  # 거래량 증가율
                 "change_rate": float(item.get("prdy_ctrt", "0") or "0"),
+                "acml_vol": int(item.get("acml_vol", "0") or "0"),
+                "acml_tr_pbmn": int(item.get("acml_tr_pbmn", "0") or "0"),
             })
 
         # 시가/전일종가 보충 (모의투자 inquire-price, 5건 배치)
@@ -1395,7 +1397,7 @@ async def _get_yesterday_trade_codes() -> set[str]:
     try:
         yesterday_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(days=1, hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
         today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
-        url = f"{SUPABASE_URL}/rest/v1/auto_trades?created_at=gte.{yesterday_utc}&created_at=lt.{today_utc}&select=code"
+        url = f"{SUPABASE_URL}/rest/v1/auto_trades?and=(created_at.gte.{yesterday_utc},created_at.lt.{today_utc})&select=code"
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
         session = await get_session()
         async with session.get(url, headers=headers) as resp:
@@ -1459,21 +1461,20 @@ async def run_tv_scan_and_buy() -> int:
             logger.info(f"쿨다운 제외: {item['name']}({code})")
             continue
 
-        # 거래대금 추정 (volume-rank에서 직접 제공하지 않으므로 price × vol_rate로 프록시)
-        # _fetch_volume_rank는 거래량 순위 API이므로, 이미 거래 활발한 종목이 상위
-        # 실제 거래대금 = 현재가 × 누적거래량 (inquire-price에서 보충 가능하지만 API 호출 절약)
-        # volume-rank 결과 자체가 거래량 순이므로, 현재가 × 거래량비율로 거래대금 프록시 생성
-        tv_proxy = cur_price * item.get("vol_rate", 0)
+        # 거래대금: API에서 직접 제공되면 사용, 없으면 현재가 × 누적거래량
+        trading_value = item.get("acml_tr_pbmn", 0)
+        if trading_value <= 0:
+            trading_value = cur_price * item.get("acml_vol", 0)
 
         candidates.append({
             "code": code, "name": item["name"], "price": cur_price,
             "gap_pct": round(gap_pct, 1), "change_rate": round(change_rate, 1),
             "vol_rate": round(item.get("vol_rate", 0), 0),
-            "tv_proxy": tv_proxy,
+            "trading_value": trading_value,
         })
 
-    # 거래대금 프록시 순 정렬
-    candidates.sort(key=lambda x: -x["tv_proxy"])
+    # 거래대금 순 정렬
+    candidates.sort(key=lambda x: -x["trading_value"])
     targets = candidates[:2]
 
     if not targets:
@@ -1818,16 +1819,19 @@ async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = 
         candidates.sort(key=lambda x: -x.get("_score", 0))
     targets = candidates[:2]
 
-    # 보유/주문 중 필터
-    buy_targets = []
-    for t in targets:
-        if await is_already_held_or_ordered(t["code"]):
-            logger.info(f"이미 보유/주문중 — {t['name']}({t['code']}) 스킵")
-            continue
-        if await is_upper_limit(t["code"], t["price"]):
-            logger.info(f"상한가 스킵 — {t['name']}({t['code']})")
-            continue
-        buy_targets.append(t)
+    # 보유/주문 중 필터 (sim_only에서는 건너뜀 — 전략 비교를 위해 동일 종목 기록 허용)
+    if sim_only:
+        buy_targets = targets[:2]
+    else:
+        buy_targets = []
+        for t in targets:
+            if await is_already_held_or_ordered(t["code"]):
+                logger.info(f"이미 보유/주문중 — {t['name']}({t['code']}) 스킵")
+                continue
+            if await is_upper_limit(t["code"], t["price"]):
+                logger.info(f"상한가 스킵 — {t['name']}({t['code']})")
+                continue
+            buy_targets.append(t)
 
     if not buy_targets:
         await send_telegram("📭 갭업 스캔: 후보 있으나 보유중/상한가로 매수 불가")
