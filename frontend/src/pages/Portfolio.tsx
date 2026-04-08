@@ -105,11 +105,36 @@ export default function Portfolio() {
   }, [dbHoldings]);
 
   const autoRefreshed = useRef(false);
+  const kisLoaded = useRef(false);
+  const kisPrices = useRef<Record<string, number>>({});
+  const mergedRef = useRef(mergedPortfolio);
+  mergedRef.current = mergedPortfolio;
+
+  const applyPrices = (mp: any, pm: Record<string, number>) => {
+    const updated = mp.holdings.map((h: any) => {
+      const cp = pm[h.code] || h.current_price || 0;
+      const ap = h.avg_price || 0;
+      const qty = h.quantity || 0;
+      return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
+        profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
+    });
+    const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
+    const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
+    updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
+    setPortfolio({ ...mp, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
+      total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
+      total_profit_amount: totalVal - totalInv, total_holdings: updated.length }});
+  };
+
   useEffect(() => {
     if (!mergedPortfolio) return;
-    // 이후 변경(편집 등)은 바로 반영
-    if (autoRefreshed.current) { setPortfolio(mergedPortfolio); return; }
-    // 첫 진입: KIS 시세 조회 후 portfolio 설정 (완료까지 null 유지 → 로딩 표시)
+    if (autoRefreshed.current) {
+      // KIS 완료 전이면 아무것도 안 함 (로딩 유지)
+      if (!kisLoaded.current) return;
+      // KIS 완료 후 mergedPortfolio 변경(편집 등) → 캐시된 가격 재적용
+      applyPrices(mergedPortfolio, kisPrices.current);
+      return;
+    }
     autoRefreshed.current = true;
     const codes = mergedPortfolio.holdings.map((h: any) => h.code).filter(Boolean);
     (async () => {
@@ -130,25 +155,15 @@ export default function Portfolio() {
           }
         }
       } catch {}
+      kisPrices.current = priceMap;
+      kisLoaded.current = true;
+      const latest = mergedRef.current;
+      if (!latest) return;
       if (Object.keys(priceMap).length > 0) {
-        const updated = mergedPortfolio.holdings.map((h: any) => {
-          const cp = priceMap[h.code] || h.current_price || 0;
-          const ap = h.avg_price || 0;
-          const qty = h.quantity || 0;
-          return { ...h, current_price: cp, profit_rate: ap && cp ? Math.round((cp - ap) / ap * 10000) / 100 : 0,
-            profit_amount: ap && cp ? (cp - ap) * qty : 0, invested: ap * qty, current_value: cp * qty };
-        });
-        const totalInv = updated.reduce((s: number, x: any) => s + x.invested, 0);
-        const totalVal = updated.reduce((s: number, x: any) => s + x.current_value, 0);
-        updated.forEach((x: any) => { x.weight = totalInv ? Math.round(x.invested / totalInv * 100) : 0; });
         const now = new Date(); const hh = now.getHours();
         setLivePriceTime(`${hh < 12 ? "오전" : "오후"} ${hh === 0 ? 12 : hh > 12 ? hh - 12 : hh}:${now.getMinutes().toString().padStart(2,"0")}`);
-        setPortfolio({ ...mergedPortfolio, holdings: updated, summary: { total_invested: totalInv, total_value: totalVal,
-          total_profit_rate: totalInv ? Math.round((totalVal - totalInv) / totalInv * 10000) / 100 : 0,
-          total_profit_amount: totalVal - totalInv, total_holdings: updated.length }});
-      } else {
-        setPortfolio(mergedPortfolio);
       }
+      applyPrices(latest, priceMap);
     })();
   }, [mergedPortfolio]);
 
