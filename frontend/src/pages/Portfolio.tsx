@@ -139,6 +139,14 @@ export default function Portfolio() {
             for (const [code, p] of Object.entries(kisData)) {
               if (p.current_price) priceMap[code] = p.current_price;
             }
+            // 누락 종목 개별 재조회
+            const missing = codes.filter((c: string) => !priceMap[c]);
+            if (missing.length > 0) {
+              const retries = await Promise.allSettled(missing.map((c: string) => searchKisStock(c)));
+              retries.forEach((r, i) => {
+                if (r.status === "fulfilled" && r.value?.current_price) priceMap[missing[i]] = r.value.current_price;
+              });
+            }
             if (Object.keys(priceMap).length === 0) return;
             setPortfolio((prev: any) => {
               if (!prev?.holdings) return prev;
