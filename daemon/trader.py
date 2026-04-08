@@ -1467,7 +1467,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                             logger.info(f"VR 과열 제외: {c['name']}({c['code']})")
                             continue
                         # 전일 거래대금 보충 + TV≥3억 필터
-                        prev_tv_raw = int(bars[1].get("acml_tr_pbmn", "0") or "0")
+                        prev_tv_raw = int(bars[1].get("acml_vol", "0") or "0") * int(bars[1].get("stck_clpr", "0") or "0")
                         c["prev_tv"] = prev_tv_raw / 1e8  # 억원
                         if c["prev_tv"] < 3:
                             logger.info(f"VR 거래대금 제외: {c['name']}({c['code']}) TV={c['prev_tv']:.1f}억")
@@ -1580,7 +1580,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False) -> int:
                             logger.info(f"과열 제외: {c['name']}({c['code']})")
                             continue
                         # 전일 거래대금 보충 + TV≥3억 필터
-                        prev_tv_raw = int(bars[1].get("acml_tr_pbmn", "0") or "0")
+                        prev_tv_raw = int(bars[1].get("acml_vol", "0") or "0") * int(bars[1].get("stck_clpr", "0") or "0")
                         c["prev_tv"] = prev_tv_raw / 1e8  # 억원
                         if c["prev_tv"] < 3:
                             logger.info(f"거래대금 제외: {c['name']}({c['code']}) TV={c['prev_tv']:.1f}억")
