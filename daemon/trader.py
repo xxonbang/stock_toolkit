@@ -2062,7 +2062,7 @@ async def check_positions_for_sell(current_price_data: dict):
             else:
                 continue
 
-        if strategy_type == "stepped":
+        elif strategy_type == "stepped":
             # Stepped Trailing: 고정 TP 없음, stepped stop만 적용
             pnl = calc_pnl_pct(buy_price, current_price)
 
