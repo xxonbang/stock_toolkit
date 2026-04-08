@@ -1239,7 +1239,7 @@ export default function AutoTrader() {
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2.5">
           {summaryTab === "realized" ? (<>
             <SummaryCard icon={<BarChart3 size={16} />} label="총 매매" value={`${totalTrades}건`} sub={`승 ${wins} / 패 ${losses}`} />
             <SummaryCard icon={<TrendingUp size={16} />} label="승률" value={`${winRate}%`} sub={`평균 수익률 ${avgPnl}%`} />
@@ -1329,13 +1329,13 @@ export default function AutoTrader() {
 
 function SummaryCard({ icon, label, value, sub, color }: { icon: React.ReactNode; label: string; value: string; sub?: string; color?: string }) {
   return (
-    <div className="rounded-xl p-3 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)", boxShadow: "var(--shadow-card)" }}>
-      <div className="flex items-center gap-1.5 mb-1.5">
-        <span className="t-text-sub">{icon}</span>
-        <span className="text-[11px] font-medium t-text-sub">{label}</span>
+    <div className="rounded-2xl p-4 border" style={{ background: "var(--bg-card)", borderColor: "var(--border)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+      <div className="flex items-center gap-1.5 mb-2">
+        <span className="t-text-dim" style={{ opacity: 0.6 }}>{icon}</span>
+        <span className="text-[11px] font-semibold tracking-wide t-text-dim uppercase">{label}</span>
       </div>
-      <div className="text-xl font-bold" style={{ color: color || "var(--text-primary)" }}>{value}</div>
-      {sub && <div className="text-[11px] t-text-sub mt-1">{sub}</div>}
+      <div className="text-2xl font-extrabold tracking-tight tabular-nums" style={{ color: color || "var(--text-primary)", letterSpacing: "-0.02em" }}>{value}</div>
+      {sub && <div className="text-[11px] t-text-sub mt-1.5 tabular-nums">{sub}</div>}
     </div>
   );
 }
