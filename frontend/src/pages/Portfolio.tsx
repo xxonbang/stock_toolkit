@@ -51,7 +51,7 @@ export default function Portfolio() {
   const dbHoldingsRef = useRef(dbHoldings);
   dbHoldingsRef.current = dbHoldings;
   const [dbLoading, setDbLoading] = useState(false);
-  const [pricesLoaded, setPricesLoaded] = useState(!supaUser);
+  const [pricesLoaded, setPricesLoaded] = useState(false);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
