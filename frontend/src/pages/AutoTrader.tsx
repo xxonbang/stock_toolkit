@@ -495,9 +495,9 @@ export default function AutoTrader() {
           <div className="mt-2 p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
             <div className="space-y-1">
               <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>선정</span><span className="t-text-dim">거래대금 상위 + 상승 출발 + 갭 &lt;15%</span></div>
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>가점</span><span className="t-text-dim">윗꼬리&gt;3% ×2.0 · 전일음봉 ×1.2 · 연속3일↑ ×0.7</span></div>
               <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>쿨다운</span><span className="t-text-dim">전일 매매 종목 1일 제외</span></div>
-              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>스캔</span><span className="t-text-dim">09:05 volume-rank API → 거래대금 순 TOP2</span></div>
-              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>매도</span><span className="t-text-dim">당일 15:15 장 마감 청산</span></div>
+              <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>매도</span><span className="t-text-dim">09:05 스캔 → TOP2 매수 → 15:15 청산</span></div>
             </div>
             <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">
               상위 2종목 | 자본 100% 배분 | 오버나이트 리스크 없음
@@ -1271,7 +1271,7 @@ export default function AutoTrader() {
                           <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
                         </div>
                         <div className="text-[11px] t-text-sub leading-relaxed whitespace-pre-line">
-                          {strategyHelpOpen === "tv_momentum" ? "장 초반 거래대금 상위 종목에 집중 투자하는 당일 매매 전략입니다.\n\n[종목 선정]\n① 거래대금 상위 (volume-rank API)\n② 상승 출발 (등락률 > 0%)\n③ 갭 < 15% (급등 후 폭락 방지)\n④ 1,000원 ≤ 현재가 < 200,000원\n⑤ 전일 매매 종목 1일 쿨다운\n→ 거래대금 순 상위 2종목 선정\n\n[매매 타이밍]\n09:05 — volume-rank 스캔 → 즉시 매수\n15:15 — 전 포지션 당일 청산\n\n[백테스트 성과 (304거래일)]\n평균 +4.46% | 승률 69% | 15개월 연속 플러스\n오버나이트 리스크 없음"
+                          {strategyHelpOpen === "tv_momentum" ? "장 초반 거래대금 상위 종목에 집중 투자하는 당일 매매 전략입니다.\n\n[종목 선정]\n① 거래대금 상위 (volume-rank API)\n② 상승 출발 (등락률 > 0%)\n③ 갭 < 15%\n④ 1,000원 ≤ 현재가 < 200,000원\n⑤ 전일 매매 종목 1일 쿨다운\n\n[가점 스코어링]\n· 전일 윗꼬리 > 3%: ×2.0 (미완의 상승 반등)\n· 전일 음봉: ×1.2 (하락 후 반등 매수세)\n· 연속 3일+ 상승: ×0.7 (과열 감점)\n→ 거래대금 × 가점 상위 2종목 선정\n\n[매매 타이밍]\n09:05 — volume-rank 스캔 → 즉시 매수\n15:15 — 전 포지션 당일 청산 (SL -5%)\n\n[백테스트 성과 (304거래일)]\n평균 +5.06% | 승률 67% | PF 6.7\n오버나이트 리스크 없음"
                            : strategyHelpOpen === "gapup_sim" ? "기존 갭업 모멘텀 전략의 종목 선정 결과를 가상으로 추적하는 시뮬레이션입니다.\n\n[종목 선정]\n① 갭업 0~5% + MA200↑ + MA20↑\n② 과열 필터 + 거래대금 ≥ 3억\n③ vol_rate × log(TV) 스코어 정렬\n→ 상위 2종목 선정 (매수 없이 기록만)\n\n거래대금 모멘텀과 종목 선정 결과를 비교하기 위한 용도입니다."
                            : strategyHelpOpen === "stepped_sim" ? "기존 실전 적용했던 5팩터 스코어 + Stepped Trailing 전략입니다.\n현재는 거래대금 모멘텀으로 전환되어 가상 추적 중입니다.\n\n[종목 선정: 5팩터 스코어]\n① API 매수 +30점 (적극매수 +10 추가)\n② Vision 매수 +20점 (적극매수 +5 추가)\n③ 대장주 1등 +25점 / 테마소속 +15점\n④ 저가주 <2만원 +5점\n⑤ 급락반등 -10%↓&외인50만주↑ +35점\n→ 최소 20점 이상, 상위 2종목 선정\n\n[Criteria 가점 필터 (선택)]\n수급 양호 +10 / 골든크로스 +5 / 저항돌파 +5\n\n[매도: Stepped Trailing 공격형]\n+7%→본전, +15%→+7%, +20%→+15%\n+25%→+20%, +30%+→고점-3%\nSL: -2% (기본 손절)"
                            : strategyHelpOpen === "fixed_sim" ? "고정 익절/손절 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 고정 TP/SL 조건으로 매도 시뮬레이션합니다.\n\nTP: +7% (보유일수 연동 상향)\nSL: -2%\nTrailing: 고점 대비 -3% 하락 시 매도"
