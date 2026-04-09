@@ -242,10 +242,15 @@ export default function AutoTrader() {
           .filter(t => t.status === "filled" || t.status === "sim_only" || (t.status === "sold" && t.created_at >= recentCutoff))
           .map(t => t.code).filter(Boolean))];
         if (priceCodes.length > 0) {
-          fetchKisPrices(priceCodes).then(kisData => {
+          // KIS proxy 최대 20개 제한 → 분할 호출
+          const chunks: string[][] = [];
+          for (let i = 0; i < priceCodes.length; i += 20) chunks.push(priceCodes.slice(i, i + 20));
+          Promise.all(chunks.map(chunk => fetchKisPrices(chunk).catch(() => ({})))).then(results => {
             const map: Record<string, { price: number; changeRate: number }> = {};
-            for (const [code, p] of Object.entries(kisData)) {
-              if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
+            for (const kisData of results) {
+              for (const [code, p] of Object.entries(kisData)) {
+                if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
+              }
             }
             if (Object.keys(map).length > 0) setPrices(map);
           }).catch(() => {});
@@ -264,16 +269,21 @@ export default function AutoTrader() {
     if (!codes.length) return;
     setPriceRefreshing(true);
     // 시세 + 시뮬 + 거래 내역을 모두 병렬 실행
-    const pricePromise = fetchKisPrices(codes).catch(() => null);
+    // KIS proxy 최대 20개 제한 → 분할 호출
+    const chunks: string[][] = [];
+    for (let i = 0; i < codes.length; i += 20) chunks.push(codes.slice(i, i + 20));
+    const pricePromise = Promise.all(chunks.map(chunk => fetchKisPrices(chunk).catch(() => ({})))).catch(() => null);
     getStrategySimulations().then(setSimulations).catch(() => {});
     Promise.resolve(supabase.from("auto_trades").select("*").order("created_at", { ascending: false }))
       .then(({ data }) => { if (data) setTrades(data as Trade[]); }).catch(() => {});
     try {
-      const kisData = await pricePromise;
-      if (kisData) {
+      const results = await pricePromise;
+      if (results) {
         const map: Record<string, { price: number; changeRate: number }> = {};
-        for (const [code, p] of Object.entries(kisData)) {
-          if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
+        for (const kisData of results) {
+          for (const [code, p] of Object.entries(kisData)) {
+            if (p.current_price) map[code] = { price: p.current_price, changeRate: p.change_rate ?? 0 };
+          }
         }
         if (Object.keys(map).length > 0) {
           setPrices(map);
