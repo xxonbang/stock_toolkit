@@ -988,38 +988,39 @@ export default function AutoTrader() {
 
               return (
                 <>
-                  {/* 실제 전략: 거래대금 모멘텀 */}
-                  <button onClick={() => setStrategyDetail("gapup")}
-                    className="w-full p-3 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
-                    <div className="text-[10px] t-text-sub font-medium mb-1">거래대금 모멘텀 (실제)</div>
-                    {allGapupTrades.length > 0 ? (
-                      <>
-                        <div className={`text-lg font-bold tabular-nums ${gapupPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                          {gapupPnl >= 0 ? "+" : ""}{gapupPnl.toFixed(1)}%
-                        </div>
-                        <div className="text-[10px] t-text-sub mt-0.5">{allGapupTrades.length}건</div>
-                      </>
-                    ) : (
-                      <div className="text-[9px] t-text-dim mt-1">축적 중</div>
-                    )}
-                    <ChevronRight size={12} className="absolute right-2 top-1/2 -translate-y-1/2 t-text-dim opacity-40 group-hover:opacity-100 transition" />
-                  </button>
-                  {/* 가상 전략 */}
-                  <div className="flex gap-2 mt-2 flex-wrap">
+                  {/* 실제 + 시뮬 통합 그리드 */}
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {/* 실제 전략: 좌측 1열 전체 높이 */}
+                    <button onClick={() => setStrategyDetail("gapup")}
+                      className="row-span-2 p-3 rounded-xl text-center cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
+                      <div className="text-[9px] t-text-dim font-medium">실제</div>
+                      <div className="text-[10px] t-text-sub font-semibold mt-0.5">거래대금</div>
+                      {allGapupTrades.length > 0 ? (
+                        <>
+                          <div className={`text-xl font-bold tabular-nums mt-2 ${gapupPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {gapupPnl >= 0 ? "+" : ""}{gapupPnl.toFixed(1)}%
+                          </div>
+                          <div className="text-[9px] t-text-dim mt-1">{allGapupTrades.length}건</div>
+                        </>
+                      ) : (
+                        <div className="text-[9px] t-text-dim mt-3">축적 중</div>
+                      )}
+                      <ChevronRight size={10} className="absolute right-1.5 top-1/2 -translate-y-1/2 t-text-dim opacity-30 group-hover:opacity-100" />
+                    </button>
+                    {/* 시뮬 카드: 우측 2열 × 여러 행 */}
                     {simCards.map(c => (
                       <button key={c.key} onClick={c.onClick}
-                        className="flex-1 p-2.5 rounded-lg text-center border border-transparent cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
-                        <div className="text-[9px] t-text-sub font-medium mb-1">{c.label}</div>
+                        className="p-2 rounded-xl text-center cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
+                        <div className="text-[9px] t-text-dim font-medium truncate">{c.label}</div>
                         {c.count > 0 ? (
                           <>
-                            <div className={`text-sm font-bold tabular-nums ${c.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            <div className={`text-sm font-bold tabular-nums mt-0.5 ${c.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
                               {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
                             </div>
-                            <div className="text-[9px] t-text-sub mt-0.5">{c.count}건</div>
-                            <ChevronRight size={10} className="absolute right-1.5 top-1/2 -translate-y-1/2 t-text-dim opacity-30 group-hover:opacity-100 transition" />
+                            <div className="text-[9px] t-text-dim">{c.count}건</div>
                           </>
                         ) : (
-                          <div className="text-[9px] t-text-sub mt-1">축적 중</div>
+                          <div className="text-[9px] t-text-dim mt-1">—</div>
                         )}
                       </button>
                     ))}
