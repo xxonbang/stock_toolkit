@@ -1528,8 +1528,8 @@ async def run_tv_scan_and_buy() -> int:
     # 가점: 전일 윗꼬리>3%(×2.0), 전일 음봉(×1.2), 연속 상승 3일+(×0.7)
     for c in candidates:
         c["_bonus"] = 1.0
-    try:
-        for c in candidates:
+    for c in candidates:
+        try:
             url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
             params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": c["code"],
                       "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
@@ -1559,9 +1559,9 @@ async def run_tv_scan_and_buy() -> int:
                             break
                     if streak >= 3:
                         c["_bonus"] *= 0.7
-            await asyncio.sleep(0.15)
-    except Exception as e:
-        logger.warning(f"가점 스코어링 오류: {e}")
+        except Exception as e:
+            logger.warning(f"가점 스코어링 오류 ({c['name']}): {e}")
+        await asyncio.sleep(0.15)
 
     # 거래대금 × 가점 스코어 정렬
     candidates.sort(key=lambda x: -(x["trading_value"] * x.get("_bonus", 1.0)))
