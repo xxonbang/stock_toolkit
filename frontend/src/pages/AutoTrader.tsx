@@ -960,29 +960,58 @@ export default function AutoTrader() {
               const simLabel = simStrategy === "stepped" ? "Stepped Trailing" : "고정 익절/손절";
 
               // 갭업 모멘텀 시뮬 (sim_only 거래 중 거래대금 전략 전환 이후)
-              const gapupSimTrades = trades.filter(t => t.status === "sim_only" && t.sell_reason === "gapup_sim");
-              const gapupSimPnl = gapupSimTrades.length > 0 ? gapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / gapupSimTrades.length : 0;
+              const gapupSimOnly = trades.filter(t => t.status === "sim_only" && t.sell_reason === "gapup_sim");
+
+              // 갭업 모멘텀 시뮬: 과거 실전 이력(gapupCutoff~tvCutoff) + 현재 sim_only
+              const allGapupSimTrades = [...allGapupTrades, ...gapupSimOnly];
+              const gapupSimPnl = allGapupSimTrades.length > 0 ? allGapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupSimTrades.length : 0;
 
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
-                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: gapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
+                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
                 { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
                 { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
                 { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
               ];
 
-              // 갭업 전환 시점 = 첫 stepped simulation 생성일 (그 이후 auto_trades만 갭업)
+              // 전략 전환 시점: gapup_sim 태그가 처음 나타난 날짜 = 거래대금 전략 시작일
+              const tvCutoff = gapupSimTrades.length > 0
+                ? gapupSimTrades.map((t: any) => toKstDate(t.created_at)).filter(Boolean).sort()[0] || ""
+                : "";
+              // 갭업 전환 시점 (5팩터→갭업) = 첫 stepped simulation 생성일
               const gapupCutoff = [...steppedClosedSims, ...steppedOpenSims]
                 .map((s: any) => toKstDate(s.created_at)).filter(Boolean).sort()[0] || "";
+
+              // 거래대금 모멘텀 (실제): tvCutoff 이후 실전 매매만
+              const tvSold = tvCutoff
+                ? soldTrades.filter(t => toKstDate(t.created_at) >= tvCutoff && t.sell_reason !== "gapup_sim")
+                : [];
+              const tvActive = tvCutoff
+                ? activeTrades.filter(t => toKstDate(t.created_at) >= tvCutoff).map(t => {
+                    const cp = prices[t.code]?.price || 0;
+                    const bp = t.filled_price ?? t.order_price;
+                    const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
+                    return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
+                  })
+                : [];
+              const allTvTrades = [...tvSold.map(t => ({ ...t, _isActive: false })), ...tvActive];
+              const tvPnl = allTvTrades.length > 0 ? allTvTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allTvTrades.length : 0;
+
+              // 기존 갭업 모멘텀 (실제 과거 이력): gapupCutoff ~ tvCutoff 사이
               const gapupSold = gapupCutoff
-                ? soldTrades.filter(t => toKstDate(t.created_at) >= gapupCutoff)
-                : [];  // stepped sim 0건 = 갭업 전환 전 → 과거 5팩터 기록 제외
-              const gapupActive = activeTrades.map(t => {
-                const cp = prices[t.code]?.price || 0;
-                const bp = t.filled_price ?? t.order_price;
-                const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
-                return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
-              });
+                ? soldTrades.filter(t => {
+                    const d = toKstDate(t.created_at);
+                    return d >= gapupCutoff && (!tvCutoff || d < tvCutoff);
+                  })
+                : [];
+              const gapupActive = (!tvCutoff)
+                ? activeTrades.map(t => {
+                    const cp = prices[t.code]?.price || 0;
+                    const bp = t.filled_price ?? t.order_price;
+                    const pnl = cp > 0 && bp > 0 ? ((cp - bp) / bp * 100) : 0;
+                    return { ...t, pnl_pct: Math.round(pnl * 100) / 100, _isActive: true };
+                  })
+                : [];
               const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...gapupActive];
               const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
 
@@ -995,12 +1024,12 @@ export default function AutoTrader() {
                       className="row-span-2 p-3 rounded-xl text-center cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
                       <div className="text-[9px] t-text-dim font-medium">실제</div>
                       <div className="text-[10px] t-text-sub font-semibold mt-0.5">거래대금</div>
-                      {allGapupTrades.length > 0 ? (
+                      {allTvTrades.length > 0 ? (
                         <>
-                          <div className={`text-xl font-bold tabular-nums mt-2 ${gapupPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                            {gapupPnl >= 0 ? "+" : ""}{gapupPnl.toFixed(1)}%
+                          <div className={`text-xl font-bold tabular-nums mt-2 ${tvPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            {tvPnl >= 0 ? "+" : ""}{tvPnl.toFixed(1)}%
                           </div>
-                          <div className="text-[9px] t-text-dim mt-1">{allGapupTrades.length}건</div>
+                          <div className="text-[9px] t-text-dim mt-1">{allTvTrades.length}건</div>
                         </>
                       ) : (
                         <div className="text-[9px] t-text-dim mt-3">축적 중</div>
@@ -1057,9 +1086,13 @@ export default function AutoTrader() {
                         {/* 종목 리스트 — 날짜별 그룹핑 + 체크박스 */}
                         {(() => {
                           const items = strategyDetail === "gapup"
-                            ? allGapupTrades.map((t: any) => ({ ...t, _date: toKstDate(t.created_at) || "보유", _displayName: t.name, _displaySub: t.code }))
+                            ? allTvTrades.map((t: any) => ({ ...t, _date: toKstDate(t.created_at) || "보유", _displayName: t.name, _displaySub: t.code }))
                             : strategyDetail === "gapup_sim"
-                            ? gapupSimTrades.map((t: any) => ({ ...t, _date: toKstDate(t.created_at) || "—", _displayName: t.name, _displaySub: `시뮬 ${t.order_price?.toLocaleString()}원`, _isActive: false }))
+                            ? allGapupSimTrades.map((t: any) => {
+                                const isSim = t.status === "sim_only";
+                                const sub = isSim ? `시뮬 ${(t.order_price || 0).toLocaleString()}원` : t.code;
+                                return { ...t, _date: toKstDate(t.created_at) || "—", _displayName: t.name, _displaySub: sub, _isActive: false };
+                              })
                             : strategyDetail === "real"
                             ? allRealTrades.map((t: any) => {
                                 const mt = trades.find(tr => tr.id === t.trade_id);
