@@ -735,12 +735,7 @@ export default function AutoTrader() {
               <div className="p-3 rounded-lg text-[10px] t-text-sub leading-relaxed space-y-2" style={{ background: "var(--bg)" }}>
                 {strategyType === "gapup" ? (
                   <>
-                    <div className="text-[11px] font-semibold t-text mb-1">거래대금 모멘텀 종목 선정</div>
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#ef4444" }}>09:05</span><span className="t-text-dim">volume-rank API → 상승+갭&lt;15%+가격 필터</span></div>
-                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#f59e0b" }}>쿨다운</span><span className="t-text-dim">전일 매매 종목 제외 (1일)</span></div>
-                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#3b82f6" }}>필터</span><span className="t-text-dim">3일변동성 &lt;13% + 3일누적수익률 &lt;20%</span></div>
-                      <div className="flex items-center gap-2"><span className="font-semibold" style={{ color: "#22c55e" }}>선정</span><span className="t-text-dim">거래대금 순 상위 2종목 즉시 매수</span></div>
                       <div className="flex items-center gap-2">
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
                         <div className="flex items-center gap-1.5">
