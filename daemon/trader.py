@@ -2630,13 +2630,12 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
     if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
     today = datetime.now(_KST).strftime("%Y%m%d")
-    # 이미 open 상태인 stepped 시뮬의 종목은 중복 생성 방지
+    # 중복 방지: ① open stepped 시뮬 종목 + ② 오늘 생성된 sim_only 종목
     existing_open = await _supabase_request(
         "GET",
         f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.stepped&select=trade_id",
     )
     open_trade_ids = {r.get("trade_id") for r in (existing_open or [])}
-    # open sim의 trade_id → code 매핑
     existing_trades = []
     if open_trade_ids:
         tid_filter = ",".join(open_trade_ids)
@@ -2645,6 +2644,13 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
             f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=code",
         ) or []
     existing_codes = {r.get("code") for r in existing_trades}
+    # 오늘 생성된 sim_only도 중복 체크
+    today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+    today_sim_only = await _supabase_request(
+        "GET",
+        f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&created_at=gte.{today_utc}&select=code",
+    )
+    existing_codes |= {r.get("code") for r in (today_sim_only or [])}
     for item in scored_top2:
         code = item.get("code", "")
         name = item.get("name", code)
