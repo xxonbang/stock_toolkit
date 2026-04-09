@@ -962,21 +962,9 @@ export default function AutoTrader() {
               // 갭업 모멘텀 시뮬 (sim_only 거래 중 거래대금 전략 전환 이후)
               const gapupSimOnly = trades.filter(t => t.status === "sim_only" && t.sell_reason === "gapup_sim");
 
-              // 갭업 모멘텀 시뮬: 과거 실전 이력(gapupCutoff~tvCutoff) + 현재 sim_only
-              const allGapupSimTrades = [...allGapupTrades, ...gapupSimOnly];
-              const gapupSimPnl = allGapupSimTrades.length > 0 ? allGapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupSimTrades.length : 0;
-
-              const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
-                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
-                { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
-                { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
-                { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
-                { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
-              ];
-
               // 전략 전환 시점: gapup_sim 태그가 처음 나타난 날짜 = 거래대금 전략 시작일
-              const tvCutoff = gapupSimTrades.length > 0
-                ? gapupSimTrades.map((t: any) => toKstDate(t.created_at)).filter(Boolean).sort()[0] || ""
+              const tvCutoff = gapupSimOnly.length > 0
+                ? gapupSimOnly.map((t: any) => toKstDate(t.created_at)).filter(Boolean).sort()[0] || ""
                 : "";
               // 갭업 전환 시점 (5팩터→갭업) = 첫 stepped simulation 생성일
               const gapupCutoff = [...steppedClosedSims, ...steppedOpenSims]
@@ -1014,6 +1002,18 @@ export default function AutoTrader() {
                 : [];
               const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...gapupActive];
               const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
+
+              // 갭업 모멘텀 시뮬: 과거 실전 이력(gapupCutoff~tvCutoff) + 현재 sim_only
+              const allGapupSimTrades = [...allGapupTrades, ...gapupSimOnly];
+              const gapupSimPnl = allGapupSimTrades.length > 0 ? allGapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupSimTrades.length : 0;
+
+              const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
+                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
+                { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("real") },
+                { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("sim") },
+                { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time") : undefined },
+                { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader") : undefined },
+              ];
 
               return (
                 <>
