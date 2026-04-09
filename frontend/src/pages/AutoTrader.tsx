@@ -114,9 +114,9 @@ export default function AutoTrader() {
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped" | "gapup">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
-  const [gapupSl, setGapupSl] = useState<"none" | "-15">("-15");
-  const [savedGapupSl, setSavedGapupSl] = useState<"none" | "-15">("-15");
-  const [gapupSlSaving, setGapupSlSaving] = useState(false);
+  const [emergencySl, setEmergencySl] = useState<"none" | "-15">("-15");
+  const [savedEmergencySl, setSavedEmergencySl] = useState<"none" | "-15">("-15");
+  const [emergencySlSaving, setEmergencySlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
   const [strategyDetail, setStrategyDetail] = useState<"tv_momentum" | "gapup_sim" | "stepped_sim" | "fixed_sim" | "time_sim" | "api_leader_sim" | null>(null);
@@ -156,9 +156,9 @@ export default function AutoTrader() {
         Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
           if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
         }).catch(() => {});
-        // gapup_sl 로드
-        Promise.resolve(supabase.from("alert_config").select("gapup_sl").limit(1).maybeSingle()).then(({ data: cfg }) => {
-          if (cfg?.gapup_sl) { setGapupSl(cfg.gapup_sl); setSavedGapupSl(cfg.gapup_sl); }
+        // emergency_sl 로드
+        Promise.resolve(supabase.from("alert_config").select("emergency_sl").limit(1).maybeSingle()).then(({ data: cfg }) => {
+          if (cfg?.emergency_sl) { setEmergencySl(cfg.emergency_sl); setSavedEmergencySl(cfg.emergency_sl); }
         }).catch(() => {});
         getStrategySimulations().then(setSimulations);
       } else {
@@ -740,9 +740,9 @@ export default function AutoTrader() {
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
                         <div className="flex items-center gap-1.5">
                           {([["none", "없음"], ["-15", "-15%"]] as const).map(([val, label]) => (
-                            <button key={val} onClick={() => setGapupSl(val as any)}
-                              className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${gapupSl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
-                              style={gapupSl === val ? { background: val === "none" ? "#3b82f6" : "#ef4444" } : { background: "var(--bg-card-alt)" }}>
+                            <button key={val} onClick={() => setEmergencySl(val as any)}
+                              className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${emergencySl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
+                              style={emergencySl === val ? { background: val === "none" ? "#3b82f6" : "#ef4444" } : { background: "var(--bg-card-alt)" }}>
                               {label}
                             </button>
                           ))}
@@ -750,24 +750,24 @@ export default function AutoTrader() {
                       </div>
                       <div className="flex items-center justify-between ml-[calc(2ch+0.5rem)] -mt-0.5">
                         <span className="text-[8px] t-text-dim">
-                          {gapupSl === "none" ? "15:15 전량 청산 (비상 손절 없음)" : "장중 -15% 도달 시 비상 손절"}
+                          {emergencySl === "none" ? "15:15 전량 청산 (비상 손절 없음)" : "장중 -15% 도달 시 비상 손절"}
                         </span>
-                        {gapupSl !== savedGapupSl && (
+                        {emergencySl !== savedEmergencySl && (
                           <button onClick={async () => {
-                            setGapupSlSaving(true);
-                            const ok = await setAlertConfig({ gapup_sl: gapupSl });
+                            setEmergencySlSaving(true);
+                            const ok = await setAlertConfig({ emergency_sl: emergencySl });
                             if (ok) {
-                              setSavedGapupSl(gapupSl);
-                              setToastMsg({ text: `손절 옵션 변경: ${gapupSl === "none" ? "없음" : gapupSl + "%"}`, type: "ok" });
+                              setSavedEmergencySl(emergencySl);
+                              setToastMsg({ text: `손절 옵션 변경: ${emergencySl === "none" ? "없음" : emergencySl + "%"}`, type: "ok" });
                             } else {
-                              setGapupSl(savedGapupSl);
+                              setEmergencySl(savedEmergencySl);
                               setToastMsg({ text: "손절 옵션 변경 실패", type: "fail" });
                             }
                             setTimeout(() => setToastMsg(null), 2500);
-                            setGapupSlSaving(false);
-                          }} disabled={gapupSlSaving}
+                            setEmergencySlSaving(false);
+                          }} disabled={emergencySlSaving}
                             className="text-[9px] font-semibold px-3 py-0.5 rounded-md bg-emerald-500 text-white hover:bg-emerald-400 transition disabled:opacity-50 shrink-0 ml-2">
-                            {gapupSlSaving ? "저장 중..." : "변경 확인"}
+                            {emergencySlSaving ? "저장 중..." : "변경 확인"}
                           </button>
                         )}
                       </div>

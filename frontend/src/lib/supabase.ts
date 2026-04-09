@@ -146,7 +146,7 @@ export async function getAlertMode(): Promise<AlertMode> {
 }
 
 /** 알림 설정 변경 (모드 + 익절/손절/trailing stop) */
-export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number; trailing_stop_pct?: number; buy_signal_mode?: string; strategy_type?: string; criteria_filter?: boolean; stepped_preset?: string; gapup_sl?: string }): Promise<boolean> {
+export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_profit_pct?: number; stop_loss_pct?: number; trailing_stop_pct?: number; buy_signal_mode?: string; strategy_type?: string; criteria_filter?: boolean; stepped_preset?: string; emergency_sl?: string }): Promise<boolean> {
   try {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return false;
@@ -173,12 +173,12 @@ export async function setAlertConfig(updates: { alert_mode?: AlertMode; take_pro
     };
     if (updates.stepped_preset !== undefined) merged.stepped_preset = updates.stepped_preset;
     else if (existingPreset) merged.stepped_preset = existingPreset;
-    // gapup_sl도 동일 패턴 (컬럼 미존재 시 안전)
-    if (updates.gapup_sl !== undefined) merged.gapup_sl = updates.gapup_sl;
+    // emergency_sl도 동일 패턴 (컬럼 미존재 시 안전)
+    if (updates.emergency_sl !== undefined) merged.emergency_sl = updates.emergency_sl;
     const { error } = await supabase.from("alert_config").upsert(merged, { onConflict: "user_id" });
     if (error) {
       // 컬럼 미존재 시 해당 필드 제거 후 재시도
-      const optionalCols = ["stepped_preset", "gapup_sl"];
+      const optionalCols = ["stepped_preset", "emergency_sl"];
       const errMsg = error.message || "";
       const culprit = optionalCols.find(col => errMsg.includes(col));
       if (culprit) {
