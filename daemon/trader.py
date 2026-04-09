@@ -2526,18 +2526,17 @@ async def schedule_sell_check():
         try:
             positions = await get_active_positions(force_refresh=True)
             targets = [p for p in positions if p["status"] in ("filled", "sell_requested")]
-            if not targets:
-                continue
-            for pos in targets:
-                code = pos["code"]
-                price = await _get_current_price(code)
-                if price <= 0:
-                    continue
-                await check_positions_for_sell({"code": code, "price": price})
-                await asyncio.sleep(0.3)  # API 호출 간격
-            # 시뮬레이션 미생성 종목 자동 보완 (수동 매수 등 daemon 외부 경로 대응)
-            await _ensure_simulations_for_filled(targets)
-            # 실전 매도 후 남은 시뮬레이션 독립 체크
+            if targets:
+                for pos in targets:
+                    code = pos["code"]
+                    price = await _get_current_price(code)
+                    if price <= 0:
+                        continue
+                    await check_positions_for_sell({"code": code, "price": price})
+                    await asyncio.sleep(0.3)  # API 호출 간격
+                # 시뮬레이션 미생성 종목 자동 보완 (수동 매수 등 daemon 외부 경로 대응)
+                await _ensure_simulations_for_filled(targets)
+            # 시뮬레이션 독립 체크 — 실전 보유 0건이어도 실행
             await _check_orphan_simulations()
             # 5분마다 KIS 평단가 sync (분할 매수 시 DB 평단가 불일치 보정)
             await _sync_avg_prices(targets)
