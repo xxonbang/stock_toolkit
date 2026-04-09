@@ -1524,8 +1524,47 @@ async def run_tv_scan_and_buy() -> int:
             "trading_value": trading_value,
         })
 
-    # 거래대금 순 정렬
-    candidates.sort(key=lambda x: -x["trading_value"])
+    # 후보 종목의 전일 봉 데이터 조회 → 가점 스코어링
+    # 가점: 전일 윗꼬리>3%(×2.0), 전일 음봉(×1.2), 연속 상승 3일+(×0.7)
+    for c in candidates:
+        c["_bonus"] = 1.0
+    try:
+        for c in candidates:
+            url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+            params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": c["code"],
+                      "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
+            session = await get_session()
+            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
+                data = await resp.json()
+                bars = data.get("output", [])[:5]
+                if len(bars) >= 2:
+                    prev_c = int(bars[1].get("stck_clpr", "0") or "0")
+                    prev_o = int(bars[1].get("stck_oprc", "0") or "0")
+                    prev_h = int(bars[1].get("stck_hgpr", "0") or "0")
+                    if prev_o > 0 and prev_c > 0 and prev_h > 0:
+                        upper_wick = (prev_h - max(prev_c, prev_o)) / prev_o * 100
+                        prev_body = (prev_c - prev_o) / prev_o * 100
+                        if upper_wick > 3:
+                            c["_bonus"] *= 2.0
+                        if prev_body < 0:
+                            c["_bonus"] *= 1.2
+                    # 연속 상승일수
+                    streak = 0
+                    for k in range(1, min(len(bars), 5)):
+                        ck = int(bars[k].get("stck_clpr", "0") or "0")
+                        ck_prev = int(bars[k+1].get("stck_clpr", "0") or "0") if k+1 < len(bars) else 0
+                        if ck > ck_prev > 0:
+                            streak += 1
+                        else:
+                            break
+                    if streak >= 3:
+                        c["_bonus"] *= 0.7
+            await asyncio.sleep(0.15)
+    except Exception as e:
+        logger.warning(f"가점 스코어링 오류: {e}")
+
+    # 거래대금 × 가점 스코어 정렬
+    candidates.sort(key=lambda x: -(x["trading_value"] * x.get("_bonus", 1.0)))
     targets = candidates[:2]
 
     if not targets:
@@ -1567,7 +1606,9 @@ async def run_tv_scan_and_buy() -> int:
         qty = calc_quantity(amount_per, t["price"])
         invest = t["price"] * qty
         rpt.append(f"  📥 <b>{t['name']}</b> ({t['code']})")
-        rpt.append(f"     등락{t['change_rate']:+.1f}% | 갭{t['gap_pct']:+.1f}% | 거래량{t['vol_rate']:.0f}%")
+        bonus = t.get('_bonus', 1.0)
+        bonus_tag = f" 가점×{bonus:.1f}" if bonus != 1.0 else ""
+        rpt.append(f"     등락{t['change_rate']:+.1f}% | 갭{t['gap_pct']:+.1f}% | 거래량{t['vol_rate']:.0f}%{bonus_tag}")
         rpt.append(f"     {t['price']:,}원 × {qty}주 = {invest:,}원")
     await send_telegram("\n".join(rpt))
 
