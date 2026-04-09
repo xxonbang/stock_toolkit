@@ -140,6 +140,36 @@ async def cleanup_old_sim_only():
     pass
 
 
+async def backup_intraday_history():
+    """theme-analysis의 intraday-history.json을 날짜별로 백업 (무제한 누적)."""
+    import aiohttp
+    from datetime import datetime, timezone, timedelta
+    KST = timezone(timedelta(hours=9))
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+
+    url = "https://xxonbang.github.io/theme-analyzer/data/intraday-history.json"
+    backup_dir = Path(__file__).parent.parent / "results" / "intraday_backup"
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    backup_path = backup_dir / f"{today}.json"
+
+    if backup_path.exists():
+        print(f"분봉 백업 스킵 — 이미 존재: {backup_path.name}")
+        return
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=60)) as resp:
+                if resp.status == 200:
+                    data = await resp.read()
+                    backup_path.write_bytes(data)
+                    size_mb = len(data) / 1024 / 1024
+                    print(f"분봉 백업 완료: {backup_path.name} ({size_mb:.1f}MB)")
+                else:
+                    print(f"분봉 백업 실패: HTTP {resp.status}")
+    except Exception as e:
+        print(f"분봉 백업 오류: {e}")
+
+
 async def update_stock_master():
     """stock-master.json을 GitHub Pages에서 다운로드 (주 1회)"""
     import aiohttp

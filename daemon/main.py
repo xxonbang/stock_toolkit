@@ -305,8 +305,9 @@ async def schedule_ma200_update():
         if now.hour == 20 and 0 <= now.minute <= 5:
             logger.info("MA200 캐시 주간 갱신 시작")
             try:
-                from daemon.update_ma200 import update_ma200, update_stock_master, cleanup_old_sim_only
+                from daemon.update_ma200 import update_ma200, update_stock_master, cleanup_old_sim_only, backup_intraday_history
                 await update_ma200()
+                await backup_intraday_history()
                 # 월요일에만 stock-master 갱신 + 30일+ 데이터 정리
                 if now.weekday() == 0:
                     await update_stock_master()
