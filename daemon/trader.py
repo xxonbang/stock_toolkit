@@ -1321,11 +1321,32 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
             "FID_INPUT_PRICE_1": "0", "FID_INPUT_PRICE_2": "0",
             "FID_VOL_CNT": "0", "FID_INPUT_DATE_1": "",
         }
-        async with session.get(f"{REAL_URL}/uapi/domestic-stock/v1/quotations/volume-rank", params=params, headers=real_headers) as resp:
-            data = await resp.json()
-            if data.get("rt_cd") != "0" or not data.get("output"):
-                return []
-            items = data["output"]
+        items = None
+        for _vr_attempt in range(1, 4):
+            try:
+                async with session.get(f"{REAL_URL}/uapi/domestic-stock/v1/quotations/volume-rank", params=params, headers=real_headers) as resp:
+                    if resp.status != 200:
+                        logger.warning(f"volume-rank HTTP {resp.status} (시도 {_vr_attempt}/3)")
+                        await asyncio.sleep(_vr_attempt * 2)
+                        continue
+                    text = await resp.text()
+                    if not text or not text.strip().startswith("{"):
+                        logger.warning(f"volume-rank 빈/비정상 응답 (시도 {_vr_attempt}/3): {text[:100]}")
+                        await asyncio.sleep(_vr_attempt * 2)
+                        continue
+                    import json as _json2
+                    data = _json2.loads(text)
+                    if data.get("rt_cd") != "0" or not data.get("output"):
+                        logger.warning(f"volume-rank rt_cd={data.get('rt_cd')} msg={data.get('msg1','')} (시도 {_vr_attempt}/3)")
+                        await asyncio.sleep(_vr_attempt * 2)
+                        continue
+                    items = data["output"]
+                    break
+            except Exception as ve:
+                logger.warning(f"volume-rank 요청 오류 (시도 {_vr_attempt}/3): {ve}")
+                await asyncio.sleep(_vr_attempt * 2)
+        if not items:
+            return []
 
         # 30종목의 시가/전일종가를 개별 inquire-price로 추가 조회 (모의투자 토큰 사용)
         result = []
