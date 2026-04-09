@@ -1598,6 +1598,20 @@ async def run_tv_scan_and_buy() -> int:
             await trigger_subscription_refresh()
         except Exception as e:
             logger.warning(f"거래대금 매수 후 구독 갱신 실패: {e}")
+        # 매수된 종목에 대해 tv_time_exit 시뮬 생성 (10:00 청산 검증용)
+        try:
+            config = await _get_trade_config()
+            user_id = config.get("user_id", "")
+            positions = await get_active_positions(force_refresh=True)
+            bought_codes = {t["code"] for t, _ in [(t, q) for t, q in [(t, calc_quantity(amount_per, t["price"])) for t in buy_targets] if q > 0]}
+            for pos in positions:
+                if pos["code"] in bought_codes and pos["status"] == "filled":
+                    entry = pos.get("filled_price") or pos.get("order_price", 0)
+                    if entry > 0:
+                        await _create_simulation(pos["id"], "tv_time_exit", entry, user_id)
+                        logger.info(f"tv_time_exit 시뮬 생성: {pos['name']}({pos['code']}) {entry:,}원")
+        except Exception as e:
+            logger.warning(f"tv_time_exit 시뮬 생성 오류: {e}")
     logger.info(f"거래대금 스캔 매수 완료: {bought}종목")
     return bought
 
@@ -2925,8 +2939,18 @@ async def _check_simulations(current_price_data: dict):
                     exit_price = current_price
                 else:
                     now_kst = datetime.now(_KST)
-                    # 11:00 KST 이후면 현재가로 매도
                     if now_kst.hour >= 11:
+                        exit_reason = "time_exit"
+                        exit_price = current_price
+
+            elif strategy == "tv_time_exit":
+                # 거래대금 종목 10:00 청산 시뮬: SL=-5% + 10:00 KST 자동 매도
+                if pnl <= -5:
+                    exit_reason = "stop_loss"
+                    exit_price = current_price
+                else:
+                    now_kst = datetime.now(_KST)
+                    if now_kst.hour >= 10:
                         exit_reason = "time_exit"
                         exit_price = current_price
 
@@ -3241,6 +3265,11 @@ async def _check_orphan_simulations():
                 if pnl <= sl:
                     exit_reason = "stop_loss"
                 elif now_kst.hour >= 11:
+                    exit_reason = "time_exit"
+            elif strategy == "tv_time_exit":
+                if pnl <= -5:
+                    exit_reason = "stop_loss"
+                elif now_kst.hour >= 10:
                     exit_reason = "time_exit"
 
             update_body: dict = {"peak_price": peak}
