@@ -1485,6 +1485,12 @@ async def run_tv_scan_and_buy() -> int:
         prev_close = item["prev_close"]
         change_rate = item.get("change_rate", 0)
 
+        # ETF/ETN 제외
+        item_name = item["name"]
+        if any(kw in item_name for kw in ("KODEX", "TIGER", "KOSEF", "ACE", "SOL", "KBSTAR", "HANARO", "ETN", "선물")):
+            continue
+        if code.startswith("Q"):
+            continue
         # 가격대 필터
         if cur_price < 1000 or cur_price >= 200000:
             continue
