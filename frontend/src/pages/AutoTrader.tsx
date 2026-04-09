@@ -1017,39 +1017,42 @@ export default function AutoTrader() {
 
               return (
                 <>
-                  {/* 실제 + 시뮬 통합 그리드 */}
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {/* 실제 전략: 좌측 1열 전체 높이 */}
-                    <button onClick={() => setStrategyDetail("tv_momentum")}
-                      className="row-span-2 p-3 rounded-xl text-center cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
-                      <div className="text-[9px] t-text-dim font-medium">실제</div>
-                      <div className="text-[10px] t-text-sub font-semibold mt-0.5">거래대금</div>
+                  {/* Row 1: 거래대금 모멘텀 (실제) */}
+                  <button onClick={() => setStrategyDetail("tv_momentum")}
+                    className="w-full p-3 rounded-xl text-center cursor-pointer transition relative group flex items-center justify-between" style={{ background: "var(--bg)" }}>
+                    <div>
+                      <div className="text-[9px] t-text-dim font-medium text-left">실제 매매</div>
+                      <div className="text-[11px] t-text font-semibold text-left">거래대금 모멘텀</div>
+                    </div>
+                    <div className="text-right">
                       {allTvTrades.length > 0 ? (
                         <>
-                          <div className={`text-xl font-bold tabular-nums mt-2 ${tvPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          <div className={`text-lg font-bold tabular-nums ${tvPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
                             {tvPnl >= 0 ? "+" : ""}{tvPnl.toFixed(1)}%
                           </div>
-                          <div className="text-[9px] t-text-dim mt-1">{allTvTrades.length}건</div>
+                          <div className="text-[9px] t-text-dim">{allTvTrades.length}건</div>
                         </>
                       ) : (
-                        <div className="text-[9px] t-text-dim mt-3">축적 중</div>
+                        <div className="text-[9px] t-text-dim">축적 중</div>
                       )}
-                      <ChevronRight size={10} className="absolute right-1.5 top-1/2 -translate-y-1/2 t-text-dim opacity-30 group-hover:opacity-100" />
-                    </button>
-                    {/* 시뮬 카드: 우측 2열 × 여러 행 */}
+                    </div>
+                    <ChevronRight size={10} className="t-text-dim opacity-30 group-hover:opacity-100 ml-1 shrink-0" />
+                  </button>
+                  {/* Row 2: 시뮬 5개 균등 배분 */}
+                  <div className="grid grid-cols-5 gap-1 mt-1.5">
                     {simCards.map(c => (
                       <button key={c.key} onClick={c.onClick}
-                        className="p-2 rounded-xl text-center cursor-pointer transition relative group" style={{ background: "var(--bg)" }}>
-                        <div className="text-[9px] t-text-dim font-medium truncate">{c.label}</div>
+                        className="p-1.5 rounded-lg text-center cursor-pointer transition" style={{ background: "var(--bg)" }}>
+                        <div className="text-[8px] t-text-dim font-medium truncate leading-tight">{c.label}</div>
                         {c.count > 0 ? (
                           <>
-                            <div className={`text-sm font-bold tabular-nums mt-0.5 ${c.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            <div className={`text-[11px] font-bold tabular-nums mt-0.5 ${c.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
                               {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
                             </div>
-                            <div className="text-[9px] t-text-dim">{c.count}건</div>
+                            <div className="text-[8px] t-text-dim">{c.count}건</div>
                           </>
                         ) : (
-                          <div className="text-[9px] t-text-dim mt-1">—</div>
+                          <div className="text-[8px] t-text-dim mt-1">—</div>
                         )}
                       </button>
                     ))}
