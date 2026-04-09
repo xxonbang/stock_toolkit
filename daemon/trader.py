@@ -2630,20 +2630,21 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
     if not user_id or not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
     today = datetime.now(_KST).strftime("%Y%m%d")
-    # 이미 오늘 생성된 stepped sim_only가 있으면 스킵
-    existing = await _supabase_request(
+    # 이미 open 상태인 stepped 시뮬의 종목은 중복 생성 방지
+    existing_open = await _supabase_request(
         "GET",
-        f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&side=eq.buy&select=code,created_at",
+        f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.stepped&select=trade_id",
     )
-    today_iso = datetime.now(_KST).strftime("%Y-%m-%d")
-    # created_at은 UTC → KST 변환 후 날짜 비교
-    def _to_kst_date(utc_str: str) -> str:
-        try:
-            dt = datetime.fromisoformat(utc_str.replace("Z", "+00:00"))
-            return dt.astimezone(_KST).strftime("%Y-%m-%d")
-        except Exception:
-            return utc_str[:10] if utc_str else ""
-    existing_codes_today = {r.get("code") for r in (existing or []) if _to_kst_date(r.get("created_at", "")) == today_iso}
+    open_trade_ids = {r.get("trade_id") for r in (existing_open or [])}
+    # open sim의 trade_id → code 매핑
+    existing_trades = []
+    if open_trade_ids:
+        tid_filter = ",".join(open_trade_ids)
+        existing_trades = await _supabase_request(
+            "GET",
+            f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=code",
+        ) or []
+    existing_codes = {r.get("code") for r in existing_trades}
     for item in scored_top2:
         code = item.get("code", "")
         name = item.get("name", code)
@@ -2651,7 +2652,7 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
         price = await _get_current_price(code)
         if price <= 0:
             price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
-        if price <= 0 or code in existing_codes_today:
+        if price <= 0 or code in existing_codes:
             continue
         # 상한가 종목은 시뮬 생성 제외 (실제 매수 불가능)
         if await is_upper_limit(code, price):
