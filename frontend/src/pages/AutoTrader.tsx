@@ -114,8 +114,8 @@ export default function AutoTrader() {
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped" | "gapup">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
-  const [gapupSl, setGapupSl] = useState<"none" | "-5" | "-6">("none");
-  const [savedGapupSl, setSavedGapupSl] = useState<"none" | "-5" | "-6">("none");
+  const [gapupSl, setGapupSl] = useState<"none" | "-15">("-15");
+  const [savedGapupSl, setSavedGapupSl] = useState<"none" | "-15">("-15");
   const [gapupSlSaving, setGapupSlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
@@ -739,10 +739,10 @@ export default function AutoTrader() {
                       <div className="flex items-center gap-2">
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
                         <div className="flex items-center gap-1.5">
-                          {([["none", "없음"], ["-5", "-5%"], ["-6", "-6%"]] as const).map(([val, label]) => (
+                          {([["none", "없음"], ["-15", "-15%"]] as const).map(([val, label]) => (
                             <button key={val} onClick={() => setGapupSl(val as any)}
                               className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${gapupSl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
-                              style={gapupSl === val ? { background: val === "none" ? "#3b82f6" : val === "-5" ? "#f59e0b" : "#8b5cf6" } : { background: "var(--bg-card-alt)" }}>
+                              style={gapupSl === val ? { background: val === "none" ? "#3b82f6" : "#ef4444" } : { background: "var(--bg-card-alt)" }}>
                               {label}
                             </button>
                           ))}
@@ -750,7 +750,7 @@ export default function AutoTrader() {
                       </div>
                       <div className="flex items-center justify-between ml-[calc(2ch+0.5rem)] -mt-0.5">
                         <span className="text-[8px] t-text-dim">
-                          {gapupSl === "none" ? "15:15 전량 청산 · 평균수익 +4.46% · 승률 69%" : gapupSl === "-5" ? "장중 -5% 도달 시 즉시 매도" : "장중 -6% 도달 시 즉시 매도"}
+                          {gapupSl === "none" ? "15:15 전량 청산 (비상 손절 없음)" : "장중 -15% 도달 시 비상 손절"}
                         </span>
                         {gapupSl !== savedGapupSl && (
                           <button onClick={async () => {
