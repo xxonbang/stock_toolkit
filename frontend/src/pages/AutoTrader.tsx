@@ -114,8 +114,8 @@ export default function AutoTrader() {
   const [savedStrategyType, setSavedStrategyType] = useState<"fixed" | "stepped" | "gapup">("fixed");
   const [strategySaving, setStrategySaving] = useState(false);
   const [steppedPreset, setSteppedPreset] = useState<"default" | "aggressive">("default");
-  const [emergencySl, setEmergencySl] = useState<"none" | "-15">("-15");
-  const [savedEmergencySl, setSavedEmergencySl] = useState<"none" | "-15">("-15");
+  const [emergencySl, setEmergencySl] = useState<"none" | "-5" | "-15">("-5");
+  const [savedEmergencySl, setSavedEmergencySl] = useState<"none" | "-5" | "-15">("-5");
   const [emergencySlSaving, setEmergencySlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
@@ -739,10 +739,10 @@ export default function AutoTrader() {
                       <div className="flex items-center gap-2">
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
                         <div className="flex items-center gap-1.5">
-                          {([["none", "없음"], ["-15", "-15%"]] as const).map(([val, label]) => (
+                          {([["none", "없음"], ["-5", "-5%"], ["-15", "-15%"]] as const).map(([val, label]) => (
                             <button key={val} onClick={() => setEmergencySl(val as any)}
                               className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${emergencySl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
-                              style={emergencySl === val ? { background: val === "none" ? "#3b82f6" : "#ef4444" } : { background: "var(--bg-card-alt)" }}>
+                              style={emergencySl === val ? { background: val === "none" ? "#3b82f6" : val === "-5" ? "#f59e0b" : "#ef4444" } : { background: "var(--bg-card-alt)" }}>
                               {label}
                             </button>
                           ))}
@@ -750,7 +750,7 @@ export default function AutoTrader() {
                       </div>
                       <div className="flex items-center justify-between ml-[calc(2ch+0.5rem)] -mt-0.5">
                         <span className="text-[8px] t-text-dim">
-                          {emergencySl === "none" ? "15:15 전량 청산 (비상 손절 없음)" : "장중 -15% 도달 시 비상 손절"}
+                          {emergencySl === "none" ? "15:15 전량 청산 (손절 없음)" : `장중 ${emergencySl}% 도달 시 손절`}
                         </span>
                         {emergencySl !== savedEmergencySl && (
                           <button onClick={async () => {
