@@ -1324,27 +1324,28 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
         items = None
         for _vr_attempt in range(1, 4):
             try:
-                async with session.get(f"{REAL_URL}/uapi/domestic-stock/v1/quotations/volume-rank", params=params, headers=real_headers) as resp:
+                import aiohttp as _aiohttp
+                async with session.get(f"{REAL_URL}/uapi/domestic-stock/v1/quotations/volume-rank", params=params, headers=real_headers, timeout=_aiohttp.ClientTimeout(total=10)) as resp:
                     if resp.status != 200:
                         logger.warning(f"volume-rank HTTP {resp.status} (시도 {_vr_attempt}/3)")
-                        await asyncio.sleep(_vr_attempt * 2)
+                        await asyncio.sleep(_vr_attempt * 3)
                         continue
                     text = await resp.text()
                     if not text or not text.strip().startswith("{"):
                         logger.warning(f"volume-rank 빈/비정상 응답 (시도 {_vr_attempt}/3): {text[:100]}")
-                        await asyncio.sleep(_vr_attempt * 2)
+                        await asyncio.sleep(_vr_attempt * 3)
                         continue
                     import json as _json2
                     data = _json2.loads(text)
                     if data.get("rt_cd") != "0" or not data.get("output"):
                         logger.warning(f"volume-rank rt_cd={data.get('rt_cd')} msg={data.get('msg1','')} (시도 {_vr_attempt}/3)")
-                        await asyncio.sleep(_vr_attempt * 2)
+                        await asyncio.sleep(_vr_attempt * 3)
                         continue
                     items = data["output"]
                     break
             except Exception as ve:
                 logger.warning(f"volume-rank 요청 오류 (시도 {_vr_attempt}/3): {ve}")
-                await asyncio.sleep(_vr_attempt * 2)
+                await asyncio.sleep(_vr_attempt * 3)
         if not items:
             return []
 
