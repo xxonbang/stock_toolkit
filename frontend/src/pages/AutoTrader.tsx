@@ -1236,7 +1236,7 @@ export default function AutoTrader() {
                                               {(item.exit_reason || item.sell_reason) && !item._isActive && (() => { const r = item.exit_reason || item.sell_reason; return <span className="text-[9px] px-1.5 py-0.5 rounded-full t-text-dim" style={{ background: "var(--bg-muted)" }}>{r === "stop_loss" ? "손절" : r === "take_profit" ? "익절" : r === "time_exit" ? "시간매도" : r === "stepped_trailing" ? "Stepped" : r === "trailing_stop" ? "급락손절" : r === "eod_close" ? "장마감" : r === "manual_sell" ? "수동매도" : r === "false_stop" ? "오류매도" : r === "parent_sold" ? "실전매도" : r === "gapup_sim" ? "장마감" : r}</span>; })()}
                                             </div>
                                             <span className={`tabular-nums font-bold shrink-0 ${(item.pnl_pct ?? 0) >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                              {item._noPrice ? "시세 없음" : `${(item.pnl_pct ?? 0) >= 0 ? "+" : ""}${(item.pnl_pct ?? 0).toFixed(2)}%`}
+                                              {item._noPrice ? (Object.keys(prices).length === 0 ? <span className="inline-block w-12 h-3 rounded animate-pulse" style={{ background: "var(--bg-muted)" }} /> : "시세 없음") : `${(item.pnl_pct ?? 0) >= 0 ? "+" : ""}${(item.pnl_pct ?? 0).toFixed(2)}%`}
                                             </span>
                                           </div>
                                           <div className="flex items-center gap-1 mt-1 text-[9px] t-text-sub">
