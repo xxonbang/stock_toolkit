@@ -1594,7 +1594,7 @@ async def run_tv_scan_and_buy() -> int:
                         upper_wick = (prev_h - max(prev_c, prev_o)) / prev_o * 100
                         prev_body = (prev_c - prev_o) / prev_o * 100
                         if upper_wick > 3:
-                            c["_bonus"] *= 2.0
+                            c["_bonus"] *= 3.0
                         if prev_body < 0:
                             c["_bonus"] *= 1.2
                     # 연속 상승일수
