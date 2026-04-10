@@ -1512,6 +1512,7 @@ async def run_tv_scan_and_buy() -> int:
                     "change_rate": float(out.get("prdy_ctrt", "0") or "0"),
                     "acml_vol": vol,
                     "acml_tr_pbmn": cur_price * vol,
+                    "hts_avls": int(out.get("hts_avls", "0") or "0"),
                 })
             await asyncio.sleep(0.5)
         logger.info(f"fallback 조회: {len(vr_items)}종목")
