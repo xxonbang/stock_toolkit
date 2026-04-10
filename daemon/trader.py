@@ -2802,6 +2802,15 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
             async with session.post(url, json=body, headers=headers) as resp:
                 if resp.status in (200, 201):
                     logger.info(f"Stepped 시뮬 생성: {name}({code}) {price:,}원 score={item.get('_score',0)}")
+                    # 동일 종목에 fixed + time_exit 시뮬도 생성
+                    trade_id = vt["id"]
+                    for sim_type in ["fixed", "time_exit"]:
+                        if sim_type == "time_exit" and datetime.now(_KST).hour >= 11:
+                            continue
+                        try:
+                            await _create_simulation(trade_id, sim_type, price, user_id)
+                        except Exception as se:
+                            logger.warning(f"{sim_type} 시뮬 생성 오류: {name} {se}")
                 else:
                     # 시뮬 생성 실패 → orphan sim_only 삭제
                     logger.warning(f"Stepped 시뮬 INSERT 실패 → sim_only 삭제: {name}({code})")
