@@ -1493,35 +1493,42 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate,
         </div>
       </div>
       {/* 2단계: 현재가 + 당일등락률 + 손익금 (active만) */}
-      {type === "active" && currentPrice == null && pricesLoading && (
-        <div className="flex gap-3 mb-1.5">
-          <div className="h-5 w-20 rounded animate-pulse" style={{ background: "var(--bg-muted)" }} />
-          <div className="h-5 w-24 rounded animate-pulse ml-auto" style={{ background: "var(--bg-muted)" }} />
-        </div>
-      )}
-      {type === "active" && currentPrice != null && (
-        <div className="flex justify-between mb-1.5">
-          <div>
-            <div className="text-[15px] font-bold t-text tabular-nums">{formatKRW(currentPrice)}</div>
-            {todayChangeRate != null && todayChangeRate !== 0 && (
-              <div className="text-[11px] font-medium tabular-nums t-text-sub">
-                당일 <span style={{ color: todayChangeRate >= 0 ? "#f97316" : "#8b5cf6" }}>{todayChangeRate >= 0 ? "+" : ""}{todayChangeRate.toFixed(2)}%</span>
-              </div>
-            )}
-          </div>
-          {livePnlAmount !== null && (
-            <div className="text-right" style={{ color: livePnlAmount >= 0 ? "var(--up)" : "var(--down)" }}>
-              <div className="text-[14px] font-bold tabular-nums">
-                {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
-              </div>
-              {livePnl !== null && (
-                <div className="text-[11px] font-semibold tabular-nums">
-                  {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
+      {type === "active" && (
+        currentPrice != null ? (
+          <div className="flex justify-between mb-1.5">
+            <div>
+              <div className="text-[15px] font-bold t-text tabular-nums">{formatKRW(currentPrice)}</div>
+              {todayChangeRate != null && todayChangeRate !== 0 && (
+                <div className="text-[11px] font-medium tabular-nums t-text-sub">
+                  당일 <span style={{ color: todayChangeRate >= 0 ? "#f97316" : "#8b5cf6" }}>{todayChangeRate >= 0 ? "+" : ""}{todayChangeRate.toFixed(2)}%</span>
                 </div>
               )}
             </div>
-          )}
-        </div>
+            {livePnlAmount !== null && (
+              <div className="text-right" style={{ color: livePnlAmount >= 0 ? "var(--up)" : "var(--down)" }}>
+                <div className="text-[14px] font-bold tabular-nums">
+                  {livePnlAmount >= 0 ? "+" : ""}{Math.round(livePnlAmount).toLocaleString("ko-KR")}원
+                </div>
+                {livePnl !== null && (
+                  <div className="text-[11px] font-semibold tabular-nums">
+                    {livePnl >= 0 ? "+" : ""}{livePnl.toFixed(2)}%
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : pricesLoading ? (
+          <div className="flex justify-between mb-1.5">
+            <div>
+              <div className="h-5 w-24 rounded animate-pulse mb-1" style={{ background: "var(--bg-muted)" }} />
+              <div className="h-3 w-16 rounded animate-pulse" style={{ background: "var(--bg-muted)" }} />
+            </div>
+            <div className="text-right">
+              <div className="h-5 w-28 rounded animate-pulse mb-1 ml-auto" style={{ background: "var(--bg-muted)" }} />
+              <div className="h-3 w-14 rounded animate-pulse ml-auto" style={{ background: "var(--bg-muted)" }} />
+            </div>
+          </div>
+        ) : null
       )}
       {/* 3단계: 매수 상세 — compact dimmed */}
       <div className="flex items-center justify-between text-[11px] t-text-dim">
