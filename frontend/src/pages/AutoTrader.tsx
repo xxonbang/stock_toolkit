@@ -1118,7 +1118,8 @@ export default function AutoTrader() {
                             ? allGapupSimTrades.map((t: any) => {
                                 const isSim = t.status === "sim_only";
                                 const sub = isSim ? `시뮬 ${(t.order_price || 0).toLocaleString()}원` : t.code;
-                                return { ...t, _date: toKstDate(t.created_at) || "—", _displayName: t.name, _displaySub: sub, _isActive: false };
+                                const isOpen = isSim && !t.sell_price;
+                                return { ...t, _date: toKstDate(t.created_at) || "—", _displayName: t.name, _displaySub: sub, _isActive: isOpen };
                               })
                             : strategyDetail === "stepped_sim"
                             ? allRealTrades.map((t: any) => {
