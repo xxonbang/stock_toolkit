@@ -1416,9 +1416,9 @@ async def _fetch_asking_price(token: str, code: str) -> dict | None:
 
 
 async def _get_yesterday_trade_codes() -> set[str]:
-    """직전 거래일 매매 종목 코드 조회 (1일 쿨다운용). 주말/공휴일 대비 3일 lookback."""
+    """직전 거래일 매매 종목 코드 조회 (5일 쿨다운). 주말/공휴일 대비 7일 lookback."""
     try:
-        lookback_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(days=3, hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
+        lookback_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(days=7, hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
         today_utc = (datetime.now(_KST).replace(hour=0, minute=0, second=0) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S")
         url = f"{SUPABASE_URL}/rest/v1/auto_trades?and=(created_at.gte.{lookback_utc},created_at.lt.{today_utc})&status=neq.sim_only&select=code"
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
@@ -1450,7 +1450,7 @@ async def _has_tv_traded_today() -> bool:
 
 async def run_tv_scan_and_buy() -> int:
     """거래대금 기반 종목 선정 — volume-rank API → 거래대금 순 → TOP2 매수.
-    필터: 가격대 1천~20만, 상승 출발, 갭<10%, 전일 매매 종목 1일 쿨다운.
+    필터: 가격대 1천~20만, 상승 출발, 갭<5%, 5일 쿨다운.
     Returns: 매수 종목 수."""
     # #2 재시작 중복매수 방어: 당일 이미 매수 이력 있으면 스킵
     if await _has_tv_traded_today():
@@ -1546,12 +1546,12 @@ async def run_tv_scan_and_buy() -> int:
         # 상승 출발
         if change_rate <= 0:
             continue
-        # 갭 < 10% (open/prev 없으면 등락률로 대체 — #5 장중 등락률은 갭보다 클 수 있음)
+        # 갭 < 5% (open/prev 없으면 등락률로 대체 — #5 장중 등락률은 갭보다 클 수 있음)
         if open_price > 0 and prev_close > 0:
             gap_pct = (open_price - prev_close) / prev_close * 100
         else:
             gap_pct = change_rate
-        if gap_pct >= 10:
+        if gap_pct >= 5:
             continue
         # 1일 쿨다운
         if code in yesterday_codes:
@@ -1631,7 +1631,7 @@ async def run_tv_scan_and_buy() -> int:
     logger.info(f"최종 TOP2: {', '.join(top_parts)}")
 
     if not targets:
-        await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<10%+가격1천~20만+쿨다운)")
+        await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<5%+가격1천~20만+쿨다운5일)")
         return 0
 
     # 보유/주문 중 필터
