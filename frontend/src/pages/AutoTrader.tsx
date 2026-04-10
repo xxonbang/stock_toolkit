@@ -1039,24 +1039,22 @@ export default function AutoTrader() {
                 <>
                   {/* Row 1: 거래대금 모멘텀 (실제) */}
                   <button onClick={() => setStrategyDetail("tv_momentum")}
-                    className="w-full p-3 rounded-xl text-center cursor-pointer transition relative group flex items-center justify-between" style={{ background: "var(--bg)" }}>
-                    <div>
-                      <div className="text-[9px] t-text-dim font-medium text-left">실제 매매</div>
-                      <div className="text-[11px] t-text font-semibold text-left">거래대금 모멘텀</div>
+                    className="w-full px-4 py-3 rounded-xl cursor-pointer transition relative group flex items-center" style={{ background: "var(--bg)" }}>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[9px] t-text-dim font-medium">실제 매매</div>
+                      <div className="text-[11px] t-text font-semibold">거래대금 모멘텀</div>
                     </div>
-                    <div className="text-right">
-                      {allTvTrades.length > 0 ? (
-                        <>
-                          <div className={`text-lg font-bold tabular-nums ${tvPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                            {tvPnl >= 0 ? "+" : ""}{tvPnl.toFixed(1)}%
-                          </div>
-                          <div className="text-[9px] t-text-dim">{allTvTrades.length}건</div>
-                        </>
-                      ) : (
-                        <div className="text-[9px] t-text-dim">축적 중</div>
-                      )}
-                    </div>
-                    <ChevronRight size={10} className="t-text-dim opacity-30 group-hover:opacity-100 ml-1 shrink-0" />
+                    {allTvTrades.length > 0 ? (
+                      <div className="flex items-baseline gap-1.5 shrink-0">
+                        <span className={`text-xl font-bold tabular-nums ${tvPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                          {tvPnl >= 0 ? "+" : ""}{tvPnl.toFixed(1)}%
+                        </span>
+                        <span className="text-[9px] t-text-dim">{allTvTrades.length}건</span>
+                      </div>
+                    ) : (
+                      <span className="text-[9px] t-text-dim shrink-0">축적 중</span>
+                    )}
+                    <ChevronRight size={10} className="t-text-dim opacity-30 group-hover:opacity-100 ml-2 shrink-0" />
                   </button>
                   {/* Row 2: 시뮬 5개 균등 배분 */}
                   <div className="grid grid-cols-5 gap-1 mt-1.5">
