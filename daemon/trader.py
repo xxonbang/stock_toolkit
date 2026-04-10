@@ -1611,8 +1611,14 @@ async def run_tv_scan_and_buy() -> int:
         await asyncio.sleep(0.15)
 
     # 거래대금 × 가점 스코어 정렬
+    bonused = [c for c in candidates if c.get("_bonus", 1.0) != 1.0]
+    if bonused:
+        parts = [c["name"] + "×" + f"{c['_bonus']:.1f}" for c in bonused]
+        logger.info(f"가점 적용: {', '.join(parts)}")
     candidates.sort(key=lambda x: -(x["trading_value"] * x.get("_bonus", 1.0)))
     targets = candidates[:2]
+    top_parts = [t["name"] + "(" + t["code"] + ") ×" + f"{t.get('_bonus', 1.0):.1f}" for t in targets]
+    logger.info(f"최종 TOP2: {', '.join(top_parts)}")
 
     if not targets:
         await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<15%+가격1천~20만+쿨다운)")
