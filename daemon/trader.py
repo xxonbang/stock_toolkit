@@ -3167,7 +3167,7 @@ async def _check_api_leader_simulations():
 
 
 async def _check_stepped():
-    """stepped 시뮬레이션 독립 체크 — Stepped 기본형 조건으로 매도"""
+    """5팩터 시뮬레이션 독립 체크 — stepped/fixed/time_exit 모두 포함"""
     from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return
@@ -3175,7 +3175,8 @@ async def _check_stepped():
     try:
         session = await get_session()
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=eq.stepped&select=id,entry_price,peak_price,trade_id"
+        # stepped + fixed + time_exit 모두 조회 (5팩터 종목이 실전 미보유일 때도 체크)
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=in.(stepped,fixed,time_exit)&select=id,strategy_type,entry_price,peak_price,trade_id"
         async with session.get(url, headers=headers) as resp:
             if resp.status != 200:
                 return
@@ -3184,25 +3185,27 @@ async def _check_stepped():
             return
 
         config = await _get_trade_config()
+        tp = config.get("take_profit_pct", TRADE_TAKE_PROFIT_PCT)
         sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
         ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
         preset = config.get("stepped_preset", "default")
         patch_headers = {**headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
 
-        # trade_id → code 매핑 (auto_trades 조인)
+        # trade_id → trade 매핑 (auto_trades 조인)
         trade_ids = list(set(s["trade_id"] for s in sims))
         tid_filter = ",".join(trade_ids)
-        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code,created_at"
         async with session.get(trades_url, headers=headers) as tresp:
             if tresp.status != 200:
                 return
             trades_data = await tresp.json()
-        tid_to_code = {t["id"]: t["code"] for t in (trades_data or [])}
+        tid_map = {t["id"]: t for t in (trades_data or [])}
 
         for sim in sims:
-            code = tid_to_code.get(sim["trade_id"], "")
-            if not code:
+            trade = tid_map.get(sim["trade_id"])
+            if not trade:
                 continue
+            code = trade["code"]
             price = await _get_current_price(code)
             if price <= 0:
                 continue
@@ -3217,16 +3220,32 @@ async def _check_stepped():
             else:
                 peak = prev_peak
             pnl = calc_pnl_pct(entry, price)
+            strategy = sim["strategy_type"]
             exit_reason = None
 
-            # Stepped 기본형 조건 적용
-            if pnl <= sl:
-                exit_reason = "stop_loss"
-            else:
-                peak_pnl = calc_pnl_pct(entry, peak)
-                ss = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=preset)
-                if ss > -999.0 and pnl <= ss:
-                    exit_reason = "stepped_trailing"
+            if strategy == "stepped":
+                if pnl <= sl:
+                    exit_reason = "stop_loss"
+                else:
+                    peak_pnl = calc_pnl_pct(entry, peak)
+                    ss = calc_stepped_stop_pct(peak_pnl, ts_pct, preset=preset)
+                    if ss > -999.0 and pnl <= ss:
+                        exit_reason = "stepped_trailing"
+            elif strategy == "fixed":
+                hold_days = _calc_hold_days(trade) if trade else 0
+                effective_tp = get_tiered_tp(tp, hold_days)
+                result = should_sell(entry, price, take_profit=effective_tp, stop_loss=sl)
+                if result:
+                    exit_reason = result
+                elif pnl > 0 and peak > 0:
+                    drop = (price - peak) / peak * 100
+                    if drop <= ts_pct:
+                        exit_reason = "trailing_stop"
+            elif strategy == "time_exit":
+                if pnl <= sl:
+                    exit_reason = "stop_loss"
+                elif now_kst.hour >= 11:
+                    exit_reason = "time_exit"
 
             update_body: dict = {"peak_price": peak}
             if exit_reason:
@@ -3235,7 +3254,7 @@ async def _check_stepped():
                     "exit_reason": exit_reason, "pnl_pct": round(pnl, 2),
                     "exited_at": now_kst.isoformat(),
                 })
-                logger.info(f"5팩터 시뮬 close: {code} {exit_reason} pnl={pnl:+.1f}%")
+                logger.info(f"5팩터 시뮬 close: {code} {strategy} {exit_reason} pnl={pnl:+.1f}%")
             patch_url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?id=eq.{sim['id']}"
             async with session.patch(patch_url, json=update_body, headers=patch_headers) as resp:
                 pass
