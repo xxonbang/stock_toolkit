@@ -1027,7 +1027,7 @@ export default function AutoTrader() {
                 const cp = prices[t.code]?.price || 0;
                 const bp = t.order_price || 0;
                 const pnl = t.pnl_pct ?? (cp > 0 && bp > 0 ? Math.round((cp - bp) / bp * 10000) / 100 : null);
-                return { ...t, pnl_pct: pnl, _isActive: pnl != null && t.sell_price == null, _noPrice: cp <= 0 && t.sell_price == null };
+                return { ...t, pnl_pct: pnl, _isActive: t.sell_price == null, _noPrice: cp <= 0 && t.sell_price == null };
               });
               const allGapupSimTrades = [...allGapupTrades, ...gapupSimWithPrices];
               const gapupSimPnl = allGapupSimTrades.length > 0 ? allGapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupSimTrades.length : 0;
@@ -1118,7 +1118,7 @@ export default function AutoTrader() {
                             ? allGapupSimTrades.map((t: any) => {
                                 const isSim = t.status === "sim_only";
                                 const sub = isSim ? `시뮬 ${(t.order_price || 0).toLocaleString()}원` : t.code;
-                                const isOpen = isSim && !t.sell_price;
+                                const isOpen = isSim && t.sell_price == null;
                                 return { ...t, _date: toKstDate(t.created_at) || "—", _displayName: t.name, _displaySub: sub, _isActive: isOpen };
                               })
                             : strategyDetail === "stepped_sim"
