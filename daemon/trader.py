@@ -1385,6 +1385,7 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
                     r["open_price"] = int(out.get("stck_oprc", "0") or "0")
                     r["prev_close"] = int(out.get("stck_sdpr", "0") or "0")
                     r["vol_rate"] = float(out.get("prdy_vrss_vol_rate", "0") or "0")
+                    r["hts_avls"] = int(out.get("hts_avls", "0") or "0")  # 시총(억원)
                 except Exception:
                     pass
             await asyncio.sleep(0.5)
@@ -1449,7 +1450,7 @@ async def _has_tv_traded_today() -> bool:
 
 async def run_tv_scan_and_buy() -> int:
     """거래대금 기반 종목 선정 — volume-rank API → 거래대금 순 → TOP2 매수.
-    필터: 가격대 1천~20만, 상승 출발, 갭<15%, 전일 매매 종목 1일 쿨다운.
+    필터: 가격대 1천~20만, 상승 출발, 갭<10%, 전일 매매 종목 1일 쿨다운.
     Returns: 매수 종목 수."""
     # #2 재시작 중복매수 방어: 당일 이미 매수 이력 있으면 스킵
     if await _has_tv_traded_today():
@@ -1544,12 +1545,12 @@ async def run_tv_scan_and_buy() -> int:
         # 상승 출발
         if change_rate <= 0:
             continue
-        # 갭 < 15% (open/prev 없으면 등락률로 대체 — #5 장중 등락률은 갭보다 클 수 있음)
+        # 갭 < 10% (open/prev 없으면 등락률로 대체 — #5 장중 등락률은 갭보다 클 수 있음)
         if open_price > 0 and prev_close > 0:
             gap_pct = (open_price - prev_close) / prev_close * 100
         else:
             gap_pct = change_rate
-        if gap_pct >= 15:
+        if gap_pct >= 10:
             continue
         # 1일 쿨다운
         if code in yesterday_codes:
@@ -1606,6 +1607,14 @@ async def run_tv_scan_and_buy() -> int:
                             break
                     if streak >= 3:
                         c["_bonus"] *= 0.7
+                    # 회전율 가점: 전일 거래대금 / 시총 비율이 낮으면 = 신규 관심 종목
+                    prev_tv_raw = int(bars[1].get("acml_vol", "0") or "0") * prev_c
+                    mcap = c.get("hts_avls", 0)  # 시총(억원)
+                    if mcap > 0 and prev_tv_raw > 0:
+                        turnover = (prev_tv_raw / 1e8) / mcap  # 전일TV(억) / 시총(억)
+                        c["_turnover"] = round(turnover, 4)
+                        if turnover < 0.05:  # 전일 회전율 5% 미만 = 어제까지 관심 없던 종목
+                            c["_bonus"] *= 1.5
         except Exception as e:
             logger.warning(f"가점 스코어링 오류 ({c['name']}): {e}")
         await asyncio.sleep(0.15)
@@ -1621,7 +1630,7 @@ async def run_tv_scan_and_buy() -> int:
     logger.info(f"최종 TOP2: {', '.join(top_parts)}")
 
     if not targets:
-        await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<15%+가격1천~20만+쿨다운)")
+        await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<10%+가격1천~20만+쿨다운)")
         return 0
 
     # 보유/주문 중 필터
@@ -1661,7 +1670,8 @@ async def run_tv_scan_and_buy() -> int:
         rpt.append(f"  📥 <b>{t['name']}</b> ({t['code']})")
         bonus = t.get('_bonus', 1.0)
         bonus_tag = f" 가점×{bonus:.1f}" if bonus != 1.0 else ""
-        rpt.append(f"     등락{t['change_rate']:+.1f}% | 갭{t['gap_pct']:+.1f}% | 거래량{t['vol_rate']:.0f}%{bonus_tag}")
+        turnover_tag = f" 회전{t.get('_turnover', 0)*100:.1f}%" if t.get('_turnover') else ""
+        rpt.append(f"     등락{t['change_rate']:+.1f}% | 갭{t['gap_pct']:+.1f}% | 거래량{t['vol_rate']:.0f}%{turnover_tag}{bonus_tag}")
         rpt.append(f"     {t['price']:,}원 × {qty}주 = {invest:,}원")
     await send_telegram("\n".join(rpt))
 
