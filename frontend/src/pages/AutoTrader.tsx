@@ -1345,7 +1345,7 @@ export default function AutoTrader() {
             {active.map((t) => (
               <TradeRow key={t.id} trade={t} type="active"
                 onSell={() => handleSell(t)} selling={selling.has(t.id)}
-                currentPrice={prices[t.code]?.price} todayChangeRate={prices[t.code]?.changeRate} />
+                currentPrice={prices[t.code]?.price} todayChangeRate={prices[t.code]?.changeRate} pricesLoading={pricesLoading} />
             ))}
           </div>
         </div>
@@ -1421,13 +1421,14 @@ function Section({ title, count, children }: { title: string; count: number; chi
   );
 }
 
-function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate }: {
+function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate, pricesLoading }: {
   trade: Trade;
   type: "active" | "pending" | "closed" | "sell_requested";
   onSell?: () => void;
   selling?: boolean;
   currentPrice?: number;
   todayChangeRate?: number;
+  pricesLoading?: boolean;
 }) {
   const buyPrice = trade.filled_price ?? trade.order_price;
   const amount = buyPrice * trade.quantity;
@@ -1492,6 +1493,12 @@ function TradeRow({ trade, type, onSell, selling, currentPrice, todayChangeRate 
         </div>
       </div>
       {/* 2단계: 현재가 + 당일등락률 + 손익금 (active만) */}
+      {type === "active" && currentPrice == null && pricesLoading && (
+        <div className="flex gap-3 mb-1.5">
+          <div className="h-5 w-20 rounded animate-pulse" style={{ background: "var(--bg-muted)" }} />
+          <div className="h-5 w-24 rounded animate-pulse ml-auto" style={{ background: "var(--bg-muted)" }} />
+        </div>
+      )}
       {type === "active" && currentPrice != null && (
         <div className="flex justify-between mb-1.5">
           <div>
