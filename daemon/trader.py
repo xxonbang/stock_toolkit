@@ -1322,30 +1322,30 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
             "FID_VOL_CNT": "0", "FID_INPUT_DATE_1": "",
         }
         items = None
-        for _vr_attempt in range(1, 4):
+        for _vr_attempt in range(1, 6):
             try:
                 import aiohttp as _aiohttp
                 async with session.get(f"{REAL_URL}/uapi/domestic-stock/v1/quotations/volume-rank", params=params, headers=real_headers, timeout=_aiohttp.ClientTimeout(total=10)) as resp:
                     if resp.status != 200:
-                        logger.warning(f"volume-rank HTTP {resp.status} (시도 {_vr_attempt}/3)")
-                        await asyncio.sleep(_vr_attempt * 3)
+                        logger.warning(f"volume-rank HTTP {resp.status} (시도 {_vr_attempt}/5)")
+                        await asyncio.sleep(_vr_attempt * 5)
                         continue
                     text = await resp.text()
                     if not text or not text.strip().startswith("{"):
-                        logger.warning(f"volume-rank 빈/비정상 응답 (시도 {_vr_attempt}/3): {text[:100]}")
-                        await asyncio.sleep(_vr_attempt * 3)
+                        logger.warning(f"volume-rank 빈/비정상 응답 (시도 {_vr_attempt}/5): {text[:100]}")
+                        await asyncio.sleep(_vr_attempt * 5)
                         continue
                     import json as _json2
                     data = _json2.loads(text)
                     if data.get("rt_cd") != "0" or not data.get("output"):
-                        logger.warning(f"volume-rank rt_cd={data.get('rt_cd')} msg={data.get('msg1','')} (시도 {_vr_attempt}/3)")
-                        await asyncio.sleep(_vr_attempt * 3)
+                        logger.warning(f"volume-rank rt_cd={data.get('rt_cd')} msg={data.get('msg1','')} (시도 {_vr_attempt}/5)")
+                        await asyncio.sleep(_vr_attempt * 5)
                         continue
                     items = data["output"]
                     break
             except Exception as ve:
-                logger.warning(f"volume-rank 요청 오류 (시도 {_vr_attempt}/3): {ve}")
-                await asyncio.sleep(_vr_attempt * 3)
+                logger.warning(f"volume-rank 요청 오류 (시도 {_vr_attempt}/5): {ve}")
+                await asyncio.sleep(_vr_attempt * 5)
         if not items:
             return []
 
@@ -1465,12 +1465,58 @@ async def run_tv_scan_and_buy() -> int:
 
     # volume-rank API 조회 (실투자 도메인, 상위 30종목)
     vr_items = await _fetch_volume_rank(token)
-    if not vr_items:
-        await send_telegram("📭 거래대금 스캔: volume-rank API 조회 실패")
-        return 0
-    # #3 acml_tr_pbmn 필드 검증 로깅
-    sample = vr_items[0] if vr_items else {}
-    logger.info(f"volume-rank: {len(vr_items)}종목 (acml_tr_pbmn={sample.get('acml_tr_pbmn', 'N/A')}, acml_vol={sample.get('acml_vol', 'N/A')})")
+    if vr_items:
+        sample = vr_items[0]
+        logger.info(f"volume-rank: {len(vr_items)}종목 (acml_tr_pbmn={sample.get('acml_tr_pbmn', 'N/A')})")
+    else:
+        # fallback: stock-master 상위 200종목 개별 inquire-price 조회
+        logger.warning("volume-rank 실패 → fallback 개별 조회")
+        import json as _json_fb
+        from pathlib import Path as _Path_fb
+        master_path = _Path_fb(__file__).parent.parent / "results" / "stock-master.json"
+        try:
+            master = _json_fb.loads(master_path.read_text(encoding="utf-8"))
+            scan_targets = master.get("stocks", [])[:200]
+        except Exception:
+            await send_telegram("📭 거래대금 스캔: volume-rank + fallback 모두 실패")
+            return 0
+
+        async def _fb_detail(code: str) -> dict | None:
+            try:
+                session = await get_session()
+                url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
+                params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+                async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
+                    data = await resp.json()
+                    if data.get("rt_cd") != "0": return None
+                    return data.get("output", {})
+            except Exception:
+                return None
+
+        vr_items = []
+        for batch_start in range(0, len(scan_targets), 5):
+            batch = scan_targets[batch_start:batch_start + 5]
+            results = await asyncio.gather(*[_fb_detail(s["code"]) for s in batch])
+            for stock, out in zip(batch, results):
+                if not out: continue
+                cur_price = int(out.get("stck_prpr", "0") or "0")
+                if cur_price <= 0: continue
+                vol = int(out.get("acml_vol", "0") or "0")
+                vr_items.append({
+                    "code": stock["code"], "name": stock.get("name", stock["code"]),
+                    "price": cur_price,
+                    "open_price": int(out.get("stck_oprc", "0") or "0"),
+                    "prev_close": int(out.get("stck_sdpr", "0") or "0"),
+                    "vol_rate": float(out.get("prdy_vrss_vol_rate", "0") or "0"),
+                    "change_rate": float(out.get("prdy_ctrt", "0") or "0"),
+                    "acml_vol": vol,
+                    "acml_tr_pbmn": cur_price * vol,
+                })
+            await asyncio.sleep(0.5)
+        logger.info(f"fallback 조회: {len(vr_items)}종목")
+        if not vr_items:
+            await send_telegram("📭 거래대금 스캔: volume-rank + fallback 모두 실패")
+            return 0
 
     # 전일 매매 종목 (1일 쿨다운)
     yesterday_codes = await _get_yesterday_trade_codes()
