@@ -1022,8 +1022,14 @@ export default function AutoTrader() {
               const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...gapupActive];
               const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
 
-              // 갭업 모멘텀 시뮬: 과거 실전 이력(gapupCutoff~tvCutoff) + 현재 sim_only
-              const allGapupSimTrades = [...allGapupTrades, ...gapupSimOnly];
+              // 갭업 모멘텀 시뮬: 과거 실전 이력 + sim_only (장중 실시간 P&L 계산)
+              const gapupSimWithPrices = gapupSimOnly.map((t: any) => {
+                const cp = prices[t.code]?.price || 0;
+                const bp = t.order_price || 0;
+                const pnl = t.pnl_pct ?? (cp > 0 && bp > 0 ? Math.round((cp - bp) / bp * 10000) / 100 : null);
+                return { ...t, pnl_pct: pnl, _isActive: pnl != null && t.sell_price == null, _noPrice: cp <= 0 && t.sell_price == null };
+              });
+              const allGapupSimTrades = [...allGapupTrades, ...gapupSimWithPrices];
               const gapupSimPnl = allGapupSimTrades.length > 0 ? allGapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupSimTrades.length : 0;
 
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
