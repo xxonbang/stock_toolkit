@@ -983,9 +983,10 @@ export default function AutoTrader() {
                 return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _name: mt?.name, _noPrice: cp <= 0 };
               });
               // mt(매칭 trade)의 created_at을 날짜 기준으로 사용 (모달과 일치)
+              // mt 없으면 시뮬 created_at, 그것도 없으면 "보유" — 모달 line 1184와 동일 fallback
               const simDateByMt = (s: any): string => {
                 const mt = trades.find(t => t.id === s.trade_id);
-                return toKstDate(mt?.created_at) || "";
+                return toKstDate(mt?.created_at) || toKstDate(s.created_at) || "보유";
               };
               const allTvTimeSims = [...tvTimeClosedSims, ...tvTimeOpenSims];
               const tvTimePnl = calcRolloverPnl(allTvTimeSims, false, simDateByMt);
