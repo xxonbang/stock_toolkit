@@ -1215,9 +1215,13 @@ export default function AutoTrader() {
                               };
                             })
                             .filter(s => s.count > 0);
-                          // 종합 수익률 = 보유+청산 모두 포함 (보유는 unrealized)
+                          // 종합 수익률 (보유+청산 모두 포함, 보유는 unrealized)
+                          // 회전 전략: 누적 손익 ÷ 일평균 자본 × 100 (자본 회전 가정의 누적 수익률)
+                          // 누적 전략: 가중평균 또는 단순평균 (포지션 누적)
+                          const totalProfitForPnlPre = dailyStats.reduce((s, d) => s + d.profit, 0);
+                          const avgDailyInvestPre = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
                           const filteredPnl = isRollover
-                            ? (dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.pnl, 0) / dailyStats.length : 0)
+                            ? (avgDailyInvestPre > 0 ? (totalProfitForPnlPre / avgDailyInvestPre) * 100 : 0)
                             : (isRealTrades
                                 ? calcWeighted(includedItems)
                                 : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0));
@@ -1254,6 +1258,9 @@ export default function AutoTrader() {
                               <div className="flex flex-col gap-1.5 min-w-0 flex-1">
                                 {/* 라인 1: 평균 + 보조 통계 한 줄 */}
                                 <div className="flex items-baseline gap-2 flex-wrap">
+                                  <span className="text-[10px] t-text-dim">
+                                    {isRollover ? "누적" : "평균"}
+                                  </span>
                                   <span className={`text-lg font-bold tabular-nums leading-none ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
                                     {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
                                   </span>
