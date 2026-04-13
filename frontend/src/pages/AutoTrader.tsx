@@ -1194,34 +1194,32 @@ export default function AutoTrader() {
                             const totalProfit = arr.reduce((s, t) => s + getProfitKrw(t), 0);
                             return totalBuy > 0 ? (totalProfit / totalBuy) * 100 : 0;
                           };
-                          // 일별 가중평균 수익률 + 일별 매수금액 계산
+                          // 일별 가중평균 수익률 + 일별 매수금액 계산 (★ 청산만 사용 — 일관성)
                           const dailyStats = dates
                             .filter(d => !excludedDates.has(d))
                             .map(d => {
                               const grp = grouped[d];
                               const closed = grp.filter((t: any) => !t._isActive);
-                              const target = closed.length > 0 ? closed : grp;
                               return {
                                 date: d,
-                                pnl: isRealTrades ? calcWeighted(target) : (target.length > 0 ? target.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / target.length : 0),
-                                invest: target.reduce((s: number, t: any) => s + getInvestAmt(t), 0),
-                                profit: target.reduce((s: number, t: any) => s + getProfitKrw(t), 0),
+                                pnl: closed.length === 0 ? 0 : (isRealTrades
+                                  ? calcWeighted(closed)
+                                  : closed.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closed.length),
+                                invest: closed.reduce((s: number, t: any) => s + getInvestAmt(t), 0),
+                                profit: closed.reduce((s: number, t: any) => s + getProfitKrw(t), 0),
                                 count: closed.length,
+                                hasActive: grp.some((t: any) => t._isActive),
                               };
                             })
                             .filter(s => s.count > 0);
-                          // 회전 전략: 종합 수익률 = 일별 수익률의 평균 (자본 회전 가정)
-                          // 누적 전략: 종합 수익률 = 가중평균 (포지션 누적 가정)
+                          // 종합 수익률 = 청산만 기준 (일관성)
+                          // 회전 전략: 일별 수익률 평균 / 누적 전략: 청산 종목 평균
                           const filteredPnl = isRollover
-                            ? (dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.pnl, 0) / dailyStats.length : 0)
-                            : (isRealTrades
-                                ? calcWeighted(closedOnly.length > 0 ? closedOnly : includedItems)
-                                : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0));
-                          const closedPnl = isRollover
                             ? (dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.pnl, 0) / dailyStats.length : 0)
                             : (isRealTrades
                                 ? calcWeighted(closedOnly)
                                 : (closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0));
+                          const closedPnl = filteredPnl;  // 동일
                           // 손익(원)은 회전/누적 무관 — 일별 손익의 합산
                           const totalProfitKrw = dailyStats.reduce((s, d) => s + d.profit, 0);
                           // 투자금액 표시: 회전 = 일평균 매수금액
@@ -1289,17 +1287,19 @@ export default function AutoTrader() {
                             </div>
                             {activeOnly.length > 0 && (
                               <div className="text-[9px] t-text-dim mb-2 px-2.5">
-                                확정 수익률 (보유 제외): <span className={`font-semibold ${closedPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>{closedPnl >= 0 ? "+" : ""}{closedPnl.toFixed(2)}%</span> ({closedOnly.length}건)
+                                보유 {activeOnly.length}건은 청산 후 평균에 반영됩니다.
                               </div>
                             )}
                             <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
-                                const dayPnl = isRealTrades
-                                  ? calcWeighted(group)
-                                  : (group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0);
-                                const dayProfit = group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const dayClosed = group.filter((t: any) => !t._isActive);
+                                const dayActive = group.filter((t: any) => t._isActive);
+                                // 청산만 기준 (일관성)
+                                const dayPnl = dayClosed.length === 0 ? 0 : (isRealTrades
+                                  ? calcWeighted(dayClosed)
+                                  : dayClosed.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / dayClosed.length);
+                                const dayProfit = dayClosed.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const isToday = date === todayStr || date === "보유";
                                 const isChecked = !excludedDates.has(date);
                                 return (
@@ -1320,13 +1320,19 @@ export default function AutoTrader() {
                                         {group.some((it: any) => it._isActive) && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-400">보유 {group.filter((it: any) => it._isActive).length}</span>}
                                       </div>
                                       <div className="flex flex-col items-end gap-0.5">
-                                        <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                          {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
-                                        </span>
-                                        {dayClosed.length > 0 && Math.abs(dayProfit) > 0 && (
-                                          <span className={`text-[9px] tabular-nums ${dayProfit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
-                                            {dayProfit >= 0 ? "+" : ""}{dayProfit.toLocaleString()}원
-                                          </span>
+                                        {dayClosed.length === 0 ? (
+                                          <span className="text-[10px] t-text-dim">보유중</span>
+                                        ) : (
+                                          <>
+                                            <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                              {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
+                                            </span>
+                                            {Math.abs(dayProfit) > 0 && (
+                                              <span className={`text-[9px] tabular-nums ${dayProfit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
+                                                {dayProfit >= 0 ? "+" : ""}{dayProfit.toLocaleString()}원
+                                              </span>
+                                            )}
+                                          </>
                                         )}
                                       </div>
                                     </summary>
