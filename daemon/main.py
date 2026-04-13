@@ -308,10 +308,15 @@ async def schedule_ma200_update():
                 from daemon.update_ma200 import update_ma200, update_stock_master, cleanup_old_sim_only, backup_intraday_history
                 await update_ma200()
                 await backup_intraday_history()
-                # 월요일에만 stock-master 갱신 + 30일+ 데이터 정리
+                # 월요일에만 stock-master 갱신 + 30일+ 데이터 정리 + daily_ohlcv 증분 갱신
                 if now.weekday() == 0:
                     await update_stock_master()
                     await cleanup_old_sim_only()
+                    try:
+                        from daemon.update_daily_ohlcv import update_daily_ohlcv
+                        await update_daily_ohlcv()
+                    except Exception as e:
+                        logger.warning(f"daily_ohlcv 증분 갱신 오류: {e}")
                 # 캐시 리로드 (메모리 캐시 무효화)
                 from daemon.trader import _load_ma200_cache, _load_ma20_cache
                 if hasattr(_load_ma200_cache, "_ma200_cache"):
