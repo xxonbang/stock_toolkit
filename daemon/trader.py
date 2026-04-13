@@ -25,6 +25,9 @@ BUY_SIGNALS = {"적극매수", "매수"}
 # 종목별 고점 추적 (trailing stop용)
 _peak_prices: dict[str, int] = {}
 
+# 마지막 거래대금 스캔 후보 (cttr 로깅용)
+_last_tv_candidates: list[dict] = []
+
 _access_token = ""
 _token_issued_at: float = 0
 _token_last_refresh: float = 0  # 마지막 발급 시도 시각 (쿨다운용)
@@ -1716,6 +1719,14 @@ async def run_tv_scan_and_buy() -> int:
     targets = candidates[:2]
     top_parts = [t["name"] + "(" + t["code"] + ") ×" + f"{t.get('_bonus', 1.0):.1f}" for t in targets]
     logger.info(f"최종 TOP2: {', '.join(top_parts)}")
+
+    # cttr 로깅용: 후보 TOP10 + 선정된 TOP2 표시
+    global _last_tv_candidates
+    selected_codes = {t["code"] for t in targets}
+    _last_tv_candidates = [
+        {"code": c["code"], "name": c["name"], "selected": c["code"] in selected_codes}
+        for c in candidates[:10]
+    ]
 
     if not targets:
         await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<5%+가격1천~20만+쿨다운5일)")

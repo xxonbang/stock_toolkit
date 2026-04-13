@@ -431,7 +431,46 @@ async def schedule_eod_close():
                 await save_orderbook_averages()
             except Exception as e:
                 logger.error(f"호가 평균 저장 오류: {e}")
+            # cttr_log final_pnl 업데이트
+            try:
+                from daemon.cttr_logger import update_final_pnl
+                await update_final_pnl()
+            except Exception as e:
+                logger.error(f"cttr_log final_pnl 오류: {e}")
             _eod_done_date = today
+
+
+async def schedule_cttr_log():
+    """09:05/09:10/09:15에 거래대금 후보 종목 호가잔량 압력 스냅샷 기록.
+    매수 로직과 독립 — 검증용 데이터 누적."""
+    _logged = {"0905": "", "0910": "", "0915": ""}
+    while not _shutdown:
+        await asyncio.sleep(15)
+        if _shutdown or not is_market_day():
+            continue
+        now = datetime.now(KST)
+        today = now.strftime("%Y-%m-%d")
+
+        from daemon.trader import _last_tv_candidates
+        if not _last_tv_candidates:
+            continue
+
+        # 09:05 (실제로는 매수 직후 09:06~09:10 사이에 첫 기록)
+        for snap_time, hh, mm_start, mm_end in [
+            ("0905", 9, 6, 10),
+            ("0910", 9, 10, 14),
+            ("0915", 9, 15, 19),
+        ]:
+            if _logged[snap_time] == today:
+                continue
+            if now.hour == hh and mm_start <= now.minute <= mm_end:
+                try:
+                    from daemon.cttr_logger import log_snapshot
+                    await log_snapshot(_last_tv_candidates, snap_time)
+                    _logged[snap_time] = today
+                except Exception as e:
+                    logger.warning(f"cttr_log [{snap_time}] 오류: {e}")
+                break
 
 
 async def main():
@@ -538,6 +577,7 @@ async def main():
         schedule_signal_pulse_trade(),
         schedule_eod_close(),
         schedule_sell_check(),
+        schedule_cttr_log(),
         telegram_worker(),
     )
     try:
