@@ -1163,6 +1163,8 @@ export default function AutoTrader() {
                           const activeOnly = includedItems.filter(it => it._isActive);
                           // 실거래 여부: quantity가 있으면 실제 거래
                           const isRealTrades = strategyDetail === "tv_momentum";
+                          // 자본 회전 전략 (당일 청산, 다음날 같은 자본으로 재투자)
+                          const isRollover = ["tv_momentum", "gapup_sim", "time_sim", "tv_time_sim"].includes(strategyDetail || "");
                           // 가상 시뮬 균등 매수 가정 금액 (종목당 150만원 ~ 300만원/2종목)
                           const SIM_AMOUNT_PER_STOCK = 1500000;
                           // 종목별 매수금액 계산 (실거래는 quantity, 시뮬은 균등 가정)
@@ -1183,24 +1185,48 @@ export default function AutoTrader() {
                               const qty = t.quantity || 0;
                               return (sell - buy) * qty;
                             }
-                            // 시뮬: 균등 매수 가정 (가상 quantity = 1500000 / buy)
                             const virtQty = Math.floor(SIM_AMOUNT_PER_STOCK / buy);
                             return (sell - buy) * virtQty;
                           };
-                          // 가중평균 = 총손익(원) / 총매수금액(원) × 100
+                          // 가중평균 (당일 그룹 내) = 총손익(원) / 총매수금액(원) × 100
                           const calcWeighted = (arr: any[]): number => {
                             const totalBuy = arr.reduce((s, t) => s + getInvestAmt(t), 0);
                             const totalProfit = arr.reduce((s, t) => s + getProfitKrw(t), 0);
                             return totalBuy > 0 ? (totalProfit / totalBuy) * 100 : 0;
                           };
-                          const filteredPnl = isRealTrades
-                            ? calcWeighted(closedOnly.length > 0 ? closedOnly : includedItems)
-                            : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0);
-                          const closedPnl = isRealTrades
-                            ? calcWeighted(closedOnly)
-                            : (closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0);
-                          const totalProfitKrw = closedOnly.reduce((s, t) => s + getProfitKrw(t), 0);
-                          const totalInvestKrw = closedOnly.reduce((s, t) => s + getInvestAmt(t), 0);
+                          // 일별 가중평균 수익률 + 일별 매수금액 계산
+                          const dailyStats = dates
+                            .filter(d => !excludedDates.has(d))
+                            .map(d => {
+                              const grp = grouped[d];
+                              const closed = grp.filter((t: any) => !t._isActive);
+                              const target = closed.length > 0 ? closed : grp;
+                              return {
+                                date: d,
+                                pnl: isRealTrades ? calcWeighted(target) : (target.length > 0 ? target.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / target.length : 0),
+                                invest: target.reduce((s: number, t: any) => s + getInvestAmt(t), 0),
+                                profit: target.reduce((s: number, t: any) => s + getProfitKrw(t), 0),
+                                count: closed.length,
+                              };
+                            })
+                            .filter(s => s.count > 0);
+                          // 회전 전략: 종합 수익률 = 일별 수익률의 평균 (자본 회전 가정)
+                          // 누적 전략: 종합 수익률 = 가중평균 (포지션 누적 가정)
+                          const filteredPnl = isRollover
+                            ? (dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.pnl, 0) / dailyStats.length : 0)
+                            : (isRealTrades
+                                ? calcWeighted(closedOnly.length > 0 ? closedOnly : includedItems)
+                                : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0));
+                          const closedPnl = isRollover
+                            ? (dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.pnl, 0) / dailyStats.length : 0)
+                            : (isRealTrades
+                                ? calcWeighted(closedOnly)
+                                : (closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0));
+                          // 손익(원)은 회전/누적 무관 — 일별 손익의 합산
+                          const totalProfitKrw = dailyStats.reduce((s, d) => s + d.profit, 0);
+                          // 투자금액 표시: 회전 = 일평균 매수금액, 누적 = 누적 매수금액
+                          const avgDailyInvest = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
+                          const totalInvestKrw = isRollover ? avgDailyInvest : dailyStats.reduce((s, d) => s + d.invest, 0);
                           const allChecked = excludedDates.size === 0;
 
                           return (
@@ -1219,8 +1245,11 @@ export default function AutoTrader() {
                                     <span className={`font-semibold ${totalProfitKrw >= 0 ? "text-red-400" : "text-blue-400"}`}>
                                       {totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
                                     </span>
-                                    <span className="t-text-dim ml-1">/ {totalInvestKrw.toLocaleString()}원 투자</span>
+                                    <span className="t-text-dim ml-1">
+                                      / {isRollover ? `일평균 ${Math.round(totalInvestKrw).toLocaleString()}원` : `누적 ${totalInvestKrw.toLocaleString()}원`} 투자
+                                    </span>
                                     {!isRealTrades && <span className="text-[8px] t-text-dim ml-1">(가상 {(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목)</span>}
+                                    {isRollover && dailyStats.length > 1 && <span className="text-[8px] t-text-dim ml-1">({dailyStats.length}일 회전)</span>}
                                   </div>
                                 )}
                               </div>
