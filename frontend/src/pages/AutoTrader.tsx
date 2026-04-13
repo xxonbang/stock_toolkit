@@ -1224,9 +1224,23 @@ export default function AutoTrader() {
                                 : (closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0));
                           // 손익(원)은 회전/누적 무관 — 일별 손익의 합산
                           const totalProfitKrw = dailyStats.reduce((s, d) => s + d.profit, 0);
-                          // 투자금액 표시: 회전 = 일평균 매수금액, 누적 = 누적 매수금액
+                          // 투자금액 표시: 회전 = 일평균 매수금액
                           const avgDailyInvest = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
                           const totalInvestKrw = isRollover ? avgDailyInvest : dailyStats.reduce((s, d) => s + d.invest, 0);
+                          // 누적 전략: 평균 보유 일수 계산
+                          const calcAvgHoldDays = (): number => {
+                            const holds: number[] = [];
+                            for (const t of closedOnly) {
+                              const start = t.filled_at || t.created_at;
+                              const end = t.exited_at || t.sold_at;
+                              if (start && end) {
+                                const ms = new Date(end).getTime() - new Date(start).getTime();
+                                if (ms > 0) holds.push(ms / (1000 * 60 * 60 * 24));
+                              }
+                            }
+                            return holds.length > 0 ? holds.reduce((s, h) => s + h, 0) / holds.length : 0;
+                          };
+                          const avgHoldDays = !isRollover ? calcAvgHoldDays() : 0;
                           const allChecked = excludedDates.size === 0;
 
                           return (
@@ -1240,16 +1254,23 @@ export default function AutoTrader() {
                                   </div>
                                   <div className="text-[10px] t-text-dim">{includedItems.length}건{activeOnly.length > 0 ? ` (보유 ${activeOnly.length})` : ""}</div>
                                 </div>
-                                {closedOnly.length > 0 && totalInvestKrw > 0 && (
+                                {closedOnly.length > 0 && Math.abs(totalProfitKrw) > 0 && (
                                   <div className="text-[10px] t-text-sub tabular-nums">
                                     <span className={`font-semibold ${totalProfitKrw >= 0 ? "text-red-400" : "text-blue-400"}`}>
                                       {totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
                                     </span>
-                                    <span className="t-text-dim ml-1">
-                                      / {isRollover ? `일평균 ${Math.round(totalInvestKrw).toLocaleString()}원` : `누적 ${totalInvestKrw.toLocaleString()}원`} 투자
-                                    </span>
+                                    {isRollover ? (
+                                      <span className="t-text-dim ml-1">
+                                        / 일평균 자본 {Math.round(totalInvestKrw).toLocaleString()}원
+                                        <span className="text-[8px] ml-1">({dailyStats.length}일 회전)</span>
+                                      </span>
+                                    ) : (
+                                      <span className="t-text-dim ml-1">
+                                        ({closedOnly.length}건 매수 청산
+                                        {avgHoldDays > 0 && `, 평균 ${avgHoldDays < 1 ? `${(avgHoldDays * 24).toFixed(1)}시간` : `${avgHoldDays.toFixed(1)}일`} 보유`})
+                                      </span>
+                                    )}
                                     {!isRealTrades && <span className="text-[8px] t-text-dim ml-1">(가상 {(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목)</span>}
-                                    {isRollover && dailyStats.length > 1 && <span className="text-[8px] t-text-dim ml-1">({dailyStats.length}일 회전)</span>}
                                   </div>
                                 )}
                               </div>
