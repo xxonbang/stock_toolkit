@@ -1376,6 +1376,7 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
             return []
 
         from daemon.config import KIS_APP_KEY, KIS_APP_SECRET
+        session = await get_session()
         real_headers = {
             "Content-Type": "application/json; charset=utf-8",
             "authorization": f"Bearer {real_token}",
