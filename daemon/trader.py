@@ -1299,14 +1299,24 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
         session = await get_session()
         sb_headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
         sb_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis&credential_type=eq.access_token&is_active=eq.true&select=credential_value"
-        async with session.get(sb_url, headers=sb_headers) as sb_resp:
-            sb_data = await sb_resp.json()
-        if not sb_data or not isinstance(sb_data, list) or not sb_data[0].get("credential_value"):
-            logger.debug("volume-rank: 실투자 토큰 없음 → fallback")
-            return []
-        import json as _json
-        real_token = _json.loads(sb_data[0]["credential_value"]).get("access_token", "")
+        real_token = ""
+        for _sb_try in range(3):
+            try:
+                async with session.get(sb_url, headers=sb_headers) as sb_resp:
+                    if sb_resp.status != 200:
+                        logger.warning(f"volume-rank: Supabase 토큰 조회 HTTP {sb_resp.status} (시도 {_sb_try+1}/3)")
+                        await asyncio.sleep(2)
+                        continue
+                    sb_data = await sb_resp.json()
+                if sb_data and isinstance(sb_data, list) and sb_data[0].get("credential_value"):
+                    import json as _json
+                    real_token = _json.loads(sb_data[0]["credential_value"]).get("access_token", "")
+                    break
+            except Exception as _sb_e:
+                logger.warning(f"volume-rank: Supabase 토큰 로드 오류 (시도 {_sb_try+1}/3): {_sb_e}")
+                await asyncio.sleep(2)
         if not real_token:
+            logger.debug("volume-rank: 실투자 토큰 없음 → fallback")
             return []
 
         from daemon.config import KIS_APP_KEY, KIS_APP_SECRET
@@ -1395,7 +1405,8 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
         logger.info(f"volume-rank: {len(result)}종목 (실투자 API + 시가/종가 보충)")
         return result
     except Exception as e:
-        logger.warning(f"volume-rank 조회 실패: {e}")
+        import traceback
+        logger.warning(f"volume-rank 조회 실패: {e}\n{traceback.format_exc()}")
         return []
 
 
