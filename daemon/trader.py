@@ -1052,7 +1052,7 @@ async def _invalidate_supabase_token():
 
 
 async def fetch_available_balance() -> int:
-    """KIS 모의투자 계좌 예수금 조회 (rate limit 시 재시도)"""
+    """KIS 모의투자 계좌 예수금 조회 (rate limit 시 재시도 5회)"""
     token = await _ensure_mock_token()
     if not token:
         return 0
@@ -1075,7 +1075,8 @@ async def fetch_available_balance() -> int:
         "tr_id": "VTTC8908R",
         "custtype": "P",
     }
-    for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
+    max_retries = 5
+    for attempt in range(1, max_retries + 1):
         try:
             session = await get_session()
             async with session.get(url, params=params, headers=headers) as resp:
@@ -1086,15 +1087,16 @@ async def fetch_available_balance() -> int:
                     logger.info(f"가용 잔고: {balance:,}원")
                     return balance
                 msg = data.get("msg1", "")
-                if "초과" in msg and attempt < _RATE_LIMIT_RETRIES:
-                    logger.warning(f"잔고 조회 rate limit ({attempt}/{_RATE_LIMIT_RETRIES}) — {attempt * _RATE_LIMIT_BASE_SEC}초 후 재시도")
-                    await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+                if "초과" in msg and attempt < max_retries:
+                    wait = attempt * 3  # 3, 6, 9, 12초
+                    logger.warning(f"잔고 조회 rate limit ({attempt}/{max_retries}) — {wait}초 후 재시도")
+                    await asyncio.sleep(wait)
                     continue
                 logger.warning(f"잔고 조회 실패: {msg}")
         except Exception as e:
             logger.error(f"잔고 조회 오류: {e}")
-            if attempt < _RATE_LIMIT_RETRIES:
-                await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
+            if attempt < max_retries:
+                await asyncio.sleep(attempt * 3)
                 continue
     return 0
 
@@ -1573,8 +1575,12 @@ async def run_tv_scan_and_buy() -> int:
             "trading_value": trading_value,
         })
 
+    # fallback 경로 후 rate limit 회복 대기
+    if not vr_items or len(candidates) > 0:
+        await asyncio.sleep(3)
+
     # 후보 종목의 전일 봉 데이터 조회 → 가점 스코어링
-    # 가점: 전일 윗꼬리>3%(×2.0), 전일 음봉(×1.2), 연속 상승 3일+(×0.7)
+    # 가점: 전일 윗꼬리>3%(×3.0), 전일 음봉(×1.2), 연속 상승 3일+(×0.7)
     for c in candidates:
         c["_bonus"] = 1.0
     for c in candidates:
