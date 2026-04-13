@@ -1241,6 +1241,10 @@ export default function AutoTrader() {
                             return holds.length > 0 ? holds.reduce((s, h) => s + h, 0) / holds.length : 0;
                           };
                           const avgHoldDays = !isRollover ? calcAvgHoldDays() : 0;
+                          // 승률 (양수 pnl 비율)
+                          const winRate = closedOnly.length > 0
+                            ? Math.round(closedOnly.filter((t: any) => (t.pnl_pct ?? 0) > 0).length / closedOnly.length * 100)
+                            : 0;
                           const allChecked = excludedDates.size === 0;
 
                           return (
@@ -1248,29 +1252,37 @@ export default function AutoTrader() {
                             {/* 합산 + 전체선택 */}
                             <div className="flex items-center justify-between mb-3 p-2.5 rounded-lg" style={{ background: "var(--bg)" }}>
                               <div className="flex flex-col gap-0.5">
-                                <div className="flex items-center gap-3">
-                                  <div className={`text-lg font-bold tabular-nums ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                    {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <div className="flex items-center gap-1">
+                                    <span className="text-[10px] t-text-dim">평균</span>
+                                    <span className={`text-lg font-bold tabular-nums leading-none ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                      {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
+                                    </span>
                                   </div>
-                                  <div className="text-[10px] t-text-dim">{includedItems.length}건{activeOnly.length > 0 ? ` (보유 ${activeOnly.length})` : ""}</div>
+                                  {closedOnly.length > 0 && (
+                                    <span className="text-[10px] t-text-dim">
+                                      승률 <span className="t-text font-semibold">{winRate}%</span>
+                                    </span>
+                                  )}
+                                  <span className="text-[10px] t-text-dim">
+                                    ({closedOnly.length}건 청산{activeOnly.length > 0 ? ` / 보유 ${activeOnly.length}` : ""})
+                                  </span>
                                 </div>
                                 {closedOnly.length > 0 && Math.abs(totalProfitKrw) > 0 && (
                                   <div className="text-[10px] t-text-sub tabular-nums">
                                     <span className={`font-semibold ${totalProfitKrw >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                      {totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
+                                      {isRealTrades ? "실현 손익" : "가상 손익"} {totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
                                     </span>
+                                    <span className="t-text-dim mx-1">·</span>
                                     {isRollover ? (
-                                      <span className="t-text-dim ml-1">
-                                        / 일평균 자본 {Math.round(totalInvestKrw).toLocaleString()}원
-                                        <span className="text-[8px] ml-1">({dailyStats.length}일 회전)</span>
+                                      <span className="t-text-dim">
+                                        {isRealTrades ? `일평균 자본 ${Math.round(totalInvestKrw).toLocaleString()}원` : `종목당 ${(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원`}, {dailyStats.length}일 회전
                                       </span>
                                     ) : (
-                                      <span className="t-text-dim ml-1">
-                                        ({closedOnly.length}건 매수 청산
-                                        {avgHoldDays > 0 && `, 평균 ${avgHoldDays < 1 ? `${(avgHoldDays * 24).toFixed(1)}시간` : `${avgHoldDays.toFixed(1)}일`} 보유`})
+                                      <span className="t-text-dim">
+                                        종목당 {(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원, 평균 {avgHoldDays < 1 ? `${(avgHoldDays * 24).toFixed(1)}시간` : `${avgHoldDays.toFixed(1)}일`} 보유
                                       </span>
                                     )}
-                                    {!isRealTrades && <span className="text-[8px] t-text-dim ml-1">(가상 {(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목)</span>}
                                   </div>
                                 )}
                               </div>
