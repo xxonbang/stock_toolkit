@@ -437,6 +437,12 @@ async def schedule_eod_close():
                 await update_final_pnl()
             except Exception as e:
                 logger.error(f"cttr_log final_pnl 오류: {e}")
+            # OFI 필터 자동 검증 (10거래일 누적 시 1회만 실행)
+            try:
+                from daemon.cttr_verifier import verify_and_report
+                await verify_and_report()
+            except Exception as e:
+                logger.error(f"OFI 자동 검증 오류: {e}")
             _eod_done_date = today
 
 
