@@ -1173,13 +1173,8 @@ export default function AutoTrader() {
                             : strategyDetail === "stepped_sim"
                             ? allRealTrades.map((t: any) => {
                                 const mt = trades.find(tr => tr.id === t.trade_id);
-                                const simCode = mt?.code || "";
-                                const mtCreated = toKstDate(mt?.created_at);
-                                const origSold = simCode ? soldTrades.filter(tr => tr.code === simCode && (tr.created_at || "") < (mt?.created_at || "")).pop() : null;
-                                const displayDate = toKstDate(origSold?.created_at) || mtCreated || toKstDate(t.created_at) || "보유";
-                                // origSold의 시간 정보를 사용 (날짜+시간 출처 통일)
-                                const origTime = origSold?.filled_at || origSold?.created_at || mt?.created_at || t.created_at;
-                                return { ...t, _date: displayDate, _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원", filled_at: origTime, created_at: origTime };
+                                // 시뮬 생성일로 통일 (다른 시뮬과 동일)
+                                return { ...t, _date: toKstDate(t.created_at) || toKstDate(mt?.created_at) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
                               })
                             : (strategyDetail === "time_sim" ? allTimeSims : strategyDetail === "tv_time_sim" ? allTvTimeSims : strategyDetail === "api_leader_sim" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = trades.find(t => t.id === s.trade_id);
