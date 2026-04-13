@@ -1288,35 +1288,91 @@ async def run_buy_process():
         logger.warning(f"API∧대장주 시뮬 생성 오류: {e}")
 
 
+async def _ensure_real_token() -> str:
+    """실투자 토큰 확보 — Supabase 로드 + 만료 시 자동 재발급."""
+    from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY, KIS_APP_KEY, KIS_APP_SECRET
+    import json as _json
+    REAL_URL = "https://openapi.koreainvestment.com:9443"
+    session = await get_session()
+    sb_headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
+
+    # 1. Supabase에서 로드
+    real_token = ""
+    expires_at = ""
+    for _sb_try in range(3):
+        try:
+            sb_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis&credential_type=eq.access_token&is_active=eq.true&select=credential_value,expires_at"
+            async with session.get(sb_url, headers=sb_headers) as sb_resp:
+                if sb_resp.status != 200:
+                    logger.warning(f"실투자 토큰 조회 HTTP {sb_resp.status} (시도 {_sb_try+1}/3)")
+                    await asyncio.sleep(2)
+                    continue
+                sb_data = await sb_resp.json()
+            if sb_data and isinstance(sb_data, list) and sb_data[0].get("credential_value"):
+                parsed = _json.loads(sb_data[0]["credential_value"])
+                real_token = parsed.get("access_token", "")
+                expires_at = sb_data[0].get("expires_at", "")
+                break
+        except Exception as _sb_e:
+            logger.warning(f"실투자 토큰 로드 오류 (시도 {_sb_try+1}/3): {_sb_e}")
+            await asyncio.sleep(2)
+
+    # 2. 만료 체크 (1시간 이내 만료 → 재발급)
+    need_refresh = not real_token
+    if real_token and expires_at:
+        try:
+            from datetime import datetime as _dt
+            exp = _dt.fromisoformat(expires_at.replace("Z", "+00:00"))
+            remain = (exp - _dt.now(exp.tzinfo)).total_seconds()
+            if remain < 3600:
+                logger.info(f"실투자 토큰 만료 임박 ({remain/60:.0f}분) → 재발급")
+                need_refresh = True
+        except Exception:
+            pass
+
+    # 3. 재발급
+    if need_refresh:
+        try:
+            url = f"{REAL_URL}/oauth2/tokenP"
+            body = {"grant_type": "client_credentials", "appkey": KIS_APP_KEY, "appsecret": KIS_APP_SECRET}
+            async with session.post(url, json=body) as resp:
+                if resp.status == 200:
+                    data = await resp.json()
+                    new_token = data.get("access_token", "")
+                    if new_token and "error_code" not in data:
+                        real_token = new_token
+                        # Supabase에 저장
+                        issued = _dt.now(_KST)
+                        expires = issued + timedelta(hours=24)
+                        token_data = _json.dumps({"access_token": real_token, "issued_at": issued.isoformat(), "expires_at": expires.isoformat()})
+                        patch_headers = {**sb_headers, "Content-Type": "application/json", "Prefer": "return=minimal"}
+                        check_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis&credential_type=eq.access_token&select=id"
+                        async with session.get(check_url, headers=sb_headers) as cr:
+                            existing = await cr.json() if cr.status == 200 else []
+                        if existing:
+                            upd_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis&credential_type=eq.access_token"
+                            await session.patch(upd_url, json={"credential_value": token_data, "expires_at": expires.isoformat(), "is_active": True}, headers=patch_headers)
+                        else:
+                            ins_url = f"{SUPABASE_URL}/rest/v1/api_credentials"
+                            await session.post(ins_url, json={"service_name": "kis", "credential_type": "access_token", "credential_value": token_data, "expires_at": expires.isoformat(), "is_active": True}, headers=patch_headers)
+                        logger.info(f"실투자 토큰 재발급 + Supabase 저장 완료 (만료: {expires.isoformat()})")
+                    else:
+                        logger.warning(f"실투자 토큰 발급 실패: {data.get('error_description', '')}")
+        except Exception as e:
+            logger.warning(f"실투자 토큰 재발급 오류: {e}")
+
+    return real_token
+
+
 async def _fetch_volume_rank(token: str) -> list[dict]:
     """KIS 거래량순위 API (실투자 도메인) — 상위 30종목 획득 후 시가/전일종가 추가 조회.
     순위분석 API는 모의투자 미지원 → 실투자 앱키+Supabase 토큰 사용.
     실패 시 빈 리스트 (fallback으로 기존 200종목 스캔)."""
     REAL_URL = "https://openapi.koreainvestment.com:9443"
     try:
-        # 실투자 토큰 로드 (Supabase api_credentials service_name='kis')
-        from daemon.config import SUPABASE_URL, SUPABASE_SECRET_KEY
-        session = await get_session()
-        sb_headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
-        sb_url = f"{SUPABASE_URL}/rest/v1/api_credentials?service_name=eq.kis&credential_type=eq.access_token&is_active=eq.true&select=credential_value"
-        real_token = ""
-        for _sb_try in range(3):
-            try:
-                async with session.get(sb_url, headers=sb_headers) as sb_resp:
-                    if sb_resp.status != 200:
-                        logger.warning(f"volume-rank: Supabase 토큰 조회 HTTP {sb_resp.status} (시도 {_sb_try+1}/3)")
-                        await asyncio.sleep(2)
-                        continue
-                    sb_data = await sb_resp.json()
-                if sb_data and isinstance(sb_data, list) and sb_data[0].get("credential_value"):
-                    import json as _json
-                    real_token = _json.loads(sb_data[0]["credential_value"]).get("access_token", "")
-                    break
-            except Exception as _sb_e:
-                logger.warning(f"volume-rank: Supabase 토큰 로드 오류 (시도 {_sb_try+1}/3): {_sb_e}")
-                await asyncio.sleep(2)
+        real_token = await _ensure_real_token()
         if not real_token:
-            logger.debug("volume-rank: 실투자 토큰 없음 → fallback")
+            logger.warning("volume-rank: 실투자 토큰 확보 실패 → fallback")
             return []
 
         from daemon.config import KIS_APP_KEY, KIS_APP_SECRET
