@@ -1161,19 +1161,68 @@ export default function AutoTrader() {
                           const includedItems = items.filter(it => !excludedDates.has(it._date));
                           const closedOnly = includedItems.filter(it => !it._isActive);
                           const activeOnly = includedItems.filter(it => it._isActive);
-                          const filteredPnl = includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0;
-                          const closedPnl = closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0;
+                          // 실거래 여부: quantity가 있으면 실제 거래
+                          const isRealTrades = strategyDetail === "tv_momentum";
+                          // 가상 시뮬 균등 매수 가정 금액 (종목당 150만원 ~ 300만원/2종목)
+                          const SIM_AMOUNT_PER_STOCK = 1500000;
+                          // 종목별 매수금액 계산 (실거래는 quantity, 시뮬은 균등 가정)
+                          const getInvestAmt = (t: any): number => {
+                            if (isRealTrades) {
+                              const buy = t.filled_price || t.entry_price || t.order_price || 0;
+                              const qty = t.quantity || 0;
+                              return buy * qty;
+                            }
+                            return SIM_AMOUNT_PER_STOCK;
+                          };
+                          // 손익(원) 계산
+                          const getProfitKrw = (t: any): number => {
+                            const buy = t.filled_price || t.entry_price || t.order_price || 0;
+                            const sell = t.exit_price || t.sell_price || 0;
+                            if (!buy || !sell) return 0;
+                            if (isRealTrades) {
+                              const qty = t.quantity || 0;
+                              return (sell - buy) * qty;
+                            }
+                            // 시뮬: 균등 매수 가정 (가상 quantity = 1500000 / buy)
+                            const virtQty = Math.floor(SIM_AMOUNT_PER_STOCK / buy);
+                            return (sell - buy) * virtQty;
+                          };
+                          // 가중평균 = 총손익(원) / 총매수금액(원) × 100
+                          const calcWeighted = (arr: any[]): number => {
+                            const totalBuy = arr.reduce((s, t) => s + getInvestAmt(t), 0);
+                            const totalProfit = arr.reduce((s, t) => s + getProfitKrw(t), 0);
+                            return totalBuy > 0 ? (totalProfit / totalBuy) * 100 : 0;
+                          };
+                          const filteredPnl = isRealTrades
+                            ? calcWeighted(closedOnly.length > 0 ? closedOnly : includedItems)
+                            : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0);
+                          const closedPnl = isRealTrades
+                            ? calcWeighted(closedOnly)
+                            : (closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0);
+                          const totalProfitKrw = closedOnly.reduce((s, t) => s + getProfitKrw(t), 0);
+                          const totalInvestKrw = closedOnly.reduce((s, t) => s + getInvestAmt(t), 0);
                           const allChecked = excludedDates.size === 0;
 
                           return (
                             <>
                             {/* 합산 + 전체선택 */}
                             <div className="flex items-center justify-between mb-3 p-2.5 rounded-lg" style={{ background: "var(--bg)" }}>
-                              <div className="flex items-center gap-3">
-                                <div className={`text-lg font-bold tabular-nums ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                  {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
+                              <div className="flex flex-col gap-0.5">
+                                <div className="flex items-center gap-3">
+                                  <div className={`text-lg font-bold tabular-nums ${filteredPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                    {filteredPnl >= 0 ? "+" : ""}{filteredPnl.toFixed(2)}%
+                                  </div>
+                                  <div className="text-[10px] t-text-dim">{includedItems.length}건{activeOnly.length > 0 ? ` (보유 ${activeOnly.length})` : ""}</div>
                                 </div>
-                                <div className="text-[10px] t-text-dim">{includedItems.length}건{activeOnly.length > 0 ? ` (보유 ${activeOnly.length})` : ""}</div>
+                                {closedOnly.length > 0 && totalInvestKrw > 0 && (
+                                  <div className="text-[10px] t-text-sub tabular-nums">
+                                    <span className={`font-semibold ${totalProfitKrw >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                      {totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
+                                    </span>
+                                    <span className="t-text-dim ml-1">/ {totalInvestKrw.toLocaleString()}원 투자</span>
+                                    {!isRealTrades && <span className="text-[8px] t-text-dim ml-1">(가상 {(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목)</span>}
+                                  </div>
+                                )}
                               </div>
                               <button onClick={() => setExcludedDates(allChecked ? new Set(dates) : new Set())}
                                 className="text-[10px] t-text-dim hover:t-text transition px-2 py-1 rounded-lg" style={{ border: "1px solid var(--border)" }}>
@@ -1188,7 +1237,11 @@ export default function AutoTrader() {
                             <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
-                                const dayPnl = group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0;
+                                const dayPnl = isRealTrades
+                                  ? calcWeighted(group)
+                                  : (group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0);
+                                const dayProfit = group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
+                                const dayClosed = group.filter((t: any) => !t._isActive);
                                 const isToday = date === todayStr || date === "보유";
                                 const isChecked = !excludedDates.has(date);
                                 return (
@@ -1208,9 +1261,16 @@ export default function AutoTrader() {
                                         <span className="text-[10px] t-text-dim">{group.length}건</span>
                                         {group.some((it: any) => it._isActive) && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-400">보유 {group.filter((it: any) => it._isActive).length}</span>}
                                       </div>
-                                      <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                        {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
-                                      </span>
+                                      <div className="flex flex-col items-end gap-0.5">
+                                        <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                          {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
+                                        </span>
+                                        {dayClosed.length > 0 && Math.abs(dayProfit) > 0 && (
+                                          <span className={`text-[9px] tabular-nums ${dayProfit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
+                                            {dayProfit >= 0 ? "+" : ""}{dayProfit.toLocaleString()}원
+                                          </span>
+                                        )}
+                                      </div>
                                     </summary>
                                     <div className="ml-4 mt-1.5 pl-3 space-y-1 border-l-2" style={{ borderColor: 'var(--border)' }}>
                                       {group.map((item: any, i: number) => {
@@ -1252,6 +1312,22 @@ export default function AutoTrader() {
                                             {buyPrice > 0 && <><span className="t-text-dim">매수</span> <span className="font-medium tabular-nums">{buyPrice.toLocaleString()}</span><span className="t-text-dim ml-0.5">{buyDateLabel}{formatTimeKst(buyIso)}</span></>}
                                             {sellPrice > 0 && <><span className="t-text-dim ml-2">→</span> <span className="t-text-dim ml-1">매도</span> <span className="font-medium tabular-nums">{sellPrice.toLocaleString()}</span><span className="t-text-dim ml-0.5">{sellDateLabel}{formatTimeKst(sellIso)}</span></>}
                                           </div>
+                                          {(() => {
+                                            const invest = getInvestAmt(item);
+                                            const profit = getProfitKrw(item);
+                                            if (invest <= 0) return null;
+                                            const qty = isRealTrades ? (item.quantity || 0) : Math.floor(SIM_AMOUNT_PER_STOCK / (buyPrice || 1));
+                                            return (
+                                              <div className="flex items-center gap-1 mt-0.5 text-[9px] t-text-dim tabular-nums">
+                                                <span>{qty}주 × {buyPrice.toLocaleString()}원 = {invest.toLocaleString()}원</span>
+                                                {sellPrice > 0 && profit !== 0 && (
+                                                  <span className={`ml-1 font-medium ${profit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
+                                                    ({profit >= 0 ? "+" : ""}{profit.toLocaleString()}원)
+                                                  </span>
+                                                )}
+                                              </div>
+                                            );
+                                          })()}
                                         </div>
                                         );
                                       })}
