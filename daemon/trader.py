@@ -1472,17 +1472,37 @@ async def run_tv_scan_and_buy() -> int:
         sample = vr_items[0]
         logger.info(f"volume-rank: {len(vr_items)}종목 (acml_tr_pbmn={sample.get('acml_tr_pbmn', 'N/A')})")
     else:
-        # fallback: stock-master 상위 200종목 개별 inquire-price 조회
-        logger.warning("volume-rank 실패 → fallback 개별 조회")
+        # fallback: 전일 거래대금 TOP 200종목 개별 inquire-price 조회
+        logger.warning("volume-rank 실패 → fallback 전일 거래대금순 조회")
         import json as _json_fb
         from pathlib import Path as _Path_fb
+        ohlcv_path = _Path_fb(__file__).parent.parent / "results" / "daily_ohlcv_all.json"
         master_path = _Path_fb(__file__).parent.parent / "results" / "stock-master.json"
         try:
-            master = _json_fb.loads(master_path.read_text(encoding="utf-8"))
-            scan_targets = master.get("stocks", [])[:200]
-        except Exception:
-            await send_telegram("📭 거래대금 스캔: volume-rank + fallback 모두 실패")
-            return 0
+            ohlcv = _json_fb.loads(ohlcv_path.read_text(encoding="utf-8"))
+            # 전일 거래대금 기준 TOP 200 추출
+            prev_tv_list = []
+            for code, info in ohlcv.items():
+                if len(code) != 6 or not code.isdigit():
+                    continue
+                bars = info.get("bars", [])
+                if not bars:
+                    continue
+                last_bar = bars[-1]  # bars[-1]이 최근 (오름차순 정렬)
+                tv = int(last_bar.get("acml_tr_pbmn", 0))
+                if tv > 0:
+                    prev_tv_list.append({"code": code, "name": info.get("name", code), "tv": tv})
+            prev_tv_list.sort(key=lambda x: -x["tv"])
+            scan_targets = prev_tv_list[:200]
+            logger.info(f"fallback 전일TV 기준 상위 200종목 (1위: {scan_targets[0]['name']} TV={scan_targets[0]['tv']:,})")
+        except Exception as e:
+            logger.warning(f"전일TV 추출 실패: {e} → stock-master fallback")
+            try:
+                master = _json_fb.loads(master_path.read_text(encoding="utf-8"))
+                scan_targets = master.get("stocks", [])[:200]
+            except Exception:
+                await send_telegram("📭 거래대금 스캔: volume-rank + fallback 모두 실패")
+                return 0
 
         async def _fb_detail(code: str) -> dict | None:
             try:
