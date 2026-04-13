@@ -346,7 +346,7 @@ async def schedule_gapup_open():
                 logger.error(f"전략 설정 조회 실패: {e}")
                 continue
 
-        # 09:00~09:04: 기존 보유 종목 전량 매도 (잔여분 정리)
+        # 09:00~09:04: 기존 보유 종목 전량 매도 + 토큰 프리웜
         if now.hour == 9 and now.minute <= 4 and _done_date != today:
             if _buy_lock.locked():
                 continue
@@ -360,6 +360,14 @@ async def schedule_gapup_open():
                         await sell_all_positions_force()
                     except Exception as e:
                         logger.error(f"전환 매도 오류: {e}")
+            # 토큰 프리웜: 09:05 전에 모의투자+실투자 토큰 미리 확보
+            try:
+                from daemon.trader import _ensure_mock_token, _ensure_real_token
+                mock_t = await _ensure_mock_token()
+                real_t = await _ensure_real_token()
+                logger.info(f"토큰 프리웜: mock={'OK' if mock_t else 'FAIL'}, real={'OK' if real_t else 'FAIL'}")
+            except Exception as e:
+                logger.warning(f"토큰 프리웜 오류: {e}")
 
         # 09:05~09:10: 거래대금 모멘텀 실전 매수 (#9 윈도우 확장)
         if now.hour == 9 and 5 <= now.minute <= 10 and _done_date != today:

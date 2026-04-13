@@ -1418,7 +1418,7 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
         if not items:
             return []
 
-        # 30종목의 시가/전일종가를 개별 inquire-price로 추가 조회 (모의투자 토큰 사용)
+        # volume-rank 응답에서 기본 데이터 추출 (API 호출 없음)
         result = []
         for item in items:
             code = item.get("mksc_shrn_iscd", "")
@@ -1428,38 +1428,15 @@ async def _fetch_volume_rank(token: str) -> list[dict]:
                 "code": code,
                 "name": item.get("hts_kor_isnm", code),
                 "price": int(item.get("stck_prpr", "0") or "0"),
-                "open_price": 0,  # 아래에서 채움
-                "prev_close": 0,  # 아래에서 채움
-                "vol_rate": float(item.get("vol_inrt", "0") or "0"),  # 거래량 증가율
+                "open_price": 0,  # 필터 통과 후 보충
+                "prev_close": 0,  # 필터 통과 후 보충
+                "vol_rate": float(item.get("vol_inrt", "0") or "0"),
                 "change_rate": float(item.get("prdy_ctrt", "0") or "0"),
                 "acml_vol": int(item.get("acml_vol", "0") or "0"),
                 "acml_tr_pbmn": int(item.get("acml_tr_pbmn", "0") or "0"),
             })
 
-        # 시가/전일종가 보충 (모의투자 inquire-price, 5건 배치)
-        for i in range(0, len(result), 5):
-            batch = result[i:i+5]
-            tasks = []
-            for r in batch:
-                url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-                p = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": r["code"]}
-                tasks.append(session.get(url, params=p, headers=_order_headers(token, "FHKST01010100")))
-            resps = await asyncio.gather(*tasks, return_exceptions=True)
-            for r, resp in zip(batch, resps):
-                if isinstance(resp, Exception):
-                    continue
-                try:
-                    d = await resp.json()
-                    out = d.get("output", {})
-                    r["open_price"] = int(out.get("stck_oprc", "0") or "0")
-                    r["prev_close"] = int(out.get("stck_sdpr", "0") or "0")
-                    r["vol_rate"] = float(out.get("prdy_vrss_vol_rate", "0") or "0")
-                    r["hts_avls"] = int(out.get("hts_avls", "0") or "0")  # 시총(억원)
-                except Exception:
-                    pass
-            await asyncio.sleep(0.5)
-
-        logger.info(f"volume-rank: {len(result)}종목 (실투자 API + 시가/종가 보충)")
+        logger.info(f"volume-rank: {len(result)}종목 (시가/종가는 필터 후 보충)")
         return result
     except Exception as e:
         import traceback
@@ -1663,9 +1640,9 @@ async def run_tv_scan_and_buy() -> int:
             "trading_value": trading_value,
         })
 
-    # fallback 경로 후 rate limit 회복 대기
-    if not vr_items or len(candidates) > 0:
-        await asyncio.sleep(3)
+    # rate limit 회복 대기 (volume-rank 성공 시 짧게, fallback 후 길게)
+    if len(candidates) > 0:
+        await asyncio.sleep(1)
 
     # 후보 종목의 전일 봉 데이터 조회 → 가점 스코어링
     # 가점: 전일 윗꼬리>3%(×3.0), 전일 음봉(×1.2), 연속 상승 3일+(×0.7)
@@ -1712,7 +1689,7 @@ async def run_tv_scan_and_buy() -> int:
                             c["_bonus"] *= 1.5
         except Exception as e:
             logger.warning(f"가점 스코어링 오류 ({c['name']}): {e}")
-        await asyncio.sleep(0.15)
+        await asyncio.sleep(0.3)
 
     # 거래대금 × 가점 스코어 정렬
     bonused = [c for c in candidates if c.get("_bonus", 1.0) != 1.0]
