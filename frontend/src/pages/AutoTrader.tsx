@@ -1188,7 +1188,7 @@ export default function AutoTrader() {
                             <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
-                                const dayPnl = group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0);
+                                const dayPnl = group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0;
                                 const isToday = date === todayStr || date === "보유";
                                 const isChecked = !excludedDates.has(date);
                                 return (
