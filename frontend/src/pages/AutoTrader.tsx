@@ -935,11 +935,11 @@ export default function AutoTrader() {
 
               // 회전 전략용 누적 수익률 헬퍼 = 누적 손익 / 일평균 자본 × 100
               const SIM_PER_STOCK = 1500000;
-              const calcRolloverPnl = (items: any[], isReal: boolean): number => {
+              const calcRolloverPnl = (items: any[], isReal: boolean, dateGetter?: (t: any) => string): number => {
                 if (items.length === 0) return 0;
                 const grouped: Record<string, any[]> = {};
                 for (const t of items) {
-                  const d = toKstDate(t.created_at) || "";
+                  const d = dateGetter ? dateGetter(t) : (toKstDate(t.created_at) || "");
                   if (!d) continue;
                   if (!grouped[d]) grouped[d] = [];
                   grouped[d].push(t);
@@ -982,15 +982,20 @@ export default function AutoTrader() {
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
                 return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _name: mt?.name, _noPrice: cp <= 0 };
               });
+              // mt(매칭 trade)의 created_at을 날짜 기준으로 사용 (모달과 일치)
+              const simDateByMt = (s: any): string => {
+                const mt = trades.find(t => t.id === s.trade_id);
+                return toKstDate(mt?.created_at) || "";
+              };
               const allTvTimeSims = [...tvTimeClosedSims, ...tvTimeOpenSims];
-              const tvTimePnl = calcRolloverPnl(allTvTimeSims, false);
+              const tvTimePnl = calcRolloverPnl(allTvTimeSims, false, simDateByMt);
               const allTimeSims = [...timeClosedSims, ...timeOpenSims.map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
                 const cp = mt ? (prices[mt.code]?.price || 0) : 0;
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
                 return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _name: mt?.name, _noPrice: cp <= 0 };
               })];
-              const timePnl = calcRolloverPnl(allTimeSims, false);
+              const timePnl = calcRolloverPnl(allTimeSims, false, simDateByMt);
               // API매수∧테마대장주 시뮬 (보유 종목 실시간 prices 갱신)
               const apiLeaderSimsRaw = simulations.filter(s => s.strategy_type === "api_leader");
               const apiLeaderSims = apiLeaderSimsRaw.map((s: any) => {
@@ -1072,12 +1077,8 @@ export default function AutoTrader() {
                 return { ...t, pnl_pct: pnl, _isActive: t.sell_price == null, _noPrice: cp <= 0 && t.sell_price == null };
               });
               const allGapupSimTrades = [...allGapupTrades, ...gapupSimWithPrices];
-              // 회전 전략: 실전+시뮬 혼합이라 분리해서 계산 후 가중평균
-              const gapupRealPart = calcRolloverPnl(allGapupTrades, true);
-              const gapupSimPart = calcRolloverPnl(gapupSimWithPrices, false);
-              const gapupSimPnl = (allGapupTrades.length > 0 && gapupSimWithPrices.length > 0)
-                ? (gapupRealPart * allGapupTrades.length + gapupSimPart * gapupSimWithPrices.length) / allGapupSimTrades.length
-                : (allGapupTrades.length > 0 ? gapupRealPart : gapupSimPart);
+              // 모달과 동일하게 모든 항목을 가상 시뮬 가정으로 단일 호출 (실거래/시뮬 혼합 일관 처리)
+              const gapupSimPnl = calcRolloverPnl(allGapupSimTrades, false);
 
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
                 { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
