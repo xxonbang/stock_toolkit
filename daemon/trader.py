@@ -1644,7 +1644,7 @@ async def run_tv_scan_and_buy() -> int:
     if len(candidates) > 0:
         await asyncio.sleep(1)
 
-    # 후보 종목의 전일 봉 데이터 조회 → 가점 스코어링
+    # 후보 종목의 전일 봉 데이터 조회 → 가점 스코어링 + 시가/전일종가 보충
     # 가점: 전일 윗꼬리>3%(×3.0), 전일 음봉(×1.2), 연속 상승 3일+(×0.7)
     for c in candidates:
         c["_bonus"] = 1.0
@@ -1657,6 +1657,15 @@ async def run_tv_scan_and_buy() -> int:
             async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
                 data = await resp.json()
                 bars = data.get("output", [])[:5]
+                # bars[0]=당일, bars[1]=전일 → 시가/전일종가 보충 + 갭 재계산
+                if bars:
+                    today_open = int(bars[0].get("stck_oprc", "0") or "0")
+                    if today_open > 0:
+                        c["price"] = int(bars[0].get("stck_clpr", "0") or "0") or c["price"]
+                    if len(bars) >= 2:
+                        prev_close = int(bars[1].get("stck_clpr", "0") or "0")
+                        if today_open > 0 and prev_close > 0:
+                            c["gap_pct"] = round((today_open - prev_close) / prev_close * 100, 1)
                 if len(bars) >= 2:
                     prev_c = int(bars[1].get("stck_clpr", "0") or "0")
                     prev_o = int(bars[1].get("stck_oprc", "0") or "0")
@@ -1690,6 +1699,13 @@ async def run_tv_scan_and_buy() -> int:
         except Exception as e:
             logger.warning(f"가점 스코어링 오류 ({c['name']}): {e}")
         await asyncio.sleep(0.3)
+
+    # 갭 재필터: 가점 스코어링에서 정확한 시가/전일종가 기반 갭이 5% 이상이면 제외
+    before_gap = len(candidates)
+    candidates = [c for c in candidates if c["gap_pct"] < 5]
+    gap_removed = before_gap - len(candidates)
+    if gap_removed:
+        logger.info(f"갭 재필터: {gap_removed}종목 제외 (정확한 시가 기준 갭≥5%)")
 
     # 거래대금 × 가점 스코어 정렬
     bonused = [c for c in candidates if c.get("_bonus", 1.0) != 1.0]
