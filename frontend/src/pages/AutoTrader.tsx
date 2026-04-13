@@ -933,6 +933,41 @@ export default function AutoTrader() {
               ];
               const realPnl = allRealTrades.length > 0 ? allRealTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allRealTrades.length : 0;
 
+              // 회전 전략용 누적 수익률 헬퍼 = 누적 손익 / 일평균 자본 × 100
+              const SIM_PER_STOCK = 1500000;
+              const calcRolloverPnl = (items: any[], isReal: boolean): number => {
+                if (items.length === 0) return 0;
+                const grouped: Record<string, any[]> = {};
+                for (const t of items) {
+                  const d = toKstDate(t.created_at) || "";
+                  if (!d) continue;
+                  if (!grouped[d]) grouped[d] = [];
+                  grouped[d].push(t);
+                }
+                const stats = Object.values(grouped).map((grp: any[]) => {
+                  let inv = 0, prof = 0;
+                  for (const t of grp) {
+                    const buy = t.filled_price || t.entry_price || t.order_price || 0;
+                    if (!buy) continue;
+                    const sell = t.exit_price || t.sell_price || 0;
+                    const pnlPct = t.pnl_pct ?? 0;
+                    if (isReal) {
+                      const qty = t.quantity || 0;
+                      inv += buy * qty;
+                      prof += sell > 0 ? (sell - buy) * qty : Math.round(buy * qty * pnlPct / 100);
+                    } else {
+                      const vQty = Math.floor(SIM_PER_STOCK / buy);
+                      inv += SIM_PER_STOCK;
+                      prof += sell > 0 ? (sell - buy) * vQty : Math.round(buy * vQty * pnlPct / 100);
+                    }
+                  }
+                  return { inv, prof };
+                });
+                const totalProf = stats.reduce((s, d) => s + d.prof, 0);
+                const avgInv = stats.length > 0 ? stats.reduce((s, d) => s + d.inv, 0) / stats.length : 0;
+                return avgInv > 0 ? (totalProf / avgInv) * 100 : 0;
+              };
+
               // stepped 시뮬은 5팩터+Stepped 카드에 합산, 나머지(fixed)만 sim 카드
               const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","tv_time_exit","api_leader","stepped"].includes(s.strategy_type));
               const openSims = simulations.filter(s => s.status === "open" && !["time_exit","tv_time_exit","api_leader","stepped"].includes(s.strategy_type));
@@ -948,16 +983,23 @@ export default function AutoTrader() {
                 return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _name: mt?.name, _noPrice: cp <= 0 };
               });
               const allTvTimeSims = [...tvTimeClosedSims, ...tvTimeOpenSims];
-              const tvTimePnl = allTvTimeSims.length > 0 ? allTvTimeSims.filter((s: any) => s.pnl_pct != null).reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / (allTvTimeSims.filter((s: any) => s.pnl_pct != null).length || 1) : 0;
+              const tvTimePnl = calcRolloverPnl(allTvTimeSims, false);
               const allTimeSims = [...timeClosedSims, ...timeOpenSims.map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
                 const cp = mt ? (prices[mt.code]?.price || 0) : 0;
                 const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
                 return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _name: mt?.name, _noPrice: cp <= 0 };
               })];
-              const timePnl = allTimeSims.length > 0 ? allTimeSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allTimeSims.length : 0;
-              // API매수∧테마대장주 시뮬
-              const apiLeaderSims = simulations.filter(s => s.strategy_type === "api_leader");
+              const timePnl = calcRolloverPnl(allTimeSims, false);
+              // API매수∧테마대장주 시뮬 (보유 종목 실시간 prices 갱신)
+              const apiLeaderSimsRaw = simulations.filter(s => s.strategy_type === "api_leader");
+              const apiLeaderSims = apiLeaderSimsRaw.map((s: any) => {
+                if (s.status === "closed") return { ...s, _isActive: false };
+                const mt = trades.find(t => t.id === s.trade_id);
+                const cp = mt ? (prices[mt.code]?.price || 0) : 0;
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
+                return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _isActive: true, _name: mt?.name, _noPrice: cp <= 0 };
+              });
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
@@ -1002,7 +1044,7 @@ export default function AutoTrader() {
                   })
                 : [];
               const allTvTrades = [...tvSold.map(t => ({ ...t, _isActive: false })), ...tvActive];
-              const tvPnl = allTvTrades.length > 0 ? allTvTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allTvTrades.length : 0;
+              const tvPnl = calcRolloverPnl(allTvTrades, true);  // 실거래
 
               // 기존 갭업 모멘텀 (실제 과거 이력): gapupCutoff ~ tvCutoff 사이
               const gapupSold = gapupCutoff
@@ -1020,7 +1062,7 @@ export default function AutoTrader() {
                   })
                 : [];
               const allGapupTrades = [...gapupSold.map(t => ({ ...t, _isActive: false })), ...gapupActive];
-              const gapupPnl = allGapupTrades.length > 0 ? allGapupTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupTrades.length : 0;
+              const gapupPnl = calcRolloverPnl(allGapupTrades, true);
 
               // 갭업 모멘텀 시뮬: 과거 실전 이력 + sim_only (장중 실시간 P&L 계산)
               const gapupSimWithPrices = gapupSimOnly.map((t: any) => {
@@ -1030,7 +1072,12 @@ export default function AutoTrader() {
                 return { ...t, pnl_pct: pnl, _isActive: t.sell_price == null, _noPrice: cp <= 0 && t.sell_price == null };
               });
               const allGapupSimTrades = [...allGapupTrades, ...gapupSimWithPrices];
-              const gapupSimPnl = allGapupSimTrades.length > 0 ? allGapupSimTrades.reduce((sum, t) => sum + (t.pnl_pct || 0), 0) / allGapupSimTrades.length : 0;
+              // 회전 전략: 실전+시뮬 혼합이라 분리해서 계산 후 가중평균
+              const gapupRealPart = calcRolloverPnl(allGapupTrades, true);
+              const gapupSimPart = calcRolloverPnl(gapupSimWithPrices, false);
+              const gapupSimPnl = (allGapupTrades.length > 0 && gapupSimWithPrices.length > 0)
+                ? (gapupRealPart * allGapupTrades.length + gapupSimPart * gapupSimWithPrices.length) / allGapupSimTrades.length
+                : (allGapupTrades.length > 0 ? gapupRealPart : gapupSimPart);
 
               const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
                 { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
