@@ -1176,17 +1176,22 @@ export default function AutoTrader() {
                             }
                             return SIM_AMOUNT_PER_STOCK;
                           };
-                          // 손익(원) 계산
+                          // 손익(원) 계산 — 청산은 (sell-buy)*qty, 보유는 pnl_pct 기반 unrealized
                           const getProfitKrw = (t: any): number => {
                             const buy = t.filled_price || t.entry_price || t.order_price || 0;
+                            if (!buy) return 0;
                             const sell = t.exit_price || t.sell_price || 0;
-                            if (!buy || !sell) return 0;
+                            const pnlPct = t.pnl_pct ?? 0;
                             if (isRealTrades) {
                               const qty = t.quantity || 0;
-                              return (sell - buy) * qty;
+                              if (sell > 0) return (sell - buy) * qty;
+                              // 보유: pnl_pct 기반 unrealized
+                              return Math.round(buy * qty * pnlPct / 100);
                             }
                             const virtQty = Math.floor(SIM_AMOUNT_PER_STOCK / buy);
-                            return (sell - buy) * virtQty;
+                            if (sell > 0) return (sell - buy) * virtQty;
+                            // 보유 시뮬: pnl_pct 기반 unrealized
+                            return Math.round(buy * virtQty * pnlPct / 100);
                           };
                           // 가중평균 (당일 그룹 내) = 총손익(원) / 총매수금액(원) × 100
                           const calcWeighted = (arr: any[]): number => {
@@ -1194,32 +1199,29 @@ export default function AutoTrader() {
                             const totalProfit = arr.reduce((s, t) => s + getProfitKrw(t), 0);
                             return totalBuy > 0 ? (totalProfit / totalBuy) * 100 : 0;
                           };
-                          // 일별 가중평균 수익률 + 일별 매수금액 계산 (★ 청산만 사용 — 일관성)
+                          // 일별 가중평균 수익률 + 일별 매수금액 계산 (보유 unrealized 포함)
                           const dailyStats = dates
                             .filter(d => !excludedDates.has(d))
                             .map(d => {
                               const grp = grouped[d];
-                              const closed = grp.filter((t: any) => !t._isActive);
                               return {
                                 date: d,
-                                pnl: closed.length === 0 ? 0 : (isRealTrades
-                                  ? calcWeighted(closed)
-                                  : closed.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closed.length),
-                                invest: closed.reduce((s: number, t: any) => s + getInvestAmt(t), 0),
-                                profit: closed.reduce((s: number, t: any) => s + getProfitKrw(t), 0),
-                                count: closed.length,
-                                hasActive: grp.some((t: any) => t._isActive),
+                                pnl: grp.length === 0 ? 0 : (isRealTrades
+                                  ? calcWeighted(grp)
+                                  : grp.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / grp.length),
+                                invest: grp.reduce((s: number, t: any) => s + getInvestAmt(t), 0),
+                                profit: grp.reduce((s: number, t: any) => s + getProfitKrw(t), 0),
+                                count: grp.length,
                               };
                             })
                             .filter(s => s.count > 0);
-                          // 종합 수익률 = 청산만 기준 (일관성)
-                          // 회전 전략: 일별 수익률 평균 / 누적 전략: 청산 종목 평균
+                          // 종합 수익률 = 보유+청산 모두 포함 (보유는 unrealized)
                           const filteredPnl = isRollover
                             ? (dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.pnl, 0) / dailyStats.length : 0)
                             : (isRealTrades
-                                ? calcWeighted(closedOnly)
-                                : (closedOnly.length > 0 ? closedOnly.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / closedOnly.length : 0));
-                          const closedPnl = filteredPnl;  // 동일
+                                ? calcWeighted(includedItems)
+                                : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0));
+                          const closedPnl = filteredPnl;
                           // 손익(원)은 회전/누적 무관 — 일별 손익의 합산
                           const totalProfitKrw = dailyStats.reduce((s, d) => s + d.profit, 0);
                           // 투자금액 표시: 회전 = 일평균 매수금액
@@ -1265,10 +1267,10 @@ export default function AutoTrader() {
                                   </span>
                                 </div>
                                 {/* 라인 2: 손익(원) + 운용 가정 */}
-                                {closedOnly.length > 0 && Math.abs(totalProfitKrw) > 0 && (
+                                {includedItems.length > 0 && Math.abs(totalProfitKrw) > 0 && (
                                   <div className="text-[10px] t-text-sub tabular-nums leading-snug">
                                     <span className={`font-semibold ${totalProfitKrw >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                      {totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
+                                      {activeOnly.length > 0 ? "평가 손익 " : ""}{totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
                                     </span>
                                     <span className="t-text-dim ml-1.5">
                                       {isRollover
@@ -1287,19 +1289,18 @@ export default function AutoTrader() {
                             </div>
                             {activeOnly.length > 0 && (
                               <div className="text-[9px] t-text-dim mb-2 px-2.5">
-                                보유 {activeOnly.length}건은 청산 후 평균에 반영됩니다.
+                                보유 {activeOnly.length}건은 현재가 기준 미실현 손익으로 포함됨.
                               </div>
                             )}
                             <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
+                                // 보유+청산 모두 포함 (보유는 unrealized)
+                                const dayPnl = isRealTrades
+                                  ? calcWeighted(group)
+                                  : (group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0);
+                                const dayProfit = group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const dayClosed = group.filter((t: any) => !t._isActive);
-                                const dayActive = group.filter((t: any) => t._isActive);
-                                // 청산만 기준 (일관성)
-                                const dayPnl = dayClosed.length === 0 ? 0 : (isRealTrades
-                                  ? calcWeighted(dayClosed)
-                                  : dayClosed.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / dayClosed.length);
-                                const dayProfit = dayClosed.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const isToday = date === todayStr || date === "보유";
                                 const isChecked = !excludedDates.has(date);
                                 return (
@@ -1320,19 +1321,13 @@ export default function AutoTrader() {
                                         {group.some((it: any) => it._isActive) && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-400">보유 {group.filter((it: any) => it._isActive).length}</span>}
                                       </div>
                                       <div className="flex flex-col items-end gap-0.5">
-                                        {dayClosed.length === 0 ? (
-                                          <span className="text-[10px] t-text-dim">보유중</span>
-                                        ) : (
-                                          <>
-                                            <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
-                                              {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
-                                            </span>
-                                            {Math.abs(dayProfit) > 0 && (
-                                              <span className={`text-[9px] tabular-nums ${dayProfit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
-                                                {dayProfit >= 0 ? "+" : ""}{dayProfit.toLocaleString()}원
-                                              </span>
-                                            )}
-                                          </>
+                                        <span className={`text-[11px] font-semibold tabular-nums ${dayPnl >= 0 ? "text-red-400" : "text-blue-400"}`}>
+                                          {dayPnl >= 0 ? "+" : ""}{dayPnl.toFixed(2)}%
+                                        </span>
+                                        {Math.abs(dayProfit) > 0 && (
+                                          <span className={`text-[9px] tabular-nums ${dayProfit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
+                                            {dayProfit >= 0 ? "+" : ""}{dayProfit.toLocaleString()}원
+                                          </span>
                                         )}
                                       </div>
                                     </summary>
