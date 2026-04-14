@@ -1151,12 +1151,6 @@ export default function AutoTrader() {
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
                             {strategyDetail === "tv_momentum" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "stepped_sim" ? "5팩터+Stepped (가상)" : strategyDetail === "time_sim" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "tv_time_sim" ? "10시 청산 (가상)" : strategyDetail === "api_leader_sim" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
-                            {strategyDetail !== "tv_momentum" && (
-                              <button onClick={() => setSimCapitalMode(p => !p)}
-                                className={`ml-1 text-[9px] px-2 py-0.5 rounded-full transition ${simCapitalMode ? "bg-blue-500/20 text-blue-400 font-semibold" : "t-text-dim border t-border-light"}`}>
-                                {simCapitalMode ? "1000만원" : "무제한"}
-                              </button>
-                            )}
                             {priceTime && <span className="ml-auto text-[9px] text-green-400 tabular-nums shrink-0">{priceTime}</span>}
                             <button onClick={(e) => { e.stopPropagation(); refreshPrices(); }} disabled={priceRefreshing}
                               className={`${priceTime ? "ml-1" : "ml-auto"} text-[10px] px-2 py-0.5 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1 shrink-0`}>
@@ -1413,6 +1407,19 @@ export default function AutoTrader() {
                                 보유 {activeOnly.length}건은 현재가 기준 미실현 손익으로 포함됨.
                               </div>
                             )}
+                            {strategyDetail !== "tv_momentum" && (
+                              <div className="flex items-center justify-between mb-3 px-3 py-2 rounded-lg" style={{ background: "var(--bg)" }}>
+                                <span className="text-[10px] t-text-dim">투자 시뮬 모드</span>
+                                <div className="flex items-center gap-2">
+                                  <span className={`text-[10px] ${!simCapitalMode ? "t-text font-semibold" : "t-text-dim"}`}>무제한</span>
+                                  <button onClick={() => setSimCapitalMode(p => !p)}
+                                    className={`relative w-9 h-5 rounded-full transition-colors ${simCapitalMode ? "bg-blue-500" : "bg-gray-300 dark:bg-gray-600"}`}>
+                                    <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${simCapitalMode ? "translate-x-[18px]" : "translate-x-0.5"}`} />
+                                  </button>
+                                  <span className={`text-[10px] ${simCapitalMode ? "t-text font-semibold" : "t-text-dim"}`}>1000만원</span>
+                                </div>
+                              </div>
+                            )}
                             <div className="space-y-2">
                               {dates.map(date => {
                                 const group = grouped[date];
@@ -1420,7 +1427,15 @@ export default function AutoTrader() {
                                 const dayPnl = isRealTrades
                                   ? calcWeighted(group)
                                   : (group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0);
-                                const dayProfit = group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
+                                const dayProfit = SIM_CAPITAL_MODE
+                                  ? (() => {
+                                      const sortedCapDates = Object.keys(dailyCapitals).sort();
+                                      const prevD = sortedCapDates.filter(d => d < date).pop();
+                                      const capAtDay = prevD ? dailyCapitals[prevD] : SIM_START_CAPITAL;
+                                      const perStock = group.length > 0 ? Math.floor(Math.max(capAtDay, SIM_START_CAPITAL) / group.length) : 0;
+                                      return group.reduce((s: number, t: any) => s + Math.round(perStock * (t.pnl_pct ?? 0) / 100), 0);
+                                    })()
+                                  : group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const dayClosed = group.filter((t: any) => !t._isActive);
                                 const isToday = date === todayStr || date === "보유" || date === dates[0];
                                 const isChecked = !excludedDates.has(date);
@@ -1493,14 +1508,34 @@ export default function AutoTrader() {
                                             {sellPrice > 0 && <><span className="t-text-dim ml-2">→</span> <span className="t-text-dim ml-1">매도</span> <span className="font-medium tabular-nums">{sellPrice.toLocaleString()}</span><span className="t-text-dim ml-0.5">{sellDateLabel}{formatTimeKst(sellIso)}</span></>}
                                           </div>
                                           {(() => {
-                                            const invest = getInvestAmt(item);
-                                            const profit = getProfitKrw(item);
+                                            if (!buyPrice) return null;
+                                            const pnlPct = item.pnl_pct ?? 0;
+                                            let invest: number, qty: number, profit: number;
+                                            if (isRealTrades) {
+                                              qty = item.quantity || 0;
+                                              invest = buyPrice * qty;
+                                              profit = sellPrice > 0 ? (sellPrice - buyPrice) * qty : Math.round(invest * pnlPct / 100);
+                                            } else if (SIM_CAPITAL_MODE) {
+                                              // 1000만원 모드: 해당 일자 가용 자본 / 종목 수
+                                              const dayStocks = grouped[date]?.length || 2;
+                                              // dailyCapitals에서 이전 일자 자본 사용 (매수 시점 자본)
+                                              const sortedCapDates = Object.keys(dailyCapitals).sort();
+                                              const prevCapDate = sortedCapDates.filter(d => d < date).pop();
+                                              const capAtBuy = prevCapDate ? dailyCapitals[prevCapDate] : SIM_START_CAPITAL;
+                                              const perStock = Math.floor(Math.max(capAtBuy, SIM_START_CAPITAL) / dayStocks);
+                                              qty = Math.floor(perStock / buyPrice);
+                                              invest = qty * buyPrice;
+                                              profit = sellPrice > 0 ? (sellPrice - buyPrice) * qty : Math.round(invest * pnlPct / 100);
+                                            } else {
+                                              qty = Math.floor(SIM_AMOUNT_PER_STOCK / buyPrice);
+                                              invest = qty * buyPrice;
+                                              profit = sellPrice > 0 ? (sellPrice - buyPrice) * qty : Math.round(invest * pnlPct / 100);
+                                            }
                                             if (invest <= 0) return null;
-                                            const qty = isRealTrades ? (item.quantity || 0) : Math.floor(SIM_AMOUNT_PER_STOCK / (buyPrice || 1));
                                             return (
                                               <div className="flex items-center gap-1 mt-0.5 text-[9px] t-text-dim tabular-nums">
-                                                <span>{qty}주 × {buyPrice.toLocaleString()}원 = {invest.toLocaleString()}원</span>
-                                                {sellPrice > 0 && profit !== 0 && (
+                                                <span>{qty.toLocaleString()}주 × {buyPrice.toLocaleString()}원 = {invest.toLocaleString()}원</span>
+                                                {profit !== 0 && (
                                                   <span className={`ml-1 font-medium ${profit >= 0 ? "text-red-400/70" : "text-blue-400/70"}`}>
                                                     ({profit >= 0 ? "+" : ""}{profit.toLocaleString()}원)
                                                   </span>
