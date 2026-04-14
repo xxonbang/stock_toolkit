@@ -49,7 +49,7 @@ async def fetch_json(url: str) -> list | dict | None:
 
 async def fetch_alert_config() -> dict:
     """Supabase alert_config에서 전체 설정 조회"""
-    defaults = {"alert_mode": "all", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed", "flash_spike_pct": 15.0, "criteria_filter": False}
+    defaults = {"alert_mode": "off", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed", "flash_spike_pct": 15.0, "criteria_filter": False}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
         return defaults
     try:
