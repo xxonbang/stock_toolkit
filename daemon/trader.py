@@ -1613,8 +1613,8 @@ async def run_tv_scan_and_buy() -> int:
         # 가격대 필터
         if cur_price < 1000 or cur_price >= 200000:
             continue
-        # 상승 출발
-        if change_rate <= 0:
+        # 상승 또는 보합 출발 (하락 출발만 제외)
+        if change_rate < 0:
             continue
         # 갭 < 5% (open/prev 없으면 등락률로 대체 — #5 장중 등락률은 갭보다 클 수 있음)
         if open_price > 0 and prev_close > 0:
