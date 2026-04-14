@@ -47,11 +47,14 @@ async def fetch_json(url: str) -> list | dict | None:
     return None
 
 
+_config_cache: dict | None = None  # 마지막 성공 조회값 캐시
+
 async def fetch_alert_config() -> dict:
-    """Supabase alert_config에서 전체 설정 조회"""
-    defaults = {"alert_mode": "off", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "and", "strategy_type": "fixed", "flash_spike_pct": 15.0, "criteria_filter": False}
+    """Supabase alert_config에서 전체 설정 조회. 실패 시 캐시 → 안전 defaults."""
+    global _config_cache
+    safe_defaults = {"alert_mode": "off", "take_profit_pct": TRADE_TAKE_PROFIT_PCT, "stop_loss_pct": TRADE_STOP_LOSS_PCT, "trailing_stop_pct": TRADE_TRAILING_STOP_PCT, "buy_signal_mode": "research_optimal", "strategy_type": "gapup", "flash_spike_pct": 15.0, "criteria_filter": False}
     if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
-        return defaults
+        return _config_cache or safe_defaults
     try:
         session = await get_session()
         url = f"{SUPABASE_URL}/rest/v1/alert_config?select=user_id,alert_mode,take_profit_pct,stop_loss_pct,trailing_stop_pct,buy_signal_mode,strategy_type,criteria_filter&limit=1"
@@ -86,10 +89,14 @@ async def fetch_alert_config() -> dict:
                                     result["stepped_preset"] = sp_rows[0]["stepped_preset"]
                     except Exception:
                         pass
+                    _config_cache = result  # 성공 시 캐시 갱신
                     return result
     except Exception as e:
         logger.warning(f"설정 조회 실패: {e}")
-    return defaults
+    if _config_cache:
+        logger.info("설정 조회 실패 → 캐시 사용 (마지막 성공값)")
+        return _config_cache
+    return safe_defaults
 
 
 async def fetch_alert_mode() -> str:
