@@ -2886,10 +2886,11 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
     for item in scored_top2:
         code = item.get("code", "")
         name = item.get("name", code)
-        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격이므로)
+        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격이므로 사용 금지)
         price = await _get_current_price(code)
         if price <= 0:
-            price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
+            logger.warning(f"5팩터 시뮬 스킵 (현재가 조회 실패): {name}({code}) — fallback 가격 사용 금지")
+            continue
         if price <= 0 or code in existing_codes:
             continue
         # 상한가 종목은 시뮬 생성 제외 (실제 매수 불가능)
@@ -3029,9 +3030,12 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         if item["code"] in existing_codes:
             logger.info(f"API∧대장주 시뮬 스킵 (오늘 이미 생성): {item['name']}({item['code']})")
             continue
-        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격)
+        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격이므로 사용 금지)
         real_price = await _get_current_price(item["code"])
-        entry_price = real_price if real_price > 0 else item["price"]
+        if real_price <= 0:
+            logger.warning(f"API∧대장주 시뮬 스킵 (현재가 조회 실패): {item['name']}({item['code']})")
+            continue
+        entry_price = real_price
         # 상한가 종목은 시뮬 생성 제외 (실제 매수 불가능)
         if await is_upper_limit(item["code"], entry_price):
             logger.info(f"API∧대장주 시뮬 스킵 (상한가): {item['name']}({item['code']}) {entry_price:,}원")
@@ -3591,6 +3595,7 @@ async def _get_current_price(code: str) -> int:
                 await asyncio.sleep(attempt * _RATE_LIMIT_BASE_SEC)
                 continue
             logger.warning(f"현재가 조회 실패 ({code}): {e}")
+    logger.warning(f"현재가 조회 최종 실패 ({code}): {_RATE_LIMIT_RETRIES}회 시도 소진")
     return 0
 
 
