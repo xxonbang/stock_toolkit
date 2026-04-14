@@ -2886,10 +2886,18 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
     for item in scored_top2:
         code = item.get("code", "")
         name = item.get("name", code)
-        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격이므로 사용 금지)
-        price = await _get_current_price(code)
+        # 실시간 현재가로 entry_price 설정 (강화 재시도: 5회 + 3초 간격)
+        price = 0
+        for _price_try in range(5):
+            price = await _get_current_price(code)
+            if price > 0:
+                break
+            await asyncio.sleep(3)
         if price <= 0:
-            logger.warning(f"5팩터 시뮬 스킵 (현재가 조회 실패): {name}({code}) — fallback 가격 사용 금지")
+            logger.warning(f"5팩터 시뮬: 현재가 5회 조회 실패 {name}({code}) — cross_signal fallback")
+            price = (item.get("api_data") or {}).get("price", {}).get("current", 0)
+        if price <= 0:
+            logger.warning(f"5팩터 시뮬 스킵 (가격 확보 불가): {name}({code})")
             continue
         if price <= 0 or code in existing_codes:
             continue
@@ -3030,10 +3038,18 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         if item["code"] in existing_codes:
             logger.info(f"API∧대장주 시뮬 스킵 (오늘 이미 생성): {item['name']}({item['code']})")
             continue
-        # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격이므로 사용 금지)
-        real_price = await _get_current_price(item["code"])
+        # 실시간 현재가로 entry_price 설정 (강화 재시도: 5회 + 3초 간격)
+        real_price = 0
+        for _price_try in range(5):
+            real_price = await _get_current_price(item["code"])
+            if real_price > 0:
+                break
+            await asyncio.sleep(3)
         if real_price <= 0:
-            logger.warning(f"API∧대장주 시뮬 스킵 (현재가 조회 실패): {item['name']}({item['code']})")
+            logger.warning(f"API∧대장주 시뮬: 현재가 5회 조회 실패 {item['name']}({item['code']}) — cross_signal fallback")
+            real_price = item.get("price", 0)
+        if real_price <= 0:
+            logger.warning(f"API∧대장주 시뮬 스킵 (가격 확보 불가): {item['name']}({item['code']})")
             continue
         entry_price = real_price
         # 상한가 종목은 시뮬 생성 제외 (실제 매수 불가능)
