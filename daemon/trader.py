@@ -2993,9 +2993,30 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
     if not top2:
         return
 
+    # 중복 방지: 오늘 이미 api_leader 시뮬 생성된 종목 코드 수집
+    today_utc = _today_utc_start()
+    existing_api_sims = await _supabase_request(
+        "GET",
+        f"{SUPABASE_URL}/rest/v1/strategy_simulations?strategy_type=eq.api_leader&created_at=gte.{today_utc}&select=trade_id",
+    )
+    existing_tids = {r.get("trade_id") for r in (existing_api_sims or [])}
+    # trade_id → code 매핑으로 오늘 이미 생성된 종목 코드
+    if existing_tids:
+        tid_filter = ",".join(existing_tids)
+        existing_trades = await _supabase_request(
+            "GET",
+            f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=code",
+        )
+        existing_codes = {r.get("code") for r in (existing_trades or [])}
+    else:
+        existing_codes = set()
+
     session = await get_session()
     headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}", "Content-Type": "application/json", "Prefer": "return=minimal"}
     for item in top2:
+        if item["code"] in existing_codes:
+            logger.info(f"API∧대장주 시뮬 스킵 (오늘 이미 생성): {item['name']}({item['code']})")
+            continue
         # 실시간 현재가로 entry_price 설정 (cross_signal은 이전 시점 가격)
         real_price = await _get_current_price(item["code"])
         entry_price = real_price if real_price > 0 else item["price"]
