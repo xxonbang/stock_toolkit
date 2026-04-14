@@ -1082,13 +1082,33 @@ export default function AutoTrader() {
               // 모달과 동일하게 모든 항목을 가상 시뮬 가정으로 단일 호출 (실거래/시뮬 혼합 일관 처리)
               const gapupSimPnl = calcRolloverPnl(allGapupSimTrades, false);
 
-              const simCards: { key: string; label: string; pnl: number; count: number; onClick: () => void }[] = [
-                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
-                { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, count: allRealTrades.length, onClick: () => setStrategyDetail("stepped_sim") },
-                { key: "sim", label: simLabel, pnl: simPnl, count: allSims.length, onClick: () => setStrategyDetail("fixed_sim") },
-                { key: "time", label: "시간전략", pnl: timePnl, count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time_sim") : undefined },
-                { key: "tv_time", label: "10시청산", pnl: tvTimePnl, count: allTvTimeSims.length, onClick: () => allTvTimeSims.length > 0 ? setStrategyDetail("tv_time_sim") : undefined },
-                { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader_sim") : undefined },
+              // 1000만원 복리 계산 (카드용)
+              const calcCapitalPnl = (items: any[]): number => {
+                if (items.length === 0) return 0;
+                const byDate: Record<string, any[]> = {};
+                for (const t of items) {
+                  const d = toKstDate(t.filled_at || t.created_at) || "";
+                  if (d) { if (!byDate[d]) byDate[d] = []; byDate[d].push(t); }
+                }
+                let cap = 10_000_000;
+                for (const d of Object.keys(byDate).sort()) {
+                  const grp = byDate[d];
+                  const perStock = grp.length > 0 ? Math.floor(cap / grp.length) : 0;
+                  for (const t of grp) {
+                    const pnl = t.pnl_pct ?? 0;
+                    cap += Math.round(perStock * pnl / 100);
+                  }
+                }
+                return ((cap - 10_000_000) / 10_000_000) * 100;
+              };
+
+              const simCards: { key: string; label: string; pnl: number; pnlCap: number; count: number; onClick: () => void }[] = [
+                { key: "gapup_sim", label: "갭업 모멘텀", pnl: gapupSimPnl, pnlCap: calcCapitalPnl(allGapupSimTrades), count: allGapupSimTrades.length, onClick: () => setStrategyDetail("gapup_sim") },
+                { key: "real_legacy", label: "5팩터+Stepped", pnl: realPnl, pnlCap: calcCapitalPnl(allRealTrades), count: allRealTrades.length, onClick: () => setStrategyDetail("stepped_sim") },
+                { key: "sim", label: simLabel, pnl: simPnl, pnlCap: calcCapitalPnl(allSims), count: allSims.length, onClick: () => setStrategyDetail("fixed_sim") },
+                { key: "time", label: "시간전략", pnl: timePnl, pnlCap: calcCapitalPnl(allTimeSims), count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time_sim") : undefined },
+                { key: "tv_time", label: "10시청산", pnl: tvTimePnl, pnlCap: calcCapitalPnl(allTvTimeSims), count: allTvTimeSims.length, onClick: () => allTvTimeSims.length > 0 ? setStrategyDetail("tv_time_sim") : undefined },
+                { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, pnlCap: calcCapitalPnl(apiLeaderSims), count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader_sim") : undefined },
               ];
 
               return (
@@ -1112,16 +1132,27 @@ export default function AutoTrader() {
                     )}
                     <ChevronRight size={10} className="t-text-dim opacity-30 group-hover:opacity-100 ml-2 shrink-0" />
                   </button>
-                  {/* Row 2: 시뮬 5개 균등 배분 */}
-                  <div className="grid grid-cols-5 gap-1 mt-1.5">
-                    {simCards.map(c => (
+                  {/* 시뮬 모드 토글 */}
+                  <div className="flex items-center justify-end gap-1.5 mt-2 mb-1">
+                    <span className={`text-[9px] ${!simCapitalMode ? "t-text font-medium" : "t-text-dim"}`}>무제한</span>
+                    <button onClick={() => setSimCapitalMode(p => !p)}
+                      className={`relative w-7 h-3.5 rounded-full transition-colors ${simCapitalMode ? "bg-blue-500" : "bg-gray-300 dark:bg-gray-600"}`}>
+                      <div className={`absolute top-[1px] w-3 h-3 rounded-full bg-white shadow transition-transform ${simCapitalMode ? "translate-x-[13px]" : "translate-x-[1px]"}`} />
+                    </button>
+                    <span className={`text-[9px] ${simCapitalMode ? "t-text font-medium" : "t-text-dim"}`}>1000만원</span>
+                  </div>
+                  {/* Row 2: 시뮬 카드 */}
+                  <div className="grid grid-cols-5 gap-1">
+                    {simCards.map(c => {
+                      const displayPnl = simCapitalMode ? c.pnlCap : c.pnl;
+                      return (
                       <button key={c.key} onClick={c.onClick}
                         className="p-1.5 rounded-lg text-center cursor-pointer transition" style={{ background: "var(--bg)" }}>
                         <div className="text-[8px] t-text-dim font-medium truncate leading-tight">{c.label}</div>
                         {c.count > 0 ? (
                           <>
-                            <div className={`text-[11px] font-bold tabular-nums mt-0.5 ${c.pnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                              {c.pnl >= 0 ? "+" : ""}{c.pnl.toFixed(1)}%
+                            <div className={`text-[11px] font-bold tabular-nums mt-0.5 ${displayPnl >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                              {displayPnl >= 0 ? "+" : ""}{displayPnl.toFixed(1)}%
                             </div>
                             <div className="text-[8px] t-text-dim">{c.count}건</div>
                           </>
@@ -1129,7 +1160,8 @@ export default function AutoTrader() {
                           <div className="text-[8px] t-text-dim mt-1">—</div>
                         )}
                       </button>
-                    ))}
+                      );
+                    })}
                   </div>
                   {allRealTrades.length === 0 && allSims.length === 0 && (
                     <div className="text-[10px] t-text-dim text-center py-2">아직 비교 데이터가 없습니다</div>
