@@ -1352,7 +1352,7 @@ export default function AutoTrader() {
                                   : (group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0);
                                 const dayProfit = group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const dayClosed = group.filter((t: any) => !t._isActive);
-                                const isToday = date === todayStr || date === "보유";
+                                const isToday = date === todayStr || date === "보유" || date === dates[0];
                                 const isChecked = !excludedDates.has(date);
                                 return (
                                   <details key={date} open={isToday} onToggle={(e) => {
