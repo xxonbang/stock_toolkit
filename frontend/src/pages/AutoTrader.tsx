@@ -1174,12 +1174,13 @@ export default function AutoTrader() {
                             : strategyDetail === "stepped_sim"
                             ? allRealTrades.map((t: any) => {
                                 const mt = trades.find(tr => tr.id === t.trade_id);
-                                // 시뮬 생성일로 통일 (다른 시뮬과 동일)
-                                return { ...t, _date: toKstDate(t.created_at) || toKstDate(mt?.created_at) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원" };
+                                const mtTime = mt?.filled_at || mt?.created_at || t.created_at;
+                                return { ...t, _date: toKstDate(mtTime) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원", filled_at: mtTime, created_at: mtTime };
                               })
                             : (strategyDetail === "time_sim" ? allTimeSims : strategyDetail === "tv_time_sim" ? allTvTimeSims : strategyDetail === "api_leader_sim" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = trades.find(t => t.id === s.trade_id);
-                                return { ...s, _date: toKstDate(mt?.created_at) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원` };
+                                const mtTime = mt?.filled_at || mt?.created_at || s.created_at;
+                                return { ...s, _date: toKstDate(mtTime) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원`, filled_at: mtTime, created_at: mtTime };
                               });
                           if (items.length === 0) {
                             return (
