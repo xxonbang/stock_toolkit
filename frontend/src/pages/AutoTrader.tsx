@@ -127,6 +127,7 @@ export default function AutoTrader() {
     return () => { document.body.style.overflow = ""; };
   }, [strategyDetail]);
   const [excludedDates, setExcludedDates] = useState<Set<string>>(new Set());
+  const [simCapitalMode, setSimCapitalMode] = useState(false); // false=150만원/종목, true=1000만원 회전
   const [simulations, setSimulations] = useState<any[]>([]);
 
   useEffect(() => {
@@ -1150,6 +1151,12 @@ export default function AutoTrader() {
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
                             {strategyDetail === "tv_momentum" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "stepped_sim" ? "5팩터+Stepped (가상)" : strategyDetail === "time_sim" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "tv_time_sim" ? "10시 청산 (가상)" : strategyDetail === "api_leader_sim" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
+                            {strategyDetail !== "tv_momentum" && (
+                              <button onClick={() => setSimCapitalMode(p => !p)}
+                                className={`ml-1 text-[9px] px-2 py-0.5 rounded-full transition ${simCapitalMode ? "bg-blue-500/20 text-blue-400 font-semibold" : "t-text-dim border t-border-light"}`}>
+                                {simCapitalMode ? "1000만원" : "무제한"}
+                              </button>
+                            )}
                             {priceTime && <span className="ml-auto text-[9px] text-green-400 tabular-nums shrink-0">{priceTime}</span>}
                             <button onClick={(e) => { e.stopPropagation(); refreshPrices(); }} disabled={priceRefreshing}
                               className={`${priceTime ? "ml-1" : "ml-auto"} text-[10px] px-2 py-0.5 rounded-lg font-medium t-text-sub border t-border-light hover:opacity-80 transition disabled:opacity-40 flex items-center gap-1 shrink-0`}>
@@ -1209,7 +1216,10 @@ export default function AutoTrader() {
                           const isRealTrades = strategyDetail === "tv_momentum";
                           // 자본 회전 전략 (당일 청산, 다음날 같은 자본으로 재투자)
                           const isRollover = ["tv_momentum", "gapup_sim", "time_sim", "tv_time_sim"].includes(strategyDetail || "");
-                          // 가상 시뮬 균등 매수 가정 금액 (종목당 150만원 ~ 300만원/2종목)
+                          // 1000만원 회전 모드: pnl_pct 기반 복리 계산
+                          const SIM_CAPITAL_MODE = simCapitalMode && strategyDetail !== "tv_momentum";
+                          const SIM_START_CAPITAL = 10_000_000;
+                          // 가상 시뮬 균등 매수 가정 금액
                           const SIM_AMOUNT_PER_STOCK = 1500000;
                           // 종목별 매수금액 계산 (실거래는 quantity, 시뮬은 균등 가정)
                           const getInvestAmt = (t: any): number => {
@@ -1259,22 +1269,80 @@ export default function AutoTrader() {
                               };
                             })
                             .filter(s => s.count > 0);
-                          // 종합 수익률 (보유+청산 모두 포함, 보유는 unrealized)
-                          // 회전 전략: 누적 손익 ÷ 일평균 자본 × 100 (자본 회전 가정의 누적 수익률)
-                          // 누적 전략: 가중평균 또는 단순평균 (포지션 누적)
-                          const totalProfitForPnlPre = dailyStats.reduce((s, d) => s + d.profit, 0);
-                          const avgDailyInvestPre = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
-                          const filteredPnl = isRollover
-                            ? (avgDailyInvestPre > 0 ? (totalProfitForPnlPre / avgDailyInvestPre) * 100 : 0)
-                            : (isRealTrades
-                                ? calcWeighted(includedItems)
-                                : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0));
+                          // ─── 1000만원 회전 모드: pnl_pct 기반 복리 계산 ───
+                          let filteredPnl = 0;
+                          let totalProfitKrw = 0;
+                          let totalInvestKrw = 0;
+                          let simCapital = SIM_START_CAPITAL;
+                          // 일별 자본 추적 (1000만원 모드용)
+                          const dailyCapitals: Record<string, number> = {};
+
+                          if (SIM_CAPITAL_MODE) {
+                            // 복리 계산: 날짜순으로 자본 추적
+                            let cap = SIM_START_CAPITAL;
+                            // 누적 전략: 보유 중 자본 추적
+                            const holdingInvest: Record<string, number> = {}; // item key → 투자금
+                            const sortedDates = [...dates].sort();
+                            for (const d of sortedDates) {
+                              if (excludedDates.has(d)) continue;
+                              const grp = grouped[d] || [];
+                              // 청산된 종목 자본 회수 (이전 일자에서 매수, 오늘 청산)
+                              for (const t of grp) {
+                                const key = t.id || t.trade_id || "";
+                                if (!t._isActive && holdingInvest[key]) {
+                                  const inv = holdingInvest[key];
+                                  const pnl = t.pnl_pct ?? 0;
+                                  cap += inv + Math.round(inv * pnl / 100);
+                                  delete holdingInvest[key];
+                                }
+                              }
+                              // 신규 매수: 가용 자본 / 종목 수
+                              const newBuys = grp.filter((t: any) => {
+                                const key = t.id || t.trade_id || "";
+                                return !holdingInvest[key]; // 아직 보유 중이 아닌 종목 = 신규
+                              });
+                              if (newBuys.length > 0 && cap > 0) {
+                                const perStock = Math.floor(cap / newBuys.length);
+                                for (const t of newBuys) {
+                                  const key = t.id || t.trade_id || "";
+                                  const pnl = t.pnl_pct ?? 0;
+                                  if (t._isActive) {
+                                    // 보유 중: 자본 묶임
+                                    holdingInvest[key] = perStock;
+                                    cap -= perStock;
+                                  } else {
+                                    // 당일 청산 완료: 즉시 회수
+                                    const profit = Math.round(perStock * pnl / 100);
+                                    cap += profit; // 손익만 변동 (투자금은 차감 안 했으므로)
+                                  }
+                                }
+                              }
+                              dailyCapitals[d] = cap;
+                            }
+                            // 보유 중 평가 포함
+                            let holdingEval = 0;
+                            for (const [key, inv] of Object.entries(holdingInvest)) {
+                              const t = includedItems.find((it: any) => (it.id || it.trade_id) === key);
+                              if (t) holdingEval += Math.round(inv * (t.pnl_pct ?? 0) / 100);
+                            }
+                            simCapital = cap + Object.values(holdingInvest).reduce((s, v) => s + v, 0) + holdingEval;
+                            totalProfitKrw = simCapital - SIM_START_CAPITAL;
+                            filteredPnl = (totalProfitKrw / SIM_START_CAPITAL) * 100;
+                            totalInvestKrw = SIM_START_CAPITAL;
+                          } else {
+                            // ─── 기존 모드 (150만원/종목) ───
+                            const totalProfitForPnlPre = dailyStats.reduce((s, d) => s + d.profit, 0);
+                            const avgDailyInvestPre = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
+                            filteredPnl = isRollover
+                              ? (avgDailyInvestPre > 0 ? (totalProfitForPnlPre / avgDailyInvestPre) * 100 : 0)
+                              : (isRealTrades
+                                  ? calcWeighted(includedItems)
+                                  : (includedItems.length > 0 ? includedItems.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / includedItems.length : 0));
+                            totalProfitKrw = dailyStats.reduce((s, d) => s + d.profit, 0);
+                            const avgDailyInvest = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
+                            totalInvestKrw = isRollover ? avgDailyInvest : dailyStats.reduce((s, d) => s + d.invest, 0);
+                          }
                           const closedPnl = filteredPnl;
-                          // 손익(원)은 회전/누적 무관 — 일별 손익의 합산
-                          const totalProfitKrw = dailyStats.reduce((s, d) => s + d.profit, 0);
-                          // 투자금액 표시: 회전 = 일평균 매수금액
-                          const avgDailyInvest = dailyStats.length > 0 ? dailyStats.reduce((s, d) => s + d.invest, 0) / dailyStats.length : 0;
-                          const totalInvestKrw = isRollover ? avgDailyInvest : dailyStats.reduce((s, d) => s + d.invest, 0);
                           // 누적 전략: 평균 보유 일수 계산
                           const calcAvgHoldDays = (): number => {
                             const holds: number[] = [];
@@ -1324,11 +1392,13 @@ export default function AutoTrader() {
                                       {activeOnly.length > 0 ? "평가 손익 " : ""}{totalProfitKrw >= 0 ? "+" : ""}{totalProfitKrw.toLocaleString()}원
                                     </span>
                                     <span className="t-text-dim ml-1.5">
-                                      {isRollover
-                                        ? (isRealTrades
-                                            ? `· 일평균 ${Math.round(totalInvestKrw).toLocaleString()}원 (${dailyStats.length}일 회전)`
-                                            : `· 가상 ${(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목 (${dailyStats.length}일 회전)`)
-                                        : `· 가상 ${(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목, ${avgHoldDays < 1 ? `${(avgHoldDays * 24).toFixed(1)}h` : `${avgHoldDays.toFixed(1)}일`} 보유`}
+                                      {SIM_CAPITAL_MODE
+                                        ? `· 시작 ${(SIM_START_CAPITAL/10000).toLocaleString()}만원 → 현재 ${Math.round(simCapital).toLocaleString()}원`
+                                        : isRollover
+                                          ? (isRealTrades
+                                              ? `· 일평균 ${Math.round(totalInvestKrw).toLocaleString()}원 (${dailyStats.length}일 회전)`
+                                              : `· 가상 ${(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목 (${dailyStats.length}일 회전)`)
+                                          : `· 가상 ${(SIM_AMOUNT_PER_STOCK/10000).toFixed(0)}만원/종목, ${avgHoldDays < 1 ? `${(avgHoldDays * 24).toFixed(1)}h` : `${avgHoldDays.toFixed(1)}일`} 보유`}
                                     </span>
                                   </div>
                                 )}

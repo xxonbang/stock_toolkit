@@ -2127,8 +2127,9 @@ async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = 
                 url = f"{SUPABASE_URL}/rest/v1/auto_trades"
                 headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}",
                            "Content-Type": "application/json", "Prefer": "return=representation"}
+                sim_qty = t["price"] and (5_000_000 // t["price"]) or 0  # 가상 500만원/종목
                 body = {"code": t["code"], "name": t["name"], "side": "buy",
-                        "order_price": t["price"], "quantity": 0, "status": "sim_only",
+                        "order_price": t["price"], "quantity": sim_qty, "status": "sim_only",
                         "sell_reason": "gapup_sim"}
                 async with session.post(url, json=body, headers=headers) as resp:
                     if resp.status in (200, 201):
@@ -2909,7 +2910,7 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
         virtual_trade = await _supabase_request("POST",
             f"{SUPABASE_URL}/rest/v1/auto_trades",
             json={"code": code, "name": name, "side": "buy",
-                  "order_price": price, "quantity": 0, "status": "sim_only"},
+                  "order_price": price, "quantity": price and (5_000_000 // price) or 0, "status": "sim_only"},
             retries=0)
         if not virtual_trade:
             logger.warning(f"Stepped 시뮬 가상 trade 생성 실패: {name}")
@@ -3060,7 +3061,7 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         virtual_trade = await _supabase_request("POST",
             f"{SUPABASE_URL}/rest/v1/auto_trades",
             json={"code": item["code"], "name": item["name"], "side": "buy",
-                  "order_price": entry_price, "quantity": 0, "status": "sim_only"},
+                  "order_price": entry_price, "quantity": entry_price and (5_000_000 // entry_price) or 0, "status": "sim_only"},
             retries=0)
         if not virtual_trade:
             logger.warning(f"API∧대장주 가상 trade 생성 실패: {item['name']}")
