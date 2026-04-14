@@ -2107,6 +2107,18 @@ async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = 
 
     # === sim_only 모드: 매수 없이 auto_trades에 sim_only로 기록 ===
     if sim_only:
+        # 중복 방지: 오늘 이미 gapup_sim으로 기록된 종목 스킵
+        today_utc = _today_utc_start()
+        existing_gapup = await _supabase_request(
+            "GET",
+            f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&sell_reason=eq.gapup_sim&created_at=gte.{today_utc}&select=code",
+        )
+        existing_gapup_codes = {r.get("code") for r in (existing_gapup or [])}
+        buy_targets = [t for t in buy_targets if t["code"] not in existing_gapup_codes]
+        if existing_gapup_codes:
+            logger.info(f"갭업 시뮬 중복 스킵: {existing_gapup_codes}")
+        if not buy_targets:
+            return 0
         recorded = 0
         rpt = [f"<b>📈 갭업 시뮬 기록</b> (sim_only)"]
         for t in buy_targets[:2]:
