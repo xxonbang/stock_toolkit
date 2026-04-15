@@ -194,18 +194,30 @@ def _generate_report(rows: list[dict], analyses: dict) -> tuple[str, str]:
 
 
 async def verify_and_report():
-    """검증 + MD 저장 + 텔레그램 전송. 1회만 실행 (마커 파일)."""
+    """검증 + MD 저장 + 텔레그램 전송 (3일 연속, 같은 시각)."""
+    # 발송 횟수 확인 (마커에 "N" 저장, N=1,2,3)
+    send_count = 0
     if MARKER.exists():
-        return False  # 이미 실행됨
+        try:
+            content = MARKER.read_text(encoding="utf-8").strip()
+            # 기존 포맷 호환: "YYYY-MM-DD" → 1회 완료로 간주
+            if content.isdigit():
+                send_count = int(content)
+            elif content:
+                send_count = 1
+        except Exception:
+            pass
+    if send_count >= 3:
+        return False  # 3회 완료
+
     if not LOG_DIR.exists():
         return False
-
     log_files = [p for p in LOG_DIR.glob("*.json") if not p.name.startswith("_")]
     if len(log_files) < MIN_DAYS:
         logger.info(f"cttr_log 데이터 부족 ({len(log_files)}/{MIN_DAYS}거래일) — 검증 보류")
         return False
 
-    logger.info(f"OFI 필터 검증 시작 — {len(log_files)}거래일 데이터")
+    logger.info(f"OFI 필터 검증 ({send_count+1}/3회차) — {len(log_files)}거래일 데이터")
     rows = _load_logs()
     if not rows:
         logger.warning("OFI 검증: 유효 데이터 없음")
@@ -216,23 +228,24 @@ async def verify_and_report():
         "snap_0910": _analyze_snapshot(rows, "snap_0910"),
         "snap_0915": _analyze_snapshot(rows, "snap_0915"),
     }
-
     md, tg = _generate_report(rows, analyses)
 
-    # MD 저장
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+    # MD 저장 (1회차만)
     today = datetime.now(_KST).strftime("%Y-%m-%d")
-    report_path = REPORT_DIR / f"{today}-ofi-verification.md"
-    report_path.write_text(md, encoding="utf-8")
-    logger.info(f"OFI 검증 리포트 저장: {report_path}")
+    if send_count == 0:
+        REPORT_DIR.mkdir(parents=True, exist_ok=True)
+        report_path = REPORT_DIR / f"{today}-ofi-verification.md"
+        report_path.write_text(md, encoding="utf-8")
+        logger.info(f"OFI 검증 리포트 저장: {report_path}")
 
-    # 텔레그램 전송
+    # 텔레그램 전송 (회차 표시 추가)
+    tg_with_count = f"<b>[OFI 검증 {send_count+1}/3]</b>\n" + tg
     try:
         from daemon.trader import send_telegram
-        await send_telegram(tg)
+        await send_telegram(tg_with_count)
     except Exception as e:
         logger.warning(f"OFI 검증 텔레그램 전송 실패: {e}")
 
-    # 마커 생성 (1회 실행)
-    MARKER.write_text(today, encoding="utf-8")
+    # 발송 횟수 업데이트
+    MARKER.write_text(str(send_count + 1), encoding="utf-8")
     return True
