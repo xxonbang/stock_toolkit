@@ -2312,7 +2312,7 @@ async def check_positions_for_sell(current_price_data: dict):
 
         # 거래대금 모멘텀: 장중 TP/SL 미적용 (15:15 전량 청산), 비상 손절만 적용
         if buy_mode == "research_optimal":
-            emergency_sl = config.get("emergency_sl", "-15")
+            emergency_sl = config.get("emergency_sl", "-5")
             if emergency_sl == "none":
                 continue  # 비상 손절 비활성
             emergency_sl = float(emergency_sl)
