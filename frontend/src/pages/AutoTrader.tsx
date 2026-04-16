@@ -1082,24 +1082,51 @@ export default function AutoTrader() {
               // 모달과 동일하게 모든 항목을 가상 시뮬 가정으로 단일 호출 (실거래/시뮬 혼합 일관 처리)
               const gapupSimPnl = calcRolloverPnl(allGapupSimTrades, false);
 
-              // 1000만원 복리 계산 (카드용)
+              // 1000만원 복리 계산 (카드+모달 공용, 보유 자본 묶임 반영)
               const calcCapitalPnl = (items: any[]): number => {
                 if (items.length === 0) return 0;
+                const START = 10_000_000;
                 const byDate: Record<string, any[]> = {};
                 for (const t of items) {
-                  const d = toKstDate(t.filled_at || t.created_at) || "";
+                  const mt = trades.find(tr => tr.id === t.trade_id);
+                  const d = toKstDate(mt?.filled_at || mt?.created_at || t.filled_at || t.created_at) || "";
                   if (d) { if (!byDate[d]) byDate[d] = []; byDate[d].push(t); }
                 }
-                let cap = 10_000_000;
+                let cap = START;
+                const holding: Record<string, number> = {};
                 for (const d of Object.keys(byDate).sort()) {
                   const grp = byDate[d];
-                  const perStock = grp.length > 0 ? Math.floor(cap / grp.length) : 0;
+                  // 청산 종목 자본 회수
                   for (const t of grp) {
-                    const pnl = t.pnl_pct ?? 0;
-                    cap += Math.round(perStock * pnl / 100);
+                    const key = t.id || t.trade_id || "";
+                    if (!(t._isActive) && holding[key]) {
+                      cap += holding[key] + Math.round(holding[key] * (t.pnl_pct ?? 0) / 100);
+                      delete holding[key];
+                    }
+                  }
+                  // 신규 매수
+                  const newBuys = grp.filter((t: any) => !holding[t.id || t.trade_id || ""]);
+                  if (newBuys.length > 0 && cap > 0) {
+                    const perStock = Math.floor(cap / newBuys.length);
+                    for (const t of newBuys) {
+                      const key = t.id || t.trade_id || "";
+                      if (t._isActive) {
+                        holding[key] = perStock;
+                        cap -= perStock;
+                      } else {
+                        cap += Math.round(perStock * (t.pnl_pct ?? 0) / 100);
+                      }
+                    }
                   }
                 }
-                return ((cap - 10_000_000) / 10_000_000) * 100;
+                // 보유 평가
+                let holdEval = 0;
+                for (const [key, inv] of Object.entries(holding)) {
+                  const t = items.find((it: any) => (it.id || it.trade_id) === key);
+                  if (t) holdEval += Math.round(inv * (t.pnl_pct ?? 0) / 100);
+                }
+                const total = cap + Object.values(holding).reduce((s, v) => s + v, 0) + holdEval;
+                return ((total - START) / START) * 100;
               };
 
               const simCards: { key: string; label: string; pnl: number; pnlCap: number; count: number; onClick: () => void }[] = [
