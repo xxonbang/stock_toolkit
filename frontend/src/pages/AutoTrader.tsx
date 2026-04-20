@@ -743,38 +743,12 @@ export default function AutoTrader() {
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="font-semibold shrink-0" style={{ color: "#a855f7" }}>손절</span>
-                        <div className="flex items-center gap-1.5">
-                          {([["none", "없음"], ["-5", "-5%"], ["-15", "-15%"]] as const).map(([val, label]) => (
-                            <button key={val} onClick={() => setEmergencySl(val as any)}
-                              className={`px-2.5 py-0.5 rounded-md text-[9px] font-semibold transition-all ${emergencySl === val ? "text-white shadow-sm" : "t-text-dim hover:opacity-80"}`}
-                              style={emergencySl === val ? { background: val === "none" ? "#3b82f6" : val === "-5" ? "#f59e0b" : "#ef4444" } : { background: "var(--bg-card-alt)" }}>
-                              {label}
-                            </button>
-                          ))}
-                        </div>
+                        <span className="text-[9px] font-semibold px-2.5 py-0.5 rounded-md text-white shadow-sm" style={{ background: "#3b82f6" }}>없음</span>
                       </div>
                       <div className="flex items-center justify-between ml-[calc(2ch+0.5rem)] -mt-0.5">
                         <span className="text-[8px] t-text-dim">
-                          {emergencySl === "none" ? "15:15 전량 청산 (손절 없음)" : `장중 ${emergencySl}% 도달 시 손절`}
+                          15:15 전량 청산 · 장중 SL 없음 (499일 백테스트 최적)
                         </span>
-                        {emergencySl !== savedEmergencySl && (
-                          <button onClick={async () => {
-                            setEmergencySlSaving(true);
-                            const ok = await setAlertConfig({ emergency_sl: emergencySl });
-                            if (ok) {
-                              setSavedEmergencySl(emergencySl);
-                              setToastMsg({ text: `손절 옵션 변경: ${emergencySl === "none" ? "없음" : emergencySl + "%"}`, type: "ok" });
-                            } else {
-                              setEmergencySl(savedEmergencySl);
-                              setToastMsg({ text: "손절 옵션 변경 실패", type: "fail" });
-                            }
-                            setTimeout(() => setToastMsg(null), 2500);
-                            setEmergencySlSaving(false);
-                          }} disabled={emergencySlSaving}
-                            className="text-[9px] font-semibold px-3 py-0.5 rounded-md bg-emerald-500 text-white hover:bg-emerald-400 transition disabled:opacity-50 shrink-0 ml-2">
-                            {emergencySlSaving ? "저장 중..." : "변경 확인"}
-                          </button>
-                        )}
                       </div>
                     </div>
                     <div className="pt-1.5 border-t t-border-light text-[9px] t-text-dim">

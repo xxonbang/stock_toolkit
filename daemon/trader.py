@@ -2310,18 +2310,9 @@ async def check_positions_for_sell(current_price_data: dict):
         buy_mode = config.get("buy_signal_mode", "and")
         reason = None
 
-        # 거래대금 모멘텀: 장중 TP/SL 미적용 (15:15 전량 청산), 비상 손절만 적용
+        # 거래대금 모멘텀: 장중 SL 없음, 15:15 전량 청산만 (499일 백테스트 최적)
         if buy_mode == "research_optimal":
-            emergency_sl = config.get("emergency_sl", "-5")
-            if emergency_sl == "none":
-                continue  # 비상 손절 비활성
-            emergency_sl = float(emergency_sl)
-            pnl = calc_pnl_pct(buy_price, current_price)
-            if pnl <= emergency_sl:
-                reason = "stop_loss"
-                logger.warning(f"비상 손절 발동: {pos['name']}({code}) {pnl:.1f}% (SL {emergency_sl}%)")
-            else:
-                continue
+            continue  # 장중 매도 안 함 → 15:15 EOD에서 전량 청산
 
         elif strategy_type == "stepped":
             # Stepped Trailing: 고정 TP 없음, stepped stop만 적용
