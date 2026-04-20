@@ -1801,7 +1801,7 @@ async def run_tv_scan_and_buy() -> int:
             await trigger_subscription_refresh()
         except Exception as e:
             logger.warning(f"거래대금 매수 후 구독 갱신 실패: {e}")
-        # 매수된 종목에 대해 tv_time_exit + tv_stepped 시뮬 생성
+        # 매수된 종목에 대해 tv_time_exit + tv_stepped 시뮬 생성 (중복 방지 포함)
         try:
             config = await _get_trade_config()
             user_id = config.get("user_id", "")
@@ -1810,9 +1810,16 @@ async def run_tv_scan_and_buy() -> int:
             for pos in positions:
                 if pos["code"] in bought_codes and pos["status"] == "filled":
                     entry = pos.get("filled_price") or pos.get("order_price", 0)
-                    if entry > 0:
+                    if entry <= 0:
+                        continue
+                    # 중복 방지: 이 trade_id에 이미 시뮬이 있으면 스킵
+                    existing = await _supabase_request("GET",
+                        f"{SUPABASE_URL}/rest/v1/strategy_simulations?trade_id=eq.{pos['id']}&strategy_type=in.(tv_time_exit,tv_stepped)&select=strategy_type")
+                    existing_types = {s["strategy_type"] for s in (existing or [])}
+                    if "tv_time_exit" not in existing_types:
                         await _create_simulation(pos["id"], "tv_time_exit", entry, user_id)
                         logger.info(f"tv_time_exit 시뮬 생성: {pos['name']}({pos['code']}) {entry:,}원")
+                    if "tv_stepped" not in existing_types:
                         await _create_simulation(pos["id"], "tv_stepped", entry, user_id)
                         logger.info(f"tv_stepped 시뮬 생성: {pos['name']}({pos['code']}) {entry:,}원")
         except Exception as e:
