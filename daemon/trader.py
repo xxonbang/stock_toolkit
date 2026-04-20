@@ -1801,7 +1801,7 @@ async def run_tv_scan_and_buy() -> int:
             await trigger_subscription_refresh()
         except Exception as e:
             logger.warning(f"거래대금 매수 후 구독 갱신 실패: {e}")
-        # 매수된 종목에 대해 tv_time_exit 시뮬 생성 (10:00 청산 검증용)
+        # 매수된 종목에 대해 tv_time_exit + tv_stepped 시뮬 생성
         try:
             config = await _get_trade_config()
             user_id = config.get("user_id", "")
@@ -1813,6 +1813,8 @@ async def run_tv_scan_and_buy() -> int:
                     if entry > 0:
                         await _create_simulation(pos["id"], "tv_time_exit", entry, user_id)
                         logger.info(f"tv_time_exit 시뮬 생성: {pos['name']}({pos['code']}) {entry:,}원")
+                        await _create_simulation(pos["id"], "tv_stepped", entry, user_id)
+                        logger.info(f"tv_stepped 시뮬 생성: {pos['name']}({pos['code']}) {entry:,}원")
         except Exception as e:
             logger.warning(f"tv_time_exit 시뮬 생성 오류: {e}")
     logger.info(f"거래대금 스캔 매수 완료: {bought}종목")
@@ -3176,7 +3178,7 @@ async def _check_simulations(current_price_data: dict):
                         exit_reason = "trailing_stop"
                         exit_price = current_price
 
-            elif strategy == "stepped":
+            elif strategy in ("stepped", "tv_stepped"):
                 # Stepped Trailing 시뮬레이션
                 if pnl <= sl:
                     exit_reason = "stop_loss"
@@ -3319,7 +3321,7 @@ async def _check_stepped():
         session = await get_session()
         headers = {"apikey": SUPABASE_SECRET_KEY, "Authorization": f"Bearer {SUPABASE_SECRET_KEY}"}
         # stepped + fixed + time_exit 모두 조회 (5팩터 종목이 실전 미보유일 때도 체크)
-        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=in.(stepped,fixed,time_exit)&select=id,strategy_type,entry_price,peak_price,trade_id"
+        url = f"{SUPABASE_URL}/rest/v1/strategy_simulations?status=eq.open&strategy_type=in.(stepped,fixed,time_exit,tv_stepped)&select=id,strategy_type,entry_price,peak_price,trade_id"
         async with session.get(url, headers=headers) as resp:
             if resp.status != 200:
                 return
@@ -3366,7 +3368,7 @@ async def _check_stepped():
             strategy = sim["strategy_type"]
             exit_reason = None
 
-            if strategy == "stepped":
+            if strategy in ("stepped", "tv_stepped"):
                 if pnl <= sl:
                     exit_reason = "stop_loss"
                 else:
@@ -3528,7 +3530,7 @@ async def _check_orphan_simulations():
                     drop = (price - peak) / peak * 100
                     if drop <= ts_pct:
                         exit_reason = "trailing_stop"
-            elif strategy == "stepped":
+            elif strategy in ("stepped", "tv_stepped"):
                 if pnl <= sl:
                     exit_reason = "stop_loss"
                 else:

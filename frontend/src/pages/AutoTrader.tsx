@@ -120,7 +120,7 @@ export default function AutoTrader() {
   const [emergencySlSaving, setEmergencySlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"tv_momentum" | "gapup_sim" | "stepped_sim" | "fixed_sim" | "time_sim" | "tv_time_sim" | "api_leader_sim" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"tv_momentum" | "gapup_sim" | "stepped_sim" | "fixed_sim" | "time_sim" | "tv_time_sim" | "tv_stepped_sim" | "api_leader_sim" | null>(null);
   const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
@@ -944,8 +944,8 @@ export default function AutoTrader() {
               };
 
               // stepped 시뮬은 5팩터+Stepped 카드에 합산, 나머지(fixed)만 sim 카드
-              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","tv_time_exit","api_leader","stepped"].includes(s.strategy_type));
-              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","tv_time_exit","api_leader","stepped"].includes(s.strategy_type));
+              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","tv_time_exit","tv_stepped","api_leader","stepped"].includes(s.strategy_type));
+              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","tv_time_exit","tv_stepped","api_leader","stepped"].includes(s.strategy_type));
               // 시간전략 시뮬레이션 별도 집계
               const timeClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "time_exit");
               const timeOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "time_exit");
@@ -965,6 +965,16 @@ export default function AutoTrader() {
               };
               const allTvTimeSims = [...tvTimeClosedSims, ...tvTimeOpenSims];
               const tvTimePnl = calcRolloverPnl(allTvTimeSims, false, simDateByMt);
+              // 거래대금+Stepped 시뮬
+              const tvSteppedClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "tv_stepped");
+              const tvSteppedOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "tv_stepped").map((s: any) => {
+                const mt = trades.find(t => t.id === s.trade_id);
+                const cp = mt ? (prices[mt.code]?.price || 0) : 0;
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
+                return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _isActive: true, _name: mt?.name, _noPrice: cp <= 0 };
+              });
+              const allTvSteppedSims = [...tvSteppedClosedSims, ...tvSteppedOpenSims];
+              const tvSteppedPnl = allTvSteppedSims.length > 0 ? allTvSteppedSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allTvSteppedSims.length : 0;
               const allTimeSims = [...timeClosedSims, ...timeOpenSims.map((s: any) => {
                 const mt = trades.find(t => t.id === s.trade_id);
                 const cp = mt ? (prices[mt.code]?.price || 0) : 0;
@@ -1109,6 +1119,7 @@ export default function AutoTrader() {
                 { key: "sim", label: simLabel, pnl: simPnl, pnlCap: calcCapitalPnl(allSims), count: allSims.length, onClick: () => setStrategyDetail("fixed_sim") },
                 { key: "time", label: "시간전략", pnl: timePnl, pnlCap: calcCapitalPnl(allTimeSims), count: allTimeSims.length, onClick: () => allTimeSims.length > 0 ? setStrategyDetail("time_sim") : undefined },
                 { key: "tv_time", label: "10시청산", pnl: tvTimePnl, pnlCap: calcCapitalPnl(allTvTimeSims), count: allTvTimeSims.length, onClick: () => allTvTimeSims.length > 0 ? setStrategyDetail("tv_time_sim") : undefined },
+                { key: "tv_stepped", label: "거래대금+Stepped", pnl: tvSteppedPnl, pnlCap: calcCapitalPnl(allTvSteppedSims), count: allTvSteppedSims.length, onClick: () => allTvSteppedSims.length > 0 ? setStrategyDetail("tv_stepped_sim") : undefined },
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, pnlCap: calcCapitalPnl(apiLeaderSims), count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader_sim") : undefined },
               ];
 
@@ -1182,7 +1193,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "tv_momentum" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "stepped_sim" ? "5팩터+Stepped (가상)" : strategyDetail === "time_sim" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "tv_time_sim" ? "10시 청산 (가상)" : strategyDetail === "api_leader_sim" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "tv_momentum" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "stepped_sim" ? "5팩터+Stepped (가상)" : strategyDetail === "time_sim" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "tv_time_sim" ? "10시 청산 (가상)" : strategyDetail === "tv_stepped_sim" ? "거래대금+Stepped (가상)" : strategyDetail === "api_leader_sim" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                             {priceTime && <span className="ml-auto text-[9px] text-green-400 tabular-nums shrink-0">{priceTime}</span>}
                             <button onClick={(e) => { e.stopPropagation(); refreshPrices(); }} disabled={priceRefreshing}
@@ -1210,7 +1221,7 @@ export default function AutoTrader() {
                                 const mtTime = mt?.filled_at || mt?.created_at || t.created_at;
                                 return { ...t, _date: toKstDate(mtTime) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원", filled_at: mtTime, created_at: mtTime };
                               })
-                            : (strategyDetail === "time_sim" ? allTimeSims : strategyDetail === "tv_time_sim" ? allTvTimeSims : strategyDetail === "api_leader_sim" ? apiLeaderSims : allSims).map((s: any) => {
+                            : (strategyDetail === "time_sim" ? allTimeSims : strategyDetail === "tv_time_sim" ? allTvTimeSims : strategyDetail === "tv_stepped_sim" ? allTvSteppedSims : strategyDetail === "api_leader_sim" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = trades.find(t => t.id === s.trade_id);
                                 const mtTime = mt?.filled_at || mt?.created_at || s.created_at;
                                 return { ...s, _date: toKstDate(mtTime) || "보유", _displayName: s._name || mt?.name || "—", _displaySub: `매수 ${s.entry_price?.toLocaleString()}원`, filled_at: mtTime, created_at: mtTime };
@@ -1600,7 +1611,7 @@ export default function AutoTrader() {
                       <div className="relative z-10 mx-6 max-w-sm w-full rounded-2xl p-5 t-card border t-border-light" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="text-sm font-bold t-text">
-                            {strategyHelpOpen === "tv_momentum" ? "거래대금 모멘텀" : strategyHelpOpen === "gapup_sim" ? "갭업 모멘텀" : strategyHelpOpen === "stepped_sim" ? "5팩터+Stepped" : strategyHelpOpen === "fixed_sim" ? "고정 익절/손절" : strategyHelpOpen === "time_sim" ? "시간전략" : strategyHelpOpen === "tv_time_sim" ? "10시 청산" : "API매수∧대장주"}
+                            {strategyHelpOpen === "tv_momentum" ? "거래대금 모멘텀" : strategyHelpOpen === "gapup_sim" ? "갭업 모멘텀" : strategyHelpOpen === "stepped_sim" ? "5팩터+Stepped" : strategyHelpOpen === "fixed_sim" ? "고정 익절/손절" : strategyHelpOpen === "time_sim" ? "시간전략" : strategyHelpOpen === "tv_time_sim" ? "10시 청산" : strategyHelpOpen === "tv_stepped_sim" ? "거래대금+Stepped" : "API매수∧대장주"}
                           </h4>
                           <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
                         </div>
