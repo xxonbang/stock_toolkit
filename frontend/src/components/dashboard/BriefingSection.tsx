@@ -162,23 +162,25 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
   return (
     <section className="space-y-3">
       <SectionHeader id="briefing" timestamp={briefTs}>AI 모닝 브리핑</SectionHeader>
-      {sections.map((sec: any, i: number) => {
-        const key = matchKey(sec.title);
-        return (
-        <div key={i} className={`rounded-xl border t-border-light border-l-[3px] ${accentMap[key] || "border-l-gray-400"} t-card-alt p-4`}>
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="text-base">{iconMap[key] || <Pin size={16} />}</span>
-            <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
+      <div className="rounded-xl border t-border-light t-card-alt p-4 space-y-4">
+        {sections.map((sec: any, i: number) => {
+          const key = matchKey(sec.title);
+          return (
+          <div key={i} className={i > 0 ? "pt-3 border-t t-border-light" : ""}>
+            <div className="flex items-center gap-2 mb-2">
+              <span className={`text-base ${accentMap[key]?.replace("border-l-", "text-") || "t-text-dim"}`}>{iconMap[key] || <Pin size={16} />}</span>
+              <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
+            </div>
+            <div className="space-y-1 pl-6">
+              {renderBody(sec.body).length > 0
+                ? renderBody(sec.body)
+                : <p className="text-[12px] t-text-dim italic">해당 항목 없음</p>
+              }
+            </div>
           </div>
-          <div className="space-y-1">
-            {renderBody(sec.body).length > 0
-              ? renderBody(sec.body)
-              : <p className="text-[12px] t-text-dim italic">해당 항목 없음</p>
-            }
-          </div>
-        </div>
-        );
-      })}
+          );
+        })}
+      </div>
       {/* 오늘의 테마 예측 — AI 브리핑 주목 테마 통합 */}
       {performance?.theme_forecast?.themes?.length > 0 && (
         <div className="rounded-xl border t-border-light border-l-[3px] border-l-cyan-400/60 t-card-alt p-4">
