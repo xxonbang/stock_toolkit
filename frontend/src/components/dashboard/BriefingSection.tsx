@@ -40,6 +40,10 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
     /\n\s*<b>(\d+\.\s*[^<\n]{2,30}?)\s*<\/b>/g,
     // 2) "**N. 제목**"
     /\*\*(\d+\.\s*[^*\n]{2,30}?)\*\*/g,
+    // 3) "<i><b>제목:</b></i>" 또는 "<i><b>제목</b></i>" (Gemini 형식)
+    /\n\s*<i>\s*<b>([^<\n]{2,30}?):?\s*<\/b>\s*<\/i>/g,
+    // 4) "<b>제목:</b>" (번호 없는 굵은 제목)
+    /\n\s*<b>([^<\n]{2,20}?:)\s*<\/b>/g,
   ];
   for (const regex of patterns) {
     if (sections.length >= 2) break;
@@ -85,18 +89,19 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
   const matchKey = (title: string) => {
     if (title.includes("글로벌") || title.includes("환경") || title.includes("시장")) return "글로벌 환경";
     if (title.includes("테마") && (title.includes("주목") || title.includes("주요"))) return "오늘의 주목 테마";
-    if (title.includes("핵심") || title.includes("고확신") || title.includes("쌍방") || title.includes("관심") || title.includes("종목")) return "주목 종목";
+    if (title.includes("주목") && title.includes("주의")) return "주목 종목";  // "주목/주의 종목"
+    if (title.includes("핵심") || title.includes("고확신") || title.includes("쌍방") || title.includes("관심") || (title.includes("주목") && title.includes("종목"))) return "주목 종목";
     if (title.includes("주의") || title.includes("위험")) return "주의 종목";
     if (title.includes("전략") || title.includes("제안")) return "전략 제안";
     return title;
   };
   const iconMap: Record<string, React.ReactNode> = {
     "글로벌 환경": <Globe size={16} />, "오늘의 주목 테마": <Flame size={16} />, "고확신 종목": <Target size={16} />,
-    "주의 종목": <AlertTriangle size={16} />, "전략 제안": <Lightbulb size={16} />,
+    "주목 종목": <Target size={16} />, "주의 종목": <AlertTriangle size={16} />, "전략 제안": <Lightbulb size={16} />,
   };
   const accentMap: Record<string, string> = {
     "글로벌 환경": "border-l-slate-400", "오늘의 주목 테마": "border-l-cyan-400",
-    "고확신 종목": "border-l-emerald-400", "주의 종목": "border-l-rose-400", "전략 제안": "border-l-indigo-400",
+    "고확신 종목": "border-l-emerald-400", "주목 종목": "border-l-emerald-400", "주의 종목": "border-l-rose-400", "전략 제안": "border-l-indigo-400",
   };
   // 종목명(코드) 패턴을 클릭 가능한 요소로 변환
   const allStockData = [...(crossSignal || []), ...(smartMoney || []), ...(anomalies || []), ...(riskMonitor || []), ...(allStockList || [])];
