@@ -618,11 +618,38 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         const pad = 8;
         const cx = stockActionTarget.x;
         const cy = stockActionTarget.y;
-        // 화면 밖으로 안 나가도록 위치 계산
         const left = Math.max(pad, Math.min(cx - pw / 2, window.innerWidth - pw - pad));
-        // 아래 공간 부족하면 위로
         const spaceBelow = window.innerHeight - cy - pad;
         const top = spaceBelow >= maxH ? cy + 8 : Math.max(pad, cy - maxH - 8);
+
+        // 테마별 종목 팝업
+        if (stockActionTarget.data?._type === "theme_stocks") {
+          const { theme, stocks } = stockActionTarget.data;
+          return createPortal(
+            <div className="fixed inset-0 z-[9999]" onClick={() => setStockActionTarget(null)}>
+              <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
+              <div className="fixed z-[61] rounded-2xl t-card border t-border-light shadow-2xl overflow-hidden" style={{ left, top, width: pw, maxHeight: maxH }} onClick={e => e.stopPropagation()}>
+                <div className="px-4 pt-3 pb-2 border-b t-border-light flex items-center justify-between">
+                  <div className="text-[13px] font-bold t-text">{theme}</div>
+                  <button onClick={() => setStockActionTarget(null)} className="p-0.5 t-text-dim hover:t-text transition"><X size={16} /></button>
+                </div>
+                <div className="overflow-y-auto p-2" style={{ maxHeight: maxH - 48 }}>
+                  {stocks.map((s: any, i: number) => (
+                    <button key={i} onClick={() => { setStockDetail(s); setStockActionTarget(null); }}
+                      className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-blue-500/8 transition text-left">
+                      <div>
+                        <div className="text-[12px] font-medium t-text">{s.name}</div>
+                        <div className="text-[10px] t-text-dim">{s.code}</div>
+                      </div>
+                      {s.vision_signal && <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${s.vision_signal?.includes("매수") ? "text-red-500 bg-red-500/10" : s.vision_signal?.includes("매도") ? "text-blue-500 bg-blue-500/10" : "t-text-dim bg-gray-500/10"}`}>{s.vision_signal}</span>}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>,
+            document.body
+          );
+        }
 
         const code = stockActionTarget.data.code;
         const match = (s: any) => s?.code === code;
@@ -1770,7 +1797,15 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   <div key={name} className="flex items-center justify-between p-2 t-card-alt rounded-lg gap-2">
                     <div className="min-w-0">
                       <span className="text-sm font-medium truncate block">{name}</span>
-                      <span className="text-xs t-text-dim">{data.stock_count}종목</span>
+                      <span className="text-xs t-text-dim cursor-pointer hover:text-blue-400 transition"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const themeStocks = (crossSignal || []).filter((s: any) => s.theme === name);
+                          if (themeStocks.length === 0) return;
+                          setStockActionTarget({ _type: "theme_stocks", theme: name, stocks: themeStocks });
+                        }}>
+                        {data.stock_count}종목
+                      </span>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
                       {isPos ? <TrendingUp size={14} className="text-red-500" /> : <TrendingDown size={14} className="text-blue-500" />}
