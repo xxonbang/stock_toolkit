@@ -1803,6 +1803,7 @@ async def run_tv_scan_and_buy() -> int:
             logger.warning(f"거래대금 매수 후 구독 갱신 실패: {e}")
         # 매수된 종목에 대해 tv_time_exit + tv_stepped 시뮬 생성 (중복 방지 포함)
         try:
+            from daemon.position_db import _supabase_request
             config = await _get_trade_config()
             user_id = config.get("user_id", "")
             positions = await get_active_positions(force_refresh=True)
