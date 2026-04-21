@@ -36,12 +36,12 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
   let sections: { title: string; body: string }[] = [];
   // 모든 가능한 제목 패턴을 순서대로 시도
   const patterns = [
-    // 1) 줄바꿈 + "<b>N. 제목</b>" — 최상위 섹션만 (서브 항목 제외)
-    /\n\s*<b>(\d+\.\s*[^<\n]{2,30}?)\s*<\/b>/g,
-    // 2) "**N. 제목**"
-    /\*\*(\d+\.\s*[^*\n]{2,30}?)\*\*/g,
-    // 3) "<i><b>제목:</b></i>" 또는 "<i><b>제목</b></i>" (Gemini 형식)
+    // 1) "<i><b>제목:</b></i>" (Gemini 형식 — 최우선)
     /\n\s*<i>\s*<b>([^<\n]{2,30}?):?\s*<\/b>\s*<\/i>/g,
+    // 2) 줄바꿈 + "<b>N. 제목</b>" — 최상위 섹션
+    /\n\s*<b>(\d+\.\s*[^<\n]{2,30}?)\s*<\/b>/g,
+    // 3) "**N. 제목**"
+    /\*\*(\d+\.\s*[^*\n]{2,30}?)\*\*/g,
     // 4) "<b>제목:</b>" (번호 없는 굵은 제목)
     /\n\s*<b>([^<\n]{2,20}?:)\s*<\/b>/g,
   ];
@@ -92,7 +92,7 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
     if (title.includes("주목") && title.includes("주의")) return "주목 종목";  // "주목/주의 종목"
     if (title.includes("핵심") || title.includes("고확신") || title.includes("쌍방") || title.includes("관심") || (title.includes("주목") && title.includes("종목"))) return "주목 종목";
     if (title.includes("주의") || title.includes("위험")) return "주의 종목";
-    if (title.includes("전략") || title.includes("제안")) return "전략 제안";
+    if (title.includes("전략") || title.includes("제안") || title.includes("투자 전략")) return "전략 제안";
     return title;
   };
   const iconMap: Record<string, React.ReactNode> = {
