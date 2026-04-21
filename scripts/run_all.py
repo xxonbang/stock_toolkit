@@ -139,8 +139,10 @@ def main():
                 gemini = GeminiClient()
                 brief = generate_morning_brief(gemini, loader)
                 if brief:
+                    from datetime import datetime, timezone, timedelta
+                    _kst = timezone(timedelta(hours=9))
                     with open(results_dir / "briefing.json", "w", encoding="utf-8") as f:
-                        json.dump({"morning": brief}, f, ensure_ascii=False, indent=2)
+                        json.dump({"morning": brief, "generated_at": datetime.now(_kst).strftime("%Y-%m-%d %H:%M KST")}, f, ensure_ascii=False, indent=2)
                     logger.info(f"  브리핑 생성 완료 ({len(brief)}자)")
                 else:
                     logger.warning("  Gemini가 빈 응답 반환")
