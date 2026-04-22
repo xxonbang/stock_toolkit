@@ -33,15 +33,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 5
-      - name: 배포 시작 알림
-        run: |
-          MSG="🚀 <b>배포 시작</b>
-          모드: ${{ env.RUN_MODE }}
-          트리거: ${{ github.event_name }}"
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d parse_mode=HTML \
-            --data-urlencode "text=${MSG}"
       - uses: actions/checkout@v4
         with:
           repository: xxonbang/theme-analyzer
@@ -113,14 +104,6 @@ jobs:
         with:
           path: frontend/dist
       - uses: actions/deploy-pages@v4
-
-      - name: 배포 완료 알림
-        if: success()
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d parse_mode=HTML \
-            -d text="✅ <b>배포 완료</b>%0A모드: ${{ env.RUN_MODE }}%0A🔗 https://xxonbang.github.io/stock_toolkit/"
 
       - name: 배포 실패 알림
         if: failure()
