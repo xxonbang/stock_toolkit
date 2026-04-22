@@ -1168,37 +1168,47 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <Gauge value={vixVal} max={50} label="VIX 변동성" color={vixColor} />
               <p className="text-xs t-text-sub">{vixLabel}</p>
             </div>
-            {performance.kospi?.current && (() => {
-              const k = performance.kospi;
-              const chg = k.change ?? (k.ma5 ? +(k.current - k.ma5).toFixed(2) : null);
-              const pct = chg != null && k.ma5 ? +(chg / k.ma5 * 100).toFixed(2) : null;
-              const up = (chg || 0) >= 0;
-              return (
-                <div className="flex items-center gap-2 min-w-0">
-                  {up ? <TrendingUp size={14} className="text-red-400 shrink-0" /> : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
-                  <div className="min-w-0">
-                    <div className="text-sm font-medium">{k.current.toLocaleString()}</div>
-                    <div className="text-xs t-text-sub">KOSPI {chg != null && <span className={up ? "text-red-500" : "text-blue-500"}>{up ? "▲" : "▼"}{Math.abs(chg).toFixed(2)}{pct != null && ` (${up ? "+" : ""}${pct.toFixed(2)}%)`}</span>}</div>
-                  </div>
-                </div>
-              );
-            })()}
-            {performance.kosdaq?.current && (() => {
-              const k = performance.kosdaq;
-              const chg = k.change ?? (k.ma5 ? +(k.current - k.ma5).toFixed(2) : null);
-              const pct = chg != null && k.ma5 ? +(chg / k.ma5 * 100).toFixed(2) : null;
-              const up = (chg || 0) >= 0;
-              return (
-                <div className="flex items-center gap-2 min-w-0">
-                  {up ? <TrendingUp size={14} className="text-red-400 shrink-0" /> : <TrendingDown size={14} className="text-blue-400 shrink-0" />}
-                  <div className="min-w-0">
-                    <div className="text-sm font-medium">{k.current.toLocaleString()}</div>
-                    <div className="text-xs t-text-sub">KOSDAQ {chg != null && <span className={up ? "text-red-500" : "text-blue-500"}>{up ? "▲" : "▼"}{Math.abs(chg).toFixed(2)}{pct != null && ` (${up ? "+" : ""}${pct.toFixed(2)}%)`}</span>}</div>
-                  </div>
-                </div>
-              );
-            })()}
           </div>
+          {/* 글로벌 지수 */}
+          {(() => {
+            const globalIndices = (performance.macro_indicators || []).filter((m: any) => m.category === "global_index");
+            const kospiItem = performance.kospi?.current ? {
+              name: "코스피", price: performance.kospi.current,
+              change_pct: performance.kospi.change != null && performance.kospi.prev ? +(performance.kospi.change / performance.kospi.prev * 100).toFixed(2) : 0,
+              prev: performance.kospi.prev ?? (performance.kospi.ma5 ? +(performance.kospi.current - (performance.kospi.change ?? 0)).toFixed(2) : null),
+            } : null;
+            const kosdaqItem = performance.kosdaq?.current ? {
+              name: "코스닥", price: performance.kosdaq.current,
+              change_pct: performance.kosdaq.change != null && performance.kosdaq.prev ? +(performance.kosdaq.change / performance.kosdaq.prev * 100).toFixed(2) : 0,
+              prev: performance.kosdaq.prev ?? (performance.kosdaq.ma5 ? +(performance.kosdaq.current - (performance.kosdaq.change ?? 0)).toFixed(2) : null),
+            } : null;
+            const items = [...(kospiItem ? [kospiItem] : []), ...(kosdaqItem ? [kosdaqItem] : []), ...globalIndices];
+            if (items.length === 0) return null;
+            return (
+              <div className="mt-3 pt-3 border-t t-border-light">
+                <div className="text-xs font-semibold t-text mb-2">글로벌 지수</div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {items.map((item: any, i: number) => {
+                    const pct = item.change_pct ?? 0;
+                    const up = pct >= 0;
+                    const prevPrice = item.prev ?? (item.change != null ? +(item.price - item.change).toFixed(2) : null);
+                    return (
+                      <div key={i} className="t-card-alt rounded-lg p-2">
+                        <div className="text-[11px] font-medium t-text-sub mb-0.5">{item.name}</div>
+                        <div className="text-sm font-semibold t-text">{item.price?.toLocaleString()}</div>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`text-[10px] font-medium ${pct === 0 ? "t-text-dim" : up ? "text-red-500" : "text-blue-500"}`}>
+                            {pct === 0 ? "0.00%" : `${up ? "▲" : "▼"}${Math.abs(pct)}%`}
+                          </span>
+                          {prevPrice != null && <span className="text-[10px] t-text-dim">전일 {prevPrice.toLocaleString()}</span>}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
           {/* 글로벌 매크로 */}
           {indicatorHistory?.macro && Object.keys(indicatorHistory.macro).length > 0 && (
             <div className="mt-3 pt-3 border-t t-border-light">
@@ -1231,14 +1241,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 )}
               </div>
               <div className="grid grid-cols-2 gap-1.5">
-                {(["NQ=F", "KOSPI200", "MU", "SOXX", "EWY", "KORU"] as string[]).map(symbol => {
+                {(["KOSPI200", "MU", "SOXX", "EWY", "KORU", "069500"] as string[]).map(symbol => {
                   const macro = indicatorHistory.macro as Record<string, any[]>;
                   const history = macro[symbol];
+                  // indicatorHistory에 없으면 macro_indicators에서 폴백
+                  const fallback = !history && performance?.macro_indicators ? (performance.macro_indicators as any[]).find((m: any) => m.symbol === symbol) : null;
                   const arr = Array.isArray(history) ? history : [];
-                  const latest = arr[arr.length - 1];
+                  const latest = fallback ? { price: fallback.price, change_pct: fallback.change_pct } : arr[arr.length - 1];
                   const prev = arr[arr.length - 2];
                   if (!latest) return null;
-                  const nameMap: Record<string, string> = { "NQ=F": "나스닥선물", "KOSPI200": "KODEX 200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)" };
+                  const nameMap: Record<string, string> = { "KOSPI200": "코스피200", "MU": "마이크론", "SOXX": "SOXX(반도체)", "EWY": "EWY(한국ETF)", "KORU": "KORU(한국3X)", "069500": "KODEX 200" };
                   return (
                     <div key={symbol} className="t-card-alt rounded-lg p-2">
                       <div className="text-[11px] font-medium t-text-sub mb-0.5">{nameMap[symbol] || symbol}</div>
@@ -1262,22 +1274,35 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           )}
 
           {/* 주요 선물 */}
-          {performance.futures?.length > 0 && (
-            <div className="mt-3 pt-3 border-t t-border-light">
-              <div className="text-xs font-semibold t-text mb-2">주요 선물</div>
-              <div className="grid grid-cols-3 gap-1.5">
-                {performance.futures.map((ft: any, i: number) => (
-                  <div key={i} className="t-card-alt rounded-lg p-2 text-center">
-                    <div className="text-[11px] font-medium t-text-sub truncate">{ft.name}</div>
-                    <div className="text-sm font-semibold t-text">{ft.price?.toLocaleString()}</div>
-                    <div className={`text-[10px] font-medium ${(ft.change_pct || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                      {ft.change_pct >= 0 ? "▲" : "▼"}{Math.abs(ft.change_pct)}%
-                    </div>
-                  </div>
-                ))}
+          {(() => {
+            const nqf = (performance.macro_indicators || []).find((m: any) => m.symbol === "NQ=F");
+            const futuresList = [...(nqf ? [{ name: nqf.name, price: nqf.price, change_pct: nqf.change_pct, change: nqf.change }] : []), ...(performance.futures || [])];
+            if (futuresList.length === 0) return null;
+            return (
+              <div className="mt-3 pt-3 border-t t-border-light">
+                <div className="text-xs font-semibold t-text mb-2">주요 선물</div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {futuresList.map((ft: any, i: number) => {
+                    const pct = ft.change_pct ?? 0;
+                    const up = pct >= 0;
+                    const prevPrice = ft.change != null ? +(ft.price - ft.change).toFixed(2) : null;
+                    return (
+                      <div key={i} className="t-card-alt rounded-lg p-2">
+                        <div className="text-[11px] font-medium t-text-sub mb-0.5">{ft.name}</div>
+                        <div className="text-sm font-semibold t-text">{ft.price?.toLocaleString()}</div>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`text-[10px] font-medium ${up ? "text-red-500" : "text-blue-500"}`}>
+                            {up ? "▲" : "▼"}{Math.abs(pct)}%
+                          </span>
+                          {prevPrice != null && <span className="text-[10px] t-text-dim">전일 {prevPrice.toLocaleString()}</span>}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* 환율 */}
           {performance.exchange?.length > 0 && (
