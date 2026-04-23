@@ -1,5 +1,12 @@
 # Task History
 
+## 2026-04-23
+
+### [버그픽스] flash_spike_pct 제거 + 시뮬 최대 보유 10영업일 제한 (2026-04-23 23:30 KST)
+- **변경 파일:** `daemon/trader.py`, `frontend/src/pages/AutoTrader.tsx`
+- **내용:** flash_spike_pct(5%) 보호 로직이 급등 종목의 peak 추적을 차단하는 치명적 버그 발견 및 제거. 이노인스트루먼트 실제 peak 5,080원(+222%)인데 DB에 1,873원(+19%)으로 고정되어 stepped trailing 미작동, 17일간 방치. 5곳(check_positions_for_sell, _check_simulations, _check_api_leader, _check_stepped, _check_orphan) 전면 제거. 시뮬 최대 보유 기간 10영업일 강제 청산(max_hold) 추가 — 신한제17호스팩 21일 open 방지. 프론트 "보유만기" 라벨 추가.
+- **커밋:** 4f03d2f
+
 ## 2026-04-22
 
 ### [진단] 전략 성과 종합 진단 — 실전+시뮬 7개 전략 전수 평가 (2026-04-22 23:30 KST)
