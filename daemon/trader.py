@@ -2302,15 +2302,11 @@ async def check_positions_for_sell(current_price_data: dict):
         if buy_price <= 0:
             continue
 
-        # 고점 추적 (trailing stop용, flash spike 방지)
+        # 고점 추적 (trailing stop용)
         peak_key = position_id
         prev_peak = _peak_prices.get(peak_key, 0)
-        flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
         if current_price > prev_peak:
-            if prev_peak > 0 and (current_price - prev_peak) / prev_peak > flash_spike_pct:
-                pass  # flash spike — peak 갱신 안 함
-            else:
-                _peak_prices[peak_key] = current_price
+            _peak_prices[peak_key] = current_price
 
         # 보유일수 계산 → 익절 기준 연동
         hold_days = _calc_hold_days(pos)
@@ -3151,8 +3147,6 @@ async def _check_simulations(current_price_data: dict):
         sl = config.get("stop_loss_pct", TRADE_STOP_LOSS_PCT)
         ts_pct = config.get("trailing_stop_pct", TRADE_TRAILING_STOP_PCT)
 
-        flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
-
         for sim in sims:
             entry_price = sim["entry_price"]
             peak_price = sim.get("peak_price", entry_price)
@@ -3160,13 +3154,10 @@ async def _check_simulations(current_price_data: dict):
             strategy = sim["strategy_type"]
             pnl = calc_pnl_pct(entry_price, current_price)
 
-            # Update peak (flash spike 방지: 급등 시 peak 갱신 차단)
+            # Update peak
             new_peak = peak_price
             if current_price > peak_price:
-                if peak_price > 0 and (current_price - peak_price) / peak_price > flash_spike_pct:
-                    pass  # flash spike — peak 갱신 안 함
-                else:
-                    new_peak = current_price
+                new_peak = current_price
 
             exit_reason = None
             exit_price = None
@@ -3267,35 +3258,33 @@ async def _check_api_leader_simulations():
         # trade_id → code 매핑 일괄 조회
         trade_ids = list(set(s["trade_id"] for s in sims))
         tid_filter = ",".join(trade_ids)
-        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code"
+        trades_url = f"{SUPABASE_URL}/rest/v1/auto_trades?id=in.({tid_filter})&select=id,code,created_at"
         async with session.get(trades_url, headers=headers) as tresp:
             if tresp.status != 200:
                 return
             trades_data = await tresp.json()
-        tid_to_code = {t["id"]: t["code"] for t in (trades_data or [])}
+        tid_to_trade = {t["id"]: t for t in (trades_data or [])}
 
         for sim in sims:
-            code = tid_to_code.get(sim["trade_id"], "")
-            if not code:
+            trade = tid_to_trade.get(sim["trade_id"])
+            if not trade:
                 continue
+            code = trade["code"]
             price = await _get_current_price(code)
             if price <= 0:
                 continue
             entry = sim["entry_price"]
             prev_peak = sim.get("peak_price", entry)
-            flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
-            if price > prev_peak:
-                if prev_peak > 0 and (price - prev_peak) / prev_peak > flash_spike_pct:
-                    peak = prev_peak
-                else:
-                    peak = price
-            else:
-                peak = prev_peak
+            peak = max(prev_peak, price)
             pnl = calc_pnl_pct(entry, price)
             exit_reason = None
 
+            # 최대 보유 기간 (10영업일) 초과 시 강제 청산
+            hold_days = _calc_hold_days(trade) if trade else 0
+            if hold_days >= 10:
+                exit_reason = "max_hold"
             # Stepped 공격형 조건 적용
-            if pnl <= sl:
+            elif pnl <= sl:
                 exit_reason = "stop_loss"
             else:
                 peak_pnl = calc_pnl_pct(entry, peak)
@@ -3364,19 +3353,16 @@ async def _check_stepped():
                 continue
             entry = sim["entry_price"]
             prev_peak = sim.get("peak_price", entry)
-            flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
-            if price > prev_peak:
-                if prev_peak > 0 and (price - prev_peak) / prev_peak > flash_spike_pct:
-                    peak = prev_peak
-                else:
-                    peak = price
-            else:
-                peak = prev_peak
+            peak = max(prev_peak, price)
             pnl = calc_pnl_pct(entry, price)
             strategy = sim["strategy_type"]
             exit_reason = None
 
-            if strategy in ("stepped", "tv_stepped"):
+            # 최대 보유 기간 (10영업일) 초과 시 강제 청산
+            hold_days = _calc_hold_days(trade) if trade else 0
+            if hold_days >= 10:
+                exit_reason = "max_hold"
+            elif strategy in ("stepped", "tv_stepped"):
                 if pnl <= sl:
                     exit_reason = "stop_loss"
                 else:
@@ -3385,7 +3371,6 @@ async def _check_stepped():
                     if ss > -999.0 and pnl <= ss:
                         exit_reason = "stepped_trailing"
             elif strategy == "fixed":
-                hold_days = _calc_hold_days(trade) if trade else 0
                 effective_tp = get_tiered_tp(tp, hold_days)
                 result = should_sell(entry, price, take_profit=effective_tp, stop_loss=sl)
                 if result:
@@ -3515,21 +3500,16 @@ async def _check_orphan_simulations():
                 continue
             entry = sim["entry_price"]
             prev_peak = sim.get("peak_price", entry)
-            # flash spike 방지: 급등 시 peak 갱신 차단
-            flash_spike_pct = config.get("flash_spike_pct", 5.0) / 100
-            if price > prev_peak:
-                if prev_peak > 0 and (price - prev_peak) / prev_peak > flash_spike_pct:
-                    peak = prev_peak  # flash spike — peak 유지
-                else:
-                    peak = price
-            else:
-                peak = prev_peak
+            peak = max(prev_peak, price)
             pnl = calc_pnl_pct(entry, price)
             strategy = sim["strategy_type"]
             exit_reason = None
 
-            if strategy == "fixed":
-                hold_days = _calc_hold_days(trade) if trade else 0
+            # 최대 보유 기간 (10영업일) 초과 시 강제 청산
+            hold_days = _calc_hold_days(trade) if trade else 0
+            if hold_days >= 10:
+                exit_reason = "max_hold"
+            elif strategy == "fixed":
                 effective_tp = get_tiered_tp(tp, hold_days)
                 result = should_sell(entry, price, take_profit=effective_tp, stop_loss=sl)
                 if result:
