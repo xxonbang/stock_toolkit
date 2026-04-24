@@ -1,5 +1,18 @@
 # Task History
 
+## 2026-04-24
+
+### [기능] 로그인 페이지 분리 + 라우트 가드 + AI 브리핑 파서 근본 수정 (2026-04-24 17:30 KST)
+- **변경 파일:** `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`, `frontend/src/pages/AutoTrader.tsx`, `frontend/src/components/dashboard/BriefingSection.tsx`, `modules/daily_briefing.py`, `frontend/src/lib/AuthContext.tsx` (신규), `frontend/src/pages/Login.tsx` (신규), `frontend/src/components/ProtectedRoute.tsx` (신규)
+- **내용:**
+  - AuthContext 도입 — 전역 auth state, 세션 복원, 1h 비활성 자동 로그아웃 통합. Dashboard/AutoTrader에 분산된 중복 auth 구독 제거 (~260줄 삭제).
+  - Login 페이지 분리 — 로그인/회원가입 탭, 초대코드(theme_analysis와 invite_codes 공유) 검증. 이모지 `📊` 제거하고 TrendingUp 아이콘 + 그라디언트 컨테이너로 교체.
+  - ProtectedRoute — `/`, `/scanner`, `/portfolio`, `/auto-trader` 모두 가드. 미로그인 시 `/login` 리다이렉트.
+  - AI 브리핑 파서: 래퍼 패턴 매칭 → 섹션명 앵커 기반으로 전환. Gemini 출력 형식 변동(숫자 위치, `<i>`, 마크다운 `**`, `<font>`) 전부 흡수. 파싱 실패 시 console.warn으로 가시화.
+  - daily_briefing 프롬프트: 섹션 헤더 `<b>섹션명</b>` 단일 형식 강제 + 템플릿 예시 포함하여 Gemini 출력 분산 차단.
+- **원인:** AI 브리핑 파서가 10+ 회 반복 수정된 근본 원인은 (1) 프롬프트가 형식을 강제하지 않아 Gemini가 그때그때 다른 래퍼 사용, (2) 파서가 래퍼 패턴 기반이라 새 변형 하나에도 깨짐. 생성 측+소비 측 동시 수정으로 재발 차단.
+- **커밋:** 2e6965d
+
 ## 2026-04-23
 
 ### [버그픽스] flash_spike_pct 제거 + 시뮬 최대 보유 10영업일 제한 (2026-04-23 23:30 KST)
