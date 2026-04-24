@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, ChevronRight, RefreshCw, Loader2, Lock, TimerOff, Inbox, Check, X, LogIn, HelpCircle } from "lucide-react";
-import { supabase, STORAGE_KEY, setAccessToken, fetchKisPrices } from "../lib/supabase";
+import { TrendingUp, TrendingDown, Clock, DollarSign, BarChart3, Settings, ChevronDown, ChevronRight, RefreshCw, Loader2, Inbox, Check, X, HelpCircle } from "lucide-react";
+import { supabase, fetchKisPrices } from "../lib/supabase";
 import { getTradePct, setAlertConfig, getStrategySimulations } from "../lib/supabase";
+import { useAuth } from "../lib/AuthContext";
 
 interface Trade {
   id: string;
@@ -69,23 +70,10 @@ function parseBuyMode(mode: string | undefined): { chart: boolean; indicator: bo
   return { chart: flags.includes("chart"), indicator: flags.includes("indicator"), top_leader: flags.includes("top_leader"), all_leaders: flags.includes("all_leaders"), fallback_top_leader: flags.includes("fallback_top_leader") };
 }
 
-function restoreSessionFromStorage(): { access_token: string | null; user: any } | null {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return null;
-    const raw = JSON.parse(stored);
-    const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
-    const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
-    if (parsed?.user) return { access_token: parsed.access_token ?? null, user: parsed.user };
-    return null;
-  } catch { return null; }
-}
-
 export default function AutoTrader() {
+  const { user } = useAuth();
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const [authChecked, setAuthChecked] = useState(false);
   const [selling, setSelling] = useState<Set<string>>(new Set());
   const [takeProfit, setTakeProfit] = useState(7.0);
   const [stopLoss, setStopLoss] = useState(-2.0);
@@ -97,9 +85,6 @@ export default function AutoTrader() {
   const [showPctEdit, setShowPctEdit] = useState(false);
   const [pctSaving, setPctSaving] = useState(false);
   const [pctResult, setPctResult] = useState("");
-  const [sessionExpired, setSessionExpired] = useState(false);
-  const sessionExpiredRef = useRef(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showBuyHelp, setShowBuyHelp] = useState(false);
   const [buyToggles, setBuyToggles] = useState<{ chart: boolean; indicator: boolean; top_leader: boolean; all_leaders: boolean; fallback_top_leader: boolean }>({ chart: false, indicator: false, top_leader: false, all_leaders: false, fallback_top_leader: false });
   const [useResearchOptimal, setUseResearchOptimal] = useState(false);
@@ -131,94 +116,34 @@ export default function AutoTrader() {
   const [simulations, setSimulations] = useState<any[]>([]);
 
   useEffect(() => {
-    function loadData(u: any) {
-      setUser(u);
-      setAuthChecked(true);
-      if (u) {
-        fetchTrades();
-        getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode, criteria_filter }) => {
-          setTakeProfit(take_profit);
-          setStopLoss(stop_loss);
-          setTrailingStop(trailing_stop);
-          setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
-          const active = buy_signal_mode !== "none" && buy_signal_mode !== "";
-          setTradeEnabled(active); setSavedTradeEnabled(active);
-          if (buy_signal_mode === "research_optimal") {
-            setUseResearchOptimal(true); setSavedResearchOptimal(true);
-          } else {
-            setUseResearchOptimal(false); setSavedResearchOptimal(false);
-            const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t);
-          }
-        }).catch(() => {});
-        // strategy_type 로드
-        Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
-          if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
-        }).catch(() => {});
-        // stepped_preset 별도 로드 (컬럼 미존재 시 안전)
-        Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
-          if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
-        }).catch(() => {});
-        // emergency_sl 로드
-        Promise.resolve(supabase.from("alert_config").select("emergency_sl").limit(1).maybeSingle()).then(({ data: cfg }) => {
-          if (cfg?.emergency_sl) { setEmergencySl(cfg.emergency_sl); setSavedEmergencySl(cfg.emergency_sl); }
-        }).catch(() => {});
-        getStrategySimulations().then(setSimulations);
+    // 인증은 AuthProvider + ProtectedRoute가 보장 — 여기서는 데이터 로딩만
+    if (!user) return;
+    fetchTrades();
+    getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode, criteria_filter }) => {
+      setTakeProfit(take_profit);
+      setStopLoss(stop_loss);
+      setTrailingStop(trailing_stop);
+      setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
+      const active = buy_signal_mode !== "none" && buy_signal_mode !== "";
+      setTradeEnabled(active); setSavedTradeEnabled(active);
+      if (buy_signal_mode === "research_optimal") {
+        setUseResearchOptimal(true); setSavedResearchOptimal(true);
       } else {
-        setLoading(false);
+        setUseResearchOptimal(false); setSavedResearchOptimal(false);
+        const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t);
       }
-    }
-
-    // localStorage에서 즉시 세션 복원 (getUser() hang 방지)
-    const restored = restoreSessionFromStorage();
-    if (restored) {
-      setAccessToken(restored.access_token);
-      loadData(restored.user);
-    } else {
-      setAuthChecked(true);
-      setLoading(false);
-    }
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (_event === "TOKEN_REFRESHED" || _event === "SIGNED_IN") {
-        // 토큰 갱신/로그인 시 세션 만료 상태 해제
-        sessionExpiredRef.current = false;
-        setSessionExpired(false);
-      }
-      if (sessionExpiredRef.current) return;
-      if (session?.user) {
-        setAccessToken(session.access_token ?? null);
-      }
-      loadData(session?.user ?? null);
-    });
-
-    // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응)
-    const handleVisibility = () => {
-      if (document.visibilityState !== "visible") return;
-      // getSession()에 5초 타임아웃 — iOS PWA hang 방지
-      const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000));
-      Promise.race([
-        supabase.auth.getSession().then(({ data: { session } }) => session),
-        timeout,
-      ]).then((session) => {
-        if (session?.user) {
-          setAccessToken(session.access_token ?? null);
-          sessionExpiredRef.current = false;
-          setSessionExpired(false);
-          loadData(session.user);
-        } else if (!sessionExpiredRef.current) {
-          // 타임아웃 또는 세션 없음 — localStorage에서 재시도
-          const fallback = restoreSessionFromStorage();
-          if (fallback) {
-            setAccessToken(fallback.access_token);
-            loadData(fallback.user);
-          }
-        }
-      }).catch(() => {});
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-
-    return () => { subscription.unsubscribe(); document.removeEventListener("visibilitychange", handleVisibility); };
-  }, []);
+    }).catch(() => {});
+    Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
+      if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
+    }).catch(() => {});
+    Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
+      if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
+    }).catch(() => {});
+    Promise.resolve(supabase.from("alert_config").select("emergency_sl").limit(1).maybeSingle()).then(({ data: cfg }) => {
+      if (cfg?.emergency_sl) { setEmergencySl(cfg.emergency_sl); setSavedEmergencySl(cfg.emergency_sl); }
+    }).catch(() => {});
+    getStrategySimulations().then(setSimulations);
+  }, [user]);
 
   async function fetchTrades() {
     setLoading(true);
@@ -228,11 +153,7 @@ export default function AutoTrader() {
         .select("*")
         .order("created_at", { ascending: false });
       if (error) {
-        const msg = (error.message || "").toLowerCase();
-        if (msg.includes("jwt") || msg.includes("token") || msg.includes("auth") || error.code === "PGRST301") {
-          setSessionExpired(true); sessionExpiredRef.current = true;
-          setUser(null);
-        }
+        console.warn("auto_trades 조회 실패:", error.message);
         setLoading(false);
         return;
       }
@@ -364,54 +285,12 @@ export default function AutoTrader() {
     setSelling(new Set());
   }
 
-  if (loading || !authChecked) {
+  if (loading) {
     return (
       <div className="text-center py-20 t-text-sub">
         <Loader2 size={28} className="mx-auto mb-2 t-text-sub animate-spin" />
         데이터 로딩 중...
       </div>
-    );
-  }
-
-  const handleLoginSuccess = (u: any, token: string) => {
-    setAccessToken(token); setUser(u); setSessionExpired(false); sessionExpiredRef.current = false; setShowLoginModal(false);
-    fetchTrades();
-    getTradePct().then(({ take_profit, stop_loss, trailing_stop, buy_signal_mode, criteria_filter }) => {
-      setTakeProfit(take_profit); setStopLoss(stop_loss); setTrailingStop(trailing_stop);
-      setCriteriaFilter(!!criteria_filter); setSavedCriteriaFilter(!!criteria_filter);
-      const active = buy_signal_mode !== "none" && buy_signal_mode !== "";
-      setTradeEnabled(active); setSavedTradeEnabled(active);
-      if (buy_signal_mode === "research_optimal") {
-        setUseResearchOptimal(true); setSavedResearchOptimal(true);
-      } else {
-        setUseResearchOptimal(false); setSavedResearchOptimal(false);
-        const t = parseBuyMode(buy_signal_mode); setBuyToggles(t); setSavedToggles(t);
-      }
-    }).catch(() => {});
-    Promise.resolve(supabase.from("alert_config").select("strategy_type").limit(1).maybeSingle()).then(({ data: cfg }) => {
-      if (cfg?.strategy_type) { setStrategyType(cfg.strategy_type); setSavedStrategyType(cfg.strategy_type); }
-    }).catch(() => {});
-    Promise.resolve(supabase.from("alert_config").select("stepped_preset").limit(1).maybeSingle()).then(({ data: cfg }) => {
-      if (cfg?.stepped_preset) { setSteppedPreset(cfg.stepped_preset); setSavedSteppedPreset(cfg.stepped_preset); }
-    }).catch(() => {});
-    getStrategySimulations().then(setSimulations);
-  };
-
-  if (!user) {
-    return (
-      <>
-        <div className="text-center py-20 t-text-sub">
-          {sessionExpired ? <TimerOff size={32} className="mx-auto mb-3 t-text-sub" /> : <Lock size={32} className="mx-auto mb-3 t-text-sub" />}
-          <div className="text-sm font-medium t-text mb-1">{sessionExpired ? "세션이 만료되었습니다" : "로그인이 필요합니다"}</div>
-          <div className="text-xs t-text-dim mb-5">{sessionExpired ? "다시 로그인해주세요" : "모의투자 현황을 확인하려면 로그인해주세요"}</div>
-          <button onClick={() => setShowLoginModal(true)}
-            className="inline-flex items-center gap-2 text-[13px] font-medium px-5 py-2.5 rounded-xl text-white bg-blue-600 hover:bg-blue-500 transition">
-            <LogIn size={15} />
-            로그인
-          </button>
-        </div>
-        {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} onSuccess={handleLoginSuccess} />}
-      </>
     );
   }
 
@@ -1978,56 +1857,3 @@ function HistoryByDate({ trades }: { trades: Trade[] }) {
   );
 }
 
-function LoginModal({ onClose, onSuccess }: { onClose: () => void; onSuccess: (user: any, token: string) => void }) {
-  const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => { if (!loading) onClose(); }}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-      <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}
-        style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
-        <div className="px-5 pt-5 pb-3">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold t-text">로그인</h3>
-            <button onClick={() => { if (!loading) onClose(); }} className="p-1 rounded-lg t-text-dim hover:t-text transition">
-              <X size={18} />
-            </button>
-          </div>
-          <p className="text-[11px] t-text-dim mt-1">모의투자 현황을 확인하려면 로그인해주세요</p>
-        </div>
-        <form className="px-5 pb-5" onSubmit={async (e) => {
-          e.preventDefault();
-          if (loading || !email.trim() || !pw) return;
-          setError(""); setLoading(true);
-          try {
-            const { data, error: err } = await supabase.auth.signInWithPassword({ email: email.trim(), password: pw });
-            if (err) {
-              setError(err.message.includes("Invalid login") ? "이메일 또는 비밀번호가 올바르지 않습니다" : err.message);
-              return;
-            }
-            if (data?.session) onSuccess(data.session.user, data.session.access_token ?? "");
-            else setError("로그인 응답에 세션이 없습니다");
-          } catch (e: any) {
-            setError(e?.message || "네트워크 오류");
-          } finally { setLoading(false); }
-        }}>
-          {error && <div className="text-[11px] text-red-400 mb-3 p-2.5 rounded-lg" style={{ background: "rgba(239,68,68,0.08)" }}>{error}</div>}
-          <input type="email" placeholder="이메일" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" autoFocus
-            className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-2 outline-none"
-            style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-          <input type="password" placeholder="비밀번호" value={pw} onChange={e => setPw(e.target.value)} autoComplete="current-password"
-            className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-4 outline-none"
-            style={{ background: "var(--bg)", border: "1px solid var(--border)" }} />
-          <button type="submit" disabled={loading || !email.trim() || !pw}
-            className="w-full flex items-center justify-center gap-2 text-[13px] font-medium py-2.5 rounded-xl text-white bg-blue-600 hover:bg-blue-500 transition disabled:opacity-40">
-            {loading ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
-            {loading ? "로그인 중..." : "로그인"}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}

@@ -32,40 +32,33 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
   const raw = briefing.morning as string;
   // HTML 태그 정리
   const strip = (s: string) => s.replace(/<\/?[bi]>/g, "").replace(/<br\s*\/?>/gi, "\n").replace(/&nbsp;/g, " ").trim();
-  // 범용 섹션 파서: Gemini 형식 변동에 대응
+  // 섹션명 앵커 기반 파서 — 래퍼 태그/숫자/콜론 변형에 독립적
+  // Gemini 형식이 바뀌어도 알려진 섹션명만 정확히 나오면 작동
+  const KNOWN_SECTIONS = ["글로벌 환경", "오늘의 주목 테마", "고확신 종목", "주목 종목", "주의 종목", "전략 제안"];
+  const normalized = raw
+    .replace(/<\/?(?:b|i)\s*>/gi, "")
+    .replace(/<\/?font[^>]*>/gi, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/\*\*/g, "")
+    .replace(/&nbsp;/g, " ");
+  const anchorRegex = new RegExp(
+    `(?:^|\\n)[\\s]*(?:\\d+\\.\\s*)?(${KNOWN_SECTIONS.join("|")})\\s*:?\\s*(?=\\n|$)`,
+    "g",
+  );
+  const anchors = [...normalized.matchAll(anchorRegex)];
   let sections: { title: string; body: string }[] = [];
-  // 모든 가능한 제목 패턴을 순서대로 시도
-  const patterns = [
-    // 1) "<i><b>제목:</b></i>" (Gemini 형식 — 최우선)
-    /\n\s*<i>\s*<b>([^<\n]{2,30}?):?\s*<\/b>\s*<\/i>/g,
-    // 2) 줄바꿈 + "<b>N. 제목</b>" — 최상위 섹션
-    /\n\s*<b>(\d+\.\s*[^<\n]{2,30}?)\s*<\/b>/g,
-    // 3) "**N. 제목**"
-    /\*\*(\d+\.\s*[^*\n]{2,30}?)\*\*/g,
-    // 4) "<b>제목:</b>" (번호 없는 굵은 제목)
-    /\n\s*<b>([^<\n]{2,20}?:)\s*<\/b>/g,
-  ];
-  for (const regex of patterns) {
-    if (sections.length >= 2) break;
-    sections = [];
-    const matches = [...raw.matchAll(regex)];
-    // 첫 매칭이 날짜/타이틀이면 건너뛰기
-    const filtered = matches.filter(m => {
-      const t = strip(m[1]);
-      return t && t.length >= 2 && t.length <= 30 && !t.includes("모닝") && !t.includes("브리프") && !t.includes("년 ");
-    });
-    if (filtered.length >= 2) {
-      for (let i = 0; i < filtered.length; i++) {
-        const title = strip(filtered[i][1]).replace(/:$/, "").replace(/^\d+\.\s*/, "");
-        const start = filtered[i].index! + filtered[i][0].length;
-        const end = i < filtered.length - 1 ? filtered[i + 1].index! : raw.length;
-        const body = strip(raw.slice(start, end)).replace(/\n\d+\.\s*$/, "").replace(/^\d+\.\s*/, "");
-        if (title) sections.push({ title, body });
-      }
+  if (anchors.length >= 2) {
+    for (let i = 0; i < anchors.length; i++) {
+      const title = anchors[i][1];
+      const start = anchors[i].index! + anchors[i][0].length;
+      const end = i < anchors.length - 1 ? anchors[i + 1].index! : normalized.length;
+      const body = normalized.slice(start, end).trim();
+      sections.push({ title, body });
     }
-  }
-  // 최종 폴백
-  if (sections.length < 2) {
+  } else {
+    // 파싱 실패 — 개발자가 즉시 인지할 수 있도록 경고 출력
+    // eslint-disable-next-line no-console
+    console.warn("[BriefingSection] 섹션 파싱 실패. 원문 처음 300자:", raw.slice(0, 300));
     sections = [{ title: "AI 분석", body: strip(raw) }];
   }
   // "주목 테마" 섹션은 테마 예측 카드에 통합 → AI 브리핑에서 제거
@@ -169,7 +162,7 @@ export default function BriefingSection({ briefing, performance, crossSignal, sm
           <div key={i} className={i > 0 ? "pt-3 border-t t-border-light" : ""}>
             <div className="flex items-center gap-2 mb-2">
               <span className={`text-base ${accentMap[key]?.replace("border-l-", "text-") || "t-text-dim"}`}>{iconMap[key] || <Pin size={16} />}</span>
-              <span className="text-[13px] font-bold t-text tracking-tight">{sec.title}</span>
+              <span className={`text-[14px] font-bold tracking-tight ${accentMap[key]?.replace("border-l-", "text-") || "t-text"}`}>{sec.title}</span>
             </div>
             <div className="space-y-1 pl-6">
               {renderBody(sec.body).length > 0

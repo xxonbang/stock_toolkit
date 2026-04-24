@@ -4,6 +4,9 @@ import Dashboard from './pages/Dashboard'
 import Portfolio from './pages/Portfolio'
 import AutoTrader from './pages/AutoTrader'
 import Scanner from './pages/Scanner'
+import Login from './pages/Login'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthProvider } from './lib/AuthContext'
 
 
 function useTheme() {
@@ -46,17 +49,20 @@ export default function App() {
 
   return (
     <HashRouter>
-      <ScrollToTop />
-      <div className="min-h-screen pb-4 no-select" style={{ background: 'var(--bg)' }}>
-        <Routes>
-          <Route path="/" element={<Dashboard onToggleTheme={toggle} isDark={dark} />}>
-            <Route index element={null} />
-            <Route path="portfolio" element={<Portfolio />} />
-            <Route path="auto-trader" element={<AutoTrader />} />
-          </Route>
-          <Route path="/scanner" element={<Scanner onToggleTheme={toggle} isDark={dark} />} />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <ScrollToTop />
+        <div className="min-h-screen pb-4 no-select" style={{ background: 'var(--bg)' }}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<ProtectedRoute><Dashboard onToggleTheme={toggle} isDark={dark} /></ProtectedRoute>}>
+              <Route index element={null} />
+              <Route path="portfolio" element={<Portfolio />} />
+              <Route path="auto-trader" element={<AutoTrader />} />
+            </Route>
+            <Route path="/scanner" element={<ProtectedRoute><Scanner onToggleTheme={toggle} isDark={dark} /></ProtectedRoute>} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </HashRouter>
   )
 }

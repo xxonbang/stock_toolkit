@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useLocation, Outlet } from "react-router-dom";
+import { useLocation, Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../lib/AuthContext";
 import {
   TrendingUp, TrendingDown,
   BarChart3, Zap, LineChart, ChevronUp, Sun, Moon, X,
@@ -99,12 +100,8 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [headerRefreshing, setHeaderRefreshing] = useState(false);
   const [allStockList, setAllStockList] = useState<any[]>([]);
-  const [supaUser, setSupaUser] = useState<any>(null);
-  const [showLogin, setShowLogin] = useState(false);
-  const [loginLoading, setLoginLoading] = useState(false);
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPw, setLoginPw] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const { user: supaUser, signOut } = useAuth();
+  const navigate = useNavigate();
   const [alertMode, setAlertModeState] = useState<AlertMode>("all");
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -141,7 +138,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [forecastExpanded, setForecastExpanded] = useState<Set<string>>(new Set());
 
   // 모달/bottom sheet 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(stockDetail || stockActionTarget || showLogin || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showStockSearch);
+  const anyModalOpen = !!(stockDetail || stockActionTarget || showSettings || confExp || streakPopup || lifecyclePopup || badgePopup || showStockSearch);
   useEffect(() => {
     if (anyModalOpen) {
       const sw = window.innerWidth - document.documentElement.clientWidth;
@@ -201,68 +198,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
   useEffect(() => {
     loadAllData();
-    // 즉시 localStorage에서 세션 복원 (SDK 초기화/navigator.locks 대기 없음)
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const raw = JSON.parse(stored);
-        // ExpireStorage 래핑 형식 처리
-        const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
-        const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
-        if (parsed?.user) {
-          setSupaUser(parsed.user);
-          setAccessToken(parsed.access_token ?? null);
-          getAlertMode().then(setAlertModeState).catch(() => {});
-        }
-      }
-    } catch { /* 파싱 실패 */ }
-    // 세션 복원 실패 시 로그인 모달 표시
-    if (!localStorage.getItem(STORAGE_KEY)) setShowLogin(true);
-
-    const authed = { current: false };
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") authed.current = true;
-      // SIGNED_OUT 무시 — 명시적 로그아웃에서 직접 상태 정리
-      if (event === "SIGNED_OUT") return;
-      // 인증 상태에서 null session 무시
-      if (authed.current && !session?.user) return;
-      if (session?.user) {
-        setSupaUser(session.user);
-        setAccessToken(session.access_token ?? null);
-      }
-      // session이 null이지만 SIGNED_OUT이 아닌 경우 → 기존 상태 유지
-    });
-    // 앱 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응, 5초 타임아웃)
-    const handleVisibility = () => {
-      if (document.visibilityState !== "visible") return;
-      const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000));
-      Promise.race([
-        supabase.auth.getSession().then(({ data: { session } }) => session),
-        timeout,
-      ]).then((session) => {
-        if (session?.user) {
-          setSupaUser(session.user);
-          setAccessToken(session.access_token ?? null);
-          getAlertMode().then(setAlertModeState).catch(() => {});
-        } else {
-          // 타임아웃 또는 세션 없음 — localStorage에서 재시도
-          try {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-              const raw = JSON.parse(stored);
-              const sessionStr = (raw?.value && raw?.__expire__) ? raw.value : stored;
-              const parsed = typeof sessionStr === "string" ? JSON.parse(sessionStr) : raw;
-              if (parsed?.user) {
-                setSupaUser(parsed.user);
-                setAccessToken(parsed.access_token ?? null);
-              }
-            }
-          } catch {}
-        }
-      }).catch(() => {});
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-
+    // 인증/세션 복원은 AuthProvider에서 처리 — 여기서는 데이터 로딩/폴링만
     // 장중 5분, 장외 10분 자동 폴링 (매 틱마다 장중/장외 재판단)
     let pollTimer: ReturnType<typeof setTimeout> | null = null;
     const schedulePoll = () => {
@@ -274,8 +210,13 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
       }, delay);
     };
     schedulePoll();
-    return () => { if (pollTimer) clearTimeout(pollTimer); subscription.unsubscribe(); document.removeEventListener("visibilitychange", handleVisibility); };
+    return () => { if (pollTimer) clearTimeout(pollTimer); };
   }, []);
+
+  // supaUser 변경 시 alert mode 로드
+  useEffect(() => {
+    if (supaUser) getAlertMode().then(setAlertModeState).catch(() => {});
+  }, [supaUser]);
 
   // 공통 타임스탬프 (performance.json 기준, 대부분 동일 시점)
   const ts = performance?.generated_at || "";
@@ -356,82 +297,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
         </div>,
         document.body
       )}
-      {/* 로그인 모달 */}
-      {showLogin && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 anim-fade-in" onClick={() => { if (!loginLoading && supaUser) setShowLogin(false); }}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-          <div className="relative w-full max-w-[340px] rounded-2xl overflow-hidden anim-scale-in" onClick={e => e.stopPropagation()}
-            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
-            {/* 헤더 */}
-            <div className="px-5 pt-5 pb-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold t-text">로그인</h3>
-                {supaUser && (
-                <button onClick={() => { if (!loginLoading) setShowLogin(false); }} className="p-1 rounded-lg t-text-dim hover:t-text transition">
-                  <X size={18} />
-                </button>
-                )}
-              </div>
-              <p className="text-[11px] t-text-dim mt-1">포트폴리오 관리 및 실시간 시세 조회</p>
-            </div>
-            {/* 본문 */}
-            <form className="px-5 pb-5" onSubmit={async (e) => {
-              e.preventDefault();
-              if (loginLoading || !loginEmail.trim() || !loginPw) return;
-              setLoginError("");
-              setLoginLoading(true);
-              try {
-                const { data, error } = await Promise.race([
-                  supabase.auth.signInWithPassword({ email: loginEmail.trim(), password: loginPw }),
-                  new Promise<never>((_, reject) => setTimeout(() => reject(new Error("로그인 응답 시간 초과. 다시 시도해주세요.")), 10000)),
-                ]);
-                if (error) {
-                  const msg = error.message.includes("rate limit") ? "잠시 후 다시 시도해주세요"
-                    : error.message.includes("Invalid login") ? "이메일 또는 비밀번호가 올바르지 않습니다"
-                    : error.message;
-                  setLoginError(msg);
-                  return;
-                }
-                if (data?.session) {
-                  setSupaUser(data.session.user);
-                  setAccessToken(data.session.access_token ?? null);
-                  setShowLogin(false);
-                  setLoginEmail("");
-                  setLoginPw("");
-                  getAlertMode().then(setAlertModeState).catch(() => {});
-                } else {
-                  setLoginError("로그인 응답에 세션이 없습니다. 다시 시도해주세요.");
-                }
-              } catch (e: any) {
-                setLoginError(e?.message || "네트워크 오류. 다시 시도해주세요.");
-              } finally {
-                setLoginLoading(false);
-              }
-            }}>
-              {loginError && (
-                <div className="flex items-center gap-2 text-[11px] text-red-400 mb-3 p-2.5 rounded-lg" style={{ background: "rgba(239,68,68,0.08)" }}>
-                  <span className="shrink-0">!</span>
-                  <span>{loginError}</span>
-                </div>
-              )}
-              <input type="email" placeholder="이메일" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
-                autoComplete="email" autoFocus
-                className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-2 outline-none transition"
-                style={{ background: "var(--bg)", border: "1px solid var(--border)", }} />
-              <input type="password" placeholder="비밀번호" value={loginPw} onChange={e => setLoginPw(e.target.value)}
-                autoComplete="current-password"
-                className="w-full text-[14px] px-3.5 py-2.5 rounded-xl t-text mb-4 outline-none transition"
-                style={{ background: "var(--bg)", border: "1px solid var(--border)", }} />
-              <button type="submit" disabled={loginLoading || !loginEmail.trim() || !loginPw}
-                className="w-full text-sm font-semibold py-2.5 rounded-xl text-white transition disabled:opacity-40"
-                style={{ background: loginLoading ? "#4b5563" : "#2563eb" }}>
-                {loginLoading ? "로그인 중..." : "로그인"}
-              </button>
-            </form>
-          </div>
-        </div>,
-        document.body
-      )}
       {/* 헤더 드롭다운 메뉴 */}
       {/* 설정 메뉴 — createPortal로 document.body에 직접 렌더 */}
       {showHeaderMenu && createPortal(
@@ -451,24 +316,14 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 <span className="text-[18px]">⚙</span> 설정
               </button>
               <div className="border-t t-border-light my-1" />
-              {supaUser ? (
-                <button onClick={() => {
-                  setShowHeaderMenu(false);
-                  setSupaUser(null);
-                  setAccessToken(null);
-                  localStorage.removeItem(STORAGE_KEY);
-                  supabase.auth.signOut().catch(() => {});
-                  setShowLogin(true);
-                }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-red-400 hover:bg-red-500/10 transition">
-                  <span>↪</span> 로그아웃
-                </button>
-              ) : (
-                <button onClick={() => { setShowHeaderMenu(false); setShowLogin(true); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-blue-400 hover:bg-blue-500/10 transition">
-                  <span>→</span> 로그인
-                </button>
-              )}
+              <button onClick={async () => {
+                setShowHeaderMenu(false);
+                await signOut();
+                navigate("/login", { replace: true });
+              }}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-red-400 hover:bg-red-500/10 transition">
+                <span>↪</span> 로그아웃
+              </button>
             </div>
           </div>
         </>,
@@ -490,20 +345,11 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               </div>
             </div>
             <div className="px-5 pb-6 space-y-4 pt-3">
-              {!supaUser ? (
-                <div className="text-center py-6">
-                  <div className="text-2xl mb-2">🔒</div>
-                  <div className="text-sm t-text mb-1">로그인이 필요합니다</div>
-                  <div className="text-[11px] t-text-dim mb-4">설정을 변경하려면 먼저 로그인해주세요</div>
-                  <button onClick={() => { setShowSettings(false); setShowLogin(true); }}
-                    className="text-sm font-medium px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition">로그인</button>
-                </div>
-              ) : <>
               {/* 계정 정보 */}
               <div>
                 <div className="text-[12px] font-semibold t-text-sub mb-1.5">계정</div>
                 <div className="text-[13px] t-text px-3 py-2.5 rounded-xl" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                  {supaUser.email}
+                  {supaUser?.email}
                 </div>
               </div>
               {/* 알림 대상 */}
@@ -570,7 +416,6 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   </div>
                 )}
               </div>
-              </>}
             </div>
           </div>
         </div>,
@@ -1088,7 +933,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
 
       {/* 자식 라우트 컨텐츠 (Portfolio, AutoTrader 등) */}
       {!isIndexRoute && (
-        <Outlet context={{ supaUser, onShowLogin: () => setShowLogin(true), onStockDetail: setStockDetail, setToastMsg, crossSignal, smartMoney, riskMonitor, consecutiveSignals }} />
+        <Outlet context={{ supaUser, onShowLogin: () => navigate("/login"), onStockDetail: setStockDetail, setToastMsg, crossSignal, smartMoney, riskMonitor, consecutiveSignals }} />
       )}
 
       {/* ===== 시장 카테고리 (대시보드만) ===== */}
