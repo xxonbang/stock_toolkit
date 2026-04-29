@@ -2,6 +2,15 @@
 
 ## 2026-04-29
 
+### [기능] Stock Insight — 뉴스/커뮤니티/유튜브 TOP3 리포트 신규 메뉴 (2026-04-29 22:00 KST)
+- **변경 파일:** `modules/news/{collectors,prompts,ai_client.py,extractor.py}/`, `scripts/news_top3.py`, `.github/workflows/news-top3.yml`, `.github/workflows/deploy-pages.yml`, `.gitignore`, `requirements.txt`, `frontend/src/pages/StockInsight.tsx`, `frontend/src/services/dataService.ts`, `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`, `docs/research/2026-04-29-stock-insight.md`
+- **내용:** 6단계 분할 커밋으로 ~/dev/trade_info_sender 코드를 stock_toolkit에 이식 + 적응. (1) Phase 1 수집기 + 프롬프트 + 엔트리포인트 골격, (2) Phase 2 Gemini 다중 키 클라이언트 + 3단계 LLM 분석 (extract → top3 → outlook + youtube), (3) Phase 3 GitHub Actions 워크플로우 (KST 07:30/20:00 cron) + deploy-pages 통합, (4) Phase 4 로컬 검증 + .env 로드 경로 수정, (5) Phase 5 프론트 페이지 + 헤더 탭 5개 확장, (6) Phase 6 task_history + README.
+- **YouTube 채널 8개 재선정 (2026-04-29 검증):** 유지 4(슈카월드/한경 코리아마켓/삼프로TV/메르의 세상읽기) + 추가 4(증시각도기TV/SBS Biz/MTN/오선의 미국 증시) — 신사임당(채널 양도)/김작가TV(자기계발)/박곰희TV(자산관리) 제거.
+- **JSON 출력:** results/news_top3_latest.json + history/{YYYY-MM-DD-HHMM}.json 31일 보존, .gitignore 예외로 main 브랜치에 commit.
+- **검증:** `python scripts/news_top3.py --skip-ai --dry-run` — us_news 30/us_community 30/kr_news 30/kr_community 20/youtube 10(자막 8) 정상 수집. tsc --noEmit 통과.
+- **사용자 작업 필요:** GitHub Secrets에 YOUTUBE_API_KEY + GOOGLE_API_KEY_01~05 등록 (현재 daemon/.env가 아닌 루트 .env에 YOUTUBE_API_KEY만 존재).
+- **커밋:** 914bbe2 (Phase 1) → 5317f44 (Phase 2) → c9933c9 (Phase 3) → fcfd895 (Phase 4) → f7510fb (Phase 5) → (Phase 6 본 커밋)
+
 ### [기능] Claude Code 하네스 전면 구성 (2026-04-29 16:00 KST)
 - **변경 파일:** `.claude/settings.json`, `.claude/agents/{frontend,daemon,analysis,gcp-ops,code-reviewer}-impl.md`, `.claude/skills/{download-remote-data,query-trades,deploy-daemon,gcp-logs}/SKILL.md`, `.claude/hooks/{block-destructive,session-start-brief,task-history-reminder,tsc-after-edit,python-syntax-check}.sh`, `.claude/commands/pr-checklist.md`, `.gitignore`
 - **내용:** theme_lab 하네스 패턴을 stock_toolkit 특수성(frontend/daemon/analysis 3분할 + 공유 ws-daemon)에 맞게 적응하여 16개 파일 신규 구성. 5개 specialized agent(`frontend-impl`/`daemon-impl`/`analysis-impl`/`gcp-ops`/`code-reviewer`), 4개 skill(`download-remote-data`/`query-trades`/`deploy-daemon`/`gcp-logs`), 5개 hook, 1개 command. block-destructive.sh는 강도 "강": 파일 파괴 + force push + ws-daemon stop + Supabase 핵심 테이블 DELETE + KIS 주문 API 직접 호출 + .env cat 모두 차단. settings.json의 permissions allow/deny 명시. .gitignore에 settings.local.json·scheduled_tasks.lock 추가.
