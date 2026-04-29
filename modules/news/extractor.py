@@ -1,0 +1,306 @@
+"""3단계 LLM 분석 — extract → top3 → outlook (+ youtube TOP3).
+
+trade_info_sender의 trend_extractor.py를 stock_toolkit 경로에 맞춰 이식.
+- 별칭 정규화, 인덱스/시장명 필터, 최소 빈도 임계값 적용
+- enable_search=True (outlook): Gemini Google Search grounding으로 1주일 전망 작성
+"""
+from __future__ import annotations
+
+import json
+import logging
+import re
+from pathlib import Path
+from typing import Dict, List
+
+from modules.news.collectors.base import CollectedItem, format_indexed_text
+
+logger = logging.getLogger(__name__)
+
+PROMPT_DIR = Path(__file__).parent / "prompts"
+
+LABEL_TO_BATCH = {
+    "미뉴스": "us_news",
+    "미커뮤": "us_community",
+    "한뉴스": "kr_news",
+    "한커뮤": "kr_community",
+}
+BUNDLE_PATTERN = re.compile(r"\[(미뉴스|미커뮤|한뉴스|한커뮤)((?:#\d+,?)+)\]")
+NUM_PATTERN = re.compile(r"#(\d+)")
+
+
+def verify_indices(text: str, batches: Dict[str, List[CollectedItem]]) -> Dict:
+    """LLM 출력의 [라벨#N] 인덱스가 실제 수집 데이터에 존재하는지 검증."""
+    cited = set()
+    for label, body in BUNDLE_PATTERN.findall(text):
+        for n in NUM_PATTERN.findall(body):
+            cited.add((LABEL_TO_BATCH[label], int(n)))
+    actual = {(b, item.idx) for b, items in batches.items() for item in items}
+    missing = sorted(cited - actual)
+    return {"ok": len(missing) == 0, "missing": missing, "total_refs": len(cited)}
+
+
+def _load_prompt(name: str) -> str:
+    return (PROMPT_DIR / name).read_text(encoding="utf-8")
+
+
+def _strip_codeblock(text: str) -> str:
+    s = text.strip()
+    if s.startswith("```"):
+        s = s.split("\n", 1)[1] if "\n" in s else s
+        if s.endswith("```"):
+            s = s[:-3]
+    return s.strip()
+
+
+_AI_ERROR_SENTINELS = ("API 할당량 초과", "오류:")
+
+
+class AIUpstreamError(RuntimeError):
+    """Gemini 외부 장애 — JSON 파싱 재시도 무의미"""
+
+
+def _parse_json_with_retry(
+    client,
+    prompt: str,
+    max_retries: int = 3,
+    temperature: float = 0.2,
+    enable_search: bool = False,
+    max_output_tokens: int = 32000,
+):
+    last_err = None
+    for attempt in range(max_retries):
+        attempt_prompt = prompt
+        if attempt > 0:
+            attempt_prompt = (
+                prompt
+                + "\n\n[중요] 이전 응답이 JSON 파싱에 실패했습니다. "
+                "반드시 유효한 JSON 객체만 출력하고 마크다운/설명 텍스트 금지."
+            )
+        text, _usage = client.call(
+            prompt=attempt_prompt,
+            temperature=temperature,
+            max_output_tokens=max_output_tokens,
+            enable_search=enable_search,
+        )
+        stripped = (text or "").strip()
+        for sentinel in _AI_ERROR_SENTINELS:
+            if stripped.startswith(sentinel):
+                raise AIUpstreamError(stripped[:300])
+        try:
+            cleaned = _strip_codeblock(text)
+            return json.loads(cleaned)
+        except json.JSONDecodeError as e:
+            last_err = e
+            logger.warning(f"JSON 파싱 실패 (시도 {attempt + 1}/{max_retries}): {e}")
+    raise RuntimeError(f"JSON 파싱 {max_retries}회 실패: {last_err}")
+
+
+# 별칭 정규화 (trade_info_sender와 동일)
+_NAME_ALIASES: Dict[str, str] = {
+    "엔비디아": "Nvidia", "NVDA": "Nvidia", "nvidia corp": "Nvidia", "NVIDIA": "Nvidia",
+    "애플": "Apple", "AAPL": "Apple",
+    "마이크로소프트": "Microsoft", "MSFT": "Microsoft", "MS": "Microsoft",
+    "알파벳": "Alphabet", "GOOGL": "Alphabet", "GOOG": "Alphabet", "구글": "Alphabet", "Google": "Alphabet",
+    "아마존": "Amazon", "AMZN": "Amazon",
+    "메타": "Meta", "META": "Meta", "Facebook": "Meta", "페이스북": "Meta",
+    "테슬라": "Tesla", "TSLA": "Tesla",
+    "AMD": "AMD", "에이엠디": "AMD",
+    "TSMC": "TSMC", "타이완 반도체": "TSMC", "Taiwan Semiconductor": "TSMC",
+    "인텔": "Intel", "INTC": "Intel",
+    "브로드컴": "Broadcom", "AVGO": "Broadcom",
+    "팔란티어": "Palantir", "PLTR": "Palantir",
+    "삼성전자우": "삼성전자", "005930": "삼성전자",
+    "SK하이닉스": "SK하이닉스", "000660": "SK하이닉스", "하이닉스": "SK하이닉스",
+    "LG에너지솔루션": "LG에너지솔루션", "LG엔솔": "LG에너지솔루션", "엘지에너지솔루션": "LG에너지솔루션",
+    "현대차": "현대자동차", "현대자동차": "현대자동차",
+    "네이버": "NAVER", "Naver": "NAVER",
+    "카카오": "Kakao", "KAKAO": "Kakao",
+    "셀트리온": "셀트리온",
+    "한화에어로스페이스": "한화에어로스페이스", "한화에어로": "한화에어로스페이스",
+    "AI": "AI", "인공지능": "AI", "artificial intelligence": "AI", "Artificial Intelligence": "AI",
+    "반도체": "반도체", "semiconductor": "반도체", "Semiconductor": "반도체", "Semiconductors": "반도체",
+    "2차전지": "2차전지", "이차전지": "2차전지", "Battery": "2차전지", "EV battery": "2차전지",
+    "바이오": "바이오", "biotech": "바이오", "Biotech": "바이오", "제약": "바이오", "Pharmaceuticals": "바이오",
+    "방산": "방산", "Defense": "방산", "Defence": "방산",
+    "원자력": "원자력", "Nuclear": "원자력", "원전": "원자력",
+    "Cloud": "클라우드", "클라우드": "클라우드",
+    "Fintech": "핀테크", "핀테크": "핀테크",
+    "Healthcare": "Healthcare", "헬스케어": "Healthcare",
+    "Energy": "Energy", "에너지": "Energy",
+}
+
+
+def _canonical_name(name: str) -> str:
+    if not name:
+        return name
+    return _NAME_ALIASES.get(name.strip(), name.strip())
+
+
+def _normalize_aliases_in_extraction(extraction: Dict) -> Dict:
+    for batch_key in ("us_news", "us_community", "kr_news", "kr_community"):
+        batch = extraction.get(batch_key)
+        if not isinstance(batch, dict):
+            continue
+        for field in ("stocks", "sectors"):
+            entries = batch.get(field, [])
+            merged: Dict[str, Dict] = {}
+            for e in entries:
+                canon = _canonical_name(e.get("name", ""))
+                if not canon:
+                    continue
+                if canon not in merged:
+                    merged[canon] = {"name": canon, "freq": 0, "refs": []}
+                merged[canon]["freq"] += e.get("freq", 0)
+                merged[canon]["refs"].extend(e.get("refs", []) or [])
+            for v in merged.values():
+                v["refs"] = sorted(set(v["refs"]))
+            batch[field] = sorted(merged.values(), key=lambda x: x["freq"], reverse=True)
+    return extraction
+
+
+_INDEX_TOKENS = {
+    "코스피", "코스닥", "kospi", "kospi200", "kospi 200", "코스피200",
+    "kosdaq", "krx", "k200", "k-otc", "한국 증시", "한국증시",
+    "s&p 500", "s&p500", "s&p", "snp500",
+    "nasdaq", "nasdaq composite", "nasdaq-100", "nasdaq 100",
+    "dow", "dow jones", "djia", "dow industrial",
+    "russell", "russell 2000", "russell 1000",
+    "vix", "wall street", "월스트리트", "미국 증시", "미국증시",
+    "spy", "qqq", "arkk", "vti", "voo", "iwm", "tqqq", "sqqq", "soxl", "soxs",
+}
+
+
+def _is_index_or_market(name: str) -> bool:
+    if not name:
+        return False
+    n = name.strip().lower()
+    for token in _INDEX_TOKENS:
+        if n == token or token in n.split():
+            return True
+        if " " in token and token in n:
+            return True
+    return False
+
+
+def _filter_indices_from_extraction(extraction: Dict) -> Dict:
+    for batch_key in ("us_news", "us_community", "kr_news", "kr_community"):
+        batch = extraction.get(batch_key)
+        if not isinstance(batch, dict):
+            continue
+        for field in ("stocks", "sectors"):
+            entries = batch.get(field, [])
+            filtered = [e for e in entries if not _is_index_or_market(e.get("name", ""))]
+            removed = len(entries) - len(filtered)
+            if removed:
+                logger.info(f"  필터: {batch_key}.{field}에서 인덱스 {removed}건 제거")
+            batch[field] = filtered
+    return extraction
+
+
+def _filter_indices_from_top3(top3: Dict) -> Dict:
+    for key in ("us_top3_sectors", "us_top3_stocks", "kr_top3_sectors", "kr_top3_stocks"):
+        entries = top3.get(key, [])
+        filtered = [e for e in entries if not _is_index_or_market(e.get("name", ""))]
+        removed = len(entries) - len(filtered)
+        if removed:
+            logger.info(f"  필터: {key}에서 인덱스 {removed}건 제거")
+        top3[key] = filtered
+    return top3
+
+
+MIN_STOCK_FREQ_TOTAL = 10
+MIN_SECTOR_FREQ_TOTAL = 15
+
+
+def _entry_total_freq(entry: Dict, region: str) -> int:
+    if region == "us":
+        return len(entry.get("us_news_refs", []) or []) + len(entry.get("us_community_refs", []) or [])
+    return len(entry.get("kr_news_refs", []) or []) + len(entry.get("kr_community_refs", []) or [])
+
+
+def _enforce_min_freq_top3(top3: Dict) -> Dict:
+    for region in ("us", "kr"):
+        key = f"{region}_top3_stocks"
+        entries = top3.get(key, [])
+        filtered = [e for e in entries if _entry_total_freq(e, region) >= MIN_STOCK_FREQ_TOTAL]
+        removed = len(entries) - len(filtered)
+        if removed:
+            logger.info(f"  필터: {key} 저빈도 {removed}건 제거 (min={MIN_STOCK_FREQ_TOTAL})")
+        top3[key] = filtered
+        key = f"{region}_top3_sectors"
+        entries = top3.get(key, [])
+        filtered = [e for e in entries if _entry_total_freq(e, region) >= MIN_SECTOR_FREQ_TOTAL]
+        removed = len(entries) - len(filtered)
+        if removed:
+            logger.info(f"  필터: {key} 저빈도 {removed}건 제거 (min={MIN_SECTOR_FREQ_TOTAL})")
+        top3[key] = filtered
+    return top3
+
+
+def extract_per_batch(batches: Dict[str, List[CollectedItem]], client) -> Dict:
+    """AI 콜 #1 — 4배치에서 종목/섹터 각 10개씩 추출."""
+    template = _load_prompt("trend_extract.txt")
+    all_items: List[CollectedItem] = []
+    for b in ("us_news", "us_community", "kr_news", "kr_community"):
+        all_items.extend(batches.get(b, []))
+    collected_text = format_indexed_text(all_items)
+    prompt = template.replace("{COLLECTED_TEXT}", collected_text)
+    result = _parse_json_with_retry(client, prompt)
+    result = _normalize_aliases_in_extraction(result)
+    return _filter_indices_from_extraction(result)
+
+
+def select_top3(extraction: Dict, client) -> Dict:
+    """AI 콜 #2 — 영역별 TOP3 선정."""
+    template = _load_prompt("trend_top3.txt")
+    prompt = template.replace("{EXTRACTION_RESULT}", json.dumps(extraction, ensure_ascii=False, indent=2))
+    result = _parse_json_with_retry(client, prompt)
+    result = _filter_indices_from_top3(result)
+    return _enforce_min_freq_top3(result)
+
+
+def _has_any_top3_entry(top3: Dict) -> bool:
+    for key in ("us_top3_sectors", "us_top3_stocks", "kr_top3_sectors", "kr_top3_stocks"):
+        if top3.get(key):
+            return True
+    return False
+
+
+def analyze_youtube(videos, client) -> Dict:
+    """유튜브 영상 → TOP3 종목·섹터 추출."""
+    if not videos:
+        return {"top3_sectors": [], "top3_stocks": []}
+    template = _load_prompt("youtube_trend.txt")
+    parts = []
+    for i, v in enumerate(videos, start=1):
+        ts = v.published_at.strftime("%Y-%m-%d")
+        body = v.transcript or v.description or "(자막·설명 없음)"
+        parts.append(f"[영상#{i}] [{v.channel_name}] {ts} — {v.title}\n{body[:3000]}")
+    videos_text = "\n\n".join(parts)
+    prompt = template.replace("{VIDEOS_TEXT}", videos_text)
+    result = _parse_json_with_retry(client, prompt)
+    min_yt_freq = 4
+
+    def _yt_freq(e):
+        return max(e.get("freq", 0) or 0, len(e.get("refs", []) or []))
+
+    for key in ("top3_sectors", "top3_stocks"):
+        entries = result.get(key, [])
+        filtered = [
+            e for e in entries
+            if not _is_index_or_market(e.get("name", "")) and _yt_freq(e) >= min_yt_freq
+        ]
+        removed = len(entries) - len(filtered)
+        if removed:
+            logger.info(f"  필터: youtube.{key} {removed}건 제거")
+        result[key] = filtered
+    return result
+
+
+def generate_outlook(top3: Dict, client) -> Dict:
+    """AI 콜 #3 — 12개 항목 1주일 전망 (Google Search grounding)."""
+    if not _has_any_top3_entry(top3):
+        return {}
+    template = _load_prompt("trend_outlook.txt")
+    prompt = template.replace("{TOP3_RESULT}", json.dumps(top3, ensure_ascii=False, indent=2))
+    return _parse_json_with_retry(client, prompt, enable_search=True)

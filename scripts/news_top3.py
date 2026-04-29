@@ -3,7 +3,9 @@
 매일 KST 07:30, 20:00 GitHub Actions에서 실행.
 출력: results/news_top3_latest.json + results/news_top3_history/{YYYY-MM-DD-HHMM}.json
 
-Phase 1: 수집기 골격 (4개 텍스트 배치 + 유튜브 영상)만 동작. AI 분석은 Phase 2에서 추가.
+흐름:
+  collect → extract (LLM #1) → top3 (LLM #2) → outlook (LLM #3, Google Search grounding)
+  + 유튜브 별도 분석 (LLM)
 """
 from __future__ import annotations
 
@@ -98,7 +100,7 @@ def save_outputs(payload: dict, now_kst: datetime) -> None:
 
 
 def build_payload_phase1(collected: dict, now_kst: datetime) -> dict:
-    """Phase 1: 수집 결과만 직렬화 (AI 분석 없음). Phase 2에서 top3/outlook 추가 예정."""
+    """수집 결과만 직렬화 (AI 분석 실패 폴백 또는 --skip-ai 옵션 시)."""
     return {
         "generated_at": now_kst.strftime("%Y-%m-%d %H:%M KST"),
         "phase": 1,
@@ -116,9 +118,85 @@ def build_payload_phase1(collected: dict, now_kst: datetime) -> dict:
     }
 
 
+def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict, now_kst: datetime) -> dict:
+    """AI 분석 결과 통합 — 프론트엔드가 읽을 최종 스키마."""
+    return {
+        "generated_at": now_kst.strftime("%Y-%m-%d %H:%M KST"),
+        "phase": 2,
+        "us": {
+            "top3_sectors": top3.get("us_top3_sectors", []),
+            "top3_stocks": top3.get("us_top3_stocks", []),
+            "outlook": outlook.get("us", {}),
+            "collected": {
+                "news": len(collected["us_news"]),
+                "community": len(collected["us_community"]),
+            },
+        },
+        "kr": {
+            "top3_sectors": top3.get("kr_top3_sectors", []),
+            "top3_stocks": top3.get("kr_top3_stocks", []),
+            "outlook": outlook.get("kr", {}),
+            "collected": {
+                "news": len(collected["kr_news"]),
+                "community": len(collected["kr_community"]),
+            },
+        },
+        "youtube": {
+            "top3_sectors": yt_top3.get("top3_sectors", []),
+            "top3_stocks": yt_top3.get("top3_stocks", []),
+            "videos_collected": len(collected["youtube"]),
+        },
+    }
+
+
+def run_ai_pipeline(collected: dict, now_kst: datetime) -> dict:
+    """3단계 LLM 분석. 어느 단계든 실패 시 Phase 1 페이로드로 폴백."""
+    from modules.news import ai_client, extractor
+
+    client = ai_client.create_client()
+    batches = {
+        "us_news": collected["us_news"],
+        "us_community": collected["us_community"],
+        "kr_news": collected["kr_news"],
+        "kr_community": collected["kr_community"],
+    }
+
+    try:
+        logger.info("=== AI 추출 (LLM #1) ===")
+        extraction = extractor.extract_per_batch(batches, client)
+    except Exception as e:
+        logger.error(f"extract 실패: {e} — Phase 1 폴백")
+        return build_payload_phase1(collected, now_kst)
+
+    try:
+        logger.info("=== TOP3 선정 (LLM #2) ===")
+        top3 = extractor.select_top3(extraction, client)
+    except Exception as e:
+        logger.error(f"top3 실패: {e}")
+        top3 = {"us_top3_sectors": [], "us_top3_stocks": [], "kr_top3_sectors": [], "kr_top3_stocks": []}
+
+    outlook: dict = {}
+    try:
+        logger.info("=== 1주일 전망 (LLM #3, Google Search grounding) ===")
+        outlook = extractor.generate_outlook(top3, client)
+    except Exception as e:
+        logger.warning(f"outlook 실패: {e}")
+        outlook = {}
+
+    yt_top3 = {"top3_sectors": [], "top3_stocks": []}
+    try:
+        logger.info("=== YouTube TOP3 분석 ===")
+        yt_top3 = extractor.analyze_youtube(collected["youtube"], client)
+    except Exception as e:
+        logger.warning(f"youtube 분석 실패: {e}")
+
+    return build_payload_full(collected, top3, outlook, yt_top3, now_kst)
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Stock Insight 수집/분석 (Phase 1: 수집만)")
+    parser = argparse.ArgumentParser(description="Stock Insight 수집/분석 (수집 + 3단계 LLM 분석)")
     parser.add_argument("--dry-run", action="store_true", help="저장하지 않고 콘솔 요약만")
+    parser.add_argument("--skip-ai", action="store_true", help="AI 분석 생략, Phase 1 페이로드만")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
@@ -130,7 +208,7 @@ def main() -> int:
     # 로컬 .env 로드 (GitHub Actions에서는 secrets로 주입)
     try:
         from dotenv import load_dotenv
-        load_dotenv(ROOT / "daemon" / ".env")  # YOUTUBE_API_KEY 위치
+        load_dotenv(ROOT / "daemon" / ".env")  # YOUTUBE_API_KEY + GOOGLE_API_KEY_*
     except ImportError:
         pass
 
@@ -138,13 +216,22 @@ def main() -> int:
     now_kst = now_utc.astimezone(KST)
 
     collected = collect_all(now_utc)
-    payload = build_payload_phase1(collected, now_kst)
+
+    if args.skip_ai:
+        payload = build_payload_phase1(collected, now_kst)
+    else:
+        payload = run_ai_pipeline(collected, now_kst)
 
     if args.dry_run:
-        print(f"[DRY-RUN] generated_at={payload['generated_at']}")
-        print(f"  us.news={len(payload['us']['news'])}, us.community={len(payload['us']['community'])}")
-        print(f"  kr.news={len(payload['kr']['news'])}, kr.community={len(payload['kr']['community'])}")
-        print(f"  youtube.videos={len(payload['youtube']['videos'])}")
+        phase = payload.get("phase", "?")
+        print(f"[DRY-RUN] phase={phase} generated_at={payload['generated_at']}")
+        if phase == 2:
+            print(f"  us.top3_sectors={len(payload['us']['top3_sectors'])}, us.top3_stocks={len(payload['us']['top3_stocks'])}")
+            print(f"  kr.top3_sectors={len(payload['kr']['top3_sectors'])}, kr.top3_stocks={len(payload['kr']['top3_stocks'])}")
+            print(f"  youtube.top3_sectors={len(payload['youtube']['top3_sectors'])}, youtube.top3_stocks={len(payload['youtube']['top3_stocks'])}")
+        else:
+            print(f"  us.news={len(payload['us']['news'])}, us.community={len(payload['us']['community'])}")
+            print(f"  kr.news={len(payload['kr']['news'])}, kr.community={len(payload['kr']['community'])}")
         return 0
 
     save_outputs(payload, now_kst)
