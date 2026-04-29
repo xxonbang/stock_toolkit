@@ -83,6 +83,38 @@ def cleanup_history(retention_days: int = HISTORY_RETENTION_DAYS) -> int:
     return removed
 
 
+def write_history_index() -> None:
+    """results/news_top3_index.json 갱신 — 프론트가 히스토리 드롭다운용으로 사용.
+
+    GitHub Pages는 디렉토리 listing 미지원이라 인덱스 파일 별도 필요.
+    """
+    if not HISTORY_DIR.exists():
+        return
+    files = sorted(
+        (f for f in HISTORY_DIR.iterdir() if f.is_file() and f.suffix == ".json"),
+        key=lambda p: p.stem,
+        reverse=True,
+    )
+    entries = []
+    for f in files:
+        # 파일명: YYYY-MM-DD-HHMM (예: 2026-04-30-0730)
+        stem = f.stem
+        if len(stem) == 15 and stem[10] == "-":
+            kst_label = f"{stem[:10]} {stem[11:13]}:{stem[13:15]} KST"
+        else:
+            kst_label = stem
+        entries.append({"filename": f.name, "kst": kst_label})
+    index = {
+        "generated_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S KST"),
+        "count": len(entries),
+        "history": entries,
+    }
+    out = RESULTS_DIR / "news_top3_index.json"
+    with out.open("w", encoding="utf-8") as f:
+        json.dump(index, f, ensure_ascii=False, indent=2)
+    logger.info(f"history index 저장: {len(entries)}건 → {out.name}")
+
+
 def save_outputs(payload: dict, now_kst: datetime) -> None:
     """latest + history 동시 기록"""
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -233,6 +265,7 @@ def main() -> int:
 
     save_outputs(payload, now_kst)
     cleanup_history()
+    write_history_index()
     return 0
 
 

@@ -46,4 +46,6 @@ export const dataService = {
   getStockMaster: () => fetchJson<any>("stock-master.json"),
   getConsecutiveSignals: () => fetchJson<any>("consecutive_signals.json"),
   getNewsTop3: () => fetchJson<any>("news_top3_latest.json"),
+  getNewsTop3Index: () => fetchJson<{ generated_at: string; count: number; history: { filename: string; kst: string }[] }>("news_top3_index.json"),
+  getNewsTop3At: (filename: string) => fetchJson<any>(`news_top3_history/${filename}`),
 };

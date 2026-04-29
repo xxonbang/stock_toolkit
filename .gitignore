@@ -8,6 +8,7 @@ dist/
 results/*
 # news_top3 결과는 main 브랜치에 보존 (GitHub Pages 배포에 사용)
 !results/news_top3_latest.json
+!results/news_top3_index.json
 !results/news_top3_history/
 !results/news_top3_history/**
 .worktrees/

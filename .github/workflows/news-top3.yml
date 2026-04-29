@@ -59,7 +59,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add results/news_top3_latest.json results/news_top3_history/
+          git add results/news_top3_latest.json results/news_top3_index.json results/news_top3_history/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

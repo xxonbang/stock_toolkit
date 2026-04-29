@@ -206,9 +206,10 @@ def _filter_indices_from_top3(top3: Dict) -> Dict:
     return top3
 
 
-# 50건 단일 뉴스 배치 기준 (커뮤니티 제거 후 비율 유지: 50건의 16% / 24%)
-MIN_STOCK_FREQ_TOTAL = 8
-MIN_SECTOR_FREQ_TOTAL = 12
+# 50건 단일 뉴스 배치 기준 — 자정대 등 데이터 다양성 적은 시간대 대응 위해 완화
+# (50건의 10% / 16%, 1~2건짜리 단일 언급은 여전히 노이즈로 제외)
+MIN_STOCK_FREQ_TOTAL = 5
+MIN_SECTOR_FREQ_TOTAL = 8
 
 
 def _entry_total_freq(entry: Dict, region: str) -> int:

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp } from "lucide-react";
+import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp, Clock } from "lucide-react";
 import { dataService } from "../services/dataService";
 
 type Top3Entry = {
@@ -235,13 +235,35 @@ export default function StockInsight() {
   const [data, setData] = useState<NewsTop3Payload | null>(null);
   const [loading, setLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [historyList, setHistoryList] = useState<{ filename: string; kst: string }[]>([]);
+  const [selectedKey, setSelectedKey] = useState<string>("latest");
 
+  // 최초 로드: latest + 인덱스
   useEffect(() => {
-    dataService.getNewsTop3()
-      .then((d: any) => setData(d || null))
+    Promise.all([
+      dataService.getNewsTop3(),
+      dataService.getNewsTop3Index(),
+    ])
+      .then(([d, idx]) => {
+        setData(d || null);
+        setHistoryList(idx?.history || []);
+      })
       .catch(() => setData(null))
       .finally(() => setLoading(false));
   }, []);
+
+  // 히스토리 선택 변경 시 해당 파일 fetch
+  const onHistoryChange = (key: string) => {
+    setSelectedKey(key);
+    setLoading(true);
+    const fetcher = key === "latest"
+      ? dataService.getNewsTop3()
+      : dataService.getNewsTop3At(key);
+    fetcher
+      .then((d: any) => setData(d || null))
+      .catch(() => setData(null))
+      .finally(() => setLoading(false));
+  };
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 300);
@@ -276,14 +298,27 @@ export default function StockInsight() {
   return (
     <div className="px-3 pt-3 pb-8 space-y-6 max-w-2xl mx-auto">
       {/* 헤더 */}
-      <header className="space-y-1">
+      <header className="space-y-2">
         <div className="flex items-center justify-between">
           <h1 className="text-[18px] font-bold t-text tracking-tight">Stock Insight</h1>
           {data.generated_at && (
             <span className="text-[11px] t-text-dim">{data.generated_at}</span>
           )}
         </div>
-        <p className="text-[12px] t-text-sub">미국·한국 뉴스/커뮤니티/유튜브 분석 기반 TOP3 섹터 · 종목 리포트</p>
+        <p className="text-[12px] t-text-sub">미국·한국 뉴스 + 유튜브 분석 기반 TOP3 섹터 · 종목 리포트</p>
+        {historyList.length > 0 && (
+          <div className="flex items-center gap-2 pt-1">
+            <Clock size={12} className="t-text-dim shrink-0" />
+            <select value={selectedKey} onChange={(e) => onHistoryChange(e.target.value)}
+              className="flex-1 text-[12px] t-text px-2.5 py-1.5 rounded-lg outline-none cursor-pointer"
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+              <option value="latest">최신 ({data.generated_at || "—"})</option>
+              {historyList.map((h) => (
+                <option key={h.filename} value={h.filename}>{h.kst}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </header>
 
       {/* AI 분석 미실행 경고 (Phase 1 페이로드인 경우) */}
