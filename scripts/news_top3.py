@@ -41,13 +41,14 @@ HISTORY_DIR = RESULTS_DIR / "news_top3_history"
 
 
 def _serialize_item(it) -> dict:
-    """CollectedItem 또는 YoutubeVideo → dict (JSON 직렬화 가능)"""
+    """CollectedItem 또는 YoutubeVideo → dict (JSON 직렬화 가능, 모든 시간은 KST)"""
     if is_dataclass(it):
         d = asdict(it)
-        # datetime → ISO 문자열
         for k, v in d.items():
             if isinstance(v, datetime):
-                d[k] = v.isoformat()
+                # 모든 timestamp를 KST로 변환하여 직렬화
+                kst = v.astimezone(KST) if v.tzinfo else v.replace(tzinfo=KST)
+                d[k] = kst.strftime("%Y-%m-%d %H:%M:%S KST")
         return d
     return dict(it)
 
@@ -200,9 +201,11 @@ def main() -> int:
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
+    # 로그 timestamp를 KST로 표시 (GitHub Actions runner는 기본 UTC).
+    logging.Formatter.converter = lambda *args: datetime.now(KST).timetuple()
     logging.basicConfig(
         level=logging.DEBUG if args.verbose else logging.INFO,
-        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+        format="%(asctime)s KST %(levelname)s %(name)s %(message)s",
     )
 
     # 로컬 .env 로드 (GitHub Actions에서는 secrets로 주입).

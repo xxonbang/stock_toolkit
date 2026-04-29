@@ -2,6 +2,10 @@
 
 ## 2026-04-29
 
+### [개선] Stock Insight — 모든 시간 출력 KST 통일 (2026-04-29 22:05 KST)
+- **변경 파일:** `scripts/news_top3.py`
+- **내용:** (1) `_serialize_item`에서 datetime 필드를 KST로 변환 후 `YYYY-MM-DD HH:MM:SS KST` 형식 문자열로 직렬화 (이전: UTC ISO offset). (2) `logging.Formatter.converter`를 KST로 설정하여 GitHub Actions runner(UTC 기본) 로그도 KST 시각 표시. (3) 검증: UTC 12:30 → KST 21:30 정확 변환 확인. 메모리 `feedback_time_kst.md` 원칙 적용.
+
 ### [기능] Stock Insight — 뉴스/커뮤니티/유튜브 TOP3 리포트 신규 메뉴 (2026-04-29 22:00 KST)
 - **변경 파일:** `modules/news/{collectors,prompts,ai_client.py,extractor.py}/`, `scripts/news_top3.py`, `.github/workflows/news-top3.yml`, `.github/workflows/deploy-pages.yml`, `.gitignore`, `requirements.txt`, `frontend/src/pages/StockInsight.tsx`, `frontend/src/services/dataService.ts`, `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`, `docs/research/2026-04-29-stock-insight.md`
 - **내용:** 6단계 분할 커밋으로 ~/dev/trade_info_sender 코드를 stock_toolkit에 이식 + 적응. (1) Phase 1 수집기 + 프롬프트 + 엔트리포인트 골격, (2) Phase 2 Gemini 다중 키 클라이언트 + 3단계 LLM 분석 (extract → top3 → outlook + youtube), (3) Phase 3 GitHub Actions 워크플로우 (KST 07:30/20:00 cron) + deploy-pages 통합, (4) Phase 4 로컬 검증 + .env 로드 경로 수정, (5) Phase 5 프론트 페이지 + 헤더 탭 5개 확장, (6) Phase 6 task_history + README.
