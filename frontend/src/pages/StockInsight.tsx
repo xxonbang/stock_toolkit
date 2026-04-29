@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink } from "lucide-react";
+import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp } from "lucide-react";
 import { dataService } from "../services/dataService";
 
 type Top3Entry = {
@@ -234,12 +234,19 @@ function SectionBlock({
 export default function StockInsight() {
   const [data, setData] = useState<NewsTop3Payload | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     dataService.getNewsTop3()
       .then((d: any) => setData(d || null))
       .catch(() => setData(null))
       .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   if (loading) {
@@ -336,6 +343,20 @@ export default function StockInsight() {
       <footer className="pt-4 text-[11px] t-text-dim text-center">
         Google News BUSINESS · Yahoo Finance · 네이버 금융 · YouTube Data API + Gemini 2.5 Flash Lite
       </footer>
+
+      {/* 스크롤 최상단 floating 버튼 */}
+      {showScrollTop && (
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="맨 위로"
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full flex items-center justify-center transition hover:scale-105 active:scale-95"
+          style={{
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
+          }}>
+          <ArrowUp size={18} className="t-text-sub" />
+        </button>
+      )}
     </div>
   );
 }
