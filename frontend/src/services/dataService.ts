@@ -4,7 +4,7 @@ async function fetchJson<T>(path: string): Promise<T | null> {
   try {
     const res = await fetch(BASE_URL + path, { cache: "no-cache" });
     if (!res.ok) return null;
-    return res.json();
+    return await res.json();  // await 누락 시 JSON 파싱 실패가 외부로 propagate되어 무한 로딩 유발
   } catch {
     return null;
   }

@@ -124,10 +124,10 @@ export default function StockInsight() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dataService.getNewsTop3().then((d: any) => {
-      setData(d || null);
-      setLoading(false);
-    });
+    dataService.getNewsTop3()
+      .then((d: any) => setData(d || null))
+      .catch(() => setData(null))
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading) {

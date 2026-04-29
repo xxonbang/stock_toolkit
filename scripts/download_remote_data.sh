@@ -45,6 +45,7 @@ FILES=(
   volume_profile.json
   anomalies.json
   auction.json
+  news_top3_latest.json
 )
 
 for f in "${FILES[@]}"; do
