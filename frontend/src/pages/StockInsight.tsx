@@ -173,6 +173,7 @@ function SectionBlock({
   footer?: string;
   isPhase1?: boolean;
 }) {
+  const [expanded, setExpanded] = useState(false);
   const hasTop3 = sectors.length > 0 || stocks.length > 0;
   const hasRaw = (news?.length || 0) > 0;
 
@@ -209,9 +210,15 @@ function SectionBlock({
             <div className="space-y-2">
               <h3 className="text-[12px] font-semibold t-text-sub px-1">뉴스 ({news.length}건)</h3>
               <div className="space-y-2">
-                {news.slice(0, 10).map((it) => <RawItemCard key={`${region}-n-${it.idx}`} item={it} badge="뉴스" />)}
+                {(expanded ? news : news.slice(0, 10)).map((it) => <RawItemCard key={`${region}-n-${it.idx}`} item={it} badge="뉴스" />)}
               </div>
-              {news.length > 10 && <div className="text-[11px] t-text-dim text-center pt-1">+{news.length - 10}건 더</div>}
+              {news.length > 10 && (
+                <button onClick={() => setExpanded(!expanded)}
+                  className="w-full text-[12px] t-text-dim hover:t-text-sub transition py-2 rounded-lg"
+                  style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+                  {expanded ? "접기 ▲" : `+${news.length - 10}건 더 ▼`}
+                </button>
+              )}
             </div>
           )}
         </>
