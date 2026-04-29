@@ -2,6 +2,11 @@
 
 ## 2026-04-29
 
+### [설정] Stock Insight cron 외부화 — cron-job.org로 전환 (2026-04-29 22:15 KST)
+- **변경 파일:** `.github/workflows/news-top3.yml`, `docs/research/2026-04-29-stock-insight.md`
+- **내용:** GitHub Actions `schedule:` 트리거 제거 (workflow_dispatch만 유지). cron-job.org에 새 job 2개 등록 — `[Stock_Toolkit][NewsTop3][0730]` (jobId 7541447) + `[Stock_Toolkit][NewsTop3][2000]` (jobId 7541448), Asia/Seoul 타임존, 매일(wdays=-1) 실행, GitHub PAT 인증으로 workflow_dispatch 호출. 기존 stock_toolkit jobs(7390723 등)와 동일 PAT 재사용.
+- **장점:** Asia/Seoul 타임존 직접 지원(GitHub Actions cron은 UTC 변환 필요), 다른 프로젝트(theme_analysis, signal_pulse 등) cron 일원 관리.
+
 ### [개선] Stock Insight — 모든 시간 출력 KST 통일 (2026-04-29 22:05 KST)
 - **변경 파일:** `scripts/news_top3.py`
 - **내용:** (1) `_serialize_item`에서 datetime 필드를 KST로 변환 후 `YYYY-MM-DD HH:MM:SS KST` 형식 문자열로 직렬화 (이전: UTC ISO offset). (2) `logging.Formatter.converter`를 KST로 설정하여 GitHub Actions runner(UTC 기본) 로그도 KST 시각 표시. (3) 검증: UTC 12:30 → KST 21:30 정확 변환 확인. 메모리 `feedback_time_kst.md` 원칙 적용.

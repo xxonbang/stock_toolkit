@@ -1,11 +1,8 @@
 name: News TOP3 (Stock Insight)
 
 on:
-  schedule:
-    # KST 07:30 = UTC 22:30 (전날)
-    - cron: '30 22 * * *'
-    # KST 20:00 = UTC 11:00
-    - cron: '0 11 * * *'
+  # 정기 실행은 cron-job.org가 KST 07:30 / 20:00에 workflow_dispatch로 트리거
+  # (jobs id 7541447, 7541448 — Asia/Seoul 타임존 직접 지원, GitHub Actions cron(UTC)보다 직관적)
   workflow_dispatch:
     inputs:
       skip_ai:

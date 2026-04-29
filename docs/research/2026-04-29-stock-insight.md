@@ -9,9 +9,13 @@
 ## 1. 아키텍처
 
 ```
-GitHub Actions (cron)
-  ├─ KST 07:30 (UTC 22:30 전날)
-  └─ KST 20:00 (UTC 11:00)
+cron-job.org (Asia/Seoul 타임존 직접 지원)
+  ├─ 매일 KST 07:30 → GitHub workflow_dispatch (jobId 7541447)
+  └─ 매일 KST 20:00 → GitHub workflow_dispatch (jobId 7541448)
+        │
+        ▼ HTTP POST /api.github.com/.../news-top3.yml/dispatches
+        │
+  GitHub Actions (workflow_dispatch only, schedule 트리거 제거)
         │
         ▼
   scripts/news_top3.py
