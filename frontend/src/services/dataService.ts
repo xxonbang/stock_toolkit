@@ -45,4 +45,5 @@ export const dataService = {
   getIndicatorHistory: () => fetchJson<any>("indicator_history.json"),
   getStockMaster: () => fetchJson<any>("stock-master.json"),
   getConsecutiveSignals: () => fetchJson<any>("consecutive_signals.json"),
+  getNewsTop3: () => fetchJson<any>("news_top3_latest.json"),
 };

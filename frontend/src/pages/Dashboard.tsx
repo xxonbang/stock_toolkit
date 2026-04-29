@@ -917,15 +917,16 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             { href: "#/portfolio", label: "포트폴리오", path: "/portfolio" },
             { href: "#/scanner", label: "스캐너", path: "/scanner" },
             { href: "#/auto-trader", label: "모의투자", path: "/auto-trader" },
+            { href: "#/stock-insight", label: "Stock Insight", path: "/stock-insight" },
           ].map((tab, idx, arr) => {
             const active = location.pathname === tab.path;
-            return <a key={tab.path} href={tab.href} className={`flex-1 text-center py-3 text-sm font-medium transition-colors ${active ? "font-semibold t-accent" : "t-text-dim hover:t-text-sub"}`}>{tab.label}</a>;
+            return <a key={tab.path} href={tab.href} className={`flex-1 text-center py-3 text-[13px] font-medium transition-colors ${active ? "font-semibold t-accent" : "t-text-dim hover:t-text-sub"}`}>{tab.label}</a>;
           })}
           {/* 슬라이딩 인디케이터 */}
           <div className="absolute bottom-0 h-[3px] rounded-full transition-all duration-300 ease-out" style={{
             background: 'var(--accent)',
-            width: '25%',
-            left: `${["/", "/portfolio", "/scanner", "/auto-trader"].indexOf(location.pathname) * 25}%`,
+            width: '20%',
+            left: `${["/", "/portfolio", "/scanner", "/auto-trader", "/stock-insight"].indexOf(location.pathname) * 20}%`,
           }} />
         </div>
       </div>

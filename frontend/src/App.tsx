@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Portfolio from './pages/Portfolio'
 import AutoTrader from './pages/AutoTrader'
 import Scanner from './pages/Scanner'
+import StockInsight from './pages/StockInsight'
 import Login from './pages/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './lib/AuthContext'
@@ -58,6 +59,7 @@ export default function App() {
               <Route index element={null} />
               <Route path="portfolio" element={<Portfolio />} />
               <Route path="auto-trader" element={<AutoTrader />} />
+              <Route path="stock-insight" element={<StockInsight />} />
             </Route>
             <Route path="/scanner" element={<ProtectedRoute><Scanner onToggleTheme={toggle} isDark={dark} /></ProtectedRoute>} />
           </Routes>
