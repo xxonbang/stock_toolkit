@@ -17,9 +17,10 @@ class CollectedItem:
     batch: str            # "us_news" | "kr_news"
     idx: int              # 1..50 (배치 내 일련번호)
     title: str
-    body: str             # 요약 또는 본문 일부 (1000자 이내 권장)
+    body: str             # 요약 또는 본문 일부 (1000자 이내 권장, HTML 태그 제거됨)
     url: str
     published_at: datetime  # tz-aware
+    title_ko: str = ""    # 한국어 번역 (us_news만 채워짐, 번역 실패 시 빈 문자열)
 
 
 def label_for_batch(batch: str) -> str:

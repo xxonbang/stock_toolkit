@@ -9,6 +9,7 @@
   박곰희TV(자산관리 중심) 제외
 - playboard.co 인기순위 + 콘텐츠 적합성으로 4개 채널 보강
 """
+import html
 import logging
 import os
 from dataclasses import dataclass, field
@@ -106,14 +107,14 @@ def _fetch_transcript(video_id: str) -> str:
 
 
 def _item_to_video(item: dict, channel_name_override: Optional[str] = None) -> Optional[YoutubeVideo]:
-    """YouTube API 응답 항목 → YoutubeVideo"""
+    """YouTube API 응답 항목 → YoutubeVideo. HTML entity 디코드(&#39; 등)."""
     snippet = item.get("snippet") or {}
     video_id = (item.get("id") or {}).get("videoId") if isinstance(item.get("id"), dict) else item.get("id")
     if not video_id:
         return None
-    title = (snippet.get("title") or "").strip()
-    description = (snippet.get("description") or "").strip()
-    channel_name = channel_name_override or snippet.get("channelTitle", "")
+    title = html.unescape((snippet.get("title") or "").strip())
+    description = html.unescape((snippet.get("description") or "").strip())
+    channel_name = channel_name_override or html.unescape(snippet.get("channelTitle", ""))
     published_str = snippet.get("publishedAt", "")
     try:
         published = datetime.fromisoformat(published_str.replace("Z", "+00:00"))

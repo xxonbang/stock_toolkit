@@ -3,6 +3,7 @@
 키워드 매칭 한계 회피를 위해 구글 뉴스 BUSINESS 토픽(무키워드) + 네이버 금융
 메인뉴스 크롤링을 결합 수집.
 """
+import html
 import logging
 import re
 from datetime import datetime, timedelta, timezone
@@ -49,6 +50,13 @@ def _fetch_html(url: str) -> str:
     return resp.text
 
 
+def _clean_html(html: str) -> str:
+    """RSS body의 HTML 태그/엔티티 제거 → 순수 텍스트."""
+    if not html:
+        return ""
+    return BeautifulSoup(html, "html.parser").get_text(separator=" ", strip=True)
+
+
 def _entry_to_item(entry) -> Optional[CollectedItem]:
     """Google News RSS entry → CollectedItem"""
     if not getattr(entry, "title", None) or not getattr(entry, "link", None):
@@ -57,10 +65,10 @@ def _entry_to_item(entry) -> Optional[CollectedItem]:
     if not pub:
         return None
     published = datetime(*pub[:6], tzinfo=timezone.utc)
-    body = getattr(entry, "summary", "") or getattr(entry, "description", "") or ""
+    body_raw = getattr(entry, "summary", "") or getattr(entry, "description", "") or ""
     return CollectedItem(
         batch="kr_news", idx=0,
-        title=entry.title.strip(), body=body.strip(),
+        title=html.unescape(entry.title.strip()), body=_clean_html(body_raw)[:500],
         url=entry.link, published_at=published,
     )
 

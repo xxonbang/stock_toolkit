@@ -15,6 +15,7 @@ type Top3Entry = {
 type RawItem = {
   idx: number;
   title: string;
+  title_ko?: string;
   body?: string;
   url: string;
   published_at?: string;
@@ -104,7 +105,17 @@ function fmtKstDate(s?: string): string {
   }
 }
 
+function hostFromUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    return u.hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
 function RawItemCard({ item, badge }: { item: RawItem; badge: string }) {
+  const host = hostFromUrl(item.url);
   return (
     <a href={item.url} target="_blank" rel="noopener noreferrer"
       className="block rounded-xl p-3 transition hover:opacity-80"
@@ -113,12 +124,13 @@ function RawItemCard({ item, badge }: { item: RawItem; badge: string }) {
         <span className="text-[10px] px-1.5 py-0.5 rounded shrink-0 mt-0.5 bg-blue-500/10 text-blue-400">{badge}</span>
         <div className="flex-1 min-w-0">
           <div className="text-[13px] t-text leading-[1.5] line-clamp-2">{item.title}</div>
-          {item.body && (
-            <div className="text-[11px] t-text-dim leading-[1.5] mt-1 line-clamp-2">{item.body}</div>
+          {item.title_ko && (
+            <div className="text-[12px] t-text-sub leading-[1.5] mt-0.5 line-clamp-2">↳ {item.title_ko}</div>
           )}
-          <div className="flex items-center gap-2 mt-1.5">
-            <span className="text-[10px] t-text-dim">{fmtKstDate(item.published_at)}</span>
-            <ExternalLink size={10} className="t-text-dim" />
+          <div className="flex items-center gap-1.5 mt-1.5 text-[10px] t-text-dim">
+            <span>{fmtKstDate(item.published_at)}</span>
+            {host && <><span>·</span><span className="truncate max-w-[180px]">{host}</span></>}
+            <ExternalLink size={10} className="shrink-0" />
           </div>
         </div>
       </div>

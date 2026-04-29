@@ -133,11 +133,12 @@ def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict
     }
 
 
-def run_ai_pipeline(collected: dict, now_kst: datetime) -> dict:
+def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
     """3단계 LLM 분석. 어느 단계든 실패 시 Phase 1 페이로드로 폴백."""
     from modules.news import ai_client, extractor
 
-    client = ai_client.create_client()
+    if client is None:
+        client = ai_client.create_client()
     batches = {
         "us_news": collected["us_news"],
         "kr_news": collected["kr_news"],
@@ -203,10 +204,19 @@ def main() -> int:
 
     collected = collect_all(now_utc)
 
+    # 미국 뉴스 제목 한국어 번역 (LLM 1회). 키 없으면 skip.
+    client = None
+    try:
+        from modules.news import ai_client, translator
+        client = ai_client.create_client()
+        translator.translate_us_titles(collected["us_news"], client)
+    except Exception as e:
+        logger.warning(f"번역 단계 skip: {e}")
+
     if args.skip_ai:
         payload = build_payload_phase1(collected, now_kst)
     else:
-        payload = run_ai_pipeline(collected, now_kst)
+        payload = run_ai_pipeline(collected, now_kst, client=client)
 
     if args.dry_run:
         phase = payload.get("phase", "?")
