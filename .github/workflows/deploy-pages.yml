@@ -56,7 +56,9 @@ jobs:
         run: |
           mkdir -p results
           BASE="https://xxonbang.github.io/stock_toolkit/data"
-          for f in briefing.json news_top3_latest.json; do
+          # briefing.json은 GitHub Pages가 단일 진실원 (run_all.py가 갱신 안 할 수 있음).
+          # news_top3_latest.json은 news-top3.yml이 main에 commit하므로 checkout 결과 사용 (덮어쓰기 금지).
+          for f in briefing.json; do
             curl -sf "$BASE/$f" -o "results/$f" || echo "기존 $f 없음"
           done
       - name: Run all phases
