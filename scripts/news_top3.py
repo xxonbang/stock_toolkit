@@ -24,13 +24,13 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from modules.news.collectors import (  # noqa: E402
-    base,
+    base,  # noqa: F401
     us_news,
-    us_community,
     kr_news,
-    kr_community,
     youtube,
 )
+# us_community / kr_community 비활성화 (2026-04-29) — 잡담·작전성 비율 높아 실효성 낮음.
+# collector 파일은 보존 (향후 재활성화 시 import만 추가).
 
 KST = timezone(timedelta(hours=9))
 logger = logging.getLogger("news_top3")
@@ -54,18 +54,15 @@ def _serialize_item(it) -> dict:
 
 
 def collect_all(now: datetime) -> dict:
-    """4개 텍스트 배치 + 유튜브 영상 수집"""
+    """2개 뉴스 배치(미/한) + 유튜브 영상 수집"""
     logger.info("=== 수집 시작 ===")
     result = {
         "us_news": us_news.collect(now=now),
-        "us_community": us_community.collect(now=now),
         "kr_news": kr_news.collect(now=now),
-        "kr_community": kr_community.collect(now=now.astimezone(KST)),
         "youtube": youtube.collect(now=now),
     }
     logger.info(
-        f"수집 완료: us_news={len(result['us_news'])}, us_community={len(result['us_community'])}, "
-        f"kr_news={len(result['kr_news'])}, kr_community={len(result['kr_community'])}, "
+        f"수집 완료: us_news={len(result['us_news'])}, kr_news={len(result['kr_news'])}, "
         f"youtube={len(result['youtube'])}"
     )
     return result
@@ -105,17 +102,9 @@ def build_payload_phase1(collected: dict, now_kst: datetime) -> dict:
     return {
         "generated_at": now_kst.strftime("%Y-%m-%d %H:%M KST"),
         "phase": 1,
-        "us": {
-            "news": [_serialize_item(it) for it in collected["us_news"]],
-            "community": [_serialize_item(it) for it in collected["us_community"]],
-        },
-        "kr": {
-            "news": [_serialize_item(it) for it in collected["kr_news"]],
-            "community": [_serialize_item(it) for it in collected["kr_community"]],
-        },
-        "youtube": {
-            "videos": [_serialize_item(v) for v in collected["youtube"]],
-        },
+        "us": {"news": [_serialize_item(it) for it in collected["us_news"]]},
+        "kr": {"news": [_serialize_item(it) for it in collected["kr_news"]]},
+        "youtube": {"videos": [_serialize_item(v) for v in collected["youtube"]]},
     }
 
 
@@ -128,19 +117,13 @@ def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict
             "top3_sectors": top3.get("us_top3_sectors", []),
             "top3_stocks": top3.get("us_top3_stocks", []),
             "outlook": outlook.get("us", {}),
-            "collected": {
-                "news": len(collected["us_news"]),
-                "community": len(collected["us_community"]),
-            },
+            "collected": {"news": len(collected["us_news"])},
         },
         "kr": {
             "top3_sectors": top3.get("kr_top3_sectors", []),
             "top3_stocks": top3.get("kr_top3_stocks", []),
             "outlook": outlook.get("kr", {}),
-            "collected": {
-                "news": len(collected["kr_news"]),
-                "community": len(collected["kr_community"]),
-            },
+            "collected": {"news": len(collected["kr_news"])},
         },
         "youtube": {
             "top3_sectors": yt_top3.get("top3_sectors", []),
@@ -157,9 +140,7 @@ def run_ai_pipeline(collected: dict, now_kst: datetime) -> dict:
     client = ai_client.create_client()
     batches = {
         "us_news": collected["us_news"],
-        "us_community": collected["us_community"],
         "kr_news": collected["kr_news"],
-        "kr_community": collected["kr_community"],
     }
 
     try:
@@ -235,8 +216,9 @@ def main() -> int:
             print(f"  kr.top3_sectors={len(payload['kr']['top3_sectors'])}, kr.top3_stocks={len(payload['kr']['top3_stocks'])}")
             print(f"  youtube.top3_sectors={len(payload['youtube']['top3_sectors'])}, youtube.top3_stocks={len(payload['youtube']['top3_stocks'])}")
         else:
-            print(f"  us.news={len(payload['us']['news'])}, us.community={len(payload['us']['community'])}")
-            print(f"  kr.news={len(payload['kr']['news'])}, kr.community={len(payload['kr']['community'])}")
+            print(f"  us.news={len(payload['us']['news'])}")
+            print(f"  kr.news={len(payload['kr']['news'])}")
+            print(f"  youtube.videos={len(payload['youtube']['videos'])}")
         return 0
 
     save_outputs(payload, now_kst)

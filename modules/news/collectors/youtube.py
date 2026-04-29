@@ -23,22 +23,20 @@ logger = logging.getLogger(__name__)
 
 KST = timezone(timedelta(hours=9))
 
-# 한국 주식 관련 유명 유튜브 채널 (channel_id, name) — 8채널 (2026-04-29 검증)
+# 한국 주식 유튜브 채널 5개 (사용자 명시, 2026-04-29)
+# 종합 시황/경제: 삼프로TV, 슈카월드, 김작가TV
+# 미국 주식/ETF: 소수몽키, 올랜도 킴 미국주식
 KR_STOCK_CHANNELS = [
-    # 유지 (4): 매일/주기적 시황 또는 거시 분석 권위 채널
-    ("UCsJ6RuBiTVWRX156FVbeaGg", "슈카월드"),
-    ("UCGCGxsbmG_9nincyI7xypow", "한경 코리아마켓"),
     ("UChlv4GSd7OQl3js-jkLOnFA", "삼프로TV"),
-    ("UC_l2qrs1qRv_8Rs8utay-PQ", "메르의 세상읽기"),
-    # 추가 (4): 시황 전문성 + 미국 증시 시그널 보강
-    ("UCdOjVxkj5JA0iDu3_xcsTyQ", "증시각도기TV"),
-    ("UCbMjg2EvXs_RUGW-KrdM3pw", "SBS Biz 뉴스"),
-    ("UClErHbdZKUnD1NyIUeQWvuQ", "MTN 머니투데이방송"),
-    ("UC_JJ_NhRqPKcIOj5Ko3W_3w", "오선의 미국 증시 라이브"),
+    ("UCsJ6RuBiTVWRX156FVbeaGg", "슈카월드"),
+    ("UCvil4OAt-zShzkKHsg9EQAw", "김작가 TV"),
+    ("UCC3yfxS5qC6PCwDzetUuEWg", "소수몽키"),
+    ("UC84OTRAO0FMDgMY1u9pbOBg", "올랜도 킴 미국주식"),
 ]
 
-# 키워드 검색으로 추가 영상 (백필)
-SEARCH_KEYWORDS = ["코스피 전망", "주식 시황", "美 증시"]
+# 영상 수가 부족할 때 조사 기간을 점진 확장 (주 단위). 키워드 검색은 데이터 폭을
+# 제한해 오히려 품질을 저하시키므로 사용하지 않음.
+EXPAND_WEEKS = (1, 2, 3, 4)
 
 
 @dataclass
@@ -82,27 +80,6 @@ def _list_recent_videos_from_channel(youtube, channel_id: str, since: datetime, 
         return response.get("items", [])
     except Exception as e:
         logger.warning(f"YouTube 채널 검색 실패 ({channel_id[:8]}...): {e}")
-        return []
-
-
-def _search_videos_by_keyword(youtube, keyword: str, since: datetime, max_results: int = 5) -> List[dict]:
-    """키워드 검색으로 영상 가져오기"""
-    try:
-        published_after = since.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        request = youtube.search().list(
-            q=keyword,
-            part="id,snippet",
-            order="relevance",
-            type="video",
-            publishedAfter=published_after,
-            regionCode="KR",
-            relevanceLanguage="ko",
-            maxResults=max_results,
-        )
-        response = request.execute()
-        return response.get("items", [])
-    except Exception as e:
-        logger.warning(f"YouTube 키워드 검색 실패 ({keyword}): {e}")
         return []
 
 
@@ -152,10 +129,11 @@ def _item_to_video(item: dict, channel_name_override: Optional[str] = None) -> O
 
 
 def collect(now: Optional[datetime] = None, limit: int = 10) -> List[YoutubeVideo]:
-    """최근 7일 내 한국 주식 관련 유튜브 영상 수집. 채널 우선 + 키워드 보충."""
+    """5채널의 한국 주식 영상 수집. limit 미달 시 조사 기간을 1주씩 확장 (최대 4주).
+    키워드 검색은 데이터 폭을 제한하므로 사용 안 함.
+    """
     if now is None:
         now = datetime.now(timezone.utc)
-    since = now - timedelta(days=7)
 
     try:
         youtube = _get_client()
@@ -166,36 +144,29 @@ def collect(now: Optional[datetime] = None, limit: int = 10) -> List[YoutubeVide
     seen_video_ids = set()
     videos: List[YoutubeVideo] = []
 
-    # 1. 지정 채널에서 최근 영상 가져오기
-    for channel_id, channel_name in KR_STOCK_CHANNELS:
-        items = _list_recent_videos_from_channel(youtube, channel_id, since, max_results=3)
-        for item in items:
-            v = _item_to_video(item, channel_name_override=channel_name)
-            if not v or v.video_id in seen_video_ids:
-                continue
-            seen_video_ids.add(v.video_id)
-            videos.append(v)
-
-    # 2. 키워드 검색으로 보충 (limit 못 채우면)
-    if len(videos) < limit:
-        for kw in SEARCH_KEYWORDS:
-            if len(videos) >= limit:
-                break
-            items = _search_videos_by_keyword(youtube, kw, since, max_results=5)
+    # 7일 → 14일 → 21일 → 28일 점진 확장 (limit 채우면 조기 종료)
+    for weeks in EXPAND_WEEKS:
+        if len(videos) >= limit:
+            break
+        since = now - timedelta(days=7 * weeks)
+        max_per_channel = 3 * weeks  # 회차마다 더 많은 과거 영상 fetch
+        before = len(videos)
+        for channel_id, channel_name in KR_STOCK_CHANNELS:
+            items = _list_recent_videos_from_channel(youtube, channel_id, since, max_results=max_per_channel)
             for item in items:
-                if len(videos) >= limit:
-                    break
-                v = _item_to_video(item)
+                v = _item_to_video(item, channel_name_override=channel_name)
                 if not v or v.video_id in seen_video_ids:
                     continue
                 seen_video_ids.add(v.video_id)
                 videos.append(v)
+        added = len(videos) - before
+        logger.info(f"  YouTube {weeks}주 확장: +{added}개 (누적 {len(videos)}/{limit})")
 
-    # 3. 발행 시간 내림차순 정렬, limit 적용
+    # 발행 시간 내림차순 + limit 적용
     videos.sort(key=lambda x: x.published_at, reverse=True)
     videos = videos[:limit]
 
-    # 4. 자막 추출 (limit 영상에 한해)
+    # 자막 추출 (limit 영상에 한해)
     for v in videos:
         v.transcript = _fetch_transcript(v.video_id)
 

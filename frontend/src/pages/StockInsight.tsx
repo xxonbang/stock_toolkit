@@ -9,9 +9,7 @@ type Top3Entry = {
   freq?: number;
   refs?: string[];
   us_news_refs?: number[];
-  us_community_refs?: number[];
   kr_news_refs?: number[];
-  kr_community_refs?: number[];
 };
 
 type RawItem = {
@@ -37,10 +35,9 @@ type RegionData = {
   top3_sectors?: Top3Entry[];
   top3_stocks?: Top3Entry[];
   outlook?: any;
-  collected?: { news: number; community: number };
+  collected?: { news: number };
   // phase=1 (수집만)
   news?: RawItem[];
-  community?: RawItem[];
 };
 
 type YoutubeData = {
@@ -60,10 +57,8 @@ type NewsTop3Payload = {
 };
 
 function freqOf(e: Top3Entry, region: "us" | "kr"): number {
-  if (region === "us") {
-    return (e.us_news_refs?.length || 0) + (e.us_community_refs?.length || 0);
-  }
-  return (e.kr_news_refs?.length || 0) + (e.kr_community_refs?.length || 0);
+  if (region === "us") return e.us_news_refs?.length || 0;
+  return e.kr_news_refs?.length || 0;
 }
 
 function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "kr" | "youtube"; kind: "sector" | "stock" }) {
@@ -154,7 +149,7 @@ function RawVideoCard({ video }: { video: RawVideo }) {
 }
 
 function SectionBlock({
-  icon, label, color, region, sectors, stocks, news, community, footer, isPhase1,
+  icon, label, color, region, sectors, stocks, news, footer, isPhase1,
 }: {
   icon: React.ReactNode;
   label: string;
@@ -163,12 +158,11 @@ function SectionBlock({
   sectors: Top3Entry[];
   stocks: Top3Entry[];
   news?: RawItem[];
-  community?: RawItem[];
   footer?: string;
   isPhase1?: boolean;
 }) {
   const hasTop3 = sectors.length > 0 || stocks.length > 0;
-  const hasRaw = (news?.length || 0) + (community?.length || 0) > 0;
+  const hasRaw = (news?.length || 0) > 0;
 
   return (
     <section className="space-y-3">
@@ -203,18 +197,9 @@ function SectionBlock({
             <div className="space-y-2">
               <h3 className="text-[12px] font-semibold t-text-sub px-1">뉴스 ({news.length}건)</h3>
               <div className="space-y-2">
-                {news.slice(0, 8).map((it) => <RawItemCard key={`${region}-n-${it.idx}`} item={it} badge="뉴스" />)}
+                {news.slice(0, 10).map((it) => <RawItemCard key={`${region}-n-${it.idx}`} item={it} badge="뉴스" />)}
               </div>
-              {news.length > 8 && <div className="text-[11px] t-text-dim text-center pt-1">+{news.length - 8}건 더</div>}
-            </div>
-          )}
-          {community && community.length > 0 && (
-            <div className="space-y-2">
-              <h3 className="text-[12px] font-semibold t-text-sub px-1">커뮤니티 ({community.length}건)</h3>
-              <div className="space-y-2">
-                {community.slice(0, 8).map((it) => <RawItemCard key={`${region}-c-${it.idx}`} item={it} badge="커뮤" />)}
-              </div>
-              {community.length > 8 && <div className="text-[11px] t-text-dim text-center pt-1">+{community.length - 8}건 더</div>}
+              {news.length > 10 && <div className="text-[11px] t-text-dim text-center pt-1">+{news.length - 10}건 더</div>}
             </div>
           )}
         </>
@@ -290,8 +275,7 @@ export default function StockInsight() {
         sectors={us.top3_sectors || []}
         stocks={us.top3_stocks || []}
         news={us.news}
-        community={us.community}
-        footer={isPhase1 && us.news ? `뉴스 ${us.news.length} · 커뮤니티 ${us.community?.length || 0}` : us.collected ? `뉴스 ${us.collected.news} · 커뮤니티 ${us.collected.community}` : undefined}
+        footer={isPhase1 && us.news ? `뉴스 ${us.news.length}건` : us.collected ? `뉴스 ${us.collected.news}건` : undefined}
         isPhase1={isPhase1}
       />
 
@@ -302,8 +286,7 @@ export default function StockInsight() {
         sectors={kr.top3_sectors || []}
         stocks={kr.top3_stocks || []}
         news={kr.news}
-        community={kr.community}
-        footer={isPhase1 && kr.news ? `뉴스 ${kr.news.length} · 커뮤니티 ${kr.community?.length || 0}` : kr.collected ? `뉴스 ${kr.collected.news} · 커뮤니티 ${kr.collected.community}` : undefined}
+        footer={isPhase1 && kr.news ? `뉴스 ${kr.news.length}건` : kr.collected ? `뉴스 ${kr.collected.news}건` : undefined}
         isPhase1={isPhase1}
       />
 
@@ -332,7 +315,7 @@ export default function StockInsight() {
 
       {/* 푸터 */}
       <footer className="pt-4 text-[11px] t-text-dim text-center">
-        Google News · Hacker News · StockTwits · FM코리아 · 클리앙 · YouTube Data API + Gemini 2.5 Flash Lite
+        Google News BUSINESS · Yahoo Finance · 네이버 금융 · YouTube Data API + Gemini 2.5 Flash Lite
       </footer>
     </div>
   );

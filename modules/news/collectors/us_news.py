@@ -1,8 +1,11 @@
-"""미국 주식 관련 뉴스 수집 — Google News RSS"""
+"""미국 주식 관련 뉴스 수집 — Google News BUSINESS + Yahoo Finance Top News.
+
+키워드 매칭 방식의 한계(특정 단어 포함 기사로만 한정 → 시그널 누락)를 피하기 위해
+구글 뉴스 BUSINESS 토픽(무키워드 헤드라인) + 야후 파이낸스 톱 뉴스를 결합 수집.
+"""
 import logging
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional
-from urllib.parse import quote
 
 import feedparser
 
@@ -10,8 +13,10 @@ from modules.news.collectors.base import CollectedItem
 
 logger = logging.getLogger(__name__)
 
-KEYWORDS = ["stock market", "Wall Street", "S&P 500", "Nasdaq"]
-RSS_TEMPLATE = "https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
+# Google News BUSINESS topic (en-US) — 무키워드 비즈니스 헤드라인
+GOOGLE_BUSINESS_RSS = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"
+# Yahoo Finance Top News RSS
+YAHOO_FINANCE_RSS = "https://finance.yahoo.com/news/rssindex"
 
 
 def _fetch_feed(url: str):
@@ -19,7 +24,7 @@ def _fetch_feed(url: str):
     return feedparser.parse(url)
 
 
-def _entry_to_item(entry, batch: str = "us_news") -> Optional[CollectedItem]:
+def _entry_to_item(entry) -> Optional[CollectedItem]:
     if not getattr(entry, "title", None) or not getattr(entry, "link", None):
         return None
     pub = getattr(entry, "published_parsed", None)
@@ -28,7 +33,7 @@ def _entry_to_item(entry, batch: str = "us_news") -> Optional[CollectedItem]:
     published = datetime(*pub[:6], tzinfo=timezone.utc)
     body = getattr(entry, "summary", "") or getattr(entry, "description", "") or ""
     return CollectedItem(
-        batch=batch, idx=0,  # idx는 호출자가 부여
+        batch="us_news", idx=0,
         title=entry.title.strip(),
         body=body.strip(),
         url=entry.link,
@@ -36,8 +41,8 @@ def _entry_to_item(entry, batch: str = "us_news") -> Optional[CollectedItem]:
     )
 
 
-def collect(now: Optional[datetime] = None, limit: int = 30) -> List[CollectedItem]:
-    """24시간 이내 미국 주식 뉴스를 키워드별로 수집, 중복 제거 후 limit개 반환"""
+def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedItem]:
+    """24시간 이내 미국 비즈니스/금융 뉴스 수집. 두 소스 합쳐 limit개."""
     if now is None:
         now = datetime.now(timezone.utc)
     since = now - timedelta(hours=24)
@@ -45,41 +50,39 @@ def collect(now: Optional[datetime] = None, limit: int = 30) -> List[CollectedIt
     seen_urls = set()
     items: List[CollectedItem] = []
 
-    for kw in KEYWORDS:
-        url = RSS_TEMPLATE.format(q=quote(kw))
+    for source_name, url in [("GoogleNews_BUSINESS", GOOGLE_BUSINESS_RSS), ("YahooFinance", YAHOO_FINANCE_RSS)]:
         try:
             feed = _fetch_feed(url)
         except Exception as e:
-            logger.warning(f"us_news fetch 실패 ({kw}): {e}")
+            logger.warning(f"us_news fetch 실패 ({source_name}): {e}")
             continue
+        before = len(items)
         for entry in getattr(feed, "entries", []):
-            item = _entry_to_item(entry)
-            if not item:
+            it = _entry_to_item(entry)
+            if not it:
                 continue
-            if item.published_at < since:
+            if it.published_at < since:
                 continue
-            if item.url in seen_urls:
+            if it.url in seen_urls:
                 continue
-            seen_urls.add(item.url)
-            items.append(item)
+            seen_urls.add(it.url)
+            items.append(it)
+        logger.info(f"  {source_name}: {len(items) - before}개 (24h 내, 중복 제거 후)")
 
-    # 정렬: (1) 6h 이내 최신 우선, (2) 본문 200자 이상, (3) 발행시간 내림차순
+    # 정렬: (1) 6h 이내 최신 우선, (2) 본문 200자 이상 우선, (3) 발행시각 최신
     six_hours_ago = now - timedelta(hours=6)
     items.sort(
         key=lambda x: (x.published_at >= six_hours_ago, len(x.body) >= 200, x.published_at),
         reverse=True,
     )
     items = items[:limit]
-
-    # 인덱스 부여 (1..N)
     for i, it in enumerate(items, start=1):
         it.idx = i
-
-    logger.info(f"us_news 수집 완료: {len(items)}개")
+    logger.info(f"us_news 수집 완료: {len(items)}개 (Google BUSINESS + Yahoo Finance)")
     return items
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     for it in collect():
-        print(f"[#{it.idx}] {it.title} ({it.url})")
+        print(f"[#{it.idx}] {it.title}")

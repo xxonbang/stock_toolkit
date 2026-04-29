@@ -6,17 +6,16 @@ from typing import List
 
 BATCH_LABELS = {
     "us_news": "미뉴스",
-    "us_community": "미커뮤",
     "kr_news": "한뉴스",
-    "kr_community": "한커뮤",
+    # 커뮤니티 배치(us_community/kr_community)는 잡담·작전성 비율로 비활성화 (2026-04-29)
 }
 
 
 @dataclass
 class CollectedItem:
     """수집된 글 1건"""
-    batch: str            # "us_news" | "us_community" | "kr_news" | "kr_community"
-    idx: int              # 1..30 (배치 내 일련번호)
+    batch: str            # "us_news" | "kr_news"
+    idx: int              # 1..50 (배치 내 일련번호)
     title: str
     body: str             # 요약 또는 본문 일부 (1000자 이내 권장)
     url: str

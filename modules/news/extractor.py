@@ -20,11 +20,9 @@ PROMPT_DIR = Path(__file__).parent / "prompts"
 
 LABEL_TO_BATCH = {
     "미뉴스": "us_news",
-    "미커뮤": "us_community",
     "한뉴스": "kr_news",
-    "한커뮤": "kr_community",
 }
-BUNDLE_PATTERN = re.compile(r"\[(미뉴스|미커뮤|한뉴스|한커뮤)((?:#\d+,?)+)\]")
+BUNDLE_PATTERN = re.compile(r"\[(미뉴스|한뉴스)((?:#\d+,?)+)\]")
 NUM_PATTERN = re.compile(r"#(\d+)")
 
 
@@ -137,7 +135,7 @@ def _canonical_name(name: str) -> str:
 
 
 def _normalize_aliases_in_extraction(extraction: Dict) -> Dict:
-    for batch_key in ("us_news", "us_community", "kr_news", "kr_community"):
+    for batch_key in ("us_news", "kr_news"):
         batch = extraction.get(batch_key)
         if not isinstance(batch, dict):
             continue
@@ -183,7 +181,7 @@ def _is_index_or_market(name: str) -> bool:
 
 
 def _filter_indices_from_extraction(extraction: Dict) -> Dict:
-    for batch_key in ("us_news", "us_community", "kr_news", "kr_community"):
+    for batch_key in ("us_news", "kr_news"):
         batch = extraction.get(batch_key)
         if not isinstance(batch, dict):
             continue
@@ -208,14 +206,15 @@ def _filter_indices_from_top3(top3: Dict) -> Dict:
     return top3
 
 
-MIN_STOCK_FREQ_TOTAL = 10
-MIN_SECTOR_FREQ_TOTAL = 15
+# 50건 단일 뉴스 배치 기준 (커뮤니티 제거 후 비율 유지: 50건의 16% / 24%)
+MIN_STOCK_FREQ_TOTAL = 8
+MIN_SECTOR_FREQ_TOTAL = 12
 
 
 def _entry_total_freq(entry: Dict, region: str) -> int:
     if region == "us":
-        return len(entry.get("us_news_refs", []) or []) + len(entry.get("us_community_refs", []) or [])
-    return len(entry.get("kr_news_refs", []) or []) + len(entry.get("kr_community_refs", []) or [])
+        return len(entry.get("us_news_refs", []) or [])
+    return len(entry.get("kr_news_refs", []) or [])
 
 
 def _enforce_min_freq_top3(top3: Dict) -> Dict:
@@ -238,10 +237,10 @@ def _enforce_min_freq_top3(top3: Dict) -> Dict:
 
 
 def extract_per_batch(batches: Dict[str, List[CollectedItem]], client) -> Dict:
-    """AI 콜 #1 — 4배치에서 종목/섹터 각 10개씩 추출."""
+    """AI 콜 #1 — 2배치(미뉴스/한뉴스)에서 종목/섹터 각 10개씩 추출."""
     template = _load_prompt("trend_extract.txt")
     all_items: List[CollectedItem] = []
-    for b in ("us_news", "us_community", "kr_news", "kr_community"):
+    for b in ("us_news", "kr_news"):
         all_items.extend(batches.get(b, []))
     collected_text = format_indexed_text(all_items)
     prompt = template.replace("{COLLECTED_TEXT}", collected_text)
