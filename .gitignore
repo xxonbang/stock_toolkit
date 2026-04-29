@@ -7,3 +7,6 @@ dist/
 .venv/
 results/
 .worktrees/
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+.claude/.scheduled_tasks/

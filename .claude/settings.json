@@ -1,0 +1,117 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/session-start-brief.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-destructive.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/tsc-after-edit.sh",
+            "async": true,
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/python-syntax-check.sh",
+            "async": true,
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/task-history-reminder.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(npm run build*)",
+      "Bash(npm run dev*)",
+      "Bash(npx tsc --noEmit*)",
+      "Bash(npx vite build*)",
+      "Bash(pytest *)",
+      "Bash(python3 -m py_compile *)",
+      "Bash(python3 -c *)",
+      "Bash(bash scripts/download_remote_data.sh)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git add *)",
+      "Bash(git branch*)",
+      "Bash(gh run list*)",
+      "Bash(gh pr*)",
+      "Bash(gh api*)",
+      "Bash(gcloud compute instances list*)",
+      "Bash(gcloud compute ssh ws-daemon --zone=us-central1-a --command=curl*)",
+      "Bash(gcloud compute ssh ws-daemon --zone=us-central1-a --command=free*)",
+      "Bash(gcloud compute ssh ws-daemon --zone=us-central1-a --command=df*)",
+      "Bash(gcloud compute ssh ws-daemon --zone=us-central1-a --command=systemctl status*)",
+      "Bash(gcloud compute ssh ws-daemon --zone=us-central1-a --command=journalctl*)",
+      "Read(**)",
+      "Edit(frontend/**)",
+      "Edit(daemon/**)",
+      "Edit(modules/**)",
+      "Edit(scripts/**)",
+      "Edit(docs/**)",
+      "Edit(.claude/**)",
+      "Edit(.github/**)",
+      "Write(frontend/**)",
+      "Write(daemon/**)",
+      "Write(modules/**)",
+      "Write(scripts/**)",
+      "Write(docs/**)",
+      "Write(.claude/**)",
+      "Write(.github/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Bash(git reset --hard*)",
+      "Bash(git commit --no-verify*)",
+      "Bash(git commit -n *)",
+      "Bash(sudo *)",
+      "Bash(systemctl stop ws-daemon*)",
+      "Bash(systemctl disable ws-daemon*)",
+      "Bash(gcloud compute instances delete*)",
+      "Read(daemon/.env)",
+      "Read(daemon/.env.local)",
+      "Read(.env)",
+      "Read(frontend/.env)"
+    ]
+  }
+}

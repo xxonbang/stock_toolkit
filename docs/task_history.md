@@ -1,5 +1,12 @@
 # Task History
 
+## 2026-04-29
+
+### [기능] Claude Code 하네스 전면 구성 (2026-04-29 16:00 KST)
+- **변경 파일:** `.claude/settings.json`, `.claude/agents/{frontend,daemon,analysis,gcp-ops,code-reviewer}-impl.md`, `.claude/skills/{download-remote-data,query-trades,deploy-daemon,gcp-logs}/SKILL.md`, `.claude/hooks/{block-destructive,session-start-brief,task-history-reminder,tsc-after-edit,python-syntax-check}.sh`, `.claude/commands/pr-checklist.md`, `.gitignore`
+- **내용:** theme_lab 하네스 패턴을 stock_toolkit 특수성(frontend/daemon/analysis 3분할 + 공유 ws-daemon)에 맞게 적응하여 16개 파일 신규 구성. 5개 specialized agent(`frontend-impl`/`daemon-impl`/`analysis-impl`/`gcp-ops`/`code-reviewer`), 4개 skill(`download-remote-data`/`query-trades`/`deploy-daemon`/`gcp-logs`), 5개 hook, 1개 command. block-destructive.sh는 강도 "강": 파일 파괴 + force push + ws-daemon stop + Supabase 핵심 테이블 DELETE + KIS 주문 API 직접 호출 + .env cat 모두 차단. settings.json의 permissions allow/deny 명시. .gitignore에 settings.local.json·scheduled_tasks.lock 추가.
+- **참고:** `~/dev/theme_lab/.claude/` 구조 분석 후 stock_toolkit 도메인(KIS 모의투자 정책, 시뮬 7종, fetch_alert_config SELECT 주의, 245e8a6 SL 제거 정책 등)을 agent 프롬프트에 내장.
+
 ## 2026-04-24
 
 ### [기능] 로그인 페이지 분리 + 라우트 가드 + AI 브리핑 파서 근본 수정 (2026-04-24 17:30 KST)
