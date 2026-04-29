@@ -9,3 +9,9 @@ numpy>=1.26.0
 scipy>=1.12.0
 pytz==2024.1
 pytest>=8.0.0
+# Stock Insight (modules/news/)
+feedparser>=6.0.0
+beautifulsoup4>=4.12.0
+google-api-python-client>=2.100.0
+youtube-transcript-api>=0.6.0
+curl_cffi>=0.5.10
