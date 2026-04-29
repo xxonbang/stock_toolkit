@@ -1,0 +1,990 @@
+{
+  "generated_at": "2026-04-29 21:53 KST",
+  "phase": 1,
+  "us": {
+    "news": [
+      {
+        "batch": "us_news",
+        "idx": 1,
+        "title": "Celsius vs. Dutch Bros: Which Growth Stock Wins in This Market? - The Motley Fool",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMijwFBVV95cUxOb3dkTEFqX1paU1VXZ2xYZVQzakp1RXp3ZkdSSkFJeWNsVU5xRUtkRTNFeElVbXl1RzVvU0tGeElxVGlyVDhxZjRWdlVpNDc5WDRsTE9QeVpDZXZXT0toVkQ0NHJjcC1SV3VSTU13QnA4S0RaWWdHRGQzcW5GQWdIUmUwdDhTd3prdWZXNG53QQ?oc=5\" target=\"_blank\">Celsius vs. Dutch Bros: Which Growth Stock Wins in This Market?</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Motley Fool</font>",
+        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOb3dkTEFqX1paU1VXZ2xYZVQzakp1RXp3ZkdSSkFJeWNsVU5xRUtkRTNFeElVbXl1RzVvU0tGeElxVGlyVDhxZjRWdlVpNDc5WDRsTE9QeVpDZXZXT0toVkQ0NHJjcC1SV3VSTU13QnA4S0RaWWdHRGQzcW5GQWdIUmUwdDhTd3prdWZXNG53QQ?oc=5",
+        "published_at": "2026-04-29T12:40:10+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 2,
+        "title": "Wall Street Breakfast Podcast: Trump Accounts Hit Robinhood Expenses (undefined:HOOD) - Seeking Alpha",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMirAFBVV95cUxON2VtZDM3M21nSUJ3RHhDVGpYQ3VtY1BpV0tFc0tySmtHUzR3eU5tUWJsZUpPZ2ozUFQ4akZIdmhYUEdSNU15Y2xZOGNxbGo3amFaZkRsbWl5cHpxX3VWSzZsSFM4aWFYdWt1ZHpHdXZIMWNfQnRMeS0zUU9vOEg2SFNmdzVGdG1nOU1RMWkxSVY3NlgwX0wwN2RpYW5jcVFTRkhLY2NPRkw0dWxx?oc=5\" target=\"_blank\">Wall Street Breakfast Podcast: Trump Accounts Hit Robinhood Expenses (undefined:HOOD)</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Seeking Alpha</font>",
+        "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxON2VtZDM3M21nSUJ3RHhDVGpYQ3VtY1BpV0tFc0tySmtHUzR3eU5tUWJsZUpPZ2ozUFQ4akZIdmhYUEdSNU15Y2xZOGNxbGo3amFaZkRsbWl5cHpxX3VWSzZsSFM4aWFYdWt1ZHpHdXZIMWNfQnRMeS0zUU9vOEg2SFNmdzVGdG1nOU1RMWkxSVY3NlgwX0wwN2RpYW5jcVFTRkhLY2NPRkw0dWxx?oc=5",
+        "published_at": "2026-04-29T12:40:00+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 3,
+        "title": "USDJPY, Nasdaq Price Outlook: Cautious FOMC Outlook? - FOREX.com",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMinAFBVV95cUxQT2ZGY1E4S2VSdjZYR2g0elNwMFBPNktNdnlxZ2pTY0VhLTBqNTM5ZFlQTHVMLUVYMnhfajVIOXk2WnNrQUg1eGNEZ21mTGpqaVZEWWlHSGJhUjBWRVc4T3RXeE03TzBQdGVlejBBS0FJamt4RDFJN1JKY3AxbkhRaGVfOEVDMGpGTzBtSjlZSDBBT2tTQi1EOVJfbXjSAagBQVVfeXFMUEx1UGdxYzBOTzlFSG0tSk1veTU3R1RjRDdCT25ickZVaXpDMjNSMmRUY0tCdkt6Y05Wa2VfQlNzdmNzbERrMDhLVm5VZGtzbi1Db3VWMHV5UUJfR3NOMm8wbU1TbENXNi0tajNybVk3aGJxNlQ0MXF0cERpT2J4WTJCV1A3azd0ZGZyRF94MTFDQjJfT182SlBpckFDRGd0dnZCelItVWF1?oc=5\" target=\"_blank\">USDJPY, Nasdaq Price Outlook: Cautious FOMC Outlook?</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">FOREX.com</font>",
+        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQT2ZGY1E4S2VSdjZYR2g0elNwMFBPNktNdnlxZ2pTY0VhLTBqNTM5ZFlQTHVMLUVYMnhfajVIOXk2WnNrQUg1eGNEZ21mTGpqaVZEWWlHSGJhUjBWRVc4T3RXeE03TzBQdGVlejBBS0FJamt4RDFJN1JKY3AxbkhRaGVfOEVDMGpGTzBtSjlZSDBBT2tTQi1EOVJfbXjSAagBQVVfeXFMUEx1UGdxYzBOTzlFSG0tSk1veTU3R1RjRDdCT25ickZVaXpDMjNSMmRUY0tCdkt6Y05Wa2VfQlNzdmNzbERrMDhLVm5VZGtzbi1Db3VWMHV5UUJfR3NOMm8wbU1TbENXNi0tajNybVk3aGJxNlQ0MXF0cERpT2J4WTJCV1A3azd0ZGZyRF94MTFDQjJfT182SlBpckFDRGd0dnZCelItVWF1?oc=5",
+        "published_at": "2026-04-29T12:36:07+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 4,
+        "title": "Navient (NASDAQ:NAVI) Reports Bullish Q1 CY2026 - StockStory",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMipgFBVV95cUxQWnB5MkNNZ01ucDB5RmtuamUzeUZ2WXZPSVFiamZyTk1KYnN5eVM1YWMzaHlKQTM0bjdWUEdzLWF4WHRQU09aZHpyZDlLTDlPWXpIY2t6Nm9XWENoSUVtd3F6UjhQcmdIQWpUelk5cE0zM3ROR05SX3l0aW85QVJqYUNYeHNnZ09sbElaaVMyUE9EMlZyYzIwRmIzaU9uUXdIYXpBUG1B?oc=5\" target=\"_blank\">Navient (NASDAQ:NAVI) Reports Bullish Q1 CY2026</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">StockStory</font>",
+        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQWnB5MkNNZ01ucDB5RmtuamUzeUZ2WXZPSVFiamZyTk1KYnN5eVM1YWMzaHlKQTM0bjdWUEdzLWF4WHRQU09aZHpyZDlLTDlPWXpIY2t6Nm9XWENoSUVtd3F6UjhQcmdIQWpUelk5cE0zM3ROR05SX3l0aW85QVJqYUNYeHNnZ09sbElaaVMyUE9EMlZyYzIwRmIzaU9uUXdIYXpBUG1B?oc=5",
+        "published_at": "2026-04-29T12:34:14+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 5,
+        "title": "Avnet (NASDAQ:AVT) Surprises With Strong Q1 CY2026, Stock Soars - StockStory",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiuAFBVV95cUxQejh3XzRjc0dobW1YaDZHTERrRXJPMXA2VWhVOHZtYmxtNi1fa1BydTMxN3hBbmtCbUV1NVM2cTY2cWpGbEVTeW1GLWk4cE1WZFN6cmNHZ25mTmRROWozRDVCamRSbUlTcjNBRUxHLXlKNHF0OVFVa3Jpb3p5RTJBbHNTWmNTNFFHUnZpLXY0Z05DZC14WS05ZWFHa1dYVTNNdVZaSkRiTXg0aE5sbEhBekxMd2RWd0hS?oc=5\" target=\"_blank\">Avnet (NASDAQ:AVT) Surprises With Strong Q1 CY2026, Stock Soars</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">StockStory</font>",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQejh3XzRjc0dobW1YaDZHTERrRXJPMXA2VWhVOHZtYmxtNi1fa1BydTMxN3hBbmtCbUV1NVM2cTY2cWpGbEVTeW1GLWk4cE1WZFN6cmNHZ25mTmRROWozRDVCamRSbUlTcjNBRUxHLXlKNHF0OVFVa3Jpb3p5RTJBbHNTWmNTNFFHUnZpLXY0Z05DZC14WS05ZWFHa1dYVTNNdVZaSkRiTXg0aE5sbEhBekxMd2RWd0hS?oc=5",
+        "published_at": "2026-04-29T12:32:12+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 6,
+        "title": "S&P 500 futures are flat as oil rises, traders brace for Fed decision and Big Tech earnings: Live updates - CNBC",
+        "body": "<ol><li><a href=\"https://news.google.com/rss/articles/CBMid0FVX3lxTFBucVdPQ2ViM2ZERDB6NWprRkNCeFEzN2ZZazRPMTNjT1JoM3NmQlo3QWpYYzdkYXlxU0NVNTBUSFc2bXRkYURIT3BHX296QzZDWUJCZ3ZEdjFuNmpKNS1TYVk3aUtaNFliRS1XVmZnci14Z3RtaV9v0gF8QVVfeXFMT3V3bjJfNVllbTlGbWZMcURDNG5CMzlESGZQbmE3MHA3a1kwVXZET2diVlY0Tkp5RTl2VDVwQWU1Q1ZXNkgtc2ItTjE5RGlkRkNEUm9IYXpTQTdjcDlab09vQkhrQVdwOVNPcV9GUGg4RzlRZ3pXRUEtMFdhQQ?oc=5\" target=\"_blank\">S&amp;P 500 futures are flat as oil rises, traders brace for Fed decision and Big Tech earnings: Live updates</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">CNBC</font></li><li><a href=\"https://news.google.com/rss/articles/CBMizAFBVV95cUxNb1lfR2VYcVRTX2haTXRjMFIwWkIwV3JLdXNmbVQ2QnNrbmdMUTBmRHZHa0NxSEo0WndlUHJOVlRjNU41dlp6NlY0aTh5YVRJVjR5SDVnUHlDM3I1Y2NJOGhxSEFOdzhGZGptSld5QWRwRl9scTkzYzJOdE1xaVphX2dNRmNFSkJNalRwaUhWTkpOQm5CZ193UXlFVkx1dXcyalY5Wm5PVDVIN3M5WUQ2cGx3a2RubUk3Nkh5NkNteTRLVXRWVkFRbjRDc0k?oc=5\" target=\"_blank\">Stock market today: S&amp;P 500, Nasdaq, Dow futures inch up ahead of Mag 7 earnings, last Powell term meeting</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Yahoo Finance</font></li><li><a href=\"https://news.google.com/rss/articles/CBMi2AFBVV95cUxOWkJBY2FiR1c0QzhKRi03eVE3LXNPRmZxa1lPcmFCQzVuZTJicHZNbC05Y2hGWnNCeUt0LUdyUGxkd29GU1R5VTRscVZNWTJvSzZ6YXcyNlRNTkNjMVlpdzREbk4yLXNqNVdseFotQU9MdzY3SmdhMWxkMGlJdlZPLVh2SGVaMDV4X0tHaHI4eW9XTEZWMi11MWx3QVJRYUxTRnpRMHVpNHJkYVoyQml2ZF9ZOU83Qld3YjlLcENmNWZBWl9YQXBhWnBXUkU1R3NoNFNfTl9DRVo?oc=5\" target=\"_blank\">Stock Market Today: Dow, S&amp;P 500 and Nasdaq set to rise ahead of host of tech earnings; Fed interest-rate decision due</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MarketWatch</font></li></ol>",
+        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBucVdPQ2ViM2ZERDB6NWprRkNCeFEzN2ZZazRPMTNjT1JoM3NmQlo3QWpYYzdkYXlxU0NVNTBUSFc2bXRkYURIT3BHX296QzZDWUJCZ3ZEdjFuNmpKNS1TYVk3aUtaNFliRS1XVmZnci14Z3RtaV9v0gF8QVVfeXFMT3V3bjJfNVllbTlGbWZMcURDNG5CMzlESGZQbmE3MHA3a1kwVXZET2diVlY0Tkp5RTl2VDVwQWU1Q1ZXNkgtc2ItTjE5RGlkRkNEUm9IYXpTQTdjcDlab09vQkhrQVdwOVNPcV9GUGg4RzlRZ3pXRUEtMFdhQQ?oc=5",
+        "published_at": "2026-04-29T12:31:00+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 7,
+        "title": "Worksport (NASDAQ:WKSP) Secures Tri-State Distribution, Books Initial Orders, Projected to be 7-Figure + Annual Account - Newswire.com",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMipgFBVV95cUxPbGEwNlY0YUcwZThJeDFWUGN2NEhaamw1YnFjWnFra2hRQ3hCSVF6Y194c0hHRXBmaWMteU5CZ05jcWdianNFekVFcGR1UFJfd1hHTnZ5anp2ejJOTVJTY1ZDUE54SFlVd2FybHRhLXJNZ2JRVGhISkZkMjNsRXJ2dFdpcVdyY3ltNW1WalFDMU9kVmM3X1E0RW1QdHJFSFdHMWp5RUt3?oc=5\" target=\"_blank\">Worksport (NASDAQ:WKSP) Secures Tri-State Distribution, Books Initial Orders, Projected to be 7-Figure + Annual Account</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Newswire.com</font>",
+        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPbGEwNlY0YUcwZThJeDFWUGN2NEhaamw1YnFjWnFra2hRQ3hCSVF6Y194c0hHRXBmaWMteU5CZ05jcWdianNFekVFcGR1UFJfd1hHTnZ5anp2ejJOTVJTY1ZDUE54SFlVd2FybHRhLXJNZ2JRVGhISkZkMjNsRXJ2dFdpcVdyY3ltNW1WalFDMU9kVmM3X1E0RW1QdHJFSFdHMWp5RUt3?oc=5",
+        "published_at": "2026-04-29T12:31:00+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 8,
+        "title": "Automatic Data Processing (NASDAQ:ADP) Beats Q3 Estimates, Shares Rally on Raised Outlook - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMi0gFBVV95cUxPNFlzZU55WTFlaVJudnhEalJaeEw0YV9GNDg2R21BWXdJTmpVSFA5RnRIamNLV2RxcXVDSFJzWWhseXBlOG1BeHNRNGNxa1o3U3k5T0pMcWgzVk41bEg3bHFraE1sZGZpNkhrMTlFcm9qdHVqdlJSaHFIQnVjenIzcXRxOHlwUzRjQ0JGUnhsOThGRnAtUndMM0dEOERVMDVRd1NlRXdMMElXVFBRMDdxS1lLS0pRcGN1TkVaUGhwdVF0WVlSamp5VEFLQlRRc2tYZ0E?oc=5\" target=\"_blank\">Automatic Data Processing (NASDAQ:ADP) Beats Q3 Estimates, Shares Rally on Raised Outlook</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPNFlzZU55WTFlaVJudnhEalJaeEw0YV9GNDg2R21BWXdJTmpVSFA5RnRIamNLV2RxcXVDSFJzWWhseXBlOG1BeHNRNGNxa1o3U3k5T0pMcWgzVk41bEg3bHFraE1sZGZpNkhrMTlFcm9qdHVqdlJSaHFIQnVjenIzcXRxOHlwUzRjQ0JGUnhsOThGRnAtUndMM0dEOERVMDVRd1NlRXdMMElXVFBRMDdxS1lLS0pRcGN1TkVaUGhwdVF0WVlSamp5VEFLQlRRc2tYZ0E?oc=5",
+        "published_at": "2026-04-29T12:30:54+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 9,
+        "title": "Extreme Networks (NASDAQ:EXTR) Delivers Double-Digit Growth and Beats Earnings Estimates - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMi0wFBVV95cUxONmJMVE5DTUgyM1p2MXpuM2wwSHNMaHRxUG9ibjRiZjZ4cDNmNmVZZlhFZ0puUW4yMDRtTU0wRUlaTVd0VEtobWhqZUpSdWFnZndGOERqYjNCbmJxemxWREZOck1abWtCWDhQQWNYUnVNaVdnUjFpS3pOSEJubHFGNmlJM2E4ejBGQXlCSklDYUc1TkhEWHJRRVRGSTVseW5ya3lzTGdxTDl4R0F4cVI3Y3RUNXYtTG04MG82RjAxUXptSHp0ZVo1T2VSYUpUdGZvSDhn?oc=5\" target=\"_blank\">Extreme Networks (NASDAQ:EXTR) Delivers Double-Digit Growth and Beats Earnings Estimates</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxONmJMVE5DTUgyM1p2MXpuM2wwSHNMaHRxUG9ibjRiZjZ4cDNmNmVZZlhFZ0puUW4yMDRtTU0wRUlaTVd0VEtobWhqZUpSdWFnZndGOERqYjNCbmJxemxWREZOck1abWtCWDhQQWNYUnVNaVdnUjFpS3pOSEJubHFGNmlJM2E4ejBGQXlCSklDYUc1TkhEWHJRRVRGSTVseW5ya3lzTGdxTDl4R0F4cVI3Y3RUNXYtTG04MG82RjAxUXptSHp0ZVo1T2VSYUpUdGZvSDhn?oc=5",
+        "published_at": "2026-04-29T12:30:40+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 10,
+        "title": "AVIS BUDGET GROUP INC (NASDAQ:CAR) Plunges 18% After Q1 2026 Revenue Beat Overshadowed by Wider-Than-Expected Loss - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMi8wFBVV95cUxNVU1HdEZIQ1p5bkVMVVA0WERTbWxFVUNXUm9VY3VPRzk1bzhYTXlXMmxkaVRwRWNjbFhabmVwMmo0b1dQYmFDSzR5WTlFcmozLTA1dlk1Z2tjWDgwVWw2MUJ5cUhON1g3QjA0bUNvSHNWbnFnSVVBdlpfOTRpU2JQaUEwM1lYS0lrRmFxMXMyV2tVZ3hIbFRLQk9RQ19hRkR2QkZIMDhiWFJMYi0tZ1NjTndEb2ExLUluUGtMZTZUempaZTN2OXB5ZjRKR09VWU1OdXpxbUhSTFpKTWdkbml1XzlfaTM3aGQ4MnE4Ul9ITGFJMG8?oc=5\" target=\"_blank\">AVIS BUDGET GROUP INC (NASDAQ:CAR) Plunges 18% After Q1 2026 Revenue Beat Overshadowed by Wider-Than-Expected Loss</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNVU1HdEZIQ1p5bkVMVVA0WERTbWxFVUNXUm9VY3VPRzk1bzhYTXlXMmxkaVRwRWNjbFhabmVwMmo0b1dQYmFDSzR5WTlFcmozLTA1dlk1Z2tjWDgwVWw2MUJ5cUhON1g3QjA0bUNvSHNWbnFnSVVBdlpfOTRpU2JQaUEwM1lYS0lrRmFxMXMyV2tVZ3hIbFRLQk9RQ19hRkR2QkZIMDhiWFJMYi0tZ1NjTndEb2ExLUluUGtMZTZUempaZTN2OXB5ZjRKR09VWU1OdXpxbUhSTFpKTWdkbml1XzlfaTM3aGQ4MnE4Ul9ITGFJMG8?oc=5",
+        "published_at": "2026-04-29T12:30:18+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 11,
+        "title": "Nasdaq employees' eligible newborns get another $1,000 in Trump Accounts - Stock Titan",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiwAFBVV95cUxQOGc5ZGw0akNEaHNCZXY2aHJFZWNhcmxKRU1QZm9NTFQyZmU2RV9mTW1RWWcwZXNwc1lhYUVsRURYNmJOUHNtNGFwVXZ2cXNEZXVTa3NOUTRJd1dFMHI3bVo2eTNCbjJwd0UxQ2xPNVZGaEVuaS1LQWQteVpwZFlFXy1OSnNTS1ZfNzdhQVlESU9neDdZUlgyd3RyYUhaNXVYOGc1OWtBeDE1TUhHNExoUEdqMmh1VzRTMmlpeFNibzc?oc=5\" target=\"_blank\">Nasdaq employees' eligible newborns get another $1,000 in Trump Accounts</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Stock Titan</font>",
+        "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQOGc5ZGw0akNEaHNCZXY2aHJFZWNhcmxKRU1QZm9NTFQyZmU2RV9mTW1RWWcwZXNwc1lhYUVsRURYNmJOUHNtNGFwVXZ2cXNEZXVTa3NOUTRJd1dFMHI3bVo2eTNCbjJwd0UxQ2xPNVZGaEVuaS1LQWQteVpwZFlFXy1OSnNTS1ZfNzdhQVlESU9neDdZUlgyd3RyYUhaNXVYOGc1OWtBeDE1TUhHNExoUEdqMmh1VzRTMmlpeFNibzc?oc=5",
+        "published_at": "2026-04-29T12:30:00+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 12,
+        "title": "Greenland Energy Company (NASDAQ: GLND) Advancing Arctic Exploration Strategy in Promising Land Basin Area - GlobeNewswire",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMihgJBVV95cUxQemVyOWljZXBKWDQ0UlFCUXNGSWhJajJkbWVpOEZqZmZfQ0QwS2pxS2QtelVkWXBhektVa0NOQTYtWnZyaDFOd2NBX2ItTmViSXJTTlFXYzEweU1CQmRQV2tJa3lQZG9Qc3BRUlVKZnJWVkVOdExXSVhua0JuUU42em95c3h6Y2IwYm9ERHgwMExRZU14TlZJeGw3ZFBsMWtZQlN6ZEVIeF84SzVsajNvR2pJQVNtQ0ZOU0YwWlBQS3JtMVBGYk1RZzFiZEpWRVNKaFBSREZVYU5HcmxaWmpjWjZfa0Znbm1YOEt3XzVkY1lZaWpqaE90MnZqTDhEdVN1SnRnWWZR?oc=5\" target=\"_blank\">Greenland Energy Company (NASDAQ: GLND) Advancing Arctic Exploration Strategy in Promising Land Basin Area</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">GlobeNewswire</font>",
+        "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxQemVyOWljZXBKWDQ0UlFCUXNGSWhJajJkbWVpOEZqZmZfQ0QwS2pxS2QtelVkWXBhektVa0NOQTYtWnZyaDFOd2NBX2ItTmViSXJTTlFXYzEweU1CQmRQV2tJa3lQZG9Qc3BRUlVKZnJWVkVOdExXSVhua0JuUU42em95c3h6Y2IwYm9ERHgwMExRZU14TlZJeGw3ZFBsMWtZQlN6ZEVIeF84SzVsajNvR2pJQVNtQ0ZOU0YwWlBQS3JtMVBGYk1RZzFiZEpWRVNKaFBSREZVYU5HcmxaWmpjWjZfa0Znbm1YOEt3XzVkY1lZaWpqaE90MnZqTDhEdVN1SnRnWWZR?oc=5",
+        "published_at": "2026-04-29T12:30:00+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 13,
+        "title": "Navient Corp (NASDAQ:NAVI) Q1 2026 Earnings: Revenue Miss, EPS Beat Leaves Market Neutral - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMi0gFBVV95cUxNUkp4ODZJcnVpSS04YXpKdnB5UnVWbXlUTWYzNVIzc1ExX3J1ZlNMbzhFd0U0OEJRZkU3SEJIOHdjQnhqWkFMaGVOWXE5SndJNUpwQldaQ3B4ZmZOYV9xeVdBUS1YMXhkSTgwS29qeVBjYUlrLTdLYjlHdUlpcW51QlZmOGd4YktHVDh3M0pXVEMtbTkwSUs3UFVRSVJORnFKNjNUaUVXYlF2ajZFTWlKZmIwZ2JDTGpSRDRNSDAxelRqX3NPM3plSlI0UzJGWmNYWWc?oc=5\" target=\"_blank\">Navient Corp (NASDAQ:NAVI) Q1 2026 Earnings: Revenue Miss, EPS Beat Leaves Market Neutral</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNUkp4ODZJcnVpSS04YXpKdnB5UnVWbXlUTWYzNVIzc1ExX3J1ZlNMbzhFd0U0OEJRZkU3SEJIOHdjQnhqWkFMaGVOWXE5SndJNUpwQldaQ3B4ZmZOYV9xeVdBUS1YMXhkSTgwS29qeVBjYUlrLTdLYjlHdUlpcW51QlZmOGd4YktHVDh3M0pXVEMtbTkwSUs3UFVRSVJORnFKNjNUaUVXYlF2ajZFTWlKZmIwZ2JDTGpSRDRNSDAxelRqX3NPM3plSlI0UzJGWmNYWWc?oc=5",
+        "published_at": "2026-04-29T12:29:43+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 14,
+        "title": "OPKO Health (NASDAQ:OPK) Downgraded to \"Market Perform\" Rating by Barrington Research - MarketBeat",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMizwFBVV95cUxPQnFFZzd6dVpIVW9SQmRLVXJkc0JBUEdpM0hBX01VakpoVE5jSm5UdFhHRWxaejA0ZkFkUDdfYjJJUHlGbExhVU53OWhZYXNhU1JGQXM0NGFBWlRiS0VVaHVOYnc0V3FHbE91a2wyYTcwZTl6ZlFVWnpqVDM2WXlPa2Z0VGJpUTItTjd3TFZ5aHJMb3hvUDJPb2VkNEQtY0V6MDloSnI0bUpGV2JIRy1keGVrR1pMRUVETmV1M3p3V0liVzdHZUJ1ckM4V053Vms?oc=5\" target=\"_blank\">OPKO Health (NASDAQ:OPK) Downgraded to \"Market Perform\" Rating by Barrington Research</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MarketBeat</font>",
+        "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPQnFFZzd6dVpIVW9SQmRLVXJkc0JBUEdpM0hBX01VakpoVE5jSm5UdFhHRWxaejA0ZkFkUDdfYjJJUHlGbExhVU53OWhZYXNhU1JGQXM0NGFBWlRiS0VVaHVOYnc0V3FHbE91a2wyYTcwZTl6ZlFVWnpqVDM2WXlPa2Z0VGJpUTItTjd3TFZ5aHJMb3hvUDJPb2VkNEQtY0V6MDloSnI0bUpGV2JIRy1keGVrR1pMRUVETmV1M3p3V0liVzdHZUJ1ckM4V053Vms?oc=5",
+        "published_at": "2026-04-29T12:29:38+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 15,
+        "title": "AudioCodes (NASDAQ:AUDC) EVP Sells $24,501.23 in Stock - MarketBeat",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMipAFBVV95cUxOQWRNcUpwU19jb0FGSmQ4b052RDVfVjdKRnVUZ29qejRKR2RlblFZdFQ5Ujd1ajFSTHo3cENGMnVsbUtJcC0ydjNTTDhkcl83SE1WeTFGa3JkcDhHZkM2RnBnMG9XWW82aDBLSlA4ZnJSc2F0Y2IwT3RlRVhoZS1SaThDWHU4TDFyR084TGVWOTZoVHNRYmN0MWd1XzhlbUREZmJPaQ?oc=5\" target=\"_blank\">AudioCodes (NASDAQ:AUDC) EVP Sells $24,501.23 in Stock</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MarketBeat</font>",
+        "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOQWRNcUpwU19jb0FGSmQ4b052RDVfVjdKRnVUZ29qejRKR2RlblFZdFQ5Ujd1ajFSTHo3cENGMnVsbUtJcC0ydjNTTDhkcl83SE1WeTFGa3JkcDhHZkM2RnBnMG9XWW82aDBLSlA4ZnJSc2F0Y2IwT3RlRVhoZS1SaThDWHU4TDFyR084TGVWOTZoVHNRYmN0MWd1XzhlbUREZmJPaQ?oc=5",
+        "published_at": "2026-04-29T12:29:35+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 16,
+        "title": "Wingstop Inc (NASDAQ:WING) Slides on Q1 Revenue Miss Despite Beating EPS Estimates - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiywFBVV95cUxPTkt6MjhBYVJPbS04aDIySHYzU3gzV1dJUTZRR3hYdmJsNkVQSEo4ZEE0N3JSeTlPRjBpSEpiaGRacGhqMDVTN1RxUGJnZjNuU01wN0hKMXVpQmk5TDdRMzQ2eS1sdl94cUJiVkpjN1JPY05aOVd5NmxRbFVacGZSQzJPMEtIai03aW9EcUtxQUdpWDNiWUFaWmJCS3lPT1BMN2xtaXR4UzFVdnFNemhGOUFwUFpOLURUeG9zTm9NMlAza0xNTUprQ1EyWQ?oc=5\" target=\"_blank\">Wingstop Inc (NASDAQ:WING) Slides on Q1 Revenue Miss Despite Beating EPS Estimates</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPTkt6MjhBYVJPbS04aDIySHYzU3gzV1dJUTZRR3hYdmJsNkVQSEo4ZEE0N3JSeTlPRjBpSEpiaGRacGhqMDVTN1RxUGJnZjNuU01wN0hKMXVpQmk5TDdRMzQ2eS1sdl94cUJiVkpjN1JPY05aOVd5NmxRbFVacGZSQzJPMEtIai03aW9EcUtxQUdpWDNiWUFaWmJCS3lPT1BMN2xtaXR4UzFVdnFNemhGOUFwUFpOLURUeG9zTm9NMlAza0xNTUprQ1EyWQ?oc=5",
+        "published_at": "2026-04-29T12:28:08+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 17,
+        "title": "Tradeweb Markets (NASDAQ:TW) Q1 2026: Record Volumes Beat Revenue Estimates, But Raised Expense Guidance Sparks Sell-Off - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMi-AFBVV95cUxOUGtMQ09CWnJXSTRrbUQ2cG11TEthclJzX1Vjck0tWUZzMGtEY2dzM195c1Qyb2hSdEt2dVFIeS1vWE0tRG9iNnhsczBGVHdVQWtxXzIxd1lqNTBIRm8tRXV0dzBJay02MjRER2xmR005b1lmdlJCUFdXVHAzMURuWlpocEVtQk00R0pqMFVaN3FxU3Jpc2wzZ0hoRV9Gc3FVaDJYaHFpbHRvZ3oyMHNlMlFGSzNrSjlCUmJLa2tVd3dMdEphUHZyRVB1YzgwRTZPRGt5R2tWQk1Gbjhkd1dYdW01ckVwTkZ3Rmx0OVFveE9tSUM5NGNIaQ?oc=5\" target=\"_blank\">Tradeweb Markets (NASDAQ:TW) Q1 2026: Record Volumes Beat Revenue Estimates, But Raised Expense Guidance Sparks Sell-Off</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxOUGtMQ09CWnJXSTRrbUQ2cG11TEthclJzX1Vjck0tWUZzMGtEY2dzM195c1Qyb2hSdEt2dVFIeS1vWE0tRG9iNnhsczBGVHdVQWtxXzIxd1lqNTBIRm8tRXV0dzBJay02MjRER2xmR005b1lmdlJCUFdXVHAzMURuWlpocEVtQk00R0pqMFVaN3FxU3Jpc2wzZ0hoRV9Gc3FVaDJYaHFpbHRvZ3oyMHNlMlFGSzNrSjlCUmJLa2tVd3dMdEphUHZyRVB1YzgwRTZPRGt5R2tWQk1Gbjhkd1dYdW01ckVwTkZ3Rmx0OVFveE9tSUM5NGNIaQ?oc=5",
+        "published_at": "2026-04-29T12:27:14+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 18,
+        "title": "Avis Has Pulled a GameStop. Here’s How the Squeeze Numbers Actually Compare - 24/7 Wall St.",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiuAFBVV95cUxNcTlLVFZqTU9SY0Z5ZjZzdUF1UEdfUUVpUEx3eXBnSHFCblE3NzA3VUdCRHVaQ2hBUndtTGhaRWc1ZGlVczM2U0NiM00zOFNDek1BS1g4ZWg1Ump4eEVOUU8wNDcySnNRLXYyTDNKVVd3d3dXaGo5ZlN4WWpsV1BaWkl3aWZ4Ql9GRjU1TnF3alY1UkliOUExSFFjbW5CQW5NXzNEZkR3SmhDaWNRTVl1dGFfMWE3SWtW?oc=5\" target=\"_blank\">Avis Has Pulled a GameStop. Here’s How the Squeeze Numbers Actually Compare</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">24/7 Wall St.</font>",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNcTlLVFZqTU9SY0Z5ZjZzdUF1UEdfUUVpUEx3eXBnSHFCblE3NzA3VUdCRHVaQ2hBUndtTGhaRWc1ZGlVczM2U0NiM00zOFNDek1BS1g4ZWg1Ump4eEVOUU8wNDcySnNRLXYyTDNKVVd3d3dXaGo5ZlN4WWpsV1BaWkl3aWZ4Ql9GRjU1TnF3alY1UkliOUExSFFjbW5CQW5NXzNEZkR3SmhDaWNRTVl1dGFfMWE3SWtW?oc=5",
+        "published_at": "2026-04-29T12:25:57+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 19,
+        "title": "MGP Ingredients Inc (NASDAQ:MGPI) Q1 Report Reveals Underlying Beat Despite Headline Losses - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMi1wFBVV95cUxQRDd1SzFhTTFKT3p6Nl9hNDRhbmlTMmlYTHFaNG9QbE9rYkQ2OEhWNUdmNDNpeTAxX3BwNWJaaVc5YkNqOGJpQnFaNVlTMDF4WU9XblFxSnIxTUFiUzRUbTI4ckFEWlFmNng4WWRodDdzZXlKT25NZ1pqdzh5aU5OcDNVejh6OS1RVUhRRmdJeTFDZXZJdVkxNjI0YW9fcXlyMTJRcm9SYVlJZ3JzUXFDbmFDU0w1b3J0MnlWTVlRWFZUZmJFU1hOcGI2THVXLWJsZnpuRjJmRQ?oc=5\" target=\"_blank\">MGP Ingredients Inc (NASDAQ:MGPI) Q1 Report Reveals Underlying Beat Despite Headline Losses</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQRDd1SzFhTTFKT3p6Nl9hNDRhbmlTMmlYTHFaNG9QbE9rYkQ2OEhWNUdmNDNpeTAxX3BwNWJaaVc5YkNqOGJpQnFaNVlTMDF4WU9XblFxSnIxTUFiUzRUbTI4ckFEWlFmNng4WWRodDdzZXlKT25NZ1pqdzh5aU5OcDNVejh6OS1RVUhRRmdJeTFDZXZJdVkxNjI0YW9fcXlyMTJRcm9SYVlJZ3JzUXFDbmFDU0w1b3J0MnlWTVlRWFZUZmJFU1hOcGI2THVXLWJsZnpuRjJmRQ?oc=5",
+        "published_at": "2026-04-29T12:25:11+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 20,
+        "title": "Avis Budget Group (NASDAQ:CAR) Delivers Impressive Q1 CY2026 But Stock Drops - StockStory",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiywFBVV95cUxOSXZzS3h6R2ZQU01hVmc1SzlZRFFwYVd0aFIxQjVPZkRKTW5ZVVJHNm5GeWtOM05CakFTS2JxRzNGOFE1WGdiVGhJMkZmWm9PaF95SVB0b2xMSGExOUpSdURvMEpuakVWQTYxN2l2Y0VncFBlc0ZOb2VRdmFZdXVsTzFrOXlNLTRyNmRyZmVoSGhIMC0xUmtWdkNkLXk2MzZWMWd3R24xNVMyd1VqOHhGN0JCb0w4SUdSbjZTSzdkbFlRSl9LcDFLcjlkdw?oc=5\" target=\"_blank\">Avis Budget Group (NASDAQ:CAR) Delivers Impressive Q1 CY2026 But Stock Drops</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">StockStory</font>",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOSXZzS3h6R2ZQU01hVmc1SzlZRFFwYVd0aFIxQjVPZkRKTW5ZVVJHNm5GeWtOM05CakFTS2JxRzNGOFE1WGdiVGhJMkZmWm9PaF95SVB0b2xMSGExOUpSdURvMEpuakVWQTYxN2l2Y0VncFBlc0ZOb2VRdmFZdXVsTzFrOXlNLTRyNmRyZmVoSGhIMC0xUmtWdkNkLXk2MzZWMWd3R24xNVMyd1VqOHhGN0JCb0w4SUdSbjZTSzdkbFlRSl9LcDFLcjlkdw?oc=5",
+        "published_at": "2026-04-29T12:24:10+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 21,
+        "title": "Women’s Bond Club Rings the Opening Bell - Nasdaq",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMic0FVX3lxTFBiNGRtNmk2cGFKVjRrY1ZKRGR3aWZEUVdhemFuaGZac3ExeUM0R0tCWm1YQnpyWHBXanNobXVYNkwyVkZiNklUX2dHTXFldkMyaUhJb3lUb2cxUks0N3E1bkhUTkV3WnBkOU1Fa0N6TEQwaGc?oc=5\" target=\"_blank\">Women’s Bond Club Rings the Opening Bell</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Nasdaq</font>",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBiNGRtNmk2cGFKVjRrY1ZKRGR3aWZEUVdhemFuaGZac3ExeUM0R0tCWm1YQnpyWHBXanNobXVYNkwyVkZiNklUX2dHTXFldkMyaUhJb3lUb2cxUks0N3E1bkhUTkV3WnBkOU1Fa0N6TEQwaGc?oc=5",
+        "published_at": "2026-04-29T12:23:56+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 22,
+        "title": "ADP (NASDAQ:ADP) Beats Q1 CY2026 Sales Expectations - Yahoo Finance",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMikgFBVV95cUxNWkUxX0JZSERzc3RWY0tFVFZ5V29jdC1YMHk0MmsxcEo4TnpZYWZLZ2ZxSmt3SkJkV2xnUndVa042UnM5UzYzU3FxY1licENrdUo3SWVGUEFKem9PVUExSF94ZGVRMnNpS0lXN3BsbHhjYWpqMGdlZXNRdTNuX2Rmc1V5VmpxRDhZRHI5cEZVMk4yZw?oc=5\" target=\"_blank\">ADP (NASDAQ:ADP) Beats Q1 CY2026 Sales Expectations</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Yahoo Finance</font>",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNWkUxX0JZSERzc3RWY0tFVFZ5V29jdC1YMHk0MmsxcEo4TnpZYWZLZ2ZxSmt3SkJkV2xnUndVa042UnM5UzYzU3FxY1licENrdUo3SWVGUEFKem9PVUExSF94ZGVRMnNpS0lXN3BsbHhjYWpqMGdlZXNRdTNuX2Rmc1V5VmpxRDhZRHI5cEZVMk4yZw?oc=5",
+        "published_at": "2026-04-29T12:23:47+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 23,
+        "title": "Vita Coco (NASDAQ:COCO) Q1 Results Crush Estimates as Coconut Water Demand Surges - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiygFBVV95cUxQQWN3RVpnemhMSVZvXzdFeFVuczJFbXUyOERuTjdkLVhoRlVlTkZkSWlhc3lsTUFGWE5faGdjZW5pNURXcmpZMXJiQ0ZEMGZOT2sxWURSOXBqYWdGY1UyQmRrajZsd3o0MWlMZENBMTVyNDI5ZnlPN0dCZmVjcVZZUHlaN3JhSkg5SlI3YUVUeHVKeXAyY2NUUjhmN1VEUUJ1Y2h4MzJUNV91WFFUWU1KR3VrbXlLclh5Q01KcEJQYklMcy0xSlJ4Q1ZB?oc=5\" target=\"_blank\">Vita Coco (NASDAQ:COCO) Q1 Results Crush Estimates as Coconut Water Demand Surges</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQQWN3RVpnemhMSVZvXzdFeFVuczJFbXUyOERuTjdkLVhoRlVlTkZkSWlhc3lsTUFGWE5faGdjZW5pNURXcmpZMXJiQ0ZEMGZOT2sxWURSOXBqYWdGY1UyQmRrajZsd3o0MWlMZENBMTVyNDI5ZnlPN0dCZmVjcVZZUHlaN3JhSkg5SlI3YUVUeHVKeXAyY2NUUjhmN1VEUUJ1Y2h4MzJUNV91WFFUWU1KR3VrbXlLclh5Q01KcEJQYklMcy0xSlJ4Q1ZB?oc=5",
+        "published_at": "2026-04-29T12:23:40+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 24,
+        "title": "Oatly Group AB (NASDAQ:OTLY) Surges 12% on Q1 Beat as Profitability Improves - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiwgFBVV95cUxOck1WZTE3UjQzZERFVjB3aEVuX0R0X0FxMEtrV0gzRGxtdHlPdFBJWFVKSFRxcDVGck5BMFlLcjZQR3d0NHlERUhvYUV6VFotNVZtMFVnRFdsUl84bFZNdnRUelE0eFZqRU01X1NVM1NHajZLcHZkZGpyYjRyNTBrWnZHcUlUdjd1VUExMU9ZeEdNT2JWVV9EaG5UaDM1Z0poYkVuOGdCTnRxYnU4c3FPeTB0OWhnMmJ3WFNRS1hqMUlVUQ?oc=5\" target=\"_blank\">Oatly Group AB (NASDAQ:OTLY) Surges 12% on Q1 Beat as Profitability Improves</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOck1WZTE3UjQzZERFVjB3aEVuX0R0X0FxMEtrV0gzRGxtdHlPdFBJWFVKSFRxcDVGck5BMFlLcjZQR3d0NHlERUhvYUV6VFotNVZtMFVnRFdsUl84bFZNdnRUelE0eFZqRU01X1NVM1NHajZLcHZkZGpyYjRyNTBrWnZHcUlUdjd1VUExMU9ZeEdNT2JWVV9EaG5UaDM1Z0poYkVuOGdCTnRxYnU4c3FPeTB0OWhnMmJ3WFNRS1hqMUlVUQ?oc=5",
+        "published_at": "2026-04-29T12:23:21+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 25,
+        "title": "Canal+ to list on the Johannesburg Stock Exchange - Yahoo Finance",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMipgFBVV95cUxPS2VweExPUHNSZDBoQm8tUUtPTkJLQy1SVGlDanpZUzRrMjROSXpseHl0eGtYZGhRU0k3U3ZhajViTE5QWV9CMk1ab0ZaSnN2QW81d1Z3ZUJHamt4VmFVOHFsQ1J6VkpOUkN5ZktEaXBMZlA2SWFTNG5PQ01GM08zMHozWVBtYWhwX25KWWpPampMOTR2NTRXUlp4ZTlZVUF6azlaYXpB?oc=5\" target=\"_blank\">Canal+ to list on the Johannesburg Stock Exchange</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Yahoo Finance</font>",
+        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPS2VweExPUHNSZDBoQm8tUUtPTkJLQy1SVGlDanpZUzRrMjROSXpseHl0eGtYZGhRU0k3U3ZhajViTE5QWV9CMk1ab0ZaSnN2QW81d1Z3ZUJHamt4VmFVOHFsQ1J6VkpOUkN5ZktEaXBMZlA2SWFTNG5PQ01GM08zMHozWVBtYWhwX25KWWpPampMOTR2NTRXUlp4ZTlZVUF6azlaYXpB?oc=5",
+        "published_at": "2026-04-29T12:23:18+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 26,
+        "title": "Blackbaud Inc (NASDAQ:BLKB) Q1 Earnings: Revenue Miss Offsets EPS Meet and AI Optimism - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMizwFBVV95cUxOODhqUjh4aENscVkyMFhSUVo2N1RWSWNEY3R0djNHbmt0ODRFVWVPSTZ3S3pkN2dBa0hFQXlVc2R4RkNnRHlpbGZWdzRPR1piTjBjQ2dVQnVzUUo5bF9yQmZjT3lqbVJBQTBldUxBS20wOF8wS25Db3JJdXdmX2R5RzEySWlJcU5rU3JJaXNnd1gtNnBQbWtoWGw4dkdPa1Myb1Y5T2VIVlROSmNXNXZ5cnJhUC00VnE3RWVNNGt0QWJrUG9SM1dUYjd3d3BEUjQ?oc=5\" target=\"_blank\">Blackbaud Inc (NASDAQ:BLKB) Q1 Earnings: Revenue Miss Offsets EPS Meet and AI Optimism</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOODhqUjh4aENscVkyMFhSUVo2N1RWSWNEY3R0djNHbmt0ODRFVWVPSTZ3S3pkN2dBa0hFQXlVc2R4RkNnRHlpbGZWdzRPR1piTjBjQ2dVQnVzUUo5bF9yQmZjT3lqbVJBQTBldUxBS20wOF8wS25Db3JJdXdmX2R5RzEySWlJcU5rU3JJaXNnd1gtNnBQbWtoWGw4dkdPa1Myb1Y5T2VIVlROSmNXNXZ5cnJhUC00VnE3RWVNNGt0QWJrUG9SM1dUYjd3d3BEUjQ?oc=5",
+        "published_at": "2026-04-29T12:23:03+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 27,
+        "title": "Humana stock slips as profit outlook underwhelms - Yahoo Finance",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiqAFBVV95cUxPb3h4cEpKNUduY3dDU2dYSHBSLVdnTTdFTEVQTUJVNWx5ZmlNaVZzb3pWYnJtVkZYd2ZZUzJBWTdRRG1XNUl1bjNPYl9KaU5TWGNFM2NBQWJ0VHk2NHJZcWFxaGt5OTlHUDRSV0NXZ0VzWWo2aFhHMi1lam5JdDZqNGZobVpoV1RuZDhmUERPNllnek5LR3ctMTVaQlZFNVFKNVk0VHVpTXg?oc=5\" target=\"_blank\">Humana stock slips as profit outlook underwhelms</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Yahoo Finance</font>",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPb3h4cEpKNUduY3dDU2dYSHBSLVdnTTdFTEVQTUJVNWx5ZmlNaVZzb3pWYnJtVkZYd2ZZUzJBWTdRRG1XNUl1bjNPYl9KaU5TWGNFM2NBQWJ0VHk2NHJZcWFxaGt5OTlHUDRSV0NXZ0VzWWo2aFhHMi1lam5JdDZqNGZobVpoV1RuZDhmUERPNllnek5LR3ctMTVaQlZFNVFKNVk0VHVpTXg?oc=5",
+        "published_at": "2026-04-29T12:22:44+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 28,
+        "title": "Oxford Square Capital Corp. (NASDAQ:OXSQ) Plunges After Q1 2026 Revenue and EPS Miss - ChartMill",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMizAFBVV95cUxNYkhMNUVYSFlwUDdEUk1sa05DNlNZRy1jbm9fT1Y5NFFZQTR0UTlmUk9GcWJxQmJrbk1XZldVSEFVazZOY3JRM21FQUMyajRwSU1nY0lOOV90c19neXhBMW82bEt0TTM2R0RkbGdrLWNvbkFfT2tlR1JaYnJaTUNoQkhWRXpialRVcDZQMW8xRGFrUWxHR2JFUkRvZDF0NmdMOU5KaEJGZ1FjU2RaN0FUX2tmSE1tNnJmVVZLdk91eDZSemxKc1BnVkFVX3U?oc=5\" target=\"_blank\">Oxford Square Capital Corp. (NASDAQ:OXSQ) Plunges After Q1 2026 Revenue and EPS Miss</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">ChartMill</font>",
+        "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNYkhMNUVYSFlwUDdEUk1sa05DNlNZRy1jbm9fT1Y5NFFZQTR0UTlmUk9GcWJxQmJrbk1XZldVSEFVazZOY3JRM21FQUMyajRwSU1nY0lOOV90c19neXhBMW82bEt0TTM2R0RkbGdrLWNvbkFfT2tlR1JaYnJaTUNoQkhWRXpialRVcDZQMW8xRGFrUWxHR2JFUkRvZDF0NmdMOU5KaEJGZ1FjU2RaN0FUX2tmSE1tNnJmVVZLdk91eDZSemxKc1BnVkFVX3U?oc=5",
+        "published_at": "2026-04-29T12:20:28+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 29,
+        "title": "Old Dominion Freight Line (NASDAQ:ODFL) Beats Q1 CY2026 Sales Expectations - StockStory",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiygFBVV95cUxPWW9XdFFOWmRWdGFQOXN1dG8xZWYxNG0ycHdlamhsd0k4ano5NVNoUnBUYVphN01zb2o1Vl9KYUE3ejVrSHdDdlJEYkltWlJsbU10SV9SREdkYXRLbFVwdm5rQzRoOEtGNUM3Z3BkVVFOZVpOSlJyTk9BOHhYSU92Qi1ER2xJdklFX3ZWajVUZzl3WllYMi1QMzd4MkxVeEdCc3Uyb0dUajFyZzh1Ym1vTUh0M0otUHp0R2hYSXBZaVFoQXkzWXFwY2RB?oc=5\" target=\"_blank\">Old Dominion Freight Line (NASDAQ:ODFL) Beats Q1 CY2026 Sales Expectations</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">StockStory</font>",
+        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPWW9XdFFOWmRWdGFQOXN1dG8xZWYxNG0ycHdlamhsd0k4ano5NVNoUnBUYVphN01zb2o1Vl9KYUE3ejVrSHdDdlJEYkltWlJsbU10SV9SREdkYXRLbFVwdm5rQzRoOEtGNUM3Z3BkVVFOZVpOSlJyTk9BOHhYSU92Qi1ER2xJdklFX3ZWajVUZzl3WllYMi1QMzd4MkxVeEdCc3Uyb0dUajFyZzh1Ym1vTUh0M0otUHp0R2hYSXBZaVFoQXkzWXFwY2RB?oc=5",
+        "published_at": "2026-04-29T12:20:08+00:00"
+      },
+      {
+        "batch": "us_news",
+        "idx": 30,
+        "title": "UBS says markets underestimating lasting impact of oil supply shock - Investing.com",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiwgFBVV95cUxQaEhQYUx2OEVPZlRiTXJpRERoRXNYeHdpbng5ajBVeThIQXppT2VfYWVyRnQxZVFuV0U4RFN1OC1TX1FTS3hhMm45LWhDdjN0cDZidTNCSTdqcmlNMGlJUjFXS3ZScVVNeEhqa3lMRlhPT3ozRjJlUUx1Q2pvNFJpRm1sdERIaDNUa0t2VEVOZ1JMZDEzai1WMV9IMkZsT0h0bGlIMk95NHlsZG4zWDFNNEs1Y0xWZ1JKcmZqaEdGM202dw?oc=5\" target=\"_blank\">UBS says markets underestimating lasting impact of oil supply shock</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Investing.com</font>",
+        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQaEhQYUx2OEVPZlRiTXJpRERoRXNYeHdpbng5ajBVeThIQXppT2VfYWVyRnQxZVFuV0U4RFN1OC1TX1FTS3hhMm45LWhDdjN0cDZidTNCSTdqcmlNMGlJUjFXS3ZScVVNeEhqa3lMRlhPT3ozRjJlUUx1Q2pvNFJpRm1sdERIaDNUa0t2VEVOZ1JMZDEzai1WMV9IMkZsT0h0bGlIMk95NHlsZG4zWDFNNEs1Y0xWZ1JKcmZqaEdGM202dw?oc=5",
+        "published_at": "2026-04-29T12:18:54+00:00"
+      }
+    ],
+    "community": [
+      {
+        "batch": "us_community",
+        "idx": 1,
+        "title": "[XE, AXIL, CMCT] Breakout phase starting on ticker BTBD 💎  Don&#39;t miss out!!  \n  \nRecent filin",
+        "body": "Breakout phase starting on ticker BTBD 💎  Don&#39;t miss out!!  \n  \nRecent filing says MERGER with Aero velocity(Drone company) is 100% Confirmed and the news is coming any day now.  \n  \nBTBD easily can be the next 300%+ runner, small float!  \n  \nBTBD is a $10M market cap sitting in front of a $100M+ contract, INSANE!  \n \n$XE $AXIL $CMCT ww",
+        "url": "https://stocktwits.com/ApexAssault/message/651731538",
+        "published_at": "2026-04-29T12:53:05+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 2,
+        "title": "[SOFI] SoFi Slides 9% After Q1 Earnings: Is the Sell-On-Beat Pattern Repeating Again? -",
+        "body": "SoFi Slides 9% After Q1 Earnings: Is the Sell-On-Beat Pattern Repeating Again? -- my article for @247WallSt https://247wallst.com/investing/2026/04/29/sofi-slides-9-after-q1-earnings-is-the-sell-on-beat-pattern-repeating-again/ $SOFI",
+        "url": "https://stocktwits.com/davidmoadel/message/651731522",
+        "published_at": "2026-04-29T12:52:59+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 3,
+        "title": "[CADL] $CADL Key Track Record &amp; Performance Highlights:\n3PL and Distribution: Opera",
+        "body": "$CADL Key Track Record &amp; Performance Highlights:\n3PL and Distribution: Operates a &quot;proven&quot; network with &gt;99% on-time delivery and over 375 million units shipped annually.\nInfrastructure Growth: More than doubled its 3PL footprint over six years (as of 2025), including a new 358,000-square-foot facility in Memphis with AI-powered robotics.\nCommercialization Success: Provides full-service, end-to-end commercialization for small biotech and global pharma.\nTechnology Innovation: Implemented GenAI in MLR reviews, reducing manual work by 90% and cutting cycle times by 50%.\nMarket Reach: Features a database of 80+ million deidentified patient records for, patient support and adherence.\nAcquisitions &amp; Growth: In 2023, acquired Healthware Group to expand in Europe. Secured $1.75 billion in capital via &quot;Project Pegasus&quot; in 2022 to fuel expansion.\nIndustry Recognition: Recognized as a top 3PL and channel provider, with all facilities meeting DDA accreditation",
+        "url": "https://stocktwits.com/Kingjake26/message/651731456",
+        "published_at": "2026-04-29T12:52:29+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 4,
+        "title": "[EDSA] $EDSA ADD to EDSA&#39;s targeting &quot;Master Switch&quot; of &quot;cytokine st",
+        "body": "$EDSA ADD to EDSA&#39;s targeting &quot;Master Switch&quot; of &quot;cytokine storm&quot;...a paradigm shift ... with no competitive drug on market... \n \n... $EDSA intends to add to ARDS NDA, Liver and Septis indications... 3 drugs likely to be approved in one New Drug Application... \n \nHOT TICKET for Big Pharma...with stock  of \nFLOAT only 3.3 Million shares, and Market Cap of only  $125MILLION",
+        "url": "https://stocktwits.com/bachsong/message/651731421",
+        "published_at": "2026-04-29T12:52:09+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 5,
+        "title": "[CADL] $CADL  Great track record \n\nEVERSANA is a leading commercialization service prov",
+        "body": "$CADL  Great track record \n\nEVERSANA is a leading commercialization service provider for the life sciences industry, supporting over 650 organizations with an end-to-end model. Key performance indicators include a \n&gt;\n9\n9\n\n%\n on-time delivery rate, over 375 million units distributed annually, and support for over 600 product launches. Founded in 2018, the company has expanded to over 3,000 employees and manages a \n1.25\n1\n.\n2\n5\n million+ square foot 3PL footprint.",
+        "url": "https://stocktwits.com/Kingjake26/message/651731406",
+        "published_at": "2026-04-29T12:52:05+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 6,
+        "title": "[BE] RBC Capital raises $BE Bloom Energy price target to $335, reiterating an Outperf",
+        "body": "RBC Capital raises $BE Bloom Energy price target to $335, reiterating an Outperform rating.  \n \nUtilizing record Q1 revenue growth of 130%, RBC sees accelerating demand from AI data centers as the shift to onsite power security hits 2026.",
+        "url": "https://stocktwits.com/Data_Insight_Hub/message/651731383",
+        "published_at": "2026-04-29T12:51:55+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 7,
+        "title": "[STX] $STX using CC9.7 now, but each year brought 1 event, N, Q, B rolling right into",
+        "body": "$STX using CC9.7 now, but each year brought 1 event, N, Q, B rolling right into a FULL BUY ON S1, was tooooo gooood. \n \nLast FRIDAY data still tracking to yet another BIG WIN! \nEnjoy &amp; Cheers. (NO LINES FROM FOOLS on MY STREET)",
+        "url": "https://stocktwits.com/WOLFSTREET/message/651731248",
+        "published_at": "2026-04-29T12:50:51+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 8,
+        "title": "[CAR] $CAR where’s Quambi",
+        "body": "$CAR where’s Quambi",
+        "url": "https://stocktwits.com/Guitars7/message/651731280",
+        "published_at": "2026-04-29T12:51:04+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 9,
+        "title": "[BE, FCEL] $BE $FCEL",
+        "body": "$BE $FCEL",
+        "url": "https://stocktwits.com/Sundancer/message/651731562",
+        "published_at": "2026-04-29T12:53:15+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 10,
+        "title": "[SOFI] $SOFI They should talk about stock price manipulation!!!!",
+        "body": "$SOFI They should talk about stock price manipulation!!!!",
+        "url": "https://stocktwits.com/Tariffssuk/message/651731561",
+        "published_at": "2026-04-29T12:53:15+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 11,
+        "title": "[LKNCY] $LKNCY",
+        "body": "$LKNCY",
+        "url": "https://stocktwits.com/kirkulr/message/651731548",
+        "published_at": "2026-04-29T12:53:09+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 12,
+        "title": "[BE] $BE I bought this at $2 something because it was a long time ago then I sold it",
+        "body": "$BE I bought this at $2 something because it was a long time ago then I sold it at $ 3   something . I feel like I have no brain 🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣",
+        "url": "https://stocktwits.com/aals0567/message/651731545",
+        "published_at": "2026-04-29T12:53:07+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 13,
+        "title": "[CAR] $CAR not a bad strategy lol..",
+        "body": "$CAR not a bad strategy lol..",
+        "url": "https://stocktwits.com/ELON_DOGE69/message/651731531",
+        "published_at": "2026-04-29T12:53:03+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 14,
+        "title": "[LKNCY] $LKNCY Pathetic no answer and no time for biggest question! The fucking Relistin",
+        "body": "$LKNCY Pathetic no answer and no time for biggest question! The fucking Relisting.",
+        "url": "https://stocktwits.com/Reanimated666/message/651731527",
+        "published_at": "2026-04-29T12:53:02+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 15,
+        "title": "[CAR] $CAR Have they said how much tariffs, Iran war, gas prices, etc are going to boo",
+        "body": "$CAR Have they said how much tariffs, Iran war, gas prices, etc are going to boost 2Q sales yet?",
+        "url": "https://stocktwits.com/DelScorcho/message/651731512",
+        "published_at": "2026-04-29T12:52:54+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 16,
+        "title": "[SOFI] $SOFI FUK\nDONE",
+        "body": "$SOFI FUK\nDONE",
+        "url": "https://stocktwits.com/Starlight12/message/651731487",
+        "published_at": "2026-04-29T12:52:39+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 17,
+        "title": "[SOFI] $SOFI whats everyone opinion on a healthy buy in price?",
+        "body": "$SOFI whats everyone opinion on a healthy buy in price?",
+        "url": "https://stocktwits.com/Will9987/message/651731469",
+        "published_at": "2026-04-29T12:52:33+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 18,
+        "title": "[HOOD] $HOOD Market moves fast. Having the right community matters more than ever. Stay",
+        "body": "$HOOD Market moves fast. Having the right community matters more than ever. Stay locked in with real traders. @AmandaWilson4561",
+        "url": "https://stocktwits.com/AmandaWilson4561/message/651731454",
+        "published_at": "2026-04-29T12:52:28+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 19,
+        "title": "[SOFI] $SOFI the past 4 quarters after earnings has been a buying opportunity lol",
+        "body": "$SOFI the past 4 quarters after earnings has been a buying opportunity lol",
+        "url": "https://stocktwits.com/UP_Only/message/651731386",
+        "published_at": "2026-04-29T12:51:57+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 20,
+        "title": "[CAR] $CAR Current Avis business model:",
+        "body": "$CAR Current Avis business model:",
+        "url": "https://stocktwits.com/JackCoLu/message/651731381",
+        "published_at": "2026-04-29T12:51:54+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 21,
+        "title": "[CAR] $CAR",
+        "body": "$CAR",
+        "url": "https://stocktwits.com/Bazzzigar/message/651731374",
+        "published_at": "2026-04-29T12:51:48+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 22,
+        "title": "[SOFI] $SOFI",
+        "body": "$SOFI",
+        "url": "https://stocktwits.com/PunishedTrump/message/651731343",
+        "published_at": "2026-04-29T12:51:33+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 23,
+        "title": "[CAR] $CAR \n\nPeople got cleaned out here dayum\n\nMaybe don’t buy a stock up 700% in a m",
+        "body": "$CAR \n\nPeople got cleaned out here dayum\n\nMaybe don’t buy a stock up 700% in a month \n\nJust a thought",
+        "url": "https://stocktwits.com/earsopenmouthclosed/message/651731340",
+        "published_at": "2026-04-29T12:51:31+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 24,
+        "title": "[LKNCY, MAAS, HSAI] Many outstanding Chinese companies are still not fully priced in, such as $LKNCY",
+        "body": "Many outstanding Chinese companies are still not fully priced in, such as $LKNCY, $MAAS, and $HSAI.",
+        "url": "https://stocktwits.com/VinceKKT/message/651731318",
+        "published_at": "2026-04-29T12:51:22+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 25,
+        "title": "[CAR, BE] Show me $caR  2 0 .... its $bE what a massive scam lol.",
+        "body": "Show me $caR  2 0 .... its $bE what a massive scam lol.",
+        "url": "https://stocktwits.com/powellpnd/message/651731308",
+        "published_at": "2026-04-29T12:51:17+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 26,
+        "title": "[WING] $WING (-9.8% pre) Wingstop (NASDAQ:WING) Reports Sales Below Analyst Estimates I",
+        "body": "$WING (-9.8% pre) Wingstop (NASDAQ:WING) Reports Sales Below Analyst Estimates In Q1 CY2026 Earnings, Stock Drops \n \nhttps://ooc.bz/l/100428",
+        "url": "https://stocktwits.com/OpenOutcrier/message/651731283",
+        "published_at": "2026-04-29T12:51:06+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 27,
+        "title": "[SOFI] $SOFI Dogshit platform and worthless CEO 💩",
+        "body": "$SOFI Dogshit platform and worthless CEO 💩",
+        "url": "https://stocktwits.com/shark2121/message/651731276",
+        "published_at": "2026-04-29T12:51:02+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 28,
+        "title": "[CAR] $CAR -",
+        "body": "$CAR -",
+        "url": "https://stocktwits.com/CandlesBACKEDSECURITIES/message/651731274",
+        "published_at": "2026-04-29T12:51:01+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 29,
+        "title": "[SOFI] @Jaketradingcall  Sold my HOOD yesterday and buying more $SOFI this morning.",
+        "body": "@Jaketradingcall  Sold my HOOD yesterday and buying more $SOFI this morning.",
+        "url": "https://stocktwits.com/MakeAPrettyPenny/message/651731259",
+        "published_at": "2026-04-29T12:50:55+00:00"
+      },
+      {
+        "batch": "us_community",
+        "idx": 30,
+        "title": "[AXIL] $AXIL 7.26",
+        "body": "$AXIL 7.26",
+        "url": "https://stocktwits.com/twixbarrtwits/message/651731241",
+        "published_at": "2026-04-29T12:50:48+00:00"
+      }
+    ]
+  },
+  "kr": {
+    "news": [
+      {
+        "batch": "kr_news",
+        "idx": 1,
+        "title": "코스닥, 개인 매수에 상승 마감...삼천당제약, 에이비엘바이오 상승 VS 리가켐바이오, 에코프로 하락 - 이코노뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMibkFVX3lxTE41dnlPaTEtejh6ZmsyYkEyMGI4QTNiQ1RlU3FMZHBZYUZzNWdYVGhZUnVKVmJmVktid0ZUSEhGSmNRd0Y5WGozeTZ1Tmw1dE1XLXBqTTJoaDhzZFM5ZnA3ekpTUDdtRjlKazJzR3Bn?oc=5\" target=\"_blank\">코스닥, 개인 매수에 상승 마감...삼천당제약, 에이비엘바이오 상승 VS 리가켐바이오, 에코프로 하락</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">이코노뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE41dnlPaTEtejh6ZmsyYkEyMGI4QTNiQ1RlU3FMZHBZYUZzNWdYVGhZUnVKVmJmVktid0ZUSEhGSmNRd0Y5WGozeTZ1Tmw1dE1XLXBqTTJoaDhzZFM5ZnA3ekpTUDdtRjlKazJzR3Bn?oc=5",
+        "published_at": "2026-04-29T12:30:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 2,
+        "title": "환율 1479원으로 상승…중동 리스크에 유가 강세, 코스피는 최고치 경신 - 베타뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTFBIN1ZoNDNOZVZQSXhPUkE2U0N1b04tRVI1NGdqZGVLdzYwTTVPdEpodE5YdWlsRlF6MS11SUU2eUhCLXlPb3RUOFF5XzhoTnVaMTVPZ1FId2VqdXNJb0JmWmZ2d0g?oc=5\" target=\"_blank\">환율 1479원으로 상승…중동 리스크에 유가 강세, 코스피는 최고치 경신</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">베타뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBIN1ZoNDNOZVZQSXhPUkE2U0N1b04tRVI1NGdqZGVLdzYwTTVPdEpodE5YdWlsRlF6MS11SUU2eUhCLXlPb3RUOFF5XzhoTnVaMTVPZ1FId2VqdXNJb0JmWmZ2d0g?oc=5",
+        "published_at": "2026-04-29T11:46:55+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 3,
+        "title": "유가증권 제약지수 하락, 코스닥 제약지수 횡보 - 의약뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA3c0tYVEVvWG15T3JUOGs3a3E2dmN1OV85cEgyaUUxTkV5YWZaSFRCU2pYMjNJUHBzOW8ydnlpRlZLVjJRS0FacEVTTW1hRjBhdG1XYkRsSElOU1JYalJJRmRVMWNkNms?oc=5\" target=\"_blank\">유가증권 제약지수 하락, 코스닥 제약지수 횡보</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">의약뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA3c0tYVEVvWG15T3JUOGs3a3E2dmN1OV85cEgyaUUxTkV5YWZaSFRCU2pYMjNJUHBzOW8ydnlpRlZLVjJRS0FacEVTTW1hRjBhdG1XYkRsSElOU1JYalJJRmRVMWNkNms?oc=5",
+        "published_at": "2026-04-29T11:45:01+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 4,
+        "title": "코스피, 6700p '코앞'...\"7천피 멀지 않았다\" - 베타뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE5ydS1pcVZxUlp1SzBxZ0R6TE1HbjNkYlppVWZGM2c4eUMyT0JPem9PYWpjc0ZvZExnQV9pandFdWpRU21Rcmo2OE5yZ0xKcUN0OGc1NWpwaXVPMXJubFhKaG1QWks?oc=5\" target=\"_blank\">코스피, 6700p '코앞'...\"7천피 멀지 않았다\"</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">베타뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5ydS1pcVZxUlp1SzBxZ0R6TE1HbjNkYlppVWZGM2c4eUMyT0JPem9PYWpjc0ZvZExnQV9pandFdWpRU21Rcmo2OE5yZ0xKcUN0OGc1NWpwaXVPMXJubFhKaG1QWks?oc=5",
+        "published_at": "2026-04-29T10:33:43+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 5,
+        "title": "▶▶2026년 한국증시 ▶▶개인투자자가 'AI골든봇' 찾는 이유, 살펴보니.. - 데이터투자",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMic0FVX3lxTE5pampHTlJnczNCdWVvTHd5VDRiZGZfVnpIQ2UzV1p5MDRQZC02MHNTd2piTnB1dU8zTUI2R0o1QlV5RjNlbUpZUjAwQXE1d3BkazgyVGtvenBoeGExNml0TUNGVGpla25ETFY4YmhIVzhFNlE?oc=5\" target=\"_blank\">▶▶2026년 한국증시 ▶▶개인투자자가 'AI골든봇' 찾는 이유, 살펴보니..</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">데이터투자</font>",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5pampHTlJnczNCdWVvTHd5VDRiZGZfVnpIQ2UzV1p5MDRQZC02MHNTd2piTnB1dU8zTUI2R0o1QlV5RjNlbUpZUjAwQXE1d3BkazgyVGtvenBoeGExNml0TUNGVGpla25ETFY4YmhIVzhFNlE?oc=5",
+        "published_at": "2026-04-29T10:15:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 6,
+        "title": "채비, 코스닥 데뷔 첫날 83% 급등…전기차 충전株 ‘흥행’ 입증 - 쿠키뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTFB2YnJEMHFrVDJVWk1pYV9wT3hJNGRFVFlZcUZMYTcxaU85UFBSS0E4RTg1aXVIN0F4cXVqZHYtckROTDVzV2hFajF5cXk2VG5oM1dnNnNNU2hzVk9CYldtRE5kUQ?oc=5\" target=\"_blank\">채비, 코스닥 데뷔 첫날 83% 급등…전기차 충전株 ‘흥행’ 입증</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">쿠키뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFB2YnJEMHFrVDJVWk1pYV9wT3hJNGRFVFlZcUZMYTcxaU85UFBSS0E4RTg1aXVIN0F4cXVqZHYtckROTDVzV2hFajF5cXk2VG5oM1dnNnNNU2hzVk9CYldtRE5kUQ?oc=5",
+        "published_at": "2026-04-29T09:55:55+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 7,
+        "title": "증권사 리서치센터장, “올해 코스피 7200∼8000 간다…반도체 에너지·전력기계 주목해야” - 헤럴드경제",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiVkFVX3lxTE5pMzhIc2FBSjNacEFHQVBKUlcwTVVoSWdzUlgwMWwzQ0E4UDVITWtfN3Z3UDhvakJ6dGFBNFZQUklYM3ZTXzBESmNGcE0xc0VJQlRFd3VR?oc=5\" target=\"_blank\">증권사 리서치센터장, “올해 코스피 7200∼8000 간다…반도체 에너지·전력기계 주목해야”</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">헤럴드경제</font>",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5pMzhIc2FBSjNacEFHQVBKUlcwTVVoSWdzUlgwMWwzQ0E4UDVITWtfN3Z3UDhvakJ6dGFBNFZQUklYM3ZTXzBESmNGcE0xc0VJQlRFd3VR?oc=5",
+        "published_at": "2026-04-29T09:40:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 8,
+        "title": "29일, 기관 코스닥에서 리노공업(+0.63%), 비나텍(+29.98%) 등 순매수 - 한국경제",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiWkFVX3lxTE9FdjZPbUJtam4teERfSWtBMkJDTFpxS3ROYnJOTzF1d3l5d09YVzVBRF95SUpLYnRQN05HdmdaQnJOSmtIRzZWckUyZHl3LS05azVwWnZ1TjN4Z9IBVEFVX3lxTFB3WkoxeEQ1Y0FRWVRnMkZWcXFOcUx5dERnWDNiLTNkbUNoX2h0ejU2eDVaLXJlTmY0SlQyYWU2Ykt3X2E1azJZVjd5SlFab1AxT2ZZQg?oc=5\" target=\"_blank\">29일, 기관 코스닥에서 리노공업(+0.63%), 비나텍(+29.98%) 등 순매수</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">한국경제</font>",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9FdjZPbUJtam4teERfSWtBMkJDTFpxS3ROYnJOTzF1d3l5d09YVzVBRF95SUpLYnRQN05HdmdaQnJOSmtIRzZWckUyZHl3LS05azVwWnZ1TjN4Z9IBVEFVX3lxTFB3WkoxeEQ1Y0FRWVRnMkZWcXFOcUx5dERnWDNiLTNkbUNoX2h0ejU2eDVaLXJlTmY0SlQyYWU2Ykt3X2E1azJZVjd5SlFab1AxT2ZZQg?oc=5",
+        "published_at": "2026-04-29T09:35:31+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 9,
+        "title": "5월 증시, '전약후강' 무게…\"코스피 예상밴드 6200~7500\" - 이투데이",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiVEFVX3lxTE9seVdPZlVUcXdJODFkbW13LVN5ckY2U2VTNGFYMGpfQ0w4amRUd0x3QXNOeG5zRDNQZWhFdndkOVlxWTZyODlyTzY1RDk1VGdhX3F1Xw?oc=5\" target=\"_blank\">5월 증시, '전약후강' 무게…\"코스피 예상밴드 6200~7500\"</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">이투데이</font>",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9seVdPZlVUcXdJODFkbW13LVN5ckY2U2VTNGFYMGpfQ0w4amRUd0x3QXNOeG5zRDNQZWhFdndkOVlxWTZyODlyTzY1RDk1VGdhX3F1Xw?oc=5",
+        "published_at": "2026-04-29T09:30:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 10,
+        "title": "코스피 7000 향해 뛰는데…코스닥, 주도주 부진에 느린 걸음 - v.daum.net",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE84NVhkQlg1dlJsVjg4Nnd4dDRhRXVpdmxNRUZRWGF0MDRqbjhVMjQyMGI2aEVkSW41b01GUXVnQ2c1VHlBOGIwTWd3dnlvTkU?oc=5\" target=\"_blank\">코스피 7000 향해 뛰는데…코스닥, 주도주 부진에 느린 걸음</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">v.daum.net</font>",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE84NVhkQlg1dlJsVjg4Nnd4dDRhRXVpdmxNRUZRWGF0MDRqbjhVMjQyMGI2aEVkSW41b01GUXVnQ2c1VHlBOGIwTWd3dnlvTkU?oc=5",
+        "published_at": "2026-04-29T09:20:34+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 11,
+        "title": "코스피 7000 향해 뛰는데…코스닥, 주도주 부진에 느린 걸음 - 파이낸셜뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiWkFVX3lxTFBzUkFwXzVvR2dqQTJCWWduZEZnMW5SVU1QTGkxT1FyQWJWSl9XNGR1YjlVSzZRMnYyZzBsZ2lNRVFvNEVza1BzamYydEEwWDVJa3pHY0NnQXlBUdIBXkFVX3lxTE1XQXFoSTQzZ0stX0ZIaXdOUzlWVDdyWkhucWNmNk5FX1BwUWRCbl95Y2pkdWRKRlk0TVV1M2lpUGtVZmJ0UnMtZE1TMlk4NHhNM1RwMS1ETk9ucTFWY3c?oc=5\" target=\"_blank\">코스피 7000 향해 뛰는데…코스닥, 주도주 부진에 느린 걸음</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">파이낸셜뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBzUkFwXzVvR2dqQTJCWWduZEZnMW5SVU1QTGkxT1FyQWJWSl9XNGR1YjlVSzZRMnYyZzBsZ2lNRVFvNEVza1BzamYydEEwWDVJa3pHY0NnQXlBUdIBXkFVX3lxTE1XQXFoSTQzZ0stX0ZIaXdOUzlWVDdyWkhucWNmNk5FX1BwUWRCbl95Y2pkdWRKRlk0TVV1M2lpUGtVZmJ0UnMtZE1TMlk4NHhNM1RwMS1ETk9ucTFWY3c?oc=5",
+        "published_at": "2026-04-29T09:17:28+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 12,
+        "title": "7천피 카운트다운…코스피 6690선 안착 - v.daum.net",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE1VamhMQS1OMk9oSEF2T3p2ek5fWTNKQzBmM3Y2dUlhYUN5T2JNYVJIbnN1b1FQMzJOT1pDUFVsVDR6eWdHRmswQjhjUkwwMTA?oc=5\" target=\"_blank\">7천피 카운트다운…코스피 6690선 안착</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">v.daum.net</font>",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1VamhMQS1OMk9oSEF2T3p2ek5fWTNKQzBmM3Y2dUlhYUN5T2JNYVJIbnN1b1FQMzJOT1pDUFVsVDR6eWdHRmswQjhjUkwwMTA?oc=5",
+        "published_at": "2026-04-29T09:06:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 13,
+        "title": "신한운용, '코스닥150 인덱스펀드' 출시…저보수로 성장주 분산투자 - 네이트",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE9rMGZ3RXh2SVNEcmZYdEh5THF5cGRkRDNDMEpVNGRBRTdvZVU1TUYzWWJ2WFVyOFBkd3lydzBSRE1SNEd3WTIyTFJ0c3Q0MmYzMWt3?oc=5\" target=\"_blank\">신한운용, '코스닥150 인덱스펀드' 출시…저보수로 성장주 분산투자</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">네이트</font>",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9rMGZ3RXh2SVNEcmZYdEh5THF5cGRkRDNDMEpVNGRBRTdvZVU1TUYzWWJ2WFVyOFBkd3lydzBSRE1SNEd3WTIyTFJ0c3Q0MmYzMWt3?oc=5",
+        "published_at": "2026-04-29T09:00:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 14,
+        "title": "신한운용, ‘코스닥150 인덱스펀드’ 출시…저보수로 성장주 분산투자 - 데일리안",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiVkFVX3lxTE9yRWM5TU14UUs5eEtnMU56NVhYNWJkSWVFdkxjMHl2NGZYOVVZRG5iM2hxaU1XN25lLXBXbzZmV3RpU3BHd01rcUJRUk10ckNqV1BfMjlB0gGPAkFVX3lxTFA2VU9CQ1Z2UmF3dTJoeFJjbnZ0VXZmazJSOUZjcURFbTVYNldmaVU4ZVZocXRWVkdkRXY4MUp2aG9ycm5fYU1qaXM3S0dGcnB3MWw3LVlXNkNrTDJ0bnJjNFJybUZTMnMyUl9seThGellINXhnZEExR2RRdmtVdWc3SElDeHNwZURRU3dNTlR4VWNxNTI0WElOV05nR1FYQVk2cVc3Vm9pZkphQVdpb0ZSTUx3SHFqdU1DWC1XcS1YZEVnZVFvOWp6cWNLQW5FTFZycHVCYlo3Q0c5QldnRWlWRTJxZlpKMU56WkhVYUhMZ3g4S3hvV1lPdGZmcVhOWkxETGhsaUxRNjZwWTFHRWM?oc=5\" target=\"_blank\">신한운용, ‘코스닥150 인덱스펀드’ 출시…저보수로 성장주 분산투자</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">데일리안</font>",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9yRWM5TU14UUs5eEtnMU56NVhYNWJkSWVFdkxjMHl2NGZYOVVZRG5iM2hxaU1XN25lLXBXbzZmV3RpU3BHd01rcUJRUk10ckNqV1BfMjlB0gGPAkFVX3lxTFA2VU9CQ1Z2UmF3dTJoeFJjbnZ0VXZmazJSOUZjcURFbTVYNldmaVU4ZVZocXRWVkdkRXY4MUp2aG9ycm5fYU1qaXM3S0dGcnB3MWw3LVlXNkNrTDJ0bnJjNFJybUZTMnMyUl9seThGellINXhnZEExR2RRdmtVdWc3SElDeHNwZURRU3dNTlR4VWNxNTI0WElOV05nR1FYQVk2cVc3Vm9pZkphQVdpb0ZSTUx3SHFqdU1DWC1XcS1YZEVnZVFvOWp6cWNLQW5FTFZycHVCYlo3Q0c5QldnRWlWRTJxZlpKMU56WkhVYUhMZ3g4S3hvV1lPdGZmcVhOWkxETGhsaUxRNjZwWTFHRWM?oc=5",
+        "published_at": "2026-04-29T08:59:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 15,
+        "title": "'전기차 충전 사업' 채비 … 코스닥 상장 첫날 83%↑ - 매일경제TV",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiaEFVX3lxTE15WVdyejMtOThEb1RsUmlRMkc5NmJZUWRxU1RFdGgzNVRrN3I3Q05aLXM4c1NQczlrdmZ5M0JBUkt1RWtiWDUwOVprd09GRGM2RDVFUWFDeUVrNFZsUldQSnJ2SG5HVmcw?oc=5\" target=\"_blank\">'전기차 충전 사업' 채비 … 코스닥 상장 첫날 83%↑</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">매일경제TV</font>",
+        "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE15WVdyejMtOThEb1RsUmlRMkc5NmJZUWRxU1RFdGgzNVRrN3I3Q05aLXM4c1NQczlrdmZ5M0JBUkt1RWtiWDUwOVprd09GRGM2RDVFUWFDeUVrNFZsUldQSnJ2SG5HVmcw?oc=5",
+        "published_at": "2026-04-29T08:57:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 16,
+        "title": "빅테크 실적 나온다 … 코스피, 웃을까 울까 - 매일경제 마켓",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiUkFVX3lxTE80NnNhYzU3X1J2OHFuLXRGVmhWa0VXcko2MjBZaGVxQVI5QklRM3luUTJkOTFKbGdHVDVRS2ZmSXpuYWRNSVZYR3RiRENFSHAwWFE?oc=5\" target=\"_blank\">빅테크 실적 나온다 … 코스피, 웃을까 울까</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">매일경제 마켓</font>",
+        "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE80NnNhYzU3X1J2OHFuLXRGVmhWa0VXcko2MjBZaGVxQVI5QklRM3luUTJkOTFKbGdHVDVRS2ZmSXpuYWRNSVZYR3RiRENFSHAwWFE?oc=5",
+        "published_at": "2026-04-29T08:55:26+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 17,
+        "title": "코스피 7000 눈앞…35조 ‘빚투’에 증권사들 먼저 겁먹어 - 한국금융신문",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMifEFVX3lxTE95R2d4RUJCdkF4djdZMjhfLXZiTWFyb19GTlptcERBdHQzRVlvR1lrSXl6OEtlNXRnbWNlZEcyend5Tk9rTjZJSnBTaU9CTlQ1YzZKRVBDakRzT2JNMHBzQlRkTWc4X2diOW4ySjhDRk9Sa3NiaHJlYjU4d2Q?oc=5\" target=\"_blank\">코스피 7000 눈앞…35조 ‘빚투’에 증권사들 먼저 겁먹어</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">한국금융신문</font>",
+        "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE95R2d4RUJCdkF4djdZMjhfLXZiTWFyb19GTlptcERBdHQzRVlvR1lrSXl6OEtlNXRnbWNlZEcyend5Tk9rTjZJSnBTaU9CTlQ1YzZKRVBDakRzT2JNMHBzQlRkTWc4X2diOW4ySjhDRk9Sa3NiaHJlYjU4d2Q?oc=5",
+        "published_at": "2026-04-29T08:54:01+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 18,
+        "title": "코스닥150 정기변경…15개 대거 교체 전망 - 서울경제",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiUkFVX3lxTFBuOUp6VlhuLUVKaDJyd0daLXVYVUl4Tkx4bzlPSnI5VERLTmNxaVZ0VkxITy11ZHQ5U3NwdEpkS0FaTGVtSGE5WGxpZ3FfMk1TSlHSAVNBVV95cUxQWkk2aXQ2emkyYm1NbEVveGxxU1pJcGRoUGprQWtCdldwOGhKMUozMW1PbDFvRDlXSEFZR2pwYVRjSWlXS1lDMFV0Wng0YkJaOUN4QQ?oc=5\" target=\"_blank\">코스닥150 정기변경…15개 대거 교체 전망</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">서울경제</font>",
+        "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBuOUp6VlhuLUVKaDJyd0daLXVYVUl4Tkx4bzlPSnI5VERLTmNxaVZ0VkxITy11ZHQ5U3NwdEpkS0FaTGVtSGE5WGxpZ3FfMk1TSlHSAVNBVV95cUxQWkk2aXQ2emkyYm1NbEVveGxxU1pJcGRoUGprQWtCdldwOGhKMUozMW1PbDFvRDlXSEFZR2pwYVRjSWlXS1lDMFV0Wng0YkJaOUN4QQ?oc=5",
+        "published_at": "2026-04-29T08:50:30+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 19,
+        "title": "코스피, 장중 6700선 돌파 후 6690선 마감 - 스트레이트뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMic0FVX3lxTE9hd1lZM2J4TkZzTzFzWEk1WFNzeFdMQmRkbmRINEp4b0RXUlYwdmlTMEhMX2FnVjB2MzZBVi1MZXJISnNpaTdGWEtRUFlFanBtVWNJelJIOEcyRWtybk9YTWJDOGlUTk1PQ2U4TDdZbmxaQm_SAXdBVV95cUxNLXU1ZEV2Y3FKcWhsc0Q4UEU5QkVHRFU1VkNIQmVXVVpxSHNoaHRzUXQtRFhtMFpOVjdkZWVjVF8wT0V2LXFuenJPYWtHdVNHSTd2YU9tMGp3dXJQV2lXdm1ZQVVqVkFzcWk3Q01sYlB2RVBybGMxTQ?oc=5\" target=\"_blank\">코스피, 장중 6700선 돌파 후 6690선 마감</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">스트레이트뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9hd1lZM2J4TkZzTzFzWEk1WFNzeFdMQmRkbmRINEp4b0RXUlYwdmlTMEhMX2FnVjB2MzZBVi1MZXJISnNpaTdGWEtRUFlFanBtVWNJelJIOEcyRWtybk9YTWJDOGlUTk1PQ2U4TDdZbmxaQm_SAXdBVV95cUxNLXU1ZEV2Y3FKcWhsc0Q4UEU5QkVHRFU1VkNIQmVXVVpxSHNoaHRzUXQtRFhtMFpOVjdkZWVjVF8wT0V2LXFuenJPYWtHdVNHSTd2YU9tMGp3dXJQV2lXdm1ZQVVqVkFzcWk3Q01sYlB2RVBybGMxTQ?oc=5",
+        "published_at": "2026-04-29T08:46:14+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 20,
+        "title": "사흘 연속 사상 최고치... '반도체 투톱' 기대감에 코스피 7000선 코앞 - v.daum.net",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE1udThlMlUtQkxydlhETkpHbTl4M1BkVm8xZDZRRmUwVThpdmxYVjZPdXZlRFNmdkpZOHNQM3BMTXk3aUZWTXdRTmdRNFFsVnM?oc=5\" target=\"_blank\">사흘 연속 사상 최고치... '반도체 투톱' 기대감에 코스피 7000선 코앞</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">v.daum.net</font>",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1udThlMlUtQkxydlhETkpHbTl4M1BkVm8xZDZRRmUwVThpdmxYVjZPdXZlRFNmdkpZOHNQM3BMTXk3aUZWTXdRTmdRNFFsVnM?oc=5",
+        "published_at": "2026-04-29T08:43:07+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 21,
+        "title": "국민연금 국내주식 비중…증시 랠리에 25%로 껑충 - 한국경제",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiWkFVX3lxTE1iVHVtVXlLRTFOaXpIYnJOQ0F2bGVHeU9wUU9laVU5WTFoUW1sR1dyTVRZZVhoa1IyaXlXLUxKM0xsVDU1WUJGaVpxdldQYVJjNmtwZWtMX0FHd9IBVEFVX3lxTE9DbTI5TV9xQVVBRlVtSllTdE9SUU41dXFDcTdkakJTb3pncFBOMEV0MVh2SFcwd2syMmxxTkdIc1pmVEI1UU83YUZlYy1YSklVUjM3bQ?oc=5\" target=\"_blank\">국민연금 국내주식 비중…증시 랠리에 25%로 껑충</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">한국경제</font>",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1iVHVtVXlLRTFOaXpIYnJOQ0F2bGVHeU9wUU9laVU5WTFoUW1sR1dyTVRZZVhoa1IyaXlXLUxKM0xsVDU1WUJGaVpxdldQYVJjNmtwZWtMX0FHd9IBVEFVX3lxTE9DbTI5TV9xQVVBRlVtSllTdE9SUU41dXFDcTdkakJTb3pncFBOMEV0MVh2SFcwd2syMmxxTkdIc1pmVEI1UU83YUZlYy1YSklVUjM3bQ?oc=5",
+        "published_at": "2026-04-29T08:42:02+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 22,
+        "title": "코스피, 사흘 연속 ‘사상 최고치’ 경신…6690 뚫었다 - v.daum.net",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE8tN2FvOUNORVZLR2xvU1l2RWhYWHY5STdVUVhmMkdqYnJHVERSYjExZnQ3YzVYVUpzbTZRbEthNmJIZWVoWm8zT2MyemotZ0U?oc=5\" target=\"_blank\">코스피, 사흘 연속 ‘사상 최고치’ 경신…6690 뚫었다</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">v.daum.net</font>",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE8tN2FvOUNORVZLR2xvU1l2RWhYWHY5STdVUVhmMkdqYnJHVERSYjExZnQ3YzVYVUpzbTZRbEthNmJIZWVoWm8zT2MyemotZ0U?oc=5",
+        "published_at": "2026-04-29T08:40:13+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 23,
+        "title": "이찬진 “코스피 상승은 마중물…부동산 쏠림, 머니무브로 풀것” - 서울경제",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiUkFVX3lxTFBLcmt4Zy1FelFEZkRhdjdEMVgtZmVjZUQtSDZtSVFGNG9HX09td01mdndOQ0NTWHp0RnhfSWU0OGZnS0FsdW5aYWdMcV81eE8yRFHSAVNBVV95cUxOaHduUU1rWGlZdGFMTUZsRXIyWVBlZDNaaEFNTG1qNy1iVW9CWEd2bXpLeWxFZ2dFVkoxc192UG1MUm5hd1UzNnFpNXRpMWtCYlJ2OA?oc=5\" target=\"_blank\">이찬진 “코스피 상승은 마중물…부동산 쏠림, 머니무브로 풀것”</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">서울경제</font>",
+        "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBLcmt4Zy1FelFEZkRhdjdEMVgtZmVjZUQtSDZtSVFGNG9HX09td01mdndOQ0NTWHp0RnhfSWU0OGZnS0FsdW5aYWdMcV81eE8yRFHSAVNBVV95cUxOaHduUU1rWGlZdGFMTUZsRXIyWVBlZDNaaEFNTG1qNy1iVW9CWEd2bXpLeWxFZ2dFVkoxc192UG1MUm5hd1UzNnFpNXRpMWtCYlJ2OA?oc=5",
+        "published_at": "2026-04-29T08:38:11+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 24,
+        "title": "코스피 6690.90 마감…3거래일 연속 최고치 경신 - MTN 머니투데이방송",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE1iTkVYY0NUU19Tazgzcks4U0hIODlWWkZGUU5WTVNMRHhJNndYcjVmRFB1b0VpdVc0WjAyRFdLd1NSRWpPUVdfWE9pNTNTT2M2emRTX1d3M185X0Fic3NTUUxjcEQ?oc=5\" target=\"_blank\">코스피 6690.90 마감…3거래일 연속 최고치 경신</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MTN 머니투데이방송</font>",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1iTkVYY0NUU19Tazgzcks4U0hIODlWWkZGUU5WTVNMRHhJNndYcjVmRFB1b0VpdVc0WjAyRFdLd1NSRWpPUVdfWE9pNTNTT2M2emRTX1d3M185X0Fic3NTUUxjcEQ?oc=5",
+        "published_at": "2026-04-29T08:37:27+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 25,
+        "title": "코스피, 사흘 연속 최고치 경신 6700선 턱밑 - IT조선",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMicEFVX3lxTE0yWXhvaFo5TTBtOW1BMko0MHA2ZHF3VlVmYlczRWlHYWRpaVE0M2c0T2JRUXgtdnVQTVRjeDAwOW83eVR3ZzdGNk1PaXpLVC1BX3dDaThERDl6MjBmdEJpYmFiZ1IxX0lxRlNSY0d0MnLSAXRBVV95cUxQLVpYaE9KTkptZjlkUktfR1N3UE9Ccl9DVEx5cGNMY3NRb0VxdUNQbzBMT3FjR1R1Y0lmN0t3TklXYy1mbHNPV0FHbVdWQzV1OTZ2T2RLeDZ2bVZnelJvb25VQjNoNkZNWEFNM1RlYlN0VHRwbg?oc=5\" target=\"_blank\">코스피, 사흘 연속 최고치 경신 6700선 턱밑</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">IT조선</font>",
+        "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE0yWXhvaFo5TTBtOW1BMko0MHA2ZHF3VlVmYlczRWlHYWRpaVE0M2c0T2JRUXgtdnVQTVRjeDAwOW83eVR3ZzdGNk1PaXpLVC1BX3dDaThERDl6MjBmdEJpYmFiZ1IxX0lxRlNSY0d0MnLSAXRBVV95cUxQLVpYaE9KTkptZjlkUktfR1N3UE9Ccl9DVEx5cGNMY3NRb0VxdUNQbzBMT3FjR1R1Y0lmN0t3TklXYy1mbHNPV0FHbVdWQzV1OTZ2T2RLeDZ2bVZnelJvb25VQjNoNkZNWEFNM1RlYlN0VHRwbg?oc=5",
+        "published_at": "2026-04-29T08:31:17+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 26,
+        "title": "코스피, 사흘 연속 최고치 경신…‘칠천피 도약’ 가시화 - 쿠키뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE11R3pzWW5GenhWbEZEWlJsSldQcURZU2Vjb3VCMmtuQk1uTEt2aHhZcy1IQ28xN05TQ2h6dVhHUEJqdVlNbkVYQnJLa1ZwaFVibUFuWmdBZkVzWG9HTGJjM1BzUQ?oc=5\" target=\"_blank\">코스피, 사흘 연속 최고치 경신…‘칠천피 도약’ 가시화</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">쿠키뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE11R3pzWW5GenhWbEZEWlJsSldQcURZU2Vjb3VCMmtuQk1uTEt2aHhZcy1IQ28xN05TQ2h6dVhHUEJqdVlNbkVYQnJLa1ZwaFVibUFuWmdBZkVzWG9HTGJjM1BzUQ?oc=5",
+        "published_at": "2026-04-29T08:29:06+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 27,
+        "title": "코스피 6,690.90 코스닥 1,220.26 - KBS 뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiW0FVX3lxTFA0M0hzeWs3bDA0NVZFUEJLeXd0NUdrVmtqTDlNXzdWTHNtSVlkX3o5UTdIamM2R3NQTkZqbGtqVjlIQnc3M0NYNHFFZzk4Z0ozNEp2NnJDUVF0Mnc?oc=5\" target=\"_blank\">코스피 6,690.90 코스닥 1,220.26</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">KBS 뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFA0M0hzeWs3bDA0NVZFUEJLeXd0NUdrVmtqTDlNXzdWTHNtSVlkX3o5UTdIamM2R3NQTkZqbGtqVjlIQnc3M0NYNHFFZzk4Z0ozNEp2NnJDUVF0Mnc?oc=5",
+        "published_at": "2026-04-29T08:25:00+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 28,
+        "title": "코스피, 6690선 돌파… 종가 기준 사상 최고치 경신 - 인더스트리뉴스",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMickFVX3lxTE12eVJFc21jdGZMY29zQ2hDbzNFS3RaQklaQ0lob1BUV3VfSnMyU2laNlllLUc0UF9CVTl4Q0FVdTdtcDFSaGZvMWF5NlNnZVUwMGVUSFBZcVZzc28wXzVGOE5HYzZzOV9TQWd4Y3hseXVudw?oc=5\" target=\"_blank\">코스피, 6690선 돌파… 종가 기준 사상 최고치 경신</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">인더스트리뉴스</font>",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12eVJFc21jdGZMY29zQ2hDbzNFS3RaQklaQ0lob1BUV3VfSnMyU2laNlllLUc0UF9CVTl4Q0FVdTdtcDFSaGZvMWF5NlNnZVUwMGVUSFBZcVZzc28wXzVGOE5HYzZzOV9TQWd4Y3hseXVudw?oc=5",
+        "published_at": "2026-04-29T08:20:05+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 29,
+        "title": "코스피 사흘 연속 최고치 마감…오픈AI발 우려 불식 - 서울경제TV",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE04cEMzMXhxUWhid0RIZGU1OVhaQWZsX0F4b2FkeVA1LUp5UkVFbDZUTFdxU1daV3pha1RlelotOGVjZHJRY3VVSFlRVGNURHBsclpyX0wteVdVamRFdERlVU9KcVo?oc=5\" target=\"_blank\">코스피 사흘 연속 최고치 마감…오픈AI발 우려 불식</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">서울경제TV</font>",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE04cEMzMXhxUWhid0RIZGU1OVhaQWZsX0F4b2FkeVA1LUp5UkVFbDZUTFdxU1daV3pha1RlelotOGVjZHJRY3VVSFlRVGNURHBsclpyX0wteVdVamRFdERlVU9KcVo?oc=5",
+        "published_at": "2026-04-29T08:18:32+00:00"
+      },
+      {
+        "batch": "kr_news",
+        "idx": 30,
+        "title": "국내 증시 '빚투' 경고등…신용거래융자 급증 속 증권사 대출 중단 조치 - 공감신문",
+        "body": "<a href=\"https://news.google.com/rss/articles/CBMiaEFVX3lxTE9OTF8xX3NfN0dVTXdVRU9idC1raFdCakV6QjR0SVBlUU1GTE5haWJkajlYRDhJd0wzei1tMS1yUS1femNacEVrUElDTWhkRjEzMGdHSDJjOUhmblQ3NU9VR1FuYW5JMklh?oc=5\" target=\"_blank\">국내 증시 '빚투' 경고등…신용거래융자 급증 속 증권사 대출 중단 조치</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">공감신문</font>",
+        "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9OTF8xX3NfN0dVTXdVRU9idC1raFdCakV6QjR0SVBlUU1GTE5haWJkajlYRDhJd0wzei1tMS1yUS1femNacEVrUElDTWhkRjEzMGdHSDJjOUhmblQ3NU9VR1FuYW5JMklh?oc=5",
+        "published_at": "2026-04-29T08:13:47+00:00"
+      }
+    ],
+    "community": [
+      {
+        "batch": "kr_community",
+        "idx": 1,
+        "title": "e심 사용 스마트폰 5%…시장 외면에 정부 대책 고심",
+        "body": "스마트폰 'e심(기기 내장형 유심)'이 도입된 지 4년 가까이 됐지만 전체 점유율은 5% 수준에 머무르는 것으로 확인됐다. 하드웨어(HW) 형태인 유심과 달리 소프트웨어(SW) 방식으로 가입자를 식별하는 e심은 비용 절감과 편의성, 보안 등에서 우수하다는 평가를 얻고 있지만 시장에서 외면당하고 있다. 정부는 저조한 e심 활용을 확대하기 위한 정책 수립에 착수했다. 28일 정부기관과 통신업계에 따르면 지난 1월 기준 전체 휴대폰 회선 수 5740만6124개 중 약 290만개 회선이 e심을 사용하는 것으로 나타났다. 2022년 9월 통신 3사의 e심 도입 이후 사용 현황이 드러난 건 처음이다. 통신사는 영업 비밀을 이유로 e심 현황을 공표한 적이 없다. 본지는 관계 기관으로부터 e심 사용 규모를 확인됐다. e심 점유율은 지난해 초까지만 해도 3% 내외였다. SK텔레콤발 해킹 사건을 시작으로 통신 3사 모두 유심 무상교체에 나서면서 e심을 찾는 이용자도 늘어나 점유율이 5%대로 확대됐다. 하지만, 대중화가 됐다고 보긴 어려운 수준이다.",
+        "url": "https://www.clien.net/service/board/news/19184316?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T20:56:44+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 2,
+        "title": "2025년 하반기 AR 스마트글래스 시장 148% 성장…차세대 기술 ‘웨이브가이드’ 600% 급증",
+        "body": "2025년 하반기 AR 스마트글래스 시장 148% 성장…차세대 기술 ‘웨이브가이드’ 600% 급증 - 카운터포인트 A 2025년 글로벌 AR 스마트 글래스 출하량, 전년 동기 대비 98% 성장하며 사상 최고치 기록 2025년 하반기(H2), 로키드 글라시즈(Rokid Glasses) 양산 확대, 메타 레이벤 디스플레이(Meta Ray-Ban Display0 출시, 신규 제품 출시 영향으로 전년 동기 대비 148% 성장 영상 중심 AR 스마트 글래스, 2025년 하반기 전년 동기 대비 80% 이상 성장, 레이네오(RayNeo)·X리얼(XREAL)·비처(VITURE) 3사 점유율 96% 차지 웨이브가이드(Waveguide) 기반 AR 스마트 글래스, 전년 동기 대비 600% 이상 급성장, 로키드(Rokid)·메타(Meta)·이븐 리얼리티스(Even Realities)·인모(INMO)·알리바바(Alibaba)·메이주(Meizu) 경쟁 구도 형성 글로벌 AR 스마트 글래스 시장, 향후 성장 지속 전망…다만 메모리 가격 상승 및 지정학적 리스크는 변수",
+        "url": "https://www.clien.net/service/board/news/19184305?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T20:09:08+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 3,
+        "title": "[단독]애플페이 '기후동행카드' 탑재 추진",
+        "body": "[단독]애플페이 '기후동행카드' 탑재 추진 | 전자신문 서울시와 티머니가 애플페이 내 '기후동행카드' 도입을 추진한다. 현재 애플과 협의 중으로, 도입이 현실화하면 애플 생태계에서도 모든 수도권 교통 결제 체계 이용이 가능해진다. 29일 금융업계와 서울시에 따르면 서울시가 최근 서울시장 명의로 애플에 기후동행카드 서비스 개발 협조를 요청하는 공문을 보냈으며 실무진 차원 협의를 이어가는 것으로 확인됐다. 티머니 역시 애플과 별도 협의를 병행하고 있으며, 올해 하반기 출시를 목표로 추진 중이다.",
+        "url": "https://www.clien.net/service/board/news/19184297?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T19:44:55+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 4,
+        "title": "[단독] ‘부품 고장’ 정찰위성 2기, 알고 보니 ‘무보험’…뒤늦게 가입하려니",
+        "body": "[단독] ‘부품 고장’ 정찰위성 2기, 알고 보니 ‘무보험’…뒤늦게 가입하려니 | KBS 한국은 2023년 12월 최초의 군사정찰위성 1호기를 발사한 이래, 지난해 11월 5호기까지 우주로 올려보냈다. 이른바 '425사업'으로 불리는 군 정찰위성 5기 획득을 위해 군은 총 1조 3,404억 원을 투입했다. 그런데, 발사한 지 얼마 안 돼 정찰위성 3호기와 4호기의 '자세구동기'(CMG, Control Moment Gyroscope)가 고장 났다. 문제는 대당 1,010억 원이 넘는 이 위성들이 '무보험' 상태라는 것이다. ■ 군 당국 \"고장 났어도 운용은 이상 무\"…보험 가입 검토는 왜? (본문 생략) ■ \"고장 시 업체에 보상 청구 가능\"...문제는 '액수' 정찰위성 3호기는 2024년 12월에 발사했다. 그리고 지난해 11월 고장 났다. 4호기는 더하다. 지난해 4월 발사했는데, 지난해 10월 고장 났다. 전력화도 되기 전에 고장부터 발생했다. 임무 수행 기간이 최소 5년인데, 두 위성 모두 자세구동기가 1개씩만 더 고장 나면 정상 작동이 불가능하다. 지구 궤도를 도는 '1,010억 원짜리 깡통'이 되는 것이다. 자세구동기 고장 문제가 수면 위로 드러났을 때 방사청의 첫 해명은 \" 위성이 제 역할을 하지 못하게 될 경우 업체에 보상을 청구할 수 있다\"였다. 계약서상 \"수리가 불가능한 하자가 있는 경우 위성체 가액의 최대 5% 한도 내에서 보상금 청구가 가능하다\"고 돼 있다. 위성이 불능 상태가 되면 방사청이 이 조건에 따라 KAI로부터 받을 수 있는 금액은 최대치가 50억 원이다.",
+        "url": "https://www.clien.net/service/board/news/19184292?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T19:42:50+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 5,
+        "title": "[단독] 삼성파운드리 4나노 수율, 마의 80% 고지 돌파",
+        "body": "[단독] 삼성파운드리 4나노 수율, 마의 80% 고지 돌파 | 서울경제 기술적 안정화로 4나노 ‘성숙 공정’ 도달 수율 80% 돌파하며 TSMC와 본격 경쟁 엔비디아·IBM·바이두 등 해외 수주 ‘잭팟’ 4나노 성숙화, 메모리 사업부와 시너지도",
+        "url": "https://www.clien.net/service/board/news/19184290?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T19:38:06+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 6,
+        "title": "드론 잡는 장갑차 K21, ‘복합기능탄’으로 ‘즉각 격추’",
+        "body": "드론 잡는 장갑차 K21, ‘복합기능탄’으로 ‘즉각 격추’ 실험 목표는 K21 장갑차가 40mm 복합기능탄을 활용해 드론을 격추할 수 있는지 확인하는 것이었습니다. 근접신관과 시한신관이 세팅된 복합기능탄은 표적 바로 옆에서 자폭하며 하늘에 검은 연기를 수놓았습니다. 그 결과 K21 장갑차가 복합기능탄을 사용할 경우 드론을 더 빠르고 확실히 잡아낼 수 있다는 점이 검증됐습니다. 훈련에 사용된 드론은 유명한 샤헤드 드론보다 더 빠르게 비행함에도 단 한발로 격추에 성공했습니다.",
+        "url": "https://www.clien.net/service/board/news/19184281?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T19:13:16+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 7,
+        "title": "군수지원함 2차 사업 착공... ’28년 인도 목표, 승조원 거주 여건ㆍ안전성 대폭 개선",
+        "body": "군수지원함 2차 사업 착공... ’28년 인도 목표, 승조원 거주 여건ㆍ안전성 대폭 개선 - 소양함 후속함 건조 본격화 - - 함 내 소음 저감 설계 적용, 비상상황 자동 탐지 후 함 내 경보 발생 - 방위사업청(청장 이용철)은 29일 한화오션(주) 경남 거제사업장에서 군수지원함(AOE*-Ⅱ) 2차 착공식(S/C**)을 개최했습니다. * AOE(Auxiliary Oil, Ammunition and Equipment) : 유류, 청수, 탄약, 식량 등을 보급하는 함정 ** S/C(Steel Cutting) : 선체에 사용될 강철판을 절단하여 건조의 첫 시작을 기념하는 행사 군수지원함 2차 사업은 2024년부터 총 5,315억 원을 투입하여, 2018년 전력화된 소양함의 후속함을 건조하는 사업으로, 이날 착공식 이후 본격적인 함정 건조에 착수합니다. 착공식에는 방위사업청, 해군, 국방기술품질원, 한화오션 및 협력업체 관계자들이 참석하여, 향후 건조부터 진수, 시운전을 거쳐 해군에 인도되기까지 긴밀히 협력해 나갈 것을 다짐했습니다. 군수지원함 2차 사업은 기존 함정 대비 승조원의 거주 여건과 안전성이 크게 향상될 예정입니다. 함 내 소음 저감 설계를 적용해 보다 쾌적한 환경을 조성하며, 지능형 폐쇄회로 텔레비전(CCTV)을 탑재해 화재·추락 등 비상 상황을 자동으로 탐지하고 통합기관제어체계(ECS*)와 연동하여 함 내 경보를 발생시키는 등 안전성을 강화했습니다. * 통합기관제어체계(ECS, Engineering Control System) : 추진체계, 전력, 보조기기 등을 하나의 네트워크로 통합 제어하는 시스템 아울러, 국내에서 연구개발 중인 근접방어무기체계(CIWS-Ⅱ) 탑재를 고려하여 설계하였으며, 통합기관제어체계는 함정 건조와 병행해 국내기술로 최초 국산화해 적용할 예정입니다. 방위사업청 함정사업부장(해군준장 최상덕)은 “군수지원함은 해상 작전의 성패를 좌우하는 핵심 전력”이라며, “우수한 성능의 함정이 적기에 전력화될 수 있도록 최선을 다하겠다”고 밝혔습니",
+        "url": "https://www.clien.net/service/board/news/19184278?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T19:00:07+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 8,
+        "title": "해군 최신예 3600톤급 호위함 「제주함(FFG-832)」 진수",
+        "body": "해군 최신예 3600톤급 호위함 「제주함(FFG-832)」 진수 - 4월 29일 경남 고성 SK오션플랜트에서 울산급 Batch-Ⅲ 4번함「제주함」진수식 거행 - 국내개발 최첨단 복합센서마스트 탑재 * 국내개발 4면 고정형 다기능 위상배열레이더(MFR), 적외선 탐지추적장비 장착 - 강화된 대공·대잠능력 기반 해역함대 주력 전투함으로 활약 기대 해군과 방위사업청은 4월 29일 오후 경남 고성 SK오션플랜트에서 울산급 Batch-Ⅲ 4번함인 제주함 진수식을 거행한다. 제주함은 해군에서 운용중인 구형 호위함(FF: Frigate)과 초계함(PCC: Patrol Combat Corvette)을 대체하는 울산급 Batch-Ⅲ의 네 번째 함정(1번함: 충남함, 2번함: 경북함, 3번함: 전남함)이다. * 제주함 선체번호: FFG-832, 영문명: ROKS JEJU * Batch: 동일 함형의 진화적 성능 향상 단계 해군은 특별·광역시와 도(道)의 지명을 호위함 함명으로 사용해온 함명 제정 기준을 바탕으로 울산급 Batch-Ⅲ 4번함의 함명을 제주함으로 제정했다. 국내에서 설계하고 건조 중인 제주함은 지난 2022년 10월 SK오션플랜트와 건조계약 체결 이후 2024년 착공식, 2025년 기공식을 거쳐 이날 진수식을 한다. * 착공식: 함정 건조의 첫 공정으로 선체에 쓰이는 철판을 절단하는 행사 * 기공식: 함정의 첫 번째 블록을 건조 선대에 거치하는 행사 이날 진수식에는 진영승 합참의장을 주빈으로 김경률 해군참모총장, 정재준 방사청 기반전력사업본부장, 강영규 SK오션플랜트 대표이사 등 해군과 방사청, 함정건조업체 관계자 150여 명이 참석한다. 행사는 국민의례, 사업경과 보고, 김경률 해군참모총장의 함명선포, 강영규 SK오션플랜트 대표이사의 기념사, 유공자표창, 진영승 합참의장의 축사, 진수 및 안전항해 기원 의식 순으로 진행된다. 함정 진수는 해군 관습에 따라 주빈인 진영승 합참의장의 부인 정애숙 여사가 함정에 연결된 진수줄을 절단한다. 이는 태어난 아기의 탯줄을 끊듯",
+        "url": "https://www.clien.net/service/board/news/19184277?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T18:59:22+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 9,
+        "title": "KAI-벨 텍스트론, 차세대 고속 중형기동헬기 개발 협력 맞손",
+        "body": "KAI-벨 텍스트론, 차세대 고속 중형기동헬기 개발 협력 맞손 | 뉴스1 틸트로터 기반 한국군 최적화 설루션 확보 위한 MOU 체결 양사는 미 육군의 차세대 장거리 공중 강습 항공기(FLRAA) 프로그램에 선정된 MV-75를 기반으로 속도와 항속거리, 기동성을 향상한 차세대 수직이착륙기 개발 비전을 공유하기로 했다. 해당 기종에는 최근 '샤이엔 II'라는 공식 명칭이 부여됐다. 또한 모듈식 개방형 시스템(MOSA)을 적용해 무기체계 개량의 유연성과 경제성을 높이고, 향후 사업 구체화 단계에 맞춰 산업 협력 기회도 모색할 계획이다. LINK Bell Signs Memorandum of Understanding with Korea Aerospace Industries (KAI) | Bell Newsroom 참고용 자료: Bell MV-75 Cheyenne - Future Long Range Assault Aircraft (FLRAA)",
+        "url": "https://www.clien.net/service/board/news/19184247?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T17:44:21+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 10,
+        "title": "‘오클리 메타’ 퍼포먼스 AI 글래스 출시 예고",
+        "body": "오클리 ‘PUSH AS YOU ARE’ 캠페인 공개 및 ‘오클리 메타’ 퍼포먼스 AI 글래스 출시 예고 ‘PUSH AS YOU ARE’, ‘한계까지 나답게’ 캠페인 공개와 함께 퍼포먼스 아이덴티티 강화 홍태준과 함께한 국내 첫 러닝 캠페인 이미지와 영상에서 ‘오클리 메타’ 공개로 혁신적인 경험 제시 ‘오클리 메타’ 5월 말 국내 출시 예정, 퍼포먼스 AI 글래스로의 카테고리 확장 5월부터 6월까지 2분기 내내 다채로운 프로그램을 통해 브랜드 경험을 다각도로 확장할 예정 오클리(OAKLEY)가 ‘AS YOU ARE’ 캠페인의 서브 캠페인 ‘PUSH AS YOU ARE’의 신규 화보 및 영상을 공개하고, 차세대 스마트 아이웨어 ‘오클리 메타(OAKLEY META)’의 국내 출시를 예고했다. 오클리와 홍태준이 함께한 ‘PUSH AS YOU ARE’ 캠페인(제공=오클리) 오클리는 지난 4월 6일 홍태준과 함께한 국내 첫 로컬 캠페인 ‘AS YOU ARE’를 통해 러닝과 라이프스타일을 아우르는 브랜드 메시지를 전달하며 큰 주목을 받은 바 있다. 이번에 공개된 ‘PUSH AS YOU ARE’는 해당 캠페인의 연장선상에 있는 서브 캠페인으로, ‘있는 그대로의 나’에서 나아가 ‘한계까지 나답게’라는 메시지를 보다 강도 있게 전달한다. 러너로서 홍태준의 라이프스타일과 퍼포먼스 모먼트를 오클리만의 감각으로 풀어내며 브랜드의 역동적인 아이덴티티를 강조한 것이 특징이다. 특히 이번 캠페인에는 퍼포먼스 AI 글래스 ‘오클리 메타 뱅가드(OAKLEY META VANGUARD)’가 함께 등장하며 눈길을 끈다. 해당 제품은 러닝과 같은 액티브한 환경 속에서 활용되는 장면을 통해 기능성과 혁신성을 직관적으로 드러내며, 오클리가 지향하는 차세대 스포츠 경험을 제시한다. 홍태준의 오클리 메타 AI 글래스 활용 장면은 캠페인 영상을 통해 보다 생생하게 확인할 수 있다. 오클리 뱅가드의 메타 버전은 오는 5월 말 국내 출시 예정이며, 오클리 라이프스타일 라인의 ‘HSTN’ 또한 메타 제품으로 함께",
+        "url": "https://www.clien.net/service/board/news/19184242?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T17:31:35+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 11,
+        "title": "한화 ‘항공 무장 국산화’ 핵심 기술 공개… 국내 기술로 자주국방 강화",
+        "body": "한화 ‘항공 무장 국산화’ 핵심 기술 공개… 국내 기술로 자주국방 강화 29일 ‘한화 테크 아카데미 2026’ 진행… 첨단 항공 무장·탄약 기술 소개 22년간 ‘덕티드 램제트 추진기관’ 기술 축적… 한국판 미티어 개발 도전 K9 명중률 높이는 ‘포탄 유도’ 기술 소개… 자주포도 정밀유도무기로 진화 첨단 방위 기술 국산화 통해 자주국방·K-방산 수출 확대에 기여할 것 한화에어로스페이스가 29일 중구 한화빌딩에서 ‘한화 테크 아카데미 2026’ 행사를 열고 항공 무장 국산화를 위한 핵심 기술 역량을 공개했다. 해외 의존도가 높은 항공 무장을 국방과학연구소(ADD)와 함께 국내 기술로 개발해 자주국방력을 강화하고 KF-21 등 국산 전투기의 수출 경쟁력도 확보해 K-방산 수출 증대에 기여한다는 전략이다. 22년 축적한 ‘덕티드 램제트 추진기관’ 핵심 기술로 ‘한국판 미티어’ 개발 이날 행사에서 한화에어로스페이스는 ‘덕티드 램제트 추진기관 (Ducted Ramjet Propulsion)’ 기술을 중심으로 항공 무장 개발 현황과 향후 계획을 공개했다. ‘덕티드 램제트 추진기관’은 비행 중 흡입한 공기로 고체연료를 태워 추진력을 얻는 미사일 추진기관이다. 별도의 산화제를 탑재할 필요가 없어 사정거리가 길고 급가속 및 고속 유지가 가능해 항공 무장의 핵심 기술로 꼽힌다. 유럽 방산기업 MBDA의 장거리 공대공 미사일 ‘미티어’에도 해당 기술이 탑재됐다. 한화에어로스페이스는 2005년부터 22년 동안 추진제, 가스발생기, 연소기 등 ADD 주관 덕티드 램제트 추진기관 관련 핵심 기술 연구를 성공적으로 수행해 왔다. 이 같은 기술과 경험을 바탕으로 항공 무장 기술의 정점에 있는 장거리 공대공, 초음속 공대함 미사일 등 정부 주도 덕티드 램제트 추진기관 기반 항공 무장 개발에 적극 참여할 계획이다. 항공 무장 국산화는 자주 국방력과 방산 수출 경쟁력을 동시에 강화할 수 있는 핵심 전략 과제로 평가된다. 유럽, 중동 지역 분쟁에서 통합 방공망의 중요성이 커짐에 따라 역으로 적의 ",
+        "url": "https://www.clien.net/service/board/news/19184240?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T17:24:50+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 12,
+        "title": "KGM, 최대 수출국 튀르키예서 무쏘 글로벌 론칭",
+        "body": "KGM, 최대 수출국 튀르키예서 무쏘 글로벌 론칭 KG 모빌리티(이하 KGM)가 최대 수출국인 튀르키예서 해외 딜러와 기자단을 초청해 무쏘 첫 글로벌 론칭 행사를 하고 수출 시장 공략에 나섰다. KGM이 최대 수출국인 튀르키예서 해외 딜러와 기자단을 초청해 무쏘 첫 글로벌 론칭 행사를 갖고 수출 시장 공략에 나섰다. KGM 곽재선 회장이 인사말을 하고 있다 지난 28일과 29일(현지시간) 튀르키예(Türkiye) 카파도키아(Cappadocia) 메리어트 호텔(Marriot Hotel)에서 진행된 행사에는 KGM 곽재선 회장과 곽정현 사장을 비롯해 튀르키예와 유럽, 중남미, 아시아, 중동 등 31개국 딜러 및 기자, 인플루언서 170여 명이 참석했다. 이번 행사는 무쏘 글로벌 론칭과 함께 주행 성능과 부드러운 승차감을 직접 체험할 수 있는 시승 행사로 준비됐으며, 이틀에 걸쳐 2개 조로 나뉘어 진행됐다. 시승 코스는 고속도로는 물론, 낙타 바위로 유명한 데브란트 계곡(Devrent Valley)과 세 개의 거대한 계곡으로 이루어진 젤베(Zelve) 등 무쏘의 강력한 주행 성능과 오프로드 성능도 함께 체험할 수 있도록 준비됐다. 특히 론칭 행사는 곽재선 회장이 튀르키예와 이탈리아 등 언론사와 인터뷰를 통해 KGM의 올해 브랜드 및 마케팅 전략과 지역별 수출 계획, 중장기 제품 운영 방향 그리고 신모델 등에 대해 직접 소통하는 자리가 됐다. KGM 곽재선 회장은 인사말을 통해 “무쏘는 지난 3월까지 국내 픽업 시장에서 50% 이상의 점유율을 기록하는 등 시장에서 호평받고 있어 수출 시장에서도 충분히 경쟁력이 있다”며 “론칭 행사에 31개국 글로벌 대리점사들이 참여하고 있는 만큼 시승 행사를 통해 무쏘의 매력을 체험할 수 있을 것”이라고 말했다. 이어 “튀르키예는 지난해 1만3337대를 수출한 KGM 최대 수출국으로 올해 3월 누계 수출 역시 6082대로 최대 실적을 기록하고 있어 올해 전망이 밝다”며 “이번 론칭을 시작으로 개별 국가별 무쏘 출시 확대는 물론, 차별",
+        "url": "https://www.clien.net/service/board/news/19184239?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T17:23:52+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 13,
+        "title": "LG전자 1분기 확정실적 발표 생활가전-전장 분기 매출 10兆 열었다",
+        "body": "LG전자 1분기 확정실적 발표 생활가전-전장 분기 매출 10兆 열었다 ■ 연결기준 매출액 23조 7,272억 원, 영업이익 1조 6,737억 원 □ 1분기 기준 최대 매출액 경신…수익성도 큰 폭 개선해 본업 경쟁력 증명 □ 생활가전(TV, 에어컨 제외 기준)과 전장 사업의 합산 분기 매출액은 첫 10조 돌파 □ B2B 매출 비중 36%, 구독사업 두 자릿수 성장 지속…수익성 기반의 질적 성장 견인 ■ 사업본부별 1분기 실적 및 2분기 사업방향 □ HS: 프리미엄·볼륨존 동시 공략과 구독 확대 주효…글로벌 사우스 공략으로 성장 지속 □ MS: 프리미엄 판매 호조, 고정비 축소 등으로 수익성 개선…플랫폼 사업 성장 가속 □ VS: 매출, 영업익 모두 최대…생활가전에 이어 안정적 캐시카우로 자리매김 전망 □ ES: 중동전쟁, 인건비 증가 등 영향…AIDC 냉각솔루션으로 미래성장 사업기회 확보 LG전자가 1분기 연결기준 매출액 23조 7,272억 원(YoY +4.3%), 영업이익 1조 6,737억 원(YoY +32.9%)의 확정실적을 발표했다. 역대 1분기 경영실적 가운데 매출액은 가장 높았고, 영업이익은 세 번째로 높은 수치를 기록했다. 경기 불확실성에도 생활가전, TV 등 주력사업이 프리미엄 리더십을 기반으로 호실적 달성에 기여했다. B2B 성장의 핵심 축인 전장 사업의 안정적인 성장세도 꾸준히 이어지고 있다. 특히 생활가전을 맡은 HS사업본부와 전장 사업을 담당하는 VS사업본부의 합산 분기 매출액은 첫 10조 원을 넘어섰다. 수익성 기반 질(質)적 성장을 견인하는 B2B, 플랫폼, D2X 사업 성장도 지속됐다. 1분기 B2B 매출액은 전분기 대비 19%, 전년 동기 대비 1% 늘어난 6조 5,000억 원이다. 전사 매출에서 B2B 사업군이 차지하는 매출 비중은 36%를 기록했다. 제품과 서비스 매출을 포함한 구독사업의 1분기 매출은 전분기 대비 8%, 전년 동기 대비 15% 늘어난 6,400억 원을 기록했다. ■ 사업본부별 1분기 실적 및 2분기 사업방향 □ H",
+        "url": "https://www.clien.net/service/board/news/19184235?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T17:13:17+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 14,
+        "title": "과기정통부, 국산 인공지능 반도체 상용화 현장 점검",
+        "body": "과기정통부, 국산 인공지능 반도체 상용화 현장 점검 - 과기정통부, SKT 인천 데이터센터(리벨리온), LG AI연구원(퓨리오사AI) 방문 과학기술정보통신부(부총리 겸 과기정통부 장관 배경훈, 이하 ‘과기정통부’)는 4월 29일(수) SKT 인천 데이터센터와 LG AI연구원을 방문하여 국산 인공지능(AI) 반도체가 실제 활용되고 있는 현황을 점검하고 기업의 의견을 청취하였다. 이번 현장방문은 국산 AI반도체의 본격 양산 시점을 계기로 AI반도체가 적용된 상용 서비스를 직접 살펴보고, 수요자 관점에서의 경험과 평가, 그리고 현장 실무자들의 애로사항을 수렴하기 위한 취지로 진행하게 되었다. 특히, 이번 현장 방문에서 활용하고 있는 AI반도체 기술은 정부의 연구개발(R&D) 사업의 지원을 받은 성과들이 상용화되어 실제 활용되고 있다는 측면에서도 그 의미가 있다. 먼저, SKT 인천 데이터센터에서는 리벨리온에서 개발한 AI반도체,‘아톰(ATOM™)’과‘아톰 맥스(ATOM-MAX™)’를 활용하여 SK텔레콤의 에이닷(A.) 전화 통화 요약, 엑스칼리버(반려동물 영상진단 보조 서비스) 등 상용 서비스를 제공하고 있다. 특히, 에이닷 전화 통화 요약은 하루 최대 5,000만 건의 API 호출을 처리하고 있는 만큼, 국산 AI반도체의 상업적 활용성을 증명한다고 볼 수 있다. 두 번째로 방문한 LG AI연구원은 최근 스탠퍼드大 인간 중심 인공지능 연구소(HAI)에서‘주목할 만 한 인공지능 모델’로 발표한 K-엑사원, 엑사원 4.0 등과 국산 AI반도체 기업인 퓨리오사AI의 레니게이드(RNGD) 등의 AI 반도체를 결합하고 있는 현장이다. 레니게이드는 국산 AI반도체 중 최초로 고대역폭 메모리(HBM)를 활용하여 양산된 제품으로, 국산 대형언어모델인 엑사원과 국산 AI 반도체를 통해 우리 기술로 실현한 AI풀스택 서비스를 구축하고 있다는 의미가 있다. 이도규 정보통신정책실장은“이번 현장방문을 통해 우리 손으로 만든 국산 AI반도체의 실제 활용 현장을 눈으로 직접 확인하고, 현장의",
+        "url": "https://www.clien.net/service/board/news/19184234?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T17:12:56+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 15,
+        "title": "삼성D, 두 번 접는 '트라이폴드'로 SID '올해의 디스플레이' 수상",
+        "body": "삼성D, 두 번 접는 '트라이폴드'로 SID '올해의 디스플레이' 수상 □ 삼성D 트라이폴드, 패널 두께 0.44mm로 기존 자사 폴더블 패널 중 가장 얇아 □ '얇을수록 내구성이 약하다'는 한계 넘어 50만회 폴딩 테스트 통과 □ 신규 점착제 개발 적용 및 최적의 스트레스 분산 설계가 핵심 □ 삼성D, \"세계 최초 '멀티 인폴딩' 제품 상용화로 폴더블 시장 확대 가능성 재확인\" 삼성디스플레이의 두 번 접는 트라이폴드(TriFold) 패널이 '올해의 디스플레이(Display of the Year)'상을 수상했다. '올해의 디스플레이'는 지난해에 출시된 제품 중 가장 혁신적인 디스플레이 제품에 수여하는 상으로, SID가 매년 수여하는 '디스플레이 산업상(DIA, Display Industry Awards)' 중 가장 권위 있는 상이다. SID는 28일 수상 소식을 전하며 \"트라이폴드는 모바일 AI시대를 위해 설계된 새로운 폼팩터로서, 강력한 성능과 놀라운 휴대성을 동시에 구현했다\"며 \"몰입감 넘치는 10인치 대화면은 생산성, 창의성, 엔터테인먼트의 새로운 가능성을 열었다\"고 호평했다. 특히 SID는 \"첨단 소재를 적용해 두께를 유지하면서 듀얼 폴딩 구조의 내구성을 강화했다\"고 평가했다. 시상식은 다음 달 3일 미국 캘리포니아주 로스앤젤레스에서 개막하는 세계 최대 규모의 디스플레이 전문 전시회 '디스플레이 위크(Display Week) 2026'에서 진행된다. 삼성디스플레이가 '25년 9월 본격 양산에 돌입한 트라이폴드 디스플레이는 전체 모듈 두께가 0.44mm로, 자사 폴더블 패널 중 가장 얇지만 \"얇을수록 약하다\"는 기존의 상식을 뛰어넘을 만큼 강력한 내구성을 지녔다. 이 제품은 회사의 최신 폴더블 OLED 기술인 'MONT Flex™'1)가 집약된 제품으로 내부 폴딩 테스트 결과, 패널을 50만 번(상온 상태) 접었다 펴도 화면에 문제가 없는 것으로 나타났다. 특히 폴더블 개발 과정의 난제로 꼽히는 패널 단면에 나타나는 미끄러짐(slip) 현상은, 내부 평가",
+        "url": "https://www.clien.net/service/board/news/19184231?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T16:55:24+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 16,
+        "title": "LG디스플레이 게이밍 OLED 패널, 美 SID ‘올해의 디스플레이’ 수상",
+        "body": "",
+        "url": "https://www.clien.net/service/board/news/19184230?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T16:54:21+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 17,
+        "title": "완벽한 TV에 한 걸음 더: 알레디아, 단일 피스로 RGB 마이크로 LED 서브픽셀 구현 성공",
+        "body": "",
+        "url": "https://www.clien.net/service/board/news/19184208?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T16:07:17+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 18,
+        "title": "애플, 앱 스토어에 연간 구독 옵션 도입",
+        "body": "",
+        "url": "https://www.clien.net/service/board/news/19184198?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T15:45:37+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 19,
+        "title": "닛케이 “삼성전자, 중국 TV·가전 사업 철수 검토”",
+        "body": "",
+        "url": "https://www.clien.net/service/board/news/19183943?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T05:46:39+09:00"
+      },
+      {
+        "batch": "kr_community",
+        "idx": 20,
+        "title": "한국 증시, 영국 제치고 글로벌 시총 8위…AI 반도체가 판도 바꿨다",
+        "body": "",
+        "url": "https://www.clien.net/service/board/news/19183925?od=T31&po=0&category=0&groupCd=",
+        "published_at": "2026-04-29T00:41:09+09:00"
+      }
+    ]
+  },
+  "youtube": {
+    "videos": [
+      {
+        "video_id": "OVdHTETN1SM",
+        "title": "삼성전자, 지금 담아도 될까? “아직 싸다”는 말이 나오는 이유ㅣ명민준, 강아랑, 이권희 [주린이 구조대]",
+        "description": "3PRO 두근두근 오늘의 핫딜! 단톤 포켓 반팔티 최초, 5만원대! https://web.rethinkmall.com/link/18842 웰핀 무선 벌레퇴치 ...",
+        "channel_name": "삼프로TV",
+        "published_at": "2026-04-29T12:30:38+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=OVdHTETN1SM"
+      },
+      {
+        "video_id": "gmgAJrQ0RwI",
+        "title": "[생방송]  마이크로소프트, 메타, 구글, 아마존 -  실적발표｜ 미국, 기준금리 결정 ｜ FOMC 기자회견｜  - 오선의 미국 증시 라이브",
+        "description": "오선이 만든 투자 웹/앱 'SAVE' 출시!! 100% 무료?!? 이제 투자의 모든 소식, 이제 한곳 에서!! - 빠른 투자 속보와 맞춤 알림, 경제지표 ...",
+        "channel_name": "오선의 미국 증시 라이브",
+        "published_at": "2026-04-29T11:59:02+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=gmgAJrQ0RwI"
+      },
+      {
+        "video_id": "V2RE_-gCFCE",
+        "title": "한국경제신문 30분 만에 읽기 | 20260430🌞#모닝루틴",
+        "description": "한국경제신문 공식 아침브리핑 [임현우의 모닝루틴]은 평일 오전 8시 생방송으로 찾아갑니다. 기사를 자세히 읽고 싶다면 모닝루틴 ...",
+        "channel_name": "한경 코리아마켓",
+        "published_at": "2026-04-29T11:53:18+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=V2RE_-gCFCE"
+      },
+      {
+        "video_id": "1zR_YPWeP14",
+        "title": "다시 떠오르는 한일 경제공동체 담론",
+        "description": "0:00 IMF 세계 경제 전망 발표 6:02 최태원 회장, '한일 경제 공동체' 필요성 발표 20:36 한국,일본,대만 3국 동북아 클러스터로 가자!",
+        "channel_name": "슈카월드",
+        "published_at": "2026-04-29T11:22:53+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=1zR_YPWeP14"
+      },
+      {
+        "video_id": "Xn30y40xItk",
+        "title": "[이슈체크] 허사비스 구글 딥마인드 CEO, 현대차 정의선과 회동…AI 미래 대담",
+        "description": "[이슈체크] 새 얼굴로 돌아온 현대차 '더 뉴 그랜저'…플레오스 커넥트 첫 적용 - 이재일 | 유진투자증권 연구위원 ◇ 경제현장 오늘 (월~ ...",
+        "channel_name": "SBS Biz 뉴스",
+        "published_at": "2026-04-29T11:09:38+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=Xn30y40xItk"
+      },
+      {
+        "video_id": "_O1gXR3eRL8",
+        "title": "&#39;뉴페이스&#39;가 왔다! 소외된 개미들에게 드디어 찾아온 기회?ㅣ차영주 와이즈경제연구소 소장 [집중 오늘의 주식]",
+        "description": "3PRO 두근두근 오늘의 핫딜! 슬룸 목마사지 베개 최초, 9만원대! https://web.rethinkmall.com/link/18822 워커힐 장어 4팩 ...",
+        "channel_name": "삼프로TV",
+        "published_at": "2026-04-29T10:40:19+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=_O1gXR3eRL8"
+      },
+      {
+        "video_id": "M-YEPEinau8",
+        "title": "[에디터 PICK] &quot;독일 전차 제치고 세계 휩쓰는 K2 흑표, 현대로템 역대급 실적 공개!&quot; / 머니투데이방송",
+        "description": "[에디터 PICK] \"독일 전차 제치고 세계 휩쓰는 K2 흑표, 현대로템 역대급 실적 공개!\" [에디터 한줄평] 전문가들은 현대로템이 가진 ...",
+        "channel_name": "MTN 머니투데이방송",
+        "published_at": "2026-04-29T10:19:24+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=M-YEPEinau8"
+      },
+      {
+        "video_id": "Z6eev5E7enc",
+        "title": "[급등수사본부] 복합신뢰성 환경 시험장비 전문기업 &#39;이노테크&#39; vs 원전에 필수인 단조산업 전문기업 &#39;태웅&#39; / 머니투데이방송 (증시, 증권)",
+        "description": "04/29 급등수사본부 ▷ YouTube '급등수사본부' https://www.youtube.com/playlist?list=PL8rfTMCjz_i2gnrBvlNzPWWygzbfUGMwV ...",
+        "channel_name": "MTN 머니투데이방송",
+        "published_at": "2026-04-29T10:11:31+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=Z6eev5E7enc"
+      },
+      {
+        "video_id": "wKn8j-0Ju5s",
+        "title": "”SK하이닉스 추격매수 멈춰“ 처음 나온 비관 리포트...더 사? 말어? [경제현장 오늘]",
+        "description": "[집중진단] SK하이닉스, 200만원 간댔는데 \"사지 말라\"는 증권사…왜? - 이주완 | 인더스트리 애널리스트 - 손인준 | 유진투자증권 ...",
+        "channel_name": "SBS Biz 뉴스",
+        "published_at": "2026-04-29T10:10:02+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=wKn8j-0Ju5s"
+      },
+      {
+        "video_id": "Mm6AVp-9Zwo",
+        "title": "&quot;원유에 익사 당한다&quot; 이란 &#39;수출 봉쇄&#39; 당황 / 여의도튜브",
+        "description": "지금 이란의 원유 저장 탱크가 터지기 일보 직전입니다. 아나운서: 김나윤 영상콘텐츠: 박한울 기사콘텐츠: 선소연 기획: 강인형 총괄: ...",
+        "channel_name": "MTN 머니투데이방송",
+        "published_at": "2026-04-29T10:00:00+00:00",
+        "transcript": "",
+        "url": "https://www.youtube.com/watch?v=Mm6AVp-9Zwo"
+      }
+    ]
+  }
+}
