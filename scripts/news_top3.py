@@ -205,10 +205,12 @@ def main() -> int:
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
     )
 
-    # 로컬 .env 로드 (GitHub Actions에서는 secrets로 주입)
+    # 로컬 .env 로드 (GitHub Actions에서는 secrets로 주입).
+    # 루트 .env 우선, daemon/.env 보조 (둘 다 존재할 경우 루트가 이미 set한 키는 유지).
     try:
         from dotenv import load_dotenv
-        load_dotenv(ROOT / "daemon" / ".env")  # YOUTUBE_API_KEY + GOOGLE_API_KEY_*
+        load_dotenv(ROOT / ".env")
+        load_dotenv(ROOT / "daemon" / ".env")
     except ImportError:
         pass
 
