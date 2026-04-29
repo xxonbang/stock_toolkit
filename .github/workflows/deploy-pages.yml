@@ -13,7 +13,13 @@ on:
           - data-only
   push:
     branches: [main]
-    paths: ['frontend/**']
+    paths:
+      - 'frontend/**'
+      - 'results/news_top3_latest.json'
+  workflow_run:
+    workflows: ["News TOP3 (Stock Insight)"]
+    types: [completed]
+    branches: [main]
 
 jobs:
   build-and-deploy:
@@ -50,7 +56,7 @@ jobs:
         run: |
           mkdir -p results
           BASE="https://xxonbang.github.io/stock_toolkit/data"
-          for f in briefing.json; do
+          for f in briefing.json news_top3_latest.json; do
             curl -sf "$BASE/$f" -o "results/$f" || echo "기존 $f 없음"
           done
       - name: Run all phases
