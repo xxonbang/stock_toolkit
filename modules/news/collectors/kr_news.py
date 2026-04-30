@@ -26,13 +26,22 @@ logger = logging.getLogger(__name__)
 
 KST = timezone(timedelta(hours=9))
 
-# 한국 비즈니스/시장 뉴스 RSS (2026-04-30: 5개 매체 통합)
+# 한국 비즈니스/시장 뉴스 RSS (2026-04-30 검증: 11개 매체 통합)
+# 작동 안 하는 한경 구 RSS / 이데일리 / 머니투데이 등은 제외, 매경/연합 다중 카테고리 추가.
 KR_RSS_SOURCES = [
     ("GoogleNews_BUSINESS_KR", "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko"),
-    ("Hankyung_Economy",       "https://rss.hankyung.com/feed/economy.xml"),
-    ("Hankyung_Stock",         "https://rss.hankyung.com/feed/finance.xml"),
+    ("Hankyung_All",           "https://www.hankyung.com/feed"),  # 신 URL
+    # 매일경제 (5개 카테고리, 50건씩)
+    ("Maeil_Economy",          "https://www.mk.co.kr/rss/30000001/"),
+    ("Maeil_Enterprise",       "https://www.mk.co.kr/rss/40300001/"),
+    ("Maeil_Finance",          "https://www.mk.co.kr/rss/50300009/"),
+    ("Maeil_GlobalEconomy",    "https://www.mk.co.kr/rss/30100041/"),
     ("Maeil_Stock",            "https://www.mk.co.kr/rss/30000023/"),
-    ("Edaily_Stock",           "https://www.edaily.co.kr/rss/edaily_stocks.xml"),
+    # 연합뉴스 (4개 카테고리, 120건씩 — 가장 다양한 시그널)
+    ("Yonhap_TopNews",         "https://www.yna.co.kr/rss/news.xml"),
+    ("Yonhap_Economy",         "https://www.yna.co.kr/rss/economy.xml"),
+    ("Yonhap_Industry",        "https://www.yna.co.kr/rss/industry.xml"),
+    ("Yonhap_Market",          "https://www.yna.co.kr/rss/market.xml"),
 ]
 # 네이버 금융 메인뉴스 (HTML 크롤링, 공식 RSS 없음 — 별도 처리)
 NAVER_FINANCE_MAIN = "https://finance.naver.com/news/mainnews.naver"

@@ -18,6 +18,7 @@ type Top3Entry = {
   us_news_refs?: number[];
   kr_news_refs?: number[];
   related_news?: RelatedNews[];
+  _weak_signal?: boolean;
 };
 
 type RawItem = {
@@ -158,11 +159,16 @@ function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "
   return (
     <div className="rounded-xl p-4 space-y-2" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <span className={`text-[10px] px-1.5 py-0.5 rounded ${kind === "sector" ? "bg-blue-500/10 text-blue-400" : "bg-emerald-500/10 text-emerald-400"}`}>
             {kind === "sector" ? "섹터" : "종목"}
           </span>
           <h4 className="text-[15px] font-bold t-text">{entry.name}</h4>
+          {entry._weak_signal && (
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-500" title="임계값 미달이지만 참고용으로 노출됩니다">
+              약한 시그널
+            </span>
+          )}
         </div>
         {f > 0 && <span className="text-[11px] t-text-dim">언급 {f}건</span>}
       </div>

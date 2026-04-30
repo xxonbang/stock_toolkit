@@ -84,26 +84,84 @@ def _list_recent_videos_from_channel(youtube, channel_id: str, since: datetime, 
         return []
 
 
-def _fetch_transcript(video_id: str) -> str:
-    """영상 자막 추출. 한국어 우선, 영어 fallback. 실패 시 빈 문자열."""
+def _fetch_transcript_via_api(video_id: str) -> str:
+    """기존 youtube-transcript-api 경로 — 로컬에서는 작동, GitHub Actions runner IP는 차단됨."""
     try:
         api = YouTubeTranscriptApi()
-        # ko 우선, en fallback (자동 생성 포함)
         fetched = api.fetch(video_id, languages=["ko", "en"])
-        # fetched는 FetchedTranscript 객체. iteration으로 segment 접근
         text_parts = []
         for seg in fetched:
-            # seg는 FetchedTranscriptSnippet (text, start, duration 속성)
             t = getattr(seg, "text", None) or (seg.get("text") if isinstance(seg, dict) else None)
             if t:
                 text_parts.append(t)
-        text = " ".join(text_parts)
-        return text[:5000]  # 5000자 제한 (LLM 토큰 절약)
+        return " ".join(text_parts)[:5000]
     except (TranscriptsDisabled, NoTranscriptFound):
         return ""
     except Exception as e:
-        logger.debug(f"transcript fetch 실패 ({video_id}): {e}")
+        logger.debug(f"transcript-api fetch 실패 ({video_id}): {e}")
         return ""
+
+
+def _fetch_transcript_via_ytdlp(video_id: str) -> str:
+    """yt-dlp로 자동/수동 자막 다운로드. GitHub Actions에서도 작동."""
+    import subprocess, tempfile, json as _json, glob, os as _os
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            url = f"https://www.youtube.com/watch?v={video_id}"
+            # --skip-download: 영상 미다운, --write-auto-sub: 자동자막,
+            # --sub-lang ko,en: 한/영, --convert-subs json3: JSON으로 변환 (텍스트 추출 쉬움)
+            cmd = [
+                "yt-dlp", url,
+                "--skip-download",
+                "--write-auto-sub", "--write-sub",
+                "--sub-lang", "ko,en",
+                "--sub-format", "json3/best",
+                "--convert-subs", "json3",
+                "-o", _os.path.join(tmpdir, "%(id)s"),
+                "--quiet", "--no-warnings",
+            ]
+            subprocess.run(cmd, capture_output=True, timeout=60, check=False)
+            # 한국어 우선
+            for lang in ("ko", "en"):
+                pattern = _os.path.join(tmpdir, f"{video_id}.{lang}.json3")
+                files = glob.glob(pattern)
+                if not files:
+                    continue
+                try:
+                    data = _json.loads(_os.path.exists(files[0]) and open(files[0], encoding="utf-8").read() or "{}")
+                except Exception:
+                    continue
+                # json3 형식: {"events": [{"segs": [{"utf8":"text"}, ...], ...}]}
+                parts = []
+                for ev in data.get("events", []):
+                    for seg in ev.get("segs", []) or []:
+                        t = seg.get("utf8", "")
+                        if t and t.strip():
+                            parts.append(t.strip())
+                text = " ".join(parts)
+                if text.strip():
+                    return text[:5000]
+            return ""
+    except subprocess.TimeoutExpired:
+        logger.debug(f"yt-dlp 타임아웃 ({video_id})")
+        return ""
+    except FileNotFoundError:
+        logger.warning("yt-dlp 미설치 — pip install yt-dlp 필요")
+        return ""
+    except Exception as e:
+        logger.debug(f"yt-dlp fetch 실패 ({video_id}): {e}")
+        return ""
+
+
+def _fetch_transcript(video_id: str) -> str:
+    """자막 추출 (2-tier fallback).
+    1순위: youtube-transcript-api (로컬 빠름, GitHub IP 차단)
+    2순위: yt-dlp (느리나 GitHub Actions에서도 작동)
+    """
+    text = _fetch_transcript_via_api(video_id)
+    if text:
+        return text
+    return _fetch_transcript_via_ytdlp(video_id)
 
 
 def _item_to_video(item: dict, channel_name_override: Optional[str] = None) -> Optional[YoutubeVideo]:

@@ -210,10 +210,15 @@ def _filter_indices_from_top3(top3: Dict) -> Dict:
     return top3
 
 
-# 50건 단일 뉴스 배치 기준 — 자정대 등 데이터 다양성 적은 시간대 대응 위해 완화
-# (50건의 10% / 16%, 1~2건짜리 단일 언급은 여전히 노이즈로 제외)
-MIN_STOCK_FREQ_TOTAL = 5
-MIN_SECTOR_FREQ_TOTAL = 8
+# 영역별 임계값 — 한국은 매체 다양성으로 시그널 분산되어 더 낮게 설정 (2026-04-30)
+# 미국 50건의 10%/16%, 한국 다중매체 50건의 8%/12%
+MIN_STOCK_FREQ_US = 5
+MIN_SECTOR_FREQ_US = 8
+MIN_STOCK_FREQ_KR = 4
+MIN_SECTOR_FREQ_KR = 6
+# 임계값 미달이어도 노이즈가 아닌 최소선 — UI에 "약한 시그널" 라벨로 노출
+MIN_VISIBLE_FREQ_STOCK = 2
+MIN_VISIBLE_FREQ_SECTOR = 3
 
 
 def _entry_total_freq(entry: Dict, region: str) -> int:
@@ -223,21 +228,36 @@ def _entry_total_freq(entry: Dict, region: str) -> int:
 
 
 def _enforce_min_freq_top3(top3: Dict) -> Dict:
-    for region in ("us", "kr"):
-        key = f"{region}_top3_stocks"
-        entries = top3.get(key, [])
-        filtered = [e for e in entries if _entry_total_freq(e, region) >= MIN_STOCK_FREQ_TOTAL]
-        removed = len(entries) - len(filtered)
-        if removed:
-            logger.info(f"  필터: {key} 저빈도 {removed}건 제거 (min={MIN_STOCK_FREQ_TOTAL})")
-        top3[key] = filtered
-        key = f"{region}_top3_sectors"
-        entries = top3.get(key, [])
-        filtered = [e for e in entries if _entry_total_freq(e, region) >= MIN_SECTOR_FREQ_TOTAL]
-        removed = len(entries) - len(filtered)
-        if removed:
-            logger.info(f"  필터: {key} 저빈도 {removed}건 제거 (min={MIN_SECTOR_FREQ_TOTAL})")
-        top3[key] = filtered
+    """임계값 미달 entry는 _weak_signal=True 마킹하여 보존 (UI에서 약한 시그널 라벨).
+    완전 잡음(VISIBLE 미만)만 제외.
+    """
+    region_thresh = {
+        "us": (MIN_STOCK_FREQ_US, MIN_SECTOR_FREQ_US),
+        "kr": (MIN_STOCK_FREQ_KR, MIN_SECTOR_FREQ_KR),
+    }
+    for region, (min_stock, min_sector) in region_thresh.items():
+        for kind, min_strong, min_visible in [
+            ("stocks",  min_stock,  MIN_VISIBLE_FREQ_STOCK),
+            ("sectors", min_sector, MIN_VISIBLE_FREQ_SECTOR),
+        ]:
+            key = f"{region}_top3_{kind}"
+            entries = top3.get(key, [])
+            kept, weak, dropped = [], 0, 0
+            for e in entries:
+                f = _entry_total_freq(e, region)
+                if f >= min_strong:
+                    kept.append(e)
+                elif f >= min_visible:
+                    e["_weak_signal"] = True
+                    kept.append(e)
+                    weak += 1
+                else:
+                    dropped += 1
+            if dropped:
+                logger.info(f"  필터: {key} 잡음 {dropped}건 제거 (<{min_visible}건)")
+            if weak:
+                logger.info(f"  약한 시그널: {key} {weak}건 (낮은 빈도지만 보존)")
+            top3[key] = kept
     return top3
 
 
@@ -267,7 +287,7 @@ def select_top3(extraction: Dict, client) -> Dict:
     """AI 콜 #2 — 영역별 TOP3 선정."""
     template = _load_prompt("trend_top3.txt")
     prompt = template.replace("{EXTRACTION_RESULT}", json.dumps(extraction, ensure_ascii=False, indent=2))
-    logger.info(f"  select_top3: prompt {len(prompt):,}자, min_stock={MIN_STOCK_FREQ_TOTAL}, min_sector={MIN_SECTOR_FREQ_TOTAL}")
+    logger.info(f"  select_top3: prompt {len(prompt):,}자, min(US)={MIN_STOCK_FREQ_US}/{MIN_SECTOR_FREQ_US}, min(KR)={MIN_STOCK_FREQ_KR}/{MIN_SECTOR_FREQ_KR}")
     result = _parse_json_with_retry(client, prompt)
     pre = {k: len(result.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks")}
     result = _filter_indices_from_top3(result)
@@ -303,21 +323,33 @@ def analyze_youtube(videos, client) -> Dict:
         f"prompt {len(prompt):,}자"
     )
     result = _parse_json_with_retry(client, prompt)
-    min_yt_freq = 4
+    min_yt_strong = 3   # 4 → 3 완화 (10영상 중 30%)
+    min_yt_visible = 2  # 2영상 이상이면 약한 시그널로 노출
 
     def _yt_freq(e):
         return max(e.get("freq", 0) or 0, len(e.get("refs", []) or []))
 
     for key in ("top3_sectors", "top3_stocks"):
         entries = result.get(key, [])
-        filtered = [
-            e for e in entries
-            if not _is_index_or_market(e.get("name", "")) and _yt_freq(e) >= min_yt_freq
-        ]
-        removed = len(entries) - len(filtered)
-        if removed:
-            logger.info(f"  필터: youtube.{key} {removed}건 제거 (min_freq={min_yt_freq} 또는 인덱스명)")
-        result[key] = filtered
+        kept, weak, dropped = [], 0, 0
+        for e in entries:
+            if _is_index_or_market(e.get("name", "")):
+                dropped += 1
+                continue
+            f = _yt_freq(e)
+            if f >= min_yt_strong:
+                kept.append(e)
+            elif f >= min_yt_visible:
+                e["_weak_signal"] = True
+                kept.append(e)
+                weak += 1
+            else:
+                dropped += 1
+        if dropped:
+            logger.info(f"  필터: youtube.{key} 잡음 {dropped}건 제거 (인덱스/<{min_yt_visible}건)")
+        if weak:
+            logger.info(f"  약한 시그널: youtube.{key} {weak}건")
+        result[key] = kept
     return result
 
 
