@@ -1742,15 +1742,20 @@ async def run_tv_scan_and_buy() -> int:
         await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<5%+가격1천~20만+쿨다운5일)")
         return 0
 
-    # 보유/주문 중 필터
+    # 보유/주문 중 필터 + code 기준 dedup (cross_signal 또는 targets에 같은 종목 중복 차단)
     buy_targets = []
+    seen_codes: set[str] = set()
     for t in targets:
+        if t["code"] in seen_codes:
+            logger.warning(f"거래대금 매수 후보 중복 — {t['name']}({t['code']}) 스킵 (이미 후보에 있음)")
+            continue
         if await is_already_held_or_ordered(t["code"]):
             logger.info(f"이미 보유/주문중 — {t['name']}({t['code']}) 스킵")
             continue
         if await is_upper_limit(t["code"], t["price"]):
             logger.info(f"상한가 스킵 — {t['name']}({t['code']})")
             continue
+        seen_codes.add(t["code"])
         buy_targets.append(t)
 
     if not buy_targets:
