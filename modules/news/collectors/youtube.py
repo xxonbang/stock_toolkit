@@ -112,13 +112,14 @@ def _fetch_transcript_via_ytdlp(video_id: str) -> str:
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             url = f"https://www.youtube.com/watch?v={video_id}"
+            # yt-dlp 2026 호환: --sub-format은 best/srt/vtt만, json3는 invalid
+            # 전략: vtt로 다운로드 → 정규식으로 텍스트만 추출
             cmd = [
                 "yt-dlp", url,
                 "--skip-download",
-                "--write-auto-sub", "--write-sub",
-                "--sub-lang", "ko,en",
-                "--sub-format", "json3/best",
-                "--convert-subs", "json3",
+                "--write-auto-subs", "--write-subs",
+                "--sub-langs", "ko,en",
+                "--sub-format", "vtt/best",
                 "-o", _os.path.join(tmpdir, "%(id)s"),
                 "--no-warnings",
                 "--extractor-args", "youtube:player_client=web,ios",
@@ -132,25 +133,35 @@ def _fetch_transcript_via_ytdlp(video_id: str) -> str:
                     logger.info(f"[yt-dlp stderr 앞 1000자]: {res.stderr[:1000]}")
                 if res.stdout:
                     logger.info(f"[yt-dlp stdout 앞 500자]: {res.stdout[:500]}")
-            # 자막 파일 검색
+            # 자막 파일 검색 (vtt) + 정규식 텍스트 추출
+            import re
             for lang in ("ko", "en"):
-                pattern = _os.path.join(tmpdir, f"{video_id}.{lang}.json3")
+                pattern = _os.path.join(tmpdir, f"{video_id}.{lang}.vtt")
                 files = glob.glob(pattern)
                 if not files:
                     continue
                 try:
                     with open(files[0], encoding="utf-8") as f:
-                        data = _json.load(f)
+                        raw = f.read()
                 except Exception as e:
-                    logger.debug(f"yt-dlp json3 파싱 실패 ({video_id}, {lang}): {e}")
+                    logger.debug(f"yt-dlp vtt 읽기 실패 ({video_id}, {lang}): {e}")
                     continue
-                parts = []
-                for ev in data.get("events", []):
-                    for seg in ev.get("segs", []) or []:
-                        t = seg.get("utf8", "")
-                        if t and t.strip():
-                            parts.append(t.strip())
-                text = " ".join(parts)
+                # vtt 포맷: timestamp 라인 + 텍스트 라인 — 텍스트 라인만 추출
+                lines = []
+                for line in raw.split("\n"):
+                    line = line.strip()
+                    if not line: continue
+                    if line.startswith("WEBVTT") or line.startswith("Kind:") or line.startswith("Language:"):
+                        continue
+                    if "-->" in line:  # timestamp 라인 (00:00:01.000 --> 00:00:03.000)
+                        continue
+                    if line.isdigit():  # cue 번호
+                        continue
+                    # vtt 인라인 태그 제거 (<c>, <00:00:01.000>)
+                    cleaned = re.sub(r"<[^>]+>", "", line).strip()
+                    if cleaned:
+                        lines.append(cleaned)
+                text = " ".join(lines)
                 if text.strip():
                     if not _YTDLP_DIAG_DONE or len(text) < 100:
                         logger.info(f"[yt-dlp] {video_id} {lang} 자막 {len(text)}자 추출")
