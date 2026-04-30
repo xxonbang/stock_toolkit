@@ -438,7 +438,17 @@ def select_research_optimal(signals: list | None, max_price: int = 50000, top_n:
             (ad.get("price") or {}).get("current", 0),
         )
     scored.sort(key=_sort_key)
-    return scored[:top_n]
+    # 동일 code 중복 제거 — cross_signal.json에 같은 종목이 다른 theme로 별도 등록되어
+    # 들어올 수 있어 안전망. score 높은 항목(이미 정렬됨)만 유지.
+    seen: set[str] = set()
+    deduped: list[dict] = []
+    for it in scored:
+        code = it.get("code", "")
+        if not code or code in seen:
+            continue
+        seen.add(code)
+        deduped.append(it)
+    return deduped[:top_n]
 
 
 def should_sell(buy_price: int, current_price: int, take_profit: float = TRADE_TAKE_PROFIT_PCT, stop_loss: float = TRADE_STOP_LOSS_PCT) -> str | None:
@@ -2881,7 +2891,19 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
         f"{SUPABASE_URL}/rest/v1/auto_trades?status=eq.sim_only&created_at=gte.{today_utc}&select=code",
     )
     existing_codes |= {r.get("code") for r in (today_sim_only or [])}
-    for item in scored_top2:
+    # 입력 자체의 중복 제거 — scored_top2가 동일 code 두 번 포함 시 안전망 (이중 매집 방지)
+    _seen_in_input: set[str] = set()
+    deduped_top2: list[dict] = []
+    for it in scored_top2:
+        c = it.get("code", "")
+        if not c or c in _seen_in_input:
+            continue
+        _seen_in_input.add(c)
+        deduped_top2.append(it)
+    if len(deduped_top2) != len(scored_top2):
+        logger.warning(f"5팩터 입력 중복 제거: {len(scored_top2)} → {len(deduped_top2)}")
+
+    for item in deduped_top2:
         code = item.get("code", "")
         name = item.get("name", code)
         # 실시간 현재가로 entry_price 설정 (강화 재시도: 5회 + 3초 간격)
@@ -2930,6 +2952,7 @@ async def _create_stepped_simulations(scored_top2: list, config: dict):
             async with session.post(url, json=body, headers=headers) as resp:
                 if resp.status in (200, 201):
                     logger.info(f"Stepped 시뮬 생성: {name}({code}) {price:,}원 score={item.get('_score',0)}")
+                    existing_codes.add(code)  # 처리한 code 즉시 차단 (한 호출 내 재진입 방지)
                     # 동일 종목에 fixed + time_exit 시뮬도 생성
                     trade_id = vt["id"]
                     for sim_type in ["fixed", "time_exit"]:
