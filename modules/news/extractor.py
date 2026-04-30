@@ -330,3 +330,29 @@ def generate_outlook(top3: Dict, client) -> Dict:
     total_entries = sum(len(top3.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks"))
     logger.info(f"  generate_outlook: 입력 {total_entries}개 항목, prompt {len(prompt):,}자, search grounding=ON")
     return _parse_json_with_retry(client, prompt, enable_search=True)
+
+
+def merge_outlook_into_top3(top3: Dict, outlook: Dict) -> Dict:
+    """outlook 응답의 *_outlook 배열을 top3 entry의 outlook 필드로 머지.
+
+    LLM 응답 형식:
+      {"us_sector_outlook": [{"name":"AI","outlook":"..."},...], "us_stock_outlook": [...], ...}
+    이를 top3.us_top3_sectors 등 각 entry에 outlook 필드로 추가 (name 매칭).
+    """
+    pairs = [
+        ("us_sector_outlook", "us_top3_sectors"),
+        ("us_stock_outlook",  "us_top3_stocks"),
+        ("kr_sector_outlook", "kr_top3_sectors"),
+        ("kr_stock_outlook",  "kr_top3_stocks"),
+    ]
+    merged = 0
+    for ok, tk in pairs:
+        outlook_map = {(e.get("name") or "").strip(): (e.get("outlook") or "").strip()
+                       for e in outlook.get(ok, []) if e.get("name")}
+        for e in top3.get(tk, []):
+            text = outlook_map.get((e.get("name") or "").strip())
+            if text:
+                e["outlook"] = text
+                merged += 1
+    logger.info(f"  merge_outlook: {merged}개 entry에 outlook 머지")
+    return top3

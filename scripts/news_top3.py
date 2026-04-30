@@ -167,20 +167,30 @@ def build_payload_phase1(collected: dict, now_kst: datetime) -> dict:
 
 
 def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict, now_kst: datetime) -> dict:
-    """AI 분석 결과 통합 — 프론트엔드가 읽을 최종 스키마."""
+    """AI 분석 결과 통합 — 프론트엔드가 읽을 최종 스키마.
+
+    outlook은 merge_outlook_into_top3에 의해 top3 entry의 outlook 필드로 머지된 상태.
+    region.outlook 필드는 호환성용으로 raw 응답을 그대로 보존.
+    """
     return {
         "generated_at": now_kst.strftime("%Y-%m-%d %H:%M KST"),
         "phase": 2,
         "us": {
             "top3_sectors": top3.get("us_top3_sectors", []),
             "top3_stocks": top3.get("us_top3_stocks", []),
-            "outlook": outlook.get("us", {}),
+            "outlook": {
+                "sectors": outlook.get("us_sector_outlook", []),
+                "stocks": outlook.get("us_stock_outlook", []),
+            },
             "collected": {"news": len(collected["us_news"])},
         },
         "kr": {
             "top3_sectors": top3.get("kr_top3_sectors", []),
             "top3_stocks": top3.get("kr_top3_stocks", []),
-            "outlook": outlook.get("kr", {}),
+            "outlook": {
+                "sectors": outlook.get("kr_sector_outlook", []),
+                "stocks": outlook.get("kr_stock_outlook", []),
+            },
             "collected": {"news": len(collected["kr_news"])},
         },
         "youtube": {
@@ -229,6 +239,9 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
         with StepTimer("LLM #3: generate_outlook (Search grounding)"):
             outlook = extractor.generate_outlook(top3, client)
         logger.info(f"  📌 outlook keys: {list(outlook.keys()) if outlook else '비어있음'}")
+        # outlook 응답을 top3 entry의 outlook 필드로 머지 (프론트가 entry.outlook 직접 표시)
+        if outlook:
+            extractor.merge_outlook_into_top3(top3, outlook)
     except Exception as e:
         logger.warning(f"outlook 실패: {e}", exc_info=True)
         outlook = {}
