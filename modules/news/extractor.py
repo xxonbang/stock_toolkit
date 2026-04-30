@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from datetime import timedelta, timezone
 from pathlib import Path
 from typing import Dict, List
 
@@ -330,6 +331,43 @@ def generate_outlook(top3: Dict, client) -> Dict:
     total_entries = sum(len(top3.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks"))
     logger.info(f"  generate_outlook: 입력 {total_entries}개 항목, prompt {len(prompt):,}자, search grounding=ON")
     return _parse_json_with_retry(client, prompt, enable_search=True)
+
+
+def merge_related_news_into_top3(top3: Dict, batches: Dict[str, List[CollectedItem]], max_per_entry: int = 5) -> Dict:
+    """top3 entry의 *_news_refs 인덱스를 raw items와 매핑하여 related_news 필드로 추가.
+
+    프론트가 entry.related_news를 그대로 표시하면 "근거 뉴스 보기" 펼치기로 노출.
+    인덱스 번호(#1, #2)를 사용자에게 보이지 않게 하는 핵심 개선.
+    """
+    pairs = [
+        ("us_top3_sectors", "us_news_refs", "us_news"),
+        ("us_top3_stocks",  "us_news_refs", "us_news"),
+        ("kr_top3_sectors", "kr_news_refs", "kr_news"),
+        ("kr_top3_stocks",  "kr_news_refs", "kr_news"),
+    ]
+    enriched = 0
+    for top3_key, refs_key, batch_key in pairs:
+        idx_to_item = {it.idx: it for it in batches.get(batch_key, [])}
+        for e in top3.get(top3_key, []):
+            refs = e.get(refs_key, []) or []
+            news = []
+            for ref in refs[:max_per_entry]:
+                it = idx_to_item.get(ref)
+                if not it:
+                    continue
+                news.append({
+                    "title": it.title,
+                    "title_ko": getattr(it, "title_ko", "") or "",
+                    "url": it.url,
+                    "published_at": it.published_at.astimezone(
+                        timezone(timedelta(hours=9))
+                    ).strftime("%Y-%m-%d %H:%M:%S KST"),
+                })
+            if news:
+                e["related_news"] = news
+                enriched += 1
+    logger.info(f"  merge_related_news: {enriched}개 entry에 근거 뉴스 머지 (최대 {max_per_entry}건/entry)")
+    return top3
 
 
 def merge_outlook_into_top3(top3: Dict, outlook: Dict) -> Dict:

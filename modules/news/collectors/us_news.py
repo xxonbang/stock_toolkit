@@ -15,10 +15,15 @@ from modules.news.collectors.base import CollectedItem
 
 logger = logging.getLogger(__name__)
 
-# Google News BUSINESS topic (en-US) — 무키워드 비즈니스 헤드라인
-GOOGLE_BUSINESS_RSS = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"
-# Yahoo Finance Top News RSS
-YAHOO_FINANCE_RSS = "https://finance.yahoo.com/news/rssindex"
+# 미국 비즈니스/시장 뉴스 RSS — 수집 다양성 확대 (2026-04-30)
+US_RSS_SOURCES = [
+    ("GoogleNews_BUSINESS", "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"),
+    ("YahooFinance",        "https://finance.yahoo.com/news/rssindex"),
+    ("MarketWatch",         "https://feeds.marketwatch.com/marketwatch/topstories/"),
+    ("CNBC_TopNews",        "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147"),
+    ("InvestingCom",        "https://www.investing.com/rss/news.rss"),
+    ("MarketWatch_Markets", "https://feeds.marketwatch.com/marketwatch/marketpulse/"),
+]
 
 
 def _fetch_feed(url: str):
@@ -33,34 +38,38 @@ def _clean_html(html: str) -> str:
     return BeautifulSoup(html, "html.parser").get_text(separator=" ", strip=True)
 
 
-def _entry_to_item(entry) -> Optional[CollectedItem]:
+def _entry_to_item(entry, source: str = "") -> Optional[CollectedItem]:
     if not getattr(entry, "title", None) or not getattr(entry, "link", None):
         return None
-    pub = getattr(entry, "published_parsed", None)
+    pub = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
     if not pub:
         return None
     published = datetime(*pub[:6], tzinfo=timezone.utc)
     body_raw = getattr(entry, "summary", "") or getattr(entry, "description", "") or ""
+    body = _clean_html(body_raw)[:500]
+    # 출처를 body 끝에 추가 (LLM이 출처 인지하도록)
+    if source and source not in body:
+        body = (body + f" ({source})").strip()
     return CollectedItem(
         batch="us_news", idx=0,
         title=html.unescape(entry.title.strip()),
-        body=_clean_html(body_raw)[:500],
+        body=body,
         url=entry.link,
         published_at=published,
     )
 
 
 def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedItem]:
-    """24시간 이내 미국 비즈니스/금융 뉴스 수집. 두 소스 합쳐 limit개."""
+    """36시간 이내 미국 비즈니스/금융 뉴스를 6개 소스에서 수집, 중복 제거 후 limit개."""
     import time as _time
     if now is None:
         now = datetime.now(timezone.utc)
-    since = now - timedelta(hours=24)
+    since = now - timedelta(hours=36)
 
     seen_urls = set()
     items: List[CollectedItem] = []
 
-    for source_name, url in [("GoogleNews_BUSINESS", GOOGLE_BUSINESS_RSS), ("YahooFinance", YAHOO_FINANCE_RSS)]:
+    for source_name, url in US_RSS_SOURCES:
         t_start = _time.time()
         try:
             feed = _fetch_feed(url)
@@ -70,7 +79,7 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
         raw_count = len(getattr(feed, "entries", []))
         before = len(items)
         for entry in getattr(feed, "entries", []):
-            it = _entry_to_item(entry)
+            it = _entry_to_item(entry, source=source_name)
             if not it:
                 continue
             if it.published_at < since:
@@ -80,7 +89,7 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
             seen_urls.add(it.url)
             items.append(it)
         logger.info(
-            f"  {source_name}: raw={raw_count}건 → 24h+중복제거 후 +{len(items) - before}개 "
+            f"  {source_name}: raw={raw_count}건 → 36h+중복제거 후 +{len(items) - before}개 "
             f"({_time.time()-t_start:.2f}s)"
         )
 
@@ -93,7 +102,7 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
     items = items[:limit]
     for i, it in enumerate(items, start=1):
         it.idx = i
-    logger.info(f"us_news 수집 완료: {len(items)}개 (Google BUSINESS + Yahoo Finance)")
+    logger.info(f"us_news 수집 완료: {len(items)}개 ({len(US_RSS_SOURCES)}개 소스)")
     return items
 
 

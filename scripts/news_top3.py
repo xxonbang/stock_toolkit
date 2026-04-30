@@ -230,6 +230,8 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
         for k in ("us_top3_sectors", "us_top3_stocks", "kr_top3_sectors", "kr_top3_stocks"):
             entries = top3.get(k, [])
             logger.info(f"  📌 {k}: {len(entries)}건 → {[e.get('name','?') for e in entries]}")
+        # raw 뉴스 매핑 — entry.related_news 채움 (프론트 "근거 뉴스 보기" 펼치기용)
+        extractor.merge_related_news_into_top3(top3, batches)
     except Exception as e:
         logger.error(f"top3 실패: {e}", exc_info=True)
         top3 = {"us_top3_sectors": [], "us_top3_stocks": [], "kr_top3_sectors": [], "kr_top3_stocks": []}

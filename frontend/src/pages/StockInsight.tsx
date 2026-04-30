@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp, Clock } from "lucide-react";
 import { dataService } from "../services/dataService";
 
+type RelatedNews = {
+  title: string;
+  title_ko?: string;
+  url: string;
+  published_at?: string;
+};
+
 type Top3Entry = {
   name: string;
   reason?: string;
@@ -10,6 +17,7 @@ type Top3Entry = {
   refs?: string[];
   us_news_refs?: number[];
   kr_news_refs?: number[];
+  related_news?: RelatedNews[];
 };
 
 type RawItem = {
@@ -62,8 +70,20 @@ function freqOf(e: Top3Entry, region: "us" | "kr"): number {
   return e.kr_news_refs?.length || 0;
 }
 
+function stripIndexHints(reason: string): string {
+  // "[미뉴스#3,#7,#12]" 같은 인덱스 표기 제거 (백엔드가 누락했을 경우 안전망)
+  return reason
+    .replace(/\[(미뉴스|한뉴스|미커뮤|한커뮤)[^\]]*\]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "kr" | "youtube"; kind: "sector" | "stock" }) {
+  const [showRelated, setShowRelated] = useState(false);
   const f = region === "youtube" ? (entry.freq || entry.refs?.length || 0) : freqOf(entry, region);
+  const related = entry.related_news || [];
+  const cleanReason = entry.reason ? stripIndexHints(entry.reason) : "";
+
   return (
     <div className="rounded-xl p-4 space-y-2" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
       <div className="flex items-center justify-between gap-2">
@@ -73,20 +93,51 @@ function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "
           </span>
           <h4 className="text-[15px] font-bold t-text">{entry.name}</h4>
         </div>
-        {f > 0 && (
-          <span className="text-[11px] t-text-dim">언급 {f}건</span>
-        )}
+        {f > 0 && <span className="text-[11px] t-text-dim">언급 {f}건</span>}
       </div>
-      {entry.reason && (
-        <p className="text-[12px] t-text-sub leading-[1.6]">{entry.reason}</p>
+
+      {cleanReason && (
+        <p className="text-[12px] t-text-sub leading-[1.6]">{cleanReason}</p>
       )}
+
       {entry.outlook && (
         <div className="rounded-lg p-2.5 mt-2" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
           <div className="flex items-center gap-1.5 mb-1">
             <TrendingUp size={11} className="t-text-dim" />
             <span className="text-[10px] font-medium t-text-dim">1주일 전망</span>
           </div>
-          <p className="text-[12px] t-text leading-[1.6]">{entry.outlook}</p>
+          <p className="text-[12px] t-text leading-[1.6] whitespace-pre-wrap">{entry.outlook}</p>
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div className="pt-1">
+          <button onClick={() => setShowRelated(!showRelated)}
+            className="w-full flex items-center justify-center gap-1.5 text-[11px] t-text-dim hover:t-text-sub transition py-1.5 rounded-lg"
+            style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+            <Newspaper size={11} />
+            {showRelated ? `근거 뉴스 접기 ▲` : `근거 뉴스 ${related.length}건 보기 ▼`}
+          </button>
+          {showRelated && (
+            <div className="space-y-1.5 mt-2">
+              {related.map((n, i) => (
+                <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
+                  className="block rounded-lg p-2 transition hover:opacity-80"
+                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                  <div className="text-[12px] t-text leading-[1.5] line-clamp-2">{n.title}</div>
+                  {n.title_ko && (
+                    <div className="text-[11px] t-text-sub leading-[1.5] mt-0.5 line-clamp-2">↳ {n.title_ko}</div>
+                  )}
+                  {n.published_at && (
+                    <div className="text-[10px] t-text-dim mt-1 flex items-center gap-1">
+                      <span>{n.published_at.slice(0, 16)}</span>
+                      <ExternalLink size={9} />
+                    </div>
+                  )}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -26,9 +26,15 @@ logger = logging.getLogger(__name__)
 
 KST = timezone(timedelta(hours=9))
 
-# Google News BUSINESS topic (ko-KR) — 무키워드 한국 비즈니스 헤드라인
-GOOGLE_BUSINESS_RSS_KR = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko"
-# 네이버 금융 메인뉴스 (HTML 크롤링, 공식 RSS 없음)
+# 한국 비즈니스/시장 뉴스 RSS (2026-04-30: 5개 매체 통합)
+KR_RSS_SOURCES = [
+    ("GoogleNews_BUSINESS_KR", "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko"),
+    ("Hankyung_Economy",       "https://rss.hankyung.com/feed/economy.xml"),
+    ("Hankyung_Stock",         "https://rss.hankyung.com/feed/finance.xml"),
+    ("Maeil_Stock",            "https://www.mk.co.kr/rss/30000023/"),
+    ("Edaily_Stock",           "https://www.edaily.co.kr/rss/edaily_stocks.xml"),
+]
+# 네이버 금융 메인뉴스 (HTML 크롤링, 공식 RSS 없음 — 별도 처리)
 NAVER_FINANCE_MAIN = "https://finance.naver.com/news/mainnews.naver"
 
 HEADERS = {
@@ -57,18 +63,21 @@ def _clean_html(html: str) -> str:
     return BeautifulSoup(html, "html.parser").get_text(separator=" ", strip=True)
 
 
-def _entry_to_item(entry) -> Optional[CollectedItem]:
-    """Google News RSS entry → CollectedItem"""
+def _entry_to_item(entry, source: str = "") -> Optional[CollectedItem]:
+    """RSS entry → CollectedItem. source는 body 끝에 표기."""
     if not getattr(entry, "title", None) or not getattr(entry, "link", None):
         return None
-    pub = getattr(entry, "published_parsed", None)
+    pub = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
     if not pub:
         return None
     published = datetime(*pub[:6], tzinfo=timezone.utc)
     body_raw = getattr(entry, "summary", "") or getattr(entry, "description", "") or ""
+    body = _clean_html(body_raw)[:500]
+    if source and source not in body:
+        body = (body + f" ({source})").strip()
     return CollectedItem(
         batch="kr_news", idx=0,
-        title=html.unescape(entry.title.strip()), body=_clean_html(body_raw)[:500],
+        title=html.unescape(entry.title.strip()), body=body,
         url=entry.link, published_at=published,
     )
 
@@ -116,45 +125,46 @@ def _parse_naver_finance(html: str, now_kst: datetime) -> List[CollectedItem]:
 
 
 def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedItem]:
-    """24시간 이내 한국 비즈니스/금융 뉴스 수집. 두 소스 합쳐 limit개."""
+    """36시간 이내 한국 비즈니스/금융 뉴스를 다중 소스에서 수집, 중복 제거 후 limit개."""
     import time as _time
     if now is None:
         now = datetime.now(timezone.utc)
-    since = now - timedelta(hours=24)
+    since = now - timedelta(hours=36)
     now_kst = now.astimezone(KST)
 
     seen_urls = set()
     items: List[CollectedItem] = []
 
-    # 1. Google News BUSINESS (ko-KR)
-    t0 = _time.time()
-    try:
-        feed = _fetch_feed(GOOGLE_BUSINESS_RSS_KR)
-        raw_count = len(getattr(feed, "entries", []))
-        before = len(items)
-        for entry in getattr(feed, "entries", []):
-            it = _entry_to_item(entry)
-            if not it or it.published_at < since or it.url in seen_urls:
-                continue
-            seen_urls.add(it.url)
-            items.append(it)
-        logger.info(f"  GoogleNews_BUSINESS_KR: raw={raw_count} → +{len(items) - before}개 ({_time.time()-t0:.2f}s)")
-    except Exception as e:
-        logger.warning(f"kr_news fetch 실패 (GoogleNews_BUSINESS_KR, {_time.time()-t0:.2f}s): {e}")
+    # 1. RSS 소스들 (Google News + 한국경제 + 매일경제 + 이데일리)
+    for source_name, url in KR_RSS_SOURCES:
+        t0 = _time.time()
+        try:
+            feed = _fetch_feed(url)
+            raw_count = len(getattr(feed, "entries", []))
+            before = len(items)
+            for entry in getattr(feed, "entries", []):
+                it = _entry_to_item(entry, source=source_name)
+                if not it or it.published_at < since or it.url in seen_urls:
+                    continue
+                seen_urls.add(it.url)
+                items.append(it)
+            logger.info(f"  {source_name}: raw={raw_count} → +{len(items) - before}개 ({_time.time()-t0:.2f}s)")
+        except Exception as e:
+            logger.warning(f"kr_news fetch 실패 ({source_name}, {_time.time()-t0:.2f}s): {e}")
 
-    # 2. 네이버 금융 메인뉴스
+    # 2. 네이버 금융 메인뉴스 (HTML 크롤링)
     t0 = _time.time()
     try:
-        html = _fetch_html(NAVER_FINANCE_MAIN)
+        html_text = _fetch_html(NAVER_FINANCE_MAIN)
         before = len(items)
-        parsed = _parse_naver_finance(html, now_kst)
+        parsed = _parse_naver_finance(html_text, now_kst)
         for it in parsed:
             if it.published_at < since or it.url in seen_urls:
                 continue
             seen_urls.add(it.url)
             items.append(it)
         logger.info(
-            f"  Naver_Finance_Main: HTML {len(html):,}자 → 파싱 {len(parsed)}건 → "
+            f"  Naver_Finance_Main: HTML {len(html_text):,}자 → 파싱 {len(parsed)}건 → "
             f"+{len(items) - before}개 ({_time.time()-t0:.2f}s)"
         )
     except Exception as e:
@@ -169,7 +179,7 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
     items = items[:limit]
     for i, it in enumerate(items, start=1):
         it.idx = i
-    logger.info(f"kr_news 수집 완료: {len(items)}개 (Google BUSINESS + 네이버 금융)")
+    logger.info(f"kr_news 수집 완료: {len(items)}개 ({len(KR_RSS_SOURCES)}개 RSS + 네이버 금융)")
     return items
 
 
