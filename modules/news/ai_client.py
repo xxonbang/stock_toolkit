@@ -34,6 +34,12 @@ class GeminiClient:
         self._idx = 0
         self._exhausted: set[int] = set()
         self.model_name = MODEL_NAME
+        # 호출 통계
+        self._call_count = 0
+        self._total_prompt_tokens = 0
+        self._total_completion_tokens = 0
+        self._total_retries = 0
+        self._total_fallbacks = 0
         self._init_client()
 
     def _init_client(self) -> None:
@@ -48,9 +54,18 @@ class GeminiClient:
             if i not in self._exhausted:
                 self._idx = i
                 self._init_client()
-                logger.info(f"키 폴백 → #{self._idx + 1:02d}")
+                self._total_fallbacks += 1
+                logger.info(f"키 폴백 → #{self._idx + 1:02d} (누적 폴백 {self._total_fallbacks}회)")
                 return True
         return False
+
+    def summary(self) -> None:
+        """LLM 호출 통계 요약 (파이프라인 종료 시 호출)."""
+        logger.info("📈 Gemini 호출 통계:")
+        logger.info(f"  총 호출: {self._call_count}회")
+        logger.info(f"  prompt tokens: {self._total_prompt_tokens:,}, completion tokens: {self._total_completion_tokens:,}")
+        logger.info(f"  재시도 발생: {self._total_retries}회, 키 폴백: {self._total_fallbacks}회")
+        logger.info(f"  사용한 키 인덱스: #{self._idx + 1:02d}/{len(self.keys)} (소진된 키: {sorted(self._exhausted)})")
 
     def call(
         self,
@@ -76,6 +91,16 @@ class GeminiClient:
             logger.info("🔎 Google Search grounding 활성화")
         gen_config = types.GenerateContentConfig(**config_params)
 
+        # 호출 진단 로그 (DEBUG가 prompt 일부 일부 표시)
+        self._call_count += 1
+        prompt_len = len(prompt)
+        logger.info(
+            f"💬 LLM call #{self._call_count}: prompt {prompt_len:,}자, "
+            f"temp={temperature}, max_tokens={max_output_tokens}, search={enable_search}, key=#{self._idx + 1:02d}"
+        )
+        logger.debug(f"   prompt 앞 200자: {prompt[:200]!r}")
+
+        t_start = time.time()
         attempt = 0
         while attempt < max_retries:
             try:
@@ -95,6 +120,18 @@ class GeminiClient:
                         "completion_tokens": getattr(usage_meta, "candidates_token_count", 0),
                         "total_tokens": getattr(usage_meta, "total_token_count", 0),
                     }
+                    self._total_prompt_tokens += usage["prompt_tokens"]
+                    self._total_completion_tokens += usage["completion_tokens"]
+                # finish_reason 확인 (비정상 종료 추적)
+                fin = "?"
+                if hasattr(response, "candidates") and response.candidates:
+                    fin = str(getattr(response.candidates[0], "finish_reason", "?"))
+                logger.info(
+                    f"✓ LLM call #{self._call_count} 완료 ({time.time()-t_start:.2f}s): "
+                    f"응답 {len(text):,}자, tokens(in/out)={usage.get('prompt_tokens',0)}/{usage.get('completion_tokens',0)}, "
+                    f"finish={fin}"
+                )
+                logger.debug(f"   응답 앞 200자: {text[:200]!r}")
                 return text, usage
             except Exception as e:
                 err = str(e)
@@ -117,6 +154,7 @@ class GeminiClient:
                         logger.warning(f"⚠️ RPM 한도, {wait}s wait + same-key retry")
                         time.sleep(wait)
                         attempt += 1
+                        self._total_retries += 1
                         continue
                     # daily quota 추정 → 다음 키
                     if self._switch_to_next():
@@ -128,21 +166,24 @@ class GeminiClient:
                     waits = [5, 10, 20, 30, 60]
                     w = waits[min(attempt, len(waits) - 1)]
                     label = "DNS" if is_dns else ("timeout" if is_timeout else "503")
-                    logger.warning(f"⚠️ {label} 에러 — {w}s 대기 후 재시도")
+                    logger.warning(f"⚠️ {label} 에러 — {w}s 대기 후 재시도 ({attempt + 1}/{max_retries})")
                     time.sleep(w)
                     attempt += 1
+                    self._total_retries += 1
                     continue
                 if is_rate_limit and attempt < max_retries - 1:
                     waits = [10, 30, 60, 120, 180]
                     w = waits[min(attempt, len(waits) - 1)]
-                    logger.warning(f"⚠️ Rate limit — {w}s 대기")
+                    logger.warning(f"⚠️ Rate limit — {w}s 대기 ({attempt + 1}/{max_retries})")
                     time.sleep(w)
                     attempt += 1
+                    self._total_retries += 1
                     continue
                 if attempt < max_retries - 1:
                     logger.warning(f"기타 에러 (재시도 {attempt + 1}/{max_retries}): {err[:200]}")
                     time.sleep(5)
                     attempt += 1
+                    self._total_retries += 1
                     continue
                 logger.error(f"AI 호출 최종 실패: {err[:300]}")
                 return f"오류: {err[:500]}", {}

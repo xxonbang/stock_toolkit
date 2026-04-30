@@ -152,24 +152,32 @@ def collect(now: Optional[datetime] = None, limit: int = 10) -> List[YoutubeVide
         since = now - timedelta(days=7 * weeks)
         max_per_channel = 3 * weeks  # 회차마다 더 많은 과거 영상 fetch
         before = len(videos)
+        per_channel_added = {}
         for channel_id, channel_name in KR_STOCK_CHANNELS:
             items = _list_recent_videos_from_channel(youtube, channel_id, since, max_results=max_per_channel)
+            ch_before = len(videos)
             for item in items:
                 v = _item_to_video(item, channel_name_override=channel_name)
                 if not v or v.video_id in seen_video_ids:
                     continue
                 seen_video_ids.add(v.video_id)
                 videos.append(v)
+            per_channel_added[channel_name] = len(videos) - ch_before
         added = len(videos) - before
-        logger.info(f"  YouTube {weeks}주 확장: +{added}개 (누적 {len(videos)}/{limit})")
+        logger.info(f"  YouTube {weeks}주 확장: +{added}개 (누적 {len(videos)}/{limit}) — 채널별: {per_channel_added}")
 
     # 발행 시간 내림차순 + limit 적용
     videos.sort(key=lambda x: x.published_at, reverse=True)
     videos = videos[:limit]
 
     # 자막 추출 (limit 영상에 한해)
+    transcript_failures = []
     for v in videos:
         v.transcript = _fetch_transcript(v.video_id)
+        if not v.transcript:
+            transcript_failures.append(v.video_id[:8] + "..")
+    if transcript_failures:
+        logger.info(f"  자막 추출 실패: {len(transcript_failures)}/{len(videos)}건 → {transcript_failures}")
 
     logger.info(
         f"youtube 수집 완료: {len(videos)}개 (자막 있음 "

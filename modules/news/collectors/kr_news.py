@@ -117,6 +117,7 @@ def _parse_naver_finance(html: str, now_kst: datetime) -> List[CollectedItem]:
 
 def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedItem]:
     """24시간 이내 한국 비즈니스/금융 뉴스 수집. 두 소스 합쳐 limit개."""
+    import time as _time
     if now is None:
         now = datetime.now(timezone.utc)
     since = now - timedelta(hours=24)
@@ -126,8 +127,10 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
     items: List[CollectedItem] = []
 
     # 1. Google News BUSINESS (ko-KR)
+    t0 = _time.time()
     try:
         feed = _fetch_feed(GOOGLE_BUSINESS_RSS_KR)
+        raw_count = len(getattr(feed, "entries", []))
         before = len(items)
         for entry in getattr(feed, "entries", []):
             it = _entry_to_item(entry)
@@ -135,22 +138,27 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
                 continue
             seen_urls.add(it.url)
             items.append(it)
-        logger.info(f"  GoogleNews_BUSINESS_KR: {len(items) - before}개 (24h 내)")
+        logger.info(f"  GoogleNews_BUSINESS_KR: raw={raw_count} → +{len(items) - before}개 ({_time.time()-t0:.2f}s)")
     except Exception as e:
-        logger.warning(f"kr_news fetch 실패 (GoogleNews_BUSINESS_KR): {e}")
+        logger.warning(f"kr_news fetch 실패 (GoogleNews_BUSINESS_KR, {_time.time()-t0:.2f}s): {e}")
 
     # 2. 네이버 금융 메인뉴스
+    t0 = _time.time()
     try:
         html = _fetch_html(NAVER_FINANCE_MAIN)
         before = len(items)
-        for it in _parse_naver_finance(html, now_kst):
+        parsed = _parse_naver_finance(html, now_kst)
+        for it in parsed:
             if it.published_at < since or it.url in seen_urls:
                 continue
             seen_urls.add(it.url)
             items.append(it)
-        logger.info(f"  Naver_Finance_Main: {len(items) - before}개 (24h 내)")
+        logger.info(
+            f"  Naver_Finance_Main: HTML {len(html):,}자 → 파싱 {len(parsed)}건 → "
+            f"+{len(items) - before}개 ({_time.time()-t0:.2f}s)"
+        )
     except Exception as e:
-        logger.warning(f"kr_news fetch 실패 (Naver_Finance_Main): {e}")
+        logger.warning(f"kr_news fetch 실패 (Naver_Finance_Main, {_time.time()-t0:.2f}s): {e}")
 
     # 정렬: 6h 내 최신 우선, 본문 200+ 우선, 발행시각 최신
     six_hours_ago = now - timedelta(hours=6)

@@ -89,7 +89,10 @@ def _parse_json_with_retry(
             return json.loads(cleaned)
         except json.JSONDecodeError as e:
             last_err = e
-            logger.warning(f"JSON 파싱 실패 (시도 {attempt + 1}/{max_retries}): {e}")
+            logger.warning(
+                f"JSON 파싱 실패 (시도 {attempt + 1}/{max_retries}): {e} | "
+                f"응답 길이 {len(text)}자, 앞 200자: {text[:200]!r}"
+            )
     raise RuntimeError(f"JSON 파싱 {max_retries}회 실패: {last_err}")
 
 
@@ -245,18 +248,32 @@ def extract_per_batch(batches: Dict[str, List[CollectedItem]], client) -> Dict:
         all_items.extend(batches.get(b, []))
     collected_text = format_indexed_text(all_items)
     prompt = template.replace("{COLLECTED_TEXT}", collected_text)
+    logger.info(
+        f"  extract_per_batch: 입력 {len(all_items)}건 (미뉴스 {len(batches.get('us_news',[]))} + 한뉴스 {len(batches.get('kr_news',[]))}), "
+        f"prompt {len(prompt):,}자"
+    )
     result = _parse_json_with_retry(client, prompt)
+    pre_total = sum(len(result.get(b, {}).get(f, [])) for b in ("us_news","kr_news") for f in ("stocks","sectors"))
     result = _normalize_aliases_in_extraction(result)
-    return _filter_indices_from_extraction(result)
+    post_alias = sum(len(result.get(b, {}).get(f, [])) for b in ("us_news","kr_news") for f in ("stocks","sectors"))
+    result = _filter_indices_from_extraction(result)
+    post_filter = sum(len(result.get(b, {}).get(f, [])) for b in ("us_news","kr_news") for f in ("stocks","sectors"))
+    logger.info(f"  extract_per_batch: LLM 출력 {pre_total} → 별칭 통합 {post_alias} → 인덱스 필터 {post_filter}")
+    return result
 
 
 def select_top3(extraction: Dict, client) -> Dict:
     """AI 콜 #2 — 영역별 TOP3 선정."""
     template = _load_prompt("trend_top3.txt")
     prompt = template.replace("{EXTRACTION_RESULT}", json.dumps(extraction, ensure_ascii=False, indent=2))
+    logger.info(f"  select_top3: prompt {len(prompt):,}자, min_stock={MIN_STOCK_FREQ_TOTAL}, min_sector={MIN_SECTOR_FREQ_TOTAL}")
     result = _parse_json_with_retry(client, prompt)
+    pre = {k: len(result.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks")}
     result = _filter_indices_from_top3(result)
-    return _enforce_min_freq_top3(result)
+    result = _enforce_min_freq_top3(result)
+    post = {k: len(result.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks")}
+    logger.info(f"  select_top3: LLM {pre} → 필터 후 {post}")
+    return result
 
 
 def _has_any_top3_entry(top3: Dict) -> bool:
@@ -269,6 +286,7 @@ def _has_any_top3_entry(top3: Dict) -> bool:
 def analyze_youtube(videos, client) -> Dict:
     """유튜브 영상 → TOP3 종목·섹터 추출."""
     if not videos:
+        logger.info("  analyze_youtube: 입력 영상 0건 — 스킵")
         return {"top3_sectors": [], "top3_stocks": []}
     template = _load_prompt("youtube_trend.txt")
     parts = []
@@ -278,6 +296,11 @@ def analyze_youtube(videos, client) -> Dict:
         parts.append(f"[영상#{i}] [{v.channel_name}] {ts} — {v.title}\n{body[:3000]}")
     videos_text = "\n\n".join(parts)
     prompt = template.replace("{VIDEOS_TEXT}", videos_text)
+    transcript_count = sum(1 for v in videos if v.transcript)
+    logger.info(
+        f"  analyze_youtube: 입력 {len(videos)}개 영상 (자막 있음 {transcript_count}개), "
+        f"prompt {len(prompt):,}자"
+    )
     result = _parse_json_with_retry(client, prompt)
     min_yt_freq = 4
 
@@ -292,7 +315,7 @@ def analyze_youtube(videos, client) -> Dict:
         ]
         removed = len(entries) - len(filtered)
         if removed:
-            logger.info(f"  필터: youtube.{key} {removed}건 제거")
+            logger.info(f"  필터: youtube.{key} {removed}건 제거 (min_freq={min_yt_freq} 또는 인덱스명)")
         result[key] = filtered
     return result
 
@@ -300,7 +323,10 @@ def analyze_youtube(videos, client) -> Dict:
 def generate_outlook(top3: Dict, client) -> Dict:
     """AI 콜 #3 — 12개 항목 1주일 전망 (Google Search grounding)."""
     if not _has_any_top3_entry(top3):
+        logger.info("  generate_outlook: TOP3 결과 없음 — 스킵")
         return {}
     template = _load_prompt("trend_outlook.txt")
     prompt = template.replace("{TOP3_RESULT}", json.dumps(top3, ensure_ascii=False, indent=2))
+    total_entries = sum(len(top3.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks"))
+    logger.info(f"  generate_outlook: 입력 {total_entries}개 항목, prompt {len(prompt):,}자, search grounding=ON")
     return _parse_json_with_retry(client, prompt, enable_search=True)

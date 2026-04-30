@@ -52,6 +52,7 @@ def _entry_to_item(entry) -> Optional[CollectedItem]:
 
 def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedItem]:
     """24시간 이내 미국 비즈니스/금융 뉴스 수집. 두 소스 합쳐 limit개."""
+    import time as _time
     if now is None:
         now = datetime.now(timezone.utc)
     since = now - timedelta(hours=24)
@@ -60,11 +61,13 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
     items: List[CollectedItem] = []
 
     for source_name, url in [("GoogleNews_BUSINESS", GOOGLE_BUSINESS_RSS), ("YahooFinance", YAHOO_FINANCE_RSS)]:
+        t_start = _time.time()
         try:
             feed = _fetch_feed(url)
         except Exception as e:
-            logger.warning(f"us_news fetch 실패 ({source_name}): {e}")
+            logger.warning(f"us_news fetch 실패 ({source_name}, {_time.time()-t_start:.2f}s): {e}")
             continue
+        raw_count = len(getattr(feed, "entries", []))
         before = len(items)
         for entry in getattr(feed, "entries", []):
             it = _entry_to_item(entry)
@@ -76,7 +79,10 @@ def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedIt
                 continue
             seen_urls.add(it.url)
             items.append(it)
-        logger.info(f"  {source_name}: {len(items) - before}개 (24h 내, 중복 제거 후)")
+        logger.info(
+            f"  {source_name}: raw={raw_count}건 → 24h+중복제거 후 +{len(items) - before}개 "
+            f"({_time.time()-t_start:.2f}s)"
+        )
 
     # 정렬: (1) 6h 이내 최신 우선, (2) 본문 200자 이상 우선, (3) 발행시각 최신
     six_hours_ago = now - timedelta(hours=6)

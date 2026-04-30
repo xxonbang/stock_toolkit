@@ -40,6 +40,26 @@ RESULTS_DIR = ROOT / "results"
 HISTORY_DIR = RESULTS_DIR / "news_top3_history"
 
 
+class StepTimer:
+    """with-블록 단계별 경과 시간 측정 + 시작/종료 명시 로그."""
+    def __init__(self, label: str):
+        self.label = label
+        self.t0 = 0.0
+
+    def __enter__(self):
+        self.t0 = time.time()
+        logger.info(f"━━━ ▶ {self.label} 시작 ━━━")
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        elapsed = time.time() - self.t0
+        if exc_type is None:
+            logger.info(f"━━━ ✓ {self.label} 완료 ({elapsed:.2f}s) ━━━")
+        else:
+            logger.error(f"━━━ ✗ {self.label} 실패 ({elapsed:.2f}s): {exc_type.__name__}: {exc} ━━━")
+        return False  # 예외는 재전파
+
+
 def _serialize_item(it) -> dict:
     """CollectedItem 또는 YoutubeVideo → dict (JSON 직렬화 가능, 모든 시간은 KST)"""
     if is_dataclass(it):
@@ -55,15 +75,21 @@ def _serialize_item(it) -> dict:
 
 def collect_all(now: datetime) -> dict:
     """2개 뉴스 배치(미/한) + 유튜브 영상 수집"""
-    logger.info("=== 수집 시작 ===")
-    result = {
-        "us_news": us_news.collect(now=now),
-        "kr_news": kr_news.collect(now=now),
-        "youtube": youtube.collect(now=now),
-    }
+    result = {}
+    with StepTimer("us_news 수집"):
+        result["us_news"] = us_news.collect(now=now)
+    with StepTimer("kr_news 수집"):
+        result["kr_news"] = kr_news.collect(now=now)
+    with StepTimer("youtube 수집"):
+        result["youtube"] = youtube.collect(now=now)
+    # 수집 통계 요약
+    total_titles = sum(len(it.title) for b in ("us_news", "kr_news") for it in result[b])
+    total_bodies = sum(len(it.body) for b in ("us_news", "kr_news") for it in result[b])
+    total_transcripts = sum(len(v.transcript) for v in result["youtube"])
     logger.info(
-        f"수집 완료: us_news={len(result['us_news'])}, kr_news={len(result['kr_news'])}, "
-        f"youtube={len(result['youtube'])}"
+        f"📊 수집 통계: us_news={len(result['us_news'])}건, kr_news={len(result['kr_news'])}건, "
+        f"youtube={len(result['youtube'])}건 / "
+        f"총 제목 {total_titles:,}자, 본문 {total_bodies:,}자, 자막 {total_transcripts:,}자"
     )
     return result
 
@@ -177,35 +203,63 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
     }
 
     try:
-        logger.info("=== AI 추출 (LLM #1) ===")
-        extraction = extractor.extract_per_batch(batches, client)
+        with StepTimer("LLM #1: extract_per_batch"):
+            extraction = extractor.extract_per_batch(batches, client)
+        # 추출 결과 요약
+        for b in ("us_news", "kr_news"):
+            stk = len(extraction.get(b, {}).get("stocks", []))
+            sec = len(extraction.get(b, {}).get("sectors", []))
+            logger.info(f"  📌 {b}: stocks={stk}개, sectors={sec}개")
     except Exception as e:
-        logger.error(f"extract 실패: {e} — Phase 1 폴백")
+        logger.error(f"extract 실패 — Phase 1 폴백: {e}", exc_info=True)
         return build_payload_phase1(collected, now_kst)
 
     try:
-        logger.info("=== TOP3 선정 (LLM #2) ===")
-        top3 = extractor.select_top3(extraction, client)
+        with StepTimer("LLM #2: select_top3"):
+            top3 = extractor.select_top3(extraction, client)
+        for k in ("us_top3_sectors", "us_top3_stocks", "kr_top3_sectors", "kr_top3_stocks"):
+            entries = top3.get(k, [])
+            logger.info(f"  📌 {k}: {len(entries)}건 → {[e.get('name','?') for e in entries]}")
     except Exception as e:
-        logger.error(f"top3 실패: {e}")
+        logger.error(f"top3 실패: {e}", exc_info=True)
         top3 = {"us_top3_sectors": [], "us_top3_stocks": [], "kr_top3_sectors": [], "kr_top3_stocks": []}
 
     outlook: dict = {}
     try:
-        logger.info("=== 1주일 전망 (LLM #3, Google Search grounding) ===")
-        outlook = extractor.generate_outlook(top3, client)
+        with StepTimer("LLM #3: generate_outlook (Search grounding)"):
+            outlook = extractor.generate_outlook(top3, client)
+        logger.info(f"  📌 outlook keys: {list(outlook.keys()) if outlook else '비어있음'}")
     except Exception as e:
-        logger.warning(f"outlook 실패: {e}")
+        logger.warning(f"outlook 실패: {e}", exc_info=True)
         outlook = {}
 
     yt_top3 = {"top3_sectors": [], "top3_stocks": []}
     try:
-        logger.info("=== YouTube TOP3 분석 ===")
-        yt_top3 = extractor.analyze_youtube(collected["youtube"], client)
+        with StepTimer("LLM #4: analyze_youtube"):
+            yt_top3 = extractor.analyze_youtube(collected["youtube"], client)
+        for k in ("top3_sectors", "top3_stocks"):
+            entries = yt_top3.get(k, [])
+            logger.info(f"  📌 youtube.{k}: {len(entries)}건 → {[e.get('name','?') for e in entries]}")
     except Exception as e:
-        logger.warning(f"youtube 분석 실패: {e}")
+        logger.warning(f"youtube 분석 실패: {e}", exc_info=True)
 
     return build_payload_full(collected, top3, outlook, yt_top3, now_kst)
+
+
+def _diagnose_env() -> None:
+    """환경 진단 — 키 set/missing 여부, runner 정보 출력 (값 노출 없음)."""
+    keys = ["YOUTUBE_API_KEY"] + [f"GOOGLE_API_KEY_{i:02d}" for i in range(1, 6)]
+    status = {k: ("set" if os.getenv(k) else "MISSING") for k in keys}
+    logger.info("🔧 환경 진단:")
+    for k, v in status.items():
+        emoji = "✓" if v == "set" else "✗"
+        logger.info(f"  {emoji} {k}: {v}")
+    runner = os.getenv("GITHUB_ACTIONS")
+    run_id = os.getenv("GITHUB_RUN_ID")
+    if runner:
+        logger.info(f"  🚀 GitHub Actions runner — run_id={run_id}")
+    else:
+        logger.info(f"  💻 로컬 실행 — Python {sys.version.split()[0]}")
 
 
 def main() -> int:
@@ -216,14 +270,13 @@ def main() -> int:
     args = parser.parse_args()
 
     # 로그 timestamp를 KST로 표시 (GitHub Actions runner는 기본 UTC).
-    logging.Formatter.converter = lambda *args: datetime.now(KST).timetuple()
+    logging.Formatter.converter = lambda *a: datetime.now(KST).timetuple()
     logging.basicConfig(
         level=logging.DEBUG if args.verbose else logging.INFO,
-        format="%(asctime)s KST %(levelname)s %(name)s %(message)s",
+        format="%(asctime)s KST %(levelname)s [%(name)s] %(message)s",
     )
 
     # 로컬 .env 로드 (GitHub Actions에서는 secrets로 주입).
-    # 루트 .env 우선, daemon/.env 보조 (둘 다 존재할 경우 루트가 이미 set한 키는 유지).
     try:
         from dotenv import load_dotenv
         load_dotenv(ROOT / ".env")
@@ -231,24 +284,41 @@ def main() -> int:
     except ImportError:
         pass
 
+    pipeline_t0 = time.time()
     now_utc = datetime.now(timezone.utc)
     now_kst = now_utc.astimezone(KST)
 
-    collected = collect_all(now_utc)
+    logger.info("═══════════════════════════════════════════════════════")
+    logger.info(f"🚀 Stock Insight 파이프라인 시작 — {now_kst.strftime('%Y-%m-%d %H:%M:%S KST')}")
+    logger.info(f"   모드: {'--skip-ai (수집만)' if args.skip_ai else '전체 분석'}{' (--dry-run)' if args.dry_run else ''}")
+    logger.info("═══════════════════════════════════════════════════════")
+    _diagnose_env()
+
+    with StepTimer("Phase A: 데이터 수집"):
+        collected = collect_all(now_utc)
 
     # 미국 뉴스 제목 한국어 번역 (LLM 1회). 키 없으면 skip.
     client = None
     try:
         from modules.news import ai_client, translator
-        client = ai_client.create_client()
-        translator.translate_us_titles(collected["us_news"], client)
+        with StepTimer("Phase B: Gemini 클라이언트 초기화"):
+            client = ai_client.create_client()
+        with StepTimer("Phase C: 미국 뉴스 제목 번역"):
+            translated = translator.translate_us_titles(collected["us_news"], client)
+            logger.info(f"  📝 번역 결과: {translated}/{len(collected['us_news'])}건 성공")
     except Exception as e:
-        logger.warning(f"번역 단계 skip: {e}")
+        logger.warning(f"번역 단계 skip — 사유: {e}")
 
     if args.skip_ai:
         payload = build_payload_phase1(collected, now_kst)
+        logger.info("⏭  Phase D (AI 분석) 스킵 — Phase 1 페이로드만 생성")
     else:
-        payload = run_ai_pipeline(collected, now_kst, client=client)
+        with StepTimer("Phase D: AI 분석 (LLM #1~#4)"):
+            payload = run_ai_pipeline(collected, now_kst, client=client)
+
+    # LLM 호출 통계 요약
+    if client is not None and hasattr(client, "summary"):
+        client.summary()
 
     if args.dry_run:
         phase = payload.get("phase", "?")
@@ -261,11 +331,17 @@ def main() -> int:
             print(f"  us.news={len(payload['us']['news'])}")
             print(f"  kr.news={len(payload['kr']['news'])}")
             print(f"  youtube.videos={len(payload['youtube']['videos'])}")
+        logger.info(f"⏱  파이프라인 총 소요: {time.time()-pipeline_t0:.2f}s")
         return 0
 
-    save_outputs(payload, now_kst)
-    cleanup_history()
-    write_history_index()
+    with StepTimer("Phase E: 결과 저장 + 히스토리 정리"):
+        save_outputs(payload, now_kst)
+        cleanup_history()
+        write_history_index()
+
+    logger.info("═══════════════════════════════════════════════════════")
+    logger.info(f"✅ 파이프라인 완료 — 총 소요 {time.time()-pipeline_t0:.2f}s, phase={payload.get('phase')}")
+    logger.info("═══════════════════════════════════════════════════════")
     return 0
 
 

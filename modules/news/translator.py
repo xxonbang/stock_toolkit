@@ -45,11 +45,13 @@ def translate_us_titles(items: List[CollectedItem], client) -> int:
     실패 시 빈 문자열 유지(프론트엔드는 영어만 표시).
     """
     if not items:
+        logger.info("translate_us_titles: 입력 0건 — 스킵")
         return 0
     titles = [it.title for it in items]
     prompt = _PROMPT.replace("{N}", str(len(titles))).replace(
         "{TITLES_JSON}", json.dumps(titles, ensure_ascii=False)
     )
+    logger.info(f"translate_us_titles: {len(titles)}건 입력, prompt {len(prompt):,}자")
     try:
         text, _ = client.call(
             prompt=prompt,
@@ -57,32 +59,34 @@ def translate_us_titles(items: List[CollectedItem], client) -> int:
             max_output_tokens=8000,
         )
     except Exception as e:
-        logger.warning(f"제목 번역 호출 실패: {e}")
+        logger.warning(f"제목 번역 호출 실패: {e}", exc_info=True)
         return 0
 
     if not text or text.startswith("오류:") or text.startswith("API 할당량 초과"):
-        logger.warning(f"번역 응답 비정상: {text[:120]}")
+        logger.warning(f"번역 응답 비정상 (응답 {len(text)}자): {text[:200]!r}")
         return 0
 
     cleaned = _strip_codeblock(text)
-    # 응답이 JSON 배열로 시작하지 않으면 추출 시도
     m = re.search(r"\[.*\]", cleaned, re.DOTALL)
     if m:
         cleaned = m.group(0)
     try:
         translations = json.loads(cleaned)
     except json.JSONDecodeError as e:
-        logger.warning(f"번역 JSON 파싱 실패: {e}")
+        logger.warning(f"번역 JSON 파싱 실패: {e} | 응답 앞 300자: {text[:300]!r}")
         return 0
 
     if not isinstance(translations, list):
-        logger.warning("번역 결과가 배열이 아님")
+        logger.warning(f"번역 결과가 배열이 아님 (type={type(translations).__name__})")
         return 0
+
+    if len(translations) != len(items):
+        logger.warning(f"번역 건수 불일치: 입력 {len(items)} vs 출력 {len(translations)} — zip으로 잘림")
 
     success = 0
     for it, tr in zip(items, translations):
         if isinstance(tr, str) and tr.strip():
             it.title_ko = tr.strip()
             success += 1
-    logger.info(f"제목 번역 성공: {success}/{len(items)}건")
+    logger.info(f"제목 번역 성공: {success}/{len(items)}건 ({success*100//max(1,len(items))}%)")
     return success
