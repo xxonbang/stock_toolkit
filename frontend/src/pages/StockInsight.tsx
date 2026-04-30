@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp, Clock } from "lucide-react";
+import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp, Clock, ChevronDown, Check } from "lucide-react";
 import { dataService } from "../services/dataService";
 
 type RelatedNews = {
@@ -68,6 +68,77 @@ type NewsTop3Payload = {
 function freqOf(e: Top3Entry, region: "us" | "kr"): number {
   if (region === "us") return e.us_news_refs?.length || 0;
   return e.kr_news_refs?.length || 0;
+}
+
+function HistoryPicker({
+  historyList, selectedKey, onChange, latestLabel,
+}: {
+  historyList: { filename: string; kst: string }[];
+  selectedKey: string;
+  onChange: (key: string) => void;
+  latestLabel: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const items: { key: string; label: string }[] = [
+    { key: "latest", label: `최신 · ${latestLabel}` },
+    ...historyList.map((h) => ({ key: h.filename, label: h.kst })),
+  ];
+  const current = items.find((it) => it.key === selectedKey) || items[0];
+
+  // 외부 클릭 닫기
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      const tgt = e.target as HTMLElement;
+      if (!tgt.closest("[data-history-picker]")) setOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [open]);
+
+  return (
+    <div className="relative" data-history-picker>
+      <button onClick={() => setOpen(!open)}
+        className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] t-text transition ${open ? "" : "hover:opacity-90"}`}
+        style={{
+          background: "var(--bg-card)",
+          border: `1px solid ${open ? "rgba(99,102,241,0.5)" : "var(--border)"}`,
+          boxShadow: open ? "0 0 0 3px rgba(99,102,241,0.12)" : "none",
+        }}>
+        <Clock size={12} className="t-text-dim shrink-0" />
+        <span className="flex-1 text-left truncate">{current.label}</span>
+        <ChevronDown size={14} className={`t-text-dim shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="absolute z-30 mt-1.5 w-full rounded-xl overflow-hidden anim-fade-in"
+          style={{
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+          }}>
+          <div className="max-h-[280px] overflow-y-auto py-1">
+            {items.map((it, i) => {
+              const active = it.key === selectedKey;
+              return (
+                <button key={it.key}
+                  onClick={() => { onChange(it.key); setOpen(false); }}
+                  className={`w-full flex items-center gap-2 px-3 py-2 text-[12px] text-left transition ${active ? "" : "hover:bg-blue-500/5"}`}
+                  style={{
+                    background: active ? "rgba(99,102,241,0.08)" : "transparent",
+                    color: active ? "var(--accent)" : "var(--text)",
+                    borderTop: i > 0 ? "1px solid var(--border-light, var(--border))" : "none",
+                  }}>
+                  <span className="flex-1 truncate">{it.label}</span>
+                  {active && <Check size={13} />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 function stripIndexHints(reason: string): string {
@@ -358,17 +429,12 @@ export default function StockInsight() {
         </div>
         <p className="text-[12px] t-text-sub">미국·한국 뉴스 + 유튜브 분석 기반 TOP3 섹터 · 종목 리포트</p>
         {historyList.length > 0 && (
-          <div className="flex items-center gap-2 pt-1">
-            <Clock size={12} className="t-text-dim shrink-0" />
-            <select value={selectedKey} onChange={(e) => onHistoryChange(e.target.value)}
-              className="flex-1 text-[12px] t-text px-2.5 py-1.5 rounded-lg outline-none cursor-pointer"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-              <option value="latest">최신 ({data.generated_at || "—"})</option>
-              {historyList.map((h) => (
-                <option key={h.filename} value={h.filename}>{h.kst}</option>
-              ))}
-            </select>
-          </div>
+          <HistoryPicker
+            historyList={historyList}
+            selectedKey={selectedKey}
+            onChange={onHistoryChange}
+            latestLabel={data.generated_at || "—"}
+          />
         )}
       </header>
 
