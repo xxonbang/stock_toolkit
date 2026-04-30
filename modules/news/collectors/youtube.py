@@ -102,14 +102,16 @@ def _fetch_transcript_via_api(video_id: str) -> str:
         return ""
 
 
+_YTDLP_DIAG_DONE = False  # 첫 호출만 stderr 풀 출력 (이후엔 요약)
+
+
 def _fetch_transcript_via_ytdlp(video_id: str) -> str:
-    """yt-dlp로 자동/수동 자막 다운로드. GitHub Actions에서도 작동."""
+    """yt-dlp로 자동/수동 자막 다운로드. GitHub Actions IP 차단 시 같이 차단될 수 있음."""
+    global _YTDLP_DIAG_DONE
     import subprocess, tempfile, json as _json, glob, os as _os
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             url = f"https://www.youtube.com/watch?v={video_id}"
-            # --skip-download: 영상 미다운, --write-auto-sub: 자동자막,
-            # --sub-lang ko,en: 한/영, --convert-subs json3: JSON으로 변환 (텍스트 추출 쉬움)
             cmd = [
                 "yt-dlp", url,
                 "--skip-download",
@@ -118,20 +120,30 @@ def _fetch_transcript_via_ytdlp(video_id: str) -> str:
                 "--sub-format", "json3/best",
                 "--convert-subs", "json3",
                 "-o", _os.path.join(tmpdir, "%(id)s"),
-                "--quiet", "--no-warnings",
+                "--no-warnings",
+                "--extractor-args", "youtube:player_client=web,ios",
             ]
-            subprocess.run(cmd, capture_output=True, timeout=60, check=False)
-            # 한국어 우선
+            res = subprocess.run(cmd, capture_output=True, timeout=60, check=False, text=True)
+            # 첫 호출은 stderr 풀 출력 (디버깅), 이후엔 단축
+            if not _YTDLP_DIAG_DONE:
+                _YTDLP_DIAG_DONE = True
+                logger.info(f"[yt-dlp 진단] returncode={res.returncode}")
+                if res.stderr:
+                    logger.info(f"[yt-dlp stderr 앞 1000자]: {res.stderr[:1000]}")
+                if res.stdout:
+                    logger.info(f"[yt-dlp stdout 앞 500자]: {res.stdout[:500]}")
+            # 자막 파일 검색
             for lang in ("ko", "en"):
                 pattern = _os.path.join(tmpdir, f"{video_id}.{lang}.json3")
                 files = glob.glob(pattern)
                 if not files:
                     continue
                 try:
-                    data = _json.loads(_os.path.exists(files[0]) and open(files[0], encoding="utf-8").read() or "{}")
-                except Exception:
+                    with open(files[0], encoding="utf-8") as f:
+                        data = _json.load(f)
+                except Exception as e:
+                    logger.debug(f"yt-dlp json3 파싱 실패 ({video_id}, {lang}): {e}")
                     continue
-                # json3 형식: {"events": [{"segs": [{"utf8":"text"}, ...], ...}]}
                 parts = []
                 for ev in data.get("events", []):
                     for seg in ev.get("segs", []) or []:
@@ -140,16 +152,22 @@ def _fetch_transcript_via_ytdlp(video_id: str) -> str:
                             parts.append(t.strip())
                 text = " ".join(parts)
                 if text.strip():
+                    if not _YTDLP_DIAG_DONE or len(text) < 100:
+                        logger.info(f"[yt-dlp] {video_id} {lang} 자막 {len(text)}자 추출")
                     return text[:5000]
+            # 자막 파일 0개 — stderr 단축 출력
+            if res.returncode != 0 and _YTDLP_DIAG_DONE:
+                stderr_short = (res.stderr or "").split("\n")[0][:200] if res.stderr else "(empty)"
+                logger.debug(f"yt-dlp 자막 0개 ({video_id}, rc={res.returncode}): {stderr_short}")
             return ""
     except subprocess.TimeoutExpired:
-        logger.debug(f"yt-dlp 타임아웃 ({video_id})")
+        logger.warning(f"yt-dlp 타임아웃 ({video_id}) — 60s 초과")
         return ""
     except FileNotFoundError:
-        logger.warning("yt-dlp 미설치 — pip install yt-dlp 필요")
+        logger.error("yt-dlp 미설치 — requirements.txt 확인 필요")
         return ""
     except Exception as e:
-        logger.debug(f"yt-dlp fetch 실패 ({video_id}): {e}")
+        logger.warning(f"yt-dlp 예외 ({video_id}): {type(e).__name__}: {e}")
         return ""
 
 
