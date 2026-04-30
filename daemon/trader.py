@@ -3031,7 +3031,16 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
         scored.append({"code": code, "name": s.get("name", ""), "price": price, "score": score})
 
     scored.sort(key=lambda x: -x["score"])
-    top2 = scored[:2]
+    # 동일 code 중복 제거 — cross_signal에 같은 종목이 다른 theme로 등록 가능 (이중 매집 방지)
+    _seen: set[str] = set()
+    deduped: list[dict] = []
+    for it in scored:
+        c = it.get("code", "")
+        if not c or c in _seen:
+            continue
+        _seen.add(c)
+        deduped.append(it)
+    top2 = deduped[:2]
     if not top2:
         return
 
@@ -3101,6 +3110,7 @@ async def _create_api_leader_simulations(cross_data: list, config: dict):
             async with session.post(url, json=body, headers=headers) as resp:
                 if resp.status in (200, 201):
                     logger.info(f"API∧대장주 시뮬 생성: {item['name']}({item['code']}) {entry_price:,}원 {item['score']}점")
+                    existing_codes.add(item["code"])  # iteration 내 재진입 차단
                 else:
                     err = await resp.text()
                     logger.warning(f"API∧대장주 시뮬 생성 실패 → sim_only 삭제: {resp.status} {err[:100]}")
