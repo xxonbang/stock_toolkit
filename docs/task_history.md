@@ -1,5 +1,19 @@
 # Task History
 
+## 2026-05-03
+
+### [기능] GCP 데몬 자막 수집 정상화 + 인사이트 유튜브 강화 결과 검증 (2026-05-03 08:21 KST)
+- **변경 파일:** `daemon/requirements.txt`
+- **GCP 작업:** (1) `gcloud compute instances reset ws-daemon` — 36회 timeout 반복 중이던 google-guest-agent 정상화. (2) ssh 회복 후 `sudo tailscale set --accept-dns=false` 적용 — Tailscale MagicDNS hijack 해제로 외부 DNS(github.com 등) 해석 정상. (3) `cd ~/stock_toolkit && git pull` — 누적된 6개 commit(ad9e389~7d338b0) 한 번에 반영. (4) `~/stock_toolkit/daemon/.env`에 `YOUTUBE_API_KEY` append (`grep`으로 중복 방지). (5) daemon venv에 `google-api-python-client`, `youtube-transcript-api` 직접 pip install (yt-dlp는 사전 설치 상태). (6) `sudo systemctl restart ws-daemon` → active.
+- **자막 fetch 검증:** `python -m daemon.youtube_transcript_fetcher` manual 실행 → **신규 11건, 실패 0건, 스킵 0건** (삼프로TV 3 + 슈카월드 3 + 김작가 TV 3 + 소수몽키 2). Supabase `youtube_transcripts` 테이블 조회로 11건 저장 확인.
+- **인사이트 분석 검증:** `gh workflow run news-top3.yml` 즉시 트리거 → 1m31s 만에 success.
+  - **이전 (5/2 20:00 KST):** youtube top3_sectors=1(반도체 freq=2 약한), top3_stocks=0
+  - **이후 (5/3 08:20 KST):** youtube top3_sectors=3(반도체 f=5/AI f=5/로봇 f=2), top3_stocks=3(삼성전자 f=3/SK하이닉스 f=3/아마존 f=2)
+  - merge_related_videos: 6개 entry 모두 영상 URL 매핑 완료. 모달 클릭 시 외부 링크 정상 동작 가능.
+- **daemon/requirements.txt:** GCP venv 직접 설치는 venv 재구성 시 휘발됨. 추후 자동 설치를 위해 `google-api-python-client`, `youtube-transcript-api`, `yt-dlp` 명시 추가.
+- **첫 trigger 실패 1회:** push race condition (내가 daemon/requirements.txt push와 동시에 워크플로우가 commit/push 시도) → 재트리거로 정상 push.
+- **커밋:** 7d338b0 (daemon/requirements.txt) + 1e1a1a8 (data: news_top3 08:21 KST)
+
 ## 2026-05-02
 
 ### [진단] GCP 데몬 git pull 실패 — Tailscale DNS hijack (2026-05-02 22:50 KST)
