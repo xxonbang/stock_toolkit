@@ -182,11 +182,38 @@ def _fetch_transcript_via_ytdlp(video_id: str) -> str:
         return ""
 
 
-def _fetch_transcript(video_id: str) -> str:
-    """자막 추출 (2-tier fallback).
-    1순위: youtube-transcript-api (로컬 빠름, GitHub IP 차단)
-    2순위: yt-dlp (느리나 GitHub Actions에서도 작동)
+def _fetch_transcript_via_supabase(video_id: str) -> str:
+    """Supabase youtube_transcripts에서 자막 SELECT (GCP 데몬이 미리 저장).
+    GitHub Actions IP는 YouTube 봇 차단으로 자막 직접 fetch 불가 → 데몬이 사전 수집.
     """
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SECRET_KEY") or os.getenv("SUPABASE_PUBLISHABLE_KEY")
+    if not url or not key:
+        return ""
+    try:
+        import urllib.request, json
+        req = urllib.request.Request(
+            f"{url}/rest/v1/youtube_transcripts?video_id=eq.{video_id}&select=transcript",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as r:
+            rows = json.loads(r.read())
+        if rows and rows[0].get("transcript"):
+            return rows[0]["transcript"][:5000]
+    except Exception as e:
+        logger.debug(f"supabase 자막 조회 실패 ({video_id}): {e}")
+    return ""
+
+
+def _fetch_transcript(video_id: str) -> str:
+    """자막 추출 (3-tier fallback).
+    1순위: Supabase (GCP 데몬이 미리 수집한 자막) — GitHub Actions에서 가장 안정
+    2순위: youtube-transcript-api — 로컬에서 정상, GitHub IP 차단
+    3순위: yt-dlp — 동일하게 GitHub IP 차단 대상이나 백업
+    """
+    text = _fetch_transcript_via_supabase(video_id)
+    if text:
+        return text
     text = _fetch_transcript_via_api(video_id)
     if text:
         return text

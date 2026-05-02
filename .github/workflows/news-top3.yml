@@ -48,6 +48,9 @@ jobs:
           GOOGLE_API_KEY_03: ${{ secrets.GEMINI_API_KEY_03 }}
           GOOGLE_API_KEY_04: ${{ secrets.GEMINI_API_KEY_04 }}
           GOOGLE_API_KEY_05: ${{ secrets.GEMINI_API_KEY_05 }}
+          # YouTube 자막 — GCP 데몬이 사전 수집한 결과를 Supabase에서 SELECT (IP 차단 우회)
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: |
           if [ "${{ inputs.skip_ai }}" = "true" ]; then
             python scripts/news_top3.py --skip-ai --verbose

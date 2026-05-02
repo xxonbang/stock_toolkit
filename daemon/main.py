@@ -329,6 +329,38 @@ async def schedule_ma200_update():
             _ma200_done_date = today
 
 
+async def schedule_youtube_transcript_fetch():
+    """KST 07:25, 19:55에 YouTube 자막 수집 (news-top3.yml cron 5분 전).
+    GitHub Actions IP는 YouTube 봇 차단을 받아 자막 추출 불가 → GCP에서 미리 수집.
+    """
+    _done_dates: set[str] = set()
+    while not _shutdown:
+        await asyncio.sleep(60)
+        if _shutdown:
+            continue
+        now = datetime.now(KST)
+        today = now.strftime("%Y-%m-%d")
+        # 07:25(±2분) 또는 19:55(±2분) — 매일 (장 거래일 무관, 주말 콘텐츠도 수집)
+        slot = None
+        if now.hour == 7 and 23 <= now.minute <= 27:
+            slot = "morning"
+        elif now.hour == 19 and 53 <= now.minute <= 57:
+            slot = "evening"
+        if not slot:
+            continue
+        key = f"{today}-{slot}"
+        if key in _done_dates:
+            continue
+        logger.info(f"YouTube 자막 수집 시작 (slot={slot})")
+        try:
+            from daemon.youtube_transcript_fetcher import fetch_and_store_transcripts
+            result = await fetch_and_store_transcripts()
+            logger.info(f"YouTube 자막 수집 결과: {result}")
+            _done_dates.add(key)
+        except Exception as e:
+            logger.error(f"YouTube 자막 수집 오류: {e}")
+
+
 async def schedule_gapup_open():
     """09:05 거래대금 모멘텀 실전 매수 + 기존 갭업 시뮬레이션 기록"""
     _done_date: str = ""
@@ -578,6 +610,7 @@ async def main():
         schedule_refresh(),
         schedule_config_watch(),
         schedule_ma200_update(),
+        schedule_youtube_transcript_fetch(),
         schedule_gapup_open(),
         schedule_auto_trade(),
         schedule_signal_pulse_trade(),
