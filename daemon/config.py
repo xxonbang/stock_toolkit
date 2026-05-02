@@ -1,7 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+# 루트 .env(공용 키: YOUTUBE_API_KEY 등) → daemon/.env(데몬 전용) 순서로 로드
+# daemon/.env의 키가 우선 (override=True). 파일이 없으면 silent skip.
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"), override=True)
 
 KIS_APP_KEY = os.getenv("KIS_APP_KEY", "")
 KIS_APP_SECRET = os.getenv("KIS_APP_SECRET", "")
