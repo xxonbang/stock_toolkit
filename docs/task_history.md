@@ -1,5 +1,21 @@
 # Task History
 
+## 2026-05-02
+
+### [버그픽스] 데몬 환경변수 로드 — 루트 .env 추가 로드 (2026-05-02 22:04 KST)
+- **변경 파일:** `daemon/config.py`
+- **내용:** 기존 `daemon/config.py`가 `daemon/.env`만 로드해 GCP 데몬에서 `fetch_and_store_transcripts()` 호출 시 "YOUTUBE_API_KEY 환경변수 미설정" 에러 발생. 루트 `.env`를 먼저 로드 후 `daemon/.env`로 override(`override=True`)하도록 변경. 파일 부재 시 silent skip이라 안전.
+- **원인:** YOUTUBE_API_KEY가 루트 `.env`에만 존재하고 데몬은 daemon/.env만 보고 있었음 (2026-04-29 task_history 사용자 작업 필요란에 사전 명시되어 있던 이슈).
+- **운영 적용:** GCP에서 `cd ~/stock_toolkit && git pull && sudo systemctl restart ws-daemon`. 단, GCP 측 루트 `.env` 또는 daemon/.env 중 하나에 YOUTUBE_API_KEY 존재 여부 확인 필요.
+- **커밋:** d566f92
+
+### [기능] admin 로그인 유지 + 인사이트 과거 이력 원격 배포 누락 수정 (2026-05-02 22:00 KST)
+- **변경 파일:** `frontend/src/lib/AuthContext.tsx`, `frontend/.gitignore`, `.github/workflows/deploy-pages.yml`
+- **내용:** (1) AuthContext에 `ADMIN_EMAILS = ["mackulri@gmail.com"]` hardcode → admin 일치 시 1시간 비활성 자동 로그아웃 면제(타이머 미등록). (2) `deploy-pages.yml` `Copy results to dist` 단계가 `cp results/*.json` 비재귀라 `news_top3_history/` 디렉토리가 dist에 누락 → `cp -r results/news_top3_history frontend/dist/data/` 추가로 21개 history 파일 모두 배포 산출물에 포함. (3) `frontend/.gitignore`에 `public/data/news_top3_history/` 추가 — 로컬 검증용 동기화 파일이 git 추적되지 않도록.
+- **검증:** dev 서버(port 5187) 재기동 후 `data/news_top3_history/2026-05-02-2000.json` HTTP 200 응답 확인 + `dist/assets/index-*.js`에 `mackulri@gmail.com` hardcode 포함 확인 + `git status --short`에서 public/data 변경분 0건.
+- **가정:** admin 1인 운영(`mackulri@gmail.com`) 가정으로 .env 외부화 대신 소스 hardcode 채택 — 빌드 산출물에 포함되어 GitHub Pages 빌드에서도 동작.
+- **커밋:** ad9e389
+
 ## 2026-04-29
 
 ### [설정] Stock Insight cron 외부화 — cron-job.org로 전환 (2026-04-29 22:15 KST)
