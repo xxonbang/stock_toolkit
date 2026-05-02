@@ -2,6 +2,32 @@
 
 ## 2026-05-02
 
+### [진단] GCP 데몬 git pull 실패 — Tailscale DNS hijack (2026-05-02 22:50 KST)
+- **증상:** `gcloud compute ssh ws-daemon` 후 `git pull` 시 `Could not resolve host: github.com`. ssh 자체는 가능하나 매우 느림(응답까지 1~2분).
+- **원인:** GCP VM `/etc/resolv.conf`가 Tailscale에 의해 `nameserver 100.100.100.100` (Tailscale MagicDNS)로 강제 설정. MagicDNS가 외부 도메인 forward를 못 해 github.com 등 해석 실패. 시리얼 콘솔에서 `google-guest-agent-manager`가 timeout 28회 재시작 중 — VM 시스템 부하 가능성.
+- **시도:** `sudo tailscale set --accept-dns=false` 적용 시도 → ssh가 일시 끊김(Connection reset). 재접속해도 DNS 미해결 + `sudo systemctl restart ws-daemon`은 dbus connection timeout.
+- **자동 복구 보류:** ws-daemon은 트레이딩 서비스 가동 중. VM reboot/tailscale stop 등은 destructive하여 사용자 manual 처리 필요.
+- **사용자 작업 필요:**
+  1. `gcloud compute ssh ws-daemon --zone=us-central1-a`로 직접 접속 후 (a) `sudo resolvectl dns eth0 8.8.8.8 1.1.1.1` 또는 (b) `sudo sh -c 'cat > /etc/resolv.conf <<EOF\nnameserver 8.8.8.8\nnameserver 1.1.1.1\nEOF'` 임시 적용.
+  2. `cd ~/stock_toolkit && git pull && sudo systemctl restart ws-daemon`
+  3. 영구 해결: tailscale 설정에서 외부 nameserver 추가하거나 `tailscale up --accept-dns=false` 영구 적용.
+
+### [기능] 유튜브 트렌드 강화 — 임계값 완화 + 영상 URL 매핑 (2026-05-02 22:30 KST)
+- **변경 파일:** `modules/news/extractor.py`, `modules/news/prompts/youtube_trend.txt`, `scripts/news_top3.py`
+- **내용:**
+  - `youtube_trend.txt` 프롬프트: 빈도 임계값 4 → 2, TOP3 → TOP5 (키 이름 호환), 자막 부재 시 제목·채널·설명만으로도 추출하도록 가이드, 한글/영문 종목명 인식 강조.
+  - `extractor.py::analyze_youtube` freq 임계값 완화 — strong 3→2, visible 2→1 (자막 보강 전 임시).
+  - `extractor.py::merge_related_videos_into_youtube` 신규 — entry.refs(영상 인덱스 1-base) → entry.related_videos = [{title, url, channel_name, published_at}] 매핑. 프론트 모달 "언급 N건" 클릭 영상 리스트 표시용.
+  - `news_top3.py`에서 analyze_youtube 직후 호출 추가.
+- **배경:** 5/2 20:00 KST 실행 결과 `videos_collected:10 / top3_stocks:0 / top3_sectors:1(반도체 freq=2 약한)`. 자막 봇 차단으로 실제 자막 텍스트 부재 → LLM이 freq≥4 충족 종목 추출 못함. 임계값 완화 + UI 영상 링크 매핑으로 신호 가시화.
+- **커밋:** b39ac7d
+
+### [기능] 인사이트 — "언급 N건" 클릭 시 모달 + 뉴스/영상 통합 리스트 (2026-05-02 22:25 KST)
+- **변경 파일:** `frontend/src/pages/StockInsight.tsx`
+- **내용:** 기존 인라인 "근거 뉴스 N건 보기" 토글 제거. 카드 우측 "언급 N건"을 버튼화 → 클릭 시 풀스크린 모달(MentionsModal)로 related_news + related_videos 통합 리스트 표시. 각 항목 클릭 시 외부 링크(뉴스 기사 / 유튜브 영상)로 이동. ESC·배경 클릭 닫기, 스크롤 잠금, 모바일 bottom-sheet/데스크톱 centered 반응형. RelatedVideo 타입 추가.
+- **검증:** `tsc --noEmit` 통과, `npm run build` 성공, dist 산출물에 `MentionsModal` 1회 발견.
+- **커밋:** 4a77175
+
 ### [버그픽스] 데몬 환경변수 로드 — 루트 .env 추가 로드 (2026-05-02 22:04 KST)
 - **변경 파일:** `daemon/config.py`
 - **내용:** 기존 `daemon/config.py`가 `daemon/.env`만 로드해 GCP 데몬에서 `fetch_and_store_transcripts()` 호출 시 "YOUTUBE_API_KEY 환경변수 미설정" 에러 발생. 루트 `.env`를 먼저 로드 후 `daemon/.env`로 override(`override=True`)하도록 변경. 파일 부재 시 silent skip이라 안전.
