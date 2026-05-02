@@ -108,6 +108,8 @@ jobs:
         run: |
           mkdir -p frontend/dist/data
           cp results/*.json frontend/dist/data/ 2>/dev/null || true
+          # news_top3 history 디렉토리 (cp 비재귀라 별도 복사 필요)
+          cp -r results/news_top3_history frontend/dist/data/ 2>/dev/null || true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist

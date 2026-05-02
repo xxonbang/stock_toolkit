@@ -14,6 +14,13 @@ interface AuthContextType {
 const INACTIVITY_TIMEOUT_MS = 60 * 60 * 1000; // 1시간
 const ACTIVITY_THROTTLE_MS = 30 * 1000;
 
+// admin 계정은 비활성 자동 로그아웃 면제 (소스 hardcode — 1인 admin 운영 가정)
+const ADMIN_EMAILS = ["mackulri@gmail.com"];
+
+function isAdminUser(u: User | null): boolean {
+  return !!u?.email && ADMIN_EMAILS.includes(u.email.toLowerCase());
+}
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 /** localStorage 세션 파싱 — ExpireStorage 래핑과 raw 두 포맷 모두 지원 */
@@ -49,9 +56,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, INACTIVITY_TIMEOUT_MS);
   }, []);
 
-  // 비활성 자동 로그아웃
+  // 비활성 자동 로그아웃 — admin은 면제하여 항상 로그인 유지
   useEffect(() => {
-    if (!user) {
+    if (!user || isAdminUser(user)) {
       if (inactivityTimerRef.current) { clearTimeout(inactivityTimerRef.current); inactivityTimerRef.current = null; }
       return;
     }
