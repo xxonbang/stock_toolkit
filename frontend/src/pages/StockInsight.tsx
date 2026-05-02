@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp, Clock, ChevronDown, Check } from "lucide-react";
+import { Newspaper, Globe, MapPin, Youtube, Loader2, TrendingUp, ExternalLink, ArrowUp, Clock, ChevronDown, Check, X } from "lucide-react";
 import { dataService } from "../services/dataService";
 
 type RelatedNews = {
   title: string;
   title_ko?: string;
   url: string;
+  published_at?: string;
+};
+
+type RelatedVideo = {
+  title: string;
+  url: string;
+  channel_name?: string;
   published_at?: string;
 };
 
@@ -18,6 +25,7 @@ type Top3Entry = {
   us_news_refs?: number[];
   kr_news_refs?: number[];
   related_news?: RelatedNews[];
+  related_videos?: RelatedVideo[];
   _weak_signal?: boolean;
 };
 
@@ -150,10 +158,100 @@ function stripIndexHints(reason: string): string {
     .trim();
 }
 
+function MentionsModal({
+  open, onClose, title, news, videos,
+}: {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  news: RelatedNews[];
+  videos: RelatedVideo[];
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+  if (!open) return null;
+  const total = news.length + videos.length;
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+      style={{ background: "rgba(0,0,0,0.55)" }}
+      onClick={onClose}>
+      <div onClick={(e) => e.stopPropagation()}
+        className="w-full sm:max-w-xl max-h-[85vh] flex flex-col rounded-t-2xl sm:rounded-2xl"
+        style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+        <div className="flex items-center justify-between p-4 sticky top-0" style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-card)" }}>
+          <div className="min-w-0">
+            <div className="text-[11px] t-text-dim">언급 내역</div>
+            <div className="text-[15px] font-bold t-text truncate">{title}</div>
+            <div className="text-[11px] t-text-dim mt-0.5">총 {total}건 (뉴스 {news.length} · 영상 {videos.length})</div>
+          </div>
+          <button onClick={onClose} aria-label="닫기"
+            className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center hover:opacity-80"
+            style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+            <X size={16} className="t-text-sub" />
+          </button>
+        </div>
+        <div className="overflow-y-auto p-3 space-y-2">
+          {news.map((n, i) => (
+            <a key={`n-${i}`} href={n.url} target="_blank" rel="noopener noreferrer"
+              className="block rounded-lg p-2.5 transition hover:opacity-80"
+              style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+              <div className="flex items-start gap-2">
+                <span className="text-[10px] px-1.5 py-0.5 rounded shrink-0 mt-0.5 bg-blue-500/10 text-blue-400">뉴스</span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] t-text leading-[1.5] line-clamp-2">{n.title}</div>
+                  {n.title_ko && (
+                    <div className="text-[12px] t-text-sub leading-[1.5] mt-0.5 line-clamp-2">↳ {n.title_ko}</div>
+                  )}
+                  <div className="flex items-center gap-1.5 mt-1 text-[10px] t-text-dim">
+                    {n.published_at && <span>{n.published_at.slice(0, 16)}</span>}
+                    <ExternalLink size={10} />
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+          {videos.map((v, i) => (
+            <a key={`v-${i}`} href={v.url} target="_blank" rel="noopener noreferrer"
+              className="block rounded-lg p-2.5 transition hover:opacity-80"
+              style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+              <div className="flex items-start gap-2">
+                <span className="text-[10px] px-1.5 py-0.5 rounded shrink-0 mt-0.5 bg-rose-500/10 text-rose-400">영상</span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] t-text leading-[1.5] line-clamp-2">{v.title}</div>
+                  <div className="flex items-center gap-1.5 mt-1 text-[10px] t-text-dim">
+                    {v.channel_name && <span>{v.channel_name}</span>}
+                    {v.published_at && <span>· {v.published_at.slice(0, 10)}</span>}
+                    <ExternalLink size={10} />
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+          {total === 0 && (
+            <div className="py-8 text-center text-[12px] t-text-dim">언급 내역이 비어 있습니다</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "kr" | "youtube"; kind: "sector" | "stock" }) {
-  const [showRelated, setShowRelated] = useState(false);
-  const f = region === "youtube" ? (entry.freq || entry.refs?.length || 0) : freqOf(entry, region);
-  const related = entry.related_news || [];
+  const [showModal, setShowModal] = useState(false);
+  const news = entry.related_news || [];
+  const videos = entry.related_videos || [];
+  const totalMentions = news.length + videos.length;
+  const f = totalMentions > 0
+    ? totalMentions
+    : region === "youtube" ? (entry.freq || entry.refs?.length || 0) : freqOf(entry, region);
   const cleanReason = entry.reason ? stripIndexHints(entry.reason) : "";
 
   return (
@@ -170,7 +268,18 @@ function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "
             </span>
           )}
         </div>
-        {f > 0 && <span className="text-[11px] t-text-dim">언급 {f}건</span>}
+        {f > 0 && (
+          totalMentions > 0 ? (
+            <button onClick={() => setShowModal(true)}
+              className="text-[11px] px-2 py-0.5 rounded-md t-text-sub hover:t-text transition"
+              style={{ background: "var(--bg)", border: "1px solid var(--border)" }}
+              aria-label={`${entry.name} 언급 ${f}건 보기`}>
+              언급 {f}건 ▸
+            </button>
+          ) : (
+            <span className="text-[11px] t-text-dim">언급 {f}건</span>
+          )
+        )}
       </div>
 
       {cleanReason && (
@@ -187,36 +296,8 @@ function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "
         </div>
       )}
 
-      {related.length > 0 && (
-        <div className="pt-1">
-          <button onClick={() => setShowRelated(!showRelated)}
-            className="w-full flex items-center justify-center gap-1.5 text-[11px] t-text-dim hover:t-text-sub transition py-1.5 rounded-lg"
-            style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-            <Newspaper size={11} />
-            {showRelated ? `근거 뉴스 접기 ▲` : `근거 뉴스 ${related.length}건 보기 ▼`}
-          </button>
-          {showRelated && (
-            <div className="space-y-1.5 mt-2">
-              {related.map((n, i) => (
-                <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
-                  className="block rounded-lg p-2 transition hover:opacity-80"
-                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
-                  <div className="text-[12px] t-text leading-[1.5] line-clamp-2">{n.title}</div>
-                  {n.title_ko && (
-                    <div className="text-[11px] t-text-sub leading-[1.5] mt-0.5 line-clamp-2">↳ {n.title_ko}</div>
-                  )}
-                  {n.published_at && (
-                    <div className="text-[10px] t-text-dim mt-1 flex items-center gap-1">
-                      <span>{n.published_at.slice(0, 16)}</span>
-                      <ExternalLink size={9} />
-                    </div>
-                  )}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      <MentionsModal open={showModal} onClose={() => setShowModal(false)}
+        title={entry.name} news={news} videos={videos} />
     </div>
   );
 }
