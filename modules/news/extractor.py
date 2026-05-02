@@ -323,8 +323,9 @@ def analyze_youtube(videos, client) -> Dict:
         f"prompt {len(prompt):,}자"
     )
     result = _parse_json_with_retry(client, prompt)
-    min_yt_strong = 3   # 4 → 3 완화 (10영상 중 30%)
-    min_yt_visible = 2  # 2영상 이상이면 약한 시그널로 노출
+    # 자막 부실(YouTube 봇 차단) 환경 대응 — 임계값 완화
+    min_yt_strong = 2   # 3 → 2 (10영상 중 20%)
+    min_yt_visible = 1  # 1영상 언급도 약한 시그널로 노출 (자막 보강 전 임시)
 
     def _yt_freq(e):
         return max(e.get("freq", 0) or 0, len(e.get("refs", []) or []))
@@ -400,6 +401,39 @@ def merge_related_news_into_top3(top3: Dict, batches: Dict[str, List[CollectedIt
                 enriched += 1
     logger.info(f"  merge_related_news: {enriched}개 entry에 근거 뉴스 머지 (최대 {max_per_entry}건/entry)")
     return top3
+
+
+def merge_related_videos_into_youtube(yt_top3: Dict, videos, max_per_entry: int = 8) -> Dict:
+    """yt_top3 entry의 refs(영상 인덱스 1-base)를 videos 리스트와 매핑해 related_videos 필드 추가.
+
+    프론트는 entry.related_videos를 모달 리스트에 그대로 표시.
+    """
+    kst = timezone(timedelta(hours=9))
+    enriched = 0
+    for key in ("top3_sectors", "top3_stocks"):
+        for e in yt_top3.get(key, []) or []:
+            refs = e.get("refs", []) or []
+            mapped = []
+            for ref in refs[:max_per_entry]:
+                try:
+                    idx = int(ref) - 1  # prompt는 1-base
+                except (TypeError, ValueError):
+                    continue
+                if idx < 0 or idx >= len(videos):
+                    continue
+                v = videos[idx]
+                mapped.append({
+                    "title": getattr(v, "title", ""),
+                    "url": getattr(v, "url", ""),
+                    "channel_name": getattr(v, "channel_name", ""),
+                    "published_at": getattr(v, "published_at", None).astimezone(kst).strftime("%Y-%m-%d %H:%M:%S KST")
+                        if getattr(v, "published_at", None) else "",
+                })
+            if mapped:
+                e["related_videos"] = mapped
+                enriched += 1
+    logger.info(f"  merge_related_videos: {enriched}개 entry에 영상 URL 머지 (최대 {max_per_entry}건/entry)")
+    return yt_top3
 
 
 def merge_outlook_into_top3(top3: Dict, outlook: Dict) -> Dict:

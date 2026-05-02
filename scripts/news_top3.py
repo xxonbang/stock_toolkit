@@ -255,6 +255,8 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
         for k in ("top3_sectors", "top3_stocks"):
             entries = yt_top3.get(k, [])
             logger.info(f"  📌 youtube.{k}: {len(entries)}건 → {[e.get('name','?') for e in entries]}")
+        # 영상 인덱스(refs) → 영상 URL/제목/채널 매핑 (프론트 모달 표시용)
+        extractor.merge_related_videos_into_youtube(yt_top3, collected["youtube"])
     except Exception as e:
         logger.warning(f"youtube 분석 실패: {e}", exc_info=True)
 
