@@ -212,16 +212,13 @@ function MentionsModal({
   if (!open) return null;
   const total = news.length + videos.length;
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center backdrop-blur-sm"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-0 backdrop-blur-sm"
       style={{ background: "rgba(0,0,0,0.55)" }}
       onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()}
-        className="w-full sm:max-w-xl min-h-[70vh] sm:min-h-0 max-h-[90vh] flex flex-col rounded-t-2xl sm:rounded-2xl shadow-2xl"
+        className="w-full max-w-md sm:max-w-xl max-h-[85vh] flex flex-col rounded-2xl shadow-2xl anim-fade-in"
         style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-        <div className="flex justify-center pt-2 pb-1 sm:hidden">
-          <div className="w-10 h-1 rounded-full" style={{ background: "var(--border)" }} aria-hidden />
-        </div>
-        <div className="flex items-center justify-between p-4 sticky top-0" style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-card)" }}>
+        <div className="flex items-center justify-between p-4 sticky top-0 rounded-t-2xl" style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-card)" }}>
           <div className="min-w-0">
             <div className="text-[11px] t-text-dim">언급 내역</div>
             <div className="text-[15px] font-bold t-text truncate">{title}</div>

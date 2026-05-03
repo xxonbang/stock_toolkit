@@ -2,6 +2,12 @@
 
 ## 2026-05-03
 
+### [개선] 언급 클릭 시 바텀 시트 → 중앙 팝업 방식으로 변경 (2026-05-03 15:55 KST)
+- **변경 파일:** `frontend/src/pages/StockInsight.tsx`
+- **변경:** `MentionsModal`의 모바일 `items-end` (바텀 시트) → 모바일/PC 일괄 `items-center` (중앙 팝업).
+- **세부:** 컨테이너에 `p-3 sm:p-0` (모바일 좌우 여백), 시트에 `max-w-md sm:max-w-xl`, `min-h-[70vh]` 제거(컨텐츠 기반 자연 높이), `rounded-t-2xl sm:rounded-2xl` → `rounded-2xl` 일괄 모든 코너 둥글게, drag handle div 제거(팝업 형태에 불필요), `anim-fade-in` 추가.
+- **검증:** tsc + build 통과.
+
 ### [기능] 인사이트 화면 하단 퀵 네비 추가 (미국시장 / 한국시장 / 유튜브 트렌드) (2026-05-03 15:45 KST)
 - **변경 파일:** `frontend/src/pages/StockInsight.tsx`
 - **구현:** `QuickNav` 컴포넌트 신설 — 화면 하단 중앙 fixed pill bar (Globe/MapPin/Youtube 아이콘 + 한글 라벨). 클릭 시 `document.getElementById(id).scrollIntoView({behavior:"smooth"})`.
