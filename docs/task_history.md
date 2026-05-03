@@ -2,6 +2,23 @@
 
 ## 2026-05-03
 
+### [리팩토링] Claude Code 하네스 개선 5건 — wrapper 차단 + commands 미러 + agent 가이드 (2026-05-03 14:55 KST)
+- **변경 파일:** `.claude/hooks/block-destructive.sh`, `.claude/hooks/task-history-reminder.sh`, `.claude/settings.json`, `.claude/commands/{download-data,query-trades,deploy-daemon,gcp-logs}.md`, `CLAUDE.md`
+- **배경:** 사용자 점검 요청 → 본 세션에서 검증된 약점 6건 중 5건 적용 (#3 session-start-brief 가시화는 Claude Code SessionStart hook 시스템 레벨 한계로 보류).
+- **#1 wrapper-aware 차단:** `gcloud compute ssh ... --command="sudo ..."` 같은 wrapper 안의 위험 명령도 차단. 단위 테스트(8건) 모두 기대대로 — ws-daemon stop/tailscale down/reboot/원격 .env cat 차단 + git pull/.env append/git push/직접 rm-rf 차단까지 정확.
+- **#2 skill→commands 미러:** Skill tool이 `.claude/skills/`를 invoke하지 못함을 본 세션에서 확인 (Unknown skill 에러). `download-data`, `query-trades`, `deploy-daemon`, `gcp-logs` 4개를 slash command로 미러. skill 파일은 상세 문서로 유지.
+- **#4 hooks 동기화:** `tsc-after-edit.sh` / `python-syntax-check.sh`의 `async:true` 제거 → 편집 후 syntax 깨지면 turn 안에 즉시 노출.
+- **#5 CLAUDE.md "8. 하네스 활용 가이드":** 5 agent 호출 기준 (ssh 3+/edit 5+/도메인 cross), 5 slash command, 5 hook 자동 발동 정리. 메인이 작업 진입 시 위임 가능 컴포넌트를 먼저 검토하도록 명시.
+- **#6 task-history-reminder 정밀화:** mtime 비교에서 git log 기반으로 변경 — 최근 4시간 커밋 중 `docs/task_history.md`를 건드린 게 0건이면 경고. 진짜 누락만 잡음.
+- **커밋:** b2121d8
+
+### [버그픽스] 유튜브 entry — summary 필드를 reason으로 매핑 (2026-05-03 14:50 KST)
+- **변경 파일:** `modules/news/extractor.py`
+- **원인:** `prompts/youtube_trend.txt`는 LLM 응답 schema에 `summary` 필드를 요구하나, 프론트 `EntryCard`는 `entry.reason`만 표시. SK하이닉스(한국 종목) 카드에는 reason이 채워져 설명이 보였으나 유튜브 카드는 reason 비어있어 빈 카드 노출.
+- **수정:** `analyze_youtube` 내 entry 처리 루프에서 `if not e.get("reason") and e.get("summary"): e["reason"] = e["summary"]` 매핑 추가. prompt schema는 그대로 유지.
+- **다음 사이클:** 다음 cron 실행(KST 19:55) 결과부터 유튜브 카드에도 LLM 요약이 표시.
+- **커밋:** 94016c4
+
 ### [기능] GCP 데몬 자막 수집 정상화 + 인사이트 유튜브 강화 결과 검증 (2026-05-03 08:21 KST)
 - **변경 파일:** `daemon/requirements.txt`
 - **GCP 작업:** (1) `gcloud compute instances reset ws-daemon` — 36회 timeout 반복 중이던 google-guest-agent 정상화. (2) ssh 회복 후 `sudo tailscale set --accept-dns=false` 적용 — Tailscale MagicDNS hijack 해제로 외부 DNS(github.com 등) 해석 정상. (3) `cd ~/stock_toolkit && git pull` — 누적된 6개 commit(ad9e389~7d338b0) 한 번에 반영. (4) `~/stock_toolkit/daemon/.env`에 `YOUTUBE_API_KEY` append (`grep`으로 중복 방지). (5) daemon venv에 `google-api-python-client`, `youtube-transcript-api` 직접 pip install (yt-dlp는 사전 설치 상태). (6) `sudo systemctl restart ws-daemon` → active.
