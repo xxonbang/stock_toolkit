@@ -150,6 +150,38 @@ function HistoryPicker({
   );
 }
 
+function QuickNav() {
+  const items: { id: string; label: string; icon: React.ReactNode; color: string }[] = [
+    { id: "section-us", label: "미국시장", icon: <Globe size={13} />, color: "text-blue-400" },
+    { id: "section-kr", label: "한국시장", icon: <MapPin size={13} />, color: "text-emerald-400" },
+    { id: "section-yt", label: "유튜브 트렌드", icon: <Youtube size={13} />, color: "text-rose-400" },
+  ];
+  const goto = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <nav aria-label="섹션 퀵 네비게이션"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 px-1.5 py-1 rounded-full flex gap-0.5 anim-fade-in"
+      style={{
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        boxShadow: "0 8px 24px rgba(0,0,0,0.22)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+      }}>
+      {items.map((it) => (
+        <button key={it.id} onClick={() => goto(it.id)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] t-text-sub hover:t-text hover:bg-blue-500/5 transition whitespace-nowrap"
+          aria-label={`${it.label} 섹션으로 이동`}>
+          <span className={it.color}>{it.icon}</span>
+          <span>{it.label}</span>
+        </button>
+      ))}
+    </nav>
+  );
+}
+
 function stripIndexHints(reason: string): string {
   // "[미뉴스#3,#7,#12]" 같은 인덱스 표기 제거 (백엔드가 누락했을 경우 안전망)
   return reason
@@ -405,8 +437,9 @@ function RawVideoCard({ video }: { video: RawVideo }) {
 }
 
 function SectionBlock({
-  icon, label, color, region, sectors, stocks, news, footer, isPhase1,
+  id, icon, label, color, region, sectors, stocks, news, footer, isPhase1,
 }: {
+  id?: string;
   icon: React.ReactNode;
   label: string;
   color: string;
@@ -422,7 +455,7 @@ function SectionBlock({
   const hasRaw = (news?.length || 0) > 0;
 
   return (
-    <section className="space-y-3">
+    <section id={id} className="space-y-3 scroll-mt-4">
       <div className="flex items-center gap-2">
         <span className={color}>{icon}</span>
         <h2 className="text-[16px] font-bold t-text tracking-tight">{label}</h2>
@@ -540,7 +573,7 @@ export default function StockInsight() {
   const isPhase1 = data.phase === 1;
 
   return (
-    <div className="px-3 pt-3 pb-8 space-y-6 max-w-2xl mx-auto">
+    <div className="px-3 pt-3 pb-24 space-y-6 max-w-2xl mx-auto">
       {/* 헤더 */}
       <header className="space-y-2">
         <div className="flex items-center justify-between">
@@ -570,6 +603,7 @@ export default function StockInsight() {
 
       {/* 미국 */}
       <SectionBlock
+        id="section-us"
         icon={<Globe size={16} />} label="미국 시장" color="text-blue-400"
         region="us"
         sectors={us.top3_sectors || []}
@@ -581,6 +615,7 @@ export default function StockInsight() {
 
       {/* 한국 */}
       <SectionBlock
+        id="section-kr"
         icon={<MapPin size={16} />} label="한국 시장" color="text-emerald-400"
         region="kr"
         sectors={kr.top3_sectors || []}
@@ -592,7 +627,7 @@ export default function StockInsight() {
 
       {/* 유튜브 — phase 1과 2 분기 */}
       {isPhase1 && yt.videos && yt.videos.length > 0 ? (
-        <section className="space-y-3">
+        <section id="section-yt" className="space-y-3 scroll-mt-4">
           <div className="flex items-center gap-2">
             <span className="text-rose-400"><Youtube size={16} /></span>
             <h2 className="text-[16px] font-bold t-text tracking-tight">유튜브 트렌드</h2>
@@ -604,6 +639,7 @@ export default function StockInsight() {
         </section>
       ) : (
         <SectionBlock
+          id="section-yt"
           icon={<Youtube size={16} />} label="유튜브 트렌드" color="text-rose-400"
           region="youtube"
           sectors={yt.top3_sectors || []}
@@ -618,11 +654,14 @@ export default function StockInsight() {
         Google News BUSINESS · Yahoo Finance · 네이버 금융 · YouTube Data API + Gemini 2.5 Flash Lite
       </footer>
 
-      {/* 스크롤 최상단 floating 버튼 */}
+      {/* 퀵 네비 (화면 하단 중앙 fixed pill bar) */}
+      <QuickNav />
+
+      {/* 스크롤 최상단 floating 버튼 — 퀵 네비 위로 stack */}
       {showScrollTop && (
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="맨 위로"
-          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full flex items-center justify-center transition hover:scale-105 active:scale-95"
+          className="fixed bottom-20 right-6 z-40 w-11 h-11 rounded-full flex items-center justify-center transition hover:scale-105 active:scale-95"
           style={{
             background: "var(--bg-card)",
             border: "1px solid var(--border)",

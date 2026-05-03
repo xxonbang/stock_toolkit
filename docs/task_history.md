@@ -2,6 +2,14 @@
 
 ## 2026-05-03
 
+### [기능] 인사이트 화면 하단 퀵 네비 추가 (미국시장 / 한국시장 / 유튜브 트렌드) (2026-05-03 15:45 KST)
+- **변경 파일:** `frontend/src/pages/StockInsight.tsx`
+- **구현:** `QuickNav` 컴포넌트 신설 — 화면 하단 중앙 fixed pill bar (Globe/MapPin/Youtube 아이콘 + 한글 라벨). 클릭 시 `document.getElementById(id).scrollIntoView({behavior:"smooth"})`.
+- **섹션 id:** `SectionBlock`에 `id` prop 추가, 미국=`section-us` / 한국=`section-kr` / 유튜브=`section-yt` 부여 (phase1 raw youtube section에도 동일 id). `scroll-mt-4`로 스크롤 시 상단 여유.
+- **레이아웃 조정:** 페이지 컨테이너 `pb-8` → `pb-24`로 퀵 네비에 마지막 컨텐츠 가림 방지. ScrollToTop 버튼은 `bottom-6` → `bottom-20`로 퀵 네비 위로 stack.
+- **디자인:** 둥근 pill bar (rounded-full), backdrop-blur-sm, shadow-2xl 강조, 색상은 각 섹션 컬러 매핑(blue/emerald/rose). z-index: 퀵 네비 30 / ScrollToTop 40.
+- **검증:** `npx tsc --noEmit` 통과, `npm run build` 성공.
+
 ### [버그픽스/개선] 인사이트 카드 UI 3건 — 언급버튼 줄바꿈 / 뉴스 펼치기 부활 / 시트 위치 (2026-05-03 15:30 KST)
 - **변경 파일:** `frontend/src/pages/StockInsight.tsx`
 - **#1 언급 버튼 줄바꿈:** 우측 "언급 N건 ▸" 버튼이 좁은 폭에서 화살표 ▸가 다음 줄로 wrap. button에 `whitespace-nowrap shrink-0` 추가.
