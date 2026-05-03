@@ -61,4 +61,32 @@ case "$CMD" in
     echo "BLOCKED: .env 파일 cat 금지 (Read 도구로 신중히)" >&2; exit 2 ;;
 esac
 
+# 7. wrapper(ssh/gcloud --command) 안의 위험 패턴 차단 — settings.json deny가 wrapper에 적용 안 됨
+# gcloud compute ssh ... --command="..." 또는 ssh user@host '...' 형태 안 sudo/위험 명령 검사
+INNER=""
+if echo "$CMD" | grep -qE '^(gcloud[[:space:]]+compute[[:space:]]+ssh|ssh[[:space:]])'; then
+  # --command="..." 또는 마지막 따옴표 인자 추출
+  INNER=$(echo "$CMD" | sed -nE 's/.*--command="([^"]*)".*/\1/p')
+  [ -z "$INNER" ] && INNER=$(echo "$CMD" | sed -nE "s/.*--command='([^']*)'.*/\1/p")
+fi
+if [ -n "$INNER" ]; then
+  case "$INNER" in
+    *"systemctl stop ws-daemon"*|*"systemctl disable ws-daemon"*)
+      echo "BLOCKED: ws-daemon 정지/비활성화는 wrapper 안에서도 금지" >&2; exit 2 ;;
+    *"tailscale down"*|*"tailscale logout"*)
+      echo "BLOCKED: tailscale down/logout 금지 (ssh 연결 끊김)" >&2; exit 2 ;;
+    *"rm -rf "*"~/stock_toolkit"*|*"rm -rf "*"/stock_toolkit"*)
+      echo "BLOCKED: GCP 측 stock_toolkit 디렉토리 rm -rf 금지" >&2; exit 2 ;;
+    *"shutdown"*|*"reboot"*|*"halt"*|*"poweroff"*)
+      echo "BLOCKED: VM shutdown/reboot 금지 (gcloud reset만 명시적으로)" >&2; exit 2 ;;
+    *"cat "*".env"*)
+      echo "BLOCKED: 원격 .env cat 금지" >&2; exit 2 ;;
+    *">"*".env"*|*"echo "*">"*".env"*)
+      # ".env" 직접 덮어쓰기 차단 (>>는 append라 허용)
+      if echo "$INNER" | grep -qE '[^>]>[[:space:]]*[^>]*\.env'; then
+        echo "BLOCKED: .env 파일 덮어쓰기(>) 금지 (>> append만 허용)" >&2; exit 2
+      fi ;;
+  esac
+fi
+
 exit 0

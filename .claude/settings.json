@@ -30,13 +30,11 @@
           {
             "type": "command",
             "command": ".claude/hooks/tsc-after-edit.sh",
-            "async": true,
             "timeout": 60
           },
           {
             "type": "command",
             "command": ".claude/hooks/python-syntax-check.sh",
-            "async": true,
             "timeout": 15
           }
         ]
