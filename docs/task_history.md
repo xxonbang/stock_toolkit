@@ -2,6 +2,15 @@
 
 ## 2026-05-03
 
+### [기능] 유튜브 TOP3에 1주일 outlook 추가 — generate_outlook 합본 호출 (A안) (2026-05-03 15:10 KST)
+- **변경 파일:** `modules/news/extractor.py`, `modules/news/prompts/trend_outlook.txt`, `scripts/news_top3.py`
+- **배경:** 직전 세션 보류 항목 — 유튜브 TOP3 entry에 us/kr와 동일한 1주일 전망(outlook)을 노출하기 위함. LLM 콜 추가 없이 처리하기 위해 A안(기존 `generate_outlook` 호출에 yt_top3 합본 입력) 채택.
+- **흐름 재정렬:** 기존 LLM #3 generate_outlook → LLM #4 analyze_youtube 였으나, generate_outlook 시점에 yt_top3가 없는 문제. analyze_youtube를 LLM #3로 앞당기고 generate_outlook을 LLM #4로 이동. 유튜브 분석 실패 시 `yt_top3={"top3_sectors":[],"top3_stocks":[]}` fallback으로 us/kr outlook 영향 격리.
+- **prompt 확장:** `trend_outlook.txt`에 `{YT_TOP3_RESULT}` placeholder 추가, 출력 JSON에 `yt_sector_outlook` / `yt_stock_outlook` 추가. "유튜브 입력이 비어 있으면 빈 [] 출력" 명시 → 빈 yt_top3에서도 안전.
+- **머지 로직:** `merge_outlook_into_top3(top3, outlook, yt_top3=None)` 시그니처 확장. yt_top3가 전달되면 `yt_*_outlook` 응답을 yt_top3 entry의 outlook 필드로 name 매칭 머지. 프론트 `StockInsight.tsx`는 `entry.outlook`을 직접 표시하므로 build_payload_full 변경 불필요.
+- **검증:** `python3 -m py_compile` 양 파일 OK. 실데이터 검증은 다음 cron 실행(KST 19:55)에서 자연 발생적 검증 — `outlook` keys에 `yt_sector_outlook` / `yt_stock_outlook`이 포함되고 유튜브 카드 펼치기 영역에 1주일 전망 텍스트 노출 기대.
+- **비용 영향:** LLM 콜 0회 추가 (기존 1회 호출에 입력·출력만 확장). 응답 토큰은 최대 6개 항목 추가 분량 증가.
+
 ### [리팩토링] Claude Code 하네스 개선 5건 — wrapper 차단 + commands 미러 + agent 가이드 (2026-05-03 14:55 KST)
 - **변경 파일:** `.claude/hooks/block-destructive.sh`, `.claude/hooks/task-history-reminder.sh`, `.claude/settings.json`, `.claude/commands/{download-data,query-trades,deploy-daemon,gcp-logs}.md`, `CLAUDE.md`
 - **배경:** 사용자 점검 요청 → 본 세션에서 검증된 약점 6건 중 5건 적용 (#3 session-start-brief 가시화는 Claude Code SessionStart hook 시스템 레벨 한계로 보류).

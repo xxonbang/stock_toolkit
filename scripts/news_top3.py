@@ -236,21 +236,9 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
         logger.error(f"top3 실패: {e}", exc_info=True)
         top3 = {"us_top3_sectors": [], "us_top3_stocks": [], "kr_top3_sectors": [], "kr_top3_stocks": []}
 
-    outlook: dict = {}
-    try:
-        with StepTimer("LLM #3: generate_outlook (Search grounding)"):
-            outlook = extractor.generate_outlook(top3, client)
-        logger.info(f"  📌 outlook keys: {list(outlook.keys()) if outlook else '비어있음'}")
-        # outlook 응답을 top3 entry의 outlook 필드로 머지 (프론트가 entry.outlook 직접 표시)
-        if outlook:
-            extractor.merge_outlook_into_top3(top3, outlook)
-    except Exception as e:
-        logger.warning(f"outlook 실패: {e}", exc_info=True)
-        outlook = {}
-
     yt_top3 = {"top3_sectors": [], "top3_stocks": []}
     try:
-        with StepTimer("LLM #4: analyze_youtube"):
+        with StepTimer("LLM #3: analyze_youtube"):
             yt_top3 = extractor.analyze_youtube(collected["youtube"], client)
         for k in ("top3_sectors", "top3_stocks"):
             entries = yt_top3.get(k, [])
@@ -259,6 +247,18 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
         extractor.merge_related_videos_into_youtube(yt_top3, collected["youtube"])
     except Exception as e:
         logger.warning(f"youtube 분석 실패: {e}", exc_info=True)
+
+    outlook: dict = {}
+    try:
+        with StepTimer("LLM #4: generate_outlook (us/kr + youtube, Search grounding)"):
+            outlook = extractor.generate_outlook(top3, client, yt_top3=yt_top3)
+        logger.info(f"  📌 outlook keys: {list(outlook.keys()) if outlook else '비어있음'}")
+        # outlook 응답을 top3 / yt_top3 entry의 outlook 필드로 머지
+        if outlook:
+            extractor.merge_outlook_into_top3(top3, outlook, yt_top3=yt_top3)
+    except Exception as e:
+        logger.warning(f"outlook 실패: {e}", exc_info=True)
+        outlook = {}
 
     return build_payload_full(collected, top3, outlook, yt_top3, now_kst)
 

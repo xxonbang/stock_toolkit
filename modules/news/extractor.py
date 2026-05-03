@@ -304,6 +304,12 @@ def _has_any_top3_entry(top3: Dict) -> bool:
     return False
 
 
+def _has_any_yt_top3_entry(yt_top3: Dict | None) -> bool:
+    if not yt_top3:
+        return False
+    return bool(yt_top3.get("top3_sectors") or yt_top3.get("top3_stocks"))
+
+
 def analyze_youtube(videos, client) -> Dict:
     """유튜브 영상 → TOP3 종목·섹터 추출."""
     if not videos:
@@ -357,15 +363,24 @@ def analyze_youtube(videos, client) -> Dict:
     return result
 
 
-def generate_outlook(top3: Dict, client) -> Dict:
-    """AI 콜 #3 — 12개 항목 1주일 전망 (Google Search grounding)."""
-    if not _has_any_top3_entry(top3):
+def generate_outlook(top3: Dict, client, yt_top3: Dict | None = None) -> Dict:
+    """AI 콜 #3 — us/kr TOP3 12개 + 유튜브 TOP3 최대 6개 항목 1주일 전망 (Google Search grounding).
+
+    yt_top3는 None 또는 빈 dict일 수 있음 (유튜브 분석 실패 시).
+    그 경우 prompt에 빈 구조를 전달하고 yt_*_outlook은 빈 배열로 응답되도록 지시.
+    """
+    if not _has_any_top3_entry(top3) and not _has_any_yt_top3_entry(yt_top3):
         logger.info("  generate_outlook: TOP3 결과 없음 — 스킵")
         return {}
     template = _load_prompt("trend_outlook.txt")
+    yt_payload = yt_top3 or {"top3_sectors": [], "top3_stocks": []}
     prompt = template.replace("{TOP3_RESULT}", json.dumps(top3, ensure_ascii=False, indent=2))
-    total_entries = sum(len(top3.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks"))
-    logger.info(f"  generate_outlook: 입력 {total_entries}개 항목, prompt {len(prompt):,}자, search grounding=ON")
+    prompt = prompt.replace("{YT_TOP3_RESULT}", json.dumps(yt_payload, ensure_ascii=False, indent=2))
+    total_entries = (
+        sum(len(top3.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks"))
+        + sum(len(yt_payload.get(k, [])) for k in ("top3_sectors","top3_stocks"))
+    )
+    logger.info(f"  generate_outlook: 입력 {total_entries}개 항목 (us/kr+yt), prompt {len(prompt):,}자, search grounding=ON")
     return _parse_json_with_retry(client, prompt, enable_search=True)
 
 
@@ -439,21 +454,22 @@ def merge_related_videos_into_youtube(yt_top3: Dict, videos, max_per_entry: int 
     return yt_top3
 
 
-def merge_outlook_into_top3(top3: Dict, outlook: Dict) -> Dict:
-    """outlook 응답의 *_outlook 배열을 top3 entry의 outlook 필드로 머지.
+def merge_outlook_into_top3(top3: Dict, outlook: Dict, yt_top3: Dict | None = None) -> Dict:
+    """outlook 응답의 *_outlook 배열을 top3 / yt_top3 entry의 outlook 필드로 머지.
 
     LLM 응답 형식:
-      {"us_sector_outlook": [{"name":"AI","outlook":"..."},...], "us_stock_outlook": [...], ...}
-    이를 top3.us_top3_sectors 등 각 entry에 outlook 필드로 추가 (name 매칭).
+      {"us_sector_outlook": [{"name":"AI","outlook":"..."},...], "us_stock_outlook": [...], ...,
+       "yt_sector_outlook": [...], "yt_stock_outlook": [...]}
+    us/kr는 top3, youtube는 yt_top3 entry에 각각 outlook 필드로 추가 (name 매칭).
     """
-    pairs = [
+    pairs_main = [
         ("us_sector_outlook", "us_top3_sectors"),
         ("us_stock_outlook",  "us_top3_stocks"),
         ("kr_sector_outlook", "kr_top3_sectors"),
         ("kr_stock_outlook",  "kr_top3_stocks"),
     ]
     merged = 0
-    for ok, tk in pairs:
+    for ok, tk in pairs_main:
         outlook_map = {(e.get("name") or "").strip(): (e.get("outlook") or "").strip()
                        for e in outlook.get(ok, []) if e.get("name")}
         for e in top3.get(tk, []):
@@ -461,5 +477,14 @@ def merge_outlook_into_top3(top3: Dict, outlook: Dict) -> Dict:
             if text:
                 e["outlook"] = text
                 merged += 1
+    if yt_top3 is not None:
+        for ok, tk in (("yt_sector_outlook", "top3_sectors"), ("yt_stock_outlook", "top3_stocks")):
+            outlook_map = {(e.get("name") or "").strip(): (e.get("outlook") or "").strip()
+                           for e in outlook.get(ok, []) if e.get("name")}
+            for e in yt_top3.get(tk, []):
+                text = outlook_map.get((e.get("name") or "").strip())
+                if text:
+                    e["outlook"] = text
+                    merged += 1
     logger.info(f"  merge_outlook: {merged}개 entry에 outlook 머지")
     return top3
