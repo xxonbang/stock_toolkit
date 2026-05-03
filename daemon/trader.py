@@ -1117,6 +1117,10 @@ async def fetch_available_balance() -> int:
 MAX_HOLDING_STOCKS = 18     # 최대 보유 종목 수 (WebSocket 40슬롯 중 알림용 2슬롯 확보)
 
 async def run_buy_process():
+    from daemon.market_calendar import is_kr_market_open
+    if not is_kr_market_open():
+        logger.info("[market_closed] kr 휴장 — run_buy_process 전체 skip")
+        return
     # 보유 종목 수 체크 — WebSocket 슬롯 한도 초과 방지
     from daemon.position_db import get_active_positions
     positions = await get_active_positions(force_refresh=True)
@@ -1512,6 +1516,10 @@ async def run_tv_scan_and_buy() -> int:
     """거래대금 기반 종목 선정 — volume-rank API → 거래대금 순 → TOP2 매수.
     필터: 가격대 1천~20만, 상승 출발, 갭<5%, 5일 쿨다운.
     Returns: 매수 종목 수."""
+    from daemon.market_calendar import is_kr_market_open
+    if not is_kr_market_open():
+        logger.info("[market_closed] kr 휴장 — run_tv_scan_and_buy skip")
+        return 0
     # #2 재시작 중복매수 방어: 당일 이미 매수 이력 있으면 스킵
     if await _has_tv_traded_today():
         logger.info("거래대금 스캔 스킵 — 당일 이미 매수 완료")
@@ -1850,6 +1858,11 @@ async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = 
     sim_only=True: 매수 없이 종목 선정 결과만 auto_trades에 sim_only로 기록.
     Returns: 매수(또는 기록) 종목 수.
     """
+    from daemon.market_calendar import is_kr_market_open
+    if not is_kr_market_open():
+        logger.info("[market_closed] kr 휴장 — run_gapup_scan_and_buy skip")
+        return 0
+
     import json
     from pathlib import Path
 

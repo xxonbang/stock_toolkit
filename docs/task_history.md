@@ -2,6 +2,14 @@
 
 ## 2026-05-03
 
+### [기능] 한국 휴장일 매수/시뮬 생성 skip 가드 추가 (2026-05-03 16:30 KST)
+- **변경 파일:** `daemon/market_calendar.py` (신설), `daemon/trader.py`, `daemon/requirements.txt`, `daemon/tests/test_market_calendar.py` (신설)
+- **배경:** 2026-05-01 근로자의 날 휴장일에 daemon이 시뮬 생성 → KIS API가 4/30 종가 반환 → entry_price=stale, 등락률 항상 0% 문제 확인.
+- **구현:** `is_kr_market_open()` 헬퍼 신설 (`holidays.KR()` + 근로자의 날(5/1) 수동 추가). `run_buy_process` / `run_tv_scan_and_buy` / `run_gapup_scan_and_buy` 3개 함수 진입부에 가드 추가. 매도/청산 로직 무변경.
+- **주의:** `holidays.KR()`은 근로자의 날(5/1)을 미수록 — `_EXTRA_HOLIDAYS` 수동 보완 필수.
+- **테스트:** 7 passed (평일/토/일/근로자의 날/어린이날/None/naive datetime).
+- **배포:** GCP venv에 `pip install holidays>=0.83` 필요 (별도 배포 단계).
+
 ### [개선] 언급 클릭 시 바텀 시트 → 중앙 팝업 방식으로 변경 (2026-05-03 15:55 KST)
 - **변경 파일:** `frontend/src/pages/StockInsight.tsx`
 - **변경:** `MentionsModal`의 모바일 `items-end` (바텀 시트) → 모바일/PC 일괄 `items-center` (중앙 팝업).

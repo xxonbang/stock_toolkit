@@ -4,6 +4,7 @@ APScheduler>=3.10.0
 python-dotenv>=1.0.0
 pytest>=8.0.0
 pytest-asyncio>=0.23.0
+holidays>=0.83
 # YouTube 자막 사전 수집 (KST 07:25 / 19:55) — 데몬이 Supabase에 적재
 google-api-python-client>=2.100.0
 youtube-transcript-api>=0.6.0
