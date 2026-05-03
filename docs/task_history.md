@@ -2,6 +2,13 @@
 
 ## 2026-05-03
 
+### [버그픽스/개선] 인사이트 카드 UI 3건 — 언급버튼 줄바꿈 / 뉴스 펼치기 부활 / 시트 위치 (2026-05-03 15:30 KST)
+- **변경 파일:** `frontend/src/pages/StockInsight.tsx`
+- **#1 언급 버튼 줄바꿈:** 우측 "언급 N건 ▸" 버튼이 좁은 폭에서 화살표 ▸가 다음 줄로 wrap. button에 `whitespace-nowrap shrink-0` 추가.
+- **#2 카드 하단 뉴스 리스트 영역 복구:** commit `4a77175`("언급 N건 클릭 → 모달 + 뉴스/영상 통합 리스트")가 카드 하단 "근거 뉴스 N건 보기 ▼" 펼치기를 모달로 통합하면서 인라인 영역 제거. 사용자가 "별개로" 카드 하단 뉴스 리스트 영역도 원함 → 4a77175 이전 형식 그대로 부활(`showNewsList` state + Newspaper 아이콘 + 뉴스 카드 리스트). 모달은 우상단 버튼으로 별도 유지(영상 포함 통합 리스트).
+- **#3 bottom sheet 위치 개선:** contents가 적을 때 시트가 작게 하단에 붙는 문제. 모바일에서 `min-h-[70vh]` (항상 viewport 70% 이상 차지), `max-h-[90vh]`로 상단 여유, 상단 36×4 drag handle 시각적 hint, backdrop `backdrop-blur-sm` + `shadow-2xl`로 시트 분리감 강화.
+- **검증:** `npx tsc --noEmit` 통과, `npm run build` 2.24s 성공. push 시 `deploy-pages.yml`의 `frontend/**` paths trigger로 자동 GitHub Pages 배포.
+
 ### [기능] 유튜브 TOP3에 1주일 outlook 추가 — generate_outlook 합본 호출 (A안) (2026-05-03 15:10 KST)
 - **변경 파일:** `modules/news/extractor.py`, `modules/news/prompts/trend_outlook.txt`, `scripts/news_top3.py`
 - **배경:** 직전 세션 보류 항목 — 유튜브 TOP3 entry에 us/kr와 동일한 1주일 전망(outlook)을 노출하기 위함. LLM 콜 추가 없이 처리하기 위해 A안(기존 `generate_outlook` 호출에 yt_top3 합본 입력) 채택.

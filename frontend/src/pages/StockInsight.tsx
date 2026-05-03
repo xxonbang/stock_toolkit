@@ -180,12 +180,15 @@ function MentionsModal({
   if (!open) return null;
   const total = news.length + videos.length;
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center backdrop-blur-sm"
       style={{ background: "rgba(0,0,0,0.55)" }}
       onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()}
-        className="w-full sm:max-w-xl max-h-[85vh] flex flex-col rounded-t-2xl sm:rounded-2xl"
+        className="w-full sm:max-w-xl min-h-[70vh] sm:min-h-0 max-h-[90vh] flex flex-col rounded-t-2xl sm:rounded-2xl shadow-2xl"
         style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+        <div className="flex justify-center pt-2 pb-1 sm:hidden">
+          <div className="w-10 h-1 rounded-full" style={{ background: "var(--border)" }} aria-hidden />
+        </div>
         <div className="flex items-center justify-between p-4 sticky top-0" style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-card)" }}>
           <div className="min-w-0">
             <div className="text-[11px] t-text-dim">언급 내역</div>
@@ -246,6 +249,7 @@ function MentionsModal({
 
 function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "kr" | "youtube"; kind: "sector" | "stock" }) {
   const [showModal, setShowModal] = useState(false);
+  const [showNewsList, setShowNewsList] = useState(false);
   const news = entry.related_news || [];
   const videos = entry.related_videos || [];
   const totalMentions = news.length + videos.length;
@@ -271,7 +275,7 @@ function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "
         {f > 0 && (
           totalMentions > 0 ? (
             <button onClick={() => setShowModal(true)}
-              className="text-[11px] px-2 py-0.5 rounded-md t-text-sub hover:t-text transition"
+              className="text-[11px] px-2 py-0.5 rounded-md t-text-sub hover:t-text transition whitespace-nowrap shrink-0"
               style={{ background: "var(--bg)", border: "1px solid var(--border)" }}
               aria-label={`${entry.name} 언급 ${f}건 보기`}>
               언급 {f}건 ▸
@@ -293,6 +297,37 @@ function EntryCard({ entry, region, kind }: { entry: Top3Entry; region: "us" | "
             <span className="text-[10px] font-medium t-text-dim">1주일 전망</span>
           </div>
           <p className="text-[12px] t-text leading-[1.6] whitespace-pre-wrap">{entry.outlook}</p>
+        </div>
+      )}
+
+      {news.length > 0 && (
+        <div className="pt-1">
+          <button onClick={() => setShowNewsList(!showNewsList)}
+            className="w-full flex items-center justify-center gap-1.5 text-[11px] t-text-dim hover:t-text-sub transition py-1.5 rounded-lg"
+            style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+            <Newspaper size={11} />
+            {showNewsList ? `근거 뉴스 접기 ▲` : `근거 뉴스 ${news.length}건 보기 ▼`}
+          </button>
+          {showNewsList && (
+            <div className="space-y-1.5 mt-2">
+              {news.map((n, i) => (
+                <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
+                  className="block rounded-lg p-2 transition hover:opacity-80"
+                  style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+                  <div className="text-[12px] t-text leading-[1.5] line-clamp-2">{n.title}</div>
+                  {n.title_ko && (
+                    <div className="text-[11px] t-text-sub leading-[1.5] mt-0.5 line-clamp-2">↳ {n.title_ko}</div>
+                  )}
+                  {n.published_at && (
+                    <div className="text-[10px] t-text-dim mt-1 flex items-center gap-1">
+                      <span>{n.published_at.slice(0, 16)}</span>
+                      <ExternalLink size={9} />
+                    </div>
+                  )}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
