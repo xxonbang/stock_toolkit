@@ -2,6 +2,15 @@
 
 ## 2026-05-03
 
+### [데이터] 5/1 휴장일 stale 데이터 DB 제거 — 11 row 삭제 (2026-05-03 16:45 KST)
+- **변경 대상:** Supabase `auto_trades` + `strategy_simulations` 테이블
+- **삭제 범위:** KST 2026-05-01 00:00 ~ 5/2 00:00 created 데이터 전부
+  - `auto_trades`: 3건 (sim_only — 제일일렉트릭/세아메카닉스/대원전선)
+  - `strategy_simulations`: 8건 (3 stepped + 3 fixed + 2 time_exit closed)
+- **이유:** 5/1 근로자의 날 휴장에 daemon이 시뮬 생성 → KIS가 4/30 종가를 stale로 반환 → entry_price=4/30 종가로 잘못 저장. 등락률 0% critical 이슈의 잘못된 데이터.
+- **검증:** 삭제 후 KST 5/1 범위 잔존 row 양 테이블 모두 0건.
+- **재발 방지:** 위 commit 0d6ebf2의 `is_kr_market_open()` 가드로 다음 휴장일에는 자동 skip.
+
 ### [기능] 한국 휴장일 매수/시뮬 생성 skip 가드 추가 (2026-05-03 16:30 KST)
 - **변경 파일:** `daemon/market_calendar.py` (신설), `daemon/trader.py`, `daemon/requirements.txt`, `daemon/tests/test_market_calendar.py` (신설)
 - **배경:** 2026-05-01 근로자의 날 휴장일에 daemon이 시뮬 생성 → KIS API가 4/30 종가 반환 → entry_price=stale, 등락률 항상 0% 문제 확인.
