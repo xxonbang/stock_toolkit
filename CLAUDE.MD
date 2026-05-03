@@ -116,3 +116,32 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - **누적형** 문서(`todo.md`, `decision.md`)는 기존 내용을 절대 삭제하지 않음
 - 문서 업데이트 후 반드시 사용자에게 알림 출력
 - UI와 문서 생성은 한국어 기본
+
+## 8. 하네스 활용 가이드 (Agents · Commands · Hooks)
+
+`.claude/` 하위에 5 agent · 5 command · 5 hook이 정의되어 있다. 메인이 직접 처리하지 말고 작업 성격에 맞는 컴포넌트로 위임/발동시킨다.
+
+### Agents (Agent tool, subagent_type 지정)
+- **`gcp-ops`** — GCP VM 운영(ssh / git pull / systemctl / journalctl / VM reset). 컨텍스트 격리로 ssh 반복 출력이 메인에 누적되는 것 방지.
+- **`daemon-impl`** — daemon/** 코드 수정 (KIS WebSocket, alert_rules, position_db 등). 모의투자 정책·실거래 영향 검토 필수.
+- **`frontend-impl`** — frontend/src/** 수정 (StockInsight, Dashboard, AuthContext 등). tsc + 빌드 검증 자동.
+- **`analysis-impl`** — modules/news/, scripts/ 백테스트·분석 코드 수정.
+- **`code-reviewer`** — 단위 작업 완료 후 plan 대비 검증. 한 chunk 끝나면 자동 호출 권장.
+
+**호출 기준**: 한 작업이 ssh 명령 3회 이상, edit 5회 이상, 또는 다른 도메인(GCP↔frontend↔daemon)에 걸쳐있으면 agent로 위임.
+
+### Slash Commands (`/<name>`)
+- `/download-data` — 원격 JSON을 results/ + frontend/public/data/ 양쪽 동기화 (history 폴더 포함)
+- `/query-trades` — Supabase auto_trades + strategy_simulations KST 기준 조회
+- `/deploy-daemon` — push + GCP git pull + restart + 헬스체크
+- `/gcp-logs` — journalctl / 시리얼 콘솔 로그 조회
+- `/pr-checklist` — PR 생성 전 체크리스트
+
+### Hooks (자동 발동)
+- `block-destructive.sh` (PreToolUse Bash) — rm -rf, force push, ws-daemon stop, .env 노출, KIS 주문 직접 호출, ssh wrapper 안 sudo 위험 패턴 차단
+- `tsc-after-edit.sh` / `python-syntax-check.sh` (PostToolUse Edit/Write) — frontend/src/** 편집 후 tsc, python 편집 후 py_compile 동기 실행
+- `task-history-reminder.sh` (Stop) — 최근 4시간 커밋 중 task_history 미갱신이면 경고
+- `session-start-brief.sh` (SessionStart) — HEAD/branch/today's task_history 자동 브리프
+
+### 우선순위
+**한 작업이 진입할 때 가장 먼저 묻는 것**: 이 작업에 매칭되는 slash command 또는 agent가 있는가? 있으면 위임. 없으면 메인 처리.
