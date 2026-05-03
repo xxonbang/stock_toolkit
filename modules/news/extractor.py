@@ -338,6 +338,9 @@ def analyze_youtube(videos, client) -> Dict:
                 dropped += 1
                 continue
             f = _yt_freq(e)
+            # prompt가 출력하는 summary 필드를 프론트 entry.reason 표기로 매핑
+            if not e.get("reason") and e.get("summary"):
+                e["reason"] = e["summary"]
             if f >= min_yt_strong:
                 kept.append(e)
             elif f >= min_yt_visible:
