@@ -2,6 +2,25 @@
 
 ## 2026-05-04
 
+### [버그픽스] sell_all_positions_force / market KIS 잔고 verify 추가 (B+C) (2026-05-04 17:30 KST)
+- **변경 파일:** `daemon/trader.py`, `daemon/tests/test_trader.py`
+- **배경:** 4/08부터 daemon이 매수/매도 KIS 응답에서 부분체결을 전량체결로 잘못 파싱 → DB qty가 KIS 실잔고의 ~2배로 long-term 누적. 5/4 EOD 매도 시 137주 주문 → KIS "잔고내역 없음" (수량 부족 의미) 응답 → 영구 매도 실패. 추가 진단으로 휴림로봇 외에 제일일렉트릭/경농도 DB sold이지만 KIS 잔고 살아있음 발견 (3종목 모두 ~50% 불일치).
+- **B 작업 — DB sync (즉시):**
+  - 휴림로봇 qty 137 → 68
+  - 제일일렉트릭 status sold → filled, qty 108 → 54, sold_at/sell_price/reason null
+  - 경농 status sold → filled, qty 205 → 119, sold_at/sell_price/reason null
+  - 검증: status=filled 3건 = KIS 실잔고 일치
+- **C 작업 — 코드 패치:** `sell_all_positions_force` + `sell_all_positions_market` (1차 루프 + 재시도 루프) 모두에 `_check_balance_qty` verify 추가.
+  - `bal > 0 and bal != db_qty`: KIS 잔고로 매도 + "잔고 불일치" warning
+  - `bal == 0`: 이미 체결 간주, `update_position_sold` 직행
+  - `bal == -1` (조회 실패): DB qty 그대로 (기존 동작 유지)
+- **테스트:** `test_trader.py` 3건 추가 (mismatch/match/bal=0) — 10/10 passed
+- **py_compile:** OK
+- **위험 평가:** 매도 수량 결정만 변경. 매수/트리거 경로 무변경.
+- **5/6 EOD 자동 매도 가능:** DB sync 후 5/6(화) 09:00 매수 추가가 일어나도 15:15 EOD에 force 청산 정상 동작 예상.
+
+## 2026-05-04 (이전)
+
 ### [개선] 한국 뉴스 수집량 50 → 100건 (인사이트 KR 부실 fix) (2026-05-04 10:35 KST)
 - **변경 파일:** `modules/news/collectors/kr_news.py`
 - **배경:** 5/4 인사이트 화면 한국 sectors 1건 / stocks 1건 부실 노출. 진단 결과 LLM #2는 정상 3+3 추출했으나 임계값 필터(`MIN_VISIBLE_FREQ_SECTOR=3, STOCK=2`)에서 KR 2/3씩 제거. 한국 뉴스 50건이 다양한 토픽에 흩어져 entry당 freq 1~2건으로 임계 미달.

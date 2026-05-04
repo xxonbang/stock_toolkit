@@ -2497,18 +2497,25 @@ async def sell_all_positions_force():
             current_price = await _get_current_price(pos["code"])
             pos["_current_price"] = current_price
             pnl = calc_pnl_pct(buy_price, current_price) if buy_price > 0 and current_price > 0 else 0
+            # KIS 잔고 verify: DB qty vs KIS 잔고 불일치 방어
+            db_qty = pos["quantity"]
+            if bal > 0 and bal != db_qty:
+                logger.warning(f"잔고 불일치: {pos['name']}({pos['code']}) DB qty={db_qty} vs KIS qty={bal} → KIS qty로 매도 진행")
+                sell_qty = bal
+            else:
+                sell_qty = db_qty
             try:
-                result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+                result = await _kis_order_market("VTTC0801U", pos["code"], sell_qty)
                 if not result:
                     logger.error(f"강제 매도 실패 ({round_num}R): {pos['name']}({pos['code']})")
                     unmark_selling(position_id)
                     failed.append(pos)
                     continue
                 # 체결 확인
-                filled_qty = await _verify_sell_fill(pos["code"], pos["quantity"])
+                filled_qty = await _verify_sell_fill(pos["code"], sell_qty)
                 if filled_qty <= 0:
                     # 미체결 조회 실패 → 모의투자 시장가 즉시체결 간주
-                    filled_qty = pos["quantity"]
+                    filled_qty = sell_qty
                     logger.warning(f"강제 매도 체결 조회 실패 → 즉시체결 간주: {pos['name']}({pos['code']})")
                 sell_price = current_price
                 actual = await _get_actual_fill_price(pos["code"], is_sell=True)
@@ -2518,13 +2525,13 @@ async def sell_all_positions_force():
                     sell_price = buy_price  # 최종 fallback: 매수가 (0 저장 방지)
                     logger.warning(f"강제 매도 체결가 조회 실패 → 매수가 fallback: {pos['name']}({pos['code']})")
                 pnl = calc_pnl_pct(buy_price, sell_price)
-                if filled_qty < pos["quantity"]:
+                if filled_qty < sell_qty:
                     # 부분체결: 잔여 수량 DB 업데이트, 다음 라운드에서 재시도
-                    await update_position_quantity(position_id, pos["quantity"] - filled_qty)
+                    await update_position_quantity(position_id, sell_qty - filled_qty)
                     unmark_selling(position_id)
-                    pos["quantity"] = pos["quantity"] - filled_qty
+                    pos["quantity"] = sell_qty - filled_qty
                     failed.append(pos)
-                    logger.warning(f"강제 매도 부분체결: {pos['name']}({pos['code']}) {filled_qty}/{pos['quantity']+filled_qty}주")
+                    logger.warning(f"강제 매도 부분체결: {pos['name']}({pos['code']}) {filled_qty}/{sell_qty}주")
                 else:
                     await update_position_sold(position_id, sell_price, pnl, "eod_close")
                     _peak_prices.pop(position_id, None)
@@ -2655,10 +2662,29 @@ async def sell_all_positions_market():
         mark_selling(position_id)
         buy_price = pos.get("filled_price") or pos.get("order_price", 0)
         current_price = pos.get("_current_price") or await _get_current_price(pos["code"])
+        # KIS 잔고 verify: DB qty vs KIS 잔고 불일치 방어
+        bal_m = await _check_balance_qty(pos["code"])
+        db_qty_m = pos["quantity"]
+        if bal_m > 0 and bal_m != db_qty_m:
+            logger.warning(f"잔고 불일치: {pos['name']}({pos['code']}) DB qty={db_qty_m} vs KIS qty={bal_m} → KIS qty로 매도 진행")
+            sell_qty_m = bal_m
+        elif bal_m == 0:
+            logger.info(f"장 마감 매도 스킵 (잔고 0 — 이미 체결): {pos['name']}({pos['code']})")
+            sell_price_skip = await _get_actual_fill_price(pos["code"], is_sell=True)
+            if sell_price_skip <= 0:
+                sell_price_skip = current_price if current_price > 0 else buy_price
+            pnl_skip = calc_pnl_pct(buy_price, sell_price_skip)
+            await update_position_sold(position_id, sell_price_skip, pnl_skip, "eod_close")
+            _peak_prices.pop(position_id, None)
+            unmark_selling(position_id)
+            await asyncio.sleep(0.3)
+            continue
+        else:
+            sell_qty_m = db_qty_m
         try:
-            result = await _kis_order_market("VTTC0801U", pos["code"], pos["quantity"])
+            result = await _kis_order_market("VTTC0801U", pos["code"], sell_qty_m)
             if result:
-                filled_qty = await _verify_sell_fill(pos["code"], pos["quantity"])
+                filled_qty = await _verify_sell_fill(pos["code"], sell_qty_m)
                 if current_price <= 0:
                     current_price = await _get_current_price(pos["code"])
                 sell_price = current_price if current_price > 0 else buy_price
@@ -2667,14 +2693,14 @@ async def sell_all_positions_market():
                     sell_price = actual
                 pnl = calc_pnl_pct(buy_price, sell_price)
                 _peak_prices.pop(position_id, None)
-                if filled_qty >= pos["quantity"]:
+                if filled_qty >= sell_qty_m:
                     await update_position_sold(position_id, sell_price, pnl, "eod_close")
                     logger.info(f"장 마감 매도: {pos['name']}({pos['code']}) {pnl:+.2f}%")
                 elif filled_qty > 0:
-                    await update_position_quantity(position_id, pos["quantity"] - filled_qty)
+                    await update_position_quantity(position_id, sell_qty_m - filled_qty)
                     unmark_selling(position_id)
                     failed_positions.append(pos)
-                    logger.warning(f"장 마감 부분체결: {pos['name']}({pos['code']}) {filled_qty}/{pos['quantity']}주")
+                    logger.warning(f"장 마감 부분체결: {pos['name']}({pos['code']}) {filled_qty}/{sell_qty_m}주")
                 else:
                     unmark_selling(position_id)
                     failed_positions.append(pos)
@@ -2684,7 +2710,7 @@ async def sell_all_positions_market():
                     f"<b>{pos['name']} ({pos['code']})</b>\n"
                     f"매수가: {buy_price:,}원 → 매도가: {sell_price:,}원\n"
                     f"수익률: {pnl:+.2f}% ({filled_qty}주)"
-                    + (f"\n⚠️ 부분체결 ({pos['quantity']}주 중 {filled_qty}주)" if filled_qty < pos["quantity"] else "")
+                    + (f"\n⚠️ 부분체결 ({sell_qty_m}주 중 {filled_qty}주)" if filled_qty < sell_qty_m else "")
                 )
             else:
                 unmark_selling(position_id)
@@ -2709,9 +2735,21 @@ async def sell_all_positions_market():
                 if not pos_now:
                     continue
                 mark_selling(position_id)
-                result = await _kis_order_market("VTTC0801U", pos_now["code"], pos_now["quantity"])
+                # KIS 잔고 verify: 재시도 시에도 DB qty vs KIS 잔고 불일치 방어
+                bal_retry = await _check_balance_qty(pos_now["code"])
+                db_qty_retry = pos_now["quantity"]
+                if bal_retry > 0 and bal_retry != db_qty_retry:
+                    logger.warning(f"잔고 불일치(재시도): {pos_now['name']}({pos_now['code']}) DB qty={db_qty_retry} vs KIS qty={bal_retry} → KIS qty로 매도 진행")
+                    sell_qty_retry = bal_retry
+                elif bal_retry == 0:
+                    logger.info(f"장 마감 재시도 스킵 (잔고 0 — 이미 체결): {pos_now['name']}({pos_now['code']})")
+                    unmark_selling(position_id)
+                    continue
+                else:
+                    sell_qty_retry = db_qty_retry
+                result = await _kis_order_market("VTTC0801U", pos_now["code"], sell_qty_retry)
                 if result:
-                    filled_qty = await _verify_sell_fill(pos_now["code"], pos_now["quantity"])
+                    filled_qty = await _verify_sell_fill(pos_now["code"], sell_qty_retry)
                     retry_buy_price = pos_now.get("filled_price") or pos_now.get("order_price", 0)
                     cp = await _get_current_price(pos_now["code"])
                     sp = cp if cp > 0 else retry_buy_price
@@ -2719,7 +2757,7 @@ async def sell_all_positions_market():
                     if actual > 0:
                         sp = actual
                     pnl = calc_pnl_pct(retry_buy_price, sp)
-                    if filled_qty >= pos_now["quantity"]:
+                    if filled_qty >= sell_qty_retry:
                         await update_position_sold(position_id, sp, pnl, "eod_close")
                         logger.info(f"장 마감 재시도 성공: {pos_now['name']}({pos_now['code']})")
                     else:
