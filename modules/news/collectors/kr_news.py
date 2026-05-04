@@ -133,7 +133,7 @@ def _parse_naver_finance(html: str, now_kst: datetime) -> List[CollectedItem]:
     return items
 
 
-def collect(now: Optional[datetime] = None, limit: int = 50) -> List[CollectedItem]:
+def collect(now: Optional[datetime] = None, limit: int = 100) -> List[CollectedItem]:
     """36시간 이내 한국 비즈니스/금융 뉴스를 다중 소스에서 수집, 중복 제거 후 limit개."""
     import time as _time
     if now is None:

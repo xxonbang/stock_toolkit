@@ -1,5 +1,19 @@
 # Task History
 
+## 2026-05-04
+
+### [개선] 한국 뉴스 수집량 50 → 100건 (인사이트 KR 부실 fix) (2026-05-04 10:35 KST)
+- **변경 파일:** `modules/news/collectors/kr_news.py`
+- **배경:** 5/4 인사이트 화면 한국 sectors 1건 / stocks 1건 부실 노출. 진단 결과 LLM #2는 정상 3+3 추출했으나 임계값 필터(`MIN_VISIBLE_FREQ_SECTOR=3, STOCK=2`)에서 KR 2/3씩 제거. 한국 뉴스 50건이 다양한 토픽에 흩어져 entry당 freq 1~2건으로 임계 미달.
+- **수정:** `kr_news.collect()` default `limit=50 → 100`. raw 데이터는 이미 충분 (Yonhap 120건/source × 4 source + Maeil 50/source × 5 source 등) — cap만 변경하면 즉시 반영.
+- **LLM 영향 점검:**
+  - Gemini 2.5 Flash Lite context window 1M 토큰 / 사용 ~14k = 1.4% (매우 여유)
+  - LLM #1 처리시간 5.85s → ~7~8s 예상 (+1~2초)
+  - 비용 호출당 ~$0.0007 → ~$0.001 (무시 수준)
+  - LLM #2/#4은 entries 결과 기반이라 영향 미미
+- **품질:** 같은 토픽 뉴스 더 많이 매칭 → freq 자연 증가 (대수의 법칙) → 임계 통과율 ↑
+- **us_news는 변경 없음** (현재 3+3 정상).
+
 ## 2026-05-03
 
 ### [데이터] 5/1 휴장일 stale 데이터 DB 제거 — 11 row 삭제 (2026-05-03 16:45 KST)
