@@ -56,8 +56,10 @@
 
 html {
   /* 탭 전환 시 컨텐츠 길이에 따라 스크롤바가 나타났다 사라지면서 viewport width가 흔들리는 문제 방지.
-     스크롤바 공간을 항상 reserve. */
+     scrollbar-gutter: stable + overflow-y: scroll 조합으로 스크롤바 공간을 항상 reserve.
+     overflow-y: scroll은 webkit custom scrollbar(4px)와 macOS overlay 모드 모두에서 일관되게 동작. */
   scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
 
 body {
