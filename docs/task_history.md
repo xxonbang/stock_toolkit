@@ -2,6 +2,13 @@
 
 ## 2026-05-06
 
+### [개선] 탭 전환 시 화면 width 흔들림 — scrollbar-gutter: stable (2026-05-06 20:25 KST)
+- **변경 파일:** `frontend/src/index.css`
+- **원인:** 컨텐츠가 긴 탭(대시보드/인사이트)과 짧은 탭 전환 시 우측 세로 스크롤바가 나타났다 사라지면서 viewport width가 ~15px 변동 → 가로 layout이 흔들림.
+- **수정:** `html { scrollbar-gutter: stable }` 추가. 스크롤바 공간을 항상 reserve해서 컨텐츠 길이 변화와 무관하게 고정 width 유지.
+- **호환성:** Chrome 94+, Firefox 97+, Safari 18.2+. 미지원 브라우저는 기존 동작.
+- **검증:** production build 통과.
+
 ### [버그픽스] 스캐너 탭 클릭 시 인사이트 탭 사라지는 문제 (2026-05-06 20:15 KST)
 - **변경 파일:** `frontend/src/App.tsx`
 - **원인:** `/scanner` route가 Dashboard layout(헤더 + tab nav 포함) **밖**에 별도 정의되어 있어 스캐너 진입 시 Dashboard 헤더 자체가 표시되지 않음 → "인사이트" 탭을 포함한 모든 탭이 사라져 보임.
