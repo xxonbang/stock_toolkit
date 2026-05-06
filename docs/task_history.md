@@ -1,5 +1,14 @@
 # Task History
 
+## 2026-05-06
+
+### [버그픽스] 스캐너 탭 클릭 시 인사이트 탭 사라지는 문제 (2026-05-06 20:15 KST)
+- **변경 파일:** `frontend/src/App.tsx`
+- **원인:** `/scanner` route가 Dashboard layout(헤더 + tab nav 포함) **밖**에 별도 정의되어 있어 스캐너 진입 시 Dashboard 헤더 자체가 표시되지 않음 → "인사이트" 탭을 포함한 모든 탭이 사라져 보임.
+- **수정:** `/scanner`를 Dashboard 자식 route로 이동 (`<Route path="scanner" element={<Scanner />} />`). path는 `/scanner` 그대로 유지 (Dashboard 자식 nested route).
+- **영향:** Scanner의 onToggleTheme/isDark prop은 optional이라 prop 미전달 시 자체 토글만 동작 안 함 (Dashboard 헤더 토글로 대체).
+- **검증:** tsc + production build 통과.
+
 ## 2026-05-04
 
 ### [버그픽스] sell_all_positions_force / market KIS 잔고 verify 추가 (B+C) (2026-05-04 17:30 KST)

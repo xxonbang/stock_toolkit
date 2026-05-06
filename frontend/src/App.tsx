@@ -60,8 +60,8 @@ export default function App() {
               <Route path="portfolio" element={<Portfolio />} />
               <Route path="auto-trader" element={<AutoTrader />} />
               <Route path="stock-insight" element={<StockInsight />} />
+              <Route path="scanner" element={<Scanner />} />
             </Route>
-            <Route path="/scanner" element={<ProtectedRoute><Scanner onToggleTheme={toggle} isDark={dark} /></ProtectedRoute>} />
           </Routes>
         </div>
       </AuthProvider>
