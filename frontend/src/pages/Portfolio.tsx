@@ -339,12 +339,12 @@ export default function Portfolio() {
         </div>
         ) : null;
       })()}
-      {/* 종합 물타기 버튼 */}
-      {portfolio.holdings?.some((h: any) => h.profit_rate < 0) && (
+      {/* 종합 물타기 계산기 — 양전(불타기)/음전(물타기) 모두 대상 */}
+      {portfolio.holdings && portfolio.holdings.length > 0 && (
         <button onClick={() => {
           const inputs: Record<string, { price: string; qty: string }> = {};
           for (const h of portfolio.holdings || []) {
-            if (h.profit_rate < 0) inputs[h.code] = { price: h.current_price?.toString() || "", qty: "" };
+            inputs[h.code] = { price: h.current_price?.toString() || "", qty: "" };
           }
           setBulkInputs(inputs);
           setBulkExcluded(new Set());
@@ -428,7 +428,7 @@ export default function Portfolio() {
                 )}
                 <span className="text-[9px] t-text-dim">비중 {h.weight}%</span>
               </div>
-              {h.profit_rate != null && h.profit_rate < 0 && (
+              {h.current_price > 0 && (
                 <button onClick={(e) => { e.stopPropagation(); setAvgDownTarget(h); setAvgDownPrice(h.current_price?.toString() || ""); setAvgDownQty(""); setAvgDownTab("basic"); setTargetAvg(""); setTargetInput(""); setMultiSteps([{ price: "", qty: "" }]); }}
                   className="text-[9px] px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-500 font-medium hover:bg-blue-500/20 transition">
                   물타기
