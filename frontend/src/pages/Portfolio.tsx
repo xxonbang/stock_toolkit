@@ -112,6 +112,31 @@ export default function Portfolio() {
   // 마운트 즉시 세션 선행 조회 (DB fetch와 병렬)
   const sessionPromise = useRef(supabase.auth.getSession());
 
+  // 물타기 결과를 DB/localStorage에 반영하는 헬퍼
+  const applyAvgDown = async (items: { code: string; newAvg: number; newQty: number }[]) => {
+    if (supaUser) {
+      for (const item of items) {
+        const existing = dbHoldingsRef.current.find(d => d.code === item.code);
+        if (existing?.id) {
+          await updateHolding(existing.id, { avg_price: item.newAvg, quantity: item.newQty });
+        }
+      }
+      const fresh = await fetchHoldingsFromDB();
+      setDbHoldings(fresh);
+    }
+    // localStorage 폴백 (항상)
+    try {
+      const stored = JSON.parse(localStorage.getItem("portfolio_holdings") || "[]");
+      for (const item of items) {
+        const idx = stored.findIndex((h: any) => h.code === item.code);
+        if (idx >= 0) {
+          stored[idx] = { ...stored[idx], avg_price: item.newAvg, quantity: item.newQty };
+        }
+      }
+      localStorage.setItem("portfolio_holdings", JSON.stringify(stored));
+    } catch {}
+  };
+
   const applyPrices = (mp: any, pm: Record<string, number>) => {
     const updated = mp.holdings.map((h: any) => {
       const cp = pm[h.code] || h.current_price || 0;
@@ -783,7 +808,7 @@ export default function Portfolio() {
           <div className="flex-1 overflow-y-auto px-5 pb-5">
             {/* 종목별 입력 */}
             <div className="space-y-3 mb-4">
-              {(portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0 && !bulkExcluded.has(h.code)).map((h: any) => {
+              {(portfolio?.holdings || []).filter((h: any) => !bulkExcluded.has(h.code)).map((h: any) => {
                 const input = bulkInputs[h.code] || { price: "", qty: "" };
                 return (
                   <div key={h.code} className="t-card-alt rounded-lg p-3 relative">
@@ -810,9 +835,9 @@ export default function Portfolio() {
             </div>
             {/* 종합 결과 */}
             {(() => {
-              const holdings = (portfolio?.holdings || []).filter((h: any) => h.profit_rate < 0 && !bulkExcluded.has(h.code));
+              const holdings = (portfolio?.holdings || []).filter((h: any) => !bulkExcluded.has(h.code));
               let oldTotalInv = 0, oldTotalVal = 0, newTotalInv = 0, newTotalVal = 0, addTotalCost = 0;
-              const details: { name: string; oldAvg: number; newAvg: number; oldPnl: number; newPnl: number }[] = [];
+              const details: { code: string; name: string; oldAvg: number; newAvg: number; newQty: number; oldPnl: number; newPnl: number }[] = [];
               for (const h of holdings) {
                 const curAvg = h.avg_price || 0;
                 const curQty = h.quantity || 0;
@@ -830,7 +855,7 @@ export default function Portfolio() {
                   addTotalCost += addPrice * addQty;
                   const oldPnl = cp > 0 && curAvg > 0 ? (cp - curAvg) / curAvg * 100 : 0;
                   const newPnl = cp > 0 && newAvg > 0 ? (cp - newAvg) / newAvg * 100 : 0;
-                  details.push({ name: h.name, oldAvg: curAvg, newAvg, oldPnl, newPnl });
+                  details.push({ code: h.code, name: h.name, oldAvg: curAvg, newAvg, newQty, oldPnl, newPnl });
                 } else {
                   newTotalInv += curAvg * curQty;
                   newTotalVal += cp * curQty;
@@ -839,7 +864,7 @@ export default function Portfolio() {
               if (!details.length) return <div className="text-[11px] t-text-dim text-center py-3">추가 매수 수량을 입력하세요</div>;
               const oldRate = oldTotalInv > 0 ? (oldTotalVal - oldTotalInv) / oldTotalInv * 100 : 0;
               const newRate = newTotalInv > 0 ? (newTotalVal - newTotalInv) / newTotalInv * 100 : 0;
-              return (
+              return (<>
                 <div className="rounded-xl border t-border-light overflow-hidden">
                   {/* 수익률 */}
                   <div className="px-4 py-3.5 text-center border-b t-border-light" style={{ background: "var(--bg)" }}>
@@ -876,7 +901,24 @@ export default function Portfolio() {
                     </div>
                   ))}
                 </div>
-              );
+                <button
+                  onClick={async () => {
+                    if (!window.confirm(`${details.length}건의 보유 종목 평단/수량을 업데이트합니다. 진행하시겠습니까?`)) return;
+                    try {
+                      await applyAvgDown(details.map(d => ({ code: d.code, newAvg: d.newAvg, newQty: d.newQty })));
+                      setShowBulkAvgDown(false);
+                      setBulkInputs({});
+                      setToastMsg(`물타기 반영 완료 — ${details.length}건`);
+                      setTimeout(() => setToastMsg(""), 2500);
+                    } catch {
+                      setToastMsg("저장 실패");
+                      setTimeout(() => setToastMsg(""), 3000);
+                    }
+                  }}
+                  className="mt-3 w-full py-2.5 rounded-xl text-[12px] font-medium bg-blue-600 text-white hover:bg-blue-500 transition">
+                  전체 반영 ({details.length}건)
+                </button>
+              </>);
             })()}
           </div>
         </div>
@@ -938,7 +980,7 @@ export default function Portfolio() {
                 const cp = avgDownTarget.current_price || 0;
                 const oldPnl = cp > 0 ? (cp - curAvg) / curAvg * 100 : 0;
                 const newPnl = cp > 0 ? (cp - newAvg) / newAvg * 100 : 0;
-                return (
+                return (<>
                   <div className="t-card-alt rounded-lg p-3 space-y-2">
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div><span className="t-text-dim">새 평단가</span><div className="font-bold t-text text-sm">{newAvg.toLocaleString()}원</div></div>
@@ -961,7 +1003,23 @@ export default function Portfolio() {
                       </div>
                     )}
                   </div>
-                );
+                  <button
+                    onClick={async () => {
+                      if (!window.confirm(`${avgDownTarget.name} 평단가/수량을 업데이트합니다. 진행하시겠습니까?`)) return;
+                      try {
+                        await applyAvgDown([{ code: avgDownTarget.code, newAvg, newQty: curQty + addQ }]);
+                        setAvgDownTarget(null);
+                        setToastMsg(`${avgDownTarget.name} 반영 완료`);
+                        setTimeout(() => setToastMsg(""), 2500);
+                      } catch {
+                        setToastMsg("저장 실패");
+                        setTimeout(() => setToastMsg(""), 3000);
+                      }
+                    }}
+                    className="mt-3 w-full py-2 rounded-xl text-[12px] font-medium bg-blue-600 text-white hover:bg-blue-500 transition">
+                    포트폴리오에 반영
+                  </button>
+                </>);
               })()}
             </>)}
             {/* B: 목표 평균단가 역산 */}
@@ -1068,7 +1126,8 @@ export default function Portfolio() {
                   rows.push({ step: rows.length + 1, price: p, qty: q, avg: runAvg, totalQty: runQty, totalCost: runCost, pnl: cp > 0 ? (cp - runAvg) / runAvg * 100 : 0 });
                 }
                 if (!rows.length) return null;
-                return (
+                const lastRow = rows[rows.length - 1];
+                return (<>
                   <div className="t-card-alt rounded-lg p-3">
                     <div className="text-[10px] t-text-dim mb-2">단계별 결과</div>
                     <div className="space-y-1.5">
@@ -1086,14 +1145,30 @@ export default function Portfolio() {
                       ))}
                     </div>
                     <div className="border-t t-border-light pt-2 mt-2 grid grid-cols-2 gap-2 text-[10px]">
-                      <div><span className="t-text-dim">총 추가 투자</span><div className="font-medium t-text">{(rows[rows.length-1].totalCost - curAvg * curQty).toLocaleString()}원</div></div>
-                      <div><span className="t-text-dim">총 투자금</span><div className="font-medium t-text">{rows[rows.length-1].totalCost.toLocaleString()}원</div></div>
-                      {cp > 0 && rows[rows.length-1].avg > cp && (
-                        <div className="col-span-2"><span className="t-text-dim">본전까지</span> <span className="font-medium text-amber-500">+{((rows[rows.length-1].avg - cp) / cp * 100).toFixed(2)}% 상승 필요</span></div>
+                      <div><span className="t-text-dim">총 추가 투자</span><div className="font-medium t-text">{(lastRow.totalCost - curAvg * curQty).toLocaleString()}원</div></div>
+                      <div><span className="t-text-dim">총 투자금</span><div className="font-medium t-text">{lastRow.totalCost.toLocaleString()}원</div></div>
+                      {cp > 0 && lastRow.avg > cp && (
+                        <div className="col-span-2"><span className="t-text-dim">본전까지</span> <span className="font-medium text-amber-500">+{((lastRow.avg - cp) / cp * 100).toFixed(2)}% 상승 필요</span></div>
                       )}
                     </div>
                   </div>
-                );
+                  <button
+                    onClick={async () => {
+                      if (!window.confirm(`${avgDownTarget.name} 평단가/수량을 업데이트합니다. 진행하시겠습니까?`)) return;
+                      try {
+                        await applyAvgDown([{ code: avgDownTarget.code, newAvg: lastRow.avg, newQty: lastRow.totalQty }]);
+                        setAvgDownTarget(null);
+                        setToastMsg(`${avgDownTarget.name} 반영 완료`);
+                        setTimeout(() => setToastMsg(""), 2500);
+                      } catch {
+                        setToastMsg("저장 실패");
+                        setTimeout(() => setToastMsg(""), 3000);
+                      }
+                    }}
+                    className="mt-3 w-full py-2 rounded-xl text-[12px] font-medium bg-blue-600 text-white hover:bg-blue-500 transition">
+                    포트폴리오에 반영
+                  </button>
+                </>);
               })()}
             </>)}
           </div>

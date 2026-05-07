@@ -2,6 +2,17 @@
 
 ## 2026-05-07
 
+### [기능] 물타기 계산기 — 포트폴리오 반영 버튼 추가 (2026-05-07)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx`
+- **수정:**
+  - `applyAvgDown` 헬퍼 함수 추가 (supabase updateHolding + localStorage 폴백)
+  - 종합 물타기 모달: `h.profit_rate < 0` 조건 제거(전체 보유 표시), `details` 타입에 `code/newQty` 추가, 결과 카드 하단 "전체 반영 (N건)" 버튼 추가
+  - 개별 물타기 A탭(기본): 결과 카드 하단 "포트폴리오에 반영" 버튼 추가
+  - 개별 물타기 C탭(분할매수): 결과 카드 하단 "포트폴리오에 반영" 버튼 추가
+  - B탭(목표 역산)은 시뮬 전용 — 버튼 없음
+  - 성공 시 fetchHoldingsFromDB → setDbHoldings, 모달 닫기, toast. 실패 시 "저장 실패" toast
+- **검증:** tsc OK, production build OK
+
 ### [개선] 물타기 계산기 — 양전(불타기) 종목도 진입 가능 (2026-05-07)
 - **변경 파일:** `frontend/src/pages/Portfolio.tsx`
 - **원인:** 개별 "물타기" 버튼이 `h.profit_rate < 0` 조건이라 양전(수익) 종목에서 보이지 않음. 종합 물타기 계산기도 음전 종목만 inputs에 포함.
