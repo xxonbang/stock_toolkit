@@ -229,6 +229,69 @@ export async function getTradePct(): Promise<{ take_profit: number; stop_loss: n
   }
 }
 
+// ========== 매수 이력 (portfolio_transactions) ==========
+
+export interface PortfolioTransaction {
+  id: string;
+  holding_id: string;
+  code: string;
+  name: string;
+  price: number;
+  quantity: number;
+  note?: string | null;
+  executed_at: string;
+}
+
+/** 특정 holding의 매수 이력 조회 */
+export async function fetchTransactionsForHolding(holdingId: string): Promise<PortfolioTransaction[]> {
+  const { data, error } = await supabase
+    .from("portfolio_transactions")
+    .select("id, holding_id, code, name, price, quantity, note, executed_at")
+    .eq("holding_id", holdingId)
+    .order("executed_at", { ascending: false });
+  if (error) { console.error("매수 이력 조회 실패:", error.message); return []; }
+  return (data || []) as PortfolioTransaction[];
+}
+
+/** 모든 holding의 매수 이력을 한 번에 조회 (holding_id로 그룹핑) */
+export async function fetchAllTransactions(): Promise<Record<string, PortfolioTransaction[]>> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return {};
+  const { data, error } = await supabase
+    .from("portfolio_transactions")
+    .select("id, holding_id, code, name, price, quantity, note, executed_at")
+    .eq("user_id", user.id)
+    .order("executed_at", { ascending: false });
+  if (error) { console.error("전체 매수 이력 조회 실패:", error.message); return {}; }
+  const result: Record<string, PortfolioTransaction[]> = {};
+  for (const row of (data || []) as PortfolioTransaction[]) {
+    if (!result[row.holding_id]) result[row.holding_id] = [];
+    result[row.holding_id].push(row);
+  }
+  return result;
+}
+
+/** 매수 이력 insert */
+export async function insertTransactions(rows: { holding_id: string; code: string; name: string; price: number; quantity: number; note?: string }[]): Promise<PortfolioTransaction[] | null> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
+  const insertRows = rows.map(r => ({ ...r, user_id: user.id }));
+  const { data, error } = await supabase
+    .from("portfolio_transactions")
+    .insert(insertRows)
+    .select("id, holding_id, code, name, price, quantity, note, executed_at");
+  if (error) { console.error("매수 이력 추가 실패:", error.message); return null; }
+  return (data || []) as PortfolioTransaction[];
+}
+
+/** 매수 이력 삭제 (rollback용) */
+export async function deleteTransactions(ids: string[]): Promise<boolean> {
+  if (!ids.length) return true;
+  const { error } = await supabase.from("portfolio_transactions").delete().in("id", ids);
+  if (error) { console.error("매수 이력 삭제 실패:", error.message); return false; }
+  return true;
+}
+
 /** 전략 시뮬레이션 데이터 조회 */
 export async function getStrategySimulations(): Promise<any[]> {
   try {

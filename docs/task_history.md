@@ -2,6 +2,20 @@
 
 ## 2026-05-08
 
+### [기능] 포트폴리오 매수 이력 관리(A) + 종목 카드 풍부화(B) (2026-05-08)
+- **변경 파일:** `frontend/src/lib/supabase.ts`, `frontend/src/pages/Portfolio.tsx`
+- **A. 매수 이력 관리:**
+  - `supabase.ts`에 `PortfolioTransaction` 인터페이스 + 4개 함수 추가: `fetchTransactionsForHolding`, `fetchAllTransactions`, `insertTransactions`, `deleteTransactions`
+  - `applyAvgDown` 헬퍼 보강: `addPrice/addQty` 파라미터 추가. 로그인 시 `insertTransactions` → `updateHolding` 순서 실행, holdings update 실패 시 `deleteTransactions`로 rollback. 성공 시 `transactionsByHolding` state 즉시 갱신.
+  - A/C탭 및 종합 물타기 반영 버튼에 confirm 메시지("평균단가 X→Y, 수량 A→B, 매수 이력에 추가…") 추가. addPrice/addQty 전달.
+  - `transactionsByHolding` state: 카드 펼침 시 `fetchTransactionsForHolding` lazy load
+- **B. 종목 카드 풍부화:**
+  - `expandedCode` state + chevron 토글 추가
+  - `kisFullData` ref: KIS 전체 데이터(w52_hgpr/w52_lwpr 포함) 보존
+  - 펼친 영역 5개 항목: 52주 대비 매수 위치 bar, 외국인 수급(smartMoney.foreign_net), AI 분석 신호(signal), 매수 이력(transactions), 네이버 증권 링크
+  - 외국인/기관: `smartMoney` 배열에 `foreign_net`만 존재 확인 (institution_net 없음 → 외국인만 표시)
+- **검증:** tsc OK, production build OK
+
 ### [개선] iOS focus zoom 방지 — input/textarea/select font-size: 16px (2026-05-08)
 - **변경 파일:** `frontend/src/index.css`
 - **요청:** 아이폰 Safari/PWA에서 검색 등 input-box focusing 시 화면 자동 확대되는 현상 제거. 프로젝트 전수 일괄 적용.
