@@ -5,6 +5,7 @@ import {
   BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
+import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
 import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, setAccessToken, STORAGE_KEY, insertTransactions, deleteTransactions, fetchTransactionsForHolding } from "../lib/supabase";
 import type { PortfolioHolding, PortfolioTransaction, KisStockPrice } from "../lib/supabase";
 
@@ -77,6 +78,8 @@ export default function Portfolio() {
   const [expandedCode, setExpandedCode] = useState<string | null>(null);
   const [transactionsByHolding, setTransactionsByHolding] = useState<Record<string, PortfolioTransaction[]>>({});
   const kisFullData = useRef<Record<string, KisStockPrice>>({});
+  // 시간외 단일가가 적용된 종목 코드 집합
+  const [afterhoursCodes, setAfterhoursCodes] = useState<Set<string>>(new Set());
 
   // 모달 열림 시 body 스크롤 잠금
   const anyModalOpen = !!(showPortfolioEdit);
@@ -302,6 +305,22 @@ export default function Portfolio() {
           if (Object.keys(priceMap).length > 0) source = "캐시";
         } catch {}
       }
+      // 시간외 시간대(평일 15:30~18:00 KST)면 네이버 단일가로 priceMap 보강
+      const newAfterhoursCodes = new Set<string>();
+      if (isAfterhoursKR() && codes.length > 0) {
+        try {
+          const naverMap = await fetchNaverQuotes(codes);
+          for (const [code, q] of Object.entries(naverMap)) {
+            if (q.overtimePrice && q.overtimeStatus === "OPEN") {
+              priceMap[code] = q.overtimePrice;
+              newAfterhoursCodes.add(code);
+            }
+          }
+        } catch (e) {
+          console.error("[naver] 시간외 시세 조회 실패:", e);
+        }
+      }
+      setAfterhoursCodes(newAfterhoursCodes);
       if (Object.keys(priceMap).length > 0) {
         const updated = portfolio.holdings.map((h: any) => {
           const cp = priceMap[h.code] || h.current_price || 0;
@@ -518,7 +537,12 @@ export default function Portfolio() {
                 </div>
                 {h.current_price > 0 && (
                   <div className="grid grid-cols-[2.5rem_1fr_auto_1fr] gap-x-2 px-3 py-1.5">
-                    <span className="t-text-dim">현재</span>
+                    <span className="t-text-dim flex items-center gap-1">
+                      현재
+                      {afterhoursCodes.has(h.code) && (
+                        <span className="text-[9px] font-bold px-1 py-0.5 rounded bg-amber-500/15 text-amber-400 leading-none">시간외</span>
+                      )}
+                    </span>
                     <span className="t-text text-right">{h.current_price.toLocaleString()}</span>
                     <span className="t-text-dim text-center">×{h.quantity}</span>
                     <span className="t-text font-medium text-right">{(h.current_price * (h.quantity || 0)).toLocaleString()}원</span>

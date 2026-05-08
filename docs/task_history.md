@@ -1,5 +1,24 @@
 # Task History
 
+## 2026-05-09
+
+### [기능] 네이버 polling 시간외 단일가 모듈 + _get_current_price 시간 분기 (2026-05-09 KST)
+- **변경 파일:** `daemon/naver_overtime.py` (신규), `daemon/trader.py` (L3662 분기 삽입), `daemon/tests/test_naver_overtime.py` (신규)
+- **내용:**
+  - `naver_overtime.py`: `fetch_overtime_price(code, session)` — 네이버 polling API 조회, 7초 in-memory cache, OPEN+유효가 아니면 None. `is_afterhours_kr(dt)` — 평일 KST 15:30~18:00 True, 주말/공휴일 False.
+  - `trader.py` `_get_current_price`: 시간외 시간대이면 네이버 먼저 시도, OPEN+유효 시 반환. 실패/CLOSE/정규장이면 기존 KIS fallback. 매수/매도 trigger 함수 자체는 무변경.
+  - 테스트 13개 신규 (is_afterhours_kr 9개 + fetch 4개), 전체 69 passed.
+- **위험 평가:** 매수 trigger 무영향 (정규장만 동작), KIS 모의 매도 차단 그대로. 가장 큰 효과 = 보유 평가/알림의 시간외 시세 반영.
+
+### [기능] Portfolio 시간외 단일가 통합 — 네이버 polling API (2026-05-09 KST)
+- **변경 파일:** `frontend/src/lib/naver.ts` (신규), `frontend/src/pages/Portfolio.tsx`
+- **수정:**
+  - `naver.ts`: `NaverQuote` 인터페이스, `fetchNaverQuote` / `fetchNaverQuotes` / `isAfterhoursKR` 구현. CORS 실패 시 null/빈 객체 반환(KIS fallback 유지).
+  - `Portfolio.tsx`: import 추가, `afterhoursCodes` state 추가, `refreshPortfolioPrices` 내 KIS+캐시 fetch 완료 후 `isAfterhoursKR()` 확인 → 네이버 병행 fetch → `overtimeStatus === "OPEN"` 인 종목만 priceMap 덮어씀.
+  - 종목 카드 현재가 행에 `afterhoursCodes.has(h.code)` 조건부 amber "시간외" 배지 추가.
+- **CORS 처리:** 차단 시 console.error + 빈 Set → UI는 KIS 시세 그대로 유지. 기존 `applyPrices`, `applyAvgDown` 등 핵심 함수 무변경.
+- **검증:** tsc OK, production build OK
+
 ## 2026-05-08
 
 ### [보안] 모의투자 기능 admin 전용 노출 (2026-05-08)

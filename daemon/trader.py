@@ -3660,7 +3660,22 @@ async def _check_orphan_simulations():
 
 
 async def _get_current_price(code: str) -> int:
-    """KIS API로 현재가 조회 (rate limit 시 재시도)"""
+    """KIS API로 현재가 조회 (rate limit 시 재시도).
+
+    평일 15:30~18:00 KST (시간외 단일가 시간대)에는 네이버 polling을 먼저 시도하고,
+    OPEN + 유효 가격이면 그 값을 반환한다. 실패 시 기존 KIS 로직으로 fallback.
+    """
+    from daemon.naver_overtime import fetch_overtime_price, is_afterhours_kr
+    if is_afterhours_kr():
+        try:
+            from daemon.http_session import get_session as _get_session
+            _sess = await _get_session()
+            ot = await fetch_overtime_price(code, session=_sess)
+            if ot is not None:
+                return ot["price"]
+        except Exception as _e:
+            logger.warning(f"시간외 시세 fallback ({code}): {_e}")
+
     token = await _ensure_mock_token()
     if not token:
         return 0
