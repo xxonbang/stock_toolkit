@@ -1,5 +1,15 @@
 # Task History
 
+## 2026-05-08
+
+### [개선] iOS focus zoom 방지 — input/textarea/select font-size: 16px (2026-05-08)
+- **변경 파일:** `frontend/src/index.css`
+- **요청:** 아이폰 Safari/PWA에서 검색 등 input-box focusing 시 화면 자동 확대되는 현상 제거. 프로젝트 전수 일괄 적용.
+- **원인:** iOS는 input/textarea/select의 font-size가 16px 미만이면 가독성 목적으로 focus 시 자동 zoom-in.
+- **수정:** global CSS에 `input, textarea, select { font-size: 16px !important }` 추가. Tailwind utility(text-xs/text-sm 등)가 우선되지 않도록 `!important` 사용. checkbox/radio/range/color/file은 `inherit !important`로 시각적 영향 차단.
+- **영향:** 기존 작은 폰트(text-xs=12px, text-sm=14px) input들이 16px로 표시되어 약간 커짐 (디자인 trade-off, iOS UX 우선).
+- **검증:** production build 통과.
+
 ## 2026-05-07
 
 ### [기능] 물타기 계산기 — 포트폴리오 반영 버튼 추가 (2026-05-07)

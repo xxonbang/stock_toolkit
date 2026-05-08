@@ -62,6 +62,23 @@ html {
   overflow-y: scroll;
 }
 
+/* iOS Safari/PWA: input focus 시 자동 zoom-in 방지.
+   font-size < 16px이면 iOS가 가독성 위해 화면을 확대하는 동작을 차단.
+   Tailwind utility(text-xs/text-sm 등)가 우선되지 않도록 !important 사용. */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+/* 시각적 영향 없는 type은 inherit로 복구 — font-size가 box 크기/라벨에 영향 미치지 않게 */
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+input[type="color"],
+input[type="file"] {
+  font-size: inherit !important;
+}
+
 body {
   background: var(--bg);
   color: var(--text-primary);
