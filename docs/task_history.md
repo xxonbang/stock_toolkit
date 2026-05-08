@@ -2,6 +2,17 @@
 
 ## 2026-05-08
 
+### [보안] 모의투자 기능 admin 전용 노출 (2026-05-08)
+- **변경 파일:** `frontend/src/lib/AuthContext.tsx`, `frontend/src/components/ProtectedRoute.tsx`, `frontend/src/App.tsx`, `frontend/src/pages/Dashboard.tsx`
+- **요청:** 모의투자(AutoTrader) 기능을 admin 계정에만 노출.
+- **수정:**
+  - `AuthContext`: 기존 `isAdminUser(user)` 헬퍼 활용 → `isAdmin: boolean` context value 노출
+  - `ProtectedRoute`: `adminOnly?: boolean` prop 추가. admin 아니면 "/" redirect
+  - `App.tsx`: `/auto-trader` route를 `<ProtectedRoute adminOnly>`로 감쌈 (URL 직접 접근 차단)
+  - `Dashboard.tsx`: tab nav를 동적 배열로 변경. `isAdmin`이면 모의투자 포함, 아니면 4개 탭. 슬라이딩 인디케이터 width/left도 동적 (tabs.length 기반).
+- **admin 정의:** `ADMIN_EMAILS = ["mackulri@gmail.com"]` (AuthContext line 18, hardcoded)
+- **검증:** tsc + production build 통과.
+
 ### [보안] supabase.ts user_id 이중 검증 (defense in depth) (2026-05-08)
 - **변경 파일:** `frontend/src/lib/supabase.ts`
 - **배경:** 진단 결과 RLS는 활성화돼 있으나 `updateHolding/deleteHolding/fetchTransactionsForHolding/deleteTransactions/getTradePct` 5개 함수가 user_id 명시 검증 없이 id로만 동작 → RLS 정책 변경/실수 시 격리 깨질 위험.

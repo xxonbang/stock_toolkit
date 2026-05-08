@@ -100,7 +100,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [headerRefreshing, setHeaderRefreshing] = useState(false);
   const [allStockList, setAllStockList] = useState<any[]>([]);
-  const { user: supaUser, signOut } = useAuth();
+  const { user: supaUser, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const [alertMode, setAlertModeState] = useState<AlertMode>("all");
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
@@ -910,25 +910,33 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             <button onClick={() => setShowHeaderMenu(true)} className="p-1.5 rounded-lg hover:opacity-80 transition t-text-sub text-lg leading-none">⋮</button>
           </div>
         </div>
-        {/* 페이지 탭 */}
-        <div className="flex -mx-1 relative">
-          {[
+        {/* 페이지 탭 (모의투자는 admin만) */}
+        {(() => {
+          const tabs = [
             { href: "#/", label: "대시보드", path: "/" },
             { href: "#/portfolio", label: "포트폴리오", path: "/portfolio" },
             { href: "#/scanner", label: "스캐너", path: "/scanner" },
-            { href: "#/auto-trader", label: "모의투자", path: "/auto-trader" },
+            ...(isAdmin ? [{ href: "#/auto-trader", label: "모의투자", path: "/auto-trader" }] : []),
             { href: "#/stock-insight", label: "인사이트", path: "/stock-insight" },
-          ].map((tab, idx, arr) => {
-            const active = location.pathname === tab.path;
-            return <a key={tab.path} href={tab.href} className={`flex-1 text-center py-3 text-[13px] font-medium transition-colors whitespace-nowrap ${active ? "font-semibold t-accent" : "t-text-dim hover:t-text-sub"}`}>{tab.label}</a>;
-          })}
-          {/* 슬라이딩 인디케이터 */}
-          <div className="absolute bottom-0 h-[3px] rounded-full transition-all duration-300 ease-out" style={{
-            background: 'var(--accent)',
-            width: '20%',
-            left: `${["/", "/portfolio", "/scanner", "/auto-trader", "/stock-insight"].indexOf(location.pathname) * 20}%`,
-          }} />
-        </div>
+          ];
+          const tabWidth = 100 / tabs.length;
+          const activeIdx = tabs.findIndex(t => t.path === location.pathname);
+          return (
+            <div className="flex -mx-1 relative">
+              {tabs.map((tab) => {
+                const active = location.pathname === tab.path;
+                return <a key={tab.path} href={tab.href} className={`flex-1 text-center py-3 text-[13px] font-medium transition-colors whitespace-nowrap ${active ? "font-semibold t-accent" : "t-text-dim hover:t-text-sub"}`}>{tab.label}</a>;
+              })}
+              {/* 슬라이딩 인디케이터 */}
+              <div className="absolute bottom-0 h-[3px] rounded-full transition-all duration-300 ease-out" style={{
+                background: 'var(--accent)',
+                width: `${tabWidth}%`,
+                left: `${(activeIdx >= 0 ? activeIdx : 0) * tabWidth}%`,
+                opacity: activeIdx >= 0 ? 1 : 0,
+              }} />
+            </div>
+          );
+        })()}
       </div>
       {/* 헤더-컨텐츠 여백 */}
 

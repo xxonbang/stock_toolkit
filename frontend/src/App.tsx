@@ -58,7 +58,7 @@ export default function App() {
             <Route path="/" element={<ProtectedRoute><Dashboard onToggleTheme={toggle} isDark={dark} /></ProtectedRoute>}>
               <Route index element={null} />
               <Route path="portfolio" element={<Portfolio />} />
-              <Route path="auto-trader" element={<AutoTrader />} />
+              <Route path="auto-trader" element={<ProtectedRoute adminOnly><AutoTrader /></ProtectedRoute>} />
               <Route path="stock-insight" element={<StockInsight />} />
               <Route path="scanner" element={<Scanner />} />
             </Route>
