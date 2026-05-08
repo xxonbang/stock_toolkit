@@ -1,5 +1,16 @@
 # Task History
 
+## 2026-05-08
+
+### [기능] Portfolio 네이버 보강 강화 — 마운트 fetch + closePrice fallback (2026-05-08)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx`
+- **내용:**
+  - 마운트 자동 fetch (useEffect): KIS+retry 완료 후 네이버 보강 블록 추가. 시간외 OPEN이면 overPrice 우선, KIS 누락 종목은 closePrice fallback.
+  - refreshPortfolioPrices: 기존 `isAfterhoursKR()` 조건부 호출 → 시간 무관 항상 호출로 변경. 동일 분기 로직(overPrice > closePrice fallback) 적용.
+  - 두 호출부 모두 `setAfterhoursCodes(newAfterhoursCodes)` 일관 적용.
+  - KIS retry 로직, applyPrices, applyAvgDown 무변경.
+- **검증:** tsc OK, production build OK
+
 ## 2026-05-09
 
 ### [기능] 네이버 polling 시간외 단일가 모듈 + _get_current_price 시간 분기 (2026-05-09 KST)

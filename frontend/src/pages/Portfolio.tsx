@@ -237,6 +237,27 @@ export default function Portfolio() {
           }
         }
       } catch {}
+      // 네이버 보강: KIS 실패 종목 closePrice fallback + 시간외 OPEN이면 overPrice 우선
+      const newAfterhoursCodes = new Set<string>();
+      if (codes.length > 0) {
+        try {
+          const naverMap = await fetchNaverQuotes(codes);
+          const afterhoursActive = isAfterhoursKR();
+          for (const code of codes) {
+            const q = naverMap[code];
+            if (!q) continue;
+            if (afterhoursActive && q.overtimeStatus === "OPEN" && q.overtimePrice) {
+              priceMap[code] = q.overtimePrice;
+              newAfterhoursCodes.add(code);
+            } else if (!priceMap[code] && q.closePrice) {
+              priceMap[code] = q.closePrice;
+            }
+          }
+        } catch (e) {
+          console.error("[naver] 마운트 시세 보강 실패:", e);
+        }
+      }
+      setAfterhoursCodes(newAfterhoursCodes);
       kisPrices.current = priceMap;
       kisLoaded.current = true;
       const latest = mergedRef.current;
@@ -305,19 +326,24 @@ export default function Portfolio() {
           if (Object.keys(priceMap).length > 0) source = "캐시";
         } catch {}
       }
-      // 시간외 시간대(평일 15:30~18:00 KST)면 네이버 단일가로 priceMap 보강
+      // 네이버 보강: KIS 실패 종목 closePrice fallback + 시간외 OPEN이면 overPrice 우선
       const newAfterhoursCodes = new Set<string>();
-      if (isAfterhoursKR() && codes.length > 0) {
+      if (codes.length > 0) {
         try {
           const naverMap = await fetchNaverQuotes(codes);
-          for (const [code, q] of Object.entries(naverMap)) {
-            if (q.overtimePrice && q.overtimeStatus === "OPEN") {
+          const afterhoursActive = isAfterhoursKR();
+          for (const code of codes) {
+            const q = naverMap[code];
+            if (!q) continue;
+            if (afterhoursActive && q.overtimeStatus === "OPEN" && q.overtimePrice) {
               priceMap[code] = q.overtimePrice;
               newAfterhoursCodes.add(code);
+            } else if (!priceMap[code] && q.closePrice) {
+              priceMap[code] = q.closePrice;
             }
           }
         } catch (e) {
-          console.error("[naver] 시간외 시세 조회 실패:", e);
+          console.error("[naver] 시세 보강 실패:", e);
         }
       }
       setAfterhoursCodes(newAfterhoursCodes);
