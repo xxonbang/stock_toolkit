@@ -112,19 +112,23 @@ export async function insertHolding(h: PortfolioHolding): Promise<boolean> {
   return true;
 }
 
-/** DB 종목 수정 */
+/** DB 종목 수정 (user_id 이중 검증) */
 export async function updateHolding(id: string, updates: Partial<PortfolioHolding>): Promise<boolean> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
   const { error } = await supabase.from("portfolio_holdings").update({
     ...updates,
     updated_at: new Date().toISOString(),
-  }).eq("id", id);
+  }).eq("id", id).eq("user_id", user.id);
   if (error) { console.error("종목 수정 실패:", error.message); return false; }
   return true;
 }
 
-/** DB 종목 삭제 */
+/** DB 종목 삭제 (user_id 이중 검증) */
 export async function deleteHolding(id: string): Promise<boolean> {
-  const { error } = await supabase.from("portfolio_holdings").delete().eq("id", id);
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { error } = await supabase.from("portfolio_holdings").delete().eq("id", id).eq("user_id", user.id);
   if (error) { console.error("종목 삭제 실패:", error.message); return false; }
   return true;
 }
@@ -201,14 +205,16 @@ export async function setAlertMode(mode: AlertMode): Promise<boolean> {
   return setAlertConfig({ alert_mode: mode });
 }
 
-/** 익절/손절/trailing stop 조회 */
+/** 익절/손절/trailing stop 조회 (user_id 필터) */
 export async function getTradePct(): Promise<{ take_profit: number; stop_loss: number; trailing_stop: number; buy_signal_mode: string; criteria_filter: boolean }> {
   const defaults = { take_profit: 7.0, stop_loss: -2.0, trailing_stop: -3.0, buy_signal_mode: "and", criteria_filter: false };
   try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return defaults;
     const { data } = await supabase
       .from("alert_config")
       .select("take_profit_pct, stop_loss_pct, trailing_stop_pct")
-      .limit(1)
+      .eq("user_id", user.id)
       .maybeSingle();
     const result = {
       take_profit: data?.take_profit_pct ?? defaults.take_profit,
@@ -219,7 +225,7 @@ export async function getTradePct(): Promise<{ take_profit: number; stop_loss: n
     };
     // buy_signal_mode, criteria_filter 별도 조회 (컬럼 미존재 시 안전)
     try {
-      const { data: d2 } = await supabase.from("alert_config").select("buy_signal_mode,criteria_filter").limit(1).maybeSingle();
+      const { data: d2 } = await supabase.from("alert_config").select("buy_signal_mode,criteria_filter").eq("user_id", user.id).maybeSingle();
       if (d2?.buy_signal_mode) result.buy_signal_mode = d2.buy_signal_mode;
       if (d2?.criteria_filter != null) result.criteria_filter = !!d2.criteria_filter;
     } catch {}
@@ -242,12 +248,15 @@ export interface PortfolioTransaction {
   executed_at: string;
 }
 
-/** 특정 holding의 매수 이력 조회 */
+/** 특정 holding의 매수 이력 조회 (user_id 이중 검증) */
 export async function fetchTransactionsForHolding(holdingId: string): Promise<PortfolioTransaction[]> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return [];
   const { data, error } = await supabase
     .from("portfolio_transactions")
     .select("id, holding_id, code, name, price, quantity, note, executed_at")
     .eq("holding_id", holdingId)
+    .eq("user_id", user.id)
     .order("executed_at", { ascending: false });
   if (error) { console.error("매수 이력 조회 실패:", error.message); return []; }
   return (data || []) as PortfolioTransaction[];
@@ -284,10 +293,12 @@ export async function insertTransactions(rows: { holding_id: string; code: strin
   return (data || []) as PortfolioTransaction[];
 }
 
-/** 매수 이력 삭제 (rollback용) */
+/** 매수 이력 삭제 (rollback용, user_id 이중 검증) */
 export async function deleteTransactions(ids: string[]): Promise<boolean> {
   if (!ids.length) return true;
-  const { error } = await supabase.from("portfolio_transactions").delete().in("id", ids);
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { error } = await supabase.from("portfolio_transactions").delete().in("id", ids).eq("user_id", user.id);
   if (error) { console.error("매수 이력 삭제 실패:", error.message); return false; }
   return true;
 }

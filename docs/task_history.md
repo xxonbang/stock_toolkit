@@ -2,6 +2,14 @@
 
 ## 2026-05-08
 
+### [보안] supabase.ts user_id 이중 검증 (defense in depth) (2026-05-08)
+- **변경 파일:** `frontend/src/lib/supabase.ts`
+- **배경:** 진단 결과 RLS는 활성화돼 있으나 `updateHolding/deleteHolding/fetchTransactionsForHolding/deleteTransactions/getTradePct` 5개 함수가 user_id 명시 검증 없이 id로만 동작 → RLS 정책 변경/실수 시 격리 깨질 위험.
+- **수정:** 각 함수에 `supabase.auth.getUser()`로 user.id 가져와 `.eq("user_id", user.id)` 이중 조건 추가. RLS 의존도 줄이는 defense in depth.
+- **검증:** tsc + production build 통과. 기존 호출부 변경 없음 (시그니처 유지).
+
+## 2026-05-08
+
 ### [기능] 포트폴리오 매수 이력 관리(A) + 종목 카드 풍부화(B) (2026-05-08)
 - **변경 파일:** `frontend/src/lib/supabase.ts`, `frontend/src/pages/Portfolio.tsx`
 - **A. 매수 이력 관리:**
