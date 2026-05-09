@@ -1,5 +1,16 @@
 # Task History
 
+## 2026-05-11
+
+### [버그픽스] celltrion_band 백테스트 일봉 단순화 + 미청산 open row DB 적재 (2026-05-11 KST)
+- **변경 파일:** `scripts/backtest_celltrion_band.py` (수정)
+- **원인:** 분봉+일봉 결합 알고리즘이 분봉 커버 구간(5/7~5/8) 일봉 매매 기회를 잘못 제외 → 5/4→5/7 사이클 누락, 미청산 63주 open row 미적재
+- **내용:**
+  - `load_minute_bars()` 함수 및 분봉 관련 로직 전면 제거, 일봉 100일만 사용
+  - `insert_open_holding()` 신규 추가: 미청산 보유를 auto_trades(sim_only, sold_at=NULL) + strategy_simulations(open) 로 적재
+  - 기존 DB 7건 삭제 → closed 8건 + open 1건 재적재
+- **검증:** qty 50→51→53→54→56→58→59→61→63(보유), 종료 cap 115,000원, 누적 +26.52%
+
 ## 2026-05-10
 
 ### [개선] celltrion_band 백테스트 분봉 fetcher 추가 + 재백테스트 (2026-05-10 KST)
