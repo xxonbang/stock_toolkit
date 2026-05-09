@@ -478,6 +478,22 @@ async def schedule_eod_close():
             _eod_done_date = today
 
 
+async def schedule_celltrion_monitor():
+    """30초마다 셀트리온(068270) 시세 조회 → 가상 시뮬 매수/매도 체크 (정규장만)"""
+    while not _shutdown:
+        await asyncio.sleep(30)
+        if _shutdown or not is_market_day() or not is_market_hours():
+            continue
+        try:
+            from daemon.trader import _get_current_price
+            from daemon.celltrion_band_monitor import check_celltrion_signal
+            price = await _get_current_price("068270")
+            if price > 0:
+                await check_celltrion_signal(price)
+        except Exception as e:
+            logger.error(f"셀트리온 시뮬 모니터 오류: {e}")
+
+
 async def schedule_cttr_log():
     """09:05/09:10/09:15에 거래대금 후보 종목 호가잔량 압력 스냅샷 기록.
     매수 로직과 독립 — 검증용 데이터 누적."""
@@ -617,6 +633,7 @@ async def main():
         schedule_eod_close(),
         schedule_sell_check(),
         schedule_cttr_log(),
+        schedule_celltrion_monitor(),
         telegram_worker(),
     )
     try:

@@ -2,6 +2,15 @@
 
 ## 2026-05-11
 
+### [기능] 셀트리온 횡보 매매 가상 시뮬 실시간 모니터링 데몬 추가 (2026-05-11 KST)
+- **변경 파일:** `daemon/celltrion_band_monitor.py` (신규), `daemon/main.py` (schedule_celltrion_monitor 추가), `daemon/tests/test_celltrion_band_monitor.py` (신규)
+- **내용:**
+  - `celltrion_band_monitor.py`: `check_celltrion_signal(price)` — 정규장 가드(is_kr_market_open + 09:00~15:30) + open sim 조회 + 매수/매도 trigger. `_calc_current_cap()` — closed sim 손익 누적 자본 계산. `_do_buy/_do_sell` — auto_trades(sim_only) + strategy_simulations CRUD. auto_trades.status는 sim_only 유지(격리 룰).
+  - `main.py`: `schedule_celltrion_monitor()` — 30초마다 `_get_current_price("068270")` polling → `check_celltrion_signal` 호출. asyncio.gather에 등록.
+  - 시세 수신: 옵션 B(polling) 채택 — WebSocket 슬롯(20개) 절약, 기존 구독 무영향.
+- **검증:** py_compile OK, 15 passed (신규) + 84 passed (전체)
+- **위험 평가:** run_buy_process/check_positions_for_sell 완전 분리. WebSocket 구독 변경 없음. 다른 strategy_type 처리 무변경.
+
 ### [버그픽스] celltrion_band 백테스트 일봉 단순화 + 미청산 open row DB 적재 (2026-05-11 KST)
 - **변경 파일:** `scripts/backtest_celltrion_band.py` (수정)
 - **원인:** 분봉+일봉 결합 알고리즘이 분봉 커버 구간(5/7~5/8) 일봉 매매 기회를 잘못 제외 → 5/4→5/7 사이클 누락, 미청산 63주 open row 미적재
