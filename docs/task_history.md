@@ -2,6 +2,17 @@
 
 ## 2026-05-10
 
+### [개선] celltrion_band 백테스트 분봉 fetcher 추가 + 재백테스트 (2026-05-10 KST)
+- **변경 파일:** `scripts/backtest_celltrion_band.py` (수정)
+- **내용:**
+  - KIS `inquire-time-itemchartprice` (FHKST03010200) 분봉 API 조사 결과: 과거 날짜 직접 지정 불가, 최근 2거래일만 수집 가능
+  - `load_intraday_bars()` → `load_minute_bars(token)` 교체: KIS API 직접 호출, 0.4초 간격 순차 페이지 순회
+  - 분봉 420건(2026-05-07~08) + 일봉 97건 = 517건 결합 백테스트
+  - 결과: 7사이클 (기존 8건 → 7건), 분봉 구간 사이클 0건 (05-07 low>199k, 05-08 high<205k)
+  - 누적 수익률 22.86% (총 평가자산 12,286,000원), 미청산 61주(05-08 매수 후 매도 조건 미충족)
+  - 분봉 시각 HH:MM 정확 표시 (일봉은 날짜만 표시)
+  - DB 재적재: 기존 8건 삭제 → 7건 insert (strategy_simulations + auto_trades)
+
 ### [기능] 셀트리온(068270) 횡보 매매 백테스트 + DB 적재 (2026-05-10 KST)
 - **변경 파일:** `scripts/backtest_celltrion_band.py` (신규)
 - **내용:**

@@ -4,10 +4,17 @@
 - 매수: 저가 <= 199,000원 (지정가 가정)
 - 매도: 고가 >= 205,000원 (지정가 가정)
 - 무한 사이클, 무손절, 1000만원 자본 시작
+- 같은 1분봉에서 low<=199k AND high>=205k 동시 → 매수+매도 동시 처리
 
 데이터:
-- 분봉: intraday-history.json (068270 없으면 일봉만 사용)
-- 일봉: KIS FHKST03010100 (최대 100일 일봉)
+- 분봉: KIS FHKST03010200 직접 fetch (최근 2거래일 — API 과거 날짜 지정 불가)
+- 일봉: KIS FHKST03010100 (분봉 커버 이전 60일)
+
+KIS 분봉 API 제약:
+- inquire-time-itemchartprice (FHKST03010200)
+- FID_INPUT_HOUR_1 = 시각(HHMMSS) 기준, 날짜 직접 지정 파라미터 없음
+- 반환: 해당 시각 이전 최대 30건 (최근 거래일 기준)
+- 과거 날짜 직접 지정 불가 → 최근 2거래일만 수집 가능
 
 DB 적재:
 - auto_trades: sim_only 상태로 각 사이클 1건
@@ -16,6 +23,7 @@ DB 적재:
 import os
 import sys
 import json
+import time
 import urllib.request
 import urllib.parse
 from datetime import datetime, timedelta, timezone
@@ -35,7 +43,7 @@ SIM_START_CAPITAL = 10_000_000
 STRATEGY_TYPE = "celltrion_band"
 KST = timezone(timedelta(hours=9))
 REAL_URL = "https://openapi.koreainvestment.com:9443"
-INTRADAY_URL = "https://xxonbang.github.io/theme-analyzer/data/intraday-history.json"
+MINUTE_API_SLEEP = 0.4  # 분봉 API 호출 간격(초)
 
 SB_URL = os.getenv("SUPABASE_URL", "")
 SB_KEY = os.getenv("SUPABASE_SECRET_KEY", "")
@@ -99,50 +107,110 @@ def get_kis_token() -> str:
     return token
 
 
-# ── 분봉 데이터 로드 ──────────────────────────────────────────────────────
+# ── 분봉 데이터 로드 (KIS FHKST03010200) ──────────────────────────────────
 
-def load_intraday_bars() -> list[dict]:
-    """intraday-history.json에서 068270 30분봉 추출.
-    반환: [{time: datetime, open, high, low, close, source: 'intraday'}, ...]
-    없으면 빈 리스트.
+def load_minute_bars(token: str) -> list[dict]:
+    """KIS inquire-time-itemchartprice로 최근 2거래일 1분봉 수집.
+
+    API 제약:
+    - FID_INPUT_HOUR_1 기반 (날짜 직접 지정 불가)
+    - 1회 호출 = 최대 30건, 과거 방향 페이지 순회
+    - 날짜 경계를 넘으면 전일 데이터가 섞이므로 최근 2거래일(약 780건)만 안정적으로 수집 가능
+
+    반환: [{time: datetime(KST), open, high, low, close, source: 'minute'}, ...] 오름차순
     """
-    # 로컬 캐시 우선
-    local = Path(__file__).parent.parent / "results" / "intraday-history.json"
-    try:
-        if local.exists():
-            with open(local, encoding="utf-8") as f:
-                data = json.load(f)
-        else:
-            print("  로컬 intraday-history.json 없음, 원격 다운로드 시도...")
-            req = urllib.request.Request(INTRADAY_URL)
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read())
-    except Exception as e:
-        print(f"  intraday 로드 실패: {e}")
-        return []
+    kis_headers = {
+        "authorization": f"Bearer {token}",
+        "appkey": KIS_APP_KEY,
+        "appsecret": KIS_APP_SECRET,
+        "tr_id": "FHKST03010200",
+        "custtype": "P",
+    }
 
-    stocks = data.get("stocks", {})
-    if STOCK_CODE not in stocks:
-        return []
+    now_kst = datetime.now(KST)
+    # 장 마감 기준: 오늘이 거래일이면 당일 15:30, 아니면 가장 최근 거래일 15:30
+    # 간단 처리: 현재 시각이 09:00 이전이면 전 거래일 15:30부터 시작
+    if now_kst.hour < 9:
+        start_dt = (now_kst - timedelta(days=1)).replace(hour=15, minute=30, second=0, microsecond=0)
+    else:
+        start_dt = now_kst.replace(hour=15, minute=30, second=0, microsecond=0)
+        if now_kst < start_dt:
+            start_dt = start_dt  # 아직 장 중이면 현재 시각 기준
 
-    raw_days = stocks[STOCK_CODE]  # list of day objects
-    bars = []
-    for day_obj in raw_days:
-        date_str = day_obj.get("date", "")  # "YYYY-MM-DD"
-        for interval in day_obj.get("intervals_30m", []):
-            time_str = interval.get("time", "")  # "HH:MM"
-            if not date_str or not time_str:
-                continue
-            dt = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M").replace(tzinfo=KST)
-            bars.append({
-                "time": dt,
-                "open": day_obj.get("open", interval.get("close", 0)),
-                "high": interval["high"],
-                "low": interval["low"],
-                "close": interval["close"],
-                "source": "intraday",
-            })
+    # 2거래일(약 780분) 커버: cutoff = start_dt 기준일로부터 2 영업일 전 09:00
+    # 단순하게 달력 기준 3일 전 09:00 (주말 포함)
+    cutoff_dt = (start_dt - timedelta(days=3)).replace(hour=9, minute=0, second=0, microsecond=0)
+
+    current_dt = start_dt
+    seen: set[str] = set()
+    bars: list[dict] = []
+    call_count = 0
+    max_calls = 60  # 2거래일 × 13회/일 ≒ 26회, 여유 2배
+
+    while call_count < max_calls:
+        hour_str = current_dt.strftime("%H%M%S")
+        params = {
+            "FID_ETC_CLS_CODE": "",
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": STOCK_CODE,
+            "FID_INPUT_HOUR_1": hour_str,
+            "FID_PW_DATA_INCU_YN": "Y",
+        }
+        query = urllib.parse.urlencode(params)
+        url = f"{REAL_URL}/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice?{query}"
+        req = urllib.request.Request(url, headers=kis_headers)
+
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                result = json.loads(resp.read())
+        except Exception as e:
+            print(f"  분봉 API 오류 ({hour_str}): {e}, skip")
+            call_count += 1
+            time.sleep(1.0)
+            continue
+
+        if result.get("rt_cd") != "0":
+            print(f"  분봉 API 비정상: {result.get('msg1')}")
+            break
+
+        output2 = result.get("output2", [])
+        call_count += 1
+
+        if not output2:
+            break
+
+        reached_cutoff = False
+        for b in output2:
+            dt_str = b["stck_bsop_date"] + b["stck_cntg_hour"]
+            bar_dt = datetime.strptime(dt_str, "%Y%m%d%H%M%S").replace(tzinfo=KST)
+            key = bar_dt.isoformat()
+            if key not in seen:
+                seen.add(key)
+                bars.append({
+                    "time": bar_dt,
+                    "open": int(b.get("stck_oprc", 0)),
+                    "high": int(b.get("stck_hgpr", 0)),
+                    "low": int(b.get("stck_lwpr", 0)),
+                    "close": int(b.get("stck_prpr", 0)),
+                    "source": "minute",
+                })
+            if bar_dt <= cutoff_dt:
+                reached_cutoff = True
+
+        if reached_cutoff:
+            break
+
+        last = output2[-1]
+        last_dt = datetime.strptime(
+            last["stck_bsop_date"] + last["stck_cntg_hour"], "%Y%m%d%H%M%S"
+        ).replace(tzinfo=KST)
+        if last_dt <= cutoff_dt:
+            break
+        current_dt = last_dt - timedelta(minutes=1)
+        time.sleep(MINUTE_API_SLEEP)
+
     bars.sort(key=lambda x: x["time"])
+    print(f"  분봉 API 호출: {call_count}회, 수집: {len(bars)}건")
     return bars
 
 
@@ -153,7 +221,6 @@ def load_daily_bars(token: str, days: int = 100) -> list[dict]:
     반환: [{time: datetime, open, high, low, close, source: 'daily'}, ...] 오름차순
     """
     end_date = datetime.now(KST).strftime("%Y%m%d")
-    # 영업일 days개 확보를 위해 calendar days = days * 1.5
     start_date = (datetime.now(KST) - timedelta(days=int(days * 1.5))).strftime("%Y%m%d")
 
     headers = {
@@ -187,7 +254,7 @@ def load_daily_bars(token: str, days: int = 100) -> list[dict]:
         if not date_str:
             continue
         dt = datetime.strptime(date_str, "%Y%m%d").replace(
-            hour=15, minute=30, tzinfo=KST  # 일봉은 종가 시점(15:30) 대표
+            hour=15, minute=30, tzinfo=KST
         )
         bars.append({
             "time": dt,
@@ -198,7 +265,6 @@ def load_daily_bars(token: str, days: int = 100) -> list[dict]:
             "source": "daily",
         })
 
-    # API는 최신 → 과거 순으로 반환 → 오름차순 정렬
     bars.sort(key=lambda x: x["time"])
     return bars
 
@@ -206,8 +272,11 @@ def load_daily_bars(token: str, days: int = 100) -> list[dict]:
 # ── 백테스트 ──────────────────────────────────────────────────────────────
 
 def run_backtest(bars: list[dict]) -> tuple[list[dict], dict]:
-    """bars: time-sorted list of {time, high, low, ...}
+    """bars: time-sorted list of {time, high, low, source, ...}
     반환: (cycles, final_state)
+
+    같은 bar에서 low<=BUY_PRICE AND high>=SELL_PRICE 동시 조건:
+    → 매수 즉시 매도로 처리 (분봉 단위 불확실성 보수적 가정)
     """
     cap = SIM_START_CAPITAL
     holding = False
@@ -219,31 +288,29 @@ def run_backtest(bars: list[dict]) -> tuple[list[dict], dict]:
         low = bar["low"]
         high = bar["high"]
 
-        if not holding:
-            if low <= BUY_PRICE:
-                qty = cap // BUY_PRICE
-                invested = qty * BUY_PRICE
-                if qty > 0 and invested <= cap:
-                    cap -= invested
-                    holding = True
-                    buy_dt = bar["time"]
+        if not holding and low <= BUY_PRICE:
+            qty = cap // BUY_PRICE
+            invested = qty * BUY_PRICE
+            if qty > 0 and invested <= cap:
+                cap -= invested
+                holding = True
+                buy_dt = bar["time"]
 
-        if holding:
-            if high >= SELL_PRICE:
-                proceeds = qty * SELL_PRICE
-                cap += proceeds
-                pnl_pct = (SELL_PRICE - BUY_PRICE) / BUY_PRICE * 100
-                cycles.append({
-                    "entry_dt": buy_dt,
-                    "exit_dt": bar["time"],
-                    "entry_price": BUY_PRICE,
-                    "exit_price": SELL_PRICE,
-                    "qty": qty,
-                    "pnl_pct": round(pnl_pct, 4),
-                    "bar_source": bar["source"],
-                })
-                holding = False
-                qty = 0
+        if holding and high >= SELL_PRICE:
+            proceeds = qty * SELL_PRICE
+            cap += proceeds
+            pnl_pct = (SELL_PRICE - BUY_PRICE) / BUY_PRICE * 100
+            cycles.append({
+                "entry_dt": buy_dt,
+                "exit_dt": bar["time"],
+                "entry_price": BUY_PRICE,
+                "exit_price": SELL_PRICE,
+                "qty": qty,
+                "pnl_pct": round(pnl_pct, 4),
+                "bar_source": bar["source"],
+            })
+            holding = False
+            qty = 0
 
     final_state = {
         "cap": cap,
@@ -257,7 +324,6 @@ def run_backtest(bars: list[dict]) -> tuple[list[dict], dict]:
 # ── DB 적재 ───────────────────────────────────────────────────────────────
 
 def get_user_id() -> str:
-    """기존 strategy_simulations에서 user_id 추출."""
     rows = sb_get("strategy_simulations?select=user_id&limit=1")
     if rows:
         return rows[0].get("user_id", "")
@@ -266,7 +332,6 @@ def get_user_id() -> str:
 
 def clear_existing():
     """기존 celltrion_band 시뮬 + 연결 auto_trades 삭제 (idempotent)."""
-    # strategy_simulations에서 trade_id 목록 수집
     sims = sb_get(f"strategy_simulations?strategy_type=eq.{STRATEGY_TYPE}&select=id,trade_id")
     trade_ids = [s["trade_id"] for s in sims if s.get("trade_id")]
     sim_ids = [s["id"] for s in sims]
@@ -291,7 +356,6 @@ def insert_cycles(cycles: list[dict], user_id: str) -> int:
         entry_dt_utc = c["entry_dt"].astimezone(timezone.utc).isoformat()
         exit_dt_utc = c["exit_dt"].astimezone(timezone.utc).isoformat()
 
-        # 1. auto_trades insert
         trade_body = {
             "code": STOCK_CODE,
             "name": STOCK_NAME,
@@ -300,7 +364,7 @@ def insert_cycles(cycles: list[dict], user_id: str) -> int:
             "filled_price": BUY_PRICE,
             "sell_price": SELL_PRICE,
             "quantity": c["qty"],
-            "status": "sim_only",  # 백테스트는 가상 시뮬 — 실거래(soldTrades)와 분리
+            "status": "sim_only",
             "pnl_pct": round(c["pnl_pct"], 2),
             "sell_reason": STRATEGY_TYPE,
             "created_at": entry_dt_utc,
@@ -313,7 +377,6 @@ def insert_cycles(cycles: list[dict], user_id: str) -> int:
             print(f"  WARNING: auto_trades insert 실패 (entry {c['entry_dt'].date()})")
             continue
 
-        # 2. strategy_simulations insert
         sim_body = {
             "trade_id": trade_id,
             "strategy_type": STRATEGY_TYPE,
@@ -336,73 +399,63 @@ def insert_cycles(cycles: list[dict], user_id: str) -> int:
 
 # ── 보고 출력 ─────────────────────────────────────────────────────────────
 
-def print_report(intraday_bars, daily_bars, all_bars, cycles, final_state, inserted):
+def print_report(minute_bars, daily_bars, all_bars, cycles, final_state, inserted):
     print()
     print("=" * 60)
     print("셀트리온(068270) 횡보 매매 백테스트 결과")
     print("=" * 60)
 
-    # 데이터 현황
     print("\n[데이터 현황]")
-    if intraday_bars:
-        print(f"  분봉 (30m): {len(intraday_bars)}건 "
-              f"({intraday_bars[0]['time'].date()} ~ {intraday_bars[-1]['time'].date()})")
+    if minute_bars:
+        dates = sorted(set(b["time"].date() for b in minute_bars))
+        print(f"  분봉 (1m): {len(minute_bars)}건 ({dates[0]} ~ {dates[-1]}, {len(dates)}거래일)")
+        print(f"  ※ KIS API 제약: 과거 30일 분봉 직접 지정 불가 → 최근 2거래일만 수집")
     else:
-        print(f"  분봉: 없음 (intraday-history.json에 {STOCK_CODE} 미포함)")
+        print("  분봉: 없음 (API 실패)")
     print(f"  일봉: {len(daily_bars)}건 "
           f"({daily_bars[0]['time'].date()} ~ {daily_bars[-1]['time'].date()})" if daily_bars else "  일봉: 없음")
     print(f"  백테스트 사용 bars: {len(all_bars)}건")
 
-    # 백테스트 결과
     print("\n[백테스트 결과]")
     print(f"  사이클 수: {len(cycles)}회")
 
     if cycles:
-        hold_days = []
-        for c in cycles:
-            delta = c["exit_dt"] - c["entry_dt"]
-            hold_days.append(delta.total_seconds() / 86400)
-        avg_hold = sum(hold_days) / len(hold_days)
-        print(f"  평균 보유기간: {avg_hold:.1f}일")
+        hold_secs = [(c["exit_dt"] - c["entry_dt"]).total_seconds() for c in cycles]
+        avg_hold_days = sum(hold_secs) / len(hold_secs) / 86400
+        avg_hold_min = sum(hold_secs) / len(hold_secs) / 60
+        print(f"  평균 보유기간: {avg_hold_days:.2f}일 ({avg_hold_min:.0f}분)")
 
-        pnl_per_cycle = round((SELL_PRICE - BUY_PRICE) / BUY_PRICE * 100, 4)
-        # 미청산 포지션을 BUY_PRICE로 평가 (보수적 기준)
         unrealized_val = final_state["unrealized_qty"] * BUY_PRICE if final_state["still_holding"] else 0
         total_val = final_state["cap"] + unrealized_val
         total_return = (total_val - SIM_START_CAPITAL) / SIM_START_CAPITAL * 100
-        realized_return = (final_state["cap"] - SIM_START_CAPITAL + sum(
-            c["qty"] * (SELL_PRICE - BUY_PRICE) for c in cycles
-        )) / SIM_START_CAPITAL * 100
-        print(f"  사이클당 수익률: {pnl_per_cycle:.2f}%")
         print(f"  시작 자본: {SIM_START_CAPITAL:,}원")
         print(f"  현금 잔고: {final_state['cap']:,}원")
-        print(f"  미청산 포지션 평가(매수가 기준): {unrealized_val:,}원")
-        print(f"  총 평가자산: {total_val:,}원")
-        print(f"  누적 수익률 (총 평가자산 기준): {total_return:.2f}%")
-
         if final_state["still_holding"]:
-            print(f"  미청산 포지션: {final_state['unrealized_qty']}주 (매수일: {final_state['unrealized_buy_dt'].date()})")
+            print(f"  미청산 평가(매수가): {unrealized_val:,}원 ({final_state['unrealized_qty']}주)")
+        print(f"  총 평가자산: {total_val:,}원")
+        print(f"  누적 수익률: {total_return:.2f}%")
 
-        print("\n  [일자별 사이클]")
+        print("\n  [사이클 상세]")
         for i, c in enumerate(cycles, 1):
-            hold = (c["exit_dt"] - c["entry_dt"]).total_seconds() / 86400
-            print(f"    {i:2d}. 매수 {c['entry_dt'].strftime('%Y-%m-%d')} "
-                  f"→ 매도 {c['exit_dt'].strftime('%Y-%m-%d')} "
-                  f"({hold:.0f}일) qty={c['qty']:,} pnl={c['pnl_pct']:.2f}% [{c['bar_source']}]")
+            hold = (c["exit_dt"] - c["entry_dt"]).total_seconds()
+            hold_str = f"{hold/60:.0f}분" if hold < 86400 else f"{hold/86400:.1f}일"
+            # 분봉이면 HH:MM 표시, 일봉이면 날짜만
+            entry_str = c["entry_dt"].strftime("%Y-%m-%d %H:%M") if c["bar_source"] == "minute" else c["entry_dt"].strftime("%Y-%m-%d")
+            exit_str = c["exit_dt"].strftime("%Y-%m-%d %H:%M") if c["bar_source"] == "minute" else c["exit_dt"].strftime("%Y-%m-%d")
+            print(f"    {i:2d}. 매수 {entry_str} → 매도 {exit_str} "
+                  f"({hold_str}) qty={c['qty']:,} [{c['bar_source']}]")
     else:
         print("  사이클 없음 (매매 조건 미충족)")
 
-    # DB 적재
     print(f"\n[DB 적재]")
     print(f"  auto_trades + strategy_simulations 각 {inserted}건 insert")
-
     print()
 
 
 # ── 메인 ──────────────────────────────────────────────────────────────────
 
 def main():
-    print("셀트리온(068270) 횡보 매매 백테스트 시작")
+    print("셀트리온(068270) 횡보 매매 백테스트 시작 (분봉+일봉 혼합)")
     print(f"  매수: <= {BUY_PRICE:,}원 / 매도: >= {SELL_PRICE:,}원")
     print(f"  시작 자본: {SIM_START_CAPITAL:,}원")
 
@@ -410,30 +463,33 @@ def main():
     print("\n[1] KIS 토큰 확보")
     token = get_kis_token()
 
-    # 2. 분봉
-    print("\n[2] 분봉 데이터 로드 (intraday-history.json)")
-    intraday_bars = load_intraday_bars()
-    if intraday_bars:
-        print(f"  {STOCK_CODE} {len(intraday_bars)}건 ({intraday_bars[0]['time'].date()} ~ {intraday_bars[-1]['time'].date()})")
-        intraday_cutoff = intraday_bars[0]["time"].date()
+    # 2. 분봉 (KIS API)
+    print("\n[2] 분봉 데이터 로드 (KIS FHKST03010200 — 최근 2거래일)")
+    minute_bars = load_minute_bars(token)
+    if minute_bars:
+        minute_cutoff_date = minute_bars[0]["time"].date()
+        print(f"  분봉 {len(minute_bars)}건 "
+              f"({minute_bars[0]['time'].strftime('%Y-%m-%d %H:%M')} ~ "
+              f"{minute_bars[-1]['time'].strftime('%Y-%m-%d %H:%M')})")
     else:
-        print(f"  {STOCK_CODE} 분봉 없음 → 일봉만 사용")
-        intraday_cutoff = None
+        minute_cutoff_date = None
+        print("  분봉 수집 실패 → 일봉만 사용")
 
     # 3. 일봉
     print("\n[3] 일봉 데이터 로드 (KIS FHKST03010100)")
     daily_bars = load_daily_bars(token, days=100)
-    print(f"  {len(daily_bars)}건 ({daily_bars[0]['time'].date()} ~ {daily_bars[-1]['time'].date()})" if daily_bars else "  없음")
+    print(f"  {len(daily_bars)}건 "
+          f"({daily_bars[0]['time'].date()} ~ {daily_bars[-1]['time'].date()})" if daily_bars else "  없음")
 
-    # 4. 결합 — 분봉 시작일 이전 일봉만 사용
-    if intraday_cutoff:
-        daily_filtered = [b for b in daily_bars if b["time"].date() < intraday_cutoff]
+    # 4. 결합 — 분봉 커버 날짜 이전만 일봉 사용
+    if minute_cutoff_date:
+        daily_filtered = [b for b in daily_bars if b["time"].date() < minute_cutoff_date]
     else:
         daily_filtered = daily_bars
 
-    all_bars = daily_filtered + intraday_bars
+    all_bars = daily_filtered + minute_bars
     all_bars.sort(key=lambda x: x["time"])
-    print(f"\n[4] 결합 bars: 일봉 {len(daily_filtered)}건 + 분봉 {len(intraday_bars)}건 = {len(all_bars)}건")
+    print(f"\n[4] 결합 bars: 일봉 {len(daily_filtered)}건 + 분봉 {len(minute_bars)}건 = {len(all_bars)}건")
 
     # 5. 백테스트
     print("\n[5] 백테스트 실행")
@@ -457,7 +513,7 @@ def main():
         print("  insert 없음 (사이클 0건)")
 
     # 7. 보고
-    print_report(intraday_bars, daily_bars, all_bars, cycles, final_state, inserted)
+    print_report(minute_bars, daily_bars, all_bars, cycles, final_state, inserted)
 
 
 if __name__ == "__main__":
