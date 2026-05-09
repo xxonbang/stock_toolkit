@@ -300,7 +300,7 @@ def insert_cycles(cycles: list[dict], user_id: str) -> int:
             "filled_price": BUY_PRICE,
             "sell_price": SELL_PRICE,
             "quantity": c["qty"],
-            "status": "sold",
+            "status": "sim_only",  # 백테스트는 가상 시뮬 — 실거래(soldTrades)와 분리
             "pnl_pct": round(c["pnl_pct"], 2),
             "sell_reason": STRATEGY_TYPE,
             "created_at": entry_dt_utc,

@@ -915,8 +915,10 @@ export default function AutoTrader() {
                 .map((s: any) => toKstDate(s.created_at)).filter(Boolean).sort()[0] || "";
 
               // 거래대금 모멘텀 (실제): tvCutoff 이후 실전 매매만
+              // sim 백테스트 sell_reason 제외 (gapup_sim, celltrion_band 등)
+              const SIM_SELL_REASONS = ["gapup_sim", "celltrion_band"];
               const tvSold = tvCutoff
-                ? soldTrades.filter(t => toKstDate(t.created_at) >= tvCutoff && t.sell_reason !== "gapup_sim")
+                ? soldTrades.filter(t => toKstDate(t.created_at) >= tvCutoff && !(t.sell_reason && SIM_SELL_REASONS.includes(t.sell_reason)))
                 : [];
               const tvActive = tvCutoff
                 ? activeTrades.filter(t => toKstDate(t.created_at) >= tvCutoff).map(t => {
