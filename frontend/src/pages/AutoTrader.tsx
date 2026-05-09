@@ -105,7 +105,7 @@ export default function AutoTrader() {
   const [emergencySlSaving, setEmergencySlSaving] = useState(false);
   const [savedSteppedPreset, setSavedSteppedPreset] = useState<"default" | "aggressive">("default");
   const [showStrategyCompare, setShowStrategyCompare] = useState(false);
-  const [strategyDetail, setStrategyDetail] = useState<"tv_momentum" | "gapup_sim" | "stepped_sim" | "fixed_sim" | "time_sim" | "tv_time_sim" | "tv_stepped_sim" | "api_leader_sim" | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<"tv_momentum" | "gapup_sim" | "stepped_sim" | "fixed_sim" | "time_sim" | "tv_time_sim" | "tv_stepped_sim" | "api_leader_sim" | "celltrion_band" | null>(null);
   const [strategyHelpOpen, setStrategyHelpOpen] = useState<string | null>(null);
   useEffect(() => {
     if (strategyDetail) { document.body.style.overflow = "hidden"; }
@@ -822,9 +822,9 @@ export default function AutoTrader() {
                 return avgInv > 0 ? (totalProf / avgInv) * 100 : 0;
               };
 
-              // stepped 시뮬은 5팩터+Stepped 카드에 합산, 나머지(fixed)만 sim 카드
-              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","tv_time_exit","tv_stepped","api_leader","stepped"].includes(s.strategy_type));
-              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","tv_time_exit","tv_stepped","api_leader","stepped"].includes(s.strategy_type));
+              // stepped 시뮬은 5팩터+Stepped 카드에 합산, celltrion_band는 별도 카드, 나머지(fixed)만 sim 카드
+              const closedSims = simulations.filter(s => s.status === "closed" && !["time_exit","tv_time_exit","tv_stepped","api_leader","stepped","celltrion_band"].includes(s.strategy_type));
+              const openSims = simulations.filter(s => s.status === "open" && !["time_exit","tv_time_exit","tv_stepped","api_leader","stepped","celltrion_band"].includes(s.strategy_type));
               // 시간전략 시뮬레이션 별도 집계
               const timeClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "time_exit");
               const timeOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "time_exit");
@@ -871,6 +871,19 @@ export default function AutoTrader() {
                 return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _isActive: true, _name: mt?.name, _noPrice: cp <= 0 };
               });
               const apiLeaderPnl = apiLeaderSims.length > 0 ? apiLeaderSims.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / apiLeaderSims.length : 0;
+              // 셀트리온 횡보 시뮬 (strategy_type=celltrion_band)
+              const celltrionClosedSims = simulations.filter(s => s.status === "closed" && s.strategy_type === "celltrion_band");
+              const celltrionOpenSims = simulations.filter(s => s.status === "open" && s.strategy_type === "celltrion_band").map((s: any) => {
+                const mt = trades.find(t => t.id === s.trade_id);
+                const cp = mt ? (prices[mt.code]?.price || 0) : 0;
+                const pnl = cp > 0 && s.entry_price > 0 ? ((cp - s.entry_price) / s.entry_price * 100) : null;
+                return { ...s, pnl_pct: pnl != null ? Math.round(pnl * 100) / 100 : null, _isActive: true, _name: mt?.name, _noPrice: cp <= 0 };
+              });
+              const allCelltrionTrades = [
+                ...celltrionClosedSims.map((s: any) => ({ ...s, _isActive: false })),
+                ...celltrionOpenSims,
+              ];
+              const celltrionPnl = allCelltrionTrades.length > 0 ? allCelltrionTrades.reduce((sum, s: any) => sum + (s.pnl_pct || 0), 0) / allCelltrionTrades.length : 0;
               // open 시뮬레이션의 미실현 PnL (전략별 TP/SL 적용)
               const openSimsWithPnl = openSims.map((s: any) => {
                 const matchTrade = trades.find(t => t.id === s.trade_id);
@@ -1000,6 +1013,7 @@ export default function AutoTrader() {
                 { key: "tv_time", label: "10시청산", pnl: tvTimePnl, pnlCap: calcCapitalPnl(allTvTimeSims), count: allTvTimeSims.length, onClick: () => allTvTimeSims.length > 0 ? setStrategyDetail("tv_time_sim") : undefined },
                 { key: "tv_stepped", label: "거래대금+Stepped", pnl: tvSteppedPnl, pnlCap: calcCapitalPnl(allTvSteppedSims), count: allTvSteppedSims.length, onClick: () => allTvSteppedSims.length > 0 ? setStrategyDetail("tv_stepped_sim") : undefined },
                 { key: "api_leader", label: "API매수∧대장주", pnl: apiLeaderPnl, pnlCap: calcCapitalPnl(apiLeaderSims), count: apiLeaderSims.length, onClick: () => apiLeaderSims.length > 0 ? setStrategyDetail("api_leader_sim") : undefined },
+                { key: "celltrion_band", label: "셀트리온 횡보", pnl: celltrionPnl, pnlCap: calcCapitalPnl(allCelltrionTrades), count: allCelltrionTrades.length, onClick: () => setStrategyDetail("celltrion_band") },
               ];
 
               return (
@@ -1072,7 +1086,7 @@ export default function AutoTrader() {
                             </button>
                           </div>
                           <h3 className="text-sm font-bold t-text mb-3 flex items-center gap-1.5">
-                            {strategyDetail === "tv_momentum" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "stepped_sim" ? "5팩터+Stepped (가상)" : strategyDetail === "time_sim" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "tv_time_sim" ? "10시 청산 (가상)" : strategyDetail === "tv_stepped_sim" ? "거래대금+Stepped (가상)" : strategyDetail === "api_leader_sim" ? "API매수∧대장주 (가상)" : `${simLabel} (가상)`}
+                            {strategyDetail === "tv_momentum" ? "거래대금 모멘텀 (실제)" : strategyDetail === "gapup_sim" ? "갭업 모멘텀 (가상)" : strategyDetail === "stepped_sim" ? "5팩터+Stepped (가상)" : strategyDetail === "time_sim" ? "시간전략 09:30→11:00 (가상)" : strategyDetail === "tv_time_sim" ? "10시 청산 (가상)" : strategyDetail === "tv_stepped_sim" ? "거래대금+Stepped (가상)" : strategyDetail === "api_leader_sim" ? "API매수∧대장주 (가상)" : strategyDetail === "celltrion_band" ? "셀트리온 횡보 (가상)" : `${simLabel} (가상)`}
                             <button onClick={(e) => { e.stopPropagation(); setStrategyHelpOpen(strategyDetail); }} className="t-text-dim hover:t-text transition shrink-0"><HelpCircle size={14} /></button>
                             {priceTime && <span className="ml-auto text-[9px] text-green-400 tabular-nums shrink-0">{priceTime}</span>}
                             <button onClick={(e) => { e.stopPropagation(); refreshPrices(); }} disabled={priceRefreshing}
@@ -1099,6 +1113,12 @@ export default function AutoTrader() {
                                 const mt = trades.find(tr => tr.id === t.trade_id);
                                 const mtTime = mt?.filled_at || mt?.created_at || t.created_at;
                                 return { ...t, _date: toKstDate(mtTime) || "보유", _displayName: t._name || mt?.name || "—", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원", filled_at: mtTime, created_at: mtTime };
+                              })
+                            : strategyDetail === "celltrion_band"
+                            ? allCelltrionTrades.map((t: any) => {
+                                const mt = trades.find(tr => tr.id === t.trade_id);
+                                const mtTime = mt?.filled_at || mt?.created_at || t.created_at;
+                                return { ...t, _date: toKstDate(mtTime) || "보유", _displayName: t._name || mt?.name || "셀트리온", _displaySub: "시뮬 매수 " + (t.entry_price?.toLocaleString() || "") + "원", filled_at: mtTime, created_at: mtTime };
                               })
                             : (strategyDetail === "time_sim" ? allTimeSims : strategyDetail === "tv_time_sim" ? allTvTimeSims : strategyDetail === "tv_stepped_sim" ? allTvSteppedSims : strategyDetail === "api_leader_sim" ? apiLeaderSims : allSims).map((s: any) => {
                                 const mt = trades.find(t => t.id === s.trade_id);
@@ -1490,7 +1510,7 @@ export default function AutoTrader() {
                       <div className="relative z-10 mx-6 max-w-sm w-full rounded-2xl p-5 t-card border t-border-light" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="text-sm font-bold t-text">
-                            {strategyHelpOpen === "tv_momentum" ? "거래대금 모멘텀" : strategyHelpOpen === "gapup_sim" ? "갭업 모멘텀" : strategyHelpOpen === "stepped_sim" ? "5팩터+Stepped" : strategyHelpOpen === "fixed_sim" ? "고정 익절/손절" : strategyHelpOpen === "time_sim" ? "시간전략" : strategyHelpOpen === "tv_time_sim" ? "10시 청산" : strategyHelpOpen === "tv_stepped_sim" ? "거래대금+Stepped" : "API매수∧대장주"}
+                            {strategyHelpOpen === "tv_momentum" ? "거래대금 모멘텀" : strategyHelpOpen === "gapup_sim" ? "갭업 모멘텀" : strategyHelpOpen === "stepped_sim" ? "5팩터+Stepped" : strategyHelpOpen === "fixed_sim" ? "고정 익절/손절" : strategyHelpOpen === "time_sim" ? "시간전략" : strategyHelpOpen === "tv_time_sim" ? "10시 청산" : strategyHelpOpen === "tv_stepped_sim" ? "거래대금+Stepped" : strategyHelpOpen === "celltrion_band" ? "셀트리온 횡보" : "API매수∧대장주"}
                           </h4>
                           <button onClick={() => setStrategyHelpOpen(null)} className="t-text-dim hover:t-text transition"><X size={16} /></button>
                         </div>
@@ -1501,6 +1521,7 @@ export default function AutoTrader() {
                            : strategyHelpOpen === "fixed_sim" ? "고정 익절/손절 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 고정 TP/SL 조건으로 매도 시뮬레이션합니다.\n\nTP: +7% (보유일수 연동 상향)\nSL: -2%\nTrailing: 고점 대비 -3% 하락 시 매도"
                            : strategyHelpOpen === "time_sim" ? "시간 기반 매도 전략 시뮬레이션입니다.\n\n실전 매수와 동일한 종목·가격으로 가상 포지션을 생성하고, 11:00 KST에 무조건 매도합니다.\n\n매수: 09:30 (실전과 동일)\n매도: 11:00 KST (시장 열기 피크)\nSL: -2% (11:00 전 손절)\n\n장 초반 모멘텀만 캡처하는 단기 전략으로, 오버나이트 리스크가 없습니다."
                            : strategyHelpOpen === "tv_stepped_sim" ? "거래대금 모멘텀 종목 선정 + Stepped Trailing 매도 시뮬레이션입니다.\n\n[종목 선정]\n거래대금 모멘텀 실전과 동일 종목 (volume-rank TOP2)\n\n[매도: Stepped Trailing]\n+7%→본전, +15%→+7%, +20%→+15%\n+25%→+20%, +30%+→고점-3%\nSL: -2% (기본 손절)\n\n실전(15:15 종가 청산)과 비교하여\nStepped 보유 전략의 성과를 검증하는 용도입니다."
+                           : strategyHelpOpen === "celltrion_band" ? "셀트리온(068270) 가격이 199,000원 이하 도달 시 매수, 205,000원 이상 도달 시 매도하는 횡보 구간 매매.\n\n무한 사이클, 무손절, 1000만원 자본 회전 모드."
                            : "API 매수 시그널 + 테마 대장주 교집합 종목 선정 시뮬레이션입니다.\n\n[종목 선정 조건 (모두 AND)]\n① API 신호 = 매수 또는 적극매수\n② 가격: 1,000원 ≤ 현재가 < 50,000원\n③ AI 예측 테마 대장주 Top5\n→ 상위 2종목 선정 (스코어 순)\n\n[매도 조건]\nStepped Trailing 공격형과 동일\nSL: -2% (기본 손절)"}
                         </div>
                       </div>

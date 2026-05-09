@@ -1,5 +1,30 @@
 # Task History
 
+## 2026-05-10
+
+### [기능] 셀트리온(068270) 횡보 매매 백테스트 + DB 적재 (2026-05-10 KST)
+- **변경 파일:** `scripts/backtest_celltrion_band.py` (신규)
+- **내용:**
+  - 매수 <= 199,000원 / 매도 >= 205,000원 지정가 가정, 1,000만원 자본 무한 사이클 백테스트
+  - 분봉: intraday-history.json에 068270 미포함 → 일봉만 사용 (fallback)
+  - 일봉: KIS FHKST03010100 실전 API 99건 (2025-12-10 ~ 2026-05-08)
+  - 결과: 8사이클, 평균 보유 5.6일, 총 평가자산 12,652,000원 (+26.52%, 미청산 63주 포함)
+  - DB: strategy_simulations(celltrion_band) + auto_trades 각 8건 insert (idempotent 삭제 후 재적재)
+
+### [기능] AutoTrader 셀트리온 횡보 전략 카드 추가 (2026-05-10 KST)
+- **변경 파일:** `frontend/src/pages/AutoTrader.tsx`
+- **내용:**
+  - `strategyDetail` 타입에 `"celltrion_band"` 추가 (line 108)
+  - `closedSims`/`openSims` 필터에 `"celltrion_band"` 제외 추가 (line 826~827) — 다른 카드와 중복 합산 방지
+  - `celltrionClosedSims`, `celltrionOpenSims`, `allCelltrionTrades`, `celltrionPnl` 변수 추가 (line 874~886)
+  - `simCards` 배열에 `{ key: "celltrion_band", label: "셀트리온 횡보" }` 카드 추가 (line 1016)
+  - 모달 헤더 분기에 `"셀트리온 횡보 (가상)"` 추가 (line 1089)
+  - items 분기에 `strategyDetail === "celltrion_band"` 분기 추가 (line 1117)
+  - 도움말 제목 분기에 `"셀트리온 횡보"` 추가 (line 1513)
+  - 도움말 내용에 셀트리온 횡보 설명 추가 (line 1524)
+- **검증:** tsc OK, production build OK
+- **위험 평가:** applyAvgDown/applyPrices/매수·매도 함수 무변경. 다른 strategy 카드 필터에 celltrion_band 명시 제외 적용 완료.
+
 ## 2026-05-08
 
 ### [기능] Portfolio 네이버 보강 강화 — 마운트 fetch + closePrice fallback (2026-05-08)
