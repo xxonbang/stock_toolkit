@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, FunctionsHttpError } from "@supabase/supabase-js";
 
 const SUPABASE_URL = "https://fyklcplybyfrfryopzvx.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QwdLROqMGoagr4s63SuoCQ_gtrvTOJx";
@@ -46,14 +46,32 @@ export interface KisStockPrice {
 }
 
 /**
+ * Edge Function 공통 wrapper — FunctionsHttpError body까지 파싱해서 정확한 에러 메시지 노출.
+ * 일반 invoke 에러는 generic message만 주어서 디버깅이 어려움.
+ */
+async function callKisProxy(body: Record<string, unknown>): Promise<any> {
+  const { data, error } = await supabase.functions.invoke("kis-proxy", { body });
+  if (error) {
+    if (error instanceof FunctionsHttpError) {
+      try {
+        const errBody = await error.context.json();
+        throw new Error(errBody?.error || error.message);
+      } catch {
+        throw new Error(error.message);
+      }
+    }
+    throw new Error(error.message || "Edge Function 호출 실패");
+  }
+  if (data?.error) throw new Error(data.error);
+  return data;
+}
+
+/**
  * KIS API 실시간 시세 조회 (Edge Function 경유)
  */
 export async function fetchKisPrices(codes: string[]): Promise<Record<string, KisStockPrice>> {
   if (!codes.length) return {};
-  const { data, error } = await supabase.functions.invoke("kis-proxy", {
-    body: { action: "prices", codes },
-  });
-  if (error) throw new Error(`KIS API 호출 실패: ${error.message}`);
+  const data = await callKisProxy({ action: "prices", codes });
   return (data?.prices as Record<string, KisStockPrice>) ?? {};
 }
 
@@ -62,11 +80,12 @@ export async function fetchKisPrices(codes: string[]): Promise<Record<string, Ki
  */
 export async function searchKisStock(code: string): Promise<KisStockPrice | null> {
   if (!code || code.length !== 6 || !/^\d{6}$/.test(code)) return null;
-  const { data, error } = await supabase.functions.invoke("kis-proxy", {
-    body: { action: "search", code },
-  });
-  if (error) return null;
-  return (data?.stock as KisStockPrice) ?? null;
+  try {
+    const data = await callKisProxy({ action: "search", code });
+    return (data?.stock as KisStockPrice) ?? null;
+  } catch {
+    return null;
+  }
 }
 
 // ========== 포트폴리오 CRUD (Supabase) ==========
