@@ -674,6 +674,10 @@ async def _cancel_unfilled(code: str, is_sell: bool = False) -> int | None:
                 unfilled_qty += rmn
                 odno = order.get("odno", "")
                 if odno:
+                    from daemon.config import KIS_ORDER_ENABLED
+                    if not KIS_ORDER_ENABLED:
+                        logger.info(f"[KIS_DISABLED] order-rvsecncl skip — code={code} odno={odno}")
+                        continue
                     cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
                     cancel_body = {
                         "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
@@ -719,6 +723,10 @@ async def _cancel_unfilled(code: str, is_sell: bool = False) -> int | None:
                 unfilled_qty += rmn
                 odno = order.get("odno", "")
                 if odno:
+                    from daemon.config import KIS_ORDER_ENABLED
+                    if not KIS_ORDER_ENABLED:
+                        logger.info(f"[KIS_DISABLED] order-rvsecncl skip — code={code} odno={odno}")
+                        continue
                     cancel_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/trading/order-rvsecncl"
                     cancel_body = {
                         "CANO": cano, "ACNT_PRDT_CD": acnt_cd,
