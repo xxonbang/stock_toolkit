@@ -3707,6 +3707,16 @@ _ORDER_BASE_WAIT = 3    # 재시도 기본 대기 (초)
 
 async def _kis_order_market(tr_id: str, code: str, quantity: int, _pre_balance: int | None = None) -> dict | None:
     """KIS 모의투자 시장가 주문 — 실패 시 토큰 재발급 + 최대 5회 재시도"""
+    from daemon.config import KIS_ORDER_ENABLED
+    if not KIS_ORDER_ENABLED:
+        logger.info(f"[KIS_DISABLED] mock 우회 — tr_id={tr_id} code={code} qty={quantity}")
+        return {
+            "rt_cd": "0",
+            "msg_cd": "MOCK_DISABLED",
+            "msg1": "KIS_ORDER_ENABLED=False — mock 응답",
+            "output": {"ORD_NO": "DISABLED", "ODNO": "DISABLED", "KRX_FWDG_ORD_ORGNO": ""},
+        }
+
     is_buy = tr_id == "VTTC0802U"
     if _pre_balance is None and is_buy:
         _pre_balance = await _check_balance_qty(code)

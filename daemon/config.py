@@ -49,6 +49,12 @@ KIS_MOCK_APP_KEY = os.getenv("KIS_MOCK_APP_KEY", KIS_APP_KEY)
 KIS_MOCK_APP_SECRET = os.getenv("KIS_MOCK_APP_SECRET", KIS_APP_SECRET)
 KIS_MOCK_BASE_URL = "https://openapivts.koreainvestment.com:29443"
 
+# KIS 실 주문 활성화 토글
+# False = KIS API 미호출, mock 응답 반환 (매수/매도 trigger·DB 적재는 정상 동작)
+# True  = 실 KIS API 호출
+# 활성화 방법: KIS_ORDER_ENABLED = True 로 변경 후 daemon restart
+KIS_ORDER_ENABLED: bool = False
+
 TRADE_MIN_AMOUNT_PER_STOCK = 1_000_000  # 종목당 최소 투자금 (원)
 TRADE_TAKE_PROFIT_PCT = 7.0             # 익절 기준 (%) — 백테스트 최적 균형 조합
 TRADE_STOP_LOSS_PCT = -2.0           # 손절 기준 (%) — 백테스트 최적

@@ -138,3 +138,51 @@ def test_sell_force_skip_when_bal_zero():
         _run(sell_all_positions_force())
         m["order"].assert_not_called()
         m["upd_sold"].assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# KIS_ORDER_ENABLED 토글 테스트
+# ---------------------------------------------------------------------------
+
+def test_kis_order_disabled_returns_mock_response():
+    """KIS_ORDER_ENABLED=False 시 _kis_order_market이 mock 응답(rt_cd=0) 반환."""
+    from daemon.trader import _kis_order_market
+
+    with patch("daemon.config.KIS_ORDER_ENABLED", False):
+        result = asyncio.get_event_loop().run_until_complete(
+            _kis_order_market("VTTC0802U", "005930", 10)
+        )
+
+    assert result is not None
+    assert result["rt_cd"] == "0"
+    assert result["msg_cd"] == "MOCK_DISABLED"
+    assert result["output"]["ODNO"] == "DISABLED"
+
+
+def test_kis_order_disabled_sell_returns_mock_response():
+    """KIS_ORDER_ENABLED=False 시 매도 tr_id도 mock 응답 반환."""
+    from daemon.trader import _kis_order_market
+
+    with patch("daemon.config.KIS_ORDER_ENABLED", False):
+        result = asyncio.get_event_loop().run_until_complete(
+            _kis_order_market("VTTC0801U", "005930", 5)
+        )
+
+    assert result is not None
+    assert result["rt_cd"] == "0"
+    assert result["output"]["ORD_NO"] == "DISABLED"
+
+
+def test_kis_order_enabled_calls_real_api():
+    """KIS_ORDER_ENABLED=True 시 실제 KIS API 호출 경로(토큰 획득)를 통과해야 함."""
+    from daemon.trader import _kis_order_market
+
+    with patch("daemon.config.KIS_ORDER_ENABLED", True), \
+         patch("daemon.trader._ensure_mock_token", new_callable=AsyncMock, return_value=None):
+        # 토큰 None → 재시도 소진 → None 반환 (mock 응답이 아님)
+        result = asyncio.get_event_loop().run_until_complete(
+            _kis_order_market("VTTC0802U", "005930", 10)
+        )
+
+    # 토큰 없으면 최종 None 반환 — mock 응답(MOCK_DISABLED)이 아닌 것을 확인
+    assert result is None or (result is not None and result.get("msg_cd") != "MOCK_DISABLED")

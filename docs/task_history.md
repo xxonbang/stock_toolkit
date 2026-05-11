@@ -1,5 +1,16 @@
 # Task History
 
+## 2026-05-03
+
+### [기능] KIS 실 주문 비활성화 토글 추가 (2026-05-03 KST)
+- **변경 파일:** `daemon/config.py`, `daemon/trader.py`, `daemon/tests/test_trader.py`
+- **내용:**
+  - `config.py`: `KIS_ORDER_ENABLED: bool = False` 상수 추가 (주석: 활성화 방법 명시)
+  - `trader.py`: `_kis_order_market` 진입부(line 3711~3720)에 `KIS_ORDER_ENABLED` 가드 추가. False 시 rt_cd=0 mock 응답 반환, KIS API 미호출. 매수/매도 공통 wrapper이므로 한 곳만 수정.
+  - `test_trader.py`: 3개 테스트 추가 — disabled 매수/매도 mock 응답, enabled 시 실 경로 통과 검증
+- **검증:** py_compile OK, 87 passed (전체)
+- **위험 평가:** run_buy_process/check_positions_for_sell 등 trigger 함수 무변경. 잔고·시세 조회(_check_balance_qty, inquire-balance 등) 가드 없음. DB 적재 정상 유지.
+
 ## 2026-05-11
 
 ### [기능] 셀트리온 횡보 매매 가상 시뮬 실시간 모니터링 데몬 추가 (2026-05-11 KST)
