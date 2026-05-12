@@ -610,6 +610,16 @@ async def _get_actual_fill_price(code: str, is_sell: bool = False) -> int:
 
 async def _get_balance_avg_price(code: str) -> int:
     """잔고 조회 API에서 특정 종목의 매수 평균단가 조회"""
+    from daemon.config import KIS_ORDER_ENABLED
+    if not KIS_ORDER_ENABLED:
+        positions = await get_active_positions()
+        for p in positions:
+            if p.get("code") == code and p.get("status") == "filled":
+                price = p.get("filled_price") or p.get("order_price", 0)
+                logger.info(f"[KIS_DISABLED] _get_balance_avg_price mock: {code} → {price:,}원 (DB)")
+                return price
+        logger.info(f"[KIS_DISABLED] _get_balance_avg_price mock: {code} → 0원 (DB 없음)")
+        return 0
     try:
         token = await _ensure_mock_token()
         if not token:
@@ -786,6 +796,16 @@ async def _verify_sell_fill(code: str, ordered_qty: int) -> int:
 async def _check_balance_qty(code: str) -> int:
     """KIS 잔고 조회 API로 특정 종목 보유 수량 확인.
     반환: 보유 수량 (0 이상) 또는 -1 (조회 실패)."""
+    from daemon.config import KIS_ORDER_ENABLED
+    if not KIS_ORDER_ENABLED:
+        positions = await get_active_positions()
+        for p in positions:
+            if p.get("code") == code and p.get("status") == "filled":
+                qty = p.get("quantity", 0)
+                logger.info(f"[KIS_DISABLED] _check_balance_qty mock: {code} → {qty}주 (DB)")
+                return qty
+        logger.info(f"[KIS_DISABLED] _check_balance_qty mock: {code} → 0주 (DB 없음)")
+        return 0
     try:
         token = await _ensure_mock_token()
         if not token:
@@ -1074,6 +1094,19 @@ async def _invalidate_supabase_token():
 
 async def fetch_available_balance() -> int:
     """KIS 모의투자 계좌 예수금 조회 (rate limit 시 재시도 5회)"""
+    from daemon.config import KIS_ORDER_ENABLED
+    if not KIS_ORDER_ENABLED:
+        SIM_CAPITAL = 10_000_000
+        positions = await get_active_positions()
+        held_amount = sum(
+            (p.get("filled_price") or p.get("order_price", 0)) * p.get("quantity", 0)
+            for p in positions
+            if p.get("status") == "filled"
+        )
+        available = max(0, SIM_CAPITAL - held_amount)
+        n = sum(1 for p in positions if p.get("status") == "filled")
+        logger.info(f"[KIS_DISABLED] 가용 잔고 mock: {available:,}원 (SIM_CAPITAL {SIM_CAPITAL:,} - 활성보유 {n}건)")
+        return available
     token = await _ensure_mock_token()
     if not token:
         return 0
