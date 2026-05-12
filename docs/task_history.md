@@ -1,5 +1,20 @@
 # Task History
 
+## 2026-05-12
+
+### [기능] 잔고 조회 3곳에 KIS_ORDER_ENABLED 가드 확장 (2026-05-12 22:50 KST)
+- **변경 파일:** `daemon/trader.py` (+33줄, 삭제 없음)
+- **커밋:** `73e3e4a` → rebase 후 `a12c948` (origin/main 반영, GCP 배포 완료)
+- **원인:** 새 CANO(50187247) ↔ 옛 KIS_MOCK_APP_KEY/SECRET 불일치로 5/12 `INVALID_CHECK_ACNO` → 잔고 조회 실패 → 매수 trigger skip. KIS 모의계좌 영구 폐기 + 거래대금 모멘텀을 가상 운영으로 전환하기 위해 잔고 조회 흐름까지 mock 확장 필요.
+- **내용:**
+  - `_get_balance_avg_price` (613~622): KIS_ORDER_ENABLED=False면 DB `filled_price or order_price` 반환
+  - `_check_balance_qty` (799~808): False면 DB `quantity` 반환 (status=filled row 매칭)
+  - `fetch_available_balance` (1097~1109): False면 `SIM_CAPITAL(1000만원) - sum(보유금)` 반환
+  - 기존 KIS 호출 코드 보존 → True 복귀 시 즉시 정상 동작
+- **검증:** py_compile OK, 87 passed (기존 동일), 기존 가드 4곳과 패턴 일관성 확인
+- **GCP 배포:** ws-daemon `0d380d0 → a12c948` fast-forward, systemctl restart 후 active/running, 정상 부팅 로그 확인 (PID 409808, mem 41.8M)
+- **연속성:** 5/8 마지막 실거래 → 5/13 09:05 KST 첫 mock 매수가 동일 DB 스키마로 누적되어 거래대금 모멘텀 카드 이력 자동 연결
+
 ## 2026-05-03
 
 ### [기능] KIS 실 주문 비활성화 토글 추가 (2026-05-03 KST)
