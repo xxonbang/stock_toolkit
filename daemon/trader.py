@@ -929,9 +929,11 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
                 logger.warning(f"부분체결 최종: {name}({code}) {filled_qty}/{quantity}주 (잔량 {remaining}주 미체결)")
 
         actual_price = await _get_actual_fill_price(code, is_sell=False)
+        price_source = "체결가"
         if actual_price <= 0:
             # 체결가 조회 실패 → 현재가를 fallback (주문가는 전일종가라 부정확)
             actual_price = await _get_current_price(code)
+            price_source = "현재가 추정"
             if actual_price > 0:
                 logger.info(f"체결가 조회 실패, 현재가 fallback: {name}({code}) {actual_price:,}원")
         fill_price = actual_price if actual_price > 0 else price
@@ -942,7 +944,7 @@ async def place_buy_order_with_qty(code: str, name: str, price: int, quantity: i
         await send_telegram(
             f"<b>📥 자동 매수 체결</b>\n"
             f"<b>{name} ({code})</b>\n"
-            f"가격: {fill_price:,}원 × {filled_qty}주\n"
+            f"가격: {fill_price:,}원 × {filled_qty}주" + (f" ({price_source})" if price_source != "체결가" else "") + "\n"
             f"금액: {fill_price * filled_qty:,}원"
             + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
         )
@@ -1024,8 +1026,10 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
                 )
                 return True
             actual_price = await _get_actual_fill_price(code, is_sell=True)
+            sell_price_source = "체결가"
             if actual_price <= 0:
                 actual_price = await _get_current_price(code)
+                sell_price_source = "현재가 추정"
                 if actual_price > 0:
                     logger.info(f"매도 체결가 조회 실패, 현재가 fallback: {name}({code}) {actual_price:,}원")
             sell_price = actual_price if actual_price > 0 else price
@@ -1046,7 +1050,7 @@ async def place_sell_order(code: str, name: str, price: int, quantity: int, posi
             await send_telegram(
                 f"<b>{emoji} 자동 매도 ({reason_label})</b>\n"
                 f"<b>{name} ({code})</b>\n"
-                f"매수가: {buy_price:,}원 → 매도가: {sell_price:,}원\n"
+                f"매수가: {buy_price:,}원 → 매도가: {sell_price:,}원" + (f" ({sell_price_source})" if sell_price_source != "체결가" else "") + "\n"
                 f"수익률: {pnl:+.2f}% ({filled_qty}주)"
                 + (f"\n⚠️ 부분체결 ({quantity}주 중 {filled_qty}주)" if filled_qty != quantity else "")
             )
@@ -1210,7 +1214,6 @@ async def run_buy_process():
 
     if not targets:
         logger.info(f"매수 대상 없음 (모드: {buy_mode})")
-        await send_telegram(f"📭 매수 대상 없음 (모드: {buy_mode})")
         return
 
     # Pass 1: 보유/주문/당일매도 필터링 (현재가 API 호출 없음)
@@ -1788,7 +1791,7 @@ async def run_tv_scan_and_buy() -> int:
     ]
 
     if not targets:
-        await send_telegram("📭 거래대금 스캔: 조건 충족 종목 없음 (상승+갭<5%+가격1천~20만+쿨다운5일)")
+        logger.info("거래대금 스캔: 조건 충족 종목 없음 (상승+갭<5%+가격1천~20만+쿨다운5일)")
         return 0
 
     # 보유/주문 중 필터 + code 기준 dedup (cross_signal 또는 targets에 같은 종목 중복 차단)
@@ -1808,7 +1811,7 @@ async def run_tv_scan_and_buy() -> int:
         buy_targets.append(t)
 
     if not buy_targets:
-        await send_telegram("📭 거래대금 스캔: 후보 있으나 보유중/상한가로 매수 불가")
+        logger.info("거래대금 스캔: 후보 있으나 보유중/상한가로 매수 불가")
         return 0
 
     # 잔고 조회
@@ -2542,6 +2545,12 @@ async def sell_all_positions_force():
             db_qty = pos["quantity"]
             if bal > 0 and bal != db_qty:
                 logger.warning(f"잔고 불일치: {pos['name']}({pos['code']}) DB qty={db_qty} vs KIS qty={bal} → KIS qty로 매도 진행")
+                await send_telegram(
+                    f"<b>⚠️ 잔고 불일치 감지</b>\n"
+                    f"<b>{pos['name']} ({pos['code']})</b>\n"
+                    f"DB 수량: {db_qty}주 vs KIS 잔고: {bal}주\n"
+                    f"→ KIS 잔고({bal}주)로 매도 진행"
+                )
                 sell_qty = bal
             else:
                 sell_qty = db_qty
@@ -2708,6 +2717,12 @@ async def sell_all_positions_market():
         db_qty_m = pos["quantity"]
         if bal_m > 0 and bal_m != db_qty_m:
             logger.warning(f"잔고 불일치: {pos['name']}({pos['code']}) DB qty={db_qty_m} vs KIS qty={bal_m} → KIS qty로 매도 진행")
+            await send_telegram(
+                f"<b>⚠️ 잔고 불일치 감지</b>\n"
+                f"<b>{pos['name']} ({pos['code']})</b>\n"
+                f"DB 수량: {db_qty_m}주 vs KIS 잔고: {bal_m}주\n"
+                f"→ KIS 잔고({bal_m}주)로 매도 진행"
+            )
             sell_qty_m = bal_m
         elif bal_m == 0:
             logger.info(f"장 마감 매도 스킵 (잔고 0 — 이미 체결): {pos['name']}({pos['code']})")
@@ -2781,6 +2796,12 @@ async def sell_all_positions_market():
                 db_qty_retry = pos_now["quantity"]
                 if bal_retry > 0 and bal_retry != db_qty_retry:
                     logger.warning(f"잔고 불일치(재시도): {pos_now['name']}({pos_now['code']}) DB qty={db_qty_retry} vs KIS qty={bal_retry} → KIS qty로 매도 진행")
+                    await send_telegram(
+                        f"<b>⚠️ 잔고 불일치 감지 (재시도)</b>\n"
+                        f"<b>{pos_now['name']} ({pos_now['code']})</b>\n"
+                        f"DB 수량: {db_qty_retry}주 vs KIS 잔고: {bal_retry}주\n"
+                        f"→ KIS 잔고({bal_retry}주)로 매도 진행"
+                    )
                     sell_qty_retry = bal_retry
                 elif bal_retry == 0:
                     logger.info(f"장 마감 재시도 스킵 (잔고 0 — 이미 체결): {pos_now['name']}({pos_now['code']})")

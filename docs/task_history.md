@@ -2,6 +2,18 @@
 
 ## 2026-05-14
 
+### [개선] 텔레그램 메시지 신뢰성 강화 R1/R2/R3/R4/R5 (2026-05-14 KST)
+- **변경 파일:** `daemon/trader.py` (+31/-5), `daemon/notifier.py` (+3/-1), `modules/cross_signal.py` (+44/-1)
+- **배경:** 텔레그램 메시지 전수 진단(20개 발송 지점)에서 발견된 신뢰성/노이즈 이슈 5건 일괄 fix
+- **R1 (체결가 fallback 투명화):** `_get_actual_fill_price()` 실패 → `_get_current_price()` fallback 시, 메시지에 `(현재가 추정)` 조건부 표시 (매수 line 932~947, 매도 line 1029~1053)
+- **R2 (잔고 불일치 긴급 알림):** `_check_balance_qty()` 호출 후 DB qty와 KIS 잔고 불일치 감지 시 `⚠️ 잔고 불일치 감지` 텔레그램 발송. 3곳 추가 (line 2549 강제 EOD round, 2721 _eod_close_all, 2800 EOD 재시도)
+- **R3 (자동매수 종목 시그널 제외):** `modules/cross_signal.py`에 `_get_recently_auto_bought_codes(hours=24)` 추가. Supabase auto_trades 24h 내 filled/sell_requested/sold 종목 조회. 텔레그램 발송만 필터링하고 JSON 저장은 전체 보존(매칭 데이터 손실 방지). urllib 표준 라이브러리 사용, 환경변수 없으면 fail-safe로 set() 반환
+- **R4 (모의모드 식별):** `daemon/notifier.py` `send_telegram()` 진입부에 `KIS_ORDER_ENABLED=False` 시 `[MOCK]\n` prefix 자동 부착. HTML 태그(`<b>`) 가독성 유지
+- **R5 (노이즈 제거):** 3건 send_telegram 제거 + logger.info 유지 — `📭 매수 대상 없음` (line 1213), `📭 거래대금 스캔 조건 충족 없음` (1791), `📭 후보 있으나 보유중/상한가` (1811). 시스템 장애 신호 2건 유지 — `volume-rank + fallback 모두 실패` (1611, 1649)
+- **검증:** py_compile OK 3파일. pytest 87 passed. R3 단위 실행 — 24h 내 매수 0건(KIS_ORDER_ENABLED=False) 정상 동작 확인
+- **GitHub Actions secrets:** `deploy-pages.yml`에 SUPABASE_URL/SERVICE_ROLE_KEY 이미 주입됨, 추가 설정 불필요
+- **부작용/risk:** R4의 `[MOCK]` prefix는 KIS_ORDER_ENABLED=True 전환 시 자동 비활성. R3 JSON 보존 → 화면에서 자동매수 종목 표시는 유지(텔레그램만 제외)
+
 ### [기능] Stock Insight TOP3 다양성 강화 P1~P4 (2026-05-14 KST)
 - **변경 파일:** `modules/news/extractor.py` (+125줄), `modules/news/prompts/trend_top3.txt` (+13줄)
 - **P1 (history 페널티):** `_load_recent_top3_counts(days=5)` + `_apply_history_penalty()` — 최근 5일 등장 종목/섹터 freq 감점. 공식: `max(0.10, 1.0 - 0.30 * count)` — count=1:0.70, count=2:0.40, count>=3:0.10 (사실상 제외). `select_top3()` LLM 호출 전 적용. 실측 시뮬: Nvidia 1→6위, 삼성전자 1→5위, SK하이닉스 2→6위, 반도체(KR) 1→3위, AI(US) 1→3위로 강등 — 차순위(Microsoft/Apple/셀트리온/현대차/포스코/2차전지) 자동 TOP3 진입.

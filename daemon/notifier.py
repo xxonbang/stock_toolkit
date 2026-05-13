@@ -1,7 +1,7 @@
 """Telegram 알림 발송 — 포맷팅 + 비동기 전송 + 큐잉"""
 import asyncio
 import logging
-from daemon.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+from daemon.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, KIS_ORDER_ENABLED
 from daemon.http_session import get_session
 
 logger = logging.getLogger("daemon.notify")
@@ -65,6 +65,8 @@ async def send_telegram(text: str):
     """메시지를 큐에 추가 (큐가 가득 차면 가장 오래된 것 버림)"""
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         return
+    if not KIS_ORDER_ENABLED:
+        text = f"[MOCK]\n{text}"
     q = _get_queue()
     if q.full():
         try:

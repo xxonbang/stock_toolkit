@@ -1,3 +1,38 @@
+def _get_recently_auto_bought_codes(hours: int = 24) -> set:
+    """최근 N시간 이내 자동매수된 종목 코드 set 반환 (Supabase auto_trades 조회).
+    환경변수 누락 또는 조회 실패 시 빈 set 반환 (fail-safe).
+    """
+    import os
+    import json
+    import urllib.request
+    from datetime import datetime, timezone, timedelta
+
+    sb_url = os.getenv("SUPABASE_URL", "")
+    sb_key = os.getenv("SUPABASE_SECRET_KEY") or os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+    if not sb_url or not sb_key:
+        return set()
+
+    try:
+        since = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+        statuses = "filled,sell_requested,sold"
+        path = (
+            f"/rest/v1/auto_trades"
+            f"?select=code"
+            f"&created_at=gte.{since}"
+            f"&status=in.({statuses})"
+        )
+        req = urllib.request.Request(
+            sb_url + path,
+            headers={"apikey": sb_key, "Authorization": f"Bearer {sb_key}"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            rows = json.loads(resp.read())
+        return {r["code"] for r in rows if r.get("code")}
+    except Exception as e:
+        print(f"cross_signal: 자동매수 종목 조회 실패 (skip 필터) — {e}")
+        return set()
+
+
 def find_cross_signals(themes: list, combined_signals: list) -> list:
     """signal-pulse 매수 시그널 종목 + theme-analyzer 대장주 전체를 필터 없이 수집"""
     buy_signals = {"적극매수", "매수"}
@@ -78,6 +113,13 @@ def run(data_loader, send_fn=None):
     themes = data_loader.get_themes()
     signals = data_loader.get_combined_signals()
     matches = find_cross_signals(themes, signals)
+    # 텔레그램 발송만 자동매수 종목 제외 (JSON 저장은 전체 보존)
     if matches and send_fn:
-        send_fn(format_cross_signal_alert(matches))
+        excluded = _get_recently_auto_bought_codes(hours=24)
+        to_send = [m for m in matches if m.get("code") not in excluded] if excluded else matches
+        if excluded and len(to_send) != len(matches):
+            removed = excluded & {m.get("code") for m in matches}
+            print(f"cross_signal: 자동매수 종목 {len(matches) - len(to_send)}건 텔레그램 제외 {removed}")
+        if to_send:
+            send_fn(format_cross_signal_alert(to_send))
     return matches
