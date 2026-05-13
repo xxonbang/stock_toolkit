@@ -9,7 +9,8 @@ from __future__ import annotations
 import json
 import logging
 import re
-from datetime import timedelta, timezone
+from collections import Counter
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List
 
@@ -261,6 +262,138 @@ def _enforce_min_freq_top3(top3: Dict) -> Dict:
     return top3
 
 
+HISTORY_DIR = Path(__file__).parent.parent.parent / "results" / "news_top3_history"
+
+
+def _load_recent_top3_counts(days: int = 5) -> Dict[str, Counter]:
+    """최근 days일 history에서 각 영역별 등장 횟수를 Counter로 반환.
+
+    Returns:
+        {"kr_stocks": Counter, "kr_sectors": Counter,
+         "us_stocks": Counter, "us_sectors": Counter}
+    """
+    KST = timezone(timedelta(hours=9))
+    now_kst = datetime.now(KST)
+    cutoff = now_kst - timedelta(days=days)
+    counters: Dict[str, Counter] = {
+        "kr_stocks": Counter(), "kr_sectors": Counter(),
+        "us_stocks": Counter(), "us_sectors": Counter(),
+    }
+    if not HISTORY_DIR.exists():
+        return counters
+    for fname in sorted(HISTORY_DIR.iterdir()):
+        if not fname.suffix == ".json":
+            continue
+        try:
+            date_part = "-".join(fname.stem.split("-")[:3])
+            file_date = datetime.strptime(date_part, "%Y-%m-%d").replace(tzinfo=KST)
+        except (ValueError, IndexError):
+            continue
+        if file_date < cutoff or file_date > now_kst:
+            continue
+        try:
+            data = json.loads(fname.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for e in data.get("kr", {}).get("top3_stocks", []):
+            if e.get("name"):
+                counters["kr_stocks"][e["name"]] += 1
+        for e in data.get("kr", {}).get("top3_sectors", []):
+            if e.get("name"):
+                counters["kr_sectors"][e["name"]] += 1
+        for e in data.get("us", {}).get("top3_stocks", []):
+            if e.get("name"):
+                counters["us_stocks"][e["name"]] += 1
+        for e in data.get("us", {}).get("top3_sectors", []):
+            if e.get("name"):
+                counters["us_sectors"][e["name"]] += 1
+    return counters
+
+
+def _apply_history_penalty(extraction: Dict, recent_counts: Dict[str, Counter]) -> Dict:
+    """extraction의 freq에 최근 등장 횟수 기반 페널티 적용.
+
+    페널티 단계 (5일 history 내 TOP3 등장 횟수 기준):
+      count=0: 1.00 (영향 없음)
+      count=1: 0.70
+      count=2: 0.40
+      count>=3: 0.10  (사실상 제외 — 임계값 미달로 차순위 종목 등극)
+
+    공식: penalty = max(0.10, 1.0 - 0.30 * count). round 후 최소 1 보장(LLM 입력용).
+    """
+    mapping = {
+        ("us_news", "stocks"): "us_stocks",
+        ("us_news", "sectors"): "us_sectors",
+        ("kr_news", "stocks"): "kr_stocks",
+        ("kr_news", "sectors"): "kr_sectors",
+    }
+    for (batch_key, field), counter_key in mapping.items():
+        batch = extraction.get(batch_key)
+        if not isinstance(batch, dict):
+            continue
+        counter = recent_counts.get(counter_key, Counter())
+        for entry in batch.get(field, []):
+            name = entry.get("name", "")
+            count = counter.get(name, 0)
+            if count > 0:
+                penalty = max(0.10, 1.0 - 0.30 * count)
+                original = entry.get("freq", 0)
+                entry["freq"] = max(1, round(original * penalty))
+                logger.debug(
+                    f"  P1 페널티: {batch_key}.{field} {name!r} "
+                    f"freq {original} → {entry['freq']} (history {count}회, ×{penalty:.2f})"
+                )
+    return extraction
+
+
+# 섹터 다양성 강제 — 동일 섹터 최대 2개 (P4)
+_STOCK_TO_SECTOR: Dict[str, str] = {
+    "Nvidia": "AI/반도체",  "AMD": "AI/반도체", "Intel": "AI/반도체",
+    "TSMC": "AI/반도체", "Broadcom": "AI/반도체", "Qualcomm": "AI/반도체",
+    "삼성전자": "AI/반도체", "SK하이닉스": "AI/반도체",
+    "Apple": "빅테크", "Microsoft": "빅테크", "Alphabet": "빅테크",
+    "Amazon": "빅테크", "Meta": "빅테크", "Tesla": "빅테크",
+    "Palantir": "AI소프트웨어", "OpenAI": "AI소프트웨어",
+    "LG에너지솔루션": "2차전지", "삼성SDI": "2차전지", "POSCO홀딩스": "2차전지",
+    "현대자동차": "자동차", "기아": "자동차",
+    "Novo Nordisk": "헬스케어", "Eli Lilly": "헬스케어",
+}
+_MAX_SAME_SECTOR = 2
+
+
+def _enforce_sector_diversity(top3: Dict) -> Dict:
+    """동일 섹터 종목이 3개 이상이면 freq 최소 항목 1개를 제거.
+
+    섹터 정보는 _STOCK_TO_SECTOR 매핑 기반 휴리스틱. 매핑에 없으면 이름 자체를 섹터로 간주.
+    """
+    for key in ("us_top3_stocks", "kr_top3_stocks"):
+        entries = top3.get(key, [])
+        if len(entries) <= _MAX_SAME_SECTOR:
+            continue
+        # 섹터별 그룹화
+        sector_groups: Dict[str, List[int]] = {}
+        for i, e in enumerate(entries):
+            name = e.get("name", "")
+            sector = _STOCK_TO_SECTOR.get(name, name)
+            sector_groups.setdefault(sector, []).append(i)
+        # 3개 이상인 섹터 처리
+        to_remove: set = set()
+        for sector, idxs in sector_groups.items():
+            if len(idxs) > _MAX_SAME_SECTOR:
+                # freq 기준 낮은 항목 순으로 초과분 제거
+                by_freq = sorted(idxs, key=lambda i: entries[i].get("freq", 0))
+                remove_count = len(idxs) - _MAX_SAME_SECTOR
+                for idx in by_freq[:remove_count]:
+                    to_remove.add(idx)
+                    logger.info(
+                        f"  P4 섹터다양성: {key} {entries[idx].get('name')!r} 제거 "
+                        f"(섹터 {sector!r} {len(idxs)}개 → {_MAX_SAME_SECTOR}개 제한)"
+                    )
+        if to_remove:
+            top3[key] = [e for i, e in enumerate(entries) if i not in to_remove]
+    return top3
+
+
 def extract_per_batch(batches: Dict[str, List[CollectedItem]], client) -> Dict:
     """AI 콜 #1 — 2배치(미뉴스/한뉴스)에서 종목/섹터 각 10개씩 추출."""
     template = _load_prompt("trend_extract.txt")
@@ -285,13 +418,22 @@ def extract_per_batch(batches: Dict[str, List[CollectedItem]], client) -> Dict:
 
 def select_top3(extraction: Dict, client) -> Dict:
     """AI 콜 #2 — 영역별 TOP3 선정."""
+    # P1: 최근 5일 history 등장 빈도 기반 freq 페널티 (LLM 호출 전 적용)
+    recent_counts = _load_recent_top3_counts(days=5)
+    top5_summary = {k: dict(v.most_common(3)) for k, v in recent_counts.items()}
+    logger.info(f"  select_top3 P1 history(5일): {top5_summary}")
+    extraction = _apply_history_penalty(extraction, recent_counts)
+
     template = _load_prompt("trend_top3.txt")
     prompt = template.replace("{EXTRACTION_RESULT}", json.dumps(extraction, ensure_ascii=False, indent=2))
     logger.info(f"  select_top3: prompt {len(prompt):,}자, min(US)={MIN_STOCK_FREQ_US}/{MIN_SECTOR_FREQ_US}, min(KR)={MIN_STOCK_FREQ_KR}/{MIN_SECTOR_FREQ_KR}")
-    result = _parse_json_with_retry(client, prompt)
+    # P2: top3 선정 단계는 다양성을 위해 temperature=0.5 (extract는 0.2 유지)
+    result = _parse_json_with_retry(client, prompt, temperature=0.5)
     pre = {k: len(result.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks")}
     result = _filter_indices_from_top3(result)
     result = _enforce_min_freq_top3(result)
+    # P4: 동일 섹터 종목 최대 2개 제한
+    result = _enforce_sector_diversity(result)
     post = {k: len(result.get(k, [])) for k in ("us_top3_sectors","us_top3_stocks","kr_top3_sectors","kr_top3_stocks")}
     logger.info(f"  select_top3: LLM {pre} → 필터 후 {post}")
     return result

@@ -1,5 +1,15 @@
 # Task History
 
+## 2026-05-14
+
+### [기능] Stock Insight TOP3 다양성 강화 P1~P4 (2026-05-14 KST)
+- **변경 파일:** `modules/news/extractor.py` (+125줄), `modules/news/prompts/trend_top3.txt` (+13줄)
+- **P1 (history 페널티):** `_load_recent_top3_counts(days=5)` + `_apply_history_penalty()` — 최근 5일 등장 종목/섹터 freq 감점. 공식: `max(0.10, 1.0 - 0.30 * count)` — count=1:0.70, count=2:0.40, count>=3:0.10 (사실상 제외). `select_top3()` LLM 호출 전 적용. 실측 시뮬: Nvidia 1→6위, 삼성전자 1→5위, SK하이닉스 2→6위, 반도체(KR) 1→3위, AI(US) 1→3위로 강등 — 차순위(Microsoft/Apple/셀트리온/현대차/포스코/2차전지) 자동 TOP3 진입.
+- **P2 (temperature):** `select_top3()` 내부 `_parse_json_with_retry()` 호출 시 `temperature=0.5` 명시 (extract 단계 0.2 무변경).
+- **P3 (prompt 다양성 지시):** `trend_top3.txt`에 "[다양성 고려 규칙 — 필수]" 섹션 추가 — 반복 카탈리스트 감점, 동일 섹터 최대 2개 지시, 판단 예시 포함.
+- **P4 (섹터 다양성):** `_enforce_sector_diversity()` 후처리 함수 추가 — `_STOCK_TO_SECTOR` 휴리스틱 매핑 기반, 동일 섹터 3개+ 시 freq 최소 항목 제거.
+- **검증:** py_compile OK, P1 실측(삼성전자=10회→freq 25% 보존), P4 시뮬(Nvidia/AMD/Intel→Intel 제거) 정상.
+
 ## 2026-05-13
 
 ### [버그픽스] Stock Insight generated_at — news_top3_latest 수집 시각 보존 (2026-05-13 23:15 KST)
