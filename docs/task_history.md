@@ -2,6 +2,13 @@
 
 ## 2026-05-13
 
+### [버그픽스] Dashboard 글로벌 지수 — 코스피/코스닥 중복(stale) 카드 제거 (2026-05-13 22:45 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx` (-12 / +1)
+- **이슈:** "글로벌 지수" 섹션에 코스피/코스닥이 2번 표시됨. 위쪽 카드는 0.00% / 전일=현재 (데이터 미수집), 아래쪽이 정상(+2.63% / -0.2%)
+- **원인:** `performance.kospi`/`performance.kosdaq`는 `current`+`ma*`만 있고 `change`/`prev` 필드 없음 → 0% + stale 카드로 렌더. 그러나 `performance.macro_indicators` 중 ^KS11/^KQ11은 정상 데이터. 두 소스를 모두 prepend해서 중복.
+- **내용:** kospiItem/kosdaqItem 변수 제거. `items = macro_indicators.filter(category==='global_index')`만 사용 → 코스피/코스닥/다우/S&P500/나스닥/유로/상하이/니케이 8건 정상 렌더
+- **검증:** tsc OK. performance.json에서 macro_indicators의 ^KS11(2.63%), ^KQ11(-0.2%) 정상 데이터 확인
+
 ### [버그픽스] 연속 시그널 frontend freshness 기준을 KST로 통일 (2026-05-13 22:30 KST)
 - **변경 파일:** `frontend/src/components/dashboard/ConsecutiveSignalSection.tsx` (+2 / -1)
 - **이슈:** `new Date().toISOString()`이 UTC 기준 today/yesterday를 반환 → 데이터의 dates(KST 기준)와 어긋남. KST 09:00 이전 시간대에 frontend가 1일 mismatch.

@@ -1024,18 +1024,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
           </div>
           {/* 글로벌 지수 */}
           {(() => {
-            const globalIndices = (performance.macro_indicators || []).filter((m: any) => m.category === "global_index");
-            const kospiItem = performance.kospi?.current ? {
-              name: "코스피", price: performance.kospi.current,
-              change_pct: performance.kospi.change != null && performance.kospi.prev ? +(performance.kospi.change / performance.kospi.prev * 100).toFixed(2) : 0,
-              prev: performance.kospi.prev ?? (performance.kospi.ma5 ? +(performance.kospi.current - (performance.kospi.change ?? 0)).toFixed(2) : null),
-            } : null;
-            const kosdaqItem = performance.kosdaq?.current ? {
-              name: "코스닥", price: performance.kosdaq.current,
-              change_pct: performance.kosdaq.change != null && performance.kosdaq.prev ? +(performance.kosdaq.change / performance.kosdaq.prev * 100).toFixed(2) : 0,
-              prev: performance.kosdaq.prev ?? (performance.kosdaq.ma5 ? +(performance.kosdaq.current - (performance.kosdaq.change ?? 0)).toFixed(2) : null),
-            } : null;
-            const items = [...(kospiItem ? [kospiItem] : []), ...(kosdaqItem ? [kosdaqItem] : []), ...globalIndices];
+            const items = (performance.macro_indicators || []).filter((m: any) => m.category === "global_index");
             if (items.length === 0) return null;
             return (
               <div className="mt-3 pt-3 border-t t-border-light">
