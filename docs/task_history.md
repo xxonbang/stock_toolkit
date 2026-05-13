@@ -2,6 +2,17 @@
 
 ## 2026-05-14
 
+### [개선] 종목명 클릭 외부 링크를 네이버 증권 → 토스증권 주문화면으로 변경 (2026-05-14 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx` (4건), `frontend/src/pages/Portfolio.tsx` (1건)
+- **URL 변환:** `https://m.stock.naver.com/domestic/stock/{code}/total` → `https://www.tossinvest.com/stocks/A{code}/order` (코드 앞에 `A` prefix, `/order` 경로로 주문 화면 직진입)
+- **표시 텍스트:** "네이버 증권에서 보기" → "토스증권에서 보기", "네이버 증권" → "토스증권"
+- **수정 위치:**
+  - Dashboard 액션 메뉴 "네이버 증권에서 보기" 항목 (line 555)
+  - Dashboard 종목 상세 팝업 헤더 종목명 링크 (line 579)
+  - Dashboard 투자자 자금흐름 카드의 외부 링크 아이콘 (line 2094)
+  - Portfolio 보유 종목 카드의 "네이버 증권" 버튼 (line 671)
+- **검증:** tsc OK, `m.stock.naver` 잔존 매칭 0건 확인
+
 ### [개선] 텔레그램 메시지 신뢰성 강화 R1/R2/R3/R4/R5 (2026-05-14 KST)
 - **변경 파일:** `daemon/trader.py` (+31/-5), `daemon/notifier.py` (+3/-1), `modules/cross_signal.py` (+44/-1)
 - **배경:** 텔레그램 메시지 전수 진단(20개 발송 지점)에서 발견된 신뢰성/노이즈 이슈 5건 일괄 fix

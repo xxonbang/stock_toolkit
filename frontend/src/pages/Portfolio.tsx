@@ -667,12 +667,12 @@ export default function Portfolio() {
                     </div>
                   );
                 })()}
-                {/* 네이버 증권 링크 */}
-                <a href={`https://m.stock.naver.com/domestic/stock/${h.code}/total`}
+                {/* 토스증권 링크 */}
+                <a href={`https://www.tossinvest.com/stocks/A${h.code}/order`}
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[11px] text-blue-400 hover:underline">
                   <ExternalLink size={11} />
-                  네이버 증권
+                  토스증권
                 </a>
               </div>
             )}

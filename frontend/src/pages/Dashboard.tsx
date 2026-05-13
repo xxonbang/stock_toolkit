@@ -552,9 +552,9 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   ))}
                 </div>
               )}
-              <a href={`https://m.stock.naver.com/domestic/stock/${stockActionTarget.data.code}/total`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-blue-500/8 transition">
+              <a href={`https://www.tossinvest.com/stocks/A${stockActionTarget.data.code}/order`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-blue-500/8 transition">
                 <ExternalLink size={13} className="t-text-dim" />
-                <span className="text-[12px] t-text">네이버 증권에서 보기</span>
+                <span className="text-[12px] t-text">토스증권에서 보기</span>
               </a>
             </div>
           </div>
@@ -576,7 +576,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <a href={`https://m.stock.naver.com/domestic/stock/${stockDetail.code}/total`}
+                <a href={`https://www.tossinvest.com/stocks/A${stockDetail.code}/order`}
                   target="_blank" rel="noopener noreferrer"
                   className="text-base font-bold t-text hover:text-blue-400 transition">
                   {stockDetail.name} ↗
@@ -2091,7 +2091,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-medium truncate">{isf._name}</span>
-                  <a href={`https://m.stock.naver.com/domestic/stock/${isf.code}/total`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 t-text-dim hover:text-blue-500"><ExternalLink size={12} /></a>
+                  <a href={`https://www.tossinvest.com/stocks/A${isf.code}/order`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 t-text-dim hover:text-blue-500"><ExternalLink size={12} /></a>
                   {isf._tag && (
                     <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${isf._tag === "쌍끌이 매수" ? "bg-red-500/15 text-red-400" : "bg-blue-500/15 text-blue-400"}`}>{isf._tag}</span>
                   )}
