@@ -2225,6 +2225,18 @@ def main():
 
     all_dates = sorted(set(sig_buy_by_date.keys()) | set(leader_by_date.keys()))
 
+    # 종목명 fallback용 stock-master 매핑 (combined/investor_data 미스 시 사용)
+    _master_name_by_code = {}
+    try:
+        master_path = results_dir / "stock-master.json"
+        if master_path.exists():
+            _master = loader._load_json(master_path)
+            for _s in _master.get("stocks", []) if isinstance(_master, dict) else []:
+                if _s.get("code"):
+                    _master_name_by_code[_s["code"]] = _s.get("name", "")
+    except Exception:
+        pass
+
     # 종목별 연속일수 계산 함수 (최근 5영업일 내 마지막 등장 종목만)
     _streak_cutoff = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
 
@@ -2260,7 +2272,9 @@ def main():
                         break
                 if not name:
                     inv_item = investor_data.get(code, {})
-                    name = inv_item.get("name", code) if isinstance(inv_item, dict) else code
+                    name = inv_item.get("name", "") if isinstance(inv_item, dict) else ""
+                if not name:
+                    name = _master_name_by_code.get(code, code)
                 results.append({
                     "code": code, "name": name,
                     "streak": max_streak, "total_days": len(sorted_d),
@@ -2309,9 +2323,12 @@ def main():
         json.dump(consecutive_data, f, ensure_ascii=False, indent=2)
 
     # 텔레그램 알림 (full 모드, AND 2일+ 있을 때)
-    if use_ai and and_results:
+    # 활성 신호만 발송: 마지막 등장 날짜가 가장 최근(latest_date)인 종목만 → 종료된 신호 제외
+    latest_date = max(all_dates) if all_dates else None
+    active_and_results = [r for r in and_results if latest_date and r["dates"][-1] == latest_date]
+    if use_ai and active_and_results:
         lines = ["<b>🔥 연속 매수+대장주 (AND 조건)</b>"]
-        for r in and_results[:5]:
+        for r in active_and_results[:5]:
             lines.append(f"  <b>{r['name']}</b> ({r['code']}) — {r['streak']}일 연속")
         try:
             send_message("\n".join(lines))
