@@ -2344,7 +2344,7 @@ def main():
     from datetime import datetime, timezone, timedelta
     kst = timezone(timedelta(hours=9))
     generated_at = datetime.now(kst).strftime("%Y-%m-%d %H:%M KST")
-    _preserve_files = {"news_top3_latest.json"}
+    _preserve_files = {"news_top3_latest.json", "news_top3_index.json"}
     for json_file in results_dir.glob("*.json"):
         if json_file.name in _preserve_files:
             continue
