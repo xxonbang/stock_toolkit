@@ -7,8 +7,10 @@ export default function ConsecutiveSignalSection({ consecutiveSignals, ts, setSt
   setStreakPopup: (v: { name: string; dates: string[] } | null) => void;
   setStockDetail?: (v: any) => void;
 }) {
-  const today = new Date().toISOString().slice(0, 10);
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  // KST 기준 today/yesterday (데이터의 dates가 KST 날짜이므로 일치시킴)
+  const kstNow = Date.now() + 9 * 3600 * 1000;
+  const today = new Date(kstNow).toISOString().slice(0, 10);
+  const yesterday = new Date(kstNow - 86400000).toISOString().slice(0, 10);
   const freshness = (r: any) => {
     const last = r.dates?.[r.dates.length - 1] || "";
     if (last >= today) return "active";

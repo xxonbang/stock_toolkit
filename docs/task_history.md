@@ -2,6 +2,12 @@
 
 ## 2026-05-13
 
+### [버그픽스] 연속 시그널 frontend freshness 기준을 KST로 통일 (2026-05-13 22:30 KST)
+- **변경 파일:** `frontend/src/components/dashboard/ConsecutiveSignalSection.tsx` (+2 / -1)
+- **이슈:** `new Date().toISOString()`이 UTC 기준 today/yesterday를 반환 → 데이터의 dates(KST 기준)와 어긋남. KST 09:00 이전 시간대에 frontend가 1일 mismatch.
+- **내용:** `kstNow = Date.now() + 9 * 3600 * 1000`로 KST 시점 계산 후 today/yesterday 산출 → backend run_all의 `datetime.now(kst)` 기준과 일치
+- **검증:** tsc OK. 5가지 시점 시뮬(KST 00:00 / 02:00 / 07:30 / 09:00 / 23:00) 모두 KST 5/13 → today=5/13, yesterday=5/12 일관
+
 ### [버그픽스] 연속 시그널 텔레그램 — 활성 신호만 발송 + 종목명 fallback 강화 (2026-05-13 22:00 KST)
 - **변경 파일:** `scripts/run_all.py` (+18줄)
 - **이슈:**
