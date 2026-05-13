@@ -2,18 +2,21 @@
 
 ## 2026-05-13
 
-### [버그픽스] 연속 시그널 텔레그램 — 종료된 신호 제외 + 종목명 fallback 강화 (2026-05-13 21:30 KST)
-- **변경 파일:** `scripts/run_all.py` (+14줄)
+### [버그픽스] 연속 시그널 텔레그램 — 활성 신호만 발송 + 종목명 fallback 강화 (2026-05-13 22:00 KST)
+- **변경 파일:** `scripts/run_all.py` (+18줄)
 - **이슈:**
-  1. 5/13 텔레그램으로 현대모비스(5/12)/SK하이닉스(5/11)/미래에셋증권(5/6)이 "2일 연속" AND 신호로 발송됨 — 화면에서는 "종료된 신호"로 분리되는데 텔레그램만 잘못 발송
+  1. 5/13 텔레그램으로 현대모비스(5/12)/SK하이닉스(5/11)/미래에셋증권(5/6)이 "2일 연속" AND 신호로 발송됨 — 화면에서는 종료된 신호로 분리되는데 텔레그램만 잘못 발송
   2. 화면에 `033100` 종목명이 코드 그대로 표시 (제룡전기)
 - **원인:**
-  1. `_calc_streak`는 "마지막 등장이 7일 이내" 조건만 적용 → 5/13 시점에 5/6 마지막 등장도 통과. 텔레그램 발송 조건이 `and_results` 전체였음
+  1. `_calc_streak`는 "마지막 등장이 7일 이내" cutoff만 적용 → 5/13 시점에 5/6 마지막 등장도 통과. 텔레그램 발송 조건이 `and_results` 전체였음
   2. name fallback이 `combined` + `investor_data`만 조회 → 둘 다 없으면 코드를 name으로 사용 (033100 케이스)
 - **내용:**
-  - 텔레그램 발송: `latest_date = max(all_dates)` 기준으로 `r["dates"][-1] == latest_date`인 종목만 발송 → 화면의 활성 신호와 일치
+  - 텔레그램 발송: frontend `ConsecutiveSignalSection.tsx`의 freshness 기준(`last >= yesterday`)과 동일하게 KST today/yesterday 매칭만 활성 → 발송. **watch(어제 마지막 등장)도 포함**
   - name fallback: stock-master.json 매핑을 3순위 fallback으로 추가 (combined → investor_data → stock-master → code)
-- **검증:** py_compile OK. 현재 consecutive_signals.json으로 시뮬 — 수정 전 3건 발송 → 수정 후 0건(오늘 활성 AND 없음). 033100은 stock-master에 `제룡전기`로 존재 확인
+- **수정 과정:**
+  - 1차: `last == latest_date`로 너무 엄격 → 5/13 시점 현대모비스(5/12)도 누락
+  - 2차(최종): `last >= yesterday_kst`로 완화 → frontend 활성과 정확히 일치
+- **검증:** py_compile OK. 5/13 시점 시뮬 — 기존 3건 발송(현대모비스+SK하이닉스+미래에셋) → 수정 후 1건(현대모비스만, watch 활성)
 - **배포:** GitHub Actions(`deploy-pages.yml`)이 run_all.py 실행 → push만으로 다음 workflow에 적용
 
 ## 2026-05-12

@@ -2323,9 +2323,12 @@ def main():
         json.dump(consecutive_data, f, ensure_ascii=False, indent=2)
 
     # 텔레그램 알림 (full 모드, AND 2일+ 있을 때)
-    # 활성 신호만 발송: 마지막 등장 날짜가 가장 최근(latest_date)인 종목만 → 종료된 신호 제외
-    latest_date = max(all_dates) if all_dates else None
-    active_and_results = [r for r in and_results if latest_date and r["dates"][-1] == latest_date]
+    # 활성 = 오늘 또는 어제 마지막 등장 (frontend ConsecutiveSignalSection의 freshness 기준과 동일)
+    from datetime import timezone as _tz_a, timedelta as _td_a, datetime as _dt_a
+    _kst_a = _tz_a(_td_a(hours=9))
+    _today_kst = _dt_a.now(_kst_a).strftime("%Y-%m-%d")
+    _yesterday_kst = (_dt_a.now(_kst_a) - _td_a(days=1)).strftime("%Y-%m-%d")
+    active_and_results = [r for r in and_results if r["dates"][-1] >= _yesterday_kst]
     if use_ai and active_and_results:
         lines = ["<b>🔥 연속 매수+대장주 (AND 조건)</b>"]
         for r in active_and_results[:5]:
