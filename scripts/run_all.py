@@ -2339,10 +2339,15 @@ def main():
             pass
 
     # 모든 JSON에 generated_at 타임스탬프 일괄 삽입
+    # 예외: news_top3_latest.json은 외부 워크플로우(news-top3.yml)에서 수집 시각을 채우므로 보존
+    #       (deploy 시점으로 덮어쓰면 사용자가 데이터 수집 시각을 잘못 인식)
     from datetime import datetime, timezone, timedelta
     kst = timezone(timedelta(hours=9))
     generated_at = datetime.now(kst).strftime("%Y-%m-%d %H:%M KST")
+    _preserve_files = {"news_top3_latest.json"}
     for json_file in results_dir.glob("*.json"):
+        if json_file.name in _preserve_files:
+            continue
         try:
             with open(json_file, "r", encoding="utf-8") as f:
                 data = json.load(f)

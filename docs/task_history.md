@@ -2,6 +2,14 @@
 
 ## 2026-05-13
 
+### [버그픽스] Stock Insight generated_at — news_top3_latest 수집 시각 보존 (2026-05-13 23:15 KST)
+- **변경 파일:** `scripts/run_all.py` (+5)
+- **이슈:** 인사이트 화면 "최신 · 2026-05-13 18:04 KST"로 표시됨. 데이터 수집은 KST 07:30/20:00 스케줄인데 18:04는 어디서?
+- **원인:** run_all.py 마지막에 `results/*.json` 모든 dict에 `generated_at = datetime.now(kst)` 무조건 덮어쓰기. deploy-pages.yml이 실행될 때마다(workflow_run/push 트리거) news_top3_latest.json의 원본 수집 시각(news-top3.yml이 채운 값)이 deploy 시점으로 변조됨. 18:04는 그 시점 deploy 실행 시각, 22:02는 또 다른 deploy 시각
+- **검증:** 데이터 커밋 이력 — cd8922b(20:02 KST), ef32e04(07:32 KST)로 **데이터 수집은 정상 스케줄**. production에는 22:02 KST 표시(또 다른 deploy 결과). 즉 수집은 정상, 표시 timestamp만 deploy로 오염
+- **내용:** `_preserve_files = {"news_top3_latest.json"}` 화이트리스트로 명시적 예외 처리. 다른 파일(briefing/consecutive_signals/ai_mentor 등)은 기존대로 deploy 시점으로 갱신 유지(이들은 run_all 실행 시 새로 생성되므로 정상 동작)
+- **고려된 대안:** 처음에는 `setdefault`로 광범위 보존을 시도했으나, briefing/consecutive 등 38건이 이미 deploy timestamp를 자체 generated_at으로 가져 stale 고정 위험 → 화이트리스트로 좁힘
+
 ### [버그픽스] Dashboard 글로벌 지수 — 코스피/코스닥 중복(stale) 카드 제거 (2026-05-13 22:45 KST)
 - **변경 파일:** `frontend/src/pages/Dashboard.tsx` (-12 / +1)
 - **이슈:** "글로벌 지수" 섹션에 코스피/코스닥이 2번 표시됨. 위쪽 카드는 0.00% / 전일=현재 (데이터 미수집), 아래쪽이 정상(+2.63% / -0.2%)
