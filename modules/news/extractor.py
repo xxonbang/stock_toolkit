@@ -315,11 +315,14 @@ def _apply_history_penalty(extraction: Dict, recent_counts: Dict[str, Counter]) 
 
     페널티 단계 (5일 history 내 TOP3 등장 횟수 기준):
       count=0: 1.00 (영향 없음)
-      count=1: 0.70
-      count=2: 0.40
-      count>=3: 0.10  (사실상 제외 — 임계값 미달로 차순위 종목 등극)
+      count=1: 0.80
+      count=2: 0.60
+      count=3: 0.40
+      count>=4: 0.30  (단골이라도 차순위와 경쟁 가능한 최소 보장)
 
-    공식: penalty = max(0.10, 1.0 - 0.30 * count). round 후 최소 1 보장(LLM 입력용).
+    공식: penalty = max(0.30, 1.0 - 0.20 * count). round 후 최소 1 보장(LLM 입력용).
+    이전 버전(0.10/0.30*count)은 페널티가 너무 강해 차순위 종목이 `_enforce_min_freq_top3`의
+    잡음 임계값(<2)에 걸려 모두 제거되는 부작용 발생 → 보존(B fix, 2026-05-14).
     """
     mapping = {
         ("us_news", "stocks"): "us_stocks",
@@ -336,7 +339,7 @@ def _apply_history_penalty(extraction: Dict, recent_counts: Dict[str, Counter]) 
             name = entry.get("name", "")
             count = counter.get(name, 0)
             if count > 0:
-                penalty = max(0.10, 1.0 - 0.30 * count)
+                penalty = max(0.30, 1.0 - 0.20 * count)
                 original = entry.get("freq", 0)
                 entry["freq"] = max(1, round(original * penalty))
                 logger.debug(

@@ -166,13 +166,14 @@ def build_payload_phase1(collected: dict, now_kst: datetime) -> dict:
     }
 
 
-def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict, now_kst: datetime) -> dict:
+def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict, now_kst: datetime, extraction: dict | None = None) -> dict:
     """AI 분석 결과 통합 — 프론트엔드가 읽을 최종 스키마.
 
     outlook은 merge_outlook_into_top3에 의해 top3 entry의 outlook 필드로 머지된 상태.
     region.outlook 필드는 호환성용으로 raw 응답을 그대로 보존.
+    extraction은 진단용 LLM #1 원본 응답(name/freq 리스트). None이면 미포함.
     """
-    return {
+    payload = {
         "generated_at": now_kst.strftime("%Y-%m-%d %H:%M KST"),
         "phase": 2,
         "us": {
@@ -199,6 +200,19 @@ def build_payload_full(collected: dict, top3: dict, outlook: dict, yt_top3: dict
             "videos_collected": len(collected["youtube"]),
         },
     }
+    # C: extraction(LLM #1 원본) 진단용 보존 — name/freq만 가벼운 형태로
+    if extraction:
+        payload["_extraction"] = {
+            "us": {
+                "stocks": [{"name": e.get("name"), "freq": e.get("freq")} for e in extraction.get("us_news", {}).get("stocks", [])],
+                "sectors": [{"name": e.get("name"), "freq": e.get("freq")} for e in extraction.get("us_news", {}).get("sectors", [])],
+            },
+            "kr": {
+                "stocks": [{"name": e.get("name"), "freq": e.get("freq")} for e in extraction.get("kr_news", {}).get("stocks", [])],
+                "sectors": [{"name": e.get("name"), "freq": e.get("freq")} for e in extraction.get("kr_news", {}).get("sectors", [])],
+            },
+        }
+    return payload
 
 
 def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
@@ -260,7 +274,7 @@ def run_ai_pipeline(collected: dict, now_kst: datetime, client=None) -> dict:
         logger.warning(f"outlook 실패: {e}", exc_info=True)
         outlook = {}
 
-    return build_payload_full(collected, top3, outlook, yt_top3, now_kst)
+    return build_payload_full(collected, top3, outlook, yt_top3, now_kst, extraction=extraction)
 
 
 def _diagnose_env() -> None:
