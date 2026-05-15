@@ -368,7 +368,12 @@ export async function savePaperCalcHistory(state: PaperCalcState): Promise<boole
     if (!user) return false;
     const { error } = await supabase
       .from("paper_calc_history")
-      .upsert({ user_id: user.id, tabs: state.tabs, active_tab_id: state.activeTabId }, { onConflict: "user_id" });
+      .upsert({
+        user_id: user.id,
+        tabs: state.tabs,
+        active_tab_id: state.activeTabId,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "user_id" });
     if (error) { console.error("paper_calc_history 저장 실패:", error.message); return false; }
     return true;
   } catch (e) {
