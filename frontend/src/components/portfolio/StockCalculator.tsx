@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { RefreshCw, X } from "lucide-react";
+import { RefreshCw, Search, X } from "lucide-react";
 import { fetchKisPrices } from "../../lib/supabase";
 import { fetchNaverQuotes, isAfterhoursKR } from "../../lib/naver";
+import { useAuth } from "../../lib/AuthContext";
 
 interface StockMasterItem {
   code: string;
@@ -10,72 +11,34 @@ interface StockMasterItem {
   market: string;
 }
 
-interface CalcRow {
-  id: string; // 고유 key (crypto.randomUUID)
+/** localStorage에 저장되는 항목 구조 */
+interface SavedItem {
+  id: string;
   code: string;
   name: string;
-  currentPrice: number | null; // null = 조회 중 or 실패
-  priceStatus: "idle" | "loading" | "ok" | "error";
-  buyPrice: string;
-  quantity: string;
+  assumedPrice: number;
+  quantity: number;
+  addedAt: string;
 }
 
-const LS_KEY = "portfolio_calculator_rows";
-
-interface Saved {
-  code: string;
-  name: string;
-  buyPrice: string;
-  quantity: string;
-}
-
-function loadRows(): CalcRow[] {
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return [];
-    const saved: Saved[] = JSON.parse(raw);
-    return saved.map((s) => ({
-      id: crypto.randomUUID(),
-      code: s.code,
-      name: s.name,
-      currentPrice: null,
-      priceStatus: "idle" as const,
-      buyPrice: s.buyPrice,
-      quantity: s.quantity,
-    }));
-  } catch {
-    return [];
-  }
-}
-
-function saveRows(rows: CalcRow[]) {
-  const saved: Saved[] = rows.map((r) => ({
-    code: r.code,
-    name: r.name,
-    buyPrice: r.buyPrice,
-    quantity: r.quantity,
-  }));
-  localStorage.setItem(LS_KEY, JSON.stringify(saved));
+function fmtNum(n: number): string {
+  return n.toLocaleString("ko-KR");
 }
 
 async function fetchPrices(codes: string[]): Promise<Record<string, number>> {
   if (!codes.length) return {};
   const result: Record<string, number> = {};
-  // 시간외 단일가 우선 시도
   if (isAfterhoursKR()) {
     try {
       const naverData = await fetchNaverQuotes(codes);
       for (const code of codes) {
         const q = naverData[code];
-        if (q) {
-          result[code] = q.overtimePrice ?? q.closePrice;
-        }
+        if (q) result[code] = q.overtimePrice ?? q.closePrice;
       }
     } catch {
       // fallthrough to KIS
     }
   }
-  // 미수신 코드를 KIS로 보완
   const missing = codes.filter((c) => !result[c]);
   if (missing.length) {
     try {
@@ -91,24 +54,50 @@ async function fetchPrices(codes: string[]): Promise<Record<string, number>> {
   return result;
 }
 
-function fmtNum(n: number): string {
-  return n.toLocaleString("ko-KR");
-}
-
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export default function StockCalculator({ isOpen, onClose }: Props) {
-  const [rows, setRows] = useState<CalcRow[]>(() => loadRows());
+  const { user } = useAuth();
+  const storageKey = `portfolio_calculator_rows_${user?.id ?? "anon"}`;
 
-  // 검색 관련
-  const [searching, setSearching] = useState(false);
-  const [searchVal, setSearchVal] = useState("");
-  const [suggestions, setSuggestions] = useState<StockMasterItem[]>([]);
+  // 누적 리스트
+  const [items, setItems] = useState<SavedItem[]>(() => {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw) as SavedItem[];
+      // id/assumedPrice/quantity 필드 존재 여부로 신규 구조 판별
+      if (!Array.isArray(parsed) || parsed.some((it) => typeof it.assumedPrice !== "number")) return [];
+      return parsed;
+    } catch {
+      return [];
+    }
+  });
+
+  // 현재가 맵 (code → price)
+  const [livePrices, setLivePrices] = useState<Record<string, number>>({});
+  const [refreshing, setRefreshing] = useState(false);
+
+  // 입력 폼
   const [stockMaster, setStockMaster] = useState<StockMasterItem[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStock, setSelectedStock] = useState<{ code: string; name: string } | null>(null);
+  const [priceSearching, setPriceSearching] = useState(false);
+  const [assumedPrice, setAssumedPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // localStorage 저장
+  useEffect(() => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(items));
+    } catch {
+      // ignore
+    }
+  }, [items, storageKey]);
 
   // stock-master lazy fetch
   useEffect(() => {
@@ -121,122 +110,126 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
       .catch(() => {});
   }, [stockMaster.length]);
 
-  // 검색 input 포커스
+  // 모달 열릴 때 누적 리스트 현재가 자동 새로고침
   useEffect(() => {
-    if (searching) searchInputRef.current?.focus();
-  }, [searching]);
-
-  // 자동완성 필터
-  useEffect(() => {
-    if (!searchVal.trim()) { setSuggestions([]); return; }
-    const q = searchVal.trim().toLowerCase();
-    const matched = stockMaster
-      .filter((s) => s.name.toLowerCase().includes(q) || s.code.includes(q))
-      .slice(0, 10);
-    setSuggestions(matched);
-  }, [searchVal, stockMaster]);
-
-  // rows 변경 시 localStorage 저장
-  useEffect(() => {
-    saveRows(rows);
-  }, [rows]);
-
-  // mount 시 저장된 종목의 현재가 일괄 조회
-  useEffect(() => {
-    const codes = rows.map((r) => r.code);
+    if (!isOpen) return;
+    const codes = items.map((it) => it.code);
     if (!codes.length) return;
-    setRows((prev) => prev.map((r) => ({ ...r, priceStatus: "loading" })));
-    fetchPrices(codes).then((prices) => {
-      setRows((prev) =>
-        prev.map((r) => {
-          const p = prices[r.code];
-          return {
-            ...r,
-            currentPrice: p ?? null,
-            priceStatus: p !== undefined ? "ok" : "error",
-          };
-        })
-      );
-    });
-    // 의도적으로 의존성 배열 비움 — mount 1회만 실행
+    setRefreshing(true);
+    fetchPrices(codes)
+      .then((prices) => setLivePrices((prev) => ({ ...prev, ...prices })))
+      .finally(() => setRefreshing(false));
+    // isOpen 변경 시에만 실행 — items 변경 시 재실행 불필요
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isOpen]);
 
-  // 종목 선택 후 행 추가
-  async function addRow(item: StockMasterItem) {
-    setSearching(false);
-    setSearchVal("");
-    setSuggestions([]);
+  // 자동완성 결과
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q || selectedStock) return [];
+    return stockMaster
+      .filter((s) => s.name.toLowerCase().includes(q) || s.code.includes(q))
+      .slice(0, 8);
+  }, [searchQuery, selectedStock, stockMaster]);
 
-    const newRow: CalcRow = {
+  // 종목 선택
+  async function selectStock(code: string, name: string) {
+    setSelectedStock({ code, name });
+    setSearchQuery("");
+    setPriceSearching(true);
+    try {
+      const prices = await fetchPrices([code]);
+      if (prices[code] !== undefined) {
+        setLivePrices((prev) => ({ ...prev, [code]: prices[code] }));
+        setAssumedPrice(String(prices[code]));
+      }
+    } finally {
+      setPriceSearching(false);
+    }
+  }
+
+  // 폼 리셋
+  function resetForm() {
+    setSelectedStock(null);
+    setAssumedPrice("");
+    setQuantity("");
+    setSearchQuery("");
+    setTimeout(() => searchInputRef.current?.focus(), 0);
+  }
+
+  // 미리보기 계산
+  const preview = useMemo(() => {
+    if (!selectedStock) return null;
+    const p = parseInt(assumedPrice, 10);
+    const q = parseInt(quantity, 10);
+    if (!p || !q || p <= 0 || q <= 0) return null;
+    const cur = livePrices[selectedStock.code] ?? p;
+    const invest = p * q;
+    const evalAmt = cur * q;
+    const profit = evalAmt - invest;
+    const rate = ((cur - p) / p) * 100;
+    return { p, q, cur, invest, evalAmt, profit, rate };
+  }, [selectedStock, assumedPrice, quantity, livePrices]);
+
+  // 누적 리스트에 추가
+  function addItem() {
+    if (!selectedStock || !preview) return;
+    const newItem: SavedItem = {
       id: crypto.randomUUID(),
-      code: item.code,
-      name: item.name,
-      currentPrice: null,
-      priceStatus: "loading",
-      buyPrice: "",
-      quantity: "",
+      code: selectedStock.code,
+      name: selectedStock.name,
+      assumedPrice: preview.p,
+      quantity: preview.q,
+      addedAt: new Date().toISOString(),
     };
-    setRows((prev) => [...prev, newRow]);
-
-    const prices = await fetchPrices([item.code]);
-    const p = prices[item.code];
-    setRows((prev) =>
-      prev.map((r) =>
-        r.id === newRow.id
-          ? { ...r, currentPrice: p ?? null, priceStatus: p !== undefined ? "ok" : "error" }
-          : r
-      )
-    );
+    setItems((prev) => [newItem, ...prev]);
+    resetForm();
   }
 
-  function removeRow(id: string) {
-    setRows((prev) => prev.filter((r) => r.id !== id));
+  function removeItem(id: string) {
+    setItems((prev) => prev.filter((it) => it.id !== id));
   }
 
-  function updateRow(id: string, field: "buyPrice" | "quantity", value: string) {
-    // 숫자/빈값만 허용
-    if (value !== "" && !/^\d+$/.test(value)) return;
-    setRows((prev) => prev.map((r) => (r.id === id ? { ...r, [field]: value } : r)));
+  function clearAll() {
+    if (items.length === 0) return;
+    if (!window.confirm(`${items.length}개 항목을 모두 지웁니다. 계속할까요?`)) return;
+    setItems([]);
+    setLivePrices({});
   }
 
-  function resetAll() {
-    setRows([]);
-    localStorage.removeItem(LS_KEY);
-  }
-
-  async function refreshPrices() {
-    const codes = rows.map((r) => r.code);
-    if (!codes.length) return;
-    setRows((prev) => prev.map((r) => ({ ...r, priceStatus: "loading" })));
-    const prices = await fetchPrices(codes);
-    setRows((prev) =>
-      prev.map((r) => {
-        const p = prices[r.code];
-        return { ...r, currentPrice: p ?? null, priceStatus: p !== undefined ? "ok" : "error" };
-      })
-    );
+  async function refresh() {
+    if (refreshing || items.length === 0) return;
+    setRefreshing(true);
+    try {
+      const codes = items.map((it) => it.code);
+      const prices = await fetchPrices(codes);
+      setLivePrices((prev) => ({ ...prev, ...prices }));
+    } finally {
+      setRefreshing(false);
+    }
   }
 
   // 종합 계산
-  const summary = (() => {
-    let totalBuy = 0;
+  const summary = useMemo(() => {
+    if (items.length === 0) return null;
+    let totalInvest = 0;
     let totalEval = 0;
-    let valid = false;
-    for (const r of rows) {
-      const buy = parseInt(r.buyPrice, 10);
-      const qty = parseInt(r.quantity, 10);
-      const cur = r.currentPrice;
-      if (!buy || !qty || cur === null) continue;
-      valid = true;
-      totalBuy += buy * qty;
-      totalEval += cur * qty;
+    let evalAvailable = true;
+    for (const it of items) {
+      const cur = livePrices[it.code];
+      const invest = it.assumedPrice * it.quantity;
+      totalInvest += invest;
+      if (cur != null) {
+        totalEval += cur * it.quantity;
+      } else {
+        evalAvailable = false;
+        totalEval += invest;
+      }
     }
-    if (!valid) return null;
-    const profit = totalEval - totalBuy;
-    const rate = totalBuy > 0 ? (profit / totalBuy) * 100 : 0;
-    return { totalBuy, totalEval, profit, rate };
-  })();
+    const profit = totalEval - totalInvest;
+    const rate = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, totalEval, profit, rate, evalAvailable, count: items.length };
+  }, [items, livePrices]);
 
   if (!isOpen) return null;
 
@@ -244,195 +237,243 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
     <div className="fixed inset-0 z-[9999]" onClick={onClose}>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
       <div
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[61] w-[calc(100%-2rem)] max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl t-card border t-border-light p-4 anim-scale-in"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[61] w-[calc(100%-2rem)] max-w-lg max-h-[88vh] overflow-y-auto rounded-2xl t-card border t-border-light p-4 anim-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 헤더 */}
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
           <span className="t-text font-semibold text-[14px]">주가 계산기</span>
-          <div className="flex items-center gap-2">
-            {rows.length > 0 && (
-              <button
-                onClick={refreshPrices}
-                className="flex items-center gap-1 text-[12px] t-text-dim hover:t-text transition"
-                title="현재가 새로고침"
-              >
-                <RefreshCw size={12} />
-                새로고침
-              </button>
-            )}
-            {rows.length > 0 && (
-              <button
-                onClick={resetAll}
-                className="text-[12px] text-red-400 hover:text-red-300 transition"
-              >
-                전체 초기화
-              </button>
-            )}
-            <button onClick={onClose} className="p-1 t-text-dim hover:t-text transition" aria-label="닫기">
-              <X size={16} />
-            </button>
-          </div>
+          <button onClick={onClose} className="p-1 t-text-dim hover:t-text transition" aria-label="닫기">
+            <X size={16} />
+          </button>
         </div>
 
-        <>
-          {/* 종목 행 목록 */}
-          <div className="space-y-2 mb-3">
-            {rows.map((r) => {
-              const buy = parseInt(r.buyPrice, 10);
-              const qty = parseInt(r.quantity, 10);
-              const cur = r.currentPrice;
-              const hasBoth = buy > 0 && qty > 0 && cur !== null;
-              const profit = hasBoth ? (cur! - buy) * qty : null;
-              const rate = hasBoth && buy > 0 ? ((cur! - buy) / buy) * 100 : null;
-              const isPos = rate !== null && rate >= 0;
+        {/* 1단계: 입력 영역 */}
+        <div className="rounded-xl border t-border-light p-3 space-y-3 mb-3">
+          <div className="text-[11px] font-semibold t-text-dim uppercase tracking-wider">종목 추가</div>
 
-              return (
-                <div key={r.id} className="rounded-lg border t-border-light p-2.5 space-y-1.5">
-                  {/* 종목명 + 삭제 */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-medium t-text">
-                      {r.name}{" "}
-                      <span className="text-[11px] t-text-dim font-normal">{r.code}</span>
-                    </span>
-                    <button onClick={() => removeRow(r.id)} className="t-text-dim hover:t-text transition">
-                      <X size={14} />
-                    </button>
-                  </div>
-
-                  {/* 현재가 */}
-                  <div className="text-[12px] t-text-dim">
-                    현재가:{" "}
-                    {r.priceStatus === "loading" ? (
-                      <span className="t-text-sub">조회 중...</span>
-                    ) : r.currentPrice !== null ? (
-                      <span className="t-text font-medium">{fmtNum(r.currentPrice)}원</span>
-                    ) : (
-                      <span className="text-amber-500">조회 실패</span>
-                    )}
-                  </div>
-
-                  {/* 입력 */}
-                  <div className="grid grid-cols-2 gap-1.5">
-                    <div>
-                      <label className="text-[11px] t-text-dim block mb-0.5">매수가 (원)</label>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={r.buyPrice}
-                        onChange={(e) => updateRow(r.id, "buyPrice", e.target.value)}
-                        placeholder="매수가"
-                        className="w-full rounded-md px-2 py-1 text-[12px] t-text bg-transparent border t-border-light focus:outline-none focus:border-blue-400 tabular-nums"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] t-text-dim block mb-0.5">수량 (주)</label>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={r.quantity}
-                        onChange={(e) => updateRow(r.id, "quantity", e.target.value)}
-                        placeholder="수량"
-                        className="w-full rounded-md px-2 py-1 text-[12px] t-text bg-transparent border t-border-light focus:outline-none focus:border-blue-400 tabular-nums"
-                      />
-                    </div>
-                  </div>
-
-                  {/* 수익률/손익 */}
-                  {hasBoth && rate !== null && profit !== null && (
-                    <div className="flex items-center gap-3 text-[12px] pt-0.5 border-t t-border-light">
-                      <span className={isPos ? "text-red-500 font-medium" : "text-blue-500 font-medium"}>
-                        {isPos ? "+" : ""}{rate.toFixed(2)}%
-                      </span>
-                      <span className={isPos ? "text-red-500" : "text-blue-500"}>
-                        {isPos ? "+" : ""}{fmtNum(profit)}원
-                      </span>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* 종목 추가 버튼 / 검색 input */}
-          {searching ? (
-            <div className="relative mb-3">
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={searchVal}
-                onChange={(e) => setSearchVal(e.target.value)}
-                onKeyDown={(e) => { if (e.key === "Escape") { setSearching(false); setSearchVal(""); } }}
-                placeholder="종목명 또는 코드 검색"
-                className="w-full rounded-lg px-3 py-2 text-[13px] t-text border t-border-light bg-transparent focus:outline-none focus:border-blue-400"
-              />
-              <button
-                onClick={() => { setSearching(false); setSearchVal(""); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 t-text-dim hover:t-text"
-              >
-                <X size={14} />
-              </button>
-              {/* 자동완성 드롭다운 */}
-              {suggestions.length > 0 && (
+          {/* 검색 or 선택된 종목 */}
+          {!selectedStock ? (
+            <div className="relative">
+              <div className="flex items-center gap-2">
+                <Search size={14} className="t-text-dim shrink-0" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="종목명 또는 코드 검색"
+                  className="w-full rounded-lg px-3 py-2 text-[13px] t-text border t-border-light bg-transparent focus:outline-none focus:border-blue-400"
+                />
+              </div>
+              {searchResults.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-1 rounded-lg border t-border-light t-card z-50 shadow-lg overflow-hidden">
-                  {suggestions.map((s) => (
+                  {searchResults.map((s) => (
                     <button
                       key={s.code}
-                      onMouseDown={() => addRow(s)}
+                      onMouseDown={() => selectStock(s.code, s.name)}
                       className="w-full text-left px-3 py-2 text-[13px] t-text hover:bg-blue-500/10 transition flex items-center justify-between"
                     >
-                      <span>{s.name}</span>
-                      <span className="text-[11px] t-text-dim">{s.code} · {s.market}</span>
+                      <span className="font-medium">{s.name}</span>
+                      <span className="text-[11px] t-text-dim tabular-nums">{s.code}</span>
                     </button>
                   ))}
                 </div>
               )}
             </div>
           ) : (
-            <button
-              onClick={() => setSearching(true)}
-              className="w-full py-2 rounded-lg border t-border-light text-[13px] t-text-sub hover:t-text hover:border-blue-400 transition"
-            >
-              + 종목 추가
-            </button>
+            <div className="flex items-center justify-between rounded-lg px-3 py-2 border t-border-light" style={{ background: "var(--bg)" }}>
+              <div>
+                <span className="text-[13px] font-medium t-text">{selectedStock.name}</span>
+                <span className="ml-2 text-[11px] t-text-dim tabular-nums">{selectedStock.code}</span>
+                {priceSearching ? (
+                  <span className="ml-2 text-[11px] t-text-sub">현재가 조회 중...</span>
+                ) : livePrices[selectedStock.code] != null ? (
+                  <span className="ml-2 text-[11px] t-text-dim">
+                    현재가 <span className="font-semibold t-text">{fmtNum(livePrices[selectedStock.code])}원</span>
+                  </span>
+                ) : null}
+              </div>
+              <button onClick={resetForm} className="t-text-dim hover:t-text transition p-1" aria-label="다른 종목 선택">
+                <X size={14} />
+              </button>
+            </div>
           )}
 
-          {/* 종합 요약 */}
-          {summary && (
-            <div className="mt-3 rounded-lg border t-border-light p-3 space-y-1.5">
-              <div className="text-[12px] font-medium t-text mb-2">종합</div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                <div className="flex justify-between text-[12px]">
-                  <span className="t-text-dim">총 매수금</span>
-                  <span className="t-text tabular-nums">{fmtNum(summary.totalBuy)}원</span>
-                </div>
-                <div className="flex justify-between text-[12px]">
-                  <span className="t-text-dim">총 평가금</span>
-                  <span className="t-text tabular-nums">{fmtNum(summary.totalEval)}원</span>
-                </div>
-                <div className="flex justify-between text-[12px] col-span-2 border-t t-border-light pt-1.5 mt-0.5">
-                  <span className="t-text-dim font-medium">종합 수익률</span>
-                  <span className={`font-bold tabular-nums ${summary.rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                    {summary.rate >= 0 ? "+" : ""}{summary.rate.toFixed(2)}%
-                  </span>
-                </div>
-                <div className="flex justify-between text-[12px] col-span-2">
-                  <span className="t-text-dim">총 손익</span>
-                  <span className={`font-medium tabular-nums ${summary.profit >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                    {summary.profit >= 0 ? "+" : ""}{fmtNum(summary.profit)}원
-                  </span>
-                </div>
+          {/* 매수가 / 수량 입력 */}
+          {selectedStock && (
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-[11px] t-text-dim font-medium block">가정 매수가 (원)</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={assumedPrice}
+                  onChange={(e) => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
+                  placeholder={livePrices[selectedStock.code] != null ? fmtNum(livePrices[selectedStock.code]) : "매수가"}
+                  className="w-full rounded-md px-2 py-2 text-[13px] t-text bg-transparent border t-border-light focus:outline-none focus:border-blue-400 tabular-nums"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[11px] t-text-dim font-medium block">수량 (주)</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
+                  placeholder="수량"
+                  className="w-full rounded-md px-2 py-2 text-[13px] t-text bg-transparent border t-border-light focus:outline-none focus:border-blue-400 tabular-nums"
+                />
               </div>
             </div>
           )}
 
-          {/* 빈 상태 */}
-          {rows.length === 0 && !searching && (
-            <p className="text-center text-[12px] t-text-dim py-2">
-              종목을 추가하면 수익률을 계산합니다
-            </p>
+          {/* 미리보기 카드 */}
+          {preview && (
+            <div className="rounded-lg p-3 space-y-2" style={{ background: "var(--bg)" }}>
+              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[12px]">
+                <span className="t-text-dim">매수금액</span>
+                <span className="text-right font-medium tabular-nums t-text">{fmtNum(preview.invest)}원</span>
+                <span className="t-text-dim">평가금액</span>
+                <span className="text-right font-medium tabular-nums t-text">{fmtNum(preview.evalAmt)}원</span>
+                <span className="t-text-dim">손익</span>
+                <span className={`text-right font-semibold tabular-nums ${preview.profit >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                  {preview.profit >= 0 ? "+" : ""}{fmtNum(preview.profit)}원
+                </span>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t t-border-light">
+                <span className="text-[12px] t-text-dim">수익률</span>
+                <span className={`font-bold tabular-nums text-[13px] ${preview.rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                  {preview.rate >= 0 ? "+" : ""}{preview.rate.toFixed(2)}%
+                </span>
+              </div>
+            </div>
           )}
-        </>
+
+          {/* 추가 버튼 */}
+          {preview && (
+            <button
+              onClick={addItem}
+              className="w-full py-2.5 rounded-lg text-[13px] font-semibold bg-purple-500 hover:bg-purple-600 text-white transition"
+            >
+              누적 리스트에 추가
+            </button>
+          )}
+        </div>
+
+        {/* 2단계: 종합 카드 */}
+        {summary && (
+          <div className="rounded-xl border t-border-light p-4 mb-3">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[11px] font-semibold t-text-dim uppercase tracking-wider">
+                종합 · {summary.count}종목
+              </span>
+              <button
+                onClick={refresh}
+                disabled={refreshing}
+                className="t-text-dim hover:t-text transition p-1 disabled:opacity-50"
+                aria-label="현재가 새로고침"
+              >
+                <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
+              </button>
+            </div>
+            {/* KPI: 수익률 + 손익 */}
+            <div className="flex items-baseline justify-between mb-3 pb-3 border-b t-border-light">
+              <div>
+                <div className="text-[11px] t-text-dim mb-1">수익률</div>
+                <div className={`text-2xl font-bold tabular-nums leading-none ${summary.rate >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                  {summary.rate >= 0 ? "+" : ""}{summary.rate.toFixed(2)}<span className="text-base ml-0.5">%</span>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-[11px] t-text-dim mb-1">손익</div>
+                <div className={`text-[15px] font-semibold tabular-nums ${summary.profit >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                  {summary.profit >= 0 ? "+" : ""}{fmtNum(summary.profit)}원
+                </div>
+              </div>
+            </div>
+            {/* 매수 / 평가 */}
+            <div className="grid grid-cols-2 gap-2 text-[12px]">
+              <div className="space-y-0.5">
+                <div className="t-text-dim">매수</div>
+                <div className="font-medium tabular-nums t-text">{fmtNum(summary.totalInvest)}원</div>
+              </div>
+              <div className="space-y-0.5 text-right">
+                <div className="t-text-dim">평가</div>
+                <div className="font-medium tabular-nums t-text">{fmtNum(summary.totalEval)}원</div>
+              </div>
+            </div>
+            {!summary.evalAvailable && (
+              <div className="mt-2 text-[11px] t-text-dim flex items-center gap-1.5">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500" />
+                일부 종목 현재가 미수집 — 새로고침
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 3단계: 누적 리스트 */}
+        {items.length > 0 && (
+          <div className="rounded-xl border t-border-light p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[11px] font-semibold t-text-dim uppercase tracking-wider">누적 리스트</span>
+              <button
+                onClick={clearAll}
+                className="text-[11px] t-text-dim hover:text-red-400 transition"
+              >
+                전체 지우기
+              </button>
+            </div>
+            <ul className="divide-y" style={{ borderColor: "var(--border)" }}>
+              {items.map((it) => {
+                const cur = livePrices[it.code];
+                const invest = it.assumedPrice * it.quantity;
+                const evalAmt = cur != null ? cur * it.quantity : invest;
+                const profit = evalAmt - invest;
+                const rate = cur != null ? ((cur - it.assumedPrice) / it.assumedPrice) * 100 : 0;
+                const hasCur = cur != null;
+                return (
+                  <li key={it.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-semibold text-[13px] truncate t-text">{it.name}</span>
+                        <span className="text-[10px] t-text-dim tabular-nums shrink-0">{it.code}</span>
+                      </div>
+                      <div className="text-[11px] t-text-dim tabular-nums">
+                        <span className="font-medium t-text-sub">{fmtNum(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                        {hasCur && (
+                          <span className="ml-2 t-text-dim">현재 {fmtNum(cur)}원</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0 space-y-1">
+                      <div className={`text-[13px] font-bold tabular-nums leading-tight ${hasCur ? (profit >= 0 ? "text-red-500" : "text-blue-500") : "t-text-dim"}`}>
+                        {hasCur ? `${profit >= 0 ? "+" : ""}${fmtNum(profit)}원` : "—"}
+                      </div>
+                      <div className={`text-[10px] font-bold tabular-nums ${hasCur ? (rate >= 0 ? "text-red-500" : "text-blue-500") : "t-text-dim"}`}>
+                        {hasCur ? `${rate >= 0 ? "+" : ""}${rate.toFixed(2)}%` : "—"}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeItem(it.id)}
+                      className="t-text-dim hover:text-red-400 transition p-1.5 shrink-0"
+                      aria-label="삭제"
+                    >
+                      <X size={14} />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+
+        {/* 빈 상태 */}
+        {items.length === 0 && !preview && (
+          <div className="text-center text-[12px] t-text-dim py-6 rounded-lg border t-border-light">
+            종목을 검색하여 가정 매수가와 수량을 입력하면<br />수익률을 시뮬레이션할 수 있습니다
+          </div>
+        )}
       </div>
     </div>,
     document.body

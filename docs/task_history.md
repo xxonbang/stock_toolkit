@@ -2,6 +2,18 @@
 
 ## 2026-05-15
 
+### [개선] 주가 계산기 — theme-analyzer PaperCalcTab 구조로 2단계 리팩토링 (2026-05-15 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (전면 리팩토링, 441→338줄)
+- **참고:** `/Users/sonbyeongcheol/DEV/theme_analysis/frontend/src/components/PaperCalcTab.tsx`
+- **구조 변환:** 단일 행 즉시계산 → **2단계 (입력 영역 + 누적 리스트)**
+  - 입력 영역: 종목 검색 자동완성 → 선택(현재가 자동 조회/assumedPrice 기본값) → 매수가/수량 입력 → 미리보기 카드(매수금액/평가금액/손익/수익률) → "누적 리스트에 추가" 버튼
+  - 종합 카드: N종목 합산 (매수/평가/손익/수익률) + 새로고침 버튼
+  - 누적 리스트: 각 항목 표시 + 개별 삭제 X + "전체 지우기" 버튼
+- **현재가 조회:** `isAfterhoursKR()` true 시 Naver 우선, KIS 보완 — 모달 열릴 때 `isOpen` useEffect로 자동 새로고침
+- **영속화:** localStorage 키 `portfolio_calculator_rows_${user.id}` (사용자별 격리, AuthContext 활용)
+- **모달 props 무변경:** `{isOpen, onClose}` 인터페이스 유지 → Portfolio.tsx 무수정
+- **검증:** tsc OK, build 2.54s 성공
+
 ### [개선] 주가 계산기 → 편집 버튼 옆 단일 버튼 + 팝업 방식 (2026-05-15 KST)
 - **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx`, `frontend/src/pages/Portfolio.tsx`
 - **이유:** 인라인 펼치기/접기 섹션은 페이지 길이를 늘려 UX 저하 → 명시적 호출 시에만 노출
