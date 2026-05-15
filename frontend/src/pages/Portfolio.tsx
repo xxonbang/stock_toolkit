@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useOutletContext } from "react-router-dom";
 import {
-  BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink,
+  BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink, Calculator,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
@@ -432,7 +432,9 @@ export default function Portfolio() {
             className="text-[11px] px-2.5 py-1.5 rounded-xl border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
           <button onClick={() => setShowCalculator(true)}
             aria-label="주가 계산기" title="주가 계산기"
-            className="text-[14px] leading-none px-2 py-1.5 rounded-xl border border-purple-500/30 hover:bg-purple-500/10 transition">🧮</button>
+            className="p-2 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 transition">
+            <Calculator size={16} className="text-purple-500" />
+          </button>
         </div>
       </div>
       {/* 총 손익 요약 — 체크된 종목만 계산 */}
