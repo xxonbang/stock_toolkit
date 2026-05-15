@@ -59,7 +59,7 @@ async def update_ma200():
         tasks = []
         for code in batch:
             url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-            params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+            params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
             tasks.append(session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")))
 
         responses = await asyncio.gather(*tasks, return_exceptions=True)
@@ -77,7 +77,7 @@ async def update_ma200():
                         # rate limit — 1초 대기 후 재시도 1회
                         await asyncio.sleep(1)
                         retry_url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-                        retry_params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+                        retry_params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
                         async with session.get(retry_url, params=retry_params, headers=_order_headers(token, "FHKST01010100")) as retry_resp:
                             retry_data = await retry_resp.json()
                             if retry_data.get("rt_cd") == "0":

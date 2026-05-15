@@ -2,6 +2,28 @@
 
 ## 2026-05-15
 
+### [개선] daemon KIS 시세 시장구분 J → UN (KRX+NXT 통합, NXT 프리/애프터마켓 반영) (2026-05-15 KST)
+- **변경 파일:** `daemon/trader.py` (4건), `daemon/cttr_logger.py` (1건), `daemon/update_ma200.py` (2건)
+- **배경:** theme-analysis가 `kis-proxy` Edge Function을 J → UN으로 배포. frontend는 자동 적용. daemon Python 직접 호출만 남음
+- **실측 (005930 17:36 KST):** J=270,500(정규장 종가 고정), **UN=272,500(NXT 실시간)**. NXT 미상장(000020 등)은 자동 KRX 폴백 확인
+- **변경 7곳 (모두 `inquire-price` FHKST01010100):**
+  - trader.py:537 (_get_current_price), 1621 (거래대금 fallback), 2061 (가점 스코어링), 3745 (체결가 확인)
+  - cttr_logger.py:126
+  - update_ma200.py:62, 80 (stck_sdpr 전일 종가)
+- **유지 (J):**
+  - inquire-volume-rank (trader.py:1448) — 매수 후보 변동 우려
+  - inquire-asking-price (FHKST01010200, trader.py:1513, cttr_logger.py:31) — 호가잔량, 코드 적용 대상 아님
+  - inquire-daily-price (FHKST01010400, trader.py:1719/1987/2111) — 일봉 과거 데이터
+  - 일봉/백테스트/시뮬 — 과거 데이터
+- **효과:** EOD 청산 시 NXT 애프터마켓 가격 반영, 매수 직후 체결가 확인 정확도 ↑
+- **검증:** py_compile OK, pytest 87 passed
+
+### [개선] 누적 리스트 줄바꿈/정렬 개선 (2026-05-15 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (+11/-9)
+- **이슈:** 종목 정보와 현재가가 한 줄에 못 들어가 강제 wrap → 가독성 저하
+- **수정:** 매수정보/현재가 명시적 2줄 분리 + whitespace-nowrap, 손익 폰트 미세 축소
+- **검증:** tsc OK
+
 ### [기능] 주가 계산기 Supabase 공유 저장소 (paper_calc_history) — stock_toolkit 측 (2026-05-15 KST)
 - **변경 파일:** `docs/sql/2026-05-15-paper-calc-history.sql` (신규 SQL), `frontend/src/lib/supabase.ts` (+50줄), `frontend/src/components/portfolio/StockCalculator.tsx`
 - **목표:** stock_toolkit과 theme-analysis가 동일 Supabase 테이블에 저장 → 어디서 입력하든 양쪽이 공유 (우선 stock_toolkit만 적용, theme-analysis는 후속)

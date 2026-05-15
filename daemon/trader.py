@@ -534,7 +534,7 @@ async def is_upper_limit(code: str, price: int) -> bool:
     if not token:
         return False
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+    params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
     for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
         try:
             session = await get_session()
@@ -1618,7 +1618,7 @@ async def run_tv_scan_and_buy() -> int:
             try:
                 session = await get_session()
                 url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-                params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+                params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
                 async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
                     data = await resp.json()
                     if data.get("rt_cd") != "0": return None
@@ -2058,7 +2058,7 @@ async def run_gapup_scan_and_buy(require_volume: bool = False, sim_only: bool = 
             try:
                 session = await get_session()
                 url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-                params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+                params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
                 async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
                     data = await resp.json()
                     if data.get("rt_cd") != "0":
@@ -3742,7 +3742,7 @@ async def _get_current_price(code: str) -> int:
     if not token:
         return 0
     url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-    params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+    params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
     for attempt in range(1, _RATE_LIMIT_RETRIES + 1):
         try:
             session = await get_session()

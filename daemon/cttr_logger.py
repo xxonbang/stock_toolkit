@@ -123,7 +123,7 @@ async def update_final_pnl() -> None:
             continue
         try:
             url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price"
-            params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code}
+            params = {"FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code}
             async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010100")) as resp:
                 d = await resp.json()
                 if d.get("rt_cd") == "0":
