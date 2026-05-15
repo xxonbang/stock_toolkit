@@ -2,6 +2,18 @@
 
 ## 2026-05-15
 
+### [기능] 주가 계산기 Supabase 공유 저장소 (paper_calc_history) — stock_toolkit 측 (2026-05-15 KST)
+- **변경 파일:** `docs/sql/2026-05-15-paper-calc-history.sql` (신규 SQL), `frontend/src/lib/supabase.ts` (+50줄), `frontend/src/components/portfolio/StockCalculator.tsx`
+- **목표:** stock_toolkit과 theme-analysis가 동일 Supabase 테이블에 저장 → 어디서 입력하든 양쪽이 공유 (우선 stock_toolkit만 적용, theme-analysis는 후속)
+- **스키마:** `paper_calc_history (user_id uuid PK, tabs jsonb, active_tab_id text, updated_at)` — RLS `auth.uid() = user_id` + updated_at 자동 트리거. user 1행 = 전체 상태(JSONB)
+- **frontend:** `fetchPaperCalcHistory()` + `savePaperCalcHistory(state)` 추가. StockCalculator에서:
+  - 모달 열릴 때(`isOpen` true 전환) Supabase fetch → 원격 데이터 있으면 state 덮어쓰기 (새로고침/재오픈마다 sync)
+  - tabs/activeTabId 변경 시 localStorage 즉시 백업 + Supabase 500ms debounce upsert
+  - `hasFetchedRef`로 fetch 전 save 방지 (서버 데이터 덮어쓰기 방지)
+- **localStorage:** `portfolio_calculator_tabs_${user.id}` 유지(오프라인 fallback)
+- **사용자 액션 필요:** Supabase Console에서 `docs/sql/2026-05-15-paper-calc-history.sql` 실행하여 테이블 생성
+- **검증:** tsc OK, build 성공
+
 ### [개선] 주가 계산기 탭 — 보라색 제거 + 펜 아이콘 편집 (2026-05-15 KST)
 - **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx`
 - **이슈:** 활성 탭 보라 강조가 디자인과 안 맞음(사용자 피드백 "촌스러움") + 이름 편집은 더블클릭 외에 발견하기 어려운 UX

@@ -322,6 +322,61 @@ export async function deleteTransactions(ids: string[]): Promise<boolean> {
   return true;
 }
 
+/** 주가 계산기 시나리오 공유 저장소 (paper_calc_history)
+ *  user_id 1행 = 전체 상태(JSONB). 새로고침 시 fetch, 변경 시 upsert.
+ *  theme-analysis와 동일 테이블을 사용해 공유. */
+export interface PaperCalcSavedItem {
+  id: string;
+  code: string;
+  name: string;
+  assumedPrice: number;
+  quantity: number;
+  addedAt: string;
+}
+export interface PaperCalcScenarioTab {
+  id: string;
+  name: string;
+  items: PaperCalcSavedItem[];
+}
+export interface PaperCalcState {
+  tabs: PaperCalcScenarioTab[];
+  activeTabId: string;
+}
+
+export async function fetchPaperCalcHistory(): Promise<PaperCalcState | null> {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+    const { data, error } = await supabase
+      .from("paper_calc_history")
+      .select("tabs, active_tab_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (error) { console.error("paper_calc_history 조회 실패:", error.message); return null; }
+    if (!data) return null;
+    const tabs = Array.isArray(data.tabs) ? (data.tabs as PaperCalcScenarioTab[]) : [];
+    return { tabs, activeTabId: (data.active_tab_id as string) || "" };
+  } catch (e) {
+    console.error("paper_calc_history 조회 오류:", e);
+    return null;
+  }
+}
+
+export async function savePaperCalcHistory(state: PaperCalcState): Promise<boolean> {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return false;
+    const { error } = await supabase
+      .from("paper_calc_history")
+      .upsert({ user_id: user.id, tabs: state.tabs, active_tab_id: state.activeTabId }, { onConflict: "user_id" });
+    if (error) { console.error("paper_calc_history 저장 실패:", error.message); return false; }
+    return true;
+  } catch (e) {
+    console.error("paper_calc_history 저장 오류:", e);
+    return false;
+  }
+}
+
 /** 전략 시뮬레이션 데이터 조회 */
 export async function getStrategySimulations(): Promise<any[]> {
   try {

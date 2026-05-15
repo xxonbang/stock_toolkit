@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Pencil, Plus, RefreshCw, Search, X } from "lucide-react";
-import { fetchKisPrices } from "../../lib/supabase";
+import { fetchKisPrices, fetchPaperCalcHistory, savePaperCalcHistory } from "../../lib/supabase";
 import { fetchNaverQuotes, isAfterhoursKR } from "../../lib/naver";
 import { useAuth } from "../../lib/AuthContext";
 
@@ -143,18 +143,41 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
   const [quantity, setQuantity] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // localStorage 저장 (tabs + activeTabId)
+  // localStorage 저장 + Supabase 동기화 (paper_calc_history 공유)
+  // Supabase는 모달 열기 시 fetch 후에만 save 활성화 (서버 데이터 fetch 전 덮어쓰기 방지)
+  const hasFetchedRef = useRef(false);
+
+  // 모달 열릴 때 Supabase fetch (theme-analysis와 공유, 새로고침/재오픈 시마다)
   useEffect(() => {
+    if (!isOpen) { hasFetchedRef.current = false; return; }
+    if (!user) { hasFetchedRef.current = true; return; }
+    let cancelled = false;
+    fetchPaperCalcHistory().then((remote) => {
+      if (cancelled) return;
+      if (remote && remote.tabs.length > 0) {
+        setTabs(remote.tabs);
+        if (remote.activeTabId) setActiveTabId(remote.activeTabId);
+      }
+      hasFetchedRef.current = true;
+    });
+    return () => { cancelled = true; };
+  }, [isOpen, user?.id]);
+
+  useEffect(() => {
+    // localStorage는 항상 즉시 백업
     try {
       localStorage.setItem(tabsKey, JSON.stringify({ tabs, activeTabId: resolvedActiveTabId }));
-      // 마이그레이션 완료 시 기존 키 제거
-      if (localStorage.getItem(legacyKey)) {
-        localStorage.removeItem(legacyKey);
-      }
+      if (localStorage.getItem(legacyKey)) localStorage.removeItem(legacyKey);
     } catch {
       // ignore
     }
-  }, [tabs, resolvedActiveTabId, tabsKey, legacyKey]);
+    // Supabase는 fetch 후에만 + debounce 500ms
+    if (!user || !hasFetchedRef.current) return;
+    const timer = setTimeout(() => {
+      savePaperCalcHistory({ tabs, activeTabId: resolvedActiveTabId });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [tabs, resolvedActiveTabId, tabsKey, legacyKey, user?.id]);
 
   // tabs가 0개로 비면 시나리오 1 자동 생성
   useEffect(() => {
