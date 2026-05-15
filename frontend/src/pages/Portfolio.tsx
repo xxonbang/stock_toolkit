@@ -8,6 +8,7 @@ import { dataService } from "../services/dataService";
 import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
 import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, setAccessToken, STORAGE_KEY, insertTransactions, deleteTransactions, fetchTransactionsForHolding } from "../lib/supabase";
 import type { PortfolioHolding, PortfolioTransaction, KisStockPrice } from "../lib/supabase";
+import StockCalculator from "../components/portfolio/StockCalculator";
 
 function Badge({ children, variant = "default" }: { children: React.ReactNode; variant?: string }) {
   const cls: Record<string, string> = {
@@ -823,6 +824,7 @@ export default function Portfolio() {
       </>);
       })()}
     </section>
+    <StockCalculator />
     {/* 포트폴리오 편집 모달 */}
     {showPortfolioEdit && (
       <div className="fixed inset-0 z-[60]" onClick={() => setShowPortfolioEdit(false)}>

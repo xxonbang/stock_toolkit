@@ -1,5 +1,15 @@
 # Task History
 
+## 2026-05-15
+
+### [기능] 포트폴리오 주가 계산기 신규 추가 (2026-05-15 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (신규 431줄), `frontend/src/pages/Portfolio.tsx` (+2줄)
+- **기능:** 종목 선정(stock-master 자동완성) → 현재가 자동 로드 → 매수가/수량 입력 → 종목별 수익률·손익 + **종합 수익률** 계산. 여러 종목 동시 가능.
+- **현재가 조회:** `isAfterhoursKR()` true 시 `fetchNaverQuotes()` 우선 → KIS `fetchKisPrices()` 보완. 자동 폴링 없음(추가 조회는 새로고침 버튼)
+- **영속화:** localStorage `portfolio_calculator_rows` 키에 `{code, name, buyPrice, quantity}` 저장, 행 변경 시 자동 저장 + mount 시 복원
+- **UI:** 양수 빨강/음수 파랑(한국 관습), 펼치기/접기 토글, 종합 카드(총매수금/총평가금/종합수익률/총손익), 보유 종목 카드 아래 배치
+- **검증:** tsc OK, build 2.46s 성공. surgical change — Portfolio.tsx에 import 1줄 + JSX 1줄만 추가
+
 ## 2026-05-14
 
 ### [개선] 종목명 클릭 외부 링크를 네이버 증권 → 토스증권 주문화면으로 변경 (2026-05-14 KST)
