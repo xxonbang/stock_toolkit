@@ -647,30 +647,32 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
                 const rate = cur != null ? ((cur - it.assumedPrice) / it.assumedPrice) * 100 : 0;
                 const hasCur = cur != null;
                 return (
-                  <li key={it.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                  <li key={it.id} className="flex items-center gap-2 py-3 first:pt-0 last:pb-0">
                     <div className="min-w-0 flex-1 space-y-1">
-                      <div className="flex items-baseline gap-2">
+                      <div className="flex items-baseline gap-1.5 min-w-0">
                         <span className="font-semibold text-[13px] truncate t-text">{it.name}</span>
                         <span className="text-[10px] t-text-dim tabular-nums shrink-0">{it.code}</span>
                       </div>
-                      <div className="text-[11px] t-text-dim tabular-nums">
-                        <span className="font-medium t-text-sub">{fmtNum(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                      <div className="text-[11px] t-text-dim tabular-nums space-y-0.5">
+                        <div className="whitespace-nowrap">
+                          매수 <span className="font-medium t-text-sub">{fmtNum(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                        </div>
                         {hasCur && (
-                          <span className="ml-2 t-text-dim">현재 {fmtNum(cur)}원</span>
+                          <div className="whitespace-nowrap">현재가 {fmtNum(cur)}원</div>
                         )}
                       </div>
                     </div>
-                    <div className="text-right shrink-0 space-y-1">
-                      <div className={`text-[13px] font-bold tabular-nums leading-tight ${hasCur ? (profit >= 0 ? "text-red-500" : "text-blue-500") : "t-text-dim"}`}>
+                    <div className="text-right shrink-0">
+                      <div className={`text-[12px] font-bold tabular-nums whitespace-nowrap leading-tight ${hasCur ? (profit >= 0 ? "text-red-500" : "text-blue-500") : "t-text-dim"}`}>
                         {hasCur ? `${profit >= 0 ? "+" : ""}${fmtNum(profit)}원` : "—"}
                       </div>
-                      <div className={`text-[10px] font-bold tabular-nums ${hasCur ? (rate >= 0 ? "text-red-500" : "text-blue-500") : "t-text-dim"}`}>
+                      <div className={`text-[10px] font-bold tabular-nums mt-0.5 whitespace-nowrap ${hasCur ? (rate >= 0 ? "text-red-500" : "text-blue-500") : "t-text-dim"}`}>
                         {hasCur ? `${rate >= 0 ? "+" : ""}${rate.toFixed(2)}%` : "—"}
                       </div>
                     </div>
                     <button
                       onClick={() => removeItem(it.id)}
-                      className="t-text-dim hover:text-red-400 transition p-1.5 shrink-0"
+                      className="t-text-dim hover:text-red-400 transition p-1 shrink-0"
                       aria-label="삭제"
                     >
                       <X size={14} />
