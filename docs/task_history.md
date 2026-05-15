@@ -2,6 +2,14 @@
 
 ## 2026-05-15
 
+### [개선] 주가 계산기 → 편집 버튼 옆 단일 버튼 + 팝업 방식 (2026-05-15 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx`, `frontend/src/pages/Portfolio.tsx`
+- **이유:** 인라인 펼치기/접기 섹션은 페이지 길이를 늘려 UX 저하 → 명시적 호출 시에만 노출
+- **내용:**
+  - `StockCalculator` 컴포넌트: `Props {isOpen, onClose}` 받는 controlled 모달로 변환. `createPortal` + backdrop + 닫기 X 버튼. 펼치기/접기 토글 제거(모달 자체가 호출 단위)
+  - Portfolio.tsx: 편집 버튼 우측에 보라색 "계산기" 버튼 추가. `showCalculator` state로 모달 제어. `anyModalOpen`에 포함하여 body scroll lock 통합
+- **검증:** tsc OK, build 2.28s 성공
+
 ### [기능] 포트폴리오 주가 계산기 신규 추가 (2026-05-15 KST)
 - **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (신규 431줄), `frontend/src/pages/Portfolio.tsx` (+2줄)
 - **기능:** 종목 선정(stock-master 자동완성) → 현재가 자동 로드 → 매수가/수량 입력 → 종목별 수익률·손익 + **종합 수익률** 계산. 여러 종목 동시 가능.

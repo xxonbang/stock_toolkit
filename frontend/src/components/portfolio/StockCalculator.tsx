@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronUp, RefreshCw, X } from "lucide-react";
+import { createPortal } from "react-dom";
+import { RefreshCw, X } from "lucide-react";
 import { fetchKisPrices } from "../../lib/supabase";
 import { fetchNaverQuotes, isAfterhoursKR } from "../../lib/naver";
 
@@ -94,8 +95,12 @@ function fmtNum(n: number): string {
   return n.toLocaleString("ko-KR");
 }
 
-export default function StockCalculator() {
-  const [open, setOpen] = useState(true);
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function StockCalculator({ isOpen, onClose }: Props) {
   const [rows, setRows] = useState<CalcRow[]>(() => loadRows());
 
   // 검색 관련
@@ -233,40 +238,44 @@ export default function StockCalculator() {
     return { totalBuy, totalEval, profit, rate };
   })();
 
-  return (
-    <section className="t-card rounded-xl p-4 mt-3">
-      {/* 헤더 */}
-      <div className="flex items-center justify-between mb-3">
-        <button
-          className="flex items-center gap-1.5 t-text font-semibold text-[14px]"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-          주가 계산기
-        </button>
-        <div className="flex items-center gap-2">
-          {rows.length > 0 && (
-            <button
-              onClick={refreshPrices}
-              className="flex items-center gap-1 text-[12px] t-text-dim hover:t-text transition"
-              title="현재가 새로고침"
-            >
-              <RefreshCw size={12} />
-              새로고침
-            </button>
-          )}
-          {rows.length > 0 && (
-            <button
-              onClick={resetAll}
-              className="text-[12px] text-red-400 hover:text-red-300 transition"
-            >
-              전체 초기화
-            </button>
-          )}
-        </div>
-      </div>
+  if (!isOpen) return null;
 
-      {open && (
+  return createPortal(
+    <div className="fixed inset-0 z-[9999]" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+      <div
+        className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-4 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 헤더 */}
+        <div className="flex items-center justify-between mb-3">
+          <span className="t-text font-semibold text-[14px]">주가 계산기</span>
+          <div className="flex items-center gap-2">
+            {rows.length > 0 && (
+              <button
+                onClick={refreshPrices}
+                className="flex items-center gap-1 text-[12px] t-text-dim hover:t-text transition"
+                title="현재가 새로고침"
+              >
+                <RefreshCw size={12} />
+                새로고침
+              </button>
+            )}
+            {rows.length > 0 && (
+              <button
+                onClick={resetAll}
+                className="text-[12px] text-red-400 hover:text-red-300 transition"
+              >
+                전체 초기화
+              </button>
+            )}
+            <button onClick={onClose} className="p-1 t-text-dim hover:t-text transition" aria-label="닫기">
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+
         <>
           {/* 종목 행 목록 */}
           <div className="space-y-2 mb-3">
@@ -425,7 +434,8 @@ export default function StockCalculator() {
             </p>
           )}
         </>
-      )}
-    </section>
+      </div>
+    </div>,
+    document.body
   );
 }

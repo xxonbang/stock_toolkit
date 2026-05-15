@@ -53,6 +53,7 @@ export default function Portfolio() {
   dbHoldingsRef.current = dbHoldings;
   const [dbLoading, setDbLoading] = useState(false);
   const [showPortfolioEdit, setShowPortfolioEdit] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
   const [editHoldings, setEditHoldings] = useState<any[]>([]);
   const [priceRefreshing, setPriceRefreshing] = useState(false);
   const [livePriceTime, setLivePriceTime] = useState("");
@@ -83,7 +84,7 @@ export default function Portfolio() {
   const [afterhoursCodes, setAfterhoursCodes] = useState<Set<string>>(new Set());
 
   // 모달 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(showPortfolioEdit);
+  const anyModalOpen = !!(showPortfolioEdit || showCalculator);
   useEffect(() => {
     document.body.style.overflow = anyModalOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -429,6 +430,8 @@ export default function Portfolio() {
             setShowPortfolioEdit(true);
           }}
             className="text-[11px] px-2.5 py-1.5 rounded-xl border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition font-medium">편집</button>
+          <button onClick={() => setShowCalculator(true)}
+            className="text-[11px] px-2.5 py-1.5 rounded-xl border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 transition font-medium">계산기</button>
         </div>
       </div>
       {/* 총 손익 요약 — 체크된 종목만 계산 */}
@@ -824,7 +827,7 @@ export default function Portfolio() {
       </>);
       })()}
     </section>
-    <StockCalculator />
+    <StockCalculator isOpen={showCalculator} onClose={() => setShowCalculator(false)} />
     {/* 포트폴리오 편집 모달 */}
     {showPortfolioEdit && (
       <div className="fixed inset-0 z-[60]" onClick={() => setShowPortfolioEdit(false)}>
