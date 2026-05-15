@@ -2,6 +2,25 @@
 
 ## 2026-05-15
 
+### [개선] 주가 계산기 탭 — 보라색 제거 + 펜 아이콘 편집 (2026-05-15 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx`
+- **이슈:** 활성 탭 보라 강조가 디자인과 안 맞음(사용자 피드백 "촌스러움") + 이름 편집은 더블클릭 외에 발견하기 어려운 UX
+- **내용:**
+  - 활성 탭 색상: `bg-purple-500/20 text-purple-400 border-purple-500/40` → `t-card-alt t-text font-semibold border t-border-light` (무채색 + 굵은 폰트 절제된 강조)
+  - 편집 input 색상: purple → `t-text + t-border-light` 일관성
+  - 활성 탭에 lucide `Pencil`(size=10) 아이콘 추가 → 클릭 시 편집 진입(더블클릭과 병행)
+- **검증:** tsc OK
+
+### [기능] 주가 계산기 — 시나리오 탭 기능 추가 (2026-05-15 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (482→662줄, +180줄)
+- **기능:** `ScenarioTab` 인터페이스 + `tabs`/`activeTabId` state로 다중 시나리오 관리. 탭 바(헤더 아래)에 가로 스크롤, `+` 추가/X 삭제(2개+), 더블클릭+펜 아이콘 인라인 편집
+- **localStorage:** 새 키 `portfolio_calculator_tabs_${user.id}` (`{ tabs, activeTabId }`). 기존 `portfolio_calculator_rows_${user.id}` → 시나리오 1로 자동 마이그레이션 + 기존 키 삭제
+- **탭 전환 시:** 새 탭 items 중 미수집 코드만 fetchPrices
+- **Portfolio.tsx 무수정** (props 인터페이스 보존)
+- **검증:** tsc OK, build 2.09s 성공
+
+
+
 ### [개선] 주가 계산기 — theme-analyzer PaperCalcTab 구조로 2단계 리팩토링 (2026-05-15 KST)
 - **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (전면 리팩토링, 441→338줄)
 - **참고:** `/Users/sonbyeongcheol/DEV/theme_analysis/frontend/src/components/PaperCalcTab.tsx`
