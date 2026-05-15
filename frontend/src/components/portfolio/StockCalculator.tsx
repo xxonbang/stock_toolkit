@@ -244,8 +244,7 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
     <div className="fixed inset-0 z-[9999]" onClick={onClose}>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
       <div
-        className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] overflow-y-auto rounded-t-2xl t-card border-t t-border-light p-4 sm:max-w-lg sm:mx-auto sm:rounded-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 anim-slide-up sm:anim-scale-in"
-        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }}
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[61] w-[calc(100%-2rem)] max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl t-card border t-border-light p-4 anim-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 헤더 */}
