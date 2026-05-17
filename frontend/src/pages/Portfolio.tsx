@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useOutletContext } from "react-router-dom";
 import {
-  BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink, Calculator,
+  BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink, Calculator, TrendingUp, Clock,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
@@ -955,7 +955,10 @@ export default function Portfolio() {
 
           {/* VWAP */}
           <div className="mb-4">
-            <div className="text-[13px] font-semibold t-text mb-1">📊 VWAP — 거래량 가중 평균가</div>
+            <div className="text-[13px] font-semibold t-text mb-1 flex items-center gap-1.5">
+              <BarChart3 size={14} className="text-emerald-500" />
+              VWAP — 거래량 가중 평균가
+            </div>
             <div className="text-[12px] t-text-sub leading-relaxed">
               오늘 시장 참가자들의 평균 매수가. <br />
               <span className="font-mono text-[11px] t-text-dim">VWAP = 누적 거래대금 ÷ 누적 거래량</span>
@@ -968,7 +971,10 @@ export default function Portfolio() {
 
           {/* RVOL */}
           <div className="mb-4">
-            <div className="text-[13px] font-semibold t-text mb-1">📈 RVOL — 상대 거래량</div>
+            <div className="text-[13px] font-semibold t-text mb-1 flex items-center gap-1.5">
+              <TrendingUp size={14} className="text-red-500" />
+              RVOL — 상대 거래량
+            </div>
             <div className="text-[12px] t-text-sub leading-relaxed">
               지금까지의 거래량이 평소 대비 몇 배인지. <br />
               <span className="font-mono text-[11px] t-text-dim">RVOL = 현재 누적 거래량 ÷ (20일 평균 × 경과시간/390분)</span>
@@ -983,7 +989,10 @@ export default function Portfolio() {
 
           {/* 마이그레이션 일정 */}
           <div className="rounded-lg border t-border-light p-3 mb-1" style={{ background: "var(--bg)" }}>
-            <div className="text-[11px] font-semibold t-text mb-1.5">⏱ 마이그레이션 일정 (NXT 통합)</div>
+            <div className="text-[11px] font-semibold t-text mb-1.5 flex items-center gap-1.5">
+              <Clock size={12} className="t-text-sub" />
+              마이그레이션 일정 (NXT 통합)
+            </div>
             <div className="text-[10px] t-text-sub leading-relaxed">
               KIS NXT(애프터마켓) 시장 통합으로 거래량 데이터 정합화 중:
             </div>
