@@ -45,6 +45,7 @@ export const dataService = {
   getIndicatorHistory: () => fetchJson<any>("indicator_history.json"),
   getStockMaster: () => fetchJson<any>("stock-master.json"),
   getVolumeAvg20d: () => fetchJson<Record<string, number>>("volume_avg_20d.json"),
+  getVolume30dHistory: () => fetchJson<Record<string, number[]>>("volume_30d_history.json"),
   getConsecutiveSignals: () => fetchJson<any>("consecutive_signals.json"),
   getNewsTop3: () => fetchJson<any>("news_top3_latest.json"),
   getNewsTop3Index: () => fetchJson<{ generated_at: string; count: number; history: { filename: string; kst: string }[] }>("news_top3_index.json"),

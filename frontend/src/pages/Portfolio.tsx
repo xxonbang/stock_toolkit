@@ -74,6 +74,26 @@ function rvolUseUnVolume(): boolean {
   return businessDays >= 20;
 }
 
+/** 30일 거래량 순위 계산 — 종목 자신의 지난 30일 거래량 중 오늘 위치 (1위=최고).
+ *  반환: { rank: N위, total: 30, percentile: 상위 P% } 또는 null.
+ *  - 0 값은 거래정지/신규상장 보정 위해 필터링 (오늘 1주만 거래해도 1위 되는 왜곡 방지)
+ *  - history 길이 < 10이면 표본 부족으로 null 반환 */
+function calcVolumeRank30(
+  currentVol: number | undefined,
+  history: number[] | undefined,
+): { rank: number; total: number; percentile: number } | null {
+  if (!currentVol || currentVol <= 0 || !history || history.length === 0) return null;
+  // 0 값 필터 (거래정지/신규상장 종목 보정)
+  const cleaned = history.filter((v) => v > 0);
+  if (cleaned.length < 10) return null;  // 표본 너무 적으면 순위 의미 약함
+  const all = [...cleaned, currentVol];
+  const sorted = [...all].sort((a, b) => b - a); // 큰 값 순
+  const rank = sorted.findIndex((v) => v === currentVol) + 1; // 1-based
+  const total = all.length;
+  const percentile = (rank / total) * 100; // 상위 N%
+  return { rank, total, percentile };
+}
+
 /** VWAP/RVOL 계산. trading_value 또는 avg20d 없으면 해당 값 null. */
 function calcVwapRvol(
   kisInfo: KisStockPrice | undefined,
@@ -132,6 +152,8 @@ export default function Portfolio() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [allStockList, setAllStockList] = useState<any[]>([]);
   const [volumeAvg20d, setVolumeAvg20d] = useState<Record<string, number>>({});
+  const [volume30dHistory, setVolume30dHistory] = useState<Record<string, number[]>>({});
+  const [showRank30Help, setShowRank30Help] = useState(false);
   const [avgDownTarget, setAvgDownTarget] = useState<any>(null);
   const [avgDownPrice, setAvgDownPrice] = useState("");
   const [avgDownQty, setAvgDownQty] = useState("");
@@ -150,7 +172,7 @@ export default function Portfolio() {
   const [afterhoursCodes, setAfterhoursCodes] = useState<Set<string>>(new Set());
 
   // 모달 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(showPortfolioEdit || showCalculator || showVwapRvolHelp);
+  const anyModalOpen = !!(showPortfolioEdit || showCalculator || showVwapRvolHelp || showRank30Help);
   useEffect(() => {
     document.body.style.overflow = anyModalOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -348,6 +370,11 @@ export default function Portfolio() {
   // 20일 평균 거래량 로드 (RVOL 계산용)
   useEffect(() => {
     dataService.getVolumeAvg20d().then((m) => { if (m) setVolumeAvg20d(m); }).catch(() => {});
+  }, []);
+
+  // 30일 거래량 히스토리 로드 (30일 순위용)
+  useEffect(() => {
+    dataService.getVolume30dHistory().then((m) => { if (m) setVolume30dHistory(m); }).catch(() => {});
   }, []);
 
   // 로그인 상태 시 DB에서 보유 종목 로드
@@ -571,6 +598,9 @@ export default function Portfolio() {
           const isExpanded = expandedCode === h.code;
           const kisInfo = kisFullData.current[h.code];
           const { vwap, vwapDiffPct, rvol } = calcVwapRvol(kisInfo, h.current_price, volumeAvg20d[h.code]);
+          const useUn = rvolUseUnVolume();
+          const todayVol = useUn ? kisInfo?.volume : (kisInfo?.volume_krx ?? kisInfo?.volume);
+          const rank30 = calcVolumeRank30(todayVol, volume30dHistory[h.code]);
           // 52주 위치 계산
           const w52High = kisInfo?.w52_hgpr ?? 0;
           const w52Low = kisInfo?.w52_lwpr ?? 0;
@@ -688,6 +718,21 @@ export default function Portfolio() {
                         </span>
                       </span>
                     )}
+                  </div>
+                )}
+                {rank30 != null && (
+                  <div className="flex items-center justify-between px-3 py-1" style={{ borderTop: "1px solid var(--border-light)" }}>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setShowRank30Help(true); }}
+                      className="flex items-center gap-0.5 t-text-dim hover:t-text transition"
+                      title="30일 순위 설명"
+                    >
+                      30일 순위
+                      <HelpCircle size={10} />
+                    </button>
+                    <span className={`tabular-nums ${rank30.rank <= 3 ? "text-red-500 font-semibold" : rank30.percentile <= 10 ? "text-orange-500" : rank30.percentile <= 50 ? "t-text" : "t-text-dim"}`}>
+                      {rank30.rank}위 / {rank30.total}일 (상위 {rank30.percentile.toFixed(0)}%)
+                    </span>
                   </div>
                 )}
               </div>
@@ -1008,6 +1053,41 @@ export default function Portfolio() {
             </div>
             <div className="mt-2 text-[10px] t-text-dim">
               ※ 마이그레이션 기간 중 RVOL이 점진적으로 약간 낮게 표시될 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )}
+    {/* 30일 순위 설명 팝업 */}
+    {showRank30Help && createPortal(
+      <div className="fixed inset-0 z-[9999]" onClick={() => setShowRank30Help(false)}>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+        <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000] w-[calc(100%-2rem)] max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl t-card border t-border-light p-5 anim-scale-in"
+          onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center justify-between mb-3">
+            <span className="t-text font-semibold text-[15px] flex items-center gap-1.5">
+              <BarChart3 size={14} className="text-orange-500" />
+              30일 순위
+            </span>
+            <button onClick={() => setShowRank30Help(false)} className="p-1 t-text-dim hover:t-text transition" aria-label="닫기">
+              <X size={16} />
+            </button>
+          </div>
+          <div className="text-[12px] t-text-sub leading-relaxed mb-3">
+            이 종목 자기 자신의 지난 30거래일 거래량 중 오늘의 위치 <span className="t-text-dim">(다른 종목과 비교 X)</span>.
+          </div>
+          <ul className="space-y-1.5 text-[11px] t-text-sub mb-3">
+            <li><span className="text-red-500 font-semibold">1위</span> = 30일 중 거래량 최고 (역대급 이슈)</li>
+            <li><span className="text-orange-500 font-semibold">상위 10%</span> — 매우 활발 (~3등 내)</li>
+            <li><span className="t-text font-semibold">상위 50%</span> — 평소 수준</li>
+            <li><span className="t-text-dim">상위 90%</span> — 매우 한산</li>
+          </ul>
+          <div className="rounded-lg border t-border-light p-3" style={{ background: "var(--bg)" }}>
+            <div className="text-[11px] font-semibold t-text mb-1.5">💡 RVOL 함정 검증</div>
+            <div className="text-[11px] t-text-sub leading-relaxed">
+              RVOL +200%인데 30일 순위가 평범하면 → 20일 평균이 우연히 낮았던 것 (가짜).
+              30일 순위도 상위면 진짜 폭증.
             </div>
           </div>
         </div>

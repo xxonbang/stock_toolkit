@@ -13,6 +13,8 @@ results/*
 !results/news_top3_history/**
 # 20일 평균 거래량 (frontend RVOL 계산용, 44KB)
 !results/volume_avg_20d.json
+# 30일 거래량 히스토리 (frontend 30일 순위 계산용, 597KB)
+!results/volume_30d_history.json
 .worktrees/
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
