@@ -315,6 +315,12 @@ async def schedule_ma200_update():
                     try:
                         from daemon.update_daily_ohlcv import update_daily_ohlcv
                         await update_daily_ohlcv()
+                        # daily_ohlcv 갱신 직후 volume 파생 파일 생성 + main에 push (frontend RVOL/30일 순위용)
+                        try:
+                            from daemon.publish_volume_files import publish_volume_files
+                            await publish_volume_files()
+                        except Exception as e:
+                            logger.warning(f"volume 파생 파일 publish 오류: {e}")
                     except Exception as e:
                         logger.warning(f"daily_ohlcv 증분 갱신 오류: {e}")
                 # 캐시 리로드 (메모리 캐시 무효화)
