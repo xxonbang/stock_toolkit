@@ -39,6 +39,7 @@ export interface KisStockPrice {
   change_rate: number;
   change_amount: number;
   volume: number;
+  volume_krx?: number;  // KRX 단독 거래량 (RVOL 분자, daily_ohlcv UN 마이그레이션 완료 전까지)
   trading_value?: number;  // 누적 거래대금 (VWAP = trading_value / volume)
   market_cap?: number;
   w52_hgpr: number;

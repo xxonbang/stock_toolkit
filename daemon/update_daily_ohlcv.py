@@ -69,7 +69,9 @@ async def update_daily_ohlcv():
         try:
             url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
             params = {
-                "FID_COND_MRKT_DIV_CODE": "J",
+                # UN(KRX+NXT 통합) — RVOL 분자(현재가 응답)와 시장 범위 일치 위해 변경(2026-05-17).
+                # 마이그레이션 후 영업일 20일 경과 시 frontend가 volume_krx → volume로 자동 전환.
+                "FID_COND_MRKT_DIV_CODE": "UN",
                 "FID_INPUT_ISCD": code,
                 "FID_PERIOD_DIV_CODE": "D",
                 "FID_ORG_ADJ_PRC": "0",

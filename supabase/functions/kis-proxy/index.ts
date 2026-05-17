@@ -64,15 +64,28 @@ function kisHeaders(creds: KisCredentials, trId: string): Record<string, string>
 }
 
 async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {
-  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=UN&FID_INPUT_ISCD=${code}`
-  const res = await fetch(url, { headers: kisHeaders(creds, "FHKST01010100") })
+  // UN(KRX+NXT 통합) — VWAP, 현재가, 등락률 등에 사용
+  const urlUn = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=UN&FID_INPUT_ISCD=${code}`
+  const res = await fetch(urlUn, { headers: kisHeaders(creds, "FHKST01010100") })
   const data = await res.json()
 
   if (data.rt_cd !== "0") {
     return { price: null, errorMsg: data.msg1 || `rt_cd=${data.rt_cd}` }
   }
-
   const o = data.output
+
+  // J(KRX 단독) — RVOL 분자(KRX-only volume)용. 일봉 평균과 시장 범위 일치(20일 평균은 KRX 일봉 기준).
+  // 호출 실패 시 UN 값으로 fallback.
+  let volumeKrx = parseInt(o.acml_vol) || 0
+  try {
+    const urlJ = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}`
+    const resJ = await fetch(urlJ, { headers: kisHeaders(creds, "FHKST01010100") })
+    const dataJ = await resJ.json()
+    if (dataJ.rt_cd === "0" && dataJ.output) {
+      volumeKrx = parseInt(dataJ.output.acml_vol) || volumeKrx
+    }
+  } catch { /* fallback to UN volume */ }
+
   return {
     price: {
       code,
@@ -81,6 +94,7 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
       change_rate: parseFloat(o.prdy_ctrt) || 0,
       change_amount: parseInt(o.prdy_vrss) || 0,
       volume: parseInt(o.acml_vol) || 0,
+      volume_krx: volumeKrx,  // RVOL 분자 (KRX 단독, daily_ohlcv UN 마이그레이션 완료 시 frontend가 volume 사용으로 자동 전환)
       trading_value: parseInt(o.acml_tr_pbmn) || 0,  // 누적 거래대금 (VWAP 계산용)
       market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
       w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,

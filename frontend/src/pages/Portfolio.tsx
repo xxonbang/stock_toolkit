@@ -47,6 +47,28 @@ function marketElapsedMinutes(): number | null {
   return minutes - open;
 }
 
+/** RVOL 분자 데이터 출처 자동 전환:
+ *  daily_ohlcv는 2026-05-17부터 UN(KRX+NXT 통합)으로 수집되도록 변경됨.
+ *  과거 데이터는 J(KRX 단독) 기준 → bars[-20:] 평균이 모두 UN 기준이 되려면 영업일 20일 경과 필요.
+ *  미경과 시: volume_krx(kis-proxy J 호출 결과)로 KRX 단독 비교 = 분자/분모 KRX 일치
+ *  경과 시: volume(UN) 사용 = 분자/분모 UN 일치 */
+const RVOL_MIGRATION_START_KST = "2026-05-17";
+function rvolUseUnVolume(): boolean {
+  // 영업일 20일 경과 여부 — 토/일 제외 단순 카운트
+  const startStr = RVOL_MIGRATION_START_KST;
+  const todayKst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  if (todayKst < startStr) return false;
+  let businessDays = 0;
+  let d = new Date(startStr + "T00:00:00Z");
+  const today = new Date(todayKst + "T00:00:00Z");
+  while (d < today) {
+    d = new Date(d.getTime() + 86400000);
+    const dow = d.getUTCDay();
+    if (dow !== 0 && dow !== 6) businessDays += 1;
+  }
+  return businessDays >= 20;
+}
+
 /** VWAP/RVOL 계산. trading_value 또는 avg20d 없으면 해당 값 null. */
 function calcVwapRvol(
   kisInfo: KisStockPrice | undefined,
@@ -54,15 +76,19 @@ function calcVwapRvol(
   avg20d: number | undefined,
 ): { vwap: number | null; vwapDiffPct: number | null; rvol: number | null } {
   const tv = kisInfo?.trading_value;
-  const vol = kisInfo?.volume;
-  const vwap = tv && vol && vol > 0 ? tv / vol : null;
+  const volUn = kisInfo?.volume;
+  const volKrx = kisInfo?.volume_krx;
+  const vwap = tv && volUn && volUn > 0 ? tv / volUn : null;
   const vwapDiffPct = vwap && currentPrice > 0 ? ((currentPrice - vwap) / vwap) * 100 : null;
 
+  // RVOL 분자: 마이그레이션 완료 전엔 volume_krx, 완료 후엔 volume(UN)
+  const useUn = rvolUseUnVolume();
+  const numerator = useUn ? volUn : (volKrx ?? volUn);
   let rvol: number | null = null;
   const elapsed = marketElapsedMinutes();
-  if (vol && avg20d && avg20d > 0 && elapsed != null) {
+  if (numerator && avg20d && avg20d > 0 && elapsed != null) {
     const base = elapsed >= 390 ? avg20d : (avg20d * elapsed) / 390;
-    if (base > 0) rvol = vol / base;
+    if (base > 0) rvol = numerator / base;
   }
   return { vwap, vwapDiffPct, rvol };
 }
