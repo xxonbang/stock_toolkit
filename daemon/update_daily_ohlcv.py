@@ -11,6 +11,8 @@ import logging
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import aiohttp
+
 logger = logging.getLogger(__name__)
 
 _KST = timezone(timedelta(hours=9))
@@ -60,6 +62,19 @@ async def update_daily_ohlcv():
     errors = 0
     today_yyyymmdd = datetime.now(_KST).strftime("%Y%m%d")
 
+    # 종목당 응답 timeout 10초 (이전 무한 대기로 인한 hang 방지)
+    req_timeout = aiohttp.ClientTimeout(total=10)
+    # 중간 저장 주기 (장기 hang 시 진행분 보존)
+    SAVE_EVERY = 100
+
+    def _save_partial():
+        """현재까지 변경 사항을 디스크에 flush."""
+        try:
+            with open(OHLCV_PATH, "w", encoding="utf-8") as f:
+                json.dump(ohlcv, f, ensure_ascii=False)
+        except Exception as e:
+            logger.warning(f"  중간 저장 실패: {e}")
+
     for i, t in enumerate(targets):
         code = t["code"]
         last_date = t["last_date"]
@@ -76,7 +91,7 @@ async def update_daily_ohlcv():
                 "FID_PERIOD_DIV_CODE": "D",
                 "FID_ORG_ADJ_PRC": "0",
             }
-            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400")) as resp:
+            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400"), timeout=req_timeout) as resp:
                 data = await resp.json()
                 if data.get("rt_cd") != "0":
                     errors += 1
@@ -100,11 +115,19 @@ async def update_daily_ohlcv():
             # rate limit: 초당 20건
             await asyncio.sleep(0.06)
 
-            if (i + 1) % 50 == 0:
+            # 진행 로그를 더 자주 (10종목마다) — 침묵 hang 진단 용이
+            if (i + 1) % 10 == 0:
                 logger.info(f"  진행: {i+1}/{len(targets)} (갱신 {updated}, 에러 {errors})")
+            # 중간 저장 (장기 hang 대비)
+            if updated > 0 and (i + 1) % SAVE_EVERY == 0:
+                _save_partial()
+                logger.info(f"  중간 저장: {i+1}/{len(targets)}, {updated}종목 갱신")
+        except asyncio.TimeoutError:
+            errors += 1
+            logger.warning(f"  {code} timeout (10s)")
         except Exception as e:
             errors += 1
-            logger.warning(f"  {code} 오류: {e}")
+            logger.warning(f"  {code} 오류: {type(e).__name__}: {e}")
 
     # 4. 저장
     if updated > 0:
