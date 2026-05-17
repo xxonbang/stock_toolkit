@@ -34,6 +34,39 @@ function signalBadge(signal: string) {
   return <Badge>중립</Badge>;
 }
 
+/** 정규장 09:00~15:30(KST, 390분) 중 경과 분.
+ *  주말/장 시작 전: null (RVOL 미표시). 장 마감 후: 390(=100%). */
+function marketElapsedMinutes(): number | null {
+  const kst = new Date(Date.now() + 9 * 3600 * 1000);
+  const day = kst.getUTCDay();
+  if (day === 0 || day === 6) return null;
+  const minutes = kst.getUTCHours() * 60 + kst.getUTCMinutes();
+  const open = 9 * 60, close = 15 * 60 + 30;
+  if (minutes < open) return null;
+  if (minutes >= close) return 390;
+  return minutes - open;
+}
+
+/** VWAP/RVOL 계산. trading_value 또는 avg20d 없으면 해당 값 null. */
+function calcVwapRvol(
+  kisInfo: KisStockPrice | undefined,
+  currentPrice: number,
+  avg20d: number | undefined,
+): { vwap: number | null; vwapDiffPct: number | null; rvol: number | null } {
+  const tv = kisInfo?.trading_value;
+  const vol = kisInfo?.volume;
+  const vwap = tv && vol && vol > 0 ? tv / vol : null;
+  const vwapDiffPct = vwap && currentPrice > 0 ? ((currentPrice - vwap) / vwap) * 100 : null;
+
+  let rvol: number | null = null;
+  const elapsed = marketElapsedMinutes();
+  if (vol && avg20d && avg20d > 0 && elapsed != null) {
+    const base = elapsed >= 390 ? avg20d : (avg20d * elapsed) / 390;
+    if (base > 0) rvol = vol / base;
+  }
+  return { vwap, vwapDiffPct, rvol };
+}
+
 interface PortfolioContext {
   supaUser: any;
   onShowLogin: () => void;
@@ -66,6 +99,7 @@ export default function Portfolio() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [allStockList, setAllStockList] = useState<any[]>([]);
+  const [volumeAvg20d, setVolumeAvg20d] = useState<Record<string, number>>({});
   const [avgDownTarget, setAvgDownTarget] = useState<any>(null);
   const [avgDownPrice, setAvgDownPrice] = useState("");
   const [avgDownQty, setAvgDownQty] = useState("");
@@ -277,6 +311,11 @@ export default function Portfolio() {
     dataService.getStockMaster().then((m: any) => {
       if (m?.stocks) setAllStockList(m.stocks.map((s: any) => ({ code: s.code, name: s.name, market: s.market || "" })));
     });
+  }, []);
+
+  // 20일 평균 거래량 로드 (RVOL 계산용)
+  useEffect(() => {
+    dataService.getVolumeAvg20d().then((m) => { if (m) setVolumeAvg20d(m); }).catch(() => {});
   }, []);
 
   // 로그인 상태 시 DB에서 보유 종목 로드
@@ -499,6 +538,7 @@ export default function Portfolio() {
           const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === h.code);
           const isExpanded = expandedCode === h.code;
           const kisInfo = kisFullData.current[h.code];
+          const { vwap, vwapDiffPct, rvol } = calcVwapRvol(kisInfo, h.current_price, volumeAvg20d[h.code]);
           // 52주 위치 계산
           const w52High = kisInfo?.w52_hgpr ?? 0;
           const w52Low = kisInfo?.w52_lwpr ?? 0;
@@ -579,6 +619,29 @@ export default function Portfolio() {
                     <span className="t-text text-right">{h.current_price.toLocaleString()}</span>
                     <span className="t-text-dim text-center">×{h.quantity}</span>
                     <span className="t-text font-medium text-right">{(h.current_price * (h.quantity || 0)).toLocaleString()}원</span>
+                  </div>
+                )}
+                {(vwap != null || rvol != null) && (
+                  <div className="flex items-center justify-between px-3 py-1" style={{ borderTop: "1px solid var(--border-light)" }}>
+                    {vwap != null && (
+                      <span className="flex items-center gap-1">
+                        <span className="t-text-dim">VWAP</span>
+                        <span className="t-text tabular-nums">{Math.round(vwap).toLocaleString()}원</span>
+                        {vwapDiffPct != null && (
+                          <span className={`tabular-nums ${vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                            ({vwapDiffPct >= 0 ? "+" : ""}{vwapDiffPct.toFixed(2)}%)
+                          </span>
+                        )}
+                      </span>
+                    )}
+                    {rvol != null && (
+                      <span className="flex items-center gap-1">
+                        <span className="t-text-dim">RVOL</span>
+                        <span className={`tabular-nums ${rvol >= 1.5 ? "text-red-500 font-semibold" : rvol < 0.7 ? "t-text-dim" : "t-text"}`}>
+                          {rvol.toFixed(2)}×
+                        </span>
+                      </span>
+                    )}
                   </div>
                 )}
               </div>

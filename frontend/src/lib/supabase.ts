@@ -39,6 +39,8 @@ export interface KisStockPrice {
   change_rate: number;
   change_amount: number;
   volume: number;
+  trading_value?: number;  // 누적 거래대금 (VWAP = trading_value / volume)
+  market_cap?: number;
   w52_hgpr: number;
   w52_lwpr: number;
   per: number;

@@ -1,5 +1,18 @@
 # Task History
 
+## 2026-05-17
+
+### [기능] 포트폴리오 종목별 VWAP / RVOL 표시 + kis-proxy 코드 소유권 (2026-05-17 KST)
+- **변경 파일:** `supabase/functions/kis-proxy/index.ts` (theme-analysis 코드 복사, 신규), `supabase/functions/_shared/cors.ts` (신규), `scripts/build_volume_avg.py` (신규), `frontend/src/lib/supabase.ts` (KisStockPrice +trading_value), `frontend/src/services/dataService.ts` (+1줄), `frontend/src/pages/Portfolio.tsx` (헬퍼 + state + UI)
+- **의도:** theme-analysis 의존성 제거 + 포트폴리오 카드에 VWAP/RVOL 실시간 표시
+- **theme-analysis와 일관성:** Q1=B (시간 보정 RVOL), Q2=a (별도 행), Q3=a (VWAP 절대값+차이%)
+- **kis-proxy 소유권:** theme-analysis 측 코드 복사. 양 프로젝트 공유 Edge Function이지만 stock_toolkit이 자체 git에 보관 → 향후 변경은 stock_toolkit 단독 가능. 현재는 이미 `trading_value` 필드 응답 중이라 재배포 불필요
+- **VWAP:** `trading_value(누적거래대금) / volume(누적거래량)` — KIS 응답 직접 활용. 현재가 대비 차이% 표시
+- **RVOL (시간 보정):** `volume / (avg20d × elapsed_minutes / 390)` — 09:00~15:30 KST 경과 분 기반. 주말/장 시작 전: null (미표시), 장 마감 후: 보정 100%
+- **avg20d 데이터:** `scripts/build_volume_avg.py` → `results/volume_avg_20d.json` (2541종목, 44KB). daily_ohlcv_all.json은 353MB라 frontend 직접 fetch 불가 → 20일 평균만 추출한 소형 JSON 분리
+- **UI:** 카드 투자 정보 테이블 하단에 한 줄 추가 — `VWAP 280,123원 (-2.36%)  RVOL 1.45×`. RVOL≥1.5 빨강 강조, <0.7 dim
+- **검증:** tsc OK, build 성공. 005930 실측 VWAP=280,123원, 현재가 273,500원 대비 -2.36%
+
 ## 2026-05-15
 
 ### [개선] daemon KIS 시세 시장구분 J → UN (KRX+NXT 통합, NXT 프리/애프터마켓 반영) (2026-05-15 KST)
