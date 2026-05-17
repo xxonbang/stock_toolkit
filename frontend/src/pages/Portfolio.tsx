@@ -35,15 +35,20 @@ function signalBadge(signal: string) {
 }
 
 /** 정규장 09:00~15:30(KST, 390분) 중 경과 분.
- *  주말/장 시작 전: null (RVOL 미표시). 장 마감 후: 390(=100%). */
-function marketElapsedMinutes(): number | null {
+ *  주말/장 마감 후/평일 장전: 390 (전 영업일 누적 데이터 비교).
+ *  → KIS는 휴장일에 마지막 영업일 누적값 반환, 100% 활동 기준으로 비교 의미 있음. */
+function marketElapsedMinutes(): number {
   const kst = new Date(Date.now() + 9 * 3600 * 1000);
   const day = kst.getUTCDay();
-  if (day === 0 || day === 6) return null;
+  // 주말: 전 영업일 데이터 비교 (100% 활동 기준)
+  if (day === 0 || day === 6) return 390;
   const minutes = kst.getUTCHours() * 60 + kst.getUTCMinutes();
   const open = 9 * 60, close = 15 * 60 + 30;
-  if (minutes < open) return null;
+  // 평일 장 시작 전: 전일 데이터 비교 (100%)
+  if (minutes < open) return 390;
+  // 장 마감 후: 100%
   if (minutes >= close) return 390;
+  // 정규장: 경과 분
   return minutes - open;
 }
 
@@ -86,7 +91,7 @@ function calcVwapRvol(
   const numerator = useUn ? volUn : (volKrx ?? volUn);
   let rvol: number | null = null;
   const elapsed = marketElapsedMinutes();
-  if (numerator && avg20d && avg20d > 0 && elapsed != null) {
+  if (numerator && avg20d && avg20d > 0) {
     const base = elapsed >= 390 ? avg20d : (avg20d * elapsed) / 390;
     if (base > 0) rvol = numerator / base;
   }
@@ -121,6 +126,7 @@ export default function Portfolio() {
   });
   useEffect(() => { localStorage.setItem("portfolio_excluded", JSON.stringify([...excludedCodes])); }, [excludedCodes]);
   const [showHealthHelp, setShowHealthHelp] = useState(false);
+  const [showVwapRvolHelp, setShowVwapRvolHelp] = useState(false);
   const [stockSearch, setStockSearch] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -144,7 +150,7 @@ export default function Portfolio() {
   const [afterhoursCodes, setAfterhoursCodes] = useState<Set<string>>(new Set());
 
   // 모달 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(showPortfolioEdit || showCalculator);
+  const anyModalOpen = !!(showPortfolioEdit || showCalculator || showVwapRvolHelp);
   useEffect(() => {
     document.body.style.overflow = anyModalOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -651,7 +657,11 @@ export default function Portfolio() {
                   <div className="flex items-center justify-between px-3 py-1" style={{ borderTop: "1px solid var(--border-light)" }}>
                     {vwap != null && (
                       <span className="flex items-center gap-1">
-                        <span className="t-text-dim">VWAP</span>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setShowVwapRvolHelp(true); }}
+                          className="t-text-dim underline decoration-dotted underline-offset-2 hover:t-text transition"
+                          title="VWAP 설명"
+                        >VWAP</button>
                         <span className="t-text tabular-nums">{Math.round(vwap).toLocaleString()}원</span>
                         {vwapDiffPct != null && (
                           <span className={`tabular-nums ${vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500"}`}>
@@ -662,7 +672,11 @@ export default function Portfolio() {
                     )}
                     {rvol != null && (
                       <span className="flex items-center gap-1">
-                        <span className="t-text-dim">RVOL</span>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setShowVwapRvolHelp(true); }}
+                          className="t-text-dim underline decoration-dotted underline-offset-2 hover:t-text transition"
+                          title="RVOL 설명"
+                        >RVOL</button>
                         <span className={`tabular-nums ${rvol >= 1.5 ? "text-red-500 font-semibold" : rvol < 0.7 ? "t-text-dim" : "t-text"}`}>
                           {rvol.toFixed(2)}×
                         </span>
@@ -920,6 +934,71 @@ export default function Portfolio() {
       })()}
     </section>
     <StockCalculator isOpen={showCalculator} onClose={() => setShowCalculator(false)} />
+    {/* VWAP / RVOL 설명 팝업 */}
+    {showVwapRvolHelp && createPortal(
+      <div className="fixed inset-0 z-[9999]" onClick={() => setShowVwapRvolHelp(false)}>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+        <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000] w-[calc(100%-2rem)] max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl t-card border t-border-light p-5 anim-scale-in"
+          onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center justify-between mb-3">
+            <span className="t-text font-semibold text-[15px]">VWAP / RVOL 안내</span>
+            <button onClick={() => setShowVwapRvolHelp(false)} className="p-1 t-text-dim hover:t-text transition" aria-label="닫기">
+              <X size={16} />
+            </button>
+          </div>
+
+          {/* VWAP */}
+          <div className="mb-4">
+            <div className="text-[13px] font-semibold t-text mb-1">📊 VWAP — 거래량 가중 평균가</div>
+            <div className="text-[12px] t-text-sub leading-relaxed">
+              오늘 시장 참가자들의 평균 매수가. <br />
+              <span className="font-mono text-[11px] t-text-dim">VWAP = 누적 거래대금 ÷ 누적 거래량</span>
+            </div>
+            <ul className="mt-2 space-y-1 text-[11px] t-text-sub">
+              <li><span className="text-red-500 font-semibold">현재가 &gt; VWAP</span> → 평균 매수자보다 비싸게 사야 함 (강세)</li>
+              <li><span className="text-blue-500 font-semibold">현재가 &lt; VWAP</span> → 평균 매수자보다 싸게 살 수 있음 (약세 or 기회)</li>
+            </ul>
+          </div>
+
+          {/* RVOL */}
+          <div className="mb-4">
+            <div className="text-[13px] font-semibold t-text mb-1">📈 RVOL — 상대 거래량</div>
+            <div className="text-[12px] t-text-sub leading-relaxed">
+              지금까지의 거래량이 평소 대비 몇 배인지. <br />
+              <span className="font-mono text-[11px] t-text-dim">RVOL = 현재 누적 거래량 ÷ (20일 평균 × 경과시간/390분)</span>
+            </div>
+            <ul className="mt-2 space-y-1 text-[11px] t-text-sub">
+              <li><span className="t-text-dim">~ 1.0×</span> 평소 수준 (정상 활동)</li>
+              <li><span className="t-text font-semibold">1.0× ~ 1.5×</span> 약간 활발</li>
+              <li><span className="text-red-500 font-semibold">≥ 1.5×</span> 평소보다 50%+ 활발 → 시장 관심 증가</li>
+              <li><span className="t-text-dim">&lt; 0.7×</span> 평소보다 조용함</li>
+            </ul>
+          </div>
+
+          {/* 마이그레이션 일정 */}
+          <div className="rounded-lg border t-border-light p-3 mb-1" style={{ background: "var(--bg)" }}>
+            <div className="text-[11px] font-semibold t-text mb-1.5">⏱ 마이그레이션 일정 (NXT 통합)</div>
+            <div className="text-[10px] t-text-sub leading-relaxed">
+              KIS NXT(애프터마켓) 시장 통합으로 거래량 데이터 정합화 중:
+            </div>
+            <div className="mt-2 space-y-1.5 text-[10px]">
+              <div className="grid grid-cols-[5rem_1fr] gap-2">
+                <span className="t-text-dim">지금 ~ 6/14</span>
+                <span className="t-text-sub">RVOL 분자 = volume_krx (KRX 단독), 분모 = avg20d (J→UN 점진 마이그레이션 중)</span>
+              </div>
+              <div className="grid grid-cols-[5rem_1fr] gap-2 pt-1.5" style={{ borderTop: "1px dashed var(--border-light)" }}>
+                <span className="text-emerald-500 font-semibold">6/15+</span>
+                <span className="t-text-sub">자동으로 volume (UN) 분자 전환 → 분자/분모 모두 UN으로 완벽 일치</span>
+              </div>
+            </div>
+            <div className="mt-2 text-[10px] t-text-dim">
+              ※ 마이그레이션 기간 중 RVOL이 점진적으로 약간 낮게 표시될 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )}
     {/* 포트폴리오 편집 모달 */}
     {showPortfolioEdit && (
       <div className="fixed inset-0 z-[60]" onClick={() => setShowPortfolioEdit(false)}>
