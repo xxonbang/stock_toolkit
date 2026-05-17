@@ -1,0 +1,9 @@
+# Supabase 프로젝트 설정 (stock_toolkit)
+# project_id: fyklcplybyfrfryopzvx (theme-analysis와 공유)
+
+project_id = "stock_toolkit"
+
+[functions.kis-proxy]
+# KIS proxy는 publishable key 또는 service_role key 둘 다 호출 가능해야 함
+# (frontend는 publishable, backend는 service_role 사용)
+verify_jwt = false

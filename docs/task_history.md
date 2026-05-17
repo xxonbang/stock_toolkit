@@ -2,6 +2,22 @@
 
 ## 2026-05-17
 
+### [개선] RVOL 시장 범위 불일치 정정 — 옵션 1+2 하이브리드 + kis-proxy 배포 (2026-05-17 KST)
+- **변경 파일:** `supabase/functions/kis-proxy/index.ts` (+15줄, J 호출 추가), `supabase/config.toml` (신규, verify_jwt=false), `daemon/update_daily_ohlcv.py` (J→UN), `frontend/src/lib/supabase.ts` (volume_krx 추가), `frontend/src/pages/Portfolio.tsx` (자동 전환 로직)
+- **이슈 (theme-analysis 검증):** RVOL 분자(UN=KRX+NXT) ↔ 분모(KRX 단독 일봉) 시장 불일치로 **약 1.81배 부풀림** (005930 실측)
+- **옵션 1 (즉시):** kis-proxy에서 KRX 단독(J) 추가 호출 → `volume_krx` 응답 필드. NXT 미상장은 UN 값 자동 폴백
+- **옵션 2 (자동 전환):** `update_daily_ohlcv.py` 시장구분 J→UN. bars[-20:] 모두 UN으로 마이그레이션되는 영업일 20일 후(약 2026-06-15) frontend가 자동 전환
+- **frontend 자동 전환:** `rvolUseUnVolume()` 영업일 20일 경과 체크 — 미경과: volume_krx, 경과: volume(UN)
+- **배포:** `supabase functions deploy kis-proxy --no-verify-jwt` 직접 실행 완료. config.toml에 영구 반영
+- **실측 검증 (배포 후):**
+  - 005930: UN=72.8M / KRX=38.1M (1.91× 차이)
+  - 000660: UN=13.2M / KRX=7.5M (1.76×)
+  - 000020: UN=KRX=232,799 (NXT 미상장 자동 폴백 ✅)
+- **알려진 한계:** 마이그레이션 중간 기간(5/17~6/14) 분모가 J/UN 혼합 → RVOL 약 -4%~-29% 영향. 6/15+ 완벽 일치
+- **검증:** tsc OK, py_compile OK, volume_krx 응답 필드 정상
+
+
+
 ### [기능] 포트폴리오 종목별 VWAP / RVOL 표시 + kis-proxy 코드 소유권 (2026-05-17 KST)
 - **변경 파일:** `supabase/functions/kis-proxy/index.ts` (theme-analysis 코드 복사, 신규), `supabase/functions/_shared/cors.ts` (신규), `scripts/build_volume_avg.py` (신규), `frontend/src/lib/supabase.ts` (KisStockPrice +trading_value), `frontend/src/services/dataService.ts` (+1줄), `frontend/src/pages/Portfolio.tsx` (헬퍼 + state + UI)
 - **의도:** theme-analysis 의존성 제거 + 포트폴리오 카드에 VWAP/RVOL 실시간 표시
