@@ -97,6 +97,33 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
   const [showDualExp, setShowDualExp] = useState(false);
   const [showStockSearch, setShowStockSearch] = useState(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState("");
+  const [recentSearches, setRecentSearches] = useState<{ code: string; name: string }[]>(() => {
+    try {
+      const raw = localStorage.getItem("recent_stock_searches");
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed.slice(0, 8) : [];
+    } catch { return []; }
+  });
+  function pushRecentSearch(stock: { code: string; name: string }) {
+    if (!stock.code) return;
+    setRecentSearches((prev) => {
+      const next = [{ code: stock.code, name: stock.name || stock.code }, ...prev.filter((r) => r.code !== stock.code)].slice(0, 8);
+      try { localStorage.setItem("recent_stock_searches", JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }
+  function removeRecentSearch(code: string) {
+    setRecentSearches((prev) => {
+      const next = prev.filter((r) => r.code !== code);
+      try { localStorage.setItem("recent_stock_searches", JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }
+  function clearRecentSearches() {
+    setRecentSearches([]);
+    try { localStorage.removeItem("recent_stock_searches"); } catch {}
+  }
   const [confExp, setConfExp] = useState<{ theme: string; confidence: string; catalyst?: string } | null>(null);
   const [headerRefreshing, setHeaderRefreshing] = useState(false);
   const [allStockList, setAllStockList] = useState<any[]>([]);
@@ -839,6 +866,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                       {sec.items.map((item, j) => (
                         <div key={j} onClick={() => {
                           const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === item.stock.code);
+                          pushRecentSearch({ code: item.stock.code, name: item.stock.name });
                           setStockActionTarget(detail || { name: item.stock.name, code: item.stock.code, _noData: true });
                           setShowStockSearch(false);
                         }} className="flex items-center justify-between p-2 t-card-alt rounded-lg cursor-pointer hover:opacity-80 transition border t-border-light">
@@ -853,7 +881,38 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   </div>
                 ));
               })()}
-              {globalSearchQuery.length < 2 && <div className="text-center py-8 text-sm t-text-dim">2글자 이상 입력하세요</div>}
+              {globalSearchQuery.length < 2 && (
+                recentSearches.length > 0 ? (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-semibold t-text-sub">최근 검색</span>
+                      <button onClick={clearRecentSearches} className="text-[10px] t-text-dim hover:text-red-400 transition">전체 삭제</button>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {recentSearches.map((r) => (
+                        <div key={r.code} className="flex items-center gap-1 t-card-alt rounded-full pl-2.5 pr-1 py-1 border t-border-light">
+                          <button onClick={() => {
+                            const detail = [...(crossSignal || []), ...(smartMoney || [])].find((s: any) => s.code === r.code);
+                            pushRecentSearch({ code: r.code, name: r.name });
+                            setStockActionTarget(detail || { name: r.name, code: r.code, _noData: true });
+                            setShowStockSearch(false);
+                          }} className="flex items-center gap-1 hover:opacity-80 transition">
+                            <span className="text-[12px] t-text">{r.name}</span>
+                            <span className="text-[10px] t-text-dim tabular-nums">{r.code}</span>
+                          </button>
+                          <button onClick={(e) => { e.stopPropagation(); removeRecentSearch(r.code); }}
+                            className="p-0.5 t-text-dim hover:t-text transition" aria-label="삭제">
+                            <X size={11} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 text-center text-[11px] t-text-dim">2글자 이상 입력하면 검색 결과가 표시됩니다</div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-sm t-text-dim">2글자 이상 입력하세요</div>
+                )
+              )}
             </div>
           </div>
         </div>,
