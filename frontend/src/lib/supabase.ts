@@ -72,6 +72,16 @@ async function callKisProxy(body: Record<string, unknown>): Promise<any> {
 /**
  * KIS API 실시간 시세 조회 (Edge Function 경유)
  */
+export interface PriceConcentrationEntry { price: number; value: number; pct: number; }
+export interface PriceConcentration { entries: PriceConcentrationEntry[]; }
+
+/** 가격대별 거래대금 집중도 — 최근 분봉 기반 TOP3 가격 */
+export async function fetchPriceConcentration(codes: string[]): Promise<Record<string, PriceConcentration>> {
+  if (!codes.length) return {};
+  const data = await callKisProxy({ action: "price_concentration", codes });
+  return (data?.concentrations as Record<string, PriceConcentration>) ?? {};
+}
+
 export async function fetchKisPrices(codes: string[]): Promise<Record<string, KisStockPrice>> {
   if (!codes.length) return {};
   const data = await callKisProxy({ action: "prices", codes });

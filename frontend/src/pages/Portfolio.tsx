@@ -6,8 +6,8 @@ import {
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
-import { supabase, fetchKisPrices, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, setAccessToken, STORAGE_KEY, insertTransactions, deleteTransactions, fetchTransactionsForHolding } from "../lib/supabase";
-import type { PortfolioHolding, PortfolioTransaction, KisStockPrice } from "../lib/supabase";
+import { supabase, fetchKisPrices, fetchPriceConcentration, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, setAccessToken, STORAGE_KEY, insertTransactions, deleteTransactions, fetchTransactionsForHolding } from "../lib/supabase";
+import type { PortfolioHolding, PortfolioTransaction, KisStockPrice, PriceConcentration } from "../lib/supabase";
 import StockCalculator from "../components/portfolio/StockCalculator";
 
 function Badge({ children, variant = "default" }: { children: React.ReactNode; variant?: string }) {
@@ -154,6 +154,8 @@ export default function Portfolio() {
   const [volumeAvg20d, setVolumeAvg20d] = useState<Record<string, number>>({});
   const [volume30dHistory, setVolume30dHistory] = useState<Record<string, number[]>>({});
   const [showRank30Help, setShowRank30Help] = useState(false);
+  const [priceConcentration, setPriceConcentration] = useState<Record<string, PriceConcentration>>({});
+  const [showConcentrationHelp, setShowConcentrationHelp] = useState(false);
   const [avgDownTarget, setAvgDownTarget] = useState<any>(null);
   const [avgDownPrice, setAvgDownPrice] = useState("");
   const [avgDownQty, setAvgDownQty] = useState("");
@@ -172,7 +174,7 @@ export default function Portfolio() {
   const [afterhoursCodes, setAfterhoursCodes] = useState<Set<string>>(new Set());
 
   // 모달 열림 시 body 스크롤 잠금
-  const anyModalOpen = !!(showPortfolioEdit || showCalculator || showVwapRvolHelp || showRank30Help);
+  const anyModalOpen = !!(showPortfolioEdit || showCalculator || showVwapRvolHelp || showRank30Help || showConcentrationHelp);
   useEffect(() => {
     document.body.style.overflow = anyModalOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -376,6 +378,15 @@ export default function Portfolio() {
   useEffect(() => {
     dataService.getVolume30dHistory().then((m) => { if (m) setVolume30dHistory(m); }).catch(() => {});
   }, []);
+
+  // 가격대별 거래집중도 로드 — 보유 종목 변경 시 (mount + 새로고침)
+  useEffect(() => {
+    const codes = (portfolio.holdings || []).map((h: any) => h.code).filter(Boolean);
+    if (!codes.length) return;
+    fetchPriceConcentration(codes).then((m) => { if (m) setPriceConcentration(m); }).catch(() => {});
+    // portfolio.holdings 길이 기준으로 재호출 (가격 새로고침과는 독립)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [portfolio.holdings?.length]);
 
   // 로그인 상태 시 DB에서 보유 종목 로드
   useEffect(() => {
@@ -601,6 +612,7 @@ export default function Portfolio() {
           const useUn = rvolUseUnVolume();
           const todayVol = useUn ? kisInfo?.volume : (kisInfo?.volume_krx ?? kisInfo?.volume);
           const rank30 = calcVolumeRank30(todayVol, volume30dHistory[h.code]);
+          const conc = priceConcentration[h.code]?.entries;
           // 52주 위치 계산
           const w52High = kisInfo?.w52_hgpr ?? 0;
           const w52Low = kisInfo?.w52_lwpr ?? 0;
@@ -732,6 +744,27 @@ export default function Portfolio() {
                     </button>
                     <span className={`tabular-nums ${rank30.rank <= 3 ? "text-red-500 font-semibold" : rank30.percentile <= 10 ? "text-orange-500" : rank30.percentile <= 50 ? "t-text" : "t-text-dim"}`}>
                       {rank30.rank}위 / {rank30.total}일 (상위 {rank30.percentile.toFixed(0)}%)
+                    </span>
+                  </div>
+                )}
+                {conc && conc.length > 0 && (
+                  <div className="flex items-center justify-between px-3 py-1 gap-2" style={{ borderTop: "1px solid var(--border-light)" }}>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setShowConcentrationHelp(true); }}
+                      className="flex items-center gap-0.5 t-text-dim hover:t-text transition shrink-0"
+                      title="거래 집중 설명"
+                    >
+                      거래 집중
+                      <HelpCircle size={10} />
+                    </button>
+                    <span className="t-text tabular-nums text-right truncate">
+                      {conc.map((e, idx) => (
+                        <span key={e.price}>
+                          {idx > 0 && <span className="t-text-dim"> · </span>}
+                          {e.price.toLocaleString()}원
+                          <span className={`ml-0.5 ${idx === 0 ? "text-red-500 font-semibold" : "t-text-dim"}`}>({e.pct.toFixed(0)}%)</span>
+                        </span>
+                      ))}
                     </span>
                   </div>
                 )}
@@ -1088,6 +1121,41 @@ export default function Portfolio() {
             <div className="text-[11px] t-text-sub leading-relaxed">
               RVOL +200%인데 30일 순위가 평범하면 → 20일 평균이 우연히 낮았던 것 (가짜).
               30일 순위도 상위면 진짜 폭증.
+            </div>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )}
+    {/* 거래 집중 설명 팝업 */}
+    {showConcentrationHelp && createPortal(
+      <div className="fixed inset-0 z-[9999]" onClick={() => setShowConcentrationHelp(false)}>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+        <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000] w-[calc(100%-2rem)] max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl t-card border t-border-light p-5 anim-scale-in"
+          onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center justify-between mb-3">
+            <span className="t-text font-semibold text-[15px] flex items-center gap-1.5">
+              <BarChart3 size={14} className="text-emerald-500" />
+              거래 집중 (가격대별 거래대금)
+            </span>
+            <button onClick={() => setShowConcentrationHelp(false)} className="p-1 t-text-dim hover:t-text transition" aria-label="닫기">
+              <X size={16} />
+            </button>
+          </div>
+          <div className="text-[12px] t-text-sub leading-relaxed mb-3">
+            최근 분봉(약 30분)에서 가격대별 <span className="font-mono text-[11px] t-text-dim">(가격 × 체결량)</span> 합산 후 TOP3 가격 + 비중을 표시.
+          </div>
+          <ul className="space-y-1.5 text-[11px] t-text-sub mb-3">
+            <li><span className="text-red-500 font-semibold">1순위(빨강)</span> — 거래대금이 가장 많이 발생한 가격대</li>
+            <li>한 가격에 50%+ 집중 → 강한 매물대/지지선 또는 박스권 형성 신호</li>
+            <li>여러 가격에 분산 → 가격 변동성 활발</li>
+          </ul>
+          <div className="rounded-lg border t-border-light p-3" style={{ background: "var(--bg)" }}>
+            <div className="text-[11px] font-semibold t-text mb-1.5">💡 활용 팁</div>
+            <div className="text-[11px] t-text-sub leading-relaxed">
+              • 현재가가 1순위 가격 근처면 = 단기 균형점<br />
+              • 현재가가 1순위 가격보다 위 → 매물 부담 가능성<br />
+              • 휴장일/장 마감 후엔 마지막 분봉 1개에 집중되어 100% 표시
             </div>
           </div>
         </div>

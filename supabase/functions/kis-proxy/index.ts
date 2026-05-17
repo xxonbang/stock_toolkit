@@ -108,6 +108,46 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
 
 function round2(v: number): number { return Math.round(v * 100) / 100 }
 
+/** 최근 분봉(최대 30개) 기반 가격대별 거래대금 집중도 — TOP3 가격 + 비중 반환.
+ *  KIS inquire-time-itemchartprice (FHKST03010200): 1회 호출 ≈ 최근 30분 분봉. */
+async function fetchPriceConcentration(creds: KisCredentials, code: string): Promise<{ entries: Array<{ price: number; value: number; pct: number }> } | null> {
+  const now = new Date()
+  // KST 시각으로 hour 파라미터 (Edge Function은 UTC)
+  const kst = new Date(now.getTime() + 9 * 3600 * 1000)
+  const hh = String(kst.getUTCHours()).padStart(2, "0")
+  const mm = String(kst.getUTCMinutes()).padStart(2, "0")
+  const ss = String(kst.getUTCSeconds()).padStart(2, "0")
+  const hour = `${hh}${mm}${ss}`
+  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice?FID_ETC_CLS_CODE=&FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}&FID_INPUT_HOUR_1=${hour}&FID_PW_DATA_INCU_YN=N`
+  try {
+    const res = await fetch(url, { headers: kisHeaders(creds, "FHKST03010200") })
+    const data = await res.json()
+    if (data.rt_cd !== "0") return null
+    const bars: Array<Record<string, string>> = data.output2 || []
+    if (!bars.length) return null
+
+    // 가격별 거래대금 합산 (분봉 종가 × 분봉 체결량)
+    const priceMap: Record<number, number> = {}
+    for (const b of bars) {
+      const price = parseInt(b.stck_prpr || "0") || 0
+      const vol = parseInt(b.cntg_vol || "0") || 0
+      if (price > 0 && vol > 0) {
+        priceMap[price] = (priceMap[price] || 0) + price * vol
+      }
+    }
+    const total = Object.values(priceMap).reduce((s, v) => s + v, 0)
+    if (total === 0) return null
+
+    const entries = Object.entries(priceMap)
+      .map(([p, v]) => ({ price: Number(p), value: v, pct: Math.round((v / total) * 1000) / 10 }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 3)
+    return { entries }
+  } catch {
+    return null
+  }
+}
+
 Deno.serve(async (req) => {
   // CORS preflight
   if (req.method === "OPTIONS") {
@@ -231,6 +271,21 @@ Deno.serve(async (req) => {
         })
       }
       result = { prices, failed: limited.length - Object.keys(prices).length }
+
+    } else if (action === "price_concentration" && codes.length > 0) {
+      // 가격대별 거래대금 집중도 (TOP3 가격) — 보유 종목 최대 30개
+      const creds = await getKisCredentials(serviceClient)
+      const limited = codes.slice(0, 30)
+      const concentrations: Record<string, unknown> = {}
+      for (const code of limited) {
+        const r = await fetchPriceConcentration(creds, code)
+        if (r) concentrations[code] = r
+        // Rate limit: 100ms between requests
+        if (limited.indexOf(code) < limited.length - 1) {
+          await new Promise((res) => setTimeout(res, 100))
+        }
+      }
+      result = { concentrations, failed: limited.length - Object.keys(concentrations).length }
 
     } else if (action === "search" && body.code) {
       // Single stock search by code
