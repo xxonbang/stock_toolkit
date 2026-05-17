@@ -659,9 +659,12 @@ export default function Portfolio() {
                       <span className="flex items-center gap-1">
                         <button
                           onClick={(e) => { e.stopPropagation(); setShowVwapRvolHelp(true); }}
-                          className="t-text-dim underline decoration-dotted underline-offset-2 hover:t-text transition"
+                          className="flex items-center gap-0.5 t-text-dim hover:t-text transition"
                           title="VWAP 설명"
-                        >VWAP</button>
+                        >
+                          VWAP
+                          <HelpCircle size={10} />
+                        </button>
                         <span className="t-text tabular-nums">{Math.round(vwap).toLocaleString()}원</span>
                         {vwapDiffPct != null && (
                           <span className={`tabular-nums ${vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500"}`}>
@@ -674,9 +677,12 @@ export default function Portfolio() {
                       <span className="flex items-center gap-1">
                         <button
                           onClick={(e) => { e.stopPropagation(); setShowVwapRvolHelp(true); }}
-                          className="t-text-dim underline decoration-dotted underline-offset-2 hover:t-text transition"
+                          className="flex items-center gap-0.5 t-text-dim hover:t-text transition"
                           title="RVOL 설명"
-                        >RVOL</button>
+                        >
+                          RVOL
+                          <HelpCircle size={10} />
+                        </button>
                         <span className={`tabular-nums ${rvol >= 1.5 ? "text-red-500 font-semibold" : rvol < 0.7 ? "t-text-dim" : "t-text"}`}>
                           {rvol.toFixed(2)}×
                         </span>
