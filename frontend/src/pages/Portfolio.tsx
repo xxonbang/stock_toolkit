@@ -381,12 +381,12 @@ export default function Portfolio() {
 
   // 가격대별 거래집중도 로드 — 보유 종목 변경 시 (mount + 새로고침)
   useEffect(() => {
-    const codes = (portfolio.holdings || []).map((h: any) => h.code).filter(Boolean);
+    const codes = (portfolio?.holdings || []).map((h: any) => h.code).filter(Boolean);
     if (!codes.length) return;
     fetchPriceConcentration(codes).then((m) => { if (m) setPriceConcentration(m); }).catch(() => {});
     // portfolio.holdings 길이 기준으로 재호출 (가격 새로고침과는 독립)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [portfolio.holdings?.length]);
+  }, [portfolio?.holdings?.length]);
 
   // 로그인 상태 시 DB에서 보유 종목 로드
   useEffect(() => {
