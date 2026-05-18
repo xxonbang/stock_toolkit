@@ -42,7 +42,9 @@ async def get_token(session: aiohttp.ClientSession) -> str:
 async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> list[dict]:
     url = f"{BASE}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
     params = {
-        "FID_COND_MRKT_DIV_CODE": "UN",  # KRX+NXT 통합 — 이전 변경과 일관성
+        # J — NXT 미상장 종목 UN 호출 시 KIS API가 옛 데이터(~2개월 전) 반환하는 버그 회피.
+        # NXT 상장 종목도 J=KRX 단독으로 통일 (RVOL 분자 volume_krx와 일치).
+        "FID_COND_MRKT_DIV_CODE": "J",
         "FID_INPUT_ISCD": code,
         "FID_PERIOD_DIV_CODE": "D",
         "FID_ORG_ADJ_PRC": "0",

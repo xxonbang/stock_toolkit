@@ -65,7 +65,9 @@ def fetch_holdings_codes() -> list[str]:
 async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> list[dict]:
     url = f"{KIS_BASE}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
     params = {
-        "FID_COND_MRKT_DIV_CODE": "UN", "FID_INPUT_ISCD": code,
+        # J 사용 — NXT 미상장 종목은 UN 호출 시 옛 데이터(2월) 반환되는 KIS API 동작 회피.
+        # NXT 상장 종목은 J=KRX 단독이지만 volume_krx 분자와 일치하므로 RVOL 정합성 유지.
+        "FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code,
         "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0",
     }
     headers = {

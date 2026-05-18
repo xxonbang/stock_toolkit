@@ -84,9 +84,9 @@ async def update_daily_ohlcv():
         try:
             url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
             params = {
-                # UN(KRX+NXT 통합) — RVOL 분자(현재가 응답)와 시장 범위 일치 위해 변경(2026-05-17).
-                # 마이그레이션 후 영업일 20일 경과 시 frontend가 volume_krx → volume로 자동 전환.
-                "FID_COND_MRKT_DIV_CODE": "UN",
+                # J — NXT 미상장 종목 UN 호출 시 KIS가 ~2개월 옛 데이터 반환하는 버그 회피(2026-05-18 retract).
+                # 분자 volume_krx와 시장 범위 일치 (모두 KRX 단독).
+                "FID_COND_MRKT_DIV_CODE": "J",
                 "FID_INPUT_ISCD": code,
                 "FID_PERIOD_DIV_CODE": "D",
                 "FID_ORG_ADJ_PRC": "0",
