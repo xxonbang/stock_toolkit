@@ -108,36 +108,46 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
 
 function round2(v: number): number { return Math.round(v * 100) / 100 }
 
-/** 최근 분봉(최대 30개) 기반 가격대별 거래대금 집중도 — TOP3 가격 + 비중 반환.
- *  KIS inquire-time-itemchartprice (FHKST03010200): 1회 호출 ≈ 최근 30분 분봉. */
+/** 일중 전체 분봉(09:00~15:30, 390분) 기반 가격대별 거래대금 집중도 TOP3.
+ *  KIS inquire-time-itemchartprice는 1회 호출당 30분봉 → 페이지네이션 13회로 전체 수집.
+ *  정규장 종료 후엔 동일 가격 분봉만 응답되는 왜곡 회피용. */
 async function fetchPriceConcentration(creds: KisCredentials, code: string): Promise<{ entries: Array<{ price: number; value: number; pct: number }> } | null> {
-  const now = new Date()
-  // KST 시각으로 hour 파라미터 (Edge Function은 UTC)
-  const kst = new Date(now.getTime() + 9 * 3600 * 1000)
-  const hh = String(kst.getUTCHours()).padStart(2, "0")
-  const mm = String(kst.getUTCMinutes()).padStart(2, "0")
-  const ss = String(kst.getUTCSeconds()).padStart(2, "0")
-  const hour = `${hh}${mm}${ss}`
-  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice?FID_ETC_CLS_CODE=&FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}&FID_INPUT_HOUR_1=${hour}&FID_PW_DATA_INCU_YN=N`
+  const priceMap: Record<number, number> = {}
+  // 정규장 마감 시각부터 역순 페이지네이션 (15:30 → 15:00 → ... → 09:00)
+  let hour = "153000"
+  const MAX_PAGES = 14
   try {
-    const res = await fetch(url, { headers: kisHeaders(creds, "FHKST03010200") })
-    const data = await res.json()
-    if (data.rt_cd !== "0") return null
-    const bars: Array<Record<string, string>> = data.output2 || []
-    if (!bars.length) return null
+    for (let page = 0; page < MAX_PAGES; page++) {
+      const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice?FID_ETC_CLS_CODE=&FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}&FID_INPUT_HOUR_1=${hour}&FID_PW_DATA_INCU_YN=N`
+      const res = await fetch(url, { headers: kisHeaders(creds, "FHKST03010200") })
+      const data = await res.json()
+      if (data.rt_cd !== "0") break
+      const bars: Array<Record<string, string>> = data.output2 || []
+      if (!bars.length) break
 
-    // 가격별 거래대금 합산 (분봉 종가 × 분봉 체결량)
-    const priceMap: Record<number, number> = {}
-    for (const b of bars) {
-      const price = parseInt(b.stck_prpr || "0") || 0
-      const vol = parseInt(b.cntg_vol || "0") || 0
-      if (price > 0 && vol > 0) {
-        priceMap[price] = (priceMap[price] || 0) + price * vol
+      for (const b of bars) {
+        const price = parseInt(b.stck_prpr || "0") || 0
+        const vol = parseInt(b.cntg_vol || "0") || 0
+        if (price > 0 && vol > 0) {
+          priceMap[price] = (priceMap[price] || 0) + price * vol
+        }
       }
+      // 다음 페이지: 응답 마지막 분봉 시각 - 1분 (응답은 최근 → 과거 순)
+      const lastHour = bars[bars.length - 1]?.stck_cntg_hour || ""
+      if (!lastHour || lastHour <= "090000") break
+      const h = parseInt(lastHour.slice(0, 2))
+      const m = parseInt(lastHour.slice(2, 4))
+      if (isNaN(h) || isNaN(m)) break
+      const totalMin = h * 60 + m - 1
+      if (totalMin < 540) break  // 09:00 이전 도달
+      const newH = Math.floor(totalMin / 60)
+      const newM = totalMin % 60
+      hour = `${String(newH).padStart(2, "0")}${String(newM).padStart(2, "0")}00`
+      // KIS rate limit (실투자 초당 20건 ≈ 60ms 간격)
+      await new Promise((r) => setTimeout(r, 70))
     }
     const total = Object.values(priceMap).reduce((s, v) => s + v, 0)
     if (total === 0) return null
-
     const entries = Object.entries(priceMap)
       .map(([p, v]) => ({ price: Number(p), value: v, pct: Math.round((v / total) * 1000) / 10 }))
       .sort((a, b) => b.value - a.value)
