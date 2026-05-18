@@ -307,6 +307,25 @@ export default function Portfolio() {
       if (!kisLoaded.current) return;
       // KIS 완료 후 mergedPortfolio 변경(편집 등) → 캐시된 가격 재적용
       applyPrices(mergedPortfolio, kisPrices.current);
+      // 신규 추가 종목(kisFullData 없음)이 있으면 추가 fetch — VWAP/RVOL/30일 순위 정상화
+      const newCodes = mergedPortfolio.holdings.map((h: any) => h.code).filter((c: string) => c && !kisFullData.current[c]);
+      if (newCodes.length > 0) {
+        (async () => {
+          try {
+            const { data: { session } } = await sessionPromise.current;
+            if (!session?.access_token) return;
+            const kisData = await fetchKisPrices(newCodes);
+            kisFullData.current = { ...kisFullData.current, ...kisData };
+            const newPriceMap = { ...kisPrices.current };
+            for (const [code, p] of Object.entries(kisData)) {
+              if (p.current_price) newPriceMap[code] = p.current_price;
+            }
+            kisPrices.current = newPriceMap;
+            const latest = mergedRef.current;
+            if (latest) applyPrices(latest, newPriceMap);
+          } catch {}
+        })();
+      }
       return;
     }
     autoRefreshed.current = true;

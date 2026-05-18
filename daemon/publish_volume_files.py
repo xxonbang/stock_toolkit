@@ -26,11 +26,12 @@ async def publish_volume_files() -> None:
         logger.warning(f"publish_volume_files: {BUILD_SCRIPT} 없음 → skip")
         return
 
-    # 1) build_volume_avg.py 실행 — blocking subprocess (CPU 처리만, 빠름)
+    # 1) build_volume_avg.py 실행 — blocking subprocess
+    # daily_ohlcv가 354MB라 JSON parse + 종목 평균 계산에 GCP에서 2~4분 소요
     def _run_build() -> tuple[int, str]:
         r = subprocess.run(
             ["python3", str(BUILD_SCRIPT)],
-            capture_output=True, text=True, cwd=str(REPO_ROOT), timeout=120,
+            capture_output=True, text=True, cwd=str(REPO_ROOT), timeout=600,
         )
         return r.returncode, (r.stdout + r.stderr).strip()
 
