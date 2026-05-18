@@ -75,23 +75,27 @@ function rvolUseUnVolume(): boolean {
 }
 
 /** 30일 거래량 순위 계산 — 종목 자신의 지난 30일 거래량 중 오늘 위치 (1위=최고).
- *  반환: { rank: N위, total: 30, percentile: 상위 P% } 또는 null.
- *  - 0 값은 거래정지/신규상장 보정 위해 필터링 (오늘 1주만 거래해도 1위 되는 왜곡 방지)
- *  - history 길이 < 10이면 표본 부족으로 null 반환 */
+ *  반환: { rank, total, percentile, projected } 또는 null.
+ *  - 정규장 중에는 시간 보정 적용 (currentVol / elapsed × 390) — RVOL과 일관성
+ *    예: 09:30(elapsed=30)에 거래량 1M → 일중 추정치 13M로 history와 비교
+ *  - 0 값 필터 + 표본 10 미만이면 null */
 function calcVolumeRank30(
   currentVol: number | undefined,
   history: number[] | undefined,
-): { rank: number; total: number; percentile: number } | null {
+): { rank: number; total: number; percentile: number; projected: number; isProjected: boolean } | null {
   if (!currentVol || currentVol <= 0 || !history || history.length === 0) return null;
-  // 0 값 필터 (거래정지/신규상장 종목 보정)
   const cleaned = history.filter((v) => v > 0);
-  if (cleaned.length < 10) return null;  // 표본 너무 적으면 순위 의미 약함
-  const all = [...cleaned, currentVol];
-  const sorted = [...all].sort((a, b) => b - a); // 큰 값 순
-  const rank = sorted.findIndex((v) => v === currentVol) + 1; // 1-based
+  if (cleaned.length < 10) return null;
+  // 시간 보정: history는 일 마감 거래량이므로 오늘도 같은 기준으로 환산
+  const elapsed = marketElapsedMinutes(); // 1~390
+  const projected = elapsed >= 390 ? currentVol : Math.round((currentVol / Math.max(elapsed, 1)) * 390);
+  const isProjected = elapsed < 390;
+  const all = [...cleaned, projected];
+  const sorted = [...all].sort((a, b) => b - a);
+  const rank = sorted.findIndex((v) => v === projected) + 1;
   const total = all.length;
-  const percentile = (rank / total) * 100; // 상위 N%
-  return { rank, total, percentile };
+  const percentile = (rank / total) * 100;
+  return { rank, total, percentile, projected, isProjected };
 }
 
 /** VWAP/RVOL 계산. trading_value 또는 avg20d 없으면 해당 값 null. */
@@ -743,6 +747,7 @@ export default function Portfolio() {
                       <HelpCircle size={10} />
                     </button>
                     <span className={`tabular-nums ${rank30.rank <= 3 ? "text-red-500 font-semibold" : rank30.percentile <= 10 ? "text-orange-500" : rank30.percentile <= 50 ? "t-text" : "t-text-dim"}`}>
+                      {rank30.isProjected && <span className="t-text-dim mr-1">예상</span>}
                       {rank30.rank}위 / {rank30.total}일 (상위 {rank30.percentile.toFixed(0)}%)
                     </span>
                   </div>
@@ -1109,6 +1114,8 @@ export default function Portfolio() {
           </div>
           <div className="text-[12px] t-text-sub leading-relaxed mb-3">
             이 종목 자기 자신의 지난 30거래일 거래량 중 오늘의 위치 <span className="t-text-dim">(다른 종목과 비교 X)</span>.
+            <br />
+            <span className="t-text-dim text-[11px]">정규장 중: 오늘 거래량을 일중 추정치 <span className="font-mono">(현재 누적 × 390 / 경과분)</span>로 환산해 비교 — "예상 N위" 표기.</span>
           </div>
           <ul className="space-y-1.5 text-[11px] t-text-sub mb-3">
             <li><span className="text-red-500 font-semibold">1위</span> = 30일 중 거래량 최고 (역대급 이슈)</li>

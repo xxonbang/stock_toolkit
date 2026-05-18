@@ -43,6 +43,8 @@ FILES=(
   valuation.json
   volume_divergence.json
   volume_profile.json
+  volume_avg_20d.json
+  volume_30d_history.json
   anomalies.json
   auction.json
   news_top3_latest.json
