@@ -62,12 +62,10 @@ def fetch_holdings_codes() -> list[str]:
         return []
 
 
-async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> list[dict]:
+async def _fetch_daily_mkt(session: aiohttp.ClientSession, token: str, code: str, mkt: str) -> list[dict]:
     url = f"{KIS_BASE}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
     params = {
-        # J 사용 — NXT 미상장 종목은 UN 호출 시 옛 데이터(2월) 반환되는 KIS API 동작 회피.
-        # NXT 상장 종목은 J=KRX 단독이지만 volume_krx 분자와 일치하므로 RVOL 정합성 유지.
-        "FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": code,
+        "FID_COND_MRKT_DIV_CODE": mkt, "FID_INPUT_ISCD": code,
         "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0",
     }
     headers = {
@@ -79,7 +77,19 @@ async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> 
         d = await r.json()
         if d.get("rt_cd") != "0":
             return []
-        return d.get("output", [])  # 최대 30일 일봉
+        return d.get("output", [])
+
+
+async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> list[dict]:
+    """UN(통합) 우선 + NXT 미상장 종목 자동 J fallback (KIS API 버그 회피)."""
+    threshold = (datetime.now(KST) - timedelta(days=10)).strftime("%Y%m%d")
+    bars = await _fetch_daily_mkt(session, token, code, "UN")
+    if not bars:
+        return await _fetch_daily_mkt(session, token, code, "J")
+    first_date = bars[0].get("stck_bsop_date", "")
+    if first_date and first_date < threshold:
+        return await _fetch_daily_mkt(session, token, code, "J")
+    return bars
 
 
 async def main() -> None:

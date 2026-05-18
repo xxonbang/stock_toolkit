@@ -61,11 +61,22 @@ async def update_daily_ohlcv():
     updated = 0
     errors = 0
     today_yyyymmdd = datetime.now(_KST).strftime("%Y%m%d")
+    threshold_yyyymmdd = (datetime.now(_KST) - timedelta(days=10)).strftime("%Y%m%d")
 
     # 종목당 응답 timeout 10초 (이전 무한 대기로 인한 hang 방지)
     req_timeout = aiohttp.ClientTimeout(total=10)
     # 중간 저장 주기 (장기 hang 시 진행분 보존)
     SAVE_EVERY = 100
+
+    async def _fetch_with_mkt(code: str, mkt: str) -> list[dict]:
+        url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+        params = {"FID_COND_MRKT_DIV_CODE": mkt, "FID_INPUT_ISCD": code,
+                  "FID_PERIOD_DIV_CODE": "D", "FID_ORG_ADJ_PRC": "0"}
+        async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400"), timeout=req_timeout) as resp:
+            data = await resp.json()
+            if data.get("rt_cd") != "0":
+                return []
+            return data.get("output", [])
 
     def _save_partial():
         """현재까지 변경 사항을 디스크에 flush."""
@@ -82,21 +93,18 @@ async def update_daily_ohlcv():
         if last_date >= today_yyyymmdd:
             continue
         try:
-            url = f"{KIS_MOCK_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
-            params = {
-                # J — NXT 미상장 종목 UN 호출 시 KIS가 ~2개월 옛 데이터 반환하는 버그 회피(2026-05-18 retract).
-                # 분자 volume_krx와 시장 범위 일치 (모두 KRX 단독).
-                "FID_COND_MRKT_DIV_CODE": "J",
-                "FID_INPUT_ISCD": code,
-                "FID_PERIOD_DIV_CODE": "D",
-                "FID_ORG_ADJ_PRC": "0",
-            }
-            async with session.get(url, params=params, headers=_order_headers(token, "FHKST01010400"), timeout=req_timeout) as resp:
-                data = await resp.json()
-                if data.get("rt_cd") != "0":
-                    errors += 1
-                    continue
-                new_bars = data.get("output", [])
+            # UN(KRX+NXT 통합) 우선 + NXT 미상장 종목 자동 J fallback (KIS API 버그 회피).
+            new_bars = await _fetch_with_mkt(code, "UN")
+            if not new_bars:
+                new_bars = await _fetch_with_mkt(code, "J")
+            else:
+                # 응답 first_date가 10일 이상 stale이면 NXT 미상장 종목 추정 → J 재시도
+                first_date = new_bars[0].get("stck_bsop_date", "")
+                if first_date and first_date < threshold_yyyymmdd:
+                    new_bars = await _fetch_with_mkt(code, "J")
+            if not new_bars:
+                errors += 1
+                continue
 
             # 기존 bars에 없는 날짜만 append
             existing_dates = {b["stck_bsop_date"] for b in ohlcv[code]["bars"]}

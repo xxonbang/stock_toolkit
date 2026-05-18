@@ -39,12 +39,10 @@ async def get_token(session: aiohttp.ClientSession) -> str:
         return tok
 
 
-async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> list[dict]:
+async def _fetch_daily_with_mkt(session: aiohttp.ClientSession, token: str, code: str, mkt: str) -> list[dict]:
     url = f"{BASE}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
     params = {
-        # J — NXT 미상장 종목 UN 호출 시 KIS API가 옛 데이터(~2개월 전) 반환하는 버그 회피.
-        # NXT 상장 종목도 J=KRX 단독으로 통일 (RVOL 분자 volume_krx와 일치).
-        "FID_COND_MRKT_DIV_CODE": "J",
+        "FID_COND_MRKT_DIV_CODE": mkt,
         "FID_INPUT_ISCD": code,
         "FID_PERIOD_DIV_CODE": "D",
         "FID_ORG_ADJ_PRC": "0",
@@ -63,6 +61,22 @@ async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> 
         if d.get("rt_cd") != "0":
             return []
         return d.get("output", [])
+
+
+async def fetch_daily(session: aiohttp.ClientSession, token: str, code: str) -> list[dict]:
+    """UN(통합) 우선 + NXT 미상장 종목 자동 J fallback.
+    KIS API 버그: NXT 미상장 종목 UN 호출 시 ~2개월 옛 데이터 반환 → 응답 first_date가
+    10일 이상 stale이면 J로 재시도 (이때만 KRX 단독 데이터 사용)."""
+    threshold = (datetime.now(KST) - timedelta(days=10)).strftime("%Y%m%d")
+    bars = await _fetch_daily_with_mkt(session, token, code, "UN")
+    # 응답이 비었거나 stale이면 J로 재시도
+    if not bars:
+        return await _fetch_daily_with_mkt(session, token, code, "J")
+    first_date = bars[0].get("stck_bsop_date", "")
+    if first_date and first_date < threshold:
+        # NXT 미상장 종목 추정 (UN 응답이 옛 데이터) → J로 재시도
+        return await _fetch_daily_with_mkt(session, token, code, "J")
+    return bars
 
 
 async def main() -> None:
