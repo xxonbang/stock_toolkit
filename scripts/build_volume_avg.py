@@ -10,6 +10,7 @@
 """
 from __future__ import annotations
 import json
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 AVG_DAYS = 20
@@ -48,10 +49,23 @@ def main() -> None:
         if any(v > 0 for v in vols_hist):
             hist_out[code] = vols_hist
 
-    DST_AVG.write_text(json.dumps(avg_out, ensure_ascii=False), encoding="utf-8")
-    print(f"wrote {DST_AVG.name}: {len(avg_out)} codes, {DST_AVG.stat().st_size / 1024:.1f}KB")
-    DST_HIST.write_text(json.dumps(hist_out, ensure_ascii=False), encoding="utf-8")
-    print(f"wrote {DST_HIST.name}: {len(hist_out)} codes, {DST_HIST.stat().st_size / 1024:.1f}KB")
+    # generated_at 메타데이터 — daily_ohlcv의 last_date(원본 데이터 기준일) + 빌드 시각
+    kst_now = datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d %H:%M KST")
+    # daily_ohlcv의 005930 마지막 날짜를 기준 데이터 일자로 사용 (대표 종목)
+    src_last_date = ""
+    try:
+        sample_bars = data.get("005930", {}).get("bars", [])
+        if sample_bars:
+            src_last_date = sample_bars[-1].get("stck_bsop_date", "")
+    except Exception:
+        pass
+    avg_out_with_meta = {"_generated_at": kst_now, "_source_last_date": src_last_date, **avg_out}
+    hist_out_with_meta = {"_generated_at": kst_now, "_source_last_date": src_last_date, **hist_out}
+
+    DST_AVG.write_text(json.dumps(avg_out_with_meta, ensure_ascii=False), encoding="utf-8")
+    print(f"wrote {DST_AVG.name}: {len(avg_out)} codes, {DST_AVG.stat().st_size / 1024:.1f}KB, source_last={src_last_date}")
+    DST_HIST.write_text(json.dumps(hist_out_with_meta, ensure_ascii=False), encoding="utf-8")
+    print(f"wrote {DST_HIST.name}: {len(hist_out)} codes, {DST_HIST.stat().st_size / 1024:.1f}KB, source_last={src_last_date}")
 
 
 if __name__ == "__main__":

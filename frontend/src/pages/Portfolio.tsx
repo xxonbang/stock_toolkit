@@ -157,6 +157,7 @@ export default function Portfolio() {
   const [allStockList, setAllStockList] = useState<any[]>([]);
   const [volumeAvg20d, setVolumeAvg20d] = useState<Record<string, number>>({});
   const [volume30dHistory, setVolume30dHistory] = useState<Record<string, number[]>>({});
+  const [volume30dSourceDate, setVolume30dSourceDate] = useState<string>("");
   const [showRank30Help, setShowRank30Help] = useState(false);
   const [priceConcentration, setPriceConcentration] = useState<Record<string, PriceConcentration>>({});
   const [showConcentrationHelp, setShowConcentrationHelp] = useState(false);
@@ -399,8 +400,31 @@ export default function Portfolio() {
 
   // 30일 거래량 히스토리 로드 (30일 순위용)
   useEffect(() => {
-    dataService.getVolume30dHistory().then((m) => { if (m) setVolume30dHistory(m); }).catch(() => {});
+    dataService.getVolume30dHistory().then((m: any) => {
+      if (!m) return;
+      const meta = m._source_last_date;
+      if (typeof meta === "string") setVolume30dSourceDate(meta);
+      // 메타 키 제외하고 순수 데이터만 추출
+      const data: Record<string, number[]> = {};
+      for (const [k, v] of Object.entries(m)) {
+        if (!k.startsWith("_") && Array.isArray(v)) data[k] = v as number[];
+      }
+      setVolume30dHistory(data);
+    }).catch(() => {});
   }, []);
+
+  // 30일 데이터 stale 일수 계산 (source_last_date 기준)
+  const volume30dStaleDays = useMemo(() => {
+    if (!volume30dSourceDate || volume30dSourceDate.length !== 8) return null;
+    const y = parseInt(volume30dSourceDate.slice(0, 4));
+    const m = parseInt(volume30dSourceDate.slice(4, 6)) - 1;
+    const d = parseInt(volume30dSourceDate.slice(6, 8));
+    if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
+    const sourceMs = new Date(y, m, d).getTime();
+    const todayMs = new Date().setHours(0, 0, 0, 0);
+    return Math.floor((todayMs - sourceMs) / 86400000);
+  }, [volume30dSourceDate]);
+  const volume30dIsStale = volume30dStaleDays != null && volume30dStaleDays > 7;
 
   // 가격대별 거래집중도 로드 — 보유 종목 변경 시 (mount + 새로고침)
   useEffect(() => {
@@ -764,8 +788,13 @@ export default function Portfolio() {
                     >
                       30일 순위
                       <HelpCircle size={10} />
+                      {volume30dIsStale && (
+                        <span className="ml-1 text-[9px] font-bold px-1 rounded bg-amber-500/15 text-amber-500 leading-none" title={`데이터 ${volume30dStaleDays}일 stale`}>
+                          ⚠ {volume30dStaleDays}일전
+                        </span>
+                      )}
                     </button>
-                    <span className={`tabular-nums ${rank30.rank <= 3 ? "text-red-500 font-semibold" : rank30.percentile <= 10 ? "text-orange-500" : rank30.percentile <= 50 ? "t-text" : "t-text-dim"}`}>
+                    <span className={`tabular-nums ${volume30dIsStale ? "t-text-dim" : rank30.rank <= 3 ? "text-red-500 font-semibold" : rank30.percentile <= 10 ? "text-orange-500" : rank30.percentile <= 50 ? "t-text" : "t-text-dim"}`}>
                       {rank30.isProjected && <span className="t-text-dim mr-1">예상</span>}
                       {rank30.rank}위 / {rank30.total}일 (상위 {rank30.percentile.toFixed(0)}%)
                     </span>
@@ -1149,6 +1178,18 @@ export default function Portfolio() {
               30일 순위도 상위면 진짜 폭증.
             </div>
           </div>
+          {volume30dIsStale && (
+            <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
+              <div className="text-[11px] font-semibold text-amber-500 mb-1.5">⚠ 데이터 stale 경고</div>
+              <div className="text-[11px] t-text-sub leading-relaxed">
+                현재 30일 history는 <span className="font-mono">{volume30dSourceDate}</span> 기준 (<span className="font-semibold">{volume30dStaleDays}일 전</span>) 입니다.
+                일봉 데이터 갱신 인프라가 일시적으로 멈춰있어 최근 거래 패턴이 반영되지 않았습니다.
+                <br />
+                → 표시되는 순위는 옛 데이터 대비 비교이므로 <span className="font-semibold">실제 의미와 다를 수 있습니다</span>.
+                정상화 후 자동 활성화됩니다.
+              </div>
+            </div>
+          )}
         </div>
       </div>,
       document.body
