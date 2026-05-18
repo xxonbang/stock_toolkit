@@ -1,0 +1,53 @@
+name: Refresh Volume Data
+
+# 매일 KST 17:00 (UTC 08:00) — 정규장 마감 후 90분.
+# 옵션 B 자동화 — GCP daemon hang에 의존하지 않고 GitHub Actions에서 직접 KIS API 호출.
+
+on:
+  schedule:
+    - cron: '0 8 * * 1-5'   # 평일 KST 17:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: refresh-volume
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install deps
+        run: pip install aiohttp
+
+      - name: Refresh volume data
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python -u scripts/refresh_volume_data.py
+
+      - name: Commit + push if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add results/volume_avg_20d.json results/volume_30d_history.json
+          if git diff --cached --quiet; then
+            echo "변경 없음 — skip commit"
+          else
+            TS=$(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')
+            git commit -m "data: refresh volume data ${TS} (auto)"
+            git push origin main
+          fi

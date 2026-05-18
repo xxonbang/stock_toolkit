@@ -426,12 +426,37 @@ export default function Portfolio() {
   }, [volume30dSourceDate]);
   const volume30dIsStale = volume30dStaleDays != null && volume30dStaleDays > 7;
 
-  // 가격대별 거래집중도 로드 — 보유 종목 변경 시 (mount + 새로고침)
+  // 가격대별 거래집중도 로드 — 보유 종목 변경 시. localStorage 5분 캐시로 응답 시간 단축.
   useEffect(() => {
     const codes = (portfolio?.holdings || []).map((h: any) => h.code).filter(Boolean);
     if (!codes.length) return;
-    fetchPriceConcentration(codes).then((m) => { if (m) setPriceConcentration(m); }).catch(() => {});
-    // portfolio.holdings 길이 기준으로 재호출 (가격 새로고침과는 독립)
+    const CACHE_KEY = "price_concentration_cache_v1";
+    const CACHE_TTL_MS = 5 * 60 * 1000; // 5분
+    // 1) localStorage에서 캐시 hit 시도
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (raw) {
+        const cached = JSON.parse(raw) as { ts: number; codes: string[]; data: Record<string, PriceConcentration> };
+        const fresh = Date.now() - cached.ts < CACHE_TTL_MS;
+        const sameCodes = cached.codes.length === codes.length && cached.codes.every((c: string) => codes.includes(c));
+        if (fresh && sameCodes && cached.data) {
+          setPriceConcentration(cached.data);
+          return;
+        }
+      }
+    } catch {
+      // fallthrough
+    }
+    // 2) cache miss → 네트워크 fetch + 캐시 저장
+    fetchPriceConcentration(codes).then((m) => {
+      if (!m) return;
+      setPriceConcentration(m);
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), codes, data: m }));
+      } catch {
+        // localStorage 용량 초과 등 무시
+      }
+    }).catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [portfolio?.holdings?.length]);
 
