@@ -2,6 +2,12 @@
 
 ## 2026-05-19
 
+### [기능] 4지표 종합 활용 가이드 — 포트폴리오 화면 접기/펼치기 섹션 (2026-05-20 00:10 KST)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx`
+- **추가:** 건강도 카드 하단에 접기/펼치기 가이드. 본질·RVOL×30일순위 매트릭스·VWAP×거래집중·시나리오 6선(Strong Long/Dip Buy/Pump Trap/Falling Knife/Boring Sideway/Take Profit)·진입3+청산3 체크리스트·핵심 원칙 5개·면책
+- **state:** `showStrategyGuide` toggle. ChevronUp/Down 아이콘
+- **목적:** 사용자가 VWAP/RVOL/30일 순위/거래 집중 4지표를 단독이 아닌 조합으로 활용하도록 학습 지원
+
 ### [개선] 거래집중 행 — flex-wrap으로 TOP3 잘림 해소 (2026-05-19 23:55 KST)
 - **변경 파일:** `frontend/src/pages/Portfolio.tsx` (거래 집중 row)
 - **원인:** `<span className="text-right truncate">` 강제로 좁은 카드/모바일 폭에서 3번째 가격 잘림 ("273,...")

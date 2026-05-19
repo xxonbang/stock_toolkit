@@ -147,6 +147,7 @@ export default function Portfolio() {
   const [showRank30Help, setShowRank30Help] = useState(false);
   const [priceConcentration, setPriceConcentration] = useState<Record<string, PriceConcentration>>({});
   const [showConcentrationHelp, setShowConcentrationHelp] = useState(false);
+  const [showStrategyGuide, setShowStrategyGuide] = useState(false);
   const [avgDownTarget, setAvgDownTarget] = useState<any>(null);
   const [avgDownPrice, setAvgDownPrice] = useState("");
   const [avgDownQty, setAvgDownQty] = useState("");
@@ -1068,6 +1069,124 @@ export default function Portfolio() {
             <div className="text-[8px] t-text-dim text-center mt-0.5">{a.label}</div>
           </div>
         ))}
+      </div>
+      {/* 4지표 종합 활용 가이드 — 접기/펼치기 */}
+      <div className="mt-3 t-card rounded-lg border t-border-light overflow-hidden">
+        <button
+          onClick={() => setShowStrategyGuide(v => !v)}
+          className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-white/5 transition"
+        >
+          <span className="text-xs font-semibold t-text flex items-center gap-1.5">
+            📊 4지표 종합 활용 가이드 (VWAP · RVOL · 30일 순위 · 거래 집중)
+          </span>
+          {showStrategyGuide ? <ChevronUp size={14} className="t-text-dim" /> : <ChevronDown size={14} className="t-text-dim" />}
+        </button>
+        {showStrategyGuide && (
+          <div className="px-3 pb-3 pt-1 space-y-3 text-[11px] leading-relaxed t-text-sub border-t t-border-light">
+
+            {/* 1. 각 지표의 본질 */}
+            <section>
+              <div className="text-[12px] font-semibold t-text mb-1.5">1. 각 지표의 본질</div>
+              <ul className="space-y-0.5 pl-1">
+                <li><span className="font-semibold t-text">VWAP</span> = 일중 평균 매수자의 본전 가격 → <span className="t-text-dim">방향(강세/약세)</span></li>
+                <li><span className="font-semibold t-text">RVOL</span> = 같은 시간대 평소 대비 활력 → <span className="t-text-dim">관심도</span></li>
+                <li><span className="font-semibold t-text">30일 순위</span> = 자기 30일 거래량 분포 내 위치 → <span className="t-text-dim">절대 이슈 강도</span></li>
+                <li><span className="font-semibold t-text">거래 집중 TOP3</span> = 일중 매물대 → <span className="t-text-dim">지지·저항 가격</span></li>
+              </ul>
+              <div className="mt-1 t-text-dim italic">핵심: VWAP=방향, RVOL+30일순위=활력×검증, 거래집중=실행가</div>
+            </section>
+
+            {/* 2. RVOL × 30일 순위 매트릭스 */}
+            <section>
+              <div className="text-[12px] font-semibold t-text mb-1.5">2. RVOL × 30일 순위 — 함정 검증 (필수)</div>
+              <table className="w-full text-[10.5px] border-collapse">
+                <thead>
+                  <tr className="t-text-dim border-b t-border-light">
+                    <th className="text-left py-1 pr-2">RVOL</th>
+                    <th className="text-left py-1 pr-2">30일 순위</th>
+                    <th className="text-left py-1 pr-2">해석</th>
+                    <th className="text-left py-1">신뢰도</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b t-border-light"><td className="py-1 pr-2">≥1.5×</td><td className="py-1 pr-2">상위 10%</td><td className="py-1 pr-2 text-emerald-400">진짜 폭증</td><td className="py-1">⭐⭐⭐</td></tr>
+                  <tr className="border-b t-border-light"><td className="py-1 pr-2">≥1.5×</td><td className="py-1 pr-2">평범</td><td className="py-1 pr-2 text-amber-400">가짜 폭증 (평균이 우연히 낮음)</td><td className="py-1">⚠</td></tr>
+                  <tr className="border-b t-border-light"><td className="py-1 pr-2">1.0×</td><td className="py-1 pr-2">상위 5%</td><td className="py-1 pr-2">실제 강한 거래</td><td className="py-1">⭐⭐</td></tr>
+                  <tr className="border-b t-border-light"><td className="py-1 pr-2">&lt;0.7×</td><td className="py-1 pr-2">평범</td><td className="py-1 pr-2 t-text-dim">무관심·유동성 부족</td><td className="py-1">—</td></tr>
+                  <tr><td className="py-1 pr-2">&lt;0.7×</td><td className="py-1 pr-2">하위 30%</td><td className="py-1 pr-2 text-red-400">침체 (관심 식음)</td><td className="py-1">❌</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            {/* 3. VWAP × 거래 집중 */}
+            <section>
+              <div className="text-[12px] font-semibold t-text mb-1.5">3. VWAP × 거래 집중 — 매수가 결정</div>
+              <ul className="space-y-0.5 pl-1">
+                <li><span className="text-emerald-400">현재가 &gt; VWAP &amp; 현재가 &gt; TOP1</span> → 돌파 후 지지, 추격 매수 가능</li>
+                <li><span className="t-text">현재가 &gt; VWAP &amp; 현재가 &lt; TOP1</span> → 저항 미돌파, TOP1 돌파 대기</li>
+                <li><span className="text-blue-400">현재가 &lt; VWAP &amp; 현재가 ≈ TOP1</span> → 눌림목 지지, 분할 매수 기회</li>
+                <li><span className="text-red-400">현재가 &lt; VWAP &amp; 현재가 ≪ TOP1</span> → 지지선 이탈, falling knife 매수 금지</li>
+              </ul>
+            </section>
+
+            {/* 4. 시나리오 6선 */}
+            <section>
+              <div className="text-[12px] font-semibold t-text mb-1.5">4. 종합 시나리오 6선</div>
+              <div className="space-y-1.5">
+                <div><span className="text-emerald-400 font-semibold">A. Strong Long</span> — VWAP↑ + RVOL≥1.5× + 30일 상위 10% + 현재가&gt;TOP1 → 추격 매수, trailing stop 보호</div>
+                <div><span className="text-emerald-400">B. Dip Buy</span> — VWAP −1~−3% + RVOL 1.0~1.3× + 30일 상위 30% + 현재가≈TOP1 → 분할 매수 (RVOL 0.7 미만이면 회피)</div>
+                <div><span className="text-amber-400">C. Pump Trap</span> — VWAP↑ + RVOL≥1.5× + 30일 평범 + 현재가≫TOP1 → 가짜 폭증, 회피</div>
+                <div><span className="text-red-400">D. Falling Knife</span> — VWAP −3%↓ + RVOL≥1.5× + 30일 상위 5% + 현재가≪TOP1 → 패닉 매도 중, 절대 매수 금지</div>
+                <div><span className="t-text-dim">E. Boring Sideway</span> — VWAP ±0.5% + RVOL 0.9~1.1× + 30일 평범 → 관망, catalyst 대기</div>
+                <div><span className="text-blue-400">F. Take Profit</span> — 보유 + 현재가≫VWAP(+5%↑) + RVOL 1.5×↑ + 현재가&gt;TOP1 + 30일 상위 3 → 일부 익절 or trailing 타이트</div>
+              </div>
+            </section>
+
+            {/* 5. 진입/청산 체크리스트 */}
+            <section>
+              <div className="text-[12px] font-semibold t-text mb-1.5">5. 진입 / 청산 체크리스트</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <div className="font-semibold t-text mb-1">진입 4단계</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>방향: 현재가 vs VWAP</li>
+                    <li>활력: RVOL ≥ 1.0× 만 진입</li>
+                    <li>검증: 30일 순위와 RVOL 같은 방향?</li>
+                    <li>실행가: 거래집중 TOP1 근처 분할</li>
+                  </ol>
+                </div>
+                <div>
+                  <div className="font-semibold t-text mb-1">청산 3단계</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>약세 전환: VWAP 이탈 + RVOL 1.5×↑</li>
+                    <li>이슈 강도: 30일 상위 진입 시 대응</li>
+                    <li>매물대 이탈: TOP1 아래 깨지면 손절</li>
+                  </ol>
+                </div>
+              </div>
+            </section>
+
+            {/* 6. 핵심 원칙 */}
+            <section>
+              <div className="text-[12px] font-semibold t-text mb-1.5">6. 핵심 원칙</div>
+              <ol className="list-decimal list-inside space-y-0.5">
+                <li>단일 지표로 결정 금지</li>
+                <li>RVOL ↔ 30일 순위 교차검증 필수 (같은 방향일 때만 신뢰)</li>
+                <li>거래집중 TOP1은 지지·저항으로 직접 활용 (일중 한정)</li>
+                <li>약세 + 거래 식음 = 매수 금지 (관심 없는 종목은 반등 catalyst 없음)</li>
+                <li>VWAP은 일중 한정 — 갭 시초가 발생 시 전일 VWAP 무효</li>
+              </ol>
+            </section>
+
+            {/* 면책 */}
+            <section className="border-t t-border-light pt-2">
+              <div className="text-[10.5px] t-text-dim italic">
+                ⚠ 4지표는 거래 활력·가격 위치 분석 도구. 펀더멘털·매크로·수급은 미반영. 갭업/갭다운 시초가·시간외에서는 일중 누적 데이터 기반인 VWAP·RVOL 무효. 실거래는 종합 판단 필요.
+              </div>
+            </section>
+
+          </div>
+        )}
       </div>
       {/* 건강도 설명 팝업 */}
       {showHealthHelp && createPortal(
