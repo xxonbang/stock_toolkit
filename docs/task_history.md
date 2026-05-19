@@ -2,6 +2,12 @@
 
 ## 2026-05-19
 
+### [개선] 거래집중 행 — flex-wrap으로 TOP3 잘림 해소 (2026-05-19 23:55 KST)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx` (거래 집중 row)
+- **원인:** `<span className="text-right truncate">` 강제로 좁은 카드/모바일 폭에서 3번째 가격 잘림 ("273,...")
+- **변경:** `<span>` → `<div>` + `flex flex-wrap justify-end gap-x-1 min-w-0 flex-1`. 자식에 `whitespace-nowrap` 추가하여 가격+퍼센트 묶음 단위로 wrap
+- **결과:** 폭 충분 시 1줄, 폭 부족 시 자동 2줄. TOP3 정보 100% 보존
+
 ### [개선] 새로고침 버튼에 4지표 갱신 통합 (2026-05-19 22:40 KST)
 - **변경 파일:** `frontend/src/pages/Portfolio.tsx`
 - **이전 동작:** 새로고침 버튼이 `priceMap` (현재가)만 갱신, `kisFullData.current` 미갱신 → VWAP/RVOL/30일 순위/거래집중 stale

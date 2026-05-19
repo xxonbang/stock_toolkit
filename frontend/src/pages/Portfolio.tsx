@@ -849,15 +849,15 @@ export default function Portfolio() {
                       거래 집중
                       <HelpCircle size={10} />
                     </button>
-                    <span className="t-text tabular-nums text-right truncate">
+                    <div className="t-text tabular-nums flex flex-wrap justify-end gap-x-1 min-w-0 flex-1">
                       {conc.map((e, idx) => (
-                        <span key={e.price}>
-                          {idx > 0 && <span className="t-text-dim"> · </span>}
+                        <span key={e.price} className="whitespace-nowrap">
+                          {idx > 0 && <span className="t-text-dim">· </span>}
                           {e.price.toLocaleString()}원
                           <span className={`ml-0.5 ${idx === 0 ? "text-red-500 font-semibold" : "t-text-dim"}`}>({e.pct.toFixed(0)}%)</span>
                         </span>
                       ))}
-                    </span>
+                    </div>
                   </div>
                 )}
               </div>
