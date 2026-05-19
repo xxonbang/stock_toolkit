@@ -52,26 +52,12 @@ function marketElapsedMinutes(): number {
   return minutes - open;
 }
 
-/** RVOL 분자 데이터 출처 자동 전환:
- *  daily_ohlcv는 2026-05-17부터 UN(KRX+NXT 통합)으로 수집되도록 변경됨.
- *  과거 데이터는 J(KRX 단독) 기준 → bars[-20:] 평균이 모두 UN 기준이 되려면 영업일 20일 경과 필요.
- *  미경과 시: volume_krx(kis-proxy J 호출 결과)로 KRX 단독 비교 = 분자/분모 KRX 일치
- *  경과 시: volume(UN) 사용 = 분자/분모 UN 일치 */
-const RVOL_MIGRATION_START_KST = "2026-05-17";
+/** RVOL 분자 데이터 출처 — UN(KRX+NXT 통합) 즉시 전환 (2026-05-19).
+ *  daily_ohlcv가 UN+J fallback으로 매일 갱신되며 NXT 상장 종목 history도 UN으로 통합되어가는 중.
+ *  영업일 20일 대기 대신 즉시 UN 사용해 분자/분모 시장 범위 일치(NXT 상장 종목 RVOL 정확화).
+ *  NXT 미상장 종목은 volume_un === volume_krx이므로 영향 없음. */
 function rvolUseUnVolume(): boolean {
-  // 영업일 20일 경과 여부 — 토/일 제외 단순 카운트
-  const startStr = RVOL_MIGRATION_START_KST;
-  const todayKst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-  if (todayKst < startStr) return false;
-  let businessDays = 0;
-  let d = new Date(startStr + "T00:00:00Z");
-  const today = new Date(todayKst + "T00:00:00Z");
-  while (d < today) {
-    d = new Date(d.getTime() + 86400000);
-    const dow = d.getUTCDay();
-    if (dow !== 0 && dow !== 6) businessDays += 1;
-  }
-  return businessDays >= 20;
+  return true;
 }
 
 /** 30일 거래량 순위 계산 — 종목 자신의 지난 30일 거래량 중 오늘 위치 (1위=최고).
