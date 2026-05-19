@@ -1,5 +1,14 @@
 # Task History
 
+## 2026-05-19
+
+### [개선] 4지표 재검증 결과 보완 — 분봉 retry + cron 16:00 (2026-05-19 21:55 KST)
+- **변경 파일:** `supabase/functions/kis-proxy/index.ts` (fetchPriceConcentration retry), `.github/workflows/refresh-volume-data.yml` (주석)
+- **변경 1 — 분봉 retry:** KIS `inquire-time-itemchartprice` rt_cd≠0 응답 시 200ms 간격 최대 2회 재시도. 검증 중 두산E 1차 호출이 빈응답으로 실패해 TOP3가 부분 데이터 기반이 되는 편향 관측 → 재시도로 보완.
+- **변경 2 — cron 16:00:** cron-job.org job 7629427 평일 17:00 → 16:00 KST (장 마감 30분 후). RVOL/30일 순위 신선도 ~1시간 개선. 다음 실행 2026-05-20 16:00 KST.
+- **검증:** 4지표(VWAP/RVOL/30일 순위/가격집중) 데이터 수집·계산 로직 재검증 모두 통과 — KIS UN 실측치로 frontend 표시값 정확 재현.
+- **커밋:** `af582e7`
+
 ## 2026-05-17
 
 ### [개선] RVOL 시장 범위 불일치 정정 — 옵션 1+2 하이브리드 + kis-proxy 배포 (2026-05-17 KST)
