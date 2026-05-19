@@ -120,15 +120,16 @@ async function fetchPriceConcentration(creds: KisCredentials, code: string): Pro
     for (let page = 0; page < MAX_PAGES; page++) {
       const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice?FID_ETC_CLS_CODE=&FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}&FID_INPUT_HOUR_1=${hour}&FID_PW_DATA_INCU_YN=N`
       // KIS API 일시 불안정(rt_cd=1) 대응: 최대 2회 재시도
-      let data: Record<string, unknown> | null = null
+      // deno-lint-ignore no-explicit-any
+      let data: any = null
       for (let attempt = 0; attempt < 3; attempt++) {
         const res = await fetch(url, { headers: kisHeaders(creds, "FHKST03010200") })
         data = await res.json()
-        if (data && data.rt_cd === "0") break
+        if (data?.rt_cd === "0") break
         if (attempt < 2) await new Promise((r) => setTimeout(r, 200))
       }
-      if (!data || data.rt_cd !== "0") break
-      const bars: Array<Record<string, string>> = (data.output2 as Array<Record<string, string>>) || []
+      if (data?.rt_cd !== "0") break
+      const bars: Array<Record<string, string>> = data.output2 || []
       if (!bars.length) break
 
       for (const b of bars) {

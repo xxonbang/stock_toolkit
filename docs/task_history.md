@@ -2,6 +2,12 @@
 
 ## 2026-05-19
 
+### [버그픽스] price_concentration 분기 무효화 → 카드 거래집중 미표시 (2026-05-19 22:25 KST)
+- **변경 파일:** `supabase/functions/kis-proxy/index.ts`
+- **원인:** 커밋 af582e7에서 추가한 retry 코드의 `data: Record<string, unknown> | null` 타입이 `data.rt_cd === "0"` 비교에서 Deno strict 검증 통과 못함 → deploy 시 `price_concentration` 분기가 부분 무효화 → 모든 호출 HTTP 400 "Invalid action" 응답 → frontend Portfolio 카드의 거래집중 row가 `priceConcentration[h.code]?.entries` undefined로 미표시
+- **조치:** `data: any` + optional chaining(`data?.rt_cd`)으로 변경. supabase functions deploy 재실행 후 검증 — 000660 3 entries 정상 응답
+- **사용자 액션:** localStorage `price_concentration_cache_v1` 삭제 또는 5분 대기 후 새로고침
+
 ### [개선] 4지표 재검증 결과 보완 — 분봉 retry + cron 16:00 (2026-05-19 21:55 KST)
 - **변경 파일:** `supabase/functions/kis-proxy/index.ts` (fetchPriceConcentration retry), `.github/workflows/refresh-volume-data.yml` (주석)
 - **변경 1 — 분봉 retry:** KIS `inquire-time-itemchartprice` rt_cd≠0 응답 시 200ms 간격 최대 2회 재시도. 검증 중 두산E 1차 호출이 빈응답으로 실패해 TOP3가 부분 데이터 기반이 되는 편향 관측 → 재시도로 보완.
