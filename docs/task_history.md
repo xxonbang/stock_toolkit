@@ -2,6 +2,12 @@
 
 ## 2026-05-19
 
+### [개선] 새로고침 버튼에 4지표 갱신 통합 (2026-05-19 22:40 KST)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx`
+- **이전 동작:** 새로고침 버튼이 `priceMap` (현재가)만 갱신, `kisFullData.current` 미갱신 → VWAP/RVOL/30일 순위/거래집중 stale
+- **변경:** `refreshPortfolioPrices`에서 ①`kisFullData.current = {...kisFullData.current, ...kisData}` 머지 (VWAP/RVOL 분자), ②`dataService.getVolumeAvg20d/getVolume30dHistory` 재호출 (RVOL 분모/순위 분모), ③localStorage `price_concentration_cache_v1` 삭제 + `fetchPriceConcentration` 재호출. KIS 성공 시에만 실행(`kisRefreshSuccess` 플래그)
+- **부하:** 보유 4~6종목 기준 추가 ~1.5초 (거래집중 분봉 13페이지 × 70ms). 허용 범위
+
 ### [버그픽스] price_concentration 분기 무효화 → 카드 거래집중 미표시 (2026-05-19 22:25 KST)
 - **변경 파일:** `supabase/functions/kis-proxy/index.ts`
 - **원인:** 커밋 af582e7에서 추가한 retry 코드의 `data: Record<string, unknown> | null` 타입이 `data.rt_cd === "0"` 비교에서 Deno strict 검증 통과 못함 → deploy 시 `price_concentration` 분기가 부분 무효화 → 모든 호출 HTTP 400 "Invalid action" 응답 → frontend Portfolio 카드의 거래집중 row가 `priceConcentration[h.code]?.entries` undefined로 미표시

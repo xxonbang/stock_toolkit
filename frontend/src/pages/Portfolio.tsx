@@ -468,6 +468,7 @@ export default function Portfolio() {
       const codes = portfolio.holdings.map((h: any) => h.code).filter(Boolean);
       let priceMap: Record<string, number> = {};
       let source = "";
+      let kisRefreshSuccess = false;
       if (supaUser && codes.length > 0) {
         try {
           // 세션 유효성 먼저 확인 — 무효 시 Edge Function hang 방지
@@ -477,10 +478,12 @@ export default function Portfolio() {
               fetchKisPrices(codes),
               new Promise<never>((_, reject) => setTimeout(() => reject(new Error("KIS timeout")), 8000)),
             ]);
+            // VWAP / RVOL 분자 갱신 — kisFullData에 최신 응답 머지
+            kisFullData.current = { ...kisFullData.current, ...kisData };
             for (const [code, p] of Object.entries(kisData)) {
               if (p.current_price) priceMap[code] = p.current_price;
             }
-            if (Object.keys(priceMap).length > 0) source = "KIS";
+            if (Object.keys(priceMap).length > 0) { source = "KIS"; kisRefreshSuccess = true; }
           }
         } catch (e) {
           console.warn("KIS Edge Function 실패:", e);
@@ -516,6 +519,31 @@ export default function Portfolio() {
         }
       }
       setAfterhoursCodes(newAfterhoursCodes);
+      // 4지표 갱신 — KIS 새로고침 성공 시에만 실행 (rate limit 절약)
+      if (kisRefreshSuccess) {
+        // avg20d / 30일 history: cron이 갱신한 최신 데이터 재로드
+        dataService.getVolumeAvg20d().then((m) => { if (m) setVolumeAvg20d(m); }).catch(() => {});
+        dataService.getVolume30dHistory().then((m: any) => {
+          if (!m) return;
+          const meta = m._source_last_date;
+          if (typeof meta === "string") setVolume30dSourceDate(meta);
+          const data: Record<string, number[]> = {};
+          for (const [k, v] of Object.entries(m)) {
+            if (!k.startsWith("_") && Array.isArray(v)) data[k] = v as number[];
+          }
+          setVolume30dHistory(data);
+        }).catch(() => {});
+        // 거래집중: 캐시 무효화 후 재fetch
+        const CACHE_KEY = "price_concentration_cache_v1";
+        localStorage.removeItem(CACHE_KEY);
+        fetchPriceConcentration(codes).then((m) => {
+          if (!m) return;
+          setPriceConcentration(m);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), codes, data: m }));
+          } catch {}
+        }).catch(() => {});
+      }
       if (Object.keys(priceMap).length > 0) {
         const updated = portfolio.holdings.map((h: any) => {
           const cp = priceMap[h.code] || h.current_price || 0;
