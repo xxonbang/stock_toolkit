@@ -1074,12 +1074,16 @@ export default function Portfolio() {
       <div className="mt-3 t-card rounded-lg border t-border-light overflow-hidden">
         <button
           onClick={() => setShowStrategyGuide(v => !v)}
-          className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-white/5 transition"
+          className="w-full flex items-center justify-between gap-2 px-3 py-2.5 hover:bg-white/5 transition text-left"
         >
-          <span className="text-xs font-semibold t-text flex items-center gap-1.5">
-            📊 4지표 종합 활용 가이드 (VWAP · RVOL · 30일 순위 · 거래 집중)
-          </span>
-          {showStrategyGuide ? <ChevronUp size={14} className="t-text-dim" /> : <ChevronDown size={14} className="t-text-dim" />}
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <BarChart3 size={16} className="text-blue-400 shrink-0" />
+            <div className="min-w-0">
+              <div className="text-xs font-semibold t-text">4지표 종합 활용 가이드</div>
+              <div className="text-[10px] t-text-dim mt-0.5 truncate">VWAP · RVOL · 30일 순위 · 거래 집중</div>
+            </div>
+          </div>
+          {showStrategyGuide ? <ChevronUp size={14} className="t-text-dim shrink-0" /> : <ChevronDown size={14} className="t-text-dim shrink-0" />}
         </button>
         {showStrategyGuide && (
           <div className="px-3 pb-3 pt-1 space-y-3 text-[11px] leading-relaxed t-text-sub border-t t-border-light">
