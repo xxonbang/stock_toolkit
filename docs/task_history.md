@@ -2,6 +2,14 @@
 
 ## 2026-05-20
 
+### [버그픽스] 환율 데이터 출처를 macro-indicators.json으로 변경 (stale latest.json → 최신값 반영) (2026-05-20 23:00 KST)
+- **변경 파일:** `scripts/run_all.py` (라인 101-121)
+- **원인:** theme_analysis는 환율을 매일 `macro-indicators.json`(권위 소스, 5/20 USD 1,507.03)에 갱신하지만, `latest.json.exchange`/`indicator-history.json.exchange`는 2026-04-30 수집 시점에 고정 stale(USD 1,476.1). stock_toolkit이 `perf_latest.exchange.rates`(latest.json)를 읽어 화면에 stale 환율 표시 (실제 1,500원대인데 미반영)
+- **변경:** `loader.get_macro_indicators().exchange.rates`(dict)를 우선 사용 → `[{currency, currency_name, rate, is_100}]` list 형식으로 변환하여 frontend Dashboard와 호환. macro-indicators 비었으면 기존 perf_latest 경로로 폴백
+- **부수:** change_rate는 macro-indicators에 없으므로 표시 안 됨. UI는 `r.change_rate != null`로 자동 숨김 처리되어 깨지지 않음 (Dashboard.tsx:1194-1198)
+- **검증:** 로컬 transform 결과 USD 1,507.03 / JPY 947.43 / EUR 1,747.09 / CNY 221.35 정상 변환. py_compile OK
+- **반영 경로:** Push → GitHub Actions Deploy 워크플로우가 theme-analyzer repo checkout 후 run_all.py 재빌드 → GitHub Pages 갱신 → 사용자 download_remote_data.sh 재실행 시 로컬에도 반영
+
 ### [버그픽스] StockCalculator 비교 모드 판단을 targetPrice 단일 진실 소스로 통일 (2026-05-20 22:30 KST)
 - **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx`, `frontend/src/lib/supabase.ts`
 - **원인:** mode 필드와 targetPrice 필드를 이중으로 저장하여, theme-analysis 등 외부 시스템이 저장한 `{ targetPrice: N }` 항목(mode 필드 없음)을 가져올 때 `mode ?? 'current'`로 폴백되어 targetPrice를 무시하고 현재가 비교로 표시되는 버그

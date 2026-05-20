@@ -98,8 +98,25 @@ def main():
             signal_counts[sig] = signal_counts.get(sig, 0) + 1
         signal_counts["total"] = len(combined_data)
         report["by_source"]["combined"] = signal_counts
-    # 환율
-    report["exchange"] = perf_latest.get("exchange", {}).get("rates", [])
+    # 환율 — macro-indicators.json이 매일 갱신되는 권위 소스 (theme_analysis 측 운영 구조).
+    # latest.json/indicator-history.json의 exchange는 이전 수집 시점에 고정되어 stale (예: 4/30 이후 미갱신).
+    fresh_macro = loader.get_macro_indicators()
+    fresh_rates = fresh_macro.get("exchange", {}).get("rates", {}) if isinstance(fresh_macro, dict) else {}
+    if isinstance(fresh_rates, dict) and fresh_rates:
+        _CURRENCY_NAMES = {"USD": "미국 달러", "JPY": "일본 옌", "EUR": "유로", "CNY": "위안화"}
+        _IS_100 = {"JPY": True}
+        report["exchange"] = [
+            {
+                "currency": cur,
+                "currency_name": _CURRENCY_NAMES.get(cur, cur),
+                "rate": rate,
+                "is_100": _IS_100.get(cur, False),
+            }
+            for cur, rate in fresh_rates.items()
+        ]
+    else:
+        # 폴백: macro-indicators 비었으면 기존 경로 유지 (TTB/TTS 등 부가 정보 포함)
+        report["exchange"] = perf_latest.get("exchange", {}).get("rates", [])
     # F&G 추세
     report["fear_greed"]["previous_1_week"] = round(fg.get("previous_1_week", 0), 1) if fg.get("previous_1_week") is not None else None
     report["fear_greed"]["previous_1_month"] = round(fg.get("previous_1_month", 0), 1) if fg.get("previous_1_month") is not None else None
