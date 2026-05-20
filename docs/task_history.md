@@ -2,6 +2,45 @@
 
 ## 2026-05-20
 
+### [버그픽스] StockCalculator 비교 모드 판단을 targetPrice 단일 진실 소스로 통일 (2026-05-20 22:30 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx`, `frontend/src/lib/supabase.ts`
+- **원인:** mode 필드와 targetPrice 필드를 이중으로 저장하여, theme-analysis 등 외부 시스템이 저장한 `{ targetPrice: N }` 항목(mode 필드 없음)을 가져올 때 `mode ?? 'current'`로 폴백되어 targetPrice를 무시하고 현재가 비교로 표시되는 버그
+- **변경:**
+  - `SavedItem`/`PaperCalcSavedItem` 인터페이스에서 `mode` 필드 제거 — `targetPrice` 존재 여부가 단일 진실 소스
+  - `startEdit`: `it.targetPrice != null ? 'target' : 'current'`로 UI mode 복원
+  - `addItem`/`saveEdit`: mode 영속화하지 않고 `targetPrice`만 조건부 저장 (없으면 키 자체 누락)
+  - `saveEdit`: 모드 전환 시 옛 `targetPrice` 깨끗이 drop (destructuring)
+  - `summary`/누적 리스트: 모든 분기를 `it.targetPrice != null`로 통일
+- **호환:** 폼 state `mode`는 UI 토글용으로만 유지. 옛 저장 데이터의 `mode` 필드는 무시되어 자연 도태. theme-analysis 등 외부 시스템과 공유 가능
+- **검증:** tsc --noEmit exit=0
+
+### [기능] StockCalculator 저장 항목 수정 기능 추가 (2026-05-20 22:10 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (+48줄 순증, 수정)
+- **변경 내역:**
+  - `editingId: string | null` state 추가
+  - `resetForm`에 `setEditingId(null)` 추가 (탭 전환·다른 종목 선택 시 자동 클리어)
+  - `startEdit(it)`: 항목 데이터를 폼에 로드(assumedPrice/quantity/mode/targetPrice) + editingId set + livePrices 미존재 시 fetch
+  - `saveEdit()`: `prev.map`으로 같은 위치 제자리 업데이트(addedAt 유지), 저장 후 resetForm
+  - 입력 영역 헤더: editingId 있으면 "{종목명} 수정 중" + 우측 "취소" 버튼
+  - 액션 버튼: editingId 있으면 "수정 저장"(emerald), 없으면 기존 "누적 리스트에 추가"(보라)
+  - 누적 리스트 각 항목: Pencil 버튼 추가(삭제 X 버튼 왼쪽), 수정 중 항목은 emerald 강조
+  - 종목 X 버튼 클릭 시 resetForm 경유하므로 editingId 자동 클리어(수정 모드 종료 + 새 종목 추가 모드)
+- **검증:** tsc --noEmit exit=0
+
+### [기능] StockCalculator 비교 모드 — 현재가/목표가 2-way 토글 추가 (2026-05-20 22:00 KST)
+- **변경 파일:** `frontend/src/components/portfolio/StockCalculator.tsx` (89줄 추가, 14줄 수정), `frontend/src/lib/supabase.ts` (PaperCalcSavedItem 타입에 mode/targetPrice 필드 동기화)
+- **변경 내역:**
+  - `SavedItem` 타입에 `mode?: 'current' | 'target'`, `targetPrice?: number` 필드 추가 (하위호환, mode 없으면 'current' 해석)
+  - 폼 state `mode`, `targetPrice` 추가 + `resetForm` 초기화
+  - 종목 선택 후 segment control(현재가 비교 / 목표가 비교) 렌더링 — 현재가=파랑, 목표가=보라
+  - 목표가 모드 시 목표가 입력 필드 노출, placeholder=현재가 힌트
+  - `preview` useMemo: mode='target'이면 targetPrice 미입력 시 null 반환
+  - `addItem`: mode, targetPrice 저장
+  - `summary` useMemo: target 모드 항목은 item.targetPrice 사용 (evalAvailable 판단에서 제외)
+  - 누적 리스트: 항목별 "현재가"(파랑) / "목표가"(보라) 배지, 비교가격 표시 분기
+  - 빈 상태 문구에 "현재가 또는 목표가 기준으로" 추가
+- **검증:** tsc --noEmit exit=0
+
 ### [개선] 도움말 UX 정정 — 시간보정 설명 갱신 + stale 마이그레이션 안내 제거 (2026-05-20 13:10 KST)
 - **변경 파일:** `frontend/src/pages/Portfolio.tsx` (showRank30Help, showVwapRvolHelp 컨텐츠 + Clock import 정리)
 - **변경 내역:**

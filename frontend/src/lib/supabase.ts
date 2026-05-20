@@ -345,6 +345,8 @@ export interface PaperCalcSavedItem {
   assumedPrice: number;
   quantity: number;
   addedAt: string;
+  /** 비교 기준가. 있으면 목표가 비교(고정), 없으면 현재가 비교(live fetch). 단일 진실 소스 — theme-analysis 등 외부 시스템과 공유. */
+  targetPrice?: number;
 }
 export interface PaperCalcScenarioTab {
   id: string;

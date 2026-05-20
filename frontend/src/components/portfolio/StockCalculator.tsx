@@ -11,7 +11,10 @@ interface StockMasterItem {
   market: string;
 }
 
-/** localStorage에 저장되는 항목 구조 */
+/** localStorage / Supabase paper_calc_history에 저장되는 항목 구조.
+ *  단일 진실 소스: targetPrice 존재 여부로 비교 모드 판단 (외부 시스템 호환).
+ *  - targetPrice: number → 목표가 비교 (고정값)
+ *  - targetPrice: undefined → 현재가 비교 (live fetch) */
 interface SavedItem {
   id: string;
   code: string;
@@ -19,6 +22,7 @@ interface SavedItem {
   assumedPrice: number;
   quantity: number;
   addedAt: string;
+  targetPrice?: number;
 }
 
 interface ScenarioTab {
@@ -125,6 +129,9 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
     );
   }
 
+  // 저장 항목 수정 모드
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   // 탭 이름 인라인 편집
   const [editingTabId, setEditingTabId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState("");
@@ -141,6 +148,8 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
   const [priceSearching, setPriceSearching] = useState(false);
   const [assumedPrice, setAssumedPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [mode, setMode] = useState<'current' | 'target'>('current');
+  const [targetPrice, setTargetPrice] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // localStorage 저장 + Supabase 동기화 (paper_calc_history 공유)
@@ -257,7 +266,53 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
     setAssumedPrice("");
     setQuantity("");
     setSearchQuery("");
+    setMode('current');
+    setTargetPrice("");
+    setEditingId(null);
     setTimeout(() => searchInputRef.current?.focus(), 0);
+  }
+
+  // 항목 수정 시작
+  async function startEdit(it: SavedItem) {
+    setSelectedStock({ code: it.code, name: it.name });
+    setAssumedPrice(String(it.assumedPrice));
+    setQuantity(String(it.quantity));
+    // targetPrice 존재 여부가 단일 진실 소스
+    setMode(it.targetPrice != null ? 'target' : 'current');
+    setTargetPrice(it.targetPrice != null ? String(it.targetPrice) : "");
+    setEditingId(it.id);
+    // livePrices에 없으면 fetch
+    if (livePrices[it.code] == null) {
+      try {
+        const prices = await fetchPrices([it.code]);
+        if (prices[it.code] !== undefined) {
+          setLivePrices((prev) => ({ ...prev, [it.code]: prices[it.code] }));
+        }
+      } catch {
+        // ignore
+      }
+    }
+  }
+
+  // 수정 저장
+  function saveEdit() {
+    if (!editingId || !selectedStock || !preview) return;
+    const tp = mode === 'target' ? parseInt(targetPrice, 10) : 0;
+    setActiveItems((prev) =>
+      prev.map((it) => {
+        if (it.id !== editingId) return it;
+        // mode 필드 영속화하지 않음 — targetPrice 존재 여부가 단일 진실 소스
+        const { targetPrice: _drop, ...rest } = it;
+        const updated: SavedItem = {
+          ...rest,
+          assumedPrice: preview.p,
+          quantity: preview.q,
+        };
+        if (tp > 0) updated.targetPrice = tp;
+        return updated;
+      })
+    );
+    resetForm();
   }
 
   // 미리보기 계산
@@ -266,17 +321,26 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
     const p = parseInt(assumedPrice, 10);
     const q = parseInt(quantity, 10);
     if (!p || !q || p <= 0 || q <= 0) return null;
-    const cur = livePrices[selectedStock.code] ?? p;
+    let cur: number;
+    if (mode === 'target') {
+      const tp = parseInt(targetPrice, 10);
+      if (!tp || tp <= 0) return null;
+      cur = tp;
+    } else {
+      cur = livePrices[selectedStock.code] ?? p;
+    }
     const invest = p * q;
     const evalAmt = cur * q;
     const profit = evalAmt - invest;
     const rate = ((cur - p) / p) * 100;
     return { p, q, cur, invest, evalAmt, profit, rate };
-  }, [selectedStock, assumedPrice, quantity, livePrices]);
+  }, [selectedStock, assumedPrice, quantity, livePrices, mode, targetPrice]);
 
   // 누적 리스트에 추가 (활성 탭)
   function addItem() {
     if (!selectedStock || !preview) return;
+    const tp = mode === 'target' ? parseInt(targetPrice, 10) : 0;
+    // mode 필드 영속화하지 않음 — targetPrice 존재 여부가 단일 진실 소스
     const newItem: SavedItem = {
       id: crypto.randomUUID(),
       code: selectedStock.code,
@@ -284,6 +348,7 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
       assumedPrice: preview.p,
       quantity: preview.q,
       addedAt: new Date().toISOString(),
+      ...(tp > 0 ? { targetPrice: tp } : {}),
     };
     setActiveItems((prev) => [newItem, ...prev]);
     resetForm();
@@ -318,14 +383,19 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
     let totalEval = 0;
     let evalAvailable = true;
     for (const it of activeItems) {
-      const cur = livePrices[it.code];
       const invest = it.assumedPrice * it.quantity;
       totalInvest += invest;
-      if (cur != null) {
-        totalEval += cur * it.quantity;
+      if (it.targetPrice != null) {
+        // 목표가 비교: 항상 비교가격 있음
+        totalEval += it.targetPrice * it.quantity;
       } else {
-        evalAvailable = false;
-        totalEval += invest;
+        const cur = livePrices[it.code];
+        if (cur != null) {
+          totalEval += cur * it.quantity;
+        } else {
+          evalAvailable = false;
+          totalEval += invest;
+        }
       }
     }
     const profit = totalEval - totalInvest;
@@ -464,7 +534,19 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
 
         {/* 1단계: 입력 영역 */}
         <div className="rounded-xl border t-border-light p-3 space-y-3 mb-3">
-          <div className="text-[11px] font-semibold t-text-dim uppercase tracking-wider">종목 추가</div>
+          <div className="flex items-center justify-between">
+            <div className="text-[11px] font-semibold t-text-dim uppercase tracking-wider">
+              {editingId && selectedStock ? `${selectedStock.name} 수정 중` : "종목 추가"}
+            </div>
+            {editingId && (
+              <button
+                onClick={resetForm}
+                className="text-[11px] t-text-dim hover:t-text transition"
+              >
+                취소
+              </button>
+            )}
+          </div>
 
           {/* 검색 or 선택된 종목 */}
           {!selectedStock ? (
@@ -514,6 +596,32 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
             </div>
           )}
 
+          {/* 비교 모드 segment control */}
+          {selectedStock && (
+            <div className="flex items-center gap-1 rounded-lg border t-border-light p-0.5" style={{ background: "var(--bg)" }}>
+              <button
+                onClick={() => setMode('current')}
+                className={`flex-1 py-1 rounded-md text-[11px] font-medium transition ${
+                  mode === 'current'
+                    ? 'bg-blue-500 text-white'
+                    : 't-text-dim hover:t-text'
+                }`}
+              >
+                현재가 비교
+              </button>
+              <button
+                onClick={() => setMode('target')}
+                className={`flex-1 py-1 rounded-md text-[11px] font-medium transition ${
+                  mode === 'target'
+                    ? 'bg-purple-500 text-white'
+                    : 't-text-dim hover:t-text'
+                }`}
+              >
+                목표가 비교
+              </button>
+            </div>
+          )}
+
           {/* 매수가 / 수량 입력 */}
           {selectedStock && (
             <div className="grid grid-cols-2 gap-3">
@@ -542,6 +650,21 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
             </div>
           )}
 
+          {/* 목표가 입력 (목표가 비교 모드 시) */}
+          {selectedStock && mode === 'target' && (
+            <div className="space-y-1">
+              <label className="text-[11px] t-text-dim font-medium block">목표가 (원)</label>
+              <input
+                type="text"
+                inputMode="numeric"
+                value={targetPrice}
+                onChange={(e) => setTargetPrice(e.target.value.replace(/[^0-9]/g, ""))}
+                placeholder={livePrices[selectedStock.code] != null ? fmtNum(livePrices[selectedStock.code]) : "목표가"}
+                className="w-full rounded-md px-2 py-2 text-[13px] t-text bg-transparent border border-purple-400/60 focus:outline-none focus:border-purple-400 tabular-nums"
+              />
+            </div>
+          )}
+
           {/* 미리보기 카드 */}
           {preview && (
             <div className="rounded-lg p-3 space-y-2" style={{ background: "var(--bg)" }}>
@@ -564,14 +687,23 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
             </div>
           )}
 
-          {/* 추가 버튼 */}
+          {/* 추가 / 수정 저장 버튼 */}
           {preview && (
-            <button
-              onClick={addItem}
-              className="w-full py-2.5 rounded-lg text-[13px] font-semibold bg-purple-500 hover:bg-purple-600 text-white transition"
-            >
-              누적 리스트에 추가
-            </button>
+            editingId ? (
+              <button
+                onClick={saveEdit}
+                className="w-full py-2.5 rounded-lg text-[13px] font-semibold bg-emerald-500 hover:bg-emerald-600 text-white transition"
+              >
+                수정 저장
+              </button>
+            ) : (
+              <button
+                onClick={addItem}
+                className="w-full py-2.5 rounded-lg text-[13px] font-semibold bg-purple-500 hover:bg-purple-600 text-white transition"
+              >
+                누적 리스트에 추가
+              </button>
+            )
           )}
         </div>
 
@@ -640,25 +772,35 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
             </div>
             <ul className="divide-y" style={{ borderColor: "var(--border)" }}>
               {activeItems.map((it) => {
-                const cur = livePrices[it.code];
+                const isTarget = it.targetPrice != null;
+                const compareCur = isTarget ? it.targetPrice : livePrices[it.code];
                 const invest = it.assumedPrice * it.quantity;
-                const evalAmt = cur != null ? cur * it.quantity : invest;
+                const evalAmt = compareCur != null ? compareCur * it.quantity : invest;
                 const profit = evalAmt - invest;
-                const rate = cur != null ? ((cur - it.assumedPrice) / it.assumedPrice) * 100 : 0;
-                const hasCur = cur != null;
+                const rate = compareCur != null ? ((compareCur - it.assumedPrice) / it.assumedPrice) * 100 : 0;
+                const hasCur = compareCur != null;
                 return (
                   <li key={it.id} className="flex items-center gap-2 py-3 first:pt-0 last:pb-0">
                     <div className="min-w-0 flex-1 space-y-1">
-                      <div className="flex items-baseline gap-1.5 min-w-0">
+                      <div className="flex items-center gap-1.5 min-w-0">
                         <span className="font-semibold text-[13px] truncate t-text">{it.name}</span>
                         <span className="text-[10px] t-text-dim tabular-nums shrink-0">{it.code}</span>
+                        {isTarget ? (
+                          <span className="shrink-0 px-1 py-0.5 rounded text-[9px] font-semibold bg-purple-500/15 text-purple-400 leading-none">목표가</span>
+                        ) : (
+                          <span className="shrink-0 px-1 py-0.5 rounded text-[9px] font-semibold bg-blue-500/15 text-blue-400 leading-none">현재가</span>
+                        )}
                       </div>
                       <div className="text-[11px] t-text-dim tabular-nums space-y-0.5">
                         <div className="whitespace-nowrap">
                           매수 <span className="font-medium t-text-sub">{fmtNum(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
                         </div>
                         {hasCur && (
-                          <div className="whitespace-nowrap">현재가 {fmtNum(cur)}원</div>
+                          <div className="whitespace-nowrap">
+                            {isTarget
+                              ? `목표 ${fmtNum(compareCur!)}원`
+                              : `현재가 ${fmtNum(compareCur!)}원`}
+                          </div>
                         )}
                       </div>
                     </div>
@@ -670,6 +812,13 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
                         {hasCur ? `${rate >= 0 ? "+" : ""}${rate.toFixed(2)}%` : "—"}
                       </div>
                     </div>
+                    <button
+                      onClick={() => startEdit(it)}
+                      className={`transition p-1 shrink-0 ${editingId === it.id ? "text-emerald-400" : "t-text-dim hover:text-emerald-400"}`}
+                      aria-label="수정"
+                    >
+                      <Pencil size={13} />
+                    </button>
                     <button
                       onClick={() => removeItem(it.id)}
                       className="t-text-dim hover:text-red-400 transition p-1 shrink-0"
@@ -687,7 +836,7 @@ export default function StockCalculator({ isOpen, onClose }: Props) {
         {/* 빈 상태 */}
         {activeItems.length === 0 && !preview && (
           <div className="text-center text-[12px] t-text-dim py-6 rounded-lg border t-border-light">
-            종목을 검색하여 가정 매수가와 수량을 입력하면<br />수익률을 시뮬레이션할 수 있습니다
+            종목을 검색하여 가정 매수가와 수량을 입력하면<br />현재가 또는 목표가 기준으로 수익률을 시뮬레이션할 수 있습니다
           </div>
         )}
       </div>
