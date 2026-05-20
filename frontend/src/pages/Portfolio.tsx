@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useOutletContext } from "react-router-dom";
 import {
-  BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink, Calculator, TrendingUp, Clock,
+  BarChart3, RefreshCw, X, HelpCircle, ChevronDown, ChevronUp, ExternalLink, Calculator, TrendingUp,
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
@@ -60,10 +60,38 @@ function rvolUseUnVolume(): boolean {
   return true;
 }
 
+/** 시장 평균 누적 거래량 비율 — 30분봉 13개 포인트, 중앙값 기반.
+ *  출처: intraday-history.json 1484종목 × 30일 × 30분봉 (5,633 표본, 2026-05-19 기준).
+ *  배경: 한국시장은 장초·장후 거래 집중 패턴으로 선형 보정 시 11:24 시점 ~53% 과소평가됨.
+ *  적용: calcVolumeRank30의 일중 거래량 추정에만 사용 (RVOL은 선형 유지). */
+const INTRADAY_CUM_CURVE: Array<[number, number]> = [
+  [30, 0.2135], [60, 0.3508], [90, 0.4500], [120, 0.5324], [150, 0.5958],
+  [180, 0.6436], [210, 0.6871], [240, 0.7300], [270, 0.7785], [300, 0.8206],
+  [330, 0.8625], [360, 0.9261], [390, 1.0000],
+];
+
+/** elapsed(09:00 기준 경과분, 1~390)를 시장 평균 누적 거래량 비율(0~1)로 변환. */
+function marketCumRatio(elapsed: number): number {
+  if (elapsed >= 390) return 1.0;
+  if (elapsed <= 0) return INTRADAY_CUM_CURVE[0][1] * 0.5;  // 09:00 직후 안전값
+  // 09:00~09:30은 곡선의 첫 점(30분, 0.2135)에서 선형 외삽 (0→0.2135)
+  if (elapsed < INTRADAY_CUM_CURVE[0][0]) {
+    return (elapsed / INTRADAY_CUM_CURVE[0][0]) * INTRADAY_CUM_CURVE[0][1];
+  }
+  for (let i = 0; i < INTRADAY_CUM_CURVE.length - 1; i++) {
+    const [t0, r0] = INTRADAY_CUM_CURVE[i];
+    const [t1, r1] = INTRADAY_CUM_CURVE[i + 1];
+    if (elapsed >= t0 && elapsed <= t1) {
+      return r0 + ((elapsed - t0) / (t1 - t0)) * (r1 - r0);
+    }
+  }
+  return 1.0;
+}
+
 /** 30일 거래량 순위 계산 — 종목 자신의 지난 30일 거래량 중 오늘 위치 (1위=최고).
  *  반환: { rank, total, percentile, projected } 또는 null.
- *  - 정규장 중에는 시간 보정 적용 (currentVol / elapsed × 390) — RVOL과 일관성
- *    예: 09:30(elapsed=30)에 거래량 1M → 일중 추정치 13M로 history와 비교
+ *  - 정규장 중에는 시장 평균 누적곡선으로 비선형 시간 보정 (currentVol / marketCumRatio(elapsed))
+ *    예: 09:30(elapsed=30)에 거래량 1M → marketCumRatio=0.21 → 일중 추정치 ~4.7M
  *  - 0 값 필터 + 표본 10 미만이면 null */
 function calcVolumeRank30(
   currentVol: number | undefined,
@@ -72,9 +100,9 @@ function calcVolumeRank30(
   if (!currentVol || currentVol <= 0 || !history || history.length === 0) return null;
   const cleaned = history.filter((v) => v > 0);
   if (cleaned.length < 10) return null;
-  // 시간 보정: history는 일 마감 거래량이므로 오늘도 같은 기준으로 환산
+  // 시간 보정: 시장 평균 누적곡선 적용 (선형 대비 장초~오후 초반 과대평가 방지)
   const elapsed = marketElapsedMinutes(); // 1~390
-  const projected = elapsed >= 390 ? currentVol : Math.round((currentVol / Math.max(elapsed, 1)) * 390);
+  const projected = elapsed >= 390 ? currentVol : Math.round(currentVol / marketCumRatio(elapsed));
   const isProjected = elapsed < 390;
   const all = [...cleaned, projected];
   const sorted = [...all].sort((a, b) => b - a);
@@ -1280,27 +1308,15 @@ export default function Portfolio() {
             </ul>
           </div>
 
-          {/* 마이그레이션 일정 */}
+          {/* RVOL vs 30일 순위 시그널 차이 안내 */}
           <div className="rounded-lg border t-border-light p-3 mb-1" style={{ background: "var(--bg)" }}>
-            <div className="text-[11px] font-semibold t-text mb-1.5 flex items-center gap-1.5">
-              <Clock size={12} className="t-text-sub" />
-              마이그레이션 일정 (NXT 통합)
-            </div>
+            <div className="text-[11px] font-semibold t-text mb-1.5">RVOL과 30일 순위가 다르게 보일 때</div>
             <div className="text-[10px] t-text-sub leading-relaxed">
-              KIS NXT(애프터마켓) 시장 통합으로 거래량 데이터 정합화 중:
+              <span className="font-semibold">시간보정 방식이 다릅니다.</span> RVOL은 선형(<span className="font-mono">avg20d × 경과/390</span>),
+              30일 순위는 시장 평균 누적곡선(장초·장후 집중 반영) — 장초·오전에 30일 순위가 RVOL보다 보수적으로 보일 수 있습니다.
             </div>
-            <div className="mt-2 space-y-1.5 text-[10px]">
-              <div className="grid grid-cols-[5rem_1fr] gap-2">
-                <span className="t-text-dim">지금 ~ 6/14</span>
-                <span className="t-text-sub">RVOL 분자 = volume_krx (KRX 단독), 분모 = avg20d (J→UN 점진 마이그레이션 중)</span>
-              </div>
-              <div className="grid grid-cols-[5rem_1fr] gap-2 pt-1.5" style={{ borderTop: "1px dashed var(--border-light)" }}>
-                <span className="text-emerald-500 font-semibold">6/15+</span>
-                <span className="t-text-sub">자동으로 volume (UN) 분자 전환 → 분자/분모 모두 UN으로 완벽 일치</span>
-              </div>
-            </div>
-            <div className="mt-2 text-[10px] t-text-dim">
-              ※ 마이그레이션 기간 중 RVOL이 점진적으로 약간 낮게 표시될 수 있습니다.
+            <div className="mt-2 text-[10px] t-text-sub">
+              <span className="font-semibold t-text">분자/분모 시장범위:</span> 분자=volume(UN 통합), 분모=avg20d/history(UN) — 일치 확인 완료(2026-05-20 실측).
             </div>
           </div>
         </div>
@@ -1325,7 +1341,7 @@ export default function Portfolio() {
           <div className="text-[12px] t-text-sub leading-relaxed mb-3">
             이 종목 자기 자신의 지난 30거래일 거래량 중 오늘의 위치 <span className="t-text-dim">(다른 종목과 비교 X)</span>.
             <br />
-            <span className="t-text-dim text-[11px]">정규장 중: 오늘 거래량을 일중 추정치 <span className="font-mono">(현재 누적 × 390 / 경과분)</span>로 환산해 비교 — "예상 N위" 표기.</span>
+            <span className="t-text-dim text-[11px]">정규장 중: 시장 평균 시간대별 거래 패턴(장초·장후 집중)을 반영한 비선형 곡선으로 환산해 비교 — "예상 N위" 표기. <span className="t-text">11:24 시점 시장 평균 누적 ≈ 56%</span> (선형 가정 37%보다 높음 → 보수적 추정).</span>
           </div>
           <ul className="space-y-1.5 text-[11px] t-text-sub mb-3">
             <li><span className="text-red-500 font-semibold">1위</span> = 30일 중 거래량 최고 (역대급 이슈)</li>

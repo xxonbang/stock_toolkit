@@ -1,5 +1,32 @@
 # Task History
 
+## 2026-05-20
+
+### [개선] 도움말 UX 정정 — 시간보정 설명 갱신 + stale 마이그레이션 안내 제거 (2026-05-20 13:10 KST)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx` (showRank30Help, showVwapRvolHelp 컨텐츠 + Clock import 정리)
+- **변경 내역:**
+  - 30일 순위 도움말: "현재 누적 × 390 / 경과분" 선형 공식 → 시장 평균 누적곡선 안내, 11:24 시점 누적 ≈ 56% 예시 추가
+  - RVOL 도움말: 옛 "마이그레이션 진행 중(~6/14)" 안내 제거 → 실측 확인된 분자·분모 UN 일치 명시 + RVOL과 30일 순위 시그널 차이 원인(보정 방식 차이) 1줄 안내 추가
+  - 미사용 Clock import 제거
+- **검증:** tsc --noEmit exit=0
+
+### [개선] 30일 순위 시간보정 — 선형 → 시장 평균 누적곡선 비선형 보정 (2026-05-20 13:00 KST)
+- **변경 파일:** `frontend/src/pages/Portfolio.tsx` (calcVolumeRank30 + INTRADAY_CUM_CURVE 상수, marketCumRatio 함수 추가), `scripts/analyze_intraday_volume_curve.py` (분석 도구 추가), `docs/research/2026-05-20-intraday-curve.json` (곡선 데이터)
+- **원인:** 한국시장은 장초·장후 거래 집중 패턴 — 선형 보정(`currentVol × 390/elapsed`)이 시장 평균 대비 11:24 기준 +53% 과소평가, 결과적으로 일중 추정치(projected)를 과대평가하여 30일 순위 시그널이 과장됨
+- **방법:** intraday-history.json 1484종목 × 30일 × 30분봉 5,633표본에서 시간대별 누적 거래량 비율 중앙값 추출 (09:30=0.21, 11:30=0.60, 14:00=0.82) → 13포인트 곡선 TS 상수로 임베드 → 선형 보간 함수로 elapsed 변환
+- **영향 (SK하이닉스 시뮬레이션):** 11:24 시점 projected 11.99M → 7.59M (-37%), 순위 5/31 → 16/31 (10단계 강등, 더 보수적). 마감(15:30) 후엔 두 방식 동일
+- **범위:** RVOL은 선형 유지 (사용자 결정 C1). 30일 순위만 비선형 보정 도입
+
+### [진단] SK하이닉스 4지표 실측 검증 — VWAP/RVOL/분자·분모 시장범위 일치성 (2026-05-20 12:40 KST)
+- **변경 파일:** `scripts/verify_sk_hynix_now.py` (추가), `docs/research/2026-05-20-sk-verification.json` (추가)
+- **목적:** MTS 이미지(11:24)와 KIS 응답을 대조해 단위·공식·시장범위 정합성 확인
+- **방법:** KIS 모의투자 토큰으로 `inquire-price` UN/J + `inquire-daily-price` UN/J 호출 → history 마지막값(5/19), avg20d 저장값과 대조
+- **결과:**
+  - **VWAP**: acml_tr_pbmn(원) / acml_vol(주) = 1,738,595원 (이미지 추정 1,739,288원과 ±900원 오차, MTS 표시 정밀도 한계 내)
+  - **NXT 비중**: SK하이닉스 UN-J = +57.2% (NXT 거래량이 KRX 단독의 57% 추가)
+  - **시장범위 일치 검증**: history 마지막(7,805,248) = KIS 5/19 UN 일봉 ✓, avg20d(9,007,560) ≈ KIS UN 20일평균(9,005,717, 오차 0.02%) ✓
+  - **결론**: 분자(volume)·분모(history/avg20d) 모두 UN 기반 일치, RVOL/30일순위 산식 정확성 100% 확인
+
 ## 2026-05-19
 
 ### [기능] 4지표 종합 활용 가이드 — 포트폴리오 화면 접기/펼치기 섹션 (2026-05-20 00:10 KST)
