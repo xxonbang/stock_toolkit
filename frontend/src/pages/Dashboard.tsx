@@ -19,6 +19,7 @@ import RiskMonitorSection from "../components/dashboard/RiskMonitorSection";
 import SimulationSection from "../components/dashboard/SimulationSection";
 import { supabase, getAlertMode, setAlertMode, setAccessToken, STORAGE_KEY } from "../lib/supabase";
 import type { AlertMode } from "../lib/supabase";
+import { tossWebUrl, handleTossClick } from "../lib/toss";
 
 function Gauge({ value, max, label, color }: { value: number; max: number; label: string; color: string }) {
   const pct = Math.min(100, (value / max) * 100);
@@ -59,6 +60,21 @@ function Empty({ text = "현재 해당 데이터 없음" }: { text?: string }) {
       <div className="text-[10px] t-text-dim mt-0.5">데이터 갱신 후 표시됩니다</div>
     </div>
   );
+}
+
+/** 금액(억 단위 정수)을 좁은 UI에 맞는 간결한 한국식으로 표시. 1조 이상은 소수점 2자리 조 단위.
+ *  공백 없는 단일 토큰이라 wrap 방지 (예: "-2.93조", "+1,575억"). */
+function fmtKrwEok(eok: number): string {
+  if (!Number.isFinite(eok) || eok === 0) return "0";
+  const sign = eok > 0 ? "+" : "-";
+  const abs = Math.abs(eok);
+  if (abs >= 10000) {
+    // 소수점 2자리, 불필요한 0 제거 (예: 2.00조 → 2조, 2.90조 → 2.9조)
+    const jo = abs / 10000;
+    const str = jo.toFixed(2).replace(/\.?0+$/, "");
+    return `${sign}${str}조`;
+  }
+  return `${sign}${abs.toLocaleString()}억`;
 }
 
 function signalBadge(signal: string) {
@@ -579,7 +595,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                   ))}
                 </div>
               )}
-              <a href={`https://www.tossinvest.com/stocks/A${stockActionTarget.data.code}/order`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-blue-500/8 transition">
+              <a href={tossWebUrl(stockActionTarget.data.code)} onClick={(e) => handleTossClick(stockActionTarget.data.code, e)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-blue-500/8 transition">
                 <ExternalLink size={13} className="t-text-dim" />
                 <span className="text-[12px] t-text">토스증권에서 보기</span>
               </a>
@@ -603,7 +619,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <a href={`https://www.tossinvest.com/stocks/A${stockDetail.code}/order`}
+                <a href={tossWebUrl(stockDetail.code)} onClick={(e) => handleTossClick(stockDetail.code, e)}
                   target="_blank" rel="noopener noreferrer"
                   className="text-base font-bold t-text hover:text-blue-400 transition">
                   {stockDetail.name} ↗
@@ -1221,17 +1237,20 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 {sentiment.components.investor_trend.slice(-3).reverse().map((day: any, i: number) => {
                   const k = day.kospi || day;
                   return (
-                    <div key={i} className="grid grid-cols-4 text-[10px] t-card-alt rounded px-1.5 py-1.5 items-center">
-                      <span className="t-text-sub">{day.date}</span>
-                      <span className={`font-medium text-right ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        외국인 {(k.foreign || 0) >= 0 ? "+" : ""}{((k.foreign || 0) / 100).toFixed(0)}억
-                      </span>
-                      <span className={`font-medium text-right ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        기관 {(k.institution || 0) >= 0 ? "+" : ""}{((k.institution || 0) / 100).toFixed(0)}억
-                      </span>
-                      <span className={`font-medium text-right ${(k.individual || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
-                        개인 {(k.individual || 0) >= 0 ? "+" : ""}{((k.individual || 0) / 100).toFixed(0)}억
-                      </span>
+                    <div key={i} className="grid grid-cols-4 gap-x-4 text-[10px] t-card-alt rounded px-1.5 py-1.5 items-center">
+                      <div className="t-text-sub">{day.date}</div>
+                      <div className={`font-medium whitespace-nowrap flex items-baseline gap-1 ${(k.foreign || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        <span className="t-text-dim">외</span>
+                        <span className="tabular-nums">{fmtKrwEok(Math.round((k.foreign || 0) / 100))}</span>
+                      </div>
+                      <div className={`font-medium whitespace-nowrap flex items-baseline gap-1 ${(k.institution || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        <span className="t-text-dim">기</span>
+                        <span className="tabular-nums">{fmtKrwEok(Math.round((k.institution || 0) / 100))}</span>
+                      </div>
+                      <div className={`font-medium whitespace-nowrap flex items-baseline gap-1 ${(k.individual || 0) >= 0 ? "text-red-500" : "text-blue-500"}`}>
+                        <span className="t-text-dim">개</span>
+                        <span className="tabular-nums">{fmtKrwEok(Math.round((k.individual || 0) / 100))}</span>
+                      </div>
                     </div>
                   );
                 })}
@@ -1737,7 +1756,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
                 <span className="text-sm t-text">{p.investor}</span>
                 <div className="flex gap-3 text-xs shrink-0">
                   <span className={`font-medium ${p.all_ntby_amt >= 0 ? "text-red-600" : "text-blue-600"}`}>
-                    {p.all_ntby_amt >= 0 ? "+" : ""}{(p.all_ntby_amt / 100).toFixed(0)}억
+                    {fmtKrwEok(Math.round((p.all_ntby_amt || 0) / 100))}
                   </span>
                 </div>
               </div>
@@ -2150,7 +2169,7 @@ export default function Dashboard({ onToggleTheme, isDark }: { onToggleTheme?: (
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-medium truncate">{isf._name}</span>
-                  <a href={`https://www.tossinvest.com/stocks/A${isf.code}/order`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 t-text-dim hover:text-blue-500"><ExternalLink size={12} /></a>
+                  <a href={tossWebUrl(isf.code)} onClick={(e) => { e.stopPropagation(); handleTossClick(isf.code, e); }} target="_blank" rel="noopener noreferrer" className="shrink-0 t-text-dim hover:text-blue-500"><ExternalLink size={12} /></a>
                   {isf._tag && (
                     <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${isf._tag === "쌍끌이 매수" ? "bg-red-500/15 text-red-400" : "bg-blue-500/15 text-blue-400"}`}>{isf._tag}</span>
                   )}

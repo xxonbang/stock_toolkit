@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { dataService } from "../services/dataService";
 import { fetchNaverQuotes, isAfterhoursKR } from "../lib/naver";
+import { tossWebUrl, handleTossClick } from "../lib/toss";
 import { supabase, fetchKisPrices, fetchPriceConcentration, searchKisStock, fetchHoldingsFromDB, insertHolding, updateHolding, deleteHolding, setAccessToken, STORAGE_KEY, insertTransactions, deleteTransactions, fetchTransactionsForHolding } from "../lib/supabase";
 import type { PortfolioHolding, PortfolioTransaction, KisStockPrice, PriceConcentration } from "../lib/supabase";
 import StockCalculator from "../components/portfolio/StockCalculator";
@@ -982,8 +983,8 @@ export default function Portfolio() {
                     </div>
                   );
                 })()}
-                {/* 토스증권 링크 */}
-                <a href={`https://www.tossinvest.com/stocks/A${h.code}/order`}
+                {/* 토스증권 링크 — 모바일은 supertoss:// deep link로 자동 분기 */}
+                <a href={tossWebUrl(h.code)} onClick={(e) => handleTossClick(h.code, e)}
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[11px] text-blue-400 hover:underline">
                   <ExternalLink size={11} />

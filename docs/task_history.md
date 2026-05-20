@@ -2,6 +2,37 @@
 
 ## 2026-05-20
 
+### [기능] 토스증권 모바일 deep link 통합 + macro-indicators price_at 보존 (2026-05-20 23:45 KST)
+- **추가 파일:** `frontend/src/lib/toss.ts` (tossWebUrl, buildTossDeepUrl, handleTossClick)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx`(3곳), `frontend/src/pages/Portfolio.tsx`(1곳), `scripts/run_all.py`(premarket_report.futures에 price_at/collected_at 추가)
+- **요청:**
+  - (1) 종목 액션 팝업의 "토스증권" 버튼에서 모바일은 토스 앱(supertoss://)으로 자동 분기
+  - (2) 네이버 직접 이동 케이스를 토스로 변경 — stock_toolkit에는 해당 케이스 없음(`polling.finance.naver.com` polling API만 존재) 확인 후 변경 사항 없음
+  - theme-analysis가 추가한 `price_at` 필드를 stock_toolkit 파이프라인이 가져오도록 보장
+- **구현:** theme_lab StockDetailModal의 토스 OneLink 구성을 그대로 재현 (`/stocks/A{code}?utm_*` landing → service.tossinvest.com → supertoss:// + toss.onelink.me wrapper). 데스크탑은 기본 동작(웹 새 탭) 유지
+- **적용 위치:** stockActionTarget 팝업 (Dashboard.tsx:597), 종목 상세 헤더 (621), intraday stock flow (2172), Portfolio 보유 카드 (Portfolio.tsx:986)
+- **price_at:** run_all.py:125-129 단순 dict 복사라 indicators/futures의 price_at은 자동 통과. 1128의 premarket_report.futures 가공에 price_at/collected_at 명시 추가 (이전 누락 보강). frontend 표시 코드는 현재 없음
+- **검증:** tsc --noEmit exit=0, py_compile OK
+
+### [버그픽스] 투자자 동향 좁은 그리드 줄바꿈 깨짐 — 표기 단축 + nowrap (2026-05-20 23:25 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx` (`fmtKrwEok` 재작성 + 투자자 동향 셀)
+- **원인:** "외국인 -2조 9,310억"이 공백 단위로 wrap되어 좁은 4-col 그리드에서 "외국인 -2조" + "9,310억" 두 줄로 깨짐
+- **변경:**
+  - `fmtKrwEok`: "N조 N,NNN억" → **"N.NN조"**(소수점 2자리, 불필요한 끝 0 제거). 공백 없는 단일 토큰이라 wrap 불가
+  - 투자자 동향 셀에 `whitespace-nowrap` 추가 (안전망)
+  - 라벨 축약: "외국인/기관/개인" → **"외/기/개"** (t-text-dim 색상으로 시각 구분)
+- **샘플:** -29310억 → "-2.93조", +1575억 → "+1,575억", 20000억 → "+2조", 25000억 → "+2.5조"
+- **검증:** tsc --noEmit exit=0
+
+### [개선] 투자자 동향 금액 표시를 "N조 N,NNN억" 형식으로 가독성 향상 (2026-05-20 23:15 KST)
+- **변경 파일:** `frontend/src/pages/Dashboard.tsx` (`fmtKrwEok` 헬퍼 추가 + 4곳 적용)
+- **변경 전:** `(value / 100).toFixed(0)}억` → "29310억" 같은 5자리 숫자가 한국어 단위 감각과 안 맞음
+- **변경 후:** `fmtKrwEok(eok)` — 1조 이상이면 "N조 N,NNN억" 분해 + 천단위 콤마. 1조 미만이면 "N,NNN억". 0은 "0"
+- **적용 위치:**
+  - 투자자 동향 KOSPI 외국인/기관/개인 (라인 1227-1233)
+  - 프로그램 매매 all_ntby_amt (라인 1740)
+- **검증:** tsc --noEmit exit=0. 샘플: -29310억 → "-2조 9,310억", +11070억 → "+1조 1,070억"
+
 ### [버그픽스] 환율 데이터 출처를 macro-indicators.json으로 변경 (stale latest.json → 최신값 반영) (2026-05-20 23:00 KST)
 - **변경 파일:** `scripts/run_all.py` (라인 101-121)
 - **원인:** theme_analysis는 환율을 매일 `macro-indicators.json`(권위 소스, 5/20 USD 1,507.03)에 갱신하지만, `latest.json.exchange`/`indicator-history.json.exchange`는 2026-04-30 수집 시점에 고정 stale(USD 1,476.1). stock_toolkit이 `perf_latest.exchange.rates`(latest.json)를 읽어 화면에 stale 환율 표시 (실제 1,500원대인데 미반영)

@@ -1126,7 +1126,15 @@ def main():
         "score": round(score_pm, 1),
         "key_factors": factors,
         "futures": [
-            {"name": f.get("name"), "price": f.get("price"), "change_pct": f.get("change_pct"), "status": f.get("status")}
+            {
+                "name": f.get("name"),
+                "price": f.get("price"),
+                "change_pct": f.get("change_pct"),
+                "status": f.get("status"),
+                # theme-analysis가 추가한 가격 시점 메타 — price_at(시장 마감 시각) 우선, 없으면 collected_at fallback
+                "price_at": f.get("price_at"),
+                "collected_at": f.get("collected_at"),
+            }
             for f in futures_data if isinstance(f, dict)
         ],
         "macro_etf": [
