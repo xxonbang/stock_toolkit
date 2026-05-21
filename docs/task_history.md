@@ -1,5 +1,14 @@
 # Task History
 
+## 2026-05-21
+
+### [버그픽스] OOM 재발 방지 — trader.py fallback에서 354MB ohlcv 로드 제거 (2026-05-21 13:50 KST)
+- **변경 파일:** `daemon/trader.py` (line 1585~1615, -19줄)
+- **원인:** 09:05 KST 거래대금 모멘텀 스캔에서 volume-rank API 실패 → fallback 진입 → `results/daily_ohlcv_all.json`(354MB)을 `read_text()`+`json.loads()`로 전체 적재 → 1GB VM에서 OOM-killer 발동 → daemon 강제 종료(09:06:53), systemd 자동 재시작(09:07:05)
+- **수정:** fallback 메인 경로를 `stock-master.json`(171KB)로 변경. ohlcv 로드 + 거래대금 정렬 블록 제거. "전일 거래대금 정렬" 의도는 잃지만, fallback 자체가 비상 경로이고 후속 `_fb_detail`이 acml_tr_pbmn을 재계산하므로 영향 제한적
+- **검증:** py_compile OK, pytest 87 passed
+- **부수 진단:** 5/18 비정상 celltrion_band sim 1건(sim_id cfd21ed4, user_id=null, peak=0, sstp=-2.0) 안전 봉인(status=closed, exit_reason='invalid_metadata'). 짝꿍 auto_trade(5ad06ab5)도 sold_at/sell_reason 채움. 디스크 93%→50% (GCP /tmp 7.9GB + venv.old 65MB 정리, 총 8.7GB 회수)
+
 ## 2026-05-20
 
 ### [기능] 토스증권 모바일 deep link 통합 + macro-indicators price_at 보존 (2026-05-20 23:45 KST)
