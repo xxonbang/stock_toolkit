@@ -1216,6 +1216,8 @@ export default function AutoTrader() {
                           let simCapital = SIM_START_CAPITAL;
                           // 일별 자본 추적 (1000만원 모드용)
                           const dailyCapitals: Record<string, number> = {};
+                          // 거래별 배분 투자금 (헤더 누적/일별손익/개별표시 단일 소스)
+                          const investByKey: Record<string, number> = {};
 
                           if (SIM_CAPITAL_MODE) {
                             // 복리 계산: 날짜순으로 자본 추적
@@ -1245,6 +1247,7 @@ export default function AutoTrader() {
                                 const perStock = Math.floor(cap / newBuys.length);
                                 for (const t of newBuys) {
                                   const key = t.id || t.trade_id || "";
+                                  investByKey[key] = perStock;
                                   const pnl = t.pnl_pct ?? 0;
                                   if (t._isActive) {
                                     // 보유 중: 자본 묶임
@@ -1375,11 +1378,14 @@ export default function AutoTrader() {
                                   : (group.length > 0 ? group.reduce((s: number, t: any) => s + (t.pnl_pct ?? 0), 0) / group.length : 0);
                                 const dayProfit = SIM_CAPITAL_MODE
                                   ? (() => {
-                                      const sortedCapDates = Object.keys(dailyCapitals).sort();
-                                      const prevD = sortedCapDates.filter(d => d < date).pop();
+                                      // 제외된 날 등 미배분 거래 fallback 근사
+                                      const prevD = Object.keys(dailyCapitals).sort().filter(d => d < date).pop();
                                       const capAtDay = prevD ? dailyCapitals[prevD] : SIM_START_CAPITAL;
-                                      const perStock = group.length > 0 ? Math.floor(Math.max(capAtDay, SIM_START_CAPITAL) / group.length) : 0;
-                                      return group.reduce((s: number, t: any) => s + Math.round(perStock * (t.pnl_pct ?? 0) / 100), 0);
+                                      const fallbackPer = group.length > 0 ? Math.floor(Math.max(capAtDay, SIM_START_CAPITAL) / group.length) : 0;
+                                      return group.reduce((s: number, t: any) => {
+                                        const inv = investByKey[t.id || t.trade_id || ""] ?? fallbackPer;
+                                        return s + Math.round(inv * (t.pnl_pct ?? 0) / 100);
+                                      }, 0);
                                     })()
                                   : group.reduce((s: number, t: any) => s + getProfitKrw(t), 0);
                                 const dayClosed = group.filter((t: any) => !t._isActive);
@@ -1462,13 +1468,15 @@ export default function AutoTrader() {
                                               invest = buyPrice * qty;
                                               profit = sellPrice > 0 ? (sellPrice - buyPrice) * qty : Math.round(invest * pnlPct / 100);
                                             } else if (SIM_CAPITAL_MODE) {
-                                              // 1000만원 모드: 해당 일자 가용 자본 / 종목 수
-                                              const dayStocks = grouped[date]?.length || 2;
-                                              // dailyCapitals에서 이전 일자 자본 사용 (매수 시점 자본)
-                                              const sortedCapDates = Object.keys(dailyCapitals).sort();
-                                              const prevCapDate = sortedCapDates.filter(d => d < date).pop();
-                                              const capAtBuy = prevCapDate ? dailyCapitals[prevCapDate] : SIM_START_CAPITAL;
-                                              const perStock = Math.floor(Math.max(capAtBuy, SIM_START_CAPITAL) / dayStocks);
+                                              // 1000만원 모드: 헤더 누적과 동일한 배분 투자금 사용
+                                              const key = item.id || item.trade_id || "";
+                                              let perStock = investByKey[key];
+                                              if (perStock === undefined) {
+                                                // 제외된 날 등 미배분 거래 fallback 근사
+                                                const prevCapDate = Object.keys(dailyCapitals).sort().filter(d => d < date).pop();
+                                                const capAtBuy = prevCapDate ? dailyCapitals[prevCapDate] : SIM_START_CAPITAL;
+                                                perStock = Math.floor(Math.max(capAtBuy, SIM_START_CAPITAL) / (grouped[date]?.length || 2));
+                                              }
                                               qty = Math.floor(perStock / buyPrice);
                                               invest = qty * buyPrice;
                                               profit = sellPrice > 0 ? (sellPrice - buyPrice) * qty : Math.round(invest * pnlPct / 100);
