@@ -1,7 +1,11 @@
 {
-  "generated_at": "2026-09-28 07:32:33 KST",
-  "count": 320,
+  "generated_at": "2026-09-28 20:02:23 KST",
+  "count": 321,
   "history": [
+    {
+      "filename": "2026-09-28-2001.json",
+      "kst": "2026-09-28 20:01 KST"
+    },
     {
       "filename": "2026-09-28-0731.json",
       "kst": "2026-09-28 07:31 KST"
