@@ -1,200 +1,95 @@
 {
-  "generated_at": "2026-10-10 20:01 KST",
+  "generated_at": "2026-10-11 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
-        "name": "Satellite Internet",
-        "reason": "우주 인터넷 서비스 제공업체들의 활동과 관련 뉴스가 다수 보도되며 주목받았습니다 (총 3건).",
-        "us_news_refs": [
-          8,
-          13,
-          24
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Venezuela authorises Elon Musk’s Starlink to operate nationwide",
-            "title_ko": "베네수엘라, Elon Musk의 Starlink 전국 운영 승인",
-            "url": "https://www.investing.com/news/company-news/venezuela-authorises-elon-musks-starlink-to-operate-nationwide-4942048",
-            "published_at": "2026-10-10 17:34:46 KST"
-          },
-          {
-            "title": "Elon Musk intensifies attack on Ambani over Starlink India launch delay - TechCrunch",
-            "title_ko": "Elon Musk, Starlink 인도 출시 지연 관련 Ambani 공격 강화",
-            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQWTJHbnRLM05qWjZUNkpKSVJudERCeXJQUjJ6N25kU0d1dmtockxpeVpQTENxUU5sWmFrV1R2RDEtOEdXdGlUQVhPZ011QTVDeDVJa1F3UGlmekV1UE1xU0pLRFNUZjdxNHFUWXpZNWhwT0J5VVYxQmRzRnI5TVBPbm55UlVwVjk3NldqTVNyMmFCYjQzVUdtbUJFeTNMaVF0RW80YVJvNEhEZw?oc=5",
-            "published_at": "2026-10-10 12:10:06 KST"
-          },
-          {
-            "title": "AT&T, Verizon, and T-Mobile Are Dropping on Starlink Fears. Analysts Say Buy. - Barron's",
-            "title_ko": "AT&T, Verizon, T-Mobile, Starlink 우려로 하락. 애널리스트는 매수 추천",
-            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPVjNNRzRHMHNBaExIaDE3UDFfeGlXYXlGSTRmM3JGajhvbXlLSkZnTzI3MXROQ0tUNGJuV3dzR0xNeWhiaHBnN1BMU2Z1aVlzY2JCbTRLNTd3eThxSUNLaWNPeHpsZEo1WGhmOXkzWW9oX1pVVFV0ZE9mR25aM1BveUw4RndnUHlZbkUybGtQQXZqdGNrdGc?oc=5",
-            "published_at": "2026-10-10 05:18:00 KST"
-          }
-        ],
-        "outlook": "위성 인터넷 섹터는 SpaceX의 Starlink 서비스 확장에 힘입어 지속적인 성장이 예상됩니다. 베네수엘라의 Starlink 운영 승인과 같은 규제 완화는 시장 확대에 긍정적인 영향을 미칠 수 있습니다. 그러나 AT&T, Verizon, T-Mobile과 같은 기존 통신사와의 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 SpaceX의 주파수 인수 관련 소식과 함께 통신사들의 주가 변동성이 주목될 것으로 보입니다."
-      },
-      {
         "name": "AI",
-        "reason": "AI 기술 발전 및 관련 기업들의 움직임에 대한 뉴스가 일부 포함되었습니다 (총 1건).",
+        "reason": "AI 분야는 OpenAI, Anthropic 등 관련 기업들의 활동과 AI 칩 수요 강세로 지속적인 주목을 받고 있습니다 (총 10건).",
         "us_news_refs": [
-          10,
-          16,
-          18,
-          20
+          1,
+          3,
+          27,
+          30,
+          34,
+          36,
+          39,
+          41,
+          44,
+          45
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "5 big analyst AI moves: Google reaffirmed as top pick after Gemini agent launch",
-            "title_ko": "5가지 주요 애널리스트 AI 동향: Gemini 출시 후 Google 최선호 유지",
-            "url": "https://www.investing.com/news/stock-market-news/5-big-analyst-ai-moves-google-reaffirmed-as-top-pick-after-gemini-agent-launch-4941746",
-            "published_at": "2026-10-10 17:15:28 KST"
+            "title": "Philadelphia police receive false homicide tip from Anthropic AI model - The Hill",
+            "title_ko": "필라델피아 경찰, Anthropic AI 모델서 허위 살인 제보 받아",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPWDd5WGx1ZzZpQU5XblFlR1VXUkZIeXQ2NU9qb3VicEZZaDJLakJrVHo3cnFlU21zLVkzaHNHWFpwRVU2cWZiSFlvaFpRNER1OFFsYVlsUWdwM19PUWF5R090cTVYOUItcW5Fa1EtNUFmV0N3Y0pPQXRvMlIwZGNEa2lReUfSAYoBQVVfeXFMTy05SzV2eFh0VEdUMkRBQTdmbkRtSS0wLTdBbDlQUDJ6Y1VtOHpiTlJiM3UtaXM2ZWtrNEFlU0E5bFF5U1B0aUNrclU3cU10UklJVWlJc3RSalBvVDJZYU5HWUZFbkZBOXZMMnpUeVBkbkxTT1VtZ0twQUhGNkY3YUR5b1J5dzl5S0Fn?oc=5",
+            "published_at": "2026-10-11 04:31:00 KST"
           },
           {
-            "title": "AI companies plot how to respond if catastrophic hacking incident causes ‘revolt’: report - New York Post",
-            "title_ko": "AI 기업, 해킹 사고 발생 시 대응 방안 모색",
-            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQVWgwYmRuRFV0aGloQUZ1eGJaeEg5Q2VLeExJOXlNUDROTk1rTExDVlpEcWJLdmFXOWhZeTc2bkFDZjV5LTBydkh6VGhsWXFTUGxzdkJBNlpFTjRLSTJ2RFVJVUtOTnRiMFl4d0dCeUhRa284SmJWWjNZY3BYZkFxa2lHS1h1ZklxTmM2VEtuU284NUFuQVlKaFRXMUJ6TDlPY2NXYW5YRkN2eGpHZjA5ZWpDVUtDM2o2bVZCR01SUEFfXzd6?oc=5",
-            "published_at": "2026-10-10 07:39:00 KST"
+            "title": "Nvidia in talks to acquire US ‘open’ model start-up Reflection AI - Financial Times",
+            "title_ko": "Nvidia, 미국 '오픈' 모델 스타트업 Reflection AI 인수 논의 중",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNSFAzNzlXTG5BbHZkbU5EX3lMZEl6Z3ZROVJPbE5NbFNwdXQtZ3N3cDlCYTNBVlg2VF9fTVE5RnIxS0I3b0dUejNudmZseG03RzVCdTBBS3hWaWM5S05KYV9WLWVOMENkODV0N2RXQzctank0bVpfSWo1bjNmbGg0Wi1RWFA?oc=5",
+            "published_at": "2026-10-11 03:14:28 KST"
           },
           {
-            "title": "The maker of non-text AI model Jev valued at $7.5B just weeks after launch - TechCrunch",
-            "title_ko": "Jev, 출시 몇 주 만에 75억 달러 가치 평가",
-            "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNRURYaldlbHRLWDFQbG5fXzAxaE1EczNmTGJIX1VtTmZfeEdTQzNXQlN6Q2VSRmdkTS1PUEhSSlFzblpibUstUWVTV3NFSWg3OUdXMm1jUWliTTRheC13R0FxTWlCTDMwRS00UzBac05BaERpYmp1U0JGSXVUSVFkVXpUaDlpYUdHQ3VaQVlzSWVWbVhHUk9yZXFzQUcxa3hDbFNPYlRSVUg2Ukdk?oc=5",
-            "published_at": "2026-10-10 06:41:29 KST"
+            "title": "A timeline of developments in AI safety since the attack on Hugging Face - AP News",
+            "title_ko": "Hugging Face 공격 이후 AI 안전 발전 타임라인",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPaUdUMlp0Z0xkQTl3clhkT2VWYy1EclBLWWpQOGJJc1Bad2xkdTk5eGR3YmdEUC1EZmtibnFZREhkV1BzLURrTlNkbnRDVDRqS1RrUHFhRy1TSGRpeWVldEtfbG1GY2YtQW9VSnZpV3BFM0VhcFlhQXhzOWFiampadkdleFJpYXZxLTdLSGRXcUJ5dE0ta1ZDVjJtaw?oc=5",
+            "published_at": "2026-10-11 01:58:10 KST"
           },
           {
-            "title": "The hazy OpenAI growth metric driving Wall Street - Financial Times",
-            "title_ko": "월스트리트를 움직이는 모호한 OpenAI 성장 지표",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUG9JMXAxUUtSMVdGU3MwdmpPM2JRdU5wTjMyNU1uU0JRVFV3ZDNreGxLdWFEXzJubjNPdkVIMldvcmNoRGRjQlcwel9NVS04MVV4bG4zRmFzZHY1NlBhZERsZThxeFFhSzNIWDF3eHU3TGxBcHFiM3NVVkN5dmZkUVRaSkY?oc=5",
-            "published_at": "2026-10-10 05:57:10 KST"
+            "title": "Vance says Microsoft replaced laid-off workers with foreign hires. Here’s what the visa data shows - CNBC",
+            "title_ko": "Vance, Microsoft가 해고된 직원 대신 외국인 고용했다고 주장. 비자 데이터는?",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1UNjF1bGo2aXg5SldWVzhNbHBfSzZYbkpyYkR0UDVKdEdIWjh3bGhxYTA3NWZXOEtTR2RxMnBZMEFBU3VtT1lEWURmMU96QXQ0WndiRGlQWnJVOUppeXltazhaZnNnR2pNMVRPRVFkamNocmNId3JRM3kxaV81TG_SAYQBQVVfeXFMUDVpOGxnNUNuR0NPYTVyRy1XTDc1bmNudERxUU5vYWdaYWJtSVl0SUpGbDBHSF9faS1rYWZ3cDgxUVZ1YmhVTDlmR3pGYmx0TDFYN0FwUnMwZVJhbnFjMTE3T0k5ckpuNkpham5FRF81RFlXUFVXTTVGYjZBQVRIQ0tCSFY2?oc=5",
+            "published_at": "2026-10-10 23:22:23 KST"
+          },
+          {
+            "title": "‘No regulation’: Trump officials bypass the public to boost invisible code - AlterNet",
+            "title_ko": "‘규제 없음’: 트럼프 관료, 대중 우회해 보이지 않는 코드 강화",
+            "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9lb0VUbkdEU0dHa2ZXZ3RfdWkyVU0wNENaQkVjOFZtVzQyWmRIdjNvTnQ0Tm5FS3hLM3l2ZkZ3UVVUVnduUlkwX2d0QWNpTU1Hc25Dbi1QRlVTakE4MTVDMWRwTm96dzZPT1E?oc=5",
+            "published_at": "2026-10-10 20:50:00 KST"
           }
         ],
-        "outlook": "AI 섹터는 OpenAI의 매출 전망 관련 논란에도 불구하고 Gemini 출시 후 Google이 최선호주로 유지되는 등 기술 발전과 기업들의 움직임이 계속 주목받고 있습니다. AI 기업들의 해킹 사고 대응 방안 모색은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 OpenAI의 성장 지표와 관련된 추가적인 소식이 시장의 관심을 끌 것으로 예상됩니다."
+        "outlook": "AI 섹터는 OpenAI와 Anthropic 등 주요 기업들의 활동과 AI 칩 수요 강세로 지속적인 주목을 받고 있습니다. 최근 필라델피아 경찰이 Anthropic AI 모델로부터 허위 정보를 받은 사건이 있었으나, 이는 AI 기술의 잠재적 위험성을 보여주는 사례로 해석될 수 있습니다. Nvidia가 미국 스타트업 Reflection AI 인수를 논의 중이라는 소식은 AI 기술 경쟁 심화를 시사합니다. 또한, Hugging Face 공격 이후 AI 안전에 대한 논의가 활발해지고 있으며, 일부에서는 규제 없는 AI 개발에 대한 우려도 제기되고 있습니다. 다음 주에는 AI 관련 기업들의 기술 개발 발표나 파트너십 관련 뉴스가 시장의 관심을 받을 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Starlink",
-        "reason": "우주 인터넷 서비스 관련 소식이 지속적으로 보도되며 주목받았습니다 (총 3건).",
-        "us_news_refs": [
-          8,
-          13,
-          24
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Venezuela authorises Elon Musk’s Starlink to operate nationwide",
-            "title_ko": "베네수엘라, Elon Musk의 Starlink 전국 운영 승인",
-            "url": "https://www.investing.com/news/company-news/venezuela-authorises-elon-musks-starlink-to-operate-nationwide-4942048",
-            "published_at": "2026-10-10 17:34:46 KST"
-          },
-          {
-            "title": "Elon Musk intensifies attack on Ambani over Starlink India launch delay - TechCrunch",
-            "title_ko": "Elon Musk, Starlink 인도 출시 지연 관련 Ambani 공격 강화",
-            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQWTJHbnRLM05qWjZUNkpKSVJudERCeXJQUjJ6N25kU0d1dmtockxpeVpQTENxUU5sWmFrV1R2RDEtOEdXdGlUQVhPZ011QTVDeDVJa1F3UGlmekV1UE1xU0pLRFNUZjdxNHFUWXpZNWhwT0J5VVYxQmRzRnI5TVBPbm55UlVwVjk3NldqTVNyMmFCYjQzVUdtbUJFeTNMaVF0RW80YVJvNEhEZw?oc=5",
-            "published_at": "2026-10-10 12:10:06 KST"
-          },
-          {
-            "title": "AT&T, Verizon, and T-Mobile Are Dropping on Starlink Fears. Analysts Say Buy. - Barron's",
-            "title_ko": "AT&T, Verizon, T-Mobile, Starlink 우려로 하락. 애널리스트는 매수 추천",
-            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPVjNNRzRHMHNBaExIaDE3UDFfeGlXYXlGSTRmM3JGajhvbXlLSkZnTzI3MXROQ0tUNGJuV3dzR0xNeWhiaHBnN1BMU2Z1aVlzY2JCbTRLNTd3eThxSUNLaWNPeHpsZEo1WGhmOXkzWW9oX1pVVFV0ZE9mR25aM1BveUw4RndnUHlZbkUybGtQQXZqdGNrdGc?oc=5",
-            "published_at": "2026-10-10 05:18:00 KST"
-          }
-        ],
-        "outlook": "SpaceX의 Starlink는 베네수엘라 운영 승인 소식으로 주목받고 있습니다. 또한, SpaceX가 Grain Management로부터 800MHz 대역 스펙트럼 라이선스를 인수하기로 합의하면서 통신 사업 진출에 대한 기대감이 높아지고 있습니다. 이는 기존 통신사들과의 경쟁 심화 가능성을 시사하며 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 SpaceX의 통신 사업 확장 관련 소식이 주가에 영향을 미칠 것으로 예상됩니다."
-      },
-      {
         "name": "OpenAI",
-        "reason": "AI 기술 개발 및 관련 기업의 활동에 대한 뉴스가 언급되었습니다 (총 2건).",
+        "reason": "AI 분야의 선두 주자로서, 관련 기술 발전 및 파트너십에 대한 뉴스가 주목받고 있습니다 (총 2건).",
         "us_news_refs": [
-          16,
-          20,
-          29,
-          44
+          45,
+          50
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "AI companies plot how to respond if catastrophic hacking incident causes ‘revolt’: report - New York Post",
-            "title_ko": "AI 기업, 해킹 사고 발생 시 대응 방안 모색",
-            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQVWgwYmRuRFV0aGloQUZ1eGJaeEg5Q2VLeExJOXlNUDROTk1rTExDVlpEcWJLdmFXOWhZeTc2bkFDZjV5LTBydkh6VGhsWXFTUGxzdkJBNlpFTjRLSTJ2RFVJVUtOTnRiMFl4d0dCeUhRa284SmJWWjNZY3BYZkFxa2lHS1h1ZklxTmM2VEtuU284NUFuQVlKaFRXMUJ6TDlPY2NXYW5YRkN2eGpHZjA5ZWpDVUtDM2o2bVZCR01SUEFfXzd6?oc=5",
-            "published_at": "2026-10-10 07:39:00 KST"
+            "title": "A mathematician says OpenAI wiped out entire research programs in one day - Business Insider",
+            "title_ko": "수학자, OpenAI가 하루 만에 연구 프로그램 전체 삭제했다고 주장",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMVFtM2J1QUpoUW84Tjc0cE1OSmFtTVVtNGhjQm5ZX1RsVGRKVmtqcFVEWko5MTBRTnRCc3lpTndDbmx4UFNJTWlVRHhEdkJwam5hcjZCa2FGMWZMN3FjQ3RZQ3Z4bmNUX05Jb0E1QkczNXFGMl9JUVBoTjIxUUFSdVZJZTJOR21oMnNQN0NIMElfT1psZ0xpSDBjVVV0cEcyX0xuTWFpNmg?oc=5",
+            "published_at": "2026-10-10 09:16:00 KST"
           },
           {
-            "title": "The hazy OpenAI growth metric driving Wall Street - Financial Times",
-            "title_ko": "월스트리트를 움직이는 모호한 OpenAI 성장 지표",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUG9JMXAxUUtSMVdGU3MwdmpPM2JRdU5wTjMyNU1uU0JRVFV3ZDNreGxLdWFEXzJubjNPdkVIMldvcmNoRGRjQlcwel9NVS04MVV4bG4zRmFzZHY1NlBhZERsZThxeFFhSzNIWDF3eHU3TGxBcHFiM3NVVkN5dmZkUVRaSkY?oc=5",
-            "published_at": "2026-10-10 05:57:10 KST"
-          },
-          {
-            "title": "‘Pure insanity’: Mathematicians will need years to make sense of OpenAI’s latest drop - The Verge",
-            "title_ko": "‘순수한 광기’: 수학자들, OpenAI 최신 발표 이해에 수년 소요될 것",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQdkJScG5HUzNIY0FKNkR2RUNWRTd5bGFFZEFLSThucGUwS3huMVYzSE4tUEtZMFpFdHlfU3BuUzZZOFE2SzVkbHZPUlJlMDQtcFFBNFRqM1lIUEN2Z3BWSFU5d0xRYWJoc1BhcEUxY0x5dXhDWTYyU1I4NTh5NWFjX0R2U1ZVSi1YVENua05NcVlLU0s1NzFuVDh3?oc=5",
-            "published_at": "2026-10-10 04:09:44 KST"
-          },
-          {
-            "title": "ChatGPT for Teens is not necessarily 'safer than the previous version,' Common Sense Media finds - CNBC",
-            "title_ko": "ChatGPT for Teens, 이전 버전보다 '안전하지 않다'고 Common Sense Media 발표",
-            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQN2tmWm9Dc3V5aGU1cTJTVk5PZm9pZDJNS2V5MGtteGxsZ2lCS2VZN0xEUl8zTWVsV0NqU1BhTU5qZUplemdsV203SHQzZDJfN3ZLM19nMGw3T3ZxVVg4d3BFSGxabWh0elVtR3NMT01MWE1LLWxRNFNWcFY2MTBlNkJaZUJSN2NxV1VKbGFQYnN4d9IBlwFBVV95cUxPdjVndWdhNnBrZjY0dy1pc0ZDMU5YWGJFVUQzNHBSSFB6c2xsdHBXVUliSzBrSFhiOHQwM1FDN3FubXBUZVRtWEJld25jd2xVUmR2VmE0VFdSRzdZTFBQM0o0REJSRnc5endpWXBOb3FQYTIzQ0gySkVEUWNObFg0bzlHRjJUeXptMmJfamE2NFRpaUxSdnVJ?oc=5",
-            "published_at": "2026-10-10 00:07:53 KST"
+            "title": "Fired OpenAI employees question the company's commitment to safety - NPR",
+            "title_ko": "해고된 OpenAI 직원, 회사의 안전 약속 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9WN1l1V0YwV0xzV3R1dzA2QXdRQTBialJFTnFZTjF0QW90blRLWXlnc1NfdHBsWEx6UXRkbEpQWUxMWml5WXd5OEhOcHZrNmd6elRDUlFOTDNTckFzWjYtRGVtWnJMaWw1WGkycG5oZGlpZ2c1?oc=5",
+            "published_at": "2026-10-10 06:28:09 KST"
           }
         ],
-        "outlook": "OpenAI는 매출 전망 관련 논란에도 불구하고 AI 기술 발전의 중심에 있습니다. 연말 매출 목표치와 9월 말 실적 간의 혼동이 있었으나, 시장은 AI 인프라 투자와 실제 매출 연결성에 대한 점검을 이어가고 있습니다. 높은 금리 환경은 AI 인프라 기업에 부담으로 작용할 수 있습니다. 다음 주에는 OpenAI의 성장 지표와 관련된 추가적인 소식이 시장의 관심을 끌 것으로 예상됩니다."
-      },
-      {
-        "name": "Micron",
-        "reason": "메모리 칩 시장의 동향과 관련된 소식이 일부 보도되었습니다 (총 2건).",
-        "us_news_refs": [
-          23,
-          34
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Micron Stock Falls. Why Buybacks Could be Crucial for Gains. - Barron's",
-            "title_ko": "Micron 주가 하락. 자사주 매입이 상승에 중요한 이유는?",
-            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRjVqZlBSSE84U0U5UU9Selc4bTl1QU1iSjN1b0cxeWdrREhBQWplWm43VlRXU2ppbzFrbEt1U1R1N3Z0U2Nab0lGeDh2VGd4a0pRdTk4VFZGbTMzb0RJQ3J1RS1vWV8tcFpXbS1sc1QzaXVqQjE2Xzg3aGNXLTBNODFZdlRuOUlv?oc=5",
-            "published_at": "2026-10-10 05:22:00 KST"
-          },
-          {
-            "title": "Not Micron. Not Sandisk. This Memory Stock Is Quietly Gaining Share. - The Motley Fool",
-            "title_ko": "Micron도 Sandisk도 아니다. 이 메모리 주식이 조용히 점유율을 높이고 있다.",
-            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPSFlZeUJQU0hxYXhwUC1jdWtaRU5id19uWDFxbzdKRzdRQ3h4bmdEekIzblVncS1FYU1CUW5jUE9vVEZpcDFzU2JnaUJVcndJaFh1XzUtbWo0MFhjN1diSEkxY1lxQkVRQjFwb05NZ0tCaWk4RF9DV015QVpNZV8tNGxremd5ZW8wZ3lIMjc5RWNJR25zMGRGSg?oc=5",
-            "published_at": "2026-10-10 01:40:00 KST"
-          }
-        ],
-        "outlook": "Micron은 메모리 칩 시장에서 AI 사이클의 핵심 플레이어로 부상하고 있습니다. 12월부터 시행될 350억 달러 규모의 자사주 매입 계획은 주가에 긍정적인 영향을 줄 것으로 기대됩니다. 그러나 미국 반도체지원법 관련 제약 종료 시점과 국채 입찰 결과는 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 미국 국채 입찰 결과와 Micron의 자사주 매입 계획 실행 여부가 주목될 것입니다."
+        "outlook": "OpenAI는 AI 분야의 선두 주자로서 관련 기술 발전 및 파트너십에 대한 뉴스가 주목받고 있습니다. 최근 한 수학자는 OpenAI가 하루 만에 연구 프로그램 전체를 삭제했다고 주장했으며, 해고된 직원들은 회사의 안전 약속에 의문을 제기하고 있습니다. 이러한 내부적인 이슈들은 단기적으로 투자 심리에 영향을 미칠 수 있습니다. 다음 주에는 OpenAI의 새로운 기술 발표나 파트너십 관련 소식이 있을 경우 주가에 영향을 줄 수 있으나, 현재로서는 명확한 촉매제가 부재한 상황입니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "Satellite Internet",
-          "outlook": "위성 인터넷 섹터는 SpaceX의 Starlink 서비스 확장에 힘입어 지속적인 성장이 예상됩니다. 베네수엘라의 Starlink 운영 승인과 같은 규제 완화는 시장 확대에 긍정적인 영향을 미칠 수 있습니다. 그러나 AT&T, Verizon, T-Mobile과 같은 기존 통신사와의 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 SpaceX의 주파수 인수 관련 소식과 함께 통신사들의 주가 변동성이 주목될 것으로 보입니다."
-        },
-        {
           "name": "AI",
-          "outlook": "AI 섹터는 OpenAI의 매출 전망 관련 논란에도 불구하고 Gemini 출시 후 Google이 최선호주로 유지되는 등 기술 발전과 기업들의 움직임이 계속 주목받고 있습니다. AI 기업들의 해킹 사고 대응 방안 모색은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 OpenAI의 성장 지표와 관련된 추가적인 소식이 시장의 관심을 끌 것으로 예상됩니다."
-        },
-        {
-          "name": "Semiconductors",
-          "outlook": "메모리 칩 시장은 Micron의 자사주 매입 계획 발표와 함께 주목받고 있습니다. 미국 반도체지원법 관련 제약이 12월에 종료되면 Micron이 잉여 현금을 자사주 매입에 사용할 것이라는 전망이 있습니다. 그러나 국채 입찰 결과 및 삼성전자 실적 발표 등은 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 미국 국채 입찰 결과와 국내 메모리 기업들의 실적 발표가 시장의 주요 관심사가 될 것입니다."
+          "outlook": "AI 섹터는 OpenAI와 Anthropic 등 주요 기업들의 활동과 AI 칩 수요 강세로 지속적인 주목을 받고 있습니다. 최근 필라델피아 경찰이 Anthropic AI 모델로부터 허위 정보를 받은 사건이 있었으나, 이는 AI 기술의 잠재적 위험성을 보여주는 사례로 해석될 수 있습니다. Nvidia가 미국 스타트업 Reflection AI 인수를 논의 중이라는 소식은 AI 기술 경쟁 심화를 시사합니다. 또한, Hugging Face 공격 이후 AI 안전에 대한 논의가 활발해지고 있으며, 일부에서는 규제 없는 AI 개발에 대한 우려도 제기되고 있습니다. 다음 주에는 AI 관련 기업들의 기술 개발 발표나 파트너십 관련 뉴스가 시장의 관심을 받을 수 있습니다."
         }
       ],
       "stocks": [
         {
-          "name": "Starlink",
-          "outlook": "SpaceX의 Starlink는 베네수엘라 운영 승인 소식으로 주목받고 있습니다. 또한, SpaceX가 Grain Management로부터 800MHz 대역 스펙트럼 라이선스를 인수하기로 합의하면서 통신 사업 진출에 대한 기대감이 높아지고 있습니다. 이는 기존 통신사들과의 경쟁 심화 가능성을 시사하며 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 SpaceX의 통신 사업 확장 관련 소식이 주가에 영향을 미칠 것으로 예상됩니다."
-        },
-        {
           "name": "OpenAI",
-          "outlook": "OpenAI는 매출 전망 관련 논란에도 불구하고 AI 기술 발전의 중심에 있습니다. 연말 매출 목표치와 9월 말 실적 간의 혼동이 있었으나, 시장은 AI 인프라 투자와 실제 매출 연결성에 대한 점검을 이어가고 있습니다. 높은 금리 환경은 AI 인프라 기업에 부담으로 작용할 수 있습니다. 다음 주에는 OpenAI의 성장 지표와 관련된 추가적인 소식이 시장의 관심을 끌 것으로 예상됩니다."
-        },
-        {
-          "name": "Micron",
-          "outlook": "Micron은 메모리 칩 시장에서 AI 사이클의 핵심 플레이어로 부상하고 있습니다. 12월부터 시행될 350억 달러 규모의 자사주 매입 계획은 주가에 긍정적인 영향을 줄 것으로 기대됩니다. 그러나 미국 반도체지원법 관련 제약 종료 시점과 국채 입찰 결과는 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 미국 국채 입찰 결과와 Micron의 자사주 매입 계획 실행 여부가 주목될 것입니다."
+          "outlook": "OpenAI는 AI 분야의 선두 주자로서 관련 기술 발전 및 파트너십에 대한 뉴스가 주목받고 있습니다. 최근 한 수학자는 OpenAI가 하루 만에 연구 프로그램 전체를 삭제했다고 주장했으며, 해고된 직원들은 회사의 안전 약속에 의문을 제기하고 있습니다. 이러한 내부적인 이슈들은 단기적으로 투자 심리에 영향을 미칠 수 있습니다. 다음 주에는 OpenAI의 새로운 기술 발표나 파트너십 관련 소식이 있을 경우 주가에 영향을 줄 수 있으나, 현재로서는 명확한 촉매제가 부재한 상황입니다."
         }
       ]
     },
@@ -205,176 +100,106 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "Financials",
-        "reason": "은행 및 금융권의 규제 및 시장 동향에 대한 뉴스가 다수 보도되며 주목받았습니다 (총 3건).",
+        "name": "Bonds",
+        "reason": "채권 시장 관련 뉴스가 다수 언급되며, 금리 변동 및 투자 전략에 대한 시장의 관심이 반영되었습니다 (총 3건).",
         "kr_news_refs": [
-          1,
-          4,
-          61
+          46,
+          47,
+          63
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "[은행이 뚫린다] 예가람저축은행, 고객 주민등록번호·계좌번호 유출됐는데 고지 안했다 슬그머니 수정 - 보안뉴스",
+            "title": "올해 크레딧물 발행 24%↑…은행채 늘고 회사채는 줄고",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBEbU1Ya2wtejVlTm9jbUN6WHl2c0sxZFZqbWxBX0c4UFZMdkVtRFoyQnh4LU5SY2JKaWRLVk5PVExYd2E3Nnh4ajBBVV96THBjeFdab3NENGZQVHBrMmJheVpubVRHSFVJYV9B?oc=5",
-            "published_at": "2026-10-10 16:08:29 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261009029200008",
+            "published_at": "2026-10-11 06:30:00 KST"
           },
           {
-            "title": "박성훈 \"해킹 논란 속 금융사 보안예산 69.6%집행…우리은행 53.8%로 저조\" - 뉴스핌",
+            "title": "이번주 크레딧 2.3조 발행…LG유플러스·GS 등 수요예측",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBzc2FhQm9aWW9oRU5HVF9SV1dfNU5FT3JXSzFwMHlXSm1rV2lBY0NDZUV3UnFMbmFPUEtlZ2x3ZV9OUzRZZ1RfNGFXeWNHLXJRRkpLNFBtY1ZPajhO?oc=5",
-            "published_at": "2026-10-10 15:03:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261008114100008",
+            "published_at": "2026-10-11 06:25:00 KST"
           },
           {
-            "title": "AI에 뚫린 금융권, 보안 인력 확대 속도내나 - 에너지경제신문",
+            "title": "국채금리 급등에 줄어든 매력에도…개인, 리츠 ETF 순매수액↑",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBBYkdsb2J5ejVublM0Q0ZkcnFNbUZTVVZMV2N0cjJKVmFwbUlHamY1blE2Y0RmMGJ4NzBwNmNjdnJEMkRFQldXMFozYnY2WXhXa1ZSYW5UT056Y0lCNFVRaThvaw?oc=5",
-            "published_at": "2026-10-10 16:20:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261008168900008",
+            "published_at": "2026-10-11 06:10:01 KST"
           }
         ],
-        "outlook": "금융 섹터는 해킹 논란 속 금융사의 보안 예산 집행률 저조와 AI 기술 발전에 따른 보안 인력 확대 필요성이 제기되며 주목받고 있습니다. 우리은행의 낮은 보안 예산 집행률은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 금융권의 AI 전략 및 보안 강화 관련 논의가 이어질 것으로 예상됩니다."
-      },
-      {
-        "name": "Sports",
-        "reason": "프로 스포츠 구단 및 관련 이벤트에 대한 소식이 꾸준히 언급되었습니다 (총 3건).",
-        "kr_news_refs": [
-          9,
-          13,
-          19
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "한국, U-18 여자농구 아시아컵 3위 결정전서 중국에 37점차 패배",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010042900007",
-            "published_at": "2026-10-10 19:25:41 KST"
-          },
-          {
-            "title": "우리은행, 박신자컵 여자농구 결승 진출…후지쓰와 격돌",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010042600007",
-            "published_at": "2026-10-10 19:17:29 KST"
-          },
-          {
-            "title": "프로농구 '우승후보' DB, 디펜딩챔프 KCC 제압…엘런슨 24점(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010035151007",
-            "published_at": "2026-10-10 18:46:15 KST"
-          }
-        ],
-        "outlook": "스포츠 섹터는 프로 농구 리그의 주요 경기 결과와 관련된 소식이 꾸준히 보도되며 관심을 받고 있습니다. 우리은행의 여자농구 결승 진출 소식은 긍정적인 촉매제가 될 수 있습니다. 그러나 스포츠 경기 결과에 따른 변동성은 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 주요 스포츠 리그의 경기 결과 및 관련 이벤트가 주목될 것입니다."
+        "outlook": "채권 시장은 금리 변동 및 투자 전략에 대한 시장의 관심이 반영되며 다수의 뉴스가 언급되었습니다. 올해 크레딧물 발행이 전년 대비 증가했으며, 특히 은행채 발행이 늘고 회사채 발행은 줄어드는 추세를 보이고 있습니다. 이번 주에는 LG유플러스, GS 등 주요 기업들의 수요 예측이 예정되어 있어 채권 발행 시장에 대한 관심이 이어질 것으로 보입니다. 국채 금리 급등에도 불구하고 개인 투자자들은 리츠 ETF 순매수액을 늘리는 등 금리 변동에 따른 투자 전략 변화가 관찰되고 있습니다. 다음 주에는 주요 경제 지표 발표나 중앙은행의 통화 정책 관련 뉴스가 채권 시장에 영향을 미칠 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "우리은행",
-        "reason": "금융권의 규제 및 시장 동향과 관련된 뉴스가 보도되며 주목받았습니다 (총 2건).",
-        "kr_news_refs": [
-          4,
-          13,
-          69
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "박성훈 \"해킹 논란 속 금융사 보안예산 69.6%집행…우리은행 53.8%로 저조\" - 뉴스핌",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBzc2FhQm9aWW9oRU5HVF9SV1dfNU5FT3JXSzFwMHlXSm1rV2lBY0NDZUV3UnFMbmFPUEtlZ2x3ZV9OUzRZZ1RfNGFXeWNHLXJRRkpLNFBtY1ZPajhO?oc=5",
-            "published_at": "2026-10-10 15:03:00 KST"
-          },
-          {
-            "title": "우리은행, 박신자컵 여자농구 결승 진출…후지쓰와 격돌",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010042600007",
-            "published_at": "2026-10-10 19:17:29 KST"
-          },
-          {
-            "title": "“해킹 불안 커지는데”…보안예산 70%도 못 쓴 금융사들",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/politics/12172714",
-            "published_at": "2026-10-10 16:03:11 KST"
-          }
-        ],
-        "outlook": "우리은행은 금융권의 보안 문제와 관련하여 낮은 보안 예산 집행률이 지적되며 단기적인 위험 요인으로 작용할 수 있습니다. 또한, 스테이블코인 컨소시엄 참여 등 디지털 자산 전략은 향후 성장 동력이 될 수 있습니다. 다음 주에는 금융권의 AI 전략 및 보안 강화 관련 논의와 함께 우리은행의 디지털 금융 전략이 주목될 것으로 예상됩니다."
-      },
-      {
-        "name": "아볼론",
-        "reason": "항공 산업 관련 기업의 사업 내용에 대한 뉴스가 일부 포함되었습니다 (총 2건).",
+        "name": "스타벅스",
+        "reason": "스타벅스 관련 뉴스가 언급되며, 소비재 및 서비스 업종에 대한 시장의 관심을 보여줍니다 (총 2건).",
         "kr_news_refs": [
           2,
-          90
+          57
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "'중국 자본 지배' 항공기 임대업체, 보잉·에어버스 250대 구매 - YTN",
+            "title": "스타벅스, ‘탱크데이’ 논란 딛고 5개월 만에 결제액 1위 탈환 - 경기일보",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5IbW1zVWZxek1qUTh4eFMtQVJZREJROWFJNFVOTW9UeTNhdURmNzIwdEtDZnhsOXBsMzkwa2lmNXhDc0t6aWhBUjhCOEJiWmtiQWFxX2R0YThLZGRRM0E?oc=5",
-            "published_at": "2026-10-10 15:11:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1sLVlwc2JLdjNJSTR2djhEOTJNVWo3NE5XVlFhMmVSeWYyUmM5MzhPSTNLRGppWm84V2lXT2FDbkc4Ql9aR1VmNE4wY1ZucUhoRDJQbWNTazRFNU0?oc=5",
+            "published_at": "2026-10-11 07:01:26 KST"
           },
           {
-            "title": "'中자본 지배' 항공기 임대업체, 보잉·에어버스 250대 구매",
+            "title": "'탱크데이' 논란 5개월 만에…스타벅스, 투썸 제치고 1위 탈환",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010030000083",
-            "published_at": "2026-10-10 15:01:10 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261009034400017",
+            "published_at": "2026-10-11 06:13:01 KST"
           }
         ],
-        "outlook": "아볼론은 중국 자본 지배 하의 항공기 임대업체로서 보잉 및 에어버스에 대규모 구매 계약을 체결하며 주목받고 있습니다. 이는 항공 산업의 회복세를 반영하는 긍정적인 신호입니다. 그러나 글로벌 항공 수요 변동 및 지정학적 리스크는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 항공 산업의 회복 추세와 관련된 추가적인 소식이 아볼론의 주가에 영향을 미칠 것으로 예상됩니다."
+        "outlook": "스타벅스는 최근 '탱크데이' 논란 이후 5개월 만에 결제액 1위를 탈환하며 소비자들의 높은 충성도를 다시 한번 입증했습니다. 이는 단기적으로 긍정적인 모멘텀으로 작용할 수 있습니다. 그러나 경쟁사의 동향이나 소비자 트렌드 변화는 향후 실적에 영향을 미칠 수 있는 요인입니다. 다음 주에는 스타벅스의 신규 프로모션이나 매장 확장 관련 소식이 주가에 영향을 줄 수 있으며, 소비 심리 관련 지표 발표도 주목할 필요가 있습니다."
       },
       {
-        "name": "FC 서울",
-        "reason": "프로 스포츠 구단 관련 소식이 꾸준히 언급되었습니다 (총 2건).",
+        "name": "삼성전자",
+        "reason": "반도체 산업의 주요 기업으로서, 기술 개발 및 시장 전망에 대한 뉴스가 주목받고 있습니다 (총 2건).",
         "kr_news_refs": [
-          26,
-          65
+          54,
+          87
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "'클리말라 결승골' 서울, 제주 2-1 꺾고 자력 우승까지 '승점 7'(종합)",
+            "title": "삼전닉스 주춤했지만…소부장 선전에 한달간 수익률 1위는 반도체",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010035051007",
-            "published_at": "2026-10-10 18:26:24 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261009021100008",
+            "published_at": "2026-10-11 06:15:01 KST"
           },
           {
-            "title": "'클리말라 결승골' 서울, 제주 2-1 꺾고 자력 우승까지 '승점 7'",
+            "title": "[마켓인사이트] 삼성전자 역대급 실적에도 짓눌린 코스피, 반등 가능성은",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261010035000007",
-            "published_at": "2026-10-10 16:09:24 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261010015700008",
+            "published_at": "2026-10-11 06:00:03 KST"
           }
         ],
-        "outlook": "FC 서울은 최근 제주와의 경기에서 승리하며 자력 우승 가능성을 높였습니다. 이는 팀의 경기력 향상과 팬들의 기대감을 반영하는 긍정적인 소식입니다. 그러나 프로 스포츠 리그의 경쟁적인 특성상 예상치 못한 경기 결과는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 FC 서울의 남은 경기 결과 및 리그 순위 변동이 주목될 것입니다."
+        "outlook": "삼성전자는 반도체 산업의 주요 기업으로서 기술 개발 및 시장 전망에 대한 뉴스가 주목받고 있습니다. 최근 삼성전자 역대급 실적에도 불구하고 코스피가 반등 가능성에 대한 의문이 제기되고 있습니다. 이는 반도체 업황의 변동성과 거시 경제 불확실성이 복합적으로 작용한 결과로 해석될 수 있습니다. 다음 주에는 주요 반도체 관련 지표 발표나 글로벌 IT 기업들의 실적 발표가 삼성전자 주가에 영향을 줄 수 있으며, AI 관련 기술 개발 동향도 중요한 변수가 될 것입니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "Financials",
-          "outlook": "금융 섹터는 해킹 논란 속 금융사의 보안 예산 집행률 저조와 AI 기술 발전에 따른 보안 인력 확대 필요성이 제기되며 주목받고 있습니다. 우리은행의 낮은 보안 예산 집행률은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 금융권의 AI 전략 및 보안 강화 관련 논의가 이어질 것으로 예상됩니다."
+          "name": "Bonds",
+          "outlook": "채권 시장은 금리 변동 및 투자 전략에 대한 시장의 관심이 반영되며 다수의 뉴스가 언급되었습니다. 올해 크레딧물 발행이 전년 대비 증가했으며, 특히 은행채 발행이 늘고 회사채 발행은 줄어드는 추세를 보이고 있습니다. 이번 주에는 LG유플러스, GS 등 주요 기업들의 수요 예측이 예정되어 있어 채권 발행 시장에 대한 관심이 이어질 것으로 보입니다. 국채 금리 급등에도 불구하고 개인 투자자들은 리츠 ETF 순매수액을 늘리는 등 금리 변동에 따른 투자 전략 변화가 관찰되고 있습니다. 다음 주에는 주요 경제 지표 발표나 중앙은행의 통화 정책 관련 뉴스가 채권 시장에 영향을 미칠 수 있습니다."
         },
         {
-          "name": "Sports",
-          "outlook": "스포츠 섹터는 프로 농구 리그의 주요 경기 결과와 관련된 소식이 꾸준히 보도되며 관심을 받고 있습니다. 우리은행의 여자농구 결승 진출 소식은 긍정적인 촉매제가 될 수 있습니다. 그러나 스포츠 경기 결과에 따른 변동성은 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 주요 스포츠 리그의 경기 결과 및 관련 이벤트가 주목될 것입니다."
-        },
-        {
-          "name": "Semiconductors",
-          "outlook": "반도체 섹터는 미국 지원법 관련 제약 종료와 함께 Micron의 자사주 매입 계획이 긍정적인 신호로 작용할 수 있습니다. 그러나 국채 입찰 결과 및 삼성전자 실적 발표는 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 미국 국채 입찰 결과와 국내 메모리 기업들의 실적 발표가 시장의 주요 관심사가 될 것입니다."
+          "name": "소비재 및 서비스",
+          "outlook": "스타벅스 관련 뉴스가 언급되며 소비재 및 서비스 업종에 대한 시장의 관심이 나타났습니다. 최근 '탱크데이' 논란 이후 5개월 만에 스타벅스가 투썸을 제치고 결제액 1위를 탈환했다는 소식이 전해졌습니다. 이는 소비자들의 브랜드 충성도와 시장 경쟁 구도 변화를 시사합니다. 다음 주에는 관련 기업들의 분기 실적 발표나 신제품 출시 관련 소식이 주가에 영향을 줄 수 있으며, 소비 심리 지표 발표 등 거시 경제 변수도 주목해야 할 부분입니다."
         }
       ],
       "stocks": [
         {
-          "name": "우리은행",
-          "outlook": "우리은행은 금융권의 보안 문제와 관련하여 낮은 보안 예산 집행률이 지적되며 단기적인 위험 요인으로 작용할 수 있습니다. 또한, 스테이블코인 컨소시엄 참여 등 디지털 자산 전략은 향후 성장 동력이 될 수 있습니다. 다음 주에는 금융권의 AI 전략 및 보안 강화 관련 논의와 함께 우리은행의 디지털 금융 전략이 주목될 것으로 예상됩니다."
+          "name": "스타벅스",
+          "outlook": "스타벅스는 최근 '탱크데이' 논란 이후 5개월 만에 결제액 1위를 탈환하며 소비자들의 높은 충성도를 다시 한번 입증했습니다. 이는 단기적으로 긍정적인 모멘텀으로 작용할 수 있습니다. 그러나 경쟁사의 동향이나 소비자 트렌드 변화는 향후 실적에 영향을 미칠 수 있는 요인입니다. 다음 주에는 스타벅스의 신규 프로모션이나 매장 확장 관련 소식이 주가에 영향을 줄 수 있으며, 소비 심리 관련 지표 발표도 주목할 필요가 있습니다."
         },
         {
-          "name": "아볼론",
-          "outlook": "아볼론은 중국 자본 지배 하의 항공기 임대업체로서 보잉 및 에어버스에 대규모 구매 계약을 체결하며 주목받고 있습니다. 이는 항공 산업의 회복세를 반영하는 긍정적인 신호입니다. 그러나 글로벌 항공 수요 변동 및 지정학적 리스크는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 항공 산업의 회복 추세와 관련된 추가적인 소식이 아볼론의 주가에 영향을 미칠 것으로 예상됩니다."
-        },
-        {
-          "name": "FC 서울",
-          "outlook": "FC 서울은 최근 제주와의 경기에서 승리하며 자력 우승 가능성을 높였습니다. 이는 팀의 경기력 향상과 팬들의 기대감을 반영하는 긍정적인 소식입니다. 그러나 프로 스포츠 리그의 경쟁적인 특성상 예상치 못한 경기 결과는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 FC 서울의 남은 경기 결과 및 리그 순위 변동이 주목될 것입니다."
+          "name": "삼성전자",
+          "outlook": "삼성전자는 반도체 산업의 주요 기업으로서 기술 개발 및 시장 전망에 대한 뉴스가 주목받고 있습니다. 최근 삼성전자 역대급 실적에도 불구하고 코스피가 반등 가능성에 대한 의문이 제기되고 있습니다. 이는 반도체 업황의 변동성과 거시 경제 불확실성이 복합적으로 작용한 결과로 해석될 수 있습니다. 다음 주에는 주요 반도체 관련 지표 발표나 글로벌 IT 기업들의 실적 발표가 삼성전자 주가에 영향을 줄 수 있으며, AI 관련 기술 개발 동향도 중요한 변수가 될 것입니다."
         }
       ]
     },
@@ -385,13 +210,39 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "AI",
+        "name": "반도체",
         "freq": 2,
-        "summary": "AI 사이클의 추가적인 상승 가능성이 언급되었으며, 증시의 의심을 뚫고 올라갈 수 있을지에 대한 논의가 있었습니다. AI 기술 발전이 증시에 미치는 영향에 대한 관심이 나타났습니다.",
+        "summary": "영상#6에서는 2027년 K배터리의 승부처를 언급하며 김장열의 반도체·IT 투자 교실을 소개합니다. 영상#8은 AI 사이클의 추가 상승 가능성을 시사하며 증시 상승에 대한 의문을 제기합니다.",
+        "refs": [
+          6,
+          8
+        ],
+        "reason": "영상#6에서는 2027년 K배터리의 승부처를 언급하며 김장열의 반도체·IT 투자 교실을 소개합니다. 영상#8은 AI 사이클의 추가 상승 가능성을 시사하며 증시 상승에 대한 의문을 제기합니다.",
+        "related_videos": [
+          {
+            "title": "2027 K배터리 진짜 승부처는? | 하나증권 리서치센터 기업분석실 김현수 연구위원  [글로벌 인터뷰]",
+            "url": "https://www.youtube.com/watch?v=YtK9-GHu8QU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-10 11:00:39 KST"
+          },
+          {
+            "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
+            "url": "https://www.youtube.com/watch?v=Ob5TSrJbxbs",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-09 18:36:59 KST"
+          }
+        ],
+        "outlook": "유튜브 채널에서는 반도체 및 IT 투자에 대한 논의가 활발하게 이루어지고 있습니다. 특히 2027년 K배터리의 승부처를 언급하며 반도체·IT 투자 전략을 다루는 영상이 주목받고 있습니다. 또한, AI 사이클의 추가 상승 가능성을 시사하며 증시 상승에 대한 의문을 제기하는 영상도 있습니다. 다음 주에는 주요 반도체 기업들의 신제품 출시 소식이나 기술 개발 관련 뉴스가 시장의 관심을 받을 수 있으며, AI 관련 기술 발전 동향도 반도체 섹터 전망에 중요한 영향을 미칠 것으로 예상됩니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "영상#8은 AI 사이클의 추가 상승 가능성을 언급하며 증시 의심의 벽을 뚫고 올라갈 수 있을지에 대한 질문을 던집니다.",
         "refs": [
           8
         ],
-        "reason": "AI 사이클의 추가적인 상승 가능성이 언급되었으며, 증시의 의심을 뚫고 올라갈 수 있을지에 대한 논의가 있었습니다. AI 기술 발전이 증시에 미치는 영향에 대한 관심이 나타났습니다.",
+        "reason": "영상#8은 AI 사이클의 추가 상승 가능성을 언급하며 증시 의심의 벽을 뚫고 올라갈 수 있을지에 대한 질문을 던집니다.",
+        "_weak_signal": true,
         "related_videos": [
           {
             "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
@@ -400,16 +251,16 @@
             "published_at": "2026-10-09 18:36:59 KST"
           }
         ],
-        "outlook": "AI 섹터는 AI 사이클의 추가적인 상승 가능성이 언급되며 주목받고 있습니다. 증시의 의심을 뚫고 올라갈 수 있을지에 대한 논의가 활발하며, AI 기술 발전이 증시에 미치는 영향에 대한 관심이 높습니다. Nvidia와 같은 AI 관련 기업의 주가 흐름이 주요 관심사입니다. 다음 주에는 AI 관련 기업들의 실적 발표 및 신기술 출시 소식이 시장의 주요 동력이 될 것으로 보입니다."
+        "outlook": "AI 섹터는 유튜브 채널에서도 주요 투자 토픽으로 다뤄지고 있으며, AI 사이클의 추가 상승 가능성과 증시 상승 여부에 대한 논의가 진행 중입니다. 이는 AI 기술 발전이 증시 전반에 미치는 영향력을 보여줍니다. 다음 주에는 AI 관련 기업들의 신기술 발표나 파트너십 관련 뉴스가 투자자들의 관심을 끌 수 있으며, AI 기술의 윤리적, 사회적 영향에 대한 논의도 지속될 것으로 보입니다."
       },
       {
         "name": "2차전지",
         "freq": 1,
-        "summary": "2027년 K배터리의 경쟁 구도와 승부처에 대한 분석이 제시되었습니다. 배터리 산업의 미래 전망과 관련된 논의가 있었습니다.",
+        "summary": "영상#6은 2027년 K배터리의 진짜 승부처를 다루며 관련 투자 전략에 대한 논의를 예고합니다.",
         "refs": [
           6
         ],
-        "reason": "2027년 K배터리의 경쟁 구도와 승부처에 대한 분석이 제시되었습니다. 배터리 산업의 미래 전망과 관련된 논의가 있었습니다.",
+        "reason": "영상#6은 2027년 K배터리의 진짜 승부처를 다루며 관련 투자 전략에 대한 논의를 예고합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
@@ -419,85 +270,28 @@
             "published_at": "2026-10-10 11:00:39 KST"
           }
         ],
-        "outlook": "2차전지 섹터는 2027년 K배터리의 경쟁 구도와 승부처에 대한 분석이 제시되며 주목받고 있습니다. LG에너지솔루션의 사상 최대 실적 발표와 북미 ESS 시장 성장은 긍정적인 요인입니다. 그러나 리튬 가격 변동 및 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 2차전지 기업들의 실적 발표 및 북미 시장 동향이 주목될 것입니다."
-      },
-      {
-        "name": "반도체",
-        "freq": 1,
-        "summary": "반도체 및 IT 투자에 대한 교실이 언급되었습니다. 반도체 산업의 투자 전략 및 전망에 대한 내용이 포함되었습니다.",
-        "refs": [
-          6
-        ],
-        "reason": "반도체 및 IT 투자에 대한 교실이 언급되었습니다. 반도체 산업의 투자 전략 및 전망에 대한 내용이 포함되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "2027 K배터리 진짜 승부처는? | 하나증권 리서치센터 기업분석실 김현수 연구위원  [글로벌 인터뷰]",
-            "url": "https://www.youtube.com/watch?v=YtK9-GHu8QU",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-10 11:00:39 KST"
-          }
-        ],
-        "outlook": "반도체 섹터는 AI 기술 발전과 함께 꾸준히 논의되고 있습니다. Micron의 자사주 매입 계획과 같은 긍정적인 소식이 있지만, 미국 반도체지원법 관련 제약 종료 시점과 국채 입찰 결과는 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 미국 국채 입찰 결과와 국내 메모리 기업들의 실적 발표가 시장의 주요 관심사가 될 것입니다."
+        "outlook": "2차전지 섹터는 2027년 K배터리의 진짜 승부처를 다루는 영상이 주목받으며 관련 투자 전략에 대한 논의가 예고되었습니다. 이는 배터리 산업의 장기적인 성장 가능성과 경쟁 구도 변화에 대한 시장의 관심을 반영합니다. 다음 주에는 주요 2차전지 기업들의 신기술 개발 소식이나 주요 완성차 업체와의 파트너십 관련 뉴스가 주가에 영향을 줄 수 있으며, 전기차 시장 성장률 전망치 발표도 주목해야 할 부분입니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Nvidia",
+        "name": "삼성전자",
         "freq": 1,
-        "summary": "AI 사이클과 관련하여 Nvidia와 같은 기업의 주가 흐름에 대한 언급이 있었습니다. AI 기술 발전의 수혜가 예상되는 종목으로 분석되었습니다.",
+        "summary": "영상#1은 삼성전자를 보유하고 있을 경우 향후 전망에 대해 권영화 교수의 분석을 통해 설명합니다.",
         "refs": [
-          8
+          1
         ],
-        "reason": "AI 사이클과 관련하여 Nvidia와 같은 기업의 주가 흐름에 대한 언급이 있었습니다. AI 기술 발전의 수혜가 예상되는 종목으로 분석되었습니다.",
+        "reason": "영상#1은 삼성전자를 보유하고 있을 경우 향후 전망에 대해 권영화 교수의 분석을 통해 설명합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
-            "url": "https://www.youtube.com/watch?v=Ob5TSrJbxbs",
-            "channel_name": "소수몽키",
-            "published_at": "2026-10-09 18:36:59 KST"
+            "title": "삼성전자 지금 안 팔고 버티면, 결국 내년에 ‘이렇게’ 됩니다 (권영화 교수)",
+            "url": "https://www.youtube.com/watch?v=FONtz4sMNFg",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-10 21:45:23 KST"
           }
         ],
-        "outlook": "Nvidia는 AI 사이클과 관련하여 주가 흐름이 주목받고 있으며, AI 기술 발전의 수혜가 예상되는 종목으로 분석됩니다. 월가는 Nvidia의 미래 이익 성장 가능성을 높게 평가하며 저평가되었다고 보고 있습니다. 그러나 AI 반도체주의 약세와 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 Nvidia의 실적 발표 및 신제품 출시 관련 소식이 주가에 영향을 미칠 것으로 예상됩니다."
-      },
-      {
-        "name": "Apple",
-        "freq": 1,
-        "summary": "주가 흐름에 대한 분석에서 Apple과 같은 대형 기술주의 움직임이 언급되었습니다. 시장 전반의 흐름 속에서 개별 종목의 위치를 파악하는 내용이 포함되었습니다.",
-        "refs": [
-          5
-        ],
-        "reason": "주가 흐름에 대한 분석에서 Apple과 같은 대형 기술주의 움직임이 언급되었습니다. 시장 전반의 흐름 속에서 개별 종목의 위치를 파악하는 내용이 포함되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "\"주가는 대체 왜 이래?\" 결국 시나리오는 하나 뿐ㅣ이권희 위즈웨이브 대표 [주말인터뷰]",
-            "url": "https://www.youtube.com/watch?v=WDcWeodnKxY",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-10 15:30:20 KST"
-          }
-        ],
-        "outlook": "Apple은 대형 기술주로서 시장 전반의 흐름 속에서 개별 종목의 위치를 파악하는 데 언급되고 있습니다. 아이폰 18 프로 부품 생산 축소 보도는 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 Apple의 신제품 출시 관련 루머 및 시장 반응이 주목될 것입니다."
-      },
-      {
-        "name": "Tesla",
-        "freq": 1,
-        "summary": "주가 흐름에 대한 분석에서 Tesla와 같은 종목의 움직임이 언급되었습니다. 시장 전반의 흐름 속에서 개별 종목의 위치를 파악하는 내용이 포함되었습니다.",
-        "refs": [
-          5
-        ],
-        "reason": "주가 흐름에 대한 분석에서 Tesla와 같은 종목의 움직임이 언급되었습니다. 시장 전반의 흐름 속에서 개별 종목의 위치를 파악하는 내용이 포함되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "\"주가는 대체 왜 이래?\" 결국 시나리오는 하나 뿐ㅣ이권희 위즈웨이브 대표 [주말인터뷰]",
-            "url": "https://www.youtube.com/watch?v=WDcWeodnKxY",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-10 15:30:20 KST"
-          }
-        ],
-        "outlook": "Tesla는 시장 전반의 흐름 속에서 개별 종목의 움직임이 언급되고 있습니다. FSD, 사이버트럭 등 신기술 개발에도 불구하고 주가 상승 모멘텀이 약하다는 분석이 있습니다. 그러나 테슬라의 전기차 판매량 증가 및 신규 금융 프로그램 발표는 긍정적인 요인입니다. 향후 일주일 내에는 테슬라의 3분기 생산 및 인도 결과 발표와 관련된 소식이 주가에 영향을 미칠 것으로 예상됩니다."
+        "outlook": "유튜브 채널에서는 삼성전자 보유 시 향후 전망에 대한 분석이 제시되었습니다. 이는 투자자들이 삼성전자의 장기적인 가치와 잠재력에 대해 관심을 가지고 있음을 보여줍니다. 다음 주에는 삼성전자의 신규 기술 개발 발표나 글로벌 IT 시장 동향 관련 뉴스가 주가에 영향을 줄 수 있으며, 반도체 업황 변화에 대한 분석도 주목할 필요가 있습니다."
       }
     ],
     "videos_collected": 10
@@ -506,59 +300,59 @@
     "us": {
       "stocks": [
         {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
           "name": "OpenAI",
           "freq": 2
         },
         {
-          "name": "Starlink",
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Reflection AI",
           "freq": 3
         },
         {
-          "name": "Micron",
-          "freq": 2
-        },
-        {
-          "name": "Alphabet",
-          "freq": 2
-        },
-        {
-          "name": "Verizon",
-          "freq": 2
-        },
-        {
-          "name": "SpaceX",
-          "freq": 1
-        },
-        {
-          "name": "AnaptysBio",
-          "freq": 1
+          "name": "Walmart",
+          "freq": 3
         },
         {
           "name": "Crumbl",
+          "freq": 3
+        },
+        {
+          "name": "Palantir",
+          "freq": 2
+        },
+        {
+          "name": "Merck",
           "freq": 1
         },
         {
-          "name": "AT&T",
+          "name": "Beta Technologies",
           "freq": 1
         },
         {
-          "name": "T-Mobile",
+          "name": "Palo Alto Networks",
           "freq": 1
         },
         {
-          "name": "AMD",
+          "name": "MediaAlpha",
           "freq": 1
         },
         {
-          "name": "Apple",
+          "name": "Marvell Technology",
           "freq": 1
         },
         {
-          "name": "Waffle House",
+          "name": "Arista Networks",
           "freq": 1
         },
         {
-          "name": "Moderna",
+          "name": "Prosperity Bancshares",
           "freq": 1
         },
         {
@@ -569,38 +363,42 @@
       "sectors": [
         {
           "name": "AI",
-          "freq": 1
+          "freq": 4
         },
         {
-          "name": "Satellite Internet",
+          "name": "Retirement Savings",
+          "freq": 5
+        },
+        {
+          "name": "Tokenization",
           "freq": 3
         },
         {
-          "name": "반도체",
-          "freq": 1
+          "name": "Trucking",
+          "freq": 3
         },
         {
-          "name": "Memory Chips",
+          "name": "Bonds",
           "freq": 2
         },
         {
-          "name": "Energy",
-          "freq": 1
-        },
-        {
-          "name": "Automotive",
-          "freq": 1
-        },
-        {
-          "name": "Biotechnology",
-          "freq": 1
+          "name": "Banking",
+          "freq": 2
         },
         {
           "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 2
+        },
+        {
+          "name": "Electric Vehicles",
           "freq": 1
         },
         {
-          "name": "Telecommunications",
+          "name": "Space Stations",
           "freq": 1
         },
         {
@@ -608,23 +406,19 @@
           "freq": 1
         },
         {
-          "name": "Cybersecurity",
+          "name": "Gig Economy",
           "freq": 1
         },
         {
-          "name": "바이오",
+          "name": "Travel",
           "freq": 1
         },
         {
-          "name": "Food & Beverage",
+          "name": "Immigration",
           "freq": 1
         },
         {
-          "name": "Technology",
-          "freq": 1
-        },
-        {
-          "name": "Retail",
+          "name": "Pricing",
           "freq": 1
         }
       ]
@@ -632,40 +426,8 @@
     "kr": {
       "stocks": [
         {
-          "name": "아볼론",
+          "name": "스타벅스",
           "freq": 2
-        },
-        {
-          "name": "우리은행",
-          "freq": 2
-        },
-        {
-          "name": "FC 서울",
-          "freq": 2
-        },
-        {
-          "name": "DB",
-          "freq": 2
-        },
-        {
-          "name": "KCC",
-          "freq": 2
-        },
-        {
-          "name": "LG",
-          "freq": 2
-        },
-        {
-          "name": "HJ중공업",
-          "freq": 2
-        },
-        {
-          "name": "동부건설",
-          "freq": 2
-        },
-        {
-          "name": "예가람저축은행",
-          "freq": 1
         },
         {
           "name": "삼성전자",
@@ -673,36 +435,72 @@
         },
         {
           "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "쿠팡",
           "freq": 1
         },
         {
-          "name": "포스코",
+          "name": "홈플러스",
           "freq": 1
         },
         {
-          "name": "롯데",
+          "name": "놀유니버스",
           "freq": 1
         },
         {
-          "name": "KIA 타이거즈",
+          "name": "바디프랜드",
           "freq": 1
         },
         {
-          "name": "SSG",
+          "name": "LG유플러스",
+          "freq": 1
+        },
+        {
+          "name": "GS",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "기아",
+          "freq": 1
+        },
+        {
+          "name": "NAVER",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "한화",
+          "freq": 1
+        },
+        {
+          "name": "HD현대",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "Financials",
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
           "freq": 3
         },
         {
-          "name": "Sports",
+          "name": "Bonds",
           "freq": 3
         },
         {
-          "name": "Aviation",
+          "name": "Banking",
           "freq": 2
         },
         {
@@ -710,47 +508,43 @@
           "freq": 1
         },
         {
-          "name": "AI",
-          "freq": 1
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Travel",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
         },
         {
           "name": "Cybersecurity",
           "freq": 2
         },
         {
-          "name": "Construction",
-          "freq": 2
-        },
-        {
-          "name": "Steel",
-          "freq": 1
-        },
-        {
-          "name": "Energy",
-          "freq": 1
-        },
-        {
-          "name": "Automotive",
-          "freq": 1
-        },
-        {
-          "name": "Food & Beverage",
-          "freq": 1
-        },
-        {
-          "name": "Retail",
-          "freq": 1
-        },
-        {
-          "name": "Entertainment",
-          "freq": 1
-        },
-        {
-          "name": "Technology",
+          "name": "Biotechnology",
           "freq": 1
         },
         {
           "name": "Logistics",
+          "freq": 1
+        },
+        {
+          "name": "Nuclear Power",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Food Service",
+          "freq": 1
+        },
+        {
+          "name": "Telecommunications",
           "freq": 1
         }
       ]
