@@ -1,0 +1,720 @@
+{
+  "generated_at": "2026-10-11 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 증가와 관련 기술 발전에 대한 지속적인 관심이 주목받고 있습니다 (총 5건)",
+        "us_news_refs": [
+          1,
+          17,
+          19,
+          31,
+          35
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI agents are going rogue — here's what you need to know if you use ChatGPT, Gemini or Claude - Tom's Guide",
+            "title_ko": "AI 에이전트가 통제 불능, ChatGPT, Gemini, Claude 사용 시 알아야 할 점",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOd202RmQ4dGZjU0V4RVNubk5zb29lMHd1SFh2UURqdUtmSEprVkgweUJfQmM3RnJrWElPVlJYMVZkQjFGZUVZV29aU0RrMVl0TE91SExleU9uWHJpSVk4NUZHRDd6dGZFblBaZ3FZOEhYMVlFczFNcnVWcGt1MF82UzZOYi0wUkRGN2Z4WVUxUUFJdnpMYUJ6Nnk3UktMVWVjUDk2dEFVMXJrY19qekozazZGRlJ5UG5rTVE?oc=5",
+            "published_at": "2026-10-11 16:45:00 KST"
+          },
+          {
+            "title": "Nvidia Discusses Boosting Reflection Investment, Computing Deal - Bloomberg.com",
+            "title_ko": "Nvidia, 투자 및 컴퓨팅 거래 증대 논의 - Bloomberg.com",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNbEhNbm44LUd6U3ZnU2t4ZXVxVlBObW55LURVTlJjcnNOWHJmZEhwNEd4UDdiWHFwaDBZSGw0blpidEN3QldtTl9haFYwNjVpUFJYTVRUOHJ6bU9SZE5jLUVzT2ItQXk4cjNhVEk5TnlBZnIxeE5SZ2x2cW9XRFVRb2lDQkdlWUF5S01CN1RKZGxnRWQ0aVhFNmhaS2VFUXhYVlAtYjJnUlBoSFZ6VUE?oc=5",
+            "published_at": "2026-10-11 05:22:30 KST"
+          },
+          {
+            "title": "AI Issuers Are Upending Longstanding Safety Valve - Bloomberg.com",
+            "title_ko": "AI 발행사, 기존 안전 장치 뒤흔들다 - Bloomberg.com",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNQzhDQ0ZsWWNnck5TR1k2UGxUMGZ6WHVvN1BUZHJDaXZFSHZTMTJ2djFyWVlWNFRZb0N4cThZOE1FYmFVSDliZWZLdUs2blpyWm40ZHpHaTJGWXNQQkRCQ2FGSVBaSVRMN1ZaYlRSY01rRm9IdnNIaV9JNFlmNWJOZmt3QUZfNThuYWFSNWM1VUZYZjlSY0tkc1pHYWZhYjhaUUc1VFVDdmZHVWY5QUFfZlJocVY?oc=5",
+            "published_at": "2026-10-11 04:00:00 KST"
+          },
+          {
+            "title": "Mark Zuckerberg Launched Meta’s Muse AI Agent Despite Disturbing Safety Concerns - Futurism",
+            "title_ko": "Mark Zuckerberg, 심각한 안전 우려에도 Meta의 Muse AI 에이전트 출시 - Futurism",
+            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOb0hZdjNKYXJicmxZSjZjM2V1ZjdFdW51NG94RTNTUkZ0a0hTZU00SUszMUYyMFZaUDRyR3N2cVp1eVkyWXg5UzA0ZEtKYy1IaFlrUjFuWUVXQTRYNVl4dXRYVU9kcVhfbG1aM2h1bFZtY3RuX19iU1I4TTd1bXItcER0bjBDdU9OajZFag?oc=5",
+            "published_at": "2026-10-10 20:01:00 KST"
+          },
+          {
+            "title": "AI's Supercharging a Scam Economy Bigger Than the Cocaine Trade - Bloomberg.com",
+            "title_ko": "AI, 코카인 거래보다 큰 사기 경제 가속화 - Bloomberg.com",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5jSmxlYmJBTk1ldG95OFJFNGhtanEwTkUwQWJWdk5rM3NiUFo1Q1k1UEswWEpYdVVaZFkyWFFOWFZzWDgwbzhBampkWUwzd0tZT0dyamw5RlB6aWRmOTlCQmJYbWVfaG5vR1Q2U2I4WHVoSHZpUXF3cg?oc=5",
+            "published_at": "2026-10-10 18:00:00 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 AI 기술 발전과 관련 서비스 확장에 대한 지속적인 관심이 주목받고 있습니다. \"\"악의적 AI 사용·핵전쟁, 2100년 인류 멸종 위협\"\"과 같은 뉴스는 AI의 잠재적 위험성을 강조합니다. \"금융권 해킹 사고 2주 전 ‘AI 공격 사실’ 경고 있었다…사전 대응 부실 지적\"은 AI 기술이 보안 위협에 어떻게 활용될 수 있는지 보여줍니다. \"[한국정보보호학회 칼럼] 프런티어 AI 시대, 결국 답은 제로트러스트\"는 AI 시대의 보안 전략에 대한 논의를 제시합니다. 다음 주에는 AI 관련 기술 개발 발표나 보안 관련 규제 동향 발표가 있을 수 있으며, 이는 섹터의 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 관련 기술 발전이 주가에 긍정적인 영향을 미치고 있습니다 (총 2건)",
+        "us_news_refs": [
+          17,
+          19,
+          21
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nvidia Discusses Boosting Reflection Investment, Computing Deal - Bloomberg.com",
+            "title_ko": "Nvidia, 투자 및 컴퓨팅 거래 증대 논의 - Bloomberg.com",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNbEhNbm44LUd6U3ZnU2t4ZXVxVlBObW55LURVTlJjcnNOWHJmZEhwNEd4UDdiWHFwaDBZSGw0blpidEN3QldtTl9haFYwNjVpUFJYTVRUOHJ6bU9SZE5jLUVzT2ItQXk4cjNhVEk5TnlBZnIxeE5SZ2x2cW9XRFVRb2lDQkdlWUF5S01CN1RKZGxnRWQ0aVhFNmhaS2VFUXhYVlAtYjJnUlBoSFZ6VUE?oc=5",
+            "published_at": "2026-10-11 05:22:30 KST"
+          },
+          {
+            "title": "AI Issuers Are Upending Longstanding Safety Valve - Bloomberg.com",
+            "title_ko": "AI 발행사, 기존 안전 장치 뒤흔들다 - Bloomberg.com",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNQzhDQ0ZsWWNnck5TR1k2UGxUMGZ6WHVvN1BUZHJDaXZFSHZTMTJ2djFyWVlWNFRZb0N4cThZOE1FYmFVSDliZWZLdUs2blpyWm40ZHpHaTJGWXNQQkRCQ2FGSVBaSVRMN1ZaYlRSY01rRm9IdnNIaV9JNFlmNWJOZmt3QUZfNThuYWFSNWM1VUZYZjlSY0tkc1pHYWZhYjhaUUc1VFVDdmZHVWY5QUFfZlJocVY?oc=5",
+            "published_at": "2026-10-11 04:00:00 KST"
+          },
+          {
+            "title": "Dear Taiwan Semi Stock Fans, Mark Your Calendars for October 15 - Barchart.com",
+            "title_ko": "대만 반도체 주식 팬 여러분, 10월 15일 달력에 표시하세요 - Barchart.com",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNY3JsZHBRQnVaa0pGckFxSXdLX3EybXFTaFd2OW0tckE4c1JiT1pEbVlEQXIyd1h3WXBsYVVZdGxhZ3BJSUQyOTJBN0NXaU1WMHItTFNiNi1VWnVWM1hIN1VhU1dUM25vY3JwcjZ6ZjlOWTFvdy1BdkxNUEVhcmxkT2F6cFQ5VDhrbkNVZEhzT0YxeDZ1V0FFZERxMEdzaFU2MEkxbkl4SzdMQQ?oc=5",
+            "published_at": "2026-10-11 02:30:02 KST"
+          }
+        ],
+        "outlook": "Nvidia는 AI 칩 수요 강세와 관련 기술 발전에 힘입어 주목받고 있습니다. \"Nvidia, 투자 및 컴퓨팅 거래 증대 논의\"와 같은 뉴스는 회사의 적극적인 사업 확장을 시사합니다. \"AI 발행사, 기존 안전 장치 뒤흔들다\"라는 보도는 AI 시장 전반의 역동성을 보여주며, Nvidia와 같은 선도 기업에 영향을 줄 수 있습니다. \"대만 반도체 주식 팬 여러분, 10월 15일 달력에 표시하세요\"라는 뉴스는 TSMC의 실적 발표 예정일을 언급하며, 이는 Nvidia의 공급망에도 영향을 미칠 수 있습니다. 다음 주에는 Nvidia의 신규 칩 출시 발표나 주요 고객사와의 파트너십 강화 소식이 있을 수 있습니다."
+      },
+      {
+        "name": "INWIT",
+        "reason": "인프라스트럭처 투자 및 통신 서비스 관련 소식이 있었습니다 (총 2건)",
+        "us_news_refs": [
+          5,
+          9
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "INWIT shareholders seek financing for potential take-private deal - Reuters",
+            "title_ko": "INWIT 주주, 상장 폐지 가능성 위한 자금 조달 모색 - Reuters",
+            "url": "https://www.investing.com/news/company-news/inwit-shareholders-seek-financing-for-potential-takeprivate-deal--reuters-4942569",
+            "published_at": "2026-10-11 19:00:36 KST"
+          },
+          {
+            "title": "Exclusive-INWIT investors line up financing for possible take-private, sources say",
+            "title_ko": "독점-INWIT 투자자, 인수 가능성 위한 자금 조달 준비 중 - 소식통",
+            "url": "https://www.investing.com/news/stock-market-news/exclusiveinwit-investors-line-up-financing-for-possible-takeprivate-sources-say-4942546",
+            "published_at": "2026-10-11 18:00:19 KST"
+          }
+        ],
+        "outlook": "INWIT는 인프라스트럭처 투자 및 통신 서비스 관련 소식으로 주목받고 있습니다. \"INWIT 주주, 상장 폐지 가능성 위한 자금 조달 모색\" 및 \"독점-INWIT 투자자, 인수 가능성 위한 자금 조달 준비 중\"과 같은 뉴스는 잠재적인 인수합병(M&A) 가능성을 시사합니다. 이러한 움직임은 주가에 단기적인 변동성을 야기할 수 있습니다. 다음 주에는 해당 M&A 관련 추가 소식이나 회사의 실적 발표가 예정되어 있을 수 있으며, 이는 주가에 직접적인 영향을 미칠 것으로 보입니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 AI 칩 수요 증가와 관련 기술 발전에 대한 지속적인 관심이 주목받고 있습니다. 최근 \"AI 에이전트가 통제 불능, ChatGPT, Gemini, Claude 사용 시 알아야 할 점\"과 같은 뉴스는 AI 기술의 잠재적 위험성을 시사합니다. 또한, \"Nvidia, 투자 및 컴퓨팅 거래 증대 논의\"와 같은 소식은 관련 기업들의 적극적인 투자를 보여줍니다. \"AI 발행사, 기존 안전 장치 뒤흔들다\"라는 보도는 AI 기술 발전이 기존 시장 질서에 미치는 영향을 나타냅니다. 다음 주에는 AI 관련 기업들의 실적 발표나 새로운 기술 개발 발표가 있을 수 있으며, 이는 섹터 전반에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 기업들의 실적 개선 및 AI 반도체 시장 성장에 대한 기대감이 반영되고 있습니다. \"이창용 ‘반도체 호황, 10년 간다지만… 조기 종료 걱정’\"과 같은 발언은 시장의 낙관론과 함께 잠재적 위험 요소를 동시에 보여줍니다. \"자사주매입 5배 늘었지만 삼닉 빼면 13%↓\"와 같은 뉴스는 개별 기업의 주가 흐름에 대한 분석을 제공합니다. \"최태원, '美中 증설 대비 호남팹 속도내야'\"와 같은 언급은 기업의 투자 전략을 보여줍니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표가 예정되어 있을 수 있으며, 이는 섹터의 단기적인 방향성에 영향을 줄 수 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 AI 기술 발전과 관련 서비스 확장에 대한 지속적인 관심이 주목받고 있습니다. \"\"악의적 AI 사용·핵전쟁, 2100년 인류 멸종 위협\"\"과 같은 뉴스는 AI의 잠재적 위험성을 강조합니다. \"금융권 해킹 사고 2주 전 ‘AI 공격 사실’ 경고 있었다…사전 대응 부실 지적\"은 AI 기술이 보안 위협에 어떻게 활용될 수 있는지 보여줍니다. \"[한국정보보호학회 칼럼] 프런티어 AI 시대, 결국 답은 제로트러스트\"는 AI 시대의 보안 전략에 대한 논의를 제시합니다. 다음 주에는 AI 관련 기술 개발 발표나 보안 관련 규제 동향 발표가 있을 수 있으며, 이는 섹터의 투자 심리에 영향을 미칠 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "outlook": "Nvidia는 AI 칩 수요 강세와 관련 기술 발전에 힘입어 주목받고 있습니다. \"Nvidia, 투자 및 컴퓨팅 거래 증대 논의\"와 같은 뉴스는 회사의 적극적인 사업 확장을 시사합니다. \"AI 발행사, 기존 안전 장치 뒤흔들다\"라는 보도는 AI 시장 전반의 역동성을 보여주며, Nvidia와 같은 선도 기업에 영향을 줄 수 있습니다. \"대만 반도체 주식 팬 여러분, 10월 15일 달력에 표시하세요\"라는 뉴스는 TSMC의 실적 발표 예정일을 언급하며, 이는 Nvidia의 공급망에도 영향을 미칠 수 있습니다. 다음 주에는 Nvidia의 신규 칩 출시 발표나 주요 고객사와의 파트너십 강화 소식이 있을 수 있습니다."
+        },
+        {
+          "name": "INWIT",
+          "outlook": "INWIT는 인프라스트럭처 투자 및 통신 서비스 관련 소식으로 주목받고 있습니다. \"INWIT 주주, 상장 폐지 가능성 위한 자금 조달 모색\" 및 \"독점-INWIT 투자자, 인수 가능성 위한 자금 조달 준비 중\"과 같은 뉴스는 잠재적인 인수합병(M&A) 가능성을 시사합니다. 이러한 움직임은 주가에 단기적인 변동성을 야기할 수 있습니다. 다음 주에는 해당 M&A 관련 추가 소식이나 회사의 실적 발표가 예정되어 있을 수 있으며, 이는 주가에 직접적인 영향을 미칠 것으로 보입니다."
+        },
+        {
+          "name": "TSMC",
+          "outlook": "TSMC는 10월 15일 실적 발표 예정일이 언급되며 주목받고 있습니다. 이는 AI 칩 수요와 관련된 회사의 실적을 가늠할 수 있는 중요한 지표가 될 것입니다. \"대만 반도체 주식 팬 여러분, 10월 15일 달력에 표시하세요\"라는 뉴스는 해당 일정이 투자자들에게 중요함을 시사합니다. 또한, AI 섹터 전반의 동향과 더불어 지정학적 리스크 또한 TSMC의 주가에 영향을 미칠 수 있는 요인입니다. 다음 주에는 TSMC의 실적 발표 결과와 함께 향후 전망에 대한 회사의 코멘트가 중요하게 작용할 것입니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "reason": "국내 반도체 기업들의 실적 개선 및 AI 반도체 시장 성장에 대한 기대감이 반영되었습니다 (총 5건)",
+        "kr_news_refs": [
+          3,
+          5,
+          10,
+          11,
+          26
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "이창용 “반도체 호황, 10년 간다지만… 조기 종료 걱정” - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOb0N2REVRTWVJNHU5UEFZeFZPaF9PbWpBdTZ5QzEwMW1RVndHbHFnd1BpSW4wX2NTNWcxRjFrZDA4VmlvNTFzdThnQzRmVEI5U2JoR01HUkRjajZRWGhKU1N3Q0pIUE44b2FMZ19fREQ1d1ljOWRqc05mMzJteW1GVElBemx6Z9IBmgFBVV95cUxPSG0wUzJtM1RadTBEUnVXdDh1ZW1fNXA4X1MybGxFT0VxSThtSjJCRlU0X1phS1NXaXY3LTlDTGdUR1A4dlRzQm5GcHR1c3dSQjQyd1RFUXFyOWpDcHFNQ1ZkYWRUX28wUVhuTnFRcUVmbE5pRF9DbFYxTzI1MG9rWnZSMnR5S3pLdnplRURwTjk0RjNfMXpZZkJB?oc=5",
+            "published_at": "2026-10-11 18:08:00 KST"
+          },
+          {
+            "title": "공정위, 재판 전 공소장부터 공개하는 격… 법리 다툼도 전에 유죄 굴레 - 서울신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5sS2Q0SDBuUXlobGcwM0dBTnQwY1RhWEEwTUNlT1RSQUkyZVQyY3NhMThWVDI4Vi14MG9rcmQ1dlZOd05EWHJlU0FPVWp0U3FZWU5kWlpwZU5yR0djM2xyX2lfcnluaEpNbDRvakx5SQ?oc=5",
+            "published_at": "2026-10-11 17:57:37 KST"
+          },
+          {
+            "title": "자사주매입 5배 늘었지만 삼닉 빼면 13%↓ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1sMFlaUGRsNlJPc1ZGX2ZZTHNObklsTXY2dWx0TEl5WGVmeDR3cVQwNVVZNV9QWVIwMkNCaHF4VUs3RXliamlUejl6WGJPbm9sWEE?oc=5",
+            "published_at": "2026-10-11 16:52:22 KST"
+          },
+          {
+            "title": "반도체 성과급 66% 뛰었지만…예정처 “소비 진작 효과는 제한적” - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5ZUFRmMlVNLVByZHRaWEVOZW11NFd2dlkza29UbWw0bHNkOXJPeGIwSk9vOWNkWVQyb1lxRFVib3p0b21Zd2swTnVVVDNvMkRMVGdxdkU0SlZTUdIBX0FVX3lxTE1CZmkwd05zZEIzRjZPNXZmRmtwV1BYeUZQTjFHUjdfc0kxQUdGMFlWQjZKNjFsWm9PbWhSdzFlM25MSVNwdWd6ZEhQVUwtc2ZCbTlWTmRhUk5UXzViVDhz?oc=5",
+            "published_at": "2026-10-11 16:44:00 KST"
+          },
+          {
+            "title": "최태원, \"美中 증설 대비 호남팹 속도내야\"",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12173194",
+            "published_at": "2026-10-11 19:54:15 KST"
+          }
+        ],
+        "outlook": "국내 반도체 섹터는 AI 반도체 시장 성장에 대한 기대감과 함께 실적 개선 가능성이 주목받고 있습니다. \"이창용 ‘반도체 호황, 10년 간다지만… 조기 종료 걱정’\"이라는 발언은 장기적인 전망과 단기적 위험 요소를 동시에 시사합니다. \"자사주매입 5배 늘었지만 삼닉 빼면 13%↓\"와 같은 뉴스는 개별 기업의 주가 흐름에 대한 분석을 제공합니다. \"반도체 성과급 66% 뛰었지만…예정처 “소비 진작 효과는 제한적”\"은 산업 전반의 긍정적 신호와 함께 소비 진작 효과에 대한 신중론을 제시합니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표가 예정되어 있을 수 있으며, 이는 섹터의 단기적인 방향성에 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전과 관련 서비스 확장에 대한 지속적인 관심이 주목받고 있습니다 (총 4건)",
+        "kr_news_refs": [
+          4,
+          5,
+          12,
+          21
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "\"악의적 AI 사용·핵전쟁, 2100년 인류 멸종 위협\" - DongA Science",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9KdG5ycFF2RE8wYTI5ZndiT3VQS1l1MjZULUJFUFNRZlhvcXhsbDFzS1NNby1xV1pqdWJmSUxwV1VCVVV5YUNDd3F5dG9FWERTNF9GNw?oc=5",
+            "published_at": "2026-10-11 18:00:00 KST"
+          },
+          {
+            "title": "공정위, 재판 전 공소장부터 공개하는 격… 법리 다툼도 전에 유죄 굴레 - 서울신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5sS2Q0SDBuUXlobGcwM0dBTnQwY1RhWEEwTUNlT1RSQUkyZVQyY3NhMThWVDI4Vi14MG9rcmQ1dlZOd05EWHJlU0FPVWp0U3FZWU5kWlpwZU5yR0djM2xyX2lfcnluaEpNbDRvakx5SQ?oc=5",
+            "published_at": "2026-10-11 17:57:37 KST"
+          },
+          {
+            "title": "금융권 해킹 사고 2주 전 ‘AI 공격 사실’ 경고 있었다…사전 대응 부실 지적 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE0yX2p2RHNaTlNuQjI5U1VqX181WURGS3BSUWpWQ1BtdjZMUUpQLUZpeTlWN184WExSWmRsenQ0dGFQX1dHRzNYTW5admZoeWxJOURHT056TnhCQdIBX0FVX3lxTFBqM0h1RDIxcFdSNHFaX2V2NjhRZndDbUpFclhmSnVFNE42UzhSZHJSREJGa0ZFREtoMGNIRWdGR1JlanJ4b3VUaEtXVUFNUE1ILU95VFlwSlN1Ni1WdnIw?oc=5",
+            "published_at": "2026-10-11 16:32:00 KST"
+          },
+          {
+            "title": "[한국정보보호학회 칼럼] 프런티어 AI 시대, 결국 답은 제로트러스트 - 보안뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE83UzZ0MUNqUTByVmlYNWtLMVo0dnMybUZ1M1ZfRVkyM1BuWTBaTGFYVHNRdW0zY3p3V2tWNTI0WC1kajJhMUhLSnppejZLUWxfeXdTM0JZMkhNSU9WbEpVc0FXNEdLSnN4WjRn?oc=5",
+            "published_at": "2026-10-11 15:00:00 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 기술 발전과 관련 서비스 확장에 대한 지속적인 관심 속에서 주목받고 있습니다. \"\"악의적 AI 사용·핵전쟁, 2100년 인류 멸종 위협\"\"과 같은 뉴스는 AI의 잠재적 위험성을 강조하며 투자 심리에 영향을 줄 수 있습니다. \"금융권 해킹 사고 2주 전 ‘AI 공격 사실’ 경고 있었다…사전 대응 부실 지적\"은 AI 기술이 보안 위협에 어떻게 활용될 수 있는지 보여줍니다. \"[한국정보보호학회 칼럼] 프런티어 AI 시대, 결국 답은 제로트러스트\"는 AI 시대의 보안 전략에 대한 논의를 제시합니다. 다음 주에는 AI 관련 기술 개발 발표나 보안 관련 규제 동향 발표가 있을 수 있으며, 이는 섹터의 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "LH",
+        "reason": "주택 및 건설 부문의 투자 및 개발 관련 소식이 있었습니다 (총 3건)",
+        "kr_news_refs": [
+          19,
+          22,
+          74
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "LH \"3년간 서울 25개 자치구에 2만가구 이상 공급\" - YTN",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE4tS1o3OE94dXNWbVdWU1pzOHEyNHRiVTJNTk9LNGxLUTRnSi1ORlFXZ3lMQm5DY2poVTQyZDZUSFRUdWRjWi1La0lwd1dxZ05RTlBVQ2NLZ2lTQm1mNVE?oc=5",
+            "published_at": "2026-10-11 15:07:00 KST"
+          },
+          {
+            "title": "LH, ‘분양가상한제’ 공공분양주택에 가산비 신설 검토… 최대 9.5% - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNSkFubkoxUjZDM3ZXNmUzdEh3STZCNmlaRDFrUVBfZEdNMU9pZW81b3p2TUFhX09oek9OcTlXVnlrYjBRdnRta1VLbFRxY3dwdjRJRkpIZWdZXzBUaS1kSkFxX2l4a3BORUdRY2pfWTAyREJELWF0Q2RNUUNWSElHNjhJWURKTUdJRjNyNzVHZ21TSkY5SUlPVdIBrAFBVV95cUxQZkVHMXNIdVlOSmlYOXZZZFFsenVMTktQQkFzOWFGbEpCNnZTVjZvdWZvbkxrM01HbjlMSkMtQW4zTUtJTzg5MVdmbEUxMXZBOEd5cEhpeFZBOUxyUllkUUtDdE9jeWpVSl9qRElZYnZBZmxwbXlQZUlqSEx5X1JXNlJYOUJVbGh2bGJ3YjZ1TzBQeW90UDd1TlRMMEM1c2dkclg4RExWbk9OdTAt?oc=5",
+            "published_at": "2026-10-11 14:32:00 KST"
+          },
+          {
+            "title": "LH, 공공주택에 최대 9.5% 가산비 신설 검토",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12173150",
+            "published_at": "2026-10-11 17:39:49 KST"
+          }
+        ],
+        "outlook": "LH는 주택 및 건설 부문의 투자 및 개발 관련 소식으로 주목받고 있습니다. \"LH \"3년간 서울 25개 자치구에 2만가구 이상 공급\"\" 뉴스는 향후 주택 공급 계획을 보여줍니다. \"LH, ‘분양가상한제’ 공공분양주택에 가산비 신설 검토… 최대 9.5%\"와 \"LH, 공공주택에 최대 9.5% 가산비 신설 검토\"는 분양가 정책 변화 가능성을 시사하며, 이는 회사의 수익성에 영향을 줄 수 있습니다. 다음 주에는 관련 정책 발표나 구체적인 사업 계획 공개가 있을 수 있으며, 이는 주가에 영향을 미칠 것으로 예상됩니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "reason": "AI 반도체 시장 성장 및 기술 개발에 대한 기대감이 주가에 반영되었습니다 (총 2건)",
+        "kr_news_refs": [
+          10,
+          11,
+          16
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "자사주매입 5배 늘었지만 삼닉 빼면 13%↓ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1sMFlaUGRsNlJPc1ZGX2ZZTHNObklsTXY2dWx0TEl5WGVmeDR3cVQwNVVZNV9QWVIwMkNCaHF4VUs3RXliamlUejl6WGJPbm9sWEE?oc=5",
+            "published_at": "2026-10-11 16:52:22 KST"
+          },
+          {
+            "title": "반도체 성과급 66% 뛰었지만…예정처 “소비 진작 효과는 제한적” - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5ZUFRmMlVNLVByZHRaWEVOZW11NFd2dlkza29UbWw0bHNkOXJPeGIwSk9vOWNkWVQyb1lxRFVib3p0b21Zd2swTnVVVDNvMkRMVGdxdkU0SlZTUdIBX0FVX3lxTE1CZmkwd05zZEIzRjZPNXZmRmtwV1BYeUZQTjFHUjdfc0kxQUdGMFlWQjZKNjFsWm9PbWhSdzFlM25MSVNwdWd6ZEhQVUwtc2ZCbTlWTmRhUk5UXzViVDhz?oc=5",
+            "published_at": "2026-10-11 16:44:00 KST"
+          },
+          {
+            "title": "삼성전자 외국인 지분율 금융위기 수준 '뚝'…최대 실적에도 17년 만에 최저 - 전자신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFB0NVZrWnhQSTJ3VGkzd3R5WDlWUVJiSnkxa05VS0hLOXRNR2lmcUV5RVczTzVKNGUtSHpOekhGc0dqZ0xuYnA2TENBZlBkdw?oc=5",
+            "published_at": "2026-10-11 15:44:20 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 AI 반도체 시장 성장 및 기술 개발에 대한 기대감으로 주목받고 있습니다. \"자사주매입 5배 늘었지만 삼닉 빼면 13%↓\"와 같은 뉴스는 개별 기업의 주가 흐름에 대한 분석을 제공하며, 이는 SK하이닉스에도 영향을 미칠 수 있습니다. \"반도체 성과급 66% 뛰었지만…예정처 “소비 진작 효과는 제한적”\"은 산업 전반의 긍정적 신호와 함께 소비 진작 효과에 대한 신중론을 제시합니다. \"삼성전자 외국인 지분율 금융위기 수준 '뚝'…최대 실적에도 17년 만에 최저\"와 같은 뉴스는 경쟁사의 동향을 보여주며, 이는 SK하이닉스에도 간접적인 영향을 줄 수 있습니다. 다음 주에는 AI 관련 신규 기술 발표나 주요 고객사와의 계약 소식이 있을 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 AI 반도체 시장 성장에 대한 기대감과 함께 실적 개선 가능성이 주목받고 있습니다. \"이창용 ‘반도체 호황, 10년 간다지만… 조기 종료 걱정’\"이라는 발언은 장기적인 전망과 단기적 위험 요소를 동시에 시사합니다. \"자사주매입 5배 늘었지만 삼닉 빼면 13%↓\"와 같은 뉴스는 개별 기업의 주가 흐름에 대한 분석을 제공합니다. \"반도체 성과급 66% 뛰었지만…예정처 “소비 진작 효과는 제한적”\"은 산업 전반의 긍정적 신호와 함께 소비 진작 효과에 대한 신중론을 제시합니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표가 예정되어 있을 수 있으며, 이는 섹터의 단기적인 방향성에 영향을 줄 수 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 기술 발전과 관련 서비스 확장에 대한 지속적인 관심 속에서 주목받고 있습니다. \"\"악의적 AI 사용·핵전쟁, 2100년 인류 멸종 위협\"\"과 같은 뉴스는 AI의 잠재적 위험성을 강조하며 투자 심리에 영향을 줄 수 있습니다. \"금융권 해킹 사고 2주 전 ‘AI 공격 사실’ 경고 있었다…사전 대응 부실 지적\"은 AI 기술이 보안 위협에 어떻게 활용될 수 있는지 보여줍니다. \"[한국정보보호학회 칼럼] 프런티어 AI 시대, 결국 답은 제로트러스트\"는 AI 시대의 보안 전략에 대한 논의를 제시합니다. 다음 주에는 AI 관련 기술 개발 발표나 보안 관련 규제 동향 발표가 있을 수 있으며, 이는 섹터의 투자 심리에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "건설/부동산",
+          "outlook": "건설 및 부동산 섹터는 주택 및 건설 부문의 투자 및 개발 관련 소식으로 주목받고 있습니다. \"LH \"3년간 서울 25개 자치구에 2만가구 이상 공급\"\"과 같은 뉴스는 정부의 주택 공급 정책 방향을 보여줍니다. \"LH, ‘분양가상한제’ 공공분양주택에 가산비 신설 검토… 최대 9.5%\"와 같은 소식은 분양가 정책 변화 가능성을 시사합니다. \"LH, 공공주택에 최대 9.5% 가산비 신설 검토\" 역시 관련 정책 변화에 대한 논의를 보여줍니다. 다음 주에는 정부의 부동산 정책 발표나 주요 건설사의 신규 수주 소식이 있을 수 있으며, 이는 섹터의 단기적인 투자 심리에 영향을 미칠 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "LH",
+          "outlook": "LH는 주택 및 건설 부문의 투자 및 개발 관련 소식으로 주목받고 있습니다. \"LH \"3년간 서울 25개 자치구에 2만가구 이상 공급\"\" 뉴스는 향후 주택 공급 계획을 보여줍니다. \"LH, ‘분양가상한제’ 공공분양주택에 가산비 신설 검토… 최대 9.5%\"와 \"LH, 공공주택에 최대 9.5% 가산비 신설 검토\"는 분양가 정책 변화 가능성을 시사하며, 이는 회사의 수익성에 영향을 줄 수 있습니다. 다음 주에는 관련 정책 발표나 구체적인 사업 계획 공개가 있을 수 있으며, 이는 주가에 영향을 미칠 것으로 예상됩니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 AI 반도체 시장 성장 및 기술 개발에 대한 기대감으로 주목받고 있습니다. \"자사주매입 5배 늘었지만 삼닉 빼면 13%↓\"와 같은 뉴스는 개별 기업의 주가 흐름에 대한 분석을 제공하며, 이는 SK하이닉스에도 영향을 미칠 수 있습니다. \"반도체 성과급 66% 뛰었지만…예정처 “소비 진작 효과는 제한적”\"은 산업 전반의 긍정적 신호와 함께 소비 진작 효과에 대한 신중론을 제시합니다. \"삼성전자 외국인 지분율 금융위기 수준 '뚝'…최대 실적에도 17년 만에 최저\"와 같은 뉴스는 경쟁사의 동향을 보여주며, 이는 SK하이닉스에도 간접적인 영향을 줄 수 있습니다. 다음 주에는 AI 관련 신규 기술 발표나 주요 고객사와의 계약 소식이 있을 수 있습니다."
+        },
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 최대 실적에도 불구하고 외국인 지분율이 하락했다는 뉴스가 주목받고 있습니다. \"삼성전자 외국인 지분율 금융위기 수준 '뚝'…최대 실적에도 17년 만에 최저\"는 투자 심리 위축 가능성을 시사합니다. \"자사주매입 5배 늘었지만 삼닉 빼면 13%↓\"와 같은 뉴스는 개별 기업의 주가 흐름에 대한 분석을 제공하며, 이는 삼성전자에도 영향을 미칠 수 있습니다. AI 반도체 시장의 성장세는 긍정적인 요인이지만, 외국인 투자자들의 움직임은 단기적인 주가 변동성을 야기할 수 있습니다. 다음 주에는 삼성전자의 AI 관련 신기술 발표나 주요 사업 부문의 실적 발표가 예정되어 있을 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 관련 인프라 투자 및 AI 사이클의 추가 상승 가능성에 대한 논의가 있었습니다. AI에 쏠린 시장에서 투자 전략을 모색하는 내용이 포함되었습니다.",
+        "refs": [
+          1,
+          5,
+          9
+        ],
+        "reason": "AI 관련 인프라 투자 및 AI 사이클의 추가 상승 가능성에 대한 논의가 있었습니다. AI에 쏠린 시장에서 투자 전략을 모색하는 내용이 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "지금은 2003년? AI인프라 다음 노려라?/스페이스X 통신까지 진출, 본격 랠리 시작?/이때는 증시도 위험? 월가 초고수의 경고",
+            "url": "https://www.youtube.com/watch?v=b414IoVg0To",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-11 18:33:07 KST"
+          },
+          {
+            "title": "[한국어] AI에 쏠린 시장에서 어떻게 투자할까? 월가 자산운용사가 기업문화까지 살펴보는 이유 | 댄 하, 카라니자산운용 매니징 파트너 [Global Money Talk]",
+            "url": "https://www.youtube.com/watch?v=QlDu4iUrAjg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-11 15:00:33 KST"
+          },
+          {
+            "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
+            "url": "https://www.youtube.com/watch?v=Ob5TSrJbxbs",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-09 18:36:59 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 AI 인프라 투자와 AI 사이클의 추가 상승 가능성에 대한 논의가 활발합니다. \"지금은 2003년? AI인프라 다음 노려라?/스페이스X 통신까지 진출, 본격 랠리 시작?\"와 같은 영상은 AI 인프라 투자와 함께 스페이스X의 통신 분야 진출을 새로운 성장 동력으로 제시합니다. \"AI에 쏠린 시장에서 어떻게 투자할까?\" 영상은 현재 AI에 집중된 시장 상황에서 투자 전략을 모색하는 내용을 다룹니다. \"AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까\"는 AI 사이클의 추가 상승 가능성에 대한 전망을 제시합니다. 다음 주에는 AI 관련 기업들의 실적 발표나 새로운 기술 개발 발표가 있을 수 있으며, 이는 섹터 전반에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "반도체 공장 증설과 관련된 장비주의 높은 영업이익률에 대한 분석이 있었습니다. AI 사이클과 연관된 반도체 산업의 전망이 언급되었습니다.",
+        "refs": [
+          4,
+          9
+        ],
+        "reason": "반도체 공장 증설과 관련된 장비주의 높은 영업이익률에 대한 분석이 있었습니다. AI 사이클과 연관된 반도체 산업의 전망이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "반도체 공장 증설로 돈 쓸어담는다, 영업이익률 30% 찍는 독점 장비주 (권영화 교수)",
+            "url": "https://www.youtube.com/watch?v=3H2fyNdSOjA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-11 16:30:11 KST"
+          },
+          {
+            "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
+            "url": "https://www.youtube.com/watch?v=Ob5TSrJbxbs",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-09 18:36:59 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 반도체 공장 증설과 관련된 장비주의 높은 영업이익률에 대한 분석이 주목받고 있습니다. \"반도체 공장 증설로 돈 쓸어담는다, 영업이익률 30% 찍는 독점 장비주\" 영상은 특정 장비주의 높은 수익성을 강조합니다. \"AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까\" 영상은 AI 사이클과 연관된 반도체 산업의 전망을 언급하며, 추가적인 상승 가능성을 시사합니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표가 예정되어 있을 수 있으며, 이는 섹터의 단기적인 방향성에 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "부동산",
+        "freq": 1,
+        "summary": "2027년 부동산 시장 전망과 특정 지역 아파트 가격 상승에 대한 예측이 있었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "2027년 부동산 시장 전망과 특정 지역 아파트 가격 상승에 대한 예측이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "2027년 부동산 시장 대전망, '이 지역 아파트' 무섭게 오른다 (서울대 김경민 교수 풀버전)",
+            "url": "https://www.youtube.com/watch?v=6dsRqhvfUko",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-11 17:30:12 KST"
+          }
+        ],
+        "outlook": "부동산 섹터는 2027년 부동산 시장 전망과 특정 지역 아파트 가격 상승에 대한 예측이 언급되었습니다. \"2027년 부동산 시장 대전망, '이 지역 아파트' 무섭게 오른다\" 영상은 향후 부동산 시장의 주요 트렌드와 투자 유망 지역을 제시합니다. 이는 단기적인 시장 변동보다는 중장기적인 관점에서 접근해야 할 사안으로 보입니다. 다음 주에는 정부의 부동산 정책 발표나 주요 건설사의 신규 수주 소식이 있을 수 있으며, 이는 섹터의 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "AI 관련 투자 논의에서 언급되었을 가능성이 있으나, 명시적인 언급은 없습니다. AI 인프라 투자와 연관되어 논의될 수 있는 종목입니다.",
+        "refs": [
+          1
+        ],
+        "reason": "AI 관련 투자 논의에서 언급되었을 가능성이 있으나, 명시적인 언급은 없습니다. AI 인프라 투자와 연관되어 논의될 수 있는 종목입니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "지금은 2003년? AI인프라 다음 노려라?/스페이스X 통신까지 진출, 본격 랠리 시작?/이때는 증시도 위험? 월가 초고수의 경고",
+            "url": "https://www.youtube.com/watch?v=b414IoVg0To",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-11 18:33:07 KST"
+          }
+        ],
+        "outlook": "Nvidia는 AI 관련 투자 논의에서 언급될 가능성이 있는 종목입니다. \"지금은 2003년? AI인프라 다음 노려라?/스페이스X 통신까지 진출, 본격 랠리 시작?\" 영상에서 AI 인프라 투자와 연관되어 논의될 수 있습니다. AI 칩 수요 강세와 관련 기술 발전이 주가에 긍정적인 영향을 미칠 것으로 예상됩니다. 다음 주에는 Nvidia의 신규 칩 출시 발표나 주요 고객사와의 파트너십 강화 소식이 있을 수 있으며, 이는 주가에 직접적인 영향을 미칠 것으로 보입니다."
+      },
+      {
+        "name": "스페이스X",
+        "freq": 1,
+        "summary": "통신 분야 진출을 통해 본격적인 랠리가 시작될 가능성이 언급되었습니다. AI 인프라 다음 투자처로 거론되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "통신 분야 진출을 통해 본격적인 랠리가 시작될 가능성이 언급되었습니다. AI 인프라 다음 투자처로 거론되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "지금은 2003년? AI인프라 다음 노려라?/스페이스X 통신까지 진출, 본격 랠리 시작?/이때는 증시도 위험? 월가 초고수의 경고",
+            "url": "https://www.youtube.com/watch?v=b414IoVg0To",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-11 18:33:07 KST"
+          }
+        ],
+        "outlook": "스페이스X는 통신 분야 진출을 통해 본격적인 랠리가 시작될 가능성이 언급되었습니다. \"지금은 2003년? AI인프라 다음 노려라?/스페이스X 통신까지 진출, 본격 랠리 시작?\" 영상에서 AI 인프라 다음 투자처로 거론되었습니다. 이는 회사의 사업 다각화와 성장 잠재력을 보여줍니다. 다음 주에는 스페이스X의 위성 통신 서비스 관련 추가 소식이나 기술 개발 발표가 있을 수 있으며, 이는 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "맨시티",
+        "freq": 1,
+        "summary": "유럽 축구계의 스캔들과 관련하여 언급되었습니다. 주식 시장과는 직접적인 관련이 없는 내용입니다.",
+        "refs": [
+          10
+        ],
+        "reason": "유럽 축구계의 스캔들과 관련하여 언급되었습니다. 주식 시장과는 직접적인 관련이 없는 내용입니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "취임 2달만에 사퇴 위기? 영국 총리는 임시직인가?",
+            "url": "https://www.youtube.com/watch?v=zHRkl6Kg_oQ",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-09 18:01:45 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "INWIT",
+          "freq": 2
+        },
+        {
+          "name": "TSMC",
+          "freq": 2
+        },
+        {
+          "name": "Cloudflare",
+          "freq": 2
+        },
+        {
+          "name": "Deno",
+          "freq": 2
+        },
+        {
+          "name": "Microsoft",
+          "freq": 2
+        },
+        {
+          "name": "Walmart",
+          "freq": 2
+        },
+        {
+          "name": "ChatGPT",
+          "freq": 1
+        },
+        {
+          "name": "Gemini",
+          "freq": 1
+        },
+        {
+          "name": "Claude",
+          "freq": 1
+        },
+        {
+          "name": "PANW",
+          "freq": 1
+        },
+        {
+          "name": "Ligand Pharma",
+          "freq": 1
+        },
+        {
+          "name": "Mueller Water Products",
+          "freq": 1
+        },
+        {
+          "name": "Everpure",
+          "freq": 1
+        },
+        {
+          "name": "Toast",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Real Estate",
+          "freq": 3
+        },
+        {
+          "name": "EV",
+          "freq": 3
+        },
+        {
+          "name": "Treasuries",
+          "freq": 3
+        },
+        {
+          "name": "Shipping",
+          "freq": 3
+        },
+        {
+          "name": "Oil",
+          "freq": 2
+        },
+        {
+          "name": "Banking",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Charging Infrastructure",
+          "freq": 1
+        },
+        {
+          "name": "Media",
+          "freq": 1
+        },
+        {
+          "name": "Manufacturing",
+          "freq": 1
+        },
+        {
+          "name": "Private Equity",
+          "freq": 1
+        },
+        {
+          "name": "Labor",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "LH",
+          "freq": 3
+        },
+        {
+          "name": "SK오션플랜트",
+          "freq": 2
+        },
+        {
+          "name": "한미약품",
+          "freq": 2
+        },
+        {
+          "name": "CJ제일제당",
+          "freq": 2
+        },
+        {
+          "name": "쿠팡이츠",
+          "freq": 2
+        },
+        {
+          "name": "SK",
+          "freq": 2
+        },
+        {
+          "name": "화웨이",
+          "freq": 2
+        },
+        {
+          "name": "NH농협은행",
+          "freq": 2
+        },
+        {
+          "name": "CJ더마켓",
+          "freq": 2
+        },
+        {
+          "name": "CJ",
+          "freq": 2
+        },
+        {
+          "name": "LG",
+          "freq": 1
+        },
+        {
+          "name": "동원F&B",
+          "freq": 1
+        },
+        {
+          "name": "삼립",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 2
+        },
+        {
+          "name": "E-commerce",
+          "freq": 2
+        },
+        {
+          "name": "Biopharmaceuticals",
+          "freq": 2
+        },
+        {
+          "name": "Construction",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Banking",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Housing",
+          "freq": 1
+        },
+        {
+          "name": "Tax",
+          "freq": 1
+        },
+        {
+          "name": "Labor",
+          "freq": 1
+        },
+        {
+          "name": "Food & Beverage",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
