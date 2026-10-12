@@ -1,0 +1,689 @@
+{
+  "generated_at": "2026-10-13 07:30 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Oil",
+        "reason": "국제 유가 변동성이 지속되며 관련 섹터에 대한 관심이 높음 (총 5건)",
+        "us_news_refs": [
+          1,
+          3,
+          7,
+          12,
+          14
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Market Today: Dow Edges Up, Oil Gains on Fresh Energy Strikes in Ukraine — Live Updates - WSJ",
+            "title_ko": "Dow, 유가 상승 속 주식 시장 마감 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOblNTYV9JS1kzM2ZZTUtSMTJOLUlqa1AtWWlqSm1pSlZyd3R5Z0ZTN0RwWVFwMFVUVFV2VXU2eTBXY3BSN0NIRFd5Q2l2Z2tkTUdsRzZoVW5TQUFrbVZqb3dpNHY1blFWRVJaVTJtTExxaERGT3MtNkJadldvVGs0WEFqQkZlbDA?oc=5",
+            "published_at": "2026-10-13 06:57:00 KST"
+          },
+          {
+            "title": "Nasdaq falls ahead of earnings, economic data while oil rallies - Reuters",
+            "title_ko": "나스닥, 실적·경제 지표 앞두고 하락, 유가 상승 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOck00LVRZX0lQNUw5SGlYU09FOWw1dUVTNjZTQ0p6YklVVUlRSms1eVZRcDd6VjRySF9rOEptM3Nrd19mSURMa1dmbTdIOE1VZjJKdThIR0tabGRTdjBiX0JCWkVndjJFNkZrT0w4NzZ2VWVibjlyeVZHRmszeXRraWRfT0p2SDhSQnFTY3QycG05eHpjQVVLYk9yRF9UYzZ0VmZ6Sw?oc=5",
+            "published_at": "2026-10-13 05:38:15 KST"
+          },
+          {
+            "title": "Oil Prices Rebound Amid Persistent Middle East Supply Risks - WSJ",
+            "title_ko": "중동 공급 위험 지속 속 유가 반등 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQOXpZa1FtWThybVR0cThaRndXOHlLN2hrRWdacGFUX29OaFk5R3J4N1NrUTlnRFRCeVVyV2x5aTJicF84WHNhT2s3dUJyOWFPR0VVZ2JwZ25Ed2dqa2RPY1V5Z3dTaFluRV9rSXBLSFJkQkZCcE1id0hQOVBsbHVnYUdrajlqajZCbHVYNl90M05BT2xyQVN3NFpQOXNkVFVCSVo2YXV4ei1TV2NuZzYxeEdraXV3NlJaZHNESHNINEhXUXFC?oc=5",
+            "published_at": "2026-10-13 05:15:00 KST"
+          },
+          {
+            "title": "Trump’s ‘energy ceasefire’ collides with real-world problems of dwindling fuel supplies",
+            "title_ko": "트럼프의 '에너지 휴전'과 연료 부족 현실 충돌",
+            "url": "https://www.marketwatch.com/story/trumps-energy-ceasefire-collides-with-real-world-problems-of-dwindling-fuel-supplies-8ba3993b?mod=mw_rss_topstories",
+            "published_at": "2026-10-13 03:36:00 KST"
+          },
+          {
+            "title": "Gold Futures Settle Lower on Rising Dollar, Oil - WSJ",
+            "title_ko": "달러 강세, 유가 상승에 금 선물 하락 마감 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNU1NaYzlBbFJ6S05MLUFaVVlCOXhGMjdJcnZMa0JvQ0w4YXl2RjN6RVZadEt5MGMteFIzdTFIcm5sWVhPdW9FSHZjUVpGbWY2cEU5elBhV0h1UF9xaTNydmNTR0NnMnFYel9vU3J2T0Rwa29IVWZRMHEtaG1ERDdiQ2ZFaEp2alBNcUVuaExZenFfM0NYYnR3cHZoLXJadw?oc=5",
+            "published_at": "2026-10-13 03:26:00 KST"
+          }
+        ],
+        "outlook": "국제 유가는 중동 지역의 지속적인 공급 위험과 에너지 파업 소식으로 인해 변동성을 보이고 있습니다. 이러한 지정학적 요인은 향후 일주일간 유가에 영향을 미칠 수 있는 핵심 촉매로 작용할 가능성이 있습니다. 다만, 달러 강세는 유가 상승에 부담으로 작용할 수 있는 단기 위험 요인입니다. 다음 주에는 에너지 관련 기업들의 실적 발표나 주요 경제 지표 발표가 예정되어 있어 시장의 주목을 받을 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 기업들의 AI 관련 투자 소식이 지속적으로 주목받고 있음 (총 7건)",
+        "us_news_refs": [
+          5,
+          16,
+          17,
+          30,
+          35,
+          41,
+          47
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Microsoft plans huge deployment of its own AI chips, with an eye on saving costs - Reuters",
+            "title_ko": "Microsoft, 비용 절감 목표로 자체 AI 칩 대규모 배포 계획 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPWHVSM1ltUmRIUHVldm04ZU5JX2hLc0lhYjZVaDMzMDlkVkxXNUM3OTFFVU1kdlM1R3BneGN5cXp3Ui1Yc211TFF0VUU3ZlpRWjhBRy0yOGJjdlZxR3FmdmFHdFNMRDM3Rnh3WjJMd0d1MHNINEdvdWpBVEc5TTJNMjk1Xy1JNEY2b1g5RkYzWXYtakQ0SmNnMHdoUlRnbjFMSWVBUm9QaVBXbkFNUVgwSDVLdURleTBwMHc?oc=5",
+            "published_at": "2026-10-13 05:22:23 KST"
+          },
+          {
+            "title": "Meta releases its first frontier model, Muse Wonder - TechCrunch",
+            "title_ko": "Meta, 첫 프론티어 모델 Muse Wonder 출시 - TechCrunch",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPRkdnR0wyZkdNUGRYU2hGTDdfWTRncjBxeThHRUVhWXRndW5OYU1Ya3FJWEtCdWwwY2d0c1FEd29KWExNN2N1VkRCU01hVW9NYjE5UWFFV3MzNDRpREQ3ZWJVaEhZbXJkN2JEdlV0QXpYcWtETVNXYXFfU1NrWXN6RzI2VjhpcjNtdmhpdnBB?oc=5",
+            "published_at": "2026-10-13 02:56:56 KST"
+          },
+          {
+            "title": "AI’s mathematics blitz pushes science into strange new territory - The Economist",
+            "title_ko": "AI의 수학적 돌풍, 과학을 낯선 영역으로 밀어붙여 - The Economist",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQX2xkTTk5TzZPSFVTcU9vdklZbEdGZFM4LUY5R2U0ZnN1T1ZHZE5ZSUlwaEMxOHBVR2VOR0xUbU5YUUR2T0lMS3N5NFFWRGRnUGhmdUFtbjlWMzhYU1VJNUlSbU9SN3Y4VGNvRDlvNVVjN0Q4WFQ0ckQ3YkJmU1NFUVhsTDdKMHBqZnV1RWJOYm5WcWFFanZKRHhJM1JaLVZ0ZEdUVXRzNmxMQVpneUR6MXNGU0lvV1BzWmp4YTVVVkM?oc=5",
+            "published_at": "2026-10-13 02:43:28 KST"
+          },
+          {
+            "title": "Evercore ISI reiterates Meta stock Outperform rating on AI models",
+            "title_ko": "Evercore ISI, AI 모델에 Meta 주식 '아웃퍼폼' 등급 재확인",
+            "url": "https://www.investing.com/news/analyst-ratings/evercore-isi-reiterates-meta-stock-outperform-rating-on-ai-models-93CH-4945248",
+            "published_at": "2026-10-13 06:48:52 KST"
+          },
+          {
+            "title": "Nvidia and AMD shares fall as new AI announcements fail to re-energize investors",
+            "title_ko": "Nvidia, AMD 주가 하락, 새 AI 발표 투자자 재점화 실패",
+            "url": "https://www.marketwatch.com/story/nvidia-and-amd-shares-fall-as-new-ai-announcements-fail-to-re-energize-investors-4a0dd766?mod=mw_rss_topstories",
+            "published_at": "2026-10-13 06:19:00 KST"
+          }
+        ],
+        "outlook": "AI 칩 수요 강세와 빅테크 기업들의 AI 관련 투자 확대 소식이 지속적으로 시장의 관심을 받고 있습니다. 특히 Microsoft의 자체 AI 칩 대규모 배포 계획은 관련 섹터의 성장을 견인할 수 있는 주요 촉매로 작용할 전망입니다. 다만, Nvidia와 AMD의 신규 AI 발표가 투자자들의 기대치를 충족시키지 못하며 주가 하락을 경험한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표 및 신규 AI 모델 출시 관련 소식이 주목받을 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 빅테크 기업들의 AI 투자 확대 소식이 주가에 긍정적인 영향을 미침 (총 2건)",
+        "us_news_refs": [
+          5,
+          35,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Microsoft plans huge deployment of its own AI chips, with an eye on saving costs - Reuters",
+            "title_ko": "Microsoft, 비용 절감 목표로 자체 AI 칩 대규모 배포 계획 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPWHVSM1ltUmRIUHVldm04ZU5JX2hLc0lhYjZVaDMzMDlkVkxXNUM3OTFFVU1kdlM1R3BneGN5cXp3Ui1Yc211TFF0VUU3ZlpRWjhBRy0yOGJjdlZxR3FmdmFHdFNMRDM3Rnh3WjJMd0d1MHNINEdvdWpBVEc5TTJNMjk1Xy1JNEY2b1g5RkYzWXYtakQ0SmNnMHdoUlRnbjFMSWVBUm9QaVBXbkFNUVgwSDVLdURleTBwMHc?oc=5",
+            "published_at": "2026-10-13 05:22:23 KST"
+          },
+          {
+            "title": "Nvidia and AMD shares fall as new AI announcements fail to re-energize investors",
+            "title_ko": "Nvidia, AMD 주가 하락, 새 AI 발표 투자자 재점화 실패",
+            "url": "https://www.marketwatch.com/story/nvidia-and-amd-shares-fall-as-new-ai-announcements-fail-to-re-energize-investors-4a0dd766?mod=mw_rss_topstories",
+            "published_at": "2026-10-13 06:19:00 KST"
+          },
+          {
+            "title": "Nvidia, AMD, Google, and Meta team up on global blueprint for data center design - Yahoo Finance",
+            "title_ko": "Nvidia, AMD, Google, Meta, 데이터 센터 설계 글로벌 청사진 협력 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPdFN3R3NFLVVVZE40T3c5ZmVhdzFFQ24taFViMElfVC1STTkwSWlIMHJ5X1BCZWJWQ2Vkck1EWklDS2Z1cEktb3NyY2FNMzBST2ozM08wUU44VnUwc3hKQ0pwT2JtQlpsd1RrMzlPbWh1UVQxM2Z1ZzRNclhCbTFMdDd0LU56MmRIYTM3cGpBZl9zaklycS1VMmlycHNPTGpQN21lNUxEbDVzMXByMDBrazZfbmRCLXlialBEbFVaN1N5SFRnRlRFOThFUXA0Yl9jdjNN?oc=5",
+            "published_at": "2026-10-13 00:00:00 KST"
+          }
+        ],
+        "outlook": "AI 칩 수요 강세와 빅테크 기업들의 AI 투자 확대는 Nvidia의 핵심 촉매로 작용하고 있습니다. Microsoft의 자체 AI 칩 배포 계획 등은 긍정적인 영향을 줄 수 있습니다. 그러나 최근 Nvidia와 AMD의 신규 AI 발표가 투자자들의 기대에 미치지 못하며 주가가 하락한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 Nvidia의 신규 AI 칩 출시 관련 소식이나 주요 고객사의 AI 투자 계획 발표 등이 주목받을 수 있습니다."
+      },
+      {
+        "name": "Meta",
+        "reason": "AI 관련 사업 확장 및 메타버스 관련 긍정적인 전망이 주가에 반영됨 (총 3건)",
+        "us_news_refs": [
+          16,
+          41,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Meta releases its first frontier model, Muse Wonder - TechCrunch",
+            "title_ko": "Meta, 첫 프론티어 모델 Muse Wonder 출시 - TechCrunch",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPRkdnR0wyZkdNUGRYU2hGTDdfWTRncjBxeThHRUVhWXRndW5OYU1Ya3FJWEtCdWwwY2d0c1FEd29KWExNN2N1VkRCU01hVW9NYjE5UWFFV3MzNDRpREQ3ZWJVaEhZbXJkN2JEdlV0QXpYcWtETVNXYXFfU1NrWXN6RzI2VjhpcjNtdmhpdnBB?oc=5",
+            "published_at": "2026-10-13 02:56:56 KST"
+          },
+          {
+            "title": "Meta is back on the AI leaderboard with its new family of Wonder models",
+            "title_ko": "Meta, 새로운 Wonder 모델 제품군으로 AI 리더보드 복귀",
+            "url": "https://www.marketwatch.com/story/meta-is-back-on-the-ai-leaderboard-with-its-new-family-of-wonder-models-a704b6cc?mod=mw_rss_topstories",
+            "published_at": "2026-10-13 04:43:00 KST"
+          },
+          {
+            "title": "Nvidia, AMD, Google, and Meta team up on global blueprint for data center design - Yahoo Finance",
+            "title_ko": "Nvidia, AMD, Google, Meta, 데이터 센터 설계 글로벌 청사진 협력 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPdFN3R3NFLVVVZE40T3c5ZmVhdzFFQ24taFViMElfVC1STTkwSWlIMHJ5X1BCZWJWQ2Vkck1EWklDS2Z1cEktb3NyY2FNMzBST2ozM08wUU44VnUwc3hKQ0pwT2JtQlpsd1RrMzlPbWh1UVQxM2Z1ZzRNclhCbTFMdDd0LU56MmRIYTM3cGpBZl9zaklycS1VMmlycHNPTGpQN21lNUxEbDVzMXByMDBrazZfbmRCLXlialBEbFVaN1N5SFRnRlRFOThFUXA0Yl9jdjNN?oc=5",
+            "published_at": "2026-10-13 00:00:00 KST"
+          }
+        ],
+        "outlook": "Meta의 새로운 AI 모델 'Muse Wonder' 출시와 AI 관련 사업 확장 가능성은 긍정적인 촉매로 작용하고 있습니다. 또한, Nvidia, AMD 등과 함께 데이터 센터 설계에 대한 글로벌 청사진을 협력하는 소식도 주목받고 있습니다. 다만, AI 경쟁 심화 속에서 Meta의 기술적 우위 유지 여부는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 Meta의 AI 관련 기술 개발 업데이트나 파트너십 관련 소식이 시장의 관심을 끌 수 있습니다."
+      },
+      {
+        "name": "AMD",
+        "reason": "AI 칩 시장 경쟁 심화 속에서 경쟁력 있는 제품 출시 기대감이 부각됨 (총 2건)",
+        "us_news_refs": [
+          35,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nvidia and AMD shares fall as new AI announcements fail to re-energize investors",
+            "title_ko": "Nvidia, AMD 주가 하락, 새 AI 발표 투자자 재점화 실패",
+            "url": "https://www.marketwatch.com/story/nvidia-and-amd-shares-fall-as-new-ai-announcements-fail-to-re-energize-investors-4a0dd766?mod=mw_rss_topstories",
+            "published_at": "2026-10-13 06:19:00 KST"
+          },
+          {
+            "title": "Nvidia, AMD, Google, and Meta team up on global blueprint for data center design - Yahoo Finance",
+            "title_ko": "Nvidia, AMD, Google, Meta, 데이터 센터 설계 글로벌 청사진 협력 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPdFN3R3NFLVVVZE40T3c5ZmVhdzFFQ24taFViMElfVC1STTkwSWlIMHJ5X1BCZWJWQ2Vkck1EWklDS2Z1cEktb3NyY2FNMzBST2ozM08wUU44VnUwc3hKQ0pwT2JtQlpsd1RrMzlPbWh1UVQxM2Z1ZzRNclhCbTFMdDd0LU56MmRIYTM3cGpBZl9zaklycS1VMmlycHNPTGpQN21lNUxEbDVzMXByMDBrazZfbmRCLXlialBEbFVaN1N5SFRnRlRFOThFUXA0Yl9jdjNN?oc=5",
+            "published_at": "2026-10-13 00:00:00 KST"
+          }
+        ],
+        "outlook": "AI 칩 시장 경쟁 심화 속에서 AMD의 경쟁력 있는 제품 출시 기대감은 긍정적인 촉매로 작용하고 있습니다. Nvidia, Google 등과의 데이터 센터 설계 협력 소식도 긍정적인 영향을 줄 수 있습니다. 그러나 Nvidia와 마찬가지로 최근 신규 AI 발표가 투자자들의 기대치를 충족시키지 못하며 주가가 하락한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AMD의 신규 AI 칩 성능 발표나 주요 고객사의 AI 도입 계획 관련 소식이 주목받을 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Oil",
+          "outlook": "국제 유가는 중동 지역의 지속적인 공급 위험과 에너지 파업 소식으로 인해 변동성을 보이고 있습니다. 이러한 지정학적 요인은 향후 일주일간 유가에 영향을 미칠 수 있는 핵심 촉매로 작용할 가능성이 있습니다. 다만, 달러 강세는 유가 상승에 부담으로 작용할 수 있는 단기 위험 요인입니다. 다음 주에는 에너지 관련 기업들의 실적 발표나 주요 경제 지표 발표가 예정되어 있어 시장의 주목을 받을 수 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 칩 수요 강세와 빅테크 기업들의 AI 관련 투자 확대 소식이 지속적으로 시장의 관심을 받고 있습니다. 특히 Microsoft의 자체 AI 칩 대규모 배포 계획은 관련 섹터의 성장을 견인할 수 있는 주요 촉매로 작용할 전망입니다. 다만, Nvidia와 AMD의 신규 AI 발표가 투자자들의 기대치를 충족시키지 못하며 주가 하락을 경험한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표 및 신규 AI 모델 출시 관련 소식이 주목받을 것으로 예상됩니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "outlook": "AI 칩 수요 강세와 빅테크 기업들의 AI 투자 확대는 Nvidia의 핵심 촉매로 작용하고 있습니다. Microsoft의 자체 AI 칩 배포 계획 등은 긍정적인 영향을 줄 수 있습니다. 그러나 최근 Nvidia와 AMD의 신규 AI 발표가 투자자들의 기대에 미치지 못하며 주가가 하락한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 Nvidia의 신규 AI 칩 출시 관련 소식이나 주요 고객사의 AI 투자 계획 발표 등이 주목받을 수 있습니다."
+        },
+        {
+          "name": "Meta",
+          "outlook": "Meta의 새로운 AI 모델 'Muse Wonder' 출시와 AI 관련 사업 확장 가능성은 긍정적인 촉매로 작용하고 있습니다. 또한, Nvidia, AMD 등과 함께 데이터 센터 설계에 대한 글로벌 청사진을 협력하는 소식도 주목받고 있습니다. 다만, AI 경쟁 심화 속에서 Meta의 기술적 우위 유지 여부는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 Meta의 AI 관련 기술 개발 업데이트나 파트너십 관련 소식이 시장의 관심을 끌 수 있습니다."
+        },
+        {
+          "name": "AMD",
+          "outlook": "AI 칩 시장 경쟁 심화 속에서 AMD의 경쟁력 있는 제품 출시 기대감은 긍정적인 촉매로 작용하고 있습니다. Nvidia, Google 등과의 데이터 센터 설계 협력 소식도 긍정적인 영향을 줄 수 있습니다. 그러나 Nvidia와 마찬가지로 최근 신규 AI 발표가 투자자들의 기대치를 충족시키지 못하며 주가가 하락한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AMD의 신규 AI 칩 성능 발표나 주요 고객사의 AI 도입 계획 관련 소식이 주목받을 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "reason": "메모리 반도체 업황 개선 기대감과 HBM 등 고성능 반도체 수요 증가가 긍정적으로 작용함 (총 3건)",
+        "kr_news_refs": [
+          1,
+          22,
+          76
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "유가 상승·반도체 약세 속 뉴욕증시 혼조‥다우 홀로 상승 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFAyUTdFWHRHQ0VxdjlaSHhZOUc5NWY4Q2Y0V2tzWFBsWXlRZjJ5cE83V1IzOG4zUzUtUF9IOXFIVko4WGFCZjRGbFppZzJraUNUTkFYNnp4VFZtdVhqTTVzOTJ1WEpIVlo3cVBOMTg4eEVWbkJM0gF0QVVfeXFMTTRneUwtQno1cTZEODRNLWdDTXk2MXd3anhTSVZpRHhyU1Z0cE9DY09xd0QyT01Vb0tWTEQxM290N1hWY0hTMms1SjQzTU1meDIxdUdVRkZ2RmpDTk5FQ2tiVkp4VVFzYlBCdDJiVzdNbEpNM2U?oc=5",
+            "published_at": "2026-10-13 06:13:07 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 13일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12173958",
+            "published_at": "2026-10-13 07:00:00 KST"
+          },
+          {
+            "title": "작년 대기업 탄소 배출량, 발전·철강 줄고 반도체·IT는 증가",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012127600003",
+            "published_at": "2026-10-13 06:00:11 KST"
+          }
+        ],
+        "outlook": "메모리 반도체 업황 개선 기대감과 HBM 등 고성능 반도체 수요 증가는 국내 반도체 섹터의 주요 촉매로 작용하고 있습니다. 특히 삼성전자의 AI 추론 메모리 관련 기술 개발 소식은 긍정적인 모멘텀을 제공할 수 있습니다. 다만, 글로벌 경기 둔화 가능성이나 지정학적 리스크는 반도체 수요에 부정적인 영향을 미칠 수 있는 단기 위험 요인입니다. 다음 주에는 주요 반도체 기업들의 실적 발표 및 신규 기술 개발 관련 발표가 예정되어 있어 주목할 필요가 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전과 관련 서비스 확장에 대한 기대감이 높아지면서 주목받고 있음 (총 3건)",
+        "kr_news_refs": [
+          9,
+          34,
+          89
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "삼성, AI 추론 메모리 ‘풀스택’ 승부수",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12174065",
+            "published_at": "2026-10-13 07:14:29 KST"
+          },
+          {
+            "title": "[AI프리즘] AI가 업무까지 척척…챗GPT·클로드, 협업툴 넘본다",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012160700017",
+            "published_at": "2026-10-13 06:33:00 KST"
+          },
+          {
+            "title": "AI 주제로 첨단산업 5개 전시회 묶는다…'K 커넥트 AI' 출범",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012165600003",
+            "published_at": "2026-10-13 06:00:03 KST"
+          }
+        ],
+        "outlook": "AI 기술 발전과 관련 서비스 확장에 대한 기대감은 국내 AI 섹터의 핵심 촉매로 작용하고 있습니다. 특히 챗GPT, 클로드 등 AI 챗봇이 협업툴 시장으로 진출하려는 움직임은 새로운 성장 동력을 제시할 수 있습니다. 다만, AI 기술 개발 경쟁 심화 및 규제 강화 가능성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 첨단 산업 전시회 개최 및 신규 AI 솔루션 발표 등이 예정되어 있어 시장의 관심을 받을 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "CXMT",
+        "reason": "중국 반도체 기업의 실적 개선 및 시장 점유율 확대 가능성이 제기됨 (총 2건)",
+        "kr_news_refs": [
+          1,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "유가 상승·반도체 약세 속 뉴욕증시 혼조‥다우 홀로 상승 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFAyUTdFWHRHQ0VxdjlaSHhZOUc5NWY4Q2Y0V2tzWFBsWXlRZjJ5cE83V1IzOG4zUzUtUF9IOXFIVko4WGFCZjRGbFppZzJraUNUTkFYNnp4VFZtdVhqTTVzOTJ1WEpIVlo3cVBOMTg4eEVWbkJM0gF0QVVfeXFMTTRneUwtQno1cTZEODRNLWdDTXk2MXd3anhTSVZpRHhyU1Z0cE9DY09xd0QyT01Vb0tWTEQxM290N1hWY0hTMms1SjQzTU1meDIxdUdVRkZ2RmpDTk5FQ2tiVkp4VVFzYlBCdDJiVzdNbEpNM2U?oc=5",
+            "published_at": "2026-10-13 06:13:07 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 13일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12173958",
+            "published_at": "2026-10-13 07:00:00 KST"
+          }
+        ],
+        "outlook": "중국 반도체 기업인 CXMT의 실적 개선 및 시장 점유율 확대 가능성은 긍정적인 촉매로 작용할 수 있습니다. 그러나 미중 기술 갈등 심화 및 글로벌 반도체 공급망 재편 가능성은 CXMT의 성장에 부정적인 영향을 미칠 수 있는 단기 위험 요인입니다. 다음 주에는 CXMT의 신규 공장 가동 계획이나 주요 고객사와의 공급 계약 체결 관련 소식이 주목받을 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "반도체",
+          "outlook": "메모리 반도체 업황 개선 기대감과 HBM 등 고성능 반도체 수요 증가는 국내 반도체 섹터의 주요 촉매로 작용하고 있습니다. 특히 삼성전자의 AI 추론 메모리 관련 기술 개발 소식은 긍정적인 모멘텀을 제공할 수 있습니다. 다만, 글로벌 경기 둔화 가능성이나 지정학적 리스크는 반도체 수요에 부정적인 영향을 미칠 수 있는 단기 위험 요인입니다. 다음 주에는 주요 반도체 기업들의 실적 발표 및 신규 기술 개발 관련 발표가 예정되어 있어 주목할 필요가 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 기술 발전과 관련 서비스 확장에 대한 기대감은 국내 AI 섹터의 핵심 촉매로 작용하고 있습니다. 특히 챗GPT, 클로드 등 AI 챗봇이 협업툴 시장으로 진출하려는 움직임은 새로운 성장 동력을 제시할 수 있습니다. 다만, AI 기술 개발 경쟁 심화 및 규제 강화 가능성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 첨단 산업 전시회 개최 및 신규 AI 솔루션 발표 등이 예정되어 있어 시장의 관심을 받을 것으로 예상됩니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "CXMT",
+          "outlook": "중국 반도체 기업인 CXMT의 실적 개선 및 시장 점유율 확대 가능성은 긍정적인 촉매로 작용할 수 있습니다. 그러나 미중 기술 갈등 심화 및 글로벌 반도체 공급망 재편 가능성은 CXMT의 성장에 부정적인 영향을 미칠 수 있는 단기 위험 요인입니다. 다음 주에는 CXMT의 신규 공장 가동 계획이나 주요 고객사와의 공급 계약 체결 관련 소식이 주목받을 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 투자 판도 변화와 관련된 논의가 있으며, AI 사이클의 추가적인 상승 가능성에 대한 전망이 제시되었습니다. 부진했던 빅테크 기업들의 움직임과 팔란티어의 신고가 경신 등이 언급되었습니다.",
+        "refs": [
+          3,
+          10
+        ],
+        "reason": "AI 투자 판도 변화와 관련된 논의가 있으며, AI 사이클의 추가적인 상승 가능성에 대한 전망이 제시되었습니다. 부진했던 빅테크 기업들의 움직임과 팔란티어의 신고가 경신 등이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          },
+          {
+            "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
+            "url": "https://www.youtube.com/watch?v=Ob5TSrJbxbs",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-09 18:36:59 KST"
+          }
+        ],
+        "outlook": "AI 투자 판도 변화와 AI 사이클의 추가 상승 가능성에 대한 논의가 활발합니다. 부진했던 빅테크 기업들의 움직임과 팔란티어의 신고가 경신 등이 AI 투자 판도 변화의 신호로 언급되었습니다. 다만, AI 기술 발전 속도와 실제 수익화 간의 괴리는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표 및 신규 AI 모델 출시 관련 소식이 주목받을 것으로 예상됩니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "메타의 신제품 출시와 관련된 반도체 섹터의 움직임이 언급되었으며, 중국 D램의 도발과 관련된 내용도 포함되었습니다. 삼성전자와 TSMC, 마이크론의 경쟁 구도가 거론되었습니다.",
+        "refs": [
+          1,
+          2,
+          7
+        ],
+        "reason": "메타의 신제품 출시와 관련된 반도체 섹터의 움직임이 언급되었으며, 중국 D램의 도발과 관련된 내용도 포함되었습니다. 삼성전자와 TSMC, 마이크론의 경쟁 구도가 거론되었습니다.",
+        "related_videos": [
+          {
+            "title": "메타, Muse 신제품 출시에 강세…반도체, CXMT 우려에 하락 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=lD0frse8o_U",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 07:01:40 KST"
+          },
+          {
+            "title": "삼성보다 2년 빠른 신기술...중국 D램의 도발 | EU, 중국 하이브리드차 수입 '연간 35만대'로 제한…\"12월부터\" | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=HceZZNad4Cc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 05:25:55 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "메타의 신제품 출시와 관련된 반도체 섹터의 움직임이 주목받고 있으며, 중국 D램의 도발과 관련된 내용도 언급되었습니다. 삼성전자, TSMC, 마이크론 등 주요 기업 간의 경쟁 구도가 반도체 섹터의 핵심 촉매로 작용할 수 있습니다. 다만, 글로벌 경기 둔화 및 지정학적 리스크는 반도체 수요에 부정적인 영향을 미칠 수 있는 단기 위험 요인입니다. 다음 주에는 주요 반도체 기업들의 실적 발표 및 신규 기술 개발 관련 발표가 예정되어 있어 주목할 필요가 있습니다."
+      },
+      {
+        "name": "부동산",
+        "freq": 2,
+        "summary": "경기도 외곽 아파트의 위험성과 특정 아파트 매수 추천이 언급되었습니다. 또한, 2030년까지 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다.",
+        "refs": [
+          5,
+          6
+        ],
+        "reason": "경기도 외곽 아파트의 위험성과 특정 아파트 매수 추천이 언급되었습니다. 또한, 2030년까지 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다.",
+        "related_videos": [
+          {
+            "title": "경기도 외곽 아파트는 위험하다, 당장 '이 아파트부터' 꼭 사세요 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=5VKeLowNJts",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 20:00:08 KST"
+          },
+          {
+            "title": "한국 아파트 싹다 물갈이 된다, 집값 내년부터 무서울 겁니다 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=p51hdgC-5xA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 18:30:09 KST"
+          }
+        ],
+        "outlook": "경기도 외곽 아파트의 위험성과 특정 아파트 매수 추천이 언급되었으며, 2030년까지 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다. 이는 부동산 시장의 잠재적 상승 동력으로 작용할 수 있습니다. 다만, 금리 인상 가능성 및 정부의 부동산 규제 정책 변화는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 서울 및 수도권 지역의 신규 아파트 공급 계획 발표나 금리 관련 발표가 예정되어 있어 주목할 필요가 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자의 3분기 실적이 107.4조 원으로 발표되었으며, 이에 따른 성과급 관련 내용이 언급되었습니다. 또한, TSMC 및 마이크론과의 경쟁 구도 속에서 삼성전자의 성과가 비교되었습니다.",
+        "refs": [
+          7
+        ],
+        "reason": "삼성전자의 3분기 실적이 107.4조 원으로 발표되었으며, 이에 따른 성과급 관련 내용이 언급되었습니다. 또한, TSMC 및 마이크론과의 경쟁 구도 속에서 삼성전자의 성과가 비교되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "삼성전자의 3분기 실적 발표와 이에 따른 성과급 관련 내용은 긍정적인 촉매로 작용하고 있습니다. 또한, TSMC 및 마이크론과의 경쟁 구도 속에서 삼성전자의 기술력 및 시장 점유율 확대 가능성이 주목받고 있습니다. 다만, 글로벌 경기 둔화 및 반도체 수요 변동성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 삼성전자의 신규 AI 칩 개발 및 양산 계획 발표 등이 시장의 관심을 끌 수 있습니다."
+      },
+      {
+        "name": "팔란티어",
+        "freq": 1,
+        "summary": "부진했던 빅테크 기업 중 팔란티어의 수상한 신고가 경신이 AI 투자 판도 변화의 신호로 언급되었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "부진했던 빅테크 기업 중 팔란티어의 수상한 신고가 경신이 AI 투자 판도 변화의 신호로 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          }
+        ],
+        "outlook": "부진했던 빅테크 기업 중 팔란티어의 수상한 신고가 경신은 AI 투자 판도 변화의 신호로 언급되며 긍정적인 촉매로 작용하고 있습니다. 이는 팔란티어의 AI 관련 사업 확장 및 기술력에 대한 기대감을 높이고 있습니다. 다만, 경쟁 심화 및 데이터 보안 관련 규제 강화 가능성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 팔란티어의 신규 AI 솔루션 출시나 주요 정부 및 기업과의 계약 체결 관련 소식이 주목받을 수 있습니다."
+      },
+      {
+        "name": "메타",
+        "freq": 1,
+        "summary": "메타의 신제품 출시로 인한 강세가 반도체 섹터의 움직임과 함께 언급되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "메타의 신제품 출시로 인한 강세가 반도체 섹터의 움직임과 함께 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "메타, Muse 신제품 출시에 강세…반도체, CXMT 우려에 하락 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=lD0frse8o_U",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 07:01:40 KST"
+          }
+        ],
+        "outlook": "메타의 신제품 출시와 관련된 강세는 반도체 섹터의 움직임과 함께 긍정적인 촉매로 작용하고 있습니다. 이는 메타의 AI 기술력 및 메타버스 관련 사업 확장 가능성에 대한 기대감을 높이고 있습니다. 다만, AI 경쟁 심화 및 메타버스 시장의 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 메타의 신규 AI 모델 출시 또는 메타버스 관련 업데이트 소식이 시장의 관심을 끌 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "AST SpaceMobile",
+          "freq": 3
+        },
+        {
+          "name": "Microsoft",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "Bumble",
+          "freq": 3
+        },
+        {
+          "name": "Sandisk",
+          "freq": 3
+        },
+        {
+          "name": "Meta",
+          "freq": 3
+        },
+        {
+          "name": "Kroger",
+          "freq": 2
+        },
+        {
+          "name": "Albertsons",
+          "freq": 2
+        },
+        {
+          "name": "Getty Images",
+          "freq": 2
+        },
+        {
+          "name": "IonQ",
+          "freq": 2
+        },
+        {
+          "name": "AMD",
+          "freq": 2
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Micron",
+          "freq": 2
+        },
+        {
+          "name": "Ciena",
+          "freq": 1
+        },
+        {
+          "name": "Lumentum",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 5
+        },
+        {
+          "name": "Space",
+          "freq": 3
+        },
+        {
+          "name": "Dating App",
+          "freq": 3
+        },
+        {
+          "name": "Gold",
+          "freq": 3
+        },
+        {
+          "name": "Memory Chip",
+          "freq": 3
+        },
+        {
+          "name": "Interest Rate",
+          "freq": 3
+        },
+        {
+          "name": "Grocery",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Homeownership",
+          "freq": 2
+        },
+        {
+          "name": "Data Center",
+          "freq": 2
+        },
+        {
+          "name": "Aviation",
+          "freq": 1
+        },
+        {
+          "name": "Bonds",
+          "freq": 1
+        },
+        {
+          "name": "Brazilian Stocks",
+          "freq": 1
+        },
+        {
+          "name": "Optical",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "CXMT",
+          "freq": 2
+        },
+        {
+          "name": "마이크론",
+          "freq": 1
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "AMD",
+          "freq": 1
+        },
+        {
+          "name": "한화M&S",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "방산",
+          "freq": 2
+        },
+        {
+          "name": "Foreign Exchange",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Nuclear Power",
+          "freq": 2
+        },
+        {
+          "name": "Luxury Goods",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 1
+        },
+        {
+          "name": "Hybrid Car",
+          "freq": 1
+        },
+        {
+          "name": "Data Center",
+          "freq": 1
+        },
+        {
+          "name": "Carbon Emissions",
+          "freq": 1
+        },
+        {
+          "name": "Intellectual Property",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare Insurance",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
