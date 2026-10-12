@@ -1,0 +1,665 @@
+{
+  "generated_at": "2026-10-12 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Oil",
+        "reason": "유가 상승 및 에너지 시장 동향에 대한 관심이 지속되며 주목받고 있습니다 (총 4건).",
+        "us_news_refs": [
+          1,
+          9,
+          30,
+          31
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock futures are little changed to start the week: Live updates - CNBC",
+            "title_ko": "주간 증시 선물 소폭 변동: CNBC 라이브 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE56cnRXR0YyTHF0YWUtQkZHYlZZb0lBTXVJVjQ5a20zSVZzU2Q0T2ZNNkdJSWQ2QWlxdWpUd21SZFhLeTdMVHhFaWVMRWhTYk1mR2FDMnNsVWhTSlVyQ3J0QVVlSWQ0Q0pWY0xEY0JpUVoyMDBQWUdr0gF8QVVfeXFMUEVZRmpuYWxmTnZpcXFhMk93UmlZRkZ1ejNQOVBlV2ZxdmNiaEVqaGJnVlZDREs0ZVBqTV9IMTJwWG51aXZDM3I0blE1QUJpRGZSZXBIYlZJNkZNQnNvRHhBblVGbUJRLWtGdm9DaUVuX3hjV2RxUnhudVFRaw?oc=5",
+            "published_at": "2026-10-12 19:34:12 KST"
+          },
+          {
+            "title": "European stocks inch higher as Trump’s Russia-Ukraine ceasefire softens crude",
+            "title_ko": "유럽 증시 소폭 상승, 트럼프의 러시아-우크라이나 휴전 합의로 원유 하락",
+            "url": "https://www.investing.com/news/stock-market-news/european-stocks-inch-higher-as-trumps-russiaukraine-ceasefire-softens-crude-4943330",
+            "published_at": "2026-10-12 19:56:35 KST"
+          },
+          {
+            "title": "Shares supported as oil retreats; focus turns to US CPI, earnings - Reuters",
+            "title_ko": "유가 하락에 증시 지지… 美 CPI, 실적 발표 주목 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFA4VndfYlhKMjFvd01KYndaSHVGZ3dlckMtTUtucy1jQjk0aE9JcHRpdEFuSE1SZGFWZzV1TW1MVFFabU9oNEhfajl6MVVIbzFVVF85VUZaWTFMRmx1WDFPRHItbWhuVWpoUzRxcXBPc0V4Tmo1UUU3QjRfbw?oc=5",
+            "published_at": "2026-10-12 09:42:00 KST"
+          },
+          {
+            "title": "Oil climbs as Mideast conflict, tanker attacks persist - Yahoo Finance",
+            "title_ko": "중동 분쟁, 유조선 공격 지속에 유가 상승 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQalBiZ1ByS3BBZGdEVGRJdGNyYXJPbWFackFYUUNGN0xIRDdoS2VrVU9idVpkU21DV1F0QzRfOHlDOW5jYWFscl94Wk1WQUtCWFExOUE2dmJiQUs5SnJIVW1ZX05IMjBNd0FFWTUwMGxnLWQwZjFuSGZNZFNBaC1WblU4T25IeU9Ga1JZSEZVS0RQeVJSM2c?oc=5",
+            "published_at": "2026-10-12 08:25:59 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 유가는 중동 지역의 지정학적 긴장 고조 및 유조선 공격 지속 가능성으로 인해 상승 압력을 받을 수 있습니다. 다만, 트럼프 전 대통령의 러시아-우크라이나 휴전 합의 관련 발언은 유가 상승폭을 제한하는 요인으로 작용할 수 있습니다. 또한, 미국 소비자물가지수(CPI) 발표와 기업 실적 시즌이 다가오면서 시장의 변동성이 커질 수 있습니다. 투자자들은 에너지 시장의 수급 불균형과 지정학적 리스크를 주시하며 보수적인 접근이 필요합니다. 다음 주 예정된 주요 경제 지표 발표와 기업 실적 발표 일정을 확인하며 시장 동향을 면밀히 살펴볼 필요가 있습니다."
+      },
+      {
+        "name": "Bond Market",
+        "reason": "채권 시장의 움직임과 금리 변동성이 시장의 주요 관심사로 부각되고 있습니다 (총 3건).",
+        "us_news_refs": [
+          2,
+          27,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "The bond market is doing the Fed’s job, and that could be good news for stocks, says Morgan Stanley strategist",
+            "title_ko": "채권 시장, Fed 역할 수행 중… 증시에 호재 가능성 - Morgan Stanley 전략가",
+            "url": "https://www.marketwatch.com/story/the-bond-market-is-doing-the-feds-job-and-that-could-be-good-news-for-stocks-says-morgan-stanley-strategist-ec57b81a?mod=mw_rss_topstories",
+            "published_at": "2026-10-12 18:23:00 KST"
+          },
+          {
+            "title": "Bond Selloff May Mean Fewer Rate Hikes From Global Central Banks - Bloomberg.com",
+            "title_ko": "채권 매도세, 글로벌 중앙은행 금리 인상 축소 시사 - Bloomberg.com",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNbjNTeE9pcnEzX2I3VVY5WGw3a3kwMS1UeWhMY05hWGs0Z3N4a0tqM0hYcllJVTc4MkNOMlZYUWJJeFcwSkhIX3pwaXhYTW5SSmNMWmtKVk4zQVJuOUcwZ3pQcmt4Z2swbWF5dTFVVlgtUE5WdnpOQ1NhLUpteENKeTdHN0pvSHpiSnlwSWk2WjV2clJGMGtNd3RrbnlIT2U3bExIMl9PMjdsMW84NjBlbjAzSWJIZw?oc=5",
+            "published_at": "2026-10-12 11:49:00 KST"
+          },
+          {
+            "title": "Shares supported as oil retreats; focus turns to US CPI, earnings - Reuters",
+            "title_ko": "유가 하락에 증시 지지… 美 CPI, 실적 발표 주목 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFA4VndfYlhKMjFvd01KYndaSHVGZ3dlckMtTUtucy1jQjk0aE9JcHRpdEFuSE1SZGFWZzV1TW1MVFFabU9oNEhfajl6MVVIbzFVVF85VUZaWTFMRmx1WDFPRHItbWhuVWpoUzRxcXBPc0V4Tmo1UUU3QjRfbw?oc=5",
+            "published_at": "2026-10-12 09:42:00 KST"
+          }
+        ],
+        "outlook": "채권 시장은 연방준비제도(Fed)의 통화 정책 방향과 금리 변동성에 주목하고 있습니다. 일부 분석가들은 채권 시장의 움직임이 Fed의 역할을 대신하며 증시에 긍정적인 영향을 미칠 수 있다고 전망합니다. 그러나 채권 매도세가 지속될 경우, 글로벌 중앙은행들의 금리 인상 폭 축소 가능성도 제기되고 있습니다. 향후 일주일간 미국 소비자물가지수(CPI) 발표와 주요 기업들의 실적 발표가 예정되어 있어, 채권 시장의 변동성이 확대될 수 있습니다. 투자자들은 금리 변동성과 거시 경제 지표 발표에 주의를 기울여야 합니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Goldman Sachs",
+        "reason": "금융 시장의 주요 플레이어로서 금리 및 경제 전망에 대한 분석이 시장의 주목을 받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          11,
+          21
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Goldman names 3 to benefit as high-performance NAND tackles AI’s memory wall",
+            "title_ko": "Goldman, 고성능 NAND가 AI 메모리 벽 해결하며 수혜 볼 3개 종목 선정",
+            "url": "https://www.investing.com/news/stock-market-news/goldman-names-3-to-benefit-as-highperformance-nand-tackles-ais-memory-wall-4943949",
+            "published_at": "2026-10-12 19:54:37 KST"
+          },
+          {
+            "title": "Here’s why Goldman Sachs just flipped bullish on stocks for the rest of the year",
+            "title_ko": "Goldman Sachs, 연말 증시 강세 전환 이유 공개",
+            "url": "https://www.marketwatch.com/story/heres-why-goldman-sachs-just-flipped-bullish-on-stocks-for-the-rest-of-the-year-dfa3b0af?mod=mw_rss_topstories",
+            "published_at": "2026-10-12 18:14:00 KST"
+          }
+        ],
+        "outlook": "골드만삭스는 고성능 NAND가 AI 메모리 벽을 해결하며 수혜를 볼 3개 종목을 선정하는 등 AI 관련 투자 분석을 제시하고 있습니다. 또한, 연말 증시 강세 전환에 대한 긍정적인 전망을 내놓으며 시장의 주목을 받고 있습니다. 향후 일주일간 미국 기업들의 실적 발표가 이어지는 가운데, 골드만삭스의 분석과 시장 전망이 주가에 영향을 미칠 수 있습니다. 투자자들은 AI 산업의 성장성과 금리 변동성 등 거시 경제 요인을 함께 고려하여 신중한 투자 결정을 내려야 합니다. 다음 주 예정된 주요 경제 지표 발표와 기업 실적 발표 일정을 주시해야 합니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Oil",
+          "outlook": "향후 일주일간 유가는 중동 지역의 지정학적 긴장 고조 및 유조선 공격 지속 가능성으로 인해 상승 압력을 받을 수 있습니다. 다만, 트럼프 전 대통령의 러시아-우크라이나 휴전 합의 관련 발언은 유가 상승폭을 제한하는 요인으로 작용할 수 있습니다. 또한, 미국 소비자물가지수(CPI) 발표와 기업 실적 시즌이 다가오면서 시장의 변동성이 커질 수 있습니다. 투자자들은 에너지 시장의 수급 불균형과 지정학적 리스크를 주시하며 보수적인 접근이 필요합니다. 다음 주 예정된 주요 경제 지표 발표와 기업 실적 발표 일정을 확인하며 시장 동향을 면밀히 살펴볼 필요가 있습니다."
+        },
+        {
+          "name": "Bond Market",
+          "outlook": "채권 시장은 연방준비제도(Fed)의 통화 정책 방향과 금리 변동성에 주목하고 있습니다. 일부 분석가들은 채권 시장의 움직임이 Fed의 역할을 대신하며 증시에 긍정적인 영향을 미칠 수 있다고 전망합니다. 그러나 채권 매도세가 지속될 경우, 글로벌 중앙은행들의 금리 인상 폭 축소 가능성도 제기되고 있습니다. 향후 일주일간 미국 소비자물가지수(CPI) 발표와 주요 기업들의 실적 발표가 예정되어 있어, 채권 시장의 변동성이 확대될 수 있습니다. 투자자들은 금리 변동성과 거시 경제 지표 발표에 주의를 기울여야 합니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Goldman Sachs",
+          "outlook": "골드만삭스는 고성능 NAND가 AI 메모리 벽을 해결하며 수혜를 볼 3개 종목을 선정하는 등 AI 관련 투자 분석을 제시하고 있습니다. 또한, 연말 증시 강세 전환에 대한 긍정적인 전망을 내놓으며 시장의 주목을 받고 있습니다. 향후 일주일간 미국 기업들의 실적 발표가 이어지는 가운데, 골드만삭스의 분석과 시장 전망이 주가에 영향을 미칠 수 있습니다. 투자자들은 AI 산업의 성장성과 금리 변동성 등 거시 경제 요인을 함께 고려하여 신중한 투자 결정을 내려야 합니다. 다음 주 예정된 주요 경제 지표 발표와 기업 실적 발표 일정을 주시해야 합니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "정유",
+        "reason": "국내 정유 업계의 실적 및 시장 동향에 대한 뉴스가 다수 보도되며 주목받고 있습니다 (총 4건).",
+        "kr_news_refs": [
+          2,
+          62,
+          66
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "’오를때만 빨라’ 지적에…정유 4사 “국민에 송구, 조속 개선“ - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBGTXdGTlBSODl5N2VVaTEzRzcwRGdSRFg0RzhzYnlwc1hCWHRJWVo2VmI1ZnlzZGxCSVQ5bHV4TmQ1OW0wM0ZrRnZDRFpnei1RcXdiYkJSUlVoTlNSSnhhWWZQOUJKc1k?oc=5",
+            "published_at": "2026-10-12 19:03:00 KST"
+          },
+          {
+            "title": "'오를땐 빨리, 내릴땐 늦게' 정유 4사 \"국민에 송구, 조속 개선\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012160100003",
+            "published_at": "2026-10-12 18:27:45 KST"
+          },
+          {
+            "title": "여야, '담합의혹' 정유업계 질타…\"전쟁 돈벌이\"·\"국민 피눈물\"(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012070951001",
+            "published_at": "2026-10-12 18:22:34 KST"
+          }
+        ],
+        "outlook": "국내 정유업계는 최근 유가 상승 및 지정학적 리스크와 더불어, 가격 담합 의혹에 대한 정치권의 질타를 받고 있습니다. '오를 때만 빠르다'는 지적에 대해 정유 4사는 국민에게 송구하다는 입장을 밝히며 개선 의지를 보였습니다. 향후 일주일간 정유업계의 실적 발표와 더불어, 정부의 유류세 인하 정책 등 규제 변화 가능성이 주가에 영향을 미칠 수 있습니다. 또한, 국제 유가 변동성 또한 정유 섹터의 주요 변수로 작용할 전망입니다. 투자자들은 실적 발표와 함께 정부 정책 및 국제 유가 동향을 면밀히 주시해야 합니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "국내 반도체 산업의 기술 발전 및 시장 전망에 대한 뉴스가 꾸준히 언급되고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          4,
+          13,
+          14,
+          31,
+          76
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "김동철 사장 \"한전채 한도 줄면 전기요금 인상 필요\"(종합) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1mM3g5UUdXZE43TE12ZXFTcU96OUFqcUF3UkVUejQyVFE1eWlLODE3YXJldDY5ME9sQjNuUUNrM0lBZXdUR2FCeFVia1hJdEh6cDRNci1PVHpja0tMZzFaRVl4V1dFQVM4WThmS3dBMm0?oc=5",
+            "published_at": "2026-10-12 18:07:36 KST"
+          },
+          {
+            "title": "[마켓뷰] ‘오픈AI 거품론’에 반도체주 급락…코스피, 6400선도 내줘 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNUWRFSDN0MUxIZkl6SWVLQVVtRWxpTlN6SVU1WHZtU2FnbVlHTjY4SE5PdWhLTVZ6NUlVZkh6bm5GelEySHdZbXA5bVdUbGQ1UlhZblJvSDdfcnpKMVltQnFVOEQzSXgtU0h3TENMckprR0pwLVNSVkhLdWdldGZVUnFPV1dKVTBO0gGcAUFVX3lxTE05aTc2YkxXZG90Nmw4Z2JOdUhCdEpWdDg3YWwwQ1dVWnpwUlozVHlfMnQ0WTNGUWdZWnNHLXB1eFBKNHRVTm9ITGlDdUtSemtfYi05YmxCdjBqVWp6LXJuXzBNNUp3NFk5Y3FmZEhiWGhiZU1Ua05PdUxwVXJXMDJET1h6eEJhQ1RDSENBVkI4WEsxNmJ6b1pCb1U0bQ?oc=5",
+            "published_at": "2026-10-12 15:55:00 KST"
+          },
+          {
+            "title": "차세대 D램 선전포고한 中 CXMT ··· “삼성 보다 2년 앞서겠다” - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9aeXRDVzRMRW82THNYSXp1WXpSeWFxY3l2VG03U19lYTJMdFY4cEhFaHAtVVcxLXJPUjFRNmstZWJnOGhybk84VlZsUlZaakRuUTNEVUln?oc=5",
+            "published_at": "2026-10-12 15:45:23 KST"
+          },
+          {
+            "title": "“삼성보다 2년 빨리” 중국의 D램 도발…CXMT, 차세대메모리 연내출시",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12173993",
+            "published_at": "2026-10-12 19:21:15 KST"
+          },
+          {
+            "title": "반도체고 입학 하늘의 별 따기?…교내 입학설명회장마다 '북적'",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012157100064",
+            "published_at": "2026-10-12 18:15:51 KST"
+          }
+        ],
+        "outlook": "국내 반도체 섹터는 중국 CXMT의 차세대 D램 출시 선언으로 인한 경쟁 심화 우려와 함께, AI 사이클 관련 투자 심리가 혼재된 양상을 보이고 있습니다. 삼성전자와 TSMC, 마이크론 등 주요 반도체 기업들의 실적 발표가 예정되어 있으며, 특히 삼성전자의 3분기 호실적은 긍정적인 모멘텀으로 작용할 수 있습니다. 그러나 '오픈AI 거품론' 등 AI 관련주에 대한 경계감도 존재합니다. 향후 일주일간 반도체 기업들의 실적 발표 결과와 AI 관련 기술 발전 동향이 섹터 전반의 주가 흐름에 영향을 미칠 것으로 예상됩니다. 투자자들은 경쟁 심화 가능성과 AI 산업의 장기적 성장성을 균형 있게 고려해야 합니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "CXMT",
+        "reason": "반도체 산업 내에서 특정 기술 및 시장 점유율 관련 뉴스가 부각되며 주목받고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          14,
+          31
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "차세대 D램 선전포고한 中 CXMT ··· “삼성 보다 2년 앞서겠다” - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9aeXRDVzRMRW82THNYSXp1WXpSeWFxY3l2VG03U19lYTJMdFY4cEhFaHAtVVcxLXJPUjFRNmstZWJnOGhybk84VlZsUlZaakRuUTNEVUln?oc=5",
+            "published_at": "2026-10-12 15:45:23 KST"
+          },
+          {
+            "title": "“삼성보다 2년 빨리” 중국의 D램 도발…CXMT, 차세대메모리 연내출시",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12173993",
+            "published_at": "2026-10-12 19:21:15 KST"
+          }
+        ],
+        "outlook": "중국 반도체 기업 CXMT가 차세대 D램을 연내 출시하며 삼성전자보다 2년 앞서겠다고 선언함에 따라, 국내 반도체 시장의 경쟁 심화 우려가 제기되고 있습니다. 이는 삼성전자, SK하이닉스 등 국내 주요 반도체 기업들의 시장 점유율 및 수익성에 영향을 미칠 수 있는 요인입니다. 향후 일주일간 CXMT의 기술 개발 진행 상황 및 시장 반응에 대한 뉴스가 나올 수 있으며, 이는 국내 반도체 섹터 전반의 투자 심리에 영향을 줄 수 있습니다. 투자자들은 글로벌 반도체 시장의 경쟁 구도 변화와 기술 발전 동향을 면밀히 주시해야 합니다."
+      },
+      {
+        "name": "기아",
+        "reason": "친환경차 전환 및 신차 출시 등 자동차 산업 내에서의 성장 모멘텀이 시장의 관심을 받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          9,
+          27
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[정의선 리더십 6년]① 현대차·기아 매출 300조 시대…다음 과제는 - 블로터",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5xcHNQYVU0RGx0NmdKMVFzRVFGZTZyY2lxanhWT1ZUa0Q0UGtoLWd0Z2Q5TFA2akZYYW1hQlluVXNmLXhNbkdiWVR2QVpkNnU3eUE0T1RtdVZqSEZVVW9xVTJ5QmttVDhU0gFsQVVfeXFMTVpWX0wzRTdsbEowYnRkR3lmQWR3a3B3TXc1VjMyV0dIeXVEN3NrdzF0NUxpYWRnenl0SGZkblBaYTZCU0lQbUlHYWE2dU83LTJDVm5FUXNZZlo5ZlJYcDRJc08waHltN2hGc2oz?oc=5",
+            "published_at": "2026-10-12 16:26:58 KST"
+          },
+          {
+            "title": "기아, 파리모터쇼서 신형 셀토스 하이브리드 유럽 첫 공개",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261012173100003",
+            "published_at": "2026-10-12 19:49:34 KST"
+          }
+        ],
+        "outlook": "기아는 파리모터쇼에서 신형 셀토스 하이브리드를 유럽 시장에 처음 공개하며 친환경차 라인업 강화에 나섰습니다. 이는 기아의 글로벌 친환경차 시장 공략 및 판매 증대에 긍정적인 영향을 미칠 것으로 기대됩니다. 또한, 현대차그룹의 매출 증대와 관련된 긍정적인 분석도 나오고 있습니다. 향후 일주일간 신차 출시 효과 및 친환경차 판매 실적에 대한 뉴스가 나올 수 있으며, 이는 기아의 주가 흐름에 영향을 줄 수 있습니다. 투자자들은 글로벌 자동차 시장의 경쟁 동향과 친환경차 전환 추세를 주시해야 합니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "정유",
+          "outlook": "국내 정유업계는 최근 유가 상승 및 지정학적 리스크와 더불어, 가격 담합 의혹에 대한 정치권의 질타를 받고 있습니다. '오를 때만 빠르다'는 지적에 대해 정유 4사는 국민에게 송구하다는 입장을 밝히며 개선 의지를 보였습니다. 향후 일주일간 정유업계의 실적 발표와 더불어, 정부의 유류세 인하 정책 등 규제 변화 가능성이 주가에 영향을 미칠 수 있습니다. 또한, 국제 유가 변동성 또한 정유 섹터의 주요 변수로 작용할 전망입니다. 투자자들은 실적 발표와 함께 정부 정책 및 국제 유가 동향을 면밀히 주시해야 합니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 중국 CXMT의 차세대 D램 출시 선언으로 인한 경쟁 심화 우려와 함께, AI 사이클 관련 투자 심리가 혼재된 양상을 보이고 있습니다. 삼성전자와 TSMC, 마이크론 등 주요 반도체 기업들의 실적 발표가 예정되어 있으며, 특히 삼성전자의 3분기 호실적은 긍정적인 모멘텀으로 작용할 수 있습니다. 그러나 '오픈AI 거품론' 등 AI 관련주에 대한 경계감도 존재합니다. 향후 일주일간 반도체 기업들의 실적 발표 결과와 AI 관련 기술 발전 동향이 섹터 전반의 주가 흐름에 영향을 미칠 것으로 예상됩니다. 투자자들은 경쟁 심화 가능성과 AI 산업의 장기적 성장성을 균형 있게 고려해야 합니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "CXMT",
+          "outlook": "중국 반도체 기업 CXMT가 차세대 D램을 연내 출시하며 삼성전자보다 2년 앞서겠다고 선언함에 따라, 국내 반도체 시장의 경쟁 심화 우려가 제기되고 있습니다. 이는 삼성전자, SK하이닉스 등 국내 주요 반도체 기업들의 시장 점유율 및 수익성에 영향을 미칠 수 있는 요인입니다. 향후 일주일간 CXMT의 기술 개발 진행 상황 및 시장 반응에 대한 뉴스가 나올 수 있으며, 이는 국내 반도체 섹터 전반의 투자 심리에 영향을 줄 수 있습니다. 투자자들은 글로벌 반도체 시장의 경쟁 구도 변화와 기술 발전 동향을 면밀히 주시해야 합니다."
+        },
+        {
+          "name": "기아",
+          "outlook": "기아는 파리모터쇼에서 신형 셀토스 하이브리드를 유럽 시장에 처음 공개하며 친환경차 라인업 강화에 나섰습니다. 이는 기아의 글로벌 친환경차 시장 공략 및 판매 증대에 긍정적인 영향을 미칠 것으로 기대됩니다. 또한, 현대차그룹의 매출 증대와 관련된 긍정적인 분석도 나오고 있습니다. 향후 일주일간 신차 출시 효과 및 친환경차 판매 실적에 대한 뉴스가 나올 수 있으며, 이는 기아의 주가 흐름에 영향을 줄 수 있습니다. 투자자들은 글로벌 자동차 시장의 경쟁 동향과 친환경차 전환 추세를 주시해야 합니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "삼성전자와 TSMC, 마이크론 등 반도체 기업들의 실적이 언급되었습니다. 특히 삼성전자의 3분기 실적이 107.4조 원으로 매우 높게 나왔으며, 이는 경쟁사 대비 긍정적인 성과로 평가되었습니다. 반도체 섹터는 한국 증시에서 건재한 실적을 보이는 분야로 언급되었습니다.",
+        "refs": [
+          2,
+          6
+        ],
+        "reason": "삼성전자와 TSMC, 마이크론 등 반도체 기업들의 실적이 언급되었습니다. 특히 삼성전자의 3분기 실적이 107.4조 원으로 매우 높게 나왔으며, 이는 경쟁사 대비 긍정적인 성과로 평가되었습니다. 반도체 섹터는 한국 증시에서 건재한 실적을 보이는 분야로 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "코스피 단기 경고등 켜졌지만 반도체 실적은 건재…지금 매도보다 중요한 투자 판단ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=Ws-g5FGWVg4",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-12 20:00:02 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "유튜브 채널에서는 삼성전자, TSMC, 마이크론 등 주요 반도체 기업들의 실적을 분석하며, 특히 삼성전자의 3분기 호실적을 긍정적으로 평가하고 있습니다. AI 사이클과 관련하여 증시의 추가 상승 가능성에 대한 의문이 제기되기도 하지만, 반도체 섹터는 한국 증시에서 여전히 건재한 실적을 보이는 분야로 언급됩니다. 향후 일주일간 반도체 기업들의 실적 발표 결과와 AI 관련 기술 발전 동향이 투자자들의 관심을 받을 것으로 예상됩니다. 다만, AI 관련주에 대한 경계감도 존재하므로 신중한 접근이 필요합니다."
+      },
+      {
+        "name": "부동산",
+        "freq": 2,
+        "summary": "서울 아파트 공급 부족과 향후 집값 하락 가능성에 대한 전망이 제시되었습니다. 2030년까지 서울 아파트 공급이 줄어들 것이라는 예측과 함께, 내년부터 집값이 하락할 것이라는 의견이 있었습니다. 폭락을 기다리다 '벼락거지'가 될 수 있다는 경고도 포함되었습니다.",
+        "refs": [
+          1,
+          4
+        ],
+        "reason": "서울 아파트 공급 부족과 향후 집값 하락 가능성에 대한 전망이 제시되었습니다. 2030년까지 서울 아파트 공급이 줄어들 것이라는 예측과 함께, 내년부터 집값이 하락할 것이라는 의견이 있었습니다. 폭락을 기다리다 '벼락거지'가 될 수 있다는 경고도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "2030년까지 서울 아파트 씨가 말랐다, 폭락 기다리다, 진짜 벼락거지 된다 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=5VKeLowNJts",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 20:00:08 KST"
+          },
+          {
+            "title": "한국 아파트 싹다 물갈이 된다, 집값 내년부터 무서울 겁니다 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=p51hdgC-5xA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 18:30:09 KST"
+          }
+        ],
+        "outlook": "부동산 관련 유튜브 콘텐츠에서는 서울 아파트 공급 부족과 향후 집값 하락 가능성에 대한 전망이 제시되고 있습니다. 2030년까지 서울 아파트 공급이 줄어들 것이라는 예측과 함께, 내년부터 집값이 하락할 것이라는 의견이 있습니다. 폭락을 기다리다 '벼락거지'가 될 수 있다는 경고도 포함되어 있습니다. 향후 일주일간 부동산 시장 관련 지표 발표와 정부의 부동산 정책 변화 가능성이 투자자들의 주목을 받을 수 있습니다. 다만, 집값 전망에 대한 다양한 의견이 존재하므로 여러 정보를 종합적으로 판단해야 합니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 사이클과 관련하여 증시의 추가 상승 가능성에 대한 의문이 제기되었습니다. AI 섹터의 잠재력과 향후 증시에 미칠 영향에 대한 분석이 언급되었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "AI 사이클과 관련하여 증시의 추가 상승 가능성에 대한 의문이 제기되었습니다. AI 섹터의 잠재력과 향후 증시에 미칠 영향에 대한 분석이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI사이클 더 큰 한 방 남았다? 증시 의심의 벽 뚫고 올라갈까",
+            "url": "https://www.youtube.com/watch?v=Ob5TSrJbxbs",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-09 18:36:59 KST"
+          }
+        ],
+        "outlook": "AI 섹터와 관련하여 유튜브 채널에서는 AI 사이클과 증시의 추가 상승 가능성에 대한 의문이 제기되고 있습니다. AI 섹터의 잠재력과 향후 증시에 미칠 영향에 대한 분석이 언급되었으나, AI 관련주에 대한 과열 우려도 존재합니다. 향후 일주일간 AI 기술 발전 동향과 관련 기업들의 실적 발표가 투자자들의 관심을 받을 수 있습니다. 다만, AI 사이클의 지속 가능성과 밸류에이션 부담에 대한 논의가 이어질 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자의 3분기 실적이 107.4조 원으로 매우 높게 기록되었음이 강조되었습니다. 이는 경쟁사인 TSMC, 마이크론과 비교되며 긍정적인 성과로 평가되었습니다. 삼성전자의 성과급 규모에 대한 언급도 있었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "삼성전자의 3분기 실적이 107.4조 원으로 매우 높게 기록되었음이 강조되었습니다. 이는 경쟁사인 TSMC, 마이크론과 비교되며 긍정적인 성과로 평가되었습니다. 삼성전자의 성과급 규모에 대한 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "삼성전자는 3분기 107.4조 원이라는 높은 실적을 기록하며 경쟁사인 TSMC, 마이크론과 비교했을 때 긍정적인 성과를 보였습니다. 이러한 실적은 삼성전자의 기술력과 시장 지배력을 보여주는 지표로 평가됩니다. 향후 일주일간 삼성전자의 실적 발표 결과와 더불어, AI 관련 기술 개발 및 투자 동향이 주가에 영향을 미칠 수 있습니다. 다만, 반도체 업황의 변동성과 글로벌 경쟁 심화 가능성도 염두에 두어야 합니다."
+      },
+      {
+        "name": "TSMC",
+        "freq": 1,
+        "summary": "TSMC의 직원들이 경쟁사인 삼성전자를 본받아야 한다는 언급이 있었습니다. 이는 TSMC의 실적이나 경쟁력에 대한 비교 분석의 맥락에서 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "TSMC의 직원들이 경쟁사인 삼성전자를 본받아야 한다는 언급이 있었습니다. 이는 TSMC의 실적이나 경쟁력에 대한 비교 분석의 맥락에서 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "TSMC는 경쟁사인 삼성전자와 비교되며 직원들이 삼성전자를 본받아야 한다는 언급이 있었습니다. 이는 TSMC의 실적이나 경쟁력에 대한 분석의 맥락에서 제시된 것으로 보입니다. 향후 일주일간 TSMC의 실적 발표 결과와 더불어, AI 관련 칩 수요 및 생산 능력에 대한 뉴스가 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 반도체 시장의 경쟁 심화와 지정학적 리스크도 고려해야 합니다."
+      },
+      {
+        "name": "마이크론",
+        "freq": 1,
+        "summary": "마이크론의 직원들이 경쟁사인 삼성전자를 본받아야 한다는 언급이 있었습니다. 이는 마이크론의 실적이나 경쟁력에 대한 비교 분석의 맥락에서 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "마이크론의 직원들이 경쟁사인 삼성전자를 본받아야 한다는 언급이 있었습니다. 이는 마이크론의 실적이나 경쟁력에 대한 비교 분석의 맥락에서 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "마이크론 역시 경쟁사인 삼성전자와 비교되며 직원들이 삼성전자를 본받아야 한다는 언급이 있었습니다. 이는 마이크론의 실적이나 경쟁력에 대한 분석의 맥락에서 제시된 것으로 보입니다. 향후 일주일간 마이크론의 실적 발표 결과와 더불어, AI 관련 메모리 반도체 수요 및 재고 수준에 대한 뉴스가 주가에 영향을 미칠 수 있습니다. 다만, 반도체 업황의 변동성과 글로벌 경쟁 심화 가능성도 염두에 두어야 합니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Microsoft",
+          "freq": 2
+        },
+        {
+          "name": "Stellantis",
+          "freq": 2
+        },
+        {
+          "name": "Goldman Sachs",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 1
+        },
+        {
+          "name": "Bristol Myers Squibb",
+          "freq": 1
+        },
+        {
+          "name": "Prenetics",
+          "freq": 1
+        },
+        {
+          "name": "Quoin Pharmaceuticals",
+          "freq": 1
+        },
+        {
+          "name": "Salesforce",
+          "freq": 1
+        },
+        {
+          "name": "Bausch + Lomb",
+          "freq": 1
+        },
+        {
+          "name": "Intel",
+          "freq": 1
+        },
+        {
+          "name": "TSMC",
+          "freq": 1
+        },
+        {
+          "name": "Amazon",
+          "freq": 1
+        },
+        {
+          "name": "Decart",
+          "freq": 1
+        },
+        {
+          "name": "Citroen",
+          "freq": 1
+        },
+        {
+          "name": "Lucid Capital Markets",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 4
+        },
+        {
+          "name": "Bond Market",
+          "freq": 4
+        },
+        {
+          "name": "Copper",
+          "freq": 3
+        },
+        {
+          "name": "Earnings Season",
+          "freq": 3
+        },
+        {
+          "name": "EVs",
+          "freq": 2
+        },
+        {
+          "name": "Inflation",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Data Centers",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Memory",
+          "freq": 1
+        },
+        {
+          "name": "Ransomware",
+          "freq": 1
+        },
+        {
+          "name": "Mortgage Rates",
+          "freq": 1
+        },
+        {
+          "name": "Halloween",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "CXMT",
+          "freq": 3
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "기아",
+          "freq": 2
+        },
+        {
+          "name": "삼성SDS",
+          "freq": 2
+        },
+        {
+          "name": "우정항공",
+          "freq": 2
+        },
+        {
+          "name": "노보 노디스크",
+          "freq": 1
+        },
+        {
+          "name": "한미",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "우리은행",
+          "freq": 1
+        },
+        {
+          "name": "스캐터랩",
+          "freq": 1
+        },
+        {
+          "name": "제일엠앤에스",
+          "freq": 1
+        },
+        {
+          "name": "대화제약",
+          "freq": 1
+        },
+        {
+          "name": "티엑스알로보틱스",
+          "freq": 1
+        },
+        {
+          "name": "고려아연",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "정유",
+          "freq": 4
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "환율",
+          "freq": 3
+        },
+        {
+          "name": "부동산",
+          "freq": 2
+        },
+        {
+          "name": "D램",
+          "freq": 3
+        },
+        {
+          "name": "비만 치료제",
+          "freq": 2
+        },
+        {
+          "name": "금융사기",
+          "freq": 2
+        },
+        {
+          "name": "항공 물류",
+          "freq": 2
+        },
+        {
+          "name": "ETF",
+          "freq": 2
+        },
+        {
+          "name": "물류",
+          "freq": 2
+        },
+        {
+          "name": "전기요금",
+          "freq": 1
+        },
+        {
+          "name": "LNG",
+          "freq": 1
+        },
+        {
+          "name": "편의점",
+          "freq": 1
+        },
+        {
+          "name": "주가 조작",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
