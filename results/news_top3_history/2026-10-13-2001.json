@@ -1,0 +1,973 @@
+{
+  "generated_at": "2026-10-13 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Bank Earnings",
+        "reason": "은행들의 실적 발표가 다수 포함되며 시장의 주목을 받았습니다. (총 5건)",
+        "us_news_refs": [
+          2,
+          8,
+          12,
+          20,
+          21,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Market Today: Bank Earnings Kick Off Earnings Season, Nasdaq Futures Drop — Live Updates - WSJ",
+            "title_ko": "주식 시장 오늘: 은행 실적 시즌 시작, 나스닥 선물 하락 - 라이브",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQaVpoWEZHOUphdU52VGpZdTFMUUVseXlHQ21JR3RHUUl0QUFMZ25NX3F6cVpweTIya2VnV3F6Szk1TXkweW1LeWlQa1phQ0NLUEtTZHNiaEV5ak5BdEhJU1VESnVZVHhkTFhvSV91bDBBMHYzY0lUazBaejhIbEhabndB?oc=5",
+            "published_at": "2026-10-13 18:15:00 KST"
+          },
+          {
+            "title": "Stock futures are mixed as traders weigh bank earnings; memory stocks fall after sell-off in Korea: Live updates - CNBC",
+            "title_ko": "옵션 거래자, 이달 말부터 주식 시장 변동성 예상. 주목할 4가지",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5vWkJFUkNSVTNpSXFUNGgxZWtlWUdXSmt3eC04ZllUYm9ma3UtYUNMS1ZQbDhDX0R1am5LZlZDcmx5Q2ZkR1pUTVBaOFR1WHgtY0FTakRvVkNpY1dnSDljcEp4SGpHYkw1cVF4LUhYZndrbmY5MlRR0gF8QVVfeXFMTmZhUmNzY2Z3a2tVNVlDdHVPZXUzeUQ2a3Vjc2Y4OGZuUTdmYlRvdDhSZXhVZmN0MWpoRjNkd19QYzQxZjN6RXlLcGZGYk5jLUQ1ZUdUZVpQSHp6eDh5X05pN1lWY2JpRWlpenZDNDFGQTJSdGtaOVFrczZUdQ?oc=5",
+            "published_at": "2026-10-13 17:53:58 KST"
+          },
+          {
+            "title": "Bank earnings live updates: JPMorgan stock falls on rare earnings miss",
+            "title_ko": "도미노피자, 3분기 실적 예상치 상회에도 주가 4% 하락",
+            "url": "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html",
+            "published_at": "2026-10-13 19:56:22 KST"
+          },
+          {
+            "title": "Exclusive-Bank of America loses bankers, tells staff of big ambition, continued hiring",
+            "title_ko": "크렘린, 미국 경유 거래와 우크라이나 협상 연관설 부인",
+            "url": "https://www.investing.com/news/stock-market-news/exclusivebank-of-america-loses-bankers-tells-staff-of-big-ambition-continued-hiring-4945993",
+            "published_at": "2026-10-13 19:43:49 KST"
+          },
+          {
+            "title": "Wells Fargo beats profit estimates despite revenue miss",
+            "title_ko": "Wells Fargo, Eliquis 우려로 Bristol-Myers Squibb 목표가 하향",
+            "url": "https://www.investing.com/news/earnings/wells-fargo-beats-profit-estimates-despite-revenue-miss-4946133",
+            "published_at": "2026-10-13 19:43:40 KST"
+          }
+        ],
+        "outlook": "미국 은행들의 실적 발표 시즌이 시작되면서 시장의 관심이 집중되고 있습니다. JP모건은 예상치를 하회하는 실적을 발표하며 주가가 하락했으나, 웰스파고는 예상치를 상회하는 수익을 기록했습니다. 다음 주에는 다른 주요 은행들의 실적 발표가 예정되어 있어, 은행 섹터 전반의 건전성과 향후 수익성에 대한 시장의 평가가 이어질 것으로 보입니다. 다만, 금리 변동성 및 거시 경제 불확실성은 은행 섹터에 부담으로 작용할 수 있습니다."
+      },
+      {
+        "name": "Chip Stocks",
+        "reason": "반도체 관련 기업들의 동향이 여러 차례 언급되며 업종 전반에 대한 관심을 반영했습니다. (총 6건)",
+        "us_news_refs": [
+          3,
+          7,
+          8,
+          10,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Elon Musk just nailed it on why chip stocks like Micron and Sandisk are being drilled on surprising news out of China - Yahoo Finance",
+            "title_ko": "일론 머스크, 중국발 소식에 Micron·Sandisk 등 반도체 주식 하락 이유 설명",
+            "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxQNE9WZnBVZkhpTW9ibWdjNFlWMFlkeXpuWUY5VDIyaE0tUU54Nnc1aktLODY0RWpxa2NYOVRxRkxzYmNoU0ZydU5qZy1PQ1l0WjlGbmxQaW93MWRDdzZ0aGd5RUN0RGhwMHBRU0R2RnZxSnA0NzZJMlZFcDJiaTFHY3JxYjJqeTh5Zi10eU4za2JHOXRyczhyZXJqVHk3Q0pzWVhWSTAtTjZNSXN2bmxNY0VjUFJuNWxYSjZUNEpOMTI2eEx0UXdNVWJBY1luM1hTVFlRMWEwdHc1cDA0QmJsNGlFWDlyLWVxXzI0ZkVwWGNubEx5UVdLS3AyYmxOdkNwYnVRMGlZa3N2eGFhanc?oc=5",
+            "published_at": "2026-10-13 18:04:47 KST"
+          },
+          {
+            "title": "Chip stocks slide after Broadcom boss likens AI investing to ‘casino’ - The Guardian",
+            "title_ko": "Broadcom CEO, AI 투자 '카지노' 비유 후 반도체 주식 하락",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOZTNMNERvMGJITmdiUUw5VGRoSkJjT2w1dHlxd2NPemdFMTlhUFRORXpiWUhJZU5DM0RvRG43cHNGUXpPOC1SNWlfUDI5NVBTdDNKS2M2ZGZQMjR4aVJOMmhNZ0lpejBIeFBOcG96NF9oN3pRYXJnZVNVaUpBTnlOZ2F2MFlWRFFudXhleVdyelVYY1ktOUY0?oc=5",
+            "published_at": "2026-10-13 17:54:00 KST"
+          },
+          {
+            "title": "Stock futures are mixed as traders weigh bank earnings; memory stocks fall after sell-off in Korea: Live updates - CNBC",
+            "title_ko": "옵션 거래자, 이달 말부터 주식 시장 변동성 예상. 주목할 4가지",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5vWkJFUkNSVTNpSXFUNGgxZWtlWUdXSmt3eC04ZllUYm9ma3UtYUNMS1ZQbDhDX0R1am5LZlZDcmx5Q2ZkR1pUTVBaOFR1WHgtY0FTakRvVkNpY1dnSDljcEp4SGpHYkw1cVF4LUhYZndrbmY5MlRR0gF8QVVfeXFMTmZhUmNzY2Z3a2tVNVlDdHVPZXUzeUQ2a3Vjc2Y4OGZuUTdmYlRvdDhSZXhVZmN0MWpoRjNkd19QYzQxZjN6RXlLcGZGYk5jLUQ1ZUdUZVpQSHp6eDh5X05pN1lWY2JpRWlpenZDNDFGQTJSdGtaOVFrczZUdQ?oc=5",
+            "published_at": "2026-10-13 17:53:58 KST"
+          },
+          {
+            "title": "'Brutal session' for chip stocks shows AI trade is turning - Reuters",
+            "title_ko": "세계 1위 펀드매니저, 6년 만에 채권 투자 의견 변경 이유",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPM1RJWWJHTmtIMnhaYWVyeFFpYV8wZndZMUFOVXM2NkpJdUNfRGlyQzdHeVcwMXkxcXkyWFFZQ3hXS3RpM0NqZUtNcmxNd3NkSGZETmlvTjRRYjJ3X3BXa0FEamh0NDExSTZieGRHam9BdFBiZXdOcTBSUXRPNlFEeTVKOEtkN3JiV25QUEsyekp0OTJRaU5nVA?oc=5",
+            "published_at": "2026-10-13 16:11:02 KST"
+          },
+          {
+            "title": "Nvidia and AMD Reached a Historic Valuation Split. 1 Stock Is Far Safer. - The Motley Fool",
+            "title_ko": "유가, 중동·우크라이나 분쟁 격화로 상승",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOTnBXbzZNNjl2alg4RnNpb0VtS3pRQjdNWmdmeEpLc0RPODdqa0t5aWl0YUhpVUhtcWJaQ0ZsUWZVT056d3YzT1B6aVlsLTlCTlhraWN0eEtuSUpIcHZTbzBhNkNxUGZXMFYwTk1UVVA2OG0wWE1YbVBwZjJLR2U3ZVRkYlViRG5GNDJrQkVTN3lNeV9kVWVJ?oc=5",
+            "published_at": "2026-10-13 05:30:00 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 최근 중국발 악재와 AI 투자에 대한 신중론이 부각되며 하락세를 보였습니다. 브로드컴 CEO의 AI 투자 관련 발언은 시장의 경계심을 높였습니다. 다음 주에는 엔비디아, AMD 등 주요 반도체 기업들의 동향과 함께 AI 관련 기술 발전 및 수요 변화가 주목받을 것으로 예상됩니다. 다만, 지정학적 리스크와 글로벌 공급망 불안정은 여전히 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "인공지능 관련 기업들의 소식이 지속적으로 보도되며 관련 테마에 대한 시장의 높은 관심을 보여줍니다. (총 2건)",
+        "us_news_refs": [
+          7,
+          9,
+          33,
+          35,
+          41,
+          43,
+          44,
+          45,
+          46
+        ],
+        "related_news": [
+          {
+            "title": "Chip stocks slide after Broadcom boss likens AI investing to ‘casino’ - The Guardian",
+            "title_ko": "Broadcom CEO, AI 투자 '카지노' 비유 후 반도체 주식 하락",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOZTNMNERvMGJITmdiUUw5VGRoSkJjT2w1dHlxd2NPemdFMTlhUFRORXpiWUhJZU5DM0RvRG43cHNGUXpPOC1SNWlfUDI5NVBTdDNKS2M2ZGZQMjR4aVJOMmhNZ0lpejBIeFBOcG96NF9oN3pRYXJnZVNVaUpBTnlOZ2F2MFlWRFFudXhleVdyelVYY1ktOUY0?oc=5",
+            "published_at": "2026-10-13 17:54:00 KST"
+          },
+          {
+            "title": "Anthropic warns AI models could soon copy themselves across home devices - CNBC",
+            "title_ko": "은행 실적 라이브: JPMorgan, 예상치 하회로 주가 하락",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPQWNyQzh5ak9WNUlLTW1wbWV4QkhuWGFqUHBocXhiZnllY0t2VGRXMWxiVTRpX05neGhMSlBXQml4VXlOZGRmazJ3VVhMRmlhVWRkd2JzNkd1Vm9RMlpWTDNUamZnQ3lJcXZJRDJDNGFBTDlhbDNOVEF5cUxiX1h3RG10bnM3OW9JQjRZN0R1OXTSAZYBQVVfeXFMTVRBTkdGclhPT1A4aEJuZW9Gdm1ndW14S1JoZGRZamN6Zlo3TFpQV0k5cjE5TEIxWnRBSFR4R1VkY1licnBqX0x2aGVJMC1vQzRLYXVYbkszcUxaSFdNMTZ2ZVZtYk5ZZ1BXQllBUTA5Z09BcGR2ZHYtUXB5WW52OXpTci1VcUtIbWhQanNXMUxEVXFIODl3?oc=5",
+            "published_at": "2026-10-13 17:27:20 KST"
+          },
+          {
+            "title": "IMF warns bond yields could see a 'disorderly' spike as debt, inflation risks worsen - CNBC",
+            "title_ko": "Kroger, 향후 3년간 기업 직무 3천 명 감축",
+            "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFA0NWY5MjlmVk1PaHV0SU9EREZoSDU4bGNOelBuU3FZXzJ4VE1lbUNCd2ZtcHE1dDhOTlA3WHRlVmg1aDk2NnZmT09jZU96N2pLWFFRVTJiNjJtN2FyQ1JwNU9aOWdub3dseTZhU1BFaUdNdkI5QVJjRWo1X0LSAYIBQVVfeXFMT2tDQnB3Zml0UUI2Z0h3YUxtY1h2OUdNZVdMTEZmM3ZUTWVtSVBOVHJBeTBNSm5jRFJFcVEyTDdaN1RXTngybVhUazJmaXc2MjdGMF9CbzZ0cGlvQmlXenNvY0Q4MUdubHVWdktPdkNVZVd6NVRta1hMNlpnSmoyMlJXQQ?oc=5",
+            "published_at": "2026-10-13 12:19:00 KST"
+          },
+          {
+            "title": "Intel \"Crescent Island\" GPU Gets D-Series Name, Supports Up to 480 GB of LPDDR5X - TechPowerUp",
+            "title_ko": "로드아일랜드산 3,156파운드 호박, 세계 신기록 가능성 검사",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQdjNsM1lTRjNmTHdIY2JsbHJGRk1PM3JzdGJaN2wwVlBfVmIzVUFkUFVuekQ0Rmd2Vl9PWDJOcFZ0UWFzZmRXUTlldVMtWkd4NUdmdFNQZXQ4NXhSM2xiTnlWbnBQdnU0OVR3WVUxWDFORlpwWWlmSFFKV0h2UUljTXhVS0F3NnhFOVd1dnkzaElFejNjREh5LU9SazJaeWNrLWM3ZzJGaF9pRzVwV21MNU530gG3AUFVX3lxTE8xUWV0Y3ZnX3N3X3M1MUJWWmljVmJsSW9zaDlCMVd2ZmVLMk0zLS05Zlp2STBza05GamJwWDBRMktsc0pycndOdmZ4LWRtUE5CazFCbDBNaW9fbUo0YVlWUXBTNjJOZkhuSllCMEQ3ZnNHMEpKbTRTdjRBSFFiS0Ffb0pIbElHTXRoaXVycjZQNHVjT0NfVkJFaTI0Mld2Rnl6YmlIM1NjWkRHdlRLeFdlbUw2OUFPdw?oc=5",
+            "published_at": "2026-10-13 11:19:59 KST"
+          },
+          {
+            "title": "Meta has reached AI ‘frontier,’ Zuckerberg says - Semafor",
+            "title_ko": "Microsoft 사장, AI 안전 규제 우유보다 적어. 글로벌 규제 촉구",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPTnNWZnV6WDBTOWtuYlZlQkxFbFA5WHBJMzF0SHNxelBmYTZlczRaVldOU3ZWdWMySkg4NE40YjBZTTdIdGNEV2ZST0RhVkdNYS15ZC1PQktZdHFpNkxQNjRRZUcwei0yLXpLVXdQTVRHVFlVWGU0cGp0amhNaWFGcUw4ZDBhbE1LME5mWnNLWFo?oc=5",
+            "published_at": "2026-10-13 07:35:00 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 반도체 섹터와 연관되어 주목받고 있으며, 관련 기업들의 기술 개발 및 투자 동향이 시장의 관심을 받고 있습니다. 메타의 CEO는 AI 기술의 최전선에 도달했다고 언급했으며, 앤트로픽은 AI 모델의 자체 복제 가능성에 대해 경고했습니다. 다음 주에는 AI 기술의 상용화 및 수익성 확보 방안에 대한 논의가 이어질 것으로 보입니다. 다만, AI 규제 관련 불확실성은 단기적인 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "UnitedHealth Group",
+        "reason": "헬스케어 섹터의 주요 기업으로 실적 발표 및 관련 이슈로 꾸준히 언급되었습니다. (총 4건)",
+        "us_news_refs": [
+          1,
+          8,
+          16,
+          26
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "UnitedHealth Group tops estimates, hikes profit outlook as insurer manages high medical costs - CNBC",
+            "title_ko": "UnitedHealth, 예상치 상회, 의료비 관리로 이익 전망 상향",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOazNrWk84UmRwVkpnNnA5N1dwQk1WdXBySk1lOWcwMVEwRmQ1NkgySzU0LWJBWmptRkoyVGNlRHJkUDBzM3N0YS12dFJISmZ5Tng2SmtvSDhWZEhBS3BxR1hzZllIS2hZYy16NGMyQjdwRFBBWmhKSDY2TV9lMUtXS0hB0gGHAUFVX3lxTE9WaVIyV2xtczZpMXAyMzJLSnV5aTE5VHJMWjZHWjNlNGx4SUotZk9vdEttNW5rbDhxQTRoSWVvS1lEVFY5NlJqc3l3R29id3UzSkhzNnpqVnQzdjBxNmxSYVM0NkxIZWNhM0dMZmxYb3BIWnpiMjVkaUl2RVRXd0RqRFN4SUdSdw?oc=5",
+            "published_at": "2026-10-13 18:57:53 KST"
+          },
+          {
+            "title": "Stock futures are mixed as traders weigh bank earnings; memory stocks fall after sell-off in Korea: Live updates - CNBC",
+            "title_ko": "옵션 거래자, 이달 말부터 주식 시장 변동성 예상. 주목할 4가지",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5vWkJFUkNSVTNpSXFUNGgxZWtlWUdXSmt3eC04ZllUYm9ma3UtYUNMS1ZQbDhDX0R1am5LZlZDcmx5Q2ZkR1pUTVBaOFR1WHgtY0FTakRvVkNpY1dnSDljcEp4SGpHYkw1cVF4LUhYZndrbmY5MlRR0gF8QVVfeXFMTmZhUmNzY2Z3a2tVNVlDdHVPZXUzeUQ2a3Vjc2Y4OGZuUTdmYlRvdDhSZXhVZmN0MWpoRjNkd19QYzQxZjN6RXlLcGZGYk5jLUQ1ZUdUZVpQSHp6eDh5X05pN1lWY2JpRWlpenZDNDFGQTJSdGtaOVFrczZUdQ?oc=5",
+            "published_at": "2026-10-13 17:53:58 KST"
+          },
+          {
+            "title": "UnitedHealth keeps medical costs under control — and raises its outlook again",
+            "title_ko": "플라비오 볼소나루, 브라질 결선 투표서 룰라 앞서",
+            "url": "https://www.marketwatch.com/story/unitedhealth-keeps-medical-costs-under-control-and-raises-its-outlook-again-71abc99c?mod=mw_rss_topstories",
+            "published_at": "2026-10-13 19:45:00 KST"
+          },
+          {
+            "title": "UnitedHealth Group tops estimates, hikes profit outlook as insurer manages high medical costs",
+            "title_ko": "IMF 차트 하나로 올해 세계 경제 전체 이야기",
+            "url": "https://www.cnbc.com/2026/10/13/unitedhealth-group-unh-earnings-q3-2026.html",
+            "published_at": "2026-10-13 19:01:37 KST"
+          }
+        ],
+        "outlook": "유나이티드헬스그룹은 예상치를 상회하는 실적을 발표하며 의료비 관리 능력을 입증했습니다. 회사는 이익 전망치를 상향 조정하며 긍정적인 신호를 보였습니다. 다음 주에는 헬스케어 섹터 내 다른 기업들의 실적 발표가 예정되어 있어, 관련 동향을 주시할 필요가 있습니다. 다만, 미국 정부의 의료 정책 변화 가능성은 장기적인 변수로 작용할 수 있습니다."
+      },
+      {
+        "name": "JPMorgan",
+        "reason": "은행 섹터의 대표적인 기업으로 실적 발표와 관련된 소식으로 주목받았습니다. (총 3건)",
+        "us_news_refs": [
+          2,
+          12,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Market Today: Bank Earnings Kick Off Earnings Season, Nasdaq Futures Drop — Live Updates - WSJ",
+            "title_ko": "주식 시장 오늘: 은행 실적 시즌 시작, 나스닥 선물 하락 - 라이브",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQaVpoWEZHOUphdU52VGpZdTFMUUVseXlHQ21JR3RHUUl0QUFMZ25NX3F6cVpweTIya2VnV3F6Szk1TXkweW1LeWlQa1phQ0NLUEtTZHNiaEV5ak5BdEhJU1VESnVZVHhkTFhvSV91bDBBMHYzY0lUazBaejhIbEhabndB?oc=5",
+            "published_at": "2026-10-13 18:15:00 KST"
+          },
+          {
+            "title": "Bank earnings live updates: JPMorgan stock falls on rare earnings miss",
+            "title_ko": "도미노피자, 3분기 실적 예상치 상회에도 주가 4% 하락",
+            "url": "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html",
+            "published_at": "2026-10-13 19:56:22 KST"
+          },
+          {
+            "title": "JPMorgan’s profit rises on investment banking, trading strength",
+            "title_ko": "재정 고문, UAE 데이터센터 35만 달러 투자 권유. 위험한가?",
+            "url": "https://www.investing.com/news/economy-news/jpmorgans-profit-rises-on-investment-banking-trading-strength-4946101",
+            "published_at": "2026-10-13 19:43:17 KST"
+          }
+        ],
+        "outlook": "JP모건은 은행 실적 시즌의 시작을 알리는 주요 기업 중 하나로, 예상치를 하회하는 실적을 기록하며 주가가 하락했습니다. 이는 은행 섹터 전반에 대한 투자 심리에 영향을 미칠 수 있습니다. 다음 주에는 다른 은행들의 실적 발표가 이어질 예정이며, JP모건의 실적 부진 원인 분석과 함께 향후 대출 수요 및 자산 건전성에 대한 시장의 관심이 집중될 것으로 보입니다."
+      },
+      {
+        "name": "Broadcom",
+        "reason": "반도체 및 AI 관련 기업으로, 관련 기술 발전 및 수요 증가와 함께 언급되었습니다. (총 3건)",
+        "us_news_refs": [
+          7,
+          10,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Chip stocks slide after Broadcom boss likens AI investing to ‘casino’ - The Guardian",
+            "title_ko": "Broadcom CEO, AI 투자 '카지노' 비유 후 반도체 주식 하락",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOZTNMNERvMGJITmdiUUw5VGRoSkJjT2w1dHlxd2NPemdFMTlhUFRORXpiWUhJZU5DM0RvRG43cHNGUXpPOC1SNWlfUDI5NVBTdDNKS2M2ZGZQMjR4aVJOMmhNZ0lpejBIeFBOcG96NF9oN3pRYXJnZVNVaUpBTnlOZ2F2MFlWRFFudXhleVdyelVYY1ktOUY0?oc=5",
+            "published_at": "2026-10-13 17:54:00 KST"
+          },
+          {
+            "title": "'Brutal session' for chip stocks shows AI trade is turning - Reuters",
+            "title_ko": "세계 1위 펀드매니저, 6년 만에 채권 투자 의견 변경 이유",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPM1RJWWJHTmtIMnhaYWVyeFFpYV8wZndZMUFOVXM2NkpJdUNfRGlyQzdHeVcwMXkxcXkyWFFZQ3hXS3RpM0NqZUtNcmxNd3NkSGZETmlvTjRRYjJ3X3BXa0FEamh0NDExSTZieGRHam9BdFBiZXdOcTBSUXRPNlFEeTVKOEtkN3JiV25QUEsyekp0OTJRaU5nVA?oc=5",
+            "published_at": "2026-10-13 16:11:02 KST"
+          },
+          {
+            "title": "Nvidia and AMD Reached a Historic Valuation Split. 1 Stock Is Far Safer. - The Motley Fool",
+            "title_ko": "유가, 중동·우크라이나 분쟁 격화로 상승",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOTnBXbzZNNjl2alg4RnNpb0VtS3pRQjdNWmdmeEpLc0RPODdqa0t5aWl0YUhpVUhtcWJaQ0ZsUWZVT056d3YzT1B6aVlsLTlCTlhraWN0eEtuSUpIcHZTbzBhNkNxUGZXMFYwTk1UVVA2OG0wWE1YbVBwZjJLR2U3ZVRkYlViRG5GNDJrQkVTN3lNeV9kVWVJ?oc=5",
+            "published_at": "2026-10-13 05:30:00 KST"
+          }
+        ],
+        "outlook": "브로드컴은 AI 투자에 대한 신중론을 제기하며 반도체 섹터 전반에 영향을 미쳤습니다. 회사의 CEO는 AI 투자를 '카지노'에 비유하며 시장의 경계심을 높였습니다. 다음 주에는 반도체 업황 및 AI 기술 발전 속도에 대한 시장의 전망이 주목받을 것으로 예상됩니다. 다만, 글로벌 경제 성장 둔화 가능성은 반도체 수요에 부정적인 영향을 줄 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Bank Earnings",
+          "outlook": "미국 은행들의 실적 발표 시즌이 시작되면서 시장의 관심이 집중되고 있습니다. JP모건은 예상치를 하회하는 실적을 발표하며 주가가 하락했으나, 웰스파고는 예상치를 상회하는 수익을 기록했습니다. 다음 주에는 다른 주요 은행들의 실적 발표가 예정되어 있어, 은행 섹터 전반의 건전성과 향후 수익성에 대한 시장의 평가가 이어질 것으로 보입니다. 다만, 금리 변동성 및 거시 경제 불확실성은 은행 섹터에 부담으로 작용할 수 있습니다."
+        },
+        {
+          "name": "Chip Stocks",
+          "outlook": "반도체 섹터는 최근 중국발 악재와 AI 투자에 대한 신중론이 부각되며 하락세를 보였습니다. 브로드컴 CEO의 AI 투자 관련 발언은 시장의 경계심을 높였습니다. 다음 주에는 엔비디아, AMD 등 주요 반도체 기업들의 동향과 함께 AI 관련 기술 발전 및 수요 변화가 주목받을 것으로 예상됩니다. 다만, 지정학적 리스크와 글로벌 공급망 불안정은 여전히 잠재적 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 반도체 섹터와 연관되어 주목받고 있으며, 관련 기업들의 기술 개발 및 투자 동향이 시장의 관심을 받고 있습니다. 메타의 CEO는 AI 기술의 최전선에 도달했다고 언급했으며, 앤트로픽은 AI 모델의 자체 복제 가능성에 대해 경고했습니다. 다음 주에는 AI 기술의 상용화 및 수익성 확보 방안에 대한 논의가 이어질 것으로 보입니다. 다만, AI 규제 관련 불확실성은 단기적인 투자 심리에 영향을 미칠 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "UnitedHealth Group",
+          "outlook": "유나이티드헬스그룹은 예상치를 상회하는 실적을 발표하며 의료비 관리 능력을 입증했습니다. 회사는 이익 전망치를 상향 조정하며 긍정적인 신호를 보였습니다. 다음 주에는 헬스케어 섹터 내 다른 기업들의 실적 발표가 예정되어 있어, 관련 동향을 주시할 필요가 있습니다. 다만, 미국 정부의 의료 정책 변화 가능성은 장기적인 변수로 작용할 수 있습니다."
+        },
+        {
+          "name": "JPMorgan",
+          "outlook": "JP모건은 은행 실적 시즌의 시작을 알리는 주요 기업 중 하나로, 예상치를 하회하는 실적을 기록하며 주가가 하락했습니다. 이는 은행 섹터 전반에 대한 투자 심리에 영향을 미칠 수 있습니다. 다음 주에는 다른 은행들의 실적 발표가 이어질 예정이며, JP모건의 실적 부진 원인 분석과 함께 향후 대출 수요 및 자산 건전성에 대한 시장의 관심이 집중될 것으로 보입니다."
+        },
+        {
+          "name": "Broadcom",
+          "outlook": "브로드컴은 AI 투자에 대한 신중론을 제기하며 반도체 섹터 전반에 영향을 미쳤습니다. 회사의 CEO는 AI 투자를 '카지노'에 비유하며 시장의 경계심을 높였습니다. 다음 주에는 반도체 업황 및 AI 기술 발전 속도에 대한 시장의 전망이 주목받을 것으로 예상됩니다. 다만, 글로벌 경제 성장 둔화 가능성은 반도체 수요에 부정적인 영향을 줄 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "금융",
+        "reason": "은행 및 보험 등 금융 관련 소식이 다수 포함되어 해당 섹터 전반에 대한 시장의 관심을 나타냅니다. (총 3건)",
+        "kr_news_refs": [
+          1,
+          10,
+          17,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[외환-마감] 코스피 급락 속 달러선물 올해 최대 순매수…10.00원↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1idEtlQVpfQUx4dkJVOUpNbnJya1BrY3pSMV9RY2JEUFFMNGVBM1U1d1pBZnN6UjF1QndkWklYcURBLVFzUGJiUzc3dmFxXzRXU1UxUkcyQ3R6U0R0QWhTb1I2NTRpd1dhRGc4ZVJDOC0?oc=5",
+            "published_at": "2026-10-13 18:44:22 KST"
+          },
+          {
+            "title": "[속보] 새마을금고, 400명대 정보유출 확인돼 당국 신고 - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9YcUlLQk5HS0FUM2d0ZmlUMlExU3UyRWZack9OS1UycTFDbTl1MVduZDBDMnlHMGVXWW8zZ1dGV2ZxOXR5MmhDWUczNFJNcnpMVzVabVlPMHBfQQ?oc=5",
+            "published_at": "2026-10-13 16:36:08 KST"
+          },
+          {
+            "title": "신한금융, 롯데손보 7천억에 인수…비은행 강화(종합) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9FR0lwTVF2QUdfSVZMMHRpX3l3d01ibTJIU3hVRGV4bXRjTXFCc29LX09pcEh1VFRRQ0hBS1gyTV9yMkY5bjBKNU1JbXJ5Q0d5bUNQTDV2T2psTXdoRnZEZFRPQTdOUGpuY083dHRhRXQ?oc=5",
+            "published_at": "2026-10-13 14:06:05 KST"
+          },
+          {
+            "title": "새마을금고 400명대 고객정보 유출…\"피해발생시 전액보상\"(종합2보)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261013155952002",
+            "published_at": "2026-10-13 19:50:37 KST"
+          }
+        ],
+        "outlook": "국내 금융 섹터는 새마을금고의 고객 정보 유출 이슈와 신한금융의 롯데손해보험 인수 소식이 주목받았습니다. 새마을금고 사태는 금융 보안 및 소비자 보호에 대한 경각심을 높였습니다. 다음 주에는 금리 변동 및 정부의 금융 정책 방향이 금융 섹터 전반에 영향을 미칠 것으로 보입니다. 다만, 경기 둔화 우려는 금융 기업들의 수익성에 부담으로 작용할 수 있습니다."
+      },
+      {
+        "name": "정치/정책",
+        "reason": "정부 정책 및 관련 이슈가 꾸준히 보도되며 시장에 영향을 미치는 주요 요인으로 작용했습니다. (총 3건)",
+        "kr_news_refs": [
+          4,
+          6,
+          8,
+          19,
+          41,
+          48,
+          59,
+          73,
+          89
+        ],
+        "related_news": [
+          {
+            "title": "정점식 \"공정거래위원장 반기업 정서 드러내...사퇴해야\" - YTN",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1VWHZXM0NVSGk0MXcyZ3hOcmc1c0NwNTdibDVid0l0a08xdHFFQk5RNnB6OGpOaHZyT2V5YjVKakJoa3BMLUNGM2pfRzlOLVhGZEdlV0wwZVFoOHRGQlE?oc=5",
+            "published_at": "2026-10-13 17:48:00 KST"
+          },
+          {
+            "title": "임광현 국세청장 “글로벌 기업 과세 수단 확보 위해 제도개선 추진” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1zMTlPd2lZWWNHOFNmMWpGTzlSNk5MM2dWUjFwQTg5dV9RaDVqLVBtem5uTXRPLVpjMWhKZ2lWR2Zjc3o4amh0Ty14RjlLSmpITWthdm5seGpSVzg?oc=5",
+            "published_at": "2026-10-13 17:13:00 KST"
+          },
+          {
+            "title": "코레일-SR 통합 한 달 반…코레일 운임 상승 가능성·예매 지연 문제 제기 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5WNjhfaDBmLWVMRlZIUlF5QjN3T0h2OEJ4bjBXb3dvNWY4MDY0Z2VaREQ5VndhQjV4MWgxXzNzcWlfSjktWm13Qm1TQ1VBdnVKdlZWY09rSWRxQUU?oc=5",
+            "published_at": "2026-10-13 16:45:00 KST"
+          },
+          {
+            "title": "“정년연장, 오늘 논의해도 늦다”…김영훈 노동장관, 연내 처리 ‘승부수’",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12174876",
+            "published_at": "2026-10-13 19:57:22 KST"
+          },
+          {
+            "title": "중수청·공수처 준비도 안 됐는데 일단 출범?…국조실장 “12월까진 문제 없도록”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12174816",
+            "published_at": "2026-10-13 18:45:47 KST"
+          }
+        ],
+        "outlook": "정치 및 정책 관련 뉴스는 공정거래위원장 사퇴 요구, 국세청장의 글로벌 기업 과세 제도 개선 추진 등 다양한 이슈가 보도되었습니다. 또한, 코레일-SR 통합 및 정년 연장 논의 등 사회 전반에 영향을 미치는 정책 관련 소식도 있었습니다. 다음 주에는 정부의 주요 정책 발표 및 국회 논의 결과가 시장에 영향을 미칠 가능성이 있습니다. 다만, 정책 불확실성은 투자 심리를 위축시킬 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "국내 주요 반도체 기업들의 동향과 관련된 뉴스가 지속적으로 언급되며 업종의 중요성을 보여줍니다. (총 2건)",
+        "kr_news_refs": [
+          1,
+          3,
+          5,
+          10,
+          11,
+          12,
+          13,
+          56
+        ],
+        "related_news": [
+          {
+            "title": "[외환-마감] 코스피 급락 속 달러선물 올해 최대 순매수…10.00원↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1idEtlQVpfQUx4dkJVOUpNbnJya1BrY3pSMV9RY2JEUFFMNGVBM1U1d1pBZnN6UjF1QndkWklYcURBLVFzUGJiUzc3dmFxXzRXU1UxUkcyQ3R6U0R0QWhTb1I2NTRpd1dhRGc4ZVJDOC0?oc=5",
+            "published_at": "2026-10-13 18:44:22 KST"
+          },
+          {
+            "title": "농협은행, 보이스피싱 보상보험 가입자 18만명 돌파 - 농민신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE10NlFocmEwZ00zRXkxQ2h1UDRSdktIUjd2OHVWV1VBQVd1Tm1xbUpTVm5CcXJUSEFHeHZBVmRQRS0yZnp5YWJhOV9tVmFocjZFV3pvbVozLWV0Zw?oc=5",
+            "published_at": "2026-10-13 17:58:00 KST"
+          },
+          {
+            "title": "이재용 회장, 삼전 지분 1.58→1.75% 확대…홍라희 여사 증여(종합) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBQMEJ0bzQzb1VrX3l6NTExQWZkWVlSOFRaS28tX196T3dfUGxUdjh3OVZLRkhxc0V2N3Fqc05ZNDVEVERvZWI3TVE3Vy10UGNMeFlWc3BRRzJ4NFl1R0ZsbU9uYVM1YUtRVUJuQVpYUEw?oc=5",
+            "published_at": "2026-10-13 17:26:28 KST"
+          },
+          {
+            "title": "[속보] 새마을금고, 400명대 정보유출 확인돼 당국 신고 - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9YcUlLQk5HS0FUM2d0ZmlUMlExU3UyRWZack9OS1UycTFDbTl1MVduZDBDMnlHMGVXWW8zZ1dGV2ZxOXR5MmhDWUczNFJNcnpMVzVabVlPMHBfQQ?oc=5",
+            "published_at": "2026-10-13 16:36:08 KST"
+          },
+          {
+            "title": "'장중 7% 급락' 코스피, 6천 회복하며 마감‥삼성전자 7%↓·SK하이닉스 10%↓ - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5sVndVemNfRk1HNTJjMmdsaEdEQWI4TUtUdmZzSGVmcGppWURybFloTFJMRXlFelRXME9vbzRfX2JsdkpiSjVrRWtrTnI3T2tQcjJaa0lObklFc0J4bXY5Rl9LR2RCb0V0ZGdqSEw2ZlE5M2dy0gF0QVVfeXFMTnpucFZ5c3lHeWlROUQ3WFlNQWtPczdaZnhNRzUwbDJFZnlwS0ZDdEFVX1BUV0JjeTg0M3hwczJXWUJTNUVueU9EcHNzQ0RKWFNTTlpsWFpzRi0wWmM5bXdBaG1MV1cyQWlHcHQ0dU1TMEhaWDQ?oc=5",
+            "published_at": "2026-10-13 16:05:49 KST"
+          }
+        ],
+        "outlook": "국내 반도체 섹터는 삼성전자와 SK하이닉스의 주가 급락 소식이 두드러졌습니다. 특히, 삼성전자의 3분기 실적 발표와 함께 주가가 큰 폭으로 하락했으며, SK하이닉스 역시 약세를 보였습니다. 다음 주에는 반도체 업황 회복 시점 및 주요 기업들의 신규 기술 개발 동향이 주목받을 것으로 예상됩니다. 다만, 글로벌 경기 둔화 및 지정학적 리스크는 여전히 부담 요인으로 작용할 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "reason": "국내 대표 반도체 기업으로, 업황 전망 및 신규 사업 관련 소식이 꾸준히 보도되었습니다. (총 3건)",
+        "kr_news_refs": [
+          1,
+          5,
+          11,
+          13,
+          14
+        ],
+        "related_news": [
+          {
+            "title": "[외환-마감] 코스피 급락 속 달러선물 올해 최대 순매수…10.00원↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1idEtlQVpfQUx4dkJVOUpNbnJya1BrY3pSMV9RY2JEUFFMNGVBM1U1d1pBZnN6UjF1QndkWklYcURBLVFzUGJiUzc3dmFxXzRXU1UxUkcyQ3R6U0R0QWhTb1I2NTRpd1dhRGc4ZVJDOC0?oc=5",
+            "published_at": "2026-10-13 18:44:22 KST"
+          },
+          {
+            "title": "이재용 회장, 삼전 지분 1.58→1.75% 확대…홍라희 여사 증여(종합) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBQMEJ0bzQzb1VrX3l6NTExQWZkWVlSOFRaS28tX196T3dfUGxUdjh3OVZLRkhxc0V2N3Fqc05ZNDVEVERvZWI3TVE3Vy10UGNMeFlWc3BRRzJ4NFl1R0ZsbU9uYVM1YUtRVUJuQVpYUEw?oc=5",
+            "published_at": "2026-10-13 17:26:28 KST"
+          },
+          {
+            "title": "'장중 7% 급락' 코스피, 6천 회복하며 마감‥삼성전자 7%↓·SK하이닉스 10%↓ - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5sVndVemNfRk1HNTJjMmdsaEdEQWI4TUtUdmZzSGVmcGppWURybFloTFJMRXlFelRXME9vbzRfX2JsdkpiSjVrRWtrTnI3T2tQcjJaa0lObklFc0J4bXY5Rl9LR2RCb0V0ZGdqSEw2ZlE5M2dy0gF0QVVfeXFMTnpucFZ5c3lHeWlROUQ3WFlNQWtPczdaZnhNRzUwbDJFZnlwS0ZDdEFVX1BUV0JjeTg0M3hwczJXWUJTNUVueU9EcHNzQ0RKWFNTTlpsWFpzRi0wWmM5bXdBaG1MV1cyQWlHcHQ0dU1TMEhaWDQ?oc=5",
+            "published_at": "2026-10-13 16:05:49 KST"
+          },
+          {
+            "title": "삼성전자 '100조 잭팟' 뒤 서늘한 경고…\"한국이 흔들린다\" [테크로그] - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE0ybTlfNDRfSnlTM3l0VzBjYm5QNmpPeW9wLWJ6UGE1dTF2ZEd3Nll1LTA4dW0wVFlneHNqaWlMTzFDY21VbEF3eDluN2FVSXAyR0FQcVRuVm1kUQ?oc=5",
+            "published_at": "2026-10-13 15:32:04 KST"
+          },
+          {
+            "title": "삼성·LG, 일상·산업 속 AI 기술 한눈에…’KES 2026’ 개최 - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBfbWtIOGxCdFNuNW9Eb1lhaG9uMVlRNmVxRHJSSE1zTUlwdFY1bV9ORmI2NFkxcVhFSWlRZGwwSm11RVNzZGJKYkRWNm5kTFVnMGJCY0J1MEtwcmhaekp6NUQ4eWZrdU0?oc=5",
+            "published_at": "2026-10-13 14:59:00 KST"
+          }
+        ],
+        "outlook": "삼성전자는 3분기 실적 발표 이후 주가가 큰 폭으로 하락하며 시장의 우려를 샀습니다. 3분기 매출은 107.4조 원으로 집계되었으나, 주가는 7% 가까이 하락했습니다. 다음 주에는 반도체 업황 회복 시점과 함께 삼성전자의 신규 사업 및 기술 개발 동향이 주목받을 것으로 보입니다. 다만, 글로벌 경기 둔화 및 경쟁 심화는 실적에 부담을 줄 수 있습니다."
+      },
+      {
+        "name": "새마을금고",
+        "reason": "금융 섹터 내에서 이슈가 부각되며 관련 뉴스가 다수 보도되었습니다. (총 3건)",
+        "kr_news_refs": [
+          10,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[속보] 새마을금고, 400명대 정보유출 확인돼 당국 신고 - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9YcUlLQk5HS0FUM2d0ZmlUMlExU3UyRWZack9OS1UycTFDbTl1MVduZDBDMnlHMGVXWW8zZ1dGV2ZxOXR5MmhDWUczNFJNcnpMVzVabVlPMHBfQQ?oc=5",
+            "published_at": "2026-10-13 16:36:08 KST"
+          },
+          {
+            "title": "새마을금고 400명대 고객정보 유출…\"피해발생시 전액보상\"(종합2보)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261013155952002",
+            "published_at": "2026-10-13 19:50:37 KST"
+          }
+        ],
+        "outlook": "새마을금고는 약 400명 규모의 고객 정보 유출 사고가 발생하여 당국에 신고되었습니다. 이 사고는 금융 보안에 대한 우려를 증폭시키고 있으며, 피해 발생 시 전액 보상을 약속했습니다. 다음 주에는 금융 당국의 조사 결과 및 재발 방지 대책 마련이 주목받을 것으로 예상됩니다. 다만, 이번 사태가 금융 시장 전반의 신뢰도에 미칠 영향은 지켜봐야 합니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "reason": "삼성전자와 함께 국내 반도체 업황을 대표하며 관련 기술 및 실적에 대한 관심이 나타났습니다. (총 2건)",
+        "kr_news_refs": [
+          3,
+          11
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "농협은행, 보이스피싱 보상보험 가입자 18만명 돌파 - 농민신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE10NlFocmEwZ00zRXkxQ2h1UDRSdktIUjd2OHVWV1VBQVd1Tm1xbUpTVm5CcXJUSEFHeHZBVmRQRS0yZnp5YWJhOV9tVmFocjZFV3pvbVozLWV0Zw?oc=5",
+            "published_at": "2026-10-13 17:58:00 KST"
+          },
+          {
+            "title": "'장중 7% 급락' 코스피, 6천 회복하며 마감‥삼성전자 7%↓·SK하이닉스 10%↓ - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5sVndVemNfRk1HNTJjMmdsaEdEQWI4TUtUdmZzSGVmcGppWURybFloTFJMRXlFelRXME9vbzRfX2JsdkpiSjVrRWtrTnI3T2tQcjJaa0lObklFc0J4bXY5Rl9LR2RCb0V0ZGdqSEw2ZlE5M2dy0gF0QVVfeXFMTnpucFZ5c3lHeWlROUQ3WFlNQWtPczdaZnhNRzUwbDJFZnlwS0ZDdEFVX1BUV0JjeTg0M3hwczJXWUJTNUVueU9EcHNzQ0RKWFNTTlpsWFpzRi0wWmM5bXdBaG1MV1cyQWlHcHQ0dU1TMEhaWDQ?oc=5",
+            "published_at": "2026-10-13 16:05:49 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 삼성전자와 함께 반도체 섹터의 전반적인 약세 속에서 주가가 10% 가까이 급락했습니다. 이는 반도체 업황 둔화 및 글로벌 수요 감소에 대한 우려를 반영한 것으로 보입니다. 다음 주에는 메모리 반도체 시장의 회복 시점과 함께 SK하이닉스의 신규 기술 개발 및 투자 계획이 주목받을 것으로 예상됩니다. 다만, 지정학적 리스크는 공급망 안정성에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "금융",
+          "outlook": "국내 금융 섹터는 새마을금고의 고객 정보 유출 이슈와 신한금융의 롯데손해보험 인수 소식이 주목받았습니다. 새마을금고 사태는 금융 보안 및 소비자 보호에 대한 경각심을 높였습니다. 다음 주에는 금리 변동 및 정부의 금융 정책 방향이 금융 섹터 전반에 영향을 미칠 것으로 보입니다. 다만, 경기 둔화 우려는 금융 기업들의 수익성에 부담으로 작용할 수 있습니다."
+        },
+        {
+          "name": "정치/정책",
+          "outlook": "정치 및 정책 관련 뉴스는 공정거래위원장 사퇴 요구, 국세청장의 글로벌 기업 과세 제도 개선 추진 등 다양한 이슈가 보도되었습니다. 또한, 코레일-SR 통합 및 정년 연장 논의 등 사회 전반에 영향을 미치는 정책 관련 소식도 있었습니다. 다음 주에는 정부의 주요 정책 발표 및 국회 논의 결과가 시장에 영향을 미칠 가능성이 있습니다. 다만, 정책 불확실성은 투자 심리를 위축시킬 수 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 삼성전자와 SK하이닉스의 주가 급락 소식이 두드러졌습니다. 특히, 삼성전자의 3분기 실적 발표와 함께 주가가 큰 폭으로 하락했으며, SK하이닉스 역시 약세를 보였습니다. 다음 주에는 반도체 업황 회복 시점 및 주요 기업들의 신규 기술 개발 동향이 주목받을 것으로 예상됩니다. 다만, 글로벌 경기 둔화 및 지정학적 리스크는 여전히 부담 요인으로 작용할 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 3분기 실적 발표 이후 주가가 큰 폭으로 하락하며 시장의 우려를 샀습니다. 3분기 매출은 107.4조 원으로 집계되었으나, 주가는 7% 가까이 하락했습니다. 다음 주에는 반도체 업황 회복 시점과 함께 삼성전자의 신규 사업 및 기술 개발 동향이 주목받을 것으로 보입니다. 다만, 글로벌 경기 둔화 및 경쟁 심화는 실적에 부담을 줄 수 있습니다."
+        },
+        {
+          "name": "새마을금고",
+          "outlook": "새마을금고는 약 400명 규모의 고객 정보 유출 사고가 발생하여 당국에 신고되었습니다. 이 사고는 금융 보안에 대한 우려를 증폭시키고 있으며, 피해 발생 시 전액 보상을 약속했습니다. 다음 주에는 금융 당국의 조사 결과 및 재발 방지 대책 마련이 주목받을 것으로 예상됩니다. 다만, 이번 사태가 금융 시장 전반의 신뢰도에 미칠 영향은 지켜봐야 합니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 삼성전자와 함께 반도체 섹터의 전반적인 약세 속에서 주가가 10% 가까이 급락했습니다. 이는 반도체 업황 둔화 및 글로벌 수요 감소에 대한 우려를 반영한 것으로 보입니다. 다음 주에는 메모리 반도체 시장의 회복 시점과 함께 SK하이닉스의 신규 기술 개발 및 투자 계획이 주목받을 것으로 예상됩니다. 다만, 지정학적 리스크는 공급망 안정성에 영향을 미칠 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 5,
+        "summary": "삼성전자, SK하이닉스 등 반도체 대장주들의 급락이 언급되었습니다. CXMT의 악재가 반도체 시장 전반의 하락 요인으로 작용했으나, 이것만으로는 설명되지 않는 하락이라는 분석이 있습니다. 시장은 반도체 섹터의 향후 방향성에 대해 반등과 추락 가능성을 동시에 제기하고 있습니다.",
+        "refs": [
+          1,
+          3,
+          4,
+          5,
+          9
+        ],
+        "reason": "삼성전자, SK하이닉스 등 반도체 대장주들의 급락이 언급되었습니다. CXMT의 악재가 반도체 시장 전반의 하락 요인으로 작용했으나, 이것만으로는 설명되지 않는 하락이라는 분석이 있습니다. 시장은 반도체 섹터의 향후 방향성에 대해 반등과 추락 가능성을 동시에 제기하고 있습니다.",
+        "related_videos": [
+          {
+            "title": "[26.10.13 오후 방송 전체보기] 힘 잃은 반도체에 시장 '주르륵'...내일장 반등 vs 추락, 어디로 향할까?",
+            "url": "https://www.youtube.com/watch?v=OEGwNsEbJSY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 19:21:16 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          },
+          {
+            "title": "완전한 저점은 아닙니다…복잡한 시장일수록 차트에서 보이는 '센 종목'으로ㅣ홍선애, 박병창 MP파트너스 대표 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=e3ebAvQ-3yY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 18:15:30 KST"
+          },
+          {
+            "title": "[10월 13일 마감시황] 코스피 매도 사이드카 발동에 반도체 투톱 급락…CXMT 악재만으로 설명 안 되는 하락ㅣ홍선애, 김장열, 박명석 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=Zaa9-6KAsGU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 17:04:54 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "최근 유튜브에서는 삼성전자와 SK하이닉스를 포함한 반도체 대장주들의 급락세가 주요 이슈로 다뤄졌습니다. CXMT의 악재가 반도체 시장 전반에 영향을 미쳤으나, 이것만으로는 설명되지 않는 하락이라는 분석도 제기되었습니다. 향후 반도체 섹터의 방향성에 대해 반등 가능성과 추가 하락 가능성이 동시에 언급되며, 시장은 혼조세를 보이고 있습니다. 다음 주에는 반도체 업황 회복 시점과 관련 기업들의 실적 발표가 주목받을 것으로 예상됩니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 투자 판도가 조용히 바뀌고 있다는 점이 언급되었습니다. 부진했던 빅테크 기업들과 팔란티어의 수상한 신고가가 AI 투자 환경 변화의 신호로 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "AI 투자 판도가 조용히 바뀌고 있다는 점이 언급되었습니다. 부진했던 빅테크 기업들과 팔란티어의 수상한 신고가가 AI 투자 환경 변화의 신호로 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          }
+        ],
+        "outlook": "AI 투자 판도에 조용한 변화가 감지된다는 분석이 유튜브에서 제시되었습니다. 부진했던 빅테크 기업들과 팔란티어의 수상한 신고가가 AI 투자 환경 변화의 신호로 언급되었습니다. 다음 주에는 AI 기술의 발전 속도와 함께 관련 기업들의 수익성 확보 전략이 주목받을 것으로 보입니다. 다만, AI 규제 관련 불확실성은 투자 심리에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "부동산",
+        "freq": 2,
+        "summary": "경기도 외곽 아파트의 위험성과 특정 아파트 매수 추천이 언급되었습니다. 2030년까지 서울 아파트 공급 부족으로 인한 가격 상승 가능성과 함께, 집값이 내년부터 무서울 것이라는 전망이 제시되었습니다.",
+        "refs": [
+          7,
+          8
+        ],
+        "reason": "경기도 외곽 아파트의 위험성과 특정 아파트 매수 추천이 언급되었습니다. 2030년까지 서울 아파트 공급 부족으로 인한 가격 상승 가능성과 함께, 집값이 내년부터 무서울 것이라는 전망이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "경기도 외곽 아파트는 위험하다, 당장 '이 아파트부터' 꼭 사세요 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=5VKeLowNJts",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 20:00:08 KST"
+          },
+          {
+            "title": "한국 아파트 싹다 물갈이 된다, 집값 내년부터 무서울 겁니다 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=p51hdgC-5xA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 18:30:09 KST"
+          }
+        ],
+        "outlook": "부동산 시장에서는 경기도 외곽 아파트의 위험성과 특정 아파트 매수 추천이 언급되었습니다. 또한, 2030년까지 서울 아파트 공급 부족으로 인한 가격 상승 가능성과 함께, 집값이 내년부터 크게 상승할 것이라는 전망이 제시되었습니다. 다음 주에는 정부의 부동산 정책 방향과 금리 변동 추이가 부동산 시장에 영향을 미칠 것으로 예상됩니다. 다만, 경기 둔화 가능성은 주택 수요에 부담으로 작용할 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자의 3분기 실적이 107.4조 원으로 언급되었으며, 주가는 -6.5% 급락했습니다. 이는 반도체 섹터 전반의 하락과 함께 분석되었으며, TSMC 및 마이크론과의 비교도 이루어졌습니다.",
+        "refs": [
+          3,
+          5,
+          9
+        ],
+        "reason": "삼성전자의 3분기 실적이 107.4조 원으로 언급되었으며, 주가는 -6.5% 급락했습니다. 이는 반도체 섹터 전반의 하락과 함께 분석되었으며, TSMC 및 마이크론과의 비교도 이루어졌습니다.",
+        "related_videos": [
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          },
+          {
+            "title": "[10월 13일 마감시황] 코스피 매도 사이드카 발동에 반도체 투톱 급락…CXMT 악재만으로 설명 안 되는 하락ㅣ홍선애, 김장열, 박명석 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=Zaa9-6KAsGU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 17:04:54 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "삼성전자는 최근 주가가 -6.5% 급락하며 시장의 주목을 받았습니다. 이는 반도체 섹터 전반의 약세와 함께 분석되었으며, 3분기 실적 또한 언급되었습니다. 다음 주에는 반도체 업황 회복 시점과 함께 삼성전자의 신규 기술 개발 및 투자 동향이 유튜브 콘텐츠에서 다뤄질 것으로 예상됩니다. 다만, 글로벌 경기 둔화는 반도체 수요에 부정적인 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "SK하이닉스는 삼성전자와 함께 -8.4%의 급락세를 보였습니다. 이는 반도체 섹터의 전반적인 약세와 연관되어 언급되었으며, 시장의 주목을 받았습니다.",
+        "refs": [
+          3,
+          5
+        ],
+        "reason": "SK하이닉스는 삼성전자와 함께 -8.4%의 급락세를 보였습니다. 이는 반도체 섹터의 전반적인 약세와 연관되어 언급되었으며, 시장의 주목을 받았습니다.",
+        "related_videos": [
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          },
+          {
+            "title": "[10월 13일 마감시황] 코스피 매도 사이드카 발동에 반도체 투톱 급락…CXMT 악재만으로 설명 안 되는 하락ㅣ홍선애, 김장열, 박명석 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=Zaa9-6KAsGU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-13 17:04:54 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 삼성전자와 함께 -8.4%의 급락세를 보이며 반도체 섹터의 전반적인 약세를 반영했습니다. 이는 시장에서 큰 관심을 받으며 분석되었습니다. 다음 주에는 메모리 반도체 시장의 회복 가능성과 SK하이닉스의 기술 경쟁력에 대한 논의가 이어질 것으로 보입니다. 다만, 지정학적 리스크는 공급망 안정성에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "팔란티어",
+        "freq": 1,
+        "summary": "부진했던 빅테크 기업들 속에서 팔란티어의 수상한 신고가가 AI 투자 판도 변화의 신호로 언급되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "부진했던 빅테크 기업들 속에서 팔란티어의 수상한 신고가가 AI 투자 판도 변화의 신호로 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          }
+        ],
+        "outlook": "팔란티어는 AI 투자 판도 변화의 신호로 언급되며 수상한 신고가를 기록했습니다. 이는 부진했던 빅테크 기업들과 대조적으로 나타나며 시장의 관심을 끌었습니다. 다음 주에는 팔란티어의 AI 관련 사업 확장 및 수익성 개선 여부가 주목받을 것으로 예상됩니다. 다만, AI 기술 발전 속도와 규제 환경 변화는 팔란티어의 향후 주가에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "UnitedHealth Group",
+          "freq": 4
+        },
+        {
+          "name": "JPMorgan",
+          "freq": 3
+        },
+        {
+          "name": "Micron",
+          "freq": 2
+        },
+        {
+          "name": "Broadcom",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "Wells Fargo",
+          "freq": 2
+        },
+        {
+          "name": "Bank of America",
+          "freq": 2
+        },
+        {
+          "name": "Domino’s",
+          "freq": 2
+        },
+        {
+          "name": "ASML",
+          "freq": 2
+        },
+        {
+          "name": "Bristol-Myers Squibb",
+          "freq": 2
+        },
+        {
+          "name": "Intel",
+          "freq": 2
+        },
+        {
+          "name": "AMD",
+          "freq": 2
+        },
+        {
+          "name": "Johnson & Johnson",
+          "freq": 1
+        },
+        {
+          "name": "Sandisk",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "Chip Stocks",
+          "freq": 6
+        },
+        {
+          "name": "Bank Earnings",
+          "freq": 5
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Memory Chips",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Bonds",
+          "freq": 2
+        },
+        {
+          "name": "Food & Beverage",
+          "freq": 2
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Payments",
+          "freq": 1
+        },
+        {
+          "name": "Data Centers",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        },
+        {
+          "name": "Dating Apps",
+          "freq": 1
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 3
+        },
+        {
+          "name": "새마을금고",
+          "freq": 3
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "HMM",
+          "freq": 2
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "롯데손보",
+          "freq": 1
+        },
+        {
+          "name": "HD현대",
+          "freq": 1
+        },
+        {
+          "name": "지멘스",
+          "freq": 1
+        },
+        {
+          "name": "코레일",
+          "freq": 1
+        },
+        {
+          "name": "SR",
+          "freq": 1
+        },
+        {
+          "name": "농협은행",
+          "freq": 1
+        },
+        {
+          "name": "쿠팡",
+          "freq": 1
+        },
+        {
+          "name": "배민",
+          "freq": 1
+        },
+        {
+          "name": "LG전자",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "정치/정책",
+          "freq": 3
+        },
+        {
+          "name": "은행",
+          "freq": 2
+        },
+        {
+          "name": "보험",
+          "freq": 2
+        },
+        {
+          "name": "조선",
+          "freq": 2
+        },
+        {
+          "name": "로봇",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "교통/물류",
+          "freq": 1
+        },
+        {
+          "name": "IT/기술",
+          "freq": 1
+        },
+        {
+          "name": "유통",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "국방",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
