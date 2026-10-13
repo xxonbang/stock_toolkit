@@ -1,0 +1,702 @@
+{
+  "generated_at": "2026-10-14 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요 강세와 관련 기업들의 실적 개선 기대감이 미국 증시에서 반도체 섹터에 대한 관심을 높였습니다 (총 5건)",
+        "us_news_refs": [
+          6,
+          11,
+          14,
+          15,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "S&P 500 closes near flat after big banks post earnings and memory chip stocks decline - CNBC",
+            "title_ko": "S&P 500, 은행 실적 발표 후 보합 마감",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5vWkJFUkNSVTNpSXFUNGgxZWtlWUdXSmt3eC04ZllUYm9ma3UtYUNMS1ZQbDhDX0R1am5LZlZDcmx5Q2ZkR1pUTVBaOFR1WHgtY0FTakRvVkNpY1dnSDljcEp4SGpHYkw1cVF4LUhYZndrbmY5MlRR0gF8QVVfeXFMTmZhUmNzY2Z3a2tVNVlDdHVPZXUzeUQ2a3Vjc2Y4OGZuUTdmYlRvdDhSZXhVZmN0MWpoRjNkd19QYzQxZjN6RXlLcGZGYk5jLUQ1ZUdUZVpQSHp6eDh5X05pN1lWY2JpRWlpenZDNDFGQTJSdGtaOVFrczZUdQ?oc=5",
+            "published_at": "2026-10-14 05:31:00 KST"
+          },
+          {
+            "title": "Chip Stocks Tumble on A.I. Spending Fears and Rising Chinese Competition - The New York Times",
+            "title_ko": "AI 지출 우려, 중국 경쟁으로 칩 주가 하락",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQSWJ0ZG5rRVhWSUQyclV5TE1zWHpBVmY1SDRRUkRMSUM5RThQVVpsakFsQmw5UG5CV04tMkFGVnhHNW4talZ2bHlxbDVrUGlweGxEcFhzWWwzX21fSTRYUi1PNS1pU1lVczFsOU1vRGF4R3BJUmppXzhfdmJTSThBRFZ3?oc=5",
+            "published_at": "2026-10-14 05:07:29 KST"
+          },
+          {
+            "title": "The latest inflation data is expected to show price increases are accelerating - CNBC",
+            "title_ko": "최신 인플레이션 데이터, 물가 상승 가속화 예상",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNS0xHWG5UZnF5VlRIVTJ6Q3pNSUt1WFgtc01hWjRreTVQWjRUYlpCUk5zRmRLamdJLXFLa0tWV0hfTUNzeU8wOS1sTmMzNEZ2QTJ5NURHVEtyaURLRm9WOGpLZjB3STlQRVV6WVRCcGtMZmNlY0lrcWxOb2RaYTZlb1lac9IBiAFBVV95cUxQY29TZUc0ekhYX3FHWnkwb0tLc3lXa29ZX05rdGdnNDFDM1hMU3BHRGFTZTdNTVZkR2xjNUdCbTJpQ3JyTkVJRjZwNGJYSUxlV3pJUnRGc0tVVEExTjBVTlVrc1k1WXVscnpxR2JrWjY1X2d3TWZIWlQxemlVRVk1SUNvYXNlRHI5?oc=5",
+            "published_at": "2026-10-14 03:05:57 KST"
+          },
+          {
+            "title": "Brutal session for chip stocks shows AI trade is turning - Reuters",
+            "title_ko": "칩 주식, AI 거래 전환으로 큰 폭 하락",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPM1RJWWJHTmtIMnhaYWVyeFFpYV8wZndZMUFOVXM2NkpJdUNfRGlyQzdHeVcwMXkxcXkyWFFZQ3hXS3RpM0NqZUtNcmxNd3NkSGZETmlvTjRRYjJ3X3BXa0FEamh0NDExSTZieGRHam9BdFBiZXdOcTBSUXRPNlFEeTVKOEtkN3JiV25QUEsyekp0OTJRaU5nVA?oc=5",
+            "published_at": "2026-10-14 03:04:55 KST"
+          },
+          {
+            "title": "Micron’s stock extends declines as China competition heats up",
+            "title_ko": "Micron 주가, 중국 경쟁 심화로 하락세 지속",
+            "url": "https://www.marketwatch.com/story/microns-stock-extends-declines-as-china-competition-heats-up-b8ec25f0?mod=mw_rss_topstories",
+            "published_at": "2026-10-14 05:25:00 KST"
+          }
+        ],
+        "outlook": "AI 칩 수요 강세와 관련 기업들의 실적 개선 기대감이 반도체 섹터에 대한 관심을 높이고 있습니다. 그러나 최근 칩 주식은 AI 지출 우려와 중국 경쟁 심화로 인해 하락세를 보였습니다. 또한, 인플레이션 데이터 발표가 예정되어 있어 시장 변동성에 영향을 줄 수 있습니다. 다음 주에는 반도체 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 주목받을 수 있습니다."
+      },
+      {
+        "name": "Banking",
+        "reason": "은행들의 실적 발표와 금리 변동성에 대한 분석이 금융 섹터에 대한 주목도를 높였습니다 (총 4건)",
+        "us_news_refs": [
+          4,
+          9,
+          17,
+          28,
+          31,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI in your oven? Anthropic warns models ‘months away’ from self-replication on smart devices - The Guardian",
+            "title_ko": "오븐 속 AI? Anthropic, 스마트 기기 자가 복제 임박 경고",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPRUxXc0hJVk5xRzdVTE5hQ2h2LWdnS21nUEZRVVFwX0dVZHJ5QUU1NUxmZUgydXVrRS1jSVNDRmtSVU1YYTh2RURQT0NQcEozdXdIb0FFM1RLakVTRXJFYTl4RU9kQXRPTUM5Vm1uVktaQ1NXaXp2Z3UySW5ZVktRTU5ZNGVocUszOTZV?oc=5",
+            "published_at": "2026-10-14 05:56:00 KST"
+          },
+          {
+            "title": "Bank of America hit with $1.2B in penalties over money laundering compliance failures - Fox Business",
+            "title_ko": "Bank of America, 자금 세탁 방지 실패로 12억 달러 벌금",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOR2g3SUtydkcwMUx6ZjRDRFpPaWZQMHZKNEl4ZmtTWFQxdGw5aWZWcUxtZ29aYzhWS3lsbXV4d3dHQ3dhaTcxalVTblpMSVVPR010Y1VINEpLSGxENWJ0TGFSLVg1a1B5MVRpSi1BM2ZLU3pMQmRLdE9hd01ra1d4d2dSZDdOTGNiUnRKSnJZOGtZWWZmZW9sMWJPUkNMWV9nUlRHRGdyWdIBrAFBVV95cUxQTTVNUVJJUDl2b2NSMVM1UVdDbWxSaXhIdnB6YlFDVXB2YmNFcDludUNfMElTYlVwX3VHaWt0VVo1QUxHSHVFU3hRR2RoYjBidWR3b3Q5dkFZWUFEZHVmaG1teXlHc01XRmdjQ1N4bXZiQWJ5UXZQSl9Zd2tTUzF3NmxwSVJqWURDSHZyS0RxS2ltTmZNN2lISERQQ3dnOTVJa01KaDJodmNqeEFw?oc=5",
+            "published_at": "2026-10-14 05:16:00 KST"
+          },
+          {
+            "title": "Bond Traders Hand Crown to Equities as US Banks Deliver Results - Bloomberg.com",
+            "title_ko": "채권 트레이더, 미국 은행 실적 발표 후 주식 선호",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObVphOE9oc0tKcV9uR05MLWlWQ01oUDFQMGI5NkgwdlBjdnBPclUwRWNkdmRwYVRWWDdhbnlUejNzVGl0X1JGeWRJQTl1UUNHUjdJQi1XX0dqMzFBYUM4T0hZMTg4R21lOVdaM1BWTF9UeVA4UGRkYkJqSkdUU0VWWXYyTGo1UGw2REdBV0pRSlBOSHRHVld3YmZGYnlZQktOd1BObEVGQ1paUExCc0l1TFZscw?oc=5",
+            "published_at": "2026-10-14 02:34:46 KST"
+          },
+          {
+            "title": "BofA fined $1.2 billion by US government for failing to police suspicious activity",
+            "title_ko": "BofA, 의심 활동 방치로 12억 달러 벌금 부과",
+            "url": "https://www.investing.com/news/stock-market-news/bofa-fined-12-billion-by-us-government-for-failing-to-police-suspicious-activity-4947537",
+            "published_at": "2026-10-14 07:06:18 KST"
+          },
+          {
+            "title": "Why is Bank of America stock sliding today?",
+            "title_ko": "Bank of America 주가 하락 이유",
+            "url": "https://www.investing.com/news/stock-market-news/why-is-bank-of-america-stock-sliding-today-93CH-4947634",
+            "published_at": "2026-10-14 07:01:28 KST"
+          }
+        ],
+        "outlook": "주요 은행들의 실적 발표와 금리 변동성에 대한 분석이 금융 섹터에 대한 주목도를 높이고 있습니다. 최근 Bank of America는 자금 세탁 방지 실패로 인해 대규모 벌금을 부과받았으며, 이는 해당 은행 주가에 하락 압력으로 작용했습니다. 채권 트레이더들이 주식 선호 현상을 보이고 있다는 분석도 있습니다. 다음 주에는 추가적인 은행 실적 발표나 연방준비제도(Fed)의 금리 관련 발언이 시장에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전과 관련 기업들의 성과에 대한 뉴스가 꾸준히 언급되며 AI 섹터가 주목받고 있습니다 (총 2건)",
+        "us_news_refs": [
+          4,
+          11,
+          12,
+          15,
+          37,
+          45,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI in your oven? Anthropic warns models ‘months away’ from self-replication on smart devices - The Guardian",
+            "title_ko": "오븐 속 AI? Anthropic, 스마트 기기 자가 복제 임박 경고",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPRUxXc0hJVk5xRzdVTE5hQ2h2LWdnS21nUEZRVVFwX0dVZHJ5QUU1NUxmZUgydXVrRS1jSVNDRmtSVU1YYTh2RURQT0NQcEozdXdIb0FFM1RLakVTRXJFYTl4RU9kQXRPTUM5Vm1uVktaQ1NXaXp2Z3UySW5ZVktRTU5ZNGVocUszOTZV?oc=5",
+            "published_at": "2026-10-14 05:56:00 KST"
+          },
+          {
+            "title": "Chip Stocks Tumble on A.I. Spending Fears and Rising Chinese Competition - The New York Times",
+            "title_ko": "AI 지출 우려, 중국 경쟁으로 칩 주가 하락",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQSWJ0ZG5rRVhWSUQyclV5TE1zWHpBVmY1SDRRUkRMSUM5RThQVVpsakFsQmw5UG5CV04tMkFGVnhHNW4talZ2bHlxbDVrUGlweGxEcFhzWWwzX21fSTRYUi1PNS1pU1lVczFsOU1vRGF4R3BJUmppXzhfdmJTSThBRFZ3?oc=5",
+            "published_at": "2026-10-14 05:07:29 KST"
+          },
+          {
+            "title": "Anthropic says its A.I. model submitted a false cold case tip to Philadelphia police - NBC News",
+            "title_ko": "Anthropic AI, 필라델피아 경찰에 잘못된 사건 정보 제공",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOODVnaE1VYlN3bTFyQnA2bnduR0FHTWh4MFB1M29VU3NTeTFJWlYzejlickh4SUlJbXI5N0xOY3lBRWpmdWtZeHBGOG9BZTRwOFpaSnlITTBhSUp2RnZVc1YzNWlHLXpnbDg0X2trak9OSFNFWVN2YUFKR1RFWlBGbnNycUd6NEh1eHgxTTkxNUtIRUtEeXV1cE5VaUVOVjJvNTJIaXp0S0I5Y1Zqd2pWbHRwWUZfY1Z4UHc?oc=5",
+            "published_at": "2026-10-14 03:24:34 KST"
+          },
+          {
+            "title": "Brutal session for chip stocks shows AI trade is turning - Reuters",
+            "title_ko": "칩 주식, AI 거래 전환으로 큰 폭 하락",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPM1RJWWJHTmtIMnhaYWVyeFFpYV8wZndZMUFOVXM2NkpJdUNfRGlyQzdHeVcwMXkxcXkyWFFZQ3hXS3RpM0NqZUtNcmxNd3NkSGZETmlvTjRRYjJ3X3BXa0FEamh0NDExSTZieGRHam9BdFBiZXdOcTBSUXRPNlFEeTVKOEtkN3JiV25QUEsyekp0OTJRaU5nVA?oc=5",
+            "published_at": "2026-10-14 03:04:55 KST"
+          },
+          {
+            "title": "Chip stocks suffer worst stretch in 16 months as AI fatigue grips the market",
+            "title_ko": "칩 주식, AI 피로감으로 16개월 최악 부진",
+            "url": "https://www.marketwatch.com/story/ai-fatigue-is-gripping-the-market-and-driving-chip-stocks-toward-their-worst-stretch-in-16-months-6dc78ece?mod=mw_rss_topstories",
+            "published_at": "2026-10-14 06:02:00 KST"
+          }
+        ],
+        "outlook": "AI 기술 발전과 관련 기업들의 성과에 대한 뉴스가 꾸준히 언급되며 AI 섹터가 주목받고 있습니다. 그러나 칩 주식의 하락세는 AI 관련 기업들의 투자 심리에도 영향을 미칠 수 있습니다. Anthropic의 AI 모델이 스마트 기기에서 자가 복제 가능성이 있다는 경고와 잘못된 정보 제공 사례가 보고되었습니다. 다음 주에는 AI 기술 개발 마일스톤이나 주요 빅테크 기업들의 AI 관련 발표가 주목받을 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Bank of America",
+        "reason": "은행 섹터 전반에 대한 관심 속에서 실적 발표 및 금리 관련 분석이 주목받았습니다 (총 5건)",
+        "us_news_refs": [
+          9,
+          28,
+          31
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Bank of America hit with $1.2B in penalties over money laundering compliance failures - Fox Business",
+            "title_ko": "Bank of America, 자금 세탁 방지 실패로 12억 달러 벌금",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOR2g3SUtydkcwMUx6ZjRDRFpPaWZQMHZKNEl4ZmtTWFQxdGw5aWZWcUxtZ29aYzhWS3lsbXV4d3dHQ3dhaTcxalVTblpMSVVPR010Y1VINEpLSGxENWJ0TGFSLVg1a1B5MVRpSi1BM2ZLU3pMQmRLdE9hd01ra1d4d2dSZDdOTGNiUnRKSnJZOGtZWWZmZW9sMWJPUkNMWV9nUlRHRGdyWdIBrAFBVV95cUxQTTVNUVJJUDl2b2NSMVM1UVdDbWxSaXhIdnB6YlFDVXB2YmNFcDludUNfMElTYlVwX3VHaWt0VVo1QUxHSHVFU3hRR2RoYjBidWR3b3Q5dkFZWUFEZHVmaG1teXlHc01XRmdjQ1N4bXZiQWJ5UXZQSl9Zd2tTUzF3NmxwSVJqWURDSHZyS0RxS2ltTmZNN2lISERQQ3dnOTVJa01KaDJodmNqeEFw?oc=5",
+            "published_at": "2026-10-14 05:16:00 KST"
+          },
+          {
+            "title": "BofA fined $1.2 billion by US government for failing to police suspicious activity",
+            "title_ko": "BofA, 의심 활동 방치로 12억 달러 벌금 부과",
+            "url": "https://www.investing.com/news/stock-market-news/bofa-fined-12-billion-by-us-government-for-failing-to-police-suspicious-activity-4947537",
+            "published_at": "2026-10-14 07:06:18 KST"
+          },
+          {
+            "title": "Why is Bank of America stock sliding today?",
+            "title_ko": "Bank of America 주가 하락 이유",
+            "url": "https://www.investing.com/news/stock-market-news/why-is-bank-of-america-stock-sliding-today-93CH-4947634",
+            "published_at": "2026-10-14 07:01:28 KST"
+          }
+        ],
+        "outlook": "최근 Bank of America는 자금 세탁 방지 실패로 인해 12억 달러의 벌금을 부과받았으며, 이는 주가 하락의 주요 요인으로 작용했습니다. 은행 섹터 전반에 대한 관심 속에서 실적 발표 및 금리 관련 분석이 주목받고 있으나, 규제 관련 이슈는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 해당 은행의 추가적인 공시나 시장의 반응이 주목될 것으로 보입니다."
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 기술 발전과 관련 기업들의 성과에 대한 뉴스가 꾸준히 언급되며 주목받고 있습니다 (총 3건)",
+        "us_news_refs": [
+          4,
+          12,
+          37
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI in your oven? Anthropic warns models ‘months away’ from self-replication on smart devices - The Guardian",
+            "title_ko": "오븐 속 AI? Anthropic, 스마트 기기 자가 복제 임박 경고",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPRUxXc0hJVk5xRzdVTE5hQ2h2LWdnS21nUEZRVVFwX0dVZHJ5QUU1NUxmZUgydXVrRS1jSVNDRmtSVU1YYTh2RURQT0NQcEozdXdIb0FFM1RLakVTRXJFYTl4RU9kQXRPTUM5Vm1uVktaQ1NXaXp2Z3UySW5ZVktRTU5ZNGVocUszOTZV?oc=5",
+            "published_at": "2026-10-14 05:56:00 KST"
+          },
+          {
+            "title": "Anthropic says its A.I. model submitted a false cold case tip to Philadelphia police - NBC News",
+            "title_ko": "Anthropic AI, 필라델피아 경찰에 잘못된 사건 정보 제공",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOODVnaE1VYlN3bTFyQnA2bnduR0FHTWh4MFB1M29VU3NTeTFJWlYzejlickh4SUlJbXI5N0xOY3lBRWpmdWtZeHBGOG9BZTRwOFpaSnlITTBhSUp2RnZVc1YzNWlHLXpnbDg0X2trak9OSFNFWVN2YUFKR1RFWlBGbnNycUd6NEh1eHgxTTkxNUtIRUtEeXV1cE5VaUVOVjJvNTJIaXp0S0I5Y1Zqd2pWbHRwWUZfY1Z4UHc?oc=5",
+            "published_at": "2026-10-14 03:24:34 KST"
+          },
+          {
+            "title": "Chip stocks suffer worst stretch in 16 months as AI fatigue grips the market",
+            "title_ko": "칩 주식, AI 피로감으로 16개월 최악 부진",
+            "url": "https://www.marketwatch.com/story/ai-fatigue-is-gripping-the-market-and-driving-chip-stocks-toward-their-worst-stretch-in-16-months-6dc78ece?mod=mw_rss_topstories",
+            "published_at": "2026-10-14 06:02:00 KST"
+          }
+        ],
+        "outlook": "AI 기술 발전과 관련 기업들의 성과에 대한 뉴스가 꾸준히 언급되며 Anthropic이 주목받고 있습니다. 최근 AI 모델의 자가 복제 가능성 경고와 잘못된 정보 제공 사례가 보고되었으며, 이는 기술적 신뢰성에 대한 질문을 제기할 수 있습니다. 칩 주식의 하락세는 AI 관련 기업들의 투자 심리에도 영향을 미칠 수 있습니다. 다음 주에는 Anthropic의 기술 개발 동향이나 파트너십 관련 소식이 주목받을 수 있습니다."
+      },
+      {
+        "name": "UnitedHealth",
+        "reason": "헬스케어 섹터 내에서 주요 기업의 동향이 투자자들의 관심을 끌었습니다 (총 3건)",
+        "us_news_refs": [
+          2,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "UnitedHealth Earnings Beat Wall Street Estimates. The Turnaround Continues. - Barron's",
+            "title_ko": "UnitedHealth, 예상치 상회 실적 기록",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNQVdJazIyaUdZemJxSnVZcW5LcWV1TFhZbWZXRDF0ckd1OGU1Q1EwcXM5VjcyYVFNMmtSV3VNbjVFNjQtb0FwN1VEVTZOWFZZejMtTFpwbGkwREhhV0pmWXE5al9kQTBxbl9ZRlpOUnItU3pjTFJ1aFRldzNkcC0yX3BJYmFfZw?oc=5",
+            "published_at": "2026-10-14 06:44:00 KST"
+          },
+          {
+            "title": "UnitedHealth keeps medical costs under control — and raises its outlook again",
+            "title_ko": "UnitedHealth, 의료비 통제 및 전망 상향",
+            "url": "https://www.marketwatch.com/story/unitedhealth-keeps-medical-costs-under-control-and-raises-its-outlook-again-71abc99c?mod=mw_rss_topstories",
+            "published_at": "2026-10-14 05:29:00 KST"
+          }
+        ],
+        "outlook": "UnitedHealth는 예상치를 상회하는 실적을 발표하며 헬스케어 섹터 내에서 긍정적인 흐름을 보였습니다. 의료 비용을 효과적으로 통제하고 전망을 상향 조정했다는 점은 긍정적인 요인입니다. 그러나 헬스케어 섹터 전반의 규제 변화 가능성이나 경쟁사의 동향은 잠재적인 위험 요인이 될 수 있습니다. 다음 주에는 해당 기업의 추가적인 실적 발표나 사업 확장 관련 뉴스가 주목받을 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "반도체",
+          "outlook": "AI 칩 수요 강세와 관련 기업들의 실적 개선 기대감이 반도체 섹터에 대한 관심을 높이고 있습니다. 그러나 최근 칩 주식은 AI 지출 우려와 중국 경쟁 심화로 인해 하락세를 보였습니다. 또한, 인플레이션 데이터 발표가 예정되어 있어 시장 변동성에 영향을 줄 수 있습니다. 다음 주에는 반도체 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 주목받을 수 있습니다."
+        },
+        {
+          "name": "Banking",
+          "outlook": "주요 은행들의 실적 발표와 금리 변동성에 대한 분석이 금융 섹터에 대한 주목도를 높이고 있습니다. 최근 Bank of America는 자금 세탁 방지 실패로 인해 대규모 벌금을 부과받았으며, 이는 해당 은행 주가에 하락 압력으로 작용했습니다. 채권 트레이더들이 주식 선호 현상을 보이고 있다는 분석도 있습니다. 다음 주에는 추가적인 은행 실적 발표나 연방준비제도(Fed)의 금리 관련 발언이 시장에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 기술 발전과 관련 기업들의 성과에 대한 뉴스가 꾸준히 언급되며 AI 섹터가 주목받고 있습니다. 그러나 칩 주식의 하락세는 AI 관련 기업들의 투자 심리에도 영향을 미칠 수 있습니다. Anthropic의 AI 모델이 스마트 기기에서 자가 복제 가능성이 있다는 경고와 잘못된 정보 제공 사례가 보고되었습니다. 다음 주에는 AI 기술 개발 마일스톤이나 주요 빅테크 기업들의 AI 관련 발표가 주목받을 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Bank of America",
+          "outlook": "최근 Bank of America는 자금 세탁 방지 실패로 인해 12억 달러의 벌금을 부과받았으며, 이는 주가 하락의 주요 요인으로 작용했습니다. 은행 섹터 전반에 대한 관심 속에서 실적 발표 및 금리 관련 분석이 주목받고 있으나, 규제 관련 이슈는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 해당 은행의 추가적인 공시나 시장의 반응이 주목될 것으로 보입니다."
+        },
+        {
+          "name": "Anthropic",
+          "outlook": "AI 기술 발전과 관련 기업들의 성과에 대한 뉴스가 꾸준히 언급되며 Anthropic이 주목받고 있습니다. 최근 AI 모델의 자가 복제 가능성 경고와 잘못된 정보 제공 사례가 보고되었으며, 이는 기술적 신뢰성에 대한 질문을 제기할 수 있습니다. 칩 주식의 하락세는 AI 관련 기업들의 투자 심리에도 영향을 미칠 수 있습니다. 다음 주에는 Anthropic의 기술 개발 동향이나 파트너십 관련 소식이 주목받을 수 있습니다."
+        },
+        {
+          "name": "UnitedHealth",
+          "outlook": "UnitedHealth는 예상치를 상회하는 실적을 발표하며 헬스케어 섹터 내에서 긍정적인 흐름을 보였습니다. 의료 비용을 효과적으로 통제하고 전망을 상향 조정했다는 점은 긍정적인 요인입니다. 그러나 헬스케어 섹터 전반의 규제 변화 가능성이나 경쟁사의 동향은 잠재적인 위험 요인이 될 수 있습니다. 다음 주에는 해당 기업의 추가적인 실적 발표나 사업 확장 관련 뉴스가 주목받을 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "반도체",
+          "outlook": "삼성전자, SK하이닉스 등 주요 반도체 기업들의 실적 부진과 주가 급락이 시장의 주요 이슈로 부각되고 있습니다. 특히 3분기 실적 발표와 차세대 HBM 기술 전략 공개가 주목받았으나, 전반적인 하락세 속에서 투자자들의 우려가 커지고 있습니다. 중국 배터리 기업의 한국산 소재 구매 움직임은 일부 긍정적인 신호로 해석될 수 있으나, 반도체 섹터 전반의 약세 흐름을 상쇄하기는 어려워 보입니다. 다음 주에는 미국 증시의 반도체 섹터 동향과 거시 경제 지표 발표가 국내 반도체 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 투자 판도 변화와 빅테크 기업들의 동향이 유튜브 콘텐츠에서 꾸준히 언급되고 있습니다. 특히 팔란티어의 신고가 달성 여부가 주목받았으나, AI 관련 칩 주식의 하락세는 투자 심리에 부정적인 영향을 미칠 수 있습니다. 국내 증시에서 AI 섹터는 반도체 섹터의 전반적인 약세 흐름과 연동될 가능성이 있습니다. 다음 주에는 AI 기술 개발 관련 새로운 소식이나 주요 기업들의 실적 발표가 주목받을 수 있습니다."
+        },
+        {
+          "name": "부동산",
+          "outlook": "경기도 외곽 아파트의 위험성과 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다. 향후 한국 아파트 시장의 변화와 집값 하락 전망에 대한 분석도 함께 이루어졌습니다. 부동산 시장은 거시 경제 지표, 금리 변동, 정부 정책 등 다양한 요인에 민감하게 반응할 수 있습니다. 다음 주에는 관련 정책 발표나 주요 경제 지표 발표가 부동산 시장에 영향을 미칠 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 3분기 실적 발표와 함께 차세대 HBM 기술 전략을 공개했으나, 주가는 급락세를 보였습니다. 이는 반도체 섹터 전반의 약세 흐름과 투자자들의 우려를 반영하는 것으로 해석됩니다. 단기적으로는 주가 하락에 대한 진단과 대응 방안이 제시되었으며, 향후 기술 경쟁력과 시장 상황에 따라 주가 흐름이 결정될 것으로 보입니다. 다음 주에는 미국 증시의 반도체 관련 소식과 국내 증시의 전반적인 투자 심리가 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 삼성전자와 마찬가지로 주가 급락세를 경험했으며, 이는 반도체 섹터의 전반적인 하락세와 연관되어 있습니다. 3분기 실적 발표 이후 투자자들의 우려가 제기되었으며, 향후 HBM 시장 경쟁 심화 및 거시 경제 불확실성이 주가에 영향을 미칠 수 있습니다. 다음 주에는 글로벌 반도체 시장 동향과 주요 고객사의 수요 변화가 SK하이닉스의 주가에 중요한 변수가 될 것입니다."
+        },
+        {
+          "name": "마이크론",
+          "outlook": "마이크론은 반도체 섹터의 주요 기업으로 언급되며, 주가 낙폭 축소와 관련된 내용이 다루어졌습니다. 삼성전자, SK하이닉스와 함께 반도체 섹터의 전반적인 흐름에 영향을 받을 것으로 예상됩니다. 특히 AI 관련 칩 수요와 중국 시장 경쟁 심화는 마이크론의 향후 실적과 주가에 중요한 영향을 미칠 수 있습니다. 다음 주에는 마이크론의 실적 발표나 주요 기술 개발 소식이 주목받을 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 4,
+        "summary": "삼성전자, SK하이닉스, 마이크론 등 주요 반도체 기업들의 실적 및 차세대 기술(HBM 등) 관련 내용이 언급되었습니다. 중국 배터리 기업의 한국산 소재 구매 움직임도 함께 다루어졌습니다.",
+        "refs": [
+          1,
+          3,
+          6,
+          10
+        ],
+        "reason": "삼성전자, SK하이닉스, 마이크론 등 주요 반도체 기업들의 실적 및 차세대 기술(HBM 등) 관련 내용이 언급되었습니다. 중국 배터리 기업의 한국산 소재 구매 움직임도 함께 다루어졌습니다.",
+        "related_videos": [
+          {
+            "title": "마이크론, CXMT 우려 속 장중 낙폭 축소…윌리엄스 총재 \"금리인상 연내 1회 예상\" [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=PbYewoijHjE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-14 07:09:11 KST"
+          },
+          {
+            "title": "코스피 전 세계 꼴찌로 추락…삼성, 8세대 HBM 등 차세대 전략 공개 | 한국산 소재 사겠다는 중국 배터리…왜? | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=0Wdp1qmkFHE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-14 05:20:53 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 삼성전자, SK하이닉스, 마이크론 등 주요 반도체 기업들의 실적 부진과 주가 급락에 대한 분석이 주를 이루고 있습니다. 특히 3분기 실적 발표와 차세대 HBM 기술 전략 공개가 주목받았으나, 전반적인 하락세 속에서 투자자들의 우려가 커지고 있습니다. 중국 배터리 기업의 한국산 소재 구매 움직임은 일부 긍정적인 신호로 해석될 수 있으나, 반도체 섹터 전반의 약세 흐름을 상쇄하기는 어려워 보입니다. 다음 주에는 미국 증시의 반도체 섹터 동향과 거시 경제 지표 발표가 국내 반도체 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 투자 판도 변화와 빅테크 기업들의 동향, 특히 팔란티어의 신고가 달성 여부가 언급되었습니다.",
+        "refs": [
+          7
+        ],
+        "reason": "AI 투자 판도 변화와 빅테크 기업들의 동향, 특히 팔란티어의 신고가 달성 여부가 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          }
+        ],
+        "outlook": "AI 투자 판도 변화와 빅테크 기업들의 동향이 유튜브 콘텐츠에서 꾸준히 언급되고 있습니다. 특히 팔란티어의 신고가 달성 여부가 주목받았으나, AI 관련 칩 주식의 하락세는 투자 심리에 부정적인 영향을 미칠 수 있습니다. 국내 증시에서 AI 섹터는 반도체 섹터의 전반적인 약세 흐름과 연동될 가능성이 있습니다. 다음 주에는 AI 기술 개발 관련 새로운 소식이나 주요 기업들의 실적 발표가 주목받을 수 있습니다."
+      },
+      {
+        "name": "부동산",
+        "freq": 2,
+        "summary": "경기도 외곽 아파트의 위험성과 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다. 향후 한국 아파트 시장의 변화와 집값 하락 전망도 언급되었습니다.",
+        "refs": [
+          8,
+          9
+        ],
+        "reason": "경기도 외곽 아파트의 위험성과 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다. 향후 한국 아파트 시장의 변화와 집값 하락 전망도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "경기도 외곽 아파트는 위험하다, 당장 '이 아파트부터' 꼭 사세요 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=5VKeLowNJts",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 20:00:08 KST"
+          },
+          {
+            "title": "한국 아파트 싹다 물갈이 된다, 집값 내년부터 무서울 겁니다 (고준석 교수)",
+            "url": "https://www.youtube.com/watch?v=p51hdgC-5xA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-12 18:30:09 KST"
+          }
+        ],
+        "outlook": "경기도 외곽 아파트의 위험성과 서울 아파트 공급 부족으로 인한 가격 상승 가능성이 제기되었습니다. 향후 한국 아파트 시장의 변화와 집값 하락 전망에 대한 분석도 함께 이루어졌습니다. 부동산 시장은 거시 경제 지표, 금리 변동, 정부 정책 등 다양한 요인에 민감하게 반응할 수 있습니다. 다음 주에는 관련 정책 발표나 주요 경제 지표 발표가 부동산 시장에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 4,
+        "summary": "삼성전자의 3분기 실적(107.4조 원)과 차세대 HBM 등 기술 전략이 언급되었습니다. 주가 급락(-6.5%)에 대한 진단과 대응 방안도 제시되었습니다.",
+        "refs": [
+          3,
+          6,
+          10
+        ],
+        "reason": "삼성전자의 3분기 실적(107.4조 원)과 차세대 HBM 등 기술 전략이 언급되었습니다. 주가 급락(-6.5%)에 대한 진단과 대응 방안도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "코스피 전 세계 꼴찌로 추락…삼성, 8세대 HBM 등 차세대 전략 공개 | 한국산 소재 사겠다는 중국 배터리…왜? | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=0Wdp1qmkFHE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-14 05:20:53 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "삼성전자는 3분기 실적 발표와 함께 차세대 HBM 기술 전략을 공개했으나, 주가는 급락세를 보였습니다. 이는 반도체 섹터 전반의 약세 흐름과 투자자들의 우려를 반영하는 것으로 해석됩니다. 단기적으로는 주가 하락에 대한 진단과 대응 방안이 제시되었으며, 향후 기술 경쟁력과 시장 상황에 따라 주가 흐름이 결정될 것으로 보입니다. 다음 주에는 미국 증시의 반도체 관련 소식과 국내 증시의 전반적인 투자 심리가 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "SK하이닉스의 주가 급락(-8.4%)에 대한 진단과 대응 방안이 제시되었습니다. 반도체 섹터 전반의 하락세와 연관되어 언급되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "SK하이닉스의 주가 급락(-8.4%)에 대한 진단과 대응 방안이 제시되었습니다. 반도체 섹터 전반의 하락세와 연관되어 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 삼성전자와 마찬가지로 주가 급락세를 경험했으며, 이는 반도체 섹터의 전반적인 하락세와 연관되어 있습니다. 3분기 실적 발표 이후 투자자들의 우려가 제기되었으며, 향후 HBM 시장 경쟁 심화 및 거시 경제 불확실성이 주가에 영향을 미칠 수 있습니다. 다음 주에는 글로벌 반도체 시장 동향과 주요 고객사의 수요 변화가 SK하이닉스의 주가에 중요한 변수가 될 것입니다."
+      },
+      {
+        "name": "마이크론",
+        "freq": 2,
+        "summary": "마이크론의 주가 낙폭 축소와 관련된 내용이 언급되었습니다. 삼성전자, SK하이닉스와 함께 반도체 섹터의 주요 기업으로 다루어졌습니다.",
+        "refs": [
+          1,
+          10
+        ],
+        "reason": "마이크론의 주가 낙폭 축소와 관련된 내용이 언급되었습니다. 삼성전자, SK하이닉스와 함께 반도체 섹터의 주요 기업으로 다루어졌습니다.",
+        "related_videos": [
+          {
+            "title": "마이크론, CXMT 우려 속 장중 낙폭 축소…윌리엄스 총재 \"금리인상 연내 1회 예상\" [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=PbYewoijHjE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-14 07:09:11 KST"
+          },
+          {
+            "title": "삼전닉스가 쏘아올린 작은 공",
+            "url": "https://www.youtube.com/watch?v=bDIX66FJt3Y",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-12 17:59:39 KST"
+          }
+        ],
+        "outlook": "마이크론은 반도체 섹터의 주요 기업으로 언급되며, 주가 낙폭 축소와 관련된 내용이 다루어졌습니다. 삼성전자, SK하이닉스와 함께 반도체 섹터의 전반적인 흐름에 영향을 받을 것으로 예상됩니다. 특히 AI 관련 칩 수요와 중국 시장 경쟁 심화는 마이크론의 향후 실적과 주가에 중요한 영향을 미칠 수 있습니다. 다음 주에는 마이크론의 실적 발표나 주요 기술 개발 소식이 주목받을 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Bank of America",
+          "freq": 5
+        },
+        {
+          "name": "Anthropic",
+          "freq": 3
+        },
+        {
+          "name": "UnitedHealth",
+          "freq": 3
+        },
+        {
+          "name": "OpenAI",
+          "freq": 1
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Micron",
+          "freq": 2
+        },
+        {
+          "name": "AT&T",
+          "freq": 2
+        },
+        {
+          "name": "Broadcom",
+          "freq": 2
+        },
+        {
+          "name": "SK Hynix",
+          "freq": 1
+        },
+        {
+          "name": "Qualcomm",
+          "freq": 1
+        },
+        {
+          "name": "Arm",
+          "freq": 1
+        },
+        {
+          "name": "Six Flags Entertainment",
+          "freq": 1
+        },
+        {
+          "name": "AST SpaceMobile",
+          "freq": 1
+        },
+        {
+          "name": "Walmart",
+          "freq": 1
+        },
+        {
+          "name": "CVS",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 5
+        },
+        {
+          "name": "Banking",
+          "freq": 4
+        },
+        {
+          "name": "Bonds",
+          "freq": 4
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 3
+        },
+        {
+          "name": "Airlines",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "Telecommunications",
+          "freq": 2
+        },
+        {
+          "name": "Inflation",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Data Centers",
+          "freq": 1
+        },
+        {
+          "name": "Amusement Parks",
+          "freq": 1
+        },
+        {
+          "name": "Social Security",
+          "freq": 1
+        },
+        {
+          "name": "Drug Manufacturing",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "현대차그룹",
+          "freq": 2
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "LG전자",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "SK네트웍스",
+          "freq": 1
+        },
+        {
+          "name": "업스테이지",
+          "freq": 1
+        },
+        {
+          "name": "롯데온",
+          "freq": 1
+        },
+        {
+          "name": "신세계 센텀시티",
+          "freq": 1
+        },
+        {
+          "name": "롯데백화점",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Banking",
+          "freq": 3
+        },
+        {
+          "name": "Retail",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Bonds",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Data Centers",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Supply Chain",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "Internet Services",
+          "freq": 1
+        },
+        {
+          "name": "Entertainment",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
