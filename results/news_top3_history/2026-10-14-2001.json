@@ -1,0 +1,852 @@
+{
+  "generated_at": "2026-10-14 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "금융",
+        "reason": "미국 은행주들의 실적 발표 및 금융 시장 전반의 동향에 대한 뉴스가 다수 보도되었습니다. (총 4건)",
+        "us_news_refs": [
+          0,
+          1,
+          7,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Bank of America is set to report third-quarter earnings – here’s what the Street expects - CNBC",
+            "title_ko": "Bank of America 3분기 실적 발표 예정",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBPMXJOY0xGWTJDNzFZOE9zdFNUY2YzLWhfTFZxRzNXNEN1clVndlpIY2VLYjdjdjIweWZJT3dZUG5DMUhoajNIREJVR245VVNDR18zWXRmVGxxcEM0NjVrdkNKZ2ZZaW9DeUJnTjZBbGFETlRtV2k0RUxFUUJKQdIBgwFBVV95cUxNZVgtWWNFdU1VZmpTZWVsT25oa2VuTldmb3praDdHWFo0dl9Za1ZYcVFoZF93RW9kVy1WZzdNUk5QRXhoa196am1JN3dQTFUyM3g5cHV4bTZXMW95REZpSFdyNEI0bExXNlFqVzNlSVNtaTY1VEFCaGhTX0o5QnJZU3hRMA?oc=5",
+            "published_at": "2026-10-14 19:15:01 KST"
+          },
+          {
+            "title": "Bank of America posts third-quarter profit drop due to $1.2 billion Treasury fine",
+            "title_ko": "Bank of America, 12억 달러 벌금에 3분기 이익 감소",
+            "url": "https://www.cnbc.com/2026/10/14/bank-of-america-bac-q3-2026-earnings.html",
+            "published_at": "2026-10-14 20:00:33 KST"
+          },
+          {
+            "title": "Bank of America hit with $1.2bn fine for money laundering failings - BBC",
+            "title_ko": "Bank of America, 자금 세탁 부실로 12억 달러 벌금",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBULW5LeTJFX2xLUTlRLU01OFAyVm84dE5qODBzN1E3SDE2WnAzU2tKSEVQc3hJYm9PX2ZvUFRBRGNVZmYwWmVpQ0dZY2lTSWxZWldLdGhib3RQZWc?oc=5",
+            "published_at": "2026-10-14 11:05:32 KST"
+          }
+        ],
+        "outlook": "미국 금융 섹터는 다음 주 은행들의 실적 발표에 주목하고 있습니다. Bank of America는 10월 14일 3분기 실적을 발표할 예정이며, 시장은 주당 순이익(EPS) 1.10달러, 매출 30.54억 달러를 예상하고 있습니다. 그러나 최근 몇 달간의 주가 하락과 투자 은행 수수료 감소 전망은 잠재적 위험 요인으로 작용할 수 있습니다. 또한, 금리 변동성이 예금 비용과 대출 상환에 미치는 영향도 주시해야 할 부분입니다. 다음 주에는 주요 은행들의 실적 발표가 집중되어 있어 시장 전반의 투자 심리에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "ASML 등 반도체 장비 기업의 실적 및 기술 동향에 대한 관심이 지속되고 있습니다. (총 3건)",
+        "us_news_refs": [
+          2,
+          4,
+          14,
+          25
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock market today: Dow, S&P 500, Nasdaq futures edge higher ahead of CPI inflation data, earnings - Yahoo Finance",
+            "title_ko": "주식 시장: CPI, 실적 발표 앞두고 상승",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQbmNfYW1YU2h6RkdxZGI0Sk1Obko1aUlMT1FydzFhRFR6ZzJ6c2R0YllDOFlDYzBjaTVsVFlucHFDWkhSc3kzNnBpSTJWb1JXb1ZHTGg4eXRCZG42MWJfUTdSQzJic1BDc3A4cHp6MUhDQVlaRU8zWXdXVlRBT3ZybEJlVU5naE5jNjBYR2FwNWt5SE5mbUdTby1mVlZqU0lSbjZrYzV3WnBNSHpKemNZZg?oc=5",
+            "published_at": "2026-10-14 19:00:38 KST"
+          },
+          {
+            "title": "ASML Stock Rises as Earnings Point to a Scramble for Chipmaking Machines - Barron's",
+            "title_ko": "ASML 주가 상승, 반도체 장비 수요 급증",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBpbkxpTFBzSFJrQVlNUlVPeFhaTjM1cmMzVFYydUJEMkN1Y0RjbmFSZ0FZRVk5R0h2d1MxNjdLU3hZNXpyTU42LTM2ZWVxcTBUN1AzSjlsRFpEdkd0MHJGRW8tNndSdVVkU3NYc3owWXJtdXFYWEE?oc=5",
+            "published_at": "2026-10-14 17:42:00 KST"
+          },
+          {
+            "title": "European stocks gain on ASML sales forecast; U.S. CPI test awaited",
+            "title_ko": "유럽 증시 ASML 호조에 상승, 美 CPI 대기",
+            "url": "https://www.investing.com/news/stock-market-news/european-stocks-gain-on-asml-sales-forecast-us-cpi-test-awaited-4948177",
+            "published_at": "2026-10-14 19:41:42 KST"
+          },
+          {
+            "title": "Chip bellwether ASML says customers are already asking to place orders — for 2030",
+            "title_ko": "ASML: 고객들 2030년 주문 문의 시작",
+            "url": "https://www.marketwatch.com/story/chip-bellwether-asml-says-customers-are-already-asking-to-place-orders-for-2030-b3aa1a90?mod=mw_rss_topstories",
+            "published_at": "2026-10-14 17:41:00 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 ASML의 실적 발표를 앞두고 높은 기대를 받고 있습니다. ASML은 10월 14일 3분기 실적을 발표할 예정이며, 시장은 주당 순이익(EPS) 10.66달러, 매출 116.8억 달러를 예상하고 있습니다. 특히, AI 관련 투자가 지속되면서 ASML의 장비 수요와 향후 전망에 대한 관심이 높습니다. 그러나 국제 수출 통제와 같은 지정학적 요인이 잠재적 위험으로 작용할 수 있습니다. 또한, AI 칩 수요는 강세를 보이고 있으나, 일반 소비자용 칩 시장의 회복 속도는 더딜 수 있다는 점도 고려해야 합니다. 다음 주에는 ASML의 실적 발표와 함께 AI 관련 기업들의 동향이 반도체 섹터 전반의 투자 심리에 영향을 미칠 것으로 보입니다."
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전 및 관련 기업들의 동향에 대한 뉴스가 꾸준히 언급되었습니다. (총 2건)",
+        "us_news_refs": [
+          4,
+          5,
+          10,
+          15,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "ASML Stock Rises as Earnings Point to a Scramble for Chipmaking Machines - Barron's",
+            "title_ko": "ASML 주가 상승, 반도체 장비 수요 급증",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBpbkxpTFBzSFJrQVlNUlVPeFhaTjM1cmMzVFYydUJEMkN1Y0RjbmFSZ0FZRVk5R0h2d1MxNjdLU3hZNXpyTU42LTM2ZWVxcTBUN1AzSjlsRFpEdkd0MHJGRW8tNndSdVVkU3NYc3owWXJtdXFYWEE?oc=5",
+            "published_at": "2026-10-14 17:42:00 KST"
+          },
+          {
+            "title": "'I applied for 200 jobs' - How 'spray and pray' AI job applications can backfire - BBC",
+            "title_ko": "'200곳 지원했다' AI 채용 지원의 역효과",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9XOWg0Mm12ZGJtQ3Q0bXZ5TGdPd2JiZC1hWjdXaWtMUXUyanYxUHdzaDVxQnNuRG5ydFhvenBaTzBVcmUxUjJtQnoyOGIwWnVSQldTMDBhY1FpRnc?oc=5",
+            "published_at": "2026-10-14 17:27:17 KST"
+          },
+          {
+            "title": "Morgan Stanley raises SpaceX stock price target on distributed inference potential",
+            "title_ko": "Morgan Stanley, SpaceX 목표 주가 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/morgan-stanley-raises-spacex-stock-price-target-on-distributed-inference-potential-93CH-4948701",
+            "published_at": "2026-10-14 19:46:48 KST"
+          },
+          {
+            "title": "Premarket movers: Alibaba gains on new AI glasses; Liquidia rallies as legal eases",
+            "title_ko": "프리마켓: Alibaba AI 안경에 상승, Liquidia 법적 문제 완화",
+            "url": "https://www.investing.com/news/stock-market-news/premarket-movers-alibaba-gains-on-new-ai-glasses-liquidia-rallies-as-legal-eases-4948661",
+            "published_at": "2026-10-14 19:41:22 KST"
+          },
+          {
+            "title": "Character.ai's Bankruptcy Documents Show the Economics of AI Don't Work - 404 Media",
+            "title_ko": "Character.ai 파산 서류, AI 경제성 문제 드러나",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOTmNQVGs4MEYydGJpZTFxZkNxOXhONUs1N01ucHRKcFh6VjIyMjB1bXdBcEt3SFNjSkFsbGtaVHVqdTJxTmMtdzBGNExYNWN3SWFENjc1SjVoaHpoSGg4bC0xMzl0X01aNnU0RUtnc2liQ2Y1UTJtMC1hbkZYOUQ4NnR2ZktRc0w0YXhka21vMV9EU19sdmNfdkRB?oc=5",
+            "published_at": "2026-10-14 05:09:28 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 지속적인 투자 확대와 기술 발전으로 주목받고 있습니다. 특히, AI 인프라 구축을 위한 막대한 투자가 미국 경제 성장의 주요 동력으로 작용하고 있습니다. 칩 제조사, 유틸리티, 에너지 기업 등 AI 생태계 구축에 기여하는 기업들에 대한 관심이 높습니다. 그러나 AI 기술의 미래 활용 방안에 대한 불확실성과 함께, AI 모델 개발 속도 조절에 대한 논의도 진행 중입니다. 다음 주에는 AI 관련 기업들의 실적 발표와 함께, AI 기술 발전 동향 및 규제 관련 뉴스가 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Bank of America",
+        "reason": "미국 은행주들의 실적 발표 및 금융 시장 동향과 관련된 뉴스가 다수 보도되었습니다. (총 4건)",
+        "us_news_refs": [
+          0,
+          1,
+          2,
+          7,
+          30
+        ],
+        "related_news": [
+          {
+            "title": "Bank of America is set to report third-quarter earnings – here’s what the Street expects - CNBC",
+            "title_ko": "Bank of America 3분기 실적 발표 예정",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBPMXJOY0xGWTJDNzFZOE9zdFNUY2YzLWhfTFZxRzNXNEN1clVndlpIY2VLYjdjdjIweWZJT3dZUG5DMUhoajNIREJVR245VVNDR18zWXRmVGxxcEM0NjVrdkNKZ2ZZaW9DeUJnTjZBbGFETlRtV2k0RUxFUUJKQdIBgwFBVV95cUxNZVgtWWNFdU1VZmpTZWVsT25oa2VuTldmb3praDdHWFo0dl9Za1ZYcVFoZF93RW9kVy1WZzdNUk5QRXhoa196am1JN3dQTFUyM3g5cHV4bTZXMW95REZpSFdyNEI0bExXNlFqVzNlSVNtaTY1VEFCaGhTX0o5QnJZU3hRMA?oc=5",
+            "published_at": "2026-10-14 19:15:01 KST"
+          },
+          {
+            "title": "Stock market today: Dow, S&P 500, Nasdaq futures edge higher ahead of CPI inflation data, earnings - Yahoo Finance",
+            "title_ko": "주식 시장: CPI, 실적 발표 앞두고 상승",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQbmNfYW1YU2h6RkdxZGI0Sk1Obko1aUlMT1FydzFhRFR6ZzJ6c2R0YllDOFlDYzBjaTVsVFlucHFDWkhSc3kzNnBpSTJWb1JXb1ZHTGg4eXRCZG42MWJfUTdSQzJic1BDc3A4cHp6MUhDQVlaRU8zWXdXVlRBT3ZybEJlVU5naE5jNjBYR2FwNWt5SE5mbUdTby1mVlZqU0lSbjZrYzV3WnBNSHpKemNZZg?oc=5",
+            "published_at": "2026-10-14 19:00:38 KST"
+          },
+          {
+            "title": "Bank of America posts third-quarter profit drop due to $1.2 billion Treasury fine",
+            "title_ko": "Bank of America, 12억 달러 벌금에 3분기 이익 감소",
+            "url": "https://www.cnbc.com/2026/10/14/bank-of-america-bac-q3-2026-earnings.html",
+            "published_at": "2026-10-14 20:00:33 KST"
+          },
+          {
+            "title": "Bank of America hit with $1.2bn fine for money laundering failings - BBC",
+            "title_ko": "Bank of America, 자금 세탁 부실로 12억 달러 벌금",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBULW5LeTJFX2xLUTlRLU01OFAyVm84dE5qODBzN1E3SDE2WnAzU2tKSEVQc3hJYm9PX2ZvUFRBRGNVZmYwWmVpQ0dZY2lTSWxZWldLdGhib3RQZWc?oc=5",
+            "published_at": "2026-10-14 11:05:32 KST"
+          }
+        ],
+        "outlook": "Bank of America는 10월 14일 3분기 실적 발표를 앞두고 있습니다. 시장은 주당 순이익(EPS) 1.10달러, 매출 30.54억 달러를 예상하고 있으며, 이는 전년 대비 증가한 수치입니다. 그러나 투자 은행 수수료 감소 전망과 금리 상승에 따른 자금 조달 비용 및 대출 상환 부담 증가는 잠재적 위험 요인으로 작용할 수 있습니다. 또한, 최근 주가 하락세는 투자자들의 경계감을 높이고 있습니다. 다음 주 실적 발표 결과와 경영진의 향후 전망 제시가 주가 방향성에 중요한 영향을 미칠 것으로 예상됩니다."
+      },
+      {
+        "name": "ASML",
+        "reason": "반도체 장비 분야의 주요 기업으로, 실적 및 기술 동향에 대한 뉴스가 주목받았습니다. (총 5건)",
+        "us_news_refs": [
+          2,
+          4,
+          14,
+          25,
+          30
+        ],
+        "related_news": [
+          {
+            "title": "Stock market today: Dow, S&P 500, Nasdaq futures edge higher ahead of CPI inflation data, earnings - Yahoo Finance",
+            "title_ko": "주식 시장: CPI, 실적 발표 앞두고 상승",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQbmNfYW1YU2h6RkdxZGI0Sk1Obko1aUlMT1FydzFhRFR6ZzJ6c2R0YllDOFlDYzBjaTVsVFlucHFDWkhSc3kzNnBpSTJWb1JXb1ZHTGg4eXRCZG42MWJfUTdSQzJic1BDc3A4cHp6MUhDQVlaRU8zWXdXVlRBT3ZybEJlVU5naE5jNjBYR2FwNWt5SE5mbUdTby1mVlZqU0lSbjZrYzV3WnBNSHpKemNZZg?oc=5",
+            "published_at": "2026-10-14 19:00:38 KST"
+          },
+          {
+            "title": "ASML Stock Rises as Earnings Point to a Scramble for Chipmaking Machines - Barron's",
+            "title_ko": "ASML 주가 상승, 반도체 장비 수요 급증",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBpbkxpTFBzSFJrQVlNUlVPeFhaTjM1cmMzVFYydUJEMkN1Y0RjbmFSZ0FZRVk5R0h2d1MxNjdLU3hZNXpyTU42LTM2ZWVxcTBUN1AzSjlsRFpEdkd0MHJGRW8tNndSdVVkU3NYc3owWXJtdXFYWEE?oc=5",
+            "published_at": "2026-10-14 17:42:00 KST"
+          },
+          {
+            "title": "European stocks gain on ASML sales forecast; U.S. CPI test awaited",
+            "title_ko": "유럽 증시 ASML 호조에 상승, 美 CPI 대기",
+            "url": "https://www.investing.com/news/stock-market-news/european-stocks-gain-on-asml-sales-forecast-us-cpi-test-awaited-4948177",
+            "published_at": "2026-10-14 19:41:42 KST"
+          },
+          {
+            "title": "Chip bellwether ASML says customers are already asking to place orders — for 2030",
+            "title_ko": "ASML: 고객들 2030년 주문 문의 시작",
+            "url": "https://www.marketwatch.com/story/chip-bellwether-asml-says-customers-are-already-asking-to-place-orders-for-2030-b3aa1a90?mod=mw_rss_topstories",
+            "published_at": "2026-10-14 17:41:00 KST"
+          },
+          {
+            "title": "Bank of America hit with $1.2bn fine for money laundering failings - BBC",
+            "title_ko": "Bank of America, 자금 세탁 부실로 12억 달러 벌금",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBULW5LeTJFX2xLUTlRLU01OFAyVm84dE5qODBzN1E3SDE2WnAzU2tKSEVQc3hJYm9PX2ZvUFRBRGNVZmYwWmVpQ0dZY2lTSWxZWldLdGhib3RQZWc?oc=5",
+            "published_at": "2026-10-14 11:05:32 KST"
+          }
+        ],
+        "outlook": "ASML은 10월 14일 3분기 실적 발표를 앞두고 있으며, 시장은 주당 순이익(EPS) 10.66달러, 매출 116.8억 달러를 예상하고 있습니다. AI 관련 투자가 지속되면서 ASML의 반도체 장비 수요는 견조한 흐름을 보이고 있으며, 2029년 및 2030년 주문에 대한 관심도 나타나고 있습니다. 그러나 국제 수출 통제와 같은 지정학적 리스크는 잠재적 위험 요인으로 작용할 수 있습니다. 또한, AI 칩 수요는 강세를 보이지만, 일반 소비자용 칩 시장의 회복 속도는 더딜 수 있다는 점도 고려해야 합니다. 다음 주 실적 발표와 함께 향후 전망 제시가 주가에 중요한 영향을 미칠 것으로 예상됩니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "금융",
+          "outlook": "미국 금융 섹터는 다음 주 은행들의 실적 발표에 주목하고 있습니다. Bank of America는 10월 14일 3분기 실적을 발표할 예정이며, 시장은 주당 순이익(EPS) 1.10달러, 매출 30.54억 달러를 예상하고 있습니다. 그러나 최근 몇 달간의 주가 하락과 투자 은행 수수료 감소 전망은 잠재적 위험 요인으로 작용할 수 있습니다. 또한, 금리 변동성이 예금 비용과 대출 상환에 미치는 영향도 주시해야 할 부분입니다. 다음 주에는 주요 은행들의 실적 발표가 집중되어 있어 시장 전반의 투자 심리에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "반도체 섹터는 ASML의 실적 발표를 앞두고 높은 기대를 받고 있습니다. ASML은 10월 14일 3분기 실적을 발표할 예정이며, 시장은 주당 순이익(EPS) 10.66달러, 매출 116.8억 달러를 예상하고 있습니다. 특히, AI 관련 투자가 지속되면서 ASML의 장비 수요와 향후 전망에 대한 관심이 높습니다. 그러나 국제 수출 통제와 같은 지정학적 요인이 잠재적 위험으로 작용할 수 있습니다. 또한, AI 칩 수요는 강세를 보이고 있으나, 일반 소비자용 칩 시장의 회복 속도는 더딜 수 있다는 점도 고려해야 합니다. 다음 주에는 ASML의 실적 발표와 함께 AI 관련 기업들의 동향이 반도체 섹터 전반의 투자 심리에 영향을 미칠 것으로 보입니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 지속적인 투자 확대와 기술 발전으로 주목받고 있습니다. 특히, AI 인프라 구축을 위한 막대한 투자가 미국 경제 성장의 주요 동력으로 작용하고 있습니다. 칩 제조사, 유틸리티, 에너지 기업 등 AI 생태계 구축에 기여하는 기업들에 대한 관심이 높습니다. 그러나 AI 기술의 미래 활용 방안에 대한 불확실성과 함께, AI 모델 개발 속도 조절에 대한 논의도 진행 중입니다. 다음 주에는 AI 관련 기업들의 실적 발표와 함께, AI 기술 발전 동향 및 규제 관련 뉴스가 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Bank of America",
+          "outlook": "Bank of America는 10월 14일 3분기 실적 발표를 앞두고 있습니다. 시장은 주당 순이익(EPS) 1.10달러, 매출 30.54억 달러를 예상하고 있으며, 이는 전년 대비 증가한 수치입니다. 그러나 투자 은행 수수료 감소 전망과 금리 상승에 따른 자금 조달 비용 및 대출 상환 부담 증가는 잠재적 위험 요인으로 작용할 수 있습니다. 또한, 최근 주가 하락세는 투자자들의 경계감을 높이고 있습니다. 다음 주 실적 발표 결과와 경영진의 향후 전망 제시가 주가 방향성에 중요한 영향을 미칠 것으로 예상됩니다."
+        },
+        {
+          "name": "ASML",
+          "outlook": "ASML은 10월 14일 3분기 실적 발표를 앞두고 있으며, 시장은 주당 순이익(EPS) 10.66달러, 매출 116.8억 달러를 예상하고 있습니다. AI 관련 투자가 지속되면서 ASML의 반도체 장비 수요는 견조한 흐름을 보이고 있으며, 2029년 및 2030년 주문에 대한 관심도 나타나고 있습니다. 그러나 국제 수출 통제와 같은 지정학적 리스크는 잠재적 위험 요인으로 작용할 수 있습니다. 또한, AI 칩 수요는 강세를 보이지만, 일반 소비자용 칩 시장의 회복 속도는 더딜 수 있다는 점도 고려해야 합니다. 다음 주 실적 발표와 함께 향후 전망 제시가 주가에 중요한 영향을 미칠 것으로 예상됩니다."
+        },
+        {
+          "name": "Palantir Technologies",
+          "outlook": "Palantir Technologies는 최근 미국 육군과의 대규모 계약 체결 소식으로 주목받고 있습니다. 이는 회사의 군사 분야에서의 입지를 더욱 강화하고, 향후 매출 성장에 긍정적인 영향을 미칠 것으로 예상됩니다. 또한, AI 기술을 활용한 솔루션 제공 능력이 향상되면서 상업 부문에서의 성장 가능성도 제기되고 있습니다. 그러나 높은 밸류에이션과 시장 변동성은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기술 발전 동향과 함께, 회사의 신규 계약 및 파트너십 관련 뉴스가 주가에 영향을 미칠 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "자동차",
+        "reason": "현대자동차 등 국내 자동차 업계의 실적 및 신차 출시 등 동향에 대한 뉴스가 다수 보도되었습니다. (총 3건)",
+        "kr_news_refs": [
+          4,
+          11,
+          37
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "현대차, 인도 푸네 신공장 준공…2030년 생산능력 32만대 확대 - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE02aXBGYVlnTlloam1NOVlTMVFnUDczQ0V0SXZjUWVRcXRtcEc3MTdPMUhleC1ZRmdYazNieFd3RDBPb2hzN0FVWGRnT05WbWNxRnIyUEI2S2RvRmh6Q1YzNjA1cXhKRlE?oc=5",
+            "published_at": "2026-10-14 17:00:00 KST"
+          },
+          {
+            "title": "‘태초마을’로 돌아간 현대차 주가…개미들 ‘아비규환’ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBGLTRTZW45Wnl0bDlXUDF4WldQSUhYWVF4d3hUSGdvMW54MHRuOWNOWVZrdHZjRTB3TDdLb2lfN0NMLUlfdUJPTDRMekFMYTZKekE?oc=5",
+            "published_at": "2026-10-14 15:03:37 KST"
+          },
+          {
+            "title": "인도서 '제2의 도약' 나선 현대차, 연 150만대 생산한다(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261014005751003",
+            "published_at": "2026-10-14 19:13:40 KST"
+          }
+        ],
+        "outlook": "국내 자동차 섹터는 현대자동차의 인도 신공장 준공 소식과 함께 주목받고 있습니다. 이는 생산 능력 확대 및 글로벌 시장 공략 강화에 긍정적인 영향을 미칠 것으로 예상됩니다. 그러나 원화 강세로 인한 수출 경쟁력 약화 및 원자재 가격 상승은 수익성에 부담으로 작용할 수 있습니다. 다음 주에는 현대자동차의 3분기 실적 발표가 예정되어 있으며, 시장은 환율 변동 및 신차 출시 효과 등을 주시할 것으로 보입니다."
+      },
+      {
+        "name": "AI",
+        "reason": "인공지능 기술 발전 및 관련 기업들의 동향에 대한 뉴스가 꾸준히 언급되었습니다. (총 2건)",
+        "kr_news_refs": [
+          2,
+          6,
+          9,
+          13
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "산업통상부·식약처, 바이오 산업 AI 전환·글로벌 경쟁력 강화 업무협약 체결 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1KNm54OXg3X0F2TU1ZcGh1bHRxd2xUVzlJRXNLRWVsNjh6NlZCMG9lRFUyLXpvdXNHOGVnaGMtT3J5N0RodVVxbV9sajV5RzRfWlRkZk04QQ?oc=5",
+            "published_at": "2026-10-14 18:39:00 KST"
+          },
+          {
+            "title": "은행부터 코인거래소까지 ‘금융권 AI 해킹’…최소 10만건 개인정보 유출 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5PZjR3bU9tV0JTQ0NEUW1ET1hGWkx2d1hmYnhaOUhsc1VndTRDNHBrVGhsUGJTSGVkOHV2cFZ4MFNuYm1CODhUaFA5NjVmeExsSUxEd25zU2RFeTJvMGhPWXVhVzRmYmc?oc=5",
+            "published_at": "2026-10-14 16:27:00 KST"
+          },
+          {
+            "title": "\"군대에서도 내 AI 비서 쓴다\"…'모두의 AI' 3사, 장병 AI 제안 - 지디넷코리아",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5EbDJUWDc3czVTWWtPZWR5Y1U4VDZZcWVWdkhqSjNJUDNGbDNPc0lYSWxVY0RFdXV2UGNZN1p3VFFkejY4VXVCMk11VGxHa0cxUmpNZzF3?oc=5",
+            "published_at": "2026-10-14 15:10:44 KST"
+          },
+          {
+            "title": "카카오, ‘모두의 AI’ 연내 공개 예정…월 이용자 500만 명 목표 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE43NnU3MlhmZWZkcEdnRU1abkNDcHdIdG85YU9NZVBqVF90N3BXTHFCVlJIbDZQbkg3RGR5NWltZ29IaXNWNkdIWm1aYzBmLU4wbnVfd1hhVnlwdVk?oc=5",
+            "published_at": "2026-10-14 14:58:00 KST"
+          }
+        ],
+        "outlook": "국내 AI 섹터는 산업 전반에 걸친 AI 기술 도입 확대와 함께 성장세를 이어갈 것으로 전망됩니다. 특히, 바이오 산업의 AI 전환 및 금융권의 AI 해킹 관련 뉴스는 AI 기술의 다양한 적용 가능성을 보여줍니다. 그러나 AI 기술 발전 속도에 따른 보안 문제 및 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기업들의 신기술 개발 및 파트너십 관련 뉴스가 섹터 전반의 투자 심리에 영향을 미칠 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "현대자동차",
+        "reason": "국내 자동차 업계의 주요 기업으로, 실적 및 신차 출시 등 동향에 대한 뉴스가 다수 보도되었습니다. (총 4건)",
+        "kr_news_refs": [
+          4,
+          11,
+          18,
+          37
+        ],
+        "related_news": [
+          {
+            "title": "현대차, 인도 푸네 신공장 준공…2030년 생산능력 32만대 확대 - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE02aXBGYVlnTlloam1NOVlTMVFnUDczQ0V0SXZjUWVRcXRtcEc3MTdPMUhleC1ZRmdYazNieFd3RDBPb2hzN0FVWGRnT05WbWNxRnIyUEI2S2RvRmh6Q1YzNjA1cXhKRlE?oc=5",
+            "published_at": "2026-10-14 17:00:00 KST"
+          },
+          {
+            "title": "‘태초마을’로 돌아간 현대차 주가…개미들 ‘아비규환’ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBGLTRTZW45Wnl0bDlXUDF4WldQSUhYWVF4d3hUSGdvMW54MHRuOWNOWVZrdHZjRTB3TDdLb2lfN0NMLUlfdUJPTDRMekFMYTZKekE?oc=5",
+            "published_at": "2026-10-14 15:03:37 KST"
+          },
+          {
+            "title": "취임 6주년에 인도 찾은 정의선 \"상당히 중요한 이정표\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261014179600003",
+            "published_at": "2026-10-14 19:45:40 KST"
+          },
+          {
+            "title": "인도서 '제2의 도약' 나선 현대차, 연 150만대 생산한다(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261014005751003",
+            "published_at": "2026-10-14 19:13:40 KST"
+          }
+        ],
+        "outlook": "현대자동차는 인도 신공장 준공을 통해 생산 능력을 확대하고 글로벌 시장 공략을 강화할 것으로 보입니다. 이는 향후 매출 증대에 긍정적인 영향을 미칠 것으로 예상됩니다. 그러나 원화 강세로 인한 수출 경쟁력 약화 및 원자재 가격 상승은 수익성에 부담으로 작용할 수 있습니다. 다음 주에는 3분기 실적 발표가 예정되어 있으며, 시장은 환율 변동 및 신차 출시 효과 등을 주시할 것으로 예상됩니다."
+      },
+      {
+        "name": "삼성전자",
+        "reason": "국내 대표 IT 기업으로, 반도체 및 AI 관련 동향에 대한 뉴스가 언급되었습니다. (총 2건)",
+        "kr_news_refs": [
+          5,
+          8,
+          10,
+          16
+        ],
+        "related_news": [
+          {
+            "title": "홍라희, 이재용에 삼성전자 주식 2조6천억 증여…이건희 유산 모두 넘겨 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBpb0VicFZTTXFxZzI5TzZXM3IxOHdPcm1hTDhvb3Q0eXh6ai14bVVpb0ExVFlYOFU4aXg1WE54SHFSUVJTQUZtM0QtUW1ObEo0bFpSX29yRnlfMVEtejhhLWtJUWZ6V2NXMzlsRGRPWm9aUQ?oc=5",
+            "published_at": "2026-10-14 16:52:00 KST"
+          },
+          {
+            "title": "삼성전자·SK하이닉스 저격한 머스크…\"마이크론 메모리 가격만 적당\" - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE8yZGJLcmVJVHJyRnpWVlAycWc2RkF3dklKV0diUXhJN1N0TFh6Wi16Qm5hSG1tUXlnZ0VZeE40c2dUalE4dWliendrMEo4WV9BN0wxTmVCbk9CQWpKSmZTWkxFcXNPdjZNWGhJNDIxNnU?oc=5",
+            "published_at": "2026-10-14 15:40:00 KST"
+          },
+          {
+            "title": "코스피, 하락 전환해 6000선 붕괴…23만전자·140만닉스 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOEdvU3d0VFZCOGRkRlJnZkFxLUl6Nk5MNVNUbTZvbGJYSEx4R25oNlBTYnNxZTFfV1lnMmdtU2NOanFZaWtwU21PQU1TMnVSSlU5aTZVNWxxdzRBQ0ZSekRzRGRSQ0l6UzFlY2ZJSFJSX19pd0dQNVNvenQ3TFJkcEVVYUFhamNJ0gGcAUFVX3lxTE9nSk8wZzZMa0h4c1ExRTRDRzJHRC04azlXcjdQTVMzcFYwckZVT21uVkN2N0lUQW0xYkNlT1VSQ2Jvak8xSHRsYjRFWHc3a1JuWElfSUFrQ1hzNjlWeUR3bUpuS0tmSlN0eklLQ1VzU25tZU1SOGtXbXJpWjNSWmlCOS1QWDVsWEx5SktNWWFQMlByY083enM4LWRDQw?oc=5",
+            "published_at": "2026-10-14 15:10:00 KST"
+          },
+          {
+            "title": "SK하이닉스, 내년 1월 HBF 최종 표준 제정 목표…차세대 AI 메모리 선점 시동 - 지디넷코리아",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1YT0hVYkJ2b3N2cE9DcTlLY0s3ZTNfMTZldlBQd1lFYTZMVWU1dTZxc0RtLXV5czNWTFgzLXRIRFFrZ29VOEpKaDlzLW9PLWhkZmp5UkNn?oc=5",
+            "published_at": "2026-10-14 14:05:06 KST"
+          }
+        ],
+        "outlook": "삼성전자는 AI 수요 증가에 힘입어 3분기 역대급 실적을 기록할 것으로 예상됩니다. 특히, AI용 고대역폭 메모리(HBM) 시장에서의 경쟁 우위 확보는 향후 실적 개선을 견인할 것으로 보입니다. 그러나 중국 반도체 기업들의 기술 추격 및 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 3분기 실적 발표가 예정되어 있으며, 시장은 AI 관련 수요 전망 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "reason": "반도체 업계의 주요 기업으로, AI 및 메모리 반도체 관련 동향에 대한 뉴스가 주목받았습니다. (총 2건)",
+        "kr_news_refs": [
+          8,
+          10,
+          16
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "삼성전자·SK하이닉스 저격한 머스크…\"마이크론 메모리 가격만 적당\" - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE8yZGJLcmVJVHJyRnpWVlAycWc2RkF3dklKV0diUXhJN1N0TFh6Wi16Qm5hSG1tUXlnZ0VZeE40c2dUalE4dWliendrMEo4WV9BN0wxTmVCbk9CQWpKSmZTWkxFcXNPdjZNWGhJNDIxNnU?oc=5",
+            "published_at": "2026-10-14 15:40:00 KST"
+          },
+          {
+            "title": "코스피, 하락 전환해 6000선 붕괴…23만전자·140만닉스 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOEdvU3d0VFZCOGRkRlJnZkFxLUl6Nk5MNVNUbTZvbGJYSEx4R25oNlBTYnNxZTFfV1lnMmdtU2NOanFZaWtwU21PQU1TMnVSSlU5aTZVNWxxdzRBQ0ZSekRzRGRSQ0l6UzFlY2ZJSFJSX19pd0dQNVNvenQ3TFJkcEVVYUFhamNJ0gGcAUFVX3lxTE9nSk8wZzZMa0h4c1ExRTRDRzJHRC04azlXcjdQTVMzcFYwckZVT21uVkN2N0lUQW0xYkNlT1VSQ2Jvak8xSHRsYjRFWHc3a1JuWElfSUFrQ1hzNjlWeUR3bUpuS0tmSlN0eklLQ1VzU25tZU1SOGtXbXJpWjNSWmlCOS1QWDVsWEx5SktNWWFQMlByY083enM4LWRDQw?oc=5",
+            "published_at": "2026-10-14 15:10:00 KST"
+          },
+          {
+            "title": "SK하이닉스, 내년 1월 HBF 최종 표준 제정 목표…차세대 AI 메모리 선점 시동 - 지디넷코리아",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1YT0hVYkJ2b3N2cE9DcTlLY0s3ZTNfMTZldlBQd1lFYTZMVWU1dTZxc0RtLXV5czNWTFgzLXRIRFFrZ29VOEpKaDlzLW9PLWhkZmp5UkNn?oc=5",
+            "published_at": "2026-10-14 14:05:06 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 AI 수요 증가에 힘입어 3분기 견조한 실적을 기록할 것으로 예상됩니다. 특히, AI용 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화는 향후 실적 성장을 견인할 것으로 보입니다. 그러나 중국 반도체 기업들의 기술 추격 및 글로벌 공급망 재편 가능성은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 3분기 실적 발표 및 컨퍼런스 콜이 예정되어 있으며, 시장은 AI 관련 수요 전망 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "자동차",
+          "outlook": "국내 자동차 섹터는 현대자동차의 인도 신공장 준공 소식과 함께 주목받고 있습니다. 이는 생산 능력 확대 및 글로벌 시장 공략 강화에 긍정적인 영향을 미칠 것으로 예상됩니다. 그러나 원화 강세로 인한 수출 경쟁력 약화 및 원자재 가격 상승은 수익성에 부담으로 작용할 수 있습니다. 다음 주에는 현대자동차의 3분기 실적 발표가 예정되어 있으며, 시장은 환율 변동 및 신차 출시 효과 등을 주시할 것으로 보입니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "국내 AI 섹터는 산업 전반에 걸친 AI 기술 도입 확대와 함께 성장세를 이어갈 것으로 전망됩니다. 특히, 바이오 산업의 AI 전환 및 금융권의 AI 해킹 관련 뉴스는 AI 기술의 다양한 적용 가능성을 보여줍니다. 그러나 AI 기술 발전 속도에 따른 보안 문제 및 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기업들의 신기술 개발 및 파트너십 관련 뉴스가 섹터 전반의 투자 심리에 영향을 미칠 것으로 예상됩니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 AI 수요 증가에 힘입어 견조한 성장세를 이어갈 것으로 예상됩니다. 특히, 삼성전자와 SK하이닉스는 AI용 고대역폭 메모리(HBM) 시장에서 경쟁 우위를 확보하고 있으며, 이는 실적 개선으로 이어질 것으로 보입니다. 그러나 중국 반도체 기업들의 기술 추격 및 글로벌 공급망 재편 가능성은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 삼성전자와 SK하이닉스의 실적 발표가 예정되어 있으며, 시장은 AI 관련 수요 전망 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "현대자동차",
+          "outlook": "현대자동차는 인도 신공장 준공을 통해 생산 능력을 확대하고 글로벌 시장 공략을 강화할 것으로 보입니다. 이는 향후 매출 증대에 긍정적인 영향을 미칠 것으로 예상됩니다. 그러나 원화 강세로 인한 수출 경쟁력 약화 및 원자재 가격 상승은 수익성에 부담으로 작용할 수 있습니다. 다음 주에는 3분기 실적 발표가 예정되어 있으며, 시장은 환율 변동 및 신차 출시 효과 등을 주시할 것으로 예상됩니다."
+        },
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 AI 수요 증가에 힘입어 3분기 역대급 실적을 기록할 것으로 예상됩니다. 특히, AI용 고대역폭 메모리(HBM) 시장에서의 경쟁 우위 확보는 향후 실적 개선을 견인할 것으로 보입니다. 그러나 중국 반도체 기업들의 기술 추격 및 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 3분기 실적 발표가 예정되어 있으며, 시장은 AI 관련 수요 전망 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 AI 수요 증가에 힘입어 3분기 견조한 실적을 기록할 것으로 예상됩니다. 특히, AI용 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화는 향후 실적 성장을 견인할 것으로 보입니다. 그러나 중국 반도체 기업들의 기술 추격 및 글로벌 공급망 재편 가능성은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 3분기 실적 발표 및 컨퍼런스 콜이 예정되어 있으며, 시장은 AI 관련 수요 전망 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 4,
+        "summary": "삼성전자와 SK하이닉스의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 이익 전망이 바뀌어야 재평가될 수 있다는 의견이 언급되었습니다.",
+        "refs": [
+          3,
+          5,
+          8
+        ],
+        "reason": "삼성전자와 SK하이닉스의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 이익 전망이 바뀌어야 재평가될 수 있다는 의견이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "반도체가 다시 의심받는 이유…\"이익 전망이 바뀌어야 재평가됩니다\"ㅣ홍선애, 이경민 대신증권 FICC 리서치 부장 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=bdc6CC7pdXw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-14 18:05:39 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 역대급 실적인데도, 주가가 계속 빠지는 진짜 이유 (반교수 이주택 교수)",
+            "url": "https://www.youtube.com/watch?v=5VdtPwnWW2Y",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-14 17:00:19 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 삼성전자와 SK하이닉스의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 다수 제시되었습니다. 이익 전망이 바뀌어야 재평가될 수 있다는 의견이 있으며, 특히 중국 반도체 기업들의 기술 발전이 경쟁 환경에 미칠 영향에 대한 우려도 언급되었습니다. 다음 주에는 반도체 섹터의 실적 발표와 함께, AI 관련 수요 및 경쟁 구도 변화에 대한 분석이 이어질 것으로 예상됩니다."
+      },
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 투자 판도가 조용히 바뀌고 있다는 분석이 나왔습니다. 부진했던 빅테크와 팔란티어의 신고가에 대한 언급이 있었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "AI 투자 판도가 조용히 바뀌고 있다는 분석이 나왔습니다. 부진했던 빅테크와 팔란티어의 신고가에 대한 언급이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          }
+        ],
+        "outlook": "AI 투자 판도가 조용히 변화하고 있다는 분석이 나왔습니다. 부진했던 빅테크와 팔란티어의 신고가 돌파에 대한 언급이 있었으며, AI 기술 발전과 함께 투자 전략의 변화가 필요하다는 의견이 제시되었습니다. 다음 주에는 AI 관련 기업들의 실적 발표와 함께, AI 기술의 새로운 적용 사례 및 투자 전략에 대한 논의가 이어질 것으로 예상됩니다."
+      },
+      {
+        "name": "미디어/엔터테인먼트",
+        "freq": 1,
+        "summary": "신세계 그룹이 워너브라더스 인수에 1조 4천억원을 투자한다는 소식이 전해졌습니다. 넷플릭스의 실패와 파라마운트의 성공 사례를 비교하며 미디어 제국에 대한 분석이 이루어졌습니다.",
+        "refs": [
+          2
+        ],
+        "reason": "신세계 그룹이 워너브라더스 인수에 1조 4천억원을 투자한다는 소식이 전해졌습니다. 넷플릭스의 실패와 파라마운트의 성공 사례를 비교하며 미디어 제국에 대한 분석이 이루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "신세계, 워너브라더스 인수에 1조4천억 투자",
+            "url": "https://www.youtube.com/watch?v=zXtseb96cmc",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-14 18:19:08 KST"
+          }
+        ],
+        "outlook": "신세계 그룹의 워너브라더스 인수 소식과 함께 미디어 산업에 대한 관심이 높아지고 있습니다. 넷플릭스의 실패와 파라마운트의 성공 사례를 비교하며 미디어 제국의 가능성에 대한 분석이 이루어졌습니다. 다음 주에는 미디어 산업 내 인수합병 동향 및 콘텐츠 경쟁력 강화 전략에 대한 논의가 이어질 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 긴급 증시 진단에서 주가 폭락에 대한 언급과 대응 방안이 논의되었습니다.",
+        "refs": [
+          5,
+          8
+        ],
+        "reason": "삼성전자의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 긴급 증시 진단에서 주가 폭락에 대한 언급과 대응 방안이 논의되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 역대급 실적인데도, 주가가 계속 빠지는 진짜 이유 (반교수 이주택 교수)",
+            "url": "https://www.youtube.com/watch?v=5VdtPwnWW2Y",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-14 17:00:19 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 삼성전자의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 긴급 증시 진단에서는 주가 폭락에 대한 언급과 함께 대응 방안이 논의되었습니다. 다음 주에는 삼성전자의 3분기 실적 발표가 예정되어 있으며, 시장은 AI 관련 수요 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 긴급 증시 진단에서 주가 폭락에 대한 언급과 대응 방안이 논의되었습니다.",
+        "refs": [
+          5,
+          8
+        ],
+        "reason": "SK하이닉스의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 긴급 증시 진단에서 주가 폭락에 대한 언급과 대응 방안이 논의되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 역대급 실적인데도, 주가가 계속 빠지는 진짜 이유 (반교수 이주택 교수)",
+            "url": "https://www.youtube.com/watch?v=5VdtPwnWW2Y",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-14 17:00:19 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 -6.5%, SK하이닉스 -8.4% 폭락, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=DpiMClEU_Jk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-13 18:45:16 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 SK하이닉스의 역대급 실적에도 불구하고 주가가 하락하는 이유에 대한 분석이 제시되었습니다. 긴급 증시 진단에서는 주가 폭락에 대한 언급과 함께 대응 방안이 논의되었습니다. 다음 주에는 SK하이닉스의 3분기 실적 발표 및 컨퍼런스 콜이 예정되어 있으며, 시장은 AI 관련 수요 및 경쟁 환경 변화를 주시할 것으로 예상됩니다."
+      },
+      {
+        "name": "팔란티어",
+        "freq": 1,
+        "summary": "AI 투자 판도 변화 속에서 팔란티어의 수상한 신고가에 대한 언급이 있었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "AI 투자 판도 변화 속에서 팔란티어의 수상한 신고가에 대한 언급이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신고가",
+            "url": "https://www.youtube.com/watch?v=ILs31CN-_VA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-12 21:12:03 KST"
+          }
+        ],
+        "outlook": "AI 투자 판도 변화 속에서 팔란티어의 수상한 신고가 돌파에 대한 언급이 있었습니다. 미국 육군과의 대규모 계약 체결 소식은 회사의 성장 전망에 대한 긍정적인 신호로 해석되고 있습니다. 그러나 높은 밸류에이션과 시장 변동성은 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기술 발전 동향과 함께, 회사의 신규 계약 및 파트너십 관련 뉴스가 주가에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Bank of America",
+          "freq": 4
+        },
+        {
+          "name": "ASML",
+          "freq": 5
+        },
+        {
+          "name": "UnitedHealth",
+          "freq": 2
+        },
+        {
+          "name": "BlackRock",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "OpenAI",
+          "freq": 1
+        },
+        {
+          "name": "Disney",
+          "freq": 2
+        },
+        {
+          "name": "Amazon",
+          "freq": 1
+        },
+        {
+          "name": "Axsome Therapeutics",
+          "freq": 1
+        },
+        {
+          "name": "Gooch & Housego",
+          "freq": 1
+        },
+        {
+          "name": "Alibaba",
+          "freq": 1
+        },
+        {
+          "name": "Liquidia",
+          "freq": 1
+        },
+        {
+          "name": "Paladin Energy",
+          "freq": 1
+        },
+        {
+          "name": "Lonza",
+          "freq": 1
+        },
+        {
+          "name": "CVS Pharmacy",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "금융",
+          "freq": 4
+        },
+        {
+          "name": "소비재",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "기술",
+          "freq": 2
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "크립토",
+          "freq": 1
+        },
+        {
+          "name": "사이버 보안",
+          "freq": 1
+        },
+        {
+          "name": "통신",
+          "freq": 1
+        },
+        {
+          "name": "채권",
+          "freq": 1
+        },
+        {
+          "name": "엔터테인먼트",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "소프트웨어",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 2
+        },
+        {
+          "name": "현대자동차",
+          "freq": 4
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "SK그룹",
+          "freq": 2
+        },
+        {
+          "name": "한미약품",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "LG에너지솔루션",
+          "freq": 1
+        },
+        {
+          "name": "대주전자재료",
+          "freq": 1
+        },
+        {
+          "name": "하이퍼코퍼레이션",
+          "freq": 1
+        },
+        {
+          "name": "휴맥스",
+          "freq": 1
+        },
+        {
+          "name": "유한양행",
+          "freq": 1
+        },
+        {
+          "name": "제이알글로벌리츠",
+          "freq": 1
+        },
+        {
+          "name": "엑시나",
+          "freq": 1
+        },
+        {
+          "name": "포스코",
+          "freq": 1
+        },
+        {
+          "name": "아시아나항공",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "자동차",
+          "freq": 3
+        },
+        {
+          "name": "원자력",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "항공",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "메모리",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "IT",
+          "freq": 1
+        },
+        {
+          "name": "통신",
+          "freq": 1
+        },
+        {
+          "name": "철강",
+          "freq": 1
+        },
+        {
+          "name": "물류",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
