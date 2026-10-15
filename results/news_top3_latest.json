@@ -1,248 +1,142 @@
 {
-  "generated_at": "2026-10-15 20:01 KST",
+  "generated_at": "2026-10-16 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 9건)",
+        "reason": "AI 분야는 관련 기업들의 실적 발표와 신규 기술 개발 소식이 지속적으로 주목받으며 높은 빈도를 기록했습니다. (총 9건)",
         "us_news_refs": [
           1,
           2,
-          3,
           5,
-          6,
+          10,
           11,
-          13,
-          20,
-          31
+          14,
+          33,
+          34,
+          37
         ],
         "related_news": [
           {
-            "title": "Nasdaq futures fall as tech shares drop on fears of AI overspending; traders await more U.S. data: Live updates - CNBC",
-            "title_ko": "AI 과소비 우려에 기술주 하락, 미국 데이터 대기 중 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9pUGoyb2Q2c1FvdW5RZUNXMGQ4Vk55SWZ1RGlEZ2xocGYwZkRlbGU5WUtNNzB0N1ZUdUxGank2bFFkcUpwVWtYcTNLUUhLUG12SUVpX0txZkdiamtWZXB0SHVQLW83dUM0cFI4YnpScHdmVmE3SjVv0gF8QVVfeXFMTnI4TmlaWHJ3endjbXZvUXlYOHRhV3lyb1lvNjNrYnVDVmYwUmxxQ0M4Vm42WDR2WUxZWE5CRnRhaExSY1prYkNlOUNId3R6akpzcUdlUUxfZmEzdFZCZnc4bjAwZDhYVnpVR1lBMTNHa0JGREd3NUQtaDlUeA?oc=5",
-            "published_at": "2026-10-15 19:41:15 KST"
+            "title": "Cracks are beginning to show in the stock market, as doubts grow about AI investments - NBC News",
+            "title_ko": "주식 시장에 균열, AI 투자 의구심 커져",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPTEpUNXhwc2JkVzhOd282UndZbzRHYnRvY0I5MWlRZEhveFZYZGVLYVFUUy1iR21XVE5XQ05KUlk5Rm54RmFHdUEtWnMtcENhNTBaM2xvTTZfQW5CZ3VITTQ2aHFIVU1rOUVRSXl3cjM5NUgxU3RMYkJpd0dHWjZJUWVZWVZhTWhKWkpqNVo4Slg?oc=5",
+            "published_at": "2026-10-16 06:33:56 KST"
           },
           {
-            "title": "Why CoreWeave stock panic matters to Nvidia, explained in under 30 seconds - Yahoo Finance",
-            "title_ko": "CoreWeave 주식 패닉이 Nvidia에 중요한 이유 (30초 설명) - Yahoo Finance",
-            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRzVES1hFdko3MUN3Z1VTa2JvM0N4ZVpnbXdyV19lTmZ2eHY4U2ZsTFZHN0ZIQ25LWkhCb1hmT2NkeER2T1Btam9EQ25vZWJ0cGpNNUc4OVVlOHg3bUF4d0dSckVPbGk4VkRhSkExNE1FekljQm4xMXJLeVBGWW5QRV85UmllTXBpM3JtbVZ3eXh5ZmlqSGhFX01RTHRzTTNNRzhSeTBqaTBHeWI3YUNfNUxnMlZoZWRyM01OXzFWMlBocWYxVXBqM05hU2dkTWhaWVYw?oc=5",
-            "published_at": "2026-10-15 18:59:31 KST"
+            "title": "EXCLUSIVE: Investors temper Anthropic IPO valuation expectations over revenue growth slowdown, sources say - Reuters",
+            "title_ko": "독점: 소식통, Anthropic IPO 기업 가치 기대치 낮춰",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQRW4tSGppV2U0ZWtvaXBsQmlyaDVVLVFCSmJNMWdmMHpod0FWd25kUXRNQzFvZXJPTmhoQUNvMlFrQzI3NjBQVG9McWFPRHdUODhMbVItOGg4S0N3ZmJ4R2psZVd1aWFZM2M0aEY4R3VaYnFZWUxhOFZiRXAxTnc5UG9hMm1ERGpKbURkX3BWYzQ5UWl3THBFTDhWUWR0SVhUSWJsekpMZjM4OUZRQl9BVmY2djVKRENDSldCSUpOWmdvbHVK?oc=5",
+            "published_at": "2026-10-16 06:15:18 KST"
           },
           {
-            "title": "Stock Market Today: Tech Selloff to Extend Into Second Day — Live Updates - WSJ",
-            "title_ko": "오늘의 주식 시장: 기술주 매도 2일차 지속 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOX2pSZmFBRTNfZ0ZmczFBcXBBRlUxV3RNTkV6ZzJiN2s4UGhod3RwVVZLbWY2YVNqejB1ZE9adDVyTDBXUnFsY3VGTHI3clVCUmlHUzBIcVFYTmt4T3FxMkxkdkd2eTgwZDNQbENLUGNnU3JJU0JnNW1odEF5bTgzemd3RGphTjg?oc=5",
-            "published_at": "2026-10-15 18:50:00 KST"
+            "title": "Targeted ads delivered 0-click exploits to install mercenary malware - Ars Technica",
+            "title_ko": "표적 광고, 0클릭 익스플로잇으로 용병 악성코드 설치",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPZlluOC1CU25Lelh6dUE2VXdGRUJ0UHZMSFN5VmZZVDNhNGNkM1FDeUFTalFreTNtMnVUcHFlR3VLaG5Ed0ZUZlJRYXA5Z0pSRHVkVHNLTmt0QVRfX004d200MVFaSWszMWdTSG1KRXBSWG11SVUwX25XQnJVZ19lcWxwVEdLS1dVZ05RZ0cycDF3M0Q1Z25QdnB5VFMzb2U1ZGM2V3ZPRjVybnNuR3RF?oc=5",
+            "published_at": "2026-10-16 05:32:41 KST"
           },
           {
-            "title": "Anthropic flags revenue surge to investors ahead of stock market debut - BBC",
-            "title_ko": "Anthropic, 상장 전 투자자에게 매출 급증 보고 - BBC",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBTUHRCTEVSeENpRVNzbEZTb1IyNEw4aHpsTFFWTnFBY3RxNngzVFRJZEhNelQ1NnZJcG9QanVId2FPX3Znem55WEJ6N0hJNVJlZFpEVFBkYW0xYmM?oc=5",
-            "published_at": "2026-10-15 16:20:45 KST"
+            "title": "Meta launches an open-weight AI model that runs on Macs - TechCrunch",
+            "title_ko": "Meta, Mac에서 실행되는 오픈 웨이트 AI 모델 출시",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQQlZfb0U3cFViMUxwX19EejMxOTNmczEyTzU1YzZqZGhaTnR6dVFrVnVURUVqbGpENzRRWnViS2RrV0pLUkZxcVd6R01DRUhENmZ0azlMTmhNMEh1VnYwNzZndF9qN29GSHZDWXZQSmFrd19lS3E5STJTekhTaW9ETjhHLTg1R0tMTERPTUpNN1M?oc=5",
+            "published_at": "2026-10-16 05:04:53 KST"
           },
           {
-            "title": "Korea Stocks Tumble 8% as Investors Rush to Unwind AI Exposure - Bloomberg.com",
-            "title_ko": "한국 주식, AI 노출 축소에 8% 급락 - Bloomberg.com",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNS1ZmX19fclBFd1I3bEdCWVk5NEpfRmJGWE1VbjhDRThlVUFFeFBqYzYzTXpTR2wzeHNUcWtNN1VFV2ltaC1WNnc1S1ZsOFMxalVER01yS0otb2VjbTQ1cHJjZERsa05rMHNabDVyenp5MUlLNmpZQzdERzVzbElnTlgtQ0ljV1hsOGJNTEMwNEFPUmMtSXdjUzE3b0REWmR0ZDNfQzh0RU5UalY1dWg3b1pwVQ?oc=5",
-            "published_at": "2026-10-15 16:12:45 KST"
+            "title": "CoreWeave's slump spotlights growing burden of debt behind AI boom - Reuters",
+            "title_ko": "CoreWeave 부진, AI 호황 뒤의 부채 부담 증가 조명",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOckxhLTlLMHVuWl93dlRGWngzUjBqY0wxaU85Q2lPNGxaMzg0ZjJhT0ZGd210N1N5SDVpV1lLNl9GOXlNazFrN193TFNFREg1dU5OTkpadm9LVHRxU0ZzQWVWbFV1MnNHY2RGZHVsajI5UWRlWDE5NmtGaDctV0o5ME85dkV3RU5LSEFWdTlNUW5RWXZ5S1BXelNMZkI5ZEZfR05kd1UwNnBZQlQ0MHkyQVN3?oc=5",
+            "published_at": "2026-10-16 04:57:10 KST"
           }
         ],
-        "outlook": "AI 섹터는 AI 칩 수요 증가와 빅테크 기업들의 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 AI 과소비에 대한 우려와 기술주 전반의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 미국 주요 경제 지표 발표가 예정되어 있어 시장 변동성에 영향을 줄 수 있습니다."
-      },
-      {
-        "name": "Tech",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 4건)",
-        "us_news_refs": [
-          1,
-          3,
-          6,
-          13
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Nasdaq futures fall as tech shares drop on fears of AI overspending; traders await more U.S. data: Live updates - CNBC",
-            "title_ko": "AI 과소비 우려에 기술주 하락, 미국 데이터 대기 중 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9pUGoyb2Q2c1FvdW5RZUNXMGQ4Vk55SWZ1RGlEZ2xocGYwZkRlbGU5WUtNNzB0N1ZUdUxGank2bFFkcUpwVWtYcTNLUUhLUG12SUVpX0txZkdiamtWZXB0SHVQLW83dUM0cFI4YnpScHdmVmE3SjVv0gF8QVVfeXFMTnI4TmlaWHJ3endjbXZvUXlYOHRhV3lyb1lvNjNrYnVDVmYwUmxxQ0M4Vm42WDR2WUxZWE5CRnRhaExSY1prYkNlOUNId3R6akpzcUdlUUxfZmEzdFZCZnc4bjAwZDhYVnpVR1lBMTNHa0JGREd3NUQtaDlUeA?oc=5",
-            "published_at": "2026-10-15 19:41:15 KST"
-          },
-          {
-            "title": "Stock Market Today: Tech Selloff to Extend Into Second Day — Live Updates - WSJ",
-            "title_ko": "오늘의 주식 시장: 기술주 매도 2일차 지속 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOX2pSZmFBRTNfZ0ZmczFBcXBBRlUxV3RNTkV6ZzJiN2s4UGhod3RwVVZLbWY2YVNqejB1ZE9adDVyTDBXUnFsY3VGTHI3clVCUmlHUzBIcVFYTmt4T3FxMkxkdkd2eTgwZDNQbENLUGNnU3JJU0JnNW1odEF5bTgzemd3RGphTjg?oc=5",
-            "published_at": "2026-10-15 18:50:00 KST"
-          },
-          {
-            "title": "Korea Stocks Tumble 8% as Investors Rush to Unwind AI Exposure - Bloomberg.com",
-            "title_ko": "한국 주식, AI 노출 축소에 8% 급락 - Bloomberg.com",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNS1ZmX19fclBFd1I3bEdCWVk5NEpfRmJGWE1VbjhDRThlVUFFeFBqYzYzTXpTR2wzeHNUcWtNN1VFV2ltaC1WNnc1S1ZsOFMxalVER01yS0otb2VjbTQ1cHJjZERsa05rMHNabDVyenp5MUlLNmpZQzdERzVzbElnTlgtQ0ljV1hsOGJNTEMwNEFPUmMtSXdjUzE3b0REWmR0ZDNfQzh0RU5UalY1dWg3b1pwVQ?oc=5",
-            "published_at": "2026-10-15 16:12:45 KST"
-          },
-          {
-            "title": "Chip stock selloff deepens: What looks attractive and names to avoid",
-            "title_ko": "반도체 주식 매도 심화: 매력적인 종목과 피해야 할 종목",
-            "url": "https://www.investing.com/news/stock-market-news/chip-stock-selloff-deepens-what-looks-attractive-and-names-to-avoid-93CH-4951092",
-            "published_at": "2026-10-15 19:38:59 KST"
-          }
-        ],
-        "outlook": "기술 섹터는 AI 칩 수요와 빅테크 실적 발표에 대한 기대로 상승 모멘텀을 보이고 있습니다. 하지만 AI 관련 과소비에 대한 우려와 기술주 전반의 매도세가 단기적인 위험 요인으로 부각될 수 있습니다. 다음 주에는 추가적인 미국 경제 지표 발표가 예정되어 있어 시장의 방향성에 영향을 미칠 것으로 예상됩니다."
-      },
-      {
-        "name": "반도체",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 5건)",
-        "us_news_refs": [
-          1,
-          4,
-          6,
-          8,
-          13
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Nasdaq futures fall as tech shares drop on fears of AI overspending; traders await more U.S. data: Live updates - CNBC",
-            "title_ko": "AI 과소비 우려에 기술주 하락, 미국 데이터 대기 중 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9pUGoyb2Q2c1FvdW5RZUNXMGQ4Vk55SWZ1RGlEZ2xocGYwZkRlbGU5WUtNNzB0N1ZUdUxGank2bFFkcUpwVWtYcTNLUUhLUG12SUVpX0txZkdiamtWZXB0SHVQLW83dUM0cFI4YnpScHdmVmE3SjVv0gF8QVVfeXFMTnI4TmlaWHJ3endjbXZvUXlYOHRhV3lyb1lvNjNrYnVDVmYwUmxxQ0M4Vm42WDR2WUxZWE5CRnRhaExSY1prYkNlOUNId3R6akpzcUdlUUxfZmEzdFZCZnc4bjAwZDhYVnpVR1lBMTNHa0JGREd3NUQtaDlUeA?oc=5",
-            "published_at": "2026-10-15 19:41:15 KST"
-          },
-          {
-            "title": "TSMC Stock Falls After Blowout Earnings. Musk Talks Could Offset AI Chip Fears. - Barron's",
-            "title_ko": "TSMC 주가 급등 실적에도 하락. 머스크 발언이 AI 칩 우려 상쇄할까? - Barron's",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1EUGJ2TDlZNkloalZjLUVIOXRicFRqWWk3bmVWQlh1MkE5WF80Q3VScEFxQzNUS0NmRC10ZHpWNlBsaVdtWFZkTHhiZTBqZlJNRVgwbFlIRDJsODN2anpUZzRkN3hvenM3Y00taXQxTENBR1lFZEE?oc=5",
-            "published_at": "2026-10-15 17:47:00 KST"
-          },
-          {
-            "title": "Korea Stocks Tumble 8% as Investors Rush to Unwind AI Exposure - Bloomberg.com",
-            "title_ko": "한국 주식, AI 노출 축소에 8% 급락 - Bloomberg.com",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNS1ZmX19fclBFd1I3bEdCWVk5NEpfRmJGWE1VbjhDRThlVUFFeFBqYzYzTXpTR2wzeHNUcWtNN1VFV2ltaC1WNnc1S1ZsOFMxalVER01yS0otb2VjbTQ1cHJjZERsa05rMHNabDVyenp5MUlLNmpZQzdERzVzbElnTlgtQ0ljV1hsOGJNTEMwNEFPUmMtSXdjUzE3b0REWmR0ZDNfQzh0RU5UalY1dWg3b1pwVQ?oc=5",
-            "published_at": "2026-10-15 16:12:45 KST"
-          },
-          {
-            "title": "Bank of New York earnings beat by $0.11, revenue topped estimates",
-            "title_ko": "Bank of New York, 주당 $0.11 초과 이익, 매출 예상 상회",
-            "url": "https://www.investing.com/news/earnings/bank-of-new-york-earnings-beat-by-011-revenue-topped-estimates-4951100",
-            "published_at": "2026-10-15 19:44:50 KST"
-          },
-          {
-            "title": "Chip stock selloff deepens: What looks attractive and names to avoid",
-            "title_ko": "반도체 주식 매도 심화: 매력적인 종목과 피해야 할 종목",
-            "url": "https://www.investing.com/news/stock-market-news/chip-stock-selloff-deepens-what-looks-attractive-and-names-to-avoid-93CH-4951092",
-            "published_at": "2026-10-15 19:38:59 KST"
-          }
-        ],
-        "outlook": "반도체 섹터는 AI 칩 수요 증가와 빅테크 기업들의 실적 발표에 대한 기대감으로 주목받고 있습니다. 그러나 AI 관련 과소비에 대한 우려와 기술주 전반의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 주요 경제 지표 발표가 예정되어 있어 시장의 변동성을 키울 수 있습니다."
+        "outlook": "AI 섹터는 최근 투자 의구심이 제기되고 있으며, 일부 기업의 IPO 가치 기대치가 낮아지고 있다는 보도가 있습니다. 이는 AI 투자 열풍 뒤에 숨겨진 부채 부담 증가에 대한 우려를 반영합니다. 또한, 표적 광고를 통한 악성코드 설치와 같은 보안 위협도 감지되고 있습니다. 향후 일주일 내에는 Meta의 새로운 오픈 웨이트 AI 모델 출시 소식이 주목받을 수 있습니다. 하지만 전반적인 시장의 AI 투자에 대한 신중론이 확산될 가능성도 존재합니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "CoreWeave",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 4건)",
+        "name": "Anthropic",
+        "reason": "AI 분야의 주요 플레이어로서 신규 투자 유치 및 기술 개발 관련 소식이 빈번하게 보도되었습니다. (총 5건)",
         "us_news_refs": [
+          1,
           2,
-          10
+          30,
+          33,
+          40
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "Why CoreWeave stock panic matters to Nvidia, explained in under 30 seconds - Yahoo Finance",
-            "title_ko": "CoreWeave 주식 패닉이 Nvidia에 중요한 이유 (30초 설명) - Yahoo Finance",
-            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRzVES1hFdko3MUN3Z1VTa2JvM0N4ZVpnbXdyV19lTmZ2eHY4U2ZsTFZHN0ZIQ25LWkhCb1hmT2NkeER2T1Btam9EQ25vZWJ0cGpNNUc4OVVlOHg3bUF4d0dSckVPbGk4VkRhSkExNE1FekljQm4xMXJLeVBGWW5QRV85UmllTXBpM3JtbVZ3eXh5ZmlqSGhFX01RTHRzTTNNRzhSeTBqaTBHeWI3YUNfNUxnMlZoZWRyM01OXzFWMlBocWYxVXBqM05hU2dkTWhaWVYw?oc=5",
-            "published_at": "2026-10-15 18:59:31 KST"
+            "title": "Cracks are beginning to show in the stock market, as doubts grow about AI investments - NBC News",
+            "title_ko": "주식 시장에 균열, AI 투자 의구심 커져",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPTEpUNXhwc2JkVzhOd282UndZbzRHYnRvY0I5MWlRZEhveFZYZGVLYVFUUy1iR21XVE5XQ05KUlk5Rm54RmFHdUEtWnMtcENhNTBaM2xvTTZfQW5CZ3VITTQ2aHFIVU1rOUVRSXl3cjM5NUgxU3RMYkJpd0dHWjZJUWVZWVZhTWhKWkpqNVo4Slg?oc=5",
+            "published_at": "2026-10-16 06:33:56 KST"
           },
           {
-            "title": "Morning Bid: Coreweave unravels",
-            "title_ko": "모닝 브리핑: Coreweave의 몰락",
-            "url": "https://www.investing.com/news/commodities-news/morning-bid-coreweave-unravels-4951097",
-            "published_at": "2026-10-15 19:42:44 KST"
+            "title": "EXCLUSIVE: Investors temper Anthropic IPO valuation expectations over revenue growth slowdown, sources say - Reuters",
+            "title_ko": "독점: 소식통, Anthropic IPO 기업 가치 기대치 낮춰",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQRW4tSGppV2U0ZWtvaXBsQmlyaDVVLVFCSmJNMWdmMHpod0FWd25kUXRNQzFvZXJPTmhoQUNvMlFrQzI3NjBQVG9McWFPRHdUODhMbVItOGg4S0N3ZmJ4R2psZVd1aWFZM2M0aEY4R3VaYnFZWUxhOFZiRXAxTnc5UG9hMm1ERGpKbURkX3BWYzQ5UWl3THBFTDhWUWR0SVhUSWJsekpMZjM4OUZRQl9BVmY2djVKRENDSldCSUpOWmdvbHVK?oc=5",
+            "published_at": "2026-10-16 06:15:18 KST"
+          },
+          {
+            "title": "Exclusive-Investors temper Anthropic IPO valuation expectations over revenue growth slowdown, sources say",
+            "title_ko": "독점-투자자, Anthropic IPO 기업 가치 기대치 낮춰",
+            "url": "https://www.investing.com/news/stock-market-news/exclusiveinvestors-temper-anthropic-ipo-valuation-expectations-over-revenue-growth-slowdown-sources-say-4952698",
+            "published_at": "2026-10-16 06:48:19 KST"
+          },
+          {
+            "title": "Nvidia and other chip stocks face renewed pressure as AI fears swell",
+            "title_ko": "Nvidia 등 칩 주식, AI 우려 확산으로 재압박 직면",
+            "url": "https://www.marketwatch.com/story/micron-nvidia-and-other-chip-stocks-face-renewed-pressure-as-ai-fears-swell-4e0dc989?mod=mw_rss_topstories",
+            "published_at": "2026-10-16 06:23:00 KST"
+          },
+          {
+            "title": "Trump administration advances plan for peptide drugs favored by RFK Jr. - AP News",
+            "title_ko": "트럼프 행정부, RFK Jr. 선호 펩타이드 약물 계획 추진",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxONTBBRk5WREtRYlJYSVBYUkdnbnJmNTQ2MXlYdHV3R1lxZjc0QkQtRnVDaFZ5VEVSaVU3VjhzS1ZEWnJpR0piZ0NJVms1WXFCRFVZSXBEZENpZFBfVGlGaG5tVThFMkVTOW4tN1hxNWNuVjlhV3pyVFptWkpJRERrbzZnTzJzTjFqX0lGc05KYTdhb3dvZ2ktdDAyMA?oc=5",
+            "published_at": "2026-10-16 04:09:00 KST"
           }
         ],
-        "outlook": "CoreWeave는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 최근 'Coreweave의 몰락'이라는 보도가 나오며 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 시장 전반의 기술주 매도세가 Coreweave 주가에 영향을 미칠 가능성이 있습니다."
+        "outlook": "Anthropic은 AI 분야의 주요 기업으로, 최근 IPO 가치 기대치가 수익 성장 둔화 우려로 인해 낮아지고 있다는 소식이 전해졌습니다. 이는 AI 투자 전반에 대한 시장의 의구심과 맞물려 주가에 부담 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 기술 개발 및 투자 유치 관련 추가 소식이 주가에 영향을 미칠 수 있으나, 시장의 전반적인 AI 투자 심리 위축 가능성에 유의해야 합니다."
       },
       {
-        "name": "TSMC",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 4건)",
+        "name": "KFC",
+        "reason": "소비재 섹터 내에서 KFC 관련 소식이 언급되며 시장의 관심을 받았습니다. (총 3건)",
         "us_news_refs": [
-          4,
-          21
+          12,
+          35
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "TSMC Stock Falls After Blowout Earnings. Musk Talks Could Offset AI Chip Fears. - Barron's",
-            "title_ko": "TSMC 주가 급등 실적에도 하락. 머스크 발언이 AI 칩 우려 상쇄할까? - Barron's",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1EUGJ2TDlZNkloalZjLUVIOXRicFRqWWk3bmVWQlh1MkE5WF80Q3VScEFxQzNUS0NmRC10ZHpWNlBsaVdtWFZkTHhiZTBqZlJNRVgwbFlIRDJsODN2anpUZzRkN3hvenM3Y00taXQxTENBR1lFZEE?oc=5",
-            "published_at": "2026-10-15 17:47:00 KST"
+            "title": "KFC to Ditch Pepsi for Coke in Thousands of Restaurants - WSJ",
+            "title_ko": "KFC, 수천 개 매장에서 Pepsi 대신 Coke 사용",
+            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQM05sbldwQ2xLUTdHenMwaVZoN3FwcGJWUDdtdkVpZnNxRWFCZWlpUnk5bVk3OWNYX1BVZnVybVlaS2t5ekNYZjVESE1GcUNDT0tTWHoyR3dEemlOMlpuYVpNbm5FWXM5cXV2amIzNEJyeW82c3c4bHpaeDBaUHR5d1d3a0FvV2d3ZGxXUXpPNE1NWmV0UnJGbUlnSjJpVVB3YVRLcEVR?oc=5",
+            "published_at": "2026-10-16 04:53:00 KST"
           },
           {
-            "title": "TSMC’s CEO sees no sign of a slowdown as chip foundry reports record profit",
-            "title_ko": "TSMC CEO, 칩 파운드리 기록적 이익에도 둔화 조짐 없다고 밝혀",
-            "url": "https://www.marketwatch.com/story/tsmc-ceo-sees-no-sign-of-a-slowdown-as-chip-foundry-reports-record-profit-17a065d3?mod=mw_rss_topstories",
-            "published_at": "2026-10-15 17:42:00 KST"
+            "title": "KFC to switch to Coca-Cola beverages in U.S. restaurants for the first time in decades",
+            "title_ko": "KFC, 수십 년 만에 처음으로 미국 레스토랑에서 Coca-Cola 음료로 전환",
+            "url": "https://www.cnbc.com/2026/10/15/kfc-coca-cola-pepsi-switch.html",
+            "published_at": "2026-10-16 06:03:50 KST"
           }
         ],
-        "outlook": "TSMC는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 하지만 최근 급등한 실적 발표에도 불구하고 주가가 하락하는 모습을 보이며 단기적인 위험 요인으로 작용할 수 있습니다. 일론 머스크의 발언이 AI 칩 관련 우려를 상쇄할 수 있을지 주목해야 하며, 향후 일주일 내 시장 전반의 기술주 매도세가 주가에 영향을 미칠 수 있습니다."
-      },
-      {
-        "name": "Nvidia",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 2건)",
-        "us_news_refs": [
-          2,
-          6,
-          30
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Why CoreWeave stock panic matters to Nvidia, explained in under 30 seconds - Yahoo Finance",
-            "title_ko": "CoreWeave 주식 패닉이 Nvidia에 중요한 이유 (30초 설명) - Yahoo Finance",
-            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRzVES1hFdko3MUN3Z1VTa2JvM0N4ZVpnbXdyV19lTmZ2eHY4U2ZsTFZHN0ZIQ25LWkhCb1hmT2NkeER2T1Btam9EQ25vZWJ0cGpNNUc4OVVlOHg3bUF4d0dSckVPbGk4VkRhSkExNE1FekljQm4xMXJLeVBGWW5QRV85UmllTXBpM3JtbVZ3eXh5ZmlqSGhFX01RTHRzTTNNRzhSeTBqaTBHeWI3YUNfNUxnMlZoZWRyM01OXzFWMlBocWYxVXBqM05hU2dkTWhaWVYw?oc=5",
-            "published_at": "2026-10-15 18:59:31 KST"
-          },
-          {
-            "title": "Korea Stocks Tumble 8% as Investors Rush to Unwind AI Exposure - Bloomberg.com",
-            "title_ko": "한국 주식, AI 노출 축소에 8% 급락 - Bloomberg.com",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNS1ZmX19fclBFd1I3bEdCWVk5NEpfRmJGWE1VbjhDRThlVUFFeFBqYzYzTXpTR2wzeHNUcWtNN1VFV2ltaC1WNnc1S1ZsOFMxalVER01yS0otb2VjbTQ1cHJjZERsa05rMHNabDVyenp5MUlLNmpZQzdERzVzbElnTlgtQ0ljV1hsOGJNTEMwNEFPUmMtSXdjUzE3b0REWmR0ZDNfQzh0RU5UalY1dWg3b1pwVQ?oc=5",
-            "published_at": "2026-10-15 16:12:45 KST"
-          },
-          {
-            "title": "Apple Joins Nvidia in the $5 Trillion Valuation Club - WSJ",
-            "title_ko": "Apple, Nvidia와 함께 5조 달러 시총 클럽 가입 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQdUl0aDJRcG4wTnlOalA2Xy1CeERRdzY1NFhBYUphcVUyVGFKV2NUbzlQY2FLUHBsMzFEOGNzSVotQXppWkgyVk5tM2g2Y2VRcDVyTzNEcXhJVDJ6OGhSdmlaM3hzai1PbjVmc0pydXZuaWZXNE5ONFVhcVhfcHE1Yy1HY2FpdzhCR0dTZGVDMGdyZkp3MzNpWTlfSlBMTWNPd0dNTnRBWWZZMnNSTFIzYw?oc=5",
-            "published_at": "2026-10-15 05:55:00 KST"
-          }
-        ],
-        "outlook": "Nvidia는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 Coreweave 주가 패닉이 Nvidia에 미치는 영향과 기술주 전반의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 시장 전반의 기술주 매도세가 Nvidia 주가에 영향을 미칠 가능성이 있습니다."
+        "outlook": "KFC가 수십 년 만에 미국 내 레스토랑에서 Pepsi 대신 Coca-Cola 음료를 사용하기로 결정했다는 소식이 시장의 주목을 받고 있습니다. 이는 소비재 섹터 내에서 유통망 변화와 관련된 중요한 이벤트로, 향후 관련 기업들의 실적에 영향을 미칠 수 있습니다. 향후 일주일 내에는 이 결정에 따른 구체적인 파트너십 변화 및 시장 반응에 대한 추가적인 보도가 나올 수 있습니다. 다만, 이는 개별 기업의 결정으로, 섹터 전반의 투자 심리에 미치는 영향은 제한적일 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
           "name": "AI",
-          "outlook": "AI 섹터는 AI 칩 수요 증가와 빅테크 기업들의 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 AI 과소비에 대한 우려와 기술주 전반의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 미국 주요 경제 지표 발표가 예정되어 있어 시장 변동성에 영향을 줄 수 있습니다."
-        },
-        {
-          "name": "Tech",
-          "outlook": "기술 섹터는 AI 칩 수요와 빅테크 실적 발표에 대한 기대로 상승 모멘텀을 보이고 있습니다. 하지만 AI 관련 과소비에 대한 우려와 기술주 전반의 매도세가 단기적인 위험 요인으로 부각될 수 있습니다. 다음 주에는 추가적인 미국 경제 지표 발표가 예정되어 있어 시장의 방향성에 영향을 미칠 것으로 예상됩니다."
-        },
-        {
-          "name": "반도체",
-          "outlook": "반도체 섹터는 AI 칩 수요 증가와 빅테크 기업들의 실적 발표에 대한 기대감으로 주목받고 있습니다. 그러나 AI 관련 과소비에 대한 우려와 기술주 전반의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 주요 경제 지표 발표가 예정되어 있어 시장의 변동성을 키울 수 있습니다."
+          "outlook": "AI 섹터는 최근 투자 의구심이 제기되고 있으며, 일부 기업의 IPO 가치 기대치가 낮아지고 있다는 보도가 있습니다. 이는 AI 투자 열풍 뒤에 숨겨진 부채 부담 증가에 대한 우려를 반영합니다. 또한, 표적 광고를 통한 악성코드 설치와 같은 보안 위협도 감지되고 있습니다. 향후 일주일 내에는 Meta의 새로운 오픈 웨이트 AI 모델 출시 소식이 주목받을 수 있습니다. 하지만 전반적인 시장의 AI 투자에 대한 신중론이 확산될 가능성도 존재합니다."
         }
       ],
       "stocks": [
         {
-          "name": "CoreWeave",
-          "outlook": "CoreWeave는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 최근 'Coreweave의 몰락'이라는 보도가 나오며 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 시장 전반의 기술주 매도세가 Coreweave 주가에 영향을 미칠 가능성이 있습니다."
+          "name": "Anthropic",
+          "outlook": "Anthropic은 AI 분야의 주요 기업으로, 최근 IPO 가치 기대치가 수익 성장 둔화 우려로 인해 낮아지고 있다는 소식이 전해졌습니다. 이는 AI 투자 전반에 대한 시장의 의구심과 맞물려 주가에 부담 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 기술 개발 및 투자 유치 관련 추가 소식이 주가에 영향을 미칠 수 있으나, 시장의 전반적인 AI 투자 심리 위축 가능성에 유의해야 합니다."
         },
         {
-          "name": "TSMC",
-          "outlook": "TSMC는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 하지만 최근 급등한 실적 발표에도 불구하고 주가가 하락하는 모습을 보이며 단기적인 위험 요인으로 작용할 수 있습니다. 일론 머스크의 발언이 AI 칩 관련 우려를 상쇄할 수 있을지 주목해야 하며, 향후 일주일 내 시장 전반의 기술주 매도세가 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "Nvidia",
-          "outlook": "Nvidia는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 Coreweave 주가 패닉이 Nvidia에 미치는 영향과 기술주 전반의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 시장 전반의 기술주 매도세가 Nvidia 주가에 영향을 미칠 가능성이 있습니다."
+          "name": "KFC",
+          "outlook": "KFC가 수십 년 만에 미국 내 레스토랑에서 Pepsi 대신 Coca-Cola 음료를 사용하기로 결정했다는 소식이 시장의 주목을 받고 있습니다. 이는 소비재 섹터 내에서 유통망 변화와 관련된 중요한 이벤트로, 향후 관련 기업들의 실적에 영향을 미칠 수 있습니다. 향후 일주일 내에는 이 결정에 따른 구체적인 파트너십 변화 및 시장 반응에 대한 추가적인 보도가 나올 수 있습니다. 다만, 이는 개별 기업의 결정으로, 섹터 전반의 투자 심리에 미치는 영향은 제한적일 수 있습니다."
         }
       ]
     },
@@ -251,217 +145,11 @@
     }
   },
   "kr": {
-    "top3_sectors": [
-      {
-        "name": "AI",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 8건)",
-        "kr_news_refs": [
-          1,
-          6,
-          9,
-          11,
-          14,
-          16,
-          77,
-          85
-        ],
-        "related_news": [
-          {
-            "title": "닛케이지수, 4.9% 급락...AI·반도체 약세 등 여파 - YTN",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE81VXY3Vi1fRWVMeHE0a3lMNldFVUZJY3RXSEt5OFFpLXVWcWhhNmtsOWJVMzJ1X2hHYkRFandVMGktRDZ0WmlYeFZEZGQxSTdGRjF3VnhyRW9PdWVFWkE?oc=5",
-            "published_at": "2026-10-15 19:02:00 KST"
-          },
-          {
-            "title": "카카오톡에서 AI 비서 안전하게 관리... 카카오, 자율 에이전트 시대 AI 윤리 원칙 ‘SPIRIT’ 공개 - 보안뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9kazJYdEk3SjBrX3hEdk53ODhrdnMxSktuaXBHdGdQZ2tXazZfbjlpRmVXMGFhQ2FsTk5ockU2bWVSMDlqWmVUNlQyX19HaHlZR254eWpaT3ZZOWRNQjF3a1hkM0VpT0U3OWRJ?oc=5",
-            "published_at": "2026-10-15 17:57:34 KST"
-          },
-          {
-            "title": "코스피 5,500선 추락‥코스닥도 7%대 폭락 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5VMjFEdjdyVmhxQUlwUFRDcGdwbnNGV3IzbF9IcUlibUs2czZmbGZieWpTZFUzOTVjbkNfRVRtQ0lyaDg2SFN0dTVKYXhJUjlmT0FxZkUxWnhXVmdjTkZKVGV3MS1QdW9xOEpGa2Vsd3UwYTU3Ni1rV9IBeEFVX3lxTFBUTWpxeTRIaWlBcTdsdy1ncWJWQ1g0dVR1VWVxNG1Fc1FpT3BGZ2hESTBwMUF5R1BwcjBQSkhqRThPOTdFVjBRTGhSZk5Nd3FXbUhQSm9IeWtyMEUzdjRpQUlMOEk0WFZhWU9BN21CYzZOY19xV2cxdA?oc=5",
-            "published_at": "2026-10-15 16:57:17 KST"
-          },
-          {
-            "title": "코스피 40% 급락보다 무서운 AI 빚 … 은행·보험사 해외 대출·채권 '부실 뇌관' - 뉴데일리",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1jMEZsWUFRTnZxMWMtR3NGTHgya3kwNmFKZHZULVlWS3RmRHYtMkFvdEZuSDYyWnA1UHBUbnlEczZZQ3ZwSEV1UTMweFlMUTVNWWtaOUo1QTItOG5qbmtpeW51cFoyLTlxc0w3dWFIdFI1c2IxUTlOVzR2RdIBgAFBVV95cUxQQmgzdHN4TFVBMVZhWkl4azF6ZC1PUGVCZHZoQ2F2Snl1REt4aGtkeVR4OXZrbVktWTFaMWZWNVNnSmJpYzZyTlVaclp5Q3J3c3lGeEtvejFLZmt3VldneXFKOWNITWplVjlFdWdIZE15T01UVEZJbWl2d3RfQVJsaA?oc=5",
-            "published_at": "2026-10-15 16:47:52 KST"
-          },
-          {
-            "title": "“삼전 7만, 하닉 20만원이 적정” ‘검은 목요일’에 소환된 한 애널의 분석 - 문화일보",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9BSmUxVUplZFdHMTc5N0xZbmY1TnYtalBJMUo1LVA0dWtyMW9oSVhDaElLbHdISWEySFdHTEpJdDllSHdUMUo2V2ltRGh3em1J?oc=5",
-            "published_at": "2026-10-15 15:14:56 KST"
-          }
-        ],
-        "outlook": "국내 AI 섹터는 AI 칩 수요와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 일본 증시의 급락과 한국 증시 전반의 하락세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 카카오의 AI 윤리 원칙 발표와 같은 개별 기업 이벤트가 있을 수 있으며, 시장 전반의 투자 심리 변화가 중요할 것으로 보입니다."
-      },
-      {
-        "name": "반도체",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 6건)",
-        "kr_news_refs": [
-          1,
-          5,
-          8,
-          10,
-          14,
-          16
-        ],
-        "related_news": [
-          {
-            "title": "닛케이지수, 4.9% 급락...AI·반도체 약세 등 여파 - YTN",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE81VXY3Vi1fRWVMeHE0a3lMNldFVUZJY3RXSEt5OFFpLXVWcWhhNmtsOWJVMzJ1X2hHYkRFandVMGktRDZ0WmlYeFZEZGQxSTdGRjF3VnhyRW9PdWVFWkE?oc=5",
-            "published_at": "2026-10-15 19:02:00 KST"
-          },
-          {
-            "title": "국토부 장관, 광주 군 공항 찾아 반도체 산단 점검 - YTN",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBpQXNiQlNKWjAxMUkycUl3bktyNHFuZXJlMExjOW5lYS1TaWEyUzZLR3cxdDlja1M3M1FjYnU1YTRHSVJKYkU0Umc5NEZpd2otb3hCSGVHMEN1SmpHZlE?oc=5",
-            "published_at": "2026-10-15 18:03:00 KST"
-          },
-          {
-            "title": "日, 美 반도체 공장건설에 28조원 투자…글로벌파운드리 주가↑ [이상은의 워싱턴나우] - 한국경제",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5MZXlITEZFSWdZcVJlSThCcVRfclo3MFYtLWF5dXpGR0Z5MTdHUDVyQ3A4NktGYm5FQlRVQ3dqMHRVTnhBejVYcDJsSDBVZVdGTkxveVgwMnZDUQ?oc=5",
-            "published_at": "2026-10-15 16:58:00 KST"
-          },
-          {
-            "title": "\"SK하이닉스 '美 투자할테니 中 공장에 반도체장비 허용' 요구\" - 머니투데이 - 머니투데이",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8zTXRja2s5N0JJVkd1eGdVVVpOTjd5RXdYVWluWXFNYVd0NjJnQ1BscFVBUW1JVUE5QnBiU1o4NnBQNW9PazdjbVlheUR4bmxuWEdOSVh1UVMyTDRDdXc1ZE9Jb2FrRFpW0gFuQVVfeXFMTVZwNFEzV1JWcmpULUJuYko2bmxDRzd4SGE2dmVtRTgtVWRmZXlKRjZtbUkxbHpJbEZkU0dWbW9PMGlwNUpLY3FRaDhmWlZ3TzJpYzZvN0tpM1JhVjRIVDlmZTQwSC1Kd1dTTjRjRmc?oc=5",
-            "published_at": "2026-10-15 16:49:56 KST"
-          },
-          {
-            "title": "“삼전 7만, 하닉 20만원이 적정” ‘검은 목요일’에 소환된 한 애널의 분석 - 문화일보",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9BSmUxVUplZFdHMTc5N0xZbmY1TnYtalBJMUo1LVA0dWtyMW9oSVhDaElLbHdISWEySFdHTEpJdDllSHdUMUo2V2ltRGh3em1J?oc=5",
-            "published_at": "2026-10-15 15:14:56 KST"
-          }
-        ],
-        "outlook": "국내 반도체 섹터는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 일본 증시의 급락과 한국 증시 전반의 하락세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 SK하이닉스의 미국 투자 계획 및 중국 공장 장비 허용 요구와 같은 개별 기업 이슈가 있을 수 있으며, 글로벌 반도체 시장 동향이 중요할 것으로 보입니다."
-      }
-    ],
-    "top3_stocks": [
-      {
-        "name": "Kakao",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 3건)",
-        "kr_news_refs": [
-          6,
-          97
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "카카오톡에서 AI 비서 안전하게 관리... 카카오, 자율 에이전트 시대 AI 윤리 원칙 ‘SPIRIT’ 공개 - 보안뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9kazJYdEk3SjBrX3hEdk53ODhrdnMxSktuaXBHdGdQZ2tXazZfbjlpRmVXMGFhQ2FsTk5ockU2bWVSMDlqWmVUNlQyX19HaHlZR254eWpaT3ZZOWRNQjF3a1hkM0VpT0U3OWRJ?oc=5",
-            "published_at": "2026-10-15 17:57:34 KST"
-          },
-          {
-            "title": "[단독] “일 제대로 시키려면 다 알려주세요”…카톡 AI, 개인정보 ‘레벨제’ 도입",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/it/12177103",
-            "published_at": "2026-10-15 18:05:24 KST"
-          }
-        ],
-        "outlook": "카카오는 AI 비서 안전 관리 및 자율 에이전트 시대 AI 윤리 원칙 발표 등 AI 관련 이슈로 주목받고 있습니다. 그러나 국내 증시 전반의 하락세와 외국인 투자자의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 개인정보 활용 범위에 대한 추가적인 발표가 있을 수 있으며, AI 관련 기술 발전 및 규제 동향이 주가에 영향을 미칠 수 있습니다."
-      },
-      {
-        "name": "삼성전자",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 3건)",
-        "kr_news_refs": [
-          14,
-          15,
-          25
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "“삼전 7만, 하닉 20만원이 적정” ‘검은 목요일’에 소환된 한 애널의 분석 - 문화일보",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9BSmUxVUplZFdHMTc5N0xZbmY1TnYtalBJMUo1LVA0dWtyMW9oSVhDaElLbHdISWEySFdHTEpJdDllSHdUMUo2V2ltRGh3em1J?oc=5",
-            "published_at": "2026-10-15 15:14:56 KST"
-          },
-          {
-            "title": "'서울디자인위크'에서 내 취향에 딱 맞는 디자인 레시피 찾아볼까? - 서울특별시",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9ZNWlZVmU2VTlGX1pUdW85cXQ3ZndNTDJlRnlYTVRJQVhkZzdaWGU5N282UUhjamNSSUdjMGgxYXpoT3dNOHIwV1JOTE5PSWJKUGs4Z2pWdFA?oc=5",
-            "published_at": "2026-10-15 15:12:00 KST"
-          },
-          {
-            "title": "“10만원까지 빠져라, 주식 더 받는다”…삼성전자 직원 익명글에 뿔난 주주들",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/economy/12177162",
-            "published_at": "2026-10-15 19:51:46 KST"
-          }
-        ],
-        "outlook": "삼성전자는 AI 칩 수요와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 '검은 목요일'에 소환된 애널리스트의 적정 주가 분석과 일부 주주들의 불만이 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 삼성전자 직원의 익명 게시글 관련 이슈가 지속될 수 있으며, 글로벌 반도체 시장 동향 및 경쟁사 움직임이 주가에 영향을 미칠 것으로 예상됩니다."
-      },
-      {
-        "name": "TSMC",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 3건)",
-        "kr_news_refs": [
-          1,
-          16,
-          85
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "닛케이지수, 4.9% 급락...AI·반도체 약세 등 여파 - YTN",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE81VXY3Vi1fRWVMeHE0a3lMNldFVUZJY3RXSEt5OFFpLXVWcWhhNmtsOWJVMzJ1X2hHYkRFandVMGktRDZ0WmlYeFZEZGQxSTdGRjF3VnhyRW9PdWVFWkE?oc=5",
-            "published_at": "2026-10-15 19:02:00 KST"
-          },
-          {
-            "title": "TSMC, 3분기 순익 68.7% 급증…매출·영업이익률 가이던스 상회(상보) - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1lakVlalZ6M2pfaFlIdWdGUE9HQmFla052UklRWHl1c2FsMjJEeWZCSXNTQndHSUNHdHRpTS1ETDI1X0kwdXhaQ2NTSGlqaFQ5ZHlRLXNUQ05KYkRhaTRHaWg0ZXpYSXJkSVh5WXNGRTc?oc=5",
-            "published_at": "2026-10-15 14:47:00 KST"
-          },
-          {
-            "title": "TSMC, 3분기 순이익 68.7%↑…AI붐에 6분기 연속 신기록(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261015124351089",
-            "published_at": "2026-10-15 18:12:30 KST"
-          }
-        ],
-        "outlook": "TSMC는 AI 붐에 힘입어 기록적인 실적을 발표하며 주목받고 있습니다. 그러나 일본 증시 급락과 한국 증시 전반의 하락세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 AI 관련 수요 지속 여부와 글로벌 반도체 시장 경쟁 구도 변화가 주가에 영향을 미칠 것으로 예상됩니다."
-      }
-    ],
+    "top3_sectors": [],
+    "top3_stocks": [],
     "outlook": {
-      "sectors": [
-        {
-          "name": "AI",
-          "outlook": "국내 AI 섹터는 AI 칩 수요와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 일본 증시의 급락과 한국 증시 전반의 하락세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 카카오의 AI 윤리 원칙 발표와 같은 개별 기업 이벤트가 있을 수 있으며, 시장 전반의 투자 심리 변화가 중요할 것으로 보입니다."
-        },
-        {
-          "name": "반도체",
-          "outlook": "국내 반도체 섹터는 AI 칩 수요 증가와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 일본 증시의 급락과 한국 증시 전반의 하락세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 SK하이닉스의 미국 투자 계획 및 중국 공장 장비 허용 요구와 같은 개별 기업 이슈가 있을 수 있으며, 글로벌 반도체 시장 동향이 중요할 것으로 보입니다."
-        },
-        {
-          "name": "미디어/콘텐츠",
-          "outlook": "미디어/콘텐츠 섹터는 JTBC, 중앙일보 인수전 및 굿즈 시장 흥행, 신세계 그룹의 워너브라더스 인수 참여 등 다양한 이슈로 주목받고 있습니다. 전통 매체의 광고 약세와 TV 광고의 약세 속에서 판촉물 시장의 성장이 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 관련 M&A 관련 소식이 추가적으로 나올 수 있으며, 시장의 관심이 집중될 것으로 예상됩니다."
-        }
-      ],
-      "stocks": [
-        {
-          "name": "Kakao",
-          "outlook": "카카오는 AI 비서 안전 관리 및 자율 에이전트 시대 AI 윤리 원칙 발표 등 AI 관련 이슈로 주목받고 있습니다. 그러나 국내 증시 전반의 하락세와 외국인 투자자의 매도세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 개인정보 활용 범위에 대한 추가적인 발표가 있을 수 있으며, AI 관련 기술 발전 및 규제 동향이 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "삼성전자",
-          "outlook": "삼성전자는 AI 칩 수요와 빅테크 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 그러나 '검은 목요일'에 소환된 애널리스트의 적정 주가 분석과 일부 주주들의 불만이 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 삼성전자 직원의 익명 게시글 관련 이슈가 지속될 수 있으며, 글로벌 반도체 시장 동향 및 경쟁사 움직임이 주가에 영향을 미칠 것으로 예상됩니다."
-        },
-        {
-          "name": "TSMC",
-          "outlook": "TSMC는 AI 붐에 힘입어 기록적인 실적을 발표하며 주목받고 있습니다. 그러나 일본 증시 급락과 한국 증시 전반의 하락세가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 AI 관련 수요 지속 여부와 글로벌 반도체 시장 경쟁 구도 변화가 주가에 영향을 미칠 것으로 예상됩니다."
-        }
-      ]
+      "sectors": [],
+      "stocks": []
     },
     "collected": {
       "news": 100
@@ -471,13 +159,13 @@
     "top3_sectors": [
       {
         "name": "미디어/콘텐츠",
-        "freq": 3,
-        "summary": "JTBC, 중앙일보 인수전 및 굿즈 시장 흥행, 신세계 그룹의 워너브라더스 인수 참여 등 미디어 및 콘텐츠 산업 관련 이슈가 언급되었습니다. 전통 매체의 광고 약세와 TV 광고의 약세 속에서 판촉물 시장의 성장이 주목받았습니다.",
+        "freq": 2,
+        "summary": "JTBC, 중앙일보 등 전통 매체의 매각 및 인수전이 언급되었습니다. 또한, 판촉물(굿즈) 시장의 흥행과 워너브라더스 인수 관련 투자 소식이 다뤄졌습니다.",
         "refs": [
-          3,
+          6,
           10
         ],
-        "reason": "JTBC, 중앙일보 인수전 및 굿즈 시장 흥행, 신세계 그룹의 워너브라더스 인수 참여 등 미디어 및 콘텐츠 산업 관련 이슈가 언급되었습니다. 전통 매체의 광고 약세와 TV 광고의 약세 속에서 판촉물 시장의 성장이 주목받았습니다.",
+        "reason": "JTBC, 중앙일보 등 전통 매체의 매각 및 인수전이 언급되었습니다. 또한, 판촉물(굿즈) 시장의 흥행과 워너브라더스 인수 관련 투자 소식이 다뤄졌습니다.",
         "related_videos": [
           {
             "title": "매물로 나온 JTBC, 중앙일보, 뜻밖에 물 들어온 굿즈시장",
@@ -492,117 +180,122 @@
             "published_at": "2026-10-14 18:19:08 KST"
           }
         ],
-        "outlook": "미디어/콘텐츠 섹터는 JTBC, 중앙일보 인수전 및 굿즈 시장 흥행, 신세계 그룹의 워너브라더스 인수 참여 등 다양한 이슈로 주목받고 있습니다. 전통 매체의 광고 약세와 TV 광고의 약세 속에서 판촉물 시장의 성장이 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 관련 M&A 관련 소식이 추가적으로 나올 수 있으며, 시장의 관심이 집중될 것으로 예상됩니다."
+        "outlook": "미디어/콘텐츠 섹터는 JTBC, 중앙일보 등 전통 매체의 매각 및 인수전 소식이 투자자들의 관심을 받고 있습니다. 또한, 판촉물(굿즈) 시장의 흥행과 워너브라더스 인수 관련 투자 소식도 함께 다뤄졌습니다. 향후 일주일 내에는 이러한 인수합병 관련 논의가 구체화되거나, 굿즈 시장의 성장세에 대한 추가적인 분석이 나올 수 있습니다. 다만, 전통 미디어 산업의 구조적 변화에 대한 장기적인 관점에서의 접근이 필요합니다."
       },
       {
-        "name": "증권/투자",
-        "freq": 3,
-        "summary": "국내 증시의 하락세와 외국인 투자자의 매도세가 지속되는 상황에 대한 분석이 다뤄졌습니다. 시장의 어려운 흐름 속에서 현금 보유의 중요성, 매수 구간 탐색, 그리고 개인 투자자들의 실수가 지적되었습니다.",
+        "name": "반도체",
+        "freq": 2,
+        "summary": "코어위브의 신용 우려에도 불구하고 젠슨 황은 낙관적인 전망을 내놓았습니다. 또한, D램 현물가가 4분기에 더 상승할 것이라는 예측이 있었습니다.",
         "refs": [
           2,
-          4,
-          6
+          3
         ],
-        "reason": "국내 증시의 하락세와 외국인 투자자의 매도세가 지속되는 상황에 대한 분석이 다뤄졌습니다. 시장의 어려운 흐름 속에서 현금 보유의 중요성, 매수 구간 탐색, 그리고 개인 투자자들의 실수가 지적되었습니다.",
+        "reason": "코어위브의 신용 우려에도 불구하고 젠슨 황은 낙관적인 전망을 내놓았습니다. 또한, D램 현물가가 4분기에 더 상승할 것이라는 예측이 있었습니다.",
         "related_videos": [
           {
-            "title": "실적은 좋은데 주가가 빠지는 시장, 지금은 '이것'을 지켜봐야 합니다 (박세익 전무 & 체슬리투자자문) | 주식프리미어리그",
+            "title": "젠슨 황, 코어위브 신용 우려에도 낙관…\"자본조달 비용 하락\" | D램 현물가는?…메모리 가격 4분기에 더 오른다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=VaWc9oOFpvg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-16 05:29:25 KST"
+          },
+          {
+            "title": "오를 때 못 팔고 내릴 때 버티기만 한다면…삼전닉스 비중 조절, 이렇게 생각하세요ㅣ명민준, 박가영, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=anzUtqJai9E",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-15 21:00:03 KST"
+          }
+        ],
+        "outlook": "반도체 섹터에서는 코어위브의 신용 우려에도 불구하고 젠슨 황이 낙관적인 전망을 제시했다는 소식이 주목받고 있습니다. 또한, D램 현물가가 4분기에 더 상승할 것이라는 예측도 나왔습니다. 향후 일주일 내에는 메모리 가격 상승 추세에 대한 추가적인 데이터 발표나, 주요 반도체 기업들의 실적 전망 관련 뉴스가 나올 수 있습니다. 다만, 코어위브와 같은 일부 기업의 신용 위험은 단기적인 변동성을 야기할 수 있습니다."
+      },
+      {
+        "name": "금",
+        "freq": 2,
+        "summary": "금값이 바닥을 찍었으며 2030년에는 2만 달러를 넘어설 것이라는 전망이 제시되었습니다.",
+        "refs": [
+          4,
+          5
+        ],
+        "reason": "금값이 바닥을 찍었으며 2030년에는 2만 달러를 넘어설 것이라는 전망이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "금값 드디어 바닥을 찍었다, 금값 2030년 2만불 넘어선다 (조규원 대표)",
+            "url": "https://www.youtube.com/watch?v=BBTRgDv0c9c",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-15 20:45:03 KST"
+          },
+          {
+            "title": "연속된 코스피 하락... 공포에 팔기 전, '이것'부터 확인하세요 (박세익 전무 & 체슬리투자자문) | 주식프리미어리그 (10월 12일 촬영)",
             "url": "https://www.youtube.com/watch?v=uqlKMlE-tJs",
             "channel_name": "김작가 TV",
             "published_at": "2026-10-15 19:39:27 KST"
-          },
-          {
-            "title": "[26.10.15 오후 방송 전체보기] 미국발 악재에 끝 모를 추락 이어가는 국내증시…내일장, 추락 vs 반등 어디로?",
-            "url": "https://www.youtube.com/watch?v=hBKI0vXcEtk",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-15 19:19:26 KST"
-          },
-          {
-            "title": "200조 넘게 주식 던진 외국인, '이래서' 한국 증시 안 돌아온다 (목대균 대표)",
-            "url": "https://www.youtube.com/watch?v=dxwPyLf78AA",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-15 17:00:09 KST"
           }
         ],
-        "outlook": "증권/투자 섹터는 국내 증시의 하락세와 외국인 투자자의 매도세 지속에 대한 분석이 주를 이루고 있습니다. 시장의 어려운 흐름 속에서 현금 보유의 중요성과 개인 투자자들의 실수가 단기적인 위험 요인으로 지적되었습니다. 향후 일주일 내에는 시장의 반등 가능성과 추가 하락 가능성에 대한 다양한 전망이 나올 것으로 예상되며, 투자자들의 신중한 접근이 요구됩니다."
-      },
-      {
-        "name": "AI",
-        "freq": 1,
-        "summary": "AI 사이클이 끝난 것은 아니지만, 현재 시점에서는 매수보다는 생존을 위해 현금을 남겨야 한다는 의견이 제시되었습니다.",
-        "refs": [
-          1
-        ],
-        "reason": "AI 사이클이 끝난 것은 아니지만, 현재 시점에서는 매수보다는 생존을 위해 현금을 남겨야 한다는 의견이 제시되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "AI 사이클 끝난 건 아니지만 지금은 매수보다 생존…급락장에서 현금을 남겨야 하는 이유ㅣ명민준, 박가영, 유영화 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=IxbjbYQo4EY",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-15 20:00:38 KST"
-          }
-        ],
-        "outlook": "AI 섹터는 AI 사이클이 아직 끝나지 않았다는 분석과 함께, 현재 시점에서는 매수보다는 생존을 위해 현금을 보유해야 한다는 의견이 제시되었습니다. 급락장에서 현금을 남겨야 하는 이유가 단기적인 위험 요인으로 부각될 수 있습니다. 향후 일주일 내에는 AI 관련 기술 발전 및 시장 동향에 대한 추가적인 분석이 나올 수 있으며, 투자자들의 전략 변화가 주목됩니다."
+        "outlook": "금 시장에서는 금값이 바닥을 찍었으며 2030년에는 2만 달러를 넘어설 것이라는 장기적인 전망이 제시되었습니다. 이는 현재 금 가격에 대한 긍정적인 시그널로 해석될 수 있습니다. 향후 일주일 내에는 글로벌 경제 상황 변화나 지정학적 리스크에 따른 금 가격의 단기 변동성이 나타날 수 있습니다. 다만, 제시된 2만 달러 목표치는 장기적인 예측이므로 단기적인 투자 전략 수립 시에는 신중한 접근이 필요합니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "신세계",
-        "freq": 1,
-        "summary": "신세계 그룹이 워너브라더스 인수에 1조 4천억원을 투자한다는 내용이 언급되었습니다. 이는 미디어 제국 건설과 관련된 투자로 해석될 수 있습니다.",
+        "name": "코어위브",
+        "freq": 2,
+        "summary": "코어위브에 대한 신용 우려가 제기되었으나, 젠슨 황은 이에 대해 낙관적인 입장을 보였습니다. 또한, 코어위브의 반등 성공 소식이 언급되었습니다.",
         "refs": [
-          10
+          1,
+          2
         ],
-        "reason": "신세계 그룹이 워너브라더스 인수에 1조 4천억원을 투자한다는 내용이 언급되었습니다. 이는 미디어 제국 건설과 관련된 투자로 해석될 수 있습니다.",
-        "_weak_signal": true,
+        "reason": "코어위브에 대한 신용 우려가 제기되었으나, 젠슨 황은 이에 대해 낙관적인 입장을 보였습니다. 또한, 코어위브의 반등 성공 소식이 언급되었습니다.",
         "related_videos": [
           {
-            "title": "신세계, 워너브라더스 인수에 1조4천억 투자",
-            "url": "https://www.youtube.com/watch?v=zXtseb96cmc",
-            "channel_name": "슈카월드",
-            "published_at": "2026-10-14 18:19:08 KST"
+            "title": "PPI 예상치 상회, 나스닥 상승 전환…코어위브, 네비우스 반등 성공 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=M2iOm886YFk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-16 06:56:24 KST"
+          },
+          {
+            "title": "젠슨 황, 코어위브 신용 우려에도 낙관…\"자본조달 비용 하락\" | D램 현물가는?…메모리 가격 4분기에 더 오른다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=VaWc9oOFpvg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-16 05:29:25 KST"
           }
         ],
-        "outlook": "신세계는 워너브라더스 인수에 1조 4천억원을 투자한다는 소식으로 주목받고 있습니다. 이는 미디어 제국 건설과 관련된 투자로 해석될 수 있으나, 대규모 투자 집행에 따른 재무 부담이 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 해당 투자에 대한 추가적인 분석 및 시장 반응이 나타날 수 있으며, 관련 M&A 동향이 주가에 영향을 미칠 것으로 예상됩니다."
+        "outlook": "코어위브는 신용 우려가 제기되었으나, 젠슨 황은 이에 대해 낙관적인 입장을 보이며 반등 성공 소식이 언급되었습니다. 이는 단기적인 변동성 요인이 될 수 있습니다. 향후 일주일 내에는 코어위브의 자본 조달 및 운영 관련 추가 소식이 주가에 영향을 미칠 수 있으며, 시장의 전반적인 AI 투자 심리 변화에 주목할 필요가 있습니다."
       },
       {
-        "name": "JTBC",
+        "name": "삼성전자",
         "freq": 1,
-        "summary": "JTBC가 매물로 나왔으며 인수전이 진행될 수 있다는 내용이 언급되었습니다. 이는 미디어 산업 내 M&A 이슈와 관련됩니다.",
+        "summary": "삼성전자 및 SK하이닉스(삼전닉스)의 비중 조절에 대한 논의가 있었습니다. 시장 상황에 따른 조절 방안이 제시되었습니다.",
         "refs": [
           3
         ],
-        "reason": "JTBC가 매물로 나왔으며 인수전이 진행될 수 있다는 내용이 언급되었습니다. 이는 미디어 산업 내 M&A 이슈와 관련됩니다.",
+        "reason": "삼성전자 및 SK하이닉스(삼전닉스)의 비중 조절에 대한 논의가 있었습니다. 시장 상황에 따른 조절 방안이 제시되었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "매물로 나온 JTBC, 중앙일보, 뜻밖에 물 들어온 굿즈시장",
-            "url": "https://www.youtube.com/watch?v=Z0yj8Q3-A7E",
-            "channel_name": "슈카월드",
-            "published_at": "2026-10-15 19:20:12 KST"
+            "title": "오를 때 못 팔고 내릴 때 버티기만 한다면…삼전닉스 비중 조절, 이렇게 생각하세요ㅣ명민준, 박가영, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=anzUtqJai9E",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-15 21:00:03 KST"
           }
         ],
-        "outlook": "JTBC는 매물로 나왔으며 인수전이 진행될 수 있다는 내용으로 주목받고 있습니다. 이는 미디어 산업 내 M&A 이슈와 관련되며, 인수 주체 및 조건에 따라 주가 변동성이 커질 수 있습니다. 향후 일주일 내에는 인수 관련 구체적인 소식이 나올 수 있으며, 경쟁사 동향 및 미디어 시장 전반의 흐름이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "삼성전자와 SK하이닉스는 '삼전닉스'로 함께 언급되며 비중 조절에 대한 논의가 있었습니다. 시장 상황에 따른 조절 방안이 제시되었으나, 이는 투자 전략에 대한 제안 수준으로 해석됩니다. 향후 일주일 내에는 반도체 업황 전망 및 개별 기업의 실적 발표 등이 주가에 영향을 미칠 수 있습니다. 현재로서는 명확한 단기 촉매제가 부재한 상황입니다."
       },
       {
-        "name": "중앙일보",
+        "name": "SK하이닉스",
         "freq": 1,
-        "summary": "중앙일보가 매물로 나왔으며 인수전이 진행될 수 있다는 내용이 언급되었습니다. 이는 미디어 산업 내 M&A 이슈와 관련됩니다.",
+        "summary": "삼성전자와 함께 '삼전닉스'로 언급되며 비중 조절에 대한 논의가 있었습니다. 시장 상황에 따른 조절 방안이 제시되었습니다.",
         "refs": [
           3
         ],
-        "reason": "중앙일보가 매물로 나왔으며 인수전이 진행될 수 있다는 내용이 언급되었습니다. 이는 미디어 산업 내 M&A 이슈와 관련됩니다.",
+        "reason": "삼성전자와 함께 '삼전닉스'로 언급되며 비중 조절에 대한 논의가 있었습니다. 시장 상황에 따른 조절 방안이 제시되었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "매물로 나온 JTBC, 중앙일보, 뜻밖에 물 들어온 굿즈시장",
-            "url": "https://www.youtube.com/watch?v=Z0yj8Q3-A7E",
-            "channel_name": "슈카월드",
-            "published_at": "2026-10-15 19:20:12 KST"
+            "title": "오를 때 못 팔고 내릴 때 버티기만 한다면…삼전닉스 비중 조절, 이렇게 생각하세요ㅣ명민준, 박가영, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=anzUtqJai9E",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-15 21:00:03 KST"
           }
         ],
-        "outlook": "중앙일보는 매물로 나왔으며 인수전이 진행될 수 있다는 내용으로 주목받고 있습니다. 이는 미디어 산업 내 M&A 이슈와 관련되며, 인수 주체 및 조건에 따라 주가 변동성이 커질 수 있습니다. 향후 일주일 내에는 인수 관련 구체적인 소식이 나올 수 있으며, 경쟁사 동향 및 미디어 시장 전반의 흐름이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "SK하이닉스는 삼성전자와 함께 '삼전닉스'로 언급되며 비중 조절에 대한 논의가 있었습니다. 시장 상황에 따른 조절 방안이 제시되었으나, 이는 투자 전략에 대한 제안 수준으로 해석됩니다. 향후 일주일 내에는 반도체 업황 전망 및 개별 기업의 실적 발표 등이 주가에 영향을 미칠 수 있습니다. 현재로서는 명확한 단기 촉매제가 부재한 상황입니다."
       }
     ],
     "videos_collected": 10
@@ -611,63 +304,63 @@
     "us": {
       "stocks": [
         {
-          "name": "CoreWeave",
+          "name": "Anthropic",
+          "freq": 3
+        },
+        {
+          "name": "Rocket Lab",
           "freq": 4
         },
         {
-          "name": "Nvidia",
+          "name": "KFC",
+          "freq": 3
+        },
+        {
+          "name": "Tesla",
+          "freq": 3
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Meta",
+          "freq": 2
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 2
+        },
+        {
+          "name": "Netflix",
           "freq": 2
         },
         {
           "name": "TSMC",
-          "freq": 4
-        },
-        {
-          "name": "Anthropic",
           "freq": 2
         },
         {
-          "name": "AMD",
+          "name": "Blackstone",
           "freq": 2
         },
         {
-          "name": "Micron",
-          "freq": 2
-        },
-        {
-          "name": "Sandisk",
-          "freq": 2
-        },
-        {
-          "name": "Apple",
-          "freq": 2
-        },
-        {
-          "name": "ASML",
-          "freq": 2
-        },
-        {
-          "name": "Turkiye Garanti Bankasi",
-          "freq": 2
-        },
-        {
-          "name": "Bank of New York",
+          "name": "Bank of America",
           "freq": 1
         },
         {
-          "name": "Pacific Basin",
-          "freq": 1
+          "name": "Porsche",
+          "freq": 2
         },
         {
-          "name": "Relx",
-          "freq": 1
+          "name": "PepsiCo",
+          "freq": 2
         },
         {
-          "name": "PNC Financial",
-          "freq": 1
+          "name": "Coca-Cola",
+          "freq": 2
         },
         {
-          "name": "Hyperscale Data",
+          "name": "Nvidia",
           "freq": 1
         }
       ],
@@ -677,27 +370,23 @@
           "freq": 3
         },
         {
+          "name": "Treasury",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
           "name": "반도체",
-          "freq": 4
+          "freq": 1
         },
         {
-          "name": "Tech",
-          "freq": 5
+          "name": "China Trade",
+          "freq": 2
         },
         {
-          "name": "Inflation",
-          "freq": 4
-        },
-        {
-          "name": "Chipmakers",
-          "freq": 3
-        },
-        {
-          "name": "Banks",
-          "freq": 3
-        },
-        {
-          "name": "Aviation",
+          "name": "Space",
           "freq": 2
         },
         {
@@ -705,153 +394,161 @@
           "freq": 2
         },
         {
-          "name": "Energy",
+          "name": "Automotive",
           "freq": 2
         },
         {
-          "name": "Healthcare",
+          "name": "Data Center",
           "freq": 2
         },
         {
-          "name": "Bond yields",
+          "name": "Aviation",
           "freq": 2
         },
         {
-          "name": "Semiconductor Foundry",
+          "name": "Beverage",
           "freq": 2
         },
         {
-          "name": "Quantum Computing",
+          "name": "Inflation",
+          "freq": 2
+        },
+        {
+          "name": "Ticketing",
+          "freq": 2
+        },
+        {
+          "name": "Banking",
           "freq": 1
         },
         {
-          "name": "Offshore Wind",
-          "freq": 1
-        },
-        {
-          "name": "Grocery",
-          "freq": 1
+          "name": "바이오",
+          "freq": 2
         }
       ]
     },
     "kr": {
       "stocks": [
         {
-          "name": "삼성전자",
-          "freq": 2
+          "name": "두산에너빌리티",
+          "freq": 1
         },
         {
-          "name": "SK하이닉스",
+          "name": "NAVER",
           "freq": 1
         },
         {
           "name": "Kakao",
-          "freq": 3
-        },
-        {
-          "name": "TSMC",
-          "freq": 3
-        },
-        {
-          "name": "Advantest",
           "freq": 1
         },
         {
-          "name": "창신메모리",
+          "name": "토스",
           "freq": 1
         },
         {
-          "name": "글로벌파운드리",
+          "name": "KFC",
           "freq": 1
         },
         {
-          "name": "CoreWeave",
+          "name": "펩시",
           "freq": 1
         },
         {
-          "name": "한화시스템",
+          "name": "코카콜라",
           "freq": 1
         },
         {
-          "name": "국민성장펀드",
+          "name": "스마일게이트",
           "freq": 1
         },
         {
-          "name": "홈플러스",
+          "name": "HMM",
           "freq": 1
         },
         {
-          "name": "벤틀리",
+          "name": "삼성전기",
           "freq": 1
         },
         {
-          "name": "이나인페이",
+          "name": "SK",
           "freq": 1
         },
         {
-          "name": "이노보테라퓨틱스",
+          "name": "롯데아울렛",
+          "freq": 1
+        },
+        {
+          "name": "이마트 노브랜드",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "KB국민은행",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "AI",
+          "name": "국채금리",
           "freq": 3
+        },
+        {
+          "name": "수입물가",
+          "freq": 3
+        },
+        {
+          "name": "펀드",
+          "freq": 2
+        },
+        {
+          "name": "보안",
+          "freq": 2
+        },
+        {
+          "name": "선불충전금",
+          "freq": 2
         },
         {
           "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "부동산",
           "freq": 2
         },
         {
-          "name": "Inflation",
-          "freq": 3
-        },
-        {
-          "name": "Real Estate",
+          "name": "건설",
           "freq": 2
         },
         {
-          "name": "Banks",
+          "name": "정보보호",
           "freq": 2
         },
         {
-          "name": "Defense Industry",
+          "name": "AI",
           "freq": 1
         },
         {
-          "name": "Currency Swap",
+          "name": "유가",
+          "freq": 2
+        },
+        {
+          "name": "소비재",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "AI 해킹",
           "freq": 1
         },
         {
-          "name": "Semiconductor Foundry",
-          "freq": 1
-        },
-        {
-          "name": "Automotive",
-          "freq": 1
-        },
-        {
-          "name": "Internet Speed",
-          "freq": 1
-        },
-        {
-          "name": "Alcohol",
-          "freq": 1
-        },
-        {
-          "name": "Nuclear Power",
-          "freq": 1
-        },
-        {
-          "name": "Rare Earths",
-          "freq": 1
-        },
-        {
-          "name": "Weight Loss Drugs",
-          "freq": 1
-        },
-        {
-          "name": "Electric Vehicles",
+          "name": "게임",
           "freq": 1
         }
       ]
