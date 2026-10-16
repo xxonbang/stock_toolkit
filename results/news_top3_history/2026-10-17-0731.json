@@ -1,0 +1,785 @@
+{
+  "generated_at": "2026-10-17 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 기업들의 투자 및 기술 개발 소식이 지속적으로 언급되며 주목받고 있습니다 (총 10건).",
+        "us_news_refs": [
+          1,
+          2,
+          6,
+          9,
+          15,
+          17,
+          23,
+          30,
+          37,
+          41
+        ],
+        "related_news": [
+          {
+            "title": "Stock Market Today: Nasdaq Faces Weekly Loss on Tech Stock Slump — Live Updates - WSJ",
+            "title_ko": "오늘 주식 시장: 기술주 하락에 나스닥 주간 손실 직면 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNOWtEQ1dWcXo2OG1zSkt0d3hELWZsX2ZhOE1adzdRdDdPM2VOZElCdXVhNHFETGtPeUwxUnRtc1R1TFVtY2l0M042c0xnWjdzRzhndjBJUmtHdXVhby11YkFYOERsSUhueU9jYTRCMFJJa3lxSGFjaWJrcUR0SllhWXJ4cURuUkU?oc=5",
+            "published_at": "2026-10-17 06:20:00 KST"
+          },
+          {
+            "title": "Is Anthropic worth $2 trillion? How about $1.5 trillion? - Yahoo Finance",
+            "title_ko": "Anthropic 가치 2조 달러? 1.5조 달러는? - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNWW9rSnhWc20ySjNzdks3VnpxdWtMeVR5aWx0MlY4UzZUaDgyN3dIWnh1aE51MVlTb2hnNU81YU1BUHNVME1USTBTUDhkOTl1QzJtZHk0dDdjaHhtM09FUUlIZFBHQnlIUmEyY1hOeEFva2ZpenlWTUdKUWpWR2I5RjFKNldqV3hfYlpnenotaTgyTU9oajRtTFpHcnRlRXVibVQ1S0V0VktLTUpqOS0xNA?oc=5",
+            "published_at": "2026-10-17 04:25:00 KST"
+          },
+          {
+            "title": "States sue AI giant OpenAI, saying its popular chatbot is hurting children and deceiving adults - AP News",
+            "title_ko": "주 AI 거물 OpenAI, 챗봇이 아동 피해, 성인 기만 주장 소송 - AP News",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPOFdMbjctMUxlYlQ0VnBoa3Jpc09HdE9CWlM5b1NjbzhLZ2YwWWUtbTVucWVuMDZwRWozUmNUajh4bm45MjlZY0xiVHdxczJHQW5UZG9NdXEzLUVQaFZlUTB6cW53bVg5MUdpWExJRU5aYzRwVjNTMkY3U0NycUpsaEhRaHZ0cEw3N0xoTFpCZWZTemdsYkFJcGVCVVNhMjVLdmhJZUMyWWd3YTQxemh3MmZ6UHZiZw?oc=5",
+            "published_at": "2026-10-17 03:46:00 KST"
+          },
+          {
+            "title": "Micron Stock’s Drop Triggers ‘Buy the Dip’ Calls. No One’s Listening. - Barron's",
+            "title_ko": "마이크론 주가 하락, '매수 기회' 외침 유발. 아무도 안 들어 - Barron's",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8xSUt3YVV0N3FhRFU4cTItNHB3UTJyMHUwY1NCbERhVG90SmVFcHowWnFLNUJRY2wzLXpaSHZyRzNKejBva3B0aEdRVnpqQ0V0NXIyUWpxWHhHRU94WWFkdDdOT1BreHhvU2RFV3Q0b0RYZzczT1JSTA?oc=5",
+            "published_at": "2026-10-17 02:59:00 KST"
+          },
+          {
+            "title": "CoreWeave stock, bond set for weekly plunge as rate-hike fears hit AI bet - Reuters",
+            "title_ko": "CoreWeave 주식, 채권, 금리 인상 우려 AI 베팅 타격에 주간 폭락 예상 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOQ2NPeFhDRXRadVpwTmIwYlN0MlBfU2tLdWJfcHRKRHFvU3NuXzY1WW5RVEgyZThFbmdVajVEZnpQUklNbjFlbmRDcUVQNTZJWDJOZ253eHVHeGlNMkk0Vm9VQk1xZGVJNEs0cFV2WUxTei1FNW5oNGZOZXBxWWhZcDh2T25EQl9OUDYtM0dEdEFFa1ZkZ2hHcGtveVRKeEFrd0tDeHB4eXEzeEFxLUw1VWo1RHQ2WUs0ODBITVJvZw?oc=5",
+            "published_at": "2026-10-17 01:57:25 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 지속적인 투자 및 기술 개발 소식으로 주목받고 있습니다. Anthropic의 기업 가치 평가에 대한 논의가 진행 중이며, 이는 관련 기업들의 밸류에이션에 영향을 줄 수 있습니다. 그러나 OpenAI를 상대로 한 소송은 AI 기술의 규제 및 윤리적 문제에 대한 우려를 제기하며 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표나 새로운 기술 동향 발표가 예정되어 있는지 주목할 필요가 있습니다."
+      },
+      {
+        "name": "Tech",
+        "reason": "기술 기업들의 실적 발표 및 신규 서비스 출시 관련 뉴스가 꾸준히 보도되었습니다 (총 4건).",
+        "us_news_refs": [
+          1,
+          23,
+          34,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Market Today: Nasdaq Faces Weekly Loss on Tech Stock Slump — Live Updates - WSJ",
+            "title_ko": "오늘 주식 시장: 기술주 하락에 나스닥 주간 손실 직면 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNOWtEQ1dWcXo2OG1zSkt0d3hELWZsX2ZhOE1adzdRdDdPM2VOZElCdXVhNHFETGtPeUwxUnRtc1R1TFVtY2l0M042c0xnWjdzRzhndjBJUmtHdXVhby11YkFYOERsSUhueU9jYTRCMFJJa3lxSGFjaWJrcUR0SllhWXJ4cURuUkU?oc=5",
+            "published_at": "2026-10-17 06:20:00 KST"
+          },
+          {
+            "title": "Nowhere to hide: Tech selloff hits software and chip stocks alike",
+            "title_ko": "숨을 곳 없다: 기술주 매도, 소프트웨어 및 칩 주식 동시 타격",
+            "url": "https://www.marketwatch.com/story/nowhere-to-hide-tech-selloff-hits-software-and-chip-stocks-alike-6d96773c?mod=mw_rss_topstories",
+            "published_at": "2026-10-17 06:59:00 KST"
+          },
+          {
+            "title": "Don’t buy this dip: Several signs suggest there’s more pain ahead for tech stocks",
+            "title_ko": "이 하락세에 사지 마라: 기술주 추가 하락 시사하는 여러 신호",
+            "url": "https://www.marketwatch.com/story/dont-buy-this-dip-several-signs-suggest-theres-more-pain-ahead-for-tech-stocks-83f971d7?mod=mw_rss_topstories",
+            "published_at": "2026-10-17 05:58:00 KST"
+          },
+          {
+            "title": "Netflix stock falls as executive shake-up aims to revive viewership growth - Yahoo Finance",
+            "title_ko": "넷플릭스 주가, 시청률 회복 목표 임원진 개편에 하락 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOOGV3ZzNjRDVFLUNJYW9MZ3J3TTlpSkhkSWhhXzR0MThxalF5WVR0VkN4dTBLWGw2dmo5dk43WnhIRkRDMDd6MXU3emIzemNwM29tS25udTV2dklDaGNGbTFOYjVIYWYwaWFDTTV3N3FBb29PWjhmYzIyV0FWTUlQYnk5WS1mQ2laQXpUMUZoa0dmOTNhRlNfeU15R3NMcTY5ZnpUQ3BIU3dLbU9zWU9GeXo1bnY1dWRyVXhiUE1vWFVRaTB3ODRLSGZpa2dSRGx2aTgtNw?oc=5",
+            "published_at": "2026-10-16 22:52:28 KST"
+          }
+        ],
+        "outlook": "기술 섹터는 전반적인 기술주 하락세 속에서 주간 손실을 기록할 가능성이 있습니다. Micron의 주가 하락과 더불어 CoreWeave의 주식 및 채권 가격 하락은 금리 인상 우려가 AI 관련 베팅에 타격을 주고 있음을 시사합니다. Netflix의 경우, 시청률 성장을 회복하기 위한 임원진 개편 소식이 있었으나 주가는 하락했습니다. 다음 주에는 주요 기술 기업들의 추가적인 실적 발표나 시장 심리에 영향을 줄 만한 거시 경제 지표 발표가 있는지 주시해야 합니다."
+      },
+      {
+        "name": "Automotive",
+        "reason": "자동차 제조사들의 신차 출시 및 전기차 관련 소식이 시장의 관심을 받고 있습니다 (총 3건).",
+        "us_news_refs": [
+          3,
+          4,
+          7
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Porsche launched a car on flying Tesla day and the memes are incredible - Mashable",
+            "title_ko": "포르쉐, 테슬라 비행일에 차 출시, 밈 대박 - Mashable",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9uWTBHUXRqVmtKWHFwMnRfOEFJVUxFWVMxMFNJV095ZF9ETUpGVmdHWTZnMWZ4NU9MZkVvZ0NNZUxocjdfWlFJVlpJN2prWjA2bWo2Zk5NOW9oVnFjNVdJeFd4cDFDNVVFblBaOS1QdzdPSmVOM0E?oc=5",
+            "published_at": "2026-10-17 04:06:36 KST"
+          },
+          {
+            "title": "Hyundai recalls more than 94,000 vehicles over fire risk - Fox Business",
+            "title_ko": "현대차, 화재 위험으로 9만 4천대 이상 리콜 - Fox Business",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQMVdNU2VhSXV1VGstTXBVUTNOc1BuQTNoWkJMWWdoc2FuRDB6UzFUMXhYTTh3TXNMR1BRY1BsR3JqM3dwQ3gxMjlEZVRPbjVackRfaFFJM0hmaEVmY2lEclo5NW5NXzQtUldVUXU3N3pCODlEOGxlZ3VjYmRFc08ybEo1eVQybkwxeTJBemNPY21NMzlSczU1MNIBngFBVV95cUxPY3htZGlkVUllZHUxY292MGJJYjdoSVU0X2lnWXQ3LXpwdHNfaTdsN0pJanprc2hzaWRtc1NWNGNnck9vWHIyWm5jVFdkbnJvSHAxbDVfS1ZJSUVaV1dJZVFYNWhCT05VN0NRSUc2MmhyRjhQRVlHMWlRWjV0RVgzMF9kMldGTEJmTGp6QjVtUXhPZDNOcHdkODE0Y2VGdw?oc=5",
+            "published_at": "2026-10-17 04:00:00 KST"
+          },
+          {
+            "title": "FAA: Musk’s flying car not our responsibility - Politico",
+            "title_ko": "FAA: 머스크 비행차는 우리 책임 아냐 - Politico",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9qSGJNTmVqSDdrcXNTbmhsZExMengzQ0p4WUlJOG8zOGJ3ZndZSDRlSk5YZEtlWElvVjI1dHNlVndnN0gyb0FYeU5HQ0JsaVRrN1RVeHhvd1pmLTZOOTVxZmFWS0NZV1FWVmp2WXd2dmNNN0UwcTl6c05R?oc=5",
+            "published_at": "2026-10-17 03:23:00 KST"
+          }
+        ],
+        "outlook": "자동차 섹터는 신차 출시 및 전기차 관련 소식으로 관심을 받고 있습니다. 포르쉐의 신차 출시와 테슬라의 비행 기능 로드스터 공개 소식이 있었으나, 현대차의 화재 위험으로 인한 대규모 리콜은 부정적인 영향을 줄 수 있는 요인입니다. 또한, FAA의 머스크 비행차 관련 발언은 해당 기술의 상용화 및 규제에 대한 불확실성을 나타냅니다. 다음 주에는 주요 자동차 제조사들의 판매량 발표나 전기차 관련 정책 변화 소식이 있는지 살펴볼 필요가 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장에서의 경쟁력 및 신규 사업 관련 소식이 꾸준히 언급되며 주목받고 있습니다 (총 4건).",
+        "us_news_refs": [
+          3,
+          7,
+          11,
+          24,
+          48
+        ],
+        "related_news": [
+          {
+            "title": "Porsche launched a car on flying Tesla day and the memes are incredible - Mashable",
+            "title_ko": "포르쉐, 테슬라 비행일에 차 출시, 밈 대박 - Mashable",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9uWTBHUXRqVmtKWHFwMnRfOEFJVUxFWVMxMFNJV095ZF9ETUpGVmdHWTZnMWZ4NU9MZkVvZ0NNZUxocjdfWlFJVlpJN2prWjA2bWo2Zk5NOW9oVnFjNVdJeFd4cDFDNVVFblBaOS1QdzdPSmVOM0E?oc=5",
+            "published_at": "2026-10-17 04:06:36 KST"
+          },
+          {
+            "title": "FAA: Musk’s flying car not our responsibility - Politico",
+            "title_ko": "FAA: 머스크 비행차는 우리 책임 아냐 - Politico",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9qSGJNTmVqSDdrcXNTbmhsZExMengzQ0p4WUlJOG8zOGJ3ZndZSDRlSk5YZEtlWElvVjI1dHNlVndnN0gyb0FYeU5HQ0JsaVRrN1RVeHhvd1pmLTZOOTVxZmFWS0NZV1FWVmp2WXd2dmNNN0UwcTl6c05R?oc=5",
+            "published_at": "2026-10-17 03:23:00 KST"
+          },
+          {
+            "title": "Stock Market Today: Nasdaq Stung As ServiceNow Dives After Breakout; Tesla Comes Back To Earth (Live Coverage) - Investor's Business Daily",
+            "title_ko": "오늘 주식 시장: 서비스나우 급락 후 나스닥 타격; 테슬라 현실로 복귀 (생중계) - Investor's Business Daily",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPSW16VzdRWXFqa2Q4VXlic3JJV2RhNUJ4NVdPdXRHM3JLRXE1M1MtZkVHalZVazJ5Q1NFNkFYY3FSbWRaVFNMVHBhWVBvd1lmS2pOUXR1YlRxSW0xZnQxNVFNdnRSbGxwTzhjYnhWSW52RTBORFpMWnVuWDQ1Z1Nkd3lRMXBRRXlFQkY1eGRROWVKOFV6M3VVMGpKRDJwMkZNZTYzTXBkQndwTFR6aS1ibDhaVjhWenhKc1A2N0N2LXE?oc=5",
+            "published_at": "2026-10-17 02:24:00 KST"
+          },
+          {
+            "title": "Tesla shares caught up in tech rout despite new Roadster with flight capabilities",
+            "title_ko": "테슬라 주식, 비행 기능 신형 로드스터에도 기술주 폭락에 휘말려",
+            "url": "https://www.investing.com/news/stock-market-news/tesla-unveils-new-roadster-with-flight-capabilities-set-for-production-in-2028-4952962",
+            "published_at": "2026-10-17 06:58:23 KST"
+          },
+          {
+            "title": "Futures Mixed; Tesla Flies As Anthropic Value Questioned - Investor's Business Daily",
+            "title_ko": "선물 혼조; 테슬라 비행, Anthropic 가치 의문 - Investor's Business Daily",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQeEU2WGRpRzlyZGptcTdpR19RN2d5WVNxWWt6MnlPWEowaTdIdVc0enNEb1ZxbDlHWXNGaVFjT2dJa3cwT1h1SHlJbEVUWXV2WGY0WXhSaW56a0hqX2NyWkJ6R0tFQnJINHlJQnRDX0EyVll3Yzl5TWV5YUZyS3p4WXhKcmZnSkRCWVRiQWlERENCcDllTU1xUjJLaDAzT01SX2lRM1hIcUdDNURsa05mTQ?oc=5",
+            "published_at": "2026-10-16 21:30:00 KST"
+          }
+        ],
+        "outlook": "테슬라는 전기차 시장 경쟁력 및 신규 사업 관련 소식으로 주목받고 있습니다. 비행 기능이 탑재된 신형 로드스터 공개 소식이 있었으나, 전반적인 기술주 하락세 속에서 주가 역시 하락세를 보였습니다. FAA의 머스크 비행차 관련 발언은 해당 기술의 상용화에 대한 불확실성을 제기합니다. 다음 주에는 테슬라의 생산 및 인도량 발표, 또는 경쟁사들의 신차 출시 관련 뉴스가 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Netflix",
+        "reason": "구독자 수 증가 및 신규 콘텐츠 출시 관련 긍정적인 소식이 주가에 영향을 미치고 있습니다 (총 3건).",
+        "us_news_refs": [
+          10,
+          38,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Netflix Regime Change: Ruthless Cuts Set the Stage for a New Era at Streaming Giant - The Hollywood Reporter",
+            "title_ko": "넷플릭스 체제 변화: 무자비한 감축, 스트리밍 거물 새 시대 열어 - The Hollywood Reporter",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZmVkaXNaQWo2dWYtamc2OHFQTG85aWxxTWVUREllRTBZUnZ1Y2tkZjNWbUhRWlRkZF9CTmJDUmYxbUxGVGFTU2NwVmRmMDhybkNnUG5WS2YxeXRFNmNLckt3ZFRwMVFmMGNYT2QtUFpOU2hSMy12VHRaZDRsMnZMT1lrdVg5RG8tYnZJaXlKbzROaHp3ckdvZmdPSEs4bDg?oc=5",
+            "published_at": "2026-10-17 02:46:32 KST"
+          },
+          {
+            "title": "Here's who Netflix just brought in to run content — and what it means for the streamer",
+            "title_ko": "넷플릭스 콘텐츠 책임자 누구? 스트리머에 미칠 영향은",
+            "url": "https://www.cnbc.com/2026/10/16/netflix-peter-rice-chief-content-officer.html",
+            "published_at": "2026-10-17 04:40:00 KST"
+          },
+          {
+            "title": "Netflix stock falls as executive shake-up aims to revive viewership growth - Yahoo Finance",
+            "title_ko": "넷플릭스 주가, 시청률 회복 목표 임원진 개편에 하락 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOOGV3ZzNjRDVFLUNJYW9MZ3J3TTlpSkhkSWhhXzR0MThxalF5WVR0VkN4dTBLWGw2dmo5dk43WnhIRkRDMDd6MXU3emIzemNwM29tS25udTV2dklDaGNGbTFOYjVIYWYwaWFDTTV3N3FBb29PWjhmYzIyV0FWTUlQYnk5WS1mQ2laQXpUMUZoa0dmOTNhRlNfeU15R3NMcTY5ZnpUQ3BIU3dLbU9zWU9GeXo1bnY1dWRyVXhiUE1vWFVRaTB3ODRLSGZpa2dSRGx2aTgtNw?oc=5",
+            "published_at": "2026-10-16 22:52:28 KST"
+          }
+        ],
+        "outlook": "넷플릭스는 구독자 수 증가 및 신규 콘텐츠 출시 관련 긍정적인 소식이 있었으나, 임원진 개편 소식과 함께 주가는 하락했습니다. 이는 시청률 성장을 회복하기 위한 전략 변화가 시장에서 즉각적인 긍정적 반응을 얻지 못했음을 시사합니다. 다음 주에는 넷플릭스의 새로운 콘텐츠 공개 일정이나 경쟁 스트리밍 서비스의 동향이 주가에 영향을 줄 수 있습니다. 또한, 광고 기반 요금제 도입 등 사업 모델 변화에 대한 시장의 반응도 주목해야 합니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 지속적인 투자 및 기술 개발 소식으로 주목받고 있습니다. Anthropic의 기업 가치 평가에 대한 논의가 진행 중이며, 이는 관련 기업들의 밸류에이션에 영향을 줄 수 있습니다. 그러나 OpenAI를 상대로 한 소송은 AI 기술의 규제 및 윤리적 문제에 대한 우려를 제기하며 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표나 새로운 기술 동향 발표가 예정되어 있는지 주목할 필요가 있습니다."
+        },
+        {
+          "name": "Tech",
+          "outlook": "기술 섹터는 전반적인 기술주 하락세 속에서 주간 손실을 기록할 가능성이 있습니다. Micron의 주가 하락과 더불어 CoreWeave의 주식 및 채권 가격 하락은 금리 인상 우려가 AI 관련 베팅에 타격을 주고 있음을 시사합니다. Netflix의 경우, 시청률 성장을 회복하기 위한 임원진 개편 소식이 있었으나 주가는 하락했습니다. 다음 주에는 주요 기술 기업들의 추가적인 실적 발표나 시장 심리에 영향을 줄 만한 거시 경제 지표 발표가 있는지 주시해야 합니다."
+        },
+        {
+          "name": "Automotive",
+          "outlook": "자동차 섹터는 신차 출시 및 전기차 관련 소식으로 관심을 받고 있습니다. 포르쉐의 신차 출시와 테슬라의 비행 기능 로드스터 공개 소식이 있었으나, 현대차의 화재 위험으로 인한 대규모 리콜은 부정적인 영향을 줄 수 있는 요인입니다. 또한, FAA의 머스크 비행차 관련 발언은 해당 기술의 상용화 및 규제에 대한 불확실성을 나타냅니다. 다음 주에는 주요 자동차 제조사들의 판매량 발표나 전기차 관련 정책 변화 소식이 있는지 살펴볼 필요가 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Tesla",
+          "outlook": "테슬라는 전기차 시장 경쟁력 및 신규 사업 관련 소식으로 주목받고 있습니다. 비행 기능이 탑재된 신형 로드스터 공개 소식이 있었으나, 전반적인 기술주 하락세 속에서 주가 역시 하락세를 보였습니다. FAA의 머스크 비행차 관련 발언은 해당 기술의 상용화에 대한 불확실성을 제기합니다. 다음 주에는 테슬라의 생산 및 인도량 발표, 또는 경쟁사들의 신차 출시 관련 뉴스가 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Netflix",
+          "outlook": "넷플릭스는 구독자 수 증가 및 신규 콘텐츠 출시 관련 긍정적인 소식이 있었으나, 임원진 개편 소식과 함께 주가는 하락했습니다. 이는 시청률 성장을 회복하기 위한 전략 변화가 시장에서 즉각적인 긍정적 반응을 얻지 못했음을 시사합니다. 다음 주에는 넷플릭스의 새로운 콘텐츠 공개 일정이나 경쟁 스트리밍 서비스의 동향이 주가에 영향을 줄 수 있습니다. 또한, 광고 기반 요금제 도입 등 사업 모델 변화에 대한 시장의 반응도 주목해야 합니다."
+        },
+        {
+          "name": "Anthropic",
+          "outlook": "Anthropic은 기업 가치 2조 달러 또는 1.5조 달러에 대한 논의가 진행되며 시장의 주목을 받고 있습니다. 이는 AI 분야의 높은 성장 잠재력을 보여주는 지표로 해석될 수 있습니다. 그러나 OpenAI를 상대로 한 소송과 같이 AI 기술의 윤리적, 법적 문제에 대한 우려는 투자 심리에 부정적인 영향을 미칠 수 있습니다. 다음 주에는 Anthropic의 투자 유치 관련 소식이나 AI 규제 관련 발표가 있는지 주목할 필요가 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "스마트폰",
+        "reason": "신규 스마트폰 출시 및 관련 부품 수요 증가에 대한 뉴스가 꾸준히 보도되었습니다 (총 3건).",
+        "kr_news_refs": [
+          1,
+          59,
+          73
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "아이폰 ‘첫 폴더블” 듀오, 예약 첫날 동나…“내년 1월말 배송” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBGYmIyWFpJSU4zeER2ZWFxMzI0ZVJxUmFnbGd3dllQZVdFSHcxcUZaZ2VaTGp0MENfd1dPellnanpQaFkzQ3F2Y0doY0VlSER3TDd3N3ZNWE5wb28?oc=5",
+            "published_at": "2026-10-17 04:56:00 KST"
+          },
+          {
+            "title": "“3분 만에 동났다”…애플 첫 폴더블폰, 내년 1월까지 예약 밀려",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12178326",
+            "published_at": "2026-10-17 05:55:37 KST"
+          },
+          {
+            "title": "아이폰 듀오, 예약 첫날부터 \"내년 1월말 배송\"…출시 전 품귀",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017004200091",
+            "published_at": "2026-10-17 04:13:02 KST"
+          }
+        ],
+        "outlook": "스마트폰 섹터는 신규 아이폰 모델 출시와 관련된 긍정적인 소식으로 주목받고 있습니다. 아이폰 듀오의 예약 첫날 완판 및 내년 1월 말 배송 예정 소식은 높은 수요를 보여줍니다. 그러나 이러한 수요가 공급망에 미치는 영향과 향후 생산 차질 가능성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 주요 스마트폰 제조사들의 판매량 발표나 신규 모델 관련 추가 정보 공개 여부를 주시해야 합니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "반도체 업황 개선 기대감과 함께 주요 기업들의 실적 및 투자 소식이 주목받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          25,
+          86,
+          93
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 17일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12178022",
+            "published_at": "2026-10-17 07:00:00 KST"
+          },
+          {
+            "title": "외국인 '11조' 팔았는데…中 공포 덮친 삼전닉스 '깜짝 전망' [분석+] - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE52QnJFZ0Z0MjN5M0pUcFRYQXJndnRjcW1KcFVBRXE0dmVNTFhtZllnLTRLSkd2bDdMN1dHbWluZU1pajNsNlBlN1RKemNYUmJMRHFtN3lQODlDZw?oc=5",
+            "published_at": "2026-10-16 22:00:01 KST"
+          },
+          {
+            "title": "서버용 쏠림에 씨마른 범용 D램 … 4분기 가격 최대 15% 뛴다 - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9zS216dEk5QzlySWpQaEVXVHA0QTY3RjN6YUlGUjh0ZnZvWkgtNmVCM2FGYzdDNWZETzhYZUpaZ1FBenhuaGZKQVNzRFp4ckJKb09xMGlR?oc=5",
+            "published_at": "2026-10-16 17:56:06 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 업황 개선 기대감과 함께 주요 기업들의 실적 및 투자 소식이 주목받고 있습니다. 서버용 D램 가격 상승 전망은 긍정적인 신호로 해석될 수 있습니다. 그러나 외국인 투자자들의 대규모 매도세와 중국 시장의 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 글로벌 경기 지표 발표가 업황 전망에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "아이폰 듀오",
+        "reason": "신규 아이폰 모델 출시와 관련된 소식이 시장의 관심을 끌고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          1,
+          59,
+          73
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "아이폰 ‘첫 폴더블” 듀오, 예약 첫날 동나…“내년 1월말 배송” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBGYmIyWFpJSU4zeER2ZWFxMzI0ZVJxUmFnbGd3dllQZVdFSHcxcUZaZ2VaTGp0MENfd1dPellnanpQaFkzQ3F2Y0doY0VlSER3TDd3N3ZNWE5wb28?oc=5",
+            "published_at": "2026-10-17 04:56:00 KST"
+          },
+          {
+            "title": "“3분 만에 동났다”…애플 첫 폴더블폰, 내년 1월까지 예약 밀려",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12178326",
+            "published_at": "2026-10-17 05:55:37 KST"
+          },
+          {
+            "title": "아이폰 듀오, 예약 첫날부터 \"내년 1월말 배송\"…출시 전 품귀",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017004200091",
+            "published_at": "2026-10-17 04:13:02 KST"
+          }
+        ],
+        "outlook": "아이폰 듀오 관련 소식은 높은 초기 수요를 보여주며 긍정적인 모멘텀을 형성하고 있습니다. 예약 첫날 완판 및 내년 1월 말 배송 예정 소식은 제품에 대한 시장의 높은 관심을 나타냅니다. 그러나 이러한 높은 수요가 공급망에 미치는 압박과 향후 생산량 조절 여부는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 추가적인 판매량 데이터나 신규 모델 관련 상세 정보 공개 여부를 주목해야 합니다."
+      },
+      {
+        "name": "삼성전자",
+        "reason": "반도체 업황 개선 및 신규 기술 개발 관련 소식이 주목받고 있습니다 (총 1건).",
+        "kr_news_refs": [
+          25,
+          86
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 17일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12178022",
+            "published_at": "2026-10-17 07:00:00 KST"
+          },
+          {
+            "title": "외국인 '11조' 팔았는데…中 공포 덮친 삼전닉스 '깜짝 전망' [분석+] - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE52QnJFZ0Z0MjN5M0pUcFRYQXJndnRjcW1KcFVBRXE0dmVNTFhtZllnLTRLSkd2bDdMN1dHbWluZU1pajNsNlBlN1RKemNYUmJMRHFtN3lQODlDZw?oc=5",
+            "published_at": "2026-10-16 22:00:01 KST"
+          }
+        ],
+        "outlook": "삼성전자는 반도체 업황 개선 기대감과 함께 외국인 투자자들의 매매 동향이 주가에 영향을 미치고 있습니다. 외국인 투자자들의 대규모 매도세 속에서도 반도체 섹터의 긍정적인 전망이 일부 언급되었습니다. 중국 시장의 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 삼성전자의 실적 발표나 주요 반도체 관련 기술 개발 소식이 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "reason": "메모리 반도체 시장 회복에 따른 실적 개선 기대감이 형성되고 있습니다 (총 1건).",
+        "kr_news_refs": [
+          25,
+          86
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 17일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12178022",
+            "published_at": "2026-10-17 07:00:00 KST"
+          },
+          {
+            "title": "외국인 '11조' 팔았는데…中 공포 덮친 삼전닉스 '깜짝 전망' [분석+] - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE52QnJFZ0Z0MjN5M0pUcFRYQXJndnRjcW1KcFVBRXE0dmVNTFhtZllnLTRLSkd2bDdMN1dHbWluZU1pajNsNlBlN1RKemNYUmJMRHFtN3lQODlDZw?oc=5",
+            "published_at": "2026-10-16 22:00:01 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 메모리 반도체 시장 회복에 따른 실적 개선 기대감이 형성되고 있습니다. 외국인 투자자들의 매매 동향이 주가에 영향을 미치는 가운데, 반도체 업황 개선 전망이 긍정적인 요소로 작용하고 있습니다. 중국 시장의 불확실성은 단기적인 위험 요인으로 고려될 수 있습니다. 다음 주에는 SK하이닉스의 실적 발표나 글로벌 D램 가격 변동 추이가 주가에 영향을 미칠 것으로 예상됩니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "스마트폰",
+          "outlook": "스마트폰 섹터는 신규 아이폰 모델 출시와 관련된 긍정적인 소식으로 주목받고 있습니다. 아이폰 듀오의 예약 첫날 완판 및 내년 1월 말 배송 예정 소식은 높은 수요를 보여줍니다. 그러나 이러한 수요가 공급망에 미치는 영향과 향후 생산 차질 가능성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 주요 스마트폰 제조사들의 판매량 발표나 신규 모델 관련 추가 정보 공개 여부를 주시해야 합니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "반도체 섹터는 업황 개선 기대감과 함께 주요 기업들의 실적 및 투자 소식이 주목받고 있습니다. 서버용 D램 가격 상승 전망은 긍정적인 신호로 해석될 수 있습니다. 그러나 외국인 투자자들의 대규모 매도세와 중국 시장의 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 글로벌 경기 지표 발표가 업황 전망에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "미디어/콘텐츠",
+          "outlook": "미디어/콘텐츠 섹터는 전통 매체의 인수전과 판촉물(굿즈) 시장의 성장이 언급되었습니다. TV 광고의 약세 속에서 굿즈 시장이 수혜를 보고 있다는 분석은 새로운 수익 모델의 가능성을 시사합니다. 그러나 인수전 관련 불확실성이나 전통 매체의 실적 부진 가능성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 관련 기업들의 실적 발표나 인수합병 관련 추가 소식이 있는지 주목할 필요가 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "아이폰 듀오",
+          "outlook": "아이폰 듀오 관련 소식은 높은 초기 수요를 보여주며 긍정적인 모멘텀을 형성하고 있습니다. 예약 첫날 완판 및 내년 1월 말 배송 예정 소식은 제품에 대한 시장의 높은 관심을 나타냅니다. 그러나 이러한 높은 수요가 공급망에 미치는 압박과 향후 생산량 조절 여부는 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 추가적인 판매량 데이터나 신규 모델 관련 상세 정보 공개 여부를 주목해야 합니다."
+        },
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 반도체 업황 개선 기대감과 함께 외국인 투자자들의 매매 동향이 주가에 영향을 미치고 있습니다. 외국인 투자자들의 대규모 매도세 속에서도 반도체 섹터의 긍정적인 전망이 일부 언급되었습니다. 중국 시장의 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 삼성전자의 실적 발표나 주요 반도체 관련 기술 개발 소식이 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 메모리 반도체 시장 회복에 따른 실적 개선 기대감이 형성되고 있습니다. 외국인 투자자들의 매매 동향이 주가에 영향을 미치는 가운데, 반도체 업황 개선 전망이 긍정적인 요소로 작용하고 있습니다. 중국 시장의 불확실성은 단기적인 위험 요인으로 고려될 수 있습니다. 다음 주에는 SK하이닉스의 실적 발표나 글로벌 D램 가격 변동 추이가 주가에 영향을 미칠 것으로 예상됩니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "금",
+        "freq": 3,
+        "summary": "금값의 100년에 한 번 오는 상승장이 언급되었으며, 특정 시점에 금 한 돈 가격이 300만원을 넘어설 것이라는 전망이 제시되었습니다. 또한, 금리 인상 신호가 나올 경우 금 관련 섹터가 가장 먼저 움직일 것이라는 분석이 있었습니다.",
+        "refs": [
+          2,
+          5,
+          10
+        ],
+        "reason": "금값의 100년에 한 번 오는 상승장이 언급되었으며, 특정 시점에 금 한 돈 가격이 300만원을 넘어설 것이라는 전망이 제시되었습니다. 또한, 금리 인상 신호가 나올 경우 금 관련 섹터가 가장 먼저 움직일 것이라는 분석이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "금값 100년에 한 번 오는 상승장, 금 한돈 '이때' 300만원 넘어선다 (조규원 대표)",
+            "url": "https://www.youtube.com/watch?v=IJxG9u2b_O4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-16 20:45:11 KST"
+          },
+          {
+            "title": "금리 신호 나오면 '이 섹터'가 가장 먼저 움직입니다 (박세익 전무 & 체슬리투자자문) | 주식프리미어리그 (10월 12일 촬영)",
+            "url": "https://www.youtube.com/watch?v=3jWqOQZ1Izc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-16 19:40:18 KST"
+          },
+          {
+            "title": "금리 5.5%가 증시 충격 마지노선? 월가 초고수들의 경고, 대비해야 할까",
+            "url": "https://www.youtube.com/watch?v=PrEHp2DoRVU",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-14 20:39:44 KST"
+          }
+        ],
+        "outlook": "금 섹터는 '100년에 한 번 오는 상승장'이라는 분석과 함께 금 한 돈 가격이 300만원을 넘어설 것이라는 전망이 제시되었습니다. 이는 금 가격의 장기적인 상승 추세에 대한 기대감을 높입니다. 그러나 금리 인상 신호가 나올 경우 금 관련 섹터가 가장 먼저 움직일 것이라는 분석은 금리 변동성이 단기적인 위험 요인이 될 수 있음을 시사합니다. 다음 주에는 주요국 중앙은행의 통화 정책 회의 결과나 경제 지표 발표가 금 가격에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 인프라 투자에 대한 불안감이 제기되었으며, 젠슨 황이 이에 대해 언급한 내용이 다루어졌습니다. AI 인프라 투자가 끝났다고 볼 수 있는지에 대한 질문이 영상에서 언급되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "AI 인프라 투자에 대한 불안감이 제기되었으며, 젠슨 황이 이에 대해 언급한 내용이 다루어졌습니다. AI 인프라 투자가 끝났다고 볼 수 있는지에 대한 질문이 영상에서 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "코어위브 위기에 입 연 젠슨 황…AI 인프라 투자 불안, 정말 끝났다고 봐도 될까?ㅣ명민준, 박가영, 차영주 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=iKryJIoVx-c",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-16 20:00:02 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 AI 인프라 투자에 대한 불안감이 제기되었으며, 젠슨 황의 언급이 다루어졌습니다. AI 인프라 투자가 정점에 달했는지에 대한 질문은 섹터의 성장 지속성에 대한 의문을 제기합니다. 이는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 AI 칩 제조사들의 실적 발표나 새로운 AI 기술 개발 소식이 섹터의 전망에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "미디어/광고",
+        "freq": 1,
+        "summary": "JTBC, 중앙일보 등 전통 매체의 인수전이 다루어졌습니다. TV 광고의 약세로 인해 판촉물(굿즈) 시장이 수혜를 보고 있다는 내용이 언급되었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "JTBC, 중앙일보 등 전통 매체의 인수전이 다루어졌습니다. TV 광고의 약세로 인해 판촉물(굿즈) 시장이 수혜를 보고 있다는 내용이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "매물로 나온 JTBC, 중앙일보, 뜻밖에 물 들어온 굿즈시장",
+            "url": "https://www.youtube.com/watch?v=Z0yj8Q3-A7E",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-15 19:20:12 KST"
+          }
+        ],
+        "outlook": "미디어/광고 섹터에서는 JTBC, 중앙일보 등 전통 매체의 인수전이 언급되었습니다. TV 광고의 약세로 인해 판촉물(굿즈) 시장이 수혜를 보고 있다는 분석은 새로운 사업 기회를 시사합니다. 그러나 전통 매체의 인수전 관련 불확실성이나 광고 시장의 회복 지연 가능성은 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 관련 기업들의 실적 발표나 인수합병 관련 추가 소식이 섹터의 동향을 결정할 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 1,
+        "summary": "외국인 투자자들의 매매 동향과 관련하여 삼성전자(삼전닉스)가 언급되었습니다. 외국인에 의해 주가 흐름이 좌우되는 상황이 설명되었습니다.",
+        "refs": [
+          7
+        ],
+        "reason": "외국인 투자자들의 매매 동향과 관련하여 삼성전자(삼전닉스)가 언급되었습니다. 외국인에 의해 주가 흐름이 좌우되는 상황이 설명되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "외국인에 휘둘리는 삼전닉스…코스닥에 더 적극적으로 들어오는 돈, 다음 주도주는 어디?ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=85XbEvN4fls",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-16 19:00:04 KST"
+          }
+        ],
+        "outlook": "삼성전자는 외국인 투자자들의 매매 동향과 관련하여 언급되었습니다. 외국인 투자자들의 매도세 속에서 주가 흐름이 좌우되는 상황이 설명되었습니다. 이는 단기적인 주가 변동성에 대한 우려를 제기합니다. 다음 주에는 삼성전자의 실적 발표나 반도체 시장 전망 관련 뉴스가 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "외국인 투자자들의 매매 동향과 관련하여 SK하이닉스(삼전닉스)가 언급되었습니다. 외국인에 의해 주가 흐름이 좌우되는 상황이 설명되었습니다.",
+        "refs": [
+          7
+        ],
+        "reason": "외국인 투자자들의 매매 동향과 관련하여 SK하이닉스(삼전닉스)가 언급되었습니다. 외국인에 의해 주가 흐름이 좌우되는 상황이 설명되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "외국인에 휘둘리는 삼전닉스…코스닥에 더 적극적으로 들어오는 돈, 다음 주도주는 어디?ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=85XbEvN4fls",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-16 19:00:04 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 외국인 투자자들의 매매 동향과 관련하여 언급되었습니다. 외국인 투자자들의 매도세가 주가 흐름에 영향을 미치는 가운데, 반도체 시장의 회복 기대감이 일부 존재합니다. 중국 시장의 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 SK하이닉스의 실적 발표 및 글로벌 메모리 반도체 시장 동향이 주가에 영향을 미칠 것으로 예상됩니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Tesla",
+          "freq": 4
+        },
+        {
+          "name": "OpenAI",
+          "freq": 2
+        },
+        {
+          "name": "Micron",
+          "freq": 3
+        },
+        {
+          "name": "Netflix",
+          "freq": 3
+        },
+        {
+          "name": "SoftBank",
+          "freq": 3
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "Hyundai",
+          "freq": 2
+        },
+        {
+          "name": "Porsche",
+          "freq": 2
+        },
+        {
+          "name": "AMD",
+          "freq": 1
+        },
+        {
+          "name": "ServiceNow",
+          "freq": 1
+        },
+        {
+          "name": "EchoStar",
+          "freq": 1
+        },
+        {
+          "name": "Character.AI",
+          "freq": 1
+        },
+        {
+          "name": "ExxonMobil",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Tech",
+          "freq": 4
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Software",
+          "freq": 3
+        },
+        {
+          "name": "Oil",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 3
+        },
+        {
+          "name": "Security",
+          "freq": 1
+        },
+        {
+          "name": "Streaming",
+          "freq": 1
+        },
+        {
+          "name": "Banking",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Refining",
+          "freq": 1
+        },
+        {
+          "name": "Aviation",
+          "freq": 1
+        },
+        {
+          "name": "Data Centers",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "아이폰 듀오",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "Apple",
+          "freq": 2
+        },
+        {
+          "name": "현대",
+          "freq": 2
+        },
+        {
+          "name": "한화시스템",
+          "freq": 1
+        },
+        {
+          "name": "한화오션",
+          "freq": 1
+        },
+        {
+          "name": "OK저축은행",
+          "freq": 1
+        },
+        {
+          "name": "삼성바이오",
+          "freq": 1
+        },
+        {
+          "name": "CJ",
+          "freq": 1
+        },
+        {
+          "name": "에이피알",
+          "freq": 1
+        },
+        {
+          "name": "해태제과",
+          "freq": 1
+        },
+        {
+          "name": "풀무원",
+          "freq": 1
+        },
+        {
+          "name": "아이오페",
+          "freq": 1
+        },
+        {
+          "name": "달바글로벌",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "메모리 반도체",
+          "freq": 3
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "스마트폰",
+          "freq": 3
+        },
+        {
+          "name": "이동통신",
+          "freq": 1
+        },
+        {
+          "name": "주택 공급",
+          "freq": 1
+        },
+        {
+          "name": "석유",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "조선",
+          "freq": 1
+        },
+        {
+          "name": "화장품",
+          "freq": 1
+        },
+        {
+          "name": "콘텐츠",
+          "freq": 1
+        },
+        {
+          "name": "농협 상호금융",
+          "freq": 1
+        },
+        {
+          "name": "주택담보대출",
+          "freq": 1
+        },
+        {
+          "name": "가상자산",
+          "freq": 1
+        },
+        {
+          "name": "항공",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
