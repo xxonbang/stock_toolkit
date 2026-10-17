@@ -1,0 +1,784 @@
+{
+  "generated_at": "2026-10-18 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 기업들의 투자 및 개발 소식이 지속적으로 보도되며 주목받고 있습니다. (총 15건)",
+        "us_news_refs": [
+          1,
+          2,
+          5,
+          27,
+          29,
+          31,
+          32,
+          34,
+          36,
+          39,
+          42,
+          44,
+          45,
+          46,
+          97
+        ],
+        "related_news": [
+          {
+            "title": "GIANT Food Stores remain impacted by digital shutdown days after problem began - WFMZ.com",
+            "title_ko": "GIANT Food Stores, 문제 발생 후에도 디지털 차질 영향 지속",
+            "url": "https://news.google.com/rss/articles/CBMiqAJBVV95cUxQTEg2bEVPUEVOeU9xYlpJR0dLWm5yaklPc29GUzRaMlE1SXpXVlJvc21UU3E2ODVtbmMwLTkwQUhQcko4bzlWQnh3b1VwWHhyRkEtQkZjUWlvSHA0Y2JDUVNKVC1tMzVzbnBCazBYaGE0ZHktZHhkaTJBYWhiMUtlZ19Cd0p3TU9RTFlaYjVjT1JRX3VwckZLOWRxaFpHcV9nV1hBYlBmR25vZzk5VVNLQk9OWDRqZnpWQTdyVngxaFJyal9QSFVHbkpJZldrV2VXcENNTFZNaTBUYnJWT3pWcDVZQ1dJZzZFUDc5LVNyRXdnaHZvbkZJZ3JvVmFCUks0UUl1cVJrbURZZlhaSDhrSTJ0VE1ySV81bko2MU42OHhZaWJUdEtEYg?oc=5",
+            "published_at": "2026-10-18 06:57:22 KST"
+          },
+          {
+            "title": "Anthropic says its workforce has become less junior and is spending more time in meetings - TechCrunch",
+            "title_ko": "Anthropic, 주니어 직원 감소, 회의 시간 증가",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQNVRwb2hUSGYwb3BQaUZ3XzJCcEpERVhxU1RWNEUxcVFmZHg3Y2REQzBITC04N2VUU1JZajR2ZHNRLUU3bkRVeWtDcVBWQ3p0cnJLODdjOFBVQTJFT0JwdVl4Y2pvSG9CNms5VGtVbTNNODEzTGRBeEZWMUc2WF9Hc1pBRUZsa0l4ZTNmNDBpU3V6VTFFNVFHQUVVVHB5VFJnZWF3M1BxT3pqa1M5VkZCb0Q1aU5SUDVuNTJRZm5KalpmUQ?oc=5",
+            "published_at": "2026-10-18 05:21:19 KST"
+          },
+          {
+            "title": "Weak Links Start to Show in A.I. Borrowing - The New York Times",
+            "title_ko": "AI 대출 시장의 약한 고리 드러나",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNaG5jQ0JtclR4S2w1dzdJeFNQWmdXLTlwaDJ0SWhseFFKTHdUb2tHaHIzd0R4cEhobmFjV21TRXVDdS1HeUVGZm5RbDRCcGRMYlhCMnB0QkYzV3FrX2hhLXB2X0lnSUI3c2QzQWpTREdxLVRaUjVfOEtHQ2VrMlZrV0c5VHNTNjV0OVE?oc=5",
+            "published_at": "2026-10-18 03:00:06 KST"
+          },
+          {
+            "title": "Meta removes language that may have allowed it to scrape news sites - The Verge",
+            "title_ko": "Meta, 뉴스 사이트 스크랩 가능성 언어 삭제",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNeVcwU0FLMDJBYVQtVVJ2aXVhbGhrZ3puODEyaDQxTDI1eDVURmI2WkFEVlNPT2tqOFZvaVJkaG92WHZnLVVGZVg4b1k5YjhCaWl0OFBCYkw1cUlsQUUxbklrX1BTMm9uam1paS1wVG1tSWtncGwzb3hnVm5xV21hYVNpcUJ5UTFNRnhSNkk4WFFsQmZmcEE0b0E2dWNrQUVka3dmZnVVUFg?oc=5",
+            "published_at": "2026-10-18 00:04:36 KST"
+          },
+          {
+            "title": "CoreWeave Woes Risk Shutting Down AI Junk Market: Credit Weekly - Bloomberg.com",
+            "title_ko": "CoreWeave 문제, AI 정크 시장 폐쇄 위험",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNZ1Z0ODZTMmZ1cGhteHZXUXRpemdYenhIVWJNR0h4bnBublpZRlBRdUxGRUg4Q2hOSU1uYWR6MlMtVXF0Q0NjOGVJaTJPR24wVG1kT0hmWDdNVEFmZmFBRU8zRTZ0bUpsTHNVUHVqcHotUjd1VFY3OENsSGZWcWlrRjlvRF9CSjRvZmRNdDg0bXdJQ3ZmdmE5Z0x3NHIwS2VaTjVwZzFtdVhOQm5FSzU5am5Oaw?oc=5",
+            "published_at": "2026-10-17 23:27:13 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 지속적인 투자 및 개발 소식으로 주목받고 있습니다. Anthropic과 같은 기업들은 칩 금융에서 두 자릿수 수익을 제공하며 투자를 유치하고 있습니다. 그러나 AI 대출 시장에서는 약한 고리가 드러나고 있으며, 이는 잠재적 위험 요인으로 작용할 수 있습니다. Meta는 뉴스 사이트 스크랩 가능성이 있는 언어를 삭제하는 등 규제 및 정책 변화에 대한 움직임도 관찰됩니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표나 새로운 기술 개발 발표 등이 주요 이벤트가 될 수 있습니다."
+      },
+      {
+        "name": "Energy",
+        "reason": "에너지 시장의 동향 및 관련 기업들의 움직임에 대한 보도가 이어지고 있습니다. (총 3건)",
+        "us_news_refs": [
+          26,
+          33,
+          41
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Heating oil prices will break the bank in the Northeast this winter - TheStreet",
+            "title_ko": "북동부, 이번 겨울 난방유 가격 폭등 예상",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPUlV2NDViY0t5cVBMU2ZqeXNqb01hVDI5Rlp3M3BFd2h1WmJZdkNpMUk0Y1NHTHNBek5kMEdadTNoSmZhVm9ybkl1c29UWHFvQWJkR0dXTHZBQzVMc2lqUmlhTEVTZFJQaVdzMWtBMTRDLUl0WTgzalV0VWJXV0ZQdE9tVzM5a0ZZRnFSUTJhODQyQ282dURTMjZnUGxNRW1UeUM0?oc=5",
+            "published_at": "2026-10-18 01:21:24 KST"
+          },
+          {
+            "title": "Trump Faces Midterm Fuel Reckoning as Gas Prices Near Biden’s Average - Bloomberg.com",
+            "title_ko": "트럼프, 유가 상승으로 중간선거 위기 직면",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOWGJLZ1Rxcm83b0JILUMtTGptU1J2eWVvNkJ1REI1TTg4cDk4U0xscER4cUJKcUtmdnZBbkdsZGg0ZkJDbEZlODlUdnpXTno3MHNEc3llVE5QV1RiNlFWLUw0NDNHaDE1NUpmb3RqNXI5dmZ0d2ttNkFBSWlHbVBydlBKY2dmRmlwUXEzNkhudkc5WFVuSkk2YktKYXF3RUo0ZVIxVW82UjlXdkFEZXhjbTF0cVA?oc=5",
+            "published_at": "2026-10-17 22:00:00 KST"
+          },
+          {
+            "title": "There is a violent ‘new normal’ in the Strait of Hormuz. Here’s why we should worry - The Independent",
+            "title_ko": "호르무즈 해협의 폭력적인 '새로운 정상', 왜 우려해야 하나?",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNT3FFX29qVUxFMWdGdGp4VDEyVURCRUFhNGdwUUpTWFZYSDMxUEQwYTRSZFdOVVFZcjVSWXBLRElwQVJsclJNUS00OGZuMjNPVjZnU2ctRlhtVHhMdHNrZmtEWjlpRTdzQjFnTm1KSmJEcVhIVVJCZ1JGMjZfc0RGU3JuenJ6UFZKMEc2d1d2bHB1Y0RYcEdLdWt4dHRUeld3ajIzTw?oc=5",
+            "published_at": "2026-10-17 18:10:00 KST"
+          }
+        ],
+        "outlook": "에너지 섹터는 겨울철 난방유 가격 상승 가능성과 지정학적 리스크에 영향을 받고 있습니다. 북동부 지역에서는 난방유 가격이 상승할 것으로 예상되며, 이는 소비자 부담 증가로 이어질 수 있습니다. 또한, 호르무즈 해협에서의 긴장 고조는 국제 유가에 변동성을 야기할 수 있는 요인입니다. 향후 일주일 내에는 주요 산유국의 생산량 발표나 에너지 관련 정책 변화에 대한 뉴스가 시장의 주목을 받을 수 있습니다. 다만, 현재로서는 명확한 단기 촉매제나 위험 요인이 두드러지지 않는 상황입니다."
+      },
+      {
+        "name": "Automotive",
+        "reason": "자동차 산업의 신기술 및 시장 변화에 대한 관심이 나타나고 있습니다. (총 2건)",
+        "us_news_refs": [
+          6,
+          7,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Mercedes-AMG’s first ground-up SUV is a 1,150hp electric beast - The Verge",
+            "title_ko": "Mercedes-AMG, 1,150마력 전기 SUV 공개",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPMi1UVi1LeHo0bko4WG1zU3Rtc0VEZWZJbElzVGpBdWk5eDNoeV9ZZ0FmZV9ITW9ua0tIeDI4ZkUxeE1QRk1BdEc3ME0wR1NWeDlERjBxRWlSQVRpS3JsYmhhVXQtYjZoMjRhbkpvdkNMajI1S0k4cFNqX1JZbjFkYzlIOHRIUnNvRTluZjd1RndGdTdyakE?oc=5",
+            "published_at": "2026-10-18 02:00:00 KST"
+          },
+          {
+            "title": "Tesla unveils new ‘flying’ car, but consumer rollout likely still years away - The Times of Israel",
+            "title_ko": "Tesla, '비행' 자동차 공개, 상용화는 수년 후",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNbmttOWQtZVk5dG42VXZiN1E1VDRXZ21zem95QTk4enRkcjh3MEcxTWQzam8zTXVMcGpQMVlsQ1V0QU5zZ1ozcXZOYTFiZlZDYW8ydC1DakF1RG9KcFR2YnB5cDQ4TTRsZERFV0FodlZfT2NYb3k2TFhzVGtSM1l2UEgweUVlal9TLUhaUUV0TndNcGZ3YWJHQ0xoRHdzUnZGLURHWUMwRdIBrAFBVV95cUxPSFJNM25rY21KM2xQV2xuTlMxekdkS2M3ajdiakVtZDdPSF93dUlVREV3Y1RIOWF5WlhzSC1JNkZPaHlCNFBmZXo0UEFoRmluZGdnOVFGelIwUDRTVmpZUGpVZUh5NG52VC15dUhsZVNVaEM4UjFCc2NualFvaXBoZEVvTFhQb0FQdE9tV25uVDJwbjhtdVlmZWlSMjhTblFzWHBuc3FiYlQwMV9o?oc=5",
+            "published_at": "2026-10-18 01:54:54 KST"
+          },
+          {
+            "title": "Porsche launched a car on flying Tesla day and the memes are incredible - Mashable",
+            "title_ko": "Porsche, 비행 Tesla 날에 맞춰 차 출시, 밈 대박",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9uWTBHUXRqVmtKWHFwMnRfOEFJVUxFWVMxMFNJV095ZF9ETUpGVmdHWTZnMWZ4NU9MZkVvZ0NNZUxocjdfWlFJVlpJN2prWjA2bWo2Zk5NOW9oVnFjNVdJeFd4cDFDNVVFblBaOS1QdzdPSmVOM0E?oc=5",
+            "published_at": "2026-10-17 22:57:25 KST"
+          }
+        ],
+        "outlook": "자동차 섹터는 전기차 및 신기술에 대한 관심이 지속되고 있습니다. Mercedes-AMG는 고성능 전기 SUV를 공개했으며, Tesla는 '비행' 자동차를 선보였으나 상용화까지는 시간이 걸릴 것으로 보입니다. 이러한 신기술 발표는 섹터 전반에 대한 관심을 높일 수 있습니다. 다만, 신차 출시 일정이나 경쟁사의 가격 정책 변화 등이 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 주요 자동차 제조사들의 생산 및 판매 실적 발표가 예정되어 있다면 주목할 필요가 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야의 주요 기업으로, 관련 투자 및 기술 개발 소식이 보도되었습니다. (총 1건)",
+        "us_news_refs": [
+          1,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "GIANT Food Stores remain impacted by digital shutdown days after problem began - WFMZ.com",
+            "title_ko": "GIANT Food Stores, 문제 발생 후에도 디지털 차질 영향 지속",
+            "url": "https://news.google.com/rss/articles/CBMiqAJBVV95cUxQTEg2bEVPUEVOeU9xYlpJR0dLWm5yaklPc29GUzRaMlE1SXpXVlJvc21UU3E2ODVtbmMwLTkwQUhQcko4bzlWQnh3b1VwWHhyRkEtQkZjUWlvSHA0Y2JDUVNKVC1tMzVzbnBCazBYaGE0ZHktZHhkaTJBYWhiMUtlZ19Cd0p3TU9RTFlaYjVjT1JRX3VwckZLOWRxaFpHcV9nV1hBYlBmR25vZzk5VVNLQk9OWDRqZnpWQTdyVngxaFJyal9QSFVHbkpJZldrV2VXcENNTFZNaTBUYnJWT3pWcDVZQ1dJZzZFUDc5LVNyRXdnaHZvbkZJZ3JvVmFCUks0UUl1cVJrbURZZlhaSDhrSTJ0VE1ySV81bko2MU42OHhZaWJUdEtEYg?oc=5",
+            "published_at": "2026-10-18 06:57:22 KST"
+          },
+          {
+            "title": "Anthropic offers Blackstone double-digit yield in latest chip financing - Financial Times",
+            "title_ko": "Anthropic, 최신 칩 금융에서 Blackstone에 두 자릿수 수익 제공",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOYmFpNlpUSHlsQlNoUVJMUVlfMXN1MjlOcElmRzVOT3RlbC1haEJNY3hsSXFpeUNrZDFHQ3FCeVZITjJaRV9BcUZsQlZ4MFlieEVjVTN2UEYxSDB5MUlPM1NrUWx6NjVOQ1NzMXpBMGo4bWRjdTMxc0t2UWRyQjFhOHlFWWE?oc=5",
+            "published_at": "2026-10-17 09:49:04 KST"
+          }
+        ],
+        "outlook": "AI 분야의 주요 기업인 Anthropic은 Blackstone과의 칩 금융 거래에서 두 자릿수 수익을 제공하며 투자를 유치했습니다. 이는 회사의 성장 잠재력에 대한 긍정적인 신호로 해석될 수 있습니다. 그러나 AI 대출 시장 전반의 불안정성은 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 추가적인 투자 유치 소식이나 기술 개발 발표 등이 주요 촉매제가 될 수 있습니다. 현재로서는 명확한 단기 위험 요인이 부각되지 않고 있습니다."
+      },
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장의 주요 기업으로, 관련 기술 및 시장 동향에 대한 언급이 있었습니다. (총 1건)",
+        "us_news_refs": [
+          7,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Tesla unveils new ‘flying’ car, but consumer rollout likely still years away - The Times of Israel",
+            "title_ko": "Tesla, '비행' 자동차 공개, 상용화는 수년 후",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNbmttOWQtZVk5dG42VXZiN1E1VDRXZ21zem95QTk4enRkcjh3MEcxTWQzam8zTXVMcGpQMVlsQ1V0QU5zZ1ozcXZOYTFiZlZDYW8ydC1DakF1RG9KcFR2YnB5cDQ4TTRsZERFV0FodlZfT2NYb3k2TFhzVGtSM1l2UEgweUVlal9TLUhaUUV0TndNcGZ3YWJHQ0xoRHdzUnZGLURHWUMwRdIBrAFBVV95cUxPSFJNM25rY21KM2xQV2xuTlMxekdkS2M3ajdiakVtZDdPSF93dUlVREV3Y1RIOWF5WlhzSC1JNkZPaHlCNFBmZXo0UEFoRmluZGdnOVFGelIwUDRTVmpZUGpVZUh5NG52VC15dUhsZVNVaEM4UjFCc2NualFvaXBoZEVvTFhQb0FQdE9tV25uVDJwbjhtdVlmZWlSMjhTblFzWHBuc3FiYlQwMV9o?oc=5",
+            "published_at": "2026-10-18 01:54:54 KST"
+          },
+          {
+            "title": "Porsche launched a car on flying Tesla day and the memes are incredible - Mashable",
+            "title_ko": "Porsche, 비행 Tesla 날에 맞춰 차 출시, 밈 대박",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9uWTBHUXRqVmtKWHFwMnRfOEFJVUxFWVMxMFNJV095ZF9ETUpGVmdHWTZnMWZ4NU9MZkVvZ0NNZUxocjdfWlFJVlpJN2prWjA2bWo2Zk5NOW9oVnFjNVdJeFd4cDFDNVVFblBaOS1QdzdPSmVOM0E?oc=5",
+            "published_at": "2026-10-17 22:57:25 KST"
+          }
+        ],
+        "outlook": "Tesla는 최근 '비행' 자동차를 공개하며 기술 혁신에 대한 기대를 높였습니다. 그러나 상용화까지는 상당한 시간이 소요될 것으로 예상됩니다. 경쟁사인 Porsche가 유사한 날짜에 신차를 출시하며 주목받은 점은 시장 내 경쟁 심화를 시사합니다. 향후 일주일 내에는 Tesla의 생산 및 인도량 발표, 또는 자율주행 기술 관련 업데이트 등이 주요 이벤트가 될 수 있습니다. 다만, 경쟁사의 신차 출시 및 가격 정책 변화가 단기적인 위험 요인이 될 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 지속적인 투자 및 개발 소식으로 주목받고 있습니다. Anthropic과 같은 기업들은 칩 금융에서 두 자릿수 수익을 제공하며 투자를 유치하고 있습니다. 그러나 AI 대출 시장에서는 약한 고리가 드러나고 있으며, 이는 잠재적 위험 요인으로 작용할 수 있습니다. Meta는 뉴스 사이트 스크랩 가능성이 있는 언어를 삭제하는 등 규제 및 정책 변화에 대한 움직임도 관찰됩니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표나 새로운 기술 개발 발표 등이 주요 이벤트가 될 수 있습니다."
+        },
+        {
+          "name": "Energy",
+          "outlook": "에너지 섹터는 겨울철 난방유 가격 상승 가능성과 지정학적 리스크에 영향을 받고 있습니다. 북동부 지역에서는 난방유 가격이 상승할 것으로 예상되며, 이는 소비자 부담 증가로 이어질 수 있습니다. 또한, 호르무즈 해협에서의 긴장 고조는 국제 유가에 변동성을 야기할 수 있는 요인입니다. 향후 일주일 내에는 주요 산유국의 생산량 발표나 에너지 관련 정책 변화에 대한 뉴스가 시장의 주목을 받을 수 있습니다. 다만, 현재로서는 명확한 단기 촉매제나 위험 요인이 두드러지지 않는 상황입니다."
+        },
+        {
+          "name": "Automotive",
+          "outlook": "자동차 섹터는 전기차 및 신기술에 대한 관심이 지속되고 있습니다. Mercedes-AMG는 고성능 전기 SUV를 공개했으며, Tesla는 '비행' 자동차를 선보였으나 상용화까지는 시간이 걸릴 것으로 보입니다. 이러한 신기술 발표는 섹터 전반에 대한 관심을 높일 수 있습니다. 다만, 신차 출시 일정이나 경쟁사의 가격 정책 변화 등이 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 주요 자동차 제조사들의 생산 및 판매 실적 발표가 예정되어 있다면 주목할 필요가 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Anthropic",
+          "outlook": "AI 분야의 주요 기업인 Anthropic은 Blackstone과의 칩 금융 거래에서 두 자릿수 수익을 제공하며 투자를 유치했습니다. 이는 회사의 성장 잠재력에 대한 긍정적인 신호로 해석될 수 있습니다. 그러나 AI 대출 시장 전반의 불안정성은 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 추가적인 투자 유치 소식이나 기술 개발 발표 등이 주요 촉매제가 될 수 있습니다. 현재로서는 명확한 단기 위험 요인이 부각되지 않고 있습니다."
+        },
+        {
+          "name": "Tesla",
+          "outlook": "Tesla는 최근 '비행' 자동차를 공개하며 기술 혁신에 대한 기대를 높였습니다. 그러나 상용화까지는 상당한 시간이 소요될 것으로 예상됩니다. 경쟁사인 Porsche가 유사한 날짜에 신차를 출시하며 주목받은 점은 시장 내 경쟁 심화를 시사합니다. 향후 일주일 내에는 Tesla의 생산 및 인도량 발표, 또는 자율주행 기술 관련 업데이트 등이 주요 이벤트가 될 수 있습니다. 다만, 경쟁사의 신차 출시 및 가격 정책 변화가 단기적인 위험 요인이 될 수 있습니다."
+        },
+        {
+          "name": "GIANT Food Stores",
+          "outlook": "GIANT Food Stores는 디지털 시스템 장애로 인해 지속적인 영향을 받고 있는 것으로 보도되었습니다. 이는 운영상의 차질과 잠재적인 매출 감소로 이어질 수 있는 단기 위험 요인입니다. 현재로서는 이 문제 해결을 위한 구체적인 일정이나 추가적인 촉매제에 대한 정보는 부족합니다. 향후 일주일 내에는 시스템 복구 진행 상황이나 고객 서비스 정상화에 대한 발표가 있을 수 있습니다. 현재 단계에서는 명확한 반등 시그널이 부재한 상황입니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "reason": "국내 주요 반도체 기업들의 실적 및 기술 개발 관련 소식이 꾸준히 보도되며 시장의 관심을 받고 있습니다. (총 5건)",
+        "kr_news_refs": [
+          2,
+          52,
+          56,
+          57,
+          59
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[경제뭔데]분기에 100조 버는데 외국인은 왜 삼전닉스를 파는 걸까 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBkR2VRZ0RFWkoycmt4TVZkN1BKTHluclphZ0kzVFBvSUFHeWdxS09PT29SSUVWUTlHcTFpOWU2aWprRXpVVjUyVG5LNVZtWW9RYmVHaXN5ZXBFQdIBX0FVX3lxTE9ibTJWVVFxRVFibjNXbGZRcDdwMjlzVnNzLTJ3RWE4eXZ2VDlDWTJIWTFQUnhuVGFoZldSWnl4SU1TTVgybC1KVzI0UHFsMUVEd0I2cXhucmpJMlBzS0x3?oc=5",
+            "published_at": "2026-10-18 06:00:00 KST"
+          },
+          {
+            "title": "삼전닉스, 금융위기 이후 최악의 주간 하락률…반등 모멘텀은",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016177800008",
+            "published_at": "2026-10-18 06:25:00 KST"
+          },
+          {
+            "title": "\"중국이 D램 쏟아낼 것\"…머스크는 왜 2028년을 콕 집었나",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016074300003",
+            "published_at": "2026-10-18 06:23:00 KST"
+          },
+          {
+            "title": "솔리다임 상장 논란에 주주 한숨 커지는데…BI \"투자재원 확보효과\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017023500008",
+            "published_at": "2026-10-18 06:20:00 KST"
+          },
+          {
+            "title": "솔리다임 미국 상장 준비 속도…주관사 선정 이어 대관 강화",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017046600003",
+            "published_at": "2026-10-18 06:19:50 KST"
+          }
+        ],
+        "outlook": "국내 반도체 섹터는 외국인 투자자들의 매도세 속에서도 기술 개발 및 시장 전망에 대한 분석이 이어지고 있습니다. 특히 AI 반도체 시장에서의 경쟁력 강화와 고대역폭 메모리(HBM) 관련 소식이 주목받고 있습니다. 그러나 중국의 D램 생산 확대 가능성은 잠재적 위험 요인으로 언급됩니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표 등이 시장의 주요 촉매제가 될 수 있습니다. 솔리다임의 미국 상장 준비 소식도 관련 업계의 관심을 끌고 있습니다."
+      },
+      {
+        "name": "금융",
+        "reason": "금융 시장의 금리 및 투자 환경 변화에 대한 분석과 함께 관련 기업들의 동향이 언급되었습니다. (총 4건)",
+        "kr_news_refs": [
+          13,
+          44,
+          99,
+          100
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "“이 와중에 ‘레버리지’ 야수처럼 올라탔다”…돌아온 건 ‘눈물의 -33%’",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12178618",
+            "published_at": "2026-10-18 07:09:44 KST"
+          },
+          {
+            "title": "신한증권, 추천 안한 주식에도 '종목추천 이용료'…금감원 지적",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016164600008",
+            "published_at": "2026-10-18 06:35:01 KST"
+          },
+          {
+            "title": "'길어진 검사에 발목'…금감원, 금융사 검사 처리 평균 237일",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017037500002",
+            "published_at": "2026-10-18 05:57:00 KST"
+          },
+          {
+            "title": "은행 '감시망' 걸린 보이스피싱 두배로…작년 8천760건",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017033900002",
+            "published_at": "2026-10-18 05:56:00 KST"
+          }
+        ],
+        "outlook": "금융 섹터는 금리 변동성과 투자 환경 변화에 대한 분석이 주를 이루고 있습니다. 일부 투자자들은 레버리지 투자를 통해 높은 수익을 추구했으나 손실을 경험한 사례가 보도되었습니다. 또한, 금융감독원의 금융사 검사 지연 및 보이스피싱 관련 이슈가 언급되었습니다. 향후 일주일 내에는 기준 금리 결정 회의 결과나 주요 금융사의 실적 발표가 시장의 주요 변수가 될 수 있습니다. 현재로서는 뚜렷한 단기 촉매제나 위험 요인이 부각되지 않고 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "인공지능 기술의 발전과 관련 스타트업에 대한 투자 소식이 주목받고 있습니다. (총 4건)",
+        "kr_news_refs": [
+          5,
+          27,
+          62,
+          97
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "머스크 \"트럼프 행정부 적자 감축 못 해...해결책은 AI\" - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE41b1l4cURCbUdVUTI5b2VKN3ZvaGRGaUVqQklIZ3JHU3ZVWFI4SGNoVGVxSlhJa2U3Z2c2MkJ0QkppVERCM3hqLXk4ckY5ZkJMS2xhMEQ1Z3JMbV8tU0x5QU51bEIwVW8?oc=5",
+            "published_at": "2026-10-18 04:15:00 KST"
+          },
+          {
+            "title": "[만나보니] 딥엑스 김녹원 \"인텔과 기술협력 본격화…AMD와도 논의\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016157300017",
+            "published_at": "2026-10-18 07:00:09 KST"
+          },
+          {
+            "title": "[AI프리즘] 초대형 AI데이터센터 1곳, 연간 법인세 8천억원 추산",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016134500017",
+            "published_at": "2026-10-18 06:15:02 KST"
+          },
+          {
+            "title": "앤트로픽 공동창업자 \"AI로 4년간 美GDP 50%↑…30조→44조달러\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261018002500091",
+            "published_at": "2026-10-18 05:59:52 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 기술 발전과 관련 스타트업 투자에 대한 관심이 지속되고 있습니다. 앤트로픽 공동 창업자는 AI가 미국 GDP 성장에 크게 기여할 것이라고 전망했습니다. 또한, 딥엑스와 같은 국내 AI 기업들은 인텔 및 AMD와의 기술 협력을 논의하고 있습니다. 초대형 AI 데이터센터 구축에 따른 세수 효과도 추산되었습니다. 향후 일주일 내에는 주요 AI 기업들의 신규 서비스 출시나 기술 개발 성과 발표 등이 촉매제가 될 수 있습니다. 다만, AI 기술 개발 경쟁 심화나 규제 관련 불확실성이 잠재적 위험 요인이 될 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SK하이닉스",
+        "reason": "AI 반도체 시장에서의 경쟁력 강화 및 고대역폭 메모리(HBM) 관련 소식이 시장의 관심을 끌고 있습니다. (총 3건)",
+        "kr_news_refs": [
+          2,
+          52,
+          57
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[경제뭔데]분기에 100조 버는데 외국인은 왜 삼전닉스를 파는 걸까 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBkR2VRZ0RFWkoycmt4TVZkN1BKTHluclphZ0kzVFBvSUFHeWdxS09PT29SSUVWUTlHcTFpOWU2aWprRXpVVjUyVG5LNVZtWW9RYmVHaXN5ZXBFQdIBX0FVX3lxTE9ibTJWVVFxRVFibjNXbGZRcDdwMjlzVnNzLTJ3RWE4eXZ2VDlDWTJIWTFQUnhuVGFoZldSWnl4SU1TTVgybC1KVzI0UHFsMUVEd0I2cXhucmpJMlBzS0x3?oc=5",
+            "published_at": "2026-10-18 06:00:00 KST"
+          },
+          {
+            "title": "삼전닉스, 금융위기 이후 최악의 주간 하락률…반등 모멘텀은",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016177800008",
+            "published_at": "2026-10-18 06:25:00 KST"
+          },
+          {
+            "title": "솔리다임 상장 논란에 주주 한숨 커지는데…BI \"투자재원 확보효과\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261017023500008",
+            "published_at": "2026-10-18 06:20:00 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 AI 반도체 시장에서의 경쟁력 강화와 고대역폭 메모리(HBM) 관련 소식으로 주목받고 있습니다. 그러나 외국인 투자자들의 매도세가 지속되는 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 실적 발표나 HBM 생산 능력 확대 계획 발표 등이 주요 촉매제가 될 수 있습니다. 솔리다임의 미국 상장 준비 소식도 간접적인 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "삼성전자",
+        "reason": "반도체 시장에서의 주요 플레이어로, AI 관련 기술 및 시장 전망에 대한 언급이 있었습니다. (총 2건)",
+        "kr_news_refs": [
+          2,
+          52
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[경제뭔데]분기에 100조 버는데 외국인은 왜 삼전닉스를 파는 걸까 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBkR2VRZ0RFWkoycmt4TVZkN1BKTHluclphZ0kzVFBvSUFHeWdxS09PT29SSUVWUTlHcTFpOWU2aWprRXpVVjUyVG5LNVZtWW9RYmVHaXN5ZXBFQdIBX0FVX3lxTE9ibTJWVVFxRVFibjNXbGZRcDdwMjlzVnNzLTJ3RWE4eXZ2VDlDWTJIWTFQUnhuVGFoZldSWnl4SU1TTVgybC1KVzI0UHFsMUVEd0I2cXhucmpJMlBzS0x3?oc=5",
+            "published_at": "2026-10-18 06:00:00 KST"
+          },
+          {
+            "title": "삼전닉스, 금융위기 이후 최악의 주간 하락률…반등 모멘텀은",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261016177800008",
+            "published_at": "2026-10-18 06:25:00 KST"
+          }
+        ],
+        "outlook": "삼성전자는 반도체 시장의 주요 기업으로서 AI 관련 기술 및 시장 전망에 대한 언급이 있었습니다. 외국인 투자자들의 매도세가 지속되는 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 실적 발표나 차세대 반도체 기술 개발 소식 등이 주요 촉매제가 될 수 있습니다. 최근 삼성 회장이 대규모 투자를 했다는 소문도 시장의 관심을 끌고 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 외국인 투자자들의 매도세 속에서도 기술 개발 및 시장 전망에 대한 분석이 이어지고 있습니다. 특히 AI 반도체 시장에서의 경쟁력 강화와 고대역폭 메모리(HBM) 관련 소식이 주목받고 있습니다. 그러나 중국의 D램 생산 확대 가능성은 잠재적 위험 요인으로 언급됩니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표 등이 시장의 주요 촉매제가 될 수 있습니다. 솔리다임의 미국 상장 준비 소식도 관련 업계의 관심을 끌고 있습니다."
+        },
+        {
+          "name": "금융",
+          "outlook": "금융 섹터는 금리 변동성과 투자 환경 변화에 대한 분석이 주를 이루고 있습니다. 일부 투자자들은 레버리지 투자를 통해 높은 수익을 추구했으나 손실을 경험한 사례가 보도되었습니다. 또한, 금융감독원의 금융사 검사 지연 및 보이스피싱 관련 이슈가 언급되었습니다. 향후 일주일 내에는 기준 금리 결정 회의 결과나 주요 금융사의 실적 발표가 시장의 주요 변수가 될 수 있습니다. 현재로서는 뚜렷한 단기 촉매제나 위험 요인이 부각되지 않고 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 기술 발전과 관련 스타트업 투자에 대한 관심이 지속되고 있습니다. 앤트로픽 공동 창업자는 AI가 미국 GDP 성장에 크게 기여할 것이라고 전망했습니다. 또한, 딥엑스와 같은 국내 AI 기업들은 인텔 및 AMD와의 기술 협력을 논의하고 있습니다. 초대형 AI 데이터센터 구축에 따른 세수 효과도 추산되었습니다. 향후 일주일 내에는 주요 AI 기업들의 신규 서비스 출시나 기술 개발 성과 발표 등이 촉매제가 될 수 있습니다. 다만, AI 기술 개발 경쟁 심화나 규제 관련 불확실성이 잠재적 위험 요인이 될 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 AI 반도체 시장에서의 경쟁력 강화와 고대역폭 메모리(HBM) 관련 소식으로 주목받고 있습니다. 그러나 외국인 투자자들의 매도세가 지속되는 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 실적 발표나 HBM 생산 능력 확대 계획 발표 등이 주요 촉매제가 될 수 있습니다. 솔리다임의 미국 상장 준비 소식도 간접적인 영향을 줄 수 있습니다."
+        },
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 반도체 시장의 주요 기업으로서 AI 관련 기술 및 시장 전망에 대한 언급이 있었습니다. 외국인 투자자들의 매도세가 지속되는 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 회사의 실적 발표나 차세대 반도체 기술 개발 소식 등이 주요 촉매제가 될 수 있습니다. 최근 삼성 회장이 대규모 투자를 했다는 소문도 시장의 관심을 끌고 있습니다."
+        },
+        {
+          "name": "솔리다임",
+          "outlook": "솔리다임의 미국 상장 준비 소식이 시장의 관심을 받고 있습니다. 이는 회사의 성장 잠재력에 대한 긍정적인 신호로 해석될 수 있습니다. 그러나 상장 과정에서의 불확실성이나 경쟁사의 동향이 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 주관사 선정이나 상장 관련 구체적인 일정 발표 등이 주요 촉매제가 될 수 있습니다. 현재로서는 명확한 추가 정보나 시장 반응에 대한 구체적인 보도는 부족한 상황입니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "외국인이 한국 반도체를 매도하는 이유와 증시 반등을 위해 필요한 요인에 대한 분석이 제시되었습니다. (영상#7)",
+        "refs": [
+          7
+        ],
+        "reason": "외국인이 한국 반도체를 매도하는 이유와 증시 반등을 위해 필요한 요인에 대한 분석이 제시되었습니다. (영상#7)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "외국인은 왜 한국 반도체를 팔아치울까? 증시가 다시 반등하려면 필요한 것ㅣ문홍철 DB증권 자산전략팀장 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=Fnlg3uWqLHA",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-17 11:00:01 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 외국인이 한국 반도체를 매도하는 이유와 증시 반등을 위해 필요한 요인에 대한 분석이 제시되었습니다. 이는 단기적인 투자 심리에 영향을 줄 수 있는 요인입니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표 등이 시장의 주요 촉매제가 될 수 있습니다. 현재로서는 명확한 추가적인 위험 요인이나 일정에 대한 구체적인 언급은 부족합니다."
+      },
+      {
+        "name": "주식",
+        "freq": 4,
+        "summary": "10월 전략, 특정 주식 매수, S&P 500 주식 매수 전략, 주식 백화점 세일 등 다양한 주식 투자 관련 전략 및 상황이 언급되었습니다. (영상#1, #2, #4, #9)",
+        "refs": [
+          1,
+          2,
+          4,
+          9
+        ],
+        "reason": "10월 전략, 특정 주식 매수, S&P 500 주식 매수 전략, 주식 백화점 세일 등 다양한 주식 투자 관련 전략 및 상황이 언급되었습니다. (영상#1, #2, #4, #9)",
+        "related_videos": [
+          {
+            "title": "금리, 실적, 섹터… 흔들리는 변수 속 남은 10월 전략은 '이렇게' 가져갑니다 (박세익 전무 & 체슬리투자자문) | 주식프리미어리그 (10월 12일 촬영)",
+            "url": "https://www.youtube.com/watch?v=MmnL_PXclY4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-17 22:22:33 KST"
+          },
+          {
+            "title": "5년만에 140억 이상 벌었어요, '단 2가지 주식만' 사 모았어요 (라오어 작가 풀버전)",
+            "url": "https://www.youtube.com/watch?v=qNriKY7RzkY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-17 19:45:30 KST"
+          },
+          {
+            "title": "현금 90% S&P500 주식 사세요, 다만 반드시 '이렇게' 사야 한다 (손희애 작가)",
+            "url": "https://www.youtube.com/watch?v=aEfFmNQyxtc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-17 18:45:07 KST"
+          },
+          {
+            "title": "주식백화점 大바겐세일",
+            "url": "https://www.youtube.com/watch?v=_Th8Z0aTNmk",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-17 00:14:08 KST"
+          }
+        ],
+        "outlook": "주식 시장 전반에 대한 다양한 투자 전략 및 시장 상황 분석이 언급되었습니다. 10월 전략, 특정 주식 매수, S&P 500 주식 매수 전략 등이 제시되었으며, 금리 변동성과 실적 등이 주요 변수로 지목되었습니다. 향후 일주일 내에는 주요 기업들의 실적 발표나 경제 지표 발표 등이 시장의 주요 촉매제가 될 수 있습니다. 다만, 금리 상승 가능성이나 지정학적 리스크 등이 단기적인 위험 요인이 될 수 있습니다."
+      },
+      {
+        "name": "금리",
+        "freq": 2,
+        "summary": "금리 변동성이 주식 시장에 미치는 영향과 금리 5.5%가 증시 충격의 마지노선이 될 수 있다는 월가 전문가들의 경고가 언급되었습니다. (영상#1, #10)",
+        "refs": [
+          1,
+          10
+        ],
+        "reason": "금리 변동성이 주식 시장에 미치는 영향과 금리 5.5%가 증시 충격의 마지노선이 될 수 있다는 월가 전문가들의 경고가 언급되었습니다. (영상#1, #10)",
+        "related_videos": [
+          {
+            "title": "금리, 실적, 섹터… 흔들리는 변수 속 남은 10월 전략은 '이렇게' 가져갑니다 (박세익 전무 & 체슬리투자자문) | 주식프리미어리그 (10월 12일 촬영)",
+            "url": "https://www.youtube.com/watch?v=MmnL_PXclY4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-17 22:22:33 KST"
+          },
+          {
+            "title": "금리 5.5%가 증시 충격 마지노선? 월가 초고수들의 경고, 대비해야 할까",
+            "url": "https://www.youtube.com/watch?v=PrEHp2DoRVU",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-14 20:39:44 KST"
+          }
+        ],
+        "outlook": "금리 변동성이 주식 시장에 미치는 영향과 금리 5.5%가 증시 충격의 마지노선이 될 수 있다는 월가 전문가들의 경고가 언급되었습니다. 이는 향후 시장 방향성에 대한 중요한 고려 사항입니다. 향후 일주일 내에는 주요 중앙은행의 금리 결정 회의 결과나 관련 경제 지표 발표가 시장의 주요 촉매제가 될 수 있습니다. 금리 상승 지속 가능성이 단기적인 위험 요인이 될 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 1,
+        "summary": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. (영상#5)",
+        "refs": [
+          5
+        ],
+        "reason": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. (영상#5)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼성 회장님이 1조9천억 원 긁었다는 소문",
+            "url": "https://www.youtube.com/watch?v=Lf89bw8zlXM",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-17 17:06:08 KST"
+          }
+        ],
+        "outlook": "삼성전자와 관련하여 삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. 이는 투자자들의 관심을 끌 수 있는 요인이지만, 확인되지 않은 정보이므로 신중한 접근이 필요합니다. 향후 일주일 내에는 회사의 실적 발표나 신규 기술 개발 소식 등이 주요 촉매제가 될 수 있습니다. 현재로서는 명확한 단기 위험 요인이나 구체적인 일정에 대한 정보는 부족합니다."
+      },
+      {
+        "name": "소나무",
+        "freq": 1,
+        "summary": "한국 소나무의 재선충병 대유행과 멸종 위기에 대한 내용이 다루어졌습니다. (영상#3)",
+        "refs": [
+          3
+        ],
+        "reason": "한국 소나무의 재선충병 대유행과 멸종 위기에 대한 내용이 다루어졌습니다. (영상#3)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "소나무 불치병 대유행, 멸종 위기에 몰린 한국 소나무",
+            "url": "https://www.youtube.com/watch?v=mZ22ca3OCYc",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-17 19:20:55 KST"
+          }
+        ],
+        "outlook": "한국 소나무의 재선충병 대유행과 멸종 위기에 대한 내용이 다루어졌습니다. 이는 환경 및 생태계 관련 이슈로, 직접적인 주식 시장과의 연관성은 낮아 보입니다. 따라서 향후 일주일 내에 주가에 직접적인 영향을 미칠 만한 촉매제나 위험 요인은 현재로서는 파악하기 어렵습니다. 해당 종목에 대한 투자 전망은 추가적인 정보 없이는 제시하기 어렵습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "SoftBank",
+          "freq": 4
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Tesla",
+          "freq": 1
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 1
+        },
+        {
+          "name": "Ahold Delhaize",
+          "freq": 2
+        },
+        {
+          "name": "Meta",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "Porsche",
+          "freq": 2
+        },
+        {
+          "name": "OpenAI",
+          "freq": 2
+        },
+        {
+          "name": "Mercedes-AMG",
+          "freq": 1
+        },
+        {
+          "name": "Apple",
+          "freq": 1
+        },
+        {
+          "name": "Amazon.com",
+          "freq": 1
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "freq": 1
+        },
+        {
+          "name": "Gilead",
+          "freq": 1
+        },
+        {
+          "name": "On Semiconductor",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 2
+        },
+        {
+          "name": "핀테크",
+          "freq": 2
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 2
+        },
+        {
+          "name": "Social Security",
+          "freq": 2
+        },
+        {
+          "name": "Trade Policy",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "Software",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Aviation",
+          "freq": 1
+        },
+        {
+          "name": "Security Services",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "Tesla",
+          "freq": 2
+        },
+        {
+          "name": "이케아",
+          "freq": 1
+        },
+        {
+          "name": "딥엑스",
+          "freq": 1
+        },
+        {
+          "name": "롯데마트",
+          "freq": 1
+        },
+        {
+          "name": "신세계",
+          "freq": 1
+        },
+        {
+          "name": "삼성생명",
+          "freq": 1
+        },
+        {
+          "name": "진에어",
+          "freq": 1
+        },
+        {
+          "name": "홈플러스",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "채권",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "소비재",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "관광",
+          "freq": 2
+        },
+        {
+          "name": "유통",
+          "freq": 2
+        },
+        {
+          "name": "노동",
+          "freq": 2
+        },
+        {
+          "name": "IT/기술",
+          "freq": 1
+        },
+        {
+          "name": "국방/안보",
+          "freq": 1
+        },
+        {
+          "name": "문화/예술",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
