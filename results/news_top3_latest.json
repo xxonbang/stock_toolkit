@@ -1,151 +1,152 @@
 {
-  "generated_at": "2026-10-18 20:01 KST",
+  "generated_at": "2026-10-19 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 10건)",
+        "reason": "AI 분야는 Character.AI, Microsoft 등 관련 기업 언급과 함께 꾸준히 주목받고 있습니다 (총 10건).",
         "us_news_refs": [
-          1,
-          12,
+          21,
+          23,
+          25,
           26,
-          30,
-          33,
-          35,
           36,
-          40,
-          41,
-          44
+          37,
+          38,
+          44,
+          45,
+          49
         ],
         "related_news": [
           {
-            "title": "Consumer apprehension grows as US retailers adopt AI-assisted pricing tools - AP News",
-            "title_ko": "소비자 불안 고조, 미국 소매업체 AI 가격 도구 도입",
-            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOMUsyWkZsV3NKY3ZWODVla3BLWXFrRVA1aUdqd3BYOTlQTnAyT1hwcy1TamhzSndQYjc3UVZmNWFwQ0ZhU2JSTHp2OUhUVFQxYVU1VEVaWVM4VXVsZ3JPVjZfM3Nuc3M4X0RWR1o2aG91NEtfWnZFdTFRS0RxMmYwUEd1b3lUc2RMbF9vUUpYWTlHaVRRSTRUdkgxeFNyYVk?oc=5",
-            "published_at": "2026-10-18 16:07:00 KST"
+            "title": "Disney agrees to hire the majority of Character.AI’s workforce - TechCrunch",
+            "title_ko": "Disney, Character.AI 인력 대부분 고용 합의",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQbFVlYnNFYUpDbjZZWnM4aE1uTWdsWVVZa1BpX1VGano5MkhpOTlVSDF2ZkJrY29CRmNGdzlRRGMwcFJpa3VyVmFrOGZTYkRac3BncmFQb1AtSkdyMktwMzZobmFYNGd6bm5IbDEzbG9HN2RUN0RLenRQTkNLemlUeXJOVnNBN3kxWUJJNzN3dEVFVWFaN2xFRHp2NzE?oc=5",
+            "published_at": "2026-10-19 01:30:00 KST"
           },
           {
-            "title": "The AI bubble is about to burst — and a big market correction is coming - New York Post",
-            "title_ko": "AI 거품 곧 터진다 - 대규모 시장 조정 임박 - New York Post",
-            "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQcG9sd2p6Ny1ZTDhGcmZ1YzQyVi1KVnhPX1lBT1U2SkJOV0poZVpTaVZoa0p6VDdFX0VIRFJJbGVOZTBFMzZaZTlUVGNPVm94Slg0OVozRnJzdXI5X3FNY05NQ0lLOVhXa1FienFKT1UzVjZfVU5VRGZMTGJpTVlUdUNSV05qY2tWVW95LTVjOXJEaF8zTXFJWFQ2WG9nNFlnQUM0Rk1HVUtDVXdr?oc=5",
-            "published_at": "2026-10-18 09:21:00 KST"
+            "title": "'Just another scare': Wall Street sees the AI trade strong despite tech's latest rout - Yahoo Finance",
+            "title_ko": "월스트리트, AI 주식 강세 지속, 기술주 하락에도 '또 다른 위기'",
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxONkF2UGc0SmgxTzdidVlLNWRHU3JjZFdrOHpKRGt2ODFqSUJFQWpnYVRXLUJ0aDJ6c3pmNDB3OVB0VGpsNlJJRkkzZjNXODNzaEJnUFdOemZZVTBKc3pWbUJ6MnBaeFdIRjB1VDl0UlVzMnNneDJGN0NJTGNaWmUyVnRqT2QxOERjZ2ZJYVltT0tLZzE0T2pSYjRqZW1tbE00TVJzbzJTQjRTemRILTV5cGFQZU9EeHg0TlVDdE95bE5VVHh0Z0w5eGdGa1FmWGdtVzY4Wg?oc=5",
+            "published_at": "2026-10-19 00:59:30 KST"
           },
           {
-            "title": "CoreWeave Woes Risk Shutting Down AI Junk Market: Credit Weekly - Bloomberg.com",
-            "title_ko": "CoreWeave 난항, AI 정크 시장 폐쇄 위험: 신용 주간 - Bloomberg.com",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNZ1Z0ODZTMmZ1cGhteHZXUXRpemdYenhIVWJNR0h4bnBublpZRlBRdUxGRUg4Q2hOSU1uYWR6MlMtVXF0Q0NjOGVJaTJPR24wVG1kT0hmWDdNVEFmZmFBRU8zRTZ0bUpsTHNVUHVqcHotUjd1VFY3OENsSGZWcWlrRjlvRF9CSjRvZmRNdDg0bXdJQ3ZmdmE5Z0x3NHIwS2VaTjVwZzFtdVhOQm5FSzU5am5Oaw?oc=5",
-            "published_at": "2026-10-17 23:27:13 KST"
+            "title": "Microsoft Scraps UK Data Center Deal With Nscale, Telegraph Says - Bloomberg.com",
+            "title_ko": "Microsoft, Nscale와 영국 데이터센터 계약 취소",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNYXhlWkpqYnAwNVVYQjBLWTdQdi1HYm50VjhBQ3UwTkNhc0gtTGhoMnluWGxuMVdmZWM3eFRjVFA5dWZ0STlFRVJ6S090WVFveFF1RVNjcHFpd2ZNTFJfamxDNGl6YTNrSmkta2pteXpnMElHVXVjcUI5WDNlemltdVRSZURQUXBmcTFrV0NyY2R0a3J1clFlOGU2RjRTbVRnbzRnU3NvRktJR3g3RUw4Zm9vTnE?oc=5",
+            "published_at": "2026-10-19 00:00:14 KST"
           },
           {
-            "title": "Apple’s new CEO just teamed up with Tim Cook’s old rival - TheStreet",
-            "title_ko": "Apple 신임 CEO, 팀 쿡 옛 라이벌과 손잡아 - TheStreet",
-            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRXllSk9PWGEwbzhrWWNua3RoN05mcGFwMmxzd0RDNFlZMmdQbEhybnNycG9Qd01RejltR1AwNzJnNGZVUXRUYlZhM0RwS1RZT3Fjd3Fidmg2NDlpbVQyV09RWkdiMlJXQ2xHcVV0cWh3MlJyMnhRS1NIT3lCM3R0YmZIdjFmZHpq?oc=5",
-            "published_at": "2026-10-17 22:17:00 KST"
+            "title": "What are self-replicating ‘AI worms’, and why is Anthropic worried about them? - The Guardian",
+            "title_ko": "자가 복제 'AI 웜'이란 무엇인가? Anthropic은 왜 우려하나?",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPVjB4YWJlM1piXzhhQzJFa1ZMWXh1dC1lZHJpaUJhVFhoZGdZbkwxUzRmeUdXdktLU2M5eFdRTG04am5UNDdtYlMwZWxLVW0zejBZWWtTTlExMTRTUlpnY3NUZGZ3V1JsMVlVY0RTWVdVQUhvWU0xZWdzNEgwdFJzQmdR?oc=5",
+            "published_at": "2026-10-18 22:30:00 KST"
           },
           {
-            "title": "Here's what we know about the man who allegedly bugged an OpenAI conference room in San Francisco - Los Angeles Times",
-            "title_ko": "샌프란시스코 OpenAI 회의실 도청 혐의 남성에 대해 우리가 아는 것 - Los Angeles Times",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNNzQ0SDI3d0kxMkg3cmhGVlY2azI3RzF3aUs2aWtUWEloT0NoYlhtNlh3cGdDeEwxTjNxekRwT0owUWc0cWVTZTktbzFueG02LXB6VjRBaVdCUlJUYVdEcXhFd2lqOW9tcENHRTU0a3RwUWt6SXdXWU4wdndFbWVuSVBFQUE5MnM1cVFxWDBSLTBhR201Ymt0SjFkZGJVQjZNeHpwUDZMbkY1OGJtamdOZ004SzRPWnB0NXhfSw?oc=5",
-            "published_at": "2026-10-17 22:00:00 KST"
+            "title": "How AI Could Take Over the World - Newsweek",
+            "title_ko": "AI, 세상을 어떻게 장악할 수 있는가",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1jLUlkYzAwdUgyckM1c1FvSXRXZUdJMHMzd0J4Qjl3T2V1MVRXRmRMZkJuRXBCREdpYndYR3RDUDBJVDZXUlE3SEJiTzNBeUVCcDZnb1hVc0ZWbm4tTmpTUjJhbWU3ZnlCbThGZmhOUW9HSTZW?oc=5",
+            "published_at": "2026-10-18 17:00:00 KST"
           }
         ],
-        "outlook": "AI 섹터는 AI 칩 수요 증가와 빅테크 기업들의 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 소비자들의 AI 기반 가격 책정 도구 도입에 대한 우려가 제기되고 있으며, AI 거품 붕괴 및 시장 조정 가능성에 대한 분석도 나오고 있습니다. 또한, CoreWeave의 재정적 어려움이 AI 관련 시장에 영향을 미칠 수 있다는 보도가 있습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표 및 신규 기술 개발 소식이 시장의 주요 변수가 될 수 있습니다."
+        "outlook": "AI 섹터는 최근 기술주 전반의 조정 속에서 투자자들의 신뢰를 시험받고 있습니다. 특히, AI 인프라 구축에 대한 자금 조달 위험과 높은 자본 지출이 수익으로 이어질지에 대한 불확실성이 부각되고 있습니다. 다음 주에는 Meta Platforms, Lam Research, Texas Instruments 등 주요 기업들의 실적 발표가 예정되어 있어, AI 관련 지출이 실제 매출 성장으로 이어지는지 여부가 시장의 주요 관심사가 될 것입니다. 다만, AI 수요가 공급을 앞지르고 있다는 점은 긍정적인 요인으로 작용할 수 있습니다. 위험 요인으로는 AI 관련 기업들의 부채 부담 증가와 경쟁 심화가 지목됩니다. 다음 주에는 Meta Platforms의 실적 발표가 예정되어 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Microsoft",
-        "reason": "데이터 센터 사업 확장 및 AI 관련 투자 소식이 주가에 긍정적인 영향을 미침 (총 2건)",
+        "name": "Pepsi",
+        "reason": "펩시(Pepsi)는 소비재 및 유통 관련 뉴스로 인해 시장의 관심을 받았습니다 (총 3건).",
         "us_news_refs": [
-          7,
-          10
+          17,
+          32
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Microsoft pulls out of UK data center deal with Nscale, Telegraph reports",
-            "title_ko": "Microsoft, Nscale과의 영국 데이터센터 계약 철회 - Telegraph 보도",
-            "url": "https://www.investing.com/news/stock-market-news/microsoft-pulls-out-of-uk-data-center-deal-with-nscale-telegraph-reports-4955864",
-            "published_at": "2026-10-18 19:06:39 KST"
+            "title": "Pepsi was a small town’s biggest employer. Layoffs left it blindsided. - The Washington Post",
+            "title_ko": "Pepsi, 소도시 최대 고용주였으나, 해고로 충격",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPanBhTU1rMy00V3JjVl9fVUhlWGJGUlJLT1VfSnF1MDN5UG5Db1p5TkNVUWs3M01NOTBnMlJvdloxTy1ZYzdiZ2ZCRTdCMVJUbloxU2M1Vm9DOHB2Rjlwb25QUERwQzk0VVhZZ2xuWG9CZkM2RTRhNWFyQnUyZWlXOVhmbkN6QTc3X0VoZjZEdVV2ZnhEY2dQc0RuWXpFM1plSTNyQUVyU0ZueVIxT19qZFpFMA?oc=5",
+            "published_at": "2026-10-19 02:00:00 KST"
           },
           {
-            "title": "Microsoft pulls out of UK data centre deal with Nscale, Telegraph reports",
-            "title_ko": "Microsoft, Nscale과의 영국 데이터센터 계약 철회 - Telegraph 보도",
-            "url": "https://www.investing.com/news/economy-news/microsoft-pulls-out-of-uk-data-centre-deal-with-nscale-telegraph-reports-4955855",
-            "published_at": "2026-10-18 18:22:53 KST"
+            "title": "How Coke Loosened Pepsi’s Grip on KFC’s Soda Fountains - WSJ",
+            "title_ko": "Coke, KFC 탄산음료 시장에서 Pepsi 영향력 약화시켜",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPOHJQV0pDWVJrb2FhdVAwOG1pdmFsb01KaHBST3hmQmZCSGcwZVEwYUUtR0xIeWoya3ZYLW1jdnk5aE0yVmRnYllWTGJSUnZ0Z1Zwc2xDRXFEd0hvanhpMVM5MWhiWERhS2JQNW9Xc3ZFeFRXRzdMd3A3VFliTGxvdnZmRVJac1FVYlk0TjBzQ09GOEVKQ3doSlpUb2txU210dGxIZA?oc=5",
+            "published_at": "2026-10-18 20:00:00 KST"
           }
         ],
-        "outlook": "Microsoft는 데이터 센터 사업 확장 및 AI 관련 투자 소식으로 주목받고 있으나, 최근 영국 Nscale과의 데이터 센터 계약 철회 소식이 전해졌습니다. 이는 향후 데이터 센터 사업 확장 계획에 대한 불확실성을 야기할 수 있습니다. 다음 주에는 Microsoft의 AI 관련 신규 투자 발표나 파트너십 체결 여부가 주가에 영향을 미칠 수 있습니다."
+        "outlook": "펩시(Pepsi)는 최근 소비재 섹터의 상대적 강세 속에서 주목받고 있습니다. 다음 주에는 펩시의 단기 주가 전망이 긍정적으로 제시되고 있으나, 장기적으로는 하락세를 보일 것이라는 예측도 있습니다. 최근 펩시의 3분기 실적이 예상치를 상회하며 주가 상승 요인이 되었으나, 기술주 조정과 함께 차익실현 압력이 발생할 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
       },
       {
-        "name": "RGC Resources",
-        "reason": "에너지 부문에서의 활동이 시장의 주목을 받음 (총 2건)",
+        "name": "AI",
+        "reason": "AI 분야는 Character.AI, Microsoft 등 관련 기업 언급과 함께 꾸준히 주목받고 있습니다 (총 10건).",
         "us_news_refs": [
-          2,
-          4
+          21,
+          23,
+          25,
+          26,
+          36,
+          37,
+          38,
+          44,
+          45,
+          49
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "RGC Resources senior VP Lawrence Oliver buys $200 in stock",
-            "title_ko": "RGC Resources 임원 Lawrence Oliver, 주식 200달러 매수",
-            "url": "https://www.investing.com/news/insider-trading-news/rgc-resources-senior-vp-lawrence-oliver-buys-200-in-stock-93CH-4955874",
-            "published_at": "2026-10-18 19:31:09 KST"
+            "title": "Disney agrees to hire the majority of Character.AI’s workforce - TechCrunch",
+            "title_ko": "Disney, Character.AI 인력 대부분 고용 합의",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQbFVlYnNFYUpDbjZZWnM4aE1uTWdsWVVZa1BpX1VGano5MkhpOTlVSDF2ZkJrY29CRmNGdzlRRGMwcFJpa3VyVmFrOGZTYkRac3BncmFQb1AtSkdyMktwMzZobmFYNGd6bm5IbDEzbG9HN2RUN0RLenRQTkNLemlUeXJOVnNBN3kxWUJJNzN3dEVFVWFaN2xFRHp2NzE?oc=5",
+            "published_at": "2026-10-19 01:30:00 KST"
           },
           {
-            "title": "RGC Resources VP, human resources Christen Miles buys $100 in shares",
-            "title_ko": "RGC Resources 인사 담당 부사장 Christen Miles, 주식 100달러 매수",
-            "url": "https://www.investing.com/news/insider-trading-news/rgc-resources-vp-human-resources-christen-miles-buys-100-in-shares-93CH-4955873",
-            "published_at": "2026-10-18 19:31:04 KST"
-          }
-        ],
-        "outlook": "RGC Resources는 에너지 부문에서의 활동으로 시장의 관심을 받고 있으며, 최근 임원들의 주식 매수 사례가 있었습니다. 이는 경영진의 회사 가치에 대한 긍정적인 시각을 반영할 수 있습니다. 향후 일주일 내에는 에너지 시장 동향 및 회사의 신규 프로젝트 발표 여부가 주가에 영향을 줄 수 있습니다."
-      },
-      {
-        "name": "Anthropic",
-        "reason": "AI 분야의 신규 투자 및 기술 개발 관련 소식이 시장의 관심을 끌고 있음 (총 2건)",
-        "us_news_refs": [
-          40,
-          47
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Investors Disturbed by Anthropic’s Financial Data - Futurism",
-            "title_ko": "투자자들, Anthropic 재무 데이터에 불안 - Futurism",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQWE9DQVhGV0dnY3k3S05mWlk2WnRfRGdMYkFlWUhmSWMzRGRDODFDOS1kcnJQQTIxVUM2VEFoTmk1OXpzU1VDekpBUGlGd0EtRERmOERlc3hpRkkyVnFfemV2VVFHVXFHa1ZkMzNabFdsb3h4ZGJuc1dXTEFRajlVRExB?oc=5",
-            "published_at": "2026-10-17 19:50:00 KST"
+            "title": "'Just another scare': Wall Street sees the AI trade strong despite tech's latest rout - Yahoo Finance",
+            "title_ko": "월스트리트, AI 주식 강세 지속, 기술주 하락에도 '또 다른 위기'",
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxONkF2UGc0SmgxTzdidVlLNWRHU3JjZFdrOHpKRGt2ODFqSUJFQWpnYVRXLUJ0aDJ6c3pmNDB3OVB0VGpsNlJJRkkzZjNXODNzaEJnUFdOemZZVTBKc3pWbUJ6MnBaeFdIRjB1VDl0UlVzMnNneDJGN0NJTGNaWmUyVnRqT2QxOERjZ2ZJYVltT0tLZzE0T2pSYjRqZW1tbE00TVJzbzJTQjRTemRILTV5cGFQZU9EeHg0TlVDdE95bE5VVHh0Z0w5eGdGa1FmWGdtVzY4Wg?oc=5",
+            "published_at": "2026-10-19 00:59:30 KST"
           },
           {
-            "title": "Anthropic offers Blackstone double-digit yield in latest chip financing - Financial Times",
-            "title_ko": "Anthropic, 최신 칩 금융에서 Blackstone에 두 자릿수 수익률 제공 - Financial Times",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOYmFpNlpUSHlsQlNoUVJMUVlfMXN1MjlOcElmRzVOT3RlbC1haEJNY3hsSXFpeUNrZDFHQ3FCeVZITjJaRV9BcUZsQlZ4MFlieEVjVTN2UEYxSDB5MUlPM1NrUWx6NjVOQ1NzMXpBMGo4bWRjdTMxc0t2UWRyQjFhOHlFWWE?oc=5",
-            "published_at": "2026-10-17 09:49:04 KST"
+            "title": "Microsoft Scraps UK Data Center Deal With Nscale, Telegraph Says - Bloomberg.com",
+            "title_ko": "Microsoft, Nscale와 영국 데이터센터 계약 취소",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNYXhlWkpqYnAwNVVYQjBLWTdQdi1HYm50VjhBQ3UwTkNhc0gtTGhoMnluWGxuMVdmZWM3eFRjVFA5dWZ0STlFRVJ6S090WVFveFF1RVNjcHFpd2ZNTFJfamxDNGl6YTNrSmkta2pteXpnMElHVXVjcUI5WDNlemltdVRSZURQUXBmcTFrV0NyY2R0a3J1clFlOGU2RjRTbVRnbzRnU3NvRktJR3g3RUw4Zm9vTnE?oc=5",
+            "published_at": "2026-10-19 00:00:14 KST"
+          },
+          {
+            "title": "What are self-replicating ‘AI worms’, and why is Anthropic worried about them? - The Guardian",
+            "title_ko": "자가 복제 'AI 웜'이란 무엇인가? Anthropic은 왜 우려하나?",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPVjB4YWJlM1piXzhhQzJFa1ZMWXh1dC1lZHJpaUJhVFhoZGdZbkwxUzRmeUdXdktLU2M5eFdRTG04am5UNDdtYlMwZWxLVW0zejBZWWtTTlExMTRTUlpnY3NUZGZ3V1JsMVlVY0RTWVdVQUhvWU0xZWdzNEgwdFJzQmdR?oc=5",
+            "published_at": "2026-10-18 22:30:00 KST"
+          },
+          {
+            "title": "How AI Could Take Over the World - Newsweek",
+            "title_ko": "AI, 세상을 어떻게 장악할 수 있는가",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1jLUlkYzAwdUgyckM1c1FvSXRXZUdJMHMzd0J4Qjl3T2V1MVRXRmRMZkJuRXBCREdpYndYR3RDUDBJVDZXUlE3SEJiTzNBeUVCcDZnb1hVc0ZWbm4tTmpTUjJhbWU3ZnlCbThGZmhOUW9HSTZW?oc=5",
+            "published_at": "2026-10-18 17:00:00 KST"
           }
         ],
-        "outlook": "Anthropic은 AI 분야의 신규 투자 및 기술 개발 관련 소식으로 주목받고 있습니다. 최근 투자자들은 Anthropic의 재무 데이터에 대해 불안감을 표하고 있으며, Blackstone과의 칩 금융 거래에서 두 자릿수 수익률을 제공했다는 보도가 있습니다. 향후 일주일 내에는 AI 기술 개발 성과 발표나 추가적인 투자 유치 소식이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "AI 섹터는 최근 기술주 전반의 조정 속에서 투자자들의 신뢰를 시험받고 있습니다. 특히, AI 인프라 구축에 대한 자금 조달 위험과 높은 자본 지출이 수익으로 이어질지에 대한 불확실성이 부각되고 있습니다. 다음 주에는 Meta Platforms, Lam Research, Texas Instruments 등 주요 기업들의 실적 발표가 예정되어 있어, AI 관련 지출이 실제 매출 성장으로 이어지는지 여부가 시장의 주요 관심사가 될 것입니다. 다만, AI 수요가 공급을 앞지르고 있다는 점은 긍정적인 요인으로 작용할 수 있습니다. 위험 요인으로는 AI 관련 기업들의 부채 부담 증가와 경쟁 심화가 지목됩니다. 다음 주에는 Meta Platforms의 실적 발표가 예정되어 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
           "name": "AI",
-          "outlook": "AI 섹터는 AI 칩 수요 증가와 빅테크 기업들의 실적 발표 모멘텀에 힘입어 주목받고 있습니다. 소비자들의 AI 기반 가격 책정 도구 도입에 대한 우려가 제기되고 있으며, AI 거품 붕괴 및 시장 조정 가능성에 대한 분석도 나오고 있습니다. 또한, CoreWeave의 재정적 어려움이 AI 관련 시장에 영향을 미칠 수 있다는 보도가 있습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표 및 신규 기술 개발 소식이 시장의 주요 변수가 될 수 있습니다."
+          "outlook": "AI 섹터는 최근 기술주 전반의 조정 속에서 투자자들의 신뢰를 시험받고 있습니다. 특히, AI 인프라 구축에 대한 자금 조달 위험과 높은 자본 지출이 수익으로 이어질지에 대한 불확실성이 부각되고 있습니다. 다음 주에는 Meta Platforms, Lam Research, Texas Instruments 등 주요 기업들의 실적 발표가 예정되어 있어, AI 관련 지출이 실제 매출 성장으로 이어지는지 여부가 시장의 주요 관심사가 될 것입니다. 다만, AI 수요가 공급을 앞지르고 있다는 점은 긍정적인 요인으로 작용할 수 있습니다. 위험 요인으로는 AI 관련 기업들의 부채 부담 증가와 경쟁 심화가 지목됩니다. 다음 주에는 Meta Platforms의 실적 발표가 예정되어 있습니다."
         }
       ],
       "stocks": [
         {
+          "name": "Pepsi",
+          "outlook": "펩시(Pepsi)는 최근 소비재 섹터의 상대적 강세 속에서 주목받고 있습니다. 다음 주에는 펩시의 단기 주가 전망이 긍정적으로 제시되고 있으나, 장기적으로는 하락세를 보일 것이라는 예측도 있습니다. 최근 펩시의 3분기 실적이 예상치를 상회하며 주가 상승 요인이 되었으나, 기술주 조정과 함께 차익실현 압력이 발생할 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 최근 기술주 전반의 조정 속에서 투자자들의 신뢰를 시험받고 있습니다. 특히, AI 인프라 구축에 대한 자금 조달 위험과 높은 자본 지출이 수익으로 이어질지에 대한 불확실성이 부각되고 있습니다. 다음 주에는 Meta Platforms, Lam Research, Texas Instruments 등 주요 기업들의 실적 발표가 예정되어 있어, AI 관련 지출이 실제 매출 성장으로 이어지는지 여부가 시장의 주요 관심사가 될 것입니다. 다만, AI 수요가 공급을 앞지르고 있다는 점은 긍정적인 요인으로 작용할 수 있습니다. 위험 요인으로는 AI 관련 기업들의 부채 부담 증가와 경쟁 심화가 지목됩니다. 다음 주에는 Meta Platforms의 실적 발표가 예정되어 있습니다."
+        },
+        {
           "name": "Microsoft",
-          "outlook": "Microsoft는 데이터 센터 사업 확장 및 AI 관련 투자 소식으로 주목받고 있으나, 최근 영국 Nscale과의 데이터 센터 계약 철회 소식이 전해졌습니다. 이는 향후 데이터 센터 사업 확장 계획에 대한 불확실성을 야기할 수 있습니다. 다음 주에는 Microsoft의 AI 관련 신규 투자 발표나 파트너십 체결 여부가 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "RGC Resources",
-          "outlook": "RGC Resources는 에너지 부문에서의 활동으로 시장의 관심을 받고 있으며, 최근 임원들의 주식 매수 사례가 있었습니다. 이는 경영진의 회사 가치에 대한 긍정적인 시각을 반영할 수 있습니다. 향후 일주일 내에는 에너지 시장 동향 및 회사의 신규 프로젝트 발표 여부가 주가에 영향을 줄 수 있습니다."
-        },
-        {
-          "name": "Anthropic",
-          "outlook": "Anthropic은 AI 분야의 신규 투자 및 기술 개발 관련 소식으로 주목받고 있습니다. 최근 투자자들은 Anthropic의 재무 데이터에 대해 불안감을 표하고 있으며, Blackstone과의 칩 금융 거래에서 두 자릿수 수익률을 제공했다는 보도가 있습니다. 향후 일주일 내에는 AI 기술 개발 성과 발표나 추가적인 투자 유치 소식이 주가에 영향을 미칠 수 있습니다."
+          "outlook": "마이크로소프트(Microsoft)는 AI 분야의 지속적인 투자와 함께 다음 주 주가 상승이 예상됩니다. 특히, AI 데이터 센터 확장에 대한 대규모 투자는 긍정적인 전망을 뒷받침합니다. 다만, AI 관련 기술주 전반의 조정과 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 또한, 영국 데이터 센터 계약 취소 소식은 일부 부정적인 영향을 줄 수 있습니다. 다음 주에는 Meta Platforms와 함께 주요 기술 기업들의 실적 발표가 예정되어 있어, AI 투자 성과에 대한 시장의 관심이 집중될 것으로 보입니다."
         }
       ]
     },
@@ -156,180 +157,144 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "부동산",
-        "reason": "부동산 시장 동향 및 관련 정책 변화에 대한 뉴스가 다수 보도됨 (총 3건)",
+        "name": "Automotive",
+        "reason": "현대자동차, 기아 등 국내 자동차 기업들의 판매량 및 신차 관련 소식이 시장에서 주목받았습니다 (총 4건).",
         "kr_news_refs": [
           3,
-          79,
-          85
+          16,
+          33
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "정부 “주택 공급·시장동향 지표 나아져…중장기 안정화 전망” - KBS 뉴스",
+            "title": "입김 세지는 'AI 쇼핑비서' 유통 공룡 '밥그릇' 뺏기나 - 이데일리",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5uVHhwNHVkcmRXWTF5ZWF4MFhoMHQ2aDdXSjlpcHF6cFZ4Mkg0ckFmaFZ2aE5RcUlNRjBsSnlVeF81QnZobjNnbWZfajNlT3RHdXg4dVdKXzJuaU0?oc=5",
-            "published_at": "2026-10-18 17:40:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOa2Y3c1E0b3gxS0x5Rnlja1V6VG9OcGx0TUJ4NU5HRF84UzVSYnkyZGliRmhlU2lPMEo1bFBSTTQzVy04enhWRFAxdF9wZXl0NjhkSEtYN0RyZzBoVmtkT0FPck1uUWxmOXF3NWJVTmlMdmlreHhBQ0JaMUMtV1lrcA?oc=5",
+            "published_at": "2026-10-19 05:50:04 KST"
           },
           {
-            "title": "빌라까지 전월세대란…수도권 매물 36% 뚝",
+            "title": "北, 러시아서 수교 78주년 연회…\"불패의 전우관계\" 과시",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/realestate/12179067",
-            "published_at": "2026-10-18 17:44:55 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261019008600504",
+            "published_at": "2026-10-19 07:04:31 KST"
           },
           {
-            "title": "빌라 1년이면 짓는데 … 고금리·규제에 끊긴 '주거 사다리'",
+            "title": "아이폰 넘어 맥북까지 OLED…삼성D·LGD, '애플효과' 기대",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/realestate/12179058",
-            "published_at": "2026-10-18 17:41:30 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261016109700003",
+            "published_at": "2026-10-19 06:45:01 KST"
           }
         ],
-        "outlook": "국내 부동산 시장은 정부의 주택 공급 확대 및 시장 안정화 노력에도 불구하고, 빌라 전월세 매물 감소 및 고금리, 규제 등의 영향으로 주거 사다리가 끊길 수 있다는 우려가 제기되고 있습니다. 정부는 주택 공급 및 시장 동향 지표가 개선되고 있으며 중장기적인 안정화를 전망하고 있습니다. 향후 일주일 내에는 정부의 부동산 정책 발표 및 금리 변동 추이가 시장에 영향을 미칠 수 있습니다."
+        "outlook": "국내 자동차 섹터는 현대자동차와 기아의 판매량 및 신차 관련 소식으로 주목받고 있습니다. 다음 주에는 현대자동차의 실적 발표가 예정되어 있어, 투자자들의 관심이 집중될 것으로 예상됩니다. 다만, 최근 자동차 섹터 전반의 약세와 글로벌 경기 둔화 우려는 단기적인 위험 요인으로 작용할 수 있습니다. 전기차 전환 가속화 및 하이브리드차 수요 증가는 긍정적인 모멘텀을 제공할 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
       },
       {
-        "name": "AI",
-        "reason": "AI 기술 발전 및 산업 적용에 대한 논의가 활발하게 이루어지고 있음 (총 7건)",
+        "name": "Retail",
+        "reason": "국내 유통 업종은 롯데온, 신세계백화점 등 다양한 기업들이 언급되며 관심을 보였습니다 (총 4건).",
         "kr_news_refs": [
-          4,
-          5,
-          11,
-          17,
-          28,
-          81,
-          82
+          2,
+          3,
+          37
         ],
+        "_weak_signal": true,
         "related_news": [
           {
-            "title": "미·중 AI 빗장에 낀 한국…‘소버린AI’ 시험대 - 경향신문",
+            "title": "코스피 급락에 ‘3천억 원’ 강제 청산…국민연금은 182조 증발 [잇슈 머니] - KBS 뉴스",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBhd192QVRiMmd4aGQ1cTQ4SDdBV1hYWVhMOWdoR2ktMTlvLW16SlpYSDZlOGJhT1ZlMzZUanB4bWFfRU5VeUJsaXF3bndfTUVoSkRaYW5UN0N0Z9IBX0FVX3lxTFB6UTdZeFZMcTlYSzBqcHdjeERuR013OVNkcnJkRDNteEE0a0dGZ1NuVUZkMTNvbmdoNTRXTXQ1UWRxOVItWE93a193aHZrYnh3QU1TUUVhcUxCRVVWZ1E4?oc=5",
-            "published_at": "2026-10-18 17:24:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBKcFVyUGlvVU5QckltdGpYQUxyVVkzVHNjZlBDVHVEaWRjNjRiUTB2d2JTZFBQQngwVTBIcDJwOU9xZU9lbTJiNXMtQjhpZXhQeFhFRWc0N3p1TlU?oc=5",
+            "published_at": "2026-10-19 06:53:00 KST"
           },
           {
-            "title": "[뉴욕채권-주간] AI 신용 위험 vs 비둘기 연준…10년물 '5%' 지지 주목 - 연합인포맥스",
+            "title": "입김 세지는 'AI 쇼핑비서' 유통 공룡 '밥그릇' 뺏기나 - 이데일리",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1kcXhhYnJQMHM2MHlrV2xOY1hKLVNhaEJQamtmS1htZTlLSmV1QjhsNXdPa2VuQTBkdXcyU2dsZm5Fa2NDM0RJNUxQVVNBVy1hS0ZfZTNwUU5icWdnWkV4ek45Zzk4Z24wbXpiaDZSX1o?oc=5",
-            "published_at": "2026-10-18 17:13:38 KST"
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOa2Y3c1E0b3gxS0x5Rnlja1V6VG9OcGx0TUJ4NU5HRF84UzVSYnkyZGliRmhlU2lPMEo1bFBSTTQzVy04enhWRFAxdF9wZXl0NjhkSEtYN0RyZzBoVmtkT0FPck1uUWxmOXF3NWJVTmlMdmlreHhBQ0JaMUMtV1lrcA?oc=5",
+            "published_at": "2026-10-19 05:50:04 KST"
           },
           {
-            "title": "IMF, 한국 잠재성장률 2년 연속 상승 전망 - 연합뉴스TV",
+            "title": "AI로 보고서·PPT 딸깍했더니…사람들 회의시간 20% 길어졌다는데",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE45dGVvb2pzNFMwTEM4X1F6NzVXWjh2a29BT2syZ0FLUXRQcFVYanZ1eE9wVnd5bVNrMTJMUHNRQVI2OW1rbEVjVG14OHo1NEtqUzBJTEk0VnJKTEY0OThIbk1SdTltMk0?oc=5",
-            "published_at": "2026-10-18 15:31:00 KST"
-          },
-          {
-            "title": "서울과학종합대학원대학교-베트남 빈대학 \"ESG·AI 연구 협력\"",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261018054100004",
-            "published_at": "2026-10-18 19:35:07 KST"
-          },
-          {
-            "title": "머스크, 2030년 50% 경제성장 예언…“AI가 재정적자 다 해결”",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/it/12179096",
-            "published_at": "2026-10-18 19:13:06 KST"
+            "url": "https://www.mk.co.kr/news/it/12179143",
+            "published_at": "2026-10-19 06:39:21 KST"
           }
         ],
-        "outlook": "AI 섹터는 기술 발전 및 산업 적용 논의가 활발하게 이루어지고 있으며, 한국이 미·중 AI 경쟁 속에서 '소버린 AI' 전략을 시험대에 올릴 것이라는 전망이 있습니다. IMF는 한국의 잠재성장률이 2년 연속 상승할 것으로 전망했으며, 서울과학종합대학원대학교와 베트남 빈대학이 ESG 및 AI 연구 협력을 추진합니다. 또한, 일론 머스크는 AI가 재정적자를 해결하며 2030년 50% 경제 성장을 이끌 것이라고 예측했습니다. 향후 일주일 내에는 국내외 AI 관련 기술 개발 소식 및 정책 발표가 주목받을 수 있습니다."
+        "outlook": "국내 유통 섹터는 롯데온, 신세계백화점 등 다양한 기업들이 언급되며 관심을 받고 있습니다. 다음 주에는 AI 쇼핑 비서 도입 등 기술 발전이 유통업계의 경쟁 구도에 미칠 영향이 주목될 것으로 보입니다. 다만, 최근 코스피 급락으로 인한 시장 전반의 투자 심리 위축은 유통 섹터에도 부정적인 영향을 미칠 수 있습니다. 또한, 소비 심리 둔화 가능성은 장기적인 위험 요인으로 작용할 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "SK하이닉스 등 반도체 관련 기업들의 실적 및 기술 동향이 시장의 주목을 받았습니다 (총 3건).",
+        "kr_news_refs": [
+          1,
+          4,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "“3만 원 썼는데 3천만 원이?”…정부가 뿌리는 역대급 복권 정체 [잇슈 머니] - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBoeWdvMGUyV3VfSVI2U1BnWmpfa3o4cUU3WjEyaUkxRmFSYUpvZ1ZYdkptdnZyVUdqekl0MHNTakNVbHlEaFhjNXBiaHJMbWJCVEJzQjh6SUlsMmc?oc=5",
+            "published_at": "2026-10-19 06:54:00 KST"
+          },
+          {
+            "title": "전기차 막자 하이브리드차…中 수출 15배 폭증 - 이데일리",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPQWFLSHUyaVI1RnFCbElQUGZLSmd3UlIySEdNOGotM3RFVXlvYThkaUFPVFVaMU9jeElCWDN0VmZxV0hwdzJYbDFCYnJQMkhtaHk5ZGhUMjR0dzl4WlhLM1VWeVpqWVFKVnFmS3RNdnc4WDRBc3dQR1ZRRUhTSk44QQ?oc=5",
+            "published_at": "2026-10-19 05:00:04 KST"
+          },
+          {
+            "title": "대구·경북 낮 기온 21~25도…내일부터 다시 비",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261019005900053",
+            "published_at": "2026-10-19 06:15:07 KST"
+          }
+        ],
+        "outlook": "국내 반도체 섹터는 SK하이닉스를 중심으로 실적 및 기술 동향이 시장의 주목을 받고 있습니다. 다음 주에는 반도체 업황 전망에 대한 긍정적인 시각과 함께 공급 과잉 우려가 공존하고 있습니다. 특히, 한국 금융당국은 반도체 호황이 최소 2027년까지 지속될 것으로 전망하고 있습니다. 그러나 AI 관련 투자 축소 가능성과 중국의 경쟁 심화는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 빅테크 기업들의 실적 발표가 예정되어 있어, 반도체 수요에 대한 시장의 관심이 집중될 것입니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "현대중공업",
-        "reason": "조선업계의 수주 증가 및 실적 개선 기대감으로 주목받음 (총 2건)",
+        "name": "SK하이닉스",
+        "reason": "SK하이닉스는 반도체 업종 내에서 빈도 높게 언급되며 시장의 관심을 받았습니다 (총 2건).",
         "kr_news_refs": [
-          1,
-          35
+          4,
+          73
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "금속노조 현대중공업지부장, 임단협 타결 촉구 고공농성 돌입 - KBS 뉴스",
+            "title": "전기차 막자 하이브리드차…中 수출 15배 폭증 - 이데일리",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1kR1dzaGZGRjB5cEh0SzFSMVdROHpqLUFscmVDOTloMzFaY0dhbVVEWXFabV80Q2lrSnc0M3RMN3V0MW9uZl8wbkxIdjh6dHVsRHg2d0xlcGRRa00?oc=5",
-            "published_at": "2026-10-18 19:06:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPQWFLSHUyaVI1RnFCbElQUGZLSmd3UlIySEdNOGotM3RFVXlvYThkaUFPVFVaMU9jeElCWDN0VmZxV0hwdzJYbDFCYnJQMkhtaHk5ZGhUMjR0dzl4WlhLM1VWeVpqWVFKVnFmS3RNdnc4WDRBc3dQR1ZRRUhTSk44QQ?oc=5",
+            "published_at": "2026-10-19 05:00:04 KST"
           },
           {
-            "title": "'임단협 교섭 난항' HD현대중 노조 전 조합원 파업 닷새로 확대",
+            "title": "100명 중 0.8명 구멍 뚫어야 대기업 임원…SK하이닉스 최다 증가",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261018049500057",
-            "published_at": "2026-10-18 18:45:56 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261018042500003",
+            "published_at": "2026-10-19 06:00:03 KST"
           }
         ],
-        "outlook": "현대중공업은 조선업계의 수주 증가 및 실적 개선 기대감으로 주목받고 있으나, 금속노조 현대중공업지부장이 임단협 타결을 촉구하며 고공농성에 돌입했으며, 노조 전 조합원의 파업이 확대되는 등 노사 갈등이 심화되고 있습니다. 향후 일주일 내에는 임단협 협상 결과 및 조선업계의 추가 수주 소식이 주가에 영향을 미칠 수 있습니다."
-      },
-      {
-        "name": "할리스",
-        "reason": "개인정보 유출 관련 이슈로 인해 시장의 관심을 받음 (총 2건)",
-        "kr_news_refs": [
-          2,
-          51
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "커피전문점 ‘할리스’ 해킹으로 고객 개인정보 유출... 비밀번호까지 포함 - 보안뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9ELWVtdUs0UGpOa0lyNVFaalppYkxMNXNGTFdLQ18yUnZsc0lHR241cXpoRXdnNzJjcnBLWmplem1uWnBWakZEdk9pV2QwSXJ4TlpzNTZ3LWxZc1FEWS1KczBwd3RKVVNFSnR3?oc=5",
-            "published_at": "2026-10-18 19:05:45 KST"
-          },
-          {
-            "title": "[단독] “비밀번호에 집 주소까지 털렸다”…할리스 멤버십 해킹, 개인정보 무더기 유출",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/it/12179081",
-            "published_at": "2026-10-18 18:26:26 KST"
-          }
-        ],
-        "outlook": "커피전문점 할리스에서 해킹으로 인해 비밀번호와 집 주소 등 고객 개인정보가 대규모로 유출되는 사건이 발생했습니다. 이는 소비자들의 불신을 야기하고 브랜드 이미지에 부정적인 영향을 미칠 수 있습니다. 향후 일주일 내에는 개인정보 유출 관련 후속 조치 및 소비자들의 반응이 주가에 영향을 줄 수 있습니다."
-      },
-      {
-        "name": "삼성전자",
-        "reason": "반도체 업황 회복 및 HBM 수요 증가에 대한 긍정적인 전망이 제기됨 (총 2건)",
-        "kr_news_refs": [
-          10,
-          14
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "삼전직원 투자인증 “35억 갔다 레버투자로 2억 남았다” - 문화일보",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1WSmU0aUI2WGlrREVMV2tvVWVYZktjeDI0bkZQdXdIbXFiWmIxWFBGXzRQZHY0ZnpwN1ZaaXZBc2FFbkdkN2cwckk1R3JSSHdv?oc=5",
-            "published_at": "2026-10-18 15:44:48 KST"
-          },
-          {
-            "title": "삼전닉스 급락에 국민연금 182조 증발…100일 새 무슨 일이 - 주간조선",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBFaUxyS2RuQlJnMkNMZEV5b1hIMmFxZGlMUVhLbnNPanJJaXJsT19YaWNINTVYOXpNTTlwZmptWU9Gc2wxUGxGZWExWDlRVGt0VUgtVnk2Ny1zWGZCNDYzak9Bc1dJT1hvWXfSAW5BVV95cUxPTkEzZEdOaVpWWFo2aW0zYmdoZzE1ekhXQ3JCVFV6c1YwVC01Z2N2d1JkaW04clh0MFZqYnJzZTFldWl4SDgwTnBZSjVaNTBOUjVORGFQNWpfRnNiTTlSMkU0WFp3OS1ZbFRtX0hxQQ?oc=5",
-            "published_at": "2026-10-18 14:50:00 KST"
-          }
-        ],
-        "outlook": "삼성전자는 반도체 업황 회복 및 고대역폭 메모리(HBM) 수요 증가에 대한 긍정적인 전망이 제기되고 있습니다. 최근 삼성전자 직원의 투자 성공 사례가 언급되었으나, 삼성닉스 급락으로 국민연금 자산이 감소했다는 보도도 있습니다. 향후 일주일 내에는 주요 고객사의 AI 칩 주문 동향 및 HBM 시장 경쟁 상황이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "SK하이닉스는 반도체 섹터 내에서 AI 메모리 수요 증가에 힘입어 긍정적인 전망이 제시되고 있습니다. 특히, HBM(고대역폭 메모리) 시장에서의 리더십은 향후 실적 성장에 대한 기대를 높이고 있습니다. 다만, 최근 AI 관련 기술주 전반의 조정과 중국의 경쟁 심화, 잠재적인 메모리 공급 과잉 우려는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 빅테크 기업들의 실적 발표가 예정되어 있어, 반도체 수요에 대한 시장의 관심이 집중될 것입니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "부동산",
-          "outlook": "국내 부동산 시장은 정부의 주택 공급 확대 및 시장 안정화 노력에도 불구하고, 빌라 전월세 매물 감소 및 고금리, 규제 등의 영향으로 주거 사다리가 끊길 수 있다는 우려가 제기되고 있습니다. 정부는 주택 공급 및 시장 동향 지표가 개선되고 있으며 중장기적인 안정화를 전망하고 있습니다. 향후 일주일 내에는 정부의 부동산 정책 발표 및 금리 변동 추이가 시장에 영향을 미칠 수 있습니다."
+          "name": "Automotive",
+          "outlook": "국내 자동차 섹터는 현대자동차와 기아의 판매량 및 신차 관련 소식으로 주목받고 있습니다. 다음 주에는 현대자동차의 실적 발표가 예정되어 있어, 투자자들의 관심이 집중될 것으로 예상됩니다. 다만, 최근 자동차 섹터 전반의 약세와 글로벌 경기 둔화 우려는 단기적인 위험 요인으로 작용할 수 있습니다. 전기차 전환 가속화 및 하이브리드차 수요 증가는 긍정적인 모멘텀을 제공할 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
         },
         {
-          "name": "AI",
-          "outlook": "AI 섹터는 기술 발전 및 산업 적용 논의가 활발하게 이루어지고 있으며, 한국이 미·중 AI 경쟁 속에서 '소버린 AI' 전략을 시험대에 올릴 것이라는 전망이 있습니다. IMF는 한국의 잠재성장률이 2년 연속 상승할 것으로 전망했으며, 서울과학종합대학원대학교와 베트남 빈대학이 ESG 및 AI 연구 협력을 추진합니다. 또한, 일론 머스크는 AI가 재정적자를 해결하며 2030년 50% 경제 성장을 이끌 것이라고 예측했습니다. 향후 일주일 내에는 국내외 AI 관련 기술 개발 소식 및 정책 발표가 주목받을 수 있습니다."
+          "name": "Retail",
+          "outlook": "국내 유통 섹터는 롯데온, 신세계백화점 등 다양한 기업들이 언급되며 관심을 받고 있습니다. 다음 주에는 AI 쇼핑 비서 도입 등 기술 발전이 유통업계의 경쟁 구도에 미칠 영향이 주목될 것으로 보입니다. 다만, 최근 코스피 급락으로 인한 시장 전반의 투자 심리 위축은 유통 섹터에도 부정적인 영향을 미칠 수 있습니다. 또한, 소비 심리 둔화 가능성은 장기적인 위험 요인으로 작용할 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 SK하이닉스를 중심으로 실적 및 기술 동향이 시장의 주목을 받고 있습니다. 다음 주에는 반도체 업황 전망에 대한 긍정적인 시각과 함께 공급 과잉 우려가 공존하고 있습니다. 특히, 한국 금융당국은 반도체 호황이 최소 2027년까지 지속될 것으로 전망하고 있습니다. 그러나 AI 관련 투자 축소 가능성과 중국의 경쟁 심화는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 빅테크 기업들의 실적 발표가 예정되어 있어, 반도체 수요에 대한 시장의 관심이 집중될 것입니다."
         }
       ],
       "stocks": [
         {
-          "name": "현대중공업",
-          "outlook": "현대중공업은 조선업계의 수주 증가 및 실적 개선 기대감으로 주목받고 있으나, 금속노조 현대중공업지부장이 임단협 타결을 촉구하며 고공농성에 돌입했으며, 노조 전 조합원의 파업이 확대되는 등 노사 갈등이 심화되고 있습니다. 향후 일주일 내에는 임단협 협상 결과 및 조선업계의 추가 수주 소식이 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "할리스",
-          "outlook": "커피전문점 할리스에서 해킹으로 인해 비밀번호와 집 주소 등 고객 개인정보가 대규모로 유출되는 사건이 발생했습니다. 이는 소비자들의 불신을 야기하고 브랜드 이미지에 부정적인 영향을 미칠 수 있습니다. 향후 일주일 내에는 개인정보 유출 관련 후속 조치 및 소비자들의 반응이 주가에 영향을 줄 수 있습니다."
-        },
-        {
-          "name": "삼성전자",
-          "outlook": "삼성전자는 반도체 업황 회복 및 고대역폭 메모리(HBM) 수요 증가에 대한 긍정적인 전망이 제기되고 있습니다. 최근 삼성전자 직원의 투자 성공 사례가 언급되었으나, 삼성닉스 급락으로 국민연금 자산이 감소했다는 보도도 있습니다. 향후 일주일 내에는 주요 고객사의 AI 칩 주문 동향 및 HBM 시장 경쟁 상황이 주가에 영향을 미칠 수 있습니다."
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 반도체 섹터 내에서 AI 메모리 수요 증가에 힘입어 긍정적인 전망이 제시되고 있습니다. 특히, HBM(고대역폭 메모리) 시장에서의 리더십은 향후 실적 성장에 대한 기대를 높이고 있습니다. 다만, 최근 AI 관련 기술주 전반의 조정과 중국의 경쟁 심화, 잠재적인 메모리 공급 과잉 우려는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 빅테크 기업들의 실적 발표가 예정되어 있어, 반도체 수요에 대한 시장의 관심이 집중될 것입니다."
         }
       ]
     },
@@ -340,78 +305,72 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "금",
-        "freq": 2,
-        "summary": "금 가격의 상승 가능성이 언급되었으며, 금에 전 재산을 투자하거나 떨어질 때마다 매수해야 한다는 의견이 제시되었습니다. 금 한 돈의 가격이 최소 300만 원까지 상승할 것이라는 전망이 포함되었습니다.",
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 관련주 급락으로 나스닥 지수가 하락했으며, 네오클라우드 관련 변동성이 지속되었습니다. (영상#1)",
         "refs": [
-          1,
+          1
+        ],
+        "reason": "AI 관련주 급락으로 나스닥 지수가 하락했으며, 네오클라우드 관련 변동성이 지속되었습니다. (영상#1)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "나스닥, AI 관련주 급락에 2% 하락...코어위브 등 네오클라우드 변동성 지속 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=Qmx3pgh3vQg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-19 07:00:14 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 최근 나스닥 지수 하락과 관련주 급락으로 변동성이 확대되고 있습니다. 특히, 네오클라우드 관련 기업들의 부채 부담과 수익성 악화 가능성이 제기되며 시장의 우려를 낳고 있습니다. 다음 주에는 Meta Platforms 등 주요 AI 관련 기업들의 실적 발표가 예정되어 있어, AI 투자 성과와 향후 전망에 대한 시장의 관심이 집중될 것입니다. 다만, AI 수요가 공급을 앞지르고 있다는 점은 긍정적인 요인으로 작용할 수 있습니다. 위험 요인으로는 AI 관련 기업들의 부채 부담 증가와 경쟁 심화가 지목됩니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "머스크는 중국의 D램 생산량 증가 가능성을 언급하며 비싼 메모리 가격에 대한 우려를 표했습니다. (영상#2)",
+        "refs": [
+          2
+        ],
+        "reason": "머스크는 중국의 D램 생산량 증가 가능성을 언급하며 비싼 메모리 가격에 대한 우려를 표했습니다. (영상#2)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "머스크 \"중국이 D램 쏟아낼 것\"…비싼 메모리에 투정 | \"한은, 기준금리 10월 동결, 11월엔 인상 유력\" | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=2KemflG6c68",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-19 05:23:21 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 AI 수요 증가와 공급 부족 현상으로 인해 긍정적인 전망이 제시되고 있습니다. 특히, 한국 금융당국은 반도체 호황이 최소 2027년까지 지속될 것으로 전망하고 있습니다. 그러나 최근 AI 관련 기술주 전반의 조정과 중국의 경쟁 심화는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 빅테크 기업들의 실적 발표가 예정되어 있어, 반도체 수요에 대한 시장의 관심이 집중될 것입니다."
+      },
+      {
+        "name": "금",
+        "freq": 1,
+        "summary": "금 투자에 전 재산을 걸었다는 전문가의 의견과 함께 향후 금 가격의 큰 상승 가능성이 제시되었습니다. (영상#4)",
+        "refs": [
           4
         ],
-        "reason": "금 가격의 상승 가능성이 언급되었으며, 금에 전 재산을 투자하거나 떨어질 때마다 매수해야 한다는 의견이 제시되었습니다. 금 한 돈의 가격이 최소 300만 원까지 상승할 것이라는 전망이 포함되었습니다.",
+        "reason": "금 투자에 전 재산을 걸었다는 전문가의 의견과 함께 향후 금 가격의 큰 상승 가능성이 제시되었습니다. (영상#4)",
+        "_weak_signal": true,
         "related_videos": [
           {
             "title": "금 투자에 전 재산을 걸었어요, 앞으로 미친 상승 시작된다 (조규원 대표)",
             "url": "https://www.youtube.com/watch?v=j8giknKNaW0",
             "channel_name": "김작가 TV",
             "published_at": "2026-10-18 20:00:01 KST"
-          },
-          {
-            "title": "금 떨어질 때마다 사야하는 이유, 금 한 돈 최소 300만 원 간다 (조규원 대표)",
-            "url": "https://www.youtube.com/watch?v=lEjF2yUleOw",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-18 17:30:20 KST"
           }
         ],
-        "outlook": "금 가격의 상승 가능성이 높게 점쳐지고 있으며, 금 한 돈의 가격이 최소 300만 원까지 상승할 것이라는 전망이 제시되었습니다. 일부 투자자들은 금에 전 재산을 투자하거나 가격 하락 시마다 매수하는 전략을 고려하고 있습니다. 향후 일주일 내에는 국제 금 시세 변동 및 주요국 중앙은행의 금 보유량 변화 등이 주목받을 수 있습니다."
-      },
-      {
-        "name": "AI",
-        "freq": 1,
-        "summary": "AI 섹터의 약한 고리가 터질 수 있다는 우려와 함께, 연말까지는 기회가 있을 수 있으나 내년이 진짜 위기일 수 있다는 분석이 제시되었습니다.",
-        "refs": [
-          2
-        ],
-        "reason": "AI 섹터의 약한 고리가 터질 수 있다는 우려와 함께, 연말까지는 기회가 있을 수 있으나 내년이 진짜 위기일 수 있다는 분석이 제시되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "AI 약한고리 결국 터진다? 극단적 공포 구간 진입/올 연말까진 기회, 내년이 진짜 위기?",
-            "url": "https://www.youtube.com/watch?v=A7B-vm2lGps",
-            "channel_name": "소수몽키",
-            "published_at": "2026-10-18 19:14:15 KST"
-          }
-        ],
-        "outlook": "AI 섹터는 약한 고리가 터질 수 있다는 우려와 함께, 연말까지는 기회가 있을 수 있으나 내년이 진짜 위기일 수 있다는 분석이 나왔습니다. 이는 AI 기술 발전 속도와 실제 수익 창출 간의 괴리에 대한 시장의 경계심을 반영하는 것으로 보입니다. 향후 일주일 내에는 주요 AI 기업들의 신규 서비스 출시 및 관련 규제 동향이 시장의 주요 변수가 될 수 있습니다."
-      },
-      {
-        "name": "부동산",
-        "freq": 1,
-        "summary": "특정 지역의 부동산에 10억 원을 투자할 것을 권유하며, 내년부터 가격이 더 크게 상승할 것이라는 전망이 제시되었습니다.",
-        "refs": [
-          3
-        ],
-        "reason": "특정 지역의 부동산에 10억 원을 투자할 것을 권유하며, 내년부터 가격이 더 크게 상승할 것이라는 전망이 제시되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "10억으로 '이 지역 부동산' 사세요, 내년부터 더 무섭게 오를 겁니다 (고준석 교수)",
-            "url": "https://www.youtube.com/watch?v=GG0BLfcJiuI",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-18 18:30:28 KST"
-          }
-        ],
-        "outlook": "특정 지역의 부동산에 10억 원을 투자할 것을 권유하며, 내년부터 가격이 더 크게 상승할 것이라는 전망이 제시되었습니다. 이는 해당 지역의 개발 호재 및 미래 가치에 대한 긍정적인 시각을 반영하는 것으로 보입니다. 향후 일주일 내에는 해당 지역의 부동산 거래량 변화 및 정부의 부동산 정책 발표 여부가 주목받을 수 있습니다."
+        "outlook": "금 시장은 최근 전문가들의 긍정적인 전망과 함께 주목받고 있습니다. 향후 금 가격의 상승 가능성이 제시되고 있으며, 이는 안전 자산 선호 심리 강화와 연관될 수 있습니다. 다만, 거시 경제 지표 변화 및 금리 정책 방향에 따라 변동성이 나타날 수 있습니다. 다음 주 예정된 주요 일정은 없습니다."
       }
     ],
     "top3_stocks": [
       {
         "name": "삼성전자",
         "freq": 1,
-        "summary": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. 이는 해당 종목에 대한 대규모 자금 유입 가능성을 시사하는 내용입니다.",
+        "summary": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. (영상#8)",
         "refs": [
-          9
+          8
         ],
-        "reason": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. 이는 해당 종목에 대한 대규모 자금 유입 가능성을 시사하는 내용입니다.",
+        "reason": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. (영상#8)",
         "_weak_signal": true,
         "related_videos": [
           {
@@ -421,7 +380,45 @@
             "published_at": "2026-10-17 17:06:08 KST"
           }
         ],
-        "outlook": "삼성 회장이 1조 9천억 원을 투자했다는 소문이 언급되었습니다. 이는 해당 종목에 대한 대규모 자금 유입 가능성을 시사하며 시장의 관심을 끌고 있습니다. 향후 일주일 내에는 삼성전자의 신규 투자 발표나 주요 사업 부문의 실적 관련 소식이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "삼성전자는 반도체 섹터 내에서 AI 관련 수요 증가에 힘입어 긍정적인 전망이 제시되고 있습니다. 특히, 고대역폭 메모리(HBM) 시장에서의 경쟁력은 향후 실적 성장에 대한 기대를 높이고 있습니다. 다만, 최근 AI 관련 기술주 전반의 조정과 중국의 경쟁 심화, 잠재적인 메모리 공급 과잉 우려는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 빅테크 기업들의 실적 발표가 예정되어 있어, 반도체 수요에 대한 시장의 관심이 집중될 것입니다."
+      },
+      {
+        "name": "네오클라우드",
+        "freq": 1,
+        "summary": "네오클라우드 관련 변동성이 지속되고 있다는 내용이 언급되었습니다. (영상#1)",
+        "refs": [
+          1
+        ],
+        "reason": "네오클라우드 관련 변동성이 지속되고 있다는 내용이 언급되었습니다. (영상#1)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "나스닥, AI 관련주 급락에 2% 하락...코어위브 등 네오클라우드 변동성 지속 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=Qmx3pgh3vQg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-19 07:00:14 KST"
+          }
+        ],
+        "outlook": "네오클라우드 관련 기업들은 AI 인프라 투자 확대 속에서 주목받고 있으나, 부채 부담과 수익성 악화 가능성이 제기되며 시장의 우려를 낳고 있습니다. Gartner는 2030년까지 네오클라우드 제공업체의 80%가 독립적인 운영을 중단할 것으로 예측했습니다. 다음 주에는 Meta Platforms 등 주요 AI 관련 기업들의 실적 발표가 예정되어 있어, AI 투자 성과와 향후 전망에 대한 시장의 관심이 집중될 것입니다. 위험 요인으로는 높은 부채 수준과 경쟁 심화가 지목됩니다."
+      },
+      {
+        "name": "소나무",
+        "freq": 1,
+        "summary": "한국 소나무의 불치병 대유행으로 인한 멸종 위기 상황과 산림청의 재선충 차단 대책 발표에 대한 내용이 다루어졌습니다. (영상#7)",
+        "refs": [
+          7
+        ],
+        "reason": "한국 소나무의 불치병 대유행으로 인한 멸종 위기 상황과 산림청의 재선충 차단 대책 발표에 대한 내용이 다루어졌습니다. (영상#7)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "소나무 불치병 대유행, 멸종 위기에 몰린 한국 소나무",
+            "url": "https://www.youtube.com/watch?v=mZ22ca3OCYc",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-17 19:20:55 KST"
+          }
+        ],
+        "outlook": "소나무 관련 정보는 투자 전망을 위한 최신 뉴스 검색 결과에서 확인되지 않았습니다. 따라서 현재 단계에서 명확한 시그널 부재로 판단됩니다."
       }
     ],
     "videos_collected": 10
@@ -430,7 +427,23 @@
     "us": {
       "stocks": [
         {
-          "name": "Anthropic",
+          "name": "Chick-fil-A",
+          "freq": 5
+        },
+        {
+          "name": "Pepsi",
+          "freq": 3
+        },
+        {
+          "name": "Disney",
+          "freq": 2
+        },
+        {
+          "name": "Character.AI",
+          "freq": 2
+        },
+        {
+          "name": "Tesla",
           "freq": 1
         },
         {
@@ -438,55 +451,39 @@
           "freq": 2
         },
         {
-          "name": "RGC Resources",
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "American Airlines",
+          "freq": 2
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "freq": 2
+        },
+        {
+          "name": "United Airlines",
           "freq": 2
         },
         {
           "name": "Bank of America",
+          "freq": 2
+        },
+        {
+          "name": "Princess Cruises",
           "freq": 1
         },
         {
-          "name": "CoreWeave",
+          "name": "Carnival",
           "freq": 1
         },
         {
-          "name": "Tesla",
+          "name": "Royal Caribbean",
           "freq": 1
         },
         {
-          "name": "Flexsteel",
-          "freq": 1
-        },
-        {
-          "name": "ICICI Bank ADR",
-          "freq": 1
-        },
-        {
-          "name": "EOS",
-          "freq": 1
-        },
-        {
-          "name": "SoftBank",
-          "freq": 1
-        },
-        {
-          "name": "Apple",
-          "freq": 1
-        },
-        {
-          "name": "Berkshire Hathaway",
-          "freq": 1
-        },
-        {
-          "name": "Southwest",
-          "freq": 1
-        },
-        {
-          "name": "KFC",
-          "freq": 1
-        },
-        {
-          "name": "GIANT Food Stores",
+          "name": "Ford",
           "freq": 1
         }
       ],
@@ -496,59 +493,59 @@
           "freq": 3
         },
         {
+          "name": "Fast Food",
+          "freq": 5
+        },
+        {
+          "name": "Treasury Debt",
+          "freq": 4
+        },
+        {
           "name": "Automotive",
-          "freq": 1
-        },
-        {
-          "name": "Retail",
           "freq": 2
         },
         {
-          "name": "Data Center",
+          "name": "Housing Market",
+          "freq": 4
+        },
+        {
+          "name": "Cruise Lines",
+          "freq": 3
+        },
+        {
+          "name": "Tech",
           "freq": 2
         },
         {
-          "name": "EV",
-          "freq": 2
-        },
-        {
-          "name": "Banking",
-          "freq": 1
+          "name": "Transportation",
+          "freq": 3
         },
         {
           "name": "Energy",
           "freq": 2
         },
         {
-          "name": "Software",
+          "name": "바이오",
           "freq": 2
         },
         {
-          "name": "Social Security",
+          "name": "Retail",
           "freq": 2
         },
         {
-          "name": "Global Economy",
+          "name": "Data Centers",
           "freq": 2
         },
         {
-          "name": "반도체",
+          "name": "Inflation",
+          "freq": 2
+        },
+        {
+          "name": "Nuclear Power",
           "freq": 1
         },
         {
-          "name": "Security Services",
-          "freq": 1
-        },
-        {
-          "name": "Food & Beverage",
-          "freq": 1
-        },
-        {
-          "name": "핀테크",
-          "freq": 1
-        },
-        {
-          "name": "Renewable Energy",
+          "name": "ETFs",
           "freq": 1
         }
       ]
@@ -556,125 +553,125 @@
     "kr": {
       "stocks": [
         {
-          "name": "현대중공업",
-          "freq": 2
-        },
-        {
-          "name": "할리스",
-          "freq": 2
-        },
-        {
-          "name": "삼성전자",
-          "freq": 1
-        },
-        {
-          "name": "KIA 타이거즈",
-          "freq": 2
-        },
-        {
           "name": "SK하이닉스",
           "freq": 1
         },
         {
-          "name": "제주삼다수",
+          "name": "두산",
           "freq": 1
         },
         {
-          "name": "토스증권",
+          "name": "현대자동차",
           "freq": 1
         },
         {
-          "name": "HD현대중공업",
+          "name": "기아",
           "freq": 1
         },
         {
-          "name": "LG",
+          "name": "삼성디스플레이",
           "freq": 1
         },
         {
-          "name": "KCC",
+          "name": "LG디스플레이",
           "freq": 1
         },
         {
-          "name": "서울 SK",
+          "name": "렉서스",
           "freq": 1
         },
         {
-          "name": "고양 소노",
+          "name": "롯데온",
           "freq": 1
         },
         {
-          "name": "정관장",
+          "name": "신세계백화점",
           "freq": 1
         },
         {
-          "name": "포항",
+          "name": "키움증권",
           "freq": 1
         },
         {
-          "name": "안양",
+          "name": "한화오션",
+          "freq": 1
+        },
+        {
+          "name": "고팍스",
+          "freq": 1
+        },
+        {
+          "name": "롯데멤버스",
+          "freq": 1
+        },
+        {
+          "name": "CU",
+          "freq": 1
+        },
+        {
+          "name": "핀다",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
-          "freq": 2
-        },
-        {
-          "name": "부동산",
           "freq": 3
         },
         {
           "name": "반도체",
-          "freq": 1
-        },
-        {
-          "name": "조선",
           "freq": 2
         },
         {
-          "name": "개인정보 유출",
+          "name": "Automotive",
+          "freq": 4
+        },
+        {
+          "name": "Retail",
+          "freq": 4
+        },
+        {
+          "name": "Transportation",
+          "freq": 3
+        },
+        {
+          "name": "Hybrid Cars",
           "freq": 2
         },
         {
-          "name": "채권",
+          "name": "Real Estate",
           "freq": 2
         },
         {
-          "name": "잠재성장률",
+          "name": "Banking",
           "freq": 2
         },
         {
-          "name": "환율",
+          "name": "핀테크",
           "freq": 2
         },
         {
-          "name": "국민소득",
+          "name": "Lottery",
           "freq": 1
         },
         {
-          "name": "생수",
+          "name": "Energy Infrastructure",
           "freq": 1
         },
         {
-          "name": "자동차",
+          "name": "E-commerce",
           "freq": 1
         },
         {
-          "name": "국민연금",
+          "name": "Consumer Goods",
           "freq": 1
         },
         {
-          "name": "과자",
+          "name": "Food & Beverage",
           "freq": 1
         },
         {
-          "name": "ESG",
-          "freq": 1
-        },
-        {
-          "name": "감사",
+          "name": "Telecommunications",
           "freq": 1
         }
       ]
