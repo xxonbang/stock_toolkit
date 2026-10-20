@@ -1,0 +1,798 @@
+{
+  "generated_at": "2026-10-21 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Aerospace",
+        "reason": "보잉, GE 에어로스페이스 등 항공우주 기업들의 실적 발표와 관련 소식이 주목받으며 해당 섹터에 대한 관심이 높았습니다 (총 5건).",
+        "us_news_refs": [
+          1,
+          2,
+          6,
+          30,
+          52
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Musk says Tesla and SpaceX formed special committees to discuss merger: Live updates - CNBC",
+            "title_ko": "머스크, 테슬라-스페이스X 합병 논의 특위 구성 발표",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQQVllYUJGN3ZlUlBmalFoOHpVTG9UVV9Eb1owUlBzWGRQeDlHeWU5UlRKT2FTS0FaQ3l5eW0zTV9pa3gwOFlyM3JGZHBoakNVb0RMNVhEelBWRkJSNWVWRjNvMlYwalRLUEQ2Sml0dXRZTU5wZGN2V0Q1ckZBNmNlYnluTnU2eG1BMWfSAY8BQVVfeXFMTVBhQUVkdTRhMnlwSmlpS2VrV09rUFA0c3lSZkI2Vmg5SFRGam5UVVpNcFRwMnNlUmJaVlJqVXZ5cHZkLTFtcTlsOFp2RDZkY294QXdmR2VndnJtZ29tdS03WW5aWXgxU21MVUV6VnFfelpvOFByMUdTRTVaamtoZHdOZ3JtZm5oMEFvQkZoN00?oc=5",
+            "published_at": "2026-10-21 07:03:00 KST"
+          },
+          {
+            "title": "FAA clears the way for airlines to put Boeing’s long-delayed 737 Max 10 into service - AP News",
+            "title_ko": "FAA, 보잉 737 맥스 10 운항 승인",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNdWh5TEc3UFM1REZCazFzeGJpZTFXblJEdE9wWWFrU2RzbnFKVnRYQTV6MS10V21tVElVaW9jLTlMc3d2YnRSU0drVlR0RWxvam1SUUdHWGRaMG01OUZaM2RFd2lsZmFnc2NLVHBwbm5KOVhSa3ZiZjJfd2NycXRZdFF4SExsWXFlcGQ2NUdCMTIzMmlndlpISHd2RElFVk1nelNV?oc=5",
+            "published_at": "2026-10-21 06:44:00 KST"
+          },
+          {
+            "title": "GE Aerospace Keeps Beating Earnings, GE Stock Keeps Falling - Barron's",
+            "title_ko": "GE Aerospace, 실적 호조에도 GE 주가는 하락세",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOUmUzbElHQTlYVzZhWllEZzZVcVl1Y3M2X3kxVlgxanpmSzd3RWNhQVpZODRweTBqZmltUlp6NldBZ0JCY0RGRzA5MHJxN0RPbk5pQldyeHFPWUlIZzI3bUw1b3JTX0FrZklUOFdhUnBfb19SWHFiRi1xRGVaSWgtamVpa2JMdjFvSFhBam02ZUxWS2c2OU43blhQZjFaR1BiUHc?oc=5",
+            "published_at": "2026-10-21 05:43:00 KST"
+          },
+          {
+            "title": "Boeing wins FAA approval for 737 Max 10 after years of delays as Duffy says certification process should be faster",
+            "title_ko": "보잉, 737 맥스 10 수년간 지연 끝 FAA 승인",
+            "url": "https://www.cnbc.com/2026/10/20/boeing-737-max-10-certification.html",
+            "published_at": "2026-10-21 07:01:11 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 항공우주 섹터는 보잉의 737 MAX 10 기종에 대한 FAA의 운항 승인 소식이 긍정적인 촉매제가 될 수 있습니다. 또한, GE 에어로스페이스의 실적 발표 결과가 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다. 다만, 스페이스X와 테슬라의 합병 논의와 같은 예상치 못한 이벤트가 섹터 내 주요 기업들의 주가에 변동성을 야기할 가능성이 있습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 섹터 동향을 파악하는 데 중요할 것입니다."
+      },
+      {
+        "name": "Earnings",
+        "reason": "넷플릭스 등 주요 기업들의 실적 발표가 섹터 전반에 대한 투자 심리에 영향을 미쳤습니다 (총 4건).",
+        "us_news_refs": [
+          3,
+          4,
+          8,
+          21
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SpaceX quarterly revenue jumps, beats estimates as AI business surges - Reuters",
+            "title_ko": "스페이스X, AI 사업 급증으로 분기 매출 예상 초과",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxONHZoMzBtaGg1TmlMN19NRUEzM1lOZkpYb1ZXeWlLTnR4SkxObm1xbDBlN0RsQ2huaHBCMzRxU0VLb3ZPSS1ZeEdhampNY3VNclpoU2xGOWpoQjNfVzVDTHpqOVVRd0pZcVY3eGlpVkxjWTRrMGh4aWtCbVJVVnZ1Nnd1RkU1dFNtcUZCUnVxX1pRWXRTd09QUnpodWJSeEhpS3BKcmxsQkM1aFA1eExGSkNMMVIteV93OXZWa0Q2Vl9yUQ?oc=5",
+            "published_at": "2026-10-21 06:39:23 KST"
+          },
+          {
+            "title": "Netflix stock sinks after announcing Q3 earnings, Q4 revenue forecast falls short of estimates - Yahoo Finance",
+            "title_ko": "넷플릭스, 3분기 실적 발표 후 주가 하락",
+            "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQNEJkYUJaMXNVbEhiRTVINEhQZEptTkdWWFpkQkhDc2hDMkREQVRteGxITEZGVlYwcnZzSUdmd1ltclFkM2hBTnp2OGVWSVJEaWlub29QdHVMVC15eTRISWRPUGZLT3NaS2FiZHhwNGxtOExtUDBQUUpHejhDOFRmQ2pFQXhKRUNuN1JnM3RiR281VjlfT1ZvS1IxX2FWZ0tZQ3VjMTAzRERHQnowczhMNGJRUU1YeUFPdGNxVDNOWFFrZ0FOckdkNDdZNDFwaXhtaF81VXhJSzRLb1hVVW5JVks2Q09vVVViQ3dVN21n?oc=5",
+            "published_at": "2026-10-21 06:07:30 KST"
+          },
+          {
+            "title": "Dow jumps 500 points as earnings optimism steadies market: Live updates - CNBC",
+            "title_ko": "실적 낙관론에 다우존스 500포인트 급등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBBY1V6N2VkbVphNU1oUUROTEx2aUtNQk9XeDl3SlRyUGlmWWFNX3B1NjU0SXB6Z08zeldvRW8tZVdWQ3lxRnNGelJSdURXdHdEQ0lRTllocmNfS1BkX2lDalYzS1AySDNUNk5Rc2tDbk1SdVZsbHRj0gF8QVVfeXFMUDhUeVpneWk2eWtPSVpkcE5EY3pZeV92cG9CZFpwaDVrT09sY2Y1VTVNc2VfcWNid29pZ2RzNTYwY3VWQkx2X2h3ZlUzQWRPXzlpWWotY0ZkM184THhJNkxhYTJHNVRvZ3hESG4wZGVna25sWEU0UDZBZnpqRw?oc=5",
+            "published_at": "2026-10-21 05:13:00 KST"
+          },
+          {
+            "title": "Netflix posts third-quarter earnings beat, but shares fall on advertising and revenue guidance",
+            "title_ko": "넷플릭스, 3분기 실적 예상치 상회했으나 주가는 하락",
+            "url": "https://www.cnbc.com/2026/10/20/netflix-nflx-earnings-q3-2026.html",
+            "published_at": "2026-10-21 07:29:45 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 어닝 시즌의 영향력이 지속될 것으로 보입니다. 넷플릭스의 실적 발표 결과와 향후 전망이 섹터 전반의 투자 심리에 영향을 미칠 수 있으며, 특히 가이던스 하향은 부정적인 요인으로 작용할 수 있습니다. 스페이스X의 AI 사업 호조로 인한 매출 증가는 긍정적인 신호로 해석될 수 있습니다. 그러나 전반적인 시장의 실적 낙관론이 다우존스 지수 상승을 이끌었으나, 개별 기업의 실적 발표 결과에 따라 차익 실현 압력이 발생할 수 있습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 주목해야 할 부분입니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SpaceX",
+        "reason": "스페이스X의 우주 탐사 및 관련 사업 확장 소식이 지속적으로 언급되며 주목받았습니다 (총 5건).",
+        "us_news_refs": [
+          0,
+          2,
+          3,
+          8,
+          20,
+          52
+        ],
+        "related_news": [
+          {
+            "title": "FAA clears the way for airlines to put Boeing’s long-delayed 737 Max 10 into service - AP News",
+            "title_ko": "FAA, 보잉 737 맥스 10 운항 승인",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNdWh5TEc3UFM1REZCazFzeGJpZTFXblJEdE9wWWFrU2RzbnFKVnRYQTV6MS10V21tVElVaW9jLTlMc3d2YnRSU0drVlR0RWxvam1SUUdHWGRaMG01OUZaM2RFd2lsZmFnc2NLVHBwbm5KOVhSa3ZiZjJfd2NycXRZdFF4SExsWXFlcGQ2NUdCMTIzMmlndlpISHd2RElFVk1nelNV?oc=5",
+            "published_at": "2026-10-21 06:44:00 KST"
+          },
+          {
+            "title": "SpaceX quarterly revenue jumps, beats estimates as AI business surges - Reuters",
+            "title_ko": "스페이스X, AI 사업 급증으로 분기 매출 예상 초과",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxONHZoMzBtaGg1TmlMN19NRUEzM1lOZkpYb1ZXeWlLTnR4SkxObm1xbDBlN0RsQ2huaHBCMzRxU0VLb3ZPSS1ZeEdhampNY3VNclpoU2xGOWpoQjNfVzVDTHpqOVVRd0pZcVY3eGlpVkxjWTRrMGh4aWtCbVJVVnZ1Nnd1RkU1dFNtcUZCUnVxX1pRWXRTd09QUnpodWJSeEhpS3BKcmxsQkM1aFA1eExGSkNMMVIteV93OXZWa0Q2Vl9yUQ?oc=5",
+            "published_at": "2026-10-21 06:39:23 KST"
+          },
+          {
+            "title": "Dow jumps 500 points as earnings optimism steadies market: Live updates - CNBC",
+            "title_ko": "실적 낙관론에 다우존스 500포인트 급등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBBY1V6N2VkbVphNU1oUUROTEx2aUtNQk9XeDl3SlRyUGlmWWFNX3B1NjU0SXB6Z08zeldvRW8tZVdWQ3lxRnNGelJSdURXdHdEQ0lRTllocmNfS1BkX2lDalYzS1AySDNUNk5Rc2tDbk1SdVZsbHRj0gF8QVVfeXFMUDhUeVpneWk2eWtPSVpkcE5EY3pZeV92cG9CZFpwaDVrT09sY2Y1VTVNc2VfcWNid29pZ2RzNTYwY3VWQkx2X2h3ZlUzQWRPXzlpWWotY0ZkM184THhJNkxhYTJHNVRvZ3hESG4wZGVna25sWEU0UDZBZnpqRw?oc=5",
+            "published_at": "2026-10-21 05:13:00 KST"
+          },
+          {
+            "title": "If Elon Musk gifts SpaceX stock through Trump Accounts, it will come with a catch - CNBC",
+            "title_ko": "머스크, 트럼프 계정 통해 스페이스X 주식 증여 시 조건 붙어",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9RQzRtUmJaLTFEdkxCM0tZSXZ3bGdQcTI4c1daVDJWSVZDQVZCZDZ0amNNTHhKemh5dDdwLWU0ZDFzYjRWa1RHSXQyTGR5dDNHTHQwM19jNHluc3lHNGdlYWFhRzNNNkRjZDU0M3lQa2hOeFpzWTlNdjUzYXJsOUHSAYQBQVVfeXFMTlYxYzUyVlFuTVJGa2EtVGduZ2lsbEQtd2hNblFHUklLby1rQTl5Y21DS0kydF8wMG52LTQ4MWdnUU5CZElvOE9CNWVCTFA3bGMzUnY2NFFrRmpCbnE5T1JWanFjc2lzSWo1SXJnMVhVZDE3Vk9fTkxVQXFqZWJfVzhicUsw?oc=5",
+            "published_at": "2026-10-21 02:10:37 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 스페이스X는 AI 사업 부문의 매출이 예상치를 초과 달성했다는 소식이 긍정적인 촉매제로 작용할 수 있습니다. 또한, 일론 머스크가 테슬라와의 합병 논의를 위한 특별 위원회를 구성했다고 밝힌 점은 시장의 주목을 받을 수 있습니다. 그러나 이러한 합병 논의가 실제 성사될 가능성이나 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 또한, FAA의 보잉 737 MAX 10 운항 승인과 같은 항공우주 산업 전반의 뉴스가 간접적인 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Boeing",
+        "reason": "보잉의 항공기 생산 및 인도 관련 소식이 여러 차례 보도되며 해당 기업에 대한 관심이 집중되었습니다 (총 4건).",
+        "us_news_refs": [
+          1,
+          2,
+          6,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Musk says Tesla and SpaceX formed special committees to discuss merger: Live updates - CNBC",
+            "title_ko": "머스크, 테슬라-스페이스X 합병 논의 특위 구성 발표",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQQVllYUJGN3ZlUlBmalFoOHpVTG9UVV9Eb1owUlBzWGRQeDlHeWU5UlRKT2FTS0FaQ3l5eW0zTV9pa3gwOFlyM3JGZHBoakNVb0RMNVhEelBWRkJSNWVWRjNvMlYwalRLUEQ2Sml0dXRZTU5wZGN2V0Q1ckZBNmNlYnluTnU2eG1BMWfSAY8BQVVfeXFMTVBhQUVkdTRhMnlwSmlpS2VrV09rUFA0c3lSZkI2Vmg5SFRGam5UVVpNcFRwMnNlUmJaVlJqVXZ5cHZkLTFtcTlsOFp2RDZkY294QXdmR2VndnJtZ29tdS03WW5aWXgxU21MVUV6VnFfelpvOFByMUdTRTVaamtoZHdOZ3JtZm5oMEFvQkZoN00?oc=5",
+            "published_at": "2026-10-21 07:03:00 KST"
+          },
+          {
+            "title": "FAA clears the way for airlines to put Boeing’s long-delayed 737 Max 10 into service - AP News",
+            "title_ko": "FAA, 보잉 737 맥스 10 운항 승인",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNdWh5TEc3UFM1REZCazFzeGJpZTFXblJEdE9wWWFrU2RzbnFKVnRYQTV6MS10V21tVElVaW9jLTlMc3d2YnRSU0drVlR0RWxvam1SUUdHWGRaMG01OUZaM2RFd2lsZmFnc2NLVHBwbm5KOVhSa3ZiZjJfd2NycXRZdFF4SExsWXFlcGQ2NUdCMTIzMmlndlpISHd2RElFVk1nelNV?oc=5",
+            "published_at": "2026-10-21 06:44:00 KST"
+          },
+          {
+            "title": "GE Aerospace Keeps Beating Earnings, GE Stock Keeps Falling - Barron's",
+            "title_ko": "GE Aerospace, 실적 호조에도 GE 주가는 하락세",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOUmUzbElHQTlYVzZhWllEZzZVcVl1Y3M2X3kxVlgxanpmSzd3RWNhQVpZODRweTBqZmltUlp6NldBZ0JCY0RGRzA5MHJxN0RPbk5pQldyeHFPWUlIZzI3bUw1b3JTX0FrZklUOFdhUnBfb19SWHFiRi1xRGVaSWgtamVpa2JMdjFvSFhBam02ZUxWS2c2OU43blhQZjFaR1BiUHc?oc=5",
+            "published_at": "2026-10-21 05:43:00 KST"
+          },
+          {
+            "title": "Boeing wins FAA approval for 737 Max 10 after years of delays as Duffy says certification process should be faster",
+            "title_ko": "보잉, 737 맥스 10 수년간 지연 끝 FAA 승인",
+            "url": "https://www.cnbc.com/2026/10/20/boeing-737-max-10-certification.html",
+            "published_at": "2026-10-21 07:01:11 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 보잉은 737 MAX 10 기종에 대한 FAA의 운항 승인 소식이 긍정적인 촉매제로 작용할 가능성이 높습니다. 이는 장기간 지연되었던 기종의 상업 운항 재개에 대한 기대감을 높일 수 있습니다. 다만, GE 에어로스페이스의 실적 발표 결과가 섹터 전반의 투자 심리에 영향을 미칠 수 있으며, 스페이스X와 테슬라의 합병 논의와 같은 예상치 못한 이벤트가 섹터 내 주요 기업들의 주가에 변동성을 야기할 가능성도 배제할 수 없습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 섹터 동향을 파악하는 데 중요할 것입니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Aerospace",
+          "outlook": "향후 일주일간 항공우주 섹터는 보잉의 737 MAX 10 기종에 대한 FAA의 운항 승인 소식이 긍정적인 촉매제가 될 수 있습니다. 또한, GE 에어로스페이스의 실적 발표 결과가 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다. 다만, 스페이스X와 테슬라의 합병 논의와 같은 예상치 못한 이벤트가 섹터 내 주요 기업들의 주가에 변동성을 야기할 가능성이 있습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 섹터 동향을 파악하는 데 중요할 것입니다."
+        },
+        {
+          "name": "Earnings",
+          "outlook": "향후 일주일간 어닝 시즌의 영향력이 지속될 것으로 보입니다. 넷플릭스의 실적 발표 결과와 향후 전망이 섹터 전반의 투자 심리에 영향을 미칠 수 있으며, 특히 가이던스 하향은 부정적인 요인으로 작용할 수 있습니다. 스페이스X의 AI 사업 호조로 인한 매출 증가는 긍정적인 신호로 해석될 수 있습니다. 그러나 전반적인 시장의 실적 낙관론이 다우존스 지수 상승을 이끌었으나, 개별 기업의 실적 발표 결과에 따라 차익 실현 압력이 발생할 수 있습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 주목해야 할 부분입니다."
+        },
+        {
+          "name": "Merger",
+          "outlook": "향후 일주일간 인수합병 관련 섹터는 일론 머스크가 테슬라와 스페이스X의 합병 가능성을 언급한 것이 주요 촉매제로 작용할 수 있습니다. 이 소식은 관련 기업들의 주가에 변동성을 야기할 수 있으며, 시장의 관심을 끌 것으로 예상됩니다. 그러나 이러한 합병 논의가 실제 성사될 가능성 및 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 관련 기업들의 추가 발표나 시장 반응을 주시해야 합니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "SpaceX",
+          "outlook": "향후 일주일간 스페이스X는 AI 사업 부문의 매출이 예상치를 초과 달성했다는 소식이 긍정적인 촉매제로 작용할 수 있습니다. 또한, 일론 머스크가 테슬라와의 합병 논의를 위한 특별 위원회를 구성했다고 밝힌 점은 시장의 주목을 받을 수 있습니다. 그러나 이러한 합병 논의가 실제 성사될 가능성이나 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 또한, FAA의 보잉 737 MAX 10 운항 승인과 같은 항공우주 산업 전반의 뉴스가 간접적인 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Boeing",
+          "outlook": "향후 일주일간 보잉은 737 MAX 10 기종에 대한 FAA의 운항 승인 소식이 긍정적인 촉매제로 작용할 가능성이 높습니다. 이는 장기간 지연되었던 기종의 상업 운항 재개에 대한 기대감을 높일 수 있습니다. 다만, GE 에어로스페이스의 실적 발표 결과가 섹터 전반의 투자 심리에 영향을 미칠 수 있으며, 스페이스X와 테슬라의 합병 논의와 같은 예상치 못한 이벤트가 섹터 내 주요 기업들의 주가에 변동성을 야기할 가능성도 배제할 수 없습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 섹터 동향을 파악하는 데 중요할 것입니다."
+        },
+        {
+          "name": "Netflix",
+          "outlook": "향후 일주일간 넷플릭스는 3분기 실적 발표 후 주가 하락세를 보인 점이 단기적인 위험 요인으로 작용할 수 있습니다. 특히, 4분기 매출 전망이 예상치를 하회했다는 점은 투자 심리에 부정적인 영향을 미칠 수 있습니다. 그러나 실적 발표 시즌 전반에 대한 낙관론이 시장 전반에 긍정적인 영향을 미치고 있어, 넷플릭스 자체의 추가적인 악재가 없다면 주가 반등의 기회를 모색할 수 있습니다. 다음 주 예정된 주요 기업들의 실적 발표 일정은 시장 전반의 투자 심리에 영향을 미칠 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "Merger",
+        "reason": "테슬라, 스페이스X 관련 인수합병 논의가 한국 증시에서도 언급되며 해당 섹터에 대한 관심이 나타났습니다 (총 3건).",
+        "kr_news_refs": [
+          10,
+          11,
+          26
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "머스크 “테슬라·스페이스X 합병 논의”…반도체 양산·통신 확장도 추진",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12181288",
+            "published_at": "2026-10-21 07:03:47 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 한 회사 되나…머스크 “합병, 좋은 생각”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12181287",
+            "published_at": "2026-10-21 07:02:36 KST"
+          },
+          {
+            "title": "머스크 \"테슬라·스페이스X 합병 좋은생각\"…양사에 특별위 구성",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261021011700091",
+            "published_at": "2026-10-21 06:56:33 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 합병 관련 섹터는 일론 머스크가 테슬라와 스페이스X의 합병 논의를 언급한 것이 주요 촉매제로 작용할 수 있습니다. 이 소식은 국내 증시에서도 관련 기업들의 움직임에 대한 관심을 높일 수 있습니다. 그러나 이러한 합병 논의가 실제 성사될 가능성 및 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 관련 기업들의 추가 발표나 시장 반응을 주시해야 합니다."
+      },
+      {
+        "name": "Automotive",
+        "reason": "현대자동차, 기아 등 국내 자동차 기업들의 신차 출시 및 전기차 관련 소식이 주목받았습니다 (총 2건).",
+        "kr_news_refs": [
+          1,
+          2,
+          29
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "국제유가, 5개월 만에 최고치 찍고 하락‥美·이란 간 중재 기대 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFB6MDV1UGpLck5BaGlJS1E0aURTVFFRREJraG9CUUVfWTR6VjdZVGNoRVNtN2VNbEt4bzE5MUhJZXBCWXNUOU0zbVQzWFQzS0p1dTVjYnZSaXp6VWJSWk5KaUgyRzZOeEZLcVVhTFktcUNRWmla0gF0QVVfeXFMT2Y1N3lHc3lKNl9SdDdoX3U5X3ZCYnhJbFVFdnJ5SllhZHUtZ0VOdzJUNFRoOTkxWkNZOXoyY1FFeUljeTAwY084dGVVcGVMRnlheDViRTRSYmREMFRJUXN4eXRqZlM3alhBOGlDblZUcnJrNHI?oc=5",
+            "published_at": "2026-10-21 06:12:46 KST"
+          },
+          {
+            "title": "[소셜＋] \"한문철 바빠지겠네\"…하늘 나는 테슬라에 쏟아진 'K-패러디' - 연합뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE12R1RQcndfei0tZWZUaGlYejNGYmJlXzMzNTlxZ0VDcVJyY2pNVENDdzVwd0Y1VHZVV1RxUUNuUzJ1Y21UMktvTEVwUWRfX3RZZlZRYjRfRE1NOW_SAWBBVV95cUxPUW9Hb194WmFaT2RvWnZZSFVFT2Y3bTFMUmhHT2V0d3daR1JYY2VyazAxN2l1WjRCWXNpVVl6Vy1qUXdIR1J5Q3lPeElFQnlnZkZ3M0hQSE4zalhVTkRSN2E?oc=5",
+            "published_at": "2026-10-21 06:00:08 KST"
+          },
+          {
+            "title": "한국인은 테슬라 과대평가, 국산차 과소평가?…몰라봐 미안, 기아 ‘대기록’ 달성 [최기성의 허브車]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12181166",
+            "published_at": "2026-10-21 06:45:00 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 자동차 섹터는 현대자동차, 기아 등 국내 주요 자동차 기업들의 신차 출시 및 전기차 관련 소식이 긍정적인 영향을 미칠 수 있습니다. 특히, 기아의 '대기록' 달성 소식은 긍정적인 모멘텀으로 작용할 수 있습니다. 다만, 국제 유가 변동성이나 글로벌 경기 둔화 가능성은 섹터 전반에 부담으로 작용할 수 있습니다. 다음 주 예정된 주요 자동차 기업들의 판매 실적 발표나 신기술 관련 뉴스는 섹터 동향을 파악하는 데 중요할 것입니다."
+      },
+      {
+        "name": "AI",
+        "reason": "엘리스, 앤트로픽 등 AI 관련 기업들의 기술 개발 및 사업 확장 소식이 한국 증시에서도 언급되었습니다 (총 2건).",
+        "kr_news_refs": [
+          4,
+          5,
+          13,
+          69,
+          98
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "대미투자 1호 ‘텍사스 발전 사업’ 괜찮나···미국서 AI 투자 거품론 확산 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5DYkk0clRqWXBjUEMyZnNSYWdkMWFxZzNjV09MNi1iUmVGMVBzZ09kVFM4b0x1NkxoM3YyemtHSEt0bjZ0TmVNdnJTcW8zSFQwVEliS1dPSzRFUdIBX0FVX3lxTE1oQ2trQ2taRWROYktBaGhmWkppamtJQWZIQ001RkZKdEpUb3REajRNMDVlRkQxZFYzQlQ0bXZqVzdvZlA0Q2dLdUllWFpGY0dKclpLV2oyZFZBb1dfelBJ?oc=5",
+            "published_at": "2026-10-21 06:00:00 KST"
+          },
+          {
+            "title": "외신 ‘AI 기업 엘리스 폭락’ 집중조명…“AI 기업 상장 참패” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE50ZDlKR2ROMk11eVF3OUMyZGR6X2oxTGVKYWZPbk1jcXZ4TExWeGsxM2dIWUVFemY1cWdkbVp3WmFYRloycUh1U056b0lMVFpEQ3hkZW83RXlZdkE?oc=5",
+            "published_at": "2026-10-21 04:44:00 KST"
+          },
+          {
+            "title": "\"AI 성장 최대 걸림돌은 전력난\"…골드만삭스 경고",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261021011800072",
+            "published_at": "2026-10-21 07:01:11 KST"
+          },
+          {
+            "title": "서울AI재단, 시립망우청소년센터서 AI 미래도시 체험행사",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261020137800004",
+            "published_at": "2026-10-21 06:00:14 KST"
+          },
+          {
+            "title": "스페이스X, AI 매출 9배 증가…3분기 순이익 44억달러",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12181245",
+            "published_at": "2026-10-21 05:50:05 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 AI 섹터는 스페이스X의 AI 사업 부문 호실적 소식이 긍정적인 촉매제로 작용할 수 있습니다. 그러나 AI 관련 기업들의 상장 후 주가 하락 사례가 언급된 점은 투자 심리에 부담으로 작용할 수 있습니다. 또한, AI 성장의 걸림돌로 전력난이 지목된 점은 장기적인 관점에서 주의가 필요한 부분입니다. 다음 주 예정된 AI 관련 기업들의 기술 개발 마일스톤이나 사업 확장 관련 뉴스는 섹터 동향을 파악하는 데 중요할 것입니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Tesla",
+        "reason": "테슬라의 전기차 판매량 및 신기술 관련 소식이 한국 증시에서도 꾸준히 언급되며 주목받았습니다 (총 4건).",
+        "kr_news_refs": [
+          1,
+          2,
+          10,
+          11
+        ],
+        "related_news": [
+          {
+            "title": "국제유가, 5개월 만에 최고치 찍고 하락‥美·이란 간 중재 기대 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFB6MDV1UGpLck5BaGlJS1E0aURTVFFRREJraG9CUUVfWTR6VjdZVGNoRVNtN2VNbEt4bzE5MUhJZXBCWXNUOU0zbVQzWFQzS0p1dTVjYnZSaXp6VWJSWk5KaUgyRzZOeEZLcVVhTFktcUNRWmla0gF0QVVfeXFMT2Y1N3lHc3lKNl9SdDdoX3U5X3ZCYnhJbFVFdnJ5SllhZHUtZ0VOdzJUNFRoOTkxWkNZOXoyY1FFeUljeTAwY084dGVVcGVMRnlheDViRTRSYmREMFRJUXN4eXRqZlM3alhBOGlDblZUcnJrNHI?oc=5",
+            "published_at": "2026-10-21 06:12:46 KST"
+          },
+          {
+            "title": "[소셜＋] \"한문철 바빠지겠네\"…하늘 나는 테슬라에 쏟아진 'K-패러디' - 연합뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE12R1RQcndfei0tZWZUaGlYejNGYmJlXzMzNTlxZ0VDcVJyY2pNVENDdzVwd0Y1VHZVV1RxUUNuUzJ1Y21UMktvTEVwUWRfX3RZZlZRYjRfRE1NOW_SAWBBVV95cUxPUW9Hb194WmFaT2RvWnZZSFVFT2Y3bTFMUmhHT2V0d3daR1JYY2VyazAxN2l1WjRCWXNpVVl6Vy1qUXdIR1J5Q3lPeElFQnlnZkZ3M0hQSE4zalhVTkRSN2E?oc=5",
+            "published_at": "2026-10-21 06:00:08 KST"
+          },
+          {
+            "title": "머스크 “테슬라·스페이스X 합병 논의”…반도체 양산·통신 확장도 추진",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12181288",
+            "published_at": "2026-10-21 07:03:47 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 한 회사 되나…머스크 “합병, 좋은 생각”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12181287",
+            "published_at": "2026-10-21 07:02:36 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 테슬라는 일론 머스크가 테슬라와 스페이스X의 합병 논의를 언급한 것이 주요 촉매제로 작용할 수 있습니다. 또한, 플라잉카 개발과 관련된 분석은 시장의 관심을 끌 수 있습니다. 그러나 전기차 판매량 둔화 가능성이나 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 테슬라의 생산 및 인도량 발표는 주가 방향성을 결정하는 데 중요한 역할을 할 것입니다."
+      },
+      {
+        "name": "SpaceX",
+        "reason": "스페이스X의 우주 사업 확장 관련 소식이 한국 증시에서도 일부 보도되며 관련 기업들의 움직임에 대한 관심이 나타났습니다 (총 3건).",
+        "kr_news_refs": [
+          10,
+          11,
+          52
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "머스크 “테슬라·스페이스X 합병 논의”…반도체 양산·통신 확장도 추진",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12181288",
+            "published_at": "2026-10-21 07:03:47 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 한 회사 되나…머스크 “합병, 좋은 생각”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12181287",
+            "published_at": "2026-10-21 07:02:36 KST"
+          },
+          {
+            "title": "스페이스X, 3분기 매출 161% 급증…AI 견인에 흑자 전환까지(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261021005851091",
+            "published_at": "2026-10-21 06:04:46 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 스페이스X는 AI 사업 부문의 매출 급증 및 흑자 전환 소식이 긍정적인 촉매제로 작용할 수 있습니다. 또한, 일론 머스크가 테슬라와의 합병 논의를 위한 특별 위원회를 구성했다고 밝힌 점은 시장의 주목을 받을 수 있습니다. 그러나 이러한 합병 논의가 실제 성사될 가능성이나 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 스페이스X의 신규 프로젝트 발표나 로켓 발사 일정은 주가에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Merger",
+          "outlook": "향후 일주일간 합병 관련 섹터는 일론 머스크가 테슬라와 스페이스X의 합병 논의를 언급한 것이 주요 촉매제로 작용할 수 있습니다. 이 소식은 국내 증시에서도 관련 기업들의 움직임에 대한 관심을 높일 수 있습니다. 그러나 이러한 합병 논의가 실제 성사될 가능성 및 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 관련 기업들의 추가 발표나 시장 반응을 주시해야 합니다."
+        },
+        {
+          "name": "Automotive",
+          "outlook": "향후 일주일간 자동차 섹터는 현대자동차, 기아 등 국내 주요 자동차 기업들의 신차 출시 및 전기차 관련 소식이 긍정적인 영향을 미칠 수 있습니다. 특히, 기아의 '대기록' 달성 소식은 긍정적인 모멘텀으로 작용할 수 있습니다. 다만, 국제 유가 변동성이나 글로벌 경기 둔화 가능성은 섹터 전반에 부담으로 작용할 수 있습니다. 다음 주 예정된 주요 자동차 기업들의 판매 실적 발표나 신기술 관련 뉴스는 섹터 동향을 파악하는 데 중요할 것입니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "향후 일주일간 AI 섹터는 스페이스X의 AI 사업 부문 호실적 소식이 긍정적인 촉매제로 작용할 수 있습니다. 그러나 AI 관련 기업들의 상장 후 주가 하락 사례가 언급된 점은 투자 심리에 부담으로 작용할 수 있습니다. 또한, AI 성장의 걸림돌로 전력난이 지목된 점은 장기적인 관점에서 주의가 필요한 부분입니다. 다음 주 예정된 AI 관련 기업들의 기술 개발 마일스톤이나 사업 확장 관련 뉴스는 섹터 동향을 파악하는 데 중요할 것입니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Tesla",
+          "outlook": "향후 일주일간 테슬라는 일론 머스크가 테슬라와 스페이스X의 합병 논의를 언급한 것이 주요 촉매제로 작용할 수 있습니다. 또한, 플라잉카 개발과 관련된 분석은 시장의 관심을 끌 수 있습니다. 그러나 전기차 판매량 둔화 가능성이나 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 테슬라의 생산 및 인도량 발표는 주가 방향성을 결정하는 데 중요한 역할을 할 것입니다."
+        },
+        {
+          "name": "SpaceX",
+          "outlook": "향후 일주일간 스페이스X는 AI 사업 부문의 매출 급증 및 흑자 전환 소식이 긍정적인 촉매제로 작용할 수 있습니다. 또한, 일론 머스크가 테슬라와의 합병 논의를 위한 특별 위원회를 구성했다고 밝힌 점은 시장의 주목을 받을 수 있습니다. 그러나 이러한 합병 논의가 실제 성사될 가능성이나 구체적인 조건에 대한 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 스페이스X의 신규 프로젝트 발표나 로켓 발사 일정은 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Samsung Electronics",
+          "outlook": "향후 일주일간 삼성전자는 반도체 섹터의 전반적인 흐름에 영향을 받을 것으로 예상됩니다. 7월 저점까지 하락했으나 대세 하락으로 보기는 어렵다는 분석이 있습니다. 그러나 반도체 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 소식은 투자 심리에 부담으로 작용할 수 있습니다. 다음 주 예정된 삼성전자의 신규 반도체 기술 발표나 주요 고객사와의 계약 소식은 주가에 긍정적인 영향을 미칠 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "반도체 섹터가 7월 저점까지 하락했으나, 대세 하락으로 보기는 어렵다는 분석이 있습니다. AI 데이터센터 관련 종목의 상장 후 주가 하락 사례도 언급되었습니다.",
+        "refs": [
+          2,
+          4
+        ],
+        "reason": "반도체 섹터가 7월 저점까지 하락했으나, 대세 하락으로 보기는 어렵다는 분석이 있습니다. AI 데이터센터 관련 종목의 상장 후 주가 하락 사례도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼전닉스 반토막 개미 10명 중 7명 물려…의무공개매수 청원 촉구 | 한국 AI데이터센터 엘리스 상장 후 32% 폭락 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=ejai69EoQg8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 05:26:31 KST"
+          },
+          {
+            "title": "7월 저점까지 밀린 반도체…그래도 대세 하락은 아닌 이유ㅣ명민준, 서수진, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=It4T14aqScA",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-20 21:00:06 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 반도체 섹터는 7월 저점까지 하락했으나 대세 하락으로 보기는 어렵다는 분석이 투자 심리에 긍정적인 영향을 줄 수 있습니다. 그러나 AI 데이터센터 관련 종목의 상장 후 주가 하락 사례가 언급된 점은 투자자들에게 주의를 환기시킬 수 있습니다. 다음 주 예정된 주요 반도체 기업들의 실적 발표나 신규 수주 소식은 섹터 동향을 파악하는 데 중요할 것입니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "스페이스X의 AI 부문 호실적이 시간 외 상승 요인으로 작용했다는 내용이 있습니다. AI 데이터센터 관련 종목의 상장 후 주가 하락 사례도 언급되었습니다.",
+        "refs": [
+          1,
+          2
+        ],
+        "reason": "스페이스X의 AI 부문 호실적이 시간 외 상승 요인으로 작용했다는 내용이 있습니다. AI 데이터센터 관련 종목의 상장 후 주가 하락 사례도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "스페이스X, AI 부문 호실적에 시간외 상승…미국·이란, 예비 승인 타협안 기대감 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=Jm79OSl03f0",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 06:56:18 KST"
+          },
+          {
+            "title": "삼전닉스 반토막 개미 10명 중 7명 물려…의무공개매수 청원 촉구 | 한국 AI데이터센터 엘리스 상장 후 32% 폭락 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=ejai69EoQg8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 05:26:31 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 AI 섹터는 스페이스X의 AI 부문 호실적 소식이 긍정적인 촉매제로 작용할 수 있습니다. 그러나 AI 데이터센터 관련 종목의 상장 후 주가 하락 사례가 언급된 점은 투자 심리에 부담으로 작용할 수 있습니다. 또한, AI 성장의 걸림돌로 전력난이 지목된 점은 장기적인 관점에서 주의가 필요한 부분입니다. 다음 주 예정된 AI 관련 기업들의 기술 개발 마일스톤이나 사업 확장 관련 뉴스는 섹터 동향을 파악하는 데 중요할 것입니다."
+      },
+      {
+        "name": "바이오",
+        "freq": 1,
+        "summary": "제2의 알테오젠이 될 수 있는 바이오 대장주에 대한 투자 추천이 있었습니다. 10배 상승 가능성이 있는 바이오 섹터에 대한 분석이 포함되었습니다.",
+        "refs": [
+          7
+        ],
+        "reason": "제2의 알테오젠이 될 수 있는 바이오 대장주에 대한 투자 추천이 있었습니다. 10배 상승 가능성이 있는 바이오 섹터에 대한 분석이 포함되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "제2의 알테오젠 될 바이오 대장주, 5천만원으로 딱 '이 주식만' 사세요 (원리버 강하나 박사)",
+            "url": "https://www.youtube.com/watch?v=ehUIyQG19p4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-20 19:00:36 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 바이오 섹터는 제2의 알테오젠이 될 수 있는 바이오 대장주에 대한 투자 추천이 긍정적인 촉매제로 작용할 수 있습니다. 10배 상승 가능성이 있는 바이오 섹터에 대한 분석은 투자자들의 관심을 끌 수 있습니다. 다만, 개별 기업의 임상 결과 발표나 규제 변화와 같은 예상치 못한 이벤트는 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 주요 바이오 기업들의 임상 결과 발표나 신약 개발 관련 뉴스는 섹터 동향을 파악하는 데 중요할 것입니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 1,
+        "summary": "삼성전자와 SK하이닉스 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 내용이 언급되었습니다.",
+        "refs": [
+          2
+        ],
+        "reason": "삼성전자와 SK하이닉스 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 내용이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스 반토막 개미 10명 중 7명 물려…의무공개매수 청원 촉구 | 한국 AI데이터센터 엘리스 상장 후 32% 폭락 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=ejai69EoQg8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 05:26:31 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 삼성전자는 반도체 섹터의 전반적인 흐름에 영향을 받을 것으로 예상됩니다. 7월 저점까지 하락했으나 대세 하락으로 보기는 어렵다는 분석이 있습니다. 그러나 반도체 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 소식은 투자 심리에 부담으로 작용할 수 있습니다. 다음 주 예정된 삼성전자의 신규 반도체 기술 발표나 주요 고객사와의 계약 소식은 주가에 긍정적인 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "삼성전자와 SK하이닉스 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 내용이 언급되었습니다.",
+        "refs": [
+          2
+        ],
+        "reason": "삼성전자와 SK하이닉스 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 내용이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스 반토막 개미 10명 중 7명 물려…의무공개매수 청원 촉구 | 한국 AI데이터센터 엘리스 상장 후 32% 폭락 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=ejai69EoQg8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 05:26:31 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 SK하이닉스는 반도체 섹터의 전반적인 흐름에 영향을 받을 것으로 예상됩니다. 7월 저점까지 하락했으나 대세 하락으로 보기는 어렵다는 분석이 있습니다. 그러나 반도체 관련 개미 투자자들의 손실 및 의무공개매수 청원 촉구 소식은 투자 심리에 부담으로 작용할 수 있습니다. 다음 주 예정된 SK하이닉스의 신규 반도체 기술 발표나 주요 고객사와의 계약 소식은 주가에 긍정적인 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "테슬라",
+        "freq": 1,
+        "summary": "테슬라의 플라잉카 개발 및 일론 머스크의 비행 자동차 제작 의도에 대한 분석이 있었습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "테슬라의 플라잉카 개발 및 일론 머스크의 비행 자동차 제작 의도에 대한 분석이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "테슬라 플라잉카에 숨겨진 비밀",
+            "url": "https://www.youtube.com/watch?v=-oFBRrYBD9I",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-20 19:32:20 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 테슬라는 플라잉카 개발 및 일론 머스크의 비행 자동차 제작 의도에 대한 분석이 시장의 관심을 끌 수 있습니다. 그러나 전기차 판매량 둔화 가능성이나 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 테슬라의 생산 및 인도량 발표는 주가 방향성을 결정하는 데 중요한 역할을 할 것입니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Tesla",
+          "freq": 3
+        },
+        {
+          "name": "SpaceX",
+          "freq": 5
+        },
+        {
+          "name": "Boeing",
+          "freq": 4
+        },
+        {
+          "name": "Netflix",
+          "freq": 3
+        },
+        {
+          "name": "GE Aerospace",
+          "freq": 4
+        },
+        {
+          "name": "Meta",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "United Airlines",
+          "freq": 3
+        },
+        {
+          "name": "OpenAI",
+          "freq": 3
+        },
+        {
+          "name": "Amazon",
+          "freq": 2
+        },
+        {
+          "name": "Micron",
+          "freq": 2
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Salesforce",
+          "freq": 2
+        },
+        {
+          "name": "Kalshi",
+          "freq": 1
+        },
+        {
+          "name": "American Airlines",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Aerospace",
+          "freq": 5
+        },
+        {
+          "name": "Merger",
+          "freq": 4
+        },
+        {
+          "name": "Earnings",
+          "freq": 4
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Streaming",
+          "freq": 3
+        },
+        {
+          "name": "Oil Prices",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 2
+        },
+        {
+          "name": "Customer Engagement",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 2
+        },
+        {
+          "name": "Pharma",
+          "freq": 2
+        },
+        {
+          "name": "Trading Cards",
+          "freq": 1
+        },
+        {
+          "name": "Utilities",
+          "freq": 1
+        },
+        {
+          "name": "Gambling",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Tesla",
+          "freq": 4
+        },
+        {
+          "name": "SpaceX",
+          "freq": 3
+        },
+        {
+          "name": "Netflix",
+          "freq": 2
+        },
+        {
+          "name": "엘리스",
+          "freq": 2
+        },
+        {
+          "name": "KAI",
+          "freq": 1
+        },
+        {
+          "name": "기아",
+          "freq": 1
+        },
+        {
+          "name": "LG",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        },
+        {
+          "name": "이마트",
+          "freq": 1
+        },
+        {
+          "name": "CJ제일제당",
+          "freq": 1
+        },
+        {
+          "name": "중앙보훈병원",
+          "freq": 1
+        },
+        {
+          "name": "한국항공우주산업",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "앤트로픽",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Real Estate",
+          "freq": 3
+        },
+        {
+          "name": "Merger",
+          "freq": 3
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Oil Prices",
+          "freq": 2
+        },
+        {
+          "name": "IPO",
+          "freq": 2
+        },
+        {
+          "name": "Defense Industry",
+          "freq": 2
+        },
+        {
+          "name": "Banking",
+          "freq": 2
+        },
+        {
+          "name": "Streaming",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Energy Infrastructure",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Construction",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
