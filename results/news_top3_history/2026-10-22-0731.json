@@ -1,0 +1,747 @@
+{
+  "generated_at": "2026-10-22 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 및 관련 기술 발전이 지속적으로 주목받고 있으며, 빅테크 기업들의 AI 투자 확대가 업계 전반에 영향을 미치고 있습니다 (총 7건).",
+        "us_news_refs": [
+          3,
+          7,
+          9,
+          14,
+          25,
+          36,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Meta Will Create New Stock Class to Fund AI Spending - WSJ",
+            "title_ko": "Meta, AI 투자 위한 신규 주식 발행",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOY20xcVZmaDh6bkhCTVVoQVJIOFhWZU1McXpENHNVTEdvMVY0YUQyUVdqOFBldFhJU1VXZ3lIY3FOSDN0ZFdBbXJDOXluVlA2WU9mcUJfM3FrVkQ1YXJBcDNSbXM0RlVib19UMFlsTFBBeFIyVGlEdUxVZS0wRDhWWl81ZjVXU0ZlQjJPeFRTaw?oc=5",
+            "published_at": "2026-10-22 06:33:00 KST"
+          },
+          {
+            "title": "GM aims to leapfrog rivals with new generation of autonomous cars - Financial Times",
+            "title_ko": "GM, 신형 자율주행차로 경쟁사 추월 목표",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQckF2SUhwdE1OQ25DWDVOVXVneDdXUFhJdTZPUVdXU2o2NURFZFJuc3FPd0JRY09OYzFXVXNZRUtvUUJONUJmWmwyb3d3cGcwMGZyaWhjSlZ5Z0ZSRFM4bTNKOXBFeXV6aXpobmQ3WktHcjA3YXZCQ0Z1clpMNnFtRWFFakc?oc=5",
+            "published_at": "2026-10-22 05:10:13 KST"
+          },
+          {
+            "title": "The internet is having a very bad cybersecurity day - TechCrunch",
+            "title_ko": "인터넷, 심각한 사이버 보안 문제 직면",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPX1VidVVXY0oyNUUzUWdiQVM3djd3WGRwNHNwVlBUN2oyVTJmal9rVWRzWlJibFVrYWUzNi1XT0wzdVZZUF9EYm1Lc2VqeG1zZW9EZ0x4TmZqLTg0aGRLZzBJZkMzNDlYLUJTdHlYbWl2MEMzbDBSX0R3anVWWU5tTkVQZ1hfTi1OODk0NjJURQ?oc=5",
+            "published_at": "2026-10-22 04:03:28 KST"
+          },
+          {
+            "title": "Just Eat apologises for AI food mistakes after social media ridicule - BBC",
+            "title_ko": "Just Eat, AI 음식 오류에 대한 사과",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE93cGZPbzRDVm04dEtyNDBfWmdRRHlzYWFuSGMyOWhKMTYySGlTTUpiY1NtTll4OWFSRW1iVTdUMFpWNDFzUGNpRklUT1BqNkV5TzFuUWdZby1EbFE?oc=5",
+            "published_at": "2026-10-22 02:04:13 KST"
+          },
+          {
+            "title": "AIAI Holdings at LD Micro main event: cash-first ai buildout",
+            "title_ko": "AIAI Holdings, 현금 중심 AI 구축 발표",
+            "url": "https://www.investing.com/news/transcripts/aiai-holdings-at-ld-micro-main-event-cashfirst-ai-buildout-93CH-4964318",
+            "published_at": "2026-10-22 07:08:55 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 Meta의 AI 투자 확대를 위한 신규 주식 발행 소식과 GM의 자율주행차 기술 개발 가속화 등 긍정적인 모멘텀이 지속되고 있습니다. 그러나 인터넷 전반의 사이버 보안 문제 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표 및 신기술 공개가 예정되어 있어 시장의 주목을 받을 것으로 예상됩니다."
+      },
+      {
+        "name": "Healthcare",
+        "reason": "헬스케어 분야의 혁신적인 기술 개발과 투자 소식이 꾸준히 언급되며 시장의 관심을 받고 있습니다 (총 3건).",
+        "us_news_refs": [
+          15,
+          33,
+          36
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Buffett’s Berkshire just trounced chip stocks and flashed a rare dot-com-era signal - Yahoo Finance",
+            "title_ko": "Buffett의 Berkshire, 반도체 주식 압도, 닷컴 시대 신호",
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOWnVNeFl1TkgzcElCT2x0MElyZ3NLY0lFVEJ2TjF5NlhjU3dya0QxU05GUU5UTzNrRlZTdVgzVUdWeFMtNlhKRTBTUDBoTHhxQngtdWFPSEJuZzkxUThDLVRFRk90am9QNHZIN01EeGRqQTBzN3NUTUhfQnhVRnp6YlI1WEtRUW9RTU5hOHBEWGU1RHgySUxIV2pGamlNaEZ3ZWVMQkFQZklWbDJZaUZnNU9wQzFBbktHTEhDWHM3SVVtWWtHMXJPUXZQWWF1eDcwT0NVdkln?oc=5",
+            "published_at": "2026-10-22 01:51:23 KST"
+          },
+          {
+            "title": "7 healthcare stocks that stand out as investors pay up for the sector",
+            "title_ko": "투자자들, 헬스케어 주식에 주목",
+            "url": "https://www.marketwatch.com/story/7-healthcare-stocks-that-stand-out-as-investors-pay-up-for-the-sector-d9b0c173?mod=mw_rss_topstories",
+            "published_at": "2026-10-22 05:59:00 KST"
+          },
+          {
+            "title": "Moderna is about to release the trial results for its cancer vaccine. A lot is riding on this data.",
+            "title_ko": "Moderna, 암 백신 임상 결과 발표 임박",
+            "url": "https://www.marketwatch.com/story/moderna-is-about-to-release-the-trial-results-for-its-cancer-vaccine-a-lot-is-riding-on-this-data-ccbf8c9c?mod=mw_rss_topstories",
+            "published_at": "2026-10-22 05:18:00 KST"
+          }
+        ],
+        "outlook": "헬스케어 섹터는 Moderna의 암 백신 임상 결과 발표를 앞두고 투자자들의 관심이 집중되고 있습니다. 또한, Buffett의 Berkshire가 반도체 주식을 압도하며 헬스케어 섹터에 대한 긍정적인 신호를 보이고 있습니다. 다만, 개별 기업의 임상 결과에 따라 섹터 전반의 변동성이 나타날 수 있습니다. 다음 주에는 주요 제약사들의 실적 발표 및 신약 개발 관련 뉴스가 주목받을 것으로 보입니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장의 선두 주자로서 혁신적인 기술 개발 및 생산 능력 확대에 대한 기대감이 지속적으로 언급되고 있습니다 (총 4건).",
+        "us_news_refs": [
+          5,
+          8,
+          17,
+          21,
+          29
+        ],
+        "related_news": [
+          {
+            "title": "Tesla to report earnings after Elon Musk floats SpaceX merger plan - The Guardian",
+            "title_ko": "Tesla, Elon Musk의 SpaceX 합병 계획 발표 후 실적 발표",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5EdG84VGE3OW91Wm9LTUVsbmFFb0pjWEJoVE5DaHRHQUdjX2VmWVk1YjI2MjBRT1pITG8zU2tGRUNpZ1hSYVBpWTZwd09RYXhiWEZqdjNwa1BFNEJlY204Nk8wNEp2ckhZc1BUTUxjNXRVbU5aY0xSTzI1c1JJZw?oc=5",
+            "published_at": "2026-10-22 05:36:00 KST"
+          },
+          {
+            "title": "Tesla reports Q3 earnings beat, free cash flow, and better-than-expected capex - Yahoo Finance",
+            "title_ko": "Tesla, 3분기 실적 및 잉여현금흐름 예상 상회",
+            "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNM3huUmhhTWFmYzVPMlhMd0hXR0lNV0dQTnF2YVdXSnlsbUxaSXVBTThLWU5mVDRWSkhadWVaZ3dPTnJCdkxJNWIwbzI3ajgzUWlIVFZxajN6RnVOa1g3RDNpb3dfS2ltZFpiN1g3b0RKMzZnakVOWnlIOTRxam00dEprcEI3cVQ3UUEwSndxU2ZzaDZqaEZJVkRpanlmNEh2bFZpalF1MkFQWmNBV1NvS0xtNWlTcTU1dEpTWEJSNWpPRzBXQ2lsa0hDR3ZGZFg5cUVOM203NA?oc=5",
+            "published_at": "2026-10-22 05:07:15 KST"
+          },
+          {
+            "title": "S&P 500 notches 3-day win streak, Nasdaq jumps 1% as SpaceX and Tesla rally - CNBC",
+            "title_ko": "S&P 500 3일 연속 상승, SpaceX와 Tesla 랠리에 나스닥 1% 상승",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE44andoMWc1UnV1MnYtOVNwMFJxU3dmRFhYVEFlWEg5c0NTblp5VmJZNDR2TW5jRUdISW5pUmRsTVFmWjlXS0lMUTNOM0NEZV8zeldYOEVYelVaYzMtMGJxaW0tWnZZSUhEU2FxeEppUzVWTnpyY2Y00gF8QVVfeXFMTlFJSF8yb09HR2JyVExWTG9XUTFYeWVyaGpad2ktb2FXTGZ0WnpHcF9hNzlnd1RBVGs0MXpXLXplRVNaWXo3a1d6OUd3U0x0ZVR2ZWI4N1RvVktDY1hYaDR3ZTlVUnhsM1pfT2Q2eDNPQUFHT242QmVUZDdGMg?oc=5",
+            "published_at": "2026-10-22 07:16:43 KST"
+          },
+          {
+            "title": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+            "title_ko": "Tesla, AI 지출 감소로 예상 밖 긍정적 현금 흐름 기록",
+            "url": "https://www.investing.com/news/stock-market-news/musks-tesla-revenue-beats-estimates-as-deliveries-rebound-energy-storage-grows-4963934",
+            "published_at": "2026-10-22 07:12:25 KST"
+          },
+          {
+            "title": "Trump says data centers should generate their own electricity — but experts say only states can mandate that",
+            "title_ko": "트럼프, 데이터 센터 자체 전력 생산 주장, 전문가들은 주 정부 권한 강조",
+            "url": "https://www.marketwatch.com/story/trump-says-data-centers-should-generate-their-own-electricity-but-experts-say-only-states-can-mandate-that-415dcaad?mod=mw_rss_topstories",
+            "published_at": "2026-10-22 06:31:00 KST"
+          }
+        ],
+        "outlook": "Tesla는 3분기 실적 발표에서 예상치를 상회하는 매출과 잉여현금흐름을 기록하며 긍정적인 흐름을 보였습니다. 또한, AI 지출 감소로 인한 예상 밖의 긍정적인 현금 흐름도 주목받고 있습니다. 다만, Elon Musk의 SpaceX 합병 계획 발표 후 실적 발표는 변동성을 야기할 수 있습니다. 다음 주에는 Tesla의 자율주행 기술 업데이트 및 생산 능력 확대 관련 소식이 시장의 관심을 받을 것으로 예상됩니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 Meta의 AI 투자 확대를 위한 신규 주식 발행 소식과 GM의 자율주행차 기술 개발 가속화 등 긍정적인 모멘텀이 지속되고 있습니다. 그러나 인터넷 전반의 사이버 보안 문제 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표 및 신기술 공개가 예정되어 있어 시장의 주목을 받을 것으로 예상됩니다."
+        },
+        {
+          "name": "Healthcare",
+          "outlook": "헬스케어 섹터는 Moderna의 암 백신 임상 결과 발표를 앞두고 투자자들의 관심이 집중되고 있습니다. 또한, Buffett의 Berkshire가 반도체 주식을 압도하며 헬스케어 섹터에 대한 긍정적인 신호를 보이고 있습니다. 다만, 개별 기업의 임상 결과에 따라 섹터 전반의 변동성이 나타날 수 있습니다. 다음 주에는 주요 제약사들의 실적 발표 및 신약 개발 관련 뉴스가 주목받을 것으로 보입니다."
+        },
+        {
+          "name": "Technology",
+          "outlook": "기술 섹터는 AI 칩 수요 증가와 빅테크 기업들의 투자 확대에 힘입어 강세를 보이고 있습니다. 특히, Meta의 AI 투자 확대 계획은 관련 기업들에게 긍정적인 영향을 미칠 것으로 예상됩니다. 하지만, 인터넷 전반의 사이버 보안 문제 심화는 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일간 AI 관련 기술 발표 및 기업들의 실적 발표가 예정되어 있어 시장의 관심이 집중될 것으로 보입니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Tesla",
+          "outlook": "Tesla는 3분기 실적 발표에서 예상치를 상회하는 매출과 잉여현금흐름을 기록하며 긍정적인 흐름을 보였습니다. 또한, AI 지출 감소로 인한 예상 밖의 긍정적인 현금 흐름도 주목받고 있습니다. 다만, Elon Musk의 SpaceX 합병 계획 발표 후 실적 발표는 변동성을 야기할 수 있습니다. 다음 주에는 Tesla의 자율주행 기술 업데이트 및 생산 능력 확대 관련 소식이 시장의 관심을 받을 것으로 예상됩니다."
+        },
+        {
+          "name": "Nvidia",
+          "outlook": "Nvidia는 AI 칩 시장의 선두 주자로서 지속적인 수요 증가와 기술 혁신에 대한 기대감이 높습니다. 최근 Meta의 AI 투자 확대 소식은 Nvidia에게 긍정적인 영향을 미칠 것으로 예상됩니다. 그러나 AI 관련 기술 경쟁 심화 및 공급망 이슈는 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일간 Nvidia의 신규 AI 칩 출시 및 파트너십 관련 뉴스가 시장의 주목을 받을 것으로 보입니다."
+        },
+        {
+          "name": "Apple",
+          "outlook": "Apple은 AI 기술 통합을 통한 신제품 출시 및 서비스 강화에 집중하고 있습니다. 최근 Meta의 AI 투자 확대는 Apple의 AI 전략에도 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 우려 및 경쟁 심화는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 Apple의 신규 아이폰 출시 관련 소식 및 AI 관련 업데이트가 시장의 관심을 받을 것으로 예상됩니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "국내에서도 AI 기술 발전과 관련 기업들의 성장에 대한 기대감이 높으며, 다양한 산업 분야에서의 AI 도입이 가속화되고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          3,
+          4,
+          5,
+          18,
+          24,
+          36,
+          44,
+          61,
+          64,
+          71,
+          75
+        ],
+        "related_news": [
+          {
+            "title": "웹사이트 70% 쓰는 PHP서 AI가 취약점 발견…각국 정부 사이트 중단 - AI타임스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1JUDF5RWthR3RyWWpnbEpSMnh2MUFHb1RiaU8xNGR5RjlfRk5CdFRxek5zZGdlMV9aa1dETDQzU2FRX3NKTTljY2VHei1HWkktZHhPZ3lOSHBOaXpranhCdk9ISVR2UlNRSnc?oc=5",
+            "published_at": "2026-10-22 05:47:30 KST"
+          },
+          {
+            "title": "뉴욕증시, 스페이스X 호실적에 상승 마감…나스닥 1.1%↑ - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAtQkRzZ1hzSkdsMWNJQllMLXZ6SG9vSjVNUFpFQ2lGQklBQTd0MU5QNFZ0SjdmOTNuT0V1YndYMGt0bWJNU1BQMGVERjlnRXFUYklrVnJZMThSakw0ZVRVT29WUldDMEU?oc=5",
+            "published_at": "2026-10-22 05:29:00 KST"
+          },
+          {
+            "title": "오라클·아스트라제네카, AI·실제 임상데이터 활용 협력 위한 협약 체결 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5KdDdDWm5HYzNWX19VQVB0VmQ4UmdieDVsTkxkMWlvRG1qQnE3YXJQRDRoR0VwUnlHUnFmTVFYU1BjcUJsaUFyWld0ZVczVV9abi0xampvMA?oc=5",
+            "published_at": "2026-10-22 04:59:00 KST"
+          },
+          {
+            "title": "젠슨 황 \"유럽 모든 산업이 AI 기업 돼야\"…투자회의론 속 낙관",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022013000009",
+            "published_at": "2026-10-22 07:03:36 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 22일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12181983",
+            "published_at": "2026-10-22 07:00:00 KST"
+          }
+        ],
+        "outlook": "국내 AI 섹터는 웹사이트 PHP 취약점 발견 소식과 같이 AI 기술의 발전과 함께 보안 이슈가 부각되고 있습니다. 또한, Oracle과 AstraZeneca의 AI 및 실제 임상 데이터 활용 협력은 헬스케어 분야에서의 AI 적용 가능성을 보여줍니다. 다만, AI 기술의 오용 가능성에 대한 우려도 존재합니다. 향후 일주일간 국내 AI 기업들의 신기술 발표 및 정부 정책 변화가 섹터에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Healthcare",
+        "reason": "헬스케어 분야의 혁신적인 신약 개발 및 의료 기술 발전에 대한 소식이 꾸준히 보도되고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          5,
+          35,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "오라클·아스트라제네카, AI·실제 임상데이터 활용 협력 위한 협약 체결 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5KdDdDWm5HYzNWX19VQVB0VmQ4UmdieDVsTkxkMWlvRG1qQnE3YXJQRDRoR0VwUnlHUnFmTVFYU1BjcUJsaUFyWld0ZVczVV9abi0xampvMA?oc=5",
+            "published_at": "2026-10-22 04:59:00 KST"
+          },
+          {
+            "title": "주사 대신 알약까지…차세대 비만약, 한국서 임상 경쟁",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261021150800017",
+            "published_at": "2026-10-22 06:33:01 KST"
+          },
+          {
+            "title": "[김길원의 헬스노트] 진단보조 AI가 틀렸는데도…의료진조차 오판 구별 어려워",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261021121700530",
+            "published_at": "2026-10-22 06:13:00 KST"
+          }
+        ],
+        "outlook": "헬스케어 섹터는 차세대 비만 치료제 임상 경쟁 소식과 진단 보조 AI의 오판 가능성에 대한 뉴스가 주목받고 있습니다. Oracle과 AstraZeneca의 AI 및 실제 임상 데이터 활용 협력은 긍정적인 모멘텀을 제공합니다. 그러나 AI 진단 보조 시스템의 정확성 문제는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 국내 제약사들의 신약 개발 관련 발표 및 임상 결과 공개가 시장의 관심을 받을 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장의 혁신을 이끄는 기업으로서, 신규 모델 출시 및 기술 개발에 대한 기대감이 지속적으로 언급되고 있습니다 (총 4건).",
+        "kr_news_refs": [
+          1,
+          4,
+          29,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "테슬라, 실적 호조 속 CAPEX 예상 대폭 하회…시간외서 주가 등락(상보) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA1cWg2cmw4bjd3YkN1bVR1YmR0XzM2eGZseE9JTzBfeUxQcEtHQTFyVVctVXIydkQ3YVhIN2h3OUFQVVliSG1GeWoxVWN0bmxLUWV3TkJMYnBtMVRXb280SUFuekdHNlpCVmRlRzBTVkQ?oc=5",
+            "published_at": "2026-10-22 06:39:25 KST"
+          },
+          {
+            "title": "뉴욕증시, 스페이스X 호실적에 상승 마감…나스닥 1.1%↑ - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAtQkRzZ1hzSkdsMWNJQllMLXZ6SG9vSjVNUFpFQ2lGQklBQTd0MU5QNFZ0SjdmOTNuT0V1YndYMGt0bWJNU1BQMGVERjlnRXFUYklrVnJZMThSakw0ZVRVT29WUldDMEU?oc=5",
+            "published_at": "2026-10-22 05:29:00 KST"
+          },
+          {
+            "title": "테슬라, 3분기 매출 37조원…자율주행 SW 채택률 증가(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022008051091",
+            "published_at": "2026-10-22 06:46:04 KST"
+          },
+          {
+            "title": "테슬라, 3분기 매출 281억 달러…시장 예상치 상회",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022008000091",
+            "published_at": "2026-10-22 05:18:10 KST"
+          }
+        ],
+        "outlook": "Tesla는 3분기 매출이 시장 예상치를 상회했으며, 자율주행 소프트웨어 채택률 증가가 긍정적인 영향을 미치고 있습니다. 또한, CAPEX가 예상치를 하회하며 주가 등락에 영향을 주고 있습니다. SpaceX와의 합병 공식화 소식은 시장의 관심을 받고 있습니다. 다음 주에는 Tesla의 신규 모델 출시 및 생산 능력 확대 관련 뉴스가 시장의 주목을 받을 것으로 예상됩니다."
+      },
+      {
+        "name": "스페이스X",
+        "reason": "우주 탐사 및 위성 인터넷 사업 확장 등 혁신적인 프로젝트를 추진하며 미래 성장 가능성에 대한 기대감이 높습니다 (총 4건).",
+        "kr_news_refs": [
+          1,
+          4,
+          42,
+          97
+        ],
+        "related_news": [
+          {
+            "title": "테슬라, 실적 호조 속 CAPEX 예상 대폭 하회…시간외서 주가 등락(상보) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA1cWg2cmw4bjd3YkN1bVR1YmR0XzM2eGZseE9JTzBfeUxQcEtHQTFyVVctVXIydkQ3YVhIN2h3OUFQVVliSG1GeWoxVWN0bmxLUWV3TkJMYnBtMVRXb280SUFuekdHNlpCVmRlRzBTVkQ?oc=5",
+            "published_at": "2026-10-22 06:39:25 KST"
+          },
+          {
+            "title": "뉴욕증시, 스페이스X 호실적에 상승 마감…나스닥 1.1%↑ - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAtQkRzZ1hzSkdsMWNJQllMLXZ6SG9vSjVNUFpFQ2lGQklBQTd0MU5QNFZ0SjdmOTNuT0V1YndYMGt0bWJNU1BQMGVERjlnRXFUYklrVnJZMThSakw0ZVRVT29WUldDMEU?oc=5",
+            "published_at": "2026-10-22 05:29:00 KST"
+          },
+          {
+            "title": "뉴욕증시, 스페이스X 실적에 기술주 강세…나스닥 1.1%↑(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022008351072",
+            "published_at": "2026-10-22 06:14:43 KST"
+          },
+          {
+            "title": "뉴욕증시, 스페이스X 호실적에 상승…나스닥 1.1%↑",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022008300072",
+            "published_at": "2026-10-22 05:21:04 KST"
+          }
+        ],
+        "outlook": "스페이스X는 호실적을 기록하며 기술주 강세를 이끌고 있습니다. 이는 우주 탐사 및 위성 인터넷 사업 확장 등 미래 성장 가능성에 대한 기대감을 높이고 있습니다. 다만, 높은 기술 개발 비용 및 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일간 스페이스X의 신규 프로젝트 발표 및 위성 인터넷 사업 확장 관련 뉴스가 시장의 주목을 받을 것으로 보입니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "국내 AI 섹터는 웹사이트 PHP 취약점 발견 소식과 같이 AI 기술의 발전과 함께 보안 이슈가 부각되고 있습니다. 또한, Oracle과 AstraZeneca의 AI 및 실제 임상 데이터 활용 협력은 헬스케어 분야에서의 AI 적용 가능성을 보여줍니다. 다만, AI 기술의 오용 가능성에 대한 우려도 존재합니다. 향후 일주일간 국내 AI 기업들의 신기술 발표 및 정부 정책 변화가 섹터에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Healthcare",
+          "outlook": "헬스케어 섹터는 차세대 비만 치료제 임상 경쟁 소식과 진단 보조 AI의 오판 가능성에 대한 뉴스가 주목받고 있습니다. Oracle과 AstraZeneca의 AI 및 실제 임상 데이터 활용 협력은 긍정적인 모멘텀을 제공합니다. 그러나 AI 진단 보조 시스템의 정확성 문제는 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 국내 제약사들의 신약 개발 관련 발표 및 임상 결과 공개가 시장의 관심을 받을 것으로 예상됩니다."
+        },
+        {
+          "name": "Semiconductor",
+          "outlook": "반도체 섹터는 솔리다임의 상장과 SK하이닉스의 주주 설명 책임에 대한 논의가 이루어지고 있습니다. 이는 반도체 산업 내 기업들의 재무 및 경영 이슈가 부각되고 있음을 시사합니다. 다만, 글로벌 경기 둔화 및 AI 칩 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일간 국내 반도체 기업들의 실적 발표 및 신규 투자 계획이 시장의 주목을 받을 것으로 보입니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Tesla",
+          "outlook": "Tesla는 3분기 매출이 시장 예상치를 상회했으며, 자율주행 소프트웨어 채택률 증가가 긍정적인 영향을 미치고 있습니다. 또한, CAPEX가 예상치를 하회하며 주가 등락에 영향을 주고 있습니다. SpaceX와의 합병 공식화 소식은 시장의 관심을 받고 있습니다. 다음 주에는 Tesla의 신규 모델 출시 및 생산 능력 확대 관련 뉴스가 시장의 주목을 받을 것으로 예상됩니다."
+        },
+        {
+          "name": "스페이스X",
+          "outlook": "스페이스X는 호실적을 기록하며 기술주 강세를 이끌고 있습니다. 이는 우주 탐사 및 위성 인터넷 사업 확장 등 미래 성장 가능성에 대한 기대감을 높이고 있습니다. 다만, 높은 기술 개발 비용 및 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일간 스페이스X의 신규 프로젝트 발표 및 위성 인터넷 사업 확장 관련 뉴스가 시장의 주목을 받을 것으로 보입니다."
+        },
+        {
+          "name": "Samsung Electronics",
+          "outlook": "Samsung Electronics는 AI 반도체 시장에서의 경쟁력 강화 및 신규 기술 개발에 집중하고 있습니다. 최근 AI 섹터의 전반적인 강세는 Samsung Electronics에게 긍정적인 영향을 미칠 것으로 예상됩니다. 다만, 글로벌 경기 둔화 및 메모리 반도체 가격 변동성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 Samsung Electronics의 신규 AI 칩 출시 및 파운드리 사업 관련 뉴스가 시장의 주목을 받을 것으로 예상됩니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 분야의 숏 포지션 전문가에 대한 언급이 있었습니다. 이는 AI 관련 시장 움직임에 대한 분석이 포함되었음을 시사합니다.",
+        "refs": [
+          3
+        ],
+        "reason": "AI 분야의 숏 포지션 전문가에 대한 언급이 있었습니다. 이는 AI 관련 시장 움직임에 대한 분석이 포함되었음을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI를 숏친, 세계에서 가장 유명한 숏전문가",
+            "url": "https://www.youtube.com/watch?v=92mEdPLMlFY",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-21 22:20:25 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 'AI를 숏친 세계에서 가장 유명한 숏전문가' 영상에서 언급된 바와 같이, AI 시장 움직임에 대한 분석이 포함된 콘텐츠가 주목받고 있습니다. 이는 AI 관련 시장의 변동성과 투자 전략에 대한 관심을 시사합니다. 향후 일주일간 AI 기술 발전과 관련된 새로운 투자 분석 콘텐츠가 등장할 가능성이 있습니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "솔리다임의 상장과 SK하이닉스의 주주 설명 책임에 대한 내용이 언급되었습니다. 이는 반도체 산업 내 기업의 재무 및 경영 이슈를 다루고 있습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "솔리다임의 상장과 SK하이닉스의 주주 설명 책임에 대한 내용이 언급되었습니다. 이는 반도체 산업 내 기업의 재무 및 경영 이슈를 다루고 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "8조 적자 ‘미운 오리’가 100조 백조로…솔리다임 상장, SK하이닉스는 주주에게 뭘 설명해야 하나ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=aI52gGQQCC8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 21:00:29 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 솔리다임의 상장과 SK하이닉스의 주주 설명 책임에 대한 논의를 다룬 영상이 주목받고 있습니다. 이는 반도체 산업 내 기업의 재무 및 경영 이슈에 대한 투자자들의 관심을 보여줍니다. 다음 주에는 반도체 기업들의 실적 발표 및 신규 투자 계획과 관련된 콘텐츠가 등장할 수 있습니다."
+      },
+      {
+        "name": "전기차",
+        "freq": 1,
+        "summary": "K-전기차 위기에 대한 세액공제 카드를 꺼낸 여야의 움직임이 언급되었습니다. 이는 전기차 산업의 정책적 지원 및 시장 상황을 다루고 있습니다.",
+        "refs": [
+          2
+        ],
+        "reason": "K-전기차 위기에 대한 세액공제 카드를 꺼낸 여야의 움직임이 언급되었습니다. 이는 전기차 산업의 정책적 지원 및 시장 상황을 다루고 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "테슬라-스페이스X 합병 공식화…'코어위브 사태' 불 껐다 | K-전기차 위기에 '세액공제' 카드 꺼낸 여야 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=xhuxRU8a8rY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 05:27:23 KST"
+          }
+        ],
+        "outlook": "전기차 섹터는 K-전기차 위기에 대한 세액공제 카드 논의와 테슬라-스페이스X 합병 공식화 소식을 다룬 영상이 주목받고 있습니다. 이는 전기차 산업의 정책적 지원 및 기업 간의 M&A 동향에 대한 관심을 보여줍니다. 향후 일주일간 전기차 시장의 정책 변화 및 주요 기업들의 신기술 발표와 관련된 콘텐츠가 등장할 가능성이 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "테슬라",
+        "freq": 3,
+        "summary": "테슬라의 FSD 호조에 따른 마진 개선, 스페이스X와의 합병 공식화, 플라잉카(로드스터) 개발 비밀 등이 언급되었습니다. 이는 테슬라의 사업 확장 및 기술 개발 동향을 다루고 있습니다.",
+        "refs": [
+          1,
+          2,
+          9
+        ],
+        "reason": "테슬라의 FSD 호조에 따른 마진 개선, 스페이스X와의 합병 공식화, 플라잉카(로드스터) 개발 비밀 등이 언급되었습니다. 이는 테슬라의 사업 확장 및 기술 개발 동향을 다루고 있습니다.",
+        "related_videos": [
+          {
+            "title": "메타, 소송 비용 반영에도 서프라이즈…테슬라, FSD 호조에 마진 개선 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=AVqXPwaziYo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 06:57:56 KST"
+          },
+          {
+            "title": "테슬라-스페이스X 합병 공식화…'코어위브 사태' 불 껐다 | K-전기차 위기에 '세액공제' 카드 꺼낸 여야 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=xhuxRU8a8rY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 05:27:23 KST"
+          },
+          {
+            "title": "테슬라 플라잉카에 숨겨진 비밀",
+            "url": "https://www.youtube.com/watch?v=-oFBRrYBD9I",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-20 19:32:20 KST"
+          }
+        ],
+        "outlook": "테슬라는 FSD 호조에 따른 마진 개선, 스페이스X와의 합병 공식화, 플라잉카 개발 비밀 등 다양한 이슈가 유튜브 콘텐츠를 통해 다뤄지고 있습니다. 이는 테슬라의 사업 확장 및 기술 개발 동향에 대한 높은 관심을 보여줍니다. 다음 주에는 테슬라의 신규 모델 출시 및 자율주행 기술 업데이트와 관련된 콘텐츠가 주목받을 것으로 예상됩니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "솔리다임 상장과 관련하여 SK하이닉스가 주주에게 설명해야 할 책임에 대한 내용이 언급되었습니다. 이는 SK하이닉스의 자회사 상장 및 경영 관련 이슈를 다루고 있습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "솔리다임 상장과 관련하여 SK하이닉스가 주주에게 설명해야 할 책임에 대한 내용이 언급되었습니다. 이는 SK하이닉스의 자회사 상장 및 경영 관련 이슈를 다루고 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "8조 적자 ‘미운 오리’가 100조 백조로…솔리다임 상장, SK하이닉스는 주주에게 뭘 설명해야 하나ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=aI52gGQQCC8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-21 21:00:29 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 솔리다임 상장과 관련하여 주주에게 설명해야 할 책임에 대한 내용이 유튜브 콘텐츠에서 언급되었습니다. 이는 SK하이닉스의 자회사 상장 및 경영 관련 이슈에 대한 투자자들의 관심을 보여줍니다. 향후 일주일간 SK하이닉스의 실적 발표 및 신규 투자 계획과 관련된 콘텐츠가 등장할 수 있습니다."
+      },
+      {
+        "name": "메타",
+        "freq": 1,
+        "summary": "메타가 소송 비용을 반영했음에도 서프라이즈 실적을 기록했다는 내용이 언급되었습니다. 이는 메타의 재무 성과 및 법적 이슈를 다루고 있습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "메타가 소송 비용을 반영했음에도 서프라이즈 실적을 기록했다는 내용이 언급되었습니다. 이는 메타의 재무 성과 및 법적 이슈를 다루고 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "메타, 소송 비용 반영에도 서프라이즈…테슬라, FSD 호조에 마진 개선 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=AVqXPwaziYo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 06:57:56 KST"
+          }
+        ],
+        "outlook": "메타는 소송 비용 반영에도 불구하고 서프라이즈 실적을 기록했다는 내용이 유튜브 콘텐츠에서 다뤄졌습니다. 이는 메타의 재무 성과 및 법적 이슈에 대한 관심을 보여줍니다. 다음 주에는 메타의 신규 AI 투자 계획 및 메타버스 관련 업데이트와 관련된 콘텐츠가 주목받을 것으로 예상됩니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "SpaceX",
+          "freq": 3
+        },
+        {
+          "name": "Tesla",
+          "freq": 4
+        },
+        {
+          "name": "Meta",
+          "freq": 3
+        },
+        {
+          "name": "AT&T",
+          "freq": 4
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "freq": 4
+        },
+        {
+          "name": "IBM",
+          "freq": 3
+        },
+        {
+          "name": "Southwest Airlines",
+          "freq": 3
+        },
+        {
+          "name": "Lam Research",
+          "freq": 3
+        },
+        {
+          "name": "GM",
+          "freq": 3
+        },
+        {
+          "name": "SEI",
+          "freq": 1
+        },
+        {
+          "name": "Fortescue",
+          "freq": 1
+        },
+        {
+          "name": "SAP",
+          "freq": 1
+        },
+        {
+          "name": "WD-40",
+          "freq": 1
+        },
+        {
+          "name": "AIAI Holdings",
+          "freq": 1
+        },
+        {
+          "name": "AEVEX",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Autonomous Driving",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "Aviation",
+          "freq": 3
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Telecommunications",
+          "freq": 2
+        },
+        {
+          "name": "Data Centers",
+          "freq": 2
+        },
+        {
+          "name": "Financials",
+          "freq": 2
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "E-commerce",
+          "freq": 1
+        },
+        {
+          "name": "Nutrition",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Tesla",
+          "freq": 4
+        },
+        {
+          "name": "스페이스X",
+          "freq": 4
+        },
+        {
+          "name": "오라클",
+          "freq": 3
+        },
+        {
+          "name": "아스트라제네카",
+          "freq": 3
+        },
+        {
+          "name": "Meta",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "HMM",
+          "freq": 1
+        },
+        {
+          "name": "마이크론",
+          "freq": 1
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "롯데온",
+          "freq": 1
+        },
+        {
+          "name": "네이버파이낸셜",
+          "freq": 1
+        },
+        {
+          "name": "두나무",
+          "freq": 1
+        },
+        {
+          "name": "TKG휴켐스",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Oil & Gas",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "핀테크",
+          "freq": 2
+        },
+        {
+          "name": "Shipping",
+          "freq": 2
+        },
+        {
+          "name": "Electric Vehicles",
+          "freq": 2
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "E-commerce",
+          "freq": 1
+        },
+        {
+          "name": "Telecommunications",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Urban Development",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
