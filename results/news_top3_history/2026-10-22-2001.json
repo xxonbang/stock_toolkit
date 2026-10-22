@@ -1,0 +1,906 @@
+{
+  "generated_at": "2026-10-22 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 기술 발전 및 빅테크 기업들의 AI 칩 수요 증가로 주목 (총 4건)",
+        "us_news_refs": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          14,
+          18,
+          19,
+          22,
+          26,
+          28,
+          29,
+          34,
+          35,
+          36,
+          41,
+          46,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Stock futures sell off as Meta and Tesla lead AI trade lower; oil rises: Live updates - CNBC",
+            "title_ko": "메타, 테슬라 AI 하락에 주가 선물 하락; 유가 상승: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5ROG52YzhPZGZHbTVQQjVmSGxSeHJoRlA0UW90MkdwNFR0ZThOQzFhSDBhMUFmNWpxSGo1RG9nU2FOZ1VTUGN2VjNieDNOT0M4bDB0Qlg5NVkwMHV3cy00VGxhQTNqQzg3a3FwUFB4Vy1lR3BlM1dV?oc=5",
+            "published_at": "2026-10-22 19:43:00 KST"
+          },
+          {
+            "title": "Barclays to Cut 5,000 Jobs in AI-Fueled Push to Lower Costs - Bloomberg.com",
+            "title_ko": "바클레이즈, AI 기반 비용 절감 위해 5천명 감원",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNaGo1ZUMwV0ZhUU1fVi1IUWU3ZjU1TUZhNFVWZ0pIX0RYWkh0bTVVd0VkMnkteS1XbnVRNDRYWGpNSlFmMDB2WlMzelprOXRkWE5SenNQX1Q2Q3Y2YkNoYnhoTzd0ZnVmeE9KZGI1UFRVVDVQLUVQcjNvdkJ4dlVuWnVPdktuTTM4TUN1SllpcVFOSWdUWTFsNHZQejdIZ2U3UllYSjI1REZ3TnB2OWow?oc=5",
+            "published_at": "2026-10-22 19:07:46 KST"
+          },
+          {
+            "title": "Tesla, Meta and IBM: 3 earnings call shout outs that left us thinking - Yahoo Finance",
+            "title_ko": "테슬라, 메타, IBM: 주목할 만한 실적 발표 3가지",
+            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZzM1RHpRcDIyZWw0NTd5ODJja2tQdjEwZFUxenI2MGh6RGxRVklxOWpjMnFaQ2dGelBUZ3J5cUEyNl9Zcjd6TjJGWk9vWlk4OFdaMXBqRHYzbU9jd1lLZUlRSUQwUDh0bHAyMDlvTk1ZaS10VDJXcldpNzRiMmpuNTAyOHRiZWxyWFFRNHR0QWpKUHFtYkhlQUFXV0hIdlQwdGlWUDlNeFRmYm8zaTdJdlZoYkx2N2U3a1p1dXM0R3ExMi05RndqSFp3?oc=5",
+            "published_at": "2026-10-22 18:19:24 KST"
+          },
+          {
+            "title": "Meta hit with $25 billion penalty for misleading Facebook users - Axios",
+            "title_ko": "메타, 페이스북 사용자 오도 혐의로 250억 달러 벌금 부과",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZVo0VXhGV1NWYmpHNDNMSjBraFNpNVdRQXEyVWhMRUlxVFA2Sk5pbE9OdURMS1Y4QnI3aGVqVUJZYjZobUxPRl90bVFCbDFaY2R2N3gxckVyampmZEZBcGdrMUZ6WkpxTlp1MFN1SjBRNmxyRWNuX1VtcWh3TDBhV0xqRTVGUDU3b1pZ?oc=5",
+            "published_at": "2026-10-22 14:08:58 KST"
+          },
+          {
+            "title": "David's Bridal plans to spin off AI platform Pearl into publicly traded company",
+            "title_ko": "David's Bridal, AI 플랫폼 Pearl을 상장 기업으로 분사 계획",
+            "url": "https://www.cnbc.com/2026/10/22/davids-bridal-pearl-ai-spinoff.html",
+            "published_at": "2026-10-22 20:00:02 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 빅테크 기업들의 AI 칩 수요 증가와 관련 기술 발전이 지속적으로 주목받고 있습니다. 그러나 메타와 테슬라와 같은 주요 AI 관련 기업들의 주가 하락은 단기적인 위험 요인으로 작용할 수 있습니다. 또한, 메타가 페이스북 사용자 오도 혐의로 250억 달러의 벌금을 부과받은 점은 투자 심리에 부정적인 영향을 미칠 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표 및 새로운 기술 개발 소식이 시장의 주요 촉매제가 될 것으로 예상됩니다."
+      },
+      {
+        "name": "Space Exploration",
+        "reason": "우주 탐사 관련 기업들의 활동 및 투자 소식으로 관심 집중 (총 4건)",
+        "us_news_refs": [
+          27,
+          29,
+          45,
+          50
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "TSLA, SPCX Slip Overnight: Musk Reportedly Pushes Merger Before Trump’s Exit — ARK Sees Tesla Holders ‘5x Better Off’ By 2036 - Yahoo Finance",
+            "title_ko": "TSLA, SPCX 야간 하락: 머스크, 트럼프 퇴임 전 합병 추진 보도 — ARK, 테슬라 주주들이 2036년까지 '5배 더 나은' 상황 될 것",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQOXEyVVRCaWZpRksxYlRBOHdnMFNCQXByblRYbFhRNk1yRzl2LWdqZDl0cnBwSVJuOGQybDZ6WmVvODl1WUpDU0tOdGhBTDVxRHUtanhsWlkyalJuYmI0emZzS1FfandLbmN6MFYxUHFoeDNBVUJfRDdGNmJXUWFVdllnX2NnTGlnc0FBdk42bENCckliSXpWS0N3?oc=5",
+            "published_at": "2026-10-22 10:44:00 KST"
+          },
+          {
+            "title": "Nasdaq leads Wall Street gains as SpaceX, Super Micro boost AI sentiment - Reuters",
+            "title_ko": "나스닥, 스페이스X, Super Micro AI 심리 부양에 월스트리트 상승 주도",
+            "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQZUJTOXdaa0JmVzZubm12MGt4VnNSemsyOW1fQXpCMnhEc25HSVJRZk93d2NYUXQ3eHBuQklaNE1FT1QyQ1NqdTFkdExDbmoxY2JtOWhLQkVtYXczMHh3a3VsZmhub1JFc0FIZHN1eEcwc3FRZVZWQnBoSjFjekFYTUN6X2d5WHJUWGpDU2paekhhU24zenhNbWpXUmtfdmo5cTFIZVZwTXdiRzZoeUtiazhHWkJEWEVZLTVmQmRMcw?oc=5",
+            "published_at": "2026-10-22 08:11:13 KST"
+          },
+          {
+            "title": "Treasury Secretary Bessent invokes Lincoln's 1863 act to back Trump's law - TheStreet",
+            "title_ko": "재무장관 베센트, 링컨의 1863년 법률 인용해 트럼프 법 지지",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPOHZhcWNoRnQ2RXJpTmE0aUIzQ3hlSUJLOEFreFp0REVINmdtZ2hyTDhrWTJYdkJjNFFMa0FSUndsMUNNRWNuZGVkLVlObk9nNTBnRlpoYl9sSkgycllWbW9DbmpZeHMtcGJUTWxuekJrLVAtb3VPcThsb2tYcGN4d0I5dEpILUtCeUMzdFVTWVp5TkZyWXhFcDk5NG4xYmQyZ21XU2NlVW92WEl3U0dUMw?oc=5",
+            "published_at": "2026-10-22 03:15:59 KST"
+          },
+          {
+            "title": "Musk's SpaceX stock gift is 'tip of the iceberg' for Trump Accounts, Altimeter's Gerstner says - CNBC",
+            "title_ko": "머스크의 스페이스X 주식 증여는 트럼프 계좌에 '빙산의 일각' — Altimeter의 거스트너",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA2dV9MRExtT3Y2bm1GMG82STB5ZHAxa29IUkZZZjJqbkJwU2E0TVhhaTRkWGVNdVhvQ085Rzk1UElJRkNCMENlcWo0cnlKZnZuYUx0T05zazlJUnVKNF9qUF9KQy1reHVqY1dMQTVmdnZiNUxVbFlN0gF8QVVfeXFMTzlLWWFLT1NGTE52ekdjbG5vRnZGTUh3WGcxUU4ybU9IRmRkNEtlSk5PdlVwaVExb0ZnOC1iRDhCb1B2eE1QWXZ0ckdRQVFBU0M0XzhpaTJ1VWlya2ZSa3ZPNkRvT3pxS0hRV3FKSmRiR0o5TGhjZlJIeWx3Sg?oc=5",
+            "published_at": "2026-10-22 00:58:45 KST"
+          }
+        ],
+        "outlook": "우주 탐사 섹터는 스페이스X와 같은 기업들의 활동 및 투자 소식으로 관심을 받고 있습니다. 최근 나스닥이 스페이스X와 Super Micro의 AI 심리 부양에 힘입어 상승세를 보인 점은 긍정적인 신호입니다. 하지만 일론 머스크의 스페이스X 관련 보도와 트럼프 대통령의 정책 변화 가능성은 불확실성을 야기할 수 있습니다. 향후 일주일 동안 우주 탐사 관련 기업들의 신규 프로젝트 발표나 기술 개발 성과가 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Automotive",
+        "reason": "자동차 산업의 신기술 도입 및 관련 기업들의 동향이 보도됨 (총 3건)",
+        "us_news_refs": [
+          2,
+          24,
+          32,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Toyota recalls over 105,000 vehicles. See the affected model - USA Today",
+            "title_ko": "토요타, 10만 5천대 이상 리콜. 해당 모델 확인",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWHN3NU44UzVnSlk5akozSFpfangwQ0pQQ09xN21OejExaTYzYk9zUDdBZkRLZEZMS3R6Qk80eE5TNXdpdzVJV1pONFUwVU1IY2xfTXRSOUdoR2FzM21jNkhIMHFBelJSRWNqdHROQmlYR3RuSUVVXzRjdHBnZWFLbmNvRzdnMXNOelB6dk5VcHlRMDkyOUVkel93NllZckl3UV9IWU1EY09SYXZsUlIyTQ?oc=5",
+            "published_at": "2026-10-22 19:17:00 KST"
+          },
+          {
+            "title": "Elon Musk says Tesla vehicle demand exceeding production ahead of Dallas Cybercab launch - Fox Business",
+            "title_ko": "일론 머스크, 테슬라 차량 수요가 댈러스 사이버캡 출시 앞두고 생산 초과했다고 밝혀",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQbC1fQUlpLTBJc1l6SXppY3ZZLXVpclhSMmpMTktnUjE2djA0UlVoRXlFT1ptMHhWQlFHSS13b3lzOWZmVThHbXhndmVzRGpyRWlob0lJRGpyOXFHOE5TeDF0d2VuOW5XcGNNeE43SDVaWlNXV1pMRlNEdVl3VzVpMTBCb0FadkdieGJsaFRJSGNxdUN3dDBLUHpSQkg5NXh6MVVyU1pxTXloM1VVZ2x5RGM2Yk1DRmZpN3lJQ19VYXdXZ9IBxwFBVV95cUxQcmtObEV1cWVsclhVNzItRW5WQmtrai1uXzRBTTJ1U2pPdmFmYVYxTHdwY0JuSTZVM2xOcG55RFU1RHN6eDBQckhneldEREtWemJqYTFOWW53OWpLNXFOd1IzWjhxSklTaGFCNHVRUkxHXzU0TXV0QkpTMkxQYUFtWTNieGR4emd6LTFQS3RaT3pCb2pFc1ZycVFHMFNLZW5Vd2xTSjR0WHdGakFRSGQwMDdwYVhtUi1MSjQ2WHZtTzJyckdjX2VZ?oc=5",
+            "published_at": "2026-10-22 13:38:00 KST"
+          },
+          {
+            "title": "Tesla's Optimus robots are finally rolling off the production line - Business Insider",
+            "title_ko": "테슬라 옵티머스 로봇, 드디어 생산 라인에서 출시",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQSGs2ZWNWeGl6T3RYTXpyYTJNa2xGWjRMMmo3Q2EydnF0TzNndmpCVGVPNWtkOWVKTGpDejlNcl9GWTJiUV8waUd4WXdIdE1TbHpDRllXVTlaVGlaSDdYaHZkdjFGOVFqckFZQU81Mkg3aWdUQzFsa3E0aVdiWS02WGEwZ2JidVl1VVkwa3lzRTBwLUFGLUFfVFg1U3VpbW83MVE?oc=5",
+            "published_at": "2026-10-22 07:37:00 KST"
+          },
+          {
+            "title": "GM Just Laid Out Its Entire Future. It Runs on AI, Eyes-Off Driving, and One Central Computer - The Drive",
+            "title_ko": "GM, AI, 운전자 개입 없는 주행, 중앙 집중식 컴퓨터에 의존하는 미래 공개",
+            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPMjUxbU9HWDVCUWtPZXFOVXFpdzRpb0w2anozRTV3SGZRNGlpWHFQWHZKRVlQSHJlLW9vRTFOcl9mOTFCenJDdHYtVG9RV2VuQnVHTDVEOVdmOTI1ZHJTRW1xZmFVVGZJTHB4elpMRmNzOTl2ckQteUxRSWdPREZfOG4tLUFQd09haEJxRmlFNFl6cDQ4UEdObEJQZUpSZTVXVFItM01SdmJmSTJEbTJkMkNsV0xST01OTjRSTw?oc=5",
+            "published_at": "2026-10-22 03:00:00 KST"
+          }
+        ],
+        "outlook": "자동차 섹터는 신기술 도입과 관련된 기업들의 동향이 주목받고 있습니다. 테슬라의 경우, 차량 수요가 생산을 초과하고 있다는 일론 머스크의 발언은 긍정적인 요인으로 작용할 수 있습니다. 그러나 토요타의 대규모 리콜 소식은 해당 기업 및 관련 업계에 단기적인 부담으로 작용할 수 있습니다. 또한, GM의 AI 및 자율주행 기술에 대한 미래 전략 발표는 섹터 전반에 대한 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Meta",
+        "reason": "메타버스 및 AI 관련 사업 확장 소식으로 주목받음 (총 6건)",
+        "us_news_refs": [
+          1,
+          4,
+          5,
+          6,
+          18,
+          28,
+          29,
+          35,
+          37
+        ],
+        "related_news": [
+          {
+            "title": "Stock futures sell off as Meta and Tesla lead AI trade lower; oil rises: Live updates - CNBC",
+            "title_ko": "메타, 테슬라 AI 하락에 주가 선물 하락; 유가 상승: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5ROG52YzhPZGZHbTVQQjVmSGxSeHJoRlA0UW90MkdwNFR0ZThOQzFhSDBhMUFmNWpxSGo1RG9nU2FOZ1VTUGN2VjNieDNOT0M4bDB0Qlg5NVkwMHV3cy00VGxhQTNqQzg3a3FwUFB4Vy1lR3BlM1dV?oc=5",
+            "published_at": "2026-10-22 19:43:00 KST"
+          },
+          {
+            "title": "Tesla, Meta and IBM: 3 earnings call shout outs that left us thinking - Yahoo Finance",
+            "title_ko": "테슬라, 메타, IBM: 주목할 만한 실적 발표 3가지",
+            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZzM1RHpRcDIyZWw0NTd5ODJja2tQdjEwZFUxenI2MGh6RGxRVklxOWpjMnFaQ2dGelBUZ3J5cUEyNl9Zcjd6TjJGWk9vWlk4OFdaMXBqRHYzbU9jd1lLZUlRSUQwUDh0bHAyMDlvTk1ZaS10VDJXcldpNzRiMmpuNTAyOHRiZWxyWFFRNHR0QWpKUHFtYkhlQUFXV0hIdlQwdGlWUDlNeFRmYm8zaTdJdlZoYkx2N2U3a1p1dXM0R3ExMi05RndqSFp3?oc=5",
+            "published_at": "2026-10-22 18:19:24 KST"
+          },
+          {
+            "title": "Meta Stock Split Deal Will Keep Mark Zuckerberg In California Amid Billionaire Tax Threat - Forbes",
+            "title_ko": "메타 주식 분할, 억만장자 세금 위협 속 마크 저커버그 캘리포니아 잔류",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPa1Nscm5pMkdVNHduaE96Z09CMXlWUE9GWEx1SGJkQWtqVmRwQThpQ2RpY21fRGlXRS1MMjhhd2tmd3hjNkd5clNQUXJCa016VlhuQ0NKcGVIRzNFMnZvaXdEWnZLRVZKcUl6SHMyTnE1QW5wSWRLSE1aTF9HenF6U08xZ05xYl8wdU91X2JzY2pvQWhjWUtibm03dmZBZXlER0xVRVcxdjJQMnQ2RGhWUmgtY0VKUEJrRGhNYzE5X0FKWTJsS3kySFhXUHlpZDc1c0VSMk81blRMd1E?oc=5",
+            "published_at": "2026-10-22 14:20:52 KST"
+          },
+          {
+            "title": "Meta hit with $25 billion penalty for misleading Facebook users - Axios",
+            "title_ko": "메타, 페이스북 사용자 오도 혐의로 250억 달러 벌금 부과",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZVo0VXhGV1NWYmpHNDNMSjBraFNpNVdRQXEyVWhMRUlxVFA2Sk5pbE9OdURMS1Y4QnI3aGVqVUJZYjZobUxPRl90bVFCbDFaY2R2N3gxckVyampmZEZBcGdrMUZ6WkpxTlp1MFN1SjBRNmxyRWNuX1VtcWh3TDBhV0xqRTVGUDU3b1pZ?oc=5",
+            "published_at": "2026-10-22 14:08:58 KST"
+          },
+          {
+            "title": "Meta’s stock falls in early trading amid broader sector selloff, despite well-received results",
+            "title_ko": "메타 주가, 호평받은 실적에도 불구하고 섹터 전반 하락 속 초반 하락",
+            "url": "https://www.marketwatch.com/story/metas-stock-rises-as-investors-glimpse-an-opportunity-that-could-dwarf-the-ad-business-89369c6c?mod=mw_rss_topstories",
+            "published_at": "2026-10-22 18:55:00 KST"
+          }
+        ],
+        "outlook": "메타는 메타버스 및 AI 사업 확장 소식으로 주목받고 있으나, 최근 주가 선물 하락세에 영향을 받았습니다. 페이스북 사용자 오도 혐의로 250억 달러의 벌금을 부과받은 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 실적 발표나 새로운 AI 기술 관련 발표가 주가에 중요한 변수가 될 것으로 보입니다."
+      },
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장 경쟁 심화 및 신기술 관련 소식이 보도됨 (총 3건)",
+        "us_news_refs": [
+          1,
+          4,
+          18,
+          23,
+          24,
+          27,
+          29,
+          35,
+          47
+        ],
+        "related_news": [
+          {
+            "title": "Stock futures sell off as Meta and Tesla lead AI trade lower; oil rises: Live updates - CNBC",
+            "title_ko": "메타, 테슬라 AI 하락에 주가 선물 하락; 유가 상승: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5ROG52YzhPZGZHbTVQQjVmSGxSeHJoRlA0UW90MkdwNFR0ZThOQzFhSDBhMUFmNWpxSGo1RG9nU2FOZ1VTUGN2VjNieDNOT0M4bDB0Qlg5NVkwMHV3cy00VGxhQTNqQzg3a3FwUFB4Vy1lR3BlM1dV?oc=5",
+            "published_at": "2026-10-22 19:43:00 KST"
+          },
+          {
+            "title": "Tesla, Meta and IBM: 3 earnings call shout outs that left us thinking - Yahoo Finance",
+            "title_ko": "테슬라, 메타, IBM: 주목할 만한 실적 발표 3가지",
+            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZzM1RHpRcDIyZWw0NTd5ODJja2tQdjEwZFUxenI2MGh6RGxRVklxOWpjMnFaQ2dGelBUZ3J5cUEyNl9Zcjd6TjJGWk9vWlk4OFdaMXBqRHYzbU9jd1lLZUlRSUQwUDh0bHAyMDlvTk1ZaS10VDJXcldpNzRiMmpuNTAyOHRiZWxyWFFRNHR0QWpKUHFtYkhlQUFXV0hIdlQwdGlWUDlNeFRmYm8zaTdJdlZoYkx2N2U3a1p1dXM0R3ExMi05RndqSFp3?oc=5",
+            "published_at": "2026-10-22 18:19:24 KST"
+          },
+          {
+            "title": "Meta’s stock falls in early trading amid broader sector selloff, despite well-received results",
+            "title_ko": "메타 주가, 호평받은 실적에도 불구하고 섹터 전반 하락 속 초반 하락",
+            "url": "https://www.marketwatch.com/story/metas-stock-rises-as-investors-glimpse-an-opportunity-that-could-dwarf-the-ad-business-89369c6c?mod=mw_rss_topstories",
+            "published_at": "2026-10-22 18:55:00 KST"
+          },
+          {
+            "title": "Tesla’s stock falls as Elon Musk leaves investors wanting more",
+            "title_ko": "테슬라 주가, 일론 머스크 투자자 기대 못 미쳐 하락",
+            "url": "https://www.marketwatch.com/story/teslas-stock-falls-as-elon-musk-leaves-investors-wanting-more-eb347f38?mod=mw_rss_topstories",
+            "published_at": "2026-10-22 17:46:00 KST"
+          },
+          {
+            "title": "Elon Musk says Tesla vehicle demand exceeding production ahead of Dallas Cybercab launch - Fox Business",
+            "title_ko": "일론 머스크, 테슬라 차량 수요가 댈러스 사이버캡 출시 앞두고 생산 초과했다고 밝혀",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQbC1fQUlpLTBJc1l6SXppY3ZZLXVpclhSMmpMTktnUjE2djA0UlVoRXlFT1ptMHhWQlFHSS13b3lzOWZmVThHbXhndmVzRGpyRWlob0lJRGpyOXFHOE5TeDF0d2VuOW5XcGNNeE43SDVaWlNXV1pMRlNEdVl3VzVpMTBCb0FadkdieGJsaFRJSGNxdUN3dDBLUHpSQkg5NXh6MVVyU1pxTXloM1VVZ2x5RGM2Yk1DRmZpN3lJQ19VYXdXZ9IBxwFBVV95cUxQcmtObEV1cWVsclhVNzItRW5WQmtrai1uXzRBTTJ1U2pPdmFmYVYxTHdwY0JuSTZVM2xOcG55RFU1RHN6eDBQckhneldEREtWemJqYTFOWW53OWpLNXFOd1IzWjhxSklTaGFCNHVRUkxHXzU0TXV0QkpTMkxQYUFtWTNieGR4emd6LTFQS3RaT3pCb2pFc1ZycVFHMFNLZW5Vd2xTSjR0WHdGakFRSGQwMDdwYVhtUi1MSjQ2WHZtTzJyckdjX2VZ?oc=5",
+            "published_at": "2026-10-22 13:38:00 KST"
+          }
+        ],
+        "outlook": "테슬라는 전기차 시장 경쟁 심화 속에서도 차량 수요가 생산을 초과하고 있다는 긍정적인 소식이 있습니다. 그러나 메타와 함께 AI 관련 주가 하락을 주도하며 투자 심리에 부담을 주고 있습니다. 일론 머스크의 발언과 향후 신기술 발표가 향후 일주일간 주가 흐름에 영향을 미칠 것으로 예상됩니다."
+      },
+      {
+        "name": "IBM",
+        "reason": "클라우드 컴퓨팅 및 AI 분야에서의 기술 개발 소식이 주목받음 (총 2건)",
+        "us_news_refs": [
+          4,
+          41
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Tesla, Meta and IBM: 3 earnings call shout outs that left us thinking - Yahoo Finance",
+            "title_ko": "테슬라, 메타, IBM: 주목할 만한 실적 발표 3가지",
+            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZzM1RHpRcDIyZWw0NTd5ODJja2tQdjEwZFUxenI2MGh6RGxRVklxOWpjMnFaQ2dGelBUZ3J5cUEyNl9Zcjd6TjJGWk9vWlk4OFdaMXBqRHYzbU9jd1lLZUlRSUQwUDh0bHAyMDlvTk1ZaS10VDJXcldpNzRiMmpuNTAyOHRiZWxyWFFRNHR0QWpKUHFtYkhlQUFXV0hIdlQwdGlWUDlNeFRmYm8zaTdJdlZoYkx2N2U3a1p1dXM0R3ExMi05RndqSFp3?oc=5",
+            "published_at": "2026-10-22 18:19:24 KST"
+          },
+          {
+            "title": "IBM beats on top and bottom lines as CEO Krishna touts 'Super Intelligence' traction - CNBC",
+            "title_ko": "IBM, 최고 및 최저 실적 모두 상회, 크리슈나 CEO '슈퍼 인텔리전스' 견인력 강조",
+            "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5UZzFpOUJmdE9meVNYSzJxU1QtSmdPbE16LVBFX0JZVUZldHdoRDdkNERDTWtYc0ZLMUxDZTdIWHJRZHY1SWdTWWZFRXpmNVR3MnlBMWIxb201enNSWWJ4ZFZKMVFLY3hqT0NvVWJGRTNDd9IBd0FVX3lxTE5RSlU3SmJxN2M2S1lWNV9uRVgwMXg5YzQwRXFTOGdyS2xWTTluNHc2ZW5UZVl6eFVJaHNmQUotNm83bjFuZ2Q1UFNONGlkMDRsRUN0bWZPN1VhUkhZTmRWTWhFbzZqa3JCZWhxTjZ1MHdzVUlvLVBr?oc=5",
+            "published_at": "2026-10-22 05:28:53 KST"
+          }
+        ],
+        "outlook": "IBM은 클라우드 컴퓨팅 및 AI 분야에서의 기술 개발 소식이 주목받고 있습니다. 최근 실적 발표에서 최고 및 최저 실적을 모두 상회하며 긍정적인 성과를 보였습니다. 그러나 AI 섹터 전반의 우려와 거시 경제 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 IBM의 새로운 파트너십 발표나 AI 관련 기술 업데이트 소식이 주가에 영향을 미칠 가능성이 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 빅테크 기업들의 AI 칩 수요 증가와 관련 기술 발전이 지속적으로 주목받고 있습니다. 그러나 메타와 테슬라와 같은 주요 AI 관련 기업들의 주가 하락은 단기적인 위험 요인으로 작용할 수 있습니다. 또한, 메타가 페이스북 사용자 오도 혐의로 250억 달러의 벌금을 부과받은 점은 투자 심리에 부정적인 영향을 미칠 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표 및 새로운 기술 개발 소식이 시장의 주요 촉매제가 될 것으로 예상됩니다."
+        },
+        {
+          "name": "Space Exploration",
+          "outlook": "우주 탐사 섹터는 스페이스X와 같은 기업들의 활동 및 투자 소식으로 관심을 받고 있습니다. 최근 나스닥이 스페이스X와 Super Micro의 AI 심리 부양에 힘입어 상승세를 보인 점은 긍정적인 신호입니다. 하지만 일론 머스크의 스페이스X 관련 보도와 트럼프 대통령의 정책 변화 가능성은 불확실성을 야기할 수 있습니다. 향후 일주일 동안 우주 탐사 관련 기업들의 신규 프로젝트 발표나 기술 개발 성과가 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Automotive",
+          "outlook": "자동차 섹터는 신기술 도입과 관련된 기업들의 동향이 주목받고 있습니다. 테슬라의 경우, 차량 수요가 생산을 초과하고 있다는 일론 머스크의 발언은 긍정적인 요인으로 작용할 수 있습니다. 그러나 토요타의 대규모 리콜 소식은 해당 기업 및 관련 업계에 단기적인 부담으로 작용할 수 있습니다. 또한, GM의 AI 및 자율주행 기술에 대한 미래 전략 발표는 섹터 전반에 대한 투자 심리에 영향을 미칠 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Meta",
+          "outlook": "메타는 메타버스 및 AI 사업 확장 소식으로 주목받고 있으나, 최근 주가 선물 하락세에 영향을 받았습니다. 페이스북 사용자 오도 혐의로 250억 달러의 벌금을 부과받은 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 실적 발표나 새로운 AI 기술 관련 발표가 주가에 중요한 변수가 될 것으로 보입니다."
+        },
+        {
+          "name": "Tesla",
+          "outlook": "테슬라는 전기차 시장 경쟁 심화 속에서도 차량 수요가 생산을 초과하고 있다는 긍정적인 소식이 있습니다. 그러나 메타와 함께 AI 관련 주가 하락을 주도하며 투자 심리에 부담을 주고 있습니다. 일론 머스크의 발언과 향후 신기술 발표가 향후 일주일간 주가 흐름에 영향을 미칠 것으로 예상됩니다."
+        },
+        {
+          "name": "IBM",
+          "outlook": "IBM은 클라우드 컴퓨팅 및 AI 분야에서의 기술 개발 소식이 주목받고 있습니다. 최근 실적 발표에서 최고 및 최저 실적을 모두 상회하며 긍정적인 성과를 보였습니다. 그러나 AI 섹터 전반의 우려와 거시 경제 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 IBM의 새로운 파트너십 발표나 AI 관련 기술 업데이트 소식이 주가에 영향을 미칠 가능성이 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "Finance",
+        "reason": "증권사들의 실적 및 투자 관련 소식이 다수 보도됨 (총 3건)",
+        "kr_news_refs": [
+          5,
+          11,
+          27,
+          38,
+          66,
+          67,
+          90
+        ],
+        "related_news": [
+          {
+            "title": "이억원 \"산은 부산 이전, 하지 않는 것으로 정리\" - 조선일보",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPWmpBOGVxREJyTXdSMG8zc3lubGpRN3Z2eThUd09ZMlp0SUg4OVV0MUhYRGRLVnd1bVBwRkQ5bk5Ob1FjellIN0FJRTNkQkpJX3IxNEN5LVlpa3FPVGJvZkxtTkUzMllKOWhVTV9sMXc2YU52Q21aWi1UN0hDMjFZeVpfNXdzUHFObTlCN2Z3?oc=5",
+            "published_at": "2026-10-22 17:08:00 KST"
+          },
+          {
+            "title": "금융위원장·금감원장, ‘레버리지 ETF’ 지적에 재차 사과 “무거운 마음” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9XWEhRSVI2VTBscVpvZ1VEQ0Q5ZGZQNFpDSDBoWTZzU3RUSXI0ZzVyS0dZRkhVbGdKR3RxMUZrTXVGTzJtWmRreVdCTlBwNjlyQ2Zsa0RETTFDUHc?oc=5",
+            "published_at": "2026-10-22 15:02:00 KST"
+          },
+          {
+            "title": "‘스페이스X 공모주 0주’ 묶인 돈 보상받나…금감원 “투자자 보상 검토”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12183341",
+            "published_at": "2026-10-22 19:26:19 KST"
+          },
+          {
+            "title": "NH농협은행 대출금리 인하 … 전세대출 최대 0.3%P 낮춰",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12183315",
+            "published_at": "2026-10-22 19:05:43 KST"
+          },
+          {
+            "title": "교보증권, 상환전환우선주 발행으로 3천억원 자본 확충(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022178051008",
+            "published_at": "2026-10-22 18:37:42 KST"
+          }
+        ],
+        "outlook": "금융 섹터는 증권사들의 실적 개선 및 투자 관련 소식이 다수 보도되며 주목받고 있습니다. 교보증권의 3천억원 규모 자본 확충 소식은 재무 건전성 강화 측면에서 긍정적으로 평가될 수 있습니다. 그러나 금융 당국의 레버리지 ETF 관련 지적은 투자 심리에 일부 부담으로 작용할 수 있습니다. 향후 일주일 내에는 금감원의 투자자 보상 검토 결과 발표 등이 시장의 관심을 받을 것으로 예상됩니다."
+      },
+      {
+        "name": "AI",
+        "reason": "인공지능 기술 발전 및 관련 기업들의 움직임이 주목받음 (총 2건)",
+        "kr_news_refs": [
+          1,
+          3,
+          8,
+          10,
+          44,
+          65
+        ],
+        "related_news": [
+          {
+            "title": "[현장영상] 흉기 든 괴한에 돌려차기…中 ‘보디가드 로봇’ 등장 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE04SWtLbFdWcE0tcmNQNGFkMTNJdmQ4TXZRaXNkdlpnck9tMFd0U0xQRG4zMnYyaGVHcDZwVno4VEpkS2hjWHBxSG42ZFZNT2dYVmZJNDRPYXpPUzRKVUplaU1lV0ZoUQ?oc=5",
+            "published_at": "2026-10-22 19:12:00 KST"
+          },
+          {
+            "title": "이 대통령 \"우리 경제 새로운 도약 기회…국민 체감할 수 있도록 전력\" - 대한민국 정책브리핑",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQeE5MSWZRdjQ2eHZTbDBfaU96VDNBbER1QTF3X0c5dXAyc0EwMVl2RGV1OWRsc2FIVS16RWxpWGtvR19KU1pJTnVyald2NFFRR3lMWk1MMEliclhBdzlnNzJoQk54VWt3cWZXRGw1UEl6U2tHT29MZ2VCaFN4Wm9sdTNHWDBpU0pVM2c?oc=5",
+            "published_at": "2026-10-22 18:05:29 KST"
+          },
+          {
+            "title": "[마켓뷰] 메타·테슬라 실적도 못 가라앉힌 AI 우려…코스피 3% 하락 마감 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOWxsRFZZbzFFWC1XZ1BXNnQ0T0ZrdUpXRUZTMjdpM1NyWGl1aGMtRTNmWnBNejE3MUtUNzliWGhiU0czMnBaS0Vfd01BaF9TTW41MEI0bmlBSnhDRTJXczNIQ2Z2bHJuUWt0UzkzZS1iS1g4MFdqdGVjLVljSFVNUENDVjE2UUFN0gGcAUFVX3lxTE54Y0dnT3VKSUszWjhxQWZuSTJkb3Vwb19GR3NNYW1NeXU2eUhYV0xMQWh5UDRtZU5HYW1oa0U1T2FHclVtZVBMUFhnZXdRbmZTSGx6OVNnQnpBLU1uelBVeS1KWUF0ejVUdVNOQ3dWbkMzSmdGYUY4djBhS0NmT1hSR1p6U0pUOS1nNWJMRTVNTGEzY01jQkROZzZRbQ?oc=5",
+            "published_at": "2026-10-22 16:17:00 KST"
+          },
+          {
+            "title": "[속보]李대통령 \"확보된 재정, 청년 일자리·주택 공급 등에 충분히 투입해 달라\" - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1DTVZHQjlVSzY4RXNrV3N4VTk5QUdaV3pEZm45bEZyeVotamJCRzdhTmF0cHZEOHFrTFExVG1CYWVkNFBLWVpsd2VVSkJQZXhUb0x5azAxR0hManppS2YxZnNuMEFvQUJtZU1ySNIBckFVX3lxTFBPeVZQaWJHS0czbVNEOHRaY3RzT3puMUVoNW12Slh6VF8zSGpUc3IxOFgzdmRGVUFiMHBZQjFNdHBndnkzLTUxb3BmcFFHNTlqczNZMENUN2hGZ2lDZXJuN1drNV9vVGlibnVrWmQ1c0Iydw?oc=5",
+            "published_at": "2026-10-22 15:16:05 KST"
+          },
+          {
+            "title": "LG CNS, 챗GPT 기업 고객 3만명 확보…산업 전반 확산",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022171800017",
+            "published_at": "2026-10-22 19:02:20 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 기술 발전과 함께 관련 기업들의 움직임이 주목받고 있습니다. LG CNS가 챗GPT 기업 고객 3만명을 확보했다는 소식은 AI 서비스 확산 가능성을 보여줍니다. 그러나 미국 증시의 AI 관련주 하락세가 국내 증시에도 영향을 미칠 수 있다는 분석이 있습니다. 향후 일주일 내에는 정부의 AI 산업 육성 정책 발표나 새로운 AI 기술 관련 소식이 시장의 주요 촉매제가 될 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "반도체 산업의 회복세 및 관련 기업들의 실적 개선 기대감이 반영됨 (총 2건)",
+        "kr_news_refs": [
+          6,
+          8,
+          10,
+          62,
+          84
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "\"SK하닉 주주에 큰 선물 나오나\"…자사주 매입 끝, 반등은 언제쯤? - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE95OUVDN1RfWVRDcmN5UUhrV0J2bDNham9YZFRTRnRBTmtFczFkZTQtc09BWTFfWnh6WnNRWmhNOFVhcUVFWjViQWhxNkhVcTk4LTF1RHlSQjMyNk0wRmNzOWFkNzU0UHJf0gFuQVVfeXFMUDRTVF9ybmFmNENsMDFzU0tPY0M2MXJKTzRCaTloQzZJSWpNSGtQbGkxNW1tWVp0emZOYXhXMXRJRW1Oa2Z3MmNlSEkycFRvRzRoU1VQd0dPelRld1dmd0F6aDhqRU94NDVXWjBYdlE?oc=5",
+            "published_at": "2026-10-22 16:49:37 KST"
+          },
+          {
+            "title": "[마켓뷰] 메타·테슬라 실적도 못 가라앉힌 AI 우려…코스피 3% 하락 마감 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOWxsRFZZbzFFWC1XZ1BXNnQ0T0ZrdUpXRUZTMjdpM1NyWGl1aGMtRTNmWnBNejE3MUtUNzliWGhiU0czMnBaS0Vfd01BaF9TTW41MEI0bmlBSnhDRTJXczNIQ2Z2bHJuUWt0UzkzZS1iS1g4MFdqdGVjLVljSFVNUENDVjE2UUFN0gGcAUFVX3lxTE54Y0dnT3VKSUszWjhxQWZuSTJkb3Vwb19GR3NNYW1NeXU2eUhYV0xMQWh5UDRtZU5HYW1oa0U1T2FHclVtZVBMUFhnZXdRbmZTSGx6OVNnQnpBLU1uelBVeS1KWUF0ejVUdVNOQ3dWbkMzSmdGYUY4djBhS0NmT1hSR1p6U0pUOS1nNWJMRTVNTGEzY01jQkROZzZRbQ?oc=5",
+            "published_at": "2026-10-22 16:17:00 KST"
+          },
+          {
+            "title": "[속보]李대통령 \"확보된 재정, 청년 일자리·주택 공급 등에 충분히 투입해 달라\" - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1DTVZHQjlVSzY4RXNrV3N4VTk5QUdaV3pEZm45bEZyeVotamJCRzdhTmF0cHZEOHFrTFExVG1CYWVkNFBLWVpsd2VVSkJQZXhUb0x5azAxR0hManppS2YxZnNuMEFvQUJtZU1ySNIBckFVX3lxTFBPeVZQaWJHS0czbVNEOHRaY3RzT3puMUVoNW12Slh6VF8zSGpUc3IxOFgzdmRGVUFiMHBZQjFNdHBndnkzLTUxb3BmcFFHNTlqczNZMENUN2hGZ2lDZXJuN1drNV9vVGlibnVrWmQ1c0Iydw?oc=5",
+            "published_at": "2026-10-22 15:16:05 KST"
+          },
+          {
+            "title": "이렇게 벌어도 7만전자·20만닉스?…코스피 적정가 다시 계산해봤습니다 [머니닥터 시장진단]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12183300",
+            "published_at": "2026-10-22 18:42:42 KST"
+          },
+          {
+            "title": "대구·경북 반도체마이스터고 입시 경쟁률 동반 상승",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022181700053",
+            "published_at": "2026-10-22 18:23:25 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 AI 반도체 수요 증가와 함께 회복세 및 실적 개선 기대감이 반영되고 있습니다. SK하이닉스의 자사주 매입 완료 소식은 주주 가치 제고 측면에서 긍정적으로 해석될 수 있습니다. 그러나 현재 매수보다는 다음 주도주에 주목해야 한다는 분석도 존재합니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표 등이 시장의 관심을 받을 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SK하이닉스",
+        "reason": "AI 반도체 수요 증가 및 실적 개선 기대감으로 주목받음 (총 3건)",
+        "kr_news_refs": [
+          6,
+          8,
+          9,
+          10,
+          62
+        ],
+        "related_news": [
+          {
+            "title": "\"SK하닉 주주에 큰 선물 나오나\"…자사주 매입 끝, 반등은 언제쯤? - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE95OUVDN1RfWVRDcmN5UUhrV0J2bDNham9YZFRTRnRBTmtFczFkZTQtc09BWTFfWnh6WnNRWmhNOFVhcUVFWjViQWhxNkhVcTk4LTF1RHlSQjMyNk0wRmNzOWFkNzU0UHJf0gFuQVVfeXFMUDRTVF9ybmFmNENsMDFzU0tPY0M2MXJKTzRCaTloQzZJSWpNSGtQbGkxNW1tWVp0emZOYXhXMXRJRW1Oa2Z3MmNlSEkycFRvRzRoU1VQd0dPelRld1dmd0F6aDhqRU94NDVXWjBYdlE?oc=5",
+            "published_at": "2026-10-22 16:49:37 KST"
+          },
+          {
+            "title": "[마켓뷰] 메타·테슬라 실적도 못 가라앉힌 AI 우려…코스피 3% 하락 마감 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOWxsRFZZbzFFWC1XZ1BXNnQ0T0ZrdUpXRUZTMjdpM1NyWGl1aGMtRTNmWnBNejE3MUtUNzliWGhiU0czMnBaS0Vfd01BaF9TTW41MEI0bmlBSnhDRTJXczNIQ2Z2bHJuUWt0UzkzZS1iS1g4MFdqdGVjLVljSFVNUENDVjE2UUFN0gGcAUFVX3lxTE54Y0dnT3VKSUszWjhxQWZuSTJkb3Vwb19GR3NNYW1NeXU2eUhYV0xMQWh5UDRtZU5HYW1oa0U1T2FHclVtZVBMUFhnZXdRbmZTSGx6OVNnQnpBLU1uelBVeS1KWUF0ejVUdVNOQ3dWbkMzSmdGYUY4djBhS0NmT1hSR1p6U0pUOS1nNWJMRTVNTGEzY01jQkROZzZRbQ?oc=5",
+            "published_at": "2026-10-22 16:17:00 KST"
+          },
+          {
+            "title": "을지로 1·2차 회식 최태원의 달라진 요즘 행보…\"부친 성정 닮아\" - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1LQjl0VUN4WTVBTG12RG5idmRCX29sb3BsYnNIYW5WbmlRbG8tLUJqMG9ubnFoNUh0RUZuSmhuWkVqQllPZ0kyMXFJS01QT2F1NkJKRW1ENGIzYmJWOGxMZVBiaUNGdThzSFU2dtIBckFVX3lxTE5iODRMSXNIWGlMT1J5a3RmeXpKQnl1UjVRNDVwTzVLZkRIYmVjVXp3aGJSWGVWWTNxaVlmVG9XUUxRbExEeUxGdjYtM3A1a3ZDYkpjaWxacUtURzdfQXZucnE1cXR5SGZURThzVGdpTEN4dw?oc=5",
+            "published_at": "2026-10-22 16:16:45 KST"
+          },
+          {
+            "title": "[속보]李대통령 \"확보된 재정, 청년 일자리·주택 공급 등에 충분히 투입해 달라\" - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1DTVZHQjlVSzY4RXNrV3N4VTk5QUdaV3pEZm45bEZyeVotamJCRzdhTmF0cHZEOHFrTFExVG1CYWVkNFBLWVpsd2VVSkJQZXhUb0x5azAxR0hManppS2YxZnNuMEFvQUJtZU1ySNIBckFVX3lxTFBPeVZQaWJHS0czbVNEOHRaY3RzT3puMUVoNW12Slh6VF8zSGpUc3IxOFgzdmRGVUFiMHBZQjFNdHBndnkzLTUxb3BmcFFHNTlqczNZMENUN2hGZ2lDZXJuN1drNV9vVGlibnVrWmQ1c0Iydw?oc=5",
+            "published_at": "2026-10-22 15:16:05 KST"
+          },
+          {
+            "title": "이렇게 벌어도 7만전자·20만닉스?…코스피 적정가 다시 계산해봤습니다 [머니닥터 시장진단]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12183300",
+            "published_at": "2026-10-22 18:42:42 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 AI 반도체 수요 증가와 실적 개선 기대감으로 주목받고 있습니다. 자사주 매입이 완료되었다는 소식은 주주 가치 제고 측면에서 긍정적으로 해석될 수 있습니다. 그러나 현재 시점에서는 매수보다는 다음 주도주에 주목해야 한다는 분석도 있습니다. 향후 일주일 내 예정된 실적 발표나 새로운 AI 칩 관련 소식이 주가에 영향을 미칠 것으로 보입니다."
+      },
+      {
+        "name": "HD현대",
+        "reason": "조선 및 건설 부문의 사업 확장 소식이 보도됨 (총 2건)",
+        "kr_news_refs": [
+          19,
+          32
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "HD현대, 미국 건설사와 합작법인 추진…선박 블록 야드 구축",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022187600003",
+            "published_at": "2026-10-22 19:43:49 KST"
+          },
+          {
+            "title": "HD현대, 키윗과 JV추진 美 생산거점 마련",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12183336",
+            "published_at": "2026-10-22 19:17:50 KST"
+          }
+        ],
+        "outlook": "HD현대는 미국 건설사와의 합작법인 추진 및 생산 거점 마련 소식이 보도되며 주목받고 있습니다. 이는 조선 및 건설 부문의 사업 확장 가능성을 시사합니다. 단기적인 위험 요인으로는 글로벌 건설 경기 변동이나 합작법인 설립 과정에서의 불확실성이 존재할 수 있습니다. 향후 일주일 내 합작법인 설립 구체화 또는 신규 수주 소식이 주가에 긍정적인 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "교보증권",
+        "reason": "증권업계의 실적 호조 및 투자 관련 소식으로 주목받음 (총 2건)",
+        "kr_news_refs": [
+          66,
+          67
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "교보증권, 상환전환우선주 발행으로 3천억원 자본 확충(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261022178051008",
+            "published_at": "2026-10-22 18:37:42 KST"
+          },
+          {
+            "title": "교보증권, RCPS 발행해 3천억원 자본 확충…\"핵심사업 경쟁력 강화\" - KB Think",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE05LVE5eEZrQm83ZVpQRXVzVC00UWgzb090WHBMTEFNNWpHV1FzNUhpVU5scGk4WkhnYWs4WTdxWUJnekVNZ2o3bzVIeG5KNi1kci1IQm1GVWNGXzNFaW43c1Y4X3NISTdNZGp5MHFyTF9CQQ?oc=5",
+            "published_at": "2026-10-22 18:37:03 KST"
+          }
+        ],
+        "outlook": "교보증권은 3천억원 규모의 상환전환우선주 발행을 통한 자본 확충 소식으로 주목받고 있습니다. 이는 핵심 사업 경쟁력 강화에 기여할 것으로 예상됩니다. 단기적으로는 증권업 전반의 시장 변동성 확대나 금리 변동성이 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 증권업계 전반의 실적 발표나 새로운 투자 상품 출시 소식이 주가에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Finance",
+          "outlook": "금융 섹터는 증권사들의 실적 개선 및 투자 관련 소식이 다수 보도되며 주목받고 있습니다. 교보증권의 3천억원 규모 자본 확충 소식은 재무 건전성 강화 측면에서 긍정적으로 평가될 수 있습니다. 그러나 금융 당국의 레버리지 ETF 관련 지적은 투자 심리에 일부 부담으로 작용할 수 있습니다. 향후 일주일 내에는 금감원의 투자자 보상 검토 결과 발표 등이 시장의 관심을 받을 것으로 예상됩니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 기술 발전과 함께 관련 기업들의 움직임이 주목받고 있습니다. LG CNS가 챗GPT 기업 고객 3만명을 확보했다는 소식은 AI 서비스 확산 가능성을 보여줍니다. 그러나 미국 증시의 AI 관련주 하락세가 국내 증시에도 영향을 미칠 수 있다는 분석이 있습니다. 향후 일주일 내에는 정부의 AI 산업 육성 정책 발표나 새로운 AI 기술 관련 소식이 시장의 주요 촉매제가 될 수 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "반도체 섹터는 AI 반도체 수요 증가와 함께 회복세 및 실적 개선 기대감이 반영되고 있습니다. SK하이닉스의 자사주 매입 완료 소식은 주주 가치 제고 측면에서 긍정적으로 해석될 수 있습니다. 그러나 현재 매수보다는 다음 주도주에 주목해야 한다는 분석도 존재합니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 투자 계획 발표 등이 시장의 관심을 받을 것으로 예상됩니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 AI 반도체 수요 증가와 실적 개선 기대감으로 주목받고 있습니다. 자사주 매입이 완료되었다는 소식은 주주 가치 제고 측면에서 긍정적으로 해석될 수 있습니다. 그러나 현재 시점에서는 매수보다는 다음 주도주에 주목해야 한다는 분석도 있습니다. 향후 일주일 내 예정된 실적 발표나 새로운 AI 칩 관련 소식이 주가에 영향을 미칠 것으로 보입니다."
+        },
+        {
+          "name": "HD현대",
+          "outlook": "HD현대는 미국 건설사와의 합작법인 추진 및 생산 거점 마련 소식이 보도되며 주목받고 있습니다. 이는 조선 및 건설 부문의 사업 확장 가능성을 시사합니다. 단기적인 위험 요인으로는 글로벌 건설 경기 변동이나 합작법인 설립 과정에서의 불확실성이 존재할 수 있습니다. 향후 일주일 내 합작법인 설립 구체화 또는 신규 수주 소식이 주가에 긍정적인 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "교보증권",
+          "outlook": "교보증권은 3천억원 규모의 상환전환우선주 발행을 통한 자본 확충 소식으로 주목받고 있습니다. 이는 핵심 사업 경쟁력 강화에 기여할 것으로 예상됩니다. 단기적으로는 증권업 전반의 시장 변동성 확대나 금리 변동성이 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 증권업계 전반의 실적 발표나 새로운 투자 상품 출시 소식이 주가에 영향을 미칠 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 분야는 중국 AI 4대 천왕 언급과 함께 AI 프롬프트 능력에 대한 논의가 있었습니다. 또한, AI를 숏치는 세계 유명 숏전문가의 관점이 소개되었습니다.",
+        "refs": [
+          4,
+          9
+        ],
+        "reason": "AI 분야는 중국 AI 4대 천왕 언급과 함께 AI 프롬프트 능력에 대한 논의가 있었습니다. 또한, AI를 숏치는 세계 유명 숏전문가의 관점이 소개되었습니다.",
+        "related_videos": [
+          {
+            "title": "의문의 취업 1티어로 떠오른다는 철학 전공",
+            "url": "https://www.youtube.com/watch?v=_xEVeoqLncA",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-22 18:57:05 KST"
+          },
+          {
+            "title": "AI를 숏친, 세계에서 가장 유명한 숏전문가",
+            "url": "https://www.youtube.com/watch?v=92mEdPLMlFY",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-21 22:20:25 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 중국 AI 4대 천왕 언급과 함께 AI 프롬프트 능력에 대한 논의가 있었습니다. 또한, AI를 활용한 투자 전략에 대한 유명 전문가의 관점이 소개되었습니다. 향후 일주일 내에는 AI 기술 발전과 관련된 새로운 콘텐츠나 AI 기반 투자 전략에 대한 분석이 주목받을 수 있습니다. 단기적으로는 AI 관련 기업들의 실적 발표나 규제 관련 뉴스가 시장에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "삼성전자와 SK하이닉스의 가격 조정이 끝나가지만, 현재 매수보다는 다음 주도주에 주목해야 한다는 분석이 제시되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "삼성전자와 SK하이닉스의 가격 조정이 끝나가지만, 현재 매수보다는 다음 주도주에 주목해야 한다는 분석이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스 가격 조정은 끝나가지만…지금 매수보다 다음 주도주를 주목해야 하는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=QG1hIUzxfRM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 20:00:05 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 삼성전자와 SK하이닉스의 가격 조정이 마무리 단계에 접어들었다는 분석이 있습니다. 그러나 현재 시점에서의 매수보다는 향후 주도주에 주목해야 한다는 의견이 제시되었습니다. 향후 일주일 내에는 반도체 업계의 신규 기술 개발 소식이나 주요 기업들의 실적 발표가 시장의 관심을 받을 수 있습니다. 단기적으로는 글로벌 경기 상황이나 지정학적 리스크가 반도체 섹터에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "부동산",
+        "freq": 1,
+        "summary": "집값 상승 후 폭락장이 시작될 것이라는 부동산 투자자의 전망이 언급되었습니다.",
+        "refs": [
+          8
+        ],
+        "reason": "집값 상승 후 폭락장이 시작될 것이라는 부동산 투자자의 전망이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "집값 '여기까지' 오르고 나면, 진짜 폭락장이 시작됩니다 (부동산 투자자 손품왕)",
+            "url": "https://www.youtube.com/watch?v=nftTcNGMzNQ",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-22 17:30:32 KST"
+          }
+        ],
+        "outlook": "부동산 섹터는 집값 상승 후 폭락장이 시작될 것이라는 전망이 제기되었습니다. 이는 향후 부동산 시장의 변동성에 대한 우려를 나타냅니다. 향후 일주일 내에는 정부의 부동산 정책 발표나 금리 변동 관련 뉴스가 시장의 주요 변수가 될 수 있습니다. 단기적으로는 매크로 경제 지표 발표나 주요 도시의 주택 거래량 데이터가 투자 심리에 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 1,
+        "summary": "삼성전자와 SK하이닉스의 가격 조정이 마무리 단계에 접어들었으나, 현재 시점보다는 향후 주도주에 대한 관심이 더 필요하다는 분석이 있었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "삼성전자와 SK하이닉스의 가격 조정이 마무리 단계에 접어들었으나, 현재 시점보다는 향후 주도주에 대한 관심이 더 필요하다는 분석이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스 가격 조정은 끝나가지만…지금 매수보다 다음 주도주를 주목해야 하는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=QG1hIUzxfRM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 20:00:05 KST"
+          }
+        ],
+        "outlook": "삼성전자는 SK하이닉스와 함께 가격 조정이 끝나가고 있다는 분석이 있습니다. 하지만 현재 시점에서 매수하기보다는 향후 주도주에 대한 관심이 더 필요하다는 의견이 제시되었습니다. 향후 일주일 내에는 삼성전자의 신규 기술 개발 소식이나 주요 사업 부문의 실적 발표가 주가에 영향을 미칠 수 있습니다. 단기적으로는 글로벌 반도체 시장의 수급 상황 변화가 주목될 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "SK하이닉스와 삼성전자의 가격 조정이 끝나가고 있다는 분석과 함께, 현재 매수보다는 다음 주도주에 주목해야 한다는 의견이 제시되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "SK하이닉스와 삼성전자의 가격 조정이 끝나가고 있다는 분석과 함께, 현재 매수보다는 다음 주도주에 주목해야 한다는 의견이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스 가격 조정은 끝나가지만…지금 매수보다 다음 주도주를 주목해야 하는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=QG1hIUzxfRM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-22 20:00:05 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 삼성전자와 마찬가지로 가격 조정이 마무리 단계에 있다는 분석이 있습니다. 현재 매수보다는 다음 주도주에 주목해야 한다는 의견이 제시되었습니다. 향후 일주일 내에는 SK하이닉스의 AI 반도체 관련 신규 수주 소식이나 실적 발표가 주가에 영향을 미칠 수 있습니다. 단기적으로는 경쟁사의 동향이나 글로벌 IT 수요 변화가 주목될 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Meta",
+          "freq": 6
+        },
+        {
+          "name": "Tesla",
+          "freq": 3
+        },
+        {
+          "name": "IBM",
+          "freq": 2
+        },
+        {
+          "name": "Amazon",
+          "freq": 2
+        },
+        {
+          "name": "David's Bridal",
+          "freq": 1
+        },
+        {
+          "name": "Pearson",
+          "freq": 1
+        },
+        {
+          "name": "Blackstone",
+          "freq": 1
+        },
+        {
+          "name": "WEL Companies",
+          "freq": 1
+        },
+        {
+          "name": "Teleflex",
+          "freq": 1
+        },
+        {
+          "name": "LSEG",
+          "freq": 1
+        },
+        {
+          "name": "Quest Diagnostics",
+          "freq": 1
+        },
+        {
+          "name": "BioNTech",
+          "freq": 1
+        },
+        {
+          "name": "Gilead",
+          "freq": 1
+        },
+        {
+          "name": "JPMorgan",
+          "freq": 1
+        },
+        {
+          "name": "Lam Research",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 4
+        },
+        {
+          "name": "Automotive",
+          "freq": 3
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 4
+        },
+        {
+          "name": "Oil",
+          "freq": 3
+        },
+        {
+          "name": "Banking",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "핀테크",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "SK하이닉스",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "HD현대",
+          "freq": 2
+        },
+        {
+          "name": "교보증권",
+          "freq": 2
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "LG CNS",
+          "freq": 1
+        },
+        {
+          "name": "한화에어로스페이스",
+          "freq": 1
+        },
+        {
+          "name": "미래에셋증권",
+          "freq": 1
+        },
+        {
+          "name": "SJG세종",
+          "freq": 1
+        },
+        {
+          "name": "NH농협은행",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Finance",
+          "freq": 3
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 2
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Construction",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Advanced Technology",
+          "freq": 1
+        },
+        {
+          "name": "SMR",
+          "freq": 1
+        },
+        {
+          "name": "Aerospace",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
+          "freq": 1
+        },
+        {
+          "name": "방산",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
