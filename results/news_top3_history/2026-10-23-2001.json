@@ -1,0 +1,797 @@
+{
+  "generated_at": "2026-10-23 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Oil",
+        "reason": "유가 및 에너지 관련 기업들의 동향이 시장에서 주목받고 있음을 시사합니다 (총 3건)",
+        "us_news_refs": [
+          2,
+          8,
+          43,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock futures remain under pressure after worst Nasdaq session since June: Live updates - CNBC",
+            "title_ko": "나스닥 최악 세션 후 주가 선물 압박: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBNc0s0YTFvMUVGOTZsQTBGQ2xGQkNJNmZrZVlXOXpMTTV4VDFZQnF5LTBOVHpXMVI1cmI4QmhFNTVudnpRVDVUbldkZEZmeXl3MHI4aU1UaXVvbHNEdHhvbmNweVQ5TWdjaWRPQWpZLXJIYk5RTlHSAXtBVV95cUxPN0Q0eEc2UXVTTmwxcTZsY05HeEdKN0U1dDc1S1YxWmxZOXJlSm1NVVZDU3MxcXFKNlduX3NxckhxZ1puVlE1d09SZk4zSGhVcG9xNFhBb1d6Skd4NlZSdDZ5Y1I2NkxEXzJuUmxUMThNX3haWnlIeUZQQ0k?oc=5",
+            "published_at": "2026-10-23 19:05:04 KST"
+          },
+          {
+            "title": "Gold Falls as Energy Prices Rise Higher - WSJ",
+            "title_ko": "금값 하락, 에너지 가격 상승",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPLVpKUTYybGVMb1hPclJUSE5SNlRqaG5Lc19SRFRwajJiSUg0ejdvYy1MdXduNEhjdFNGc1JUcmxrVjBvVG9HTzRWcVQ1YUNKTHlha09qYXM5Mm1mMjREdngzTUtjbThaX21CVFh2dkJaZTZrMkt3NFVtSWpOMTZLd2hSTG9RMnVDWUJ3MUlVcUxJZzZITTk3a3RlQm1QeVpLdWhpeTdsYw?oc=5",
+            "published_at": "2026-10-23 16:37:00 KST"
+          },
+          {
+            "title": "Oil prices approach Iran-war highs as soaring tanker rates trigger a second energy squeeze - MarketWatch",
+            "title_ko": "이란 전쟁 최고치 근접 유가, 유조선 운임 급등으로 에너지 압박",
+            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQUGZHWmZzVnVTd2gtaTI5U1YtMnNQcU5FMnp5YzlMQnhkQnh4Ri1ZVUFfc1J6WTBTUFZtbXZCWG1XYmRLMFJnSkNkNHdFSDc3dU0xNHJaam03UHBNVnNhUWE2X2ZpaWJOTG1BWFhqaVJfclNFdTFWNFlVNTZUbnBvU0lJWGJvY1VKRlY3UnVBWld3SG1sSUc0Qjd0QTZuVEYtTXV6TGpzVkpERWRZYkdJX1ZOVEctQ2ppZVNjU0JKcXhvLUhDZWJOdklZQTdGUQ?oc=5",
+            "published_at": "2026-10-23 05:46:00 KST"
+          },
+          {
+            "title": "Airfares will not return to pre-Iran war levels, American Airlines warns - Financial Times",
+            "title_ko": "아메리칸 에어라인, 항공료, 이란 전쟁 이전 수준으로 돌아가지 않을 것 경고",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQYmpyZDZOWGRYa0NxWFBaMk9yR3NUXzhTbU54cFFSVG52azFtX1JlcFo4LXg0REZiRjVvSnd5STFyZmdUQWJ5WWhSVUJJc21palVMYk9yMkpXU1RfZGcwQTQ3VXNRcm5ibGcwSGZPM0NfRGpnSi1TXzJzNmpKT1B0QzB0QmM?oc=5",
+            "published_at": "2026-10-23 05:08:50 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 유가 및 에너지 관련 기업들의 움직임이 주목받을 것으로 예상됩니다. 최근 유조선 운임 급등으로 인한 에너지 압박 심화와 이란 전쟁 최고치에 근접한 유가가 주요 촉매 요인으로 작용할 수 있습니다. 다만, 항공료가 이전 수준으로 돌아가지 않을 것이라는 아메리칸 에어라인의 경고는 에너지 수요에 대한 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 에너지 관련 정책 발표나 지정학적 이벤트 발생 여부에 따라 변동성이 커질 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SpaceX",
+        "reason": "우주 탐사 및 관련 기술에 대한 지속적인 관심과 뉴스가 반영되었습니다 (총 2건)",
+        "us_news_refs": [
+          6,
+          24,
+          34,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SpaceX could be on the cusp of buying 80,000 cell towers in a bid to really challenge Verizon, AT&T and T-Mobile - Yahoo Finance",
+            "title_ko": "SpaceX, 버라이즌 등 통신사 도전 위해 셀 타워 인수 검토",
+            "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQTGR4Q1VFYUtEeThzajVwbll4emcxcWdfa3pRZ1NvRERaaVhQejQ5MGM0TkxsSk4zNk5UdEFOSElZamtSOE5vOGpwOW9JbFMyX3g3bTRkaUp4ZFVFU3d1RFd1ZEV1TW81Vm9tWUlLSTR1TkpYU3J0V0tRM2xoc0hJaUwyYUJXWTJkeWZDVDd1ak9nTjY0UUlwbDhGMXoyOXNzWFhYOFVlXzhYaEQ5dENRZHl6NlFnUlRBdjZDbUhfQ3lzN0M0djVZeEZKMm5oZXRGc3JNa1VIY0hRa1BLUE9YWWdSV0VNd0VBNDdScFRqSVRvT0x2R0FZQzFNTW4yWFBmMFE?oc=5",
+            "published_at": "2026-10-23 18:04:28 KST"
+          },
+          {
+            "title": "The mobile ambitions of SpaceX see telecom stocks get hit again. What the latest developments mean.",
+            "title_ko": "SpaceX 통신 야망, 통신주 다시 타격",
+            "url": "https://www.marketwatch.com/story/the-mobile-ambitions-of-spacex-see-telecom-stocks-get-hit-again-what-the-latest-developments-mean-9a4159b5?mod=mw_rss_topstories",
+            "published_at": "2026-10-23 18:01:00 KST"
+          },
+          {
+            "title": "Elon Musk’s $10.5B SpaceX gift to kids has a catch: Families can’t say no — and may need to wait 5 years to cash out - Yahoo Finance",
+            "title_ko": "Musk의 105억 달러 SpaceX 증여, 자녀에게는 조건: 거부 불가, 5년 대기 가능성",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQV3lBS194ajRGM25BOTZlakN1eUpPUGtQZGVZckdvdy04VVl2Y1pzdW40N2l0Qld6YmhuNHdwMS1xWUVyMGE5NkhtaTR4Vk03NkN0UXA0clZyYVYwS3hfQWFibl9ZOFRSc19tWDZOOXhDbW0zV1BBMHJNVFdnOUZTY1kzdVF5ZHJDMFVZRnFVQ1k?oc=5",
+            "published_at": "2026-10-23 08:30:00 KST"
+          },
+          {
+            "title": "Sure, let’s smoosh SpaceX and Tesla together, who cares - The Verge",
+            "title_ko": "SpaceX와 Tesla를 합쳐버리자, 누가 신경 쓰겠는가",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPOGxjTkQwNXJxcWhrWHpzWXAxZm92WkVNVklIMG5DZlZLc1NETy1tdE1sb3pBMnZ4RWJEM0tsR2xJXy1lRm93MVdjODBnOTRhSC1MdHVSQkwwOUpQSklPdVpsRGFMZjAtQnJxcDlRbXNtUmhMaFkwZEJpVktYdFZVX2ZUN3RxREUyNHd0M2RkaE5jQQ?oc=5",
+            "published_at": "2026-10-23 04:45:00 KST"
+          }
+        ],
+        "outlook": "SpaceX는 통신 시장 진출을 위한 80,000개 셀 타워 인수 가능성으로 인해 통신 업계에 영향을 미치고 있습니다. 이는 버라이즌, AT&T, T-Mobile과 같은 기존 통신사들에게 경쟁 압박으로 작용할 수 있습니다. 또한, 일론 머스크의 자녀 대상 증여 프로그램은 5년간의 대기 기간이라는 조건이 붙어 있습니다. 향후 일주일 내 SpaceX의 통신 인프라 확장 계획 구체화 여부 및 관련 통신사들의 대응이 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Bloom Energy",
+        "reason": "에너지 관련 기업으로, 시장에서 일정 수준의 주목을 받고 있음을 나타냅니다 (총 3건)",
+        "us_news_refs": [
+          3,
+          5
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "1 Thing in Bloom Energy’s Strong Earnings That May Be Dragging the Stock Down - Barron's",
+            "title_ko": "Bloom Energy 실적 호조 속 주가 하락 요인 1가지",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOTzdWdkU2NHRQTlJJYjNmcXNLLW1tblU5MGNjTmNHcExlM043OXF2azFWVG1BajRTV2gxY0htLU5YbGpnak9JZG1EQVluRXhzX3dlZ1hNQXRlY3hyMlRXV3hVUVBUaDF1YXZrYlQ1clZ2aGwtRFJXbDZJREQ1VG5feQ?oc=5",
+            "published_at": "2026-10-23 18:50:00 KST"
+          },
+          {
+            "title": "This hot AI-fueled stock has been in a rut. It just beat earnings expectations by 36%.",
+            "title_ko": "뜨거운 AI 주식 부진 탈출, 예상치 36% 상회",
+            "url": "https://www.marketwatch.com/story/this-hot-ai-fueled-stock-has-been-in-a-rut-it-just-beat-earnings-expectations-by-36-4a4188cb?mod=mw_rss_topstories",
+            "published_at": "2026-10-23 18:19:00 KST"
+          }
+        ],
+        "outlook": "Bloom Energy는 최근 실적 발표에서 예상치를 상회하는 성과를 보였으나, 일부 요인이 주가 하락 압력으로 작용할 수 있다는 분석이 있습니다. AI 기술과의 연관성이 부각되면서 관련 시장의 변동성에 영향을 받을 가능성이 있습니다. 다음 주에는 추가적인 실적 분석이나 에너지 정책 변화에 따른 시장 반응을 주시해야 할 것으로 보입니다. 단기적으로는 차익 실현 매물 출회 가능성도 고려해야 합니다."
+      },
+      {
+        "name": "Verizon",
+        "reason": "통신 서비스 제공업체로서 관련 업계 동향과 함께 언급되었습니다 (총 3건)",
+        "us_news_refs": [
+          6,
+          24
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SpaceX could be on the cusp of buying 80,000 cell towers in a bid to really challenge Verizon, AT&T and T-Mobile - Yahoo Finance",
+            "title_ko": "SpaceX, 버라이즌 등 통신사 도전 위해 셀 타워 인수 검토",
+            "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQTGR4Q1VFYUtEeThzajVwbll4emcxcWdfa3pRZ1NvRERaaVhQejQ5MGM0TkxsSk4zNk5UdEFOSElZamtSOE5vOGpwOW9JbFMyX3g3bTRkaUp4ZFVFU3d1RFd1ZEV1TW81Vm9tWUlLSTR1TkpYU3J0V0tRM2xoc0hJaUwyYUJXWTJkeWZDVDd1ak9nTjY0UUlwbDhGMXoyOXNzWFhYOFVlXzhYaEQ5dENRZHl6NlFnUlRBdjZDbUhfQ3lzN0M0djVZeEZKMm5oZXRGc3JNa1VIY0hRa1BLUE9YWWdSV0VNd0VBNDdScFRqSVRvT0x2R0FZQzFNTW4yWFBmMFE?oc=5",
+            "published_at": "2026-10-23 18:04:28 KST"
+          },
+          {
+            "title": "The mobile ambitions of SpaceX see telecom stocks get hit again. What the latest developments mean.",
+            "title_ko": "SpaceX 통신 야망, 통신주 다시 타격",
+            "url": "https://www.marketwatch.com/story/the-mobile-ambitions-of-spacex-see-telecom-stocks-get-hit-again-what-the-latest-developments-mean-9a4159b5?mod=mw_rss_topstories",
+            "published_at": "2026-10-23 18:01:00 KST"
+          }
+        ],
+        "outlook": "SpaceX의 통신 시장 진출 움직임은 Verizon을 포함한 기존 통신사들에게 경쟁 환경 변화를 예고하고 있습니다. SpaceX가 셀 타워 인수를 통해 통신 사업을 확장하려는 계획은 통신 업계 전반에 영향을 미칠 수 있습니다. 향후 일주일간 SpaceX의 구체적인 행보와 이에 대한 Verizon의 전략적 대응이 주목됩니다. 통신 규제 변화나 신규 서비스 출시 관련 소식도 주가에 영향을 줄 수 있는 요인입니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Oil",
+          "outlook": "향후 일주일간 유가 및 에너지 관련 기업들의 움직임이 주목받을 것으로 예상됩니다. 최근 유조선 운임 급등으로 인한 에너지 압박 심화와 이란 전쟁 최고치에 근접한 유가가 주요 촉매 요인으로 작용할 수 있습니다. 다만, 항공료가 이전 수준으로 돌아가지 않을 것이라는 아메리칸 에어라인의 경고는 에너지 수요에 대한 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 에너지 관련 정책 발표나 지정학적 이벤트 발생 여부에 따라 변동성이 커질 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "SpaceX",
+          "outlook": "SpaceX는 통신 시장 진출을 위한 80,000개 셀 타워 인수 가능성으로 인해 통신 업계에 영향을 미치고 있습니다. 이는 버라이즌, AT&T, T-Mobile과 같은 기존 통신사들에게 경쟁 압박으로 작용할 수 있습니다. 또한, 일론 머스크의 자녀 대상 증여 프로그램은 5년간의 대기 기간이라는 조건이 붙어 있습니다. 향후 일주일 내 SpaceX의 통신 인프라 확장 계획 구체화 여부 및 관련 통신사들의 대응이 주가에 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Bloom Energy",
+          "outlook": "Bloom Energy는 최근 실적 발표에서 예상치를 상회하는 성과를 보였으나, 일부 요인이 주가 하락 압력으로 작용할 수 있다는 분석이 있습니다. AI 기술과의 연관성이 부각되면서 관련 시장의 변동성에 영향을 받을 가능성이 있습니다. 다음 주에는 추가적인 실적 분석이나 에너지 정책 변화에 따른 시장 반응을 주시해야 할 것으로 보입니다. 단기적으로는 차익 실현 매물 출회 가능성도 고려해야 합니다."
+        },
+        {
+          "name": "Verizon",
+          "outlook": "SpaceX의 통신 시장 진출 움직임은 Verizon을 포함한 기존 통신사들에게 경쟁 환경 변화를 예고하고 있습니다. SpaceX가 셀 타워 인수를 통해 통신 사업을 확장하려는 계획은 통신 업계 전반에 영향을 미칠 수 있습니다. 향후 일주일간 SpaceX의 구체적인 행보와 이에 대한 Verizon의 전략적 대응이 주목됩니다. 통신 규제 변화나 신규 서비스 출시 관련 소식도 주가에 영향을 줄 수 있는 요인입니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "주 52시간 근로제",
+        "reason": "근로 시간 관련 정책 및 논의가 시장에서 꾸준히 주목받고 있음을 보여줍니다 (총 4건)",
+        "kr_news_refs": [
+          16,
+          82,
+          85,
+          96
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "\"주52시간 예외, 추가 수당 지급해야\"",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12184508",
+            "published_at": "2026-10-23 19:51:25 KST"
+          },
+          {
+            "title": "반도체 R&D 족쇄 풀릴까…이 대통령 “할증 임금 전제로 주52시간 논의”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12184444",
+            "published_at": "2026-10-23 17:49:06 KST"
+          },
+          {
+            "title": "李 \"52시간 예외, 남은 과제는 건강권\"",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12184440",
+            "published_at": "2026-10-23 17:47:16 KST"
+          },
+          {
+            "title": "\"주52시간 특례, 초과임금이 전제돼야\"",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12184432",
+            "published_at": "2026-10-23 17:45:03 KST"
+          }
+        ],
+        "outlook": "향후 일주일간 주 52시간 근로제 관련 논의가 지속될 것으로 예상됩니다. 특히, 반도체 R&D 분야에서의 예외 적용 및 추가 수당 지급에 대한 대통령의 발언이 시장의 관심을 받고 있습니다. 이는 관련 업종의 인력 운영 및 비용 구조에 영향을 미칠 수 있는 잠재적 촉매 요인입니다. 다만, 근로자의 건강권 보장과 같은 과제에 대한 논의도 함께 이루어질 것으로 보여, 정책 결정 과정에서의 불확실성이 단기 위험 요인이 될 수 있습니다. 다음 주에는 관련 법안 발의나 정부 발표 등 구체적인 움직임이 있을지 주목해야 합니다."
+      },
+      {
+        "name": "AI",
+        "reason": "인공지능 기술 및 관련 산업에 대한 지속적인 관심과 발전이 시장에서 부각되고 있습니다 (총 2건)",
+        "kr_news_refs": [
+          3,
+          6,
+          8,
+          10,
+          11,
+          12,
+          84
+        ],
+        "related_news": [
+          {
+            "title": "빅테크로 번진 AI 투자 부담… 메타 ’1155조원 AI 청구서’에 주가 급락 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxONWlNNTNJSFVwMUVhMTJCb0hPa1lod2xoY1NBRmxPWmd6ZGVHenZQeFVISGsyMFhYNVVRLXlIeFkwZ200Y1NJVUZPdFBGT3pTSmtVUVloVGpVN2ZNN1ZValpXamxFRTBUU3NuQkYzQVFsdTZKMUxOVDAzSmtzcGk2ZTdR0gGWAUFVX3lxTE5RZDQ0VUphVEhCLVR6NnRiWnhXYUt6UUxxNDgzSmg2NVpELXZsZlpKMUlNcDhFVFFldlNHbW15RHFvWEg4dFo2M0l3WWtmVnh4cVpYS2N4a3VDOWtSTll4SVlqeEVXZG5aNEltOHlrajRoZHktMnd5cnNOc0xIT3d2dUxGc0tkUFVxS0Jic1dfN0lpZF83QQ?oc=5",
+            "published_at": "2026-10-23 16:21:00 KST"
+          },
+          {
+            "title": "배경훈 \"AIDC 인허가 패스트트랙 필요‥세제혜택도 신속 협의\" - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1rMUV0aXlFUG1kRGROaXdRRExxNEZRaGFRVTM3d09VbXF5NVlDejdnNnhfWWkwNHpnQ0w0S0xUZlR6b09LQ0x0R2t6MUVyVk42NmVoSjl0UUJBWE85VVBRVjl6MmdNdzNJZEM1QVdGZWlFQ1py0gF0QVVfeXFMUDVCbEN4UVdxQXFFbk0yR1NjbzMwYXI4M3c0Y2duZ05EdGdCTWJiTzlLNDdUeU03a2xaOXlweFFhZE5zaXNPaWdFWGo3cG1HcWxfQ3VRYkV3elFTdHFmSVk5WWVQY0lWc3UwdEZDVVU1c0drS2w?oc=5",
+            "published_at": "2026-10-23 16:14:38 KST"
+          },
+          {
+            "title": "“국가안보 위협 막는다”…미국, AI·바이오 등 대중국 투자 규제 강화 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBUdGFQSS0xaDV3UF9ZeW5aTkFBNDRTeFFaRkI3aEdOMkEweWNMdTk4dVlwOWVqdlV3bV8zVGZNRlpodUFwcjRJSVVVRXNqR1pUOWI1U0hCN1hnU2M?oc=5",
+            "published_at": "2026-10-23 15:56:00 KST"
+          },
+          {
+            "title": "[산업이(異)면]AI·로봇 올인한다던 테슬라, 투자 50억달러 축소…K산업 변수 2가지 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5SdUJQel8zeUdiTk1WWWVtOU5wV3ZYTDBJMEZGeWVEcXhscXN2UGVQeldocTBmS2F1MDRUdnFqWWlIbEptRHdwZGZVOWpFYlEwSjVWVmYwZXotQdIBX0FVX3lxTFBXaHBEVXY3STk1ZXNCdl9XZ2xiMTY5SFFlR3JDRzNwbmZ5X05zczVMbC1vZ0R2V2JmVURQc21xbUotWF9nVGV3Qm12V3RVMF93aXpoVjZQWjBINXZyaWZR?oc=5",
+            "published_at": "2026-10-23 15:15:00 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 합병으로 일론 머스크 꿈 다가서나… AI 제국 완성해 화성 도시 건설 박차 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOZU9wSW1kWkxzRFFycE5vVU1aYmtmbGRIQkVpbnZtSTBpQUY2TTNmdTVsUnBNUXNNNi1LeUtHdHJndWEtNW56cmFJOTNxNkFZSU84c1o4OTYxcFVIR2JBV3ZqdTY5QTRFTXF2SU9paG8tdUlYWUhybTlMSkNiRU9kbUFCWHFuU2xLN2ZybtIBoAFBVV95cUxQUDgwemlpcWVCLXZQaC1iVktqVjNSZUVSZlpPNzM5bUxVNEZHVmkyMWk2N3J0MVdLX1l5OFg1MktEa0FhVGlIZURhdkI1ZS1wVUFYQk42aXhSMm5Ha2FzX1FKTVh5TTcxUXFYRHV1c1I3SHlSVXo5UFZCbU16RTdTY2VaU3B3Y0J1TzJ5aGFKYjVYb0FnRXFpMWlVZExOLVNE?oc=5",
+            "published_at": "2026-10-23 14:59:00 KST"
+          }
+        ],
+        "outlook": "AI 분야는 빅테크 기업들의 막대한 투자 부담과 중국의 AI 규제 강화 움직임으로 인해 투자 심리가 위축될 가능성이 있습니다. 메타의 AI 투자 비용 증가 소식은 관련 기업들의 수익성에 대한 우려를 자아낼 수 있습니다. 또한, 미국 정부의 대중국 AI 분야 투자 규제 강화는 글로벌 AI 시장의 재편 가능성을 시사합니다. 향후 일주일 내 AI 관련 기술 개발 성과 발표나 주요 기업들의 투자 전략 변화가 시장의 주요 변수가 될 수 있습니다. AI 숏 전문가의 관점 등 다양한 분석이 제시되고 있으나, 투자 결정에는 신중함이 요구됩니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "반도체 산업의 중요성과 관련 기업들의 동향이 시장에서 주목받고 있음을 나타냅니다 (총 2건)",
+        "kr_news_refs": [
+          7,
+          8,
+          11,
+          12,
+          16,
+          82,
+          93
+        ],
+        "related_news": [
+          {
+            "title": "이건희 선대회장 6주기 추도식…이재용 회장 등 삼성 일가 참석 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBhN242R0luOW1qSlllNDVKR2xoalRKOER3c1RIVGxtTVJIVkM5bTFNU1d2NTFuZ1dwZnIxZm1Kb1lNMU1XU2dWR1RkTnpmUnUxek1teFBBNVBtMms?oc=5",
+            "published_at": "2026-10-23 15:59:00 KST"
+          },
+          {
+            "title": "“국가안보 위협 막는다”…미국, AI·바이오 등 대중국 투자 규제 강화 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBUdGFQSS0xaDV3UF9ZeW5aTkFBNDRTeFFaRkI3aEdOMkEweWNMdTk4dVlwOWVqdlV3bV8zVGZNRlpodUFwcjRJSVVVRXNqR1pUOWI1U0hCN1hnU2M?oc=5",
+            "published_at": "2026-10-23 15:56:00 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 합병으로 일론 머스크 꿈 다가서나… AI 제국 완성해 화성 도시 건설 박차 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOZU9wSW1kWkxzRFFycE5vVU1aYmtmbGRIQkVpbnZtSTBpQUY2TTNmdTVsUnBNUXNNNi1LeUtHdHJndWEtNW56cmFJOTNxNkFZSU84c1o4OTYxcFVIR2JBV3ZqdTY5QTRFTXF2SU9paG8tdUlYWUhybTlMSkNiRU9kbUFCWHFuU2xLN2ZybtIBoAFBVV95cUxQUDgwemlpcWVCLXZQaC1iVktqVjNSZUVSZlpPNzM5bUxVNEZHVmkyMWk2N3J0MVdLX1l5OFg1MktEa0FhVGlIZURhdkI1ZS1wVUFYQk42aXhSMm5Ha2FzX1FKTVh5TTcxUXFYRHV1c1I3SHlSVXo5UFZCbU16RTdTY2VaU3B3Y0J1TzJ5aGFKYjVYb0FnRXFpMWlVZExOLVNE?oc=5",
+            "published_at": "2026-10-23 14:59:00 KST"
+          },
+          {
+            "title": "젠슨 황 “2029년에도 메모리 공급과잉 가능성 낮아… HBM 수요 지속” - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNbzhGcHp3MGtpTWN4bTZXNXhkZUx3QXdfUGZrNlpfQWVKdEJJMTdlN0Mzc2ptTnJWZTJ4VEw1S2loZnZ1c3NqaEFaeUdjcVppZkJoaWlJVXBlM2hERllrVjdZUnJvWmlEQkRLbWhwUktfOXJwOFBzdGlEVXBVT21PRGpB0gGWAUFVX3lxTFBpUTk0dWZTY3UxcE95QUhyMEZqeW1rMjFsWW91YS1nR3g1NUJHYTZFV2lxREN4WFUzQVQ3dER4RzRPNG9CZ1NpRE1tdnRoREFUSDNmY3REX3VMYnFCcW5wWG5QekM1WDE3SXVyRVR0ZDdOWFZUNmJYS3d6VGdSWmxkTnc4U0N2ODNsMDQ4V0JoZGdpQURIQQ?oc=5",
+            "published_at": "2026-10-23 14:47:00 KST"
+          },
+          {
+            "title": "\"주52시간 예외, 추가 수당 지급해야\"",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12184508",
+            "published_at": "2026-10-23 19:51:25 KST"
+          }
+        ],
+        "outlook": "반도체 산업은 젠슨 황 CEO의 HBM 수요 지속 전망에도 불구하고, 시장 전반의 투자 심리 위축 가능성을 염두에 두어야 합니다. 최근 실적은 견조함에도 불구하고 주가 하락이 지속되는 현상은 투자자들의 경계감을 높이고 있습니다. 미국 정부의 대중국 첨단 기술 투자 규제 강화는 글로벌 반도체 공급망에 영향을 미칠 수 있는 요인입니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 신규 기술 개발 관련 소식이 주가에 영향을 줄 수 있습니다. 단기적으로는 차익 실현 압력이 나타날 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Meta",
+        "reason": "기술 기업으로서 AI 및 관련 산업 동향과 함께 시장에서 높은 빈도로 언급되었습니다 (총 5건)",
+        "kr_news_refs": [
+          3,
+          10,
+          11,
+          60
+        ],
+        "related_news": [
+          {
+            "title": "빅테크로 번진 AI 투자 부담… 메타 ’1155조원 AI 청구서’에 주가 급락 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxONWlNNTNJSFVwMUVhMTJCb0hPa1lod2xoY1NBRmxPWmd6ZGVHenZQeFVISGsyMFhYNVVRLXlIeFkwZ200Y1NJVUZPdFBGT3pTSmtVUVloVGpVN2ZNN1ZValpXamxFRTBUU3NuQkYzQVFsdTZKMUxOVDAzSmtzcGk2ZTdR0gGWAUFVX3lxTE5RZDQ0VUphVEhCLVR6NnRiWnhXYUt6UUxxNDgzSmg2NVpELXZsZlpKMUlNcDhFVFFldlNHbW15RHFvWEg4dFo2M0l3WWtmVnh4cVpYS2N4a3VDOWtSTll4SVlqeEVXZG5aNEltOHlrajRoZHktMnd5cnNOc0xIT3d2dUxGc0tkUFVxS0Jic1dfN0lpZF83QQ?oc=5",
+            "published_at": "2026-10-23 16:21:00 KST"
+          },
+          {
+            "title": "[산업이(異)면]AI·로봇 올인한다던 테슬라, 투자 50억달러 축소…K산업 변수 2가지 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5SdUJQel8zeUdiTk1WWWVtOU5wV3ZYTDBJMEZGeWVEcXhscXN2UGVQeldocTBmS2F1MDRUdnFqWWlIbEptRHdwZGZVOWpFYlEwSjVWVmYwZXotQdIBX0FVX3lxTFBXaHBEVXY3STk1ZXNCdl9XZ2xiMTY5SFFlR3JDRzNwbmZ5X05zczVMbC1vZ0R2V2JmVURQc21xbUotWF9nVGV3Qm12V3RVMF93aXpoVjZQWjBINXZyaWZR?oc=5",
+            "published_at": "2026-10-23 15:15:00 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 합병으로 일론 머스크 꿈 다가서나… AI 제국 완성해 화성 도시 건설 박차 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOZU9wSW1kWkxzRFFycE5vVU1aYmtmbGRIQkVpbnZtSTBpQUY2TTNmdTVsUnBNUXNNNi1LeUtHdHJndWEtNW56cmFJOTNxNkFZSU84c1o4OTYxcFVIR2JBV3ZqdTY5QTRFTXF2SU9paG8tdUlYWUhybTlMSkNiRU9kbUFCWHFuU2xLN2ZybtIBoAFBVV95cUxQUDgwemlpcWVCLXZQaC1iVktqVjNSZUVSZlpPNzM5bUxVNEZHVmkyMWk2N3J0MVdLX1l5OFg1MktEa0FhVGlIZURhdkI1ZS1wVUFYQk42aXhSMm5Ha2FzX1FKTVh5TTcxUXFYRHV1c1I3SHlSVXo5UFZCbU16RTdTY2VaU3B3Y0J1TzJ5aGFKYjVYb0FnRXFpMWlVZExOLVNE?oc=5",
+            "published_at": "2026-10-23 14:59:00 KST"
+          },
+          {
+            "title": "메타는 ‘돈 버는 AI’, 테슬라는 ‘아직 돈 쓰는 로봇’ [플러스 관심종목]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12184464",
+            "published_at": "2026-10-23 18:07:01 KST"
+          }
+        ],
+        "outlook": "Meta는 AI 투자 부담 증가와 관련하여 주가 급락 가능성이 제기되고 있습니다. 막대한 AI 투자 비용이 수익성에 부담으로 작용할 수 있다는 분석이 나오고 있습니다. 또한, 미국 정부의 대중국 첨단 기술 투자 규제 강화는 Meta의 사업 전략에 영향을 미칠 수 있습니다. 향후 일주일 내 Meta의 AI 투자 전략 변화나 신규 서비스 출시 관련 소식이 주가에 영향을 줄 수 있습니다. 단기적으로는 투자자들의 차익 실현 심리가 작용할 수 있습니다."
+      },
+      {
+        "name": "스페이스X",
+        "reason": "우주 산업 분야의 혁신과 관련 기업의 활동이 시장에서 주목받고 있음을 나타냅니다 (총 3건)",
+        "kr_news_refs": [
+          10,
+          11,
+          60
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[산업이(異)면]AI·로봇 올인한다던 테슬라, 투자 50억달러 축소…K산업 변수 2가지 - 경향신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5SdUJQel8zeUdiTk1WWWVtOU5wV3ZYTDBJMEZGeWVEcXhscXN2UGVQeldocTBmS2F1MDRUdnFqWWlIbEptRHdwZGZVOWpFYlEwSjVWVmYwZXotQdIBX0FVX3lxTFBXaHBEVXY3STk1ZXNCdl9XZ2xiMTY5SFFlR3JDRzNwbmZ5X05zczVMbC1vZ0R2V2JmVURQc21xbUotWF9nVGV3Qm12V3RVMF93aXpoVjZQWjBINXZyaWZR?oc=5",
+            "published_at": "2026-10-23 15:15:00 KST"
+          },
+          {
+            "title": "테슬라·스페이스X 합병으로 일론 머스크 꿈 다가서나… AI 제국 완성해 화성 도시 건설 박차 - 조선비즈 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOZU9wSW1kWkxzRFFycE5vVU1aYmtmbGRIQkVpbnZtSTBpQUY2TTNmdTVsUnBNUXNNNi1LeUtHdHJndWEtNW56cmFJOTNxNkFZSU84c1o4OTYxcFVIR2JBV3ZqdTY5QTRFTXF2SU9paG8tdUlYWUhybTlMSkNiRU9kbUFCWHFuU2xLN2ZybtIBoAFBVV95cUxQUDgwemlpcWVCLXZQaC1iVktqVjNSZUVSZlpPNzM5bUxVNEZHVmkyMWk2N3J0MVdLX1l5OFg1MktEa0FhVGlIZURhdkI1ZS1wVUFYQk42aXhSMm5Ha2FzX1FKTVh5TTcxUXFYRHV1c1I3SHlSVXo5UFZCbU16RTdTY2VaU3B3Y0J1TzJ5aGFKYjVYb0FnRXFpMWlVZExOLVNE?oc=5",
+            "published_at": "2026-10-23 14:59:00 KST"
+          },
+          {
+            "title": "메타는 ‘돈 버는 AI’, 테슬라는 ‘아직 돈 쓰는 로봇’ [플러스 관심종목]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12184464",
+            "published_at": "2026-10-23 18:07:01 KST"
+          }
+        ],
+        "outlook": "스페이스X는 테슬라와의 합병 가능성 및 AI 제국 건설을 통한 화성 도시 건설이라는 장기적인 비전을 제시하고 있습니다. 이는 우주 산업 및 AI 기술 발전에 대한 기대감을 높이는 요인입니다. 다만, 테슬라의 AI 및 로봇 투자 축소 소식은 스페이스X의 관련 사업 추진에도 영향을 미칠 수 있는 잠재적 위험 요인입니다. 향후 일주일 내 스페이스X의 구체적인 사업 계획 발표나 기술 개발 마일스톤 달성 여부가 주목됩니다. 관련 업계의 경쟁 심화 가능성도 고려해야 합니다."
+      },
+      {
+        "name": "우리금융",
+        "reason": "금융 업계의 주요 기업으로, 관련 시장 동향과 함께 언급되었습니다 (총 3건)",
+        "kr_news_refs": [
+          1,
+          97
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "우리금융 \"보험사 추가 출자 없다\" 선 긋기…ABL 사옥 팔아 자본 방어 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQeTZXSWItU0ZxSGh4V2ltcGF6dFVNZ0xvSjZndjZQc1FLSnV2LTFDZ3ItYWc3OGxfV05KMDE0REt5VFhNcVhlenFmeXpmQmNoeVgtZmd4WlduVzVkYVVOQ1JhUkowM09tVUxWbWJzQWtFQ2tQWVBXVzc5NWFneUUyQUVGdw?oc=5",
+            "published_at": "2026-10-23 18:10:00 KST"
+          },
+          {
+            "title": "하나·우리금융 3분기 호실적 … 역대급 이익에 주주환원 강화",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12184429",
+            "published_at": "2026-10-23 17:45:02 KST"
+          }
+        ],
+        "outlook": "우리금융은 보험사 추가 출자에 대한 부정적인 입장을 밝히며 자본 방어에 나섰습니다. 이는 향후 인수합병(M&A) 시장에서의 행보에 대한 시장의 관심을 높일 수 있습니다. 3분기 호실적을 바탕으로 주주환원 강화 기대감이 존재합니다. 다음 주에는 금융 시장 전반의 금리 변동성이나 정부의 금융 정책 변화 등이 우리금융의 주가에 영향을 미칠 수 있습니다. 다만, 추가적인 M&A 관련 소식이 없을 경우 단기적인 모멘텀 부재가 나타날 수 있습니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "주 52시간 근로제",
+          "outlook": "향후 일주일간 주 52시간 근로제 관련 논의가 지속될 것으로 예상됩니다. 특히, 반도체 R&D 분야에서의 예외 적용 및 추가 수당 지급에 대한 대통령의 발언이 시장의 관심을 받고 있습니다. 이는 관련 업종의 인력 운영 및 비용 구조에 영향을 미칠 수 있는 잠재적 촉매 요인입니다. 다만, 근로자의 건강권 보장과 같은 과제에 대한 논의도 함께 이루어질 것으로 보여, 정책 결정 과정에서의 불확실성이 단기 위험 요인이 될 수 있습니다. 다음 주에는 관련 법안 발의나 정부 발표 등 구체적인 움직임이 있을지 주목해야 합니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 분야는 빅테크 기업들의 막대한 투자 부담과 중국의 AI 규제 강화 움직임으로 인해 투자 심리가 위축될 가능성이 있습니다. 메타의 AI 투자 비용 증가 소식은 관련 기업들의 수익성에 대한 우려를 자아낼 수 있습니다. 또한, 미국 정부의 대중국 AI 분야 투자 규제 강화는 글로벌 AI 시장의 재편 가능성을 시사합니다. 향후 일주일 내 AI 관련 기술 개발 성과 발표나 주요 기업들의 투자 전략 변화가 시장의 주요 변수가 될 수 있습니다. AI 숏 전문가의 관점 등 다양한 분석이 제시되고 있으나, 투자 결정에는 신중함이 요구됩니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "반도체 산업은 젠슨 황 CEO의 HBM 수요 지속 전망에도 불구하고, 시장 전반의 투자 심리 위축 가능성을 염두에 두어야 합니다. 최근 실적은 견조함에도 불구하고 주가 하락이 지속되는 현상은 투자자들의 경계감을 높이고 있습니다. 미국 정부의 대중국 첨단 기술 투자 규제 강화는 글로벌 반도체 공급망에 영향을 미칠 수 있는 요인입니다. 다음 주에는 주요 반도체 기업들의 실적 발표나 신규 기술 개발 관련 소식이 주가에 영향을 줄 수 있습니다. 단기적으로는 차익 실현 압력이 나타날 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Meta",
+          "outlook": "Meta는 AI 투자 부담 증가와 관련하여 주가 급락 가능성이 제기되고 있습니다. 막대한 AI 투자 비용이 수익성에 부담으로 작용할 수 있다는 분석이 나오고 있습니다. 또한, 미국 정부의 대중국 첨단 기술 투자 규제 강화는 Meta의 사업 전략에 영향을 미칠 수 있습니다. 향후 일주일 내 Meta의 AI 투자 전략 변화나 신규 서비스 출시 관련 소식이 주가에 영향을 줄 수 있습니다. 단기적으로는 투자자들의 차익 실현 심리가 작용할 수 있습니다."
+        },
+        {
+          "name": "스페이스X",
+          "outlook": "스페이스X는 테슬라와의 합병 가능성 및 AI 제국 건설을 통한 화성 도시 건설이라는 장기적인 비전을 제시하고 있습니다. 이는 우주 산업 및 AI 기술 발전에 대한 기대감을 높이는 요인입니다. 다만, 테슬라의 AI 및 로봇 투자 축소 소식은 스페이스X의 관련 사업 추진에도 영향을 미칠 수 있는 잠재적 위험 요인입니다. 향후 일주일 내 스페이스X의 구체적인 사업 계획 발표나 기술 개발 마일스톤 달성 여부가 주목됩니다. 관련 업계의 경쟁 심화 가능성도 고려해야 합니다."
+        },
+        {
+          "name": "우리금융",
+          "outlook": "우리금융은 보험사 추가 출자에 대한 부정적인 입장을 밝히며 자본 방어에 나섰습니다. 이는 향후 인수합병(M&A) 시장에서의 행보에 대한 시장의 관심을 높일 수 있습니다. 3분기 호실적을 바탕으로 주주환원 강화 기대감이 존재합니다. 다음 주에는 금융 시장 전반의 금리 변동성이나 정부의 금융 정책 변화 등이 우리금융의 주가에 영향을 미칠 수 있습니다. 다만, 추가적인 M&A 관련 소식이 없을 경우 단기적인 모멘텀 부재가 나타날 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 분야의 투자 불안정성과 함께 AI 프롬프트 엔지니어링 능력에 대한 논의가 언급되었습니다. 또한, 중국의 AI 분야 '4대 천왕'과 AI 숏 전문가의 관점에 대한 내용이 포함되었습니다.",
+        "refs": [
+          7,
+          9,
+          2
+        ],
+        "reason": "AI 분야의 투자 불안정성과 함께 AI 프롬프트 엔지니어링 능력에 대한 논의가 언급되었습니다. 또한, 중국의 AI 분야 '4대 천왕'과 AI 숏 전문가의 관점에 대한 내용이 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "의문의 취업 1티어로 떠오른다는 철학 전공",
+            "url": "https://www.youtube.com/watch?v=_xEVeoqLncA",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-22 18:57:05 KST"
+          },
+          {
+            "title": "AI를 숏친, 세계에서 가장 유명한 숏전문가",
+            "url": "https://www.youtube.com/watch?v=92mEdPLMlFY",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-21 22:20:25 KST"
+          },
+          {
+            "title": "[26.10.23 오후 방송 전체보기] AI 투자 불안에 추가 하락 경계감은 여전…낙폭 줄인 국내 증시, 다음 주 분위기 전환 신호?",
+            "url": "https://www.youtube.com/watch?v=-7VPwauiOvk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-23 19:12:21 KST"
+          }
+        ],
+        "outlook": "AI 분야는 투자 불안정성과 함께 AI 프롬프트 엔지니어링 능력의 중요성이 부각되고 있습니다. 중국의 AI '4대 천왕'과 AI 숏 전문가의 관점 등 다양한 분석이 제시되고 있습니다. 향후 일주일 내 AI 관련 기술 개발 성과 발표나 주요 기업들의 투자 전략 변화가 시장의 주요 변수가 될 수 있습니다. 다만, AI 투자에 대한 경계감이 여전하며, 국내 증시의 전반적인 분위기 전환 신호가 나타나기 전까지는 신중한 접근이 필요해 보입니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "반도체 산업의 실적은 좋으나 주가 하락이 지속되는 현상과 관련하여, 애널리스트가 반도체 피크 시점을 아직 언급하지 않는 이유에 대한 분석이 제시되었습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "반도체 산업의 실적은 좋으나 주가 하락이 지속되는 현상과 관련하여, 애널리스트가 반도체 피크 시점을 아직 언급하지 않는 이유에 대한 분석이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "실적은 계속 좋은데 왜 주가만 무너지나…빈센트가 아직 반도체 피크를 말하지 않는 이유ㅣ홍선애, 빈센트 하나증권 애널리스트 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=ce-C_sDQKmY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-23 17:59:19 KST"
+          }
+        ],
+        "outlook": "반도체 산업은 실적 호조에도 불구하고 주가 하락이 지속되는 현상에 대한 분석이 나오고 있습니다. 애널리스트들은 아직 반도체 피크 시점을 언급하지 않고 있으며, 이는 시장의 불확실성을 반영합니다. 향후 일주일 내 반도체 관련 기업들의 실적 발표나 신규 기술 개발 관련 소식이 주가에 영향을 줄 수 있습니다. 다만, 거시 경제 변수 및 투자 심리 위축 가능성을 고려할 때, 단기적인 변동성 확대 가능성도 배제할 수 없습니다."
+      },
+      {
+        "name": "주식 시장",
+        "freq": 4,
+        "summary": "국내 증시의 낙폭 축소와 다음 주 분위기 전환 신호에 대한 기대감이 언급되었습니다. 또한, 한국 주식 시장의 역대급 바닥론과 11월 상승 가능성, 코스피의 '현실 부정' 단계 진입 가능성, 그리고 세상이 억까하는 주식 시장에 대한 분석이 포함되었습니다.",
+        "refs": [
+          2,
+          3,
+          4,
+          9,
+          8
+        ],
+        "reason": "국내 증시의 낙폭 축소와 다음 주 분위기 전환 신호에 대한 기대감이 언급되었습니다. 또한, 한국 주식 시장의 역대급 바닥론과 11월 상승 가능성, 코스피의 '현실 부정' 단계 진입 가능성, 그리고 세상이 억까하는 주식 시장에 대한 분석이 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.10.23 오후 방송 전체보기] AI 투자 불안에 추가 하락 경계감은 여전…낙폭 줄인 국내 증시, 다음 주 분위기 전환 신호?",
+            "url": "https://www.youtube.com/watch?v=-7VPwauiOvk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-23 19:12:21 KST"
+          },
+          {
+            "title": "한국 주식 역대급 바닥은 다졌다, 11월부터 무섭게 오를 주식 1순위 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=ifwvrMlR9bg",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-23 19:00:10 KST"
+          },
+          {
+            "title": "절망속의 코스피, 여기서부터 잘못됐다 | 소현철 상지대학교 외래교수 [더블 업]",
+            "url": "https://www.youtube.com/watch?v=Sb6Mo74l6pU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-23 18:17:51 KST"
+          },
+          {
+            "title": "AI를 숏친, 세계에서 가장 유명한 숏전문가",
+            "url": "https://www.youtube.com/watch?v=92mEdPLMlFY",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-21 22:20:25 KST"
+          },
+          {
+            "title": "세상이 억까하는 주식시장",
+            "url": "https://www.youtube.com/watch?v=JYKRXrbA5x4",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-22 17:39:32 KST"
+          }
+        ],
+        "outlook": "국내 주식 시장은 낙폭을 줄이며 다음 주 분위기 전환에 대한 기대감이 나타나고 있습니다. 일부에서는 역대급 바닥론과 함께 11월 상승 가능성을 제기하고 있습니다. 그러나 AI 투자 불안에 따른 추가 하락 경계감도 여전한 상황입니다. 향후 일주일 내 국내외 주요 경제 지표 발표 및 기업 실적 발표가 시장 방향성에 영향을 미칠 수 있습니다. 코스피의 '현실 부정' 단계 진입 가능성 등 다양한 분석이 제시되고 있으나, 투자 결정에는 신중한 접근이 요구됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "SK하이닉스 주식을 현재 보유하고 있을 경우, 장기적으로 어떤 결과가 예상되는지에 대한 분석이 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "SK하이닉스 주식을 현재 보유하고 있을 경우, 장기적으로 어떤 결과가 예상되는지에 대한 분석이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "SK하이닉스 지금 안 팔고 버티면, 장기적으로 '이렇게' 될 겁니다 (빈센트 위원)",
+            "url": "https://www.youtube.com/watch?v=9o6rK85OVdA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-23 17:45:05 KST"
+          }
+        ],
+        "outlook": "SK하이닉스 보유자들은 장기적인 관점에서 주가 흐름을 주시할 필요가 있습니다. 현재 보유 중인 주식을 매도하지 않고 장기 보유 시 긍정적인 결과가 예상된다는 분석이 제시되었습니다. 향후 일주일 내 반도체 업황 변화나 HBM 시장 동향 관련 뉴스가 주가에 영향을 미칠 수 있습니다. 다만, 거시 경제 불확실성 및 전반적인 시장 심리 위축 가능성을 고려하여 신중한 접근이 필요합니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Bloom Energy",
+          "freq": 3
+        },
+        {
+          "name": "Verizon",
+          "freq": 3
+        },
+        {
+          "name": "AT&T",
+          "freq": 3
+        },
+        {
+          "name": "T-Mobile",
+          "freq": 3
+        },
+        {
+          "name": "Microsoft",
+          "freq": 3
+        },
+        {
+          "name": "Meta",
+          "freq": 2
+        },
+        {
+          "name": "Moderna",
+          "freq": 2
+        },
+        {
+          "name": "Merck",
+          "freq": 2
+        },
+        {
+          "name": "Chevron",
+          "freq": 1
+        },
+        {
+          "name": "Astronics",
+          "freq": 1
+        },
+        {
+          "name": "VSE",
+          "freq": 1
+        },
+        {
+          "name": "Proto Labs",
+          "freq": 1
+        },
+        {
+          "name": "FTAI Infrastructure",
+          "freq": 1
+        },
+        {
+          "name": "Autoliv",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Treasuries",
+          "freq": 4
+        },
+        {
+          "name": "Telecom",
+          "freq": 4
+        },
+        {
+          "name": "Oil",
+          "freq": 3
+        },
+        {
+          "name": "Cancer Vaccine",
+          "freq": 3
+        },
+        {
+          "name": "Gold",
+          "freq": 3
+        },
+        {
+          "name": "Housing",
+          "freq": 3
+        },
+        {
+          "name": "Tech Stocks",
+          "freq": 3
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Chip Stocks",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "Medical Technology",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Air Travel",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Meta",
+          "freq": 5
+        },
+        {
+          "name": "Tesla",
+          "freq": 2
+        },
+        {
+          "name": "스페이스X",
+          "freq": 3
+        },
+        {
+          "name": "우리금융",
+          "freq": 3
+        },
+        {
+          "name": "한국유나이티드제약",
+          "freq": 2
+        },
+        {
+          "name": "BYD",
+          "freq": 2
+        },
+        {
+          "name": "장금상선",
+          "freq": 2
+        },
+        {
+          "name": "삼성",
+          "freq": 1
+        },
+        {
+          "name": "SK",
+          "freq": 1
+        },
+        {
+          "name": "GS",
+          "freq": 1
+        },
+        {
+          "name": "NAVER",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "알티캐스트",
+          "freq": 1
+        },
+        {
+          "name": "알티모빌리티",
+          "freq": 1
+        },
+        {
+          "name": "하나금융지주",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "주 52시간 근로제",
+          "freq": 4
+        },
+        {
+          "name": "모빌리티",
+          "freq": 2
+        },
+        {
+          "name": "항암제",
+          "freq": 2
+        },
+        {
+          "name": "전기차",
+          "freq": 2
+        },
+        {
+          "name": "데이터센터",
+          "freq": 2
+        },
+        {
+          "name": "바이오헬스",
+          "freq": 2
+        },
+        {
+          "name": "메모리 반도체",
+          "freq": 2
+        },
+        {
+          "name": "로봇",
+          "freq": 2
+        },
+        {
+          "name": "원유 수송",
+          "freq": 2
+        },
+        {
+          "name": "포용금융",
+          "freq": 2
+        },
+        {
+          "name": "HBM",
+          "freq": 1
+        },
+        {
+          "name": "의료 AI",
+          "freq": 1
+        },
+        {
+          "name": "주주환원",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
