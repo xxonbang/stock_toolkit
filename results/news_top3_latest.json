@@ -1,101 +1,137 @@
 {
-  "generated_at": "2026-10-25 07:31 KST",
+  "generated_at": "2026-10-25 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 관련 기술 발전 및 챗GPT 관련 업데이트 소식이 지속적으로 보도되며 시장의 주목을 받고 있습니다 (총 9건).",
+        "reason": "AI 관련 기술 발전 및 챗GPT 등 생성형 AI에 대한 지속적인 관심이 관련 기업들의 주가에 영향을 미치고 있습니다. (총 10건)",
         "us_news_refs": [
-          2,
-          30,
-          34,
-          36,
-          42,
-          43,
-          53,
-          80,
-          98
+          1,
+          3,
+          8,
+          13,
+          16,
+          17,
+          20,
+          24,
+          29,
+          36
         ],
         "related_news": [
           {
-            "title": "Washington's message to AI execs: Please shut up - Axios",
-            "title_ko": "워싱턴, AI 경영진에 '입 다물라' 메시지",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE8wek12YTUyUzgzdUdPSVM0dks4SVJuZklBdjBoR2h3aVRLNm5PaDBpZWhOWWhHdGtnOElrMWUxZzEzNy1vd2JwVmYwS2xmN0ZDVWlSN24yMWxzRzVLSXNIcXRWWEpiQUhhMFE4S1I4UEtycmR4QzB1Zks3SQ?oc=5",
-            "published_at": "2026-10-25 02:45:16 KST"
+            "title": "Put Your A.I. Agents to Work With These 5 Killer Tasks - The New York Times",
+            "title_ko": "AI 에이전트 5가지 활용법",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNaEJEeDdVWlV4QVNFelhJZjU0Q244SzdNbUZsQjNGaTc1dTNxLWNwZHVkS2dXdG8yazhvTFk4MGNNM255OXZrejA5MHpIWmVqMUxiRE5wS0JveWUzdjVOc1VjZGEtU3FFRlNGOHNadGJPaUJHVFUyUGZiamxubS1LZUZvMFZBQXlfclp6dGFoT3VDS2otVTc2YU5sMFVMd3FWOXc?oc=5",
+            "published_at": "2026-10-25 18:01:00 KST"
           },
           {
-            "title": "China urges US to halt proposed expansion of outbound investment curbs - Reuters",
-            "title_ko": "중국, 미국의 해외 투자 제한 확대 중단 촉구",
-            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOY3V2bWpZckhlWExlaDZRLTR0NG1MY3l4NmpfZzJCUkVpSkJGblR1S0RScmxSa2tWWVhtZFdBNzkyc0ZaUnlDU2lVNEh3WUpUTkw3d0tIdGlzeTNrRnpWNFhiUk9xTEw4bENXWmxuRlRYTXQtU2N4MXRLVURsUkVxYUpGMks3R0hUaXA4eUZHSXNBWXRLRUN4VVkyVW5WQlBVUFo1dnRSVGxPYmxqMXRXUnVn?oc=5",
-            "published_at": "2026-10-24 22:51:55 KST"
+            "title": "A Veteran of the Telecom Bust Navigates the AI Boom - WSJ",
+            "title_ko": "통신 버블 베테랑, AI 붐 항해",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNN3JKcms5UjVjeV93TWhFU29SaHUzU2pRUVdvOTFWVnhqYjBJenBUY1BKWlM5RnlJbFF6TkZnM3BhUnZ6alVhY1dPbWtoN1AzVUpRSC1pWDBuTF9OWXh4dVFBYlpMcl92SGZSN0JjWTMxXzdtSHhOeTl3Q3dtMDNQV1diTEJ0SWNnb2ZvMHR2RldHa0J6SEdn?oc=5",
+            "published_at": "2026-10-25 19:24:06 KST"
           },
           {
-            "title": "The PHP Meltdown Shows How AI Makes Bugs More Exploitable - WIRED",
-            "title_ko": "PHP 붕괴, AI가 버그 악용 더 쉽게 만들어",
-            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeXRXRDAzd3BYT0ZnZFl3SjJvTEJjd1NxN0w1NlBrUGdNTFZObFRlN05weHJTMHRrVmZkNkx1TV9RMDRiRjRNWW1NeTE4SDQ0OHVBZ1A3bnp3dDBNRkFReGI3MXpLWWFMOXJ0d2ZvN0RvaVpCSklST1ZhUHI5RjhXdVBXUFRWMTA0SF95cTZpWmZHVk8wbEJ1TXZZSWVCaVEw?oc=5",
-            "published_at": "2026-10-24 21:00:00 KST"
+            "title": "Recent labor market data show some signs of AI-related hiring headwinds",
+            "title_ko": "최근 노동 시장 데이터, AI 채용 난항 조짐 보여",
+            "url": "https://www.investing.com/news/stock-market-news/recent-labor-market-data-show-some-signs-of-airelated-hiring-headwinds-4971102",
+            "published_at": "2026-10-25 19:02:43 KST"
           },
           {
-            "title": "OpenAI's isolated AI agents found ways to talk to each other through CPU cache - The Decoder",
-            "title_ko": "OpenAI 에이전트, CPU 캐시 통해 상호 통신 발견",
-            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPTWJhNW92T3F2WmQ4ajFOZGFBTnNkckxMenAtWXU3S21wN0lyeXBJMmxmOGdCT3dobDdqclV1SkpjcFZDdGM3V2ZNNWk1d21veTNGT0dqN2JNU3VLWEpybVYwbFdfOTkxcHdtUXdwMmhpS2t6T09sUWttZXpsYkMyOWY0RnJoRHNGYXBseUdNeHBGZHhDTTB6ZmdHVExaX0tiYTd3aw?oc=5",
-            "published_at": "2026-10-24 20:18:17 KST"
+            "title": "Goldman Sachs cuts Kospi target by 25% amid AI stock selloff",
+            "title_ko": "Goldman Sachs, AI 주식 매도 속 코스피 목표치 25% 하향",
+            "url": "https://www.investing.com/news/stock-market-news/goldman-sachs-cuts-kospi-target-by-25-amid-ai-stock-selloff-4971079",
+            "published_at": "2026-10-25 17:50:52 KST"
           },
           {
-            "title": "Wall Street prepares for AI's \"day after\" - Axios",
-            "title_ko": "월스트리트, AI '그 이후' 준비",
-            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBELWM3bUxSQXlCTjVWQ0R6VUZQUklkcHJQQndPQjhFZXNweUJpckN4cFhYV19SZElsNmRtN1lxWG5TY0dmajFLbmRiZXhHd2tYZGs0VEVLQ3R0bzJWNF8wMDFfSnpKRWFyVkVV?oc=5",
-            "published_at": "2026-10-24 17:00:54 KST"
+            "title": "Sinking Profits Turn China’s $3.5 Trillion Stock Rout Into Trap - Bloomberg.com",
+            "title_ko": "중국 3.5조 달러 주식 폭락, 함정으로 변모",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObEthY2hVTFl0LTd4dlNRQjJWTF9OdnNWb2NCQUNFTE4xNkR2d0NPUUROdFRRSEREMXBiMUd5aDRlNVY0SWZRUm5OTXdCV3JYNnA2OGdBTGxIRTZCcFV5OUoyUEV4SUNlREh0SHNCQ3hudGZaUDZ4aGNSaC1wd2lDcjlGR0hjVWNWVU9nX21QSVZQSGlXZVBqZHRMV3NUTGF4dTkteWloRmdkd2JRWUUyaUJFWQ?oc=5",
+            "published_at": "2026-10-25 09:00:00 KST"
           }
         ],
-        "outlook": "AI 섹터는 지속적인 기술 발전과 챗GPT 관련 업데이트 소식으로 시장의 주목을 받고 있습니다. OpenAI의 에이전트가 CPU 캐시를 통해 상호 통신하는 기술이 발견되었으며, 이는 AI의 새로운 가능성을 시사합니다. 또한, PHP 취약점 악용에 AI가 사용될 수 있다는 보도는 AI 기술의 양면성을 보여줍니다. 다만, 워싱턴의 AI 경영진에 대한 메시지는 규제 강화 가능성을 시사하며 단기적인 불확실성을 야기할 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표나 새로운 기술 발표가 예정되어 있는지 주목할 필요가 있습니다."
-      },
+        "outlook": "AI 분야는 지속적인 기술 발전과 생성형 AI에 대한 높은 관심이 시장을 주도하고 있습니다. 최근 노동 시장 데이터에서 AI 관련 채용의 어려움이 일부 감지되었으나, 이는 AI 기술의 성숙 과정에서 나타날 수 있는 현상으로 해석될 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 신제품 발표나 기술 업데이트 소식이 촉매제가 될 수 있습니다. 다만, AI 기술 발전 속도에 대한 과도한 기대감은 차익실현 압력으로 작용할 가능성도 있습니다."
+      }
+    ],
+    "top3_stocks": [
       {
-        "name": "Retirement Planning",
-        "reason": "은퇴 자금 마련 및 관련 금융 상품에 대한 관심이 높아지면서 해당 섹터가 부각되고 있습니다 (총 3건).",
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 증가 및 관련 기술 발전 기대감이 지속적으로 주가에 반영되고 있습니다. (총 3건)",
         "us_news_refs": [
-          19,
-          21,
-          35
+          13,
+          37
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "I’m 58 and hate annuities. How can I get dependable income in retirement?",
-            "title_ko": "58세, 연금 싫어… 은퇴 후 안정적 수입은?",
-            "url": "https://www.marketwatch.com/story/im-58-and-hate-annuities-how-can-i-get-dependable-income-in-retirement-cd6040f4?mod=mw_rss_topstories",
-            "published_at": "2026-10-25 03:03:00 KST"
+            "title": "Goldman Sachs cuts Kospi target by 25% amid AI stock selloff",
+            "title_ko": "Goldman Sachs, AI 주식 매도 속 코스피 목표치 25% 하향",
+            "url": "https://www.investing.com/news/stock-market-news/goldman-sachs-cuts-kospi-target-by-25-amid-ai-stock-selloff-4971079",
+            "published_at": "2026-10-25 17:50:52 KST"
           },
           {
-            "title": "Over 40% of Americans are heading toward retirement ‘blind’ — with no plan",
-            "title_ko": "40% 이상 미국인, 은퇴 계획 없이 '눈먼' 상태",
-            "url": "https://www.marketwatch.com/story/over-40-of-americans-are-heading-toward-retirement-blind-with-no-plan-e49b502f?mod=mw_rss_topstories",
-            "published_at": "2026-10-25 02:23:00 KST"
-          },
-          {
-            "title": "Ways to Narrow Social Security’s Shortfall - WSJ",
-            "title_ko": "사회보장 단축 방안",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPWFU1QVNya1dlTm9yZEEzcElSS2VXY3NpQ09BSTBZckhSY1ZtaUh4RzhCQ3hCYzdNcXo0bjFUeFliZTlSdVFvYWtpMFhEdUs4VGZRekNZeERXQklMeHU4TVlQVnYzQmJfc2Rnek1QaUZpN3RxS1lhZmNGV0RiOHl3Y2twc3B4dw?oc=5",
-            "published_at": "2026-10-24 20:52:00 KST"
+            "title": "Nvidia's role as AI financier faces first big test as neoclouds take market hit - CNBC",
+            "title_ko": "Nvidia AI 금융 역할, 첫 시험대 올라",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPN1kwNGVDOVM2RzM1UHRXSGxMb2t0bVR5U3F2ektqUGFGSDFwcEx4MzVsUVJWNjZobzhHSWoydXFZSVc0Y2ZuVmtGaWZ4UlpIelVnWlRGeF9fSllBSXlDNDd2U0NLenF4aVlGRy1MQWZ2bHVlTWVROUh6cVdrT2ZZU1E4N1ZaS2MxZEIyaG5QeXBEVUx0X1dLZmd5bk01RXVtc0stTG5oT1RJNk1tQ2lndi1jYV85QdIBuwFBVV95cUxQWkFsODZMbW1ZMjhwOXdUcHFSZ01La3kteUFsVXBPVWV1RnRqVzRmLXZZOXZpWklDTk52T3k4ZGkwbHduZHJkdW9rYjhEbXBPLWFiZURiNmt1UUdyaUpqdS1kS1lXTjRJWnA2N0Z4UlR3NnJhUkNyZ3RYMGF4VTRfWDg3emVCWEZ5R1dYcFk3RXc3RjRqQXNhMG82MlR4d2RaNFU2OUNxQmVJcU9OOTNyaXluSjI0N1d6WFg4?oc=5",
+            "published_at": "2026-10-24 20:00:01 KST"
           }
         ],
-        "outlook": "은퇴 자금 마련 및 관련 금융 상품에 대한 관심이 높아지면서 해당 섹터가 부각되고 있습니다. 미국인 40% 이상이 은퇴 계획 없이 은퇴를 맞이할 수 있다는 보도는 은퇴 준비의 중요성을 강조합니다. 또한, 연금 외에 안정적인 은퇴 소득 확보 방안에 대한 논의가 활발합니다. 사회보장 제도의 재정적 문제 해결 방안에 대한 논의도 진행 중입니다. 다음 주에는 은퇴 관련 금융 상품 출시나 정부의 은퇴 정책 관련 발표가 있을 수 있으므로 관련 뉴스를 주시해야 합니다."
+        "outlook": "Nvidia는 AI 칩 수요 증가와 관련 기술 발전 기대감으로 주목받고 있습니다. 최근 일부 보고서에서는 Nvidia의 AI 금융 역할에 대한 시험대가 될 수 있다는 분석이 나왔습니다. 향후 일주일 내에는 AI 관련 신규 계약 체결이나 기술 로드맵 발표 등이 주가에 긍정적인 영향을 줄 수 있습니다. 그러나 AI 주식 전반에 대한 차익실현 압력과 경쟁 심화 가능성은 단기적인 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "Audi",
+        "reason": "신차 출시 및 전기차 시장에서의 경쟁력 강화에 대한 소식이 주목받고 있습니다. (총 3건)",
+        "us_news_refs": [
+          11,
+          15
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Trump announces Audi will build $4 billion US factory in Georgia",
+            "title_ko": "트럼프, Audi가 조지아에 40억 달러 공장 건설 발표",
+            "url": "https://www.investing.com/news/stock-market-news/trump-set-to-announce-plan-by-audi-to-build-us-factory-in-georgia-source-says-4970975",
+            "published_at": "2026-10-25 18:36:21 KST"
+          },
+          {
+            "title": "Trump announces at a Georgia campaign rally that Audi will build a new auto factory in the state - AP News",
+            "title_ko": "트럼프, 조지아 유세서 Audi 신규 공장 건설 발표",
+            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPRTFJejhGVHpHM3RQVWQ4UzVmaWJfSUVsUkJJaENrN1h0bjA0aHhvaDVvREd0QllZQnU1Q3J4RnBKNmg3aVRWRWxBeDNuMmdQRVpKamNEWmQ4bnlxYzJGVTRMdGpjaU5kNGZ1Skt5VE5WNi1Sa1d5UENGVUo1dko1YVM4OGFMcENiTHVBU2RTV0psdks0ZkVzU0N4Nm5IM3BhY2R4ZEN3?oc=5",
+            "published_at": "2026-10-25 11:22:00 KST"
+          }
+        ],
+        "outlook": "Audi는 신차 출시와 전기차 시장에서의 경쟁력 강화 소식으로 관심을 받고 있습니다. 특히, 미국 조지아주에 신규 공장을 건설한다는 발표는 긍정적인 모멘텀을 제공할 수 있습니다. 향후 일주일 동안은 신규 공장 건설 관련 세부 계획 발표나 신규 전기차 모델 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 자동차 시장의 경쟁 심화와 생산 차질 가능성은 잠재적 위험 요인으로 고려해야 합니다."
       }
     ],
-    "top3_stocks": [],
     "outlook": {
       "sectors": [
         {
           "name": "AI",
-          "outlook": "AI 섹터는 지속적인 기술 발전과 챗GPT 관련 업데이트 소식으로 시장의 주목을 받고 있습니다. OpenAI의 에이전트가 CPU 캐시를 통해 상호 통신하는 기술이 발견되었으며, 이는 AI의 새로운 가능성을 시사합니다. 또한, PHP 취약점 악용에 AI가 사용될 수 있다는 보도는 AI 기술의 양면성을 보여줍니다. 다만, 워싱턴의 AI 경영진에 대한 메시지는 규제 강화 가능성을 시사하며 단기적인 불확실성을 야기할 수 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표나 새로운 기술 발표가 예정되어 있는지 주목할 필요가 있습니다."
+          "outlook": "AI 분야는 지속적인 기술 발전과 생성형 AI에 대한 높은 관심이 시장을 주도하고 있습니다. 최근 노동 시장 데이터에서 AI 관련 채용의 어려움이 일부 감지되었으나, 이는 AI 기술의 성숙 과정에서 나타날 수 있는 현상으로 해석될 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 신제품 발표나 기술 업데이트 소식이 촉매제가 될 수 있습니다. 다만, AI 기술 발전 속도에 대한 과도한 기대감은 차익실현 압력으로 작용할 가능성도 있습니다."
         },
         {
-          "name": "Retirement Planning",
-          "outlook": "은퇴 자금 마련 및 관련 금융 상품에 대한 관심이 높아지면서 해당 섹터가 부각되고 있습니다. 미국인 40% 이상이 은퇴 계획 없이 은퇴를 맞이할 수 있다는 보도는 은퇴 준비의 중요성을 강조합니다. 또한, 연금 외에 안정적인 은퇴 소득 확보 방안에 대한 논의가 활발합니다. 사회보장 제도의 재정적 문제 해결 방안에 대한 논의도 진행 중입니다. 다음 주에는 은퇴 관련 금융 상품 출시나 정부의 은퇴 정책 관련 발표가 있을 수 있으므로 관련 뉴스를 주시해야 합니다."
+          "name": "Automotive",
+          "outlook": "자동차 섹터는 신차 출시와 전기차 시장에서의 경쟁력 강화 소식이 주목받고 있습니다. 특히, Audi의 미국 내 신규 공장 건설 발표는 해당 기업 및 관련 부품 공급업체에 긍정적인 영향을 미칠 수 있습니다. 그러나 글로벌 공급망 불안정이나 원자재 가격 변동성은 여전히 잠재적 위험 요인으로 작용할 수 있습니다. 다음 주에는 주요 자동차 제조사들의 분기 실적 발표가 예정되어 있어, 시장의 관심이 집중될 것으로 예상됩니다."
+        },
+        {
+          "name": "Technology",
+          "outlook": "기술 섹터는 AI 기술 발전과 더불어 다양한 혁신 기술에 대한 기대감이 주가에 반영되고 있습니다. 최근 일부 기술 기업들의 실적 발표에서 나타난 둔화 신호는 투자자들의 경계심을 높일 수 있습니다. 향후 일주일 동안은 새로운 기술 트렌드 발표나 주요 기업의 M&A 관련 소식이 시장의 주요 촉매제가 될 수 있습니다. 다만, 거시 경제 불확실성 증대 및 금리 변동 가능성은 기술주 전반에 부담으로 작용할 수 있습니다."
         }
       ],
-      "stocks": []
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "outlook": "Nvidia는 AI 칩 수요 증가와 관련 기술 발전 기대감으로 주목받고 있습니다. 최근 일부 보고서에서는 Nvidia의 AI 금융 역할에 대한 시험대가 될 수 있다는 분석이 나왔습니다. 향후 일주일 내에는 AI 관련 신규 계약 체결이나 기술 로드맵 발표 등이 주가에 긍정적인 영향을 줄 수 있습니다. 그러나 AI 주식 전반에 대한 차익실현 압력과 경쟁 심화 가능성은 단기적인 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "Audi",
+          "outlook": "Audi는 신차 출시와 전기차 시장에서의 경쟁력 강화 소식으로 관심을 받고 있습니다. 특히, 미국 조지아주에 신규 공장을 건설한다는 발표는 긍정적인 모멘텀을 제공할 수 있습니다. 향후 일주일 동안은 신규 공장 건설 관련 세부 계획 발표나 신규 전기차 모델 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 자동차 시장의 경쟁 심화와 생산 차질 가능성은 잠재적 위험 요인으로 고려해야 합니다."
+        },
+        {
+          "name": "Microsoft",
+          "outlook": "Microsoft는 AI 기술 통합 및 클라우드 서비스 확장에 대한 기대감으로 주목받고 있습니다. 최근 발표된 노동 시장 데이터에서 AI 관련 채용의 어려움이 감지되었으나, 이는 Microsoft의 AI 서비스 수요에 직접적인 영향을 미치지 않을 수 있습니다. 향후 일주일 내에는 새로운 AI 기반 서비스 출시나 파트너십 발표 등이 긍정적인 촉매제가 될 수 있습니다. 다만, 경쟁사의 AI 기술 발전 및 규제 관련 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
+        }
+      ]
     },
     "collected": {
       "news": 50
@@ -104,129 +140,121 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "금융",
-        "reason": "금리 변동 및 금융 시장 전반의 흐름에 대한 분석이 다수 보도되며 해당 섹터가 주목받고 있습니다 (총 4건).",
+        "name": "부동산",
+        "reason": "부동산 시장의 침체 및 정부의 규제 완화 정책 등 관련 소식이 시장의 관심을 받고 있습니다. (총 3건)",
         "kr_news_refs": [
-          46,
-          49,
-          93,
-          94,
-          98
+          6,
+          18,
+          19
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "내 주식 주문 어디로 갔나 봤더니…60%는 넥스트레이드로",
+            "title": "전세 부족은 구조적 변화, 공급 부족은 전 정부 책임···국토장관·LH사장의 ‘반쪽짜리’ 진단 - 경향신문",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261024022500008",
-            "published_at": "2026-10-25 06:30:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1iaGxHWE8xYlo1U2dadTI0TnpoUTBnWkM4NUNBakR2cWhldGpmU2lJWDg2UnhLYTlXbU9xT3hQN1prbWQyWXZ4RnhLakRwZXhsU0l4YlJlUmV1Z9IBX0FVX3lxTE9xMHdzdEUzb2Q4Z2dnYTFDcGRWX3dISmtXTk5yYTJVbjk4SnEyVkRRZHZONi1KbnVyTDBqU0ZqNmNqSFNvX3Z3TFhPWms2UDZRenVxZ2hadC1nSXB0a3VB?oc=5",
+            "published_at": "2026-10-25 17:11:00 KST"
           },
           {
-            "title": "'증시 부진에도 ETF는 산다'…올해 개인 80조, 외인 10조 순매수",
+            "title": "KB \"10월 서울 아파트값 0.61% 올라...올해 최저 수준\" - YTN",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261024025000008",
-            "published_at": "2026-10-25 06:25:01 KST"
+            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5JeGdyRlpIQllSQlpKUlNMcDhrRUotc0RvREZmZUFqcFdoQVQ4Rmh1MGh5RUx4TDFybElZVUVreERsZG15WHVZdXRRb0c1N091VTBuRGRyRFdia0lacmc?oc=5",
+            "published_at": "2026-10-25 14:32:00 KST"
           },
           {
-            "title": "'최고 3.3배' 예보료율 인상 내주 재논의…수정안 나올듯",
+            "title": "부담금 따라 호가 20억 차…재초환 첫 부과에 강남 재건축 긴장 - 뉴스1",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261024041900002",
-            "published_at": "2026-10-25 05:59:00 KST"
-          },
-          {
-            "title": "홍콩ELS식 '제재엇박' 막는다…금융위·금감원, 사전조율 공식화",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261024045800002",
-            "published_at": "2026-10-25 05:57:00 KST"
-          },
-          {
-            "title": "'너도나도 1천억' 은행 보안투자 경쟁…PHP 대응도 비상",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261024041000002",
-            "published_at": "2026-10-25 05:55:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5taU83Smt5RkpkMzRTUkkydVJpOV9IUzNQTThNM201WnF1d2hLd2hIYk8taDBvWVBTMkhTbnFYNkVwN18yZXBNRVJNaGtIcmFQYm5sRzZtV0xXM0E?oc=5",
+            "published_at": "2026-10-25 14:27:40 KST"
           }
         ],
-        "outlook": "금리 변동 및 금융 시장 전반의 흐름에 대한 분석이 다수 보도되며 금융 섹터가 주목받고 있습니다. 특히, 홍콩 ELS와 유사한 상품의 위험성을 관리하기 위한 금융 당국의 움직임이 감지됩니다. 또한, 증시 부진에도 불구하고 개인과 외국인의 ETF 순매수가 이어지고 있다는 점은 시장의 관심을 보여줍니다. 은행권의 보안 투자 확대 및 PHP 관련 보안 강화 움직임도 관찰됩니다. 다음 주에는 예보료율 인상 관련 논의가 재개될 예정이며, 이는 금융권의 수익성에 영향을 미칠 수 있습니다."
+        "outlook": "부동산 섹터는 정부의 규제 완화 정책과 함께 시장 침체에 대한 우려가 공존하고 있습니다. 최근 서울 아파트값 상승률이 올해 최저 수준을 기록했다는 보도가 나왔으며, 재건축 부담금 부과에 대한 긴장감도 감지됩니다. 향후 일주일 내에는 정부의 추가적인 부동산 정책 발표나 주요 재건축 단지의 사업 진행 상황 발표가 시장의 주요 변수가 될 수 있습니다. 다만, 높은 금리 수준과 주택 공급 부족 문제는 여전히 시장의 부담으로 작용할 가능성이 있습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "국내 반도체 기업들의 실적 개선 및 AI 반도체 시장 성장 기대감이 주가에 긍정적인 영향을 미치고 있습니다. (총 3건)",
+        "kr_news_refs": [
+          2,
+          4,
+          11
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "화약 냄새에 푸른 광맥 '반짝'…32년 만에 깬 영월 상동광산 - 한국무역협회-KITA.NET",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNMEJFRVRZQjIweFg5WnRwaUplb29pd1RTaF91RFM5TG5CcnU2UDdlUTdqank3Y0lWbWlGVmFJTFJFaW9xVW1oR29laTJuc0NiVDNJZnNFZzQtSnZvZm12TzR2LTVsSVgwLVNnM1N0WkxUVWhQS0VITXpiYmo2MFpuNzZMNWhSU1JwU1R0Q0FoNGN4TkdIbUhHZ2hYcWJvNmdZRXdUb0NtT0lqVDlfM25BUlUzajZ3dWVaR0VWOGpEZ2NUci1LQUp5ZVE5ZmlEZ2ZUbmxWR1hR?oc=5",
+            "published_at": "2026-10-25 18:26:05 KST"
+          },
+          {
+            "title": "李대통령 \"경상수지 흑자, 獨·日 합친 규모 넘어…이 기회에 잠재성장률 올려야\" - 뉴스핌",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1ubm9BZDZvSW5YdV8tT3NoYnMxVXd5VFllZzAwR0xCdU84RmFHcWlvNEJhRGJSUEFPSkpmT3dPTGxoS0tfTmRmaXE0ZnNvUndoNkl6OVl1cWNpUXM0?oc=5",
+            "published_at": "2026-10-25 18:09:00 KST"
+          },
+          {
+            "title": "삼전닉스 3분기 영업익 180조원대 전망…‘추가 주주환원’에 쏠린 눈 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE01N2RwVUtxeDhnUmttU05EeXdadllxSFRVSG1mN0hxdVUzQ2FLS2xldTdmQ2ZIanVYeWNKRDN1Q3VXdVd1SVY2bEUzY0pPdUQzZFZiV0p4UThQMjZJYUx5MlRMNXFPYmVVcWc?oc=5",
+            "published_at": "2026-10-25 16:11:00 KST"
+          }
+        ],
+        "outlook": "국내 반도체 섹터는 AI 반도체 시장 성장 기대감과 함께 일부 기업들의 실적 개선 전망이 긍정적인 영향을 미치고 있습니다. 최근 삼전닉스(삼성전자, SK하이닉스 추정)의 3분기 영업이익 전망치가 발표되었으며, 추가 주주환원 정책에 대한 기대감도 존재합니다. 향후 일주일 동안은 주요 반도체 기업들의 실적 발표 및 AI 관련 신규 수주 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 가능성과 반도체 업황의 주기적 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "삼성전자",
-        "reason": "반도체 업황 개선 및 신규 기술 개발에 대한 소식이 지속적으로 보도되며 시장의 주목을 받고 있습니다 (총 2건).",
+        "name": "HD현대",
+        "reason": "조선업황 개선 및 수주 증가 기대감이 주가에 반영되고 있습니다. (총 2건)",
         "kr_news_refs": [
-          5,
-          60,
-          74,
-          90
-        ],
-        "related_news": [
-          {
-            "title": "삼성 '엑시노스 2700', 성능 시험서 퀄컴 최신칩 앞서",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261023080600003",
-            "published_at": "2026-10-25 07:15:01 KST"
-          },
-          {
-            "title": "취임 4주년 이재용, 최대실적 삼성전자 발판 기술투자·M&A 구상",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261023163000003",
-            "published_at": "2026-10-25 06:09:00 KST"
-          },
-          {
-            "title": "삼전닉스, 이번주 3분기 확정실적…HBM4로 영업익 185조 전망",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261023159200003",
-            "published_at": "2026-10-25 06:03:01 KST"
-          },
-          {
-            "title": "엔비디아·테슬라, 삼성전기에 조 단위 투자하는 이유는? [뉴스 쉽게보기]",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/economy/12184187",
-            "published_at": "2026-10-25 06:00:00 KST"
-          }
-        ],
-        "outlook": "삼성전자는 반도체 업황 개선 및 신규 기술 개발 소식으로 시장의 주목을 받고 있습니다. 특히, 삼성의 차세대 모바일 프로세서 '엑시노스 2700'이 성능 시험에서 경쟁사 칩을 앞선다는 보도가 나왔습니다. 이재용 회장의 취임 4주년을 맞아 기술 투자 및 M&A 구상에 대한 기대감도 존재합니다. SK하이닉스와 함께 3분기 확정 실적 발표를 앞두고 있으며, HBM 관련 실적 개선 전망이 나오고 있습니다. 다만, 경쟁사의 기술 발전 및 글로벌 경기 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
-      },
-      {
-        "name": "SK하이닉스",
-        "reason": "고대역폭 메모리(HBM) 시장에서의 경쟁력 강화 및 실적 개선 기대감이 주가에 반영되고 있습니다 (총 1건).",
-        "kr_news_refs": [
-          68,
-          74
+          7,
+          17
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "고점 대비 56% 급락 SK하이닉스…이번주 실적발표 반등 계기되나",
+            "title": "HD현대도 美 조선소 건립…‘마스가’ 주도권 경쟁 불붙었다 - 경향신문",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261024018300008",
-            "published_at": "2026-10-25 06:05:01 KST"
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE56b1JXWVNjRWtlM1JfT1NSbHE4QTNrUHQwS2lwY0RpcWgzQkF2bkI1Y3hfNDg3OXVwX3UzZ2o0UHdua3pZOU4xWGVBX3JueTRrR2hwZ0tteGk2QdIBX0FVX3lxTE5NajdCQm1QSXFma25sTVZFYjV0SjVmTXBHOTY5VkNfMHBMTklORnN5TEVRVGI0RFV4cnFaRHFBenJfYTJyQ3d0WTJkc3J5bjEwcEpPZDhPZFp5cHh4bjJr?oc=5",
+            "published_at": "2026-10-25 17:02:00 KST"
           },
           {
-            "title": "삼전닉스, 이번주 3분기 확정실적…HBM4로 영업익 185조 전망",
+            "title": "FIX 2026 관람객 11만7천명…역대 최대 흥행 - 매일신문",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261023159200003",
-            "published_at": "2026-10-25 06:03:01 KST"
+            "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1mcm5ZUXI0ZjlDX1l5V1JxY1dmbHYyRlhJcks0ZzhzQUtmeUcxZnlBTmNoMXdSdjR4WE1YZmlQd2UyV05oMDdfcm5BaFVRUHg1a0RmeXFCVHV0RWVIanJhb21R?oc=5",
+            "published_at": "2026-10-25 14:36:23 KST"
           }
         ],
-        "outlook": "SK하이닉스는 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화 및 실적 개선 기대감으로 주목받고 있습니다. 이번 주 3분기 확정 실적 발표를 앞두고 있으며, 시장에서는 HBM 관련 실적 개선을 통한 반등 가능성을 제기하고 있습니다. 다만, 최근 주가가 고점 대비 상당 부분 하락한 이력이 있어 투자 심리에 영향을 줄 수 있습니다. 경쟁사의 HBM 기술 개발 동향 및 글로벌 메모리 반도체 수요 변화는 향후 주가에 중요한 변수가 될 것입니다."
+        "outlook": "HD현대는 조선업황 개선 및 수주 증가 기대감으로 주목받고 있습니다. 미국 내 조선소 건립 계획 발표는 장기적인 성장 동력 확보에 긍정적인 영향을 줄 수 있습니다. 향후 일주일 동안은 추가적인 대형 수주 소식이나 친환경 선박 기술 관련 발표가 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 가능성과 원자재 가격 상승 압력은 단기적인 위험 요인으로 작용할 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "금융",
-          "outlook": "금리 변동 및 금융 시장 전반의 흐름에 대한 분석이 다수 보도되며 금융 섹터가 주목받고 있습니다. 특히, 홍콩 ELS와 유사한 상품의 위험성을 관리하기 위한 금융 당국의 움직임이 감지됩니다. 또한, 증시 부진에도 불구하고 개인과 외국인의 ETF 순매수가 이어지고 있다는 점은 시장의 관심을 보여줍니다. 은행권의 보안 투자 확대 및 PHP 관련 보안 강화 움직임도 관찰됩니다. 다음 주에는 예보료율 인상 관련 논의가 재개될 예정이며, 이는 금융권의 수익성에 영향을 미칠 수 있습니다."
+          "name": "부동산",
+          "outlook": "부동산 섹터는 정부의 규제 완화 정책과 함께 시장 침체에 대한 우려가 공존하고 있습니다. 최근 서울 아파트값 상승률이 올해 최저 수준을 기록했다는 보도가 나왔으며, 재건축 부담금 부과에 대한 긴장감도 감지됩니다. 향후 일주일 내에는 정부의 추가적인 부동산 정책 발표나 주요 재건축 단지의 사업 진행 상황 발표가 시장의 주요 변수가 될 수 있습니다. 다만, 높은 금리 수준과 주택 공급 부족 문제는 여전히 시장의 부담으로 작용할 가능성이 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 AI 반도체 시장 성장 기대감과 함께 일부 기업들의 실적 개선 전망이 긍정적인 영향을 미치고 있습니다. 최근 삼전닉스(삼성전자, SK하이닉스 추정)의 3분기 영업이익 전망치가 발표되었으며, 추가 주주환원 정책에 대한 기대감도 존재합니다. 향후 일주일 동안은 주요 반도체 기업들의 실적 발표 및 AI 관련 신규 수주 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 가능성과 반도체 업황의 주기적 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "조선",
+          "outlook": "조선 섹터는 글로벌 수주 증가와 함께 업황 개선에 대한 기대감이 높아지고 있습니다. HD현대가 미국에 조선소를 건립한다는 소식은 관련 기업들의 경쟁력 강화에 대한 긍정적인 신호로 해석될 수 있습니다. 향후 일주일 내에는 주요 조선사들의 신규 수주 소식이나 친환경 선박 관련 기술 개발 동향 발표가 시장의 주요 촉매제가 될 수 있습니다. 다만, 원자재 가격 변동성 및 인력 수급 문제는 여전히 잠재적 위험 요인으로 작용할 수 있습니다."
         }
       ],
       "stocks": [
         {
+          "name": "HD현대",
+          "outlook": "HD현대는 조선업황 개선 및 수주 증가 기대감으로 주목받고 있습니다. 미국 내 조선소 건립 계획 발표는 장기적인 성장 동력 확보에 긍정적인 영향을 줄 수 있습니다. 향후 일주일 동안은 추가적인 대형 수주 소식이나 친환경 선박 기술 관련 발표가 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 가능성과 원자재 가격 상승 압력은 단기적인 위험 요인으로 작용할 수 있습니다."
+        },
+        {
           "name": "삼성전자",
-          "outlook": "삼성전자는 반도체 업황 개선 및 신규 기술 개발 소식으로 시장의 주목을 받고 있습니다. 특히, 삼성의 차세대 모바일 프로세서 '엑시노스 2700'이 성능 시험에서 경쟁사 칩을 앞선다는 보도가 나왔습니다. 이재용 회장의 취임 4주년을 맞아 기술 투자 및 M&A 구상에 대한 기대감도 존재합니다. SK하이닉스와 함께 3분기 확정 실적 발표를 앞두고 있으며, HBM 관련 실적 개선 전망이 나오고 있습니다. 다만, 경쟁사의 기술 발전 및 글로벌 경기 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
+          "outlook": "삼성전자는 AI 반도체 시장 성장과 함께 3분기 실적 개선에 대한 기대감이 존재합니다. 최근 발표된 3분기 영업이익 전망치는 긍정적인 신호로 해석될 수 있습니다. 향후 일주일 내에는 AI 관련 신규 기술 개발 발표나 파운드리 사업 관련 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 불확실성과 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다."
         },
         {
           "name": "SK하이닉스",
-          "outlook": "SK하이닉스는 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화 및 실적 개선 기대감으로 주목받고 있습니다. 이번 주 3분기 확정 실적 발표를 앞두고 있으며, 시장에서는 HBM 관련 실적 개선을 통한 반등 가능성을 제기하고 있습니다. 다만, 최근 주가가 고점 대비 상당 부분 하락한 이력이 있어 투자 심리에 영향을 줄 수 있습니다. 경쟁사의 HBM 기술 개발 동향 및 글로벌 메모리 반도체 수요 변화는 향후 주가에 중요한 변수가 될 것입니다."
+          "outlook": "SK하이닉스는 AI 메모리 반도체 수요 증가에 따른 실적 개선 기대감이 높습니다. 3분기 실적 전망치 발표와 함께 추가적인 주주환원 정책에 대한 관심도 존재합니다. 향후 일주일 동안은 AI 관련 신규 칩 공급 계약이나 차세대 메모리 기술 개발 소식이 주가에 긍정적인 영향을 줄 수 있습니다. 다만, 글로벌 경기 둔화 가능성과 경쟁사의 기술 개발 동향은 단기적인 위험 요인으로 작용할 수 있습니다."
         }
       ]
     },
@@ -237,52 +265,13 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "주식 시장",
-        "freq": 4,
-        "summary": "한국 주식 시장의 대폭락 가능성이 제기되었으며, 현재 추격 매수는 위험하다는 의견이 제시되었습니다. 변동성 장세에서 살아남는 방법에 대한 논의도 있었습니다.",
-        "refs": [
-          2,
-          5,
-          6,
-          7
-        ],
-        "reason": "한국 주식 시장의 대폭락 가능성이 제기되었으며, 현재 추격 매수는 위험하다는 의견이 제시되었습니다. 변동성 장세에서 살아남는 방법에 대한 논의도 있었습니다.",
-        "related_videos": [
-          {
-            "title": "한국 주식 대폭락 임박했다? '이렇게' 안 하면 계좌 싹 녹는다 (슈퍼개미 이정윤 세무사 풀버전)",
-            "url": "https://www.youtube.com/watch?v=2XIKvrhF6Jg",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-24 19:15:32 KST"
-          },
-          {
-            "title": "태초의 세상은 검은 바다였다? 신이 바다를 가른 이유  | 주원준 한님성서연구소 수석연구원 [에인션트]",
-            "url": "https://www.youtube.com/watch?v=oYwxemi8E6w",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-24 15:00:33 KST"
-          },
-          {
-            "title": "\"이란은 확전할 것\" 트럼프 미치게하는 이란의 전략 | 인남식 국립외교원 교수 [신과 대화]",
-            "url": "https://www.youtube.com/watch?v=FANtW-t-aBI",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-24 11:00:31 KST"
-          },
-          {
-            "title": "180도 달라진 변동성 장세에서 살아남는 법 | 이지환 오로라투자자문 대표 [주말인터뷰]",
-            "url": "https://www.youtube.com/watch?v=BRhAgo6VIds",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-24 08:00:30 KST"
-          }
-        ],
-        "outlook": "한국 주식 시장의 대폭락 가능성이 제기되며 추격 매수에 대한 경고가 나오고 있습니다. 현재 변동성 장세에서 살아남는 방법에 대한 논의가 활발하며, 투자자들의 주의를 촉구하는 콘텐츠가 다수 확인됩니다. 이러한 분석은 거시 경제 지표의 불확실성 및 지정학적 리스크 등 복합적인 요인에 기인할 수 있습니다. 다음 주에는 국내외 경제 지표 발표 및 주요국 중앙은행의 통화 정책 관련 발언이 시장 변동성을 키울 수 있습니다."
-      },
-      {
         "name": "AI",
         "freq": 1,
-        "summary": "중국 AI 4대 천왕에 대한 언급이 있었으며, AI 프롬프트 작성 능력이 인재의 정의를 바꾸고 있다는 내용이 포함되었습니다.",
+        "summary": "영상에서는 AI 프롬프트 엔지니어링 능력과 인재 정의의 변화에 대해 논의하며, 중국의 AI 4대 천왕을 언급합니다. AI 분야의 발전과 인재상 변화에 대한 시사점을 제공합니다.",
         "refs": [
-          9
+          10
         ],
-        "reason": "중국 AI 4대 천왕에 대한 언급이 있었으며, AI 프롬프트 작성 능력이 인재의 정의를 바꾸고 있다는 내용이 포함되었습니다.",
+        "reason": "영상에서는 AI 프롬프트 엔지니어링 능력과 인재 정의의 변화에 대해 논의하며, 중국의 AI 4대 천왕을 언급합니다. AI 분야의 발전과 인재상 변화에 대한 시사점을 제공합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
@@ -292,36 +281,102 @@
             "published_at": "2026-10-22 18:57:05 KST"
           }
         ],
-        "outlook": "AI 섹터는 중국 AI 4대 천왕에 대한 언급과 함께 AI 프롬프트 작성 능력이 인재의 정의를 바꿀 수 있다는 분석이 제시되었습니다. 이는 AI 기술 발전이 노동 시장 및 인재상에 미치는 영향에 대한 논의를 촉발합니다. 다만, 해당 섹터에 대한 최근 유튜브 콘텐츠의 빈도가 높지 않아 추가적인 정보 확인이 필요합니다. 다음 주에는 AI 관련 기업들의 신기술 발표나 규제 관련 소식이 시장의 관심을 받을 수 있습니다."
+        "outlook": "AI 섹터는 프롬프트 엔지니어링 능력과 인재 정의의 변화에 대한 논의가 활발합니다. 중국의 AI 기술 발전 현황도 언급되며, AI 분야의 빠른 발전 속도와 이에 따른 인재상 변화에 대한 시사점을 제공합니다. 향후 일주일 내에는 AI 관련 새로운 기술 트렌드나 윤리적 이슈에 대한 논의가 이어질 수 있습니다. 다만, AI 기술의 실질적인 적용 및 상용화 과정에서의 어려움이 단기적인 위험 요인으로 작용할 수 있습니다."
       },
       {
-        "name": "부동산",
-        "freq": 1,
-        "summary": "서울 20억대 아파트도 위험할 수 있으며, 현재 시점에서의 추격 매수는 지양해야 한다는 의견이 제시되었습니다.",
+        "name": "철학",
+        "freq": 2,
+        "summary": "철학 전공이 취업 1티어로 떠오른다는 내용과 함께, 한국인이 불행한 이유에 대한 철학적 고찰을 다룹니다. 철학적 사고가 현대 사회에서 갖는 의미와 영향력을 조명합니다.",
         "refs": [
-          4
+          1,
+          10
         ],
-        "reason": "서울 20억대 아파트도 위험할 수 있으며, 현재 시점에서의 추격 매수는 지양해야 한다는 의견이 제시되었습니다.",
+        "reason": "철학 전공이 취업 1티어로 떠오른다는 내용과 함께, 한국인이 불행한 이유에 대한 철학적 고찰을 다룹니다. 철학적 사고가 현대 사회에서 갖는 의미와 영향력을 조명합니다.",
+        "related_videos": [
+          {
+            "title": "47년 철학 공부하고 깨달았다, 한국인이 불행한 진짜 이유 (최진석 교수)",
+            "url": "https://www.youtube.com/watch?v=DRyAA3JvD6M",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-25 20:00:25 KST"
+          },
+          {
+            "title": "의문의 취업 1티어로 떠오른다는 철학 전공",
+            "url": "https://www.youtube.com/watch?v=_xEVeoqLncA",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-22 18:57:05 KST"
+          }
+        ],
+        "outlook": "철학 섹터는 철학 전공이 취업 시장에서 주목받는 현상과 한국인의 행복에 대한 철학적 고찰을 다룹니다. 현대 사회에서 철학적 사고의 중요성과 영향력이 조명되고 있습니다. 향후 일주일 동안은 철학적 관점에서 바라보는 사회 문제나 인간 본질에 대한 심층적인 분석이 이어질 수 있습니다. 다만, 철학적 논의가 실제 투자 결정에 미치는 영향은 제한적일 수 있습니다."
+      },
+      {
+        "name": "경제 분석",
+        "freq": 3,
+        "summary": "일본의 GDP 추락 원인 분석, 고금리 시대 투자 기준, 미국 주식 시장의 불확실성, 억만장자세 도입 가능성 등 다양한 경제 현안을 다룹니다. 거시 경제 동향과 투자 전략에 대한 정보를 제공합니다.",
+        "refs": [
+          2,
+          7,
+          8
+        ],
+        "reason": "일본의 GDP 추락 원인 분석, 고금리 시대 투자 기준, 미국 주식 시장의 불확실성, 억만장자세 도입 가능성 등 다양한 경제 현안을 다룹니다. 거시 경제 동향과 투자 전략에 대한 정보를 제공합니다.",
+        "related_videos": [
+          {
+            "title": "갑자기 자금줄 뚝? 불확실 최고조 구간 올까/월가 은둔 초고수의 예언, 또 적중할까/주식 안팔아도 세금 낸다? 억만장자세 실현될까/키덜트 덕에 부활한 장난감 회사들",
+            "url": "https://www.youtube.com/watch?v=l7G-dkgkDEk",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-25 18:54:34 KST"
+          },
+          {
+            "title": "고금리 시대 길어진다…채권·배당주·금, 투자 기준은 | 조원경 세종대학교 교수 [신과대화]",
+            "url": "https://www.youtube.com/watch?v=SuGP5dZdXQM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-25 11:00:27 KST"
+          },
+          {
+            "title": "추락하는 일본 GDP, 원인은 무엇인가",
+            "url": "https://www.youtube.com/watch?v=t-IIGGFe80U",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-24 20:02:14 KST"
+          }
+        ],
+        "outlook": "경제 분석 섹터는 일본의 GDP 추락 원인, 고금리 시대 투자 전략, 미국 주식 시장의 불확실성, 억만장자세 도입 가능성 등 다양한 거시 경제 현안을 다룹니다. 거시 경제 동향과 투자 전략에 대한 정보를 제공하며, 투자자들의 주의를 환기시키고 있습니다. 향후 일주일 내에는 주요국의 경제 지표 발표나 중앙은행의 통화 정책 관련 발언이 시장의 주요 변수가 될 수 있습니다. 다만, 예측 불가능한 지정학적 리스크는 경제 전망에 큰 영향을 미칠 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "무신사",
+        "freq": 1,
+        "summary": "무신사의 성장 스토리를 다룬 도서 출간 소식을 전하며, 기업의 정체성과 성공 요인에 대한 관심을 나타냅니다. 패션 플랫폼 기업의 시장 내 입지와 발전 가능성을 시사합니다.",
+        "refs": [
+          6
+        ],
+        "reason": "무신사의 성장 스토리를 다룬 도서 출간 소식을 전하며, 기업의 정체성과 성공 요인에 대한 관심을 나타냅니다. 패션 플랫폼 기업의 시장 내 입지와 발전 가능성을 시사합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "서울 20억대 아파트도 위험하다, 지금 추격 매수는 하지마세요 (부동산 투자자 손품왕)",
-            "url": "https://www.youtube.com/watch?v=nn1ekd3434g",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-24 16:30:21 KST"
+            "title": "\"몸값 10조...?\" 무신사의 정체가 뭐야?ㅣ김효성 중앙일보 기자 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=XA7GzN7RnYo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-25 13:00:38 KST"
           }
         ],
-        "outlook": "서울 20억대 아파트도 위험할 수 있다는 분석과 함께 현재 시점에서의 추격 매수를 지양해야 한다는 의견이 제시되었습니다. 이는 부동산 시장의 잠재적 위험 요인과 투자 심리에 대한 경고를 담고 있습니다. 해당 섹터에 대한 최근 유튜브 콘텐츠의 빈도가 높지 않아 추가적인 정보 확인이 필요합니다. 다음 주에는 정부의 부동산 정책 발표나 금리 변동 관련 뉴스가 시장에 영향을 미칠 수 있습니다."
+        "outlook": "무신사 섹터는 기업의 성장 스토리와 관련된 도서 출간 소식이 주목받고 있습니다. 이는 패션 플랫폼 기업의 시장 내 입지와 성공 요인에 대한 관심을 반영합니다. 향후 일주일 동안은 무신사의 사업 확장 전략이나 경쟁사 동향에 대한 분석이 이어질 수 있습니다. 다만, 국내 패션 시장의 경쟁 심화와 소비 심리 위축은 잠재적 위험 요인으로 작용할 수 있습니다."
       }
     ],
-    "top3_stocks": [],
     "videos_collected": 10
   },
   "_extraction": {
     "us": {
       "stocks": [
         {
-          "name": "Six Flags",
+          "name": "Audi",
+          "freq": 3
+        },
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "Amgen",
           "freq": 2
         },
         {
@@ -329,39 +384,11 @@
           "freq": 2
         },
         {
-          "name": "Wayfair",
-          "freq": 2
-        },
-        {
-          "name": "Meta",
-          "freq": 2
-        },
-        {
-          "name": "JetBlue",
-          "freq": 2
-        },
-        {
-          "name": "American Airlines",
-          "freq": 2
-        },
-        {
-          "name": "Royal Caribbean",
+          "name": "Dlh Holdings",
           "freq": 1
         },
         {
-          "name": "Adlai Nortye",
-          "freq": 1
-        },
-        {
-          "name": "Amgen",
-          "freq": 1
-        },
-        {
-          "name": "Merck",
-          "freq": 1
-        },
-        {
-          "name": "LVMH",
+          "name": "Brookfield",
           "freq": 1
         },
         {
@@ -369,7 +396,15 @@
           "freq": 1
         },
         {
-          "name": "Hermès",
+          "name": "Volvo Car",
+          "freq": 1
+        },
+        {
+          "name": "Nippon",
+          "freq": 1
+        },
+        {
+          "name": "Weyerhaeuser",
           "freq": 1
         },
         {
@@ -377,7 +412,19 @@
           "freq": 1
         },
         {
-          "name": "Apple",
+          "name": "Broadcom",
+          "freq": 1
+        },
+        {
+          "name": "JetBlue",
+          "freq": 1
+        },
+        {
+          "name": "Wayfair",
+          "freq": 1
+        },
+        {
+          "name": "Berkshire",
           "freq": 1
         }
       ],
@@ -387,19 +434,7 @@
           "freq": 3
         },
         {
-          "name": "Real Estate",
-          "freq": 3
-        },
-        {
-          "name": "Aerospace",
-          "freq": 2
-        },
-        {
-          "name": "Aviation",
-          "freq": 3
-        },
-        {
-          "name": "Retirement Planning",
+          "name": "Luxury Goods",
           "freq": 3
         },
         {
@@ -407,39 +442,51 @@
           "freq": 2
         },
         {
-          "name": "바이오",
+          "name": "Biotechnology",
           "freq": 2
-        },
-        {
-          "name": "Healthcare",
-          "freq": 1
         },
         {
           "name": "Cybersecurity",
           "freq": 2
         },
         {
-          "name": "Retail",
+          "name": "Banking",
           "freq": 2
         },
         {
           "name": "Telecommunications",
-          "freq": 2
-        },
-        {
-          "name": "Cruise Industry",
           "freq": 1
         },
         {
-          "name": "Beverage",
+          "name": "Energy",
           "freq": 1
         },
         {
-          "name": "Renewable Energy",
+          "name": "Labor Market",
           "freq": 1
         },
         {
-          "name": "Luxury Goods",
+          "name": "Chemicals",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "Travel",
+          "freq": 1
+        },
+        {
+          "name": "Amusement Parks",
+          "freq": 1
+        },
+        {
+          "name": "Social Security",
+          "freq": 1
+        },
+        {
+          "name": "Government Debt",
           "freq": 1
         }
       ]
@@ -455,77 +502,117 @@
           "freq": 1
         },
         {
-          "name": "현대자동차",
+          "name": "HD현대",
+          "freq": 2
+        },
+        {
+          "name": "CJ제일제당",
+          "freq": 2
+        },
+        {
+          "name": "포스코",
+          "freq": 2
+        },
+        {
+          "name": "롯데그룹",
+          "freq": 2
+        },
+        {
+          "name": "LIG D&A",
+          "freq": 2
+        },
+        {
+          "name": "LG전자",
           "freq": 1
         },
         {
-          "name": "기아",
+          "name": "한국가스공사",
           "freq": 1
         },
         {
-          "name": "미래에셋증권",
+          "name": "삼성",
+          "freq": 1
+        },
+        {
+          "name": "신한카드",
+          "freq": 1
+        },
+        {
+          "name": "우리금융",
+          "freq": 1
+        },
+        {
+          "name": "신세계",
+          "freq": 1
+        },
+        {
+          "name": "이랜드리테일",
+          "freq": 1
+        },
+        {
+          "name": "롯데홈쇼핑",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "AI",
-          "freq": 1
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "가상자산",
+          "freq": 3
+        },
+        {
+          "name": "부동산",
+          "freq": 3
         },
         {
           "name": "금융",
-          "freq": 4
+          "freq": 2
         },
         {
-          "name": "반도체",
+          "name": "조선",
+          "freq": 2
+        },
+        {
+          "name": "식품",
+          "freq": 2
+        },
+        {
+          "name": "보안",
+          "freq": 2
+        },
+        {
+          "name": "AI",
           "freq": 1
-        },
-        {
-          "name": "Energy",
-          "freq": 2
-        },
-        {
-          "name": "관광",
-          "freq": 2
         },
         {
           "name": "건설",
           "freq": 2
         },
         {
+          "name": "항공",
+          "freq": 1
+        },
+        {
+          "name": "해운",
+          "freq": 1
+        },
+        {
+          "name": "자동차",
+          "freq": 1
+        },
+        {
+          "name": "방위산업",
+          "freq": 1
+        },
+        {
+          "name": "주택",
+          "freq": 1
+        },
+        {
           "name": "유통",
-          "freq": 2
-        },
-        {
-          "name": "부동산",
-          "freq": 2
-        },
-        {
-          "name": "크루즈",
-          "freq": 2
-        },
-        {
-          "name": "IT",
-          "freq": 1
-        },
-        {
-          "name": "과학기술",
-          "freq": 1
-        },
-        {
-          "name": "방산",
-          "freq": 1
-        },
-        {
-          "name": "OTT",
-          "freq": 1
-        },
-        {
-          "name": "게임",
-          "freq": 1
-        },
-        {
-          "name": "주류",
           "freq": 1
         }
       ]
