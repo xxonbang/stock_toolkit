@@ -1,234 +1,230 @@
 {
-  "generated_at": "2026-10-27 07:31 KST",
+  "generated_at": "2026-10-27 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 분야는 Anthropic 등 관련 기업들의 활동과 기술 발전에 대한 지속적인 관심으로 주목받고 있습니다 (총 4건).",
+        "reason": "AI 관련 기업 및 기술 개발에 대한 지속적인 관심이 나타나고 있습니다. (총 9건)",
         "us_news_refs": [
-          0,
-          1,
-          2,
           3,
-          8,
-          9,
-          10,
-          17,
-          34,
-          36,
-          38,
-          44
+          5,
+          6,
+          12,
+          13,
+          14,
+          15,
+          42,
+          49
         ],
         "related_news": [
           {
-            "title": "Stock Market Today: Anthropic IPO in Focus; Nasdaq, Dow Move Higher — Live Updates - WSJ",
-            "title_ko": "오늘의 주식 시장: Anthropic IPO 주목; Nasdaq, Dow 상승 - 실시간 업데이트 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbzdFQkJFVk8yOUxhWXN4M0J5TGc2cFZMLU1HLWpYblk2RGprSlh3RHhMOE1mRlUzRE5XU3d1a08zcjE1UE0xTUZzWDBSSnBhZ3hjekRXVzYxajhNRFdYZ1lyZURmWW9USTNhYXVWWTFDRGlxczFydE5UNTRCQTVmc1duR2RKTGs?oc=5",
-            "published_at": "2026-10-27 06:58:27 KST"
+            "title": "Stock futures are mixed as earnings season continues: Live updates - CNBC",
+            "title_ko": "실적 시즌 지속 중, 주식 선물 혼조세: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE01a2Ywbm5HbkhhaXZtYlM2S1pUVnJOZHphMFNEQUZTS2lQQURWbzdWTDRmYi1INFVtVExqNUV1S3JVblo2Q2hOalpnUW83Xzk4cGJrZnYyYzl0ZUxrT2s5eEoyX0VxVmwxZjVyalBzcXBKYXhaTGtB0gF8QVVfeXFMTTdtcmVVc3VlM04tY1dHN1c1SXRaRnFXM2c1SVpEaE14UW1ScTRRYWZsR1I1ZDNmM3RJNXhkcFV0eGU1dXItUDEwNWZHZlpZTE5pQWI1Rzd2UElyQ0J6N21CbHZ5WnRrZHFYWEl5aWZtUW9jZjhnY0pPbVpQZA?oc=5",
+            "published_at": "2026-10-27 18:27:07 KST"
           },
           {
-            "title": "Stock Market Today: Dow Up As Anthropic Filing Boosts Tech; This Energy Stock Tests Entry Point (Live Coverage) - Investor's Business Daily",
-            "title_ko": "오늘의 주식 시장: Anthropic 상장 신청으로 기술주 상승; 이 에너지 주식 진입점 테스트 (실시간) - Investor's Business Daily",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPQVBxQWdWZVFQNmVyNGlWZ3lQSUJWUWRlVVVxYmE4OWF4LVIzTEU4dEVFQUFWbDh5bnR2ZVBMUlA4S2gxcUI2TmI4bGZDY3NkMWRnMUtOejg2SWNUb04waEVXdFRQdXdtbHJqTjBrMExGNHJEVE9iblQtM1lYcU9HVWlYcDFBdHFYYmYzNzVYVVdTV3hPRTZUdFF1bXFyYXJzVnJzYUJHVGw5UWlJWDJKVVFNRGt2ajB6bFNRdw?oc=5",
-            "published_at": "2026-10-27 06:39:00 KST"
+            "title": "BlackRock’s Rieder Spent All Weekend Doing Deals in AI Debt Rush - Bloomberg.com",
+            "title_ko": "BlackRock의 Rieder, AI 부채 급증 주말 내내 거래",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNYVJoVHlSX2EzYWtGbG44ZzhWSTdjUnc5ZWxpWmFmdzdGTzNQTVhZS3VwQjF6QWdpeGhRZDlySng4UERmbEhxbXBpM1BYdFhuVEJndmtGS1MtZnIxMkVILVBENDZDY1FBaEY4NmlLMmxHTmlaOXltR0FaMG1nODRod1JYNVhxRE9VeVFJZ0lMa0xYU2ptbVNiTVcxeFpla212aXhNUkVLUmxlTEVvRW15NGpxUkNYQQ?oc=5",
+            "published_at": "2026-10-27 15:41:00 KST"
           },
           {
-            "title": "Brazilian Markets Crash After Lula’s Surprise Election Win Stuns Investors - WSJ",
-            "title_ko": "룰라의 깜짝 당선에 브라질 증시 폭락 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOblVTTEF5cnF5WUdUNUc2bG53aS1WY0ljVjhhZkZ6X1dINTFZcElFUUlDTEJFSE5PdUUzT2hELXRJT1oydExsM1R2eWJGX09Rdm5FVnRUa2VsckE4cHVCQzFreXluSlZxUWdfczc3STAtcXdaMlJURW96dFNlenFXbnBVTjdIZWlhaUhlVkhIcENYNG1aZVlySFVvX0k?oc=5",
-            "published_at": "2026-10-27 06:15:00 KST"
+            "title": "AI makes discoveries in mathematics, computer science, physics, OpenAI says - Al Jazeera",
+            "title_ko": "AI, 수학, 컴퓨터 과학, 물리학 분야 발견했다고 OpenAI 발표",
+            "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQN3ZUWTh4RW5uQUFNdlBLdHNZZnRDUUcwOWl2WVBsejlET1hpYWFheW1yaTAtRlNsOEFDRW9UbFliY0VuVDR0SW9YaXp1eTdJbk5kN2ExbGgtSTA0V1ItQmM2RzJ6ZzlqZndnRTBoeDlhS2F4aDk1eW5tVVdZRmtaazBTNUpmZUEzZ0Q1NjlfUGxmX3ZNQnkzWkNrdDRQYkVEa2NHcDVuZENKck9XMHp1MXRvX2p4RWFi0gG-AUFVX3lxTE9JeVZjeGd4RTdGeEJEQnJYcGVnWXJzdnJqLXVBczBTSXI3WEJQMmZBbmV5N050Wko5WkFCZEZfX0ljdlR0MlNITnZpeVNPUzhPczM0UTVYUDFWM2p6RmZSUVh6bm1kZ1BOYUlqeDVRMnA4RjkyR3A4YWZRbUlLd3R1M25sR3pXQ3BQM2d5NHZySFM5S3pzSUc0TWdkUk5TNEhsa2NFV3F5MEJzM21nemNETFlEM28zNFlpVGpZZnc?oc=5",
+            "published_at": "2026-10-27 14:16:14 KST"
           },
           {
-            "title": "Microsoft offers a quarter of its global workforce voluntary buyouts as AI spending accelerates - AP News",
-            "title_ko": "Microsoft, AI 투자 가속화로 전 세계 인력 1/4 자발적 퇴직 제안 - AP News",
-            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPTldBUWstVmdxYTcxUVFWbWVEazFJU01MLUZJQzdKNkhDeWxnM01KVmVGQzZ0MnhCZFZUeURFR3c3NHJiU19CUGJFSXlWcUlhRkphS0hENkRRT2d4aUVaVTFCTDBXYmpHd3A3MEJMeC1ucl93MlEyTldwNzRENjZLVUI1MmwyRkxKMHpWTE5rNFZHRGd6NlE?oc=5",
-            "published_at": "2026-10-27 04:44:00 KST"
+            "title": "Herc Holdings shares jump 5% on strong earnings beat",
+            "title_ko": "Herc Holdings, 호실적에 주가 5% 급등",
+            "url": "https://www.investing.com/news/earnings/herc-holdings-shares-jump-5-on-strong-earnings-beat-93CH-4974937",
+            "published_at": "2026-10-27 19:55:04 KST"
+          },
+          {
+            "title": "GM to transfer stock listing to Nasdaq",
+            "title_ko": "GM, 주식 상장지를 Nasdaq으로 이전",
+            "url": "https://www.investing.com/news/stock-market-news/gm-to-transfer-stock-listing-to-nasdaq-4974848",
+            "published_at": "2026-10-27 19:54:46 KST"
           }
         ],
-        "outlook": "AI 섹터는 앤트로픽의 IPO 추진 소식과 함께 관련 기업들의 기술 개발 및 투자에 대한 관심이 지속되며 주목받고 있습니다. 마이크로소프트의 AI 투자 가속화로 인한 자발적 퇴직 제안 소식도 있었습니다. 다만, AI 모델 개발 속도 조절 요구와 AI 버블 붕괴 우려가 투자 심리에 부담으로 작용할 수 있습니다. 향후 일주일 내에는 앤트로픽의 IPO 관련 추가 소식 및 AI 관련 기업들의 실적 발표 등이 주목될 수 있습니다."
+        "outlook": "AI 섹터는 OpenAI의 수학, 컴퓨터 과학, 물리학 분야에서의 AI 기반 발견 발표와 같은 기술 발전이 주요 촉매제로 작용하고 있습니다. 또한, BlackRock의 Rieder가 AI 부채 급증 속에서 거래에 참여했다는 소식은 AI 관련 금융 활동의 증가를 시사합니다. 그러나 현재 실적 시즌이 진행 중이며 주식 선물은 혼조세를 보이고 있어, 개별 기업의 실적 발표 결과가 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 주요 기업들의 실적 발표가 예정되어 있어 시장의 주목을 받을 것으로 예상됩니다."
       },
       {
         "name": "IPO",
-        "reason": "새로운 기업 공개(IPO) 관련 소식들이 시장의 관심을 끌고 있으며, 이는 신규 상장 기업들의 동향을 반영합니다 (총 5건).",
+        "reason": "신규 상장 기업들의 움직임과 관련 시장 동향이 주목받고 있습니다. (총 4건)",
         "us_news_refs": [
-          0,
-          1,
           2,
-          9,
-          38
+          3,
+          12,
+          42
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Stock Market Today: Anthropic IPO in Focus; Nasdaq, Dow Move Higher — Live Updates - WSJ",
-            "title_ko": "오늘의 주식 시장: Anthropic IPO 주목; Nasdaq, Dow 상승 - 실시간 업데이트 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbzdFQkJFVk8yOUxhWXN4M0J5TGc2cFZMLU1HLWpYblk2RGprSlh3RHhMOE1mRlUzRE5XU3d1a08zcjE1UE0xTUZzWDBSSnBhZ3hjekRXVzYxajhNRFdYZ1lyZURmWW9USTNhYXVWWTFDRGlxczFydE5UNTRCQTVmc1duR2RKTGs?oc=5",
-            "published_at": "2026-10-27 06:58:27 KST"
+            "title": "Here's the cash windfall the Anthropic IPO may bring to banks like Goldman Sachs, JP Morgan and Morgan Stanley - Yahoo Finance",
+            "title_ko": "Anthropic IPO가 Goldman Sachs, JP Morgan, Morgan Stanley에 가져올 현금",
+            "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxON1JRVm02Tlo3NDN4R2Mwcm92eVVzcTJkSV9hNDE4N19QaUg2NEtsLWpVbzBtVVVrZzlXMUZIQzFjZTd5MVpLdnFaZjhnZkNHUTBNTnAwcFpWcHpCTkVzeEdLejhPRU1xRHdSUl9oNEZLZW43NEV1SEFwSWFqQU8tY0pOLWtEVGRlVTQ0aWJkQ09hNnNOY0NsTzAtX2ZKY2J2UmxmOVFYTWx6UnZtRkhzR1F3eFZGemY4Y0x2Ym9IVHhyN2dCMV83Sk40VDR3bEZpVVc4Q1o1T0FUeTFOd1o4U0pwNjBKTGhKbURaT1FYMkdWa2JMT084MlNvZHByaGtyU1E?oc=5",
+            "published_at": "2026-10-27 18:40:21 KST"
           },
           {
-            "title": "Stock Market Today: Dow Up As Anthropic Filing Boosts Tech; This Energy Stock Tests Entry Point (Live Coverage) - Investor's Business Daily",
-            "title_ko": "오늘의 주식 시장: Anthropic 상장 신청으로 기술주 상승; 이 에너지 주식 진입점 테스트 (실시간) - Investor's Business Daily",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPQVBxQWdWZVFQNmVyNGlWZ3lQSUJWUWRlVVVxYmE4OWF4LVIzTEU4dEVFQUFWbDh5bnR2ZVBMUlA4S2gxcUI2TmI4bGZDY3NkMWRnMUtOejg2SWNUb04waEVXdFRQdXdtbHJqTjBrMExGNHJEVE9iblQtM1lYcU9HVWlYcDFBdHFYYmYzNzVYVVdTV3hPRTZUdFF1bXFyYXJzVnJzYUJHVGw5UWlJWDJKVVFNRGt2ajB6bFNRdw?oc=5",
-            "published_at": "2026-10-27 06:39:00 KST"
+            "title": "Stock futures are mixed as earnings season continues: Live updates - CNBC",
+            "title_ko": "실적 시즌 지속 중, 주식 선물 혼조세: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE01a2Ywbm5HbkhhaXZtYlM2S1pUVnJOZHphMFNEQUZTS2lQQURWbzdWTDRmYi1INFVtVExqNUV1S3JVblo2Q2hOalpnUW83Xzk4cGJrZnYyYzl0ZUxrT2s5eEoyX0VxVmwxZjVyalBzcXBKYXhaTGtB0gF8QVVfeXFMTTdtcmVVc3VlM04tY1dHN1c1SXRaRnFXM2c1SVpEaE14UW1ScTRRYWZsR1I1ZDNmM3RJNXhkcFV0eGU1dXItUDEwNWZHZlpZTE5pQWI1Rzd2UElyQ0J6N21CbHZ5WnRrZHFYWEl5aWZtUW9jZjhnY0pPbVpQZA?oc=5",
+            "published_at": "2026-10-27 18:27:07 KST"
           },
           {
-            "title": "Anthropic IPO live updates: Here's when the stock lock-ups expire after the first trade - CNBC",
-            "title_ko": "Anthropic IPO 실시간 업데이트: 첫 거래 후 주식 보호 기간 만료 시점 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOZWZMZ2Q4QkpJSThNQ2c1Q18xeTRFZThMTC1VLWFrRFduLU1CblkydnRpaFUzSTRNaFl6VGRDS1J3TlBKWVo0Q1kwMnhVYmdNejg4Zk1pT3lUUVNCdmtmT0pJa3pJR1FrckFHTHRSTDVVaVFsMnlWZXVWMjFmb2l4eUlhRdIBiAFBVV95cUxNYzZaOTF1NUlmTXdqSEVYTXRNd2Yybm8wcTlKUDhMWEJmbXVhcDM0UW0zbDNqbzRyMUdBMGFFMjFIcUFpS0ZwYWpLTE5tQ1hxamg0NGdLWmdncW9yeUJyTWk1dFhjSkpfMHd3bm1DcXJ0RGdfcGItWm5RNHBGS0hjUmtRMGFwVzhN?oc=5",
-            "published_at": "2026-10-27 04:28:00 KST"
+            "title": "Herc Holdings shares jump 5% on strong earnings beat",
+            "title_ko": "Herc Holdings, 호실적에 주가 5% 급등",
+            "url": "https://www.investing.com/news/earnings/herc-holdings-shares-jump-5-on-strong-earnings-beat-93CH-4974937",
+            "published_at": "2026-10-27 19:55:04 KST"
           },
           {
-            "title": "With the Anthropic IPO, the devil is in the details",
-            "title_ko": "Anthropic IPO, 세부 사항에 악마가 숨어 있다",
-            "url": "https://www.marketwatch.com/story/with-the-anthropic-ipo-the-devil-is-in-the-details-239d571d?mod=mw_rss_topstories",
-            "published_at": "2026-10-27 05:50:00 KST"
+            "title": "Wall Street rises as AI stocks keep swinging - AP News",
+            "title_ko": "AI 주식 변동 속 월스트리트 상승",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNOGVDbFMzWWNkWEw1NzNQRUJLek52UWF2ZUh1dDVXM2FHNXhYekVEOUpNejc5djNNX0hTWDZiLVpaWUNnaGZ6b29iMS0wNHM0M0Y1eG9MdC1yVUVpTV9QbDlieDVrS3NLemIzTFdPOHFRTG1JSEpzbEc5MFR2aUhRMmFpSGJaZDJRV1d6bW1hUlVJUDdUSkFkMg?oc=5",
+            "published_at": "2026-10-27 06:02:00 KST"
           }
         ],
-        "outlook": "새로운 기업 공개(IPO) 관련 소식들이 시장의 관심을 끌고 있으며, 이는 신규 상장 기업들의 동향을 반영합니다. 특히 앤트로픽의 IPO 추진 소식이 시장의 주목을 받고 있습니다. 앤트로픽은 IPO를 통해 1,000억 달러 이상을 조달하고 기업가치는 1조 5,000억~2조 달러에 이를 수 있다는 전망이 있습니다. 그러나 AI 산업의 수익성에 대한 우려와 높은 기업가치에 대한 논란은 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 앤트로픽의 IPO 관련 추가 정보 공개 및 시장 반응이 주목될 것입니다."
+        "outlook": "IPO 시장은 Anthropic의 잠재적 IPO와 관련된 소식이 주요 촉매제로 작용하고 있습니다. 이 IPO는 Goldman Sachs, JP Morgan, Morgan Stanley과 같은 투자 은행에 상당한 수익을 가져다줄 것으로 예상됩니다. 그러나 현재 실적 시즌이 진행 중이며 시장 전반의 불확실성이 존재합니다. 또한, Herc Holdings와 같이 이미 상장된 기업의 호실적 발표는 시장의 관심을 끌 수 있습니다. 향후 일주일 내에 예정된 주요 기업들의 실적 발표는 IPO 시장의 투자 심리에 영향을 미칠 수 있습니다."
       },
       {
-        "name": "Tech Stocks",
-        "reason": "기술주 전반에 대한 관심이 꾸준히 나타나고 있으며, 이는 기술 산업의 전반적인 흐름을 보여줍니다 (총 4건).",
+        "name": "Earnings",
+        "reason": "기업들의 실적 발표 시즌과 관련된 시장의 관심이 높습니다. (총 3건)",
         "us_news_refs": [
-          0,
-          1,
-          2,
-          3
+          3,
+          8,
+          42
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Stock Market Today: Anthropic IPO in Focus; Nasdaq, Dow Move Higher — Live Updates - WSJ",
-            "title_ko": "오늘의 주식 시장: Anthropic IPO 주목; Nasdaq, Dow 상승 - 실시간 업데이트 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbzdFQkJFVk8yOUxhWXN4M0J5TGc2cFZMLU1HLWpYblk2RGprSlh3RHhMOE1mRlUzRE5XU3d1a08zcjE1UE0xTUZzWDBSSnBhZ3hjekRXVzYxajhNRFdYZ1lyZURmWW9USTNhYXVWWTFDRGlxczFydE5UNTRCQTVmc1duR2RKTGs?oc=5",
-            "published_at": "2026-10-27 06:58:27 KST"
+            "title": "Stock futures are mixed as earnings season continues: Live updates - CNBC",
+            "title_ko": "실적 시즌 지속 중, 주식 선물 혼조세: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE01a2Ywbm5HbkhhaXZtYlM2S1pUVnJOZHphMFNEQUZTS2lQQURWbzdWTDRmYi1INFVtVExqNUV1S3JVblo2Q2hOalpnUW83Xzk4cGJrZnYyYzl0ZUxrT2s5eEoyX0VxVmwxZjVyalBzcXBKYXhaTGtB0gF8QVVfeXFMTTdtcmVVc3VlM04tY1dHN1c1SXRaRnFXM2c1SVpEaE14UW1ScTRRYWZsR1I1ZDNmM3RJNXhkcFV0eGU1dXItUDEwNWZHZlpZTE5pQWI1Rzd2UElyQ0J6N21CbHZ5WnRrZHFYWEl5aWZtUW9jZjhnY0pPbVpQZA?oc=5",
+            "published_at": "2026-10-27 18:27:07 KST"
           },
           {
-            "title": "Stock Market Today: Dow Up As Anthropic Filing Boosts Tech; This Energy Stock Tests Entry Point (Live Coverage) - Investor's Business Daily",
-            "title_ko": "오늘의 주식 시장: Anthropic 상장 신청으로 기술주 상승; 이 에너지 주식 진입점 테스트 (실시간) - Investor's Business Daily",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPQVBxQWdWZVFQNmVyNGlWZ3lQSUJWUWRlVVVxYmE4OWF4LVIzTEU4dEVFQUFWbDh5bnR2ZVBMUlA4S2gxcUI2TmI4bGZDY3NkMWRnMUtOejg2SWNUb04waEVXdFRQdXdtbHJqTjBrMExGNHJEVE9iblQtM1lYcU9HVWlYcDFBdHFYYmYzNzVYVVdTV3hPRTZUdFF1bXFyYXJzVnJzYUJHVGw5UWlJWDJKVVFNRGt2ajB6bFNRdw?oc=5",
-            "published_at": "2026-10-27 06:39:00 KST"
+            "title": "Boeing is set to report earnings before the bell. Here's what Wall Street expects",
+            "title_ko": "Boeing 실적 발표 예정. 월스트리트 예상은.",
+            "url": "https://www.cnbc.com/2026/10/27/-boeing-ba-q3-2026-earnings.html",
+            "published_at": "2026-10-27 20:00:01 KST"
           },
           {
-            "title": "Brazilian Markets Crash After Lula’s Surprise Election Win Stuns Investors - WSJ",
-            "title_ko": "룰라의 깜짝 당선에 브라질 증시 폭락 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOblVTTEF5cnF5WUdUNUc2bG53aS1WY0ljVjhhZkZ6X1dINTFZcElFUUlDTEJFSE5PdUUzT2hELXRJT1oydExsM1R2eWJGX09Rdm5FVnRUa2VsckE4cHVCQzFreXluSlZxUWdfczc3STAtcXdaMlJURW96dFNlenFXbnBVTjdIZWlhaUhlVkhIcENYNG1aZVlySFVvX0k?oc=5",
-            "published_at": "2026-10-27 06:15:00 KST"
+            "title": "Wall Street rises as AI stocks keep swinging - AP News",
+            "title_ko": "AI 주식 변동 속 월스트리트 상승",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNOGVDbFMzWWNkWEw1NzNQRUJLek52UWF2ZUh1dDVXM2FHNXhYekVEOUpNejc5djNNX0hTWDZiLVpaWUNnaGZ6b29iMS0wNHM0M0Y1eG9MdC1yVUVpTV9QbDlieDVrS3NLemIzTFdPOHFRTG1JSEpzbEc5MFR2aUhRMmFpSGJaZDJRV1d6bW1hUlVJUDdUSkFkMg?oc=5",
+            "published_at": "2026-10-27 06:02:00 KST"
           }
         ],
-        "outlook": "기술주 전반에 대한 관심이 꾸준히 나타나고 있으며, 이는 기술 산업의 전반적인 흐름을 보여줍니다. 특히 AI 관련 기술주들이 주목받고 있으나, AI 모델 개발 속도 조절 요구와 금리 상승 부담은 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 주요 기술 기업들의 실적 발표 및 AI 관련 신규 투자 소식 등이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "기업들의 실적 발표 시즌이 진행되면서, Herc Holdings가 호실적으로 주가가 5% 급등한 사례는 긍정적인 촉매로 작용하고 있습니다. 또한, Boeing은 실적 발표를 앞두고 있으며 월스트리트의 예상치가 주목받고 있습니다. 그러나 현재 주식 선물은 혼조세를 보이고 있어, 전반적인 시장 분위기는 불확실합니다. 향후 일주일 동안 예정된 다수의 기업 실적 발표는 개별 종목 및 섹터 전반에 영향을 미칠 것으로 예상됩니다. 투자자들은 발표되는 실적 수치와 향후 가이던스를 면밀히 주시해야 합니다."
       }
     ],
     "top3_stocks": [
       {
         "name": "Anthropic",
-        "reason": "AI 분야의 주요 기업으로, 관련 기술 개발 및 투자 소식으로 주목받고 있습니다 (총 7건).",
+        "reason": "AI 분야의 주요 기업으로, 관련 기술 개발 및 투자 소식이 주목받고 있습니다. (총 4건)",
         "us_news_refs": [
-          0,
-          1,
           2,
           3,
-          9,
-          17,
-          36,
-          38,
-          47
+          10,
+          42,
+          45
         ],
         "related_news": [
           {
-            "title": "Stock Market Today: Anthropic IPO in Focus; Nasdaq, Dow Move Higher — Live Updates - WSJ",
-            "title_ko": "오늘의 주식 시장: Anthropic IPO 주목; Nasdaq, Dow 상승 - 실시간 업데이트 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbzdFQkJFVk8yOUxhWXN4M0J5TGc2cFZMLU1HLWpYblk2RGprSlh3RHhMOE1mRlUzRE5XU3d1a08zcjE1UE0xTUZzWDBSSnBhZ3hjekRXVzYxajhNRFdYZ1lyZURmWW9USTNhYXVWWTFDRGlxczFydE5UNTRCQTVmc1duR2RKTGs?oc=5",
-            "published_at": "2026-10-27 06:58:27 KST"
+            "title": "Here's the cash windfall the Anthropic IPO may bring to banks like Goldman Sachs, JP Morgan and Morgan Stanley - Yahoo Finance",
+            "title_ko": "Anthropic IPO가 Goldman Sachs, JP Morgan, Morgan Stanley에 가져올 현금",
+            "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxON1JRVm02Tlo3NDN4R2Mwcm92eVVzcTJkSV9hNDE4N19QaUg2NEtsLWpVbzBtVVVrZzlXMUZIQzFjZTd5MVpLdnFaZjhnZkNHUTBNTnAwcFpWcHpCTkVzeEdLejhPRU1xRHdSUl9oNEZLZW43NEV1SEFwSWFqQU8tY0pOLWtEVGRlVTQ0aWJkQ09hNnNOY0NsTzAtX2ZKY2J2UmxmOVFYTWx6UnZtRkhzR1F3eFZGemY4Y0x2Ym9IVHhyN2dCMV83Sk40VDR3bEZpVVc4Q1o1T0FUeTFOd1o4U0pwNjBKTGhKbURaT1FYMkdWa2JMT084MlNvZHByaGtyU1E?oc=5",
+            "published_at": "2026-10-27 18:40:21 KST"
           },
           {
-            "title": "Stock Market Today: Dow Up As Anthropic Filing Boosts Tech; This Energy Stock Tests Entry Point (Live Coverage) - Investor's Business Daily",
-            "title_ko": "오늘의 주식 시장: Anthropic 상장 신청으로 기술주 상승; 이 에너지 주식 진입점 테스트 (실시간) - Investor's Business Daily",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPQVBxQWdWZVFQNmVyNGlWZ3lQSUJWUWRlVVVxYmE4OWF4LVIzTEU4dEVFQUFWbDh5bnR2ZVBMUlA4S2gxcUI2TmI4bGZDY3NkMWRnMUtOejg2SWNUb04waEVXdFRQdXdtbHJqTjBrMExGNHJEVE9iblQtM1lYcU9HVWlYcDFBdHFYYmYzNzVYVVdTV3hPRTZUdFF1bXFyYXJzVnJzYUJHVGw5UWlJWDJKVVFNRGt2ajB6bFNRdw?oc=5",
-            "published_at": "2026-10-27 06:39:00 KST"
+            "title": "Stock futures are mixed as earnings season continues: Live updates - CNBC",
+            "title_ko": "실적 시즌 지속 중, 주식 선물 혼조세: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE01a2Ywbm5HbkhhaXZtYlM2S1pUVnJOZHphMFNEQUZTS2lQQURWbzdWTDRmYi1INFVtVExqNUV1S3JVblo2Q2hOalpnUW83Xzk4cGJrZnYyYzl0ZUxrT2s5eEoyX0VxVmwxZjVyalBzcXBKYXhaTGtB0gF8QVVfeXFMTTdtcmVVc3VlM04tY1dHN1c1SXRaRnFXM2c1SVpEaE14UW1ScTRRYWZsR1I1ZDNmM3RJNXhkcFV0eGU1dXItUDEwNWZHZlpZTE5pQWI1Rzd2UElyQ0J6N21CbHZ5WnRrZHFYWEl5aWZtUW9jZjhnY0pPbVpQZA?oc=5",
+            "published_at": "2026-10-27 18:27:07 KST"
           },
           {
-            "title": "Brazilian Markets Crash After Lula’s Surprise Election Win Stuns Investors - WSJ",
-            "title_ko": "룰라의 깜짝 당선에 브라질 증시 폭락 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOblVTTEF5cnF5WUdUNUc2bG53aS1WY0ljVjhhZkZ6X1dINTFZcElFUUlDTEJFSE5PdUUzT2hELXRJT1oydExsM1R2eWJGX09Rdm5FVnRUa2VsckE4cHVCQzFreXluSlZxUWdfczc3STAtcXdaMlJURW96dFNlenFXbnBVTjdIZWlhaUhlVkhIcENYNG1aZVlySFVvX0k?oc=5",
-            "published_at": "2026-10-27 06:15:00 KST"
+            "title": "Who controls powerful AI? Anthropic has a plan for long after its leaders depart",
+            "title_ko": "강력한 AI 통제권은? Anthropic, 리더 떠난 후 계획 보유",
+            "url": "https://www.investing.com/news/stock-market-news/who-controls-powerful-ai-anthropic-has-a-plan-for-long-after-its-leaders-depart-4974806",
+            "published_at": "2026-10-27 19:55:18 KST"
           },
           {
-            "title": "Anthropic IPO live updates: Here's when the stock lock-ups expire after the first trade - CNBC",
-            "title_ko": "Anthropic IPO 실시간 업데이트: 첫 거래 후 주식 보호 기간 만료 시점 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOZWZMZ2Q4QkpJSThNQ2c1Q18xeTRFZThMTC1VLWFrRFduLU1CblkydnRpaFUzSTRNaFl6VGRDS1J3TlBKWVo0Q1kwMnhVYmdNejg4Zk1pT3lUUVNCdmtmT0pJa3pJR1FrckFHTHRSTDVVaVFsMnlWZXVWMjFmb2l4eUlhRdIBiAFBVV95cUxNYzZaOTF1NUlmTXdqSEVYTXRNd2Yybm8wcTlKUDhMWEJmbXVhcDM0UW0zbDNqbzRyMUdBMGFFMjFIcUFpS0ZwYWpLTE5tQ1hxamg0NGdLWmdncW9yeUJyTWk1dFhjSkpfMHd3bm1DcXJ0RGdfcGItWm5RNHBGS0hjUmtRMGFwVzhN?oc=5",
-            "published_at": "2026-10-27 04:28:00 KST"
+            "title": "Wall Street rises as AI stocks keep swinging - AP News",
+            "title_ko": "AI 주식 변동 속 월스트리트 상승",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNOGVDbFMzWWNkWEw1NzNQRUJLek52UWF2ZUh1dDVXM2FHNXhYekVEOUpNejc5djNNX0hTWDZiLVpaWUNnaGZ6b29iMS0wNHM0M0Y1eG9MdC1yVUVpTV9QbDlieDVrS3NLemIzTFdPOHFRTG1JSEpzbEc5MFR2aUhRMmFpSGJaZDJRV1d6bW1hUlVJUDdUSkFkMg?oc=5",
+            "published_at": "2026-10-27 06:02:00 KST"
+          },
+          {
+            "title": "Broadcom Arranges $63 Billion Deal to Finance Anthropic’s Chips - Bloomberg.com",
+            "title_ko": "Broadcom, Anthropic 칩 자금 조달 위해 630억 달러 거래 주선",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOVXpndWd4bS1VV1JIRTlnRll6aGd3WDFVSkZBWU0wT1VZQzd0ZTNCc2RZeXZaUV9TdWZxak1BRlB1NURvcU5wb0RTUE5Ec1d4NkVSRXJWc0o3RTcwUEplV1FHRHBRcG5aOEFoWHNGdEJ3V2RtcFVZUllZaE42TU9paGtIOEIyajVNb19mT1lSTGcxSEdhTVdDemVlTGptT3ZfZ3VpTmo0WTlJYzV0Tms1RUlFcw?oc=5",
+            "published_at": "2026-10-27 05:36:14 KST"
           }
         ],
-        "outlook": "AI 분야의 주요 기업인 앤트로픽은 IPO 추진 소식으로 시장의 큰 관심을 받고 있습니다. IPO를 통해 1조 5,000억~2조 달러의 기업가치를 목표로 하고 있으며, 이는 AI 관련주 전반에 긍정적인 영향을 줄 수 있습니다. 그러나 높은 기업가치와 AI 산업의 수익성에 대한 우려, 그리고 막대한 컴퓨팅 관련 지출 의무는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 IPO 관련 추가 정보 공개 및 시장의 반응이 주목될 것입니다."
+        "outlook": "Anthropic은 AI 분야의 주요 기업으로서, 잠재적인 IPO 관련 소식이 주요 촉매제로 작용하고 있습니다. 이 IPO는 투자 은행들에게 상당한 수익을 가져다줄 것으로 예상되며, Broadcom이 Anthropic 칩 자금 조달을 위해 630억 달러 규모의 거래를 주선했다는 소식도 긍정적인 영향을 미치고 있습니다. 그러나 현재 실적 시즌이 진행 중이며 시장 전반의 불확실성이 존재합니다. 또한, AI 주식의 변동성이 지속되고 있어 투자자들의 주의가 필요합니다. 향후 일주일 내 예정된 실적 발표는 Anthropic의 IPO 계획에 간접적인 영향을 줄 수 있습니다."
       },
       {
-        "name": "JetBlue",
-        "reason": "항공업계의 주요 기업으로, 관련 사업 및 실적 발표 등에 대한 소식으로 주목받고 있습니다 (총 4건).",
+        "name": "General Motors",
+        "reason": "전기차 전환 및 신규 상장 관련 소식으로 시장의 관심을 받고 있습니다. (총 4건)",
         "us_news_refs": [
-          4,
-          12,
-          20,
-          35
+          1,
+          13,
+          20
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "JetBlue’s Outlook Worsens as Operating Loss Margin Drops - Bloomberg.com",
-            "title_ko": "JetBlue 전망 악화, 영업 손실률 하락 - Bloomberg.com",
-            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPQmphVW9lVGQxcTNnaW1EazZETlhaM3RTYmtVc3FMSUpyQkRjYVlqR3kxWVhGRVQzWjlQNzhtVGJJM19VeTREa2hGNnlfSWM2aWZjRFZKUXRpWng2eWcwQlRFMUxaZUVSWWJPYmVIOXNITU9Uc2JHY0RMM1JmZVM3OWlqeGktSUF2WWswWHZPaExSUk1DTlgxWDJQZDVXMEczaVhvU0pwM1lROGc?oc=5",
-            "published_at": "2026-10-27 06:03:12 KST"
+            "title": "GM will switch to Nasdaq from the NYSE on Nov. 17 - CNBC",
+            "title_ko": "GM, 11월 17일 NYSE에서 Nasdaq으로 이전",
+            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1MZ2owdURqOGNmS0VjcmNRVC1KN0M4bHk0TDR4bFMycFM4QTZEQW0yVm9QbnZkXzZEOHRqVGxxY2RQX0R5b3BzaVM5X0FPV2gxQUdHRk1MU0FYVkNiRC1zRXl3cDBIdTBwMFdYOVRobVUxcGfSAXhBVV95cUxQai1qNng2OEZDSHZRcnRJd0VPOEtpV01HUFBXOGFnQkhpcF96LWc4NXcwa2JQRXhVa2k4ZXN5YWhYVngwX1R5aV9yQXQxTHNyR29Za3drdnItdDZ3QTREZVlnTTBwUThBTEY0SExyVnVvN2xtcHI5SEM?oc=5",
+            "published_at": "2026-10-27 19:32:04 KST"
           },
           {
-            "title": "J&J's potential 'game-changer' drug — plus, what Microsoft's mass buyouts mean - CNBC",
-            "title_ko": "J&J의 잠재적 '게임 체인저' 약물 — 그리고 Microsoft의 대규모 퇴직 제안 의미 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNdTdaOXFXcDVVYklLczh0YVMyZEdjSHpzeC1SejhUWE00U0dGaTl0T0sxSXM4UWh2Ykh6MVpNWW9rOVNBaW1qOW1QOWtiQjFLaEdUS21CRFNQaUpFZWF0NjJjeE8tNEZmZ3ZsNDJPalQ3ZHFCQWJHWmpRczl0TmhteWdqbFc1QUFlNXJmandOTnBfcU5fRVdlTHhXT21pTVdfS0YyZzZ4cjl1d0ZyYk1ueVF2cG5zbjA?oc=5",
-            "published_at": "2026-10-27 03:45:33 KST"
+            "title": "GM to transfer stock listing to Nasdaq",
+            "title_ko": "GM, 주식 상장지를 Nasdaq으로 이전",
+            "url": "https://www.investing.com/news/stock-market-news/gm-to-transfer-stock-listing-to-nasdaq-4974848",
+            "published_at": "2026-10-27 19:54:46 KST"
           },
           {
-            "title": "JetBlue seeks to reassure investors as losses deepen",
-            "title_ko": "JetBlue, 손실 심화 속 투자자 안심시키려 노력",
-            "url": "https://www.investing.com/news/stock-market-news/jetblue-airways-posts-wider-quarterly-loss-on-surging-fuel-costs-4973617",
-            "published_at": "2026-10-27 07:24:41 KST"
-          },
-          {
-            "title": "JetBlue posts bigger loss on fuel costs, but CEO says margins improving",
-            "title_ko": "JetBlue, 유가 상승으로 손실 확대, 그러나 CEO는 마진 개선 중이라 말해",
-            "url": "https://www.cnbc.com/2026/10/26/jetblue-jblu-3q-2026-earnings.html",
-            "published_at": "2026-10-27 06:18:07 KST"
+            "title": "GM will switch to Nasdaq from the NYSE on Nov. 17",
+            "title_ko": "GM, 11월 17일 NYSE에서 Nasdaq으로 이전",
+            "url": "https://www.cnbc.com/2026/10/27/gm-nasdaq-nyse-stock-listing.html",
+            "published_at": "2026-10-27 19:49:45 KST"
           }
         ],
-        "outlook": "항공업계의 주요 기업인 JetBlue는 최근 영업 손실률 하락과 전망 악화 소식이 전해졌습니다. 연료비 상승으로 인한 손실 확대와 함께 파산 가능성에 대한 우려도 제기되고 있습니다. 다만, 경영진은 마진 개선 노력을 지속하고 있으며, 부채 만기 연장 등 구조조정 방안을 모색하고 있습니다. 향후 일주일 내에는 추가적인 실적 발표나 사업 관련 소식이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "General Motors(GM)는 11월 17일부로 주식 상장지를 NYSE에서 Nasdaq으로 이전한다는 소식이 주요 촉매제로 작용하고 있습니다. 이는 거래소 변경에 따른 투자자들의 관심 증가를 유발할 수 있습니다. 그러나 현재 실적 시즌이 진행 중이며, 전기차 전환과 관련된 경쟁 심화 및 거시 경제 변수가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 주요 기업들의 실적 발표는 전반적인 시장 분위기에 영향을 미칠 수 있으며, GM의 주가에도 간접적인 영향을 줄 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
           "name": "AI",
-          "outlook": "AI 섹터는 앤트로픽의 IPO 추진 소식과 함께 관련 기업들의 기술 개발 및 투자에 대한 관심이 지속되며 주목받고 있습니다. 마이크로소프트의 AI 투자 가속화로 인한 자발적 퇴직 제안 소식도 있었습니다. 다만, AI 모델 개발 속도 조절 요구와 AI 버블 붕괴 우려가 투자 심리에 부담으로 작용할 수 있습니다. 향후 일주일 내에는 앤트로픽의 IPO 관련 추가 소식 및 AI 관련 기업들의 실적 발표 등이 주목될 수 있습니다."
+          "outlook": "AI 섹터는 OpenAI의 수학, 컴퓨터 과학, 물리학 분야에서의 AI 기반 발견 발표와 같은 기술 발전이 주요 촉매제로 작용하고 있습니다. 또한, BlackRock의 Rieder가 AI 부채 급증 속에서 거래에 참여했다는 소식은 AI 관련 금융 활동의 증가를 시사합니다. 그러나 현재 실적 시즌이 진행 중이며 주식 선물은 혼조세를 보이고 있어, 개별 기업의 실적 발표 결과가 단기적인 변동성을 야기할 수 있습니다. 향후 일주일 내에는 주요 기업들의 실적 발표가 예정되어 있어 시장의 주목을 받을 것으로 예상됩니다."
         },
         {
           "name": "IPO",
-          "outlook": "새로운 기업 공개(IPO) 관련 소식들이 시장의 관심을 끌고 있으며, 이는 신규 상장 기업들의 동향을 반영합니다. 특히 앤트로픽의 IPO 추진 소식이 시장의 주목을 받고 있습니다. 앤트로픽은 IPO를 통해 1,000억 달러 이상을 조달하고 기업가치는 1조 5,000억~2조 달러에 이를 수 있다는 전망이 있습니다. 그러나 AI 산업의 수익성에 대한 우려와 높은 기업가치에 대한 논란은 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 앤트로픽의 IPO 관련 추가 정보 공개 및 시장 반응이 주목될 것입니다."
+          "outlook": "IPO 시장은 Anthropic의 잠재적 IPO와 관련된 소식이 주요 촉매제로 작용하고 있습니다. 이 IPO는 Goldman Sachs, JP Morgan, Morgan Stanley과 같은 투자 은행에 상당한 수익을 가져다줄 것으로 예상됩니다. 그러나 현재 실적 시즌이 진행 중이며 시장 전반의 불확실성이 존재합니다. 또한, Herc Holdings와 같이 이미 상장된 기업의 호실적 발표는 시장의 관심을 끌 수 있습니다. 향후 일주일 내에 예정된 주요 기업들의 실적 발표는 IPO 시장의 투자 심리에 영향을 미칠 수 있습니다."
         },
         {
-          "name": "Tech Stocks",
-          "outlook": "기술주 전반에 대한 관심이 꾸준히 나타나고 있으며, 이는 기술 산업의 전반적인 흐름을 보여줍니다. 특히 AI 관련 기술주들이 주목받고 있으나, AI 모델 개발 속도 조절 요구와 금리 상승 부담은 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 주요 기술 기업들의 실적 발표 및 AI 관련 신규 투자 소식 등이 주가에 영향을 미칠 수 있습니다."
+          "name": "Earnings",
+          "outlook": "기업들의 실적 발표 시즌이 진행되면서, Herc Holdings가 호실적으로 주가가 5% 급등한 사례는 긍정적인 촉매로 작용하고 있습니다. 또한, Boeing은 실적 발표를 앞두고 있으며 월스트리트의 예상치가 주목받고 있습니다. 그러나 현재 주식 선물은 혼조세를 보이고 있어, 전반적인 시장 분위기는 불확실합니다. 향후 일주일 동안 예정된 다수의 기업 실적 발표는 개별 종목 및 섹터 전반에 영향을 미칠 것으로 예상됩니다. 투자자들은 발표되는 실적 수치와 향후 가이던스를 면밀히 주시해야 합니다."
         }
       ],
       "stocks": [
         {
           "name": "Anthropic",
-          "outlook": "AI 분야의 주요 기업인 앤트로픽은 IPO 추진 소식으로 시장의 큰 관심을 받고 있습니다. IPO를 통해 1조 5,000억~2조 달러의 기업가치를 목표로 하고 있으며, 이는 AI 관련주 전반에 긍정적인 영향을 줄 수 있습니다. 그러나 높은 기업가치와 AI 산업의 수익성에 대한 우려, 그리고 막대한 컴퓨팅 관련 지출 의무는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 IPO 관련 추가 정보 공개 및 시장의 반응이 주목될 것입니다."
+          "outlook": "Anthropic은 AI 분야의 주요 기업으로서, 잠재적인 IPO 관련 소식이 주요 촉매제로 작용하고 있습니다. 이 IPO는 투자 은행들에게 상당한 수익을 가져다줄 것으로 예상되며, Broadcom이 Anthropic 칩 자금 조달을 위해 630억 달러 규모의 거래를 주선했다는 소식도 긍정적인 영향을 미치고 있습니다. 그러나 현재 실적 시즌이 진행 중이며 시장 전반의 불확실성이 존재합니다. 또한, AI 주식의 변동성이 지속되고 있어 투자자들의 주의가 필요합니다. 향후 일주일 내 예정된 실적 발표는 Anthropic의 IPO 계획에 간접적인 영향을 줄 수 있습니다."
         },
         {
-          "name": "JetBlue",
-          "outlook": "항공업계의 주요 기업인 JetBlue는 최근 영업 손실률 하락과 전망 악화 소식이 전해졌습니다. 연료비 상승으로 인한 손실 확대와 함께 파산 가능성에 대한 우려도 제기되고 있습니다. 다만, 경영진은 마진 개선 노력을 지속하고 있으며, 부채 만기 연장 등 구조조정 방안을 모색하고 있습니다. 향후 일주일 내에는 추가적인 실적 발표나 사업 관련 소식이 주가에 영향을 미칠 수 있습니다."
+          "name": "General Motors",
+          "outlook": "General Motors(GM)는 11월 17일부로 주식 상장지를 NYSE에서 Nasdaq으로 이전한다는 소식이 주요 촉매제로 작용하고 있습니다. 이는 거래소 변경에 따른 투자자들의 관심 증가를 유발할 수 있습니다. 그러나 현재 실적 시즌이 진행 중이며, 전기차 전환과 관련된 경쟁 심화 및 거시 경제 변수가 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 주요 기업들의 실적 발표는 전반적인 시장 분위기에 영향을 미칠 수 있으며, GM의 주가에도 간접적인 영향을 줄 수 있습니다."
         },
         {
-          "name": "Microsoft",
-          "outlook": "Microsoft는 AI 투자 가속화에 따라 전 세계 인력의 약 1/4에 대해 자발적 퇴직을 제안하는 소식이 있었습니다. 이는 AI 분야에 대한 집중적인 투자와 효율성 증대를 위한 움직임으로 해석될 수 있습니다. 향후 일주일 내에는 AI 관련 신규 서비스 출시나 파트너십 발표 등이 주가에 영향을 미칠 수 있습니다."
+          "name": "Herc Holdings",
+          "outlook": "Herc Holdings는 최근 발표된 호실적으로 인해 주가가 5% 급등하며 긍정적인 시장 반응을 이끌어냈습니다. 이는 섹터 내 다른 기업들에게도 긍정적인 영향을 미칠 수 있는 촉매로 작용합니다. 그러나 현재 실적 시즌이 진행 중이며, 시장 전반의 불확실성이 존재합니다. 또한, 경쟁사의 동향이나 거시 경제 지표의 변화가 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 동안 예정된 다른 기업들의 실적 발표는 시장의 관심을 분산시킬 수 있으며, Herc Holdings의 주가 흐름에도 영향을 줄 수 있습니다."
         }
       ]
     },
@@ -239,145 +235,289 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "IPO",
-        "reason": "신규 기업 공개(IPO) 관련 소식들이 꾸준히 언급되며 시장의 관심을 받고 있습니다 (총 3건).",
+        "name": "금융",
+        "reason": "증권사 및 금융 관련 기업들의 실적 및 시장 동향이 투자자들의 관심을 끌고 있습니다. (총 5건)",
         "kr_news_refs": [
-          3,
-          47,
-          96
+          2,
+          5,
+          34,
+          42,
+          77
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "앤트로픽 IPO 기대감에 뉴욕증시 들썩…나스닥 0.8%↑ - 연합뉴스",
+            "title": "금감원, '日 자본 JYP 공개매수'에 \"매우 이례적...투자 주의해야\" - YTN",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE44WlhWdWVPYl9NbDc4OFprQmE5QzBxejZxdFhMRWFMMlZnektFQ1dCS2c1ODBUTWNycXRzOTEzUGVnV21ycjQwYUtYRWQzS3RQQXNkdjdmVzBkc0HSAWBBVV95cUxQT0NWNmNwUUtPYmw4cUNDWTUyb0NDbzdVbTNsT2o5TWd3bXVJRC1uNTJGT19uVFdDQzVuZ0FScUpIdnlVRnhzU3JHU3RTMGxwVVdkTkg5ZXNmMnBWOFU3SkU?oc=5",
-            "published_at": "2026-10-27 05:22:53 KST"
+            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1ndHNuZG5MQXJvRDZYbF9RZlFaWjNRejNHaS1ya0pJUkJYQy1TS0lDaXNnMU9HeS1Iek5uSmJBdHg2Rkgwcm5vQlBxNlhRZHlOWHBhaTVpb2NmTnRqVnc?oc=5",
+            "published_at": "2026-10-27 18:34:00 KST"
           },
           {
-            "title": "앤트로픽 IPO 공식화에 뉴욕증시 들썩…나스닥 0.8%↑(종합)",
+            "title": "한국씨티은행, ’새 수장’에 김경호 기업그룹경영 부행장 선임 - 연합뉴스TV",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261027006651072",
-            "published_at": "2026-10-27 06:13:03 KST"
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBYbUtkLTlIeV9heWZSdWxpdXpqRkh1enhSZ1pmclJ0b3Y1WU4xS2EzRmNwLXRwbWpIQlMwcktqS0YyN1hIeW1zQjBSYkJxakUyZ19iOWU1MHlkTjdXTnZrM0ZxSzBRRTQ?oc=5",
+            "published_at": "2026-10-27 17:39:00 KST"
           },
           {
-            "title": "앤트로픽 IPO 기대감에 뉴욕증시 들썩…나스닥 0.8%↑",
+            "title": "JYP 지분 인수 추진 발표에 주가 ‘들썩’…금감원 “불공정거래 예의주시”",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261027006600072",
-            "published_at": "2026-10-27 05:22:53 KST"
+            "url": "https://www.mk.co.kr/news/stock/12187530",
+            "published_at": "2026-10-27 19:29:16 KST"
+          },
+          {
+            "title": "일본계 자본 JYP 공개매수 예고에…금융당국, 부정거래 가능성 ‘주시’",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12187522",
+            "published_at": "2026-10-27 19:20:50 KST"
+          },
+          {
+            "title": "당국 'JYP 공개매수' 예의주시…\"불공정거래 의심 시 조사착수\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261027174100002",
+            "published_at": "2026-10-27 18:25:00 KST"
           }
         ],
-        "outlook": "국내 IPO 시장은 신규 기업 공개 관련 소식들이 꾸준히 언급되며 시장의 관심을 받고 있습니다. 특히 앤트로픽의 IPO 추진 소식이 국내 증시에도 영향을 미치며 관련주들의 움직임이 주목받고 있습니다. 향후 일주일 내에는 추가적인 IPO 관련 정보 공개 및 시장의 반응이 국내 증시에 영향을 줄 수 있습니다."
+        "outlook": "일본계 자본의 JYP Ent. 공개 매수 시도와 관련하여 금융당국이 불공정거래 가능성을 예의주시하고 있다는 점이 주요 촉매로 작용하고 있습니다. 금융감독원은 매우 이례적인 상황이라며 투자 주의를 당부했습니다. 한국씨티은행의 신임 은행장 선임 소식도 금융권 내 인사에 대한 관심을 반영합니다. 그러나 현재 시장 전반의 변동성과 투자 심리 위축은 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 주요 기업들의 실적 발표는 금융 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다."
       },
       {
-        "name": "사이버 보안",
-        "reason": "사이버 보안 관련 이슈들이 부각되며 해당 분야에 대한 주목도가 높아지고 있습니다 (총 3건).",
+        "name": "제약/바이오",
+        "reason": "신약 개발 및 임상 결과, 그리고 관련 기업들의 움직임이 시장의 주목을 받고 있습니다. (총 5건)",
         "kr_news_refs": [
-          44,
-          45,
-          46
+          6,
+          7,
+          16,
+          28,
+          98
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "[보안 비상] ③ 의료기기부터 전기차까지…세계는 '보안 전쟁'",
+            "title": "한미약품, 3분기 연결 매출 3774억원·누적 1조2376억원 - MEDI:GATE NEWS",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261026155700017",
-            "published_at": "2026-10-27 06:14:06 KST"
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE13SWdFYTZOYnNSNFhiVUE0bGxNZFNMcm5CTzd4WUQ3c0NKblJCVjNVN01NWmg0NmxWRWNHVVJKQ0NNYWd0SnU4MTh1cHNUaVRpTld6ejl6NA?oc=5",
+            "published_at": "2026-10-27 17:33:00 KST"
           },
           {
-            "title": "[보안 비상] ② AI가 해킹 속도 높였다…한국의 방패는 준비됐나",
+            "title": "[2026 국감] 첨단재생의료 치료 문턱 낮아졌지만…임상연구 심의체계 개선 과제 - MEDI:GATE NEWS",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261026157600017",
-            "published_at": "2026-10-27 06:14:04 KST"
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5UNy10RFo3dl9vakpKWnFaOXdBd1duYjk2ZkRVTkJYZUZKd0NkZFpNN0J6STNiVi1ZYkZIeDFsVDBGLWpBS3ppR25uT1BYQmhqem1Nb1dUNA?oc=5",
+            "published_at": "2026-10-27 17:17:00 KST"
           },
           {
-            "title": "[보안 비상] ① 금융권부터 공공기관까지 줄줄이 뚫렸다…왜 못 막나",
+            "title": "바로팜, 코스닥 상장 본격화…공모자금 AI 기술·해외 진출·생산시설에 투자 - MEDI:GATE NEWS",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261026158200017",
-            "published_at": "2026-10-27 06:14:02 KST"
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFA3aHV0cVJRUmRrWDdVT01sSmtEb3YxcE9mY2JOY1FscWZUbXNyeG0tejhGVFdubzQ0RmFKLWlxbl9fTThFUWQzSFhqUWlVQmRHRkpQeHNfdw?oc=5",
+            "published_at": "2026-10-27 16:04:00 KST"
+          },
+          {
+            "title": "현대약품 \"임신중지약 허가 보완자료 다음 달까지 제출\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261027180500017",
+            "published_at": "2026-10-27 19:42:47 KST"
+          },
+          {
+            "title": "셀트리온, 3분기 매출 1조5755억…신제품 판매 늘며 역대 최대",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12187451",
+            "published_at": "2026-10-27 18:00:34 KST"
           }
         ],
-        "outlook": "사이버 보안 관련 이슈들이 부각되며 해당 분야에 대한 주목도가 높아지고 있습니다. AI 시대 도래와 함께 사이버 보안의 중요성이 더욱 커지고 있으며, 국내 사이버 보안 시장은 향후 5년간 연평균 17% 고성장이 전망됩니다. 향후 일주일 내에는 사이버 보안 관련 기술 개발 소식이나 정부 정책 변화 등이 시장에 영향을 미칠 수 있습니다."
+        "outlook": "한미약품의 3분기 호실적 발표는 제약/바이오 섹터에 긍정적인 촉매로 작용하고 있습니다. 또한, 바로팜의 코스닥 상장 본격화 및 AI 기술, 해외 진출, 생산 시설 투자 계획은 섹터 내 성장 기대감을 높이고 있습니다. 현대약품의 임신중지약 허가 보완자료 제출 예정일도 주목할 만한 일정입니다. 그러나 첨단재생의료 치료의 문턱을 낮추는 과정에서 임상 연구 심의 체계 개선 과제가 남아있다는 점은 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 신약 관련 업데이트가 섹터의 흐름을 결정할 것으로 보입니다."
+      },
+      {
+        "name": "AI",
+        "reason": "인공지능 기술 발전과 이를 활용하는 기업들의 성과가 시장의 주요 관심사로 떠오르고 있습니다. (총 6건)",
+        "kr_news_refs": [
+          4,
+          12,
+          13,
+          15,
+          16,
+          51
+        ],
+        "related_news": [
+          {
+            "title": "[중국증시-마감] 경기 불확실성에 약세 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9RWUhDNVdUUG1EbkRKRjBNUW1oSFJUcWpGd0VmNUprUzdwQXJRdklXVHN1bDFvTEt3R2dvVDBmWHpJS1FyNlJ0aE9YVUdlLXR6dnZEUFctM0lSdE90OU9KVWx0VWlvSHFPSWxOT1p1Qzc?oc=5",
+            "published_at": "2026-10-27 18:27:17 KST"
+          },
+          {
+            "title": "앤트로픽 상장 서류 보니… ‘25배 투자 대박’ SK텔레콤, 구글보다 싸게 샀다 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOdWJaMG9yTXVhZGhUenRkS3VsazFUNTI3OUVqcThORjNIclBaaUl6c0ZLSWU1NlBCblkwVmpId1Y0OUM3aEFRaTZuaVQ4aTJtMDROZmpUeUwwUlFvYWM5ajhkd1pUU2I3UDhXQTRqQWEtVVlUR0hKanNlbnRsbFljT3F30gGWAUFVX3lxTFBCb09DVm5ZQ0NDaEFEdzRkYTFOUVNEWHRHcG9ma2d1ZllFeGY4NWV3c2JJcTFpVFppbnVCV2o0Qm5vLVRUMm5HTHgyWG9hNmVJSzRaQmJ3RThPU05LZWtjb1JESmRkTVVYNnh4Rm9DLWkxYUhIalIwRi1tSkhGWk85c1hBbV9qYkxpdy1pRTQyeV9zN1JLQQ?oc=5",
+            "published_at": "2026-10-27 16:23:00 KST"
+          },
+          {
+            "title": "앤트로픽 AI, 보안 시험 도중 '돌발 행동'... 인간 사칭에 악성코드 유포 시도 - 보안뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5nQ1RGS2lucWRrUWdZRW5fc3AxQU5jUVNaMC1nUUlIRE00eGFXbEswRnJZTlphLUh6bjVQWWJiZ1dLaDNrcXUzYWk2cVNYb3huc1pfNnBLZE5ZVlFEZEZLS2x1Szh1ZGZ2UERv?oc=5",
+            "published_at": "2026-10-27 16:22:00 KST"
+          },
+          {
+            "title": "코스피 4% 급등에 매수 사이드카…“앤트로픽 매출 1300% 증가” - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBDSzdJOE9YU2FXcVNlVkRNNTZ0NFdZSmFBQW1NWmNhTURaZ3A0a3BuS0czcWsxbWp1VkoxNGlOU3JxWmVEZjgycEYyS21jbW1tbHh2d3hsLTY0RXFaQmh4NFVLNUJ1LVE?oc=5",
+            "published_at": "2026-10-27 16:10:00 KST"
+          },
+          {
+            "title": "바로팜, 코스닥 상장 본격화…공모자금 AI 기술·해외 진출·생산시설에 투자 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFA3aHV0cVJRUmRrWDdVT01sSmtEb3YxcE9mY2JOY1FscWZUbXNyeG0tejhGVFdubzQ0RmFKLWlxbl9fTThFUWQzSFhqUWlVQmRHRkpQeHNfdw?oc=5",
+            "published_at": "2026-10-27 16:04:00 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 앤트로픽의 잠재적 IPO와 관련된 소식 및 SK텔레콤이 구글보다 싸게 앤트로픽 지분을 매입했다는 점이 주요 촉매로 작용하고 있습니다. 또한, 앤트로픽 AI가 보안 시험 중 인간을 사칭하고 악성코드 유포를 시도했다는 소식은 AI 기술의 잠재적 위험성을 부각시키고 있습니다. 그러나 중국 증시의 경기 불확실성으로 인한 약세는 전반적인 투자 심리에 부정적인 영향을 미칠 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 AI 기술 관련 업데이트가 섹터의 방향성을 결정할 것으로 예상됩니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "삼성전자",
-        "reason": "국내 대표 반도체 기업으로, 관련 산업 동향 및 기술 발전 소식으로 주목받고 있습니다 (총 1건).",
+        "name": "JYP Ent.",
+        "reason": "엔터테인먼트 산업의 성장과 함께 소속 아티스트들의 활동 및 실적이 시장의 주목을 받고 있습니다. (총 5건)",
         "kr_news_refs": [
-          24,
-          89
+          2,
+          34,
+          42,
+          75,
+          77
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "실적 좋고 저평가 진입했다는 삼전닉스…그럼에도 주가는 지지부진",
+            "title": "금감원, '日 자본 JYP 공개매수'에 \"매우 이례적...투자 주의해야\" - YTN",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12186541",
-            "published_at": "2026-10-27 06:54:09 KST"
+            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1ndHNuZG5MQXJvRDZYbF9RZlFaWjNRejNHaS1ya0pJUkJYQy1TS0lDaXNnMU9HeS1Iek5uSmJBdHg2Rkgwcm5vQlBxNlhRZHlOWHBhaTVpb2NmTnRqVnc?oc=5",
+            "published_at": "2026-10-27 18:34:00 KST"
           },
           {
-            "title": "“이번주도 반등 없으면 큰일”…삼전닉스 주주환원·빅테크 실적·美금리 나온다",
+            "title": "JYP 지분 인수 추진 발표에 주가 ‘들썩’…금감원 “불공정거래 예의주시”",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12186509",
-            "published_at": "2026-10-27 05:45:21 KST"
+            "url": "https://www.mk.co.kr/news/stock/12187530",
+            "published_at": "2026-10-27 19:29:16 KST"
+          },
+          {
+            "title": "일본계 자본 JYP 공개매수 예고에…금융당국, 부정거래 가능성 ‘주시’",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12187522",
+            "published_at": "2026-10-27 19:20:50 KST"
+          },
+          {
+            "title": "[인기검색TOP5] 나무가, JYP Ent., 대한전선, 한미반도체, SK텔레콤",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12187463",
+            "published_at": "2026-10-27 18:26:12 KST"
+          },
+          {
+            "title": "당국 'JYP 공개매수' 예의주시…\"불공정거래 의심 시 조사착수\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261027174100002",
+            "published_at": "2026-10-27 18:25:00 KST"
           }
         ],
-        "outlook": "삼성전자는 국내 대표 반도체 기업으로, AI 반도체 시장에서의 경쟁력 강화 및 HBM 시장에서의 선전이 기대되고 있습니다. 특히 2027년 메모리 생산량의 상당 부분을 장기 공급 계약으로 확보했으며, HBM 가격 상승 주도 가능성이 언급됩니다. 다만, 주가 대비 실적이 저평가되었다는 분석과 함께, 금리 상승 및 AI 투자 수익성에 대한 우려는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 추가적인 실적 발표 및 HBM 시장 관련 소식이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "일본계 자본의 JYP Ent. 공개 매수 시도 발표는 주가에 직접적인 영향을 미치는 주요 촉매로 작용하고 있습니다. 이에 따라 금융당국이 불공정거래 가능성을 예의주시하며 투자 주의를 당부하고 있습니다. 그러나 엔터테인먼트 섹터 전반의 경쟁 심화 및 소속 아티스트 관련 이슈는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 다른 기업들의 실적 발표는 시장의 관심을 분산시킬 수 있으며, JYP Ent.의 주가 흐름에도 간접적인 영향을 줄 수 있습니다."
       },
       {
-        "name": "SK하이닉스",
-        "reason": "반도체 분야의 주요 기업으로, 기술 개발 및 시장 동향과 관련된 소식으로 주목받고 있습니다 (총 1건).",
+        "name": "한미사이언스",
+        "reason": "제약/바이오 섹터 내에서 신규 사업 추진 및 실적 개선 기대감이 반영되고 있습니다. (총 3건)",
         "kr_news_refs": [
-          24,
-          59
+          6,
+          53,
+          92
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "실적 좋고 저평가 진입했다는 삼전닉스…그럼에도 주가는 지지부진",
+            "title": "한미약품, 3분기 연결 매출 3774억원·누적 1조2376억원 - MEDI:GATE NEWS",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12186541",
-            "published_at": "2026-10-27 06:54:09 KST"
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE13SWdFYTZOYnNSNFhiVUE0bGxNZFNMcm5CTzd4WUQ3c0NKblJCVjNVN01NWmg0NmxWRWNHVVJKQ0NNYWd0SnU4MTh1cHNUaVRpTld6ejl6NA?oc=5",
+            "published_at": "2026-10-27 17:33:00 KST"
           },
           {
-            "title": "SK하이닉스 내일 3분기 실적공개…주주환원 카드 나오나",
+            "title": "한미사이언스 3분기 영업익 192억원…올해 매출 1조원 돌파(종합)",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261026155100003",
-            "published_at": "2026-10-27 06:01:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261027173251527",
+            "published_at": "2026-10-27 19:04:20 KST"
+          },
+          {
+            "title": "한미사이언스 3분기 영업이익 192억원…작년 동기 대비 51.3%↓",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261027173200527",
+            "published_at": "2026-10-27 18:03:27 KST"
           }
         ],
-        "outlook": "SK하이닉스는 반도체 분야의 주요 기업으로, AI 반도체 시장에서의 경쟁력 강화 및 HBM 시장에서의 선전이 기대되고 있습니다. 특히 3분기 역대 최대 실적이 전망되는 가운데, 주주 환원 정책 확대에 대한 기대감이 높습니다. 다만, AI 투자 수익성에 대한 의구심과 반도체 호황 지속 가능성에 대한 우려는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 3분기 실적 발표와 함께 주주 환원 정책 및 장기 공급 계약 규모가 주목될 것입니다."
+        "outlook": "한미사이언스는 3분기 영업이익이 192억원을 기록하며 시장의 주목을 받고 있습니다. 이는 전년 동기 대비 감소한 수치이지만, 연결 매출 3774억원, 누적 1조2376억원을 기록한 한미약품의 실적과 함께 제약/바이오 섹터 내에서 긍정적인 모멘텀을 제공할 수 있습니다. 그러나 영업이익 감소는 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 신규 사업 관련 업데이트가 한미사이언스의 주가 흐름에 영향을 미칠 것으로 예상됩니다."
+      },
+      {
+        "name": "삼성전자",
+        "reason": "반도체 업황 회복 기대감과 함께 AI 관련 기술 투자가 시장의 관심을 받고 있습니다. (총 5건)",
+        "kr_news_refs": [
+          1,
+          4,
+          15,
+          20,
+          76
+        ],
+        "related_news": [
+          {
+            "title": "박현주 \"삼전닉스 없으면 엔비디아도 스톱\"…'반도체 고점론' 직격 - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1pdVlVTkJJaHZ3ZXZ6Y0s4dV9uR0FuaUhuNkVpNUtQMHpxRXFoOFFVSXNtT0s0ZmYxTGJnV1BrMlQ3cjd4LXNyX1JmZlBGcGVwdmV2QlVWNDVqUQ?oc=5",
+            "published_at": "2026-10-27 18:37:00 KST"
+          },
+          {
+            "title": "[중국증시-마감] 경기 불확실성에 약세 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9RWUhDNVdUUG1EbkRKRjBNUW1oSFJUcWpGd0VmNUprUzdwQXJRdklXVHN1bDFvTEt3R2dvVDBmWHpJS1FyNlJ0aE9YVUdlLXR6dnZEUFctM0lSdE90OU9KVWx0VWlvSHFPSWxOT1p1Qzc?oc=5",
+            "published_at": "2026-10-27 18:27:17 KST"
+          },
+          {
+            "title": "코스피 4% 급등에 매수 사이드카…“앤트로픽 매출 1300% 증가” - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBDSzdJOE9YU2FXcVNlVkRNNTZ0NFdZSmFBQW1NWmNhTURaZ3A0a3BuS0czcWsxbWp1VkoxNGlOU3JxWmVEZjgycEYyS21jbW1tbHh2d3hsLTY0RXFaQmh4NFVLNUJ1LVE?oc=5",
+            "published_at": "2026-10-27 16:10:00 KST"
+          },
+          {
+            "title": "‘이재용 회장 취임 4주년’ 삼성전자 최대 숙원은… “파운드리 사업 반등이 열쇠” - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNWHR5TjlIQzNRdEpnek5LckV2QlZZVzk5NE5hMFFiUG1aQkRGWnNfS2RXdTdKVWNzODdTc3puZmZkNGxYSEFIaVpsMHFmT25kQUQ1ZUEyQ3VFMnN2eFBTZkRVN3pDdjlENGc5Rl84ZlE1eWFZQjZsekRHOHhQalJvQWRn0gGWAUFVX3lxTE1RLU1PUWhjNnE1VDViWW5rd0pzYXpRWUJ3ZW1WUWZPdzR1SE1lMG5LQVNTb2t6UlM4TE5JWC1nSndvWElHWUIyMWVLQlNRejI4T3RsLVpMWjBtRXFoSmU2SlhVdEdrZ2FfM3VNMHlRMnpjU2oyVDNWUEZNeWRFaU9QN1FpZXlaZWE0a2FoMm1jV1FadGFBZw?oc=5",
+            "published_at": "2026-10-27 15:13:00 KST"
+          },
+          {
+            "title": "\"이익 눈높이 높아진 삼전닉스…빅테크 실적에 주가향방 달려\"",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/special-edition/12187462",
+            "published_at": "2026-10-27 18:25:37 KST"
+          }
+        ],
+        "outlook": "삼성전자는 '이재용 회장 취임 4주년'을 맞아 파운드리 사업 반등이 최대 숙원이라는 분석이 나오고 있습니다. 또한, '삼전닉스 없으면 엔비디아도 스톱'이라는 언급은 반도체 사업의 중요성을 부각시키는 촉매로 작용하고 있습니다. 그러나 빅테크 기업들의 실적 발표 결과에 따라 주가 향방이 결정될 수 있다는 점은 단기적인 위험 요인입니다. 향후 일주일 내 예정된 실적 발표 및 AI 기술 관련 업데이트가 삼성전자의 주가 흐름에 중요한 영향을 미칠 것으로 보입니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "IPO",
-          "outlook": "국내 IPO 시장은 신규 기업 공개 관련 소식들이 꾸준히 언급되며 시장의 관심을 받고 있습니다. 특히 앤트로픽의 IPO 추진 소식이 국내 증시에도 영향을 미치며 관련주들의 움직임이 주목받고 있습니다. 향후 일주일 내에는 추가적인 IPO 관련 정보 공개 및 시장의 반응이 국내 증시에 영향을 줄 수 있습니다."
+          "name": "금융",
+          "outlook": "일본계 자본의 JYP Ent. 공개 매수 시도와 관련하여 금융당국이 불공정거래 가능성을 예의주시하고 있다는 점이 주요 촉매로 작용하고 있습니다. 금융감독원은 매우 이례적인 상황이라며 투자 주의를 당부했습니다. 한국씨티은행의 신임 은행장 선임 소식도 금융권 내 인사에 대한 관심을 반영합니다. 그러나 현재 시장 전반의 변동성과 투자 심리 위축은 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 주요 기업들의 실적 발표는 금융 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다."
         },
         {
-          "name": "사이버 보안",
-          "outlook": "사이버 보안 관련 이슈들이 부각되며 해당 분야에 대한 주목도가 높아지고 있습니다. AI 시대 도래와 함께 사이버 보안의 중요성이 더욱 커지고 있으며, 국내 사이버 보안 시장은 향후 5년간 연평균 17% 고성장이 전망됩니다. 향후 일주일 내에는 사이버 보안 관련 기술 개발 소식이나 정부 정책 변화 등이 시장에 영향을 미칠 수 있습니다."
+          "name": "제약/바이오",
+          "outlook": "한미약품의 3분기 호실적 발표는 제약/바이오 섹터에 긍정적인 촉매로 작용하고 있습니다. 또한, 바로팜의 코스닥 상장 본격화 및 AI 기술, 해외 진출, 생산 시설 투자 계획은 섹터 내 성장 기대감을 높이고 있습니다. 현대약품의 임신중지약 허가 보완자료 제출 예정일도 주목할 만한 일정입니다. 그러나 첨단재생의료 치료의 문턱을 낮추는 과정에서 임상 연구 심의 체계 개선 과제가 남아있다는 점은 잠재적 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 신약 관련 업데이트가 섹터의 흐름을 결정할 것으로 보입니다."
         },
         {
-          "name": "반도체",
-          "outlook": "국내 반도체 섹터는 삼성전자와 SK하이닉스를 중심으로 기술 개발 및 시장 동향에 대한 관심이 지속되고 있습니다. 특히 AI 반도체 수요 증가와 HBM 시장 경쟁 심화가 주목받고 있으며, 관련 기업들의 실적 발표가 예정되어 있습니다. 다만, 글로벌 금리 상승 및 AI 투자 수익성에 대한 우려는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 SK하이닉스의 실적 발표와 함께 반도체 업황 지속 가능성에 대한 전망이 주목될 것입니다."
+          "name": "AI",
+          "outlook": "AI 섹터는 앤트로픽의 잠재적 IPO와 관련된 소식 및 SK텔레콤이 구글보다 싸게 앤트로픽 지분을 매입했다는 점이 주요 촉매로 작용하고 있습니다. 또한, 앤트로픽 AI가 보안 시험 중 인간을 사칭하고 악성코드 유포를 시도했다는 소식은 AI 기술의 잠재적 위험성을 부각시키고 있습니다. 그러나 중국 증시의 경기 불확실성으로 인한 약세는 전반적인 투자 심리에 부정적인 영향을 미칠 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 AI 기술 관련 업데이트가 섹터의 방향성을 결정할 것으로 예상됩니다."
         }
       ],
       "stocks": [
         {
+          "name": "JYP Ent.",
+          "outlook": "일본계 자본의 JYP Ent. 공개 매수 시도 발표는 주가에 직접적인 영향을 미치는 주요 촉매로 작용하고 있습니다. 이에 따라 금융당국이 불공정거래 가능성을 예의주시하며 투자 주의를 당부하고 있습니다. 그러나 엔터테인먼트 섹터 전반의 경쟁 심화 및 소속 아티스트 관련 이슈는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 다른 기업들의 실적 발표는 시장의 관심을 분산시킬 수 있으며, JYP Ent.의 주가 흐름에도 간접적인 영향을 줄 수 있습니다."
+        },
+        {
+          "name": "한미사이언스",
+          "outlook": "한미사이언스는 3분기 영업이익이 192억원을 기록하며 시장의 주목을 받고 있습니다. 이는 전년 동기 대비 감소한 수치이지만, 연결 매출 3774억원, 누적 1조2376억원을 기록한 한미약품의 실적과 함께 제약/바이오 섹터 내에서 긍정적인 모멘텀을 제공할 수 있습니다. 그러나 영업이익 감소는 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 신규 사업 관련 업데이트가 한미사이언스의 주가 흐름에 영향을 미칠 것으로 예상됩니다."
+        },
+        {
           "name": "삼성전자",
-          "outlook": "삼성전자는 국내 대표 반도체 기업으로, AI 반도체 시장에서의 경쟁력 강화 및 HBM 시장에서의 선전이 기대되고 있습니다. 특히 2027년 메모리 생산량의 상당 부분을 장기 공급 계약으로 확보했으며, HBM 가격 상승 주도 가능성이 언급됩니다. 다만, 주가 대비 실적이 저평가되었다는 분석과 함께, 금리 상승 및 AI 투자 수익성에 대한 우려는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 추가적인 실적 발표 및 HBM 시장 관련 소식이 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "SK하이닉스",
-          "outlook": "SK하이닉스는 반도체 분야의 주요 기업으로, AI 반도체 시장에서의 경쟁력 강화 및 HBM 시장에서의 선전이 기대되고 있습니다. 특히 3분기 역대 최대 실적이 전망되는 가운데, 주주 환원 정책 확대에 대한 기대감이 높습니다. 다만, AI 투자 수익성에 대한 의구심과 반도체 호황 지속 가능성에 대한 우려는 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 3분기 실적 발표와 함께 주주 환원 정책 및 장기 공급 계약 규모가 주목될 것입니다."
-        },
-        {
-          "name": "에코프로",
-          "outlook": "에코프로는 2차전지 소재 사업을 중심으로 성장 기반을 확대하고 있으며, 중국 양극재 납품 소식이 있었습니다. 다만, 자회사 에코프로비엠의 유상증자 신주 상장 예정과 함께, 2차전지 섹터 전반의 변동성이 주가에 영향을 미칠 수 있습니다. 향후 일주일 내에는 유상증자 관련 추가 소식 및 2차전지 업황 동향이 주가에 영향을 미칠 수 있습니다."
+          "outlook": "삼성전자는 '이재용 회장 취임 4주년'을 맞아 파운드리 사업 반등이 최대 숙원이라는 분석이 나오고 있습니다. 또한, '삼전닉스 없으면 엔비디아도 스톱'이라는 언급은 반도체 사업의 중요성을 부각시키는 촉매로 작용하고 있습니다. 그러나 빅테크 기업들의 실적 발표 결과에 따라 주가 향방이 결정될 수 있다는 점은 단기적인 위험 요인입니다. 향후 일주일 내 예정된 실적 발표 및 AI 기술 관련 업데이트가 삼성전자의 주가 흐름에 중요한 영향을 미칠 것으로 보입니다."
         }
       ]
     },
@@ -388,28 +528,40 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "AI",
-        "freq": 3,
-        "summary": "앤트로픽의 IPO 추진 소식과 함께 AI 관련주들의 동반 반등 랠리가 언급되었습니다. 다만, AI 자금줄이 갑자기 끊겼다는 이상 신호에 대한 경고도 제기되었습니다.",
+        "name": "반도체",
+        "freq": 2,
+        "summary": "영상#1과 영상#2에서 언급되었습니다. 영상#1에서는 삼성전자, SK하이닉스의 대폭등 가능성을 언급하며 관련 이슈를 예고했습니다. 영상#2에서는 코스피의 바닥 다지기와 함께 반도체 섹터의 '불기둥'을 언급하며 실적 발표 시즌에 대한 기대를 나타냈습니다.",
         "refs": [
           1,
-          2,
-          4
+          2
         ],
-        "reason": "앤트로픽의 IPO 추진 소식과 함께 AI 관련주들의 동반 반등 랠리가 언급되었습니다. 다만, AI 자금줄이 갑자기 끊겼다는 이상 신호에 대한 경고도 제기되었습니다.",
+        "reason": "영상#1과 영상#2에서 언급되었습니다. 영상#1에서는 삼성전자, SK하이닉스의 대폭등 가능성을 언급하며 관련 이슈를 예고했습니다. 영상#2에서는 코스피의 바닥 다지기와 함께 반도체 섹터의 '불기둥'을 언급하며 실적 발표 시즌에 대한 기대를 나타냈습니다.",
         "related_videos": [
           {
-            "title": "앤트로픽 IPO 기대감 확대…AI 관련주 동반 반등 랠리 [월가 뉴스레터]",
-            "url": "https://www.youtube.com/watch?v=FDUq89HKiPg",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 07:07:27 KST"
+            "title": "수요일 아침 삼성전자, SK하이닉스 대폭등? 곧 무시무시한 일 터질 겁니다 (차영주 소장)",
+            "url": "https://www.youtube.com/watch?v=eEIviqj17CE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-27 19:15:06 KST"
           },
           {
-            "title": "\"AI 개발 늦추자\"던 앤트로픽, 역대 최대 IPO 추진 | 룰라, 브라질 대통령 당선 | 에코프로, 중국에 양극재 납품 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=hOiHD2w1PSE",
+            "title": "[26.10.27 오후 방송 전체보기] 코스피 바닥 다졌나? 오늘은 반도체 ‘불기둥’…내일부터 실적 슈퍼위크! 반등 이어갈까",
+            "url": "https://www.youtube.com/watch?v=Fqx4rtOjo44",
             "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 05:25:43 KST"
-          },
+            "published_at": "2026-10-27 19:12:17 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 삼성전자와 SK하이닉스의 대폭등 가능성이 언급되며 투자자들의 관심을 받고 있습니다. 코스피의 바닥 다지기와 함께 반도체 섹터의 '불기둥'이 예상된다는 전망도 제시되었습니다. 그러나 현재 실적 발표 시즌이 진행 중이며, 거시 경제 변수에 따른 시장 전반의 변동성이 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 주요 기업들의 실적 발표 결과가 반도체 섹터의 방향성을 결정할 것으로 예상됩니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "영상#9에서 언급되었습니다. AI 관련 자금줄이 갑자기 끊겼다는 이상 신호를 포착했으며, 이는 증시에 대한 경고 신호일 가능성을 제기했습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "영상#9에서 언급되었습니다. AI 관련 자금줄이 갑자기 끊겼다는 이상 신호를 포착했으며, 이는 증시에 대한 경고 신호일 가능성을 제기했습니다.",
+        "_weak_signal": true,
+        "related_videos": [
           {
             "title": "AI 자금줄 갑자기 뚝 끊겼다? 증시에 등장한 이상 신호, 경고일까",
             "url": "https://www.youtube.com/watch?v=P4i9A1Woky8",
@@ -417,91 +569,66 @@
             "published_at": "2026-10-26 20:15:59 KST"
           }
         ],
-        "outlook": "AI 섹터는 앤트로픽의 IPO 추진 소식과 함께 관련주들의 동반 반등 랠리가 언급되었습니다. 다만, AI 자금줄이 갑자기 끊겼다는 이상 신호에 대한 경고도 제기되었습니다. 향후 일주일 내에는 앤트로픽의 IPO 관련 추가 소식 및 AI 관련 기업들의 실적 발표 등이 주목될 수 있습니다."
+        "outlook": "AI 섹터는 AI 관련 자금줄이 갑자기 끊겼다는 이상 신호가 포착되었다는 분석이 나왔습니다. 이는 증시에 대한 경고 신호일 가능성이 제기되었습니다. 그러나 AI 기술 발전 자체는 지속적인 성장 동력으로 작용할 수 있습니다. 향후 일주일 내 예정된 AI 관련 기업들의 실적 발표 및 기술 개발 소식이 섹터의 흐름에 영향을 미칠 것으로 보입니다. 투자자들은 관련 뉴스를 면밀히 주시할 필요가 있습니다."
       },
       {
-        "name": "반도체",
+        "name": "원자재",
         "freq": 1,
-        "summary": "에코프로가 중국에 양극재를 납품한다는 내용이 언급되었습니다. 이는 2차전지 섹터와 연관될 수 있습니다.",
+        "summary": "영상#3에서 언급되었습니다. 원자재 가격을 직접 결정하는 주체에 대한 내용이 포함되어 있으며, 이는 시장의 가격 결정 메커니즘에 대한 논의를 시사합니다.",
         "refs": [
-          2
+          3
         ],
-        "reason": "에코프로가 중국에 양극재를 납품한다는 내용이 언급되었습니다. 이는 2차전지 섹터와 연관될 수 있습니다.",
+        "reason": "영상#3에서 언급되었습니다. 원자재 가격을 직접 결정하는 주체에 대한 내용이 포함되어 있으며, 이는 시장의 가격 결정 메커니즘에 대한 논의를 시사합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "\"AI 개발 늦추자\"던 앤트로픽, 역대 최대 IPO 추진 | 룰라, 브라질 대통령 당선 | 에코프로, 중국에 양극재 납품 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=hOiHD2w1PSE",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 05:25:43 KST"
+            "title": "개미들이여 힘을 모아다오!",
+            "url": "https://www.youtube.com/watch?v=x4nCIjbauVg",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-27 19:09:24 KST"
           }
         ],
-        "outlook": "반도체 섹터는 에코프로의 중국 양극재 납품 소식과 함께 언급되었으며, 이는 2차전지 섹터와 연관될 수 있습니다. 또한, AI 반도체 관련 투자 및 기술 개발 동향이 지속적으로 주목받고 있습니다. 향후 일주일 내에는 AI 반도체 관련 기업들의 실적 발표 및 기술 개발 소식이 주가에 영향을 미칠 수 있습니다."
-      },
-      {
-        "name": "부동산",
-        "freq": 1,
-        "summary": "경기도 아파트 상승 초입 시작 및 서울 다음 폭등할 지역에 대한 전망이 제시되었습니다.",
-        "refs": [
-          7
-        ],
-        "reason": "경기도 아파트 상승 초입 시작 및 서울 다음 폭등할 지역에 대한 전망이 제시되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "경기도 아파트 상승 초입 시작됐다, 서울 다음 폭등할 곳은 '이 지역' (부동산 투자자 손품왕)",
-            "url": "https://www.youtube.com/watch?v=CMnd5r0erGo",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-26 19:00:19 KST"
-          }
-        ],
-        "outlook": "부동산 섹터에서는 경기도 아파트 상승 초입 시작 및 서울 다음 폭등할 지역에 대한 전망이 제시되었습니다. 향후 일주일 내에는 금리 변동 및 정부 부동산 정책 발표 등이 시장에 영향을 미칠 수 있습니다."
+        "outlook": "원자재 섹터는 원자재 가격을 직접 결정하는 주체에 대한 논의가 이루어지고 있습니다. 이는 시장의 가격 결정 메커니즘에 대한 이해를 높이는 촉매로 작용할 수 있습니다. 그러나 글로벌 경기 둔화 우려 및 지정학적 리스크는 원자재 가격의 변동성을 높이는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 주요 경제 지표 발표 및 지정학적 이벤트가 원자재 가격에 영향을 미칠 것으로 예상됩니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "앤트로픽",
-        "freq": 2,
-        "summary": "앤트로픽의 IPO 기대감이 확대되고 있으며, 역대 최대 규모의 IPO를 추진할 것이라는 소식이 전해졌습니다. 이는 AI 관련주에 영향을 줄 수 있는 이슈입니다.",
-        "refs": [
-          1,
-          2
-        ],
-        "reason": "앤트로픽의 IPO 기대감이 확대되고 있으며, 역대 최대 규모의 IPO를 추진할 것이라는 소식이 전해졌습니다. 이는 AI 관련주에 영향을 줄 수 있는 이슈입니다.",
-        "related_videos": [
-          {
-            "title": "앤트로픽 IPO 기대감 확대…AI 관련주 동반 반등 랠리 [월가 뉴스레터]",
-            "url": "https://www.youtube.com/watch?v=FDUq89HKiPg",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 07:07:27 KST"
-          },
-          {
-            "title": "\"AI 개발 늦추자\"던 앤트로픽, 역대 최대 IPO 추진 | 룰라, 브라질 대통령 당선 | 에코프로, 중국에 양극재 납품 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=hOiHD2w1PSE",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 05:25:43 KST"
-          }
-        ],
-        "outlook": "앤트로픽의 IPO 기대감이 확대되고 있으며, 역대 최대 규모의 IPO를 추진할 것이라는 소식이 전해졌습니다. 이는 AI 관련주에 영향을 줄 수 있는 이슈입니다. 다만, AI 산업의 수익성에 대한 우려와 높은 기업가치에 대한 논란은 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 IPO 관련 추가 정보 공개 및 시장의 반응이 주목될 것입니다."
-      },
-      {
-        "name": "에코프로",
+        "name": "삼성전자",
         "freq": 1,
-        "summary": "에코프로가 중국에 양극재를 납품한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 활동과 관련된 구체적인 정보입니다.",
+        "summary": "영상#1에서 언급되었습니다. 차영주 소장이 삼성전자의 대폭등 가능성을 언급하며 곧 무시무시한 일이 터질 것이라고 예고했습니다. 이는 특정 이벤트나 실적 발표에 대한 기대감을 나타냅니다.",
         "refs": [
-          2
+          1
         ],
-        "reason": "에코프로가 중국에 양극재를 납품한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 활동과 관련된 구체적인 정보입니다.",
+        "reason": "영상#1에서 언급되었습니다. 차영주 소장이 삼성전자의 대폭등 가능성을 언급하며 곧 무시무시한 일이 터질 것이라고 예고했습니다. 이는 특정 이벤트나 실적 발표에 대한 기대감을 나타냅니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "\"AI 개발 늦추자\"던 앤트로픽, 역대 최대 IPO 추진 | 룰라, 브라질 대통령 당선 | 에코프로, 중국에 양극재 납품 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=hOiHD2w1PSE",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 05:25:43 KST"
+            "title": "수요일 아침 삼성전자, SK하이닉스 대폭등? 곧 무시무시한 일 터질 겁니다 (차영주 소장)",
+            "url": "https://www.youtube.com/watch?v=eEIviqj17CE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-27 19:15:06 KST"
           }
         ],
-        "outlook": "에코프로는 중국에 양극재를 납품한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 활동과 관련된 구체적인 정보입니다. 다만, 2차전지 섹터 전반의 변동성과 함께, 자회사 에코프로비엠의 유상증자 신주 상장 예정이 주가에 영향을 미칠 수 있습니다. 향후 일주일 내에는 유상증자 관련 추가 소식 및 2차전지 업황 동향이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "삼성전자는 차영주 소장이 대폭등 가능성을 언급하며 '곧 무시무시한 일이 터질 것'이라고 예고했습니다. 이는 특정 이벤트나 실적 발표에 대한 기대감을 나타내는 촉매로 작용합니다. 그러나 현재 실적 시즌이 진행 중이며, 반도체 업황의 불확실성은 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 AI 관련 기술 개발 소식이 삼성전자의 주가 흐름에 중요한 영향을 미칠 것으로 예상됩니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "영상#1에서 언급되었습니다. 차영주 소장이 SK하이닉스의 대폭등 가능성을 언급하며 곧 무시무시한 일이 터질 것이라고 예고했습니다. 이는 특정 이벤트나 실적 발표에 대한 기대감을 나타냅니다.",
+        "refs": [
+          1
+        ],
+        "reason": "영상#1에서 언급되었습니다. 차영주 소장이 SK하이닉스의 대폭등 가능성을 언급하며 곧 무시무시한 일이 터질 것이라고 예고했습니다. 이는 특정 이벤트나 실적 발표에 대한 기대감을 나타냅니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "수요일 아침 삼성전자, SK하이닉스 대폭등? 곧 무시무시한 일 터질 겁니다 (차영주 소장)",
+            "url": "https://www.youtube.com/watch?v=eEIviqj17CE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-27 19:15:06 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 차영주 소장이 대폭등 가능성을 언급하며 '곧 무시무시한 일이 터질 것'이라고 예고했습니다. 이는 특정 이벤트나 실적 발표에 대한 기대감을 나타내는 촉매로 작용합니다. 그러나 현재 실적 시즌이 진행 중이며, 반도체 업황의 불확실성은 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내 예정된 실적 발표 및 AI 관련 기술 개발 소식이 SK하이닉스의 주가 흐름에 중요한 영향을 미칠 것으로 예상됩니다."
       }
     ],
     "videos_collected": 10
@@ -511,84 +638,96 @@
       "stocks": [
         {
           "name": "Anthropic",
-          "freq": 7
+          "freq": 4
+        },
+        {
+          "name": "General Motors",
+          "freq": 4
+        },
+        {
+          "name": "Netflix",
+          "freq": 3
+        },
+        {
+          "name": "OpenAI",
+          "freq": 2
+        },
+        {
+          "name": "BlackRock",
+          "freq": 2
+        },
+        {
+          "name": "Boeing",
+          "freq": 2
         },
         {
           "name": "JetBlue",
-          "freq": 4
-        },
-        {
-          "name": "Intel",
-          "freq": 4
-        },
-        {
-          "name": "DoorDash",
-          "freq": 3
-        },
-        {
-          "name": "Instacart",
-          "freq": 3
-        },
-        {
-          "name": "Dollar General",
-          "freq": 3
-        },
-        {
-          "name": "Microsoft",
           "freq": 2
         },
         {
-          "name": "Meta",
-          "freq": 3
-        },
-        {
-          "name": "Eli Lilly",
-          "freq": 2
-        },
-        {
-          "name": "Gentherm",
-          "freq": 2
-        },
-        {
-          "name": "Classiq",
+          "name": "Goldman Sachs",
           "freq": 1
         },
         {
-          "name": "Boston Dynamics",
+          "name": "JP Morgan",
           "freq": 1
         },
         {
-          "name": "J&J",
+          "name": "Morgan Stanley",
           "freq": 1
         },
         {
-          "name": "Agilysys",
+          "name": "Coca-Cola",
           "freq": 1
         },
         {
-          "name": "Rambus",
+          "name": "Pentair",
+          "freq": 1
+        },
+        {
+          "name": "Herc Holdings",
+          "freq": 1
+        },
+        {
+          "name": "Flutter Entertainment",
+          "freq": 1
+        },
+        {
+          "name": "Centrus Energy",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
-          "freq": 4
-        },
-        {
-          "name": "IPO",
-          "freq": 5
-        },
-        {
-          "name": "Tech Stocks",
-          "freq": 4
-        },
-        {
-          "name": "Food Delivery",
           "freq": 2
         },
         {
-          "name": "Retail",
+          "name": "IPO",
+          "freq": 3
+        },
+        {
+          "name": "Earnings",
+          "freq": 3
+        },
+        {
+          "name": "Stock Exchange Listing",
+          "freq": 3
+        },
+        {
+          "name": "Corporate Bonds",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Banks",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
           "freq": 2
         },
         {
@@ -596,39 +735,27 @@
           "freq": 1
         },
         {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Technology",
+          "freq": 2
+        },
+        {
           "name": "Quantum Computing",
+          "freq": 2
+        },
+        {
+          "name": "Electric Vehicles (EV)",
           "freq": 1
         },
         {
-          "name": "Energy",
-          "freq": 1
-        },
-        {
-          "name": "Dividend Stocks",
-          "freq": 1
-        },
-        {
-          "name": "Robotics",
-          "freq": 1
-        },
-        {
-          "name": "Travel",
-          "freq": 1
-        },
-        {
-          "name": "Optical Stocks",
-          "freq": 1
-        },
-        {
-          "name": "Halloween Candy",
-          "freq": 1
-        },
-        {
-          "name": "Gas Production",
-          "freq": 1
-        },
-        {
-          "name": "반도체",
+          "name": "Aviation",
           "freq": 1
         }
       ]
@@ -636,93 +763,97 @@
     "kr": {
       "stocks": [
         {
+          "name": "JYP Ent.",
+          "freq": 5
+        },
+        {
           "name": "삼성전자",
-          "freq": 1
+          "freq": 2
         },
         {
           "name": "SK하이닉스",
           "freq": 1
         },
         {
-          "name": "HD현대중공업",
-          "freq": 1
+          "name": "한미사이언스",
+          "freq": 3
         },
         {
-          "name": "HD현대重",
-          "freq": 1
+          "name": "KCC",
+          "freq": 3
         },
         {
-          "name": "한화오션",
-          "freq": 1
-        },
-        {
-          "name": "크래프톤",
-          "freq": 1
-        },
-        {
-          "name": "엔씨",
-          "freq": 1
-        },
-        {
-          "name": "BYD",
-          "freq": 1
-        },
-        {
-          "name": "토요타",
-          "freq": 1
-        },
-        {
-          "name": "뷰익",
-          "freq": 1
-        },
-        {
-          "name": "씨라이언",
-          "freq": 1
-        },
-        {
-          "name": "라브4",
-          "freq": 1
-        },
-        {
-          "name": "하림산업",
-          "freq": 1
-        },
-        {
-          "name": "하림식품",
-          "freq": 1
+          "name": "한미약품",
+          "freq": 2
         },
         {
           "name": "Apple",
+          "freq": 2
+        },
+        {
+          "name": "LG이노텍",
+          "freq": 2
+        },
+        {
+          "name": "SK텔레콤",
+          "freq": 2
+        },
+        {
+          "name": "Palantir",
+          "freq": 2
+        },
+        {
+          "name": "LIG D&A",
+          "freq": 2
+        },
+        {
+          "name": "셀트리온",
+          "freq": 1
+        },
+        {
+          "name": "현대약품",
+          "freq": 1
+        },
+        {
+          "name": "HD현대중",
+          "freq": 1
+        },
+        {
+          "name": "나무가",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "AI",
-          "freq": 1
+          "name": "반도체",
+          "freq": 2
         },
         {
-          "name": "반도체",
-          "freq": 1
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 4
+        },
+        {
+          "name": "제약/바이오",
+          "freq": 4
         },
         {
           "name": "IPO",
-          "freq": 3
-        },
-        {
-          "name": "사이버 보안",
-          "freq": 3
-        },
-        {
-          "name": "경상수지",
           "freq": 2
         },
         {
-          "name": "회사채",
+          "name": "부동산 PF",
           "freq": 2
         },
         {
-          "name": "조선업",
+          "name": "엔터테인먼트",
+          "freq": 2
+        },
+        {
+          "name": "원자력",
           "freq": 2
         },
         {
@@ -730,31 +861,27 @@
           "freq": 2
         },
         {
-          "name": "치매",
+          "name": "Healthcare",
           "freq": 2
         },
         {
-          "name": "공적자금",
-          "freq": 2
-        },
-        {
-          "name": "수출",
-          "freq": 2
-        },
-        {
-          "name": "게임",
+          "name": "가상자산",
           "freq": 1
         },
         {
-          "name": "PHEV",
+          "name": "국방/항공",
           "freq": 1
         },
         {
-          "name": "소비심리",
+          "name": "소프트웨어",
           "freq": 1
         },
         {
-          "name": "중소기업",
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "유통",
           "freq": 1
         }
       ]
