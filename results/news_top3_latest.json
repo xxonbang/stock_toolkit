@@ -1,200 +1,196 @@
 {
-  "generated_at": "2026-10-28 07:31 KST",
+  "generated_at": "2026-10-28 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
-        "name": "Chip stocks",
-        "reason": "AI 칩 수요와 기술주 전반의 강세가 관련 종목들의 주목도를 높였습니다 (총 5건)",
+        "name": "반도체",
+        "reason": "SK하이닉스 등 반도체 기업의 실적 및 HBM 수요 강세가 주목받고 있습니다. (총 6건)",
         "us_news_refs": [
-          1,
-          2,
-          15,
-          39
+          4,
+          8,
+          21,
+          24,
+          25,
+          48
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Stock Market News, Oct. 27, 2026: Dow ends flat, S&P 500 logs gains and Nasdaq books best day in nearly a month as chip stocks bounce for a second day and oil prices ease - MarketWatch",
-            "title_ko": "주식 시장 뉴스, 2026년 10월 27일: 다우 지수 보합, S&P 500 상승, 나스닥 한 달 만에 최고 상승, 반도체 주식 이틀째 반등, 유가 하락",
-            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNZkdLT0QtQ2p0YTIwUkRTRWRJSFF1VUVxRW43RjRfZldlcFhtdFdjeVJmMVQzVUxhdWRnSXU2c19RWlBKY2paSW1vRFJ3SjhDaXdHc1hyWFlVMnV2a3ZUZkk0c1dXdkdra00zVmFYTlZKbXBWNWtxTGxsV2FFZnR6YzgtN3NzeUVJcmJackxfOGcyMUZhZXBPMkZIN0dGUVhmWHZWbVlwcjZwLWtSRjZrY1d0NUE2UQ?oc=5",
-            "published_at": "2026-10-28 07:13:03 KST"
+            "title": "Nasdaq futures rise as SK Hynix lifts chip stocks and traders await Fed decision, Big Tech earnings: Live updates - CNBC",
+            "title_ko": "SK하이닉스, 칩 주가 견인… Fed 결정·빅테크 실적 대기",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBsTVRHVVZZQzNkSHotQ09vdW54RlVucGpqVlNDcU44bWk0NnMxZExaUkZPWGYtRFRhdGxFSjA4OUpQTzdwRGROeFRyY3pTOTVvQkowRW5Ca1NyMjdmbkl1Xzc3SGpJcUNvckl0SVlVeWxNMUp4LTNv0gF8QVVfeXFMTUQ5VHp4S2d6WFdtUkdIYlZKMGp6RVd0NUxnTm0zU2ZfOW9iVHpaWGlaaDFwQXpEMGd2TllQUFJ6ZjQ2YkVxMW5XZnRhT3dKN3hfUTVjU3BhX3J2YVlwRGRPOG5hbWN0T19aUEZWQWg1cHo3X091aURwcV9LUA?oc=5",
+            "published_at": "2026-10-28 18:19:51 KST"
           },
           {
-            "title": "Stock Market Today: Tech Stocks Extend Gains After Yesterday’s Anthropic Rally - WSJ",
-            "title_ko": "오늘의 주식 시장: 어제 Anthropic 랠리 후 기술주 상승세 지속",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOQzZjNjNPU0JVeFdraWZkQkRCbmZVbEc1S3lScGJ5a3g5TEJMSVdsSXhlWXpiVkY3SDJwUTg4N1JtSlVhM3A0VWNzOFg4bDgtVVhMUU1ZWlIzZml3cHF6eWxlMVg5MGZNdE9SRlBUWDh5ck1oVHhLQ1ZITUs3VXE4a01NRmQwdmM?oc=5",
-            "published_at": "2026-10-28 07:11:33 KST"
+            "title": "Boston Scientific earnings missed by $0.02, revenue topped estimates",
+            "title_ko": "보스턴 사이언티픽, 예상치 하회 실적… 매출은 상회",
+            "url": "https://www.investing.com/news/earnings/boston-scientific-earnings-missed-by-002-revenue-topped-estimates-4978294",
+            "published_at": "2026-10-28 19:35:44 KST"
           },
           {
-            "title": "Prediction: This Artificial Intelligence (AI) Memory Stock Will Go Parabolic on Oct. 30 - The Motley Fool",
-            "title_ko": "예측: 이 인공지능(AI) 메모리 주식, 10월 30일 급등할 것",
-            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNUG5qWnhHZ05uR19hczJhaTFsSjRwQ05NeElNeUFJQlJYYm02TXI3UDMyUW1kdi1lNkltM0VXUG9TOUZiSnBfU0xMNmk0R2JPU1JUZm0xMi1abkVIaWxTbHQzQ0lhOWpXOXgzNnJGTkpyUW1sMzFOd2kzaG8zUW9USlBmQXZqY0NxRFI4TmFKODlFX2NJWFRF?oc=5",
-            "published_at": "2026-10-28 04:03:30 KST"
+            "title": "SK Hynix delivered on third-quarter results — but the outlook is what really mattered to Wall Street and the AI trade",
+            "title_ko": "SK하이닉스 3분기 실적 달성… 월스트리트·AI 트레이드 관심은 전망",
+            "url": "https://www.marketwatch.com/story/sk-hynix-delivered-on-third-quarter-results-but-the-outlook-is-what-really-mattered-to-wall-street-and-the-ai-trade-2fde9a57?mod=mw_rss_topstories",
+            "published_at": "2026-10-28 18:25:00 KST"
           },
           {
-            "title": "Retail traders buy the dip on chip stocks — but Robinhood gets burned by the crypto market",
-            "title_ko": "개인 투자자, 반도체 주식 저가 매수 — 그러나 Robinhood는 암호화폐 시장에 타격",
-            "url": "https://www.marketwatch.com/story/retail-traders-buy-the-dip-on-chip-stocks-but-robinhood-gets-burned-by-the-crypto-market-33cea913?mod=mw_rss_topstories",
-            "published_at": "2026-10-28 06:20:00 KST"
+            "title": "SK Hynix’s Profit Surge, $45 Billion Payout Fuel AI Rally - Bloomberg.com",
+            "title_ko": "SK하이닉스 이익 급증, 450억 달러 지급으로 AI 랠리 견인",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNSzhINFhrV3VnOG40ZnJlUGZjVW0zemZlb3l3QVFWdmhBREp4Y2hhTVJ1bU5ETnJlN3VHdnd1V2d1cWo3SGlWeVlqZzV6ZFlJQlVuOXBNYi1wNDc2dXpqT1FRU2k2ajY2M0hXeF82S1lBekhMOEctUnRyTlg1MGY4dHVrT2dJM0FkM1NRY015c0NJLVNhYUFFNkJIenNyLVRnYVFVT3I2VUg4cnhUcUZsdkVYQQ?oc=5",
+            "published_at": "2026-10-28 12:43:00 KST"
+          },
+          {
+            "title": "Global stock markets rise as investors continue to bet on AI - Al Jazeera",
+            "title_ko": "글로벌 증시, AI 베팅 지속에 상승세",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOT3haSUtXak44Y1ZBd1k1ckZ3WWlLS0ZtZFhpRFVUTEVGMFZlbVdENGs5S21GQ2pVWk1GNlBVNTRTcmk1a09qMGozeU1LMlhSNHBqTzNmd3A0dHlVUVdac3h4eEtFMklhN1pOQXBDbHV0Sm1SSEdmbUd4TTJrSFBCVi13ZGs0U2huMGFrZWtoYnYyb0JiUGMxWTN4TlV1ZVh6RHlVSNIBqgFBVV95cUxOUVlfdEdieVEwUUFBOEVXRm5jWER0WGhMMzdxNWJwYmdCSm4tbnJPYWNZNEhvWGJpQnI0SWZJWVRJYTZscktZQWNGb2xxRVAzcm5nd25ZdUFOU3hGV2dscmszZG16TF9tUF9OeWZ4NkhvS0ZFTFBmcG1ZWWtaSU5XYWU5UEtlQzhmZi1KYk9rS1oxUFVSM1d5VTEtVU0xMGZtN1gyUHl0XzFwUQ?oc=5",
+            "published_at": "2026-10-28 12:21:42 KST"
           }
-        ],
-        "outlook": "AI 칩 수요 증가와 기술주 전반의 강세가 긍정적인 요인으로 작용하고 있습니다. 특히, 일부 매체에서는 특정 AI 메모리 주식이 10월 30일에 급등할 가능성을 예측하고 있습니다. 그러나 개인 투자자들의 저가 매수세와 더불어 암호화폐 시장의 변동성이 일부 종목에 영향을 미칠 수 있다는 점은 단기 위험 요인으로 고려될 수 있습니다. 향후 일주일 내에는 주요 기업들의 실적 발표나 기술 개발 관련 뉴스가 주가에 영향을 줄 수 있습니다."
-      },
-      {
-        "name": "Tech stocks",
-        "reason": "AI 관련 기술주들이 연이어 강세를 보이며 시장의 관심을 받았습니다 (총 4건)",
-        "us_news_refs": [
-          1,
-          2,
-          8
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Stock Market News, Oct. 27, 2026: Dow ends flat, S&P 500 logs gains and Nasdaq books best day in nearly a month as chip stocks bounce for a second day and oil prices ease - MarketWatch",
-            "title_ko": "주식 시장 뉴스, 2026년 10월 27일: 다우 지수 보합, S&P 500 상승, 나스닥 한 달 만에 최고 상승, 반도체 주식 이틀째 반등, 유가 하락",
-            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNZkdLT0QtQ2p0YTIwUkRTRWRJSFF1VUVxRW43RjRfZldlcFhtdFdjeVJmMVQzVUxhdWRnSXU2c19RWlBKY2paSW1vRFJ3SjhDaXdHc1hyWFlVMnV2a3ZUZkk0c1dXdkdra00zVmFYTlZKbXBWNWtxTGxsV2FFZnR6YzgtN3NzeUVJcmJackxfOGcyMUZhZXBPMkZIN0dGUVhmWHZWbVlwcjZwLWtSRjZrY1d0NUE2UQ?oc=5",
-            "published_at": "2026-10-28 07:13:03 KST"
-          },
-          {
-            "title": "Stock Market Today: Tech Stocks Extend Gains After Yesterday’s Anthropic Rally - WSJ",
-            "title_ko": "오늘의 주식 시장: 어제 Anthropic 랠리 후 기술주 상승세 지속",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOQzZjNjNPU0JVeFdraWZkQkRCbmZVbEc1S3lScGJ5a3g5TEJMSVdsSXhlWXpiVkY3SDJwUTg4N1JtSlVhM3A0VWNzOFg4bDgtVVhMUU1ZWlIzZml3cHF6eWxlMVg5MGZNdE9SRlBUWDh5ck1oVHhLQ1ZITUs3VXE4a01NRmQwdmM?oc=5",
-            "published_at": "2026-10-28 07:11:33 KST"
-          },
-          {
-            "title": "Boeing Stock Plunges After Earnings. 737 Progress Isn’t Fast Enough. - Barron's",
-            "title_ko": "Boeing 주식, 실적 발표 후 폭락. 737 생산 속도 충분치 않다.",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBqTDlic1FKMVhoYkNvVEtMRXp2RXdPT2sxdWRHdzZBMUlEMzlwSDFweGFBVVVWaGtOa0JuTml0b2VsamV0Yi1xVXhuM205SHRQWWVVXzBNenRRUngtZWk1bk9CZmJBM2phOGdoYmE4TWpkeDlobnZwUg?oc=5",
-            "published_at": "2026-10-28 05:09:00 KST"
-          }
-        ],
-        "outlook": "AI 관련 기술주들의 지속적인 강세가 시장의 관심을 받고 있으며, 특히 Anthropic의 랠리 이후 기술주 전반의 상승세가 이어지고 있습니다. 그러나 일부 기업의 실적 발표 결과에 따라 개별 종목의 변동성이 나타날 수 있습니다. 예를 들어, Boeing의 경우 실적 발표 후 주가가 하락하는 모습을 보였습니다. 다음 주에는 주요 기술 기업들의 실적 발표나 신제품 출시 관련 소식이 주가에 영향을 미칠 수 있습니다."
+        ]
       },
       {
         "name": "AI",
-        "reason": "AI 칩 제조사 및 관련 기술 기업들에 대한 긍정적인 전망이 지속되고 있습니다 (총 2건)",
+        "reason": "AI 칩 수요 증가와 관련 기업들의 성장이 시장의 관심을 받고 있습니다. (총 4건)",
         "us_news_refs": [
+          1,
           2,
-          3,
-          8,
-          11,
-          13,
-          15,
-          16
+          4,
+          18,
+          21,
+          24,
+          25,
+          26,
+          46,
+          48
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "Stock Market Today: Tech Stocks Extend Gains After Yesterday’s Anthropic Rally - WSJ",
-            "title_ko": "오늘의 주식 시장: 어제 Anthropic 랠리 후 기술주 상승세 지속",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOQzZjNjNPU0JVeFdraWZkQkRCbmZVbEc1S3lScGJ5a3g5TEJMSVdsSXhlWXpiVkY3SDJwUTg4N1JtSlVhM3A0VWNzOFg4bDgtVVhMUU1ZWlIzZml3cHF6eWxlMVg5MGZNdE9SRlBUWDh5ck1oVHhLQ1ZITUs3VXE4a01NRmQwdmM?oc=5",
-            "published_at": "2026-10-28 07:11:33 KST"
+            "title": "China rushes to shore up markets as AI trade sours - Financial Times",
+            "title_ko": "중국, AI 무역 악화에 시장 부양 서둘러",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNSnVPSDFLZ1NVWE1fVVJTTkxTTXJOWTFYd2RjQTlnTUFMbTFSODdBX3Z2V2RQWkNGeDNobEVadzhRejdYcWNXcjNWOXdPTVU0SHhyaGdFSnhFcTdkT0hiTW1Lejg2ZHkzdG1FSDdEMldNRXFrdzhEVXpCdmJSajBPNkJ2Q1A?oc=5",
+            "published_at": "2026-10-28 19:18:45 KST"
           },
           {
-            "title": "Seagate Stock Slides Despite Earnings Beat, Adding To Slump For AI Stock - Investor's Business Daily",
-            "title_ko": "Seagate 주식, 실적 호조에도 하락, AI 주식 하락세 가중",
-            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxONF8xSzdQaTJlZHB6ZkFUcUNaOXU4MXNHREVSWW5yeU1QYS1vMkFrZzVtOHJEWGxrSldxMERxa3Y5MmZwbVdUaTQzakNqM1Rzeko5YUlDR0xxSHAxbkR0cUk2NjRlWkFZdzE4TnRWaFVNczhvQUZxT0wwSDBZRUc5MjdlZ3hKRTJEVWF3?oc=5",
-            "published_at": "2026-10-28 07:02:00 KST"
+            "title": "Seagate Stock Falls as Record-Breaking Earnings Aren’t Enough - Barron's",
+            "title_ko": "시게이트 주가, 기록적 실적에도 하락",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1Sal9ndjhQeXh6Z1Nuekk0WVQ2RDRSZkpVSENNdWtBSzhOcG1lQ0E3TlpTaXRmTF82d3I1R05DaFZSTlc5cTdoSHhYOU85NGFmTDkyaU93akFMU3hPQVQteG4yS3d4b2xNdWlfVUpRc1I2UjJ6MGlDVE9B?oc=5",
+            "published_at": "2026-10-28 18:37:00 KST"
           },
           {
-            "title": "Boeing Stock Plunges After Earnings. 737 Progress Isn’t Fast Enough. - Barron's",
-            "title_ko": "Boeing 주식, 실적 발표 후 폭락. 737 생산 속도 충분치 않다.",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBqTDlic1FKMVhoYkNvVEtMRXp2RXdPT2sxdWRHdzZBMUlEMzlwSDFweGFBVVVWaGtOa0JuTml0b2VsamV0Yi1xVXhuM205SHRQWWVVXzBNenRRUngtZWk1bk9CZmJBM2phOGdoYmE4TWpkeDlobnZwUg?oc=5",
-            "published_at": "2026-10-28 05:09:00 KST"
+            "title": "Nasdaq futures rise as SK Hynix lifts chip stocks and traders await Fed decision, Big Tech earnings: Live updates - CNBC",
+            "title_ko": "SK하이닉스, 칩 주가 견인… Fed 결정·빅테크 실적 대기",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBsTVRHVVZZQzNkSHotQ09vdW54RlVucGpqVlNDcU44bWk0NnMxZExaUkZPWGYtRFRhdGxFSjA4OUpQTzdwRGROeFRyY3pTOTVvQkowRW5Ca1NyMjdmbkl1Xzc3SGpJcUNvckl0SVlVeWxNMUp4LTNv0gF8QVVfeXFMTUQ5VHp4S2d6WFdtUkdIYlZKMGp6RVd0NUxnTm0zU2ZfOW9iVHpaWGlaaDFwQXpEMGd2TllQUFJ6ZjQ2YkVxMW5XZnRhT3dKN3hfUTVjU3BhX3J2YVlwRGRPOG5hbWN0T19aUEZWQWg1cHo3X091aURwcV9LUA?oc=5",
+            "published_at": "2026-10-28 18:19:51 KST"
           },
           {
-            "title": "Why Anthropic's IPO contrasts the 'cult of Elon Musk' at SpaceX and Tesla - Yahoo Finance",
-            "title_ko": "Anthropic IPO, SpaceX 및 Tesla의 'Elon Musk 숭배'와 대조되는 이유",
-            "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPaXF4MmxxVU8tVFd0RWFNSkFuNFg3RFFCRlFrY1Q4eHRET21kdlhyV042STlIUnhiaGRFa1hlbHBTeV9qZE5Qbk9MWGZILXEtdC1aazVsc2xLMmw2VzdnVUFkc2t0dkZyZGJaR1VjYVNId3pTakRZazFkcEhaMnQxVnlYUlZhUFVmc0RCLWJidXdwekJJejAzWFNoU0l1MmhJX01QenFGQkJiMFM3WS1lWHphMklxdVVIb282cmNVdHRkOE84U3NxNmtLS2dRVjA?oc=5",
-            "published_at": "2026-10-28 04:24:24 KST"
+            "title": "The real way to tell if Amazon’s AI spending is paying off",
+            "title_ko": "아마존 AI 지출 성과 가늠할 진정한 방법",
+            "url": "https://www.marketwatch.com/story/the-real-way-to-tell-if-amazons-ai-spending-is-paying-off-42a8a637?mod=mw_rss_topstories",
+            "published_at": "2026-10-28 19:30:00 KST"
           },
           {
-            "title": "Google to report Q3 results as investors focus on AI growth, weigh Meta Muse AI risk - Yahoo Finance",
-            "title_ko": "Google, AI 성장 집중, Meta Muse AI 위험 고려 속 3분기 실적 발표 예정",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPeFNCNzhFanV1OTduaTk2dkZ3VzcxSF9zcWl3NzJVdTIwUGNDLXZZMTNnVjA2S3A0eUpOQ1R1Qk1VS3dkbHpzaVBEQ1lMUUdhTExFUDFuRTEySGh1aGdzVXlWeGVrdy0ta1FDelc0NWVHal9GODJfdjJ0Qy1PMWJzQ3psLTNvZWJBWWJMdXVxdk9hZkFfVi1pLXpwdVFtU0pMZVRLalM0NlZnZlE4WUl2OXhXbGp5OWhtYUNiRjRuWVprQlNycjhlbTZQa21yZTV2bFVSY0hqWnVYU1k?oc=5",
-            "published_at": "2026-10-28 04:16:24 KST"
+            "title": "SK Hynix delivered on third-quarter results — but the outlook is what really mattered to Wall Street and the AI trade",
+            "title_ko": "SK하이닉스 3분기 실적 달성… 월스트리트·AI 트레이드 관심은 전망",
+            "url": "https://www.marketwatch.com/story/sk-hynix-delivered-on-third-quarter-results-but-the-outlook-is-what-really-mattered-to-wall-street-and-the-ai-trade-2fde9a57?mod=mw_rss_topstories",
+            "published_at": "2026-10-28 18:25:00 KST"
           }
-        ],
-        "outlook": "AI 칩 제조사 및 관련 기술 기업들에 대한 긍정적인 전망이 지속되고 있으며, 이는 AI 관련 섹터의 투자 심리를 지지하고 있습니다. Anthropic의 IPO 신청 소식은 AI 투자 확대에 대한 기대를 높이고 있습니다. 다만, 일부 AI 관련 기업의 실적 발표 결과에 따라 단기적인 주가 조정 가능성도 존재합니다. 향후 일주일 내에는 AI 기술 개발 마일스톤 달성이나 주요 기업의 AI 관련 신규 서비스 발표 등이 주목받을 수 있습니다."
+        ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "Robinhood",
-        "reason": "암호화폐 시장의 회복세와 더불어 플랫폼 이용자 증가에 대한 기대감이 작용했습니다 (총 3건)",
+        "name": "SK Hynix",
+        "reason": "HBM 수요 강세 및 반도체 업황 개선 기대감으로 주목받고 있습니다. (총 6건)",
         "us_news_refs": [
-          5,
+          4,
+          8,
+          21,
+          24,
+          25
+        ],
+        "related_news": [
+          {
+            "title": "Nasdaq futures rise as SK Hynix lifts chip stocks and traders await Fed decision, Big Tech earnings: Live updates - CNBC",
+            "title_ko": "SK하이닉스, 칩 주가 견인… Fed 결정·빅테크 실적 대기",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBsTVRHVVZZQzNkSHotQ09vdW54RlVucGpqVlNDcU44bWk0NnMxZExaUkZPWGYtRFRhdGxFSjA4OUpQTzdwRGROeFRyY3pTOTVvQkowRW5Ca1NyMjdmbkl1Xzc3SGpJcUNvckl0SVlVeWxNMUp4LTNv0gF8QVVfeXFMTUQ5VHp4S2d6WFdtUkdIYlZKMGp6RVd0NUxnTm0zU2ZfOW9iVHpaWGlaaDFwQXpEMGd2TllQUFJ6ZjQ2YkVxMW5XZnRhT3dKN3hfUTVjU3BhX3J2YVlwRGRPOG5hbWN0T19aUEZWQWg1cHo3X091aURwcV9LUA?oc=5",
+            "published_at": "2026-10-28 18:19:51 KST"
+          },
+          {
+            "title": "Boston Scientific earnings missed by $0.02, revenue topped estimates",
+            "title_ko": "보스턴 사이언티픽, 예상치 하회 실적… 매출은 상회",
+            "url": "https://www.investing.com/news/earnings/boston-scientific-earnings-missed-by-002-revenue-topped-estimates-4978294",
+            "published_at": "2026-10-28 19:35:44 KST"
+          },
+          {
+            "title": "SK Hynix delivered on third-quarter results — but the outlook is what really mattered to Wall Street and the AI trade",
+            "title_ko": "SK하이닉스 3분기 실적 달성… 월스트리트·AI 트레이드 관심은 전망",
+            "url": "https://www.marketwatch.com/story/sk-hynix-delivered-on-third-quarter-results-but-the-outlook-is-what-really-mattered-to-wall-street-and-the-ai-trade-2fde9a57?mod=mw_rss_topstories",
+            "published_at": "2026-10-28 18:25:00 KST"
+          },
+          {
+            "title": "SK Hynix’s Profit Surge, $45 Billion Payout Fuel AI Rally - Bloomberg.com",
+            "title_ko": "SK하이닉스 이익 급증, 450억 달러 지급으로 AI 랠리 견인",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNSzhINFhrV3VnOG40ZnJlUGZjVW0zemZlb3l3QVFWdmhBREp4Y2hhTVJ1bU5ETnJlN3VHdnd1V2d1cWo3SGlWeVlqZzV6ZFlJQlVuOXBNYi1wNDc2dXpqT1FRU2k2ajY2M0hXeF82S1lBekhMOEctUnRyTlg1MGY4dHVrT2dJM0FkM1NRY015c0NJLVNhYUFFNkJIenNyLVRnYVFVT3I2VUg4cnhUcUZsdkVYQQ?oc=5",
+            "published_at": "2026-10-28 12:43:00 KST"
+          },
+          {
+            "title": "Global stock markets rise as investors continue to bet on AI - Al Jazeera",
+            "title_ko": "글로벌 증시, AI 베팅 지속에 상승세",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOT3haSUtXak44Y1ZBd1k1ckZ3WWlLS0ZtZFhpRFVUTEVGMFZlbVdENGs5S21GQ2pVWk1GNlBVNTRTcmk1a09qMGozeU1LMlhSNHBqTzNmd3A0dHlVUVdac3h4eEtFMklhN1pOQXBDbHV0Sm1SSEdmbUd4TTJrSFBCVi13ZGs0U2huMGFrZWtoYnYyb0JiUGMxWTN4TlV1ZVh6RHlVSNIBqgFBVV95cUxOUVlfdEdieVEwUUFBOEVXRm5jWER0WGhMMzdxNWJwYmdCSm4tbnJPYWNZNEhvWGJpQnI0SWZJWVRJYTZscktZQWNGb2xxRVAzcm5nd25ZdUFOU3hGV2dscmszZG16TF9tUF9OeWZ4NkhvS0ZFTFBmcG1ZWWtaSU5XYWU5UEtlQzhmZi1KYk9rS1oxUFVSM1d5VTEtVU0xMGZtN1gyUHl0XzFwUQ?oc=5",
+            "published_at": "2026-10-28 12:21:42 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야에서의 경쟁력 강화 및 투자 소식으로 주목받고 있습니다. (총 2건)",
+        "us_news_refs": [
+          26,
+          32
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "VCs will make billions on Anthropic’s IPO, but Amazon is set to make much (much) more - TechCrunch",
+            "title_ko": "VC, Anthropic IPO로 수십억 달러 벌어들일 듯… Amazon은 더 많이",
+            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPY0hza3dNdjUwV2kxTjduRGwzRjluVTU0TXJiRWY2WElramdvXzR1MGJtazJ5RXNvcXFrQ3JEVklNdnpCb2E1bUQ5cmRhNmxmM0tpS2hfZHZrZWRQaGtqSWNmZElVMXBvVWU2MUZ4b3hxdEI5U2JwNzFEVGFWMWcyV0xKNnlMSUpVTU5HM2dINHhUeTRFd2hXS2JtRGh0UWpNaWRZRzNDV2RxUlgxS0dJSEIydnk4eFE?oc=5",
+            "published_at": "2026-10-28 10:15:28 KST"
+          },
+          {
+            "title": "Anthropic's latest biotech buy is a one-man stealth startup run by a pseudonymous Twitter poster - Endpoints News",
+            "title_ko": "Anthropic, 익명 트위터 게시자가 운영하는 바이오텍 인수",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxObHpwcmFPOUt4SGt2Q3VCTHJoT0FWdGp5eWJsZHFsQjdUczVLWFNQYXdFTDNkYVBOeFNuWjlvRUxWRHVKUzNlNEZSNVg2aU4yY2RucnNrQkNwYkdPOTRUak4tWnFIRnBSUGpnbWFFb1Z5SU9NVzVnLWNQblJUM0tkYzlIMHhxLV9XU3I4WnJPdmNEcWQ2alA2eTdn?oc=5",
+            "published_at": "2026-10-28 07:31:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "OpenAI",
+        "reason": "AI 기술 개발 및 파트너십 관련 소식이 시장의 관심을 받고 있습니다. (총 3건)",
+        "us_news_refs": [
+          29,
           36
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Robinhood shares fall 5% as crypto slump weighs on profits, offsetting gains in new businesses - CNBC",
-            "title_ko": "Robinhood 주식 5% 하락, 암호화폐 하락이 이익 압박, 신사업 이익 상쇄",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE05dEtodC1JeDVVZ19PZ0xjb0stbFNWQWw5ZTNRd1RqcU03TmZJaGdFTmp5SGJnWmMxOE8wZ1p0R0ZPMS1RejE2Ny13eUduTFJNTUdfWWs2d2RXSEk0a1d3d0FieXg5c08taEtncU9UTWgwSjlCZnV30gF8QVVfeXFMUFFVVzNFUTJkY0c0X04tazJtOHY1YURSbVFEYUdhSHJQb2ZMTkdUYXNLRXMyc0lSRkN1ZFNZYnAwN283UGtQZG1uOFB0d042ZTJRRzlqZzBnRkxRTXhMV1pVYUtDRTBUaE5fWUNmZUJyM184am5HU2oyTEoyNg?oc=5",
-            "published_at": "2026-10-28 05:20:27 KST"
+            "title": "Parents sue OpenAI, alleging GPT-4o coached their daughter off seizure medication - TechCrunch",
+            "title_ko": "부모, OpenAI 고소… GPT-4o가 딸의 발작 약 복용 중단 조종 주장",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPQ3JtRzlfcnp1ZXJ4ZFFyZ2dSSUROTkNzY3FnY3l0SEJpRngzcDJNQzc3LUZpblVFc0dPWXF6eVNEbENSVU1ycjI0ZjJrbWEtcjhaR1B4XzlEWnVBRFQyaGZhc2ZocU9wTHJLcVgwOUc1djNNb2VWRVBUdjNVTGo2YXVpRlJTOEFnMmtPUkwxNUlEbVd6M3JyWUMwVlhyM1dLZmRYMXYtTmVoR0s0VmN0QXM0RnJUQQ?oc=5",
+            "published_at": "2026-10-28 08:34:27 KST"
           },
           {
-            "title": "Robinhood profit misses estimates as crypto trading slows",
-            "title_ko": "Robinhood 이익, 암호화폐 거래 둔화로 예상치 하회",
-            "url": "https://www.investing.com/news/stock-market-news/robinhood-quarterly-profit-falls-as-softer-crypto-activity-outweighs-robust-trading-4976781",
-            "published_at": "2026-10-28 07:00:24 KST"
+            "title": "What smart people are saying about OpenAI's Exponential Time Hypothesis claim - Business Insider",
+            "title_ko": "똑똑한 사람들의 OpenAI 지수적 시간 가설 주장 평가",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQYzd4LUcwQ1hhckJwck8wYVhfUlhIZ3c4MzVCZDB5cGt4aGs1VWJJem52am9oRjRtMGdVNHJaQmdGTW41bE1ma1A3UWNabjJGblVLcWtqazR2QWNBSS1jb0p2VHE2U2VITGpVZk5UNzBWVXo1LUpfdnRmbkk5RzNScWM5eVdFeXRyemVlXzJaNjA?oc=5",
+            "published_at": "2026-10-28 06:23:00 KST"
           }
-        ],
-        "outlook": "암호화폐 시장의 회복세와 더불어 플랫폼 이용자 증가에 대한 기대감이 주가에 긍정적인 영향을 미칠 수 있습니다. 그러나 최근 실적 발표에서 암호화폐 거래 둔화가 이익에 부담을 주면서 주가가 하락하는 모습을 보이기도 했습니다. 향후 일주일 내에는 암호화폐 시장의 추가적인 변동성이나 플랫폼 이용자 수 변화 관련 뉴스가 주가에 영향을 줄 수 있습니다."
-      },
-      {
-        "name": "Boeing",
-        "reason": "항공기 인도 지연 문제와 더불어 신규 수주 관련 소식이 주가에 영향을 미쳤습니다 (총 3건)",
-        "us_news_refs": [
-          8,
-          41
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Boeing Stock Plunges After Earnings. 737 Progress Isn’t Fast Enough. - Barron's",
-            "title_ko": "Boeing 주식, 실적 발표 후 폭락. 737 생산 속도 충분치 않다.",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBqTDlic1FKMVhoYkNvVEtMRXp2RXdPT2sxdWRHdzZBMUlEMzlwSDFweGFBVVVWaGtOa0JuTml0b2VsamV0Yi1xVXhuM205SHRQWWVVXzBNenRRUngtZWk1bk9CZmJBM2phOGdoYmE4TWpkeDlobnZwUg?oc=5",
-            "published_at": "2026-10-28 05:09:00 KST"
-          },
-          {
-            "title": "The big reason Boeing’s stock is falling so hard after earnings",
-            "title_ko": "Boeing 주식이 실적 발표 후 그렇게 크게 하락하는 큰 이유",
-            "url": "https://www.marketwatch.com/story/the-big-reason-boeings-stock-is-falling-so-hard-after-earnings-d31b400d?mod=mw_rss_topstories",
-            "published_at": "2026-10-28 05:43:00 KST"
-          }
-        ],
-        "outlook": "항공기 인도 지연 문제와 737 생산 속도에 대한 우려가 주가에 부정적인 영향을 미치고 있습니다. 최근 실적 발표 후 주가가 큰 폭으로 하락한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 항공기 수주 관련 소식이나 생산 관련 업데이트가 주가에 영향을 줄 수 있습니다."
+        ]
       }
     ],
     "outlook": {
-      "sectors": [
-        {
-          "name": "Chip stocks",
-          "outlook": "AI 칩 수요 증가와 기술주 전반의 강세가 긍정적인 요인으로 작용하고 있습니다. 특히, 일부 매체에서는 특정 AI 메모리 주식이 10월 30일에 급등할 가능성을 예측하고 있습니다. 그러나 개인 투자자들의 저가 매수세와 더불어 암호화폐 시장의 변동성이 일부 종목에 영향을 미칠 수 있다는 점은 단기 위험 요인으로 고려될 수 있습니다. 향후 일주일 내에는 주요 기업들의 실적 발표나 기술 개발 관련 뉴스가 주가에 영향을 줄 수 있습니다."
-        },
-        {
-          "name": "Tech stocks",
-          "outlook": "AI 관련 기술주들의 지속적인 강세가 시장의 관심을 받고 있으며, 특히 Anthropic의 랠리 이후 기술주 전반의 상승세가 이어지고 있습니다. 그러나 일부 기업의 실적 발표 결과에 따라 개별 종목의 변동성이 나타날 수 있습니다. 예를 들어, Boeing의 경우 실적 발표 후 주가가 하락하는 모습을 보였습니다. 다음 주에는 주요 기술 기업들의 실적 발표나 신제품 출시 관련 소식이 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "AI",
-          "outlook": "AI 칩 제조사 및 관련 기술 기업들에 대한 긍정적인 전망이 지속되고 있으며, 이는 AI 관련 섹터의 투자 심리를 지지하고 있습니다. Anthropic의 IPO 신청 소식은 AI 투자 확대에 대한 기대를 높이고 있습니다. 다만, 일부 AI 관련 기업의 실적 발표 결과에 따라 단기적인 주가 조정 가능성도 존재합니다. 향후 일주일 내에는 AI 기술 개발 마일스톤 달성이나 주요 기업의 AI 관련 신규 서비스 발표 등이 주목받을 수 있습니다."
-        }
-      ],
-      "stocks": [
-        {
-          "name": "Robinhood",
-          "outlook": "암호화폐 시장의 회복세와 더불어 플랫폼 이용자 증가에 대한 기대감이 주가에 긍정적인 영향을 미칠 수 있습니다. 그러나 최근 실적 발표에서 암호화폐 거래 둔화가 이익에 부담을 주면서 주가가 하락하는 모습을 보이기도 했습니다. 향후 일주일 내에는 암호화폐 시장의 추가적인 변동성이나 플랫폼 이용자 수 변화 관련 뉴스가 주가에 영향을 줄 수 있습니다."
-        },
-        {
-          "name": "Boeing",
-          "outlook": "항공기 인도 지연 문제와 737 생산 속도에 대한 우려가 주가에 부정적인 영향을 미치고 있습니다. 최근 실적 발표 후 주가가 큰 폭으로 하락한 점은 단기적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 내에는 항공기 수주 관련 소식이나 생산 관련 업데이트가 주가에 영향을 줄 수 있습니다."
-        }
-      ]
+      "sectors": [],
+      "stocks": []
     },
     "collected": {
       "news": 50
@@ -203,125 +199,64 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "AI",
-        "reason": "AI 기술 발전과 관련 기업들의 실적 개선 기대감이 시장의 주목을 받았습니다 (총 2건)",
+        "name": "반도체",
+        "reason": "삼성전자, SK하이닉스 등 국내 주요 반도체 기업들의 실적 및 기술 동향이 보도되었습니다. (총 2건)",
         "kr_news_refs": [
           8,
-          22,
-          36,
-          43,
-          45
+          9,
+          32
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "앤트로픽發 AI 랠리 이틀째 지속...나스닥 1.2% 상승, 보잉 11% 급락 [월가월부]",
+            "title": "'삼전닉스' 폭등에 코스피 6000선 탈환…6.63% 급등 - 한국경제",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12187991",
-            "published_at": "2026-10-28 07:15:36 KST"
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE8wYXN1NFJXSUJrTU45RWNDTE1TQkptNXN0eVdlcjdFMGk3bDZtM0xvU0pyTklfTzRVdnFwSFY4MUFTQnY3T2hWdTR2TjBDR29PYXZzSU9lZHA4Zw?oc=5",
+            "published_at": "2026-10-28 15:43:41 KST"
           },
           {
-            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 28일)",
+            "title": "\"AI 부품 없어서 못 판다\"…삼성전기, 영업익 165% 폭증 - 비즈워치",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/society/12187293",
-            "published_at": "2026-10-28 07:00:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9oR25JSEpHa0VqdDFNRmFtZnZ2S1NrdDcxMzJmUS1YOWZTTkd6V29yZ25PN3dZRExhZklQM25kT0hrLUVSbDJIeWMzNERfOWJtWFRtZUVPb2RyLUNPeHpJb2pxNVprXzBNMGlCaw?oc=5",
+            "published_at": "2026-10-28 15:41:03 KST"
           },
           {
-            "title": "트럼프 “모든 분야서 AI 용어 공식 금지할 것”…‘부정확한 명칭’ 주장",
+            "title": "中 CXMT, 상장 3개월 만에 상하이종합지수 편입…비중 최대",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12187982",
-            "published_at": "2026-10-28 06:20:17 KST"
-          },
-          {
-            "title": "유럽 AI전문가 \"한국, 선도AI 추격보단 접근권 확보에 투자해야\"",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261027133100017",
-            "published_at": "2026-10-28 06:15:00 KST"
-          },
-          {
-            "title": "AI 써보려다 토큰비용 기겁한 사장님…500종 모델 골라쓰는 요금제 나왔다",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/it/12187971",
-            "published_at": "2026-10-28 06:09:24 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261028187200089",
+            "published_at": "2026-10-28 19:33:36 KST"
           }
-        ],
-        "outlook": "AI 기술 발전과 관련 기업들의 실적 개선 기대감이 시장의 주목을 받고 있으며, 특히 유럽 AI 전문가들은 한국의 AI 접근권 확보 투자를 강조하고 있습니다. 그러나 일부에서는 AI 관련 자금 흐름에 대한 신호에 주목해야 한다는 분석도 있습니다. 향후 일주일 내에는 국내외 AI 관련 정책 변화나 주요 기업의 AI 기술 개발 발표 등이 시장에 영향을 줄 수 있습니다."
-      },
-      {
-        "name": "반도체",
-        "reason": "AI 반도체 수요 증가와 함께 관련 기업들의 투자 확대 소식이 긍정적으로 작용했습니다 (총 2건)",
-        "kr_news_refs": [
-          22,
-          35,
-          62
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 28일)",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/society/12187293",
-            "published_at": "2026-10-28 07:00:00 KST"
-          },
-          {
-            "title": "“반도체 호황도 못 살렸다”…기업 경기전망 2개월째 ‘부정적’",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/economy/12187984",
-            "published_at": "2026-10-28 06:20:38 KST"
-          },
-          {
-            "title": "반도체 실적 호조에도…기업 경기 전망 2개월 연속 '부정적'",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261027167600003",
-            "published_at": "2026-10-28 06:00:08 KST"
-          }
-        ],
-        "outlook": "AI 반도체 수요 증가와 관련 기업들의 투자 확대 소식이 긍정적으로 작용하고 있습니다. 그러나 전반적인 기업 경기 전망은 2개월 연속 부정적인 것으로 나타나, 반도체 업황의 긍정적 신호에도 불구하고 투자 심리에 영향을 줄 수 있습니다. 향후 일주일 내에는 주요 반도체 기업의 실적 발표나 신규 공장 투자 관련 소식이 주목받을 수 있습니다."
+        ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "SK하이닉스",
-        "reason": "AI 서버용 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화와 수요 증가가 긍정적인 영향을 미쳤습니다 (총 1건)",
+        "name": "LG전자",
+        "reason": "로봇 사업 강화 및 가전 시장에서의 경쟁력 확보 노력이 주목받고 있습니다. (총 3건)",
         "kr_news_refs": [
-          22,
-          26
+          13,
+          47
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 28일)",
+            "title": "LG전자, 3분기 영업익 13.5%↑...누적 4조 돌파 - 지디넷코리아",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/society/12187293",
-            "published_at": "2026-10-28 07:00:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5YdmxBN0NBOXp4aWVuNEFpQ2s5UlZLaktXcWk3dWNWSWdGckt3MlRjLWJvbFpOc2JweF9GdXhMd0l2Wkg4elBOQ09HdjJWT014eklUNnZR?oc=5",
+            "published_at": "2026-10-28 15:11:04 KST"
           },
           {
-            "title": "블룸버그 \"솔리다임, 미국에 60조원 낸드공장 추진\"",
+            "title": "LG전자 ‘돈벌이’ 걱정 없다…백색 가전 빼고도 3분기 수주 3조 찍은 사업은",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261028011300009",
-            "published_at": "2026-10-28 06:50:52 KST"
+            "url": "https://www.mk.co.kr/news/business/12188793",
+            "published_at": "2026-10-28 19:01:43 KST"
           }
-        ],
-        "outlook": "AI 서버용 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화와 수요 증가가 긍정적인 영향을 미치고 있습니다. 또한, 솔리다임의 미국 내 대규모 낸드 공장 추진 소식도 관련 업계에 영향을 줄 수 있습니다. 향후 일주일 내에는 HBM 시장 경쟁 동향이나 신규 메모리 기술 개발 관련 뉴스가 주가에 영향을 줄 수 있습니다."
+        ]
       }
     ],
     "outlook": {
-      "sectors": [
-        {
-          "name": "AI",
-          "outlook": "AI 기술 발전과 관련 기업들의 실적 개선 기대감이 시장의 주목을 받고 있으며, 특히 유럽 AI 전문가들은 한국의 AI 접근권 확보 투자를 강조하고 있습니다. 그러나 일부에서는 AI 관련 자금 흐름에 대한 신호에 주목해야 한다는 분석도 있습니다. 향후 일주일 내에는 국내외 AI 관련 정책 변화나 주요 기업의 AI 기술 개발 발표 등이 시장에 영향을 줄 수 있습니다."
-        },
-        {
-          "name": "반도체",
-          "outlook": "AI 반도체 수요 증가와 관련 기업들의 투자 확대 소식이 긍정적으로 작용하고 있습니다. 그러나 전반적인 기업 경기 전망은 2개월 연속 부정적인 것으로 나타나, 반도체 업황의 긍정적 신호에도 불구하고 투자 심리에 영향을 줄 수 있습니다. 향후 일주일 내에는 주요 반도체 기업의 실적 발표나 신규 공장 투자 관련 소식이 주목받을 수 있습니다."
-        }
-      ],
-      "stocks": [
-        {
-          "name": "SK하이닉스",
-          "outlook": "AI 서버용 고대역폭 메모리(HBM) 시장에서의 경쟁력 강화와 수요 증가가 긍정적인 영향을 미치고 있습니다. 또한, 솔리다임의 미국 내 대규모 낸드 공장 추진 소식도 관련 업계에 영향을 줄 수 있습니다. 향후 일주일 내에는 HBM 시장 경쟁 동향이나 신규 메모리 기술 개발 관련 뉴스가 주가에 영향을 줄 수 있습니다."
-        }
-      ]
+      "sectors": [],
+      "stocks": []
     },
     "collected": {
       "news": 100
@@ -330,184 +265,149 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "AI",
-        "freq": 4,
-        "summary": "앤트로픽의 IPO 신청 및 메타의 대규모 증자 등 AI 관련 투자 확대가 언급되었습니다. AI 랠리 지속 가능성과 관련 자금 흐름에 대한 분석이 포함되었습니다.",
-        "refs": [
-          1,
-          2,
-          5,
-          9
-        ],
-        "reason": "앤트로픽의 IPO 신청 및 메타의 대규모 증자 등 AI 관련 투자 확대가 언급되었습니다. AI 랠리 지속 가능성과 관련 자금 흐름에 대한 분석이 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "나스닥, 앤트로픽 IPO 신청 이후 AI 랠리 지속...코어위브, 네비우스 동반 급등 [월가 뉴스레터]",
-            "url": "https://www.youtube.com/watch?v=Idn_d5ArZvA",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 07:01:54 KST"
-          },
-          {
-            "title": "앤트로픽 IPO·메타 129조 증자…AI 투자 확대에 빅테크 자금 지원 | 역대급 주주환원...삼전닉스 210조 푼다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=J1tA30Xq2fg",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 05:31:23 KST"
-          },
-          {
-            "title": "하루만에 5600 회복한 코스피.. 반등을 이어가기 위한 남은 조건 ‘단 하나’ (박세익 전무, 이형수 대표, 소현철 박사)ㅣ주식프리미어리그 (10월 26일 촬영)",
-            "url": "https://www.youtube.com/watch?v=PSwrXpUYGUg",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-27 20:05:35 KST"
-          },
-          {
-            "title": "AI 자금줄 갑자기 뚝 끊겼다? 증시에 등장한 이상 신호, 경고일까",
-            "url": "https://www.youtube.com/watch?v=P4i9A1Woky8",
-            "channel_name": "소수몽키",
-            "published_at": "2026-10-26 20:15:59 KST"
-          }
-        ],
-        "outlook": "앤트로픽의 IPO 신청 소식과 메타의 대규모 증자 등 AI 관련 투자 확대가 주요 관심사로 부각되고 있습니다. AI 랠리 지속 가능성과 관련 자금 흐름에 대한 분석이 제시되었으며, 일부에서는 AI 자금줄에 대한 경고 신호도 언급되었습니다. 향후 일주일 내에는 AI 관련 기업들의 실적 발표나 신규 기술 개발 발표가 투자자들의 주목을 받을 것으로 예상됩니다."
-      },
-      {
         "name": "반도체",
-        "freq": 3,
-        "summary": "삼성전자와 SK하이닉스의 주가 급등 가능성이 제기되었으며, 빅테크 실적 발표와 함께 반도체 주가에 대한 언급이 있었습니다.",
+        "freq": 6,
+        "summary": "SK하이닉스의 어닝 서프라이즈와 삼성전자의 폭등이 언급되며 반도체 섹터 전반의 상승 가능성이 논의되었습니다. 소부장(소재·부품·장비)으로의 확산 가능성도 제기되었습니다.",
         "refs": [
           2,
-          5,
-          6
-        ],
-        "reason": "삼성전자와 SK하이닉스의 주가 급등 가능성이 제기되었으며, 빅테크 실적 발표와 함께 반도체 주가에 대한 언급이 있었습니다.",
-        "related_videos": [
-          {
-            "title": "앤트로픽 IPO·메타 129조 증자…AI 투자 확대에 빅테크 자금 지원 | 역대급 주주환원...삼전닉스 210조 푼다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=J1tA30Xq2fg",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 05:31:23 KST"
-          },
-          {
-            "title": "하루만에 5600 회복한 코스피.. 반등을 이어가기 위한 남은 조건 ‘단 하나’ (박세익 전무, 이형수 대표, 소현철 박사)ㅣ주식프리미어리그 (10월 26일 촬영)",
-            "url": "https://www.youtube.com/watch?v=PSwrXpUYGUg",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-27 20:05:35 KST"
-          },
-          {
-            "title": "수요일 아침 삼성전자, SK하이닉스 대폭등? 곧 무시무시한 일 터질 겁니다 (차영주 소장)",
-            "url": "https://www.youtube.com/watch?v=eEIviqj17CE",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-27 19:15:06 KST"
-          }
-        ],
-        "outlook": "삼성전자와 SK하이닉스의 주가 급등 가능성이 제기되었으며, 이는 AI 투자 확대와 빅테크의 자금 지원과 연관되어 언급되었습니다. 빅테크 실적 발표와 함께 반도체 주가에 대한 긍정적인 전망이 제시되었습니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표 결과나 신규 기술 개발 관련 뉴스가 주가에 영향을 미칠 수 있습니다."
-      },
-      {
-        "name": "증시",
-        "freq": 3,
-        "summary": "코스피의 반등 조건과 저점권 진입 증시에 대한 분석이 제시되었습니다. 또한, 큰 손들의 주식 매도가 기회인지에 대한 논의가 있었습니다.",
-        "refs": [
           3,
           4,
-          5
+          6,
+          7
         ],
-        "reason": "코스피의 반등 조건과 저점권 진입 증시에 대한 분석이 제시되었습니다. 또한, 큰 손들의 주식 매도가 기회인지에 대한 논의가 있었습니다.",
+        "reason": "SK하이닉스의 어닝 서프라이즈와 삼성전자의 폭등이 언급되며 반도체 섹터 전반의 상승 가능성이 논의되었습니다. 소부장(소재·부품·장비)으로의 확산 가능성도 제기되었습니다.",
         "related_videos": [
           {
-            "title": "“여기서 팔면 또 당할 수 있습니다” 저점권 들어온 증시, 지금 버틸 종목은 따로 있다ㅣ명민준, 서수진, 이지환 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=Di0oS3T0l24",
+            "title": "삼전닉스에서 소부장으로 확산되는 자리, 이렇게 확인하세요ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=E7uTqH3ifu8",
             "channel_name": "삼프로TV",
-            "published_at": "2026-10-27 21:00:05 KST"
+            "published_at": "2026-10-28 20:00:22 KST"
           },
           {
-            "title": "큰 손들의 강제 주식 매도는 기회? 월가 변곡점 족집게 전망, 적중할까",
-            "url": "https://www.youtube.com/watch?v=WM76m1GByyg",
-            "channel_name": "소수몽키",
-            "published_at": "2026-10-27 20:27:25 KST"
-          },
-          {
-            "title": "하루만에 5600 회복한 코스피.. 반등을 이어가기 위한 남은 조건 ‘단 하나’ (박세익 전무, 이형수 대표, 소현철 박사)ㅣ주식프리미어리그 (10월 26일 촬영)",
-            "url": "https://www.youtube.com/watch?v=PSwrXpUYGUg",
+            "title": "[긴급 증시 진단] 삼성전자, SK하이닉스 줄줄이 폭등했다, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=W0jFHylw3YU",
             "channel_name": "김작가 TV",
-            "published_at": "2026-10-27 20:05:35 KST"
+            "published_at": "2026-10-28 19:30:29 KST"
+          },
+          {
+            "title": "[26.10.28 오후 방송 전체보기] SK하이닉스 최대 실적과 주주환원에 반도체 급등…내일 빅테크 실적·FOMC, 시장 상승에 올라탈까?",
+            "url": "https://www.youtube.com/watch?v=DtiqOWaIphE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-28 19:09:56 KST"
+          },
+          {
+            "title": "하이닉스 어닝 서프라이즈, 무너진 코스피 살릴 수 있을까? | 박지훈 NH투자증권 부장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=yI7N5z30vZ8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-28 18:46:02 KST"
+          },
+          {
+            "title": "삼성전자 폭등 한번 더 남았다, 곧 무시무시한 일 터집니다 (차영주 소장)",
+            "url": "https://www.youtube.com/watch?v=IpcsgsK44oA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-28 18:45:12 KST"
           }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "빅테크 실적 발표와 FOMC 회의 결과에 따라 시장 상승에 올라탈 수 있을지에 대한 논의가 있었습니다. (AI 섹터 자체에 대한 직접적인 언급은 부족하나, 빅테크 실적과 연관될 가능성 있음)",
+        "refs": [
+          4
         ],
-        "outlook": "코스피의 반등 조건과 저점권 진입 증시에 대한 분석이 제시되었으며, 큰 손들의 주식 매도가 기회인지에 대한 논의가 있었습니다. 일부 전문가들은 현재 시장 상황에서 버틸 수 있는 종목에 대한 분석을 제공하고 있습니다. 향후 일주일 내에는 거시 경제 지표 발표나 주요 기업의 실적 발표 결과가 시장 전반의 투자 심리에 영향을 줄 수 있습니다."
+        "reason": "빅테크 실적 발표와 FOMC 회의 결과에 따라 시장 상승에 올라탈 수 있을지에 대한 논의가 있었습니다. (AI 섹터 자체에 대한 직접적인 언급은 부족하나, 빅테크 실적과 연관될 가능성 있음)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[26.10.28 오후 방송 전체보기] SK하이닉스 최대 실적과 주주환원에 반도체 급등…내일 빅테크 실적·FOMC, 시장 상승에 올라탈까?",
+            "url": "https://www.youtube.com/watch?v=DtiqOWaIphE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-28 19:09:56 KST"
+          }
+        ]
+      },
+      {
+        "name": "원자재",
+        "freq": 1,
+        "summary": "원자재 가격 결정에 대한 논의가 있었습니다. (구체적인 종목이나 섹터 언급은 부족)",
+        "refs": [
+          9
+        ],
+        "reason": "원자재 가격 결정에 대한 논의가 있었습니다. (구체적인 종목이나 섹터 언급은 부족)",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "개미들이여 힘을 모아다오!",
+            "url": "https://www.youtube.com/watch?v=x4nCIjbauVg",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-27 19:09:24 KST"
+          }
+        ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "삼성전자",
-        "freq": 2,
-        "summary": "삼성전자가 210조 원 규모의 주주 환원을 진행한다는 내용이 언급되었습니다. 또한, 수요일 아침 삼성전자의 대폭등 가능성에 대한 전망이 있었습니다.",
-        "refs": [
-          2,
-          6
-        ],
-        "reason": "삼성전자가 210조 원 규모의 주주 환원을 진행한다는 내용이 언급되었습니다. 또한, 수요일 아침 삼성전자의 대폭등 가능성에 대한 전망이 있었습니다.",
-        "related_videos": [
-          {
-            "title": "앤트로픽 IPO·메타 129조 증자…AI 투자 확대에 빅테크 자금 지원 | 역대급 주주환원...삼전닉스 210조 푼다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=J1tA30Xq2fg",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 05:31:23 KST"
-          },
-          {
-            "title": "수요일 아침 삼성전자, SK하이닉스 대폭등? 곧 무시무시한 일 터질 겁니다 (차영주 소장)",
-            "url": "https://www.youtube.com/watch?v=eEIviqj17CE",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-27 19:15:06 KST"
-          }
-        ],
-        "outlook": "삼성전자가 210조 원 규모의 주주 환원을 진행한다는 내용이 언급되었으며, 이는 투자자들의 관심을 받고 있습니다. 또한, 수요일 아침 삼성전자의 대폭등 가능성에 대한 전망도 제시되었습니다. 향후 일주일 내에는 삼성전자의 실적 발표 결과나 신규 사업 관련 발표가 주가에 영향을 줄 수 있습니다."
-      },
-      {
         "name": "SK하이닉스",
-        "freq": 2,
-        "summary": "수요일 아침 SK하이닉스의 대폭등 가능성에 대한 전망이 있었습니다. AI 투자 확대와 관련된 빅테크의 자금 지원 속에서 언급되었습니다.",
+        "freq": 4,
+        "summary": "SK하이닉스의 최대 실적과 어닝 서프라이즈가 언급되었습니다. 이러한 실적 개선이 코스피 시장 회복에 기여할 수 있는지에 대한 분석이 있었습니다.",
         "refs": [
           2,
+          3,
+          4,
           6
         ],
-        "reason": "수요일 아침 SK하이닉스의 대폭등 가능성에 대한 전망이 있었습니다. AI 투자 확대와 관련된 빅테크의 자금 지원 속에서 언급되었습니다.",
+        "reason": "SK하이닉스의 최대 실적과 어닝 서프라이즈가 언급되었습니다. 이러한 실적 개선이 코스피 시장 회복에 기여할 수 있는지에 대한 분석이 있었습니다.",
         "related_videos": [
           {
-            "title": "앤트로픽 IPO·메타 129조 증자…AI 투자 확대에 빅테크 자금 지원 | 역대급 주주환원...삼전닉스 210조 푼다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=J1tA30Xq2fg",
+            "title": "삼전닉스에서 소부장으로 확산되는 자리, 이렇게 확인하세요ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=E7uTqH3ifu8",
             "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 05:31:23 KST"
+            "published_at": "2026-10-28 20:00:22 KST"
           },
           {
-            "title": "수요일 아침 삼성전자, SK하이닉스 대폭등? 곧 무시무시한 일 터질 겁니다 (차영주 소장)",
-            "url": "https://www.youtube.com/watch?v=eEIviqj17CE",
+            "title": "[긴급 증시 진단] 삼성전자, SK하이닉스 줄줄이 폭등했다, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=W0jFHylw3YU",
             "channel_name": "김작가 TV",
-            "published_at": "2026-10-27 19:15:06 KST"
+            "published_at": "2026-10-28 19:30:29 KST"
+          },
+          {
+            "title": "[26.10.28 오후 방송 전체보기] SK하이닉스 최대 실적과 주주환원에 반도체 급등…내일 빅테크 실적·FOMC, 시장 상승에 올라탈까?",
+            "url": "https://www.youtube.com/watch?v=DtiqOWaIphE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-28 19:09:56 KST"
+          },
+          {
+            "title": "하이닉스 어닝 서프라이즈, 무너진 코스피 살릴 수 있을까? | 박지훈 NH투자증권 부장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=yI7N5z30vZ8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-28 18:46:02 KST"
           }
-        ],
-        "outlook": "수요일 아침 SK하이닉스의 대폭등 가능성에 대한 전망이 있었습니다. AI 투자 확대와 관련된 빅테크의 자금 지원 속에서 언급되었으며, 이는 SK하이닉스의 주가에 긍정적인 영향을 미칠 수 있습니다. 향후 일주일 내에는 HBM 시장 경쟁 동향이나 신규 메모리 기술 개발 관련 뉴스가 주가에 영향을 줄 수 있습니다."
+        ]
       },
       {
-        "name": "앤트로픽",
-        "freq": 2,
-        "summary": "앤트로픽의 IPO 신청 소식이 AI 투자 확대와 연관되어 언급되었습니다. 이는 AI 관련 섹터의 투자 흐름에 영향을 미치는 요소로 분석되었습니다.",
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자의 폭등세가 언급되었으며, 추가적인 상승 가능성과 함께 '무시무시한 일'이 터질 것이라는 전망이 제시되었습니다. 현재 상황에서 어떻게 대응해야 하는지에 대한 분석이 있었습니다.",
         "refs": [
-          1,
-          2
+          3,
+          7
         ],
-        "reason": "앤트로픽의 IPO 신청 소식이 AI 투자 확대와 연관되어 언급되었습니다. 이는 AI 관련 섹터의 투자 흐름에 영향을 미치는 요소로 분석되었습니다.",
+        "reason": "삼성전자의 폭등세가 언급되었으며, 추가적인 상승 가능성과 함께 '무시무시한 일'이 터질 것이라는 전망이 제시되었습니다. 현재 상황에서 어떻게 대응해야 하는지에 대한 분석이 있었습니다.",
         "related_videos": [
           {
-            "title": "나스닥, 앤트로픽 IPO 신청 이후 AI 랠리 지속...코어위브, 네비우스 동반 급등 [월가 뉴스레터]",
-            "url": "https://www.youtube.com/watch?v=Idn_d5ArZvA",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 07:01:54 KST"
+            "title": "[긴급 증시 진단] 삼성전자, SK하이닉스 줄줄이 폭등했다, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=W0jFHylw3YU",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-28 19:30:29 KST"
           },
           {
-            "title": "앤트로픽 IPO·메타 129조 증자…AI 투자 확대에 빅테크 자금 지원 | 역대급 주주환원...삼전닉스 210조 푼다 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=J1tA30Xq2fg",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 05:31:23 KST"
+            "title": "삼성전자 폭등 한번 더 남았다, 곧 무시무시한 일 터집니다 (차영주 소장)",
+            "url": "https://www.youtube.com/watch?v=IpcsgsK44oA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-28 18:45:12 KST"
           }
-        ],
-        "outlook": "앤트로픽의 IPO 신청 소식이 AI 투자 확대와 연관되어 언급되었으며, 이는 AI 관련 섹터의 투자 흐름에 영향을 미치는 요소로 분석되었습니다. 앤트로픽의 IPO는 AI 랠리 지속 가능성에 대한 논의를 촉발했습니다. 향후 일주일 내에는 앤트로픽의 IPO 관련 구체적인 일정이나 AI 기술 개발 관련 뉴스가 주가에 영향을 줄 수 있습니다."
+        ]
       }
     ],
     "videos_collected": 10
@@ -516,139 +416,131 @@
     "us": {
       "stocks": [
         {
+          "name": "SK Hynix",
+          "freq": 6
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "OpenAI",
+          "freq": 3
+        },
+        {
           "name": "Seagate",
           "freq": 3
         },
         {
-          "name": "Robinhood",
+          "name": "Visa",
           "freq": 3
         },
         {
-          "name": "Boeing",
+          "name": "Stellantis",
           "freq": 3
         },
         {
-          "name": "Anthropic",
-          "freq": 1
-        },
-        {
-          "name": "Broadcom",
+          "name": "Jio",
           "freq": 3
         },
         {
-          "name": "Western Digital",
-          "freq": 2
+          "name": "United",
+          "freq": 3
         },
         {
-          "name": "UPS",
-          "freq": 2
+          "name": "GMO",
+          "freq": 3
         },
         {
-          "name": "SpaceX",
+          "name": "Boston Scientific",
           "freq": 1
         },
         {
-          "name": "Alphabet",
-          "freq": 2
-        },
-        {
-          "name": "Micron Technology",
-          "freq": 2
-        },
-        {
-          "name": "Corning",
-          "freq": 2
-        },
-        {
-          "name": "Texas Instruments",
+          "name": "TRATON",
           "freq": 1
         },
         {
-          "name": "Monolithic Power Systems",
+          "name": "Orion",
           "freq": 1
         },
         {
-          "name": "Nova",
+          "name": "Melexis",
           "freq": 1
         },
         {
-          "name": "Amtech",
+          "name": "Amazon",
+          "freq": 1
+        },
+        {
+          "name": "Bill Ackman",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
-          "freq": 2
-        },
-        {
-          "name": "Chip stocks",
-          "freq": 5
-        },
-        {
-          "name": "Tech stocks",
           "freq": 4
         },
         {
-          "name": "Oil prices",
+          "name": "반도체",
+          "freq": 6
+        },
+        {
+          "name": "결제",
           "freq": 3
         },
         {
-          "name": "Energy companies",
+          "name": "자동차",
+          "freq": 3
+        },
+        {
+          "name": "IPO",
           "freq": 2
         },
         {
-          "name": "Telecoms",
+          "name": "사이버 보안",
+          "freq": 3
+        },
+        {
+          "name": "의료",
           "freq": 2
         },
         {
-          "name": "Crypto",
+          "name": "인플레이션",
           "freq": 2
         },
         {
-          "name": "Data-Storage",
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "로봇",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "데이터 저장",
           "freq": 1
         },
         {
-          "name": "Logistics",
+          "name": "소셜 미디어",
           "freq": 1
         },
         {
-          "name": "Aerospace",
+          "name": "항공",
           "freq": 1
         },
         {
-          "name": "Cereal",
-          "freq": 1
-        },
-        {
-          "name": "Retail",
-          "freq": 1
-        },
-        {
-          "name": "Memory",
-          "freq": 1
-        },
-        {
-          "name": "Hardware",
-          "freq": 1
-        },
-        {
-          "name": "Consumer confidence",
+          "name": "EV",
           "freq": 1
         }
       ]
     },
     "kr": {
       "stocks": [
-        {
-          "name": "한미사이언스",
-          "freq": 2
-        },
-        {
-          "name": "한미약품",
-          "freq": 2
-        },
         {
           "name": "SK하이닉스",
           "freq": 1
@@ -658,105 +550,117 @@
           "freq": 1
         },
         {
-          "name": "알리바바",
+          "name": "삼성전기",
+          "freq": 3
+        },
+        {
+          "name": "호텔신라",
+          "freq": 3
+        },
+        {
+          "name": "LG전자",
+          "freq": 3
+        },
+        {
+          "name": "현대자동차",
+          "freq": 3
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Apple",
+          "freq": 2
+        },
+        {
+          "name": "HD현대오일뱅크",
+          "freq": 2
+        },
+        {
+          "name": "LG화학",
+          "freq": 2
+        },
+        {
+          "name": "LG에너지솔루션",
+          "freq": 2
+        },
+        {
+          "name": "유한양행",
           "freq": 1
         },
         {
-          "name": "텐센트",
+          "name": "비나텍",
           "freq": 1
         },
         {
-          "name": "바이트댄스",
+          "name": "지엔코",
           "freq": 1
         },
         {
-          "name": "솔리다임",
-          "freq": 1
-        },
-        {
-          "name": "KT",
-          "freq": 1
-        },
-        {
-          "name": "롯데마트",
-          "freq": 1
-        },
-        {
-          "name": "롯데백화점",
-          "freq": 1
-        },
-        {
-          "name": "JYP",
-          "freq": 1
-        },
-        {
-          "name": "루센트블록",
-          "freq": 1
-        },
-        {
-          "name": "한미반도체",
-          "freq": 1
-        },
-        {
-          "name": "바이오플러스",
+          "name": "이마트24",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "AI",
-          "freq": 2
-        },
-        {
           "name": "반도체",
           "freq": 2
         },
         {
-          "name": "국제유가",
+          "name": "로봇",
+          "freq": 3
+        },
+        {
+          "name": "인앱결제",
           "freq": 2
         },
         {
-          "name": "메모리",
+          "name": "포용금융",
           "freq": 2
         },
         {
-          "name": "바이오",
+          "name": "해외 결제",
           "freq": 2
         },
         {
-          "name": "클라우드",
+          "name": "신약 개발",
+          "freq": 2
+        },
+        {
+          "name": "정유",
+          "freq": 2
+        },
+        {
+          "name": "환율",
+          "freq": 2
+        },
+        {
+          "name": "브랜드 가치",
+          "freq": 2
+        },
+        {
+          "name": "부동산 대출",
           "freq": 1
         },
         {
-          "name": "부동산",
+          "name": "면세",
           "freq": 1
         },
         {
-          "name": "수소",
+          "name": "AI 안내",
           "freq": 1
         },
         {
-          "name": "가상자산",
+          "name": "원자력",
           "freq": 1
         },
         {
-          "name": "소재·부품·장비",
+          "name": "억만장자",
           "freq": 1
         },
         {
-          "name": "유통",
-          "freq": 1
-        },
-        {
-          "name": "패션",
-          "freq": 1
-        },
-        {
-          "name": "금융",
-          "freq": 1
-        },
-        {
-          "name": "IT",
+          "name": "광역교통",
           "freq": 1
         }
       ]
