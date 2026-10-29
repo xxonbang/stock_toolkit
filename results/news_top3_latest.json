@@ -1,246 +1,256 @@
 {
-  "generated_at": "2026-10-29 07:31 KST",
+  "generated_at": "2026-10-29 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
-        "name": "Interest Rates",
-        "reason": "금리 변동성에 대한 시장의 관심이 높아지면서 관련 섹터가 주목받고 있습니다 (총 5건)",
+        "name": "AI",
+        "reason": "AI 관련 기술 및 서비스에 대한 지속적인 관심과 투자가 반영되었습니다. (총 10건)",
         "us_news_refs": [
+          0,
+          1,
+          3,
           5,
-          18,
-          19,
-          41
+          6,
+          11,
+          25,
+          30,
+          33,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Nasdaq-100 futures fall over 1% as Alphabet shares sell off after earnings report: Live updates - CNBC",
+            "title_ko": "알파벳 실적 발표 후 나스닥 100 선물 1% 이상 하락",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5SalhOeEdhMFUtUWRnVl90YWlHLU90SGt2cmJ2b1Y4aDRmRVZJV3VGS3haNkpEa28wcDMzbGR4dTRtZnNvbUM1WDBDeGtsUkNIN1dOUDdtNXgzV0xaZ3R5ZTk4SEhmRzYyR0dtcGp4RFFEVHA3YzNZ0gF8QVVfeXFMT25jby1VNlpYNGp3ekVGUEVKd29Lanc1bndoVFluRGk0WmhrU08zNDVpVFhOazVlMVE5RkhadGM4VEFhaWREaXJpb09WR0U2LVNHVXBma2NpWHNKUURmVi1hZXNqRXlrZGNUMndNZlFzV2JIdEJfa1hNTkNjYQ?oc=5",
+            "published_at": "2026-10-29 18:27:15 KST"
+          },
+          {
+            "title": "ServiceNow Fans AI Fears on Quarterly Subscription Sales Outlook - Barron's",
+            "title_ko": "ServiceNow, 분기 구독 매출 전망으로 AI 우려 증폭",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5ZZHZ2dmQwb2ZQN1RHMWNvbUlNcGRSQnN2cHhidWhHZlptX3JNanpGWkRsMzc2cFpVSkdpTUZqNDNXY0NxdTVxeTg5UWpORjhHYUs1OXpkckduNXF2WjBhUEc5cTJpdGY5YUxraTZnY2t6S29CemNjcGxKUko1UQ?oc=5",
+            "published_at": "2026-10-29 18:16:00 KST"
+          },
+          {
+            "title": "Oracle Expects to Be Cash Flow Positive by 2028. The Stock Pops. - Barron's",
+            "title_ko": "Oracle, 2028년까지 현금 흐름 흑자 예상. 주가 급등.",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBsY0tEc0RJb3owYzFqOUtYWkpRYnVneXN5dW9BdXNWN1dJYl8zNkJUWUpnNDJKZkFsTFktWktkMllQNWJnaGRzTHJDWDZPTTNGbF9tdzhybjBCbmtJY3JIeFhpYW90TktXcTlDbjlRNEJDd01DRXk3LTZKWXItZw?oc=5",
+            "published_at": "2026-10-29 17:06:17 KST"
+          },
+          {
+            "title": "Marvell Is Said to Near Megadeal for Lumentum In AI Push - Bloomberg",
+            "title_ko": "Marvell, AI 추진 위해 Lumentum 인수 대규모 거래 근접 보도",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNTGdUMkpHa2JOcFhCMTFQU0tLaTJkTU54TmQ2aGJnVVVMR2VzeGdzLS1ONXd0U3hqQ0xPZUlEeTgyOWVXMHRQQ0hIeW5aX21JRkpNY3FlRUdNM1ZJMS1ZX3JwMWUteGVLdFFaVlNZMjZXUWtSSXNVRlEwdnRvbU9iQVBnNS1ycUgxMU5LTGtQQ0hSTWNOTkhBZ3FNRC1HaEZXZG9UMUd1QlBfeG1qZ044cTQtTk9Ydw?oc=5",
+            "published_at": "2026-10-29 16:20:09 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 알파벳의 실적 발표 후 주가 하락이라는 단기적 변동성을 경험했습니다. 그러나 AI 기술에 대한 지속적인 투자와 개발은 여전히 주요 촉매제로 작용하고 있습니다. Marvell이 Lumentum 인수를 통해 AI 역량을 강화하려는 움직임도 주목할 만합니다. 향후 일주일 내에는 AI 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 시장의 관심을 받을 수 있습니다. 다만, 거시 경제 지표 발표나 금리 관련 뉴스가 AI 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "클라우드",
+        "reason": "클라우드 컴퓨팅 서비스의 성장과 관련 기업들의 실적 발표가 주목받았습니다. (총 3건)",
+        "us_news_refs": [
+          1,
+          2,
+          25
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Fed Meeting Live Updates: Interest Rates Hold Steady Despite 'Elevated' Inflation - The New York Times",
-            "title_ko": "연준 금리 동결, 높은 인플레이션에도 - The New York Times",
-            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQTE1BdGtmWVdsaDdsWktpYlk1d2lzWGN2OGdvc3VSNFZxcC1EZ0lWVHhuT1ZpOWphTHoxMzlVY2U2cWxKZDNIZVBhTkR4OXNzbW5fVG41SFZ1b0U1cHFtempLQzVQQmRuQmhpWVJXdy1mV2NxSERSZjZqVnJRZkRJR1diMFY1dkxT?oc=5",
-            "published_at": "2026-10-29 06:27:49 KST"
+            "title": "Nasdaq-100 futures fall over 1% as Alphabet shares sell off after earnings report: Live updates - CNBC",
+            "title_ko": "알파벳 실적 발표 후 나스닥 100 선물 1% 이상 하락",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5SalhOeEdhMFUtUWRnVl90YWlHLU90SGt2cmJ2b1Y4aDRmRVZJV3VGS3haNkpEa28wcDMzbGR4dTRtZnNvbUM1WDBDeGtsUkNIN1dOUDdtNXgzV0xaZ3R5ZTk4SEhmRzYyR0dtcGp4RFFEVHA3YzNZ0gF8QVVfeXFMT25jby1VNlpYNGp3ekVGUEVKd29Lanc1bndoVFluRGk0WmhrU08zNDVpVFhOazVlMVE5RkhadGM4VEFhaWREaXJpb09WR0U2LVNHVXBma2NpWHNKUURmVi1hZXNqRXlrZGNUMndNZlFzV2JIdEJfa1hNTkNjYQ?oc=5",
+            "published_at": "2026-10-29 18:27:15 KST"
           },
           {
-            "title": "Stock Market News, Oct. 28, 2026: Dow, S&P 500 and Nasdaq end higher after Fed holds rates steady; Microsoft and Alphabet results loom; SK Hynix stock soars - MarketWatch",
-            "title_ko": "주식 시장 뉴스, 2026년 10월 28일: 다우, S&P 500, 나스닥 연준 금리 동결 후 상승 마감; Microsoft, Alphabet 실적 임박; SK Hynix 주가 급등 - MarketWatch",
-            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOaEVsNXZzNWlCWGt1YnVOVldEcVJBMTNWTnRvbVdud2llM2RzR2ZVSHlSdjlYTFRieVBwNUh2Njg4RTUwZjNUcklYUE9nTnJsVDBacFlFLTNrUlk2YnA2Z0JUU2txNDR3dU1FMTFVTmN1bmR3dTYyX0FJZm9vZm52eS1VYllLaFVBVFBkeExWLThUbnpIaE16eFk1dnd1bzlaNldMOUZlLV96YTRxanNteFZLVFJtSUh2WlhRa0Z1VmxJSFdDc0piT2FB?oc=5",
-            "published_at": "2026-10-29 04:13:25 KST"
+            "title": "Why Microsoft stock isn't getting crushed like Google stock after its earnings report - Yahoo Finance",
+            "title_ko": "마이크로소프트 주가, 구글과 달리 실적 발표 후 급락 안 한 이유",
+            "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPNl90cjBzWjNJM3p0T0tXLXc1aXVuTThBNXg1blZUZTRfV2xXbXJrN3hzOVVPX2czZEliMkNZYVo4UGxyVndhOUo1X2hXUnd1VklTTmlMTmYwZzMtUWhJUlBQeXVjM2dZT25qNlh4cGQwNmxUWHMybzBzR3ZOLXd4TldVSkVlZXZxZWF5MEdGY1JSUWJ1Nzd6Sk5mMVBNb2VVeGpjbGJxMWo2dkpYbmpUTGJSbFF6MGF6SHNFOG5kdEtpZEFBZXFzYU14OE0xYXp1VXdUTWJhMkIwSjNsSm1MUFVn?oc=5",
+            "published_at": "2026-10-29 18:25:00 KST"
+          },
+          {
+            "title": "Why Alphabet’s stock could see its worst drop in years after the latest results",
+            "title_ko": "알파벳 주식, 최신 실적 발표 후 수년간 최악의 하락 가능성",
+            "url": "https://www.marketwatch.com/story/why-alphabets-stock-could-see-its-worst-drop-in-years-after-the-latest-results-6b64cf98?mod=mw_rss_topstories",
+            "published_at": "2026-10-29 18:08:00 KST"
+          }
+        ],
+        "outlook": "클라우드 섹터는 알파벳과 마이크로소프트의 실적 발표에 영향을 받았습니다. 특히 알파벳의 주가 하락은 클라우드 사업 부문의 성장 전망에 대한 투자자들의 우려를 반영할 수 있습니다. ServiceNow의 경우, 분기 구독 매출 전망이 AI 관련 우려를 증폭시키며 주가에 부정적인 영향을 미쳤습니다. 향후 일주일 동안은 주요 클라우드 기업들의 실적 발표 후속 분석과 함께, AI 기술과의 시너지 효과에 대한 시장의 평가가 이어질 것으로 예상됩니다. 다만, 전반적인 기술주 투자 심리 위축 가능성도 염두에 두어야 합니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "반도체 산업의 회복세와 신기술 개발에 대한 기대감이 나타났습니다. (총 3건)",
+        "us_news_refs": [
+          31,
+          38,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "The Beleaguered Chip Sellers Getting Their Revenge on Apple - WSJ",
+            "title_ko": "곤경에 처한 칩 판매업체, Apple에 복수",
+            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE51dlBxLUx5WEE4N1lJN3JqMzIxZEVsNkpUV040QW9uc0NmUjBNN0l1Z1ZkN09CLUJJSnY4V0xqY1BUb0ExcWowdmJ5YUZHcjdXYkc3YWZBUzQ2ZDlHc1NuMnVjbjZxaldENm42ZnlYYw?oc=5",
+            "published_at": "2026-10-29 11:00:00 KST"
+          },
+          {
+            "title": "SK Hynix Stock Jumps On Q3 Earnings Beat - Investor's Business Daily",
+            "title_ko": "SK Hynix, 3분기 실적 호조로 주가 급등",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQWEJiVDVuWVJnMVVCS0luMkxkNnBocjhpSWVvRHNqSTRNc19HN1VwcEtfRzZNazBKTWJTMnUtSGRTcXU4akFvTHpFTlVyV3d5SVpQVU1jTXdDdUgxcXZSMFBEei1XVjhscHg2Z3hmWUhJREJBalYwR0FrdEpzd3RWSzRzLS1BR0l5bEVsWTJB?oc=5",
+            "published_at": "2026-10-29 07:02:00 KST"
           },
           {
             "title": "Stock market today: Nasdaq wavers, S&P 500 and Dow climb as Fed votes to hold rates steady in 10-2 decision - Yahoo Finance",
-            "title_ko": "오늘의 주식 시장: 나스닥 혼조, S&P 500, 다우 연준 금리 동결 결정에 상승 - Yahoo Finance",
-            "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPdHZRVUxuLTdMcW5FVjFpLTJKY29qczJmSWtSOVhIVmFTSUR1WnR2X0NsSGxNcDBrcU5IcWVvRzNFMkZQOWpENENYNUZ2UU8yTXFKSW82SEVfY1ZMZHF3Q2dtSDU2SGRTNS1tRk1XQjVNdkVkMlZVTXdJZ3E0eHV2ZjZIeDdwWWxUeFU3VEVjaE85UnBxMzRWVlFuREt1MFliTHpmcFpKWXJrbzAwWEdnSDFHSHpXXzJubzVCYVM4TzNkdndFYV9EVTZmQ2s1SXRD?oc=5",
-            "published_at": "2026-10-29 04:10:59 KST"
-          },
-          {
-            "title": "Why did the Fed hold off on raising interest rates? Warsh says it’s because an ‘information-rich’ period is coming.",
-            "title_ko": "연준이 금리 인상을 보류한 이유는? Warsh, '정보 풍부한' 시기가 다가오기 때문이라고 말해.",
-            "url": "https://www.marketwatch.com/story/why-did-the-fed-hold-off-on-raising-interest-rates-warsh-says-its-because-an-information-rich-period-is-coming-098ced8d?mod=mw_rss_topstories",
-            "published_at": "2026-10-29 06:27:00 KST"
+            "title_ko": "주식 시장 오늘: 나스닥 흔들리고 S&P 500 및 다우 상승, Fed 10-2 결정으로 금리 동결",
+            "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPZktFQ2UzRnJZcVE5N1gzczRfZnY1Zmx3TzUtV0dtUTZpVFR6ZktfcG5jYW9YbGE4Wmx2cjVQcjY4OEM4cjVCTzVJTndicWFPb0xuN1k2a0xXVTBaRkEwdVJfUHlPVDMwWUlnQ21QNHZ1ak9JaHdJbmQySDAzNzdBaFdvMmpfUkZJMjItMmR0b2VHTHo5blZTMjhBVkx1YUZtYUZ2Sy1jR09UalFqZWp2OWlsczMwR1R4VFk5SWRWcW81ZDU4Q1lBMUJjcFlkalZMVXlwTUNQVjktcXNXVkhxRGlfbVc?oc=5",
+            "published_at": "2026-10-29 03:48:14 KST"
           }
         ],
-        "outlook": "미국 연방준비제도(Fed)가 금리를 동결하면서 시장의 관심이 지속되고 있습니다. 높은 인플레이션에도 불구하고 금리 동결 결정이 내려졌으며, 향후 금리 결정에 대한 정보가 풍부한 시기가 다가올 것이라는 분석이 있습니다. 이러한 금리 변동성은 향후 일주일간 시장 전반에 영향을 미칠 수 있는 요인으로 작용할 전망입니다. 투자자들은 연준의 다음 회의 결과와 관련 경제 지표 발표를 주시할 필요가 있습니다."
-      },
-      {
-        "name": "Cloud Computing",
-        "reason": "클라우드 컴퓨팅 분야의 기술 발전과 기업들의 투자 확대가 지속적인 관심을 받고 있습니다 (총 4건)",
-        "us_news_refs": [
-          8,
-          33,
-          34,
-          58
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "FedEx beats expectations, raises outlook in first report since calendar adjustment - CNBC",
-            "title_ko": "FedEx, 예상치 상회, 달력 조정 후 첫 보고서서 전망 상향 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBTZ1c2N1RMaUl3RHZ5RWF1M215VGdsOGVJRGR0clZHcEs3RWFjQ0NUanRFc1I0YVpodnJ4akE3UV8zQ1hPQXEzQXVBamc1ZXVFY1J6Vm1tWVVvcUl4VUZtalRPZWxTRDd0QUR6bDJUTWZ6RHfSAXhBVV95cUxOUEpWZENaRjBQQnVCN3ZlbHZzYVhjSXU4bTFTb0RNTkd4ZzRXeXNvY2I5Y1YwSHhabVlsUWx0VF9Yakg4YVNZMml1WDMyZjJITGZoRnN5OFI5ZnBGU05OMENMRFI3QUk2R3RHbmVSSFlJU1lUQnRCeVU?oc=5",
-            "published_at": "2026-10-29 05:35:33 KST"
-          },
-          {
-            "title": "KLA Q1 FY2027 slides: record revenue, historic 46% operating margin",
-            "title_ko": "KLA 1분기 FY2027 슬라이드: 기록적인 매출, 역사적인 영업 이익률 46%",
-            "url": "https://www.investing.com/news/company-news/kla-q1-fy2027-slides-record-revenue-historic-46-operating-margin-93CH-4981121",
-            "published_at": "2026-10-29 07:18:32 KST"
-          },
-          {
-            "title": "Porch Group Q3 2026 slides: 42% policy growth, EBITDA doubles",
-            "title_ko": "Porch Group 3분기 2026년 슬라이드: 보험 증권 성장 42%, EBITDA 두 배 증가",
-            "url": "https://www.investing.com/news/company-news/porch-group-q3-2026-slides-42-policy-growth-ebitda-doubles-93CH-4981120",
-            "published_at": "2026-10-29 07:18:19 KST"
-          }
-        ],
-        "outlook": "클라우드 컴퓨팅 분야는 지속적인 기술 발전과 기업들의 투자 확대에 힘입어 주목받고 있습니다. KLA의 기록적인 매출과 높은 영업이익률, Porch Group의 보험 증권 성장 및 EBITDA 두 배 증가는 해당 섹터의 긍정적인 흐름을 시사합니다. 다만, 거시 경제 변수 및 개별 기업의 실적 발표 결과에 따라 변동성이 나타날 수 있습니다. 향후 일주일간 관련 기업들의 실적 발표 및 신규 서비스 출시 동향이 주목될 것으로 보입니다."
-      },
-      {
-        "name": "Fast Casual Restaurants",
-        "reason": "패스트 캐주얼 레스토랑 섹터는 소비자 지출 변화와 기업 실적에 대한 분석으로 주목받고 있습니다 (총 3건)",
-        "us_news_refs": [
-          1,
-          14,
-          35
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Chipotle now has more demand from lower-income diners than higher-income ones",
-            "title_ko": "Chipotle, 저소득층 수요가 고소득층보다 많아져",
-            "url": "https://www.marketwatch.com/story/chipotle-expects-modestly-higher-sales-this-year-as-drive-thru-chipotlanes-come-to-more-stores-4f255bbc?mod=mw_rss_topstories",
-            "published_at": "2026-10-29 07:25:00 KST"
-          },
-          {
-            "title": "Chipotle earnings miss estimates, but same-store sales increase for third straight quarter - CNBC",
-            "title_ko": "Chipotle 실적 예상치 하회, 동일 매장 매출 3분기 연속 증가 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNWHUzaE81RUpUZm5MY3RnRFhJcUl3bDN4SVRKbEVicVk4V2FaTDhVQjhMZE1OalFrN3NkWVZmaWdGelJpQlFKQktHMGZrMjhYdGozQ1ZiRHZGM0EtWlJrNnFjalU1NjBZUGNNcml5SzNHWFBnTTlqamRxRDNEYjh0UTJOWG1fMGPSAYwBQVVfeXFMTmFwSlJyX0xXV2VyLXdKb0JXRUd5ZVFwbkpvTjg4YXlseEZoaGwxckxsaU9kLTdyN3ZCSzd4elJ0Q2swM2NTdkZiSTYtcWJkcnZoVldkSHdCaU1kYVhGLWlrcm9leWtzZ2xkcndfT29GbXBneXFPdktrZTR5VmFQSDJSZzMxSkZvQ19nRko?oc=5",
-            "published_at": "2026-10-29 04:30:01 KST"
-          },
-          {
-            "title": "Chipotle shares rise 7% after CEO says same-store sales growth will continue",
-            "title_ko": "Chipotle 주가 7% 상승, CEO 동일 매장 매출 성장 지속 전망 밝혀",
-            "url": "https://www.cnbc.com/2026/10/28/chipotle-mexican-grill-cmg-q3-2026-earnings.html",
-            "published_at": "2026-10-29 07:12:28 KST"
-          }
-        ],
-        "outlook": "패스트 캐주얼 레스토랑 섹터는 소비자 지출 변화와 기업 실적에 대한 분석으로 관심을 받고 있습니다. Chipotle의 경우, 저소득층 수요 증가와 동일 매장 매출의 3분기 연속 증가라는 긍정적인 신호가 나타나고 있습니다. CEO는 동일 매장 매출 성장이 지속될 것으로 전망했습니다. 그러나 전반적인 소비 심리 위축 가능성 및 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일간 관련 기업들의 추가적인 실적 발표 및 소비자 동향 보고서가 주목될 것입니다."
+        "outlook": "반도체 섹터는 SK하이닉스의 3분기 실적 호조 소식으로 긍정적인 모멘텀을 보였습니다. 또한, Apple에 대한 칩 공급사들의 경쟁력 강화 움직임도 관찰됩니다. 그러나 전반적인 시장 상황, 특히 금리 결정과 같은 거시 경제 변수가 반도체 섹터의 단기 흐름에 영향을 미칠 수 있습니다. 향후 일주일 내에는 주요 반도체 기업들의 추가적인 실적 발표나 신규 기술 개발 관련 뉴스가 주목받을 수 있습니다. 다만, 글로벌 경기 둔화 우려나 지정학적 리스크가 반도체 수요에 미칠 영향도 주시해야 합니다."
       }
     ],
     "top3_stocks": [
       {
         "name": "Alphabet",
-        "reason": "AI 기술 발전 및 클라우드 사업 성장에 대한 기대감으로 주목받고 있습니다 (총 4건)",
+        "reason": "AI 및 클라우드 사업 부문의 성장이 주가에 긍정적인 영향을 미쳤습니다. (총 5건)",
         "us_news_refs": [
+          0,
           1,
-          8,
-          18,
-          34
+          22,
+          25,
+          33
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "Chipotle now has more demand from lower-income diners than higher-income ones",
-            "title_ko": "Chipotle, 저소득층 수요가 고소득층보다 많아져",
-            "url": "https://www.marketwatch.com/story/chipotle-expects-modestly-higher-sales-this-year-as-drive-thru-chipotlanes-come-to-more-stores-4f255bbc?mod=mw_rss_topstories",
-            "published_at": "2026-10-29 07:25:00 KST"
+            "title": "Nasdaq-100 futures fall over 1% as Alphabet shares sell off after earnings report: Live updates - CNBC",
+            "title_ko": "알파벳 실적 발표 후 나스닥 100 선물 1% 이상 하락",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5SalhOeEdhMFUtUWRnVl90YWlHLU90SGt2cmJ2b1Y4aDRmRVZJV3VGS3haNkpEa28wcDMzbGR4dTRtZnNvbUM1WDBDeGtsUkNIN1dOUDdtNXgzV0xaZ3R5ZTk4SEhmRzYyR0dtcGp4RFFEVHA3YzNZ0gF8QVVfeXFMT25jby1VNlpYNGp3ekVGUEVKd29Lanc1bndoVFluRGk0WmhrU08zNDVpVFhOazVlMVE5RkhadGM4VEFhaWREaXJpb09WR0U2LVNHVXBma2NpWHNKUURmVi1hZXNqRXlrZGNUMndNZlFzV2JIdEJfa1hNTkNjYQ?oc=5",
+            "published_at": "2026-10-29 18:27:15 KST"
           },
           {
-            "title": "FedEx beats expectations, raises outlook in first report since calendar adjustment - CNBC",
-            "title_ko": "FedEx, 예상치 상회, 달력 조정 후 첫 보고서서 전망 상향 - CNBC",
-            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBTZ1c2N1RMaUl3RHZ5RWF1M215VGdsOGVJRGR0clZHcEs3RWFjQ0NUanRFc1I0YVpodnJ4akE3UV8zQ1hPQXEzQXVBamc1ZXVFY1J6Vm1tWVVvcUl4VUZtalRPZWxTRDd0QUR6bDJUTWZ6RHfSAXhBVV95cUxOUEpWZENaRjBQQnVCN3ZlbHZzYVhjSXU4bTFTb0RNTkd4ZzRXeXNvY2I5Y1YwSHhabVlsUWx0VF9Yakg4YVNZMml1WDMyZjJITGZoRnN5OFI5ZnBGU05OMENMRFI3QUk2R3RHbmVSSFlJU1lUQnRCeVU?oc=5",
-            "published_at": "2026-10-29 05:35:33 KST"
+            "title": "Tech Rally Stalls as Alphabet, Samsung Disappoint: Markets Wrap - Bloomberg",
+            "title_ko": "알파벳, 삼성 실망에 기술주 랠리 주춤: 시장 동향",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQd1B6V3JFX19tOWhyZHVKZzFGZ1k0aXcyNERXb0JrMFNjQVpEaFZMeVMxU1FUVnJpWmFrM3JQbjJ5cXRsU0NBekRsOUM2WEQ2Zlh3MWluWUU2c0poWTk1ZDBGMC13SUtxX1lVdjEtQW1PbWdXRE95ZFJqZ2JmZEwxeW5VbVVORWlzMlJTVHdnZ2NkaWR3?oc=5",
+            "published_at": "2026-10-29 19:01:47 KST"
           },
           {
-            "title": "Stock Market News, Oct. 28, 2026: Dow, S&P 500 and Nasdaq end higher after Fed holds rates steady; Microsoft and Alphabet results loom; SK Hynix stock soars - MarketWatch",
-            "title_ko": "주식 시장 뉴스, 2026년 10월 28일: 다우, S&P 500, 나스닥 연준 금리 동결 후 상승 마감; Microsoft, Alphabet 실적 임박; SK Hynix 주가 급등 - MarketWatch",
-            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOaEVsNXZzNWlCWGt1YnVOVldEcVJBMTNWTnRvbVdud2llM2RzR2ZVSHlSdjlYTFRieVBwNUh2Njg4RTUwZjNUcklYUE9nTnJsVDBacFlFLTNrUlk2YnA2Z0JUU2txNDR3dU1FMTFVTmN1bmR3dTYyX0FJZm9vZm52eS1VYllLaFVBVFBkeExWLThUbnpIaE16eFk1dnd1bzlaNldMOUZlLV96YTRxanNteFZLVFJtSUh2WlhRa0Z1VmxJSFdDc0piT2FB?oc=5",
-            "published_at": "2026-10-29 04:13:25 KST"
+            "title": "Why Alphabet’s stock could see its worst drop in years after the latest results",
+            "title_ko": "알파벳 주식, 최신 실적 발표 후 수년간 최악의 하락 가능성",
+            "url": "https://www.marketwatch.com/story/why-alphabets-stock-could-see-its-worst-drop-in-years-after-the-latest-results-6b64cf98?mod=mw_rss_topstories",
+            "published_at": "2026-10-29 18:08:00 KST"
           },
           {
-            "title": "Porch Group Q3 2026 slides: 42% policy growth, EBITDA doubles",
-            "title_ko": "Porch Group 3분기 2026년 슬라이드: 보험 증권 성장 42%, EBITDA 두 배 증가",
-            "url": "https://www.investing.com/news/company-news/porch-group-q3-2026-slides-42-policy-growth-ebitda-doubles-93CH-4981120",
-            "published_at": "2026-10-29 07:18:19 KST"
+            "title": "Alphabet, Microsoft earnings reveal surging AI demand as spending soars - Fox Business",
+            "title_ko": "알파벳, 마이크로소프트 실적, AI 수요 급증 및 지출 급증 공개",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOczBCR3lMOUs2T2htM19DTlFzak8tVGNlTWZtUXpVU1ZDN05VMzBJOVU5bW9PV1lFOHRIYnR3SmhtV2tvUHQ2dWs3SEVBOEU4LUhjOFQyNHlFeV9HSVNCWW5STWtCdkJOc3d2VzNGMndvNUhMbERiempLNEhhZFRuWllWYkJxTndrM0FQYndUUkVEYzRsVjFSRWplYWpxUmFDTGFrQXhTd3FvZ9IBrwFBVV95cUxPMUtPOHJ1NUdHS3lXb3M1MVVBZklOanF6aFY2WkVCUE9pR0N3Z05ZOU01T3R5LUpFejJEUGVjQ3g1YjNBSEhqXzBxanphYXRHeVR0MzR1MTg2LXNlMzBNOFduaG9ZVGozeDRlSFFERUpEU1BERTY3ejJ2MWJaVDZPRUhpSkh5cXd1b2RJWmZudnJTRW5yRll1Qm81TTgyLXMtbUtqQ1RZZjFncEI0dmg0?oc=5",
+            "published_at": "2026-10-29 09:45:00 KST"
           }
         ],
-        "outlook": "Alphabet은 AI 기술 발전과 클라우드 사업 성장에 대한 기대감으로 주목받고 있습니다. 다만, 최근 발표된 일부 뉴스에서는 검색 수익 성장 둔화 가능성이 언급되기도 했습니다. 향후 일주일간 Alphabet의 AI 관련 신규 서비스 발표 및 클라우드 사업 부문의 실적 발표 결과가 주가에 영향을 미칠 수 있는 주요 촉매제가 될 것으로 보입니다. 경쟁사들의 AI 기술 개발 동향 또한 주시해야 할 부분입니다."
-      },
-      {
-        "name": "ServiceNow",
-        "reason": "AI 기반 워크플로우 자동화 솔루션에 대한 수요 증가로 주목받고 있습니다 (총 4건)",
-        "us_news_refs": [
-          6,
-          32,
-          42
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Earnings live updates: ServiceNow stock plunges on Q3 earnings miss - Yahoo Finance",
-            "title_ko": "실적 발표 라이브: ServiceNow 주가, 3분기 실적 부진에 급락 - Yahoo Finance",
-            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQYWEzcS14RnZ3a1cteDIxSGRERVNmWnZjcXN3TFZ2OW9lUFdxNW83aGdUZmVuRFFIUzJ6Z3RiZERYbHgtTHpTSEhYZE94YU1fOGNRNnBlZ0xDdWthZlBxLWo4UmpJMFFIRjZ1QkF3UmFjMU5xdVhvdXdyRWU2TzRpM1c3WGZhUEI1NzV6UVRueDNmZkgzNm8xQW0yMmlYMDNxZWtWNlVqOTJrNEMxSmh0ZmNacDBPQVhyUVFsRjNSNjI5Z1pNenc?oc=5",
-            "published_at": "2026-10-29 06:04:50 KST"
-          },
-          {
-            "title": "Earnings call transcript: ServiceNow Q3 2026 revenue beats, shares sink after hours",
-            "title_ko": "실적 발표 통화 녹취: ServiceNow 3분기 2026년 매출 예상치 상회, 시간 외 주가 하락",
-            "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-servicenow-q3-2026-revenue-beats-shares-sink-after-hours-93CH-4981127",
-            "published_at": "2026-10-29 07:19:34 KST"
-          },
-          {
-            "title": "ServiceNow’s stock slides as earnings miss clouds a raised AI outlook",
-            "title_ko": "ServiceNow 주가 하락, 실적 부진이 AI 전망 상향 조정 흐림",
-            "url": "https://www.marketwatch.com/story/servicenows-stock-slides-as-earnings-miss-clouds-a-raised-ai-outlook-96e48385?mod=mw_rss_topstories",
-            "published_at": "2026-10-29 06:07:00 KST"
-          }
-        ],
-        "outlook": "ServiceNow는 AI 기반 워크플로우 자동화 솔루션에 대한 수요 증가로 주목받고 있으나, 최근 3분기 실적 부진으로 주가가 하락하는 모습을 보였습니다. 이는 AI 전망 상향 조정에도 불구하고 실적 자체의 부진이 투자 심리에 부정적인 영향을 미쳤음을 시사합니다. 향후 일주일간 ServiceNow의 실적 발표 후속 분석 및 AI 솔루션의 실제 적용 사례 확대 여부가 중요한 관전 포인트가 될 것입니다. 경쟁사들의 동향도 주가에 영향을 줄 수 있습니다."
+        "outlook": "Alphabet은 최근 실적 발표 이후 주가 하락세를 보였습니다. 이는 AI 및 클라우드 사업 부문의 성장 전망에 대한 투자자들의 우려를 반영한 것으로 해석됩니다. 향후 일주일 동안은 실적 발표 후속 분석과 함께, AI 기술 투자 확대 및 관련 신규 서비스 출시 계획 등이 주가에 영향을 미칠 수 있습니다. 다만, 경쟁 심화 및 규제 관련 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
       },
       {
         "name": "Microsoft",
-        "reason": "AI 투자 확대와 클라우드 서비스 성장에 대한 긍정적인 전망으로 주목받고 있습니다 (총 3건)",
+        "reason": "클라우드 서비스와 AI 기술 통합에 대한 기대감이 지속적으로 반영되었습니다. (총 5건)",
         "us_news_refs": [
+          1,
           2,
-          9,
-          18,
-          33
+          33,
+          41,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Nasdaq-100 futures fall over 1% as Alphabet shares sell off after earnings report: Live updates - CNBC",
+            "title_ko": "알파벳 실적 발표 후 나스닥 100 선물 1% 이상 하락",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5SalhOeEdhMFUtUWRnVl90YWlHLU90SGt2cmJ2b1Y4aDRmRVZJV3VGS3haNkpEa28wcDMzbGR4dTRtZnNvbUM1WDBDeGtsUkNIN1dOUDdtNXgzV0xaZ3R5ZTk4SEhmRzYyR0dtcGp4RFFEVHA3YzNZ0gF8QVVfeXFMT25jby1VNlpYNGp3ekVGUEVKd29Lanc1bndoVFluRGk0WmhrU08zNDVpVFhOazVlMVE5RkhadGM4VEFhaWREaXJpb09WR0U2LVNHVXBma2NpWHNKUURmVi1hZXNqRXlrZGNUMndNZlFzV2JIdEJfa1hNTkNjYQ?oc=5",
+            "published_at": "2026-10-29 18:27:15 KST"
+          },
+          {
+            "title": "Why Microsoft stock isn't getting crushed like Google stock after its earnings report - Yahoo Finance",
+            "title_ko": "마이크로소프트 주가, 구글과 달리 실적 발표 후 급락 안 한 이유",
+            "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPNl90cjBzWjNJM3p0T0tXLXc1aXVuTThBNXg1blZUZTRfV2xXbXJrN3hzOVVPX2czZEliMkNZYVo4UGxyVndhOUo1X2hXUnd1VklTTmlMTmYwZzMtUWhJUlBQeXVjM2dZT25qNlh4cGQwNmxUWHMybzBzR3ZOLXd4TldVSkVlZXZxZWF5MEdGY1JSUWJ1Nzd6Sk5mMVBNb2VVeGpjbGJxMWo2dkpYbmpUTGJSbFF6MGF6SHNFOG5kdEtpZEFBZXFzYU14OE0xYXp1VXdUTWJhMkIwSjNsSm1MUFVn?oc=5",
+            "published_at": "2026-10-29 18:25:00 KST"
+          },
+          {
+            "title": "Alphabet, Microsoft earnings reveal surging AI demand as spending soars - Fox Business",
+            "title_ko": "알파벳, 마이크로소프트 실적, AI 수요 급증 및 지출 급증 공개",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOczBCR3lMOUs2T2htM19DTlFzak8tVGNlTWZtUXpVU1ZDN05VMzBJOVU5bW9PV1lFOHRIYnR3SmhtV2tvUHQ2dWs3SEVBOEU4LUhjOFQyNHlFeV9HSVNCWW5STWtCdkJOc3d2VzNGMndvNUhMbERiempLNEhhZFRuWllWYkJxTndrM0FQYndUUkVEYzRsVjFSRWplYWpxUmFDTGFrQXhTd3FvZ9IBrwFBVV95cUxPMUtPOHJ1NUdHS3lXb3M1MVVBZklOanF6aFY2WkVCUE9pR0N3Z05ZOU01T3R5LUpFejJEUGVjQ3g1YjNBSEhqXzBxanphYXRHeVR0MzR1MTg2LXNlMzBNOFduaG9ZVGozeDRlSFFERUpEU1BERTY3ejJ2MWJaVDZPRUhpSkh5cXd1b2RJWmZudnJTRW5yRll1Qm81TTgyLXMtbUtqQ1RZZjFncEI0dmg0?oc=5",
+            "published_at": "2026-10-29 09:45:00 KST"
+          },
+          {
+            "title": "Microsoft expects 'very few people' to accept buyout, CFO says in internal memo - Business Insider",
+            "title_ko": "마이크로소프트, 내부 메모에서 '매우 적은 사람'이 바이아웃 수락할 것 예상",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRG95SnZ6TDlZRkN2X3YxaVl0UjJuci1GaGQ3a2Z5NFludTF5UlNjdnltSFBTY3ZQQ1JqOTlwdGFMQ2xGeVF2VHVuNjhkbk5sNGk5MXJsdXl1SVNYTDdKRjd5djZ6UWI1NEJXMkQ5dHl2RnM0Z3NENG5zQ2cxYzlhVUNzSFhzSi1RUHJoNWQ2enNkWkY0U2xpam9qRmV4YmJxUFE?oc=5",
+            "published_at": "2026-10-29 06:30:00 KST"
+          },
+          {
+            "title": "Stock market today: Nasdaq wavers, S&P 500 and Dow climb as Fed votes to hold rates steady in 10-2 decision - Yahoo Finance",
+            "title_ko": "주식 시장 오늘: 나스닥 흔들리고 S&P 500 및 다우 상승, Fed 10-2 결정으로 금리 동결",
+            "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPZktFQ2UzRnJZcVE5N1gzczRfZnY1Zmx3TzUtV0dtUTZpVFR6ZktfcG5jYW9YbGE4Wmx2cjVQcjY4OEM4cjVCTzVJTndicWFPb0xuN1k2a0xXVTBaRkEwdVJfUHlPVDMwWUlnQ21QNHZ1ak9JaHdJbmQySDAzNzdBaFdvMmpfUkZJMjItMmR0b2VHTHo5blZTMjhBVkx1YUZtYUZ2Sy1jR09UalFqZWp2OWlsczMwR1R4VFk5SWRWcW81ZDU4Q1lBMUJjcFlkalZMVXlwTUNQVjktcXNXVkhxRGlfbVc?oc=5",
+            "published_at": "2026-10-29 03:48:14 KST"
+          }
+        ],
+        "outlook": "Microsoft는 클라우드 서비스와 AI 기술 통합에 대한 기대감으로 주목받고 있습니다. 최근 실적 발표에서 구글과 달리 주가 급락을 피한 점은 긍정적인 신호로 해석될 수 있습니다. 향후 일주일 내에는 AI 관련 신규 서비스 출시 계획이나 클라우드 부문의 성장세 지속 여부가 주가에 영향을 미칠 주요 요인이 될 것입니다. 다만, 경쟁사의 공격적인 가격 정책이나 거시 경제 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "ServiceNow",
+        "reason": "AI 기반 워크플로우 자동화 솔루션에 대한 수요 증가가 주목받았습니다. (총 3건)",
+        "us_news_refs": [
+          3,
+          23,
+          49
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Google Shares Fall 10% as Growth in Search Revenue Slows - WSJ",
-            "title_ko": "Google 주가 10% 하락, 검색 수익 성장 둔화 - WSJ",
-            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxONmNkSG5GRS1SMkpKWG5nQjc2YV9BOEU0X1dEZHB3V1VvRGtXdDgzTVdMdnNEcGVzclJqWU9NVzdjYWZybm95dGZhR2NjdEotaGFvVERZM21LNFBpNUhIV1B3eFNMaFNJbmgyWnhFaVdZTmNTXzFzU3ZIU2R0emgxdDNCSVBMN2d2?oc=5",
-            "published_at": "2026-10-29 06:44:48 KST"
+            "title": "ServiceNow Fans AI Fears on Quarterly Subscription Sales Outlook - Barron's",
+            "title_ko": "ServiceNow, 분기 구독 매출 전망으로 AI 우려 증폭",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5ZZHZ2dmQwb2ZQN1RHMWNvbUlNcGRSQnN2cHhidWhHZlptX3JNanpGWkRsMzc2cFpVSkdpTUZqNDNXY0NxdTVxeTg5UWpORjhHYUs1OXpkckduNXF2WjBhUEc5cTJpdGY5YUxraTZnY2t6S29CemNjcGxKUko1UQ?oc=5",
+            "published_at": "2026-10-29 18:16:00 KST"
           },
           {
-            "title": "Microsoft earnings live: Microsoft tops Q1 expectations on top and bottom line on AI growth - Yahoo Finance",
-            "title_ko": "Microsoft 실적 라이브: Microsoft, AI 성장 힘입어 1분기 매출·이익 예상치 상회 - Yahoo Finance",
-            "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxOUGRYUk9MelJ0bVdqVzBNRXRzWVZtNUgzT3pGMmdoWG1WT0J2OVUtNkZRTGc4ZHZWVWV0S1ZMelZMV3AxZjJCTzBtZlB0eEZoTjJNdTJ1OExLeXRlcFQ0bnpwRW1TT2wtdldFWlVFMkc0LVJ3eVhLT0o2VlF1bjhPNlVSZkx4YTFxRkFTSkk1a1EteHFfak1heE5Qamdlbi1ObVgzWHRjSXhtSW1GOUZJQ0huTGdZSWh6aEFMSnpOVkdoRkJQc1p3XzdvTFRoN0hrUEtvYy1fVVpQOXZVU085UEw5Z2VFZVdzTEhlbzBTTzNkNWlIS01Fc0xn?oc=5",
-            "published_at": "2026-10-29 05:30:28 KST"
+            "title": "ServiceNow stock is on track for its largest drop on record. But JPMorgan sees a bright spot.",
+            "title_ko": "ServiceNow 주식, 사상 최대 하락 예상. 그러나 JPMorgan은 긍정적 전망.",
+            "url": "https://www.marketwatch.com/story/servicenow-stock-is-on-track-for-its-largest-drop-on-record-but-jpmorgan-sees-a-bright-spot-5e5b05c6?mod=mw_rss_topstories",
+            "published_at": "2026-10-29 18:52:00 KST"
           },
           {
-            "title": "Stock Market News, Oct. 28, 2026: Dow, S&P 500 and Nasdaq end higher after Fed holds rates steady; Microsoft and Alphabet results loom; SK Hynix stock soars - MarketWatch",
-            "title_ko": "주식 시장 뉴스, 2026년 10월 28일: 다우, S&P 500, 나스닥 연준 금리 동결 후 상승 마감; Microsoft, Alphabet 실적 임박; SK Hynix 주가 급등 - MarketWatch",
-            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOaEVsNXZzNWlCWGt1YnVOVldEcVJBMTNWTnRvbVdud2llM2RzR2ZVSHlSdjlYTFRieVBwNUh2Njg4RTUwZjNUcklYUE9nTnJsVDBacFlFLTNrUlk2YnA2Z0JUU2txNDR3dU1FMTFVTmN1bmR3dTYyX0FJZm9vZm52eS1VYllLaFVBVFBkeExWLThUbnpIaE16eFk1dnd1bzlaNldMOUZlLV96YTRxanNteFZLVFJtSUh2WlhRa0Z1VmxJSFdDc0piT2FB?oc=5",
-            "published_at": "2026-10-29 04:13:25 KST"
-          },
-          {
-            "title": "KLA Q1 FY2027 slides: record revenue, historic 46% operating margin",
-            "title_ko": "KLA 1분기 FY2027 슬라이드: 기록적인 매출, 역사적인 영업 이익률 46%",
-            "url": "https://www.investing.com/news/company-news/kla-q1-fy2027-slides-record-revenue-historic-46-operating-margin-93CH-4981121",
-            "published_at": "2026-10-29 07:18:32 KST"
+            "title": "Stock market today: Nasdaq wavers, S&P 500 and Dow climb as Fed votes to hold rates steady in 10-2 decision - Yahoo Finance",
+            "title_ko": "주식 시장 오늘: 나스닥 흔들리고 S&P 500 및 다우 상승, Fed 10-2 결정으로 금리 동결",
+            "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPZktFQ2UzRnJZcVE5N1gzczRfZnY1Zmx3TzUtV0dtUTZpVFR6ZktfcG5jYW9YbGE4Wmx2cjVQcjY4OEM4cjVCTzVJTndicWFPb0xuN1k2a0xXVTBaRkEwdVJfUHlPVDMwWUlnQ21QNHZ1ak9JaHdJbmQySDAzNzdBaFdvMmpfUkZJMjItMmR0b2VHTHo5blZTMjhBVkx1YUZtYUZ2Sy1jR09UalFqZWp2OWlsczMwR1R4VFk5SWRWcW81ZDU4Q1lBMUJjcFlkalZMVXlwTUNQVjktcXNXVkhxRGlfbVc?oc=5",
+            "published_at": "2026-10-29 03:48:14 KST"
           }
         ],
-        "outlook": "Microsoft는 AI 투자 확대와 클라우드 서비스(Azure)의 견조한 성장에 힘입어 긍정적인 전망을 받고 있습니다. 최근 1분기 실적 발표에서 예상치를 상회하는 매출과 이익을 기록하며 AI 성장의 수혜를 입었음을 보여주었습니다. 향후 일주일간 Microsoft의 AI 관련 신규 파트너십 발표나 클라우드 부문의 추가적인 성장 모멘텀이 주가에 긍정적인 영향을 미칠 수 있습니다. 다만, 거시 경제 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
+        "outlook": "ServiceNow는 AI 기반 워크플로우 자동화 솔루션에 대한 수요 증가가 긍정적인 요인으로 작용하고 있습니다. 그러나 최근 분기 구독 매출 전망이 AI 관련 우려를 증폭시키며 주가에 부정적인 영향을 미쳤다는 보도가 있습니다. 향후 일주일 동안은 회사의 실적 발표 후속 분석과 함께, AI 기술 도입 가속화 및 신규 고객 확보 전략 등이 주가 흐름에 중요한 변수가 될 것입니다. 다만, 경쟁 심화 및 경기 둔화 가능성은 단기적인 위험 요인으로 고려해야 합니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "Interest Rates",
-          "outlook": "미국 연방준비제도(Fed)가 금리를 동결하면서 시장의 관심이 지속되고 있습니다. 높은 인플레이션에도 불구하고 금리 동결 결정이 내려졌으며, 향후 금리 결정에 대한 정보가 풍부한 시기가 다가올 것이라는 분석이 있습니다. 이러한 금리 변동성은 향후 일주일간 시장 전반에 영향을 미칠 수 있는 요인으로 작용할 전망입니다. 투자자들은 연준의 다음 회의 결과와 관련 경제 지표 발표를 주시할 필요가 있습니다."
+          "name": "AI",
+          "outlook": "AI 섹터는 알파벳의 실적 발표 후 주가 하락이라는 단기적 변동성을 경험했습니다. 그러나 AI 기술에 대한 지속적인 투자와 개발은 여전히 주요 촉매제로 작용하고 있습니다. Marvell이 Lumentum 인수를 통해 AI 역량을 강화하려는 움직임도 주목할 만합니다. 향후 일주일 내에는 AI 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 시장의 관심을 받을 수 있습니다. 다만, 거시 경제 지표 발표나 금리 관련 뉴스가 AI 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다."
         },
         {
-          "name": "Cloud Computing",
-          "outlook": "클라우드 컴퓨팅 분야는 지속적인 기술 발전과 기업들의 투자 확대에 힘입어 주목받고 있습니다. KLA의 기록적인 매출과 높은 영업이익률, Porch Group의 보험 증권 성장 및 EBITDA 두 배 증가는 해당 섹터의 긍정적인 흐름을 시사합니다. 다만, 거시 경제 변수 및 개별 기업의 실적 발표 결과에 따라 변동성이 나타날 수 있습니다. 향후 일주일간 관련 기업들의 실적 발표 및 신규 서비스 출시 동향이 주목될 것으로 보입니다."
+          "name": "클라우드",
+          "outlook": "클라우드 섹터는 알파벳과 마이크로소프트의 실적 발표에 영향을 받았습니다. 특히 알파벳의 주가 하락은 클라우드 사업 부문의 성장 전망에 대한 투자자들의 우려를 반영할 수 있습니다. ServiceNow의 경우, 분기 구독 매출 전망이 AI 관련 우려를 증폭시키며 주가에 부정적인 영향을 미쳤습니다. 향후 일주일 동안은 주요 클라우드 기업들의 실적 발표 후속 분석과 함께, AI 기술과의 시너지 효과에 대한 시장의 평가가 이어질 것으로 예상됩니다. 다만, 전반적인 기술주 투자 심리 위축 가능성도 염두에 두어야 합니다."
         },
         {
-          "name": "Fast Casual Restaurants",
-          "outlook": "패스트 캐주얼 레스토랑 섹터는 소비자 지출 변화와 기업 실적에 대한 분석으로 관심을 받고 있습니다. Chipotle의 경우, 저소득층 수요 증가와 동일 매장 매출의 3분기 연속 증가라는 긍정적인 신호가 나타나고 있습니다. CEO는 동일 매장 매출 성장이 지속될 것으로 전망했습니다. 그러나 전반적인 소비 심리 위축 가능성 및 경쟁 심화는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일간 관련 기업들의 추가적인 실적 발표 및 소비자 동향 보고서가 주목될 것입니다."
+          "name": "반도체",
+          "outlook": "반도체 섹터는 SK하이닉스의 3분기 실적 호조 소식으로 긍정적인 모멘텀을 보였습니다. 또한, Apple에 대한 칩 공급사들의 경쟁력 강화 움직임도 관찰됩니다. 그러나 전반적인 시장 상황, 특히 금리 결정과 같은 거시 경제 변수가 반도체 섹터의 단기 흐름에 영향을 미칠 수 있습니다. 향후 일주일 내에는 주요 반도체 기업들의 추가적인 실적 발표나 신규 기술 개발 관련 뉴스가 주목받을 수 있습니다. 다만, 글로벌 경기 둔화 우려나 지정학적 리스크가 반도체 수요에 미칠 영향도 주시해야 합니다."
         }
       ],
       "stocks": [
         {
           "name": "Alphabet",
-          "outlook": "Alphabet은 AI 기술 발전과 클라우드 사업 성장에 대한 기대감으로 주목받고 있습니다. 다만, 최근 발표된 일부 뉴스에서는 검색 수익 성장 둔화 가능성이 언급되기도 했습니다. 향후 일주일간 Alphabet의 AI 관련 신규 서비스 발표 및 클라우드 사업 부문의 실적 발표 결과가 주가에 영향을 미칠 수 있는 주요 촉매제가 될 것으로 보입니다. 경쟁사들의 AI 기술 개발 동향 또한 주시해야 할 부분입니다."
-        },
-        {
-          "name": "ServiceNow",
-          "outlook": "ServiceNow는 AI 기반 워크플로우 자동화 솔루션에 대한 수요 증가로 주목받고 있으나, 최근 3분기 실적 부진으로 주가가 하락하는 모습을 보였습니다. 이는 AI 전망 상향 조정에도 불구하고 실적 자체의 부진이 투자 심리에 부정적인 영향을 미쳤음을 시사합니다. 향후 일주일간 ServiceNow의 실적 발표 후속 분석 및 AI 솔루션의 실제 적용 사례 확대 여부가 중요한 관전 포인트가 될 것입니다. 경쟁사들의 동향도 주가에 영향을 줄 수 있습니다."
+          "outlook": "Alphabet은 최근 실적 발표 이후 주가 하락세를 보였습니다. 이는 AI 및 클라우드 사업 부문의 성장 전망에 대한 투자자들의 우려를 반영한 것으로 해석됩니다. 향후 일주일 동안은 실적 발표 후속 분석과 함께, AI 기술 투자 확대 및 관련 신규 서비스 출시 계획 등이 주가에 영향을 미칠 수 있습니다. 다만, 경쟁 심화 및 규제 관련 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
         },
         {
           "name": "Microsoft",
-          "outlook": "Microsoft는 AI 투자 확대와 클라우드 서비스(Azure)의 견조한 성장에 힘입어 긍정적인 전망을 받고 있습니다. 최근 1분기 실적 발표에서 예상치를 상회하는 매출과 이익을 기록하며 AI 성장의 수혜를 입었음을 보여주었습니다. 향후 일주일간 Microsoft의 AI 관련 신규 파트너십 발표나 클라우드 부문의 추가적인 성장 모멘텀이 주가에 긍정적인 영향을 미칠 수 있습니다. 다만, 거시 경제 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
+          "outlook": "Microsoft는 클라우드 서비스와 AI 기술 통합에 대한 기대감으로 주목받고 있습니다. 최근 실적 발표에서 구글과 달리 주가 급락을 피한 점은 긍정적인 신호로 해석될 수 있습니다. 향후 일주일 내에는 AI 관련 신규 서비스 출시 계획이나 클라우드 부문의 성장세 지속 여부가 주가에 영향을 미칠 주요 요인이 될 것입니다. 다만, 경쟁사의 공격적인 가격 정책이나 거시 경제 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "ServiceNow",
+          "outlook": "ServiceNow는 AI 기반 워크플로우 자동화 솔루션에 대한 수요 증가가 긍정적인 요인으로 작용하고 있습니다. 그러나 최근 분기 구독 매출 전망이 AI 관련 우려를 증폭시키며 주가에 부정적인 영향을 미쳤다는 보도가 있습니다. 향후 일주일 동안은 회사의 실적 발표 후속 분석과 함께, AI 기술 도입 가속화 및 신규 고객 확보 전략 등이 주가 흐름에 중요한 변수가 될 것입니다. 다만, 경쟁 심화 및 경기 둔화 가능성은 단기적인 위험 요인으로 고려해야 합니다."
         }
       ]
     },
@@ -251,166 +261,254 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "Interest Rates",
-        "reason": "금리 변동성에 대한 시장의 관심이 높아지면서 관련 섹터가 주목받고 있습니다 (총 4건)",
+        "name": "자동차",
+        "reason": "현대자동차 등 주요 자동차 기업들의 실적 개선 및 신차 출시 관련 소식이 주목받았습니다. (총 4건)",
         "kr_news_refs": [
-          1,
-          6,
-          22
+          7,
+          14,
+          25,
+          88
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "최종금리 3.5% 각오하는 채권시장…AI 투자·내수 회복이 고금리 버팀목 - 인베스트조선",
+            "title": "현대차, 포티투닷에 2852억 추가 출자…'라이선스' 잡음 속 지원 지속 - 인베스트조선",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOVW1qOFhCWGdnNXpiNnItcThlbG1YTzdjU2J6VGtWLUc2STU4cVAwSS0wSFZFdTlUTjZqQm5Lc1gteHBuTE1Sd25LOURKRV9zbENGbkNJd2o2RDBtekhoMlVsc2piUE4wdEtsWlQzcHFXZUMxN09DQ21YYnRMNUE2UXpQSQ?oc=5",
-            "published_at": "2026-10-29 07:16:47 KST"
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPUUtVZnZKSVM3bkNuZlkya0xRN09tME1sV3lsQ1hlVVhKWUZHVnBMT0toRF91NWlkYUhRU1g1ZXAyVW9mbGdtZmJBeXR0Rmp2aEhCUlNINF90N2MwdkFBbkMyRGh2TVJVZWpHLTMzcmY5LWd2bjhXd19DdXFGN3d6MWg4aw?oc=5",
+            "published_at": "2026-10-29 17:43:00 KST"
           },
           {
-            "title": "미 연준, 기준금리 동결…“내년 금리 결정은 7번만” - KBS 뉴스",
+            "title": "\"완전자율주행? 돈 돌려 달라\"…테슬라 차주들 '결국 완패' - 한국경제",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5VQVYyWHJuUWFkT19TZDd4ZTNJSm9iQ1BwNlF1NjVEbVVyelU1dmtUaDRndWg4dGt1Q3F4dEZBRXhqYThtSmFWVWYyUHM2OEFDRTRtcC0tOU5MNDQ?oc=5",
-            "published_at": "2026-10-29 06:01:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1nTmpibVRFaVhKV0FyMGFlcUxzbzllUjVjYWhKWHRZWVRNLS0wOEk4Wlh1Smwwd2NTT0t0UFQ5VG5EWnFyMl9zNzV2bnZxOWNlME04OXI2WkczQQ?oc=5",
+            "published_at": "2026-10-29 16:01:00 KST"
           },
           {
-            "title": "워시 \"한국 경제에 많은 관심\"…신현송 한은 총재와 인연도 언급",
+            "title": "현대차 3분기 영업이익 2조 6천772억 원‥작년 동기 대비 5.5%↑ - MBC 뉴스",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261029018800072",
-            "published_at": "2026-10-29 07:14:38 KST"
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5CQVl5Zjh1bm9aYVlqMUs4TXRlZkVodzBpU2JFbE5pVHJSMHViU3luSmdwS2xRS0J3em1ZMHp4RFZpU2RQdk10QmdnMGZuZ25ocnVBQTBPQUNPT0F4cnJWU2dMUXZneVlRS3luNW1VcEE5UjJT0gF0QVVfeXFMTnVoZmYxSXdmcDFickNaWFl1R0RHXzBQOTJxaWF2Si05R1otamhQU19MdlA1Nkd2UXlaS2J0S1gtZzE3emlDNHdzamhpbmF6TG5PLTRTeUtrblN3NFRJVFFHR3lvcUl4R3E0OGY1NTlOYndPWWM?oc=5",
+            "published_at": "2026-10-29 14:22:27 KST"
+          },
+          {
+            "title": "폭스바겐, 3분기 8조원 적자…중국 판매량 38％ 급감",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261029194100082",
+            "published_at": "2026-10-29 18:20:23 KST"
           }
         ],
-        "outlook": "한국 채권 시장은 최종 금리 3.5%를 예상하며 금리 변동성에 대한 관심이 높습니다. AI 투자와 내수 회복이 고금리를 지탱할 수 있는 요인으로 분석되고 있습니다. 미국 연준의 금리 동결 결정은 국내 금리 정책에도 영향을 미칠 수 있으며, 한국은행의 향후 금리 결정에 대한 시장의 관심이 집중될 것으로 보입니다. 향후 일주일간 발표될 국내외 경제 지표와 통화 정책 관련 뉴스가 금리 관련 섹터에 영향을 미칠 수 있습니다."
+        "outlook": "자동차 섹터는 현대자동차의 3분기 영업이익 증가 소식이 긍정적인 영향을 미쳤습니다. 또한, 전기차 및 자율주행 기술 관련 투자 소식도 지속적으로 주목받고 있습니다. 향후 일주일 내에는 주요 자동차 기업들의 신차 출시 계획이나 친환경차 관련 정책 발표 등이 시장의 관심을 받을 수 있습니다. 다만, 글로벌 공급망 불안정이나 원자재 가격 변동성은 여전히 잠재적 위험 요인으로 작용할 수 있습니다."
       },
       {
-        "name": "Cloud Computing",
-        "reason": "클라우드 컴퓨팅 분야의 기술 발전과 기업들의 투자 확대가 지속적인 관심을 받고 있습니다 (총 3건)",
+        "name": "정보 보안",
+        "reason": "AI 기술 발전과 함께 정보 보안의 중요성이 부각되며 관련 기업들이 언급되었습니다. (총 3건)",
         "kr_news_refs": [
-          8,
-          33,
-          58
+          4,
+          6,
+          80
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "MS 7~9월 '깜짝' 실적…클라우드 매출 48% 급증하자 주가 4%↑(상보) - 연합인포맥스",
+            "title": "빗썸, 고객 844명도 개인 정보 유출…계좌번호·신분증 사본까지 - KBS 뉴스",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1fOG9wMzNuTnkxQk9UTUlrSGJlOWc5SWxMRUZPYlM3ZmZlUTdOOHBBZy1ZengzcHZDSVNIWW1PQVpZY3NoT3NvYW4taHJIWURqME5wTW1CeHBqaDFsSmhvN3l6czhlVWJqaWxYMmhNZjc?oc=5",
-            "published_at": "2026-10-29 05:24:46 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE0zYUlNcEM1NXhsdzlBbFBFTndNVnc0RmQzZTI5LUwzVjRDYkR6OWV2LXZDVnNzMTBQcWdSV2tVeFg4ekM5WGxtZHZDUm9oV3FsMVBtbnNvRjFwMFU?oc=5",
+            "published_at": "2026-10-29 18:41:00 KST"
           },
           {
-            "title": "AI로 웃은 MS, 투자 부담에 발목 잡힌 구글",
+            "title": "진에어, 외부 해킹으로 1,454명 개인정보 유출…이름·폰번호 등 8개 항목 - 연합뉴스TV",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/it/12189438",
-            "published_at": "2026-10-29 06:56:48 KST"
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBYelg2UVJXbTZWZTRqNFh4M3NnUk5jcmdZRjlnMElTRGc0S2RBbW5hMUFSenVWYTQ4Vkd6Rjg1V1c4bldEMVNpU3JaTTlVSThTNVpCLVJIQWlZVzdid09DSUlVc1FuYU0?oc=5",
+            "published_at": "2026-10-29 18:12:00 KST"
           },
           {
-            "title": "MS 분기매출 19% 급증 124조원…'애저' 48% 폭풍 성장(종합)",
+            "title": "빗썸 해킹으로 고객 계좌번호·신분증 사본까지 털려(종합)",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261029009951091",
-            "published_at": "2026-10-29 06:14:45 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261029169152002",
+            "published_at": "2026-10-29 18:28:25 KST"
           }
         ],
-        "outlook": "클라우드 컴퓨팅 분야는 Microsoft의 어닝 서프라이즈와 Azure 매출의 폭발적인 성장세에 힘입어 주목받고 있습니다. 이는 국내 클라우드 시장에도 긍정적인 영향을 미칠 수 있습니다. AI 기술 발전과 함께 클라우드 기반 서비스의 중요성이 더욱 부각되고 있으며, 관련 기업들의 투자 확대가 예상됩니다. 향후 일주일간 국내 주요 IT 기업들의 클라우드 사업 전략 발표 및 신규 서비스 출시 동향이 주목될 것입니다."
+        "outlook": "최근 발생한 개인 정보 유출 사고들은 정보 보안 섹터의 중요성을 다시 한번 부각시키고 있습니다. AI 기술 발전과 함께 사이버 보안 위협이 증가하면서 관련 솔루션에 대한 수요가 늘어날 것으로 예상됩니다. 향후 일주일 동안은 정보 보안 관련 기업들의 신규 솔루션 출시나 파트너십 체결 소식이 주목받을 수 있습니다. 다만, 규제 강화 움직임이나 기술 표준화 지연 등은 섹터 전반의 성장에 영향을 미칠 수 있습니다."
       },
       {
         "name": "AI",
-        "reason": "AI 기술의 발전과 다양한 산업에서의 적용 확대가 주목받고 있습니다 (총 2건)",
+        "reason": "AI 기술의 발전과 다양한 산업 분야로의 적용 가능성이 지속적으로 논의되었습니다. (총 5건)",
         "kr_news_refs": [
-          3,
-          4,
-          7,
-          8,
-          23,
-          33,
-          58
+          1,
+          5,
+          12,
+          19,
+          72
         ],
+        "_weak_signal": true,
         "related_news": [
           {
-            "title": "AI 신약개발, 기업 규모 따라 전략도 달라진다…\"중소 바이오는 효율성·대형 제약사는 조직 혁신\" - MEDI:GATE NEWS",
+            "title": "\"첫 인수 제안에 '가격' 먼저 제시하지 마라\"…글로벌 바이오 M&A 협상 전략 - MEDI:GATE NEWS",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE10YkNXSUpNTXR1QXZLVFVxSURVOHYyVHMtWFM1Q2oyQW5qR1ZjanRKbHcxM0wyX0M5dmVZaWlhTnNHeC1Ld29jd0RUNklyZ0hwT1FyNkN3?oc=5",
-            "published_at": "2026-10-29 07:00:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBXWjZXamI4ZjVDTWpoNnBDVmpIdU5MZWhzU0N2OFFnX2xtakhUVHpzWllxUzk2bTdRb05NYUZkVnNIdERGaDFSVXI4TE5LUWpCUHdaTWltRQ?oc=5",
+            "published_at": "2026-10-29 19:48:00 KST"
           },
           {
-            "title": "LG전자, TV 적자 3000억 털었다…다음 승부처는 'AI·로봇' - 비즈워치",
+            "title": "IAEA 원자력 장관회의 폐막…62개국, SMR 상용화·안전 규제 협력 논의 - KBS 뉴스",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1uUU5Eb2R1MmVhZTVGYjYzQmd4ejlHcUlJUlhxQmxtUUgtU1RkUmZPeVItZVZxQ2RySXh5eXdQNjd1TlBxbFdLMXNhc0FlWWhwZnN3b1AyQUVxa3ZpYzZJTV8wZkhHR3JweFh5cw?oc=5",
-            "published_at": "2026-10-29 06:30:02 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5DbWZacmxsQVllN25TZTVadWlNQUFTbVA3bzV4OElKUWx6b0s4dGk4Q2h0WVEtQ0V3bXc3RnRfUnpzYlh4eEF4MjZMMHhGbFRKR1lpenlWX3JGVlE?oc=5",
+            "published_at": "2026-10-29 18:41:00 KST"
           },
           {
-            "title": "10월 기업 체감경기 5.1p↑…“제조업·비제조업 동반 개선” - KBS 뉴스",
+            "title": "같은 AI 수혜 국가인데…한국은 폭락하고 대만은 선방한 이유 - 한국경제",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9GdkM4YVZVTFE1WEJ6cVVxSElGd29Tc251OHd1bmtEQktjaUhoZzNobzN3a1o3bjhsc2tXWTJEMFpqYXpkdmtSQm01S1FiVXE5Qk84UFROZlpyU3M?oc=5",
-            "published_at": "2026-10-29 06:01:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA5aDAzUUFIWm1MRUNURzZZTlVYTk1FeHIyWUxmdm9GVjJaTmVnY0I2QXlLRWZqRnJmUkVrLUN0bUtUOEpDZG4yX1dtcFJXRG8zUUc4UjRyZ080Zw?oc=5",
+            "published_at": "2026-10-29 16:17:12 KST"
           },
           {
-            "title": "MS 7~9월 '깜짝' 실적…클라우드 매출 48% 급증하자 주가 4%↑(상보) - 연합인포맥스",
+            "title": "대웅제약, 동탄시티병원과 AI 엑스포 마스 2026 공동 전시관 운영 - MEDI:GATE NEWS",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1fOG9wMzNuTnkxQk9UTUlrSGJlOWc5SWxMRUZPYlM3ZmZlUTdOOHBBZy1ZengzcHZDSVNIWW1PQVpZY3NoT3NvYW4taHJIWURqME5wTW1CeHBqaDFsSmhvN3l6czhlVWJqaWxYMmhNZjc?oc=5",
-            "published_at": "2026-10-29 05:24:46 KST"
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9qd3RGNm9ET0tQMXdqOXNZYkdJLUsyeE84Tmp5R1ZSTlN3ZlpsbDc1dUNHLS1hZXRoTWFGSlZIRkQ0VlJXZGg5cVJGRFRoNjd2ZU1RZGYzbw?oc=5",
+            "published_at": "2026-10-29 15:19:00 KST"
           },
           {
-            "title": "오라클 \"2030년까지 외부 자금조달 27조원 이내\"…주가 11%↑",
+            "title": "일상 곳곳에 스며든 ‘중국 AI’…북한 공무원들도 견학하러 왔더라 [이슈 플러스]",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261029015200009",
-            "published_at": "2026-10-29 07:11:45 KST"
+            "url": "https://www.mk.co.kr/news/world/12190266",
+            "published_at": "2026-10-29 18:37:25 KST"
           }
         ],
-        "outlook": "AI 기술은 신약 개발부터 로봇, TV 등 다양한 산업 분야로 적용 범위를 넓히며 주목받고 있습니다. 특히, Microsoft와 같은 빅테크 기업들의 AI 투자 성과가 가시화되면서 관련 기술 및 서비스에 대한 관심이 증폭되고 있습니다. 국내 기업들 역시 AI 기술 확보 및 사업화를 위한 노력을 강화하고 있습니다. 향후 일주일간 AI 관련 신기술 발표, 정부 정책 변화, 그리고 기업들의 AI 도입 사례 발표 등이 해당 섹터의 주요 촉매제가 될 수 있습니다."
+        "outlook": "AI 섹터는 다양한 산업 분야로의 적용 확대 가능성이 지속적으로 논의되고 있습니다. 특히 국내 기업들의 AI 기술 개발 및 투자 소식이 긍정적인 모멘텀을 제공하고 있습니다. 향후 일주일 내에는 AI 관련 신기술 발표나 정부의 AI 산업 육성 정책 등이 시장의 관심을 받을 것으로 예상됩니다. 다만, AI 기술의 윤리적 문제나 일자리 감소 우려 등은 잠재적인 위험 요인으로 작용할 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Microsoft",
-        "reason": "AI 투자 확대와 클라우드 서비스 성장에 대한 긍정적인 전망으로 주목받고 있습니다 (총 2건)",
+        "name": "현대자동차",
+        "reason": "신차 판매 호조 및 실적 개선에 대한 긍정적인 전망이 주가에 반영되었습니다. (총 4건)",
         "kr_news_refs": [
-          8,
-          33,
-          58
+          7,
+          25,
+          49,
+          88
+        ],
+        "related_news": [
+          {
+            "title": "현대차, 포티투닷에 2852억 추가 출자…'라이선스' 잡음 속 지원 지속 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPUUtVZnZKSVM3bkNuZlkya0xRN09tME1sV3lsQ1hlVVhKWUZHVnBMT0toRF91NWlkYUhRU1g1ZXAyVW9mbGdtZmJBeXR0Rmp2aEhCUlNINF90N2MwdkFBbkMyRGh2TVJVZWpHLTMzcmY5LWd2bjhXd19DdXFGN3d6MWg4aw?oc=5",
+            "published_at": "2026-10-29 17:43:00 KST"
+          },
+          {
+            "title": "현대차 3분기 영업이익 2조 6천772억 원‥작년 동기 대비 5.5%↑ - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5CQVl5Zjh1bm9aYVlqMUs4TXRlZkVodzBpU2JFbE5pVHJSMHViU3luSmdwS2xRS0J3em1ZMHp4RFZpU2RQdk10QmdnMGZuZ25ocnVBQTBPQUNPT0F4cnJWU2dMUXZneVlRS3luNW1VcEE5UjJT0gF0QVVfeXFMTnVoZmYxSXdmcDFickNaWFl1R0RHXzBQOTJxaWF2Si05R1otamhQU19MdlA1Nkd2UXlaS2J0S1gtZzE3emlDNHdzamhpbmF6TG5PLTRTeUtrblN3NFRJVFFHR3lvcUl4R3E0OGY1NTlOYndPWWM?oc=5",
+            "published_at": "2026-10-29 14:22:27 KST"
+          },
+          {
+            "title": "이종석, '탈북어민 강제북송' 질문에 \"돌려보내는 게 맞는다\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261029197200001",
+            "published_at": "2026-10-29 19:09:34 KST"
+          },
+          {
+            "title": "폭스바겐, 3분기 8조원 적자…중국 판매량 38％ 급감",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261029194100082",
+            "published_at": "2026-10-29 18:20:23 KST"
+          }
+        ],
+        "outlook": "현대자동차는 3분기 영업이익 증가와 함께 신차 판매 호조세를 이어가고 있습니다. 또한, 자율주행 기술 개발 및 투자를 지속하며 미래 모빌리티 시장에서의 경쟁력을 강화하고 있습니다. 향후 일주일 동안은 신규 전기차 모델 출시 계획이나 해외 시장 판매 실적 등이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 자동차 시장 경쟁 심화 및 환율 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "삼성전자",
+        "reason": "반도체 업황 회복 및 신기술 투자에 대한 기대감이 언급되었습니다. (총 4건)",
+        "kr_news_refs": [
+          12,
+          15,
+          22,
+          27
+        ],
+        "related_news": [
+          {
+            "title": "같은 AI 수혜 국가인데…한국은 폭락하고 대만은 선방한 이유 - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA5aDAzUUFIWm1MRUNURzZZTlVYTk1FeHIyWUxmdm9GVjJaTmVnY0I2QXlLRWZqRnJmUkVrLUN0bUtUOEpDZG4yX1dtcFJXRG8zUUc4UjRyZ080Zw?oc=5",
+            "published_at": "2026-10-29 16:17:12 KST"
+          },
+          {
+            "title": "코스피, 삼성전자 주주환원책 실망에 하락 마감…코스닥도 2%대↓ - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE40MnR0TV9RQmRPSTJZUkZwcEJDYWRFbldqRUJsRnRESHZaS1BpdWR0NDNxLVVUVkxrODJKUGgxNzVkRkFBMmpReWNPYWJUMHhIQnhzd3dFRDJiZw?oc=5",
+            "published_at": "2026-10-29 15:48:11 KST"
+          },
+          {
+            "title": "6억원 내면 ‘평생 거주’라더니…미국 크루즈선, 연료비 폭탄에 운항 중단 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPQUhzQUhldDRNMHAycWExQ1FaRVVnR3RYdzVHeE9PUkgwTXRzTGNDTEx6R2E5bTdFWFZOTlY5b29VSXJYbjFfRG82dEwydndFdHFzeUtOYko1bEVnaWJRZ0xIakR0QmtmN1AyWERHZEZYUWhjemh2TWZOWmxkQ2pxdHdn?oc=5",
+            "published_at": "2026-10-29 14:47:00 KST"
+          },
+          {
+            "title": "“한대 때리나 열대 때리나”…‘누수 갈등’ 40대 여성에 폭력 휘두른 70대男",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12190433",
+            "published_at": "2026-10-29 19:59:45 KST"
+          }
+        ],
+        "outlook": "삼성전자는 반도체 업황 회복에 대한 기대감과 함께 주주환원 정책 강화 움직임이 주목받고 있습니다. 그러나 최근 실적 발표 후 주가가 기대에 미치지 못했다는 분석도 있습니다. 향후 일주일 내에는 AI 반도체 시장에서의 경쟁력 강화 전략이나 신규 스마트폰 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 우려와 경쟁사의 기술 추격은 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "reason": "고대역폭 메모리(HBM) 수요 증가와 AI 반도체 시장 성장에 대한 기대감이 나타났습니다. (총 3건)",
+        "kr_news_refs": [
+          12,
+          38,
+          71
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "MS 7~9월 '깜짝' 실적…클라우드 매출 48% 급증하자 주가 4%↑(상보) - 연합인포맥스",
+            "title": "같은 AI 수혜 국가인데…한국은 폭락하고 대만은 선방한 이유 - 한국경제",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1fOG9wMzNuTnkxQk9UTUlrSGJlOWc5SWxMRUZPYlM3ZmZlUTdOOHBBZy1ZengzcHZDSVNIWW1PQVpZY3NoT3NvYW4taHJIWURqME5wTW1CeHBqaDFsSmhvN3l6czhlVWJqaWxYMmhNZjc?oc=5",
-            "published_at": "2026-10-29 05:24:46 KST"
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA5aDAzUUFIWm1MRUNURzZZTlVYTk1FeHIyWUxmdm9GVjJaTmVnY0I2QXlLRWZqRnJmUkVrLUN0bUtUOEpDZG4yX1dtcFJXRG8zUUc4UjRyZ080Zw?oc=5",
+            "published_at": "2026-10-29 16:17:12 KST"
           },
           {
-            "title": "AI로 웃은 MS, 투자 부담에 발목 잡힌 구글",
+            "title": "서울 주택가 버려진 시신은 중국인 불법체류자…쓰레기 더미서 발견",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/it/12189438",
-            "published_at": "2026-10-29 06:56:48 KST"
+            "url": "https://www.mk.co.kr/news/society/12190388",
+            "published_at": "2026-10-29 19:40:16 KST"
           },
           {
-            "title": "MS 분기매출 19% 급증 124조원…'애저' 48% 폭풍 성장(종합)",
+            "title": "SK하닉 “향후 3년 메모리 완판”…‘실적 피크’ 우려 꺾었다 [플러스 관심종목]",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261029009951091",
-            "published_at": "2026-10-29 06:14:45 KST"
+            "url": "https://www.mk.co.kr/news/business/12190267",
+            "published_at": "2026-10-29 18:38:06 KST"
           }
         ],
-        "outlook": "Microsoft는 AI 성장과 클라우드 사업의 견조한 실적을 바탕으로 긍정적인 흐름을 이어가고 있습니다. 특히, 3분기 실적에서 클라우드 매출이 48% 급증하며 시장의 기대를 상회했습니다. 이는 AI 기술의 수익화가 성공적으로 이루어지고 있음을 보여줍니다. 향후 일주일간 Microsoft의 AI 관련 신규 투자 계획 발표나 파트너십 강화 소식이 주가에 긍정적인 영향을 미칠 수 있습니다. 다만, 글로벌 거시 경제의 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
+        "outlook": "SK하이닉스는 고대역폭 메모리(HBM) 수요 증가와 AI 반도체 시장 성장에 힘입어 긍정적인 전망이 나오고 있습니다. 회사는 향후 3년간 메모리 반도체 완판을 목표로 하고 있으며, 이는 실적 피크 우려를 완화시킬 수 있습니다. 향후 일주일 동안은 HBM 생산 능력 확대 계획이나 주요 고객사와의 파트너십 강화 소식이 주가에 긍정적인 영향을 미칠 수 있습니다. 다만, 글로벌 IT 수요 변동성이나 경쟁사의 기술 개발 속도는 잠재적 위험 요인으로 작용할 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "Interest Rates",
-          "outlook": "한국 채권 시장은 최종 금리 3.5%를 예상하며 금리 변동성에 대한 관심이 높습니다. AI 투자와 내수 회복이 고금리를 지탱할 수 있는 요인으로 분석되고 있습니다. 미국 연준의 금리 동결 결정은 국내 금리 정책에도 영향을 미칠 수 있으며, 한국은행의 향후 금리 결정에 대한 시장의 관심이 집중될 것으로 보입니다. 향후 일주일간 발표될 국내외 경제 지표와 통화 정책 관련 뉴스가 금리 관련 섹터에 영향을 미칠 수 있습니다."
+          "name": "자동차",
+          "outlook": "자동차 섹터는 현대자동차의 3분기 영업이익 증가 소식이 긍정적인 영향을 미쳤습니다. 또한, 전기차 및 자율주행 기술 관련 투자 소식도 지속적으로 주목받고 있습니다. 향후 일주일 내에는 주요 자동차 기업들의 신차 출시 계획이나 친환경차 관련 정책 발표 등이 시장의 관심을 받을 수 있습니다. 다만, 글로벌 공급망 불안정이나 원자재 가격 변동성은 여전히 잠재적 위험 요인으로 작용할 수 있습니다."
         },
         {
-          "name": "Cloud Computing",
-          "outlook": "클라우드 컴퓨팅 분야는 Microsoft의 어닝 서프라이즈와 Azure 매출의 폭발적인 성장세에 힘입어 주목받고 있습니다. 이는 국내 클라우드 시장에도 긍정적인 영향을 미칠 수 있습니다. AI 기술 발전과 함께 클라우드 기반 서비스의 중요성이 더욱 부각되고 있으며, 관련 기업들의 투자 확대가 예상됩니다. 향후 일주일간 국내 주요 IT 기업들의 클라우드 사업 전략 발표 및 신규 서비스 출시 동향이 주목될 것입니다."
+          "name": "정보 보안",
+          "outlook": "최근 발생한 개인 정보 유출 사고들은 정보 보안 섹터의 중요성을 다시 한번 부각시키고 있습니다. AI 기술 발전과 함께 사이버 보안 위협이 증가하면서 관련 솔루션에 대한 수요가 늘어날 것으로 예상됩니다. 향후 일주일 동안은 정보 보안 관련 기업들의 신규 솔루션 출시나 파트너십 체결 소식이 주목받을 수 있습니다. 다만, 규제 강화 움직임이나 기술 표준화 지연 등은 섹터 전반의 성장에 영향을 미칠 수 있습니다."
         },
         {
           "name": "AI",
-          "outlook": "AI 기술은 신약 개발부터 로봇, TV 등 다양한 산업 분야로 적용 범위를 넓히며 주목받고 있습니다. 특히, Microsoft와 같은 빅테크 기업들의 AI 투자 성과가 가시화되면서 관련 기술 및 서비스에 대한 관심이 증폭되고 있습니다. 국내 기업들 역시 AI 기술 확보 및 사업화를 위한 노력을 강화하고 있습니다. 향후 일주일간 AI 관련 신기술 발표, 정부 정책 변화, 그리고 기업들의 AI 도입 사례 발표 등이 해당 섹터의 주요 촉매제가 될 수 있습니다."
+          "outlook": "AI 섹터는 다양한 산업 분야로의 적용 확대 가능성이 지속적으로 논의되고 있습니다. 특히 국내 기업들의 AI 기술 개발 및 투자 소식이 긍정적인 모멘텀을 제공하고 있습니다. 향후 일주일 내에는 AI 관련 신기술 발표나 정부의 AI 산업 육성 정책 등이 시장의 관심을 받을 것으로 예상됩니다. 다만, AI 기술의 윤리적 문제나 일자리 감소 우려 등은 잠재적인 위험 요인으로 작용할 수 있습니다."
         }
       ],
       "stocks": [
         {
-          "name": "Microsoft",
-          "outlook": "Microsoft는 AI 성장과 클라우드 사업의 견조한 실적을 바탕으로 긍정적인 흐름을 이어가고 있습니다. 특히, 3분기 실적에서 클라우드 매출이 48% 급증하며 시장의 기대를 상회했습니다. 이는 AI 기술의 수익화가 성공적으로 이루어지고 있음을 보여줍니다. 향후 일주일간 Microsoft의 AI 관련 신규 투자 계획 발표나 파트너십 강화 소식이 주가에 긍정적인 영향을 미칠 수 있습니다. 다만, 글로벌 거시 경제의 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
+          "name": "현대자동차",
+          "outlook": "현대자동차는 3분기 영업이익 증가와 함께 신차 판매 호조세를 이어가고 있습니다. 또한, 자율주행 기술 개발 및 투자를 지속하며 미래 모빌리티 시장에서의 경쟁력을 강화하고 있습니다. 향후 일주일 동안은 신규 전기차 모델 출시 계획이나 해외 시장 판매 실적 등이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 자동차 시장 경쟁 심화 및 환율 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 반도체 업황 회복에 대한 기대감과 함께 주주환원 정책 강화 움직임이 주목받고 있습니다. 그러나 최근 실적 발표 후 주가가 기대에 미치지 못했다는 분석도 있습니다. 향후 일주일 내에는 AI 반도체 시장에서의 경쟁력 강화 전략이나 신규 스마트폰 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 경기 둔화 우려와 경쟁사의 기술 추격은 잠재적 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 고대역폭 메모리(HBM) 수요 증가와 AI 반도체 시장 성장에 힘입어 긍정적인 전망이 나오고 있습니다. 회사는 향후 3년간 메모리 반도체 완판을 목표로 하고 있으며, 이는 실적 피크 우려를 완화시킬 수 있습니다. 향후 일주일 동안은 HBM 생산 능력 확대 계획이나 주요 고객사와의 파트너십 강화 소식이 주가에 긍정적인 영향을 미칠 수 있습니다. 다만, 글로벌 IT 수요 변동성이나 경쟁사의 기술 개발 속도는 잠재적 위험 요인으로 작용할 수 있습니다."
         }
       ]
     },
@@ -422,151 +520,131 @@
     "top3_sectors": [
       {
         "name": "반도체",
-        "freq": 4,
-        "summary": "삼성전자와 SK하이닉스의 3분기 실적 발표 및 주가 흐름에 대한 분석이 주를 이룹니다. 두 종목의 실적 발표와 주가 상승에 대한 내용이 언급되었습니다.",
+        "freq": 2,
+        "summary": "영상에서는 반도체 소부장 분야의 대장주를 언급하며 해당 주식이 탑픽이라고 설명합니다. AI 반등을 기다리며 리스크 관리가 필요하다는 분석도 제시됩니다.",
         "refs": [
-          2,
+          1,
+          6
+        ],
+        "reason": "영상에서는 반도체 소부장 분야의 대장주를 언급하며 해당 주식이 탑픽이라고 설명합니다. AI 반등을 기다리며 리스크 관리가 필요하다는 분석도 제시됩니다.",
+        "related_videos": [
+          {
+            "title": "최악의 하락은 지나갔지만 유동성은 여전히 부족하다…AI 반등을 기다리며 리스크를 관리해야 할 때ㅣ명민준, 박가영, 유영화 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=XmXsCpHMMH8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-29 20:00:09 KST"
+          },
+          {
+            "title": "반도체 소부장 진짜 대장주, 단연코 '이 주식이' 탑픽이다 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=qI51o1V2yQY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-29 19:00:16 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 AI 반등을 기다리며 리스크 관리가 필요하다는 분석이 제시되었습니다. 특히 소부장 분야의 대장주에 대한 탑픽 의견이 있으며, 최악의 하락은 지났으나 유동성 부족은 여전하다는 진단이 나왔습니다. 향후 일주일 동안은 주요 반도체 기업들의 실적 발표 후속 분석과 함께, AI 관련 기술 개발 및 투자 동향이 시장의 관심을 받을 것으로 예상됩니다. 다만, 글로벌 경기 둔화 우려와 지정학적 리스크는 여전히 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "금융업",
+        "freq": 1,
+        "summary": "국내 금융업권 현황과 상호금융의 특수성에 대해 논하며, 경기 침체 시 금융업의 구조 및 장점에 대해 분석합니다.",
+        "refs": [
+          5
+        ],
+        "reason": "국내 금융업권 현황과 상호금융의 특수성에 대해 논하며, 경기 침체 시 금융업의 구조 및 장점에 대해 분석합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "뼈를 깎는 구조조정에 들어간 협동조합들",
+            "url": "https://www.youtube.com/watch?v=k6CDRTmyAHo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-10-29 19:07:50 KST"
+          }
+        ],
+        "outlook": "금융업 섹터는 국내 금융업권 현황과 상호금융의 특수성에 대한 분석이 있었습니다. 경기 침체 시 금융업의 구조적 장점에 대한 논의가 이루어졌으며, 협동조합의 구조조정 필요성도 언급되었습니다. 향후 일주일 동안은 금리 변동성이나 금융 당국의 정책 변화가 금융업 전반에 영향을 미칠 수 있습니다. 다만, 경기 침체 장기화 우려나 부동산 시장 불안정성은 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "주식 투자",
+        "freq": 1,
+        "summary": "현금 비중을 높여 현금을 반드시 지켜야 한다는 투자 고수의 의견이 제시됩니다. 또한 가치 투자, 차트 투자 대신 부자가 되는 주식 투자 법에 대한 내용도 다룹니다.",
+        "refs": [
           3,
           7
         ],
-        "reason": "삼성전자와 SK하이닉스의 3분기 실적 발표 및 주가 흐름에 대한 분석이 주를 이룹니다. 두 종목의 실적 발표와 주가 상승에 대한 내용이 언급되었습니다.",
+        "reason": "현금 비중을 높여 현금을 반드시 지켜야 한다는 투자 고수의 의견이 제시됩니다. 또한 가치 투자, 차트 투자 대신 부자가 되는 주식 투자 법에 대한 내용도 다룹니다.",
         "related_videos": [
           {
-            "title": "삼성전자, 3분기 성적표 오늘 공개...주주환원, 하이닉스 '100조' 뛰어넘나 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=Zx_LTYqMXoE",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-29 05:27:15 KST"
+            "title": "40년 투자 고수, 현금 95%다, 지금은 현금 반드시 지키세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=ndmm3CahEe8",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-29 19:30:11 KST"
           },
           {
-            "title": "[긴급 증시 진단] 삼성전자 9%, SK하이닉스 10% 폭등, 지금 반드시 '이렇게' 하세요 (빈센트 위원)",
-            "url": "https://www.youtube.com/watch?v=75NzqhKOC_c",
+            "title": "가치투자, 차트투자 버렸다, 결국 부자되는 주식투자 법 (라오어 작가, shorts)",
+            "url": "https://www.youtube.com/watch?v=QlRqJ1TJny4",
             "channel_name": "김작가 TV",
-            "published_at": "2026-10-28 21:30:27 KST"
-          },
-          {
-            "title": "[긴급 증시 진단] 삼성전자, SK하이닉스 줄줄이 폭등했다, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
-            "url": "https://www.youtube.com/watch?v=W0jFHylw3YU",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-28 19:30:29 KST"
+            "published_at": "2026-10-29 18:30:07 KST"
           }
         ],
-        "outlook": "반도체 섹터는 삼성전자와 SK하이닉스의 3분기 실적 발표와 주가 흐름에 대한 분석이 집중적으로 다루어지고 있습니다. 두 기업 모두 실적 발표 후 주가 급등세를 보였으며, 특히 삼성전자의 경우 주주 환원 정책에 대한 기대감이 높아지고 있습니다. 향후 일주일간 반도체 업황 회복에 대한 전망과 함께 각 기업의 구체적인 실적 및 향후 투자 계획 발표가 주가에 영향을 미칠 주요 촉매가 될 것으로 예상됩니다. 다만, 글로벌 경기 둔화 가능성은 잠재적 위험 요인으로 작용할 수 있습니다."
-      },
-      {
-        "name": "AI",
-        "freq": 2,
-        "summary": "마이크로소프트, 알파벳, 아마존 등 빅테크 기업들의 AI 투자와 수익 창출 구조에 대한 분석이 제시되었습니다. AI 투자 부담을 견디게 하는 기업들의 '돈 버는 구조'에 대한 논의가 포함되었습니다.",
-        "refs": [
-          1,
-          4
-        ],
-        "reason": "마이크로소프트, 알파벳, 아마존 등 빅테크 기업들의 AI 투자와 수익 창출 구조에 대한 분석이 제시되었습니다. AI 투자 부담을 견디게 하는 기업들의 '돈 버는 구조'에 대한 논의가 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "알파벳, EPS 예상치 대거 하회에 시간외 급락...마이크로소프트, 호실적에 상승 [월가 뉴스레터]",
-            "url": "https://www.youtube.com/watch?v=LtT_k6wCOek",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-29 07:10:48 KST"
-          },
-          {
-            "title": "MS·구글·아마존은 왜 다른가…AI 투자 부담 견디게 하는 '돈 버는 구조'ㅣ명민준, 박가영, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=x6E0Hh3B1q4",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 21:00:30 KST"
-          }
-        ],
-        "outlook": "AI 섹터는 마이크로소프트, 알파벳 등 빅테크 기업들의 AI 투자와 수익 창출 구조에 대한 분석이 활발히 이루어지고 있습니다. 특히, AI 투자 부담을 상쇄하는 기업들의 '돈 버는 구조'에 대한 논의가 주목받고 있습니다. 알파벳의 경우 예상치 하회의 실적으로 주가가 급락했으나, 마이크로소프트는 호실적으로 상승세를 보였습니다. 향후 일주일간 AI 기술 발전 속도와 함께 관련 기업들의 실적 발표 결과 및 신규 서비스 출시 동향이 섹터 전반의 흐름을 좌우할 것으로 보입니다."
+        "outlook": "주식 투자 관련 영상에서는 현금 비중을 높여 현금을 반드시 지켜야 한다는 의견이 제시되었습니다. 또한, 가치 투자나 차트 투자 대신 부자가 되는 주식 투자 방법에 대한 논의도 있었습니다. 향후 일주일 동안은 투자자들의 심리 변화와 거시 경제 지표 발표가 시장 흐름에 영향을 미칠 수 있습니다. 다만, 단기 차익 실현 압력이나 예상치 못한 경제 이벤트 발생 가능성은 잠재적 위험 요인으로 작용할 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
         "name": "삼성전자",
-        "freq": 4,
-        "summary": "삼성전자의 3분기 실적 발표와 주가 흐름에 대한 분석이 집중적으로 다루어졌습니다. 특히, 주주 환원 정책과 관련된 내용이 언급되었으며, 주가 급등에 대한 진단도 포함되었습니다.",
+        "freq": 1,
+        "summary": "호재가 쏟아졌음에도 불구하고 주가가 밀린 상황에 대해 언급하며, 실적 소화 후 국내 증시의 반등 재료가 남아있는지에 대한 분석을 진행합니다.",
         "refs": [
-          2,
-          3,
-          7
-        ],
-        "reason": "삼성전자의 3분기 실적 발표와 주가 흐름에 대한 분석이 집중적으로 다루어졌습니다. 특히, 주주 환원 정책과 관련된 내용이 언급되었으며, 주가 급등에 대한 진단도 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "삼성전자, 3분기 성적표 오늘 공개...주주환원, 하이닉스 '100조' 뛰어넘나 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=Zx_LTYqMXoE",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-29 05:27:15 KST"
-          },
-          {
-            "title": "[긴급 증시 진단] 삼성전자 9%, SK하이닉스 10% 폭등, 지금 반드시 '이렇게' 하세요 (빈센트 위원)",
-            "url": "https://www.youtube.com/watch?v=75NzqhKOC_c",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-28 21:30:27 KST"
-          },
-          {
-            "title": "[긴급 증시 진단] 삼성전자, SK하이닉스 줄줄이 폭등했다, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
-            "url": "https://www.youtube.com/watch?v=W0jFHylw3YU",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-28 19:30:29 KST"
-          }
-        ],
-        "outlook": "삼성전자는 3분기 실적 발표와 함께 주가 급등세를 보이며 투자자들의 관심을 받고 있습니다. 특히, 주주 환원 정책에 대한 기대감이 높아지고 있으며, SK하이닉스와 함께 주가 상승을 견인하고 있습니다. 향후 일주일간 삼성전자의 구체적인 실적 내용과 더불어 향후 반도체 시장 전망 및 신규 기술 개발 동향이 주가에 영향을 미칠 주요 요인이 될 것입니다. 다만, 글로벌 경기 상황 및 경쟁사 동향은 잠재적 위험 요인으로 작용할 수 있습니다."
-      },
-      {
-        "name": "SK하이닉스",
-        "freq": 3,
-        "summary": "SK하이닉스의 3분기 실적 및 주가 흐름에 대한 분석이 언급되었습니다. 삼성전자와 함께 주가 급등에 대한 진단이 이루어졌으며, 주주 환원 규모에 대한 언급도 있었습니다.",
-        "refs": [
-          2,
-          3,
-          7
-        ],
-        "reason": "SK하이닉스의 3분기 실적 및 주가 흐름에 대한 분석이 언급되었습니다. 삼성전자와 함께 주가 급등에 대한 진단이 이루어졌으며, 주주 환원 규모에 대한 언급도 있었습니다.",
-        "related_videos": [
-          {
-            "title": "삼성전자, 3분기 성적표 오늘 공개...주주환원, 하이닉스 '100조' 뛰어넘나 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
-            "url": "https://www.youtube.com/watch?v=Zx_LTYqMXoE",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-29 05:27:15 KST"
-          },
-          {
-            "title": "[긴급 증시 진단] 삼성전자 9%, SK하이닉스 10% 폭등, 지금 반드시 '이렇게' 하세요 (빈센트 위원)",
-            "url": "https://www.youtube.com/watch?v=75NzqhKOC_c",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-28 21:30:27 KST"
-          },
-          {
-            "title": "[긴급 증시 진단] 삼성전자, SK하이닉스 줄줄이 폭등했다, 지금 반드시 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
-            "url": "https://www.youtube.com/watch?v=W0jFHylw3YU",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-28 19:30:29 KST"
-          }
-        ],
-        "outlook": "SK하이닉스는 삼성전자와 함께 3분기 실적 발표 후 주가 급등세를 기록하며 주목받고 있습니다. 두 기업 모두 견조한 실적을 발표했으며, 이는 반도체 섹터 전반에 대한 긍정적인 전망을 강화하고 있습니다. 향후 일주일간 SK하이닉스의 고대역폭 메모리(HBM) 등 차세대 메모리 시장에서의 경쟁력과 실적 개선 추세가 주가에 중요한 영향을 미칠 것으로 예상됩니다. 다만, 글로벌 IT 수요 변동성은 잠재적 위험 요인으로 작용할 수 있습니다."
-      },
-      {
-        "name": "마이크로소프트",
-        "freq": 2,
-        "summary": "마이크로소프트의 호실적 발표와 이에 따른 주가 상승에 대한 내용이 언급되었습니다. 또한, AI 투자 부담을 견디게 하는 기업의 '돈 버는 구조' 분석에서 주요 기업으로 다루어졌습니다.",
-        "refs": [
-          1,
           4
         ],
-        "reason": "마이크로소프트의 호실적 발표와 이에 따른 주가 상승에 대한 내용이 언급되었습니다. 또한, AI 투자 부담을 견디게 하는 기업의 '돈 버는 구조' 분석에서 주요 기업으로 다루어졌습니다.",
+        "reason": "호재가 쏟아졌음에도 불구하고 주가가 밀린 상황에 대해 언급하며, 실적 소화 후 국내 증시의 반등 재료가 남아있는지에 대한 분석을 진행합니다.",
+        "_weak_signal": true,
         "related_videos": [
           {
-            "title": "알파벳, EPS 예상치 대거 하회에 시간외 급락...마이크로소프트, 호실적에 상승 [월가 뉴스레터]",
-            "url": "https://www.youtube.com/watch?v=LtT_k6wCOek",
+            "title": "[26.10.29 오후 방송 전체보기] 호재 쏟아졌는데도 밀린 삼성전자…실적 소화한 국내 증시, 반등 재료 남았나",
+            "url": "https://www.youtube.com/watch?v=OUyHhEQ3Y9o",
             "channel_name": "삼프로TV",
-            "published_at": "2026-10-29 07:10:48 KST"
-          },
-          {
-            "title": "MS·구글·아마존은 왜 다른가…AI 투자 부담 견디게 하는 '돈 버는 구조'ㅣ명민준, 박가영, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=x6E0Hh3B1q4",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-28 21:00:30 KST"
+            "published_at": "2026-10-29 19:11:48 KST"
           }
         ],
-        "outlook": "마이크로소프트는 호실적 발표와 함께 주가 상승세를 보이며 AI 섹터의 주요 수혜주로 부각되고 있습니다. 특히, 클라우드 사업의 견조한 성장과 AI 기술의 수익화가 긍정적인 평가를 받고 있습니다. 향후 일주일간 마이크로소프트의 AI 관련 신규 투자 및 파트너십 강화 소식이 주가에 추가적인 모멘텀을 제공할 수 있습니다. 다만, 글로벌 경제 불확실성과 경쟁 심화는 잠재적 위험 요인으로 작용할 수 있습니다."
+        "outlook": "삼성전자는 최근 호재가 많았음에도 불구하고 주가가 밀린 상황에 대한 분석이 있었습니다. 실적 소화 이후 국내 증시의 반등 재료가 남아있는지에 대한 논의가 진행되었습니다. 향후 일주일 동안은 반도체 업황 회복 기대감과 함께, AI 관련 신규 사업 추진 및 투자 계획 등이 주가에 영향을 미칠 수 있습니다. 다만, 글로벌 IT 수요 변동성이나 경쟁사의 기술 개발 속도는 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "AI 반등을 기다리며 리스크 관리가 필요하다는 분석이 제시됩니다. 이는 AI 관련 기술 기업의 주가 흐름에 대한 언급으로 해석될 수 있습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "AI 반등을 기다리며 리스크 관리가 필요하다는 분석이 제시됩니다. 이는 AI 관련 기술 기업의 주가 흐름에 대한 언급으로 해석될 수 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "최악의 하락은 지나갔지만 유동성은 여전히 부족하다…AI 반등을 기다리며 리스크를 관리해야 할 때ㅣ명민준, 박가영, 유영화 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=XmXsCpHMMH8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-29 20:00:09 KST"
+          }
+        ],
+        "outlook": "Nvidia는 AI 반등을 기다리며 리스크 관리가 필요하다는 분석이 제시되었습니다. 이는 AI 관련 기술 기업의 주가 흐름에 대한 언급으로 해석될 수 있습니다. 향후 일주일 동안은 AI 칩 수요 증가 및 신규 GPU 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 다만, 경쟁 심화 및 공급망 이슈는 잠재적 위험 요인으로 작용할 수 있습니다."
+      },
+      {
+        "name": "Tesla",
+        "freq": 1,
+        "summary": "주식 안 팔아도 세금을 내야 하는 상황과 억만장자세 실험 현실화 가능성에 대한 논의가 있습니다. 이는 특정 기술주 또는 성장주의 세금 관련 이슈를 다루는 것으로 볼 수 있습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "주식 안 팔아도 세금을 내야 하는 상황과 억만장자세 실험 현실화 가능성에 대한 논의가 있습니다. 이는 특정 기술주 또는 성장주의 세금 관련 이슈를 다루는 것으로 볼 수 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "주식 안 팔아도 세금 내라? 사상 초유의 억만장자세 실험 현실 될까",
+            "url": "https://www.youtube.com/watch?v=_gMyqLP0928",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-28 20:54:54 KST"
+          }
+        ],
+        "outlook": "Tesla는 주식 매도 없이도 세금을 내야 하는 상황과 억만장자세 실험 현실화 가능성에 대한 논의가 있었습니다. 이는 특정 기술주 또는 성장주의 세금 관련 이슈를 다루는 것으로 볼 수 있습니다. 향후 일주일 동안은 전기차 시장 경쟁 심화 및 생산량 관련 뉴스가 주가에 영향을 미칠 수 있습니다. 다만, 규제 변화나 거시 경제 불확실성은 잠재적 위험 요인으로 작용할 수 있습니다."
       }
     ],
     "videos_collected": 10
@@ -584,55 +662,55 @@
         },
         {
           "name": "ServiceNow",
-          "freq": 4
+          "freq": 2
         },
         {
-          "name": "Chipotle",
-          "freq": 3
-        },
-        {
-          "name": "FedEx",
-          "freq": 3
+          "name": "Nvidia",
+          "freq": 2
         },
         {
           "name": "Oracle",
-          "freq": 3
-        },
-        {
-          "name": "Micron",
-          "freq": 3
-        },
-        {
-          "name": "SK Hynix",
           "freq": 2
         },
         {
-          "name": "Uber",
+          "name": "Marvell",
           "freq": 2
         },
         {
-          "name": "Walmart",
+          "name": "Lumentum",
           "freq": 2
         },
         {
-          "name": "Delta",
+          "name": "Volkswagen",
           "freq": 2
         },
         {
-          "name": "Wendy's",
+          "name": "Norwegian Cruise Line",
           "freq": 2
         },
         {
-          "name": "Kalshi",
+          "name": "Caterpillar",
           "freq": 2
         },
         {
-          "name": "GE Vernova",
-          "freq": 2
+          "name": "Air Liquide",
+          "freq": 1
         },
         {
-          "name": "Ford",
-          "freq": 2
+          "name": "Alkami Technology",
+          "freq": 1
+        },
+        {
+          "name": "Bunge",
+          "freq": 1
+        },
+        {
+          "name": "Xerox",
+          "freq": 1
+        },
+        {
+          "name": "BorgWarner",
+          "freq": 1
         }
       ],
       "sectors": [
@@ -641,24 +719,12 @@
           "freq": 3
         },
         {
-          "name": "Interest Rates",
-          "freq": 5
-        },
-        {
-          "name": "Cloud Computing",
-          "freq": 4
+          "name": "클라우드",
+          "freq": 3
         },
         {
           "name": "반도체",
           "freq": 2
-        },
-        {
-          "name": "Fast Casual Restaurants",
-          "freq": 3
-        },
-        {
-          "name": "Logistics",
-          "freq": 3
         },
         {
           "name": "Cybersecurity",
@@ -669,31 +735,43 @@
           "freq": 2
         },
         {
-          "name": "Personalized Pricing",
+          "name": "Automotive",
           "freq": 2
         },
         {
-          "name": "Prediction Markets",
+          "name": "Data Centers",
           "freq": 2
         },
         {
-          "name": "Oil Prices",
-          "freq": 2
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Software",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
         },
         {
           "name": "Healthcare",
-          "freq": 2
-        },
-        {
-          "name": "Law Firms",
           "freq": 1
         },
         {
-          "name": "AI Bug Detection",
+          "name": "Retail",
           "freq": 1
         },
         {
-          "name": "Energy Infrastructure",
+          "name": "Financials",
+          "freq": 1
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
           "freq": 1
         }
       ]
@@ -701,63 +779,63 @@
     "kr": {
       "stocks": [
         {
-          "name": "LG전자",
-          "freq": 2
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 4
         },
         {
           "name": "SK하이닉스",
           "freq": 1
         },
         {
-          "name": "Microsoft",
+          "name": "빗썸",
           "freq": 2
         },
         {
-          "name": "오라클",
+          "name": "포티투닷",
           "freq": 2
         },
         {
-          "name": "Alphabet",
+          "name": "한화솔루션",
           "freq": 2
         },
         {
-          "name": "이마트",
+          "name": "대웅제약",
+          "freq": 2
+        },
+        {
+          "name": "진에어",
           "freq": 1
         },
         {
-          "name": "롯데하이마트",
+          "name": "KB금융",
           "freq": 1
         },
         {
-          "name": "비나텍",
+          "name": "삼성SDS",
           "freq": 1
         },
         {
-          "name": "미래에셋증권",
+          "name": "홈플러스",
           "freq": 1
         },
         {
-          "name": "머크",
+          "name": "신세계백화점",
           "freq": 1
         },
         {
-          "name": "현대자동차",
+          "name": "롯데백화점",
           "freq": 1
         },
         {
-          "name": "기아",
+          "name": "Tesla",
           "freq": 1
         },
         {
-          "name": "현대모비스",
-          "freq": 1
-        },
-        {
-          "name": "현대위아",
-          "freq": 1
-        },
-        {
-          "name": "현대트랜시스",
+          "name": "JYP",
           "freq": 1
         }
       ],
@@ -767,7 +845,7 @@
           "freq": 2
         },
         {
-          "name": "Interest Rates",
+          "name": "자동차",
           "freq": 4
         },
         {
@@ -775,51 +853,51 @@
           "freq": 1
         },
         {
-          "name": "Cloud Computing",
-          "freq": 3
-        },
-        {
-          "name": "Biotechnology",
-          "freq": 2
-        },
-        {
           "name": "바이오",
           "freq": 2
         },
         {
-          "name": "Robotics",
+          "name": "정보 보안",
+          "freq": 3
+        },
+        {
+          "name": "금융",
           "freq": 2
         },
         {
-          "name": "Oil Prices",
+          "name": "원자력",
           "freq": 2
         },
         {
-          "name": "Automotive",
+          "name": "부동산",
           "freq": 2
         },
         {
-          "name": "Healthcare",
+          "name": "재생 에너지",
           "freq": 2
         },
         {
-          "name": "Investment Banking",
+          "name": "크루즈",
           "freq": 2
         },
         {
-          "name": "Retail",
+          "name": "유통",
           "freq": 2
         },
         {
-          "name": "Data Centers",
+          "name": "디지털 헬스케어",
           "freq": 1
         },
         {
-          "name": "Logistics",
+          "name": "클라우드",
           "freq": 1
         },
         {
-          "name": "Biomanufacturing",
+          "name": "퇴직 연금",
+          "freq": 1
+        },
+        {
+          "name": "석유화학",
           "freq": 1
         }
       ]
