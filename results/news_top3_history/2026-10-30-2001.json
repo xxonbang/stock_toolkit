@@ -1,0 +1,792 @@
+{
+  "generated_at": "2026-10-30 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 13건)",
+        "us_news_refs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          27,
+          29,
+          30,
+          35,
+          38,
+          41,
+          43
+        ],
+        "related_news": [
+          {
+            "title": "Nasdaq futures tumble as Amazon, Intel results deepen AI spending woes - Reuters",
+            "title_ko": "아마존, 인텔 실적 AI 지출 우려 심화에 나스닥 선물 급락",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
+            "published_at": "2026-10-30 18:33:16 KST"
+          },
+          {
+            "title": "Sandisk Reports Another Big Earnings Beat. Investors May Have Wanted More. - Barron's",
+            "title_ko": "Sandisk, 또 한번의 어닝 서프라이즈. 투자자들은 더 원했을 수도.",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1pay11Qk1IcUV6czFMVGFZeEo0WU10UmZhRHMzbldDc3Zfc3A3TEFNN1hqakJfOUZQbUJsbmhZVG56UzNlX09pVlA3MlRqWlBMNDZxX1NqeW5FcmIwN1FLeExPWjEweHdRUzh4Zmp6WXU0Y3hsQWxkOFBn?oc=5",
+            "published_at": "2026-10-30 18:17:00 KST"
+          },
+          {
+            "title": "Intel Earnings: 2 Reasons the Stock Is Down So Much - Barron's",
+            "title_ko": "인텔 실적: 주가 급락한 2가지 이유",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9yZXdLdExYS3hHN19GX0xPbTJSa0h4MTUyUm9oejU5UGEyaVl0RmhnaGMzdXBjbmJtbnNhMGdEYXpPaHdTMzk1d1hZM3BXLVhOdEJ0QzVzTExWNzFZbzZRSmd3dkZfTkdsOC10eXN4UkhpTjAwTVZn?oc=5",
+            "published_at": "2026-10-30 18:15:00 KST"
+          },
+          {
+            "title": "Amazon, Alphabet, SpaceX and Meta are all to blame for the new tech stock rout - Yahoo Finance",
+            "title_ko": "아마존, Alphabet, SpaceX, Meta 모두 신규 기술주 폭락 책임",
+            "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQREdoUGl3MFdxbTlBczk2OXRndWF6aVAtY3BFeU5raF9mODcwVVNvc0F0d3ViU2RpcDBIWUFRYUlVS0o4bVY0TDFMSDZuUFJGc2t6U0czUTNYVXBzeHZoXzNVNmJWVzZfaGVhZW1ZU3EwaVJWRlpwbnV5cUhuQklyV21MQ1duclVsZ1JyWnpHajA3OXE0UTlzMVJoMDdIT3JUY1lRanRycmtsaXZJcVJ3UTh1UnNKOERaa05pMGF6REFQUFdxOWZib3dTTjBVekVydGxFOEZWbw?oc=5",
+            "published_at": "2026-10-30 18:03:24 KST"
+          },
+          {
+            "title": "Nasdaq-100 futures fall 2% as Amazon and Intel tumble after earnings: Live updates - CNBC",
+            "title_ko": "아마존, 인텔 실적 후 급락에 나스닥-100 선물 2% 하락: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ZVVQzRnJqelRyUjFGQjZLZlhIbGsyQUxabzc5TE1TaEx6TWRnaTRRcXVmanBTWXZ0NmhmZWpHeVZFZ3lSX1kyaEhfMnBVMnprQ0xscEpBZzhOWFZLbnZCcUtDUnJJNmdROEhxOVhSRDdFVDd4THg00gF8QVVfeXFMTmgwT1lfNnJpUlczcFVnQW9lanFWbDZzYXRadlNsNmRoS1NSVURVS1VsRjlsWGlZOGhiTkF2X3FJRzJnTllYaTAxdVRCSjgyUlduRGRQTV9kUzNDdFVyQ0VWUHQ3ODU5bW1hZ0hvS2FubEFWMEJnWnAtdUN0bg?oc=5",
+            "published_at": "2026-10-30 17:57:25 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 빅테크 기업들의 실적 발표와 AI 칩 수요에 대한 기대감으로 주목받고 있습니다. 아마존과 인텔의 실적 발표는 AI 지출에 대한 우려를 심화시키며 나스닥 선물이 하락하는 등 단기적인 위험 요인으로 작용했습니다. 향후 일주일 내에는 AI 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 시장의 주요 촉매제가 될 수 있습니다. 다만, AI 투자에 대한 회의론이 제기되고 있어 시장의 변동성이 커질 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요와 관련 기업들의 실적 발표가 주목받으며 반도체 섹터 전반에 대한 관심이 지속됨 (총 7건)",
+        "us_news_refs": [
+          1,
+          3,
+          5,
+          6,
+          8,
+          22,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nasdaq futures tumble as Amazon, Intel results deepen AI spending woes - Reuters",
+            "title_ko": "아마존, 인텔 실적 AI 지출 우려 심화에 나스닥 선물 급락",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
+            "published_at": "2026-10-30 18:33:16 KST"
+          },
+          {
+            "title": "Intel Earnings: 2 Reasons the Stock Is Down So Much - Barron's",
+            "title_ko": "인텔 실적: 주가 급락한 2가지 이유",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9yZXdLdExYS3hHN19GX0xPbTJSa0h4MTUyUm9oejU5UGEyaVl0RmhnaGMzdXBjbmJtbnNhMGdEYXpPaHdTMzk1d1hZM3BXLVhOdEJ0QzVzTExWNzFZbzZRSmd3dkZfTkdsOC10eXN4UkhpTjAwTVZn?oc=5",
+            "published_at": "2026-10-30 18:15:00 KST"
+          },
+          {
+            "title": "Nasdaq-100 futures fall 2% as Amazon and Intel tumble after earnings: Live updates - CNBC",
+            "title_ko": "아마존, 인텔 실적 후 급락에 나스닥-100 선물 2% 하락: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ZVVQzRnJqelRyUjFGQjZLZlhIbGsyQUxabzc5TE1TaEx6TWRnaTRRcXVmanBTWXZ0NmhmZWpHeVZFZ3lSX1kyaEhfMnBVMnprQ0xscEpBZzhOWFZLbnZCcUtDUnJJNmdROEhxOVhSRDdFVDd4THg00gF8QVVfeXFMTmgwT1lfNnJpUlczcFVnQW9lanFWbDZzYXRadlNsNmRoS1NSVURVS1VsRjlsWGlZOGhiTkF2X3FJRzJnTllYaTAxdVRCSjgyUlduRGRQTV9kUzNDdFVyQ0VWUHQ3ODU5bW1hZ0hvS2FubEFWMEJnWnAtdUN0bg?oc=5",
+            "published_at": "2026-10-30 17:57:25 KST"
+          },
+          {
+            "title": "Chinese Executive Close to Nvidia CEO Suspected of Giving China Information - WSJ",
+            "title_ko": "中 임원, Nvidia CEO와 가까운 사이, 中에 정보 제공 혐의",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQWHJLWWpfcXR5dEpVekREaFNLUlhOUmpFYm1neGZkZDh5blljZWw5WHdPWWZ4ZkVBbUJGOTFsWFVnUnJZODJNMVJiYWlfTFBMaTNwWjFZUFZsdHZweU9xUXZjX0dnMWpWN0pYOTEzNTFFYkRaWDRDdjJPdmVITzlmZTJVcmlqZWNZSXZzTmxuaU9WNlViUWtLYTBYLVZ3M2loY3FBa0JJWlFwZldqUWc?oc=5",
+            "published_at": "2026-10-30 17:42:13 KST"
+          },
+          {
+            "title": "Global tech rout deepens as US earnings stoke AI spending fears - Financial Times",
+            "title_ko": "美 실적, AI 지출 우려 고조에 글로벌 기술주 폭락 심화",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNNTB4Ykd3SWFzX1I1OTJab3VCbDdLRy1IZmo4dVBNZU5CVmFqNFZxUmEtbGxBTnlYV09zUV9VYTZBUnpSU0tGQ2kySzZrVFIzUl96ZXRwZFlZQ2hsbHl4NGljX3YtYXNjbjBNeXdrN0dXdEZxZjg5NHBZNzNyTlZyNGRCWXc?oc=5",
+            "published_at": "2026-10-30 15:40:47 KST"
+          }
+        ],
+        "outlook": "AI 칩 수요 증가와 관련 기업들의 실적 발표가 반도체 섹터에 대한 관심을 지속시키고 있습니다. 그러나 아마존과 인텔의 실적 발표 이후 AI 지출에 대한 우려가 커지면서 나스닥 선물이 하락하는 등 단기적인 하방 압력이 나타나고 있습니다. 중국 임원의 엔비디아 관련 정보 유출 혐의는 지정학적 리스크로 작용할 수 있습니다. 향후 일주일 동안은 주요 반도체 기업들의 실적 발표와 AI 관련 기술 동향이 주목받을 것으로 예상됩니다."
+      },
+      {
+        "name": "E-commerce",
+        "reason": "온라인 쇼핑 관련 기업들의 실적 발표와 성장 전망이 투자자들의 관심을 끌고 있음 (총 3건)",
+        "us_news_refs": [
+          19,
+          29,
+          38
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Here’s the math on Amazon CEO’s claim to be on path to two trillion-dollar revenue businesses",
+            "title_ko": "아마존 CEO, 2조 달러 매출 사업 2개 경로 주장 수학 분석",
+            "url": "https://www.marketwatch.com/story/heres-the-math-on-amazon-ceos-claim-to-be-on-path-to-two-trillion-dollar-revenue-businesses-34d648e8?mod=mw_rss_topstories",
+            "published_at": "2026-10-30 19:34:00 KST"
+          },
+          {
+            "title": "Amazon CEO says shopping agents like Meta’s Muse ‘not great’ - Fortune",
+            "title_ko": "아마존 CEO, Meta의 Muse 같은 쇼핑 에이전트 '별로 좋지 않다'",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQLTFORFVHY2I4aTBrZWVERkpsOTVEMVNqTEpWcUxvZWRKRWFmMGQ1TE51ZzZNTmN2aklNd0ladWs4RHVpdWl4YTE3eThRMHFTMk1RUTRnZV9qNWdBbGhaeG5EdXExY0FDZTVvZ2Z6RHlORzlRWDlUSTBXMy04eGQ3Qmc1aW1WaWlacVZOVFo5dGpGbUk?oc=5",
+            "published_at": "2026-10-30 09:37:00 KST"
+          },
+          {
+            "title": "Amazon Shares Fall On Q3 Earnings Miss As Big Tech Market Rout Continues - Deadline",
+            "title_ko": "아마존, 3분기 실적 부진에 주가 하락, 빅테크 시장 폭락 지속",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQU1MyUlV4SEhEdldTemFhM0NkaVBZWi1fMm9uS0QwdDNraHBiUjdMLVhKZkFkT3BwZzVMQVZOMW8waWU2THk5QnV5UGxsMDBuclhWTHBqUEdBQmp2WmlYNC1ZQjBqTmhwN1lORXprTzlJMVBSWS0tUjBXSmNnTWtBZGJmY1lsWjRHR0JzSmwwTk9ucDhETFo4TA?oc=5",
+            "published_at": "2026-10-30 05:27:00 KST"
+          }
+        ],
+        "outlook": "전자상거래 관련 기업들의 실적 발표와 성장 전망이 투자자들의 관심을 끌고 있습니다. 아마존의 3분기 실적 부진은 빅테크 시장의 전반적인 하락세와 맞물려 주가에 부정적인 영향을 미쳤습니다. 아마존 CEO의 발언은 전자상거래 시장의 경쟁 환경과 미래 성장 동력에 대한 논의를 촉발하고 있습니다. 향후 일주일 동안은 주요 전자상거래 기업들의 추가적인 실적 발표나 신규 서비스 출시 여부가 주목받을 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Amazon",
+        "reason": "AI 및 클라우드 컴퓨팅 분야에서의 성장과 전자상거래 부문의 견조한 실적이 주목받고 있음 (총 6건)",
+        "us_news_refs": [
+          1,
+          4,
+          5,
+          19,
+          29,
+          30,
+          38
+        ],
+        "related_news": [
+          {
+            "title": "Nasdaq futures tumble as Amazon, Intel results deepen AI spending woes - Reuters",
+            "title_ko": "아마존, 인텔 실적 AI 지출 우려 심화에 나스닥 선물 급락",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
+            "published_at": "2026-10-30 18:33:16 KST"
+          },
+          {
+            "title": "Amazon, Alphabet, SpaceX and Meta are all to blame for the new tech stock rout - Yahoo Finance",
+            "title_ko": "아마존, Alphabet, SpaceX, Meta 모두 신규 기술주 폭락 책임",
+            "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQREdoUGl3MFdxbTlBczk2OXRndWF6aVAtY3BFeU5raF9mODcwVVNvc0F0d3ViU2RpcDBIWUFRYUlVS0o4bVY0TDFMSDZuUFJGc2t6U0czUTNYVXBzeHZoXzNVNmJWVzZfaGVhZW1ZU3EwaVJWRlpwbnV5cUhuQklyV21MQ1duclVsZ1JyWnpHajA3OXE0UTlzMVJoMDdIT3JUY1lRanRycmtsaXZJcVJ3UTh1UnNKOERaa05pMGF6REFQUFdxOWZib3dTTjBVekVydGxFOEZWbw?oc=5",
+            "published_at": "2026-10-30 18:03:24 KST"
+          },
+          {
+            "title": "Nasdaq-100 futures fall 2% as Amazon and Intel tumble after earnings: Live updates - CNBC",
+            "title_ko": "아마존, 인텔 실적 후 급락에 나스닥-100 선물 2% 하락: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ZVVQzRnJqelRyUjFGQjZLZlhIbGsyQUxabzc5TE1TaEx6TWRnaTRRcXVmanBTWXZ0NmhmZWpHeVZFZ3lSX1kyaEhfMnBVMnprQ0xscEpBZzhOWFZLbnZCcUtDUnJJNmdROEhxOVhSRDdFVDd4THg00gF8QVVfeXFMTmgwT1lfNnJpUlczcFVnQW9lanFWbDZzYXRadlNsNmRoS1NSVURVS1VsRjlsWGlZOGhiTkF2X3FJRzJnTllYaTAxdVRCSjgyUlduRGRQTV9kUzNDdFVyQ0VWUHQ3ODU5bW1hZ0hvS2FubEFWMEJnWnAtdUN0bg?oc=5",
+            "published_at": "2026-10-30 17:57:25 KST"
+          },
+          {
+            "title": "Here’s the math on Amazon CEO’s claim to be on path to two trillion-dollar revenue businesses",
+            "title_ko": "아마존 CEO, 2조 달러 매출 사업 2개 경로 주장 수학 분석",
+            "url": "https://www.marketwatch.com/story/heres-the-math-on-amazon-ceos-claim-to-be-on-path-to-two-trillion-dollar-revenue-businesses-34d648e8?mod=mw_rss_topstories",
+            "published_at": "2026-10-30 19:34:00 KST"
+          },
+          {
+            "title": "Amazon CEO says shopping agents like Meta’s Muse ‘not great’ - Fortune",
+            "title_ko": "아마존 CEO, Meta의 Muse 같은 쇼핑 에이전트 '별로 좋지 않다'",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQLTFORFVHY2I4aTBrZWVERkpsOTVEMVNqTEpWcUxvZWRKRWFmMGQ1TE51ZzZNTmN2aklNd0ladWs4RHVpdWl4YTE3eThRMHFTMk1RUTRnZV9qNWdBbGhaeG5EdXExY0FDZTVvZ2Z6RHlORzlRWDlUSTBXMy04eGQ3Qmc1aW1WaWlacVZOVFo5dGpGbUk?oc=5",
+            "published_at": "2026-10-30 09:37:00 KST"
+          }
+        ],
+        "outlook": "아마존은 AI 및 클라우드 컴퓨팅 분야에서의 성장과 전자상거래 부문의 견조한 실적에 대한 기대감으로 주목받고 있습니다. 그러나 최근 실적 발표 이후 주가가 하락했으며, 이는 AI 지출에 대한 전반적인 우려와 맞물려 단기적인 위험 요인으로 작용하고 있습니다. 향후 일주일 동안은 아마존의 클라우드 사업 성장세와 전자상거래 부문의 경쟁력 강화 노력이 주가에 영향을 미칠 것으로 보입니다."
+      },
+      {
+        "name": "Intel",
+        "reason": "AI 칩 경쟁 심화 속에서 인텔의 신규 기술 및 시장 점유율 확대 가능성이 부각되고 있음 (총 5건)",
+        "us_news_refs": [
+          1,
+          3,
+          5,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nasdaq futures tumble as Amazon, Intel results deepen AI spending woes - Reuters",
+            "title_ko": "아마존, 인텔 실적 AI 지출 우려 심화에 나스닥 선물 급락",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
+            "published_at": "2026-10-30 18:33:16 KST"
+          },
+          {
+            "title": "Intel Earnings: 2 Reasons the Stock Is Down So Much - Barron's",
+            "title_ko": "인텔 실적: 주가 급락한 2가지 이유",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9yZXdLdExYS3hHN19GX0xPbTJSa0h4MTUyUm9oejU5UGEyaVl0RmhnaGMzdXBjbmJtbnNhMGdEYXpPaHdTMzk1d1hZM3BXLVhOdEJ0QzVzTExWNzFZbzZRSmd3dkZfTkdsOC10eXN4UkhpTjAwTVZn?oc=5",
+            "published_at": "2026-10-30 18:15:00 KST"
+          },
+          {
+            "title": "Nasdaq-100 futures fall 2% as Amazon and Intel tumble after earnings: Live updates - CNBC",
+            "title_ko": "아마존, 인텔 실적 후 급락에 나스닥-100 선물 2% 하락: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ZVVQzRnJqelRyUjFGQjZLZlhIbGsyQUxabzc5TE1TaEx6TWRnaTRRcXVmanBTWXZ0NmhmZWpHeVZFZ3lSX1kyaEhfMnBVMnprQ0xscEpBZzhOWFZLbnZCcUtDUnJJNmdROEhxOVhSRDdFVDd4THg00gF8QVVfeXFMTmgwT1lfNnJpUlczcFVnQW9lanFWbDZzYXRadlNsNmRoS1NSVURVS1VsRjlsWGlZOGhiTkF2X3FJRzJnTllYaTAxdVRCSjgyUlduRGRQTV9kUzNDdFVyQ0VWUHQ3ODU5bW1hZ0hvS2FubEFWMEJnWnAtdUN0bg?oc=5",
+            "published_at": "2026-10-30 17:57:25 KST"
+          },
+          {
+            "title": "Why Intel’s stock is sinking toward its worst drop in two years",
+            "title_ko": "인텔 주가가 2년래 최악의 하락세로 향하는 이유",
+            "url": "https://www.marketwatch.com/story/why-intels-stock-is-sinking-toward-its-worst-drop-in-two-years-492d71a7?mod=mw_rss_topstories",
+            "published_at": "2026-10-30 18:46:00 KST"
+          }
+        ],
+        "outlook": "인텔은 AI 칩 경쟁 심화 속에서 신규 기술 개발과 시장 점유율 확대 가능성이 부각되고 있습니다. 하지만 최근 실적 발표에서 주가가 크게 하락했으며, 이는 AI 지출에 대한 우려와 경쟁 심화라는 단기적인 위험 요인으로 작용하고 있습니다. 향후 일주일 동안은 인텔의 차세대 칩 개발 현황과 경쟁사 대비 기술 경쟁력이 주목받을 것으로 예상됩니다."
+      },
+      {
+        "name": "Alphabet",
+        "reason": "AI 기술 발전과 클라우드 사업 성장에 대한 기대감이 주가에 긍정적인 영향을 미치고 있음 (총 2건)",
+        "us_news_refs": [
+          1,
+          4,
+          5,
+          43
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nasdaq futures tumble as Amazon, Intel results deepen AI spending woes - Reuters",
+            "title_ko": "아마존, 인텔 실적 AI 지출 우려 심화에 나스닥 선물 급락",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
+            "published_at": "2026-10-30 18:33:16 KST"
+          },
+          {
+            "title": "Amazon, Alphabet, SpaceX and Meta are all to blame for the new tech stock rout - Yahoo Finance",
+            "title_ko": "아마존, Alphabet, SpaceX, Meta 모두 신규 기술주 폭락 책임",
+            "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQREdoUGl3MFdxbTlBczk2OXRndWF6aVAtY3BFeU5raF9mODcwVVNvc0F0d3ViU2RpcDBIWUFRYUlVS0o4bVY0TDFMSDZuUFJGc2t6U0czUTNYVXBzeHZoXzNVNmJWVzZfaGVhZW1ZU3EwaVJWRlpwbnV5cUhuQklyV21MQ1duclVsZ1JyWnpHajA3OXE0UTlzMVJoMDdIT3JUY1lRanRycmtsaXZJcVJ3UTh1UnNKOERaa05pMGF6REFQUFdxOWZib3dTTjBVekVydGxFOEZWbw?oc=5",
+            "published_at": "2026-10-30 18:03:24 KST"
+          },
+          {
+            "title": "Nasdaq-100 futures fall 2% as Amazon and Intel tumble after earnings: Live updates - CNBC",
+            "title_ko": "아마존, 인텔 실적 후 급락에 나스닥-100 선물 2% 하락: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ZVVQzRnJqelRyUjFGQjZLZlhIbGsyQUxabzc5TE1TaEx6TWRnaTRRcXVmanBTWXZ0NmhmZWpHeVZFZ3lSX1kyaEhfMnBVMnprQ0xscEpBZzhOWFZLbnZCcUtDUnJJNmdROEhxOVhSRDdFVDd4THg00gF8QVVfeXFMTmgwT1lfNnJpUlczcFVnQW9lanFWbDZzYXRadlNsNmRoS1NSVURVS1VsRjlsWGlZOGhiTkF2X3FJRzJnTllYaTAxdVRCSjgyUlduRGRQTV9kUzNDdFVyQ0VWUHQ3ODU5bW1hZ0hvS2FubEFWMEJnWnAtdUN0bg?oc=5",
+            "published_at": "2026-10-30 17:57:25 KST"
+          },
+          {
+            "title": "Google admits AI search makes less money, but it’s fixing that with more ads - Ars Technica",
+            "title_ko": "구글, AI 검색 수익 감소 인정, 광고 더 많이 추가해 개선 중",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPU2N4WlltWWNlOEJwa3pkRGZVclpXZFpBNFM1R1BYSUxrZFRKUzl1dkREZE1wQnZVSEE4bVQtOWM1amVhVEY4dHJTaWR0dWtzMV9JUkZPdXNlZy02NUhNXzJPVGhaVDNlaXltRHJoUDh2a1dNNlRlcjVSMUEwcG54YTljZEFVYXVtSFR1bUtCUmpHZ0ZhdHQ5VVIzRlB6TFRCU0s3MURXY3E0RENnbGpYcF80T3U0dw?oc=5",
+            "published_at": "2026-10-30 01:24:55 KST"
+          }
+        ],
+        "outlook": "알파벳은 AI 기술 발전과 클라우드 사업 성장에 대한 기대감이 주가에 긍정적인 영향을 미치고 있습니다. 그러나 빅테크 전반의 실적 발표 이후 AI 지출에 대한 우려가 커지면서 시장의 변동성이 확대되는 양상입니다. 향후 일주일 동안은 알파벳의 AI 관련 신규 서비스 출시 및 클라우드 사업 성장세가 주가에 중요한 영향을 미칠 것으로 보입니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 빅테크 기업들의 실적 발표와 AI 칩 수요에 대한 기대감으로 주목받고 있습니다. 아마존과 인텔의 실적 발표는 AI 지출에 대한 우려를 심화시키며 나스닥 선물이 하락하는 등 단기적인 위험 요인으로 작용했습니다. 향후 일주일 내에는 AI 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 시장의 주요 촉매제가 될 수 있습니다. 다만, AI 투자에 대한 회의론이 제기되고 있어 시장의 변동성이 커질 수 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "AI 칩 수요 증가와 관련 기업들의 실적 발표가 반도체 섹터에 대한 관심을 지속시키고 있습니다. 그러나 아마존과 인텔의 실적 발표 이후 AI 지출에 대한 우려가 커지면서 나스닥 선물이 하락하는 등 단기적인 하방 압력이 나타나고 있습니다. 중국 임원의 엔비디아 관련 정보 유출 혐의는 지정학적 리스크로 작용할 수 있습니다. 향후 일주일 동안은 주요 반도체 기업들의 실적 발표와 AI 관련 기술 동향이 주목받을 것으로 예상됩니다."
+        },
+        {
+          "name": "E-commerce",
+          "outlook": "전자상거래 관련 기업들의 실적 발표와 성장 전망이 투자자들의 관심을 끌고 있습니다. 아마존의 3분기 실적 부진은 빅테크 시장의 전반적인 하락세와 맞물려 주가에 부정적인 영향을 미쳤습니다. 아마존 CEO의 발언은 전자상거래 시장의 경쟁 환경과 미래 성장 동력에 대한 논의를 촉발하고 있습니다. 향후 일주일 동안은 주요 전자상거래 기업들의 추가적인 실적 발표나 신규 서비스 출시 여부가 주목받을 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Amazon",
+          "outlook": "아마존은 AI 및 클라우드 컴퓨팅 분야에서의 성장과 전자상거래 부문의 견조한 실적에 대한 기대감으로 주목받고 있습니다. 그러나 최근 실적 발표 이후 주가가 하락했으며, 이는 AI 지출에 대한 전반적인 우려와 맞물려 단기적인 위험 요인으로 작용하고 있습니다. 향후 일주일 동안은 아마존의 클라우드 사업 성장세와 전자상거래 부문의 경쟁력 강화 노력이 주가에 영향을 미칠 것으로 보입니다."
+        },
+        {
+          "name": "Intel",
+          "outlook": "인텔은 AI 칩 경쟁 심화 속에서 신규 기술 개발과 시장 점유율 확대 가능성이 부각되고 있습니다. 하지만 최근 실적 발표에서 주가가 크게 하락했으며, 이는 AI 지출에 대한 우려와 경쟁 심화라는 단기적인 위험 요인으로 작용하고 있습니다. 향후 일주일 동안은 인텔의 차세대 칩 개발 현황과 경쟁사 대비 기술 경쟁력이 주목받을 것으로 예상됩니다."
+        },
+        {
+          "name": "Alphabet",
+          "outlook": "알파벳은 AI 기술 발전과 클라우드 사업 성장에 대한 기대감이 주가에 긍정적인 영향을 미치고 있습니다. 그러나 빅테크 전반의 실적 발표 이후 AI 지출에 대한 우려가 커지면서 시장의 변동성이 확대되는 양상입니다. 향후 일주일 동안은 알파벳의 AI 관련 신규 서비스 출시 및 클라우드 사업 성장세가 주가에 중요한 영향을 미칠 것으로 보입니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "철강",
+        "reason": "포스코 등 주요 철강 기업들의 실적 개선 및 수요 증가 전망이 섹터 전반에 대한 긍정적 시각을 형성하고 있음 (총 3건)",
+        "kr_news_refs": [
+          25,
+          54,
+          62
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "포스코 노사, 임금교섭 잠정 합의…“기본임금 2.6% 인상·격려금 총 600만원”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12191921",
+            "published_at": "2026-10-30 19:37:15 KST"
+          },
+          {
+            "title": "포스코노사 3차 파업 앞두고 극적 타결…기본급 2.6% 인상(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261030171151053",
+            "published_at": "2026-10-30 18:44:21 KST"
+          },
+          {
+            "title": "[속보] 포스코노사 임금교섭 잠정 합의…3차파업 피했다",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12191847",
+            "published_at": "2026-10-30 18:35:37 KST"
+          }
+        ],
+        "outlook": "주요 철강 기업들의 실적 개선 및 수요 증가 전망이 섹터 전반에 대한 긍정적인 시각을 형성하고 있습니다. 포스코 노사가 임금 협상 잠정 합의에 이르면서 파업 리스크가 해소된 점은 긍정적입니다. 향후 일주일 동안은 글로벌 철강 수요 동향과 주요 기업들의 생산량 및 가격 정책이 섹터 흐름에 영향을 미칠 것으로 예상됩니다. 다만, 원자재 가격 변동성은 여전히 주의해야 할 요인입니다."
+      },
+      {
+        "name": "가상자산",
+        "reason": "가상자산 시장의 회복세와 규제 완화 기대감이 관련 종목들의 주가에 영향을 미치고 있음 (총 3건)",
+        "kr_news_refs": [
+          13,
+          14,
+          82
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "가상자산 업계 ’과세 유예’ 요청…與 “1~2주 안에 결론“ - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1tdzdWVDZBbzRLeUsyQVhCbFpCSW1sb0lJaV9DWm1EZ2FNNjJ4ZW5xWFJwTzUzbnk2XzRkdXcxN00zTE4zM0hLcDFmSTV4TV9tQmFCbGo0RUM5aTcwNVRBZnZfZl9iSUE?oc=5",
+            "published_at": "2026-10-30 15:50:00 KST"
+          },
+          {
+            "title": "美 보안업체 \"北 해킹조직, 8조5000억 규모 가상자산 탈취\" - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1xV1ZQWjNiNmNBM2VUTndnVUU5NTVlUTY4MkZvWnd5eWw4b0JpME5MRnJJWV81VTNqXzRWZU1fclZWN0hFZU9VaUdVNnJVS0ZMdGJuTEtyblZMUQ?oc=5",
+            "published_at": "2026-10-30 15:29:52 KST"
+          },
+          {
+            "title": "보난자팩토리 \"바이낸스 해킹, 북한 연계 조직 소행 가능성\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261030168500002",
+            "published_at": "2026-10-30 18:10:21 KST"
+          }
+        ],
+        "outlook": "가상자산 시장의 회복세와 규제 완화 기대감이 관련 종목들의 주가에 영향을 미치고 있습니다. 국내에서는 가상자산 과세 유예에 대한 논의가 진행 중이며, 이는 투자 심리에 긍정적인 영향을 줄 수 있습니다. 북한 해킹 조직의 가상자산 탈취 시도가 언급된 점은 보안 리스크로 작용할 수 있습니다. 향후 일주일 동안은 국내외 가상자산 관련 규제 동향과 주요 가상자산 가격 변동성이 주목받을 것으로 예상됩니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "포스코",
+        "reason": "철강 업황 개선 및 신사업 추진에 대한 기대감이 주가에 긍정적인 영향을 미치고 있음 (총 3건)",
+        "kr_news_refs": [
+          25,
+          54,
+          62
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "포스코 노사, 임금교섭 잠정 합의…“기본임금 2.6% 인상·격려금 총 600만원”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12191921",
+            "published_at": "2026-10-30 19:37:15 KST"
+          },
+          {
+            "title": "포스코노사 3차 파업 앞두고 극적 타결…기본급 2.6% 인상(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261030171151053",
+            "published_at": "2026-10-30 18:44:21 KST"
+          },
+          {
+            "title": "[속보] 포스코노사 임금교섭 잠정 합의…3차파업 피했다",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12191847",
+            "published_at": "2026-10-30 18:35:37 KST"
+          }
+        ],
+        "outlook": "철강 업황 개선 및 신사업 추진에 대한 기대감이 포스코 주가에 긍정적인 영향을 미치고 있습니다. 최근 노사 간 임금 협상이 잠정 합의에 이르면서 파업 리스크가 해소된 점은 단기적인 호재로 작용할 수 있습니다. 향후 일주일 동안은 글로벌 철강 수요 회복세와 포스코의 친환경 신사업 추진 성과가 주가 흐름에 중요한 변수가 될 것으로 보입니다."
+      }
+    ],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "철강",
+          "outlook": "주요 철강 기업들의 실적 개선 및 수요 증가 전망이 섹터 전반에 대한 긍정적인 시각을 형성하고 있습니다. 포스코 노사가 임금 협상 잠정 합의에 이르면서 파업 리스크가 해소된 점은 긍정적입니다. 향후 일주일 동안은 글로벌 철강 수요 동향과 주요 기업들의 생산량 및 가격 정책이 섹터 흐름에 영향을 미칠 것으로 예상됩니다. 다만, 원자재 가격 변동성은 여전히 주의해야 할 요인입니다."
+        },
+        {
+          "name": "가상자산",
+          "outlook": "가상자산 시장의 회복세와 규제 완화 기대감이 관련 종목들의 주가에 영향을 미치고 있습니다. 국내에서는 가상자산 과세 유예에 대한 논의가 진행 중이며, 이는 투자 심리에 긍정적인 영향을 줄 수 있습니다. 북한 해킹 조직의 가상자산 탈취 시도가 언급된 점은 보안 리스크로 작용할 수 있습니다. 향후 일주일 동안은 국내외 가상자산 관련 규제 동향과 주요 가상자산 가격 변동성이 주목받을 것으로 예상됩니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "포스코",
+          "outlook": "철강 업황 개선 및 신사업 추진에 대한 기대감이 포스코 주가에 긍정적인 영향을 미치고 있습니다. 최근 노사 간 임금 협상이 잠정 합의에 이르면서 파업 리스크가 해소된 점은 단기적인 호재로 작용할 수 있습니다. 향후 일주일 동안은 글로벌 철강 수요 회복세와 포스코의 친환경 신사업 추진 성과가 주가 흐름에 중요한 변수가 될 것으로 보입니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 4,
+        "summary": "AI 산업의 성장통과 투자 회의론이 제기되고 있으며, 빅테크 쇼크와 실적 쇼크 이후 시장이 확인해야 할 요소들에 대한 논의가 있었습니다. AI 인프라 관련 투자 대응 방안과 다음 승자를 찾는 투자법에 대한 내용도 다루어졌습니다.",
+        "refs": [
+          2,
+          3,
+          7,
+          8
+        ],
+        "reason": "AI 산업의 성장통과 투자 회의론이 제기되고 있으며, 빅테크 쇼크와 실적 쇼크 이후 시장이 확인해야 할 요소들에 대한 논의가 있었습니다. AI 인프라 관련 투자 대응 방안과 다음 승자를 찾는 투자법에 대한 내용도 다루어졌습니다.",
+        "related_videos": [
+          {
+            "title": "[26.10.30 오후 방송 전체보기] 다시 커진 AI 투자 회의론…반도체 투매로 번진 빅테크 쇼크, 10월 마지막 날까지 흔들었다",
+            "url": "https://www.youtube.com/watch?v=v8tOeaGQZ2k",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-30 19:14:48 KST"
+          },
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          },
+          {
+            "title": "[10월 30일 마감시황] AI 산업의 성장통인가, 본격적인 위기의 시작인가…실적 쇼크 이후 시장이 확인해야 할 것들ㅣ홍선애, 이권희, 김장열 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=jIq6dsZ-yQ8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-30 16:58:45 KST"
+          },
+          {
+            "title": "[풀버전] 6% 급등 후 다시 주춤하는 반도체? 지금 다시 점검할 투자 전략 (박세익, 소현철, 이형수)ㅣ주식프리미어리그 (10월 26일 촬영)",
+            "url": "https://www.youtube.com/watch?v=OCDqStaOvy8",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-29 20:05:08 KST"
+          }
+        ],
+        "outlook": "최근 유튜브에서는 AI 산업의 성장통과 투자 회의론이 제기되고 있습니다. 빅테크 및 실적 쇼크 이후 시장이 확인해야 할 요소들에 대한 논의가 활발하며, AI 인프라 관련 투자 대응 방안과 다음 승자를 찾는 투자법에 대한 분석이 공유되고 있습니다. 향후 일주일 동안은 AI 관련 기업들의 실적 발표와 기술 개발 동향에 대한 투자자들의 관심이 지속될 것으로 보입니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 4,
+        "summary": "AI 투자 회의론과 빅테크 쇼크로 인한 반도체 투매 현상이 언급되었습니다. 메모리 가격 상승에도 불구하고 미국 중간선거와 금리 변수 속에서 반도체 투자 전략 점검이 필요하다는 분석이 있었습니다. AI 인프라 관련 반도체 투자에 대한 내용도 포함되었습니다.",
+        "refs": [
+          2,
+          3,
+          7,
+          8
+        ],
+        "reason": "AI 투자 회의론과 빅테크 쇼크로 인한 반도체 투매 현상이 언급되었습니다. 메모리 가격 상승에도 불구하고 미국 중간선거와 금리 변수 속에서 반도체 투자 전략 점검이 필요하다는 분석이 있었습니다. AI 인프라 관련 반도체 투자에 대한 내용도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.10.30 오후 방송 전체보기] 다시 커진 AI 투자 회의론…반도체 투매로 번진 빅테크 쇼크, 10월 마지막 날까지 흔들었다",
+            "url": "https://www.youtube.com/watch?v=v8tOeaGQZ2k",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-30 19:14:48 KST"
+          },
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          },
+          {
+            "title": "[10월 30일 마감시황] AI 산업의 성장통인가, 본격적인 위기의 시작인가…실적 쇼크 이후 시장이 확인해야 할 것들ㅣ홍선애, 이권희, 김장열 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=jIq6dsZ-yQ8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-30 16:58:45 KST"
+          },
+          {
+            "title": "[풀버전] 6% 급등 후 다시 주춤하는 반도체? 지금 다시 점검할 투자 전략 (박세익, 소현철, 이형수)ㅣ주식프리미어리그 (10월 26일 촬영)",
+            "url": "https://www.youtube.com/watch?v=OCDqStaOvy8",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-29 20:05:08 KST"
+          }
+        ],
+        "outlook": "AI 투자 회의론과 빅테크 쇼크로 인한 반도체 투매 현상이 유튜브 콘텐츠에서 다뤄지고 있습니다. 메모리 가격 상승에도 불구하고 미국 중간선거와 금리 변수 속에서 반도체 투자 전략 점검이 필요하다는 분석이 제시되었습니다. AI 인프라 관련 반도체 투자에 대한 내용도 포함되어 있어, 향후 일주일 동안 반도체 섹터의 변동성에 대한 투자자들의 관심이 이어질 것으로 예상됩니다."
+      },
+      {
+        "name": "그린산업",
+        "freq": 1,
+        "summary": "미국 전력망 인허가가 중간선거보다 중요한 변수이며, 그린산업의 분기점이 될 수 있다는 분석이 제시되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "미국 전력망 인허가가 중간선거보다 중요한 변수이며, 그린산업의 분기점이 될 수 있다는 분석이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "중간선거보다 더 중요한 다음 변수…미국 전력망 인허가, 그린산업의 분기점ㅣ홍선애, 한병화 유진투자증권 이사 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=MvowM8J6-SI",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-30 18:15:26 KST"
+          }
+        ],
+        "outlook": "미국 전력망 인허가가 중간선거보다 중요한 변수로 언급되며 그린산업의 분기점이 될 수 있다는 분석이 제시되었습니다. 이는 향후 일주일 동안 그린산업 관련 정책 변화 및 투자 동향에 대한 관심을 높일 수 있습니다. 관련하여 미국 전력망 인허가 관련 뉴스와 그린산업의 성장 전망에 대한 추가적인 정보가 주목받을 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "AI 인프라 관련 투자에서 엔비디아 ETF에 대한 언급이 있었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "AI 인프라 관련 투자에서 엔비디아 ETF에 대한 언급이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          }
+        ],
+        "outlook": "유튜브 채널에서는 AI 인프라 관련 투자에서 엔비디아 ETF에 대한 언급이 있었습니다. 이는 AI 산업의 성장과 함께 엔비디아의 기술력 및 시장 지배력에 대한 투자자들의 관심이 지속되고 있음을 시사합니다. 향후 일주일 동안은 엔비디아의 AI 칩 개발 현황 및 경쟁사 동향이 투자자들의 주요 관심사가 될 것으로 보입니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Amazon",
+          "freq": 6
+        },
+        {
+          "name": "Intel",
+          "freq": 5
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Sandisk",
+          "freq": 4
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "Regeneron Pharmaceuticals",
+          "freq": 2
+        },
+        {
+          "name": "ServiceNow",
+          "freq": 1
+        },
+        {
+          "name": "DoorDash",
+          "freq": 2
+        },
+        {
+          "name": "Instacart",
+          "freq": 2
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        },
+        {
+          "name": "Iovance",
+          "freq": 2
+        },
+        {
+          "name": "Starbucks",
+          "freq": 2
+        },
+        {
+          "name": "Caterpillar",
+          "freq": 2
+        },
+        {
+          "name": "Gilead Sciences",
+          "freq": 1
+        },
+        {
+          "name": "Eli Lilly",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 4
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 2
+        },
+        {
+          "name": "E-commerce",
+          "freq": 3
+        },
+        {
+          "name": "EV",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "Grocery Delivery",
+          "freq": 2
+        },
+        {
+          "name": "Memory Chips",
+          "freq": 2
+        },
+        {
+          "name": "Software",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Crypto",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Home Security",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "포스코",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "기아",
+          "freq": 2
+        },
+        {
+          "name": "토스",
+          "freq": 2
+        },
+        {
+          "name": "큐렉소",
+          "freq": 2
+        },
+        {
+          "name": "현대차그룹",
+          "freq": 2
+        },
+        {
+          "name": "신세계",
+          "freq": 1
+        },
+        {
+          "name": "롯데백화점",
+          "freq": 1
+        },
+        {
+          "name": "동아에스티",
+          "freq": 1
+        },
+        {
+          "name": "HLB",
+          "freq": 1
+        },
+        {
+          "name": "HLB제약",
+          "freq": 1
+        },
+        {
+          "name": "한화시스템",
+          "freq": 1
+        },
+        {
+          "name": "래블업",
+          "freq": 1
+        },
+        {
+          "name": "키움증권",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "가상자산",
+          "freq": 4
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "로봇",
+          "freq": 3
+        },
+        {
+          "name": "자동차",
+          "freq": 2
+        },
+        {
+          "name": "철강",
+          "freq": 3
+        },
+        {
+          "name": "핀테크",
+          "freq": 2
+        },
+        {
+          "name": "ESG",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "건설",
+          "freq": 2
+        },
+        {
+          "name": "IT 하드웨어",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "기후테크",
+          "freq": 1
+        },
+        {
+          "name": "LNG",
+          "freq": 1
+        },
+        {
+          "name": "소프트웨어",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
