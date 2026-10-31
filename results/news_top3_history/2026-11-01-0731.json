@@ -1,0 +1,584 @@
+{
+  "generated_at": "2026-11-01 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Food & Beverage",
+        "reason": "외식 및 식음료 관련 기업들의 언급 빈도가 높게 나타났습니다. (총 9건)",
+        "us_news_refs": [
+          3,
+          4,
+          28,
+          29
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "A simple explainer of the massive $6.3 billion crypto heist at Binance - NPR",
+            "title_ko": "Binance 63억 달러 암호화폐 도난 사건 설명",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOMnR5TTFvMkN1Z0ZLOVdZSGZkRUYyMkhNNldJU19Yb2ZXV2NqT2YxUUFuN2RyNWdjUEwwVzJSbVpxbXFzbC12OGdYdzk5RDVnaE8zTGNaN01PakU2VW5vUzVFblBmRlI1VVlyaWZjcmFwZjdYZW1ScTM2cktHc0FPeXhYSXE1ZTdhOWtfR01ucjJpQVA0Nl9HMQ?oc=5",
+            "published_at": "2026-11-01 03:11:02 KST"
+          },
+          {
+            "title": "McDonald’s must face lawsuit over McRib, judge rules - NBC News",
+            "title_ko": "맥도날드, 맥립 소송 직면해야 한다 판결",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQZkJkWXFXOUNSV1hqcDhDZktlcWJWejNTMXNXZ1pwV2thZS1ob0xYS0R1LWxLRXBMS3ludUlIQTJMUy1OUFdKcVZFMnlGd0NRMG9aTnFZSjZXN18xa1dZWkhENmxDYTg0WTJuWWJVVjJZNWphR1B0SkJOSC0xMXFmMWphQlhyNVBq?oc=5",
+            "published_at": "2026-11-01 02:37:24 KST"
+          },
+          {
+            "title": "F.D.A. Warns of Snack Bar Linked to Toddler Choking Hazard - The New York Times",
+            "title_ko": "FDA, 유아 질식 위험 스낵바 경고",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOemNpQjctd0NScGU2QklMMktldU5MUE04MC14MGZRT2ZLSzVzVTBtN0F6RTkwR3o3S1lTQ0oyRjF1NjVCbEF3MkVRVGNtM3NFUGJ0clF6MUNzYkR1SnB3cXZ1N2hXMlVNNW1NeG5qRENqSmQ4aUpqSDE1bVNiSkdLbXlZazRfeUllbkR1VmJn?oc=5",
+            "published_at": "2026-11-01 00:43:44 KST"
+          },
+          {
+            "title": "In-N-Out plots eastward burger blitz — with four more states in its sights - New York Post",
+            "title_ko": "In-N-Out, 동부 버거 공략, 4개 주 추가 목표",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPU3JYenlRRTBwZUVCQTgwSlFvbDFubUlZeXBVMDAtMDdhTnVMVHY0TExZY1ljUGRxSXhyS2tqRVNDeTU4aGFONXFkQjBYeWRjZXNFY1JBTERSeFh3ZTJ6NHRXT250T0dYYllkckRINkZSTDRGenhNaDNOOWc1QmU1S1RPQmZpNVFaeklOSVIyT09IbDFpcmtoUzJEMkI0T0wyb2c?oc=5",
+            "published_at": "2026-11-01 00:15:00 KST"
+          }
+        ],
+        "outlook": "식음료 섹터는 최근 맥도날드 관련 소송 판결 및 FDA의 스낵바 질식 위험 경고 등 개별 기업에 대한 부정적 뉴스가 일부 관찰되었습니다. 또한, In-N-Out의 동부 확장 계획 등은 시장의 관심을 받고 있습니다. 그러나 전반적인 거시 경제 환경 및 소비자 지출 동향에 대한 추가적인 정보가 필요하며, 다음 주 예정된 주요 기업들의 실적 발표 결과가 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다. 차익실현 압력 또한 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 주요 식음료 기업들의 실적 발표가 예정되어 있어 주목할 필요가 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전 및 관련 기업들의 동향에 대한 보도가 지속적으로 이루어지고 있습니다. (총 10건)",
+        "us_news_refs": [
+          0,
+          25,
+          26,
+          27,
+          31,
+          33,
+          37,
+          38,
+          47,
+          48
+        ],
+        "related_news": [
+          {
+            "title": "OpenAI reportedly lowers funding target for new round - TechCrunch",
+            "title_ko": "OpenAI, 신규 투자 유치 목표 하향 보고",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPLVZ2ZXhJa3pETjlVa2l6S3pGbnpkQUVaUnl6emEzQU95X3ZaY2FuU093Zk5PWHJZU2tEbGtrakFpVDdTZmlTTmFlaXpwVFdtd19DS3N2TzJCVklrNEx5dXowTFh0QTNzZXo0NmxwaXIxb2ZoN1F5VmlUTk91RzBqeEQ5M01iZzVVMWxPQUZqaTl6Zw?oc=5",
+            "published_at": "2026-11-01 01:12:55 KST"
+          },
+          {
+            "title": "Tech stock meltdown could get a lot of worse if history is any guide - Yahoo Finance",
+            "title_ko": "기술주 폭락, 역사를 보면 더 악화될 수 있어",
+            "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxONkt3YXFlNWM2S192RVZjYXd4cTFDX2h4MzJRdXY5ZmRGRzJpYi1hamo1Rnk4M0VjZnhWQ2hKcXphQm1pbXhUV00yWFN0UWo4UmhNNmZXMG9oZlNIRzJyRllJMjU3aURXbEZteS1xaHlYazIxSjl0MThaVzVVVGJESmVNRmFPM3VGZjJTcjkyMXptLWpHaHJxbFdwQUVtbDhyU2dRaTctRGlQUHhDWjJOanRRcHdiV0xEN1BGaTBFVklzTW8?oc=5",
+            "published_at": "2026-11-01 01:12:26 KST"
+          },
+          {
+            "title": "Google says Gemini 4 Argon is the best coder alive, so I put it up against Claude Opus 5.5 - MakeUseOf",
+            "title_ko": "Google, Gemini 4 Argon 최고 코더 주장, Claude Opus 5.5와 비교",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNanZvU21ubnJYUEtpR1JYZjVyclM1SmNGU3p6cnVyMjlJaHgwWEFiWWNET1BLdHJGREVXenR3dGxkbG9wS1h6THhwQ0MwaV9UcDNTMTZIUV85dEdENjlTdVJWa0R1YVB2bE5oNndzdDBUaVJJaDZDR2lVd2JwaHhCNnYxckhKMHFQSHZB?oc=5",
+            "published_at": "2026-11-01 01:00:17 KST"
+          },
+          {
+            "title": "Yes, Alphabet Stock Got Hammered. No, We’re Not Selling. - Barron's",
+            "title_ko": "Alphabet 주가 폭락, 매도하지 않는 이유",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9FSDJJcUY4c1h5RV9Xc0tUVVNrak9BaTNXZTVpc2l1STRPWGVYNk5VbnA2aEpaMGV0ejNGY2ZPSmIyaXNKLUNiT1V5MDVJUnR2blBQRGM1Z2JLcFRRbDBRcDk3TWt6V3owQl9ZcHRySDE1emRVQ1E?oc=5",
+            "published_at": "2026-10-31 23:43:00 KST"
+          }
+        ],
+        "outlook": "AI 섹터는 OpenAI의 투자 유치 목표 하향 소식과 Alphabet의 주가 하락 등 일부 부정적인 뉴스가 있었습니다. 이는 AI 투자에 대한 시장의 우려를 반영하는 것으로 보입니다. 반면, Google의 Gemini 4 Argon 관련 보도 등 기술 발전 관련 긍정적인 소식도 존재합니다. 다음 주에는 Apple, AMD, Palantir 등 주요 기술 및 AI 관련 기업들의 실적 발표가 예정되어 있어 주목해야 합니다. 또한, 미국 중간선거 결과가 AI 규제 전망에 영향을 미칠 수 있다는 점도 고려해야 할 위험 요인입니다. AI 인프라 투자 지속 가능성에 대한 시장의 의구심이 단기적인 변동성을 야기할 수 있습니다."
+      },
+      {
+        "name": "Healthcare",
+        "reason": "헬스케어 산업 내 기업들의 활동 및 시장 동향에 대한 관심이 높습니다. (총 5건)",
+        "us_news_refs": [
+          21,
+          22,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Is it curtains for COLA? Saving Social Security could mean changing the cost-of-living adjustment.",
+            "title_ko": "COLA 폐지되나? 사회보장제도 절약은 물가상승률 조정 변경",
+            "url": "https://www.marketwatch.com/story/is-it-curtains-for-cola-saving-social-security-could-mean-changing-the-cost-of-living-adjustment-867c6bd8?mod=mw_rss_topstories",
+            "published_at": "2026-11-01 03:33:00 KST"
+          },
+          {
+            "title": "Caregivers are now spending more than $11,000 a year out of pocket—up 60% in five years",
+            "title_ko": "간병인, 연간 11,000달러 이상 자부담, 5년간 60% 증가",
+            "url": "https://www.marketwatch.com/story/were-spending-more-than-11-000-a-year-of-our-own-money-caring-for-our-aging-parents-and-loved-ones-8fc5b2dc?mod=mw_rss_topstories",
+            "published_at": "2026-11-01 03:10:00 KST"
+          },
+          {
+            "title": "Medicare used AI to pre-approve patient care, and it immediately led to a large drop in medical services",
+            "title_ko": "메디케어, AI로 환자 진료 사전 승인 후 의료 서비스 급감",
+            "url": "https://www.marketwatch.com/story/medicare-used-ai-to-pre-approve-patient-care-and-it-immediately-led-to-a-large-drop-in-medical-services-dc38a210?mod=mw_rss_topstories",
+            "published_at": "2026-11-01 02:26:00 KST"
+          }
+        ],
+        "outlook": "헬스케어 섹터는 최근 기술주 매도세 속에서 방어적 성격으로 주목받으며 상승세를 보였습니다. 간병인들의 자부담 증가 및 메디케어의 AI 활용으로 인한 의료 서비스 감소 등 일부 부정적인 이슈가 있으나, 전반적으로는 안정적인 수요를 바탕으로 긍정적인 흐름을 유지하고 있습니다. 다음 주에는 Humana Inc. 등 일부 헬스케어 기업의 실적 발표가 예정되어 있습니다. 고령화 사회 진입 및 만성 질환 증가로 인한 꾸준한 수요는 긍정적 요인이지만, 높은 비용과 인력 부족 문제는 지속적인 위험 요인으로 작용할 수 있습니다."
+      }
+    ],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Food & Beverage",
+          "outlook": "식음료 섹터는 최근 맥도날드 관련 소송 판결 및 FDA의 스낵바 질식 위험 경고 등 개별 기업에 대한 부정적 뉴스가 일부 관찰되었습니다. 또한, In-N-Out의 동부 확장 계획 등은 시장의 관심을 받고 있습니다. 그러나 전반적인 거시 경제 환경 및 소비자 지출 동향에 대한 추가적인 정보가 필요하며, 다음 주 예정된 주요 기업들의 실적 발표 결과가 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다. 차익실현 압력 또한 단기적인 위험 요인이 될 수 있습니다. 다음 주에는 주요 식음료 기업들의 실적 발표가 예정되어 있어 주목할 필요가 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 섹터는 OpenAI의 투자 유치 목표 하향 소식과 Alphabet의 주가 하락 등 일부 부정적인 뉴스가 있었습니다. 이는 AI 투자에 대한 시장의 우려를 반영하는 것으로 보입니다. 반면, Google의 Gemini 4 Argon 관련 보도 등 기술 발전 관련 긍정적인 소식도 존재합니다. 다음 주에는 Apple, AMD, Palantir 등 주요 기술 및 AI 관련 기업들의 실적 발표가 예정되어 있어 주목해야 합니다. 또한, 미국 중간선거 결과가 AI 규제 전망에 영향을 미칠 수 있다는 점도 고려해야 할 위험 요인입니다. AI 인프라 투자 지속 가능성에 대한 시장의 의구심이 단기적인 변동성을 야기할 수 있습니다."
+        },
+        {
+          "name": "Healthcare",
+          "outlook": "헬스케어 섹터는 최근 기술주 매도세 속에서 방어적 성격으로 주목받으며 상승세를 보였습니다. 간병인들의 자부담 증가 및 메디케어의 AI 활용으로 인한 의료 서비스 감소 등 일부 부정적인 이슈가 있으나, 전반적으로는 안정적인 수요를 바탕으로 긍정적인 흐름을 유지하고 있습니다. 다음 주에는 Humana Inc. 등 일부 헬스케어 기업의 실적 발표가 예정되어 있습니다. 고령화 사회 진입 및 만성 질환 증가로 인한 꾸준한 수요는 긍정적 요인이지만, 높은 비용과 인력 부족 문제는 지속적인 위험 요인으로 작용할 수 있습니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Apple Inc. (AAPL)",
+          "outlook": "Apple은 다음 주 실적 발표를 앞두고 있습니다. 최근 기술주 전반의 약세 속에서 AI 관련 투자 우려가 제기되고 있으며, 이는 Apple의 실적 발표에 대한 시장의 경계감을 높일 수 있습니다. 또한, AI 규제 관련 불확실성도 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 실적 발표 결과와 시장의 전반적인 투자 심리 변화가 주가에 영향을 미칠 것으로 예상됩니다."
+        },
+        {
+          "name": "AMD",
+          "outlook": "AMD는 다음 주 실적 발표를 앞두고 있으며, 최근 AI 관련 주식들의 약세 흐름 속에서 주목받고 있습니다. Alphabet의 실적 부진과 AI 투자 지속 가능성에 대한 우려가 AMD의 실적 발표에 부담으로 작용할 수 있습니다. 또한, 미국 중간선거 결과에 따른 AI 규제 강화 가능성도 잠재적 위험 요인입니다. 다음 주 예정된 실적 발표 결과가 단기적인 주가 방향성을 결정할 것으로 보입니다."
+        },
+        {
+          "name": "Palantir Technologies Inc. (PLTR)",
+          "outlook": "Palantir는 다음 주 실적 발표를 앞두고 있습니다. AI 관련 기업들의 실적 발표가 이어지는 가운데, 시장은 Palantir의 실적과 향후 AI 투자 전망에 주목할 것입니다. AI 규제 강화 가능성 및 기술주 전반의 변동성은 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주 예정된 실적 발표 결과가 투자자들의 심리에 영향을 미칠 것으로 예상됩니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "AI",
+          "outlook": "국내 AI 섹터는 미국 빅테크 기업들의 AI 투자 수익성 우려와 국내 반도체 대장주들의 주가 하락세에 영향을 받고 있습니다. 특히 Alphabet의 실적 부진은 국내 증시 전반에 불안감을 확산시키고 있습니다. 다음 주에는 SK하이닉스와 삼성전자의 실적 발표 및 주주 환원 계획이 예정되어 있어 주목할 필요가 있습니다. AI 산업의 미래와 관계없이 시장의 의구심이 강한 만큼, 단기적인 급등락 장세에 섣불리 대응하기보다는 신중한 접근이 요구됩니다. AI 인프라 투자 확대 기대감은 긍정적 요인이지만, 시장의 수급 불안은 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 SK하이닉스와 삼성전자가 역대 최고 실적을 경신하고 있음에도 불구하고, 미국 AI 투자 우려로 인해 주가가 고전하고 있습니다. 특히 Alphabet의 실적 부진은 국내 증시 전반에 부정적인 영향을 미치고 있습니다. 다음 주 예정된 SK하이닉스와 삼성전자의 실적 발표 및 주주 환원 계획은 단기적인 주가 방향성에 중요한 변수가 될 것입니다. AI 관련 수요 증가 및 메모리 반도체 부족 전망은 긍정적 요인이지만, 미국 빅테크 기업들의 AI 투자 수익성 우려와 외국인 투자자들의 대규모 매도는 위험 요인으로 작용하고 있습니다."
+        },
+        {
+          "name": "Healthcare",
+          "outlook": "국내 헬스케어 섹터는 정부의 디지털 헬스케어 육성 정책과 AI 기반 진단 도구 개발 등 기술 발전이 시장 성장을 견인하고 있습니다. 그러나 고령화 사회 진입과 만성 질환 증가로 인한 수요 증가는 긍정적 요인이지만, 높은 의료 비용과 인력 부족 문제는 지속적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 특별한 대형 이벤트는 예정되어 있지 않으나, 전반적인 시장 흐름과 개별 기업의 실적 발표가 주가에 영향을 미칠 수 있습니다. 디지털 헬스케어 시장의 성장 잠재력은 긍정적이나, 규제 환경 변화 가능성은 주의해야 할 부분입니다."
+        }
+      ],
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "outlook": "삼성전자는 역대 최고 실적을 경신하고 있음에도 불구하고, 미국 AI 투자 우려로 인해 주가가 하락세를 보이고 있습니다. 다음 주 예정된 실적 발표 및 주주 환원 계획은 단기적인 주가 방향성에 중요한 영향을 미칠 것입니다. 외국인 투자자들의 대규모 매도는 단기적인 위험 요인으로 작용하고 있습니다. AI 관련 수요 증가 및 메모리 반도체 부족 전망은 긍정적 요인이지만, 시장의 전반적인 투자 심리 위축은 주의해야 합니다."
+        },
+        {
+          "name": "SK하이닉스",
+          "outlook": "SK하이닉스는 역대 최고 실적을 기록하고 있으나, 미국 AI 투자 우려로 인해 주가가 하락세를 면치 못하고 있습니다. 다음 주 예정된 실적 발표 및 주주 환원 계획은 단기적인 주가 방향성에 중요한 변수가 될 것입니다. 특히 HBM 시장에서의 선도적 위치와 AI 반도체 수요 증가는 긍정적 요인입니다. 그러나 외국인 투자자들의 매도세와 시장의 전반적인 투자 심리 위축은 위험 요인으로 작용할 수 있습니다."
+        },
+        {
+          "name": "GC메디아이",
+          "outlook": "GC메디아이는 의료 AI 분야에서 EMR 1위 달성을 넘어 사업 영역 확장을 목표로 하고 있습니다. AI 기반 진단 및 의료 서비스 분야의 성장 잠재력은 긍정적 요인입니다. 그러나 의료 AI 시장의 경쟁 심화와 기술 개발 및 상용화 과정에서의 불확실성은 단기적인 위험 요인이 될 수 있습니다. 다음 주 예정된 특별한 이벤트는 없으나, 관련 기술 개발 동향 및 시장의 관심 변화가 주가에 영향을 미칠 수 있습니다."
+        }
+      ]
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 4,
+        "summary": "AI 기술의 발전과 관련주에 대한 논의가 이루어졌습니다. 특히 AI 인프라 쇼크 대응 및 AI 시대에 도태되지 않기 위한 전략이 언급되었습니다. 또한, 의료 분야에서의 AI 활용 가능성도 제시되었습니다.",
+        "refs": [
+          4,
+          5,
+          8,
+          10
+        ],
+        "reason": "AI 기술의 발전과 관련주에 대한 논의가 이루어졌습니다. 특히 AI 인프라 쇼크 대응 및 AI 시대에 도태되지 않기 위한 전략이 언급되었습니다. 또한, 의료 분야에서의 AI 활용 가능성도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "정말 미친 AI 나왔습니다, '이것' 모르면 완전 도태된다 (김덕진 교수)",
+            "url": "https://www.youtube.com/watch?v=-jL7NhqBX-w",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-31 18:30:25 KST"
+          },
+          {
+            "title": "EMR 1위 넘어 제약 마케팅·국민건강비서까지 노리는 '의료 AI'ㅣ김진태 GC메디아이 대표 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=T3NkFvkAmJs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-31 15:00:23 KST"
+          },
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          },
+          {
+            "title": "큰 손이 된 키덜트 덕에 주식도 부활? 장난감 사는 어른 시대의 수혜주들",
+            "url": "https://www.youtube.com/watch?v=MXwB5P9mJxA",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-29 19:40:19 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 AI 기술 발전과 관련주에 대한 논의가 활발하게 이루어지고 있습니다. 특히 AI 인프라 쇼크 대응 전략과 AI 시대에 도태되지 않기 위한 투자 방안이 제시되고 있습니다. 의료 분야에서의 AI 활용 가능성 또한 주목받고 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표와 미국 중간선거 결과가 AI 규제 전망에 영향을 미칠 수 있어 투자자들의 관심이 집중될 것으로 보입니다. AI 투자 지속 가능성에 대한 시장의 의구심은 단기적인 변동성을 야기할 수 있는 위험 요인입니다."
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "삼성전자와 SK하이닉스 등 국내 주요 반도체 기업에 대한 언급이 있었습니다. 해당 종목들의 향후 주가 흐름에 대한 전망과 투자 전략이 제시되었습니다.",
+        "refs": [
+          1,
+          8
+        ],
+        "reason": "삼성전자와 SK하이닉스 등 국내 주요 반도체 기업에 대한 언급이 있었습니다. 해당 종목들의 향후 주가 흐름에 대한 전망과 투자 전략이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등할 때마다 파세요 (남석관 회장 풀버전)",
+            "url": "https://www.youtube.com/watch?v=wzWdEhIiK0g",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-31 21:00:18 KST"
+          },
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          }
+        ],
+        "outlook": "국내 유튜브 채널에서는 삼성전자와 SK하이닉스 등 주요 반도체 기업에 대한 언급이 꾸준히 이어지고 있습니다. AI 인프라 투자 확대와 관련된 투자 전략이 제시되고 있으며, 메모리 반도체 시장의 전망에 대한 논의도 이루어지고 있습니다. 다음 주에는 SK하이닉스와 삼성전자의 실적 발표가 예정되어 있어 관련 영상 콘텐츠가 증가할 것으로 예상됩니다. AI 관련 수요 증가와 메모리 반도체 부족 전망은 긍정적 요인이지만, 미국 빅테크 기업들의 AI 투자 수익성 우려로 인한 시장 전반의 투자 심리 위축은 위험 요인입니다."
+      },
+      {
+        "name": "의료 AI",
+        "freq": 1,
+        "summary": "의료 AI 분야에서 EMR 1위 달성을 넘어 마케팅 및 국민건강비서 서비스까지 사업 영역 확장을 목표로 하는 기업에 대한 소개가 있었습니다. GC메디아이의 사업 모델과 비전이 다루어졌습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "의료 AI 분야에서 EMR 1위 달성을 넘어 마케팅 및 국민건강비서 서비스까지 사업 영역 확장을 목표로 하는 기업에 대한 소개가 있었습니다. GC메디아이의 사업 모델과 비전이 다루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "EMR 1위 넘어 제약 마케팅·국민건강비서까지 노리는 '의료 AI'ㅣ김진태 GC메디아이 대표 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=T3NkFvkAmJs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-31 15:00:23 KST"
+          }
+        ],
+        "outlook": "의료 AI 분야에서는 EMR 1위 기업을 넘어 제약 마케팅 및 국민 건강 비서 서비스까지 사업 영역 확장을 목표로 하는 기업에 대한 소개가 있었습니다. AI 기반 진단 및 치료 계획 수립 등 의료 분야에서의 AI 활용 가능성이 제시되고 있습니다. 다음 주에는 관련 기술 개발 동향 및 시장의 관심 변화가 주가에 영향을 미칠 수 있습니다. 의료 AI 시장의 경쟁 심화와 기술 개발 및 상용화 과정에서의 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 1,
+        "summary": "삼성전자에 대한 언급이 있었습니다. 향후 주가 흐름에 대한 전망과 투자 전략이 제시되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "삼성전자에 대한 언급이 있었습니다. 향후 주가 흐름에 대한 전망과 투자 전략이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등할 때마다 파세요 (남석관 회장 풀버전)",
+            "url": "https://www.youtube.com/watch?v=wzWdEhIiK0g",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-31 21:00:18 KST"
+          }
+        ],
+        "outlook": "삼성전자에 대한 유튜브 콘텐츠에서는 향후 주가 흐름과 투자 전략에 대한 논의가 이루어지고 있습니다. 특히 AI 반도체 수요 증가와 관련된 전망이 제시되고 있습니다. 다음 주 예정된 실적 발표는 투자자들의 관심사이며, 외국인 투자자들의 매매 동향 또한 주목할 필요가 있습니다. AI 관련 수요 증가와 메모리 반도체 부족 전망은 긍정적 요인이지만, 시장의 전반적인 투자 심리 위축은 위험 요인입니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "SK하이닉스에 대한 언급이 있었습니다. 향후 주가 흐름에 대한 전망과 투자 전략이 제시되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "SK하이닉스에 대한 언급이 있었습니다. 향후 주가 흐름에 대한 전망과 투자 전략이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등할 때마다 파세요 (남석관 회장 풀버전)",
+            "url": "https://www.youtube.com/watch?v=wzWdEhIiK0g",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-31 21:00:18 KST"
+          }
+        ],
+        "outlook": "SK하이닉스에 대한 유튜브 콘텐츠에서는 향후 주가 흐름과 투자 전략에 대한 논의가 주로 이루어지고 있습니다. 특히 HBM 시장에서의 선도적 위치와 AI 반도체 수요 증가에 대한 전망이 제시되고 있습니다. 다음 주 예정된 실적 발표는 투자자들의 주요 관심사이며, 외국인 투자자들의 매매 동향 또한 주목해야 합니다. AI 관련 수요 증가와 메모리 반도체 부족 전망은 긍정적 요인이지만, 시장의 전반적인 투자 심리 위축은 위험 요인입니다."
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "Nvidia 관련 AI 반도체 ETF에 대한 언급이 있었습니다. AI 인프라 관련 투자 전략의 일부로 제시되었습니다.",
+        "refs": [
+          8
+        ],
+        "reason": "Nvidia 관련 AI 반도체 ETF에 대한 언급이 있었습니다. AI 인프라 관련 투자 전략의 일부로 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          }
+        ],
+        "outlook": "유튜브에서는 Nvidia 관련 AI 반도체 ETF에 대한 언급이 있었습니다. AI 인프라 관련 투자 전략의 일부로 제시되었으며, AI 칩 시장에서의 선도적 위치는 긍정적 요인입니다. 그러나 최근 AI 관련 주식들의 약세 흐름과 AI 투자 지속 가능성에 대한 시장의 우려가 단기적인 위험 요인으로 작용할 수 있습니다. 다음 주 예정된 주요 기술 기업들의 실적 발표 결과가 Nvidia 주가에도 영향을 미칠 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "The Cheesecake Factory",
+          "freq": 5
+        },
+        {
+          "name": "In-N-Out",
+          "freq": 5
+        },
+        {
+          "name": "McDonald’s",
+          "freq": 4
+        },
+        {
+          "name": "OpenAI",
+          "freq": 2
+        },
+        {
+          "name": "Alphabet",
+          "freq": 1
+        },
+        {
+          "name": "Binance",
+          "freq": 2
+        },
+        {
+          "name": "Once Upon a Farm",
+          "freq": 3
+        },
+        {
+          "name": "Amazon",
+          "freq": 2
+        },
+        {
+          "name": "Dollar General",
+          "freq": 3
+        },
+        {
+          "name": "xAI",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Rivian",
+          "freq": 2
+        },
+        {
+          "name": "Character.AI",
+          "freq": 2
+        },
+        {
+          "name": "Ford",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Food & Beverage",
+          "freq": 9
+        },
+        {
+          "name": "Healthcare",
+          "freq": 5
+        },
+        {
+          "name": "Supplements",
+          "freq": 4
+        },
+        {
+          "name": "Technology",
+          "freq": 4
+        },
+        {
+          "name": "Cruise Lines",
+          "freq": 4
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 3
+        },
+        {
+          "name": "Automotive",
+          "freq": 3
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 3
+        },
+        {
+          "name": "Retail",
+          "freq": 3
+        },
+        {
+          "name": "Data Center",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "3D Printing",
+          "freq": 1
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 3
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "현대자동차",
+          "freq": 2
+        },
+        {
+          "name": "BYD",
+          "freq": 3
+        },
+        {
+          "name": "기아",
+          "freq": 2
+        },
+        {
+          "name": "NAVER",
+          "freq": 2
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "오픈AI",
+          "freq": 1
+        },
+        {
+          "name": "롯데마트",
+          "freq": 1
+        },
+        {
+          "name": "롯데온",
+          "freq": 1
+        },
+        {
+          "name": "GS건설",
+          "freq": 1
+        },
+        {
+          "name": "미래에셋",
+          "freq": 1
+        },
+        {
+          "name": "신한은행",
+          "freq": 1
+        },
+        {
+          "name": "디지털엑스",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "Automotive",
+          "freq": 7
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 3
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 3
+        },
+        {
+          "name": "Financial Services",
+          "freq": 3
+        },
+        {
+          "name": "Platform",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Construction",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Travel",
+          "freq": 1
+        },
+        {
+          "name": "Luxury Goods",
+          "freq": 1
+        },
+        {
+          "name": "Telecommunications",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
