@@ -1,208 +1,233 @@
 {
-  "generated_at": "2026-10-31 07:31 KST",
+  "generated_at": "2026-10-31 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
-        "name": "Tech",
-        "reason": "기술 섹터는 AI, 빅테크 기업들의 실적 발표 모멘텀과 연관되어 주목받고 있습니다 (총 7건).",
+        "name": "AI",
+        "reason": "AI 기술 발전과 관련 기업들의 실적 발표 모멘텀이 지속적으로 주목받고 있습니다. (총 7건)",
         "us_news_refs": [
-          5,
-          10,
-          11,
-          32,
-          37,
-          44,
-          75
+          2,
+          16,
+          18,
+          21,
+          22,
+          24,
+          44
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Wall Street closes sharply lower as AI cash burn fears spark tech selloff - Reuters",
-            "title_ko": "AI 자금 소진 우려에 기술주 급락",
-            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
-            "published_at": "2026-10-31 05:38:32 KST"
+            "title": "Yes, Alphabet Stock Got Hammered. No, We’re Not Selling. - Barron's",
+            "title_ko": "Alphabet 주식 급락, 매도하지 않는 이유",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9FSDJJcUY4c1h5RV9Xc0tUVVNrak9BaTNXZTVpc2l1STRPWGVYNk5VbnA2aEpaMGV0ejNGY2ZPSmIyaXNKLUNiT1V5MDVJUnR2blBQRGM1Z2JLcFRRbDBRcDk3TWt6V3owQl9ZcHRySDE1emRVQ1E?oc=5",
+            "published_at": "2026-10-31 15:41:00 KST"
           },
           {
-            "title": "Stock market today: Nasdaq, Dow, S&P 500 clobbered as October closes with brutal sell-off - Yahoo Finance",
-            "title_ko": "기술주 매도에 나스닥, 다우, S&P 500 급락",
-            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOVEJYRTREa2JJM1FSeW1nTTVldXlmeElCanRweTcwcVpudjZ0WUtBVjU5RURERzdESU8tVV9GanJ3VHlBUlhkWjVmbG5ielVFbEx5cXNLX0M1Vk9XTU5nTUtLVm0xaDA4LTlaZ1BnS0Z0d1FrNXBHVTJHLVFYUExYQjhCNDVGRWhNWm0wOEFjbG05R2toV25YMlZ2LTEyUUVNR0t5R3A0WF9NZWw0Zk1LWjBUaFpWdHVHdVJqWmJ4UkMxaUJaX3NrS3M3eFBWQQ?oc=5",
-            "published_at": "2026-10-31 04:14:29 KST"
+            "title": "OpenAI slashes funding target by $10 billion amid tech rout, FT reports - Reuters",
+            "title_ko": "OpenAI, 기술주 하락 속 펀딩 목표 100억 달러 축소",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNTWw3N0l5dm5KUi1FQmllTEpEeUdkY1k5TVlFNTlnWWFlbTgtdUJfZE9RMjZiQlJEVXU2VFo2blVaWk1MZzNYMm9OYmdrSngtSk02YnhKNDdVMVZkS3hIMHpWZ2dnRjJZWjBzQ0lFRU4ySFFUQzdTdnUzN3JETGtCYlo3Y3kxeGJseG5veVJMSVVCRDVPYzB3TXQyaFE?oc=5",
+            "published_at": "2026-10-31 09:17:00 KST"
           },
           {
-            "title": "Tech Stock Selloff Deepens on Earnings, Oil Rises: Markets Wrap - Bloomberg.com",
-            "title_ko": "실적 부진, 유가 상승에 기술주 매도 심화",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNLWZRMVRrOG1xQ1NBUE55MXNIWTFyTFBfUDBwVnUwbDRHOHNibGNUazhpRVVJamItaGc5UndhUngwMTFOLUE1M3dscmdtSDBvWUJrNmoyWnFGZ2tBcm9VZjZ5MXcyQXFuSDZmWmE4WVlheXZBeTVTci1CXzFQMUxnMkpFRXBVTjh0SlI0N0hobUZzOHh3?oc=5",
-            "published_at": "2026-10-31 04:09:34 KST"
+            "title": "Meta’s Rating Outlook Cut to Negative by S&P on AI Spending - Bloomberg",
+            "title_ko": "S&P, 메타 AI 투자로 등급 전망 '부정적' 하향",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQYXBldlo0WUZ5YjlBRWFONUFOb0ppblgzNDF4Z2oyaloyZFhVMW91ZEotX3Y3b0JqZHlERFBXcjlhQ2ZvWDB3SDVYWGRFSF9Ic1JQUTZCWXJ6anlINzRRUERJaDNqQzVTa05ESnBJeHNOMUg0a1JGVUJHdU9Pb1hKS0d4V0RnVmlqOGctUE1ZejRrRUZXenNzdHZJRVpTT0h1dFRSdDU1SjhZV2xoWFE?oc=5",
+            "published_at": "2026-10-31 08:23:31 KST"
           },
           {
-            "title": "In a wild October for markets, these stocks were the biggest winners and losers",
-            "title_ko": "10월 시장, 최대 상승 및 하락 종목",
-            "url": "https://www.marketwatch.com/story/in-a-wild-october-for-markets-these-stocks-were-the-biggest-winners-and-losers-3736f043?mod=mw_rss_topstories",
-            "published_at": "2026-10-31 05:52:00 KST"
+            "title": "Anthropic expected to receive high 'junk' rating from credit agencies following IPO, FT report says - TechCrunch",
+            "title_ko": "Anthropic, IPO 후 신용평가사서 '정크' 등급 예상",
+            "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOVXpfTXdqVDgtSDYzSkp0TmVFdW5yZ0lyRXdfNk9tdHY3d05BQzdvZ1ZLRXEyQ2FuWkdCRF9SRnBhNTFMRG5fN0VKT0tVUVNXZm92clZwOEh0Z2NPYlhRQWhxT1FZTWhkTmM1a2dOdFpvaU00UmY4S1lNWEEycnpZNjlzdWtubWpLWmEwQS1rRHNFWTBXRzdtWVNjQWlqaU1CazVYM01VcktOdDdJcFJkazdjSUVkVV9fUDJhaFIzVEFNV292QlJz?oc=5",
+            "published_at": "2026-10-31 06:52:03 KST"
           },
           {
-            "title": "The selloff in tech stocks is shifting into overdrive",
-            "title_ko": "기술주 매도세 가속화",
-            "url": "https://www.marketwatch.com/story/the-selloff-in-tech-stocks-is-shifting-into-overdrive-afb50975?mod=mw_rss_topstories",
-            "published_at": "2026-10-31 05:26:00 KST"
+            "title": "Cracks are emerging in the AI spending boom - TechCrunch",
+            "title_ko": "AI 투자 붐에 균열 발생",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQN3RLejV2bml3REY1cnN2SUpGQV9VOEpKT2FDVUxhcEVESm5PNE1xdEZqTHJ6QUJIY2NIWGNOdXZVZmRXZFFfcko0X19lVE8yUTkwUlVfODdpV1FUTVdIQU9fQ1FaeW5RdENzZlIzUWhZQjJYY2htMlVBWjRseVQwM3hxRHE?oc=5",
+            "published_at": "2026-10-31 06:17:40 KST"
           }
         ],
-        "outlook": "최근 기술 섹터는 AI 자금 소진 우려와 실적 부진 가능성으로 인해 매도세가 가속화되는 양상을 보이고 있습니다. 이러한 상황 속에서 일부 빅테크 기업들의 실적 발표가 시장의 변동성을 키울 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 자금 흐름 및 투자 계획 발표 여부가 주목될 수 있으며, 이는 기술주 전반에 영향을 미칠 수 있습니다. 다만, 거시 경제 지표 발표나 연준의 통화 정책 관련 발언 등은 시장에 추가적인 변동성을 야기할 수 있습니다."
+        "outlook": "AI 섹터는 지속적인 기술 발전과 관련 기업들의 실적 발표가 주요 촉매제로 작용하고 있습니다. 특히 Alphabet의 주가 하락에도 불구하고 매도하지 않겠다는 분석이 나왔습니다. 하지만 OpenAI의 펀딩 목표 축소 소식과 메타의 AI 투자로 인한 신용 등급 전망 하향 조정은 투자 심리에 부담을 줄 수 있습니다. 또한, AI 투자 붐에 균열이 발생하고 있다는 분석도 제기되었습니다. 향후 일주일 내에는 AI 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 주목받을 수 있습니다."
+      },
+      {
+        "name": "Tech",
+        "reason": "기술주 전반에 대한 관심이 높으며, AI와 연관된 기술 기업들의 동향이 시장의 주요 관심사입니다. (총 4건)",
+        "us_news_refs": [
+          22,
+          24,
+          33,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Cracks are emerging in the AI spending boom - TechCrunch",
+            "title_ko": "AI 투자 붐에 균열 발생",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQN3RLejV2bml3REY1cnN2SUpGQV9VOEpKT2FDVUxhcEVESm5PNE1xdEZqTHJ6QUJIY2NIWGNOdXZVZmRXZFFfcko0X19lVE8yUTkwUlVfODdpV1FUTVdIQU9fQ1FaeW5RdENzZlIzUWhZQjJYY2htMlVBWjRseVQwM3hxRHE?oc=5",
+            "published_at": "2026-10-31 06:17:40 KST"
+          },
+          {
+            "title": "Stocks Slide, Intel Plunges, Binance Hacked | Markets P.M. for Oct. 30 - WSJ",
+            "title_ko": "주식 하락, 인텔 급락, 바이낸스 해킹",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOLUZLbmQ2VnlpcS1VOVNNc05mN0I1Zmd5ZWNHb3o1b05zRklLM3ozaGhlLXhiSDVpc1d2QXUySzYxZzgyc0dHa3BVOTZYSjlwck5ucDdQQmhaOE5sdlB6ci02V0NZTFEyanlFZ1JpRTNPeUJMNFR5cE5RbXlKX3FZQW1yTmh0cmNaY0NINW1FdVVfdw?oc=5",
+            "published_at": "2026-10-31 05:37:00 KST"
+          },
+          {
+            "title": "Gold prices plunge to one-year low below $3,900 as higher oil prices fuel fears of more pain ahead - Kitco",
+            "title_ko": "금값 1년 최저치… 유가 상승에 추가 고통 우려",
+            "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNRUZmdmJRRFN3bUxiblBxRUVkd3o3SmRSRjd3ZUt3Rm5DVlNUQ201LW9BOHZyMnVBUEtZaGlNRFk5dTJKTzNHVjNkWGdWU3YtdVVPU0txb1pFZWJ5ZVhUaDRaTERzV2h5QzJzYWM3TExZRWRxQlNJbFlrWTQwbU8tbjA4Sm5JTWxqWVlFTUVZZjNvTVZXblN3SVVmMVVyVF9iQk5GS1RWcjRrRHdNRXRnV0VhYmtLRTE2?oc=5",
+            "published_at": "2026-10-31 03:18:01 KST"
+          },
+          {
+            "title": "Goldman says AI layoffs are starting to leave a 'long-lasting' scar, just like the last 40 years of history - Fortune",
+            "title_ko": "골드만, AI 해고가 과거처럼 '오래 지속될' 상흔 남길 것",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQWjRUQlZMd3Fjcm1xcUUyR2p5bGNJaGNiWWJZckJ6dUNMVWF3UzZrRUNTU0NhSnlyU1NvdUJEaHVTbWZIN2FzbVBjNEF1MEN0QmRNX3FQcDUteFI3S3lKMTJidHZxdU9sVFZ3MGl4NEFTUlYyMF81Q1NHeTFqcmNOMmMta19VX2lDencwVmxfaGF2NWdzLUs2cHp0NG9hLXRwT2VNM2VSV3pWQ29yR2c0?oc=5",
+            "published_at": "2026-10-30 23:09:00 KST"
+          }
+        ],
+        "outlook": "기술 섹터는 AI와 연관된 기업들의 동향에 따라 움직일 가능성이 높습니다. AI 투자 붐에 균열이 발생하고 있다는 분석이 나왔으며, 이는 기술주 전반에 영향을 미칠 수 있습니다. 또한, 인텔의 주가 급락 소식도 시장의 불안감을 키우고 있습니다. 골드만삭스는 AI 관련 해고가 과거와 같이 오래 지속될 상흔을 남길 것이라고 전망했습니다. 향후 일주일 내에는 주요 기술 기업들의 실적 발표나 신제품 출시 관련 뉴스가 주목받을 수 있습니다."
       },
       {
         "name": "Oil",
-        "reason": "국제 유가 변동과 관련된 뉴스가 다수 언급되며 주목받고 있습니다 (총 5건).",
+        "reason": "국제 유가 변동성과 에너지 기업들의 실적 발표가 시장의 주요 이슈로 부각되고 있습니다. (총 3건)",
         "us_news_refs": [
-          11,
-          12,
-          13,
-          39
+          3,
+          26,
+          41
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Tech Stock Selloff Deepens on Earnings, Oil Rises: Markets Wrap - Bloomberg.com",
-            "title_ko": "실적 부진, 유가 상승에 기술주 매도 심화",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNLWZRMVRrOG1xQ1NBUE55MXNIWTFyTFBfUDBwVnUwbDRHOHNibGNUazhpRVVJamItaGc5UndhUngwMTFOLUE1M3dscmdtSDBvWUJrNmoyWnFGZ2tBcm9VZjZ5MXcyQXFuSDZmWmE4WVlheXZBeTVTci1CXzFQMUxnMkpFRXBVTjh0SlI0N0hobUZzOHh3?oc=5",
-            "published_at": "2026-10-31 04:09:34 KST"
-          },
-          {
-            "title": "ExxonMobil and Chevron report blowout profits as Trump touts benefits of high oil prices - NBC News",
-            "title_ko": "ExxonMobil, Chevron 기록적 이익, Trump 고유가 옹호",
-            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNMjhodndJTm9MRlp4bnZKWjNpSmlKa1I1VUJON1d4NnFHcVdGeVpmb0JHalhYdGFma3NjOUdJN05wWnk1U3RfenFvUi1nVENLcG91VGZFTlF4WjJpZ1RyS1I2RjEwdGJINUYtSUZmQ2NEQXpPTnE3MDJ3OXB6M3FLSWhwYnU0UVpsWHdGa1prN29ZRDBRUEtTQW03WGNZZmtV?oc=5",
-            "published_at": "2026-10-31 04:06:03 KST"
-          },
-          {
-            "title": "Oil giants post billions in profits as Americans feel pain at the pump - Fox Business",
-            "title_ko": "석유 기업 수십억 달러 이익, 소비자 부담 가중",
-            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQeGxlT002eGlNeFh5RGtIenpKUzVBTmZlcUdhWWdQRjk0Ym9ycnc1TzJ6aHRaMnpMNUlkdmlMQms1c2ZEakJVRUxUM3BuUmZzR09mUWRsOElBQnFLN3BSX3hVOUJPY19mRjNuN1VzQV9LX0FIaGx2WlZjRjVJOVJpeHpQRlJabi12V2VVcTFtem1DTDNDcjhhLdIBngFBVV95cUxNOXhVNlJqaGZ5aWZVZjBWOHd1M042NG5RdXRXY2prcW0zS19pblE0V0xxNGtVeFdQcFlHUnI5eWFCQWU4YS0wRFNyMnhUYkdRNmVrbnlvMkdGQ3phRUdDb3E2djExeC1sZHNpLS1MZUlFVU5SOUJ1bE9leGxwdW1pM0V1MjFpeVhqRnpJU2Y5UzhNeXhoUTJDYVhIaGRGUQ?oc=5",
-            "published_at": "2026-10-31 03:52:00 KST"
+            "title": "Trump called out Big Oil profits. Here’s how much their refining earnings have surged since - CNBC",
+            "title_ko": "트럼프, 빅 오일 이익 비판… 정제 마진 급등",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1OUC1PMmdWalJDS0UtUEsyN0p6a0RTMURBRDEzdlNNMDFOeDNPRTlQbGl5b2FHMFlXWkJJaFFZZUhFYUdYSzVPakQyR1ZDemxFX2Y1QnFGTTJUREcyNGJ2ZFZteXB1LVk0YmRuajBoWkFCMDV3U2fSAXtBVV95cUxPeExBWDlUMDIxT1FHY1YzV3lDb3BVMTJUVFNQRVg4WEdaOHVNMFRUaDFkRExuTkVhd3F2ZHltYzU3Y2lyb1Z0MUJyZy1Xc2Z6dzhYZXpYZmY5eFl0b2VfSmlLbi1qY0FlNnVPYkppdG9wUWZnQWtjTk5IQ2s?oc=5",
+            "published_at": "2026-10-31 15:00:02 KST"
           },
           {
             "title": "Oil Prices Rise as Middle East, Ukraine-Russia Conflict Fuel Supply Worries - WSJ",
-            "title_ko": "중동, 우크라이나 전쟁에 유가 상승",
+            "title_ko": "유가 상승… 중동, 우크라이나-러시아 분쟁 공급 우려",
             "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPUnhpZVZHQUliUnJIQUJWb3JmbVl6VV9GZ3NJN0M3X0EzZU9pa2N4SEcybGNlakZkcmxyeVNqV0E5LWRxTU1VZUM4Uk9TdGZTS0RJLU1CZ1JVVFBlM0pTcWFPd2U0b1RFTkVyV2oxSzNwZzYzMjBwVmRtbUFvWUowS1RPSEQ3eE1Qa2ZQQVJ5SExsbzVXQTQtNlZYRC1Bbnh2YmpnZ2VGaHZLQlJDRWJRZEZOU2VCZ1hPcENQcTUtYw?oc=5",
             "published_at": "2026-10-31 05:19:00 KST"
+          },
+          {
+            "title": "Oil giant buys shuttered Houston refinery for $320M to restart plant - Chron",
+            "title_ko": "석유 대기업, 폐쇄된 휴스턴 정유소 3억 2천만 달러에 인수",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNX1RycXdwdVNiU2dIV1N5d2lDYkJyMi10MXpGQjJvSk9YaFZ6QnVlNzVJN1VOSTk3bVVsUlp2RGxnNHZqQTdOQUxMaW1pRUxBMUJpSXpxZ1NoYlVaYjRnbmdaMVlEMEVsa1dFb2ZaSHM3bjBqclBxZDQyVTBVSWlIX0ZVSVU1YjhqbEJmTG1LMWNaY2VLdUROdE1B?oc=5",
+            "published_at": "2026-10-30 23:30:21 KST"
           }
         ],
-        "outlook": "국제 유가는 중동 지역의 지정학적 긴장 고조와 우크라이나-러시아 전쟁 장기화에 따른 공급 불안 심리가 작용하며 상승세를 보이고 있습니다. 이러한 유가 상승은 에너지 기업들의 실적에 긍정적인 영향을 미칠 수 있으며, 특히 ExxonMobil과 Chevron과 같은 대형 에너지 기업들은 기록적인 이익을 발표했습니다. 그러나 글로벌 경기 둔화 우려와 주요국 중앙은행의 금리 인상 기조는 유가 상승폭을 제한할 수 있는 요인으로 작용할 수 있습니다. 다음 주에는 OPEC+ 회의 결과나 주요 산유국의 생산량 발표 등이 유가에 영향을 미칠 수 있습니다."
-      },
-      {
-        "name": "AI",
-        "reason": "AI 관련 기업들의 동향 및 기술 발전 소식이 지속적으로 보도되고 있습니다 (총 2건).",
-        "us_news_refs": [
-          4,
-          5,
-          6,
-          10,
-          11,
-          36,
-          48
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Sam Altman says it’s better for RAM to be in a data center than on your desk - The Verge",
-            "title_ko": "Sam Altman, RAM은 데이터센터에 있어야 한다",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOSm9DWHQwTEFVa3VwOU5xY0dXTnVmMFBVTzQ4YTF0WUdFeEl5TDc1ZTZQandETWoyaW1reV9wTVB2ZUJ5ZDliZ20xUDdIalc5T1dLNlZLTmtnZk1wenFzT0hpVVJIa1ZpNkp6US1xbkdwdk5GV21SLTJhOVVNMWR5NHdRX1JRaDlEbThsa0Q1a2p6eWhIUGFGNU5peUJCZw?oc=5",
-            "published_at": "2026-10-31 05:48:43 KST"
-          },
-          {
-            "title": "Wall Street closes sharply lower as AI cash burn fears spark tech selloff - Reuters",
-            "title_ko": "AI 자금 소진 우려에 기술주 급락",
-            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
-            "published_at": "2026-10-31 05:38:32 KST"
-          },
-          {
-            "title": "Tech Earnings Sink SpaceX Stock. No Other Companies Meet Elon Musk’s High Bar. - Barron's",
-            "title_ko": "SpaceX 주식 하락, 다른 기업은 Musk 기준 미달",
-            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPTWZ2T2RzcTRlakVhZ1dwbFY2SzZLZ1V6bUJCeVRwNGkwUTVGVnU1c1c1YXpmdU1IQTVuWUVBcDBNc0k3ZjBRWjY5UVBTanQ2QmUxYkdtX1QwOUFIMndhOEZjMHdZV21xZG1oRl83dkdGSGltVzZfWmJBQlJlLVI3c0lOSTZSN2hnWEpzSkJrTQ?oc=5",
-            "published_at": "2026-10-31 05:31:00 KST"
-          },
-          {
-            "title": "Stock market today: Nasdaq, Dow, S&P 500 clobbered as October closes with brutal sell-off - Yahoo Finance",
-            "title_ko": "기술주 매도에 나스닥, 다우, S&P 500 급락",
-            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOVEJYRTREa2JJM1FSeW1nTTVldXlmeElCanRweTcwcVpudjZ0WUtBVjU5RURERzdESU8tVV9GanJ3VHlBUlhkWjVmbG5ielVFbEx5cXNLX0M1Vk9XTU5nTUtLVm0xaDA4LTlaZ1BnS0Z0d1FrNXBHVTJHLVFYUExYQjhCNDVGRWhNWm0wOEFjbG05R2toV25YMlZ2LTEyUUVNR0t5R3A0WF9NZWw0Zk1LWjBUaFpWdHVHdVJqWmJ4UkMxaUJaX3NrS3M3eFBWQQ?oc=5",
-            "published_at": "2026-10-31 04:14:29 KST"
-          },
-          {
-            "title": "Tech Stock Selloff Deepens on Earnings, Oil Rises: Markets Wrap - Bloomberg.com",
-            "title_ko": "실적 부진, 유가 상승에 기술주 매도 심화",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNLWZRMVRrOG1xQ1NBUE55MXNIWTFyTFBfUDBwVnUwbDRHOHNibGNUazhpRVVJamItaGc5UndhUngwMTFOLUE1M3dscmdtSDBvWUJrNmoyWnFGZ2tBcm9VZjZ5MXcyQXFuSDZmWmE4WVlheXZBeTVTci1CXzFQMUxnMkpFRXBVTjh0SlI0N0hobUZzOHh3?oc=5",
-            "published_at": "2026-10-31 04:09:34 KST"
-          }
-        ],
-        "outlook": "AI 관련 기업들의 자금 소진 우려가 기술주 전반의 매도세를 촉발하는 요인으로 작용하고 있습니다. 특히, AI 인프라 구축에 필요한 막대한 자금 투입에 대한 회의론이 제기되면서 관련 기업들의 주가에 부담을 주고 있습니다. 향후 일주일 동안에는 AI 기술 발전의 속도와 수익성 확보 방안에 대한 논의가 지속될 것으로 예상됩니다. 또한, OpenAI CEO인 Sam Altman의 발언처럼 AI 관련 하드웨어(RAM 등)의 효율적인 배치 및 투자 전략이 주목받을 수 있습니다. 다만, AI 기술의 상용화 및 수익 모델 구축에 대한 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
+        "outlook": "국제 유가 변동성과 에너지 기업들의 실적 발표가 유가 섹터의 주요 이슈로 부각되고 있습니다. 중동 및 우크라이나-러시아 분쟁으로 인한 공급 우려가 유가 상승 요인으로 작용하고 있습니다. 트럼프 전 대통령의 빅 오일 이익 비판과 함께 정제 마진 급등 소식이 전해졌습니다. 또한, 석유 대기업이 폐쇄된 정유소를 인수하여 재가동할 계획이라는 소식도 있습니다. 향후 일주일 내에는 OPEC 회의 결과나 지정학적 리스크 변화에 따른 유가 변동성이 주목될 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Intel",
-        "reason": "반도체 기술 발전 및 AI 관련 사업 확장 가능성이 언급되며 주목받고 있습니다 (총 4건).",
+        "name": "Binance",
+        "reason": "가상자산 시장의 주요 플레이어로서 규제 및 시장 동향과 관련된 소식이 지속적으로 언급되고 있습니다. (총 3건)",
         "us_news_refs": [
-          11,
-          33,
-          36,
-          49
+          1,
+          24
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Tech Stock Selloff Deepens on Earnings, Oil Rises: Markets Wrap - Bloomberg.com",
-            "title_ko": "실적 부진, 유가 상승에 기술주 매도 심화",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNLWZRMVRrOG1xQ1NBUE55MXNIWTFyTFBfUDBwVnUwbDRHOHNibGNUazhpRVVJamItaGc5UndhUngwMTFOLUE1M3dscmdtSDBvWUJrNmoyWnFGZ2tBcm9VZjZ5MXcyQXFuSDZmWmE4WVlheXZBeTVTci1CXzFQMUxnMkpFRXBVTjh0SlI0N0hobUZzOHh3?oc=5",
-            "published_at": "2026-10-31 04:09:34 KST"
+            "title": "How suspected North Korean hackers swiped billions in crypto in only minutes - The Washington Post",
+            "title_ko": "북한 해커, 수분 만에 수십억 암호화폐 탈취",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWHE4QnBQRF9vakp0a0VReVZFSjNOa2hmODFJOHdLTGlzSnBkRW4yei1rbkY5cFNyT0tYbmlfQ2dIZG9GN2wyaGtIZnpMNUQ2Smx1ODVKMHJZdEhnUk9WbkZhYnJ2NmkxaUNJTXZvcmpRQ2tZa1RjdEFNSjNjWUk0QXVKSlotVEtNVmI5ME5fLXIwV0k1WTdGR0VFNmVQb2VIQ0pULXZlR0JILXdqTDZSa2hwSlJTVnRBWDlzbURhV185Zw?oc=5",
+            "published_at": "2026-10-31 19:33:42 KST"
           },
           {
-            "title": "Why Intel’s stock saw its worst day in decades — and a $140 billion wipeout",
-            "title_ko": "Intel 주식 수십 년 만에 최악의 날, 1400억 달러 증발",
-            "url": "https://www.marketwatch.com/story/why-intels-stock-is-sinking-toward-its-worst-drop-in-two-years-492d71a7?mod=mw_rss_topstories",
-            "published_at": "2026-10-31 05:48:00 KST"
-          },
-          {
-            "title": "AMD’s stock slides after Intel earnings reveal two big issues",
-            "title_ko": "AMD 주식, Intel 실적 발표 후 하락",
-            "url": "https://www.marketwatch.com/story/amds-stock-slides-after-intel-earnings-reveal-two-big-issues-d3afed91?mod=mw_rss_topstories",
-            "published_at": "2026-10-31 05:28:00 KST"
-          },
-          {
-            "title": "Intel Stock Is Crashing Out. Here’s Why the Shares Are Dropping Today - Investopedia",
-            "title_ko": "Intel 주식 폭락 이유",
-            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOdlprdHA1N2txZUt3bkpXRlNjeXhYNXBERGhzS2lveGo3Y2xFVlNXTHFsdk5TMllpSDdjd0x2N1JadktsbGFLNWh1clJ4cVdsUXZyYTE5OVZfbXBmalpBalp4Y3pXeWNyVk5YNDMxSGxKVC1wNUtwOVlyb25lX3M4YzUySFUxY1E3eERSTmhvYUtOZzlZRVFDVnAwS3J1SFVhVVdCZXZwUENlaGd0RkFPNA?oc=5",
-            "published_at": "2026-10-30 23:03:16 KST"
+            "title": "Stocks Slide, Intel Plunges, Binance Hacked | Markets P.M. for Oct. 30 - WSJ",
+            "title_ko": "주식 하락, 인텔 급락, 바이낸스 해킹",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOLUZLbmQ2VnlpcS1VOVNNc05mN0I1Zmd5ZWNHb3o1b05zRklLM3ozaGhlLXhiSDVpc1d2QXUySzYxZzgyc0dHa3BVOTZYSjlwck5ucDdQQmhaOE5sdlB6ci02V0NZTFEyanlFZ1JpRTNPeUJMNFR5cE5RbXlKX3FZQW1yTmh0cmNaY0NINW1FdVVfdw?oc=5",
+            "published_at": "2026-10-31 05:37:00 KST"
           }
         ],
-        "outlook": "Intel의 주가는 최근 수십 년 만에 최악의 날을 기록하며 큰 폭으로 하락했습니다. 이는 경쟁사인 AMD의 주가 하락과 더불어 Intel 자체의 실적 발표 이후 나타난 현상으로 분석됩니다. AI 관련 사업 확장 가능성이 언급되기도 했으나, 현재로서는 실적 부진과 기술 경쟁 심화라는 단기 위험 요인이 부각되고 있습니다. 향후 일주일 내에는 Intel의 구체적인 사업 재편 계획이나 신규 기술 개발 발표 등이 주가에 영향을 미칠 수 있습니다. 시장은 Intel이 AI 시대에 경쟁력을 유지할 수 있을지에 대한 명확한 시그널을 기다리고 있습니다."
+        "outlook": "가상자산 시장의 주요 플레이어인 바이낸스는 규제 및 시장 동향과 관련된 소식에 민감하게 반응할 것으로 보입니다. 북한 해커의 대규모 암호화폐 탈취 소식이 전해졌으며, 이는 가상자산 시장 전반의 보안 우려를 높일 수 있습니다. 또한, 바이낸스 해킹 관련 보도도 있었습니다. 향후 일주일 내에는 주요국 규제 당국의 발표나 가상자산 시장의 주요 이벤트가 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Meta",
+        "reason": "AI 기술 투자와 메타버스 사업 등 다양한 분야에서의 활동이 시장의 주목을 받고 있습니다. (총 3건)",
+        "us_news_refs": [
+          18,
+          35
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Meta’s Rating Outlook Cut to Negative by S&P on AI Spending - Bloomberg",
+            "title_ko": "S&P, 메타 AI 투자로 등급 전망 '부정적' 하향",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQYXBldlo0WUZ5YjlBRWFONUFOb0ppblgzNDF4Z2oyaloyZFhVMW91ZEotX3Y3b0JqZHlERFBXcjlhQ2ZvWDB3SDVYWGRFSF9Ic1JQUTZCWXJ6anlINzRRUERJaDNqQzVTa05ESnBJeHNOMUg0a1JGVUJHdU9Pb1hKS0d4V0RnVmlqOGctUE1ZejRrRUZXenNzdHZJRVpTT0h1dFRSdDU1SjhZV2xoWFE?oc=5",
+            "published_at": "2026-10-31 08:23:31 KST"
+          },
+          {
+            "title": "Meta Settles Social Media Addiction Case, Avoiding Trial - The New York Times",
+            "title_ko": "메타, 소셜 미디어 중독 소송 합의… 재판 회피",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPSE40Wms5aEpqLUxIM1ByOHphNV9nd2V2eHFpaEZSRFlNV2ZBOHNQT2Z0UTVyOW9ETE5Tb0xTSnVHaU9xLWY0cnotYTQ1VXJ1TW8yUzBpd2Y1Z19rVmNYZFVYTWhZUk1BY3ZtUkZLY2FoYWxJU3ZoR0JRcjdZY0gycTVOVEVob3NKaVBCQUhB?oc=5",
+            "published_at": "2026-10-31 03:11:24 KST"
+          }
+        ],
+        "outlook": "메타는 AI 투자와 메타버스 사업 등 다양한 분야에서의 활동이 시장의 주목을 받고 있습니다. S&P는 메타의 AI 투자로 인해 신용 등급 전망을 '부정적'으로 하향 조정했습니다. 또한, 메타가 소셜 미디어 중독 관련 소송에서 합의하며 재판을 피했다는 소식도 있었습니다. 향후 일주일 내에는 메타의 신규 서비스 출시나 AI 관련 기술 개발 발표 등이 주가에 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "OpenAI",
+        "reason": "AI 기술 개발을 선도하는 기업으로서 혁신적인 기술 발표와 사업 확장 관련 소식이 주목받고 있습니다. (총 2건)",
+        "us_news_refs": [
+          16,
+          17,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "OpenAI slashes funding target by $10 billion amid tech rout, FT reports - Reuters",
+            "title_ko": "OpenAI, 기술주 하락 속 펀딩 목표 100억 달러 축소",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNTWw3N0l5dm5KUi1FQmllTEpEeUdkY1k5TVlFNTlnWWFlbTgtdUJfZE9RMjZiQlJEVXU2VFo2blVaWk1MZzNYMm9OYmdrSngtSk02YnhKNDdVMVZkS3hIMHpWZ2dnRjJZWjBzQ0lFRU4ySFFUQzdTdnUzN3JETGtCYlo3Y3kxeGJseG5veVJMSVVCRDVPYzB3TXQyaFE?oc=5",
+            "published_at": "2026-10-31 09:17:00 KST"
+          },
+          {
+            "title": "Cate Blanchett-Backed Group of Stars Files Brief in NYT-OpenAI Lawsuit - Variety",
+            "title_ko": "블란쳇 등 스타들, NYT-OpenAI 소송에 지지 서한 제출",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOVGdqcGlhU3JmdWMwNDBkSzBhajl6LWZ0S0twZmx1RXk2SDVDc1A1NlNIUkZCcWlsRC1xa1p2SEJzWVIzSmJfZnRicUJ5dUFodUdFQ3UtekVNMURxOWZWTWdDSWRNa1FXb1E4djl5TlNraVVSTGVqanZvZnphNUpodjhlVjVXY043aV9DcDNyNnZBU1RvQkFWcDl3S2dycG9zc2tV?oc=5",
+            "published_at": "2026-10-31 08:52:00 KST"
+          },
+          {
+            "title": "Sam Altman sympathizes with mathematicians, but says OpenAI’s math onslaught won’t stop - The Verge",
+            "title_ko": "샘 알트먼, 수학자들 동정… OpenAI 수학 공세 멈추지 않을 것",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPOEVvR3N2NnpqOWROaGJScVNkamw3Nk9OZWxIMTIxTGd0b25uRnBOamFuSUlrb1lfa1F3SE9WdXdIY2lVekNuVkRtTTBjTzBNcGw4aHU4QUJobzBmYVhhZ1VOX0w3UFJSUVFmR1VFOXd1WS1pQVJ1SDYtMURweUpXRk1MNjRUcmx4enlfRWxmQXNGZUVoa2VqdEZScVk?oc=5",
+            "published_at": "2026-10-30 22:01:14 KST"
+          }
+        ],
+        "outlook": "AI 기술 개발을 선도하는 OpenAI는 혁신적인 기술 발표와 사업 확장 관련 소식으로 주목받고 있습니다. 최근 기술주 하락 속에서 펀딩 목표를 100억 달러 축소했다는 보도가 나왔습니다. 또한, 뉴욕타임스와의 소송에 유명 배우들이 지지 서한을 제출했다는 소식도 있었습니다. 샘 알트먼 CEO는 수학자들을 동정하면서도 OpenAI의 수학 관련 공세는 멈추지 않을 것이라고 밝혔습니다. 향후 일주일 내에는 OpenAI의 새로운 AI 모델 발표나 파트너십 관련 뉴스가 주목받을 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
+          "name": "AI",
+          "outlook": "AI 섹터는 지속적인 기술 발전과 관련 기업들의 실적 발표가 주요 촉매제로 작용하고 있습니다. 특히 Alphabet의 주가 하락에도 불구하고 매도하지 않겠다는 분석이 나왔습니다. 하지만 OpenAI의 펀딩 목표 축소 소식과 메타의 AI 투자로 인한 신용 등급 전망 하향 조정은 투자 심리에 부담을 줄 수 있습니다. 또한, AI 투자 붐에 균열이 발생하고 있다는 분석도 제기되었습니다. 향후 일주일 내에는 AI 관련 기업들의 추가적인 실적 발표나 기술 개발 소식이 주목받을 수 있습니다."
+        },
+        {
           "name": "Tech",
-          "outlook": "최근 기술 섹터는 AI 자금 소진 우려와 실적 부진 가능성으로 인해 매도세가 가속화되는 양상을 보이고 있습니다. 이러한 상황 속에서 일부 빅테크 기업들의 실적 발표가 시장의 변동성을 키울 수 있습니다. 향후 일주일 내에는 AI 관련 기업들의 자금 흐름 및 투자 계획 발표 여부가 주목될 수 있으며, 이는 기술주 전반에 영향을 미칠 수 있습니다. 다만, 거시 경제 지표 발표나 연준의 통화 정책 관련 발언 등은 시장에 추가적인 변동성을 야기할 수 있습니다."
+          "outlook": "기술 섹터는 AI와 연관된 기업들의 동향에 따라 움직일 가능성이 높습니다. AI 투자 붐에 균열이 발생하고 있다는 분석이 나왔으며, 이는 기술주 전반에 영향을 미칠 수 있습니다. 또한, 인텔의 주가 급락 소식도 시장의 불안감을 키우고 있습니다. 골드만삭스는 AI 관련 해고가 과거와 같이 오래 지속될 상흔을 남길 것이라고 전망했습니다. 향후 일주일 내에는 주요 기술 기업들의 실적 발표나 신제품 출시 관련 뉴스가 주목받을 수 있습니다."
         },
         {
           "name": "Oil",
-          "outlook": "국제 유가는 중동 지역의 지정학적 긴장 고조와 우크라이나-러시아 전쟁 장기화에 따른 공급 불안 심리가 작용하며 상승세를 보이고 있습니다. 이러한 유가 상승은 에너지 기업들의 실적에 긍정적인 영향을 미칠 수 있으며, 특히 ExxonMobil과 Chevron과 같은 대형 에너지 기업들은 기록적인 이익을 발표했습니다. 그러나 글로벌 경기 둔화 우려와 주요국 중앙은행의 금리 인상 기조는 유가 상승폭을 제한할 수 있는 요인으로 작용할 수 있습니다. 다음 주에는 OPEC+ 회의 결과나 주요 산유국의 생산량 발표 등이 유가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "AI",
-          "outlook": "AI 관련 기업들의 자금 소진 우려가 기술주 전반의 매도세를 촉발하는 요인으로 작용하고 있습니다. 특히, AI 인프라 구축에 필요한 막대한 자금 투입에 대한 회의론이 제기되면서 관련 기업들의 주가에 부담을 주고 있습니다. 향후 일주일 동안에는 AI 기술 발전의 속도와 수익성 확보 방안에 대한 논의가 지속될 것으로 예상됩니다. 또한, OpenAI CEO인 Sam Altman의 발언처럼 AI 관련 하드웨어(RAM 등)의 효율적인 배치 및 투자 전략이 주목받을 수 있습니다. 다만, AI 기술의 상용화 및 수익 모델 구축에 대한 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
+          "outlook": "국제 유가 변동성과 에너지 기업들의 실적 발표가 유가 섹터의 주요 이슈로 부각되고 있습니다. 중동 및 우크라이나-러시아 분쟁으로 인한 공급 우려가 유가 상승 요인으로 작용하고 있습니다. 트럼프 전 대통령의 빅 오일 이익 비판과 함께 정제 마진 급등 소식이 전해졌습니다. 또한, 석유 대기업이 폐쇄된 정유소를 인수하여 재가동할 계획이라는 소식도 있습니다. 향후 일주일 내에는 OPEC 회의 결과나 지정학적 리스크 변화에 따른 유가 변동성이 주목될 수 있습니다."
         }
       ],
       "stocks": [
         {
-          "name": "Intel",
-          "outlook": "Intel의 주가는 최근 수십 년 만에 최악의 날을 기록하며 큰 폭으로 하락했습니다. 이는 경쟁사인 AMD의 주가 하락과 더불어 Intel 자체의 실적 발표 이후 나타난 현상으로 분석됩니다. AI 관련 사업 확장 가능성이 언급되기도 했으나, 현재로서는 실적 부진과 기술 경쟁 심화라는 단기 위험 요인이 부각되고 있습니다. 향후 일주일 내에는 Intel의 구체적인 사업 재편 계획이나 신규 기술 개발 발표 등이 주가에 영향을 미칠 수 있습니다. 시장은 Intel이 AI 시대에 경쟁력을 유지할 수 있을지에 대한 명확한 시그널을 기다리고 있습니다."
+          "name": "Binance",
+          "outlook": "가상자산 시장의 주요 플레이어인 바이낸스는 규제 및 시장 동향과 관련된 소식에 민감하게 반응할 것으로 보입니다. 북한 해커의 대규모 암호화폐 탈취 소식이 전해졌으며, 이는 가상자산 시장 전반의 보안 우려를 높일 수 있습니다. 또한, 바이낸스 해킹 관련 보도도 있었습니다. 향후 일주일 내에는 주요국 규제 당국의 발표나 가상자산 시장의 주요 이벤트가 주가에 영향을 미칠 수 있습니다."
         },
         {
-          "name": "Nvidia",
-          "outlook": "최근 유튜브 채널 '소수몽키'에서는 AI 인프라 쇼크에 대한 대응 방안으로 Nvidia 관련 ETF가 언급되었습니다. 장기적인 관점에서 Nvidia에 투자하는 방법에 대한 논의가 있었으나, 현재 Nvidia 주가에 직접적인 영향을 미칠 만한 구체적인 촉매제나 단기 위험 요인에 대한 최신 뉴스는 부족한 상황입니다. 향후 일주일 내에는 AI 칩 시장의 경쟁 구도 변화나 주요 고객사의 투자 계획 발표 등이 Nvidia의 주가에 영향을 줄 수 있습니다. 현재 단계에서는 명확한 시그널 부재로 인해 보수적인 접근이 필요해 보입니다."
+          "name": "Meta",
+          "outlook": "메타는 AI 투자와 메타버스 사업 등 다양한 분야에서의 활동이 시장의 주목을 받고 있습니다. S&P는 메타의 AI 투자로 인해 신용 등급 전망을 '부정적'으로 하향 조정했습니다. 또한, 메타가 소셜 미디어 중독 관련 소송에서 합의하며 재판을 피했다는 소식도 있었습니다. 향후 일주일 내에는 메타의 신규 서비스 출시나 AI 관련 기술 개발 발표 등이 주가에 영향을 줄 수 있습니다."
         },
         {
-          "name": "ExxonMobil",
-          "outlook": "ExxonMobil은 최근 기록적인 이익을 발표하며 높은 유가 환경 속에서 수혜를 입고 있습니다. 이는 국제 유가 상승과 중동 지역의 지정학적 긴장 고조에 따른 공급 불안 심리가 반영된 결과로 분석됩니다. 그러나 글로벌 경기 둔화 우려와 주요국 중앙은행의 긴축적인 통화 정책 기조는 향후 유가 상승폭을 제한할 수 있는 위험 요인으로 작용할 수 있습니다. 다음 주에는 OPEC+ 회의 결과나 주요 산유국의 생산량 발표 등이 유가 및 ExxonMobil의 주가에 영향을 미칠 수 있습니다. 또한, 에너지 전환 정책 관련 뉴스도 장기적인 관점에서 주목할 필요가 있습니다."
+          "name": "OpenAI",
+          "outlook": "AI 기술 개발을 선도하는 OpenAI는 혁신적인 기술 발표와 사업 확장 관련 소식으로 주목받고 있습니다. 최근 기술주 하락 속에서 펀딩 목표를 100억 달러 축소했다는 보도가 나왔습니다. 또한, 뉴욕타임스와의 소송에 유명 배우들이 지지 서한을 제출했다는 소식도 있었습니다. 샘 알트먼 CEO는 수학자들을 동정하면서도 OpenAI의 수학 관련 공세는 멈추지 않을 것이라고 밝혔습니다. 향후 일주일 내에는 OpenAI의 새로운 AI 모델 발표나 파트너십 관련 뉴스가 주목받을 수 있습니다."
         }
       ]
     },
@@ -213,141 +238,207 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "Crypto",
-        "reason": "가상자산 시장의 규제 및 거래소 관련 소식이 지속적으로 보도되며 주목받고 있습니다 (총 4건).",
+        "name": "스포츠",
+        "reason": "다양한 스포츠 경기 결과 및 관련 이슈가 시장에서 높은 빈도로 언급되며 주목받고 있습니다. (총 5건)",
         "kr_news_refs": [
-          1,
+          19,
           26,
-          39,
-          43
+          28,
+          30,
+          31
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "트럼프, ‘바이낸스 해킹 북 소행으로 보냐’ 묻자 “모른다…살펴보고 있다” - KBS 뉴스",
+            "title": "아트망 vs 웡, 서울오픈 챌린저 테니스 결승 대결",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9veDFmcjFHd1gyNUU0bEhud3JNT1dSQmFRckNmNk81NExEdUtMekxqU1MtbE1KSS1sOV8zR3UwdS1QRWZsV1ZjUWFtOUZwRnJGblE0eWx0TDlOdjg?oc=5",
-            "published_at": "2026-10-31 06:36:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261031044900007",
+            "published_at": "2026-10-31 19:19:58 KST"
           },
           {
-            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 31일)",
+            "title": "K리그1 4위 전북, 3위 대전과 헛심 공방 0-0 무승부(종합)",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/society/12191722",
-            "published_at": "2026-10-31 07:00:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261031036751007",
+            "published_at": "2026-10-31 18:57:32 KST"
           },
           {
-            "title": "단 20분 만에 코인 8.4조원 털어…바이낸스 노린 北 해커의 속도전",
+            "title": "K리그2 수원 승격 도전 다음주로…대구 원정서 2-2 무승부",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12192335",
-            "published_at": "2026-10-31 06:35:03 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261031043900007",
+            "published_at": "2026-10-31 18:43:48 KST"
           },
           {
-            "title": "[AI돋보기] 코인 탈취부터 위장 취업까지…북한발 사이버 위협은",
+            "title": "프로농구 '디펜딩 챔피언' KCC, DB 잡고 마침내 7연패 탈출(종합)",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261030161700017",
-            "published_at": "2026-10-31 06:33:01 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261031038151007",
+            "published_at": "2026-10-31 18:32:49 KST"
+          },
+          {
+            "title": "[프로농구 대구전적] 한국가스공사 94-67 현대모비스",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261031043300007",
+            "published_at": "2026-10-31 18:25:03 KST"
           }
         ],
-        "outlook": "가상자산 시장은 북한 해커의 대규모 코인 탈취 사건과 관련된 뉴스가 주목받고 있습니다. 특히 바이낸스를 노린 해킹 시도와 관련하여 미국 FBI 및 비밀경호국의 공조 수사 착수 소식이 전해졌습니다. 이러한 사건들은 가상자산 거래소의 보안 문제와 규제 강화에 대한 우려를 증폭시킬 수 있습니다. 향후 일주일 내에는 관련 수사 결과 발표나 각국 규제 당국의 추가적인 발표가 시장에 영향을 미칠 수 있습니다. 또한, 트럼프 전 대통령의 가상자산 관련 발언도 시장의 관심을 받을 수 있습니다."
+        "outlook": "스포츠 섹터는 다양한 종목의 경기 결과와 관련 이슈가 시장에서 높은 빈도로 언급되며 주목받고 있습니다. 테니스, K리그, 프로농구 등 다양한 종목의 경기 결과가 보도되었습니다. 향후 일주일 내에는 주요 스포츠 리그의 경기 결과나 선수들의 이적 소식 등이 시장의 관심을 받을 수 있습니다."
+      },
+      {
+        "name": "AI",
+        "reason": "국내 AI 기술 발전과 관련 기업들의 신규 서비스 출시 및 실적 발표가 시장의 주요 관심사입니다. (총 5건)",
+        "kr_news_refs": [
+          2,
+          7,
+          42,
+          50,
+          94
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "삼성 사장단 만난 올트먼‥'AI 키보드' 선물도 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9Vc1JPZU5IdlN1Sm5FMnJUQklZSXdZZVpReFpIdXBjcEh3ZkV2R3Fobk83UFhCVnRSZWU4a2FXUG1fQnhJRTVab2hqYWFaZ0JzNGdCOWloMW1Lam5QS0t0VXhEVE5uX2l4Q2luOTBzVzg2Y2E50gF0QVVfeXFMT2dQTm9KUlZDenp4TmszbW9sVjhxMUxTU181MUN2M1dPOEs2bEgzci12SEVwb3RwcDFka08wZXhvUDNuRUdWemJhME9QV3BfOFY0V2JpNHdnR0hySUFtWWl4MmV1b191VHdZc25XQ3lrUHBJTjQ?oc=5",
+            "published_at": "2026-10-31 16:53:12 KST"
+          },
+          {
+            "title": "“AI 지휘하세요”…올트먼이 삼성 경영진에 선물한 13개 버튼 키보드 보니",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12192487",
+            "published_at": "2026-10-31 19:50:46 KST"
+          },
+          {
+            "title": "60년 전 독일로 떠난 간호사들, AI 배우는 후배들과 만났다",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261031040900371",
+            "published_at": "2026-10-31 17:48:47 KST"
+          },
+          {
+            "title": "“어디에 쓰는 물건인고”....AI 투자 급랭 속 방한 샘 올트먼이 꺼낸 선물",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12192456",
+            "published_at": "2026-10-31 17:15:10 KST"
+          },
+          {
+            "title": "최태원 SK그룹 회장 샘 올트먼 오픈AI CEO와 오찬",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12192433",
+            "published_at": "2026-10-31 15:08:58 KST"
+          }
+        ],
+        "outlook": "국내 AI 섹터는 기술 발전과 신규 서비스 출시, 실적 발표 등이 주요 관심사입니다. 샘 올트먼 OpenAI CEO의 방한과 삼성 경영진과의 만남이 주목받았으며, AI 키보드 선물 소식도 있었습니다. 또한, AI 투자 급랭 속에서 올트먼 CEO가 꺼낸 선물에 대한 분석도 나왔습니다. 의료 분야에서의 AI 활용 가능성도 제시되었습니다. 향후 일주일 내에는 국내 AI 기업들의 신기술 발표나 정부의 AI 육성 정책 관련 뉴스가 주목받을 수 있습니다."
+      },
+      {
+        "name": "소비",
+        "reason": "소비 심리 변화와 관련 기업들의 실적, 신제품 출시 동향이 시장에서 꾸준히 언급되고 있습니다. (총 3건)",
+        "kr_news_refs": [
+          10,
+          14,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "韓총리 \"소비진작 행사 더 만들 것…걱정 풀리게 최선 다하겠다\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261031045600001",
+            "published_at": "2026-10-31 19:42:30 KST"
+          },
+          {
+            "title": "韓총리 “나라 잘된다는데 나는?…소비진작 행사 늘려 해소할 것”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12192482",
+            "published_at": "2026-10-31 19:25:30 KST"
+          },
+          {
+            "title": "'코리아 그랜드 페스티벌' 안동서 공식 개막…소비 촉진",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261030151200030",
+            "published_at": "2026-10-31 17:30:00 KST"
+          }
+        ],
+        "outlook": "소비 섹터는 소비 심리 변화와 관련 기업들의 실적, 신제품 출시 동향이 꾸준히 언급되고 있습니다. 정부는 소비 진작 행사를 더 만들고 국민들의 걱정을 덜어주기 위해 최선을 다하겠다고 밝혔습니다. '코리아 그랜드 페스티벌'이 개막하여 소비 촉진에 기여할 것으로 보입니다. 향후 일주일 내에는 주요 유통업체들의 신규 프로모션이나 소비 관련 지표 발표 등이 시장의 관심을 받을 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Binance",
-        "reason": "가상자산 거래소 관련 규제 및 사업 동향에 대한 뉴스가 다수 보도되었습니다 (총 5건).",
+        "name": "삼성",
+        "reason": "반도체 및 AI 사업 등 다양한 분야에서의 기술 개발과 실적 발표가 시장의 주요 관심사입니다. (총 3건)",
         "kr_news_refs": [
-          1,
-          26,
-          39,
-          40,
-          66
-        ],
-        "related_news": [
-          {
-            "title": "트럼프, ‘바이낸스 해킹 북 소행으로 보냐’ 묻자 “모른다…살펴보고 있다” - KBS 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9veDFmcjFHd1gyNUU0bEhud3JNT1dSQmFRckNmNk81NExEdUtMekxqU1MtbE1KSS1sOV8zR3UwdS1QRWZsV1ZjUWFtOUZwRnJGblE0eWx0TDlOdjg?oc=5",
-            "published_at": "2026-10-31 06:36:00 KST"
-          },
-          {
-            "title": "매경이 전하는 세상의 지식 (매-세-지, 10월 31일)",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/society/12191722",
-            "published_at": "2026-10-31 07:00:00 KST"
-          },
-          {
-            "title": "단 20분 만에 코인 8.4조원 털어…바이낸스 노린 北 해커의 속도전",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12192335",
-            "published_at": "2026-10-31 06:35:03 KST"
-          },
-          {
-            "title": "트럼프, 바이낸스 해킹 北소행 여부에 \"모른다…살펴보고 있다\"(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261031006851071",
-            "published_at": "2026-10-31 06:34:50 KST"
-          },
-          {
-            "title": "美 FBI·비밀경호국, '8.4조원 해킹' 바이낸스 공조수사 착수(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261031001951091",
-            "published_at": "2026-10-31 06:00:07 KST"
-          }
-        ],
-        "outlook": "Binance는 최근 북한 해커의 대규모 코인 탈취 사건과 관련하여 미국 FBI 및 비밀경호국의 공조 수사 대상이 되면서 주목받고 있습니다. 이러한 사건은 Binance의 보안 시스템과 규제 준수 여부에 대한 의문을 제기하며, 향후 규제 강화로 이어질 가능성이 있습니다. 트럼프 전 대통령의 관련 발언 또한 시장의 관심을 끌 수 있습니다. 다음 주에는 수사 진행 상황이나 규제 당국의 발표가 Binance의 사업 및 주가에 직접적인 영향을 미칠 수 있습니다. 현재로서는 규제 관련 불확실성이 주요 위험 요인으로 작용하고 있습니다."
-      },
-      {
-        "name": "한화디펜스USA",
-        "reason": "방산 부문의 해외 수주 및 사업 확장 관련 소식이 주목받고 있습니다 (총 2건).",
-        "kr_news_refs": [
-          5,
-          82
+          2,
+          7,
+          50
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "한화디펜스USA, 미 해군 ’중형상륙함’ 첫 수주 - 연합뉴스TV",
+            "title": "삼성 사장단 만난 올트먼‥'AI 키보드' 선물도 - MBC 뉴스",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBxcFphQWRVRTRwRjBpcXNuRFVMOGRQa1pWZ29kS055a3Q5MG5LSXJVZVhkOGZCemhIS3M2R2MtZmFTWTljcUs4N3BhVld4UERScnpVZ3pEcE15QVpjZ2p4eXhpQVExSXc?oc=5",
-            "published_at": "2026-10-31 05:07:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9Vc1JPZU5IdlN1Sm5FMnJUQklZSXdZZVpReFpIdXBjcEh3ZkV2R3Fobk83UFhCVnRSZWU4a2FXUG1fQnhJRTVab2hqYWFaZ0JzNGdCOWloMW1Lam5QS0t0VXhEVE5uX2l4Q2luOTBzVzg2Y2E50gF0QVVfeXFMT2dQTm9KUlZDenp4TmszbW9sVjhxMUxTU181MUN2M1dPOEs2bEgzci12SEVwb3RwcDFka08wZXhvUDNuRUdWemJhME9QV3BfOFY0V2JpNHdnR0hySUFtWWl4MmV1b191VHdZc25XQ3lrUHBJTjQ?oc=5",
+            "published_at": "2026-10-31 16:53:12 KST"
           },
           {
-            "title": "한화디펜스, 美해군 함정 건조 첫 수주…3천600억원 규모 상륙함",
+            "title": "“AI 지휘하세요”…올트먼이 삼성 경영진에 선물한 13개 버튼 키보드 보니",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261031004600071",
-            "published_at": "2026-10-31 04:39:27 KST"
+            "url": "https://www.mk.co.kr/news/business/12192487",
+            "published_at": "2026-10-31 19:50:46 KST"
+          },
+          {
+            "title": "“어디에 쓰는 물건인고”....AI 투자 급랭 속 방한 샘 올트먼이 꺼낸 선물",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12192456",
+            "published_at": "2026-10-31 17:15:10 KST"
           }
         ],
-        "outlook": "한화디펜스USA는 미 해군으로부터 중형 상륙함 건조 사업을 수주하며 긍정적인 모멘텀을 확보했습니다. 이는 약 3,600억 원 규모의 계약으로, 해외 시장에서의 경쟁력을 입증하는 사례로 볼 수 있습니다. 이러한 해외 수주 성공은 향후 추가적인 사업 기회 확보로 이어질 가능성이 있습니다. 다만, 글로벌 방산 시장의 경쟁 심화나 주요국의 국방 예산 변동 등은 잠재적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 추가적인 해외 수주 소식이나 방산 관련 정책 발표 등이 주가에 영향을 미칠 수 있습니다."
+        "outlook": "삼성은 반도체 및 AI 사업 등 다양한 분야에서의 기술 개발과 실적 발표가 시장의 주요 관심사입니다. 샘 올트먼 OpenAI CEO가 삼성 사장단과 만나 AI 키보드를 선물했다는 소식이 전해졌습니다. 또한, AI 투자 급랭 속에서 올트먼 CEO가 삼성 경영진에게 선물한 것에 대한 분석도 나왔습니다. 향후 일주일 내에는 삼성전자의 신규 반도체 기술 발표나 스마트폰 신제품 출시 관련 뉴스가 주목받을 수 있습니다."
+      },
+      {
+        "name": "SK",
+        "reason": "AI 및 반도체 사업 등 첨단 기술 분야에서의 투자와 성과가 시장의 주목을 받고 있습니다. (총 3건)",
+        "kr_news_refs": [
+          2,
+          50
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "삼성 사장단 만난 올트먼‥'AI 키보드' 선물도 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9Vc1JPZU5IdlN1Sm5FMnJUQklZSXdZZVpReFpIdXBjcEh3ZkV2R3Fobk83UFhCVnRSZWU4a2FXUG1fQnhJRTVab2hqYWFaZ0JzNGdCOWloMW1Lam5QS0t0VXhEVE5uX2l4Q2luOTBzVzg2Y2E50gF0QVVfeXFMT2dQTm9KUlZDenp4TmszbW9sVjhxMUxTU181MUN2M1dPOEs2bEgzci12SEVwb3RwcDFka08wZXhvUDNuRUdWemJhME9QV3BfOFY0V2JpNHdnR0hySUFtWWl4MmV1b191VHdZc25XQ3lrUHBJTjQ?oc=5",
+            "published_at": "2026-10-31 16:53:12 KST"
+          },
+          {
+            "title": "“어디에 쓰는 물건인고”....AI 투자 급랭 속 방한 샘 올트먼이 꺼낸 선물",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12192456",
+            "published_at": "2026-10-31 17:15:10 KST"
+          }
+        ],
+        "outlook": "SK는 AI 및 반도체 사업 등 첨단 기술 분야에서의 투자와 성과가 시장의 주목을 받고 있습니다. 샘 올트먼 OpenAI CEO가 SK그룹 최태원 회장과 오찬을 가졌다는 소식이 있었습니다. 또한, 올트먼 CEO의 방한과 관련하여 AI 투자 급랭 속에서 그가 꺼낸 선물에 대한 분석도 나왔습니다. 향후 일주일 내에는 SK하이닉스의 신규 메모리 반도체 개발 소식이나 AI 관련 신사업 추진 발표 등이 시장의 관심을 받을 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "Crypto",
-          "outlook": "가상자산 시장은 북한 해커의 대규모 코인 탈취 사건과 관련된 뉴스가 주목받고 있습니다. 특히 바이낸스를 노린 해킹 시도와 관련하여 미국 FBI 및 비밀경호국의 공조 수사 착수 소식이 전해졌습니다. 이러한 사건들은 가상자산 거래소의 보안 문제와 규제 강화에 대한 우려를 증폭시킬 수 있습니다. 향후 일주일 내에는 관련 수사 결과 발표나 각국 규제 당국의 추가적인 발표가 시장에 영향을 미칠 수 있습니다. 또한, 트럼프 전 대통령의 가상자산 관련 발언도 시장의 관심을 받을 수 있습니다."
+          "name": "스포츠",
+          "outlook": "스포츠 섹터는 다양한 종목의 경기 결과와 관련 이슈가 시장에서 높은 빈도로 언급되며 주목받고 있습니다. 테니스, K리그, 프로농구 등 다양한 종목의 경기 결과가 보도되었습니다. 향후 일주일 내에는 주요 스포츠 리그의 경기 결과나 선수들의 이적 소식 등이 시장의 관심을 받을 수 있습니다."
         },
         {
-          "name": "방산",
-          "outlook": "방산 부문에서는 한화디펜스USA가 미 해군으로부터 중형 상륙함 건조 사업을 수주하며 주목받고 있습니다. 이는 약 3,600억 원 규모의 계약으로, 해외 수주 확대에 대한 긍정적인 신호로 해석될 수 있습니다. 이러한 해외 수주 성공은 향후 추가적인 사업 기회 확보로 이어질 가능성이 있습니다. 다만, 글로벌 지정학적 리스크 완화 여부나 주요국의 국방 예산 변동 등은 방산 부문의 투자 심리에 영향을 미칠 수 있는 요인입니다. 다음 주에는 추가적인 해외 수주 소식이나 방산 관련 정책 발표 등이 주목될 수 있습니다."
+          "name": "AI",
+          "outlook": "국내 AI 섹터는 기술 발전과 신규 서비스 출시, 실적 발표 등이 주요 관심사입니다. 샘 올트먼 OpenAI CEO의 방한과 삼성 경영진과의 만남이 주목받았으며, AI 키보드 선물 소식도 있었습니다. 또한, AI 투자 급랭 속에서 올트먼 CEO가 꺼낸 선물에 대한 분석도 나왔습니다. 의료 분야에서의 AI 활용 가능성도 제시되었습니다. 향후 일주일 내에는 국내 AI 기업들의 신기술 발표나 정부의 AI 육성 정책 관련 뉴스가 주목받을 수 있습니다."
         },
         {
-          "name": "반도체",
-          "outlook": "최근 유튜브 채널 '삼프로TV'와 '소수몽키'에서는 AI 투자 회의론과 빅테크 쇼크가 반도체 투매로 이어졌다는 분석이 나왔습니다. AI 인프라 관련 반도체 투자에 대한 분석이 포함되었으나, 현재로서는 구체적인 반도체 종목에 대한 단기 위험 요인이나 다음 주에 예정된 주요 이벤트에 대한 정보는 부족합니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 기술 개발 관련 뉴스가 시장의 관심을 받을 수 있습니다. AI 시장의 성장 전망과 반도체 업황 회복 시점에 대한 불확실성은 여전히 남아 있습니다."
+          "name": "소비",
+          "outlook": "소비 섹터는 소비 심리 변화와 관련 기업들의 실적, 신제품 출시 동향이 꾸준히 언급되고 있습니다. 정부는 소비 진작 행사를 더 만들고 국민들의 걱정을 덜어주기 위해 최선을 다하겠다고 밝혔습니다. '코리아 그랜드 페스티벌'이 개막하여 소비 촉진에 기여할 것으로 보입니다. 향후 일주일 내에는 주요 유통업체들의 신규 프로모션이나 소비 관련 지표 발표 등이 시장의 관심을 받을 수 있습니다."
         }
       ],
       "stocks": [
         {
-          "name": "Binance",
-          "outlook": "Binance는 최근 북한 해커의 대규모 코인 탈취 사건과 관련하여 미국 FBI 및 비밀경호국의 공조 수사 대상이 되면서 주목받고 있습니다. 이러한 사건은 Binance의 보안 시스템과 규제 준수 여부에 대한 의문을 제기하며, 향후 규제 강화로 이어질 가능성이 있습니다. 트럼프 전 대통령의 관련 발언 또한 시장의 관심을 끌 수 있습니다. 다음 주에는 수사 진행 상황이나 규제 당국의 발표가 Binance의 사업 및 주가에 직접적인 영향을 미칠 수 있습니다. 현재로서는 규제 관련 불확실성이 주요 위험 요인으로 작용하고 있습니다."
+          "name": "삼성",
+          "outlook": "삼성은 반도체 및 AI 사업 등 다양한 분야에서의 기술 개발과 실적 발표가 시장의 주요 관심사입니다. 샘 올트먼 OpenAI CEO가 삼성 사장단과 만나 AI 키보드를 선물했다는 소식이 전해졌습니다. 또한, AI 투자 급랭 속에서 올트먼 CEO가 삼성 경영진에게 선물한 것에 대한 분석도 나왔습니다. 향후 일주일 내에는 삼성전자의 신규 반도체 기술 발표나 스마트폰 신제품 출시 관련 뉴스가 주목받을 수 있습니다."
         },
         {
-          "name": "한화디펜스USA",
-          "outlook": "한화디펜스USA는 미 해군으로부터 중형 상륙함 건조 사업을 수주하며 긍정적인 모멘텀을 확보했습니다. 이는 약 3,600억 원 규모의 계약으로, 해외 시장에서의 경쟁력을 입증하는 사례로 볼 수 있습니다. 이러한 해외 수주 성공은 향후 추가적인 사업 기회 확보로 이어질 가능성이 있습니다. 다만, 글로벌 방산 시장의 경쟁 심화나 주요국의 국방 예산 변동 등은 잠재적인 위험 요인으로 작용할 수 있습니다. 다음 주에는 추가적인 해외 수주 소식이나 방산 관련 정책 발표 등이 주가에 영향을 미칠 수 있습니다."
-        },
-        {
-          "name": "삼성전자",
-          "outlook": "삼성전자는 최근 AI 투자 회의론과 빅테크 쇼크로 인한 반도체 투매 현상 속에서 주목받고 있습니다. AI 인프라 관련 반도체 투자에 대한 분석이 있었으나, 삼성전자 자체의 구체적인 촉매제나 단기 위험 요인에 대한 최신 뉴스는 부족한 상황입니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 기술 개발 관련 뉴스가 시장의 관심을 받을 수 있습니다. AI 시장의 성장 전망과 반도체 업황 회복 시점에 대한 불확실성은 여전히 남아 있으며, 이는 삼성전자의 주가에도 영향을 미칠 수 있습니다. 현재 단계에서는 명확한 시그널 부재로 인해 보수적인 접근이 필요해 보입니다."
+          "name": "SK",
+          "outlook": "SK는 AI 및 반도체 사업 등 첨단 기술 분야에서의 투자와 성과가 시장의 주목을 받고 있습니다. 샘 올트먼 OpenAI CEO가 SK그룹 최태원 회장과 오찬을 가졌다는 소식이 있었습니다. 또한, 올트먼 CEO의 방한과 관련하여 AI 투자 급랭 속에서 그가 꺼낸 선물에 대한 분석도 나왔습니다. 향후 일주일 내에는 SK하이닉스의 신규 메모리 반도체 개발 소식이나 AI 관련 신사업 추진 발표 등이 시장의 관심을 받을 수 있습니다."
         }
       ]
     },
@@ -360,18 +451,25 @@
       {
         "name": "AI",
         "freq": 3,
-        "summary": "AI 투자에 대한 회의론이 다시 커지고 있으며, 빅테크 쇼크가 반도체 투매로 이어졌다는 내용이 언급되었습니다. AI 인프라 쇼크에 대한 대응 방안과 장기적인 투자 관점에 대한 논의가 있었습니다.",
+        "summary": "AI 기술의 발전과 그에 따른 도태 가능성이 언급되었습니다. 특히 AI 인프라 쇼크에 대한 대응 방안과 투자 전략이 논의되었습니다. 또한, 의료 분야에서의 AI 활용 가능성도 제시되었습니다.",
         "refs": [
-          5,
-          6
+          2,
+          4,
+          7
         ],
-        "reason": "AI 투자에 대한 회의론이 다시 커지고 있으며, 빅테크 쇼크가 반도체 투매로 이어졌다는 내용이 언급되었습니다. AI 인프라 쇼크에 대한 대응 방안과 장기적인 투자 관점에 대한 논의가 있었습니다.",
+        "reason": "AI 기술의 발전과 그에 따른 도태 가능성이 언급되었습니다. 특히 AI 인프라 쇼크에 대한 대응 방안과 투자 전략이 논의되었습니다. 또한, 의료 분야에서의 AI 활용 가능성도 제시되었습니다.",
         "related_videos": [
           {
-            "title": "[26.10.30 오후 방송 전체보기] 다시 커진 AI 투자 회의론…반도체 투매로 번진 빅테크 쇼크, 10월 마지막 날까지 흔들었다",
-            "url": "https://www.youtube.com/watch?v=v8tOeaGQZ2k",
+            "title": "정말 미친 AI 나왔습니다, '이것' 모르면 완전 도태된다 (김덕진 교수)",
+            "url": "https://www.youtube.com/watch?v=-jL7NhqBX-w",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-10-31 18:30:25 KST"
+          },
+          {
+            "title": "EMR 1위 넘어 제약 마케팅·국민건강비서까지 노리는 '의료 AI'ㅣ김진태 GC메디아이 대표 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=T3NkFvkAmJs",
             "channel_name": "삼프로TV",
-            "published_at": "2026-10-30 19:14:48 KST"
+            "published_at": "2026-10-31 15:00:23 KST"
           },
           {
             "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
@@ -380,68 +478,34 @@
             "published_at": "2026-10-30 18:33:21 KST"
           }
         ],
-        "outlook": "최근 유튜브 채널 '삼프로TV'와 '소수몽키'에서는 AI 투자에 대한 회의론이 다시 커지고 있으며, 빅테크 쇼크가 반도체 투매로 이어졌다는 분석이 나왔습니다. AI 인프라 쇼크에 대한 대응 방안과 장기적인 투자 관점에 대한 논의가 있었습니다. 향후 일주일 내에는 AI 기술 발전의 속도와 수익성 확보 방안에 대한 논의가 지속될 것으로 예상됩니다. 또한, AI 관련 기업들의 자금 흐름 및 투자 계획 발표 여부가 주목될 수 있습니다. 다만, AI 기술의 상용화 및 수익 모델 구축에 대한 불확실성은 단기적인 위험 요인으로 작용할 수 있습니다."
+        "outlook": "AI 섹터는 기술 발전과 도태 가능성에 대한 논의가 활발합니다. 특히 AI 인프라 쇼크에 대한 대응 방안과 투자 전략이 중요하게 다뤄지고 있습니다. 또한, 의료 분야에서의 AI 활용 가능성도 제시되었습니다. 향후 일주일 내에는 AI 관련 신기술 발표나 AI 윤리 및 규제 관련 논의가 주목받을 수 있습니다."
+      },
+      {
+        "name": "의료",
+        "freq": 2,
+        "summary": "의료 AI 분야에서 EMR 1위 기업을 넘어 마케팅 및 국민 건강 비서 역할까지 노리는 기업에 대한 소개가 있었습니다. 또한, 의료 AI가 국민 건강에 기여할 수 있는 가능성이 언급되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "의료 AI 분야에서 EMR 1위 기업을 넘어 마케팅 및 국민 건강 비서 역할까지 노리는 기업에 대한 소개가 있었습니다. 또한, 의료 AI가 국민 건강에 기여할 수 있는 가능성이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "EMR 1위 넘어 제약 마케팅·국민건강비서까지 노리는 '의료 AI'ㅣ김진태 GC메디아이 대표 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=T3NkFvkAmJs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-31 15:00:23 KST"
+          }
+        ],
+        "outlook": "의료 섹터는 AI 기술과의 접목이 활발하게 논의되고 있습니다. EMR 1위 기업을 넘어 제약 마케팅 및 국민 건강 비서 역할까지 노리는 의료 AI 기업에 대한 소개가 있었습니다. 의료 AI가 국민 건강에 기여할 수 있는 가능성도 언급되었습니다. 향후 일주일 내에는 의료 AI 관련 신규 서비스 출시나 임상 시험 결과 발표 등이 주목받을 수 있습니다."
       },
       {
         "name": "반도체",
-        "freq": 2,
-        "summary": "AI 투자 회의론과 빅테크 쇼크로 인해 반도체 투매가 발생했다는 내용이 언급되었습니다. AI 인프라 관련 반도체 투자에 대한 분석이 포함되었습니다.",
-        "refs": [
-          5,
-          6
-        ],
-        "reason": "AI 투자 회의론과 빅테크 쇼크로 인해 반도체 투매가 발생했다는 내용이 언급되었습니다. AI 인프라 관련 반도체 투자에 대한 분석이 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "[26.10.30 오후 방송 전체보기] 다시 커진 AI 투자 회의론…반도체 투매로 번진 빅테크 쇼크, 10월 마지막 날까지 흔들었다",
-            "url": "https://www.youtube.com/watch?v=v8tOeaGQZ2k",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-10-30 19:14:48 KST"
-          },
-          {
-            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
-            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
-            "channel_name": "소수몽키",
-            "published_at": "2026-10-30 18:33:21 KST"
-          }
-        ],
-        "outlook": "유튜브 채널 '삼프로TV'와 '소수몽키'에서는 AI 투자 회의론과 빅테크 쇼크로 인해 반도체 투매가 발생했다는 내용이 언급되었습니다. AI 인프라 관련 반도체 투자에 대한 분석이 포함되었으나, 현재로서는 구체적인 반도체 종목에 대한 단기 위험 요인이나 다음 주에 예정된 주요 이벤트에 대한 정보는 부족합니다. 향후 일주일 내에는 주요 반도체 기업들의 실적 발표나 신규 기술 개발 관련 뉴스가 시장의 관심을 받을 수 있습니다. AI 시장의 성장 전망과 반도체 업황 회복 시점에 대한 불확실성은 여전히 남아 있습니다."
-      },
-      {
-        "name": "일본 경제",
-        "freq": 2,
-        "summary": "일본 열도에 퍼진 사상 초유의 경고와 동일본보다 무서운 재앙에 대한 분석이 있었습니다. 일본 농촌 현황 및 일본 농협(JA)에 대한 내용도 다루어졌습니다.",
-        "refs": [
-          4,
-          10
-        ],
-        "reason": "일본 열도에 퍼진 사상 초유의 경고와 동일본보다 무서운 재앙에 대한 분석이 있었습니다. 일본 농촌 현황 및 일본 농협(JA)에 대한 내용도 다루어졌습니다.",
-        "related_videos": [
-          {
-            "title": "일본 열도에 퍼진 사상 초유의 경고, 동일본보다 무서운 9.0 재앙 온다 (김기범 교수)",
-            "url": "https://www.youtube.com/watch?v=cdqEiaBtC-s",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-10-30 19:30:34 KST"
-          },
-          {
-            "title": "뼈를 깎는 체질개선에 들어간 협동조합들",
-            "url": "https://www.youtube.com/watch?v=k6CDRTmyAHo",
-            "channel_name": "슈카월드",
-            "published_at": "2026-10-29 19:07:50 KST"
-          }
-        ],
-        "outlook": "유튜브 채널 '김작가 TV'와 '슈카월드'에서는 일본 열도에 퍼진 사상 초유의 경고와 동일본보다 무서운 재앙에 대한 분석이 있었습니다. 또한 일본 농촌 현황 및 일본 농협(JA)에 대한 내용도 다루어졌습니다. 향후 일주일 내에는 일본의 경제 지표 발표나 정부의 경제 정책 관련 뉴스가 주목될 수 있습니다. 일본의 인구 구조 변화와 이에 따른 경제적 영향에 대한 분석이 지속될 것으로 예상됩니다. 다만, 예측 불가능한 자연재해나 지정학적 리스크는 일본 경제에 단기적인 위험 요인으로 작용할 수 있습니다."
-      }
-    ],
-    "top3_stocks": [
-      {
-        "name": "Nvidia",
         "freq": 1,
-        "summary": "AI 인프라 쇼크 대응 방안과 관련하여 Nvidia 관련 ETF가 언급되었습니다. 장기적인 관점에서 Nvidia에 투자하는 방법에 대한 내용이 포함되었습니다.",
+        "summary": "AI 인프라 쇼크에 대한 대응 방안과 함께 AI 반도체 관련 ETF에 대한 언급이 있었습니다.",
         "refs": [
-          6
+          7
         ],
-        "reason": "AI 인프라 쇼크 대응 방안과 관련하여 Nvidia 관련 ETF가 언급되었습니다. 장기적인 관점에서 Nvidia에 투자하는 방법에 대한 내용이 포함되었습니다.",
+        "reason": "AI 인프라 쇼크에 대한 대응 방안과 함께 AI 반도체 관련 ETF에 대한 언급이 있었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
@@ -451,7 +515,47 @@
             "published_at": "2026-10-30 18:33:21 KST"
           }
         ],
-        "outlook": "유튜브 채널 '소수몽키'에서는 AI 인프라 쇼크 대응 방안과 관련하여 Nvidia 관련 ETF가 언급되었습니다. 장기적인 관점에서 Nvidia에 투자하는 방법에 대한 내용이 포함되었으나, Nvidia 주가에 직접적인 영향을 미칠 만한 구체적인 촉매제나 단기 위험 요인에 대한 최신 뉴스는 부족합니다. 향후 일주일 내에는 AI 칩 시장의 경쟁 구도 변화나 주요 고객사의 투자 계획 발표 등이 Nvidia의 주가에 영향을 줄 수 있습니다. 현재 단계에서는 명확한 시그널 부재로 인해 보수적인 접근이 필요해 보입니다."
+        "outlook": "반도체 섹터는 AI 인프라 쇼크에 대한 대응 방안과 함께 AI 반도체 관련 ETF에 대한 언급이 있었습니다. 향후 일주일 내에는 주요 반도체 기업들의 신규 칩 출시나 AI 관련 수요 증가에 대한 전망이 주목받을 수 있습니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "GC메디아이",
+        "freq": 1,
+        "summary": "GC메디아이는 EMR 1위 기업을 넘어 제약 마케팅 및 국민 건강 비서 역할까지 노리는 의료 AI 기업으로 소개되었습니다. 해당 기업은 의료 AI 분야에서 활동하고 있습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "GC메디아이는 EMR 1위 기업을 넘어 제약 마케팅 및 국민 건강 비서 역할까지 노리는 의료 AI 기업으로 소개되었습니다. 해당 기업은 의료 AI 분야에서 활동하고 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "EMR 1위 넘어 제약 마케팅·국민건강비서까지 노리는 '의료 AI'ㅣ김진태 GC메디아이 대표 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=T3NkFvkAmJs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-10-31 15:00:23 KST"
+          }
+        ],
+        "outlook": "GC메디아이는 의료 AI 분야에서 EMR 1위 기업을 넘어 제약 마케팅 및 국민 건강 비서 역할까지 노리는 기업으로 소개되었습니다. 향후 일주일 내에는 GC메디아이의 신규 서비스 출시나 파트너십 체결 관련 소식이 주가에 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "AI 반도체 관련 ETF에 대한 언급에서 Nvidia가 포함된 것으로 추정됩니다. 해당 ETF는 AI 인프라와 관련된 투자 기회를 제공합니다.",
+        "refs": [
+          7
+        ],
+        "reason": "AI 반도체 관련 ETF에 대한 언급에서 Nvidia가 포함된 것으로 추정됩니다. 해당 ETF는 AI 인프라와 관련된 투자 기회를 제공합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI인프라 쇼크 어떻게 대응해야 할까, 다음 승자까지 마음 편하게 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=DBm1cqv3avc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-10-30 18:33:21 KST"
+          }
+        ],
+        "outlook": "Nvidia는 AI 반도체 관련 ETF에 포함된 것으로 추정되며, AI 인프라와 관련된 투자 기회를 제공합니다. 향후 일주일 내에는 Nvidia의 신규 GPU 출시나 AI 관련 수요 증가에 대한 전망이 주가에 영향을 미칠 수 있습니다."
       }
     ],
     "videos_collected": 10
@@ -460,63 +564,63 @@
     "us": {
       "stocks": [
         {
-          "name": "Intel",
-          "freq": 4
-        },
-        {
-          "name": "Rivian",
-          "freq": 4
-        },
-        {
-          "name": "Iovance",
-          "freq": 3
-        },
-        {
           "name": "Alphabet",
           "freq": 1
         },
         {
-          "name": "ExxonMobil",
+          "name": "Binance",
+          "freq": 3
+        },
+        {
+          "name": "OpenAI",
           "freq": 2
         },
         {
-          "name": "Chevron",
-          "freq": 2
-        },
-        {
-          "name": "Microsoft",
+          "name": "Intel",
           "freq": 1
         },
         {
           "name": "Meta",
+          "freq": 3
+        },
+        {
+          "name": "McDonald's",
           "freq": 2
         },
         {
-          "name": "Starbucks",
+          "name": "Netflix",
           "freq": 2
         },
         {
-          "name": "Coinbase",
-          "freq": 2
-        },
-        {
-          "name": "C3.ai",
+          "name": "ExxonMobil",
           "freq": 1
         },
         {
-          "name": "Okta",
+          "name": "Chevron",
           "freq": 1
         },
         {
-          "name": "Carnival",
+          "name": "First Financial",
           "freq": 1
         },
         {
-          "name": "Alset",
+          "name": "Home Bancshares",
           "freq": 1
         },
         {
-          "name": "AMD",
+          "name": "Interface",
+          "freq": 1
+        },
+        {
+          "name": "Hyundai Mobis",
+          "freq": 1
+        },
+        {
+          "name": "OceanFirst Financial",
+          "freq": 1
+        },
+        {
+          "name": "Tempsens",
           "freq": 1
         }
       ],
@@ -526,59 +630,59 @@
           "freq": 2
         },
         {
-          "name": "Tech",
-          "freq": 7
+          "name": "Oil",
+          "freq": 3
         },
         {
-          "name": "Oil",
-          "freq": 5
+          "name": "Tech",
+          "freq": 3
         },
         {
           "name": "Crypto",
-          "freq": 4
+          "freq": 3
         },
         {
-          "name": "Gold",
+          "name": "Financials",
           "freq": 3
+        },
+        {
+          "name": "Automotive",
+          "freq": 3
+        },
+        {
+          "name": "Cruise",
+          "freq": 2
+        },
+        {
+          "name": "Food",
+          "freq": 2
+        },
+        {
+          "name": "Hedge Fund",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
         },
         {
           "name": "반도체",
           "freq": 1
         },
         {
-          "name": "Automotive",
+          "name": "Gold",
           "freq": 2
         },
         {
-          "name": "Cruise",
-          "freq": 1
-        },
-        {
-          "name": "Federal Debt",
-          "freq": 1
-        },
-        {
-          "name": "Coffee Makers",
-          "freq": 1
-        },
-        {
           "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "Utilities",
           "freq": 1
         },
         {
-          "name": "Cybersecurity",
-          "freq": 1
-        },
-        {
-          "name": "Inflation",
-          "freq": 1
-        },
-        {
-          "name": "Healthcare",
-          "freq": 1
-        },
-        {
-          "name": "Social Media",
+          "name": "Debt",
           "freq": 1
         }
       ]
@@ -586,11 +690,39 @@
     "kr": {
       "stocks": [
         {
-          "name": "Binance",
-          "freq": 5
+          "name": "삼성",
+          "freq": 3
         },
         {
-          "name": "삼성전자",
+          "name": "SK",
+          "freq": 3
+        },
+        {
+          "name": "현대자동차",
+          "freq": 2
+        },
+        {
+          "name": "바이낸스",
+          "freq": 2
+        },
+        {
+          "name": "KCC",
+          "freq": 2
+        },
+        {
+          "name": "DB",
+          "freq": 2
+        },
+        {
+          "name": "대한항공",
+          "freq": 2
+        },
+        {
+          "name": "kt",
+          "freq": 2
+        },
+        {
+          "name": "현대모비스",
           "freq": 1
         },
         {
@@ -598,65 +730,37 @@
           "freq": 1
         },
         {
-          "name": "한화디펜스USA",
-          "freq": 2
-        },
-        {
-          "name": "기아",
-          "freq": 2
-        },
-        {
-          "name": "현대자동차",
-          "freq": 2
-        },
-        {
-          "name": "Amazon",
-          "freq": 2
-        },
-        {
-          "name": "Intel",
+          "name": "삼성전자",
           "freq": 1
         },
         {
-          "name": "GS건설",
+          "name": "한화",
           "freq": 1
         },
         {
-          "name": "포스코",
+          "name": "롯데",
           "freq": 1
         },
         {
-          "name": "효성중공업",
+          "name": "삼성 라이온즈",
           "freq": 1
         },
         {
-          "name": "효성티앤씨",
-          "freq": 1
-        },
-        {
-          "name": "현대오토에버",
-          "freq": 1
-        },
-        {
-          "name": "Apple",
-          "freq": 1
-        },
-        {
-          "name": "Alphabet",
+          "name": "GS칼텍스",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
-          "freq": 1
+          "freq": 2
         },
         {
-          "name": "Crypto",
-          "freq": 4
+          "name": "스포츠",
+          "freq": 5
         },
         {
-          "name": "Oil",
+          "name": "가상자산",
           "freq": 2
         },
         {
@@ -664,47 +768,47 @@
           "freq": 1
         },
         {
-          "name": "Automotive",
+          "name": "소비",
+          "freq": 3
+        },
+        {
+          "name": "부동산",
           "freq": 2
         },
         {
-          "name": "방산",
-          "freq": 1
+          "name": "건설",
+          "freq": 2
         },
         {
-          "name": "Interest Rates",
-          "freq": 1
+          "name": "금융",
+          "freq": 2
         },
         {
-          "name": "Recycling",
-          "freq": 1
-        },
-        {
-          "name": "Construction",
-          "freq": 1
-        },
-        {
-          "name": "Steel",
-          "freq": 1
-        },
-        {
-          "name": "Bonds",
-          "freq": 1
-        },
-        {
-          "name": "Manufacturing",
-          "freq": 1
-        },
-        {
-          "name": "Data Centers",
-          "freq": 1
+          "name": "자동차",
+          "freq": 2
         },
         {
           "name": "Energy",
           "freq": 1
         },
         {
-          "name": "Food & Beverage",
+          "name": "IT",
+          "freq": 1
+        },
+        {
+          "name": "항공",
+          "freq": 1
+        },
+        {
+          "name": "조선",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "물류",
           "freq": 1
         }
       ]
