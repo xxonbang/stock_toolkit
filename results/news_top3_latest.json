@@ -1,247 +1,217 @@
 {
-  "generated_at": "2026-11-03 20:01 KST",
+  "generated_at": "2026-11-04 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
-        "name": "Midterm Elections",
-        "reason": "미국 중간선거 관련 뉴스가 다수 보도되며 정치적 불확실성과 정책 변화 가능성에 대한 시장의 관심이 반영되었습니다 (총 9건).",
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 10건)",
         "us_news_refs": [
-          1,
-          7,
+          3,
+          6,
           11,
-          20,
-          25,
-          28,
+          12,
+          14,
+          15,
+          23,
           29,
-          42,
-          48
+          33,
+          44
         ],
         "related_news": [
           {
-            "title": "Tech losses weigh on global markets ahead of US midterm elections, while oil prices rise - AP News",
-            "title_ko": "기술주 하락, 미국 중간선거 앞두고 세계 증시 영향, 유가 상승",
-            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOekRxNGUzaWpTRy1SLXpVUmlsbkNPVWMyQ3Q4WWx2eHFvRjhvUzViNUtXcGlxLVlmdlphQUc2bk5CX2ZwVmp5RnJQNTJxaVdjd0dra051ZUJNaVpQcVFVQjBPa1MtY0tEZ0N3MG9VMGJWWXZ4cXoyRzhKSm02NHJLbDdlYUpVbE4tbnhuOEZodFlmX0k?oc=5",
-            "published_at": "2026-11-03 18:27:00 KST"
+            "title": "AMD stock rises after Q3 earnings beat, as data center revenue climbs 97% - Yahoo Finance",
+            "title_ko": "AMD, 3분기 실적 예상 상회…데이터센터 매출 97%↑",
+            "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPR2NPYWttRXRkSERHSVlBbkU1QzVTZEZCaW1lMHYwSEhFM3oxQnlBdTlodGNJeFpSM2E1UFZiUGdHVFRHUjNTQW95VmlYNy1jNDNDeWpNMnlOQjFhYkRuNVh3WVNrYU9zeGc0MHhGc0gzOFp0U2h3N3hqTC1BVVhMcGtZdUlMN285ckpaU2VFeUlRSU5LMnMteTctTVJSdGU5V2g3WWRTZ2VRa2JaOUVxNEFRQ0M3bVFSdmdSaDRCZ0FFYl81MzVkZlg0OA?oc=5",
+            "published_at": "2026-11-04 06:35:21 KST"
           },
           {
-            "title": "US stock futures mixed as Apple slides, midterms loom",
-            "title_ko": "Apple 하락, 중간선거 임박 속 미국 주식 선물 혼조세",
-            "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-mixed-as-apple-slides-midterms-loom-4994306",
-            "published_at": "2026-11-03 19:54:53 KST"
+            "title": "Super Micro to report Q1 earnings as AI trade attempts comeback - Yahoo Finance",
+            "title_ko": "슈퍼 마이크로, AI 거래 회복 시 1분기 실적 발표",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOWEF1SEY2cmRCbHIxUjltS2tKS1k3RVdGWE9QbENHSm5mM3kxZUQ5Y3JBb3BPd0ZYWmM2d2JOLWJfSE05S3FqNmdfSEdtdElnV2tFbi1xaHo5WHJUWTZKNVFjV2xCVEFQcUtNN01vbndPR0x6UXY0dDY1RU1qa1FncU92UzZqdjV4cURJQTdpd2Y4TWxzZy1xSlQ3VXF2NzBmOWpfeVkwa0t1WU9XVG1yY3MxanhnQU9jQlpJYzVhZ00?oc=5",
+            "published_at": "2026-11-04 04:53:15 KST"
           },
           {
-            "title": "Why is Arthur J Gallagher stock sliding today?",
-            "title_ko": "Arthur J Gallagher 주가 오늘 하락 이유는?",
-            "url": "https://www.investing.com/news/stock-market-news/why-is-arthur-j-gallagher-stock-sliding-today-93CH-4994304",
-            "published_at": "2026-11-03 19:51:50 KST"
+            "title": "Google Curbs AI in School Accounts After Pushback - WSJ",
+            "title_ko": "구글, 반발에 학교 계정 AI 사용 제한",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQSEpoOVBCTWZMaE5yTk5JeG0tX0FWdk5OZkY1d1dWQXQycUZGR2xwTks3VDlNaTJENmF6ZjM1QzFTN3QzRENuNFFlUjRqdk1FTW5WSWRDU2o3N1dEMEJsaFEzUGt2NGEyUXhXSHB6dF92R2U4d0U4SUN4UHN6LVhCNnJWamlqM2NzenBDWjAyVQ?oc=5",
+            "published_at": "2026-11-04 03:39:00 KST"
           },
           {
-            "title": "What analysts are saying as Apple’s stock falls after earnings report",
-            "title_ko": "Apple 주가 실적 발표 후 하락, 분석가들 의견",
-            "url": "https://www.marketwatch.com/story/what-analysts-are-saying-as-apples-stock-falls-after-earnings-report-f0afa357?mod=mw_rss_topstories",
-            "published_at": "2026-11-03 19:20:00 KST"
+            "title": "OpenAI says ChatGPT is catching up to Google in search - The Verge",
+            "title_ko": "OpenAI, ChatGPT가 검색서 구글 추격 중",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNXNJQ0NxOENuN0dfdUhVS0p5NUN3YTc5TkpTQi1LMDJac2hGUWlGOF85RWFHaFU1cE05cmU4YmFUdVRaWlNVT05xVV9ia2JYMFJMUnB2Ti03UlpFNFlpUnM3U05zVGtCMjM0Ti1ZQ3lLdjdfb2VtN0xkX2xRR0hRS05yYUhtdzlFVGxWYTdyRlFiVnE2UjluZjlnTkgyRW42bkh5S25YRU9JZTBZNzVoall6NnU?oc=5",
+            "published_at": "2026-11-04 03:30:42 KST"
           },
           {
-            "title": "Gas prices are set to be highest for any Election Day in U.S. history - The Washington Post",
-            "title_ko": "미국 역사상 최고 선거일 가스 가격 예상",
-            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQY2p6SUZBT3lJVG9SRFp3MFJuN1pVdTBlTkRXV1JLbWVnd05iaUFrR1YxMk1aMEdpZjMwSEwwbEVzWVhDMV9hSmhoTmR5R3o2cE5KcUpCTU5Kb3BwSGFXR0RlR3JCbkJZVllfenJ6dG9zWnRJdUhFeGFWejZBcjdnZl9pV1VPdTZiSFA2VjZ3T2RNZXVwM2VDUE9pZUxMSVk0cndocEltcTFQU1NNT3c?oc=5",
-            "published_at": "2026-11-03 12:50:00 KST"
+            "title": "US Stocks Waver as Election, AI Bubble Risks Weigh on Outlook - Bloomberg.com",
+            "title_ko": "美 증시, 선거·AI 거품 위험에 전망 불투명",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQaXNvOEhtNW1UdEtjYzJoMFR3SnFsT0JUMzg4dmR0OW80bmZVUHFDQmhjUWNrQUxvSXBLbjNWR3A2STNwa1BGMHdSbDBWVVRaYTZKVVNKaUl4Y3V4UjRGMFRWZ3EtanM2QkJsb1EwU1U5V0tXSDFKVTVCUUxBYjd6bmRLdHNwa1RIcDhRTURNbTVlN2FJamFYZ29EMDVpRjdPdjA0eVZETjJmeXVyMk1OUw?oc=5",
+            "published_at": "2026-11-04 03:27:55 KST"
           }
         ],
-        "outlook": "미국 중간선거 결과에 따른 정치적 불확실성 증감이 향후 일주일간 시장의 주요 변수가 될 전망입니다. 선거 결과에 따라 특정 정책 방향의 변화 가능성이 제기되며, 이는 관련 산업 섹터에 영향을 미칠 수 있습니다. 특히 기술주와 에너지 섹터는 정책 변화에 민감하게 반응할 수 있습니다. 다만, 선거 결과 확정 이후 차익실현 매물이 출회될 가능성도 존재합니다. 다음 주 예정된 주요 경제 지표 발표 또한 시장의 변동성을 키울 수 있습니다."
+        "outlook": "AI 섹터는 3분기 실적 발표 시즌을 맞아 빅테크 기업들의 AI 칩 수요와 관련된 긍정적인 소식이 주가에 영향을 미치고 있습니다. AMD는 데이터센터 매출이 97% 증가하며 실적을 상회하는 성과를 발표했습니다. 그러나 구글이 학교 계정에서 AI 사용을 제한하는 등 일부 규제 움직임도 나타나고 있으며, OpenAI의 ChatGPT가 검색 시장에서 구글을 추격하고 있다는 소식은 경쟁 심화를 시사합니다. 향후 일주일 내에는 AI 관련 기업들의 추가 실적 발표와 신규 AI 기술 동향이 주목받을 것으로 예상됩니다. 또한, 미국 증시 전반에 걸쳐 선거 불확실성과 AI 거품에 대한 우려가 투자 심리에 영향을 줄 수 있습니다."
       },
       {
-        "name": "AI",
-        "reason": "AI 기술 발전과 관련 기업들의 실적 발표가 맞물리며 AI 섹터에 대한 지속적인 관심이 나타났습니다 (총 7건).",
+        "name": "Oil and Gas",
+        "reason": "국제 유가 변동 및 지정학적 이슈가 관련 섹터에 영향을 미침 (총 3건)",
         "us_news_refs": [
           4,
-          24,
-          27,
-          30,
-          33,
-          37,
-          47
+          17,
+          43
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Blackstone president calls for more equity to fund AI buildout as debt risks mount - CNBC",
-            "title_ko": "Blackstone 사장, 부채 위험 증가 속 AI 구축 자금으로 지분 확대 촉구",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPUjFCTnQtNlFzNmJjWEhkR3JkR0tLa1l3THpYclotUGpBM1hoNUFoS01FSnVTVTIxYW1WVi1laGcwNjRhNWRNRTc4LXJEYWItMHJfQ2J6ejdRQVJnTUtyWnF4TWxIN3Bya0NfUEdzdUdRNGlLbFkzTVBZZGduNjRJdjJHUjDSAYoBQVVfeXFMT1JzT05XMVota3o1TWNCV28zSlhySmtvWU5obUhHR2tGa290REN1aGFEMlI5TmpJUS1VS003UjNQbDBya3VDNFh1TnU4aUZvN0wxWndZdlpDd010aGpYYVZRRTU2YnJ2MXhTZE51VkNEeWo4dWZhR3R5dDQtNnFnLVZ5Qk5tX1BBcE53?oc=5",
-            "published_at": "2026-11-03 15:36:28 KST"
+            "title": "Saudi Aramco Profit Jumps Despite Damaging Attacks on Pipelines and Refineries - The New York Times",
+            "title_ko": "사우디 아람코, 송유관·정유시설 공격에도 이익 급증",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE8yNWtyRjVSdzJFSk4xeXctTEFXSloyU0VMWk11R0libnQ2ZnRkRVZfNkJTaGtYSng0akhzT21GSFRfTkRQNG80WDFubEpUWmVRbDJUa0RhcU0zMXFOdWFrc2dGS2dlOHMxQ2NoVGU4M3JUSTNtbzFCbGJvWVBqdw?oc=5",
+            "published_at": "2026-11-04 05:23:22 KST"
           },
           {
-            "title": "Anthropic Claims to Be Near Recursive Self-Improvement - Gizmodo",
-            "title_ko": "Anthropic, 재귀적 자기 개선 근접 주장",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQWW56ZDBxWlhxY24xbDBENFhEXzNZUFRiYzhfbHI2bjRFSzdlRGlxR05jX0hKS21HOU1DVHJURjFnVmVuNmxzQ0JhU3FrQU9hemlsVjNQSUNCa1BYODdhQWdaN1ZNQnh0Mzk0MjVjT3h3RWVUUHBOYnE3V1BOZTBGZDJqLWkzS2hIYVdRWUdwUW1YaHJRMnJ1a2Jn?oc=5",
-            "published_at": "2026-11-03 13:03:24 KST"
+            "title": "EXCLUSIVE: US billionaire leads swap plan to buy Lukoil's overseas assets, sources say - Reuters",
+            "title_ko": "美 억만장자, 루코일 해외 자산 인수 계획 주도",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPdlc5d1FIMl9JRFFnMHlQaW5pLVZrOGFFNzZmYWQ2MS1hcFdjOGd2eUc3a1NQZzlNRjc4azNDSDJURzBCTFJuTUVwZVVJbVlfSDV1aUN2Z1ljZktQRGNLYks3ZUdJOHJ0ZzBDaGl3UFR5YzRMVElIbi16U09uVV96RTVxVS1Odk5sSHhMQTE1eUk1aHNnWTRTZ1E1X1diSnRfNVJnRFkyVWFicWtLaTd0NW9rWmR5TFVnM1NBRVNLVVI?oc=5",
+            "published_at": "2026-11-04 01:35:45 KST"
           },
           {
-            "title": "Dow Jones Futures: AI Trade Dives As Apple Tumbles On Earnings; Midterm Elections Next - Investor's Business Daily",
-            "title_ko": "다우존스 선물: Apple 실적 발표 후 급락, AI 거래 하락; 다음은 중간선거",
-            "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNUFhSS0pDcDhxY3pENzBPOFQxQ3p4VkctbjFUT1Jfb1o0OUVoRVpLYUtFS0VqcnVkZGJGbnZwN1pSUGhaZ010dU9sSGw3SUJ0TUl4czk4a3VRc2pMbk10UGozZ1FWZ19pX3VScTZfVlBocmQ1ZDMwVWZHTjkxSHNBbHJiWHRwcHVXTTRqTHJwNjZpVWM2c1ZCNnNlVnFMUjdPa0dBSFFlM2xpS0w2bGE5OFQ1NWNudkw3ZWI2b1YwQ2l5SmJSS0J2Skl0VGJoaEUycFRIanYybTZ6MkFzU0pvSA?oc=5",
-            "published_at": "2026-11-03 12:03:00 KST"
-          },
-          {
-            "title": "UK must expect AI-powered attack on critical infrastructure within two years, report says - Reuters",
-            "title_ko": "보고서, 영국, 2년 내 AI 기반 중요 인프라 공격 예상해야",
-            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQTjFmQ0ExbUxlWldEekp5T3NVZUc2Mm92VzBUdzJBUUtGVHJjVEhzRmRPSXJTaW1SdFJRTDd0SDNhWGxfc0VJOXJSSFBzX1NfWTVYU2I4Xy1Xa1FPajdrOWVMOHhMeVF2cFlvRGhReXZnOHdRLWxkTGQzV2d5MjBRNkFzZmNick93VXZIdXJSbTk4OWNadkFkUW41RjJCME9FdlZ5ZGFMV0NMM2FuQnRTSmNGcktqR0pNNnZsRl9zTmpMbGZ1T1NiZ2MyLW9Qdw?oc=5",
-            "published_at": "2026-11-03 09:02:00 KST"
-          },
-          {
-            "title": "Marvell, Lumentum tout historic $115B deal to create ‘category leader’ in AI connectivity - Fox Business",
-            "title_ko": "Marvell, Lumentum, AI 연결 분야 '카테고리 리더' 창출 위한 1150억 달러 역사적 거래 홍보",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObFdwZGgwREdqV1F6NGNuei1jeGR5RlpFcXRsQ0FDblBsM2dUSzBuVkVkZTdWeUhIMmZTQ2p2UU1ac0ZFcy03QUZPM3IxMTdQSHZOeUtIcUh2Z0xoazNWaUlicnhjTXk5d0d3dU4yNEJqUjh0SE1UMnZjaFBWRnh5MUIwOHZVaTBpM1pZQkdmdEphNG9Ec0xmbGdqeDEwNmtQMXNjcm9jWjN6NEZrWHJIU29RVdIBuAFBVV95cUxQTndmS2RTUkRQWEItN0xIY0RMT2VlOU5seDdVQV81SmNIeVp6Q2hkS0lFdDBxeXhRd28zd0JGTWo5VXZCOVR6MF8wdF9mcFVsM2VsU1l3LXJITWoyQWg4YS1GU0lWQm5PY3FEWE5oTDhtT05URmdzNkZOR0N4RVR2OGhiRGpMVU54cXg4V2hSR2RDZUVXcDQ5elRSYVlIY0FjWTZUeFJzOWM4S3J3NVh0ckVyWG8tTERz?oc=5",
-            "published_at": "2026-11-03 07:57:00 KST"
+            "title": "Brent Flash Crashes $6 Before Rebounding Towards $104 - Crude Oil Prices Today | OilPrice.com",
+            "title_ko": "브렌트유 6달러 급락 후 104달러 회복 시도",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQV9hbW9vaHpZRHc1OUJHQ2NBWUF3UnlZQUhHY2J4cW52Smk4R2NaTGVfc05ZWk9YY0Q1Qk03WlVuY29IbVAxdTRIZkt4a0k0S29BV3cyMGd6U09neGFodVNaSzRZMmlvNnJpRUN5dGU0Q0ZWenhhbUxjOXp1X2N3dG92c2psLUJELVU0UTVaQUdPUDZFMFJpbFo3ckp4Y2E3TmhYaktoSjAzUlXSAbABQVVfeXFMTXcyQlFSUThlVk5OVkl0NzNpeGVQb0FfZm5tSzhnRm1qZU4taTFXX3pHSkdQSkdBUi11RXI1LXZQVHg0d21TQ0pjN2w4WTVFakstNy1aYXJOZ0dMd19venowZWNzOXZwYkhlbWlYTTNYSVdDekRZQkYzQTdKT19ORDBMQlFzX25wRmxIUmdOdlpGbUtpSlFsU0ZnbFByRnpMdDkxdFBrQ25XS0MtWDZDZGU?oc=5",
+            "published_at": "2026-11-04 00:35:00 KST"
           }
         ],
-        "outlook": "AI 기술 발전과 관련 기업들의 실적 발표가 지속적으로 주목받고 있습니다. 특히 AI 인프라 구축 및 관련 서비스 확장에 대한 투자 논의가 활발하며, 이는 관련 기업들의 주가에 긍정적인 영향을 줄 수 있습니다. 그러나 AI 기술의 빠른 발전 속도와 함께 경쟁 심화 및 규제 가능성에 대한 우려도 상존합니다. 다음 주에는 AI 관련 기업들의 신규 기술 발표나 파트너십 체결 소식이 시장의 관심을 끌 수 있습니다. 또한, AI 기술의 상용화 및 수익성 확보 방안에 대한 시장의 평가가 중요하게 작용할 것입니다."
-      },
-      {
-        "name": "Earnings",
-        "reason": "기업들의 실적 발표 시즌을 맞아 주요 기업들의 실적 결과와 향후 전망에 대한 분석이 집중되었습니다 (총 5건).",
-        "us_news_refs": [
-          1,
-          2,
-          20,
-          27,
-          40
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Tech losses weigh on global markets ahead of US midterm elections, while oil prices rise - AP News",
-            "title_ko": "기술주 하락, 미국 중간선거 앞두고 세계 증시 영향, 유가 상승",
-            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOekRxNGUzaWpTRy1SLXpVUmlsbkNPVWMyQ3Q4WWx2eHFvRjhvUzViNUtXcGlxLVlmdlphQUc2bk5CX2ZwVmp5RnJQNTJxaVdjd0dra051ZUJNaVpQcVFVQjBPa1MtY0tEZ0N3MG9VMGJWWXZ4cXoyRzhKSm02NHJLbDdlYUpVbE4tbnhuOEZodFlmX0k?oc=5",
-            "published_at": "2026-11-03 18:27:00 KST"
-          },
-          {
-            "title": "Apple and Palantir shares slide in premarket trading following post-bell earnings - CNBC",
-            "title_ko": "Apple, Palantir 주가 실적 발표 후 시간외 거래서 하락",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE0tM0xLUm9BNk80ZHdXVFdMX2RJUmtQV3NpNTBoQ0FtRTBQSmhfb1Qxem4xUHJicVUtWlFrNjF5dlhkTXNJblhpbzNqVHl4V1BBN01ORWFSZVF2Qi1rNUV4NmRHUHZpbGVhZXZkMUI5aFMyN3lX0gF6QVVfeXFMUExvb1ZsZk9fQTZvMjltVTBwblFFclFHcHJPOTdlbURXZFQ1UUJpV2daYTVDSVk3dTVyVGtiSGoyMEtMSGVJN2dtVzFFbENwMG1ZNTM5M1ZhbWNIbE5qMkw4OEVONTZUNnpDbVJfUU54c1FIbDBxd29yOUE?oc=5",
-            "published_at": "2026-11-03 18:21:17 KST"
-          },
-          {
-            "title": "What analysts are saying as Apple’s stock falls after earnings report",
-            "title_ko": "Apple 주가 실적 발표 후 하락, 분석가들 의견",
-            "url": "https://www.marketwatch.com/story/what-analysts-are-saying-as-apples-stock-falls-after-earnings-report-f0afa357?mod=mw_rss_topstories",
-            "published_at": "2026-11-03 19:20:00 KST"
-          },
-          {
-            "title": "Dow Jones Futures: AI Trade Dives As Apple Tumbles On Earnings; Midterm Elections Next - Investor's Business Daily",
-            "title_ko": "다우존스 선물: Apple 실적 발표 후 급락, AI 거래 하락; 다음은 중간선거",
-            "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNUFhSS0pDcDhxY3pENzBPOFQxQ3p4VkctbjFUT1Jfb1o0OUVoRVpLYUtFS0VqcnVkZGJGbnZwN1pSUGhaZ010dU9sSGw3SUJ0TUl4czk4a3VRc2pMbk10UGozZ1FWZ19pX3VScTZfVlBocmQ1ZDMwVWZHTjkxSHNBbHJiWHRwcHVXTTRqTHJwNjZpVWM2c1ZCNnNlVnFMUjdPa0dBSFFlM2xpS0w2bGE5OFQ1NWNudkw3ZWI2b1YwQ2l5SmJSS0J2Skl0VGJoaEUycFRIanYybTZ6MkFzU0pvSA?oc=5",
-            "published_at": "2026-11-03 12:03:00 KST"
-          },
-          {
-            "title": "Earnings live updates: Roku posts earnings beat ahead of acquisition by Fox - Yahoo Finance",
-            "title_ko": "실시간 실적 업데이트: Roku, Fox 인수 전 실적 초과 달성",
-            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQYU1hU2lqZ05vZHlVSGRvMzdpNFZ6YWNPLU1vRU9veDFmbndtTm9tNGpNR1g5R3MwNUYwMXN0OFowOEg4RFlKYkZEc0NCSnU5YkhRdExhYXA2RDlMcDVMSThsQ1BRZHFYWmtpNHpvSElqRlNfRjF5MmFFR3N3Ymhvbk1uVHNoVEVMbGdEX1pqbXBZN3lDVmszdTNyUWo1UVNhYi1sTG5zdw?oc=5",
-            "published_at": "2026-11-03 06:39:24 KST"
-          }
-        ],
-        "outlook": "주요 기업들의 실적 발표 시즌이 이어지면서, 기업들의 실제 실적과 향후 가이던스가 시장의 주요 관심사로 부각되고 있습니다. 특히 기술 기업들의 실적 발표 결과는 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다. 예상치를 하회하는 실적이나 부정적인 가이던스는 해당 기업뿐만 아니라 관련 섹터 전반의 주가 하락을 야기할 수 있습니다. 다음 주에는 아직 실적 발표를 앞둔 주요 기업들이 있어, 이들의 발표 결과에 따라 시장의 변동성이 확대될 수 있습니다. 투자자들은 실적 발표와 함께 발표되는 경영진의 코멘트를 통해 향후 사업 전망을 면밀히 분석할 필요가 있습니다."
+        "outlook": "국제 유가는 최근 브렌트유가 6달러 급락 후 104달러 회복을 시도하는 등 변동성을 보이고 있습니다. 사우디 아람코는 송유관 및 정유시설 공격에도 불구하고 이익이 급증했다고 발표했으나, 지정학적 리스크는 여전히 상존합니다. 또한, 미국 억만장자가 루코일의 해외 자산 인수를 주도한다는 소식은 에너지 시장의 M&A 동향에 대한 관심을 높이고 있습니다. 향후 일주일 동안 중동 지역의 지정학적 긴장 고조 여부와 주요 산유국의 생산량 발표 등이 유가에 영향을 미칠 수 있습니다. 다만, 관련 뉴스에서 명확한 단기 촉매제나 위험 요인이 부각되지 않아 시장의 관심은 제한적일 수 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "Apple",
-        "reason": "애플의 실적 발표와 신제품 출시 루머 등 다양한 이슈가 복합적으로 작용하며 시장의 주목을 받았습니다 (총 6건).",
+        "name": "AMD",
+        "reason": "AI 칩 경쟁 심화 및 신제품 출시 기대감으로 주목받음 (총 5건)",
         "us_news_refs": [
-          1,
           2,
-          7,
-          18,
-          20,
-          27
+          3,
+          14,
+          23,
+          32
         ],
         "related_news": [
           {
-            "title": "Tech losses weigh on global markets ahead of US midterm elections, while oil prices rise - AP News",
-            "title_ko": "기술주 하락, 미국 중간선거 앞두고 세계 증시 영향, 유가 상승",
-            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOekRxNGUzaWpTRy1SLXpVUmlsbkNPVWMyQ3Q4WWx2eHFvRjhvUzViNUtXcGlxLVlmdlphQUc2bk5CX2ZwVmp5RnJQNTJxaVdjd0dra051ZUJNaVpQcVFVQjBPa1MtY0tEZ0N3MG9VMGJWWXZ4cXoyRzhKSm02NHJLbDdlYUpVbE4tbnhuOEZodFlmX0k?oc=5",
-            "published_at": "2026-11-03 18:27:00 KST"
+            "title": "Pfizer CEO Says Covid Is ‘Irrelevant.’ He’s Betting on Cancer and Weight-Loss Drugs. - Barron's",
+            "title_ko": "화이자 CEO, 코로나 '무관'. 암·비만 치료제에 베팅",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFA5NmczajA2cTJsaWxsczhaQmdrY1gyUjV1blo1Xy16WXBSX0RiNF9oM0UxSWM0RkhkeF9MZ0ZyXzhvdUMta0NuQXVXX0tHbHNRU081VldBZHFiQk40d3NUTjBuanBpRmhzOXRBTTd0QXozUnIwOTAtdw?oc=5",
+            "published_at": "2026-11-04 07:00:00 KST"
           },
           {
-            "title": "Apple and Palantir shares slide in premarket trading following post-bell earnings - CNBC",
-            "title_ko": "Apple, Palantir 주가 실적 발표 후 시간외 거래서 하락",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE0tM0xLUm9BNk80ZHdXVFdMX2RJUmtQV3NpNTBoQ0FtRTBQSmhfb1Qxem4xUHJicVUtWlFrNjF5dlhkTXNJblhpbzNqVHl4V1BBN01ORWFSZVF2Qi1rNUV4NmRHUHZpbGVhZXZkMUI5aFMyN3lX0gF6QVVfeXFMUExvb1ZsZk9fQTZvMjltVTBwblFFclFHcHJPOTdlbURXZFQ1UUJpV2daYTVDSVk3dTVyVGtiSGoyMEtMSGVJN2dtVzFFbENwMG1ZNTM5M1ZhbWNIbE5qMkw4OEVONTZUNnpDbVJfUU54c1FIbDBxd29yOUE?oc=5",
-            "published_at": "2026-11-03 18:21:17 KST"
+            "title": "AMD stock rises after Q3 earnings beat, as data center revenue climbs 97% - Yahoo Finance",
+            "title_ko": "AMD, 3분기 실적 예상 상회…데이터센터 매출 97%↑",
+            "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPR2NPYWttRXRkSERHSVlBbkU1QzVTZEZCaW1lMHYwSEhFM3oxQnlBdTlodGNJeFpSM2E1UFZiUGdHVFRHUjNTQW95VmlYNy1jNDNDeWpNMnlOQjFhYkRuNVh3WVNrYU9zeGc0MHhGc0gzOFp0U2h3N3hqTC1BVVhMcGtZdUlMN285ckpaU2VFeUlRSU5LMnMteTctTVJSdGU5V2g3WWRTZ2VRa2JaOUVxNEFRQ0M3bVFSdmdSaDRCZ0FFYl81MzVkZlg0OA?oc=5",
+            "published_at": "2026-11-04 06:35:21 KST"
           },
           {
-            "title": "US stock futures mixed as Apple slides, midterms loom",
-            "title_ko": "Apple 하락, 중간선거 임박 속 미국 주식 선물 혼조세",
-            "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-mixed-as-apple-slides-midterms-loom-4994306",
-            "published_at": "2026-11-03 19:54:53 KST"
+            "title": "US Stocks Waver as Election, AI Bubble Risks Weigh on Outlook - Bloomberg.com",
+            "title_ko": "美 증시, 선거·AI 거품 위험에 전망 불투명",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQaXNvOEhtNW1UdEtjYzJoMFR3SnFsT0JUMzg4dmR0OW80bmZVUHFDQmhjUWNrQUxvSXBLbjNWR3A2STNwa1BGMHdSbDBWVVRaYTZKVVNKaUl4Y3V4UjRGMFRWZ3EtanM2QkJsb1EwU1U5V0tXSDFKVTVCUUxBYjd6bmRLdHNwa1RIcDhRTURNbTVlN2FJamFYZ29EMDVpRjdPdjA0eVZETjJmeXVyMk1OUw?oc=5",
+            "published_at": "2026-11-04 03:27:55 KST"
           },
           {
-            "title": "Thousands of Disney job cuts may be coming. Investors are asking what comes next.",
-            "title_ko": "수천 명의 Disney 직원 감축 가능성, 투자자들은 다음 단계 질문",
-            "url": "https://www.marketwatch.com/story/thousands-of-disney-job-cuts-may-be-coming-investors-are-asking-what-comes-next-19cc0662?mod=mw_rss_topstories",
-            "published_at": "2026-11-03 19:36:00 KST"
+            "title": "Skyworks tumbles as sluggish smartphone market weighs on forecast",
+            "title_ko": "Skyworks, 스마트폰 시장 부진에 전망 하향",
+            "url": "https://www.investing.com/news/stock-market-news/skyworks-tumbles-as-sluggish-smartphone-market-weighs-on-forecast-4996716",
+            "published_at": "2026-11-04 07:13:12 KST"
           },
           {
-            "title": "What analysts are saying as Apple’s stock falls after earnings report",
-            "title_ko": "Apple 주가 실적 발표 후 하락, 분석가들 의견",
-            "url": "https://www.marketwatch.com/story/what-analysts-are-saying-as-apples-stock-falls-after-earnings-report-f0afa357?mod=mw_rss_topstories",
-            "published_at": "2026-11-03 19:20:00 KST"
+            "title": "S&P 500 snaps 3-day skid on Election Day as chip stocks rebound - CNBC",
+            "title_ko": "S&P 500, 선거일 칩 주식 반등에 3일 하락세 마감",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5PbWNuUmM3YXpROGVjV016d1ZUZzlCQmc4a3dJaWpoLTcxeXVzTEFMbTY2bjNGWXljaUtXLWo2bE1QNzZ5NGlTMnA3M0VVQjlhaWN6eUVzOW4xS05EQnd0bEJYMEw0aXJJT3NXWklaNmcxcjVnOWVz0gF8QVVfeXFMTVAyTUQ0UV9iNzQyaThOY04yU1FlSEtRRHpLQXBXZnpvLUV5TklWSzhRaGw2ckowNEtJcXRtWldwelIxYnhDMDFSTzVJVFZwbXZ1Q2QxZWlTUHdUdzdqaW0xMGZIUHlpWlBYWHJ6UGE3cVhRWkpDdTExU29VRQ?oc=5",
+            "published_at": "2026-11-04 06:15:00 KST"
           }
         ],
-        "outlook": "애플의 최근 실적 발표 결과와 향후 신제품 출시 관련 루머가 주가에 영향을 미치고 있습니다. 실적 발표 이후 주가 변동성이 나타났으며, 투자자들은 향후 아이폰 판매량 및 서비스 부문 성장 전망에 주목하고 있습니다. 또한, 거시 경제 환경 변화와 중간선거 결과가 기술주 전반에 미치는 영향 또한 애플 주가에 간접적인 영향을 줄 수 있습니다. 다음 주에는 애플의 신규 서비스 출시나 파트너십 관련 소식이 주가에 모멘텀을 제공할 수 있습니다. 다만, 경쟁 심화 및 글로벌 공급망 이슈는 잠재적 위험 요인으로 작용할 수 있습니다."
+        "outlook": "AMD는 3분기 실적 발표에서 데이터센터 매출이 97% 급증하며 예상치를 상회하는 호실적을 기록했습니다. 이는 AI 칩 시장에서의 경쟁력 강화와 신제품 출시에 대한 기대감을 높이고 있습니다. 그러나 스마트폰 시장의 부진은 일부 반도체 기업에 부정적인 영향을 미치고 있으며, AI 섹터 전반에 대한 거품 우려도 존재합니다. 향후 일주일 동안 AMD의 AI 칩 경쟁력과 신규 제품 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 또한, 미국 중간선거 결과와 거시 경제 지표 발표가 시장 전반의 투자 심리에 영향을 줄 수 있습니다."
       },
       {
-        "name": "Disney",
-        "reason": "디즈니의 실적 발표와 콘텐츠 사업 전략 변화에 대한 뉴스가 보도되며 투자자들의 관심을 끌었습니다 (총 2건).",
+        "name": "Super Micro",
+        "reason": "AI 서버 수요 증가 및 관련 공급망 이슈로 주목받음 (총 3건)",
         "us_news_refs": [
-          18,
-          23
+          6,
+          24,
+          33
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Thousands of Disney job cuts may be coming. Investors are asking what comes next.",
-            "title_ko": "수천 명의 Disney 직원 감축 가능성, 투자자들은 다음 단계 질문",
-            "url": "https://www.marketwatch.com/story/thousands-of-disney-job-cuts-may-be-coming-investors-are-asking-what-comes-next-19cc0662?mod=mw_rss_topstories",
-            "published_at": "2026-11-03 19:36:00 KST"
+            "title": "Super Micro to report Q1 earnings as AI trade attempts comeback - Yahoo Finance",
+            "title_ko": "슈퍼 마이크로, AI 거래 회복 시 1분기 실적 발표",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOWEF1SEY2cmRCbHIxUjltS2tKS1k3RVdGWE9QbENHSm5mM3kxZUQ5Y3JBb3BPd0ZYWmM2d2JOLWJfSE05S3FqNmdfSEdtdElnV2tFbi1xaHo5WHJUWTZKNVFjV2xCVEFQcUtNN01vbndPR0x6UXY0dDY1RU1qa1FncU92UzZqdjV4cURJQTdpd2Y4TWxzZy1xSlQ3VXF2NzBmOWpfeVkwa0t1WU9XVG1yY3MxanhnQU9jQlpJYzVhZ00?oc=5",
+            "published_at": "2026-11-04 04:53:15 KST"
           },
           {
-            "title": "Disney Expected to Lay Off Thousands of Staffers in Biggest Round of Cuts This Year - Variety",
-            "title_ko": "Disney, 올해 최대 규모 수천 명 직원 감축 예상",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQWC1EN0tMSjFPSkJOcmNJMXZtT3JBWGFHXzdDaEZqbTdYTy0yQVJYTGU5SUp2N3dpVmMwQ3RXY3hsdExYazJNbkZHNDh6ZEZaSnVKOE1PZkdlZHBWaWFsZkVZTHNKN2lnNWRRU2o4dEd0SGlfOFZhUFdYT0l2TGtoeTc5UEI?oc=5",
-            "published_at": "2026-11-03 13:29:00 KST"
+            "title": "Super Micro forecasts quarterly revenue above estimates on strong AI server demand",
+            "title_ko": "슈퍼 마이크로, AI 서버 수요 강세에 분기 매출 예상 상회 전망",
+            "url": "https://www.investing.com/news/stock-market-news/super-micro-forecasts-quarterly-revenue-above-estimates-on-strong-ai-server-demand-4996409",
+            "published_at": "2026-11-04 07:13:02 KST"
+          },
+          {
+            "title": "Super Micro’s stock pops as earnings show booming demand for AI servers",
+            "title_ko": "슈퍼 마이크로, AI 서버 수요 폭증에 주가 급등",
+            "url": "https://www.marketwatch.com/story/super-micros-stock-pops-as-earnings-show-booming-demand-for-ai-servers-2d179658?mod=mw_rss_topstories",
+            "published_at": "2026-11-04 06:13:00 KST"
           }
         ],
-        "outlook": "디즈니의 최근 실적 발표와 더불어 대규모 인력 감축 계획이 시장의 주목을 받고 있습니다. 이는 비용 절감을 통한 수익성 개선 노력을 반영하는 것으로 해석될 수 있으나, 동시에 성장 둔화에 대한 우려를 제기할 수도 있습니다. 스트리밍 서비스 부문의 수익성 개선 여부와 테마파크 사업의 회복세가 향후 주가 흐름에 중요한 영향을 미칠 것으로 보입니다. 다음 주에는 디즈니의 콘텐츠 전략 변화나 신규 투자 계획 발표 등이 있을 수 있으며, 이는 주가에 단기적인 변동성을 야기할 수 있습니다. 다만, 미디어 산업 내 경쟁 심화는 지속적인 위험 요인으로 작용할 수 있습니다."
+        "outlook": "Super Micro는 AI 서버 수요 강세에 힘입어 분기 매출이 예상치를 상회할 것으로 전망하고 있습니다. 이는 AI 관련 하드웨어 공급망에서의 긍정적인 모멘텀을 시사합니다. 그러나 AI 시장의 경쟁 심화와 잠재적인 거품 우려는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 Super Micro의 1분기 실적 발표가 예정되어 있으며, 시장의 기대치를 충족하는지 여부가 주가에 중요한 영향을 미칠 것으로 보입니다. 또한, AI 섹터 전반의 투자 심리 변화도 주가에 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "Pfizer",
+        "reason": "신약 개발 및 규제 관련 소식이 제약 섹터에 영향을 미침 (총 2건)",
+        "us_news_refs": [
+          2,
+          39
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Pfizer CEO Says Covid Is ‘Irrelevant.’ He’s Betting on Cancer and Weight-Loss Drugs. - Barron's",
+            "title_ko": "화이자 CEO, 코로나 '무관'. 암·비만 치료제에 베팅",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFA5NmczajA2cTJsaWxsczhaQmdrY1gyUjV1blo1Xy16WXBSX0RiNF9oM0UxSWM0RkhkeF9MZ0ZyXzhvdUMta0NuQXVXX0tHbHNRU081VldBZHFiQk40d3NUTjBuanBpRmhzOXRBTTd0QXozUnIwOTAtdw?oc=5",
+            "published_at": "2026-11-04 07:00:00 KST"
+          },
+          {
+            "title": "Pfizer hikes full-year outlook on new product growth, taps company veteran as new CFO",
+            "title_ko": "화이자, 신제품 성장 힘입어 연간 전망 상향…신임 CFO 선임",
+            "url": "https://www.cnbc.com/2026/11/03/pfizer-pfe-earnings-q3-2026.html",
+            "published_at": "2026-11-04 04:25:44 KST"
+          }
+        ],
+        "outlook": "Pfizer는 코로나19 백신 외에 암 및 비만 치료제 등 신약 개발에 집중하고 있으며, 이를 통해 연간 전망을 상향 조정했습니다. 또한, 새로운 최고재무책임자(CFO)를 선임하며 조직 개편에도 나섰습니다. 그러나 제약 산업 전반의 규제 환경 변화와 경쟁 심화는 잠재적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 동안 Pfizer의 신약 개발 파이프라인 관련 소식과 경쟁사들의 동향이 주목받을 것으로 예상됩니다. 또한, 미국 중간선거 결과가 의료 정책에 미칠 영향도 간접적으로 주가에 영향을 줄 수 있습니다."
       }
     ],
     "outlook": {
       "sectors": [
         {
-          "name": "Midterm Elections",
-          "outlook": "미국 중간선거 결과에 따른 정치적 불확실성 증감이 향후 일주일간 시장의 주요 변수가 될 전망입니다. 선거 결과에 따라 특정 정책 방향의 변화 가능성이 제기되며, 이는 관련 산업 섹터에 영향을 미칠 수 있습니다. 특히 기술주와 에너지 섹터는 정책 변화에 민감하게 반응할 수 있습니다. 다만, 선거 결과 확정 이후 차익실현 매물이 출회될 가능성도 존재합니다. 다음 주 예정된 주요 경제 지표 발표 또한 시장의 변동성을 키울 수 있습니다."
-        },
-        {
           "name": "AI",
-          "outlook": "AI 기술 발전과 관련 기업들의 실적 발표가 지속적으로 주목받고 있습니다. 특히 AI 인프라 구축 및 관련 서비스 확장에 대한 투자 논의가 활발하며, 이는 관련 기업들의 주가에 긍정적인 영향을 줄 수 있습니다. 그러나 AI 기술의 빠른 발전 속도와 함께 경쟁 심화 및 규제 가능성에 대한 우려도 상존합니다. 다음 주에는 AI 관련 기업들의 신규 기술 발표나 파트너십 체결 소식이 시장의 관심을 끌 수 있습니다. 또한, AI 기술의 상용화 및 수익성 확보 방안에 대한 시장의 평가가 중요하게 작용할 것입니다."
+          "outlook": "AI 섹터는 3분기 실적 발표 시즌을 맞아 빅테크 기업들의 AI 칩 수요와 관련된 긍정적인 소식이 주가에 영향을 미치고 있습니다. AMD는 데이터센터 매출이 97% 증가하며 실적을 상회하는 성과를 발표했습니다. 그러나 구글이 학교 계정에서 AI 사용을 제한하는 등 일부 규제 움직임도 나타나고 있으며, OpenAI의 ChatGPT가 검색 시장에서 구글을 추격하고 있다는 소식은 경쟁 심화를 시사합니다. 향후 일주일 내에는 AI 관련 기업들의 추가 실적 발표와 신규 AI 기술 동향이 주목받을 것으로 예상됩니다. 또한, 미국 증시 전반에 걸쳐 선거 불확실성과 AI 거품에 대한 우려가 투자 심리에 영향을 줄 수 있습니다."
         },
         {
-          "name": "Earnings",
-          "outlook": "주요 기업들의 실적 발표 시즌이 이어지면서, 기업들의 실제 실적과 향후 가이던스가 시장의 주요 관심사로 부각되고 있습니다. 특히 기술 기업들의 실적 발표 결과는 섹터 전반의 투자 심리에 영향을 미칠 수 있습니다. 예상치를 하회하는 실적이나 부정적인 가이던스는 해당 기업뿐만 아니라 관련 섹터 전반의 주가 하락을 야기할 수 있습니다. 다음 주에는 아직 실적 발표를 앞둔 주요 기업들이 있어, 이들의 발표 결과에 따라 시장의 변동성이 확대될 수 있습니다. 투자자들은 실적 발표와 함께 발표되는 경영진의 코멘트를 통해 향후 사업 전망을 면밀히 분석할 필요가 있습니다."
+          "name": "Oil and Gas",
+          "outlook": "국제 유가는 최근 브렌트유가 6달러 급락 후 104달러 회복을 시도하는 등 변동성을 보이고 있습니다. 사우디 아람코는 송유관 및 정유시설 공격에도 불구하고 이익이 급증했다고 발표했으나, 지정학적 리스크는 여전히 상존합니다. 또한, 미국 억만장자가 루코일의 해외 자산 인수를 주도한다는 소식은 에너지 시장의 M&A 동향에 대한 관심을 높이고 있습니다. 향후 일주일 동안 중동 지역의 지정학적 긴장 고조 여부와 주요 산유국의 생산량 발표 등이 유가에 영향을 미칠 수 있습니다. 다만, 관련 뉴스에서 명확한 단기 촉매제나 위험 요인이 부각되지 않아 시장의 관심은 제한적일 수 있습니다."
+        },
+        {
+          "name": "Semiconductors",
+          "outlook": "반도체 섹터는 AI 칩 수요 강세와 빅테크 기업들의 투자 확대에 힘입어 주목받고 있습니다. AMD는 3분기 실적 발표에서 데이터센터 매출이 크게 증가하며 시장의 기대를 상회했습니다. 그러나 스마트폰 시장의 부진은 Skyworks와 같은 일부 기업의 실적 전망에 부정적인 영향을 미치고 있습니다. 향후 일주일 내에는 주요 반도체 기업들의 추가 실적 발표와 신규 AI 칩 출시 관련 뉴스가 주가에 영향을 줄 수 있습니다. 다만, AI 거품에 대한 경계감과 선거 관련 불확실성이 섹터 전반의 상승 모멘텀을 제한할 가능성도 있습니다."
         }
       ],
       "stocks": [
         {
-          "name": "Apple",
-          "outlook": "애플의 최근 실적 발표 결과와 향후 신제품 출시 관련 루머가 주가에 영향을 미치고 있습니다. 실적 발표 이후 주가 변동성이 나타났으며, 투자자들은 향후 아이폰 판매량 및 서비스 부문 성장 전망에 주목하고 있습니다. 또한, 거시 경제 환경 변화와 중간선거 결과가 기술주 전반에 미치는 영향 또한 애플 주가에 간접적인 영향을 줄 수 있습니다. 다음 주에는 애플의 신규 서비스 출시나 파트너십 관련 소식이 주가에 모멘텀을 제공할 수 있습니다. 다만, 경쟁 심화 및 글로벌 공급망 이슈는 잠재적 위험 요인으로 작용할 수 있습니다."
+          "name": "AMD",
+          "outlook": "AMD는 3분기 실적 발표에서 데이터센터 매출이 97% 급증하며 예상치를 상회하는 호실적을 기록했습니다. 이는 AI 칩 시장에서의 경쟁력 강화와 신제품 출시에 대한 기대감을 높이고 있습니다. 그러나 스마트폰 시장의 부진은 일부 반도체 기업에 부정적인 영향을 미치고 있으며, AI 섹터 전반에 대한 거품 우려도 존재합니다. 향후 일주일 동안 AMD의 AI 칩 경쟁력과 신규 제품 출시 관련 소식이 주가에 영향을 미칠 수 있습니다. 또한, 미국 중간선거 결과와 거시 경제 지표 발표가 시장 전반의 투자 심리에 영향을 줄 수 있습니다."
         },
         {
-          "name": "Disney",
-          "outlook": "디즈니의 최근 실적 발표와 더불어 대규모 인력 감축 계획이 시장의 주목을 받고 있습니다. 이는 비용 절감을 통한 수익성 개선 노력을 반영하는 것으로 해석될 수 있으나, 동시에 성장 둔화에 대한 우려를 제기할 수도 있습니다. 스트리밍 서비스 부문의 수익성 개선 여부와 테마파크 사업의 회복세가 향후 주가 흐름에 중요한 영향을 미칠 것으로 보입니다. 다음 주에는 디즈니의 콘텐츠 전략 변화나 신규 투자 계획 발표 등이 있을 수 있으며, 이는 주가에 단기적인 변동성을 야기할 수 있습니다. 다만, 미디어 산업 내 경쟁 심화는 지속적인 위험 요인으로 작용할 수 있습니다."
+          "name": "Super Micro",
+          "outlook": "Super Micro는 AI 서버 수요 강세에 힘입어 분기 매출이 예상치를 상회할 것으로 전망하고 있습니다. 이는 AI 관련 하드웨어 공급망에서의 긍정적인 모멘텀을 시사합니다. 그러나 AI 시장의 경쟁 심화와 잠재적인 거품 우려는 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 내에는 Super Micro의 1분기 실적 발표가 예정되어 있으며, 시장의 기대치를 충족하는지 여부가 주가에 중요한 영향을 미칠 것으로 보입니다. 또한, AI 섹터 전반의 투자 심리 변화도 주가에 영향을 줄 수 있습니다."
         },
         {
-          "name": "AI",
-          "outlook": "AI 기술 발전과 관련 기업들의 실적 발표가 지속적으로 주목받고 있습니다. 특히 AI 인프라 구축 및 관련 서비스 확장에 대한 투자 논의가 활발하며, 이는 관련 기업들의 주가에 긍정적인 영향을 줄 수 있습니다. 그러나 AI 기술의 빠른 발전 속도와 함께 경쟁 심화 및 규제 가능성에 대한 우려도 상존합니다. 다음 주에는 AI 관련 기업들의 신규 기술 발표나 파트너십 체결 소식이 시장의 관심을 끌 수 있습니다. 또한, AI 기술의 상용화 및 수익성 확보 방안에 대한 시장의 평가가 중요하게 작용할 것입니다."
+          "name": "Pfizer",
+          "outlook": "Pfizer는 코로나19 백신 외에 암 및 비만 치료제 등 신약 개발에 집중하고 있으며, 이를 통해 연간 전망을 상향 조정했습니다. 또한, 새로운 최고재무책임자(CFO)를 선임하며 조직 개편에도 나섰습니다. 그러나 제약 산업 전반의 규제 환경 변화와 경쟁 심화는 잠재적인 위험 요인으로 작용할 수 있습니다. 향후 일주일 동안 Pfizer의 신약 개발 파이프라인 관련 소식과 경쟁사들의 동향이 주목받을 것으로 예상됩니다. 또한, 미국 중간선거 결과가 의료 정책에 미칠 영향도 간접적으로 주가에 영향을 줄 수 있습니다."
         }
       ]
     },
@@ -252,68 +222,268 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "AI",
-        "reason": "AI 기술 발전과 관련 기업들의 신규 서비스 출시 소식이 이어지며 AI 섹터에 대한 관심이 지속되었습니다 (총 5건).",
+        "name": "E-commerce",
+        "reason": "쿠팡의 물류 경쟁력 강화 및 성장세가 관련 섹터에 긍정적인 영향을 미침 (총 7건)",
         "kr_news_refs": [
-          6,
-          12,
-          18,
+          3,
+          8,
           20,
-          47
+          22,
+          34,
+          38,
+          41
+        ],
+        "related_news": [
+          {
+            "title": "쿠팡Inc, 3분기 6천423억원 영업손실‥매출은 11% 증가 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE92UGg0RlpOSTZSUEtUTlJZSENxWlphME0tN0p0UXVJbjE0NWJSWE9BeEFCaWdheElrdHg1SlRzRmZmMjFoZlZXR0UtdC1POXRCNDUxX0NEQWU0Yi1FeDlnRWsxakVNUFRGU2tpRWdUcDZ2VGho0gF0QVVfeXFMT0JLdXNsb2VPQ3dSS3I2QnJDb24wajF3ZXF1RWFVbHhJN0FxQXBVSnhzZ05LTWZzUEV6MFlraWg3b2xTbms1TDF3SS1XU0k3U3g3cWlUU2RKaFB3V3ZHeUlsVjlzZEdCaXBERVk1WkhhNGlCSkc?oc=5",
+            "published_at": "2026-11-04 06:33:56 KST"
+          },
+          {
+            "title": "물류센터 화재까지 겹친 쿠팡, 3분기 연속 적자",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12195876",
+            "published_at": "2026-11-04 07:10:08 KST"
+          },
+          {
+            "title": "쿠팡Inc 3분기 매출 14조원에도 ‘적자전환’…인천 물류센터 화재 여파",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12195832",
+            "published_at": "2026-11-04 06:51:48 KST"
+          },
+          {
+            "title": "쿠팡Inc, 3분기 영업손실 6천423억…화재비용만 3천500억원 추산(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261104009152030",
+            "published_at": "2026-11-04 06:49:03 KST"
+          },
+          {
+            "title": "[2보] 쿠팡Inc, 3분기 6천423억원 영업손실…매출은 11% 증가",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261104009151030",
+            "published_at": "2026-11-04 06:18:13 KST"
+          }
+        ],
+        "outlook": "쿠팡Inc는 3분기 매출이 11% 증가했으나, 물류센터 화재 비용 등으로 인해 6,423억 원의 영업 손실을 기록하며 적자 전환했습니다. 이는 단기적인 실적 부담 요인으로 작용할 수 있습니다. 향후 일주일 동안 쿠팡의 물류 시스템 복구 및 운영 정상화 노력과 소비자들의 반응이 주목받을 것으로 예상됩니다. 또한, 경쟁사들의 동향과 연말 쇼핑 시즌에 대한 기대감도 섹터 전반에 영향을 미칠 수 있습니다. 다만, 이번 실적 발표로 인한 투자 심리 위축 가능성도 배제할 수 없습니다."
+      },
+      {
+        "name": "Finance",
+        "reason": "금리 변동 및 금융 시장 안정성에 대한 논의가 활발함 (총 5건)",
+        "kr_news_refs": [
+          15,
+          42,
+          68,
+          70,
+          74
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "500kg 들고 원전·항만 누빈다…4m 거대 로봇의 도전 - 지디넷코리아",
+            "title": "[충남의 공론장] 신용 낮을수록 높은 이자…'기본금융'이 해법 될까",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5lOFotUWNpeHAzSE5ubEcwUFVnZXp1NHFlX1U3RldmTXhOa284aUoxdFB4aUhiMjhNTFlLOWVkUGZGVjJYM1Q1YjM4WVllS21LZ2dqYVNR?oc=5",
-            "published_at": "2026-11-03 16:51:23 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261103117100063",
+            "published_at": "2026-11-04 07:00:02 KST"
           },
           {
-            "title": "[현장] \"비싸다\" 하니 \"하루 2900원\" 설득…영어 튜터 AI가 판매왕으로 By EBN - Investing.com 한국어",
+            "title": "\"세금은 내는데 건보료는 제외\"…분리과세소득에 건보료 부과 검토",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9uT2thSE85SDBrZENHQklsbGp1d0tDa2o4eUNlUHROcG41ZGItY0VyNlV2V3k2M3VTcDYwV0N1ZjNkMzYwSk84QkxYdWhGaWpMc1k5V2ZXUVNDcG5WSE96OVpGektWVTIwcTBHSEFvS3o?oc=5",
-            "published_at": "2026-11-03 15:48:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261103153200530",
+            "published_at": "2026-11-04 06:11:01 KST"
           },
           {
-            "title": "애플, 130만원대 가정용 로봇 개발…2027년 출시 목표·옷 개는 로봇도 추진 - 디지털투데이",
+            "title": "저신용자에 정부지원 대출 중개…수수료 50억 챙긴 일당 송치",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1WNUdRVW45N3E2TlQtRWtRUFBtbU15OGtCVjVucUxjQzJINXJaeHpsUVk0S29GYkx2VjdnaG1iaU0wb2pqMXJfSVBKTFNhcy1NcXVnYjQ4YWxVS3QyWW9JWGIzcVBMa0VNSGhHTm5iYktwYm8?oc=5",
-            "published_at": "2026-11-03 14:08:28 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261103169100004",
+            "published_at": "2026-11-04 06:00:03 KST"
           },
           {
-            "title": "美 5개 주 선거판 흔든 AI 데이터센터…세금·전기료·물 놓고 격돌 - 한국무역협회-KITA.NET",
+            "title": "10월 외환보유액 4천432억달러로 늘어…국제 순위 9위로↑",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOMkF1S0JhZDRFR1hROFR5TGFsLWNsd2lYREg0ZUtpQV9qWUpvdTNuTnhRYjJrWmdzeFR6SnhhQVJPSFVaZ3B5UElYLXA5ZnotNC1Gc0pPcmlQWF9MaWtLTEExVFotdzUwQjBHLVRpZmpGNXlHU1hRaXI0RFczMkZGRXJpUmR4NlpUM1hqN1B6YW5ZdVVqbHpBRUdwaDd0S2hrUzVzYTBUZFp1NEFJbDRvalpOZm9RSmJzQmN5Y3VlOWRzajZ2ZVlwUEliNXc3bmNYaXhKMGpR?oc=5",
-            "published_at": "2026-11-03 14:04:26 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261103169200002",
+            "published_at": "2026-11-04 06:00:01 KST"
           },
           {
-            "title": "현대차, 일부 R＆D조직 외부 AI 이용 차단…\"보안성 재검토\"",
+            "title": "불법사금융예방대출 연체율 44%로 상승…연령대 낮을수록 높아",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261103176900003",
-            "published_at": "2026-11-03 18:50:10 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261103165400002",
+            "published_at": "2026-11-04 05:51:00 KST"
           }
         ],
-        "outlook": "국내 AI 섹터는 기술 발전과 신규 서비스 출시 소식에 힘입어 지속적인 관심을 받고 있습니다. 특히 AI 기반 로봇 기술 개발 및 상용화 움직임이 구체화되면서 관련 기업들의 주가에 영향을 미칠 수 있습니다. 또한, AI 기술의 보안성 강화 및 데이터 활용에 대한 논의가 활발해지면서 관련 솔루션 기업들의 성장 가능성도 주목받고 있습니다. 다음 주에는 국내 AI 관련 기업들의 신규 기술 발표나 정부 정책 지원 발표 등이 예정되어 있어, 이에 따른 시장의 반응을 주시해야 합니다. 다만, 글로벌 AI 기술 경쟁 심화 및 규제 동향은 잠재적 위험 요인으로 작용할 수 있습니다."
+        "outlook": "금융 섹터는 금리 변동성과 금융 시장 안정성에 대한 논의가 활발하게 이루어지고 있습니다. 저신용자에 대한 높은 이자율 문제와 기본 금융 제공 방안에 대한 논의가 진행 중이며, 불법 사금융 연체율 상승은 금융 시장의 위험 요인으로 작용할 수 있습니다. 또한, 10월 외환보유액이 증가하며 국제 순위 9위를 기록한 것은 긍정적인 신호입니다. 향후 일주일 동안 금융 당국의 정책 발표와 주요 경제 지표 발표가 금융 시장의 변동성을 키울 수 있습니다. 특히, 금리 인상 가능성에 대한 시장의 민감도가 높아질 수 있습니다."
+      },
+      {
+        "name": "반도체",
+        "reason": "글로벌 반도체 업황 회복 기대감과 신규 기술 개발 동향이 주목받음 (총 3건)",
+        "kr_news_refs": [
+          1,
+          2,
+          17,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[뉴욕증시] 중간선거 불확실성에 혼조…나스닥 0.83%↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBwczhTTmpSTXpCdTZNTmMzeUM0cmxBYXRPVUpzZEZVcEw4NmI1SGVpeXlmLThJNFViM0dDQmxlbXNNTWROcEplT3VLRG1zenlOVXoyY3N1emc5WUE2a0d6cGNnVjFNY1AxTmlNSi1vZFo?oc=5",
+            "published_at": "2026-11-04 06:50:46 KST"
+          },
+          {
+            "title": "인텔과 다르다…AMD 3분기 실적·가이던스 호조에 시간외 주가 9% 급등 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE16czdmdk5TYXVUN2ZZUUJERnJNT1YtTnUyT1E3Z2hmb09lZ3dsLXJ1RVc4UDY4a21mRHIwLXI5NndZQmxsTFM2NFdTRTVhT3dZNFE5VXJobDR2eWdmUHVLWDdtZWlPa1ZxS290ZHlpbnA?oc=5",
+            "published_at": "2026-11-04 06:41:01 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 4일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12195008",
+            "published_at": "2026-11-04 07:00:00 KST"
+          },
+          {
+            "title": "AMD, 데이터센터 매출 두 배 가까이 급증…시간외 주가 7%↑",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12195798",
+            "published_at": "2026-11-04 06:41:17 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 글로벌 업황 회복 기대감과 신규 기술 개발 동향에 힘입어 주목받고 있습니다. AMD의 3분기 실적 호조와 데이터센터 매출 증가는 긍정적인 신호로 해석됩니다. 그러나 인텔의 실적 쇼크와 AI 피크아웃 가능성에 대한 우려도 제기되고 있습니다. 향후 일주일 동안 삼성전자와 SK하이닉스의 실적 발표 및 향후 전망이 섹터 전반에 큰 영향을 미칠 것으로 예상됩니다. 또한, 미국 중간선거 결과가 글로벌 IT 수요에 미칠 영향도 주시해야 할 부분입니다."
       }
     ],
-    "top3_stocks": [],
+    "top3_stocks": [
+      {
+        "name": "쿠팡Inc",
+        "reason": "물류 경쟁력 강화 및 성장세 지속으로 투자자들의 관심이 집중됨 (총 8건)",
+        "kr_news_refs": [
+          3,
+          8,
+          20,
+          22,
+          34,
+          38,
+          41,
+          44
+        ],
+        "related_news": [
+          {
+            "title": "쿠팡Inc, 3분기 6천423억원 영업손실‥매출은 11% 증가 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE92UGg0RlpOSTZSUEtUTlJZSENxWlphME0tN0p0UXVJbjE0NWJSWE9BeEFCaWdheElrdHg1SlRzRmZmMjFoZlZXR0UtdC1POXRCNDUxX0NEQWU0Yi1FeDlnRWsxakVNUFRGU2tpRWdUcDZ2VGho0gF0QVVfeXFMT0JLdXNsb2VPQ3dSS3I2QnJDb24wajF3ZXF1RWFVbHhJN0FxQXBVSnhzZ05LTWZzUEV6MFlraWg3b2xTbms1TDF3SS1XU0k3U3g3cWlUU2RKaFB3V3ZHeUlsVjlzZEdCaXBERVk1WkhhNGlCSkc?oc=5",
+            "published_at": "2026-11-04 06:33:56 KST"
+          },
+          {
+            "title": "물류센터 화재까지 겹친 쿠팡, 3분기 연속 적자",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12195876",
+            "published_at": "2026-11-04 07:10:08 KST"
+          },
+          {
+            "title": "쿠팡Inc 3분기 매출 14조원에도 ‘적자전환’…인천 물류센터 화재 여파",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12195832",
+            "published_at": "2026-11-04 06:51:48 KST"
+          },
+          {
+            "title": "쿠팡Inc, 3분기 영업손실 6천423억…화재비용만 3천500억원 추산(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261104009152030",
+            "published_at": "2026-11-04 06:49:03 KST"
+          },
+          {
+            "title": "[2보] 쿠팡Inc, 3분기 6천423억원 영업손실…매출은 11% 증가",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261104009151030",
+            "published_at": "2026-11-04 06:18:13 KST"
+          }
+        ],
+        "outlook": "쿠팡Inc는 3분기 매출은 증가했으나, 물류센터 화재로 인한 비용 부담으로 인해 6,423억 원의 영업 손실을 기록하며 적자 전환했습니다. 이는 단기적인 주가 하락 압력으로 작용할 수 있습니다. 향후 일주일 동안 쿠팡의 화재 복구 상황과 물류 시스템 정상화 노력이 주가에 중요한 영향을 미칠 것으로 보입니다. 또한, 연말 쇼핑 시즌을 앞두고 소비자들의 구매 패턴 변화와 경쟁사들의 움직임도 주목해야 할 요소입니다. 다만, 이번 실적 발표로 인한 투자 심리 위축 가능성을 염두에 두어야 합니다."
+      },
+      {
+        "name": "AMD",
+        "reason": "AI 칩 시장 경쟁 심화 및 신제품 출시 기대감으로 주목받음 (총 3건)",
+        "kr_news_refs": [
+          1,
+          2,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[뉴욕증시] 중간선거 불확실성에 혼조…나스닥 0.83%↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBwczhTTmpSTXpCdTZNTmMzeUM0cmxBYXRPVUpzZEZVcEw4NmI1SGVpeXlmLThJNFViM0dDQmxlbXNNTWROcEplT3VLRG1zenlOVXoyY3N1emc5WUE2a0d6cGNnVjFNY1AxTmlNSi1vZFo?oc=5",
+            "published_at": "2026-11-04 06:50:46 KST"
+          },
+          {
+            "title": "인텔과 다르다…AMD 3분기 실적·가이던스 호조에 시간외 주가 9% 급등 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE16czdmdk5TYXVUN2ZZUUJERnJNT1YtTnUyT1E3Z2hmb09lZ3dsLXJ1RVc4UDY4a21mRHIwLXI5NndZQmxsTFM2NFdTRTVhT3dZNFE5VXJobDR2eWdmUHVLWDdtZWlPa1ZxS290ZHlpbnA?oc=5",
+            "published_at": "2026-11-04 06:41:01 KST"
+          },
+          {
+            "title": "AMD, 데이터센터 매출 두 배 가까이 급증…시간외 주가 7%↑",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12195798",
+            "published_at": "2026-11-04 06:41:17 KST"
+          }
+        ],
+        "outlook": "AMD는 3분기 실적 발표에서 데이터센터 매출이 두 배 가까이 급증하며 시간 외 주가 상승을 기록했습니다. 이는 AI 칩 시장에서의 경쟁력 강화와 신제품 출시 기대감을 반영한 결과입니다. 그러나 글로벌 반도체 시장의 경쟁 심화와 AI 거품에 대한 우려가 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 동안 AMD의 AI 칩 관련 기술 개발 동향과 경쟁사들의 움직임이 주가에 영향을 미칠 것으로 예상됩니다. 또한, 미국 중간선거 결과가 IT 섹터 전반의 투자 심리에 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 빅테크 기업들의 투자 확대가 주가에 반영됨 (총 2건)",
+        "kr_news_refs": [
+          17,
+          51
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 4일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12195008",
+            "published_at": "2026-11-04 07:00:00 KST"
+          },
+          {
+            "title": "[코스피·코스닥 전 거래일(3일) 주요공시]",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261103177500008",
+            "published_at": "2026-11-04 06:05:00 KST"
+          }
+        ],
+        "outlook": "Nvidia는 AI 칩 수요 강세와 빅테크 기업들의 투자 확대에 힘입어 주목받고 있습니다. 특히, 삼성전자 파운드리 사업부의 AMD향 HBM 수주 가능성과 엔비디아의 대안을 찾는 빅테크 동향이 언급되었습니다. 향후 일주일 동안 Nvidia의 신규 AI 칩 출시 계획과 주요 고객사들의 투자 동향이 주가에 영향을 미칠 것으로 보입니다. 다만, AI 시장의 경쟁 심화와 잠재적인 거품 우려는 단기적인 위험 요인이 될 수 있습니다. 또한, 미국 중간선거 결과가 IT 섹터 전반의 투자 심리에 영향을 줄 수 있습니다."
+      }
+    ],
     "outlook": {
       "sectors": [
         {
-          "name": "AI",
-          "outlook": "국내 AI 섹터는 기술 발전과 신규 서비스 출시 소식에 힘입어 지속적인 관심을 받고 있습니다. 특히 AI 기반 로봇 기술 개발 및 상용화 움직임이 구체화되면서 관련 기업들의 주가에 영향을 미칠 수 있습니다. 또한, AI 기술의 보안성 강화 및 데이터 활용에 대한 논의가 활발해지면서 관련 솔루션 기업들의 성장 가능성도 주목받고 있습니다. 다음 주에는 국내 AI 관련 기업들의 신규 기술 발표나 정부 정책 지원 발표 등이 예정되어 있어, 이에 따른 시장의 반응을 주시해야 합니다. 다만, 글로벌 AI 기술 경쟁 심화 및 규제 동향은 잠재적 위험 요인으로 작용할 수 있습니다."
+          "name": "E-commerce",
+          "outlook": "쿠팡Inc는 3분기 매출이 11% 증가했으나, 물류센터 화재 비용 등으로 인해 6,423억 원의 영업 손실을 기록하며 적자 전환했습니다. 이는 단기적인 실적 부담 요인으로 작용할 수 있습니다. 향후 일주일 동안 쿠팡의 물류 시스템 복구 및 운영 정상화 노력과 소비자들의 반응이 주목받을 것으로 예상됩니다. 또한, 경쟁사들의 동향과 연말 쇼핑 시즌에 대한 기대감도 섹터 전반에 영향을 미칠 수 있습니다. 다만, 이번 실적 발표로 인한 투자 심리 위축 가능성도 배제할 수 없습니다."
+        },
+        {
+          "name": "Finance",
+          "outlook": "금융 섹터는 금리 변동성과 금융 시장 안정성에 대한 논의가 활발하게 이루어지고 있습니다. 저신용자에 대한 높은 이자율 문제와 기본 금융 제공 방안에 대한 논의가 진행 중이며, 불법 사금융 연체율 상승은 금융 시장의 위험 요인으로 작용할 수 있습니다. 또한, 10월 외환보유액이 증가하며 국제 순위 9위를 기록한 것은 긍정적인 신호입니다. 향후 일주일 동안 금융 당국의 정책 발표와 주요 경제 지표 발표가 금융 시장의 변동성을 키울 수 있습니다. 특히, 금리 인상 가능성에 대한 시장의 민감도가 높아질 수 있습니다."
         },
         {
           "name": "반도체",
-          "outlook": "국내 반도체 섹터는 주요 기업들의 실적 발표와 함께 업황 회복에 대한 기대감이 공존하고 있습니다. 인텔의 실적 쇼크는 단기적으로 시장의 불안감을 증폭시킬 수 있으나, 장기적으로는 재고 조정 및 수요 회복에 대한 긍정적인 신호로 해석될 여지도 있습니다. 삼성전자와 SK하이닉스의 주가 흐름이 뒤집힌 이유에 대한 분석은 투자 전략 수립에 중요한 참고 자료가 될 수 있습니다. 다음 주에는 반도체 관련 기업들의 신규 투자 계획이나 기술 개발 성과 발표가 예정되어 있어, 이에 따른 시장의 관심이 집중될 것으로 예상됩니다. 다만, 글로벌 경기 둔화 및 지정학적 리스크는 반도체 업황에 부담으로 작용할 수 있습니다."
-        },
-        {
-          "name": "AI",
-          "outlook": "국내 AI 섹터는 기술 발전과 신규 서비스 출시 소식에 힘입어 지속적인 관심을 받고 있습니다. 특히 AI 기반 로봇 기술 개발 및 상용화 움직임이 구체화되면서 관련 기업들의 주가에 영향을 미칠 수 있습니다. 또한, AI 기술의 보안성 강화 및 데이터 활용에 대한 논의가 활발해지면서 관련 솔루션 기업들의 성장 가능성도 주목받고 있습니다. 다음 주에는 국내 AI 관련 기업들의 신규 기술 발표나 정부 정책 지원 발표 등이 예정되어 있어, 이에 따른 시장의 반응을 주시해야 합니다. 다만, 글로벌 AI 기술 경쟁 심화 및 규제 동향은 잠재적 위험 요인으로 작용할 수 있습니다."
+          "outlook": "반도체 섹터는 글로벌 업황 회복 기대감과 신규 기술 개발 동향에 힘입어 주목받고 있습니다. AMD의 3분기 실적 호조와 데이터센터 매출 증가는 긍정적인 신호로 해석됩니다. 그러나 인텔의 실적 쇼크와 AI 피크아웃 가능성에 대한 우려도 제기되고 있습니다. 향후 일주일 동안 삼성전자와 SK하이닉스의 실적 발표 및 향후 전망이 섹터 전반에 큰 영향을 미칠 것으로 예상됩니다. 또한, 미국 중간선거 결과가 글로벌 IT 수요에 미칠 영향도 주시해야 할 부분입니다."
         }
       ],
-      "stocks": []
+      "stocks": [
+        {
+          "name": "쿠팡Inc",
+          "outlook": "쿠팡Inc는 3분기 매출은 증가했으나, 물류센터 화재로 인한 비용 부담으로 인해 6,423억 원의 영업 손실을 기록하며 적자 전환했습니다. 이는 단기적인 주가 하락 압력으로 작용할 수 있습니다. 향후 일주일 동안 쿠팡의 화재 복구 상황과 물류 시스템 정상화 노력이 주가에 중요한 영향을 미칠 것으로 보입니다. 또한, 연말 쇼핑 시즌을 앞두고 소비자들의 구매 패턴 변화와 경쟁사들의 움직임도 주목해야 할 요소입니다. 다만, 이번 실적 발표로 인한 투자 심리 위축 가능성을 염두에 두어야 합니다."
+        },
+        {
+          "name": "AMD",
+          "outlook": "AMD는 3분기 실적 발표에서 데이터센터 매출이 두 배 가까이 급증하며 시간 외 주가 상승을 기록했습니다. 이는 AI 칩 시장에서의 경쟁력 강화와 신제품 출시 기대감을 반영한 결과입니다. 그러나 글로벌 반도체 시장의 경쟁 심화와 AI 거품에 대한 우려가 단기적인 위험 요인이 될 수 있습니다. 향후 일주일 동안 AMD의 AI 칩 관련 기술 개발 동향과 경쟁사들의 움직임이 주가에 영향을 미칠 것으로 예상됩니다. 또한, 미국 중간선거 결과가 IT 섹터 전반의 투자 심리에 영향을 줄 수 있습니다."
+        },
+        {
+          "name": "Nvidia",
+          "outlook": "Nvidia는 AI 칩 수요 강세와 빅테크 기업들의 투자 확대에 힘입어 주목받고 있습니다. 특히, 삼성전자 파운드리 사업부의 AMD향 HBM 수주 가능성과 엔비디아의 대안을 찾는 빅테크 동향이 언급되었습니다. 향후 일주일 동안 Nvidia의 신규 AI 칩 출시 계획과 주요 고객사들의 투자 동향이 주가에 영향을 미칠 것으로 보입니다. 다만, AI 시장의 경쟁 심화와 잠재적인 거품 우려는 단기적인 위험 요인이 될 수 있습니다. 또한, 미국 중간선거 결과가 IT 섹터 전반의 투자 심리에 영향을 줄 수 있습니다."
+        }
+      ]
     },
     "collected": {
       "news": 100
@@ -322,48 +492,30 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "AI",
-        "freq": 3,
-        "summary": "AI 관련 기술주 급락이 국내 증시에 영향을 미칠 수 있다는 분석이 있습니다. 인텔의 실적 쇼크와 함께 AI 피크아웃 가능성에 대한 논의가 제기되었습니다. 또한, AI 속도전이 내년 증시의 주요 변수가 될 수 있다는 전망이 있습니다.",
-        "refs": [
-          3,
-          5,
-          7
-        ],
-        "reason": "AI 관련 기술주 급락이 국내 증시에 영향을 미칠 수 있다는 분석이 있습니다. 인텔의 실적 쇼크와 함께 AI 피크아웃 가능성에 대한 논의가 제기되었습니다. 또한, AI 속도전이 내년 증시의 주요 변수가 될 수 있다는 전망이 있습니다.",
-        "related_videos": [
-          {
-            "title": "[26.11.03 오후 방송 전체보기] AI 불안은 계속된다...기술주 급락이 국내증시까지? 내일 회복 가능할까",
-            "url": "https://www.youtube.com/watch?v=zhIjTh5OecU",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-03 19:15:31 KST"
-          },
-          {
-            "title": "내년 증시는 '금리 vs AI 속도전'…중간선거 이후 시장의 키는 빅테크 실적과 유동성ㅣ홍선애, 신영증권 김효진 박사 [여의도 인사이트]",
-            "url": "https://www.youtube.com/watch?v=0CIAiCgj0OA",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-03 18:15:29 KST"
-          },
-          {
-            "title": "인텔 -30% 쇼크, AI 피크아웃일까 중간선거 코앞 리스크 관리일까",
-            "url": "https://www.youtube.com/watch?v=6Zq7p54WTNI",
-            "channel_name": "소수몽키",
-            "published_at": "2026-11-02 20:36:15 KST"
-          }
-        ],
-        "outlook": "AI 관련 기술주 급락이 국내 증시에 영향을 미칠 수 있다는 분석이 제기되었습니다. 인텔의 실적 쇼크와 함께 AI 피크아웃 가능성에 대한 논의가 활발하며, 이는 관련 섹터 전반의 투자 심리를 위축시킬 수 있습니다. 또한, AI 기술 경쟁이 내년 증시의 주요 변수가 될 수 있다는 전망이 있습니다. 다음 주에는 AI 관련 기업들의 실적 발표 결과와 향후 전망에 대한 분석이 이어질 것으로 예상됩니다. 다만, AI 기술의 발전 속도와 규제 동향에 따라 시장의 변동성이 커질 수 있습니다."
-      },
-      {
         "name": "반도체",
-        "freq": 3,
-        "summary": "삼성전자와 SK하이닉스의 실적 발표가 언급되었습니다. 이들 기업의 주가 흐름이 뒤집힌 이유에 대한 분석과 함께, 인텔의 실적 쇼크가 반도체 업황에 미치는 영향에 대한 논의가 있었습니다.",
+        "freq": 5,
+        "summary": "삼성전자 파운드리 사업부의 AMD향 HBM 수주 가능성과 엔비디아의 대안을 찾는 빅테크 동향이 언급되었습니다. 또한, 인텔의 실적 쇼크와 AI 피크아웃 가능성, 그리고 SK하이닉스와 삼성전자의 실적 발표가 주요 이슈로 다루어졌습니다. 포트폴리오 리모델링 시 반도체 섹터 편입이 제안되었습니다.",
         "refs": [
-          4,
+          2,
+          3,
           7,
-          9
+          9,
+          10
         ],
-        "reason": "삼성전자와 SK하이닉스의 실적 발표가 언급되었습니다. 이들 기업의 주가 흐름이 뒤집힌 이유에 대한 분석과 함께, 인텔의 실적 쇼크가 반도체 업황에 미치는 영향에 대한 논의가 있었습니다.",
+        "reason": "삼성전자 파운드리 사업부의 AMD향 HBM 수주 가능성과 엔비디아의 대안을 찾는 빅테크 동향이 언급되었습니다. 또한, 인텔의 실적 쇼크와 AI 피크아웃 가능성, 그리고 SK하이닉스와 삼성전자의 실적 발표가 주요 이슈로 다루어졌습니다. 포트폴리오 리모델링 시 반도체 섹터 편입이 제안되었습니다.",
         "related_videos": [
+          {
+            "title": "삼성 파운드리, AMD향 HBM 수주…엔비디아 대안 찾는 빅테크 | 현대차 제네시스 생산라인 재가동 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=zebCYfCBLq8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-04 05:24:31 KST"
+          },
+          {
+            "title": "오를까 내릴까 고민할 시간에 '반도체+헷지+소비재'로 포트폴리오 리모델링하세요ㅣ명민준, 서수진, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=YjOCgsz4Ifo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-03 21:00:06 KST"
+          },
           {
             "title": "삼성전자, SK하이닉스 주가 뒤집힌 이유, 지금 안 팔면 '이렇게' 됩니다 (김장열 센터장 풀버전)",
             "url": "https://www.youtube.com/watch?v=XTM4sh1vkqE",
@@ -383,44 +535,69 @@
             "published_at": "2026-11-02 18:28:40 KST"
           }
         ],
-        "outlook": "삼성전자와 SK하이닉스의 실적 발표가 언급되며 주가 흐름에 대한 분석이 제시되었습니다. 인텔의 실적 쇼크가 반도체 업황에 미치는 영향에 대한 논의가 있으며, 이는 국내 반도체 기업들의 향후 실적 전망에 대한 불확실성을 높일 수 있습니다. 다음 주에는 주요 반도체 기업들의 실적 발표 결과와 함께 업황 회복 시점에 대한 전망이 시장의 주요 관심사가 될 것입니다. 다만, 글로벌 경기 둔화 및 지정학적 리스크는 반도체 섹터에 부담으로 작용할 수 있습니다."
+        "outlook": "유튜브 채널에서는 삼성전자 파운드리 사업부의 AMD향 HBM 수주 가능성과 엔비디아의 대안을 찾는 빅테크 동향이 주요 이슈로 다뤄졌습니다. 인텔의 실적 쇼크와 AI 피크아웃 가능성, 그리고 SK하이닉스와 삼성전자의 실적 발표에 대한 분석도 있었습니다. 향후 일주일 동안 반도체 섹터는 이러한 실적 발표 결과와 AI 기술 발전 동향에 따라 변동성을 보일 수 있습니다. 또한, 포트폴리오 리모델링 시 반도체 섹터 편입을 고려해야 한다는 의견도 제시되었습니다. 다만, 나스닥 급락에 따른 코스피 영향 분석도 있어 시장 전반의 불확실성도 존재합니다."
       },
       {
-        "name": "빅테크",
+        "name": "AI",
         "freq": 2,
-        "summary": "빅테크 기업들의 실적 발표가 시장의 주요 관심사로 다뤄졌습니다. 특히 구글, 아마존, MS, 인텔의 실적이 언급되었으며, 빅테크 실적이 내년 증시의 키가 될 수 있다는 분석이 제시되었습니다.",
+        "summary": "인텔의 실적 쇼크와 관련하여 AI 피크아웃 가능성이 제기되었습니다. 빅테크 기업들이 엔비디아의 대안을 찾고 있다는 내용도 언급되었습니다.",
         "refs": [
-          5,
+          2,
           9
         ],
-        "reason": "빅테크 기업들의 실적 발표가 시장의 주요 관심사로 다뤄졌습니다. 특히 구글, 아마존, MS, 인텔의 실적이 언급되었으며, 빅테크 실적이 내년 증시의 키가 될 수 있다는 분석이 제시되었습니다.",
+        "reason": "인텔의 실적 쇼크와 관련하여 AI 피크아웃 가능성이 제기되었습니다. 빅테크 기업들이 엔비디아의 대안을 찾고 있다는 내용도 언급되었습니다.",
         "related_videos": [
           {
-            "title": "내년 증시는 '금리 vs AI 속도전'…중간선거 이후 시장의 키는 빅테크 실적과 유동성ㅣ홍선애, 신영증권 김효진 박사 [여의도 인사이트]",
-            "url": "https://www.youtube.com/watch?v=0CIAiCgj0OA",
+            "title": "삼성 파운드리, AMD향 HBM 수주…엔비디아 대안 찾는 빅테크 | 현대차 제네시스 생산라인 재가동 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=zebCYfCBLq8",
             "channel_name": "삼프로TV",
-            "published_at": "2026-11-03 18:15:29 KST"
+            "published_at": "2026-11-04 05:24:31 KST"
           },
           {
-            "title": "나스닥 급락에 떨고 있는 코스피",
-            "url": "https://www.youtube.com/watch?v=Gjvs89hn0ug",
-            "channel_name": "슈카월드",
-            "published_at": "2026-11-02 18:28:40 KST"
+            "title": "인텔 -30% 쇼크, AI 피크아웃일까 중간선거 코앞 리스크 관리일까",
+            "url": "https://www.youtube.com/watch?v=6Zq7p54WTNI",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-02 20:36:15 KST"
           }
         ],
-        "outlook": "빅테크 기업들의 실적 발표가 시장의 주요 관심사로 다뤄지고 있으며, 특히 구글, 아마존, MS, 인텔의 실적이 언급되었습니다. 빅테크 기업들의 실적이 내년 증시의 방향성을 결정하는 핵심 요인이 될 수 있다는 분석이 제시되었습니다. 다음 주에는 아직 실적 발표를 앞둔 빅테크 기업들의 결과 발표가 예정되어 있어, 이에 따른 시장의 변동성이 확대될 수 있습니다. 투자자들은 빅테크 기업들의 실적 발표와 함께 발표되는 경영진의 코멘트를 통해 향후 사업 전망을 면밀히 분석할 필요가 있습니다."
+        "outlook": "AI 섹터는 인텔의 실적 쇼크와 관련하여 AI 피크아웃 가능성이 제기되었습니다. 빅테크 기업들이 엔비디아의 대안을 찾고 있다는 분석도 있었습니다. 향후 일주일 동안 AI 관련 기업들의 실적 발표와 신규 기술 개발 동향이 주목받을 것으로 예상됩니다. 또한, AI 시장의 경쟁 심화와 잠재적인 거품 우려가 투자 심리에 영향을 미칠 수 있습니다. 다만, AI 칩 수요 강세는 여전히 긍정적인 요인으로 작용할 가능성이 있습니다."
       }
     ],
     "top3_stocks": [
       {
-        "name": "삼성전자",
-        "freq": 3,
-        "summary": "삼성전자의 주가 흐름이 뒤집힌 이유에 대한 분석이 제시되었습니다. 또한, 삼성전자의 실적 발표가 언급되었으며, 해당 종목에 대한 투자 전략에 대한 논의가 있었습니다.",
+        "name": "엔비디아",
+        "freq": 2,
+        "summary": "미국 증시에서 시가총액 1위 자리를 탈환할 기대감이 언급되었습니다. 또한, 빅테크 기업들이 엔비디아의 대안을 찾고 있다는 분석이 있었습니다.",
         "refs": [
-          4,
-          9
+          1,
+          2
         ],
-        "reason": "삼성전자의 주가 흐름이 뒤집힌 이유에 대한 분석이 제시되었습니다. 또한, 삼성전자의 실적 발표가 언급되었으며, 해당 종목에 대한 투자 전략에 대한 논의가 있었습니다.",
+        "reason": "미국 증시에서 시가총액 1위 자리를 탈환할 기대감이 언급되었습니다. 또한, 빅테크 기업들이 엔비디아의 대안을 찾고 있다는 분석이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "미국-이란, MOU 초안 승인 기대감…엔비디아, 시가총액 1위 탈환 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=ztjnIPuC9hc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-04 07:02:54 KST"
+          },
+          {
+            "title": "삼성 파운드리, AMD향 HBM 수주…엔비디아 대안 찾는 빅테크 | 현대차 제네시스 생산라인 재가동 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=zebCYfCBLq8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-04 05:24:31 KST"
+          }
+        ],
+        "outlook": "엔비디아는 미국 증시에서 시가총액 1위 탈환에 대한 기대감이 언급되었습니다. 또한, 빅테크 기업들이 엔비디아의 대안을 찾고 있다는 분석이 있었습니다. 향후 일주일 동안 엔비디아의 신규 AI 칩 출시 계획과 주요 고객사들의 투자 동향이 주가에 영향을 미칠 것으로 보입니다. 다만, AI 시장의 경쟁 심화와 잠재적인 거품 우려는 단기적인 위험 요인이 될 수 있습니다. 또한, 미국 중간선거 결과가 IT 섹터 전반의 투자 심리에 영향을 줄 수 있습니다."
+      },
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "파운드리 사업부의 AMD향 HBM 수주 가능성이 언급되었습니다. 또한, SK하이닉스와 함께 실적 발표 및 주가 변동에 대한 분석이 있었습니다.",
+        "refs": [
+          7,
+          10
+        ],
+        "reason": "파운드리 사업부의 AMD향 HBM 수주 가능성이 언급되었습니다. 또한, SK하이닉스와 함께 실적 발표 및 주가 변동에 대한 분석이 있었습니다.",
         "related_videos": [
           {
             "title": "삼성전자, SK하이닉스 주가 뒤집힌 이유, 지금 안 팔면 '이렇게' 됩니다 (김장열 센터장 풀버전)",
@@ -435,17 +612,17 @@
             "published_at": "2026-11-02 18:28:40 KST"
           }
         ],
-        "outlook": "삼성전자의 주가 흐름이 뒤집힌 이유에 대한 분석이 제시되었으며, 실적 발표가 언급되었습니다. 이는 투자 전략 수립에 중요한 참고 자료가 될 수 있습니다. 다음 주에는 삼성전자의 향후 사업 전망 및 투자 전략에 대한 논의가 이어질 것으로 예상됩니다. 다만, 글로벌 경기 둔화 및 반도체 업황 변동성은 삼성전자 주가에 부담으로 작용할 수 있습니다."
+        "outlook": "삼성전자는 파운드리 사업부의 AMD향 HBM 수주 가능성이 언급되었습니다. 또한, SK하이닉스와 함께 실적 발표 및 주가 변동에 대한 분석이 있었습니다. 향후 일주일 동안 삼성전자의 실적 발표 결과와 파운드리 사업 경쟁력 강화 노력이 주가에 영향을 미칠 것으로 예상됩니다. 다만, 글로벌 반도체 시장의 경쟁 심화와 AI 거품에 대한 우려가 단기적인 위험 요인이 될 수 있습니다. 또한, 나스닥 급락에 따른 코스피 영향 분석도 있어 시장 전반의 불확실성도 존재합니다."
       },
       {
         "name": "SK하이닉스",
-        "freq": 3,
-        "summary": "SK하이닉스의 주가 흐름이 뒤집힌 이유에 대한 분석이 제시되었습니다. 또한, SK하이닉스의 실적 발표가 언급되었으며, 해당 종목에 대한 투자 전략에 대한 논의가 있었습니다.",
+        "freq": 2,
+        "summary": "삼성전자와 함께 실적 발표 및 주가 변동에 대한 분석이 있었습니다. 나스닥 급락에 따른 코스피 영향 분석에서도 언급되었습니다.",
         "refs": [
-          4,
-          9
+          7,
+          10
         ],
-        "reason": "SK하이닉스의 주가 흐름이 뒤집힌 이유에 대한 분석이 제시되었습니다. 또한, SK하이닉스의 실적 발표가 언급되었으며, 해당 종목에 대한 투자 전략에 대한 논의가 있었습니다.",
+        "reason": "삼성전자와 함께 실적 발표 및 주가 변동에 대한 분석이 있었습니다. 나스닥 급락에 따른 코스피 영향 분석에서도 언급되었습니다.",
         "related_videos": [
           {
             "title": "삼성전자, SK하이닉스 주가 뒤집힌 이유, 지금 안 팔면 '이렇게' 됩니다 (김장열 센터장 풀버전)",
@@ -460,32 +637,7 @@
             "published_at": "2026-11-02 18:28:40 KST"
           }
         ],
-        "outlook": "SK하이닉스의 주가 흐름이 뒤집힌 이유에 대한 분석이 제시되었으며, 실적 발표가 언급되었습니다. 이는 투자 전략 수립에 중요한 참고 자료가 될 수 있습니다. 다음 주에는 SK하이닉스의 향후 사업 전망 및 투자 전략에 대한 논의가 이어질 것으로 예상됩니다. 다만, 글로벌 경기 둔화 및 반도체 업황 변동성은 SK하이닉스 주가에 부담으로 작용할 수 있습니다."
-      },
-      {
-        "name": "인텔",
-        "freq": 2,
-        "summary": "인텔의 실적 쇼크(-30%)가 언급되었습니다. 이는 AI 피크아웃 가능성에 대한 우려를 제기하는 요인으로 분석되었습니다. 또한, 인텔의 실적 발표가 빅테크 실적 논의에 포함되었습니다.",
-        "refs": [
-          7,
-          9
-        ],
-        "reason": "인텔의 실적 쇼크(-30%)가 언급되었습니다. 이는 AI 피크아웃 가능성에 대한 우려를 제기하는 요인으로 분석되었습니다. 또한, 인텔의 실적 발표가 빅테크 실적 논의에 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "인텔 -30% 쇼크, AI 피크아웃일까 중간선거 코앞 리스크 관리일까",
-            "url": "https://www.youtube.com/watch?v=6Zq7p54WTNI",
-            "channel_name": "소수몽키",
-            "published_at": "2026-11-02 20:36:15 KST"
-          },
-          {
-            "title": "나스닥 급락에 떨고 있는 코스피",
-            "url": "https://www.youtube.com/watch?v=Gjvs89hn0ug",
-            "channel_name": "슈카월드",
-            "published_at": "2026-11-02 18:28:40 KST"
-          }
-        ],
-        "outlook": "인텔의 실적 쇼크(-30%)가 언급되며 AI 피크아웃 가능성에 대한 우려를 제기했습니다. 이는 빅테크 실적 논의에 포함되어 시장의 주목을 받고 있습니다. 다음 주에는 인텔의 실적 발표 결과와 향후 전망에 대한 추가 분석이 이어질 것으로 예상됩니다. 다만, 반도체 산업 내 경쟁 심화 및 기술 개발 관련 불확실성은 인텔 주가에 부담으로 작용할 수 있습니다."
+        "outlook": "SK하이닉스는 삼성전자와 함께 실적 발표 및 주가 변동에 대한 분석이 있었습니다. 나스닥 급락에 따른 코스피 영향 분석에서도 언급되었습니다. 향후 일주일 동안 SK하이닉스의 실적 발표 결과와 메모리 반도체 시장 회복세가 주가에 영향을 미칠 것으로 예상됩니다. 다만, 글로벌 반도체 시장의 경쟁 심화와 AI 거품에 대한 우려가 단기적인 위험 요인이 될 수 있습니다. 또한, 미국 중간선거 결과가 IT 섹터 전반의 투자 심리에 영향을 줄 수 있습니다."
       }
     ],
     "videos_collected": 10
@@ -494,125 +646,125 @@
     "us": {
       "stocks": [
         {
-          "name": "Apple",
+          "name": "AMD",
           "freq": 5
         },
         {
-          "name": "Palantir",
-          "freq": 2
+          "name": "Super Micro",
+          "freq": 4
         },
         {
-          "name": "Saudi Aramco",
+          "name": "Pfizer",
           "freq": 3
         },
         {
+          "name": "JetBlue",
+          "freq": 3
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Shopify",
+          "freq": 2
+        },
+        {
+          "name": "OpenAI",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
           "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Lukoil",
           "freq": 2
         },
         {
-          "name": "Marvell",
-          "freq": 2
-        },
-        {
-          "name": "Hinge Health",
-          "freq": 2
-        },
-        {
-          "name": "Disney",
-          "freq": 2
-        },
-        {
-          "name": "Blackstone",
+          "name": "Alight",
           "freq": 1
         },
         {
-          "name": "ON Semiconductor",
+          "name": "Amdocs",
           "freq": 1
         },
         {
-          "name": "TRex Bio",
+          "name": "Ultragenyx",
           "freq": 1
         },
         {
-          "name": "Advanced Energy",
+          "name": "Skyworks",
           "freq": 1
         },
         {
-          "name": "CVR Energy",
-          "freq": 1
-        },
-        {
-          "name": "Bayer",
-          "freq": 1
-        },
-        {
-          "name": "Lumentum",
-          "freq": 1
-        },
-        {
-          "name": "Oracle",
+          "name": "Comscore",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "Midterm Elections",
-          "freq": 7
-        },
-        {
           "name": "AI",
-          "freq": 2
-        },
-        {
-          "name": "Oil",
           "freq": 3
         },
         {
-          "name": "Earnings",
+          "name": "Prediction Markets",
           "freq": 4
         },
         {
-          "name": "Tech",
-          "freq": 1
+          "name": "Oil and Gas",
+          "freq": 3
         },
         {
-          "name": "Refining",
+          "name": "Airlines",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
           "freq": 2
         },
         {
-          "name": "Inflation",
+          "name": "Labor Market",
           "freq": 2
         },
         {
-          "name": "China Markets",
-          "freq": 1
-        },
-        {
-          "name": "Crypto",
-          "freq": 1
-        },
-        {
-          "name": "Settlement",
-          "freq": 1
-        },
-        {
-          "name": "Copyright",
-          "freq": 1
+          "name": "Compute Economics",
+          "freq": 2
         },
         {
           "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Finance",
+          "freq": 2
+        },
+        {
+          "name": "Weight-Loss Drugs",
           "freq": 1
         },
         {
-          "name": "Retail",
+          "name": "Cancer Drugs",
           "freq": 1
         },
         {
-          "name": "HIV Prevention",
+          "name": "Legal Services",
           "freq": 1
         },
         {
-          "name": "Bankruptcy",
+          "name": "Restaurants",
+          "freq": 1
+        },
+        {
+          "name": "Geothermal Energy",
+          "freq": 1
+        },
+        {
+          "name": "Wireless",
           "freq": 1
         }
       ]
@@ -620,125 +772,85 @@
     "kr": {
       "stocks": [
         {
-          "name": "GC녹십자",
+          "name": "쿠팡Inc",
+          "freq": 6
+        },
+        {
+          "name": "AMD",
           "freq": 3
         },
         {
-          "name": "NH농협은행",
+          "name": "Nvidia",
           "freq": 2
-        },
-        {
-          "name": "포스코퓨처엠",
-          "freq": 2
-        },
-        {
-          "name": "현대차그룹",
-          "freq": 1
-        },
-        {
-          "name": "엘앤에프",
-          "freq": 1
         },
         {
           "name": "삼성전자",
           "freq": 1
         },
         {
-          "name": "한진칼",
-          "freq": 1
-        },
-        {
-          "name": "하이브",
-          "freq": 1
-        },
-        {
-          "name": "삼성바이오로직스",
-          "freq": 1
-        },
-        {
-          "name": "삼성생명",
-          "freq": 1
-        },
-        {
-          "name": "에스원",
-          "freq": 1
-        },
-        {
-          "name": "한울앤제주",
-          "freq": 1
-        },
-        {
-          "name": "비트맥스",
-          "freq": 1
-        },
-        {
-          "name": "삼성바이오에피스",
-          "freq": 1
-        },
-        {
-          "name": "NAVER",
+          "name": "SK하이닉스",
           "freq": 1
         }
       ],
       "sectors": [
         {
+          "name": "E-commerce",
+          "freq": 6
+        },
+        {
+          "name": "Midterm Elections",
+          "freq": 4
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 3
+        },
+        {
+          "name": "Finance",
+          "freq": 4
+        },
+        {
           "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Labor Market",
           "freq": 2
         },
         {
-          "name": "2차전지",
+          "name": "Oil and Gas",
           "freq": 2
         },
         {
-          "name": "미국 중간선거",
+          "name": "Food and Beverage",
           "freq": 2
         },
         {
-          "name": "로봇",
+          "name": "Healthcare",
           "freq": 2
         },
         {
-          "name": "냉장고 해킹",
+          "name": "Insurance",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Automotive Parts",
           "freq": 1
         },
         {
-          "name": "부동산 세제",
+          "name": "Energy Supply Chain",
           "freq": 1
         },
         {
-          "name": "가업상속공제",
-          "freq": 1
-        },
-        {
-          "name": "퇴직연금",
-          "freq": 1
-        },
-        {
-          "name": "월세화",
-          "freq": 1
-        },
-        {
-          "name": "공시의무",
-          "freq": 1
-        },
-        {
-          "name": "지분 경쟁",
-          "freq": 1
-        },
-        {
-          "name": "해킹 사고",
-          "freq": 1
-        },
-        {
-          "name": "노인 돌봄",
-          "freq": 1
-        },
-        {
-          "name": "재생에너지",
-          "freq": 1
-        },
-        {
-          "name": "주택 공급 확대",
+          "name": "Real Estate",
           "freq": 1
         }
       ]
