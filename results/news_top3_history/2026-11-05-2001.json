@@ -1,0 +1,519 @@
+{
+  "generated_at": "2026-11-05 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Data Centers",
+        "reason": "데이터센터 관련 기업들이 AI 수요 증가와 인프라 확충 기대감으로 주목받고 있습니다 (총 4건)",
+        "us_news_refs": [
+          3,
+          29,
+          34,
+          47
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock futures mixed, neocloud slump deepens after Democrats' midterm win rally - CNBC",
+            "title_ko": "주식 선물 혼조, 민주당 중간선거 승리 랠리 후 네오클라우드 급락 심화",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5sdjFuSm1kNThIRUluMXJ1c3ZyVS1icmJDN1pVNVVOdlVVa1JwWFE3VGw0UkRfeTJqUlg3ZUotVzZPVFdCZ0tIOERPekZYbHRXSER6ZWpka2ZYV0ZQMXNuXzZ0VnBIREVTVVZtTXdZLXM4aGJOc0c40gF8QVVfeXFMTWdkU3RqWXdESzExbWxNemxOYmJQSjh1UEV5aWxqazFGaGRxazE0RUtHc3FfejNiZVFwQWlXMWRjNzlRYkdIRnB4Vjd2S3Z3Qmpia2EzNlhQRW84Q3c1NklFNUlib19EXzJpbUNieEluVnFKNkRHVDFaaDZpVQ?oc=5",
+            "published_at": "2026-11-05 18:44:26 KST"
+          },
+          {
+            "title": "The Blue Wave Has Tech Bros Scrambling for Data Centers in Space - WIRED",
+            "title_ko": "블루 웨이브, 테크 브로들 우주 데이터 센터 확보 경쟁",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQOE4zSnNWNjE1ZEd3YXI1bnRqSERlTWZjYjRKNGtjamJyUnp5b2FzcGtHV0YyZlhCdmlnamZYRXZZcENESjY0Zm15eS1HQXJDOW8zT29HZVQ5SVdPbkhyTi1fR0xNdlVxaHFqd3ZjMFl6WEVYY3NtVlZKLV9nQWpxNVZRazZyZkJGZWlWbTV4dkJwVjJfNUNrbQ?oc=5",
+            "published_at": "2026-11-05 08:13:00 KST"
+          },
+          {
+            "title": "Micron and other chip stocks slip as election results strike at the core of data-center optimism - MarketWatch",
+            "title_ko": "선거 결과로 데이터센터 낙관론 타격, Micron 등 칩 주가 하락",
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOUzBIQjltbVJSandzcHJKd0pRaDdUSkFXcmRqc2Q5QjQwS3QtX1hZQWNwbTJhQkEwVFNwUDQ2czk5VFc0NE1mX1RyZ0hTM3ZrYTh1ZTIzY2RwYUZ5MzFZTzRod3RHQWxwR2lOMTZYZU51TU9vNkZkOXFqZFdHNkhYajFvVzVRN0V6TEZpMS1UTG9IbXhuVjV2S2s5LVdibXlOcGtXeHg1b202Q0hTVG9qUVlFcktIbjRtd1I4Q01GeFlhV2p0U3B1LXpLRVhIUDU2LUFUWW5R?oc=5",
+            "published_at": "2026-11-05 06:55:00 KST"
+          },
+          {
+            "title": "American Voters Overwhelmingly Reject AI Data Centers - 404 Media",
+            "title_ko": "미국 유권자, AI 데이터 센터 압도적으로 거부",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQZS1FeFFhcDNydVpTYm1fRGJaSUszTmwxYU1SMnhXY2NGa05UUTRiYjJMMl9qRGRKcFhlVWgzY1VuWFZEZHM4eU5PemlNSnhpZENOVFFNdUJsLWVHb0h4S1hoVnRKd1N0dzRndlVtWmp4bV96b3VfV1VqMmZQekduMzZCVEE?oc=5",
+            "published_at": "2026-11-05 03:00:06 KST"
+          }
+        ],
+        "outlook": "데이터센터 섹터는 AI 수요 증가와 인프라 확충 기대감으로 주목받고 있으나, 최근 미국 중간선거 결과와 관련된 부정적인 보도가 나타나고 있습니다. 일부 분석에서는 민주당의 중간선거 승리가 데이터센터 낙관론에 타격을 줄 수 있다는 전망도 제기되었습니다. 향후 일주일간은 이러한 정치적 이벤트가 시장 심리에 미치는 영향을 주시해야 할 것으로 보입니다. 또한, 우주 데이터센터와 같은 새로운 분야에 대한 관심도 증가하고 있어 관련 기술 동향을 살펴볼 필요가 있습니다. 다만, 일부 칩 주가 하락 소식은 데이터센터 관련 기업들의 실적에 잠재적 영향을 미칠 수 있습니다."
+      },
+      {
+        "name": "Chipmakers",
+        "reason": "AI 칩 수요 증가 및 관련 기술 발전에 대한 기대감이 반도체 업종에 긍정적인 영향을 미치고 있습니다 (총 4건)",
+        "us_news_refs": [
+          6,
+          13,
+          34
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Rotation Rolls On as Chipmakers Retreat: Markets Wrap - Bloomberg.com",
+            "title_ko": "칩 제조업체 후퇴 속 주식 로테이션 지속: 시장 마감",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaHBnOEludEdwalhTMXRiLWFQbk9RRVVIVGYzY3cwZUk4TmxLY1hnZExZQTZBTExfR2l2TmpJNXUwRWUwc21Jd0EzZklqc2hCbnRta19OU1lQV2NTdjhuNUZxaGQwaHlBZG51eG44WXFxNTNuX1FRYVluOGdaTFptSWRFY3J1ZTdMTlFzY3VmYVhkbDJH?oc=5",
+            "published_at": "2026-11-05 15:55:00 KST"
+          },
+          {
+            "title": "BTIG cuts SGHC Limited price target to $16 on Q3 headwinds",
+            "title_ko": "BTIG, 3분기 역풍으로 SGHC Limited 목표가 16달러로 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/btig-cuts-sghc-limited-price-target-to-16-on-q3-headwinds-93CH-5002974",
+            "published_at": "2026-11-05 19:50:55 KST"
+          },
+          {
+            "title": "Micron and other chip stocks slip as election results strike at the core of data-center optimism - MarketWatch",
+            "title_ko": "선거 결과로 데이터센터 낙관론 타격, Micron 등 칩 주가 하락",
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOUzBIQjltbVJSandzcHJKd0pRaDdUSkFXcmRqc2Q5QjQwS3QtX1hZQWNwbTJhQkEwVFNwUDQ2czk5VFc0NE1mX1RyZ0hTM3ZrYTh1ZTIzY2RwYUZ5MzFZTzRod3RHQWxwR2lOMTZYZU51TU9vNkZkOXFqZFdHNkhYajFvVzVRN0V6TEZpMS1UTG9IbXhuVjV2S2s5LVdibXlOcGtXeHg1b202Q0hTVG9qUVlFcktIbjRtd1I4Q01GeFlhV2p0U3B1LXpLRVhIUDU2LUFUWW5R?oc=5",
+            "published_at": "2026-11-05 06:55:00 KST"
+          }
+        ],
+        "outlook": "반도체 섹터는 AI 칩 수요 증가 및 관련 기술 발전에 대한 기대감으로 주목받고 있으나, 최근 주식 로테이션 현상 속에서 일부 칩 제조업체들이 후퇴하는 모습을 보이고 있습니다. 미국 중간선거 결과가 데이터센터 낙관론에 영향을 미치면서 관련 칩 주가 하락 소식이 전해졌습니다. 향후 일주일간은 이러한 거시 경제 및 정치적 변수가 반도체 업종 전반에 미치는 영향을 면밀히 관찰해야 합니다. 또한, 특정 기업의 실적 부진 가능성도 단기적인 위험 요인으로 작용할 수 있습니다."
+      }
+    ],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "Data Centers",
+          "outlook": "데이터센터 섹터는 AI 수요 증가와 인프라 확충 기대감으로 주목받고 있으나, 최근 미국 중간선거 결과와 관련된 부정적인 보도가 나타나고 있습니다. 일부 분석에서는 민주당의 중간선거 승리가 데이터센터 낙관론에 타격을 줄 수 있다는 전망도 제기되었습니다. 향후 일주일간은 이러한 정치적 이벤트가 시장 심리에 미치는 영향을 주시해야 할 것으로 보입니다. 또한, 우주 데이터센터와 같은 새로운 분야에 대한 관심도 증가하고 있어 관련 기술 동향을 살펴볼 필요가 있습니다. 다만, 일부 칩 주가 하락 소식은 데이터센터 관련 기업들의 실적에 잠재적 영향을 미칠 수 있습니다."
+        },
+        {
+          "name": "Chipmakers",
+          "outlook": "반도체 섹터는 AI 칩 수요 증가 및 관련 기술 발전에 대한 기대감으로 주목받고 있으나, 최근 주식 로테이션 현상 속에서 일부 칩 제조업체들이 후퇴하는 모습을 보이고 있습니다. 미국 중간선거 결과가 데이터센터 낙관론에 영향을 미치면서 관련 칩 주가 하락 소식이 전해졌습니다. 향후 일주일간은 이러한 거시 경제 및 정치적 변수가 반도체 업종 전반에 미치는 영향을 면밀히 관찰해야 합니다. 또한, 특정 기업의 실적 부진 가능성도 단기적인 위험 요인으로 작용할 수 있습니다."
+        }
+      ],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [
+        {
+          "name": "반도체",
+          "outlook": "국내 반도체 섹터는 AI 수요 지속에 대한 기대감과 함께, 미국 중간선거 결과가 시장에 미치는 영향에 주목하고 있습니다. 최근 삼성전자와 SK하이닉스를 포함한 주요 종목들의 큰 폭 하락이 관측되었으며, 이는 단기적인 투자 심리에 부담으로 작용할 수 있습니다. 향후 일주일간은 이러한 하락세가 진정되고 회복세를 보일 수 있을지에 대한 시장의 관심이 집중될 것으로 예상됩니다. 또한, 반도체에서 바이오, 이차전지 등 다른 섹터로의 자금 이동 가능성도 논의되고 있습니다."
+        },
+        {
+          "name": "바이오",
+          "outlook": "바이오 섹터는 향후 10배 상승 가능성이 언급되며 투자자들의 관심을 받고 있습니다. 반도체 섹터의 부진 속에서 바이오로의 섹터 이동 가능성이 제기되고 있으며, 특정 바이오 주식에 대한 매수 의견도 제시되었습니다. 향후 일주일간은 이러한 긍정적인 전망이 구체적인 주가 움직임으로 이어질 수 있을지 주목해야 합니다. 다만, 바이오 섹터는 임상 결과 발표 등 개별 기업의 이벤트에 따라 변동성이 클 수 있으므로, 관련 일정을 주시할 필요가 있습니다."
+        },
+        {
+          "name": "AI",
+          "outlook": "AI 수요는 여전히 살아있다는 분석이 제시되며 관련 섹터에 대한 긍정적인 시각이 유지되고 있습니다. 이는 AI 기술 발전 및 관련 서비스에 대한 지속적인 관심으로 이어질 것으로 보입니다. 향후 일주일간은 AI 관련 기업들의 신제품 출시나 기술 개발 마일스톤 등 구체적인 이벤트가 시장의 주목을 받을 수 있습니다. 다만, 반도체 섹터의 전반적인 하락세가 AI 관련 기업에도 영향을 미칠 가능성을 배제할 수 없습니다."
+        }
+      ],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "영상들에서는 반도체 섹터의 현재 상황과 향후 전망에 대해 다루고 있습니다. 중간선거 결과가 반도체 시장에 영향을 미칠 수 있다는 분석과 함께, AI 수요는 여전히 살아있다는 의견도 제시되었습니다. 삼성전자와 SK하이닉스 등 주요 종목의 폭락에 대한 언급도 있었습니다.",
+        "refs": [
+          1,
+          2,
+          3
+        ],
+        "reason": "영상들에서는 반도체 섹터의 현재 상황과 향후 전망에 대해 다루고 있습니다. 중간선거 결과가 반도체 시장에 영향을 미칠 수 있다는 분석과 함께, AI 수요는 여전히 살아있다는 의견도 제시되었습니다. 삼성전자와 SK하이닉스 등 주요 종목의 폭락에 대한 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "반도체에서 바이오·이차전지로?…종목 바꿔도 소용없는 지금, 지수 추세부터 봐야 할 때ㅣ명민준, 박가영, 유영화 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=7EgZdALirec",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-05 20:00:03 KST"
+          },
+          {
+            "title": "[26.11.05 오후 방송 전체보기] 중간선거 이후에는 오른다? 민주당 압승에 반도체는 웁니다...내일 삼전닉스 돌아올까",
+            "url": "https://www.youtube.com/watch?v=B5HYuPMzTp8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-05 19:17:08 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 역대급 무서운 폭락, 지금 말고 '이때' 주식 파세요 (한지영 연구위원)",
+            "url": "https://www.youtube.com/watch?v=ksa_yEVO-Cc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 19:15:07 KST"
+          }
+        ],
+        "outlook": "유튜브 영상에서는 반도체 섹터의 현재 상황과 향후 전망에 대해 다루고 있습니다. 미국 중간선거 결과가 반도체 시장에 영향을 미칠 수 있다는 분석과 함께, AI 수요는 여전히 살아있다는 의견도 제시되었습니다. 삼성전자와 SK하이닉스 등 주요 종목의 큰 폭 하락에 대한 언급이 있었으며, 이는 향후 일주일간 투자 심리에 영향을 미칠 수 있는 요인입니다. 반도체에서 바이오·이차전지로의 섹터 이동 가능성도 논의되고 있어, 관련 동향을 주시해야 합니다."
+      },
+      {
+        "name": "바이오",
+        "freq": 2,
+        "summary": "바이오 섹터는 향후 10배 상승 가능성이 언급되며 주목받고 있습니다. 특정 바이오 주식에 대한 매수 의견이 제시되었으며, 반도체에서 바이오로의 섹터 이동 가능성도 논의되었습니다.",
+        "refs": [
+          1,
+          7
+        ],
+        "reason": "바이오 섹터는 향후 10배 상승 가능성이 언급되며 주목받고 있습니다. 특정 바이오 주식에 대한 매수 의견이 제시되었으며, 반도체에서 바이오로의 섹터 이동 가능성도 논의되었습니다.",
+        "related_videos": [
+          {
+            "title": "반도체에서 바이오·이차전지로?…종목 바꿔도 소용없는 지금, 지수 추세부터 봐야 할 때ㅣ명민준, 박가영, 유영화 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=7EgZdALirec",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-05 20:00:03 KST"
+          },
+          {
+            "title": "결국 바이오주 10배 오른다, 바이오주 '이 주식' 조금 사세요 (김동엽 대표)",
+            "url": "https://www.youtube.com/watch?v=DuN0sOA5Fig",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 17:30:15 KST"
+          }
+        ],
+        "outlook": "바이오 섹터는 향후 10배 상승 가능성이 언급되며 주목받고 있습니다. 반도체 섹터에서 바이오로의 이동 가능성이 논의되고 있으며, 특정 바이오 주식에 대한 매수 의견이 제시되었습니다. 향후 일주일간은 이러한 긍정적인 전망이 주가에 반영될 수 있을지 주목해야 합니다. 바이오 섹터는 개별 기업의 임상 결과 발표 등 중요한 일정이 주가에 큰 영향을 미칠 수 있으므로, 관련 뉴스를 면밀히 살펴볼 필요가 있습니다."
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 수요는 여전히 살아있다는 분석이 제시되었습니다. 이는 AI 관련 기술 및 서비스에 대한 지속적인 관심을 시사합니다.",
+        "refs": [
+          6
+        ],
+        "reason": "AI 수요는 여전히 살아있다는 분석이 제시되었습니다. 이는 AI 관련 기술 및 서비스에 대한 지속적인 관심을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "\"AI 수요는 여전히 살아있다\"…지금은 투매보다 반등 이후 후회하지 않는 전략을 세울 시간ㅣ홍선애, 장우진 금시공 대표 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=uc2pd0dz8VQ",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-05 18:00:18 KST"
+          }
+        ],
+        "outlook": "AI 수요는 여전히 살아있다는 분석이 제시되며, 이는 AI 관련 기술 및 서비스에 대한 지속적인 관심을 시사합니다. 향후 일주일간 AI 관련 기업들의 신제품 출시나 기술 개발 관련 소식이 시장의 주목을 받을 수 있습니다. 다만, 반도체 섹터의 전반적인 하락세가 AI 관련 기업에도 영향을 미칠 가능성이 있어, 거시 경제 지표 및 시장 전반의 흐름을 함께 고려해야 합니다."
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자는 역대급 무서운 폭락을 겪고 있다는 분석이 나왔습니다. 중간선거 이후 반도체 시장의 움직임과 관련하여 삼성전자 및 SK하이닉스의 회복 가능성에 대한 언급이 있었습니다.",
+        "refs": [
+          2,
+          3,
+          5
+        ],
+        "reason": "삼성전자는 역대급 무서운 폭락을 겪고 있다는 분석이 나왔습니다. 중간선거 이후 반도체 시장의 움직임과 관련하여 삼성전자 및 SK하이닉스의 회복 가능성에 대한 언급이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.05 오후 방송 전체보기] 중간선거 이후에는 오른다? 민주당 압승에 반도체는 웁니다...내일 삼전닉스 돌아올까",
+            "url": "https://www.youtube.com/watch?v=B5HYuPMzTp8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-05 19:17:08 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 역대급 무서운 폭락, 지금 말고 '이때' 주식 파세요 (한지영 연구위원)",
+            "url": "https://www.youtube.com/watch?v=ksa_yEVO-Cc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 19:15:07 KST"
+          },
+          {
+            "title": "폭락장에 외국인 쓸어담은 '이 주식', 바닥 찍고 무섭게 치고 오를 섹터 (한지영 연구위원)",
+            "url": "https://www.youtube.com/watch?v=ZxnJl1oOvRk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 18:15:39 KST"
+          }
+        ],
+        "outlook": "삼성전자는 최근 역대급 무서운 폭락을 겪고 있다는 분석이 나왔습니다. 미국 중간선거 이후 반도체 시장의 움직임과 관련하여 삼성전자 및 SK하이닉스의 회복 가능성에 대한 언급이 있었습니다. 향후 일주일간은 이러한 하락세가 진정되고 회복세를 보일 수 있을지에 대한 시장의 관심이 집중될 것으로 예상됩니다. 다만, 반도체 섹터 전반의 약세 흐름이 지속될 경우 추가적인 하방 압력이 발생할 가능성도 있습니다."
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스는 삼성전자와 함께 역대급 무서운 폭락을 겪고 있다는 분석이 나왔습니다. 중간선거 이후 반도체 시장의 움직임과 관련하여 SK하이닉스 및 삼성전자의 회복 가능성에 대한 언급이 있었습니다.",
+        "refs": [
+          2,
+          3,
+          5
+        ],
+        "reason": "SK하이닉스는 삼성전자와 함께 역대급 무서운 폭락을 겪고 있다는 분석이 나왔습니다. 중간선거 이후 반도체 시장의 움직임과 관련하여 SK하이닉스 및 삼성전자의 회복 가능성에 대한 언급이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.05 오후 방송 전체보기] 중간선거 이후에는 오른다? 민주당 압승에 반도체는 웁니다...내일 삼전닉스 돌아올까",
+            "url": "https://www.youtube.com/watch?v=B5HYuPMzTp8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-05 19:17:08 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 역대급 무서운 폭락, 지금 말고 '이때' 주식 파세요 (한지영 연구위원)",
+            "url": "https://www.youtube.com/watch?v=ksa_yEVO-Cc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 19:15:07 KST"
+          },
+          {
+            "title": "폭락장에 외국인 쓸어담은 '이 주식', 바닥 찍고 무섭게 치고 오를 섹터 (한지영 연구위원)",
+            "url": "https://www.youtube.com/watch?v=ZxnJl1oOvRk",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 18:15:39 KST"
+          }
+        ],
+        "outlook": "SK하이닉스는 삼성전자와 함께 역대급 무서운 폭락을 겪고 있다는 분석이 나왔습니다. 미국 중간선거 이후 반도체 시장의 움직임과 관련하여 SK하이닉스 및 삼성전자의 회복 가능성에 대한 언급이 있었습니다. 향후 일주일간은 이러한 하락세가 진정되고 회복세를 보일 수 있을지에 대한 시장의 관심이 집중될 것으로 예상됩니다. 반도체 업황에 대한 불확실성이 지속될 경우 단기적인 변동성이 확대될 수 있습니다."
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Rheinmetall",
+          "freq": 3
+        },
+        {
+          "name": "ABB",
+          "freq": 3
+        },
+        {
+          "name": "SoftBank",
+          "freq": 3
+        },
+        {
+          "name": "Nintendo",
+          "freq": 3
+        },
+        {
+          "name": "Qualcomm",
+          "freq": 2
+        },
+        {
+          "name": "Arm Holdings",
+          "freq": 2
+        },
+        {
+          "name": "Zillow",
+          "freq": 2
+        },
+        {
+          "name": "JetBlue",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Lumentum",
+          "freq": 2
+        },
+        {
+          "name": "Marvell",
+          "freq": 2
+        },
+        {
+          "name": "AMD",
+          "freq": 1
+        },
+        {
+          "name": "Micron",
+          "freq": 1
+        },
+        {
+          "name": "Voyager Technologies",
+          "freq": 1
+        },
+        {
+          "name": "LeMaitre Vascular",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "Chipmakers",
+          "freq": 4
+        },
+        {
+          "name": "Data Centers",
+          "freq": 4
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 3
+        },
+        {
+          "name": "방산",
+          "freq": 3
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Gaming",
+          "freq": 1
+        },
+        {
+          "name": "Travel",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
+          "freq": 1
+        },
+        {
+          "name": "Airlines",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "Entertainment",
+          "freq": 1
+        },
+        {
+          "name": "Aerospace",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "LG에너지솔루션",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 2
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "한국금융지주",
+          "freq": 2
+        },
+        {
+          "name": "한투證",
+          "freq": 2
+        },
+        {
+          "name": "GS25",
+          "freq": 1
+        },
+        {
+          "name": "CU",
+          "freq": 1
+        },
+        {
+          "name": "BGF리테일",
+          "freq": 1
+        },
+        {
+          "name": "호반건설",
+          "freq": 1
+        },
+        {
+          "name": "호반산업",
+          "freq": 1
+        },
+        {
+          "name": "한진칼",
+          "freq": 1
+        },
+        {
+          "name": "KT",
+          "freq": 1
+        },
+        {
+          "name": "롯데백화점",
+          "freq": 1
+        },
+        {
+          "name": "태성",
+          "freq": 1
+        },
+        {
+          "name": "피노",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 4
+        },
+        {
+          "name": "바이오",
+          "freq": 3
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "가상자산",
+          "freq": 2
+        },
+        {
+          "name": "ESS",
+          "freq": 1
+        },
+        {
+          "name": "편의점",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        },
+        {
+          "name": "주택공급",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "데이터센터",
+          "freq": 1
+        },
+        {
+          "name": "화장품",
+          "freq": 1
+        },
+        {
+          "name": "핵융합",
+          "freq": 1
+        },
+        {
+          "name": "철도",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
