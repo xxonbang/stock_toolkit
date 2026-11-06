@@ -1,0 +1,798 @@
+{
+  "generated_at": "2026-11-06 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Data Centers",
+        "reason": "데이터센터 관련 기업들의 언급 빈도가 높으며, 이는 AI 기술 발전과 데이터 처리 수요 증가와 연관된 것으로 분석됩니다 (총 9건).",
+        "us_news_refs": [
+          1,
+          3,
+          9,
+          18,
+          19,
+          25,
+          28,
+          44,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "What the governor-elect of Texas, at the epicenter of the AI trade blowup, is now saying about data centers",
+            "title_ko": "텍사스 주지사 당선인, AI 무역 폭풍의 중심에서 데이터센터 발언",
+            "url": "https://www.marketwatch.com/story/what-the-governor-elect-of-texas-at-the-epicenter-of-the-ai-trade-blowup-is-now-saying-about-data-centers-55876582?mod=mw_rss_topstories",
+            "published_at": "2026-11-06 19:20:00 KST"
+          },
+          {
+            "title": "Data centers took a beating in the midterm elections. A reckoning may be ahead for tech giants - AP News",
+            "title_ko": "데이터센터, 중간선거서 타격. 기술 거두들 앞날은? - AP News",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNX3NGMHFJQlQwNk4yNzFPblZsOHRFS0FBcmc0b3JxbGRoSnUzUC00WGctejhmNllYa094VGFmMHJrSWYyaUhBRlFERkdKbktXSmRkcWhhc21JVUp5Z29kbFVtTE11YjZnc3ZkZU5jM3BvbmRqUVVyUDBveF9OTmJXd1poLVI1LVhlRUVfUjhzczh2b2t3cnZuTUc4UDExWXFmVWlQZ2R4MHVQaGllbnljdlR2UQ?oc=5",
+            "published_at": "2026-11-06 14:08:00 KST"
+          },
+          {
+            "title": "Susquehanna sees 8% of AI data center projects at risk",
+            "title_ko": "Susquehanna, AI 데이터센터 프로젝트 8% 위험",
+            "url": "https://www.investing.com/news/stock-market-news/susquehanna-sees-8-of-ai-data-center-projects-at-risk-93CH-5007177",
+            "published_at": "2026-11-06 19:47:22 KST"
+          },
+          {
+            "title": "ING puts $500 million of data-center loans up for sale, Bloomberg News reports - Reuters",
+            "title_ko": "ING, 5억 달러 규모 데이터센터 대출 매각 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOdW45UENNN0lBd0ZnWEU4MzdlZjlvY1JaMWYyeWhsQjZQQVBqcGFfSnhWN2ItcU9BOEI1RzBWRnVfZHplbWlaU3F5VlB4LTIyUFBDcFBQQkFOaE8yUHFtNWZiYVdWbElNWWRLM1JDdm1uNHZhOTFwZHhuSWMwUzZDUXlCUUNmdE03MUFVR293dlhlR1NrYU1LQnVLekFJQUx3c0dLeVRTdjYyV2dtM1ZHSms4Z2ZISXMzTGwwNVhERQ?oc=5",
+            "published_at": "2026-11-06 12:41:00 KST"
+          },
+          {
+            "title": "The Nasdaq Plunges 5%. What the Data Center Crash Means for Investors - Yahoo Finance",
+            "title_ko": "나스닥 5% 폭락. 데이터센터 붕괴가 투자자에게 의미하는 바 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNc2R4aFM1bDdDYm5MWEJzWmRTSkIyYl9XMTJJWENLbFExWkpib3FWQzhFNmJZbE1NUnAwdTRLa2RBbV9jWlU5UFN2cmVqS3RKYk1yWG80X3NwZUxOV2VnR2JKNnNpQ1U4eWdLM1I3R0lfSUpYcmhNYkFzTThrT3RSc0xETERkN2ZGcnJFYUxraVBTV1BvdEZvdA?oc=5",
+            "published_at": "2026-11-06 12:20:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술의 지속적인 발전과 관련 기업들의 언급이 꾸준히 나타나고 있으며, 이는 산업 전반에 걸친 혁신을 주도하는 핵심 동력으로 작용하고 있습니다 (총 4건).",
+        "us_news_refs": [
+          2,
+          3,
+          8,
+          17,
+          19,
+          21,
+          24,
+          27,
+          31,
+          33,
+          34,
+          40,
+          43,
+          44,
+          49,
+          50
+        ],
+        "related_news": [
+          {
+            "title": "Elon Musk appears to signal the end of the road for Cybertruck - BBC",
+            "title_ko": "일론 머스크, 사이버트럭의 종말 신호 보내나 - BBC",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5lMWdybVlISnZwQXhjTHZ3c3BFWVJuSG94UWVtd0wtT1NoNlFOSW9GdXliaXNES3lsbXpQaGlYeVcxZU5xRExMblRTNGh5SUJtNThlMnRVdVBjOFU?oc=5",
+            "published_at": "2026-11-06 18:57:04 KST"
+          },
+          {
+            "title": "Data centers took a beating in the midterm elections. A reckoning may be ahead for tech giants - AP News",
+            "title_ko": "데이터센터, 중간선거서 타격. 기술 거두들 앞날은? - AP News",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNX3NGMHFJQlQwNk4yNzFPblZsOHRFS0FBcmc0b3JxbGRoSnUzUC00WGctejhmNllYa094VGFmMHJrSWYyaUhBRlFERkdKbktXSmRkcWhhc21JVUp5Z29kbFVtTE11YjZnc3ZkZU5jM3BvbmRqUVVyUDBveF9OTmJXd1poLVI1LVhlRUVfUjhzczh2b2t3cnZuTUc4UDExWXFmVWlQZ2R4MHVQaGllbnljdlR2UQ?oc=5",
+            "published_at": "2026-11-06 14:08:00 KST"
+          },
+          {
+            "title": "Nasdaq futures rise as AI rout pauses amid dip buying",
+            "title_ko": "나스닥 선물 상승, AI 폭락 일시 중단, 저가 매수",
+            "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-rise-after-ai-rout-batters-wall-st-payrolls-data-in-focus-5006240",
+            "published_at": "2026-11-06 19:47:54 KST"
+          },
+          {
+            "title": "Exclusive | Major Investors Are Skeptical Anthropic IPO Can Achieve $1.5 Trillion Valuation - WSJ",
+            "title_ko": "독점 | 주요 투자자들, Anthropic IPO의 1.5조 달러 가치 회의적 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPNVlmZWpuTHFFVDktVG9OaXlnVl9xSFliZFl4YXFRemVUZDFRRFFaajdEcnQ0b01sQTNJNDVDUkRaQXpLdEY3dGhVUjloVS16UHZIQ0cwUG5wQnpxaDcyX3lvX3A0VFZTb0xjMFBObUJKR3N5cVU2WFhqNzRMcEtjN09HQ3VKcnNIcy15V3VJUTdFRkk1OXhQYlNjMFpELUV0Y2o1MnNNa2dPd3lSN3JJdGM2Z0wzdw?oc=5",
+            "published_at": "2026-11-06 13:36:00 KST"
+          },
+          {
+            "title": "The Nasdaq Plunges 5%. What the Data Center Crash Means for Investors - Yahoo Finance",
+            "title_ko": "나스닥 5% 폭락. 데이터센터 붕괴가 투자자에게 의미하는 바 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNc2R4aFM1bDdDYm5MWEJzWmRTSkIyYl9XMTJJWENLbFExWkpib3FWQzhFNmJZbE1NUnAwdTRLa2RBbV9jWlU5UFN2cmVqS3RKYk1yWG80X3NwZUxOV2VnR2JKNnNpQ1U4eWdLM1I3R0lfSUpYcmhNYkFzTThrT3RSc0xETERkN2ZGcnJFYUxraVBTV1BvdEZvdA?oc=5",
+            "published_at": "2026-11-06 12:20:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장에서의 경쟁력과 혁신적인 기술 개발에 대한 지속적인 관심이 주가에 영향을 미치고 있습니다 (총 2건).",
+        "us_news_refs": [
+          2,
+          14,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Elon Musk appears to signal the end of the road for Cybertruck - BBC",
+            "title_ko": "일론 머스크, 사이버트럭의 종말 신호 보내나 - BBC",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5lMWdybVlISnZwQXhjTHZ3c3BFWVJuSG94UWVtd0wtT1NoNlFOSW9GdXliaXNES3lsbXpQaGlYeVcxZU5xRExMblRTNGh5SUJtNThlMnRVdVBjOFU?oc=5",
+            "published_at": "2026-11-06 18:57:04 KST"
+          },
+          {
+            "title": "Is it the end of the Cybertruck? Elon Musk announces factory will shift production",
+            "title_ko": "사이버트럭의 종말인가? 일론 머스크, 공장 생산 전환 발표",
+            "url": "https://www.marketwatch.com/story/is-it-the-end-of-the-cybertruck-elon-musk-announces-factory-will-shift-production-3e33cafd?mod=mw_rss_topstories",
+            "published_at": "2026-11-06 19:37:00 KST"
+          },
+          {
+            "title": "Elon Musk gambled $445 million to boost Republicans in the midterms. It came up short - PBS",
+            "title_ko": "일론 머스크, 공화당 지원에 4억 4500만 달러 베팅, 실패 - PBS",
+            "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPQk1TbzFweFpsVkYxZ2tmaTUxWEluTGhlT25vTGNMYUd4SVZyN1N5cFlIU1IxUGw1SVZoM1BYTUdNNXJRODRwNUI3OGM4MmpOdHZUNUR2QWgwazE0ekJELVNpODc2ZmZ1LWNyeEFzdktaMW9TemxiX2J3X01wRVlYT0ZLWkg2b28xVi1kS0tZNVczT0luYUpqZndmU2FYY2NSWVZQSElrSjRyTVlYNnFjd3Jadk5WcG5qTE9vZUdn?oc=5",
+            "published_at": "2026-11-06 07:44:08 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야의 주요 기업으로, 기술 개발 및 투자 소식이 시장의 주목을 받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          17,
+          43
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Exclusive | Major Investors Are Skeptical Anthropic IPO Can Achieve $1.5 Trillion Valuation - WSJ",
+            "title_ko": "독점 | 주요 투자자들, Anthropic IPO의 1.5조 달러 가치 회의적 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPNVlmZWpuTHFFVDktVG9OaXlnVl9xSFliZFl4YXFRemVUZDFRRFFaajdEcnQ0b01sQTNJNDVDUkRaQXpLdEY3dGhVUjloVS16UHZIQ0cwUG5wQnpxaDcyX3lvX3A0VFZTb0xjMFBObUJKR3N5cVU2WFhqNzRMcEtjN09HQ3VKcnNIcy15V3VJUTdFRkk1OXhQYlNjMFpELUV0Y2o1MnNNa2dPd3lSN3JJdGM2Z0wzdw?oc=5",
+            "published_at": "2026-11-06 13:36:00 KST"
+          },
+          {
+            "title": "3 takeaways from the big AI report on Anthropic everyone is talking about - Business Insider",
+            "title_ko": "모두가 말하는 Anthropic AI 보고서의 3가지 시사점 - Business Insider",
+            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRVU2aDNKNTRhU3NLcmJXR3pnTkVKT1UxR0JJcXUtWDdPU0FlSEhZUkNHLU8zYlNQOURaeWxwRWw3TWRIb1M5QmJxWTJhWS1aSW9Kc2szSUFsV1hKOHFrUVZuMmVhWGFDVXpubEdicjQ3TC1PejNqOXY1LWhyT0htMGJoZW9rLTFYUUt1TFBYYTlyT2Ffc3VLYnAxZzF6SjMwXzRHOWJUc0x6aUVoRTdKMlREY2IweFk?oc=5",
+            "published_at": "2026-11-06 05:40:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 시장에서의 압도적인 지위와 HBM 등 신기술 개발에 대한 기대감이 지속적으로 언급되고 있습니다 (총 2건).",
+        "us_news_refs": [
+          37,
+          44
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nvidia Stock Is Below $200. What History Suggests Is the Floor. - Barron's",
+            "title_ko": "Nvidia 주가 200달러 아래. 역사적 바닥은? - Barron's",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9EQVhFU0ZMU1p3Yk13SUJ2NjdNTk1JeWcwTnNsZjI2d3V3Mi0wZEZIUUYzbEo5dTN1V2UtMy1PblNYa1Y0MXhjQVQzYXN6OGlTOUUxQmRCMDc3dFZmZlhrSjl1Slh1Q1BDVE1yN015Nk51Zkpq?oc=5",
+            "published_at": "2026-11-06 06:26:00 KST"
+          },
+          {
+            "title": "Bay Area AI stocks plunge after data center voter backlash in worst trading day since April 2025 - San Francisco Chronicle",
+            "title_ko": "베이 에어리어 AI 주식, 데이터센터 유권자 반발 후 급락 - San Francisco Chronicle",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV2hZakFaMjE1cG16X3BhMjctZjdfdnVpYTFNM2tfMDYxTjZROTMwNHVvTUdVcFBENWxSZmdkRXNKLUhOd3RsRmpubFNOQjRvZkxqNXNaZUJ2enRHVlZfZThJa194Y2J3RW92UzBrc0JqQjlkNXctcUVvSXZZdmpMblc2SElKX0JxTVdMazNsU244TG5GZm5WS0Q1QXgtNTV3X2c?oc=5",
+            "published_at": "2026-11-06 05:05:08 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "Data Centers",
+        "reason": "데이터센터 관련 기업들의 언급 빈도가 높으며, 이는 AI 및 클라우드 서비스 확장에 따른 인프라 투자 증가와 관련이 있습니다 (총 4건).",
+        "kr_news_refs": [
+          2,
+          11,
+          21,
+          40
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "미국, AI 투자 제동 걸리나…규제 우려에 나스닥 급락 - 지디넷코리아",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE8yMUgtWHdaUGx2bGdady1GX1lVVkZ1NWpxRFhvOUMxYk9Ya285ZTduX0hqWDRjSXllM19GbHVhbTA4dU02ZVh2S2RESmhRc20tQm1KcDhB?oc=5",
+            "published_at": "2026-11-06 16:47:31 KST"
+          },
+          {
+            "title": "미 중간선거 쟁점된 데이터센터…버터도 안녹는 국산 AI칩 주목 - 연합뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE8zVk5IdzlwMTYwVV9oS2JaTjZsSUVSd013WXo5RndaWDJPNy1XTk90UFhyd1lxNUdpbjJFeFMxbEVwTGhmVVNQNV9NVUEzY0ZuMmJrT1RsT0pSdm_SAWBBVV95cUxQekJOd2YyYjAxdHlyR3hhZTNyUFdiRW1sOXhjWWFCYTFwekYxb1BWRXhtMEhTNmkxa1VYa2NGSkY2TkNNSlU1Y2x3ZjlCTTUwTFM1UlVxclVTLVZRNEZFQ08?oc=5",
+            "published_at": "2026-11-06 15:20:27 KST"
+          },
+          {
+            "title": "“데이터센터 멈춰라”…유럽 15개국 100여개 단체 반대 시위",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12200822",
+            "published_at": "2026-11-06 19:35:03 KST"
+          },
+          {
+            "title": "유럽서도 커지는 '데이터센터 반대'…15개국 100여개 단체 시위",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106178500085",
+            "published_at": "2026-11-06 19:08:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "가상자산",
+        "reason": "가상자산 거래소 및 관련 규제 동향에 대한 관심이 지속적으로 나타나고 있으며, 이는 시장의 변동성과 투자 심리를 반영합니다 (총 3건).",
+        "kr_news_refs": [
+          1,
+          26,
+          64
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "고팍스 코인 매매 전면 중단…“해커로부터 협박 받아” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBtV2I5Q2R3ZFloSmRiWDlOSjUtcWx6eVFhcE9yLW9wVnVZR3lpS0dCZFEySnEzLWhMZnVNdmJ5SEdKVUh5X1BBcUlDZVRPQzBGTVVUMzRERzdnanM?oc=5",
+            "published_at": "2026-11-06 18:25:00 KST"
+          },
+          {
+            "title": "가상자산 거래소 고팍스, 해킹 위협에 입출금·매매 중단(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106174751002",
+            "published_at": "2026-11-06 19:20:59 KST"
+          },
+          {
+            "title": "고팍스, 해킹 예고 협박 메일에 출금 차단",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106174700002",
+            "published_at": "2026-11-06 18:24:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "AI 기술의 발전과 이를 활용한 서비스 및 제품 개발에 대한 관심이 꾸준히 이어지고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          2,
+          4,
+          8,
+          11,
+          14,
+          29,
+          36
+        ],
+        "related_news": [
+          {
+            "title": "미국, AI 투자 제동 걸리나…규제 우려에 나스닥 급락 - 지디넷코리아",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE8yMUgtWHdaUGx2bGdady1GX1lVVkZ1NWpxRFhvOUMxYk9Ya285ZTduX0hqWDRjSXllM19GbHVhbTA4dU02ZVh2S2RESmhRc20tQm1KcDhB?oc=5",
+            "published_at": "2026-11-06 16:47:31 KST"
+          },
+          {
+            "title": "엔비디아, 네이버에 1조3천412억 원 납입 완료…지분 4.13% 확보 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE82QkFOQmZGaXRyVlRkeUJhUDZEMDFUMVBCc2I5a25odU40WTFIYW1jX0xNcFVzdEVJaS1jaS1IVmVJNEh4YkJvVkpKVzkwUVNjY3E0N3hyMEltVG8?oc=5",
+            "published_at": "2026-11-06 16:43:00 KST"
+          },
+          {
+            "title": "60만장 엔비디아 칩, 홍콩서 오도가도 못해…中, 수입 보류 - 노컷뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE81Q2g2WkliZjRYR3U4aDlfNkFLemRUSmRqdmlKbzZXYUs5VXl1a2h6OWRTaU5PS0dCUVFDaVU5NTBFVFRLZzFjZHAtZ29sUld3R0E?oc=5",
+            "published_at": "2026-11-06 16:14:52 KST"
+          },
+          {
+            "title": "미 중간선거 쟁점된 데이터센터…버터도 안녹는 국산 AI칩 주목 - 연합뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE8zVk5IdzlwMTYwVV9oS2JaTjZsSUVSd013WXo5RndaWDJPNy1XTk90UFhyd1lxNUdpbjJFeFMxbEVwTGhmVVNQNV9NVUEzY0ZuMmJrT1RsT0pSdm_SAWBBVV95cUxQekJOd2YyYjAxdHlyR3hhZTNyUFdiRW1sOXhjWWFCYTFwekYxb1BWRXhtMEhTNmkxa1VYa2NGSkY2TkNNSlU1Y2x3ZjlCTTUwTFM1UlVxclVTLVZRNEZFQ08?oc=5",
+            "published_at": "2026-11-06 15:20:27 KST"
+          },
+          {
+            "title": "정부, ‘AI 에이전트’ 보안 지침 마련…“위험하면 사람이 직접 승인” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE90WHk5OFhuQWdDQUhPa1l0QS1RV0sxSzMtTTdMUW9rZ0NoNlhEdWdnU0s3QkNqNU13WTgzWGhHblF4bTdwRjgtYkhyNGZ3N2hwLVpPWUh1VUhQTjQ?oc=5",
+            "published_at": "2026-11-06 14:28:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "고팍스",
+        "reason": "가상자산 거래소 관련 이슈가 지속적으로 언급되며 시장의 주목을 받고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          1,
+          26,
+          64
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "고팍스 코인 매매 전면 중단…“해커로부터 협박 받아” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBtV2I5Q2R3ZFloSmRiWDlOSjUtcWx6eVFhcE9yLW9wVnVZR3lpS0dCZFEySnEzLWhMZnVNdmJ5SEdKVUh5X1BBcUlDZVRPQzBGTVVUMzRERzdnanM?oc=5",
+            "published_at": "2026-11-06 18:25:00 KST"
+          },
+          {
+            "title": "가상자산 거래소 고팍스, 해킹 위협에 입출금·매매 중단(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106174751002",
+            "published_at": "2026-11-06 19:20:59 KST"
+          },
+          {
+            "title": "고팍스, 해킹 예고 협박 메일에 출금 차단",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106174700002",
+            "published_at": "2026-11-06 18:24:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 시장에서의 독보적인 위치와 관련 기술 발전에 대한 기대감이 한국 증시에서도 주목받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          4,
+          8
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "엔비디아, 네이버에 1조3천412억 원 납입 완료…지분 4.13% 확보 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE82QkFOQmZGaXRyVlRkeUJhUDZEMDFUMVBCc2I5a25odU40WTFIYW1jX0xNcFVzdEVJaS1jaS1IVmVJNEh4YkJvVkpKVzkwUVNjY3E0N3hyMEltVG8?oc=5",
+            "published_at": "2026-11-06 16:43:00 KST"
+          },
+          {
+            "title": "60만장 엔비디아 칩, 홍콩서 오도가도 못해…中, 수입 보류 - 노컷뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE81Q2g2WkliZjRYR3U4aDlfNkFLemRUSmRqdmlKbzZXYUs5VXl1a2h6OWRTaU5PS0dCUVFDaVU5NTBFVFRLZzFjZHAtZ29sUld3R0E?oc=5",
+            "published_at": "2026-11-06 16:14:52 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "AI 기술 발전과 반도체 시장의 변화 속에서 삼성전자의 기술력 및 시장 대응에 대한 관심이 나타나고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          7,
+          87
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "‘삼전 67만·닉스470만’ 전망했던 노무라, 코스피 3개월 목표 ‘7500∼8000’ - 세계일보",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBpYl8wb1hhZF9QSjI0NnN5VzhnbWwyVzlvMTdmQVAwZG95S0ZuaG9ITE82QTVEU3FtRG1JREFadGQ2VURubHVZMWc3bl9WOV80bXpPNzdReEHSAVRBVV95cUxPNElaQUdiZW5uWEs4aUpZOC1OcWdJc1BHOXBjeVB5S3dKS3FsWkc2VjFieXhEM0dKRnBteEVfYXhfNUJaUUs3dHNoUi0yYVU4RWllRDY?oc=5",
+            "published_at": "2026-11-06 16:22:17 KST"
+          },
+          {
+            "title": "“3억 넣었는데 반년도 안돼 3천만원 됐습니다”…피눈물 나는 레버리지 개미들",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12200743",
+            "published_at": "2026-11-06 18:02:23 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 4,
+        "summary": "영상들에서 삼성전자, SK하이닉스의 주가 하락을 언급하며 반도체 섹터의 어려움을 지적했습니다. AI 투자 불확실성이 반도체 폭락을 불렀다는 분석과 함께, 반도체에서 빠져나간 자금이 다른 곳으로 쏠릴 것이라는 전망이 나왔습니다. 다만, 일부 영상에서는 5,500 아래를 극심한 바닥으로 보고 내년 1월 반등을 예상하기도 했습니다.",
+        "refs": [
+          5,
+          6,
+          8
+        ],
+        "reason": "영상들에서 삼성전자, SK하이닉스의 주가 하락을 언급하며 반도체 섹터의 어려움을 지적했습니다. AI 투자 불확실성이 반도체 폭락을 불렀다는 분석과 함께, 반도체에서 빠져나간 자금이 다른 곳으로 쏠릴 것이라는 전망이 나왔습니다. 다만, 일부 영상에서는 5,500 아래를 극심한 바닥으로 보고 내년 1월 반등을 예상하기도 했습니다.",
+        "related_videos": [
+          {
+            "title": "20만 삼성전자 깨지고, 100만 SK하이닉스 위태, 반도체 떠난 돈 '여기로' 쏟아진다 (주식장인 이창대 대표)",
+            "url": "https://www.youtube.com/watch?v=OIDkoHoEyUw",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-06 18:30:20 KST"
+          },
+          {
+            "title": "반도체 폭락 부른 AI 투자 불확실성…5,500 아래는 '극심한 바닥', 내년 1월이 반등의 분기점?ㅣ홍선애, 박승영 한화투자증권 PLUS자산전략팀장 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=4Z5wNpIrOLs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-06 18:03:51 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 7%, SK하이닉스 9% 폭락했다, 지금 당장 '이렇게' 해야 한다 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=4P2V4Bk_9Qo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 21:15:35 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 투자 불확실성이 반도체 섹터의 폭락을 야기했다는 분석이 제시되었습니다. 이는 AI 분야의 투자 전망에 대한 불확실성이 반도체 기업들의 주가에 직접적인 영향을 미쳤음을 시사합니다.",
+        "refs": [
+          6
+        ],
+        "reason": "AI 투자 불확실성이 반도체 섹터의 폭락을 야기했다는 분석이 제시되었습니다. 이는 AI 분야의 투자 전망에 대한 불확실성이 반도체 기업들의 주가에 직접적인 영향을 미쳤음을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "반도체 폭락 부른 AI 투자 불확실성…5,500 아래는 '극심한 바닥', 내년 1월이 반등의 분기점?ㅣ홍선애, 박승영 한화투자증권 PLUS자산전략팀장 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=4Z5wNpIrOLs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-06 18:03:51 KST"
+          }
+        ]
+      },
+      {
+        "name": "주식 시장 전반",
+        "freq": 3,
+        "summary": "영상들은 최근 주식 시장의 폭락 상황을 집중적으로 다루고 있습니다. 특히 한국 증시가 미국발 '블루 쓰나미'에 크게 영향을 받았다는 분석과 함께, 개별 종목의 폭락과 시장 전반의 불안정성을 언급했습니다. 일부 영상에서는 폭락장 속에서도 오히려 오른 종목들을 소개하기도 했습니다.",
+        "refs": [
+          1,
+          2,
+          8
+        ],
+        "reason": "영상들은 최근 주식 시장의 폭락 상황을 집중적으로 다루고 있습니다. 특히 한국 증시가 미국발 '블루 쓰나미'에 크게 영향을 받았다는 분석과 함께, 개별 종목의 폭락과 시장 전반의 불안정성을 언급했습니다. 일부 영상에서는 폭락장 속에서도 오히려 오른 종목들을 소개하기도 했습니다.",
+        "related_videos": [
+          {
+            "title": "이번 폭락장 때 오히려 오른 종목, '딱 3개 종목만' 알려드릴게요 (주식장인 이창대 대표)",
+            "url": "https://www.youtube.com/watch?v=HhR3ACyM5t4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-06 19:30:03 KST"
+          },
+          {
+            "title": "[26.11.06 오후 방송 전체보기] 개장 3분 만에 서킷브레이커…코스피 장중 8%대 폭락, 미국 블루 쓰나미에 한국이 제일 세게 맞았다",
+            "url": "https://www.youtube.com/watch?v=ELMNCjFEByE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-06 19:12:54 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 7%, SK하이닉스 9% 폭락했다, 지금 당장 '이렇게' 해야 한다 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=4P2V4Bk_9Qo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 21:15:35 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자의 주가 하락이 20만 원을 깨고 7% 폭락했다는 내용이 언급되었습니다. 이는 반도체 섹터의 전반적인 부진과 함께 개별 기업의 실적 또는 시장 상황에 대한 우려를 반영하는 것으로 보입니다.",
+        "refs": [
+          5,
+          8
+        ],
+        "reason": "삼성전자의 주가 하락이 20만 원을 깨고 7% 폭락했다는 내용이 언급되었습니다. 이는 반도체 섹터의 전반적인 부진과 함께 개별 기업의 실적 또는 시장 상황에 대한 우려를 반영하는 것으로 보입니다.",
+        "related_videos": [
+          {
+            "title": "20만 삼성전자 깨지고, 100만 SK하이닉스 위태, 반도체 떠난 돈 '여기로' 쏟아진다 (주식장인 이창대 대표)",
+            "url": "https://www.youtube.com/watch?v=OIDkoHoEyUw",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-06 18:30:20 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 7%, SK하이닉스 9% 폭락했다, 지금 당장 '이렇게' 해야 한다 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=4P2V4Bk_9Qo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 21:15:35 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스의 주가가 100만 원이 위태롭고 9% 폭락했다는 내용이 언급되었습니다. 이는 삼성전자와 마찬가지로 반도체 섹터의 어려움과 맞물려 투자자들의 주의를 요하는 상황을 보여줍니다.",
+        "refs": [
+          5,
+          8
+        ],
+        "reason": "SK하이닉스의 주가가 100만 원이 위태롭고 9% 폭락했다는 내용이 언급되었습니다. 이는 삼성전자와 마찬가지로 반도체 섹터의 어려움과 맞물려 투자자들의 주의를 요하는 상황을 보여줍니다.",
+        "related_videos": [
+          {
+            "title": "20만 삼성전자 깨지고, 100만 SK하이닉스 위태, 반도체 떠난 돈 '여기로' 쏟아진다 (주식장인 이창대 대표)",
+            "url": "https://www.youtube.com/watch?v=OIDkoHoEyUw",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-06 18:30:20 KST"
+          },
+          {
+            "title": "[긴급 증시 진단] 삼성전자 7%, SK하이닉스 9% 폭락했다, 지금 당장 '이렇게' 해야 한다 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=4P2V4Bk_9Qo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-05 21:15:35 KST"
+          }
+        ]
+      },
+      {
+        "name": "애플",
+        "freq": 1,
+        "summary": "애플이 시가총액 1위를 달성했으며, 주식 시장이 전반적으로 하락하는 와중에도 애플 혼자 끄떡없는 이유에 대한 분석이 제시되었습니다. 이는 애플의 견고한 시장 지배력과 투자 매력을 시사합니다.",
+        "refs": [
+          3
+        ],
+        "reason": "애플이 시가총액 1위를 달성했으며, 주식 시장이 전반적으로 하락하는 와중에도 애플 혼자 끄떡없는 이유에 대한 분석이 제시되었습니다. 이는 애플의 견고한 시장 지배력과 투자 매력을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "무적 애플군단, 시가총액 1위 달성",
+            "url": "https://www.youtube.com/watch?v=xymdBYW2WUo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-06 19:07:44 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Tesla",
+          "freq": 2
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "IREN",
+          "freq": 2
+        },
+        {
+          "name": "IonQ",
+          "freq": 2
+        },
+        {
+          "name": "MP Materials",
+          "freq": 2
+        },
+        {
+          "name": "AppLovin",
+          "freq": 2
+        },
+        {
+          "name": "Marvell",
+          "freq": 2
+        },
+        {
+          "name": "Agility Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Blue Origin",
+          "freq": 1
+        },
+        {
+          "name": "Tandem Diabetes Care",
+          "freq": 1
+        },
+        {
+          "name": "Globus Medical",
+          "freq": 1
+        },
+        {
+          "name": "Northwest Natural Gas",
+          "freq": 1
+        },
+        {
+          "name": "Advance Auto Parts",
+          "freq": 1
+        },
+        {
+          "name": "Applied Optoelectronics",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 4
+        },
+        {
+          "name": "Data Centers",
+          "freq": 9
+        },
+        {
+          "name": "Chip Stocks",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 2
+        },
+        {
+          "name": "Quantum Computing",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Rare Earths",
+          "freq": 1
+        },
+        {
+          "name": "Hedge Funds",
+          "freq": 1
+        },
+        {
+          "name": "Gold",
+          "freq": 1
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 1
+        },
+        {
+          "name": "Renewable Energy",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "고팍스",
+          "freq": 3
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "삼성전자",
+          "freq": 2
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "씨젠",
+          "freq": 2
+        },
+        {
+          "name": "한국타이어",
+          "freq": 2
+        },
+        {
+          "name": "NAVER",
+          "freq": 1
+        },
+        {
+          "name": "동원파츠",
+          "freq": 1
+        },
+        {
+          "name": "티씨머티리얼즈",
+          "freq": 1
+        },
+        {
+          "name": "씨이랩",
+          "freq": 1
+        },
+        {
+          "name": "LG에너지솔루션",
+          "freq": 1
+        },
+        {
+          "name": "아우디",
+          "freq": 1
+        },
+        {
+          "name": "슈나이더 일렉트릭",
+          "freq": 1
+        },
+        {
+          "name": "한국타이어앤테크놀로지",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Data Centers",
+          "freq": 4
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "가상자산",
+          "freq": 3
+        },
+        {
+          "name": "바이오헬스",
+          "freq": 2
+        },
+        {
+          "name": "진단키트",
+          "freq": 2
+        },
+        {
+          "name": "타이어",
+          "freq": 2
+        },
+        {
+          "name": "보안",
+          "freq": 2
+        },
+        {
+          "name": "디스플레이",
+          "freq": 1
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "자동차",
+          "freq": 1
+        },
+        {
+          "name": "로봇",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "IPO",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
