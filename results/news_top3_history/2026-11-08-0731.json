@@ -1,0 +1,700 @@
+{
+  "generated_at": "2026-11-08 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 기업들의 투자 및 기술 개발 소식이 지속적으로 보도되며 주목받고 있습니다 (총 12건)",
+        "us_news_refs": [
+          22,
+          27,
+          28,
+          30,
+          33,
+          35,
+          37,
+          41,
+          43,
+          47,
+          49,
+          50
+        ],
+        "related_news": [
+          {
+            "title": "The S&P 500 could be dangerously exposed to AI. Here are some simple alternatives.",
+            "title_ko": "",
+            "url": "https://www.marketwatch.com/story/the-s-p-500-has-become-a-big-ai-bet-here-are-some-simple-alternatives-3c7574a4?mod=mw_rss_topstories",
+            "published_at": "2026-11-08 01:40:00 KST"
+          },
+          {
+            "title": "America's newest small business owners with no employees are off to a hot start in AI era - CNBC",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNSGNocEIzalpzdHNFNndLV3NDTllNUkhza1N0VGVHZ2ROdDVLenotQldUWEhjUFN0Vmg4UUZGOE5WMXQtZ3YxRjNFdWExYVdJdmJMU1VzX2hESFJHUVFyR0RnR1RwcFc4UXloekpzY010bVhUcnFhd3Z4blhwZEZsR2VHZ0c2WHFsRnhiTU9qRU1HbnFwd1BNa3B3RE9iTTFIV1RjU253?oc=5",
+            "published_at": "2026-11-07 23:45:01 KST"
+          },
+          {
+            "title": "Jim Cramer sends a strong signal to Nvidia stock investors - TheStreet",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNeFh5eHFFVi13TmVVX01zZFBGZFctZmU1ckM2dDhzUTZsVWhfcWFRbGppMUp2UThvRW5Ua2tHM3ZUeDFUN1IzUUF4dkg0YlRPSjJDR3p4cndOeVItRUVxbWxaaXdaVWdtTV9sTlpHVjdXRERjMGdqQ2JiTTlnVFJTd21oWDMydEpaM3hDSUQ2Wkt1cXNGLTNNNWI0QlE0U1lGWEV3?oc=5",
+            "published_at": "2026-11-07 23:17:00 KST"
+          },
+          {
+            "title": "Anthropic IPO meets AI backlash after midterms show stinging rebuke of data centers - CNBC",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBkVFNKdFlSLTl6ZndHZTBvOFFta0JaelYzcldkc21kSVJiSHNOcDVBX19xTVY3clpiekZSWmpRbFdtaHdTbVo1d3lNNXJTa3FfQ2NiWHhJV3Vvb3hEekdfQnJDV2xQcU0wUFo4dnBiM050YnhVOVFfYXo4VW5PRWc?oc=5",
+            "published_at": "2026-11-07 22:00:01 KST"
+          },
+          {
+            "title": "Governor-Elect of Texas Announces Plans to Bring Elon Musk Under Control - Futurism",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5BMmlWY2s2Qml3enhsZ3NZcWkxRmtBbEVnNV9vT0Y0blcxZ2JfVFhJUEpsaFd5ZUVqaTNOUTViQTV0bzd0RlA4YU9Ma0tqRmhKUFJrS1hodG8wOVV1NlUxeEs4WE50bjVWeFpUag?oc=5",
+            "published_at": "2026-11-07 20:51:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Data Centers",
+        "reason": "AI 기술 발전과 함께 데이터 센터 구축 및 확장 관련 뉴스가 꾸준히 언급되고 있습니다 (총 5건)",
+        "us_news_refs": [
+          30,
+          33,
+          37,
+          43,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Anthropic IPO meets AI backlash after midterms show stinging rebuke of data centers - CNBC",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBkVFNKdFlSLTl6ZndHZTBvOFFta0JaelYzcldkc21kSVJiSHNOcDVBX19xTVY3clpiekZSWmpRbFdtaHdTbVo1d3lNNXJTa3FfQ2NiWHhJV3Vvb3hEekdfQnJDV2xQcU0wUFo4dnBiM050YnhVOVFfYXo4VW5PRWc?oc=5",
+            "published_at": "2026-11-07 22:00:01 KST"
+          },
+          {
+            "title": "Governor-Elect of Texas Announces Plans to Bring Elon Musk Under Control - Futurism",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5BMmlWY2s2Qml3enhsZ3NZcWkxRmtBbEVnNV9vT0Y0blcxZ2JfVFhJUEpsaFd5ZUVqaTNOUTViQTV0bzd0RlA4YU9Ma0tqRmhKUFJrS1hodG8wOVV1NlUxeEs4WE50bjVWeFpUag?oc=5",
+            "published_at": "2026-11-07 20:51:00 KST"
+          },
+          {
+            "title": "Chart of the Week: Data centres rebuked - Financial Times",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQk9qamlJdm1YTENlcUdqS3lwZnpTRXhNMmxMVENvdUl4LVZDZS1tREpocHpLY3gza1pEVGthV2QweVR5NnpubW9sNmIwV0NtNXpwd004WnNjTlB3RzN2dmdfV3FFUEVnN29DUWN4Z1B6REQtTWVudktCczhHT2k1V3Q5VUI?oc=5",
+            "published_at": "2026-11-07 19:30:03 KST"
+          },
+          {
+            "title": "Elon Musk Staked His Empire on Texas. Now State Democrats Want to Rein Him In. - WSJ",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQVVZsNTNhMFR3RTZST0VkeVNXVm52MndSd1VPbFJIUXlCZVBlQ2JJOUMtOEhxU0x6QXE0T29QaHUyRjkzRXBxRmRFNVhJOE45bVBrWTIxeE14TjFPOTNGRTI1bEpNWVZwQk1tMjIxLWFnV3I4NjZ1Unk5WU51QWZ5eXdoeDc?oc=5",
+            "published_at": "2026-11-07 12:00:00 KST"
+          },
+          {
+            "title": "Crusoe sells troubled Wyoming data center project to Google - TechCrunch",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPOTZaSVJmRTQ3WWYwN3NtZktMaDFicXkxaWd2akk4QmNKQkMtY1RrclR5aUdENEJpNDdFMzJxRTlhQlhvQ2o0MjZicDBrS1p6eFJYWFoxci15b3BNQXdCcE5sMzJRdElmMmt6NkhBUkl1bm16OEQ1dHB0eUJhcWNIc0FzZUI0bzAyX1B4RXlaaS1EcEVheGs0QldR?oc=5",
+            "published_at": "2026-11-07 10:40:28 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 관련 기술 개발 소식이 지속적으로 보도되며 높은 관심을 받고 있습니다 (총 1건)",
+        "us_news_refs": [
+          28,
+          36,
+          50
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Jim Cramer sends a strong signal to Nvidia stock investors - TheStreet",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNeFh5eHFFVi13TmVVX01zZFBGZFctZmU1ckM2dDhzUTZsVWhfcWFRbGppMUp2UThvRW5Ua2tHM3ZUeDFUN1IzUUF4dkg0YlRPSjJDR3p4cndOeVItRUVxbWxaaXdaVWdtTV9sTlpHVjdXRERjMGdqQ2JiTTlnVFJTd21oWDMydEpaM3hDSUQ2Wkt1cXNGLTNNNWI0QlE0U1lGWEV3?oc=5",
+            "published_at": "2026-11-07 23:17:00 KST"
+          },
+          {
+            "title": "Nvidia CEO Jensen Huang’s Alleged Chinese Spy Connection Was Flagged Before Trump’s Xi Summit: Report - Yahoo",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPLU5RZE1hVllRTmxiQnoydGRZV2tSWjZlWHdXRjRVbVlqd01rMDBoSldvbjNSZFlXODJPZXc0UlZEZlZuaUt5NHJLZ1FhaXgxcTVQTGZFdmdHOGxIQm5kdzBXeXNoc3E3cGFHZFRXZWJpZnhWWmxaM1g0MExWQ3dFSzZmbk5kbzdnVjZldmxmVVBBNXdyY2c?oc=5",
+            "published_at": "2026-11-07 19:39:55 KST"
+          },
+          {
+            "title": "U.S. Stocks Mixed After Jobs Data, Muted AI Rebound - WSJ",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOR1p2cHVoU2tWUm44d1pxaTIxSldWelNQTWtrOGpJOXdtOGJYUGp1cjNDcVFHSDlEbXFvQ2ZHSVNsbGxPcHl1SU5MS0lMQzNhYW5zZHJRWmFnSzhpWHhpWHp6TXBqeVJBMTBnRVV2eG1McmE4d3RoNnoxc1dNMVU5UG5fcEs0eEw0bF9EY1F3OWlCcGpQcXZMbw?oc=5",
+            "published_at": "2026-11-07 07:01:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Alphabet",
+        "reason": "AI 기술 개발 및 투자 관련 뉴스가 언급되며 주목받고 있습니다 (총 2건)",
+        "us_news_refs": [
+          35,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Schools scramble after Google gives AI ultimatum - The Hill",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPV0VPSjI5VUxzak0yZDhYXzVrTDU4azU4cHdsZFF0UkJuTDlwY2lNZXpMZENEMDJWdkhMUVNSN3hhYXdra0ZCNnktMkR0cEJaNy1nQl94T3FVanE1Z2czS1VxU0R0VnltZDJFb3ZyUkVhTWtJQTh1a2xGNENma1FOZk9WbW9QNDRlNEQ1TFY2Z3Q4djREaW1nRU9zUy3SAaIBQVVfeXFMUDVFZ3RJRVg2RGl1NzBTVHFuTWg3YnNQR2lnYkx4VWk4ZGxMWTg4TXpFeEk2UHJNd0wtMUNUTm95ZndMaS1FREo3S2dXZnpYaHI3VXhSUndEQzRRUW9aSVRlYi1yVDgzZzBBWkVtRThSeXRMc2NTeUQyQ1RXakNWWmotRXJmZFc4UFl4Sy1NMWVzb1d3VGtOTndxTmtwUVFqVy1B?oc=5",
+            "published_at": "2026-11-07 20:00:00 KST"
+          },
+          {
+            "title": "Crusoe sells troubled Wyoming data center project to Google - TechCrunch",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPOTZaSVJmRTQ3WWYwN3NtZktMaDFicXkxaWd2akk4QmNKQkMtY1RrclR5aUdENEJpNDdFMzJxRTlhQlhvQ2o0MjZicDBrS1p6eFJYWFoxci15b3BNQXdCcE5sMzJRdElmMmt6NkhBUkl1bm16OEQ1dHB0eUJhcWNIc0FzZUI0bzAyX1B4RXlaaS1EcEVheGs0QldR?oc=5",
+            "published_at": "2026-11-07 10:40:28 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야에서의 경쟁력 강화 및 투자 유치 소식이 보도되며 주목받고 있습니다 (총 2건)",
+        "us_news_refs": [
+          30,
+          47
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Anthropic IPO meets AI backlash after midterms show stinging rebuke of data centers - CNBC",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBkVFNKdFlSLTl6ZndHZTBvOFFta0JaelYzcldkc21kSVJiSHNOcDVBX19xTVY3clpiekZSWmpRbFdtaHdTbVo1d3lNNXJTa3FfQ2NiWHhJV3Vvb3hEekdfQnJDV2xQcU0wUFo4dnBiM050YnhVOVFfYXo4VW5PRWc?oc=5",
+            "published_at": "2026-11-07 22:00:01 KST"
+          },
+          {
+            "title": "OpenAI valued at $1.25 trillion, as rival Anthropic nears its IPO - The Verge",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPTUFLWVAtU2RBOExLNGFGcm1lMzctY0xNXy1oUnlrSHBWcnJUWmRXOHkxcGZDYW5vWWR3RURYaWhkOU9DRFAxSjhnNG1hN0dYN3lMT2Z0bWJPb3FYOW80Um82ZFRoN2RqVG50aFFlc1lKcDY3Q2FuWkpQYkJIclk4dzZJTDhoN3R4S3dhTWJQTU1IQkpDcktTRzVwRHdYYjdMYnMw?oc=5",
+            "published_at": "2026-11-07 08:46:18 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "국내외 AI 기술 발전 및 관련 산업 투자 소식이 꾸준히 보도되며 높은 관심을 받고 있습니다 (총 12건)",
+        "kr_news_refs": [
+          1,
+          15,
+          25,
+          27,
+          40,
+          47,
+          54,
+          65,
+          71,
+          73,
+          87,
+          91
+        ],
+        "related_news": [
+          {
+            "title": "주식 포지셔닝, 사상 최대 수준의 주간 낙폭 기록 - 도이체방크 - Investing.com 한국어",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5OSnBfUy1Nc08xekx0ODhPYWlMWjJkRThUNzZYZ1AxWUdVZlc5cmcwTi10RFBBeUNuZUpxUlNkcDk2bXRFOTlkOTRBX3ZnNURza29XWG83aFFsOU1Uck1FUS1ycmlUaFNxQ2gtNnNTRWg?oc=5",
+            "published_at": "2026-11-08 06:07:00 KST"
+          },
+          {
+            "title": "[특파원시선] 샌프란의 안개주의보, 그리고 AI주의보",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106027100091",
+            "published_at": "2026-11-08 07:07:01 KST"
+          },
+          {
+            "title": "[전국레이더] 민선9기 조직개편 '미래·민생' 방점…곳곳 진통",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106119800054",
+            "published_at": "2026-11-08 07:00:04 KST"
+          },
+          {
+            "title": "[뉴욕증시-주간전망] 美 인플레 향방은…'AI 풍향계' 코어위브 실적 주목",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261108006800009",
+            "published_at": "2026-11-08 07:00:02 KST"
+          },
+          {
+            "title": "엇갈린 업황·복잡해진 투자 셈법…낸드업계 상장 잇단 제동",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106167400003",
+            "published_at": "2026-11-08 06:45:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "Cybersecurity",
+        "reason": "디지털 환경 변화에 따른 보안 위협 증가와 관련 기술 개발 소식이 주목받고 있습니다 (총 6건)",
+        "kr_news_refs": [
+          2,
+          4,
+          71,
+          72,
+          73,
+          96
+        ],
+        "related_news": [
+          {
+            "title": "유럽 덮친 ‘냉장고 해킹’... 국내 마트 “수동 제어라 안전” - 세계일보",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9sWGRzT25GOVJxUndwd194ekhobmVVcmdOcVBkSWR2UTJXSFFETWpqVEVTWXRYWmRCdjNiM0lfdjQ2UzFsN2ZGT0owU3BHZ1BVUkhKdFVKMWvSAVRBVV95cUxQRG9WYUc4T1QyOVZvRklHS2s2bk13QjBqSDl6TzVhZEVlaVY4YTVGTHpublVEaHUyb3NaYW1IWEt4eXU2RWZhLXd2bGdNd19DUVFpai0?oc=5",
+            "published_at": "2026-11-08 05:50:21 KST"
+          },
+          {
+            "title": "바이낸스 CFO, 60억 달러 대규모 해킹 직후 사임 - Investing.com 한국어",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5tWlFTV1JHLU1Md3VJRmM3REJ4eXpGMWdhRE9OTDRuMVFRTlhtdmNMNGExbFI3NnloVEhrT20tenNpdE1Ld0Fabkc1X01ZQXdMTnRQUmNUZnFtNlgwN29WS3NnYUtXc1hFSTdCTzZXc0I?oc=5",
+            "published_at": "2026-11-08 02:06:00 KST"
+          },
+          {
+            "title": "AI 해킹에 기존 방어망 뚫리나…금융권 보안 '경고등'",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107032100017",
+            "published_at": "2026-11-08 06:05:24 KST"
+          },
+          {
+            "title": "[사이버 컨트롤타워] ② 미국·영국·일본은 어떻게 해킹에 대응하나",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106167900017",
+            "published_at": "2026-11-08 06:05:22 KST"
+          },
+          {
+            "title": "[사이버 컨트롤타워] ① AI 해킹 시대에도 보안 감독은 칸막이…재편 시험대",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106127300017",
+            "published_at": "2026-11-08 06:05:20 KST"
+          }
+        ]
+      },
+      {
+        "name": "금융",
+        "reason": "금리 변동 및 금융 시장 동향과 관련된 다양한 뉴스가 보도되며 주목받고 있습니다 (총 6건)",
+        "kr_news_refs": [
+          44,
+          71,
+          75,
+          95,
+          96,
+          97
+        ],
+        "related_news": [
+          {
+            "title": "대형 증권사 3분기 실적 '반토막'…주가도 줄줄이 연저점",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107048600008",
+            "published_at": "2026-11-08 06:40:00 KST"
+          },
+          {
+            "title": "AI 해킹에 기존 방어망 뚫리나…금융권 보안 '경고등'",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107032100017",
+            "published_at": "2026-11-08 06:05:24 KST"
+          },
+          {
+            "title": "글로벌 증시 급락에 상장지수펀드 순자산 400조원 깨졌다",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107028500008",
+            "published_at": "2026-11-08 06:05:01 KST"
+          },
+          {
+            "title": "금감원 자본시장 특사경 증원폭 축소될듯…민생·보안 수요↑",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107049100002",
+            "published_at": "2026-11-08 05:59:01 KST"
+          },
+          {
+            "title": "가상자산업계 잇단 해킹에…금융당국, 보안 책임자 소집",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107044200002",
+            "published_at": "2026-11-08 05:58:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "reason": "AI 반도체 시장에서의 경쟁력 강화 및 신규 수주 관련 소식이 보도되며 주목받고 있습니다 (총 2건)",
+        "kr_news_refs": [
+          65,
+          85
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "외국인, 지난주 삼전닉스 7.6조 던졌다…보유율도 수년만 최저",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261107026400008",
+            "published_at": "2026-11-08 06:10:00 KST"
+          },
+          {
+            "title": "삼전 현금 200조 돌파…올해 주주환원도 미래투자도 100조+α",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261106156200003",
+            "published_at": "2026-11-08 06:01:01 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "중간선거 결과가 반도체 산업의 운명에 영향을 미칠 수 있다는 내용이 언급되었습니다. 또한, 특정 종목이 주식 시장 전반의 하락 속에서도 강세를 보인 이유로 반도체 관련 이슈가 거론되었습니다.",
+        "refs": [
+          5,
+          9
+        ],
+        "reason": "중간선거 결과가 반도체 산업의 운명에 영향을 미칠 수 있다는 내용이 언급되었습니다. 또한, 특정 종목이 주식 시장 전반의 하락 속에서도 강세를 보인 이유로 반도체 관련 이슈가 거론되었습니다.",
+        "related_videos": [
+          {
+            "title": "'중간선거가 쏘아올린 공' 반도체의 운명은? | 소현철 상지대학교 외래교수 [신과대화]",
+            "url": "https://www.youtube.com/watch?v=vXn_cVkZ7yo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-07 15:00:37 KST"
+          },
+          {
+            "title": "무적 애플군단, 시가총액 1위 달성",
+            "url": "https://www.youtube.com/watch?v=xymdBYW2WUo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-06 19:07:44 KST"
+          }
+        ]
+      },
+      {
+        "name": "철도",
+        "freq": 1,
+        "summary": "유럽 국가들이 100년 이상 된 장비를 아직도 활용하고 있으며, 일부 국가는 의외의 세계 최강 철도 대국이라는 내용이 소개되었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "유럽 국가들이 100년 이상 된 장비를 아직도 활용하고 있으며, 일부 국가는 의외의 세계 최강 철도 대국이라는 내용이 소개되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "100년된 장비를 아직도 쓰고 있는 유럽의 현실",
+            "url": "https://www.youtube.com/watch?v=VUhI663a0Ss",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-07 20:12:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "주식 시장",
+        "freq": 1,
+        "summary": "증시 하락 시점에 매수해야 하는 시점에 대한 논의가 있었습니다. 연기금의 주식 매수 가능성도 언급되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "증시 하락 시점에 매수해야 하는 시점에 대한 논의가 있었습니다. 연기금의 주식 매수 가능성도 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "증시 '여기까지' 떨어지면 사세요, 연기금도 곧 주식 쓸어담는다 (박근형 부장)",
+            "url": "https://www.youtube.com/watch?v=JYnh7IH0Fuo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-07 19:45:19 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Apple",
+        "freq": 1,
+        "summary": "주식 시장 전반이 하락하는 상황에서도 Apple은 홀로 강세를 보이며 시가총액 1위를 달성한 이유에 대한 분석이 있었습니다. 명품 가격과 원단 가격의 상관관계에 대한 내용도 함께 다루어졌습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "주식 시장 전반이 하락하는 상황에서도 Apple은 홀로 강세를 보이며 시가총액 1위를 달성한 이유에 대한 분석이 있었습니다. 명품 가격과 원단 가격의 상관관계에 대한 내용도 함께 다루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "무적 애플군단, 시가총액 1위 달성",
+            "url": "https://www.youtube.com/watch?v=xymdBYW2WUo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-06 19:07:44 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "Alphabet",
+          "freq": 2
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Tesla",
+          "freq": 1
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "freq": 1
+        },
+        {
+          "name": "World Acceptance",
+          "freq": 1
+        },
+        {
+          "name": "Dropbox",
+          "freq": 1
+        },
+        {
+          "name": "Century Casinos",
+          "freq": 1
+        },
+        {
+          "name": "JetBlue",
+          "freq": 1
+        },
+        {
+          "name": "OpenAI",
+          "freq": 1
+        },
+        {
+          "name": "Amgen",
+          "freq": 1
+        },
+        {
+          "name": "Lilly",
+          "freq": 1
+        },
+        {
+          "name": "Novartis",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Data Centers",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 3
+        },
+        {
+          "name": "Social Security",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "EVs",
+          "freq": 1
+        },
+        {
+          "name": "Airlines",
+          "freq": 1
+        },
+        {
+          "name": "Hemp",
+          "freq": 1
+        },
+        {
+          "name": "Crypto",
+          "freq": 1
+        },
+        {
+          "name": "Cable TV",
+          "freq": 1
+        },
+        {
+          "name": "Wind Turbines",
+          "freq": 1
+        },
+        {
+          "name": "Labor Market",
+          "freq": 1
+        },
+        {
+          "name": "Hedge Funds",
+          "freq": 1
+        },
+        {
+          "name": "Polls",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "Intel",
+          "freq": 1
+        },
+        {
+          "name": "기아",
+          "freq": 1
+        },
+        {
+          "name": "삼성생명",
+          "freq": 1
+        },
+        {
+          "name": "국제신문",
+          "freq": 1
+        },
+        {
+          "name": "바이낸스",
+          "freq": 1
+        },
+        {
+          "name": "현대차그룹",
+          "freq": 1
+        },
+        {
+          "name": "에이티즈",
+          "freq": 1
+        },
+        {
+          "name": "롯데백화점",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        },
+        {
+          "name": "뚜레쥬르",
+          "freq": 1
+        },
+        {
+          "name": "카페베네",
+          "freq": 1
+        },
+        {
+          "name": "맘스터치",
+          "freq": 1
+        },
+        {
+          "name": "삼성",
+          "freq": 1
+        },
+        {
+          "name": "국제e스포츠연맹",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 4
+        },
+        {
+          "name": "부동산",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "노인 복지",
+          "freq": 3
+        },
+        {
+          "name": "가상자산",
+          "freq": 2
+        },
+        {
+          "name": "K-콘텐츠",
+          "freq": 1
+        },
+        {
+          "name": "방송 통신",
+          "freq": 1
+        },
+        {
+          "name": "LNG 운반선",
+          "freq": 1
+        },
+        {
+          "name": "라면",
+          "freq": 1
+        },
+        {
+          "name": "뷰티",
+          "freq": 1
+        },
+        {
+          "name": "주식 결제",
+          "freq": 1
+        },
+        {
+          "name": "ESG",
+          "freq": 1
+        },
+        {
+          "name": "교육",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
