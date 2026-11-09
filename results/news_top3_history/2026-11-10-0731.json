@@ -1,0 +1,830 @@
+{
+  "generated_at": "2026-11-10 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 및 관련 기술 발전이 지속적으로 주목받고 있으며, 빅테크 기업들의 AI 투자 확대가 관련 섹터 전반에 긍정적인 영향을 미치고 있습니다 (총 10건).",
+        "us_news_refs": [
+          2,
+          4,
+          10,
+          12,
+          14,
+          17,
+          34,
+          35,
+          36,
+          47
+        ],
+        "related_news": [
+          {
+            "title": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk, and More Stocks That Explain Today’s Market - Barron's",
+            "title_ko": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk 등 시장을 설명하는 주식들",
+            "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5jS0VZc1l6U1ktTC1GMjlZR3JZRDdISWw0bjZLRXdubmdIdkFXMkROdTl3M2pwUXlDTk02ZkpyWGdDaWNnWnBWUjIxWGVSZHE5NmxDdm10d1NodVBZbDd0UnIxOWg?oc=5",
+            "published_at": "2026-11-10 06:25:00 KST"
+          },
+          {
+            "title": "Dow surges 1,100 points, Nasdaq climbs more than 2% as tech rebounds from last week’s tumult: Live updates - CNBC",
+            "title_ko": "다우지수 1,100포인트 급등, 나스닥 2% 이상 상승, 기술주 반등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5FVDc3UlZHcHBOWVJmWWs2YWxla3J5NkpsVmNlTERMM2lQNm1MdlRteDEyeUFGcGFKVHEzV0JGalFMZXlvV3o2R3dmb2dGWUh5WlpMOWxiYkdlb1c1RzB4WlNhQzRoTF9qM3lfaUlKeUhqQUFtWkdj?oc=5",
+            "published_at": "2026-11-10 06:14:00 KST"
+          },
+          {
+            "title": "Jensen Huang pulls out of ElevenLabs Summit amid Nvidia controversy - TechCrunch",
+            "title_ko": "Jensen Huang, Nvidia 논란 속 ElevenLabs 서밋 불참",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQRmd3NEl5aGhUREFyc1VmYnlrYVk1YWh1ajB4UE5tQlh0ZjRzNEFwYThUR0h5bjdBbVpUalB5Z1M3M3VUMXI3dVNqeGQ3QUhTQ054OUZfdThxcEZvZHZSaDRTVlc5OHE0eDZtbUVwbWo2eTJiZFk2ZGxWQ0VadUdzd21HS2JnUmZQRUNkZUltTUJDSm1HZlNBMmdfU0JFX2xOaFAxMA?oc=5",
+            "published_at": "2026-11-10 05:09:06 KST"
+          },
+          {
+            "title": "BLS Will Not Publish 12-Month CPI, Core CPI Figures For October - Bloomberg.com",
+            "title_ko": "BLS, 10월 12개월 CPI, 핵심 CPI 수치 발표 안 해",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRVl6bmRwX1djWWNpSEVoeUZzZm1uelVmVWFFdWMyUTFWZ3RzN3E5bkdJWEZrRFloci04azh3NW1KYUVXSm1DUW5Bd29kMUZiTVU3RTNrY3NfV0JkMzFJUjRqR0kwWlVqdWhQMnEwTk1QZmhTN0l2UEdJR1VkYmFfZ0hpZ01lQlVjVHBHTURyR01uQUFEX1pCanN5bUhvalFTb1RuQUJDdXktZXBaRnpTenZkQQ?oc=5",
+            "published_at": "2026-11-10 04:05:51 KST"
+          },
+          {
+            "title": "Goldman CEO Solomon says AI financing remains strong despite market jitters - CNBC",
+            "title_ko": "Goldman CEO Solomon, 시장 불안에도 AI 금융은 강세",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA5SGx4bm9ITVZsWTZKSk43cTB4NUxESGIyVHR4R3RhSm45U2NCRGZFcGZOWS1oZjRkTEdYcWJPLXRFVW1EVHJ4ZkJJdEVaRGNpLUh5U0c2YTFZNVlKTVBhMzJmT2lwZndyTFZzQV9PN0lFNVV6UlRN?oc=5",
+            "published_at": "2026-11-10 03:14:47 KST"
+          }
+        ]
+      },
+      {
+        "name": "Chips",
+        "reason": "AI 및 데이터센터 수요 증가에 따른 반도체 칩에 대한 수요 강세와 관련 기업들의 실적 개선 기대감이 부각되고 있습니다 (총 5건).",
+        "us_news_refs": [
+          2,
+          4,
+          10,
+          17,
+          38
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk, and More Stocks That Explain Today’s Market - Barron's",
+            "title_ko": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk 등 시장을 설명하는 주식들",
+            "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5jS0VZc1l6U1ktTC1GMjlZR3JZRDdISWw0bjZLRXdubmdIdkFXMkROdTl3M2pwUXlDTk02ZkpyWGdDaWNnWnBWUjIxWGVSZHE5NmxDdm10d1NodVBZbDd0UnIxOWg?oc=5",
+            "published_at": "2026-11-10 06:25:00 KST"
+          },
+          {
+            "title": "Dow surges 1,100 points, Nasdaq climbs more than 2% as tech rebounds from last week’s tumult: Live updates - CNBC",
+            "title_ko": "다우지수 1,100포인트 급등, 나스닥 2% 이상 상승, 기술주 반등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5FVDc3UlZHcHBOWVJmWWs2YWxla3J5NkpsVmNlTERMM2lQNm1MdlRteDEyeUFGcGFKVHEzV0JGalFMZXlvV3o2R3dmb2dGWUh5WlpMOWxiYkdlb1c1RzB4WlNhQzRoTF9qM3lfaUlKeUhqQUFtWkdj?oc=5",
+            "published_at": "2026-11-10 06:14:00 KST"
+          },
+          {
+            "title": "Jensen Huang pulls out of ElevenLabs Summit amid Nvidia controversy - TechCrunch",
+            "title_ko": "Jensen Huang, Nvidia 논란 속 ElevenLabs 서밋 불참",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQRmd3NEl5aGhUREFyc1VmYnlrYVk1YWh1ajB4UE5tQlh0ZjRzNEFwYThUR0h5bjdBbVpUalB5Z1M3M3VUMXI3dVNqeGQ3QUhTQ054OUZfdThxcEZvZHZSaDRTVlc5OHE0eDZtbUVwbWo2eTJiZFk2ZGxWQ0VadUdzd21HS2JnUmZQRUNkZUltTUJDSm1HZlNBMmdfU0JFX2xOaFAxMA?oc=5",
+            "published_at": "2026-11-10 05:09:06 KST"
+          },
+          {
+            "title": "AMD Stock Could Jump 34%. No, It’s Got Nothing to Do With the Nvidia Turmoil. - Barron's",
+            "title_ko": "AMD 주식 34% 급등 가능. Nvidia 혼란과는 무관",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbzRFN0hDSWhxMU1KTVJhRXZ5ejlrUWtjXzlLT1IxR1lMQ0RONGxTN1dQUENXSlktYTZVN0Y1X2toSUdGcHJyS244anFDd3dRU05sZVc1Vm95cmt4VXlES2dJTTY4Y2NDcXZ2VlphR2NjZ08zTkw2ODRRYWNOTEdoT19YX3NXbmNvXzRPeEFR?oc=5",
+            "published_at": "2026-11-10 03:02:00 KST"
+          },
+          {
+            "title": "Are AMD and Broadcom the real winners of the Nvidia spy scandal?",
+            "title_ko": "AMD와 Broadcom이 Nvidia 스파이 스캔들의 진짜 승자인가?",
+            "url": "https://www.marketwatch.com/story/are-amd-and-broadcom-the-real-winners-of-the-nvidia-spy-scandal-d2343072?mod=mw_rss_topstories",
+            "published_at": "2026-11-10 06:43:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tech",
+        "reason": "기술 기업들의 AI 관련 사업 확장 및 실적 발표가 투자자들의 관심을 끌고 있으며, 전반적인 기술 섹터의 성장 모멘텀이 유지되고 있습니다 (총 4건).",
+        "us_news_refs": [
+          1,
+          4,
+          25,
+          36
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Silicon Valley’s Trump-era playbook is falling apart. A major shift is underway. - The Washington Post",
+            "title_ko": "실리콘밸리의 트럼프 시대 전략이 무너진다. 주요 변화가 진행 중.",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQZWRzQnpKeWZ1UnFjYmlMRXJUTjZzTk9VRUNnU1BNS1VnN2t1RWo0bGJqbUo1dTFER3BfQmdBWml4eklMVm9wUllwTTk2NWZ1aDdQamtqeUZiTXBGUENpMUlZb0w2bkhCVUlxemUxZnBYalViZ2FJeHRfRHlQRi0yTHJPY3g1NG5EVUl4ZU9IVlN5TWNMZzlRVHNZMFhOVFJ5Wm85ZXZjUV84dG1jYV8w?oc=5",
+            "published_at": "2026-11-10 06:56:40 KST"
+          },
+          {
+            "title": "Dow surges 1,100 points, Nasdaq climbs more than 2% as tech rebounds from last week’s tumult: Live updates - CNBC",
+            "title_ko": "다우지수 1,100포인트 급등, 나스닥 2% 이상 상승, 기술주 반등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5FVDc3UlZHcHBOWVJmWWs2YWxla3J5NkpsVmNlTERMM2lQNm1MdlRteDEyeUFGcGFKVHEzV0JGalFMZXlvV3o2R3dmb2dGWUh5WlpMOWxiYkdlb1c1RzB4WlNhQzRoTF9qM3lfaUlKeUhqQUFtWkdj?oc=5",
+            "published_at": "2026-11-10 06:14:00 KST"
+          },
+          {
+            "title": "Trading Day: Broad rebound rally lifts all boats but Nvidia",
+            "title_ko": "거래일: 광범위한 랠리가 모든 것을 끌어올리지만 Nvidia는 제외",
+            "url": "https://www.investing.com/news/economy-news/trading-day-broad-rebound-rally-lifts-all-boats-but-nvidia-5013492",
+            "published_at": "2026-11-10 07:12:57 KST"
+          },
+          {
+            "title": "Dow sees its third 1,000-point swing in four days. Why the volatility isn’t over yet.",
+            "title_ko": "다우지수 4일 만에 세 번째 1,000포인트 변동. 변동성은 끝나지 않았다.",
+            "url": "https://www.marketwatch.com/story/dow-sees-its-third-1-000-point-swing-in-four-days-why-volatility-isnt-over-yet-5380567b?mod=mw_rss_topstories",
+            "published_at": "2026-11-10 06:52:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "AMD",
+        "reason": "AI 칩 경쟁 심화 속에서 AMD의 AI 관련 신제품 출시 및 시장 점유율 확대 가능성이 투자자들의 주목을 받고 있습니다 (총 5건).",
+        "us_news_refs": [
+          2,
+          4,
+          12,
+          17,
+          38
+        ],
+        "related_news": [
+          {
+            "title": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk, and More Stocks That Explain Today’s Market - Barron's",
+            "title_ko": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk 등 시장을 설명하는 주식들",
+            "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5jS0VZc1l6U1ktTC1GMjlZR3JZRDdISWw0bjZLRXdubmdIdkFXMkROdTl3M2pwUXlDTk02ZkpyWGdDaWNnWnBWUjIxWGVSZHE5NmxDdm10d1NodVBZbDd0UnIxOWg?oc=5",
+            "published_at": "2026-11-10 06:25:00 KST"
+          },
+          {
+            "title": "Dow surges 1,100 points, Nasdaq climbs more than 2% as tech rebounds from last week’s tumult: Live updates - CNBC",
+            "title_ko": "다우지수 1,100포인트 급등, 나스닥 2% 이상 상승, 기술주 반등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5FVDc3UlZHcHBOWVJmWWs2YWxla3J5NkpsVmNlTERMM2lQNm1MdlRteDEyeUFGcGFKVHEzV0JGalFMZXlvV3o2R3dmb2dGWUh5WlpMOWxiYkdlb1c1RzB4WlNhQzRoTF9qM3lfaUlKeUhqQUFtWkdj?oc=5",
+            "published_at": "2026-11-10 06:14:00 KST"
+          },
+          {
+            "title": "BLS Will Not Publish 12-Month CPI, Core CPI Figures For October - Bloomberg.com",
+            "title_ko": "BLS, 10월 12개월 CPI, 핵심 CPI 수치 발표 안 해",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRVl6bmRwX1djWWNpSEVoeUZzZm1uelVmVWFFdWMyUTFWZ3RzN3E5bkdJWEZrRFloci04azh3NW1KYUVXSm1DUW5Bd29kMUZiTVU3RTNrY3NfV0JkMzFJUjRqR0kwWlVqdWhQMnEwTk1QZmhTN0l2UEdJR1VkYmFfZ0hpZ01lQlVjVHBHTURyR01uQUFEX1pCanN5bUhvalFTb1RuQUJDdXktZXBaRnpTenZkQQ?oc=5",
+            "published_at": "2026-11-10 04:05:51 KST"
+          },
+          {
+            "title": "AMD Stock Could Jump 34%. No, It’s Got Nothing to Do With the Nvidia Turmoil. - Barron's",
+            "title_ko": "AMD 주식 34% 급등 가능. Nvidia 혼란과는 무관",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbzRFN0hDSWhxMU1KTVJhRXZ5ejlrUWtjXzlLT1IxR1lMQ0RONGxTN1dQUENXSlktYTZVN0Y1X2toSUdGcHJyS244anFDd3dRU05sZVc1Vm95cmt4VXlES2dJTTY4Y2NDcXZ2VlphR2NjZ08zTkw2ODRRYWNOTEdoT19YX3NXbmNvXzRPeEFR?oc=5",
+            "published_at": "2026-11-10 03:02:00 KST"
+          },
+          {
+            "title": "Are AMD and Broadcom the real winners of the Nvidia spy scandal?",
+            "title_ko": "AMD와 Broadcom이 Nvidia 스파이 스캔들의 진짜 승자인가?",
+            "url": "https://www.marketwatch.com/story/are-amd-and-broadcom-the-real-winners-of-the-nvidia-spy-scandal-d2343072?mod=mw_rss_topstories",
+            "published_at": "2026-11-10 06:43:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 시장에서의 독보적인 지위와 지속적인 수요 강세로 인해 관련 기술 발전 및 실적에 대한 기대감이 높게 유지되고 있습니다 (총 3건).",
+        "us_news_refs": [
+          2,
+          4,
+          10,
+          12,
+          16,
+          17,
+          25,
+          35,
+          36,
+          47
+        ],
+        "related_news": [
+          {
+            "title": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk, and More Stocks That Explain Today’s Market - Barron's",
+            "title_ko": "Nvidia, AMD, CoreWeave, Coherent, First Solar, Trade Desk 등 시장을 설명하는 주식들",
+            "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5jS0VZc1l6U1ktTC1GMjlZR3JZRDdISWw0bjZLRXdubmdIdkFXMkROdTl3M2pwUXlDTk02ZkpyWGdDaWNnWnBWUjIxWGVSZHE5NmxDdm10d1NodVBZbDd0UnIxOWg?oc=5",
+            "published_at": "2026-11-10 06:25:00 KST"
+          },
+          {
+            "title": "Dow surges 1,100 points, Nasdaq climbs more than 2% as tech rebounds from last week’s tumult: Live updates - CNBC",
+            "title_ko": "다우지수 1,100포인트 급등, 나스닥 2% 이상 상승, 기술주 반등",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5FVDc3UlZHcHBOWVJmWWs2YWxla3J5NkpsVmNlTERMM2lQNm1MdlRteDEyeUFGcGFKVHEzV0JGalFMZXlvV3o2R3dmb2dGWUh5WlpMOWxiYkdlb1c1RzB4WlNhQzRoTF9qM3lfaUlKeUhqQUFtWkdj?oc=5",
+            "published_at": "2026-11-10 06:14:00 KST"
+          },
+          {
+            "title": "Jensen Huang pulls out of ElevenLabs Summit amid Nvidia controversy - TechCrunch",
+            "title_ko": "Jensen Huang, Nvidia 논란 속 ElevenLabs 서밋 불참",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQRmd3NEl5aGhUREFyc1VmYnlrYVk1YWh1ajB4UE5tQlh0ZjRzNEFwYThUR0h5bjdBbVpUalB5Z1M3M3VUMXI3dVNqeGQ3QUhTQ054OUZfdThxcEZvZHZSaDRTVlc5OHE0eDZtbUVwbWo2eTJiZFk2ZGxWQ0VadUdzd21HS2JnUmZQRUNkZUltTUJDSm1HZlNBMmdfU0JFX2xOaFAxMA?oc=5",
+            "published_at": "2026-11-10 05:09:06 KST"
+          },
+          {
+            "title": "BLS Will Not Publish 12-Month CPI, Core CPI Figures For October - Bloomberg.com",
+            "title_ko": "BLS, 10월 12개월 CPI, 핵심 CPI 수치 발표 안 해",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRVl6bmRwX1djWWNpSEVoeUZzZm1uelVmVWFFdWMyUTFWZ3RzN3E5bkdJWEZrRFloci04azh3NW1KYUVXSm1DUW5Bd29kMUZiTVU3RTNrY3NfV0JkMzFJUjRqR0kwWlVqdWhQMnEwTk1QZmhTN0l2UEdJR1VkYmFfZ0hpZ01lQlVjVHBHTURyR01uQUFEX1pCanN5bUhvalFTb1RuQUJDdXktZXBaRnpTenZkQQ?oc=5",
+            "published_at": "2026-11-10 04:05:51 KST"
+          },
+          {
+            "title": "Micron Stock Gets Some Relief as This Big Threat Got Kicked Into the Long Grass - Barron's",
+            "title_ko": "Micron 주식, 큰 위협이 장기화되면서 일부 안도",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE52bHNuTVI3U1V6RDY2d0N4ZFBER2lSSXNSVVh4NnFXQWJ1VkYwNjY3VDR5Yk9FM1p5UVIxSTdPRTh4YmYySTJZV2h0TG9LRTRSd1dCUnVjOEwtZnFIbmh6dEstWm5VMk5KV1JXa2xNcURVbjhxcGlkQjVYdXJBYk0?oc=5",
+            "published_at": "2026-11-10 03:10:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "국내외 AI 기술 발전 및 관련 서비스 확장에 대한 기대감이 커지고 있으며, AI 관련 기업들의 신규 사업 추진이 주목받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          1,
+          2,
+          4,
+          5,
+          10,
+          13,
+          34
+        ],
+        "related_news": [
+          {
+            "title": "'데이터센터ㆍ원전ㆍ군함 건설 안할리가'...블루웨이브에 꺾인 건 '심리'뿐 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNVk9MRV95c3lydFFLUHZnTlhVbWRuckVCUjlTLTIxN284ZkVLMGd2dkN3NUVuS25Xd21XZGdoRXhZbmdGWDkxUU9WVFNjcGtMOU5Gc1R6LWMtemtqZUFJTUZab0NIRm9IdVp5Z095LXBWbHU1bEFiM0p6Qkd0dnVxaURkQQ?oc=5",
+            "published_at": "2026-11-10 07:00:46 KST"
+          },
+          {
+            "title": "Anthropic, AI 시장 변동성에도 다음 주 IPO 추진 - Investing.com 한국어",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBYWHMtdHlFd2pON2s2MUgwbHBQX2xJMTNlbVV0d1Fsc2l6ZGUzTmU2REhuSzB0cG1kV3ZhVTRNMDNhVVcwUE8xdzZQSWxvbF9qUFlBXzBfcGRSakc5dnhOaUtvVFA5d0J0S0ZsVGxMSFc?oc=5",
+            "published_at": "2026-11-10 06:38:00 KST"
+          },
+          {
+            "title": "[뉴욕증시-1보] 젠슨 황 사생활보단 저가 매력…2%대 반등 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE4tRkZ3RGdBVDNoZEFPeDkyRGhINTdjN1dsZTM4Y3BOMWJ2MnVueTVtTk84NlZIYW1iT1dJYjBBeHJfMXRuS01BWlJZZ1JUS2MyWGhXWGEtZktQQm5PcmtnNmZlSUVibnNfbjVMYXdRbELSAXRBVV95cUxOQUhpekczdnFnWTZ4NUl2VkRWOXVaM1NjeFl5Z2VXdVgxWXNDN3J4OUM0dUVPUll1NDdlYWxLYi1kNXdvbXJfSWxOckltZGNKeGdBMm45Nm1jazZoZGE1R1NSWjdlMW8yZ2ZkdUlXZmt5WUFudQ?oc=5",
+            "published_at": "2026-11-10 06:12:39 KST"
+          },
+          {
+            "title": "엔비디아, 젠슨황의 중국 스파이 불륜에 장중 8% 급락 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBfRjNyR2RldFZGSjBUZm9faDNJR1FfQk5jZjIzZzhGVktxN2UxOUlZNzJLd2NQOXE1akxLaGVMUjNIb1VVeTVYTUxyYkd4MS1CdGdrdmxuYTM5N28?oc=5",
+            "published_at": "2026-11-10 06:04:00 KST"
+          },
+          {
+            "title": "AI산업 전체 흔드는 젠슨황 스캔들…위기 맞은 순환투자 구조",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261110014100091",
+            "published_at": "2026-11-10 07:19:20 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "글로벌 AI 수요 증가에 따른 반도체 칩 수요 강세와 더불어, 국내 반도체 기업들의 기술 개발 및 생산 능력 확대에 대한 기대감이 높습니다 (총 2건).",
+        "kr_news_refs": [
+          1,
+          4,
+          5,
+          12
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "'데이터센터ㆍ원전ㆍ군함 건설 안할리가'...블루웨이브에 꺾인 건 '심리'뿐 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNVk9MRV95c3lydFFLUHZnTlhVbWRuckVCUjlTLTIxN284ZkVLMGd2dkN3NUVuS25Xd21XZGdoRXhZbmdGWDkxUU9WVFNjcGtMOU5Gc1R6LWMtemtqZUFJTUZab0NIRm9IdVp5Z095LXBWbHU1bEFiM0p6Qkd0dnVxaURkQQ?oc=5",
+            "published_at": "2026-11-10 07:00:46 KST"
+          },
+          {
+            "title": "[뉴욕증시-1보] 젠슨 황 사생활보단 저가 매력…2%대 반등 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE4tRkZ3RGdBVDNoZEFPeDkyRGhINTdjN1dsZTM4Y3BOMWJ2MnVueTVtTk84NlZIYW1iT1dJYjBBeHJfMXRuS01BWlJZZ1JUS2MyWGhXWGEtZktQQm5PcmtnNmZlSUVibnNfbjVMYXdRbELSAXRBVV95cUxOQUhpekczdnFnWTZ4NUl2VkRWOXVaM1NjeFl5Z2VXdVgxWXNDN3J4OUM0dUVPUll1NDdlYWxLYi1kNXdvbXJfSWxOckltZGNKeGdBMm45Nm1jazZoZGE1R1NSWjdlMW8yZ2ZkdUlXZmt5WUFudQ?oc=5",
+            "published_at": "2026-11-10 06:12:39 KST"
+          },
+          {
+            "title": "엔비디아, 젠슨황의 중국 스파이 불륜에 장중 8% 급락 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBfRjNyR2RldFZGSjBUZm9faDNJR1FfQk5jZjIzZzhGVktxN2UxOUlZNzJLd2NQOXE1akxLaGVMUjNIb1VVeTVYTUxyYkd4MS1CdGdrdmxuYTM5N28?oc=5",
+            "published_at": "2026-11-10 06:04:00 KST"
+          },
+          {
+            "title": "엔비디아 4%대 나홀로 급락…뉴욕증시, AI주 저가매수에 반등(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261110009751072",
+            "published_at": "2026-11-10 07:08:25 KST"
+          }
+        ]
+      },
+      {
+        "name": "데이터센터",
+        "reason": "AI 및 클라우드 서비스 확장에 따라 데이터센터 구축 및 운영 수요가 증가하고 있으며, 관련 인프라 투자 확대가 예상됩니다 (총 2건).",
+        "kr_news_refs": [
+          1,
+          24,
+          34
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "'데이터센터ㆍ원전ㆍ군함 건설 안할리가'...블루웨이브에 꺾인 건 '심리'뿐 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNVk9MRV95c3lydFFLUHZnTlhVbWRuckVCUjlTLTIxN284ZkVLMGd2dkN3NUVuS25Xd21XZGdoRXhZbmdGWDkxUU9WVFNjcGtMOU5Gc1R6LWMtemtqZUFJTUZab0NIRm9IdVp5Z095LXBWbHU1bEFiM0p6Qkd0dnVxaURkQQ?oc=5",
+            "published_at": "2026-11-10 07:00:46 KST"
+          },
+          {
+            "title": "스페이스X, 텍사스에 32조원 가스발전·AI센터 추진",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261110011500009",
+            "published_at": "2026-11-10 06:55:27 KST"
+          },
+          {
+            "title": "미국발 AI 투자 우려에…빅테크 한국 데이터센터 사업 주목",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261109149200017",
+            "published_at": "2026-11-10 06:33:01 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "LS일렉트릭",
+        "reason": "전력 설비 및 자동화 시스템 분야에서 AI 관련 인프라 투자 확대와 더불어, 신재생 에너지 사업과의 시너지 효과가 기대되어 주목받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          48,
+          75
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "국내 상장사 소액주주 24% 늘었지만…보유 주식은 10% 감소",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12203267",
+            "published_at": "2026-11-10 06:18:41 KST"
+          },
+          {
+            "title": "국내 상장사 소액주주 18개월 새 24%↑…삼성전자 797만명 1위",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261109118900003",
+            "published_at": "2026-11-10 06:00:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "reason": "AI 시장 성장에 따른 고대역폭 메모리(HBM) 수요 증가와 더불어, 차세대 반도체 기술 개발에 대한 기대감이 투자자들의 관심을 끌고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          5,
+          48,
+          75
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "엔비디아, 젠슨황의 중국 스파이 불륜에 장중 8% 급락 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBfRjNyR2RldFZGSjBUZm9faDNJR1FfQk5jZjIzZzhGVktxN2UxOUlZNzJLd2NQOXE1akxLaGVMUjNIb1VVeTVYTUxyYkd4MS1CdGdrdmxuYTM5N28?oc=5",
+            "published_at": "2026-11-10 06:04:00 KST"
+          },
+          {
+            "title": "국내 상장사 소액주주 24% 늘었지만…보유 주식은 10% 감소",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12203267",
+            "published_at": "2026-11-10 06:18:41 KST"
+          },
+          {
+            "title": "국내 상장사 소액주주 18개월 새 24%↑…삼성전자 797만명 1위",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261109118900003",
+            "published_at": "2026-11-10 06:00:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "AI 반도체 시장에서의 경쟁력 강화 및 신규 기술 개발에 대한 기대감이 있으며, 전반적인 반도체 업황 개선에 대한 전망이 긍정적입니다 (총 1건).",
+        "kr_news_refs": [
+          5,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "엔비디아, 젠슨황의 중국 스파이 불륜에 장중 8% 급락 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBfRjNyR2RldFZGSjBUZm9faDNJR1FfQk5jZjIzZzhGVktxN2UxOUlZNzJLd2NQOXE1akxLaGVMUjNIb1VVeTVYTUxyYkd4MS1CdGdrdmxuYTM5N28?oc=5",
+            "published_at": "2026-11-10 06:04:00 KST"
+          },
+          {
+            "title": "국내 상장사 소액주주 24% 늘었지만…보유 주식은 10% 감소",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12203267",
+            "published_at": "2026-11-10 06:18:41 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "부동산",
+        "freq": 3,
+        "summary": "2027년 부동산 시장 전망에 대한 분석이 제시되었습니다. 집값 하락 사이클이 짧아졌다는 의견과 함께, 강남에 이어 강북 부동산 집값 하락 가능성이 언급되었습니다. 서울대 김경민 교수의 분석을 바탕으로 부동산 시장의 변화를 예측하고 있습니다.",
+        "refs": [
+          3,
+          4,
+          5
+        ],
+        "reason": "2027년 부동산 시장 전망에 대한 분석이 제시되었습니다. 집값 하락 사이클이 짧아졌다는 의견과 함께, 강남에 이어 강북 부동산 집값 하락 가능성이 언급되었습니다. 서울대 김경민 교수의 분석을 바탕으로 부동산 시장의 변화를 예측하고 있습니다.",
+        "related_videos": [
+          {
+            "title": "2027년 부동산 집값 뒤흔들 5가지 충격 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=OIHjlaHKoeo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-09 21:45:27 KST"
+          },
+          {
+            "title": "강남 다음 강북 부동산도 집값 결국 곧 떨어진다 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=V0_gjnkgK0w",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-09 21:30:21 KST"
+          },
+          {
+            "title": "2027년 부동산 시장 전망, 집값 하락 사이클 짧아졌다 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=GxZa1cTxars",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-09 21:00:15 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "엔비디아 CEO 젠슨 황과 관련된 불륜 스캔들이 언급되었습니다. 이 스캔들이 엔비디아 주가에 영향을 미치고 있으며, 미국 민주당의 중국 안보 및 AI 규제 공세와 연관될 가능성이 제기되었습니다. AI 기술 및 관련 기업에 대한 시장의 관심이 반영되었습니다.",
+        "refs": [
+          1,
+          2,
+          8
+        ],
+        "reason": "엔비디아 CEO 젠슨 황과 관련된 불륜 스캔들이 언급되었습니다. 이 스캔들이 엔비디아 주가에 영향을 미치고 있으며, 미국 민주당의 중국 안보 및 AI 규제 공세와 연관될 가능성이 제기되었습니다. AI 기술 및 관련 기업에 대한 시장의 관심이 반영되었습니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아, 불륜 스캔들에 홀로 급락…앤트로픽, IPO 로드쇼 착수 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=l4HDm8507sY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 07:11:04 KST"
+          },
+          {
+            "title": "젠슨 황 스캔들 파장 확산…민주당, '중국 안보·AI 규제' 공세 | 점유율 93% 배민·쿠팡 역대 최대 과징금 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=mZ3Mh4dyfAI",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 05:31:07 KST"
+          },
+          {
+            "title": "중국 스파이와 불륜설에 휘청이는 엔비디아",
+            "url": "https://www.youtube.com/watch?v=ZncDID-TP-w",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-09 19:28:18 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "엔비디아 CEO 젠슨 황의 불륜 스캔들이 주요 이슈로 다뤄졌습니다. 이 스캔들이 엔비디아의 주가 급락 요인으로 작용할 수 있다는 분석과 함께, 최악의 악재가 오히려 시장의 바닥을 만들 수 있다는 관점도 제시되었습니다. AI 산업의 핵심인 반도체 분야에 대한 시장의 민감성을 보여줍니다.",
+        "refs": [
+          1,
+          6,
+          8
+        ],
+        "reason": "엔비디아 CEO 젠슨 황의 불륜 스캔들이 주요 이슈로 다뤄졌습니다. 이 스캔들이 엔비디아의 주가 급락 요인으로 작용할 수 있다는 분석과 함께, 최악의 악재가 오히려 시장의 바닥을 만들 수 있다는 관점도 제시되었습니다. AI 산업의 핵심인 반도체 분야에 대한 시장의 민감성을 보여줍니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아, 불륜 스캔들에 홀로 급락…앤트로픽, IPO 로드쇼 착수 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=l4HDm8507sY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 07:11:04 KST"
+          },
+          {
+            "title": "젠슨 황 리스크가 마지막 투매 부를까…최악의 악재가 오히려 진짜 바닥을 만든다?ㅣ명민준, 서수진, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=1IHzMvOg1kw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-09 21:00:13 KST"
+          },
+          {
+            "title": "중국 스파이와 불륜설에 휘청이는 엔비디아",
+            "url": "https://www.youtube.com/watch?v=ZncDID-TP-w",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-09 19:28:18 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "엔비디아",
+        "freq": 4,
+        "summary": "엔비디아 CEO 젠슨 황의 불륜 스캔들이 주요 이슈로 다뤄졌습니다. 이 스캔들이 엔비디아 주가에 부정적인 영향을 미치고 있으며, 급락 요인으로 분석되었습니다. 또한, 중국 안보 및 AI 규제와 관련된 정치적 이슈와도 연관 지어 언급되었습니다.",
+        "refs": [
+          1,
+          2,
+          6,
+          8
+        ],
+        "reason": "엔비디아 CEO 젠슨 황의 불륜 스캔들이 주요 이슈로 다뤄졌습니다. 이 스캔들이 엔비디아 주가에 부정적인 영향을 미치고 있으며, 급락 요인으로 분석되었습니다. 또한, 중국 안보 및 AI 규제와 관련된 정치적 이슈와도 연관 지어 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아, 불륜 스캔들에 홀로 급락…앤트로픽, IPO 로드쇼 착수 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=l4HDm8507sY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 07:11:04 KST"
+          },
+          {
+            "title": "젠슨 황 스캔들 파장 확산…민주당, '중국 안보·AI 규제' 공세 | 점유율 93% 배민·쿠팡 역대 최대 과징금 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=mZ3Mh4dyfAI",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 05:31:07 KST"
+          },
+          {
+            "title": "젠슨 황 리스크가 마지막 투매 부를까…최악의 악재가 오히려 진짜 바닥을 만든다?ㅣ명민준, 서수진, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=1IHzMvOg1kw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-09 21:00:13 KST"
+          },
+          {
+            "title": "중국 스파이와 불륜설에 휘청이는 엔비디아",
+            "url": "https://www.youtube.com/watch?v=ZncDID-TP-w",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-09 19:28:18 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "AMD",
+          "freq": 5
+        },
+        {
+          "name": "Hims & Hers Health, Inc.",
+          "freq": 4
+        },
+        {
+          "name": "Skydance",
+          "freq": 3
+        },
+        {
+          "name": "Lucid",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Micron",
+          "freq": 2
+        },
+        {
+          "name": "Boeing",
+          "freq": 3
+        },
+        {
+          "name": "Broadcom",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 1
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 1
+        },
+        {
+          "name": "Coherent",
+          "freq": 1
+        },
+        {
+          "name": "First Solar",
+          "freq": 1
+        },
+        {
+          "name": "Trade Desk",
+          "freq": 1
+        },
+        {
+          "name": "Rocket Lab",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Chips",
+          "freq": 4
+        },
+        {
+          "name": "Tech",
+          "freq": 4
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "Media",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "IPO",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 2
+        },
+        {
+          "name": "Aerospace",
+          "freq": 2
+        },
+        {
+          "name": "Transportation",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Data Centers",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        },
+        {
+          "name": "Investment Management",
+          "freq": 1
+        },
+        {
+          "name": "Food & Beverage",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 4
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "LS일렉트릭",
+          "freq": 2
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "웹툰 엔터",
+          "freq": 1
+        },
+        {
+          "name": "스페이스X",
+          "freq": 1
+        },
+        {
+          "name": "SK인천석화",
+          "freq": 1
+        },
+        {
+          "name": "TES",
+          "freq": 1
+        },
+        {
+          "name": "SK팜테코",
+          "freq": 1
+        },
+        {
+          "name": "대신증권",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "제네시스",
+          "freq": 1
+        },
+        {
+          "name": "Freightcar",
+          "freq": 1
+        },
+        {
+          "name": "GeneDx",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "데이터센터",
+          "freq": 2
+        },
+        {
+          "name": "자동차",
+          "freq": 2
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "2차전지",
+          "freq": 1
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "원자력",
+          "freq": 1
+        },
+        {
+          "name": "국방",
+          "freq": 1
+        },
+        {
+          "name": "패션",
+          "freq": 1
+        },
+        {
+          "name": "항공우주",
+          "freq": 1
+        },
+        {
+          "name": "IT",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "유통",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
