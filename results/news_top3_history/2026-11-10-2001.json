@@ -1,0 +1,497 @@
+{
+  "generated_at": "2026-11-10 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Energy",
+        "reason": "유가 상승세와 에너지 기업 실적 호조에 대한 보도가 다수 확인되었습니다. (총 6건)",
+        "us_news_refs": [
+          26,
+          28,
+          47
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "A further acceleration of clean energy is needed for global CO - Nature",
+            "title_ko": "글로벌 CO2 감축 위한 청정에너지 가속화 필요 - Nature",
+            "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFB5ajRLRzZmTUg2bXJKc0EwRHQ4UElCZ2h4REZzamJxSk9HRENjbGRfcEluOUw1Si1NNk94Tm05blg1N1lKMWowalZHUlVwVnlhZGE3TnlFUWd6R1ZhMS00?oc=5",
+            "published_at": "2026-11-10 11:10:16 KST"
+          },
+          {
+            "title": "Exxon signs preliminary agreement with Venezuela to assess oil opportunities - Reuters",
+            "title_ko": "Exxon, 베네수엘라와 석유 기회 평가 예비 계약 체결 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPc0NYVUk4a3pTQzdDU0xDWkNNQjQxaEh4QjIxQTdBaVdXWkJZM2ZEX1E2bzFFcnE1UmNheEJJV25RazNfeFBzd08zNmdCSmkyal9yLXZ1S1BiNnNZVmVkTC1WYXBTNklGdlhTdjJVV1JwMjNmdUxodFFGbXo4dk1LbDVnMGRlQ0VPNmljblVqNEFxYjZvV3Bsb0lVSkJjYzFSOWZPY2trU0dsbVo3dmdjNXA1cnNjYUNyazlLWHduSmVWWXVnNmc?oc=5",
+            "published_at": "2026-11-10 08:57:00 KST"
+          },
+          {
+            "title": "Brent Crashes 7% on Iran Peace Hopes Despite Fresh Saudi Pipeline Attack - Crude Oil Prices Today | OilPrice.com",
+            "title_ko": "이란 평화 기대감에 브렌트유 7% 급락, 사우디 송유관 공격에도 - Crude Oil Prices Today | OilPrice.com",
+            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNMVkwSk8xdlE0dTF6dGk0Rnp3elNCYkdJV1ZLb2otcnlSa3JfcWhyV1Z0Y1dCeHcxUUxpZzdXYlBRUEQwZTRqdU9GZ21XZ3JXMmVfRzBFbWk0OHJXWmhVc0cybnp1eWZDTTB1S09PLUZ2VjQ5elFhWXVnajlJWEhsa2FpYXkyUlVPSDFtNHRVaTBmcFg2UUU3UEpfTEctWkgxMjIxaEhodW05akVFdmFRTEVuV00zZ0RGaU9xRThZWTVVMGRuVVHSAcsBQVVfeXFMTy03cmFMdmxqNkJ5NG9HM0dDVDBWNzBmd00yWkg5enA2a09Cek16bnYxRXdHQ00tWEhUYTBUUVVYWUxpTUo2ZE5MQzYtLTMtb1N1cGRjN2w4UnNoT3ZieElqS1VYZGFxSUxLbm1yNXpJd3ZLYUZJQ0gtRUJybWdVTWloTmdPMnlEdlFVWlBQdkJ3MjVfSzdtRTU2d0JNV21VQWJobzJTM2NKUkJ4RG4zRUhqeWNfMk5YQ25NM1hBRmoxcF80MnFKTDZBMmM?oc=5",
+            "published_at": "2026-11-10 05:10:55 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Trade Desk",
+        "reason": "광고 기술 분야의 성장성과 실적 개선 전망이 주가에 긍정적인 영향을 미치고 있습니다. (총 4건)",
+        "us_news_refs": [
+          3,
+          17
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Trade Desk’s Earnings Beat Defies Analysts’ ‘Lost Year’ Projections - Barron's",
+            "title_ko": "Trade Desk 실적, 애널리스트 '잃어버린 해' 전망 상회 - Barron's",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1kVHhQUW55TVNJcXFMQkRXSDlrMWNqakN4Y0NYdnFyV3lMbTZMa3hpcDFZekFwTXh3bW9QLUN4U2VIWnlfenRtU1l3Q3ctRUVvT0phOWR0bjZZVHRMMXZTRmI1WTRoeDZFei1lRHN2X3ZHbDMzcTB4T1VrVjIzdw?oc=5",
+            "published_at": "2026-11-10 18:54:00 KST"
+          },
+          {
+            "title": "Truist raises Trade Desk stock price target to $17 on Q3 beat",
+            "title_ko": "Truist, Trade Desk 주가 목표치 Q3 호조에 $17로 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/truist-raises-trade-desk-stock-price-target-to-17-on-q3-beat-93CH-5014684",
+            "published_at": "2026-11-10 19:52:50 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [
+      {
+        "name": "대우건설",
+        "reason": "건설 부문의 실적 개선 및 신규 수주 소식이 긍정적인 영향을 미쳤습니다. (총 3건)",
+        "kr_news_refs": [
+          7,
+          14
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "대우건설 컨소시엄, 가덕도신공항 실시설계 착수…2035년 개항 추진 By EBN - Investing.com 한국어",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9pOEc0R0wyMUU4Zmp5U1lCcDg2NTBRS0M1SDhVRWFGYXk5VGUyQTdVY041WkJWRW9feU5fc2pHTkpPVWI0UkFHWUQ1My0yMG1QaG40VHpwakVTeE00Qk1MWlc3dy1DY0NSU0lqN3IycTA?oc=5",
+            "published_at": "2026-11-10 17:27:00 KST"
+          },
+          {
+            "title": "한수원 \"대우건설에 추가 협상 기회 줬다‥시공사 내정 사실 없어\" - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5yZ1QyRTVGQ2FtVG1oSEFQNE0zQ05nM2Y1a2NvVFA3YU14dDRFd0hLVXpaLVRtaVZsT2NISDdkUXgzNjVpMlhUNngwQXRrNHRmRkRZZGdRcXJpTGZnNDlsYi1iT3JIOHF3MUdWNk5pUjVVbmhj0gF0QVVfeXFMTUlBOTFJcW5NWU9PbDFEc0tKUFhTYmktU3g1Q0xLc0NhTTVOZzVnMlhrQ25rN3J4SEM4LV9xU0xTY0xseUlIUDhRcXdJSVY5Ml9SeE5ReWZNeDZHS3NFZjF4N0JXOWF2RXNuaV9HQmMyM2xtR1g?oc=5",
+            "published_at": "2026-11-10 15:28:25 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "반도체 업황 개선 및 신규 기술 개발에 대한 소식이 주목받으며 언급되었습니다. (총 2건)",
+        "kr_news_refs": [
+          2,
+          64
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "삼성전자 폴더블 스마트폰, ’CES 2027’ 최고 혁신상 - 연합뉴스TV",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1wU2NuclhMVEYzNTZOVEsxbTJ4Rl9VeFFBZXpFdEhHYnllbDJBdVI0VFA2ZjBka042TVBndUN0eW5iZmNQaDVpNlJUaTRVTUNwVElHcXJNU0NxR05PMlZoSVRmbDVlY1k?oc=5",
+            "published_at": "2026-11-10 19:06:00 KST"
+          },
+          {
+            "title": "삼성전자 폴더블폰·삼성SDI UPS용 각형배터리, CES 혁신상(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261110026101003",
+            "published_at": "2026-11-10 18:40:30 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "부동산",
+        "freq": 2,
+        "summary": "2027년 부동산 시장에 영향을 미칠 5가지 충격 요인이 언급되었으며, 강남뿐만 아니라 강북 지역의 집값 하락 가능성이 제기되었습니다.",
+        "refs": [
+          8,
+          9
+        ],
+        "reason": "2027년 부동산 시장에 영향을 미칠 5가지 충격 요인이 언급되었으며, 강남뿐만 아니라 강북 지역의 집값 하락 가능성이 제기되었습니다.",
+        "related_videos": [
+          {
+            "title": "2027년 부동산 집값 뒤흔들 5가지 충격 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=OIHjlaHKoeo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-09 21:45:27 KST"
+          },
+          {
+            "title": "강남 다음 강북 부동산도 집값 결국 곧 떨어진다 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=V0_gjnkgK0w",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-09 21:30:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "암호화폐",
+        "freq": 2,
+        "summary": "특정 암호화폐 3개에 대한 투자 언급과 함께 내년까지의 폭발적인 상승 가능성이 제기되었습니다. 또한 비트코인의 가격 하방 가능성에 대한 논의도 있었습니다.",
+        "refs": [
+          2,
+          5
+        ],
+        "reason": "특정 암호화폐 3개에 대한 투자 언급과 함께 내년까지의 폭발적인 상승 가능성이 제기되었습니다. 또한 비트코인의 가격 하방 가능성에 대한 논의도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "'이 3개 코인에' 전 재산 걸었어요, 내년까지 정말 무섭게 폭발한다 (문창훈 대표)",
+            "url": "https://www.youtube.com/watch?v=3OHp6ry9ms0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-10 19:30:35 KST"
+          },
+          {
+            "title": "내릴 땐 같이 내리고, 오를 땐...비트코인 이제는 가격 하방 봐야 하나? | 함지현 블록미디어 기자 [크립토 PLUS]",
+            "url": "https://www.youtube.com/watch?v=2iWuTCIi634",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 18:00:15 KST"
+          }
+        ]
+      },
+      {
+        "name": "주식 시장",
+        "freq": 2,
+        "summary": "외국인 매도세가 멈추고 삼성전자, SK하이닉스 급등에 힘입어 양 시장이 반등했다는 분석이 나왔습니다. 폭락장 이후 계좌를 살리는 전략에 대한 논의도 있었습니다.",
+        "refs": [
+          1,
+          4
+        ],
+        "reason": "외국인 매도세가 멈추고 삼성전자, SK하이닉스 급등에 힘입어 양 시장이 반등했다는 분석이 나왔습니다. 폭락장 이후 계좌를 살리는 전략에 대한 논의도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "\"오를 거라 기도하지 마세요\" 폭락장 이후 내 계좌 살리는 유일한 탈출 전략ㅣ서수진, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=liNq5cy_PL8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 20:00:20 KST"
+          },
+          {
+            "title": "[26.11.10 오후 방송 전체보기] 외국인 매도 행렬 멈췄다…삼전닉스 급등에 양시장 4%대 반등, 수급 전환의 시작?",
+            "url": "https://www.youtube.com/watch?v=NJMc7QrU0p4",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 19:12:41 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 1,
+        "summary": "외국인 매도세 중단과 함께 삼성전자 급등이 양 시장 반등의 요인으로 언급되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "외국인 매도세 중단과 함께 삼성전자 급등이 양 시장 반등의 요인으로 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[26.11.10 오후 방송 전체보기] 외국인 매도 행렬 멈췄다…삼전닉스 급등에 양시장 4%대 반등, 수급 전환의 시작?",
+            "url": "https://www.youtube.com/watch?v=NJMc7QrU0p4",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 19:12:41 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "외국인 매도세 중단과 함께 SK하이닉스 급등이 양 시장 반등의 요인으로 언급되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "외국인 매도세 중단과 함께 SK하이닉스 급등이 양 시장 반등의 요인으로 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[26.11.10 오후 방송 전체보기] 외국인 매도 행렬 멈췄다…삼전닉스 급등에 양시장 4%대 반등, 수급 전환의 시작?",
+            "url": "https://www.youtube.com/watch?v=NJMc7QrU0p4",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-10 19:12:41 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "Exxon",
+          "freq": 5
+        },
+        {
+          "name": "Trade Desk",
+          "freq": 4
+        },
+        {
+          "name": "SoftBank",
+          "freq": 4
+        },
+        {
+          "name": "Mitsui Chemicals",
+          "freq": 3
+        },
+        {
+          "name": "JSR",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Hims & Hers",
+          "freq": 3
+        },
+        {
+          "name": "Vodafone",
+          "freq": 2
+        },
+        {
+          "name": "Perspective Therapeutics",
+          "freq": 2
+        },
+        {
+          "name": "Wegovy",
+          "freq": 1
+        },
+        {
+          "name": "Zepbound",
+          "freq": 1
+        },
+        {
+          "name": "Larimar Therapeutics",
+          "freq": 1
+        },
+        {
+          "name": "Wix.com",
+          "freq": 1
+        },
+        {
+          "name": "EOG Resources",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 6
+        },
+        {
+          "name": "광고 기술",
+          "freq": 4
+        },
+        {
+          "name": "데이터 센터",
+          "freq": 4
+        },
+        {
+          "name": "반도체 소재",
+          "freq": 3
+        },
+        {
+          "name": "IPO",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "사이버 보안",
+          "freq": 2
+        },
+        {
+          "name": "GLP-1 약물",
+          "freq": 2
+        },
+        {
+          "name": "통신",
+          "freq": 2
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "클라우드 컴퓨팅",
+          "freq": 2
+        },
+        {
+          "name": "우주항공",
+          "freq": 2
+        },
+        {
+          "name": "채용",
+          "freq": 1
+        },
+        {
+          "name": "엔터테인먼트",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "NHN",
+          "freq": 3
+        },
+        {
+          "name": "대우건설",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "삼성SDI",
+          "freq": 2
+        },
+        {
+          "name": "LG디스플레이",
+          "freq": 1
+        },
+        {
+          "name": "삼성화재",
+          "freq": 1
+        },
+        {
+          "name": "보령",
+          "freq": 1
+        },
+        {
+          "name": "TSMC",
+          "freq": 1
+        },
+        {
+          "name": "에코프로비엠",
+          "freq": 1
+        },
+        {
+          "name": "교촌에프앤비",
+          "freq": 1
+        },
+        {
+          "name": "넥슨게임즈",
+          "freq": 1
+        },
+        {
+          "name": "넥스아이",
+          "freq": 1
+        },
+        {
+          "name": "시프트업",
+          "freq": 1
+        },
+        {
+          "name": "한국남부발전",
+          "freq": 1
+        },
+        {
+          "name": "화순군",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 2
+        },
+        {
+          "name": "건설",
+          "freq": 3
+        },
+        {
+          "name": "IT 서비스",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "증권",
+          "freq": 3
+        },
+        {
+          "name": "가전",
+          "freq": 2
+        },
+        {
+          "name": "배터리",
+          "freq": 2
+        },
+        {
+          "name": "채권",
+          "freq": 2
+        },
+        {
+          "name": "자동차",
+          "freq": 2
+        },
+        {
+          "name": "보험",
+          "freq": 2
+        },
+        {
+          "name": "비만/당뇨 치료제",
+          "freq": 1
+        },
+        {
+          "name": "라면",
+          "freq": 1
+        },
+        {
+          "name": "스타트업 육성",
+          "freq": 1
+        },
+        {
+          "name": "개인정보 유출",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
