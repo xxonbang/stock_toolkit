@@ -1,0 +1,806 @@
+{
+  "generated_at": "2026-11-11 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 관련 기술 발전에 대한 지속적인 관심이 나타났습니다. (총 16건)",
+        "us_news_refs": [
+          1,
+          2,
+          7,
+          14,
+          20,
+          22,
+          26,
+          27,
+          28,
+          29,
+          33,
+          35,
+          36,
+          40,
+          44,
+          46
+        ],
+        "related_news": [
+          {
+            "title": "Nasdaq futures jump as CoreWeave earnings beat drives global tech rebound: Live updates - CNBC",
+            "title_ko": "CoreWeave 실적 호조, 기술주 반등 이끌어: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5tNUpWaERRaEpZWXFmM0tBRnFQQlBPVzlJUm9ldF9teW53ZjY0WHZ5X1FBdXZRWk1UR0dWRlZXX19VTDAyT2N5QVA4RzlST1FFcFpBUEVMek5OTVN1Vzk3eUNra1puWVlyVk9SMVVXX01YWm1BbUVZ?oc=5",
+            "published_at": "2026-11-11 19:09:05 KST"
+          },
+          {
+            "title": "Alice Huang, who reportedly had an affair with Nvidia CEO, is a Chinese banker turned tech exec - AP News",
+            "title_ko": "Nvidia CEO와 불륜설 앨리스 황, 중국계 은행가 출신 기술 임원",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWWN4Um5UWHU3MHROUmJ2YlMtSW05bmNXSFI3TkVFajJrODcydUlDa015MWdnN1FkVnBiZWNZUlZPUUs4NGRkN1MzLXRCZHZ1cnNVc3ZqUXVCYklscFJ0WWVHUlY2Z2VCV1VKN1BMTU1KRzlpNWM5STBQZm05NldlaTdBd1Y2T0xaQzNKOWo1T2laZmc?oc=5",
+            "published_at": "2026-11-11 16:57:00 KST"
+          },
+          {
+            "title": "Bernstein raises Cigna stock price target on 2027 growth outlook",
+            "title_ko": "Bernstein, Cigna 2027년 성장 전망에 목표가 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/bernstein-raises-cigna-stock-price-target-on-2027-growth-outlook-93CH-5018268",
+            "published_at": "2026-11-11 19:32:58 KST"
+          },
+          {
+            "title": "I’m 63 and want to spend $95,000 on a roof deck for my $500,000 home. Is that a good investment?",
+            "title_ko": "63세, 50만 달러 주택에 9만 5천 달러 루프 데크 설치, 좋은 투자일까?",
+            "url": "https://www.marketwatch.com/story/im-63-and-want-to-spend-95-000-on-a-roof-deck-for-my-500-000-home-is-that-a-good-investment-f1a59c27?mod=mw_rss_topstories",
+            "published_at": "2026-11-11 19:30:00 KST"
+          },
+          {
+            "title": "Anthropic IPO valuation calculator: How much is it really worth? - Financial Times",
+            "title_ko": "Anthropic IPO 가치 평가: 실제 가치는 얼마인가?",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNa3ZJT1VnODFlMjkwVmE1Z05vaktUWmUtOGNpY19VVG1DMU9ObkZ6QndkOTlVMmVSZGR4RENBV0RwYTZzM241UXIyazhRWGRyNi1SZVNzWWNjYXBSUjlFUGdXb3U3QklJLXprbVBZLXRjdjd2dGphaEItMFVVTGR0OERfeEc?oc=5",
+            "published_at": "2026-11-11 14:00:12 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 관련 칩 수요 증가와 반도체 산업의 기술적 진보가 주목받았습니다. (총 6건)",
+        "us_news_refs": [
+          1,
+          2,
+          22,
+          26,
+          35,
+          36
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nasdaq futures jump as CoreWeave earnings beat drives global tech rebound: Live updates - CNBC",
+            "title_ko": "CoreWeave 실적 호조, 기술주 반등 이끌어: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5tNUpWaERRaEpZWXFmM0tBRnFQQlBPVzlJUm9ldF9teW53ZjY0WHZ5X1FBdXZRWk1UR0dWRlZXX19VTDAyT2N5QVA4RzlST1FFcFpBUEVMek5OTVN1Vzk3eUNra1puWVlyVk9SMVVXX01YWm1BbUVZ?oc=5",
+            "published_at": "2026-11-11 19:09:05 KST"
+          },
+          {
+            "title": "Alice Huang, who reportedly had an affair with Nvidia CEO, is a Chinese banker turned tech exec - AP News",
+            "title_ko": "Nvidia CEO와 불륜설 앨리스 황, 중국계 은행가 출신 기술 임원",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWWN4Um5UWHU3MHROUmJ2YlMtSW05bmNXSFI3TkVFajJrODcydUlDa015MWdnN1FkVnBiZWNZUlZPUUs4NGRkN1MzLXRCZHZ1cnNVc3ZqUXVCYklscFJ0WWVHUlY2Z2VCV1VKN1BMTU1KRzlpNWM5STBQZm05NldlaTdBd1Y2T0xaQzNKOWo1T2laZmc?oc=5",
+            "published_at": "2026-11-11 16:57:00 KST"
+          },
+          {
+            "title": "Alibaba announces plans to list T-Head, its Nvidia chip rival - CNBC",
+            "title_ko": "Alibaba, Nvidia 칩 경쟁사 T-Head 상장 계획 발표",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1FNi1GS1ZoRTI5MUsxZ3RMZnE5bEpuYUxXaTRiNV9wVmFYMFg1NlNlOHVWVkdoZHJkTnZRcTR1RTZIamZXcjNyaG85NUt6NlFfTmlhX2p4WlM1Njg?oc=5",
+            "published_at": "2026-11-11 12:08:00 KST"
+          },
+          {
+            "title": "Mike Johnson supports measures to restrict US chip sales to China - Politico",
+            "title_ko": "Mike Johnson, 대중국 칩 판매 제한 조치 지지",
+            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPNHpyQ0t3YUVpc3BkeUtDR0dPZExsc3pHS2FpRzVqYUtyMDJ5WWZQTEJHRUZHRTRPV0V4VEdmNXZCOGFuNHY1VWhIbWFSSDktbDI1NG5CVkdVSVVrdE5tZkNFMHhtN05MaWgxRlhXRFZ1UUpNSUhDVEo2cFh6QzBZa3hGZTJLOXdyblppUmhjM1JZN1RwcHJDaDFEclp0d3VNRHU5d2dxSWhWdU9wSjhHcThWZHhQblQ1SWpPMXplc2ZyVGl1blQ1MFVTMnRqUQ?oc=5",
+            "published_at": "2026-11-11 10:21:19 KST"
+          },
+          {
+            "title": "Chip stocks' slide nears $5 trillion as Nvidia hits most extreme selling level since 2019 - Yahoo Finance",
+            "title_ko": "반도체 주가 5조 달러 하락 근접, Nvidia 2019년 이후 최악 매도 수준",
+            "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNeGhUMWhtSk5Kdm9GOHhVaFlETXR3clBfSEI0VnRtTHNtWEFNWkIxelY4R2NyUjQzMjg5SF9JZ0xOZldPSGR3WlBhejJjNTdmM21HdFQzaGpwMEFrVGxMMFB1RHQ0MkVvOUtCeklOMFJmemRmUDRIRS1sS2VheW5UUDc4anhmQU5ZUV9HY09lTEpUWmFfLWZOOXhUcVZFeTRVQXZVeGE0TzhxdVVnaDRPTzdVWXY2TmQ1UEgyNGJHMFhFS241ZkJGa1o2NHphdmdSV0xCRjh0Q0k0MHdF?oc=5",
+            "published_at": "2026-11-11 06:37:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tech",
+        "reason": "기술 기업들의 실적 발표와 AI 기술 발전이 시장의 관심을 이끌었습니다. (총 4건)",
+        "us_news_refs": [
+          1,
+          2,
+          26,
+          33
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nasdaq futures jump as CoreWeave earnings beat drives global tech rebound: Live updates - CNBC",
+            "title_ko": "CoreWeave 실적 호조, 기술주 반등 이끌어: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5tNUpWaERRaEpZWXFmM0tBRnFQQlBPVzlJUm9ldF9teW53ZjY0WHZ5X1FBdXZRWk1UR0dWRlZXX19VTDAyT2N5QVA4RzlST1FFcFpBUEVMek5OTVN1Vzk3eUNra1puWVlyVk9SMVVXX01YWm1BbUVZ?oc=5",
+            "published_at": "2026-11-11 19:09:05 KST"
+          },
+          {
+            "title": "Alice Huang, who reportedly had an affair with Nvidia CEO, is a Chinese banker turned tech exec - AP News",
+            "title_ko": "Nvidia CEO와 불륜설 앨리스 황, 중국계 은행가 출신 기술 임원",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWWN4Um5UWHU3MHROUmJ2YlMtSW05bmNXSFI3TkVFajJrODcydUlDa015MWdnN1FkVnBiZWNZUlZPUUs4NGRkN1MzLXRCZHZ1cnNVc3ZqUXVCYklscFJ0WWVHUlY2Z2VCV1VKN1BMTU1KRzlpNWM5STBQZm05NldlaTdBd1Y2T0xaQzNKOWo1T2laZmc?oc=5",
+            "published_at": "2026-11-11 16:57:00 KST"
+          },
+          {
+            "title": "Mike Johnson supports measures to restrict US chip sales to China - Politico",
+            "title_ko": "Mike Johnson, 대중국 칩 판매 제한 조치 지지",
+            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPNHpyQ0t3YUVpc3BkeUtDR0dPZExsc3pHS2FpRzVqYUtyMDJ5WWZQTEJHRUZHRTRPV0V4VEdmNXZCOGFuNHY1VWhIbWFSSDktbDI1NG5CVkdVSVVrdE5tZkNFMHhtN05MaWgxRlhXRFZ1UUpNSUhDVEo2cFh6QzBZa3hGZTJLOXdyblppUmhjM1JZN1RwcHJDaDFEclp0d3VNRHU5d2dxSWhWdU9wSjhHcThWZHhQblQ1SWpPMXplc2ZyVGl1blQ1MFVTMnRqUQ?oc=5",
+            "published_at": "2026-11-11 10:21:19 KST"
+          },
+          {
+            "title": "Anthropic’s Giant IPO Will Tie It Closer to Nvidia - The New York Times",
+            "title_ko": "Anthropic의 거대 IPO, Nvidia와의 관계 더욱 강화",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE40WWRMa0xmRm9vTGdfM2E0MXRhQUtaMmc1QnZzdm4tVG5zSlJsMWxnRzJsMXhxdlJHcC1hb0NTTF8tU25OODhVdjd4Z2JpYnpHQ3BnNktJbUZQcnFrbEJ4UW5EOXR4YVI2TXU5SnhWWXp1Y3AyeVpwVQ?oc=5",
+            "published_at": "2026-11-11 07:03:38 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "CoreWeave",
+        "reason": "데이터 센터 확장 및 AI 인프라 구축과 관련된 투자 소식이 주목받았습니다. (총 4건)",
+        "us_news_refs": [
+          1,
+          16,
+          29,
+          33
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nasdaq futures jump as CoreWeave earnings beat drives global tech rebound: Live updates - CNBC",
+            "title_ko": "CoreWeave 실적 호조, 기술주 반등 이끌어: 실시간 업데이트",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5tNUpWaERRaEpZWXFmM0tBRnFQQlBPVzlJUm9ldF9teW53ZjY0WHZ5X1FBdXZRWk1UR0dWRlZXX19VTDAyT2N5QVA4RzlST1FFcFpBUEVMek5OTVN1Vzk3eUNra1puWVlyVk9SMVVXX01YWm1BbUVZ?oc=5",
+            "published_at": "2026-11-11 19:09:05 KST"
+          },
+          {
+            "title": "CoreWeave’s stock pops as new financing playbook eases debt concerns",
+            "title_ko": "CoreWeave 주가 급등, 신규 자금 조달로 부채 우려 완화",
+            "url": "https://www.marketwatch.com/story/coreweaves-stock-pops-as-new-financing-playbook-eases-debt-concerns-70241525?mod=mw_rss_topstories",
+            "published_at": "2026-11-11 19:05:00 KST"
+          },
+          {
+            "title": "CoreWeave Sees ‘No Reason’ That Nvidia Partnership Will Change - Bloomberg.com",
+            "title_ko": "CoreWeave, Nvidia 파트너십 변화 없을 것",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNnlGdTVsM2NuLTltbjVwcS1zNkdUTVg3TG9wRWNtRGREZVE2NHNQVnh2YWh4OXZmZDVVNTBUOWJUU0dkLU05U05BeGQzN2RnNERucjhla0RnRVdVQTNNYVFzMXE1eGNuZUU3ODF2NHdUamFvVzlRVi03cU81RjVzRzlYWjlGeTIzUmJYSFZFa1hvVm5rV1REMkI0eTNVa3lmZWthamhtTHRpZ09YVFVpYg?oc=5",
+            "published_at": "2026-11-11 09:48:00 KST"
+          },
+          {
+            "title": "Anthropic’s Giant IPO Will Tie It Closer to Nvidia - The New York Times",
+            "title_ko": "Anthropic의 거대 IPO, Nvidia와의 관계 더욱 강화",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE40WWRMa0xmRm9vTGdfM2E0MXRhQUtaMmc1QnZzdm4tVG5zSlJsMWxnRzJsMXhxdlJHcC1hb0NTTF8tU25OODhVdjd4Z2JpYnpHQ3BnNktJbUZQcnFrbEJ4UW5EOXR4YVI2TXU5SnhWWXp1Y3AyeVpwVQ?oc=5",
+            "published_at": "2026-11-11 07:03:38 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 관련 기술 개발에 대한 지속적인 관심이 나타났습니다. (총 6건)",
+        "us_news_refs": [
+          2,
+          22,
+          26,
+          29,
+          33,
+          35
+        ],
+        "related_news": [
+          {
+            "title": "Alice Huang, who reportedly had an affair with Nvidia CEO, is a Chinese banker turned tech exec - AP News",
+            "title_ko": "Nvidia CEO와 불륜설 앨리스 황, 중국계 은행가 출신 기술 임원",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWWN4Um5UWHU3MHROUmJ2YlMtSW05bmNXSFI3TkVFajJrODcydUlDa015MWdnN1FkVnBiZWNZUlZPUUs4NGRkN1MzLXRCZHZ1cnNVc3ZqUXVCYklscFJ0WWVHUlY2Z2VCV1VKN1BMTU1KRzlpNWM5STBQZm05NldlaTdBd1Y2T0xaQzNKOWo1T2laZmc?oc=5",
+            "published_at": "2026-11-11 16:57:00 KST"
+          },
+          {
+            "title": "Alibaba announces plans to list T-Head, its Nvidia chip rival - CNBC",
+            "title_ko": "Alibaba, Nvidia 칩 경쟁사 T-Head 상장 계획 발표",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1FNi1GS1ZoRTI5MUsxZ3RMZnE5bEpuYUxXaTRiNV9wVmFYMFg1NlNlOHVWVkdoZHJkTnZRcTR1RTZIamZXcjNyaG85NUt6NlFfTmlhX2p4WlM1Njg?oc=5",
+            "published_at": "2026-11-11 12:08:00 KST"
+          },
+          {
+            "title": "Mike Johnson supports measures to restrict US chip sales to China - Politico",
+            "title_ko": "Mike Johnson, 대중국 칩 판매 제한 조치 지지",
+            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPNHpyQ0t3YUVpc3BkeUtDR0dPZExsc3pHS2FpRzVqYUtyMDJ5WWZQTEJHRUZHRTRPV0V4VEdmNXZCOGFuNHY1VWhIbWFSSDktbDI1NG5CVkdVSVVrdE5tZkNFMHhtN05MaWgxRlhXRFZ1UUpNSUhDVEo2cFh6QzBZa3hGZTJLOXdyblppUmhjM1JZN1RwcHJDaDFEclp0d3VNRHU5d2dxSWhWdU9wSjhHcThWZHhQblQ1SWpPMXplc2ZyVGl1blQ1MFVTMnRqUQ?oc=5",
+            "published_at": "2026-11-11 10:21:19 KST"
+          },
+          {
+            "title": "CoreWeave Sees ‘No Reason’ That Nvidia Partnership Will Change - Bloomberg.com",
+            "title_ko": "CoreWeave, Nvidia 파트너십 변화 없을 것",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNnlGdTVsM2NuLTltbjVwcS1zNkdUTVg3TG9wRWNtRGREZVE2NHNQVnh2YWh4OXZmZDVVNTBUOWJUU0dkLU05U05BeGQzN2RnNERucjhla0RnRVdVQTNNYVFzMXE1eGNuZUU3ODF2NHdUamFvVzlRVi03cU81RjVzRzlYWjlGeTIzUmJYSFZFa1hvVm5rV1REMkI0eTNVa3lmZWthamhtTHRpZ09YVFVpYg?oc=5",
+            "published_at": "2026-11-11 09:48:00 KST"
+          },
+          {
+            "title": "Anthropic’s Giant IPO Will Tie It Closer to Nvidia - The New York Times",
+            "title_ko": "Anthropic의 거대 IPO, Nvidia와의 관계 더욱 강화",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE40WWRMa0xmRm9vTGdfM2E0MXRhQUtaMmc1QnZzdm4tVG5zSlJsMWxnRzJsMXhxdlJHcC1hb0NTTF8tU25OODhVdjd4Z2JpYnpHQ3BnNktJbUZQcnFrbEJ4UW5EOXR4YVI2TXU5SnhWWXp1Y3AyeVpwVQ?oc=5",
+            "published_at": "2026-11-11 07:03:38 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야의 새로운 기술 개발 및 투자 소식이 시장의 주목을 받았습니다. (총 2건)",
+        "us_news_refs": [
+          20,
+          33
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Anthropic IPO valuation calculator: How much is it really worth? - Financial Times",
+            "title_ko": "Anthropic IPO 가치 평가: 실제 가치는 얼마인가?",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNa3ZJT1VnODFlMjkwVmE1Z05vaktUWmUtOGNpY19VVG1DMU9ObkZ6QndkOTlVMmVSZGR4RENBV0RwYTZzM241UXIyazhRWGRyNi1SZVNzWWNjYXBSUjlFUGdXb3U3QklJLXprbVBZLXRjdjd2dGphaEItMFVVTGR0OERfeEc?oc=5",
+            "published_at": "2026-11-11 14:00:12 KST"
+          },
+          {
+            "title": "Anthropic’s Giant IPO Will Tie It Closer to Nvidia - The New York Times",
+            "title_ko": "Anthropic의 거대 IPO, Nvidia와의 관계 더욱 강화",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE40WWRMa0xmRm9vTGdfM2E0MXRhQUtaMmc1QnZzdm4tVG5zSlJsMWxnRzJsMXhxdlJHcC1hb0NTTF8tU25OODhVdjd4Z2JpYnpHQ3BnNktJbUZQcnFrbEJ4UW5EOXR4YVI2TXU5SnhWWXp1Y3AyeVpwVQ?oc=5",
+            "published_at": "2026-11-11 07:03:38 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "Financials",
+        "reason": "금융 시장의 안정성과 주요 금융 기업들의 실적 발표가 주목받았습니다. (총 4건)",
+        "kr_news_refs": [
+          3,
+          4,
+          10,
+          90
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "메리츠금융, 3분기 순익 전년比 27% 감소…증시 악화에 화재 투자손익 급감 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNd05WcjB5b1FnMEN6VktQUmZtcktzODg2YTg4OTZCbzJYclhYQURYRGkwb25LZ3ZUU01rNEVRN21mUWRVaVpYRWpjWWlWSlp5ajlRVUVBaTNuaHhnczd2WHlqUWhKb3Q2d3VHcFNpR253TmxKVFMxRGgweFRUNnBLeDRYaw?oc=5",
+            "published_at": "2026-11-11 17:42:00 KST"
+          },
+          {
+            "title": "민주 “주가누르기 방지법 정기국회 처리”…이견 해소는 못해 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFA3U3hKSXg3UF9xbTlNSlVzbTZ0MEdZa0tkTGpTUldUSGZ2ZXhMODBXdlRKS3B3MzNRRlJNdmtWcU9XZnVUX2dESjgwTHZMXy1NT3AzRXhjT19FcF93OGQxLTBmSC11bFVHYmVwQVJJZlUyMnMx?oc=5",
+            "published_at": "2026-11-11 17:34:00 KST"
+          },
+          {
+            "title": "10월 은행 가계대출 5조원 증가…잔액 1204조 ’역대 최대’ By 알파경제 alphabiz - Investing.com 한국어",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBaR1hXSVd6bmpMR0J0akdsX3V6ZWlQY3FxQjBUZm9vOG1OaXA5QkZkMmhLRDlyN3RMVWlMMmZMVlRmazVUaGYxZjRUQ3k5RzREdXN4SDg3QXVnZ0gzQUNGNlRaUGMyWTJHaWNnbTRVVlo?oc=5",
+            "published_at": "2026-11-11 16:40:00 KST"
+          },
+          {
+            "title": "메리츠금융, 3분기 누적 순익 1조9천621억원…3.2%↓(종합2보)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261111138452527",
+            "published_at": "2026-11-11 18:03:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "reason": "제약 및 바이오 기업들의 신약 개발 및 임상 결과 발표가 시장의 관심을 끌었습니다. (총 9건)",
+        "kr_news_refs": [
+          5,
+          11,
+          18,
+          31,
+          34,
+          41,
+          69,
+          85,
+          94
+        ],
+        "related_news": [
+          {
+            "title": "대원제약, 한국ESG기준원 ESG 평가 2년 연속 통합 A등급 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1qZGdtY0liQ3k1RUdrUnN2TFBIbVFpWHc0cHZUb3pVOWxNaEJCMmtCRWZyMVp3M2ZTYl9TU1N0dTUzRW0xdDJyNG50dW1xeXZxc2E5X2N2aw?oc=5",
+            "published_at": "2026-11-11 17:30:00 KST"
+          },
+          {
+            "title": "HK이노엔, 경구용 항응고제 ‘릭시엔정’ 출시 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFA2M09XWUZLY0JiRVU1eHBGZzNRRUhnWVZkVlVvMzZ6T1c2UUZnenFGLTdtLUE0RW10TW9KMlluRUVxLWYwN24wNlJrbWZORXN0cmpzN08zWQ?oc=5",
+            "published_at": "2026-11-11 16:36:00 KST"
+          },
+          {
+            "title": "위고비·마운자로 맞다 ‘시력 저하’…식약처 “의료진에 즉시 알려야” - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5Yd2hjd3loc3lKeEJVOVpaSWUyOGh0aXc4Z1dlbzc0c3hRWmxqMEJaZ2k3WFhmVkx1ZmRLazlhNHRZbDRIeDJWclRPSy11c21INmwwNF9IdXdLYzJaSUZURDZ5d1FNdw?oc=5",
+            "published_at": "2026-11-11 14:50:00 KST"
+          },
+          {
+            "title": "위고비·마운자로 들고 입국 가능…일본 원정 구매 늘어나나",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261111173800017",
+            "published_at": "2026-11-11 19:23:46 KST"
+          },
+          {
+            "title": "해외서 처방받은 비만약 12일부터 국내 반입 허용",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12205711",
+            "published_at": "2026-11-11 19:17:22 KST"
+          }
+        ]
+      },
+      {
+        "name": "Construction",
+        "reason": "주요 건설 프로젝트 수주 및 건설 경기 전망에 대한 소식이 있었습니다. (총 3건)",
+        "kr_news_refs": [
+          6,
+          19,
+          51
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "GS-포스코, 초대형 AI 데이터센터 혈맹…’인프라·철강’ 글로벌 정조준 By EBN - Investing.com 한국어",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9Gdk10NUI0UUpjT1ViM25XTS1maldTc3Awd3VacUFVVk9oRDFiVEVSbDFFOElERjE4U1ZMN0hESHRzeGF5RWYyajdCWl9ZT3RNcnByT2NtYURhQXV1RFQtTzEzQW9hcmtBakRMYmdrb1g?oc=5",
+            "published_at": "2026-11-11 17:16:00 KST"
+          },
+          {
+            "title": "공사비 급등·재초환 이중고에 흔들리는 재건축…현실적 해법은? - 조선일보",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNYWNOd3FJMk1ERUx3S1pGUm5yT3ZGeFk4Nkd2SmRxaFdfX0NMb0M3STBQa3k2aWxvLUt4dVFOSXNmbVVtRm5sMlJaNFhkTTFJbmpnd2E3cm9hY0VPdVdTU25SSlIyVlFvRVgyNGp3eHg2VklBTlEtMUNNaXRpa1BiaEM2aTdYSFYw?oc=5",
+            "published_at": "2026-11-11 14:07:00 KST"
+          },
+          {
+            "title": "정부, GS건설 아파트 시스템 침해사고에 직권조사한다(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261111163101017",
+            "published_at": "2026-11-11 18:47:01 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "메리츠금융",
+        "reason": "주요 금융 지주사의 실적 발표 및 배당 정책 관련 소식이 있었습니다. (총 2건)",
+        "kr_news_refs": [
+          3,
+          90
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "메리츠금융, 3분기 순익 전년比 27% 감소…증시 악화에 화재 투자손익 급감 - 인베스트조선",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNd05WcjB5b1FnMEN6VktQUmZtcktzODg2YTg4OTZCbzJYclhYQURYRGkwb25LZ3ZUU01rNEVRN21mUWRVaVpYRWpjWWlWSlp5ajlRVUVBaTNuaHhnczd2WHlqUWhKb3Q2d3VHcFNpR253TmxKVFMxRGgweFRUNnBLeDRYaw?oc=5",
+            "published_at": "2026-11-11 17:42:00 KST"
+          },
+          {
+            "title": "메리츠금융, 3분기 누적 순익 1조9천621억원…3.2%↓(종합2보)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261111138452527",
+            "published_at": "2026-11-11 18:03:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 관련 기술 개발에 대한 지속적인 관심이 나타났습니다. (총 4건)",
+        "kr_news_refs": [
+          1,
+          7,
+          12,
+          50
+        ],
+        "related_news": [
+          {
+            "title": "“앨리스 황, 엔비디아칩 24만장 중국 밀반입…최소 10조원 규모” - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNSFF6bXZ4MFk3SzVzU09FREF6UWhaOENKQXF4S2tvU0xraFQ1dVVfWjJwTFp1WHVqRXpZMkZfTmZKT0xYUmZyNU1JYmtEaDVLcEdLNXZtcDlXQkVaSXExd1ZXOHNhc3JoRDk1Z3RIMTdfcjVZeEVLM0YxcVBGOFVuVUZR?oc=5",
+            "published_at": "2026-11-11 18:04:00 KST"
+          },
+          {
+            "title": "로이터 “미 블랙리스트 중국 군연계 대학, 엔비디아 H200 구매” - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1ET0dmbXVUSVdLYWJpTk10NzE2Njg0R3NWYVFBZWxUa2FhUVZ3RDg5RGo5QnF3ck5YOTJsVnE0RlNtenVlWFdLbklEUWU0bFo1WENNUW9ualB0MEE?oc=5",
+            "published_at": "2026-11-11 16:59:00 KST"
+          },
+          {
+            "title": "유가 하락에 증시 반등...'젠슨황 불륜' 엔비디아만 급락[뉴욕마감] - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE83amctR0o3YXBSeDk4WnV4WHo4NmJTcVVCdWpCUGhueTZzd19sZU4yLWFlc1BQX0hiWklUNUNfWjhsaEFIOEVaRjhIZnI3b3JERkpLWjZVMHpkdU1HdHo0U3FPc0RGZXZj0gFuQVVfeXFMT0tMeFRHa2Vick5nd0VBaGhJVE9GamZoUG00Uk5vQWhhSll5NGRnNGdWMDV0MENzeDJYcDhDb2dDZUN2dG1KN3dZX0tGSWtIeE5kZmJFa01NcTVaeV94aFI3OTE0amduRXlGUG43RWc?oc=5",
+            "published_at": "2026-11-11 16:03:17 KST"
+          },
+          {
+            "title": "젠슨 황 불륜 파문에 美대사도 입 열었다…“미중관계 험난”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12205706",
+            "published_at": "2026-11-11 18:52:17 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "부동산",
+        "freq": 3,
+        "summary": "2호선 안쪽 빌라 매수를 추천하며, 아파트 가격 상승에 따라 빌라 가격도 동반 상승할 것이라는 분석이 제시되었습니다. 2027년 부동산 시장의 대격변을 예상하며 수도권 아파트 매수 유망 지역에 대한 언급이 있었습니다.",
+        "refs": [
+          2,
+          3
+        ],
+        "reason": "2호선 안쪽 빌라 매수를 추천하며, 아파트 가격 상승에 따라 빌라 가격도 동반 상승할 것이라는 분석이 제시되었습니다. 2027년 부동산 시장의 대격변을 예상하며 수도권 아파트 매수 유망 지역에 대한 언급이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "2호선 안쪽 빌라 당장 사세요, 아파트 따라 집값이 오른다 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=0YsdAUePrFo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 19:00:19 KST"
+          },
+          {
+            "title": "2027년 부동산 집값 대격변, 수도권 아파트 '이곳' 사세요 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=cgIhiRLQilU",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 18:00:39 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 투자 자금 조달이 유가 하락으로 인해 변화할 조건에 대한 분석이 있었습니다. 엔비디아 실적과 앤트로픽 IPO가 AI 관련 자금 조달에 변수가 될 수 있다는 내용이 언급되었습니다.",
+        "refs": [
+          4,
+          5
+        ],
+        "reason": "AI 투자 자금 조달이 유가 하락으로 인해 변화할 조건에 대한 분석이 있었습니다. 엔비디아 실적과 앤트로픽 IPO가 AI 관련 자금 조달에 변수가 될 수 있다는 내용이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI 투자 자금줄 다시 열릴까…유가 하락이 바꿀 자금조달의 조건ㅣ홍선애, 이은택 KB증권 자산배분전략 이사 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=2yRQVzDTUPk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 17:59:10 KST"
+          },
+          {
+            "title": "[11월 11일 마감시황] 코스피·코스닥 동반 급등 마감…엔비디아 실적과 앤트로픽 IPO 변수 앞두고 현금 확보해야 할까?ㅣ홍선애, 이권희, 장우진 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=_UfmxQrxu3s",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 17:03:20 KST"
+          }
+        ]
+      },
+      {
+        "name": "암호화폐",
+        "freq": 1,
+        "summary": "특정 암호화폐에 전 재산을 투자할 의향이 있으며, 현금으로 꾸준히 매수해 나갈 것을 권유하는 의견이 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "특정 암호화폐에 전 재산을 투자할 의향이 있으며, 현금으로 꾸준히 매수해 나갈 것을 권유하는 의견이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "'이 코인에' 제 전 재산 걸었어요, 현금으로 계속 조금씩 사모으세요 (문창훈 대표)",
+            "url": "https://www.youtube.com/watch?v=MBiwOaFssuo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 17:00:28 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "엔비디아",
+        "freq": 1,
+        "summary": "엔비디아의 실적이 AI 관련 자금 조달에 변수가 될 수 있다는 분석이 있었습니다. 엔비디아 실적 발표를 앞두고 현금 확보 필요성에 대한 논의가 있었습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "엔비디아의 실적이 AI 관련 자금 조달에 변수가 될 수 있다는 분석이 있었습니다. 엔비디아 실적 발표를 앞두고 현금 확보 필요성에 대한 논의가 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[11월 11일 마감시황] 코스피·코스닥 동반 급등 마감…엔비디아 실적과 앤트로픽 IPO 변수 앞두고 현금 확보해야 할까?ㅣ홍선애, 이권희, 장우진 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=_UfmxQrxu3s",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 17:03:20 KST"
+          }
+        ]
+      },
+      {
+        "name": "앤트로픽",
+        "freq": 1,
+        "summary": "앤트로픽의 IPO가 AI 관련 자금 조달에 변수가 될 수 있다는 분석이 있었습니다. 앤트로픽 IPO 관련 불확실성이 현금 확보 필요성을 제기하는 요인으로 언급되었습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "앤트로픽의 IPO가 AI 관련 자금 조달에 변수가 될 수 있다는 분석이 있었습니다. 앤트로픽 IPO 관련 불확실성이 현금 확보 필요성을 제기하는 요인으로 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[11월 11일 마감시황] 코스피·코스닥 동반 급등 마감…엔비디아 실적과 앤트로픽 IPO 변수 앞두고 현금 확보해야 할까?ㅣ홍선애, 이권희, 장우진 [클로징벨 라이브]",
+            "url": "https://www.youtube.com/watch?v=_UfmxQrxu3s",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 17:03:20 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 4
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "SoftBank",
+          "freq": 2
+        },
+        {
+          "name": "Alcon",
+          "freq": 1
+        },
+        {
+          "name": "Goldman Sachs",
+          "freq": 1
+        },
+        {
+          "name": "CSG",
+          "freq": 1
+        },
+        {
+          "name": "Vestas",
+          "freq": 1
+        },
+        {
+          "name": "Cigna",
+          "freq": 1
+        },
+        {
+          "name": "Hims and Hers",
+          "freq": 1
+        },
+        {
+          "name": "Nike",
+          "freq": 1
+        },
+        {
+          "name": "On Holding",
+          "freq": 1
+        },
+        {
+          "name": "Hensoldt",
+          "freq": 1
+        },
+        {
+          "name": "PayPal",
+          "freq": 1
+        },
+        {
+          "name": "Ford",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "Tech",
+          "freq": 3
+        },
+        {
+          "name": "Financials",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "E-commerce",
+          "freq": 2
+        },
+        {
+          "name": "Data centers",
+          "freq": 2
+        },
+        {
+          "name": "Aerospace & Defense",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Rare earths",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 1
+        },
+        {
+          "name": "Software",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 4
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 2
+        },
+        {
+          "name": "메리츠금융",
+          "freq": 2
+        },
+        {
+          "name": "CMG제약",
+          "freq": 2
+        },
+        {
+          "name": "대원제약",
+          "freq": 1
+        },
+        {
+          "name": "GS",
+          "freq": 1
+        },
+        {
+          "name": "포스코",
+          "freq": 1
+        },
+        {
+          "name": "두산에너빌리티",
+          "freq": 1
+        },
+        {
+          "name": "HK이노엔",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "TSMC",
+          "freq": 1
+        },
+        {
+          "name": "GS건설",
+          "freq": 1
+        },
+        {
+          "name": "셀바스헬스케어",
+          "freq": 1
+        },
+        {
+          "name": "대우산업개발",
+          "freq": 1
+        },
+        {
+          "name": "삼성자산운용",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Financials",
+          "freq": 4
+        },
+        {
+          "name": "Healthcare",
+          "freq": 4
+        },
+        {
+          "name": "Construction",
+          "freq": 3
+        },
+        {
+          "name": "ESG",
+          "freq": 2
+        },
+        {
+          "name": "Data centers",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "방산",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Aerospace",
+          "freq": 1
+        },
+        {
+          "name": "E-commerce",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
