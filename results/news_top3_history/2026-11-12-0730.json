@@ -1,0 +1,765 @@
+{
+  "generated_at": "2026-11-12 07:30 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "Aviation",
+        "reason": "항공 여행 수요 회복 및 관련 기업들의 실적 개선 기대감이 부각되고 있습니다 (총 5건)",
+        "us_news_refs": [
+          1,
+          7,
+          11,
+          20,
+          27
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "United Airlines bans AI agents from booking flights on behalf of travelers - CBS News",
+            "title_ko": "United Airlines, 여행객 대신 AI 예약 금지",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPZDJtSXdwdkJWUlI4SlRWMzhQNlFKTG00LW4xVW9tZ1pLcFUtRzBQYklOMWRvZVZ4a3AwOTliX2hvcWpjYTN2eGR4NWp2M1BiMGNUMl9SZUxqQnpOWDU0QnRpUkdyX1FVSkVaRDFSUmw1R1pQWFFEMzNfVDN1MjY3QUNn?oc=5",
+            "published_at": "2026-11-12 07:22:06 KST"
+          },
+          {
+            "title": "Charlotte airport lease offers no guaranteed relief on ticket prices - Axios",
+            "title_ko": "Charlotte 공항 리스, 항공권 가격 인하 보장 안 해",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPS29rMWltaXhOU0dGX2l1bTctZ1lpTFNKNzhWSTNOb0dtcU5oakV1VGlnc29uNVJSanVuNTFkVDctNmVHOUJWWEt6Q1RsZE1sVkxVcDBZampLYWx6Y0ZlOWYtRTFGNWstX2Q2ZmF5YU9ma0dRU0ZrOFdLTzBvZnhWOFV0VUNzcmRXaTRGR0pRUUZkMTJfN3R4bVNZc3FWU081RDl3Y1l0cVVTUQ?oc=5",
+            "published_at": "2026-11-12 03:45:42 KST"
+          },
+          {
+            "title": "American Airlines brings fresh food back to NY-Chicago first class for first time since 2019 - CNBC",
+            "title_ko": "American Airlines, 2019년 이후 처음 NY-시카고 퍼스트 클래스 신선 식품 복귀",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNR0F6N29rLUNDZFZGS3JBTEVTUGFOYmI4djBsUkRYeW1FX0luSzNPTkpnblJCWHlMT3p3UnIzOUQ3Q3BZaXBibUM2bVZ2ZkZqdDVBY0NyUFktTDM0V2NEOE9KMldhSFdGdlBGQzlTZzBBaVQtMHU3OXlUVlhsandoWHpvU2VvNnpsRVlZ?oc=5",
+            "published_at": "2026-11-12 02:34:18 KST"
+          },
+          {
+            "title": "American Airlines brings fresh food back to NY-Chicago first class for first time since 2019",
+            "title_ko": "American Airlines, 2019년 이후 처음 NY-시카고 퍼스트 클래스 신선 식품 복귀",
+            "url": "https://www.cnbc.com/2026/11/11/american-airlines-first-class-chicago-new-york.html",
+            "published_at": "2026-11-12 07:20:58 KST"
+          },
+          {
+            "title": "JetBlue unveils new first-class seats to bring back profits",
+            "title_ko": "JetBlue, 수익 회복 위해 신규 퍼스트 클래스 좌석 공개",
+            "url": "https://www.cnbc.com/2026/11/11/jetblue-ceo-premium.html",
+            "published_at": "2026-11-12 07:10:50 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 증가 및 관련 기술 발전이 지속적으로 주목받고 있습니다 (총 3건)",
+        "us_news_refs": [
+          3,
+          5,
+          28,
+          32,
+          34,
+          40,
+          42,
+          43,
+          46,
+          48
+        ],
+        "related_news": [
+          {
+            "title": "Stock Market Today: Nasdaq Jumps at Open After CoreWeave Earnings — Live Updates - WSJ",
+            "title_ko": "주식 시장 오늘: CoreWeave 실적 후 나스닥 개장 점프",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNdnhyVlZiYkxnRTlZMm9YMWh5TGhpSkpKaDQ5WW0xYkVBZ0dxTTlPYk0xUG1jSzF4RkJYTXctRFNpeHVRb2NUNFo2UkduaHo5R0NkcWRGR1hoZmU3ZzZvQlBmZ2FRcE84XzhhbE5PYzB1Y213bC0wdExHaWRhZnlLVDliWkhqMlk?oc=5",
+            "published_at": "2026-11-12 06:49:00 KST"
+          },
+          {
+            "title": "Scoop: Lutnick stalled curbing Nvidia chip sales to China — again — after Oval Office showdown - Axios",
+            "title_ko": "Scoop: Lutnick, 백악관 대결 후 Nvidia 칩 중국 판매 중단 지연",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPa01VNnZpTE10OFNfTFRXZDZzeUJwSjFkNmlhVjFwUVExM3RmaUlNOG1jWm1aYXJMRHkyb2s1WGdMQU9IQUN6RE5kVi1ub3JkQ0wxVnc2YWFvY2VzTWRiX0FZeVlpdDNsMzBhcWpzOVhqNVh4UUFCa2cySy1ZSlkwTGRxbHVjcEU?oc=5",
+            "published_at": "2026-11-12 06:02:51 KST"
+          },
+          {
+            "title": "CoreWeave just gave a shot in the arm to Micron, Lumentum and the rest of the AI trade",
+            "title_ko": "CoreWeave, Micron, Lumentum 및 AI 거래에 활력 불어넣어",
+            "url": "https://www.marketwatch.com/story/micron-and-other-ai-stocks-surge-as-coreweave-calms-wall-streets-worst-fears-0a18152a?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 07:05:00 KST"
+          },
+          {
+            "title": "Feds arrest top official of healthcare company, alleging illegal drug importation",
+            "title_ko": "Feds, 제약 회사 고위 관리 체포, 불법 마약 수입 혐의",
+            "url": "https://www.cnbc.com/2026/11/11/canarx-official-arrested-drug-importation.html",
+            "published_at": "2026-11-12 06:33:17 KST"
+          },
+          {
+            "title": "Bloom Energy’s stock is rallying as data-center jitters subside",
+            "title_ko": "Bloom Energy 주가, 데이터 센터 불안감 완화로 상승",
+            "url": "https://www.marketwatch.com/story/bloom-energys-stock-is-soaring-as-data-center-jitters-subside-5fda5689?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 06:14:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 관련 반도체 수요 강세와 함께 주요 반도체 기업들의 실적 전망이 긍정적으로 평가받고 있습니다 (총 3건)",
+        "us_news_refs": [
+          3,
+          28,
+          31,
+          32,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Market Today: Nasdaq Jumps at Open After CoreWeave Earnings — Live Updates - WSJ",
+            "title_ko": "주식 시장 오늘: CoreWeave 실적 후 나스닥 개장 점프",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNdnhyVlZiYkxnRTlZMm9YMWh5TGhpSkpKaDQ5WW0xYkVBZ0dxTTlPYk0xUG1jSzF4RkJYTXctRFNpeHVRb2NUNFo2UkduaHo5R0NkcWRGR1hoZmU3ZzZvQlBmZ2FRcE84XzhhbE5PYzB1Y213bC0wdExHaWRhZnlLVDliWkhqMlk?oc=5",
+            "published_at": "2026-11-12 06:49:00 KST"
+          },
+          {
+            "title": "CoreWeave just gave a shot in the arm to Micron, Lumentum and the rest of the AI trade",
+            "title_ko": "CoreWeave, Micron, Lumentum 및 AI 거래에 활력 불어넣어",
+            "url": "https://www.marketwatch.com/story/micron-and-other-ai-stocks-surge-as-coreweave-calms-wall-streets-worst-fears-0a18152a?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 07:05:00 KST"
+          },
+          {
+            "title": "Sandisk’s stock just staged a big gain. Here’s how it could march even higher.",
+            "title_ko": "Sandisk 주가 큰 폭 상승. 더 높이 오를 수 있는 방법은.",
+            "url": "https://www.marketwatch.com/story/sandisks-stock-is-soaring-and-these-three-trends-could-send-it-even-higher-b0d7d5ec?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 06:40:00 KST"
+          },
+          {
+            "title": "Feds arrest top official of healthcare company, alleging illegal drug importation",
+            "title_ko": "Feds, 제약 회사 고위 관리 체포, 불법 마약 수입 혐의",
+            "url": "https://www.cnbc.com/2026/11/11/canarx-official-arrested-drug-importation.html",
+            "published_at": "2026-11-12 06:33:17 KST"
+          },
+          {
+            "title": "Why Sandisk and Lumentum Are Leading the AI Comeback - Barron's",
+            "title_ko": "Sandisk와 Lumentum이 AI 복귀를 주도하는 이유",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1Cdk53RHRrdDRGYlRvX3ljYWc1YnlzZ1duenJfZWoydU5zOUU1ZUNIT0VWWk1oQVVEbGw0cmhSUndPcW90WEJZcTR5cUhiTGdjamFMYW9SdkNBOXB6SUhoRFRualgxM1VHUWVPWEJiNTVaOHVkdXFMaXA4Zw?oc=5",
+            "published_at": "2026-11-12 00:05:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 급증과 빅테크 기업들의 투자 확대에 힘입어 지속적인 성장세를 보이고 있습니다 (총 3건)",
+        "us_news_refs": [
+          2,
+          3,
+          5,
+          10,
+          28,
+          46,
+          48,
+          77,
+          95
+        ],
+        "related_news": [
+          {
+            "title": "Jensen Huang Said to Have Had Relationship With Nvidia Executive Who Reports to Him - The New York Times",
+            "title_ko": "Jensen Huang, 보고받는 Nvidia 임원과 관계 있었다고",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPV0NCNjVPR0M2THpMdkhiTW5jZUlmVXJzNHk4YjZYeWtGZHc3Vk81V3czUXBBVjktcXlSLWs3MFdyWkRtcmRpV1BmY1hKckhyU3RYWEdsTWlGcnhFVFVNakRLLWZvREpURHJnRVVSdmZEcHJWU2p5YWJZX1pEWGRWRDB1aw?oc=5",
+            "published_at": "2026-11-12 06:55:36 KST"
+          },
+          {
+            "title": "Stock Market Today: Nasdaq Jumps at Open After CoreWeave Earnings — Live Updates - WSJ",
+            "title_ko": "주식 시장 오늘: CoreWeave 실적 후 나스닥 개장 점프",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNdnhyVlZiYkxnRTlZMm9YMWh5TGhpSkpKaDQ5WW0xYkVBZ0dxTTlPYk0xUG1jSzF4RkJYTXctRFNpeHVRb2NUNFo2UkduaHo5R0NkcWRGR1hoZmU3ZzZvQlBmZ2FRcE84XzhhbE5PYzB1Y213bC0wdExHaWRhZnlLVDliWkhqMlk?oc=5",
+            "published_at": "2026-11-12 06:49:00 KST"
+          },
+          {
+            "title": "Scoop: Lutnick stalled curbing Nvidia chip sales to China — again — after Oval Office showdown - Axios",
+            "title_ko": "Scoop: Lutnick, 백악관 대결 후 Nvidia 칩 중국 판매 중단 지연",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPa01VNnZpTE10OFNfTFRXZDZzeUJwSjFkNmlhVjFwUVExM3RmaUlNOG1jWm1aYXJMRHkyb2s1WGdMQU9IQUN6RE5kVi1ub3JkQ0wxVnc2YWFvY2VzTWRiX0FZeVlpdDNsMzBhcWpzOVhqNVh4UUFCa2cySy1ZSlkwTGRxbHVjcEU?oc=5",
+            "published_at": "2026-11-12 06:02:51 KST"
+          },
+          {
+            "title": "Jensen Huang espionage controversy will cast a long shadow over Nvidia, veteran tech strategist warns - Yahoo Finance",
+            "title_ko": "Jensen Huang 스파이 논란, Nvidia에 긴 그림자 드리울 것",
+            "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQbFpBNUY1bFJHelJLTjFGVnhwQ3RHZk5qUXIyLTBGMTBXZm8ycU5IdTRhY1FtM3NUal9rbXNrT09CU0VtQWFjWlk2TENYdmhqdWp3Uy1ZNTBBaE1PYWtlR2JVT2dPT0hMeU9SOUdROW1GNnBKMC1QRmhuTm1jY0g2eHBuRWIta19LVEoxZTduQ25zODctUHB0djcyazVRcTFCV2YtRVNVdXhQRVp3cmdBMWpkSjVkUzdFWXBScWp6cU1xTkw3MHVKUXY3dzhZOUR2MnBDc2pOdWJib1llZVRLenY5MXVoQkQzNGphWGVR?oc=5",
+            "published_at": "2026-11-12 02:38:44 KST"
+          },
+          {
+            "title": "CoreWeave just gave a shot in the arm to Micron, Lumentum and the rest of the AI trade",
+            "title_ko": "CoreWeave, Micron, Lumentum 및 AI 거래에 활력 불어넣어",
+            "url": "https://www.marketwatch.com/story/micron-and-other-ai-stocks-surge-as-coreweave-calms-wall-streets-worst-fears-0a18152a?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 07:05:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "American Airlines",
+        "reason": "여행 수요 증가에 따른 실적 개선 전망과 함께 투자자들의 관심이 집중되고 있습니다 (총 3건)",
+        "us_news_refs": [
+          7,
+          11,
+          20
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Charlotte airport lease offers no guaranteed relief on ticket prices - Axios",
+            "title_ko": "Charlotte 공항 리스, 항공권 가격 인하 보장 안 해",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPS29rMWltaXhOU0dGX2l1bTctZ1lpTFNKNzhWSTNOb0dtcU5oakV1VGlnc29uNVJSanVuNTFkVDctNmVHOUJWWEt6Q1RsZE1sVkxVcDBZampLYWx6Y0ZlOWYtRTFGNWstX2Q2ZmF5YU9ma0dRU0ZrOFdLTzBvZnhWOFV0VUNzcmRXaTRGR0pRUUZkMTJfN3R4bVNZc3FWU081RDl3Y1l0cVVTUQ?oc=5",
+            "published_at": "2026-11-12 03:45:42 KST"
+          },
+          {
+            "title": "American Airlines brings fresh food back to NY-Chicago first class for first time since 2019 - CNBC",
+            "title_ko": "American Airlines, 2019년 이후 처음 NY-시카고 퍼스트 클래스 신선 식품 복귀",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNR0F6N29rLUNDZFZGS3JBTEVTUGFOYmI4djBsUkRYeW1FX0luSzNPTkpnblJCWHlMT3p3UnIzOUQ3Q3BZaXBibUM2bVZ2ZkZqdDVBY0NyUFktTDM0V2NEOE9KMldhSFdGdlBGQzlTZzBBaVQtMHU3OXlUVlhsandoWHpvU2VvNnpsRVlZ?oc=5",
+            "published_at": "2026-11-12 02:34:18 KST"
+          },
+          {
+            "title": "American Airlines brings fresh food back to NY-Chicago first class for first time since 2019",
+            "title_ko": "American Airlines, 2019년 이후 처음 NY-시카고 퍼스트 클래스 신선 식품 복귀",
+            "url": "https://www.cnbc.com/2026/11/11/american-airlines-first-class-chicago-new-york.html",
+            "published_at": "2026-11-12 07:20:58 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전과 관련 서비스 확산에 대한 기대감이 지속적으로 높아지고 있습니다 (총 3건)",
+        "kr_news_refs": [
+          2,
+          5,
+          7,
+          15,
+          16,
+          32,
+          37,
+          47,
+          66,
+          85
+        ],
+        "related_news": [
+          {
+            "title": "[뉴욕증시] 코어위브·앤트로픽이 기술주 쌍끌이…나스닥 1.6%↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5Yc1BQek1jSlNBQTd4OFFycl8xRFBKai0wWDE4LUhIeUZmbUllQmk1WlJQdWxsb0FQUkpBQ0ZZWnhULXlrRGp0ajNteHBlTVVQMkM5ZkUyQmtnSVVTelJDdHNwTGdVOVNDU1BGZTEzTlE?oc=5",
+            "published_at": "2026-11-12 06:46:41 KST"
+          },
+          {
+            "title": "버넥트, 보스턴다이내믹스 ‘스팟’에 자체 SW 결합…피지컬 AI 로봇 시장 공략 본격화",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12205929",
+            "published_at": "2026-11-12 07:29:41 KST"
+          },
+          {
+            "title": "챗GPT 한마디에 포토샵이 움직인다…‘딸깍’ AI에 문 활짝 연 어도비",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12205925",
+            "published_at": "2026-11-12 07:20:46 KST"
+          },
+          {
+            "title": "구글, DNA분석 '알파게놈2' 공개…세포별 변이 정밀 예측",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261112013300091",
+            "published_at": "2026-11-12 07:04:39 KST"
+          },
+          {
+            "title": "강서구 통합청사에 AI 특화 '마곡열린도서관' 문 열어",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261112014500004",
+            "published_at": "2026-11-12 07:03:40 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 반도체 수요 증가와 함께 관련 기술 개발 및 투자 확대 소식이 주목받고 있습니다 (총 2건)",
+        "kr_news_refs": [
+          2,
+          32,
+          80
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[뉴욕증시] 코어위브·앤트로픽이 기술주 쌍끌이…나스닥 1.6%↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5Yc1BQek1jSlNBQTd4OFFycl8xRFBKai0wWDE4LUhIeUZmbUllQmk1WlJQdWxsb0FQUkpBQ0ZZWnhULXlrRGp0ajNteHBlTVVQMkM5ZkUyQmtnSVVTelJDdHNwTGdVOVNDU1BGZTEzTlE?oc=5",
+            "published_at": "2026-11-12 06:46:41 KST"
+          },
+          {
+            "title": "AI반도체주 일제히 급등…마이크론 시총 하루새 130조원↑",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261112011400009",
+            "published_at": "2026-11-12 06:50:46 KST"
+          },
+          {
+            "title": "'반도체 힘' 전기전자 5대 기업 수출 1년새 3.3배로 증가",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261111162400002",
+            "published_at": "2026-11-12 05:51:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "CoreWeave",
+        "reason": "AI 연산 수요 증가에 따른 클라우드 서비스 확장 및 투자 확대 소식이 부각되고 있습니다 (총 3건)",
+        "kr_news_refs": [
+          2,
+          32,
+          47
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[뉴욕증시] 코어위브·앤트로픽이 기술주 쌍끌이…나스닥 1.6%↑ - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5Yc1BQek1jSlNBQTd4OFFycl8xRFBKai0wWDE4LUhIeUZmbUllQmk1WlJQdWxsb0FQUkpBQ0ZZWnhULXlrRGp0ajNteHBlTVVQMkM5ZkUyQmtnSVVTelJDdHNwTGdVOVNDU1BGZTEzTlE?oc=5",
+            "published_at": "2026-11-12 06:46:41 KST"
+          },
+          {
+            "title": "AI반도체주 일제히 급등…마이크론 시총 하루새 130조원↑",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261112011400009",
+            "published_at": "2026-11-12 06:50:46 KST"
+          },
+          {
+            "title": "코어위브 훈풍에 뉴욕증시 일제히 상승…나스닥 1.6%↑",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261112009700072",
+            "published_at": "2026-11-12 06:19:10 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "부동산",
+        "freq": 4,
+        "summary": "영상들은 2026년 12월부터 부동산 시장에 하락세가 시작될 것이며, 특히 수도권 아파트와 2호선 안쪽 빌라에 대한 매수 추천이 있었습니다. 2027년 부동산 시장의 대격변 가능성도 언급되었습니다.",
+        "refs": [
+          3,
+          7,
+          8,
+          9
+        ],
+        "reason": "영상들은 2026년 12월부터 부동산 시장에 하락세가 시작될 것이며, 특히 수도권 아파트와 2호선 안쪽 빌라에 대한 매수 추천이 있었습니다. 2027년 부동산 시장의 대격변 가능성도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "집 주인들 곡소리 시작됐다, 12월부터 집값 초토화 된다 (박은정 감정평가사)",
+            "url": "https://www.youtube.com/watch?v=8qP2u-1t33U",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 21:15:04 KST"
+          },
+          {
+            "title": "2호선 안쪽 빌라 당장 사세요, 아파트 따라 집값이 오른다 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=0YsdAUePrFo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 19:00:19 KST"
+          },
+          {
+            "title": "2027년 부동산 집값 대격변, 수도권 아파트 '이곳' 사세요 (서울대 김경민 교수, shorts)",
+            "url": "https://www.youtube.com/watch?v=cgIhiRLQilU",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 18:00:39 KST"
+          },
+          {
+            "title": "이거 진짜에요?",
+            "url": "https://www.youtube.com/watch?v=5mSF8npmm9A",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-11 13:35:14 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "영상에서는 반도체 섹터의 실적 개선 가능성과 함께, 삼성전자와 SK하이닉스 외에 더 강한 종목을 찾아야 한다는 분석이 제시되었습니다. 또한, 반도체 실적보다 중요한 스캔들에 대한 언급도 있었습니다.",
+        "refs": [
+          1,
+          4,
+          5
+        ],
+        "reason": "영상에서는 반도체 섹터의 실적 개선 가능성과 함께, 삼성전자와 SK하이닉스 외에 더 강한 종목을 찾아야 한다는 분석이 제시되었습니다. 또한, 반도체 실적보다 중요한 스캔들에 대한 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "젠슨 황 스캔들에 울고 코어위브에 웃고…실적 24.71% 폭등 | '국고채 입찰 담합' 역대급 1.6조 과징금 때린 공정위 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=qQvmbjl2Fr0",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-12 05:28:26 KST"
+          },
+          {
+            "title": "삼성전자·SK하이닉스보다 더 강한 종목은 따로 있다? 급반등 이후 신고가 주도주를 찾아야 하는 이유ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=yFAAd8X_MzM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 21:00:33 KST"
+          },
+          {
+            "title": "반도체 실적보다 중요한 희대의 스캔들? | 장재영 NH투자증권 차장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=1WWPRAc8i08",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 21:00:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 서사가 무너졌는지에 대한 질문이 제기되었으며, 이는 AI 섹터에 대한 시장의 관심과 전망에 대한 논의가 있었음을 시사합니다.",
+        "refs": [
+          6
+        ],
+        "reason": "AI 서사가 무너졌는지에 대한 질문이 제기되었으며, 이는 AI 섹터에 대한 시장의 관심과 전망에 대한 논의가 있었음을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "코스피 5,000 붕괴, AI 서사는 무너졌는가",
+            "url": "https://www.youtube.com/watch?v=QBSm6BJko4A",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-11 20:22:17 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자는 반도체 섹터 내에서 언급되었으며, 다른 종목과의 비교를 통해 상대적인 강도에 대한 분석이 있었습니다. 실적 개선 가능성과 함께 시장 내에서의 위치에 대한 논의가 포함되었습니다.",
+        "refs": [
+          4,
+          5
+        ],
+        "reason": "삼성전자는 반도체 섹터 내에서 언급되었으며, 다른 종목과의 비교를 통해 상대적인 강도에 대한 분석이 있었습니다. 실적 개선 가능성과 함께 시장 내에서의 위치에 대한 논의가 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자·SK하이닉스보다 더 강한 종목은 따로 있다? 급반등 이후 신고가 주도주를 찾아야 하는 이유ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=yFAAd8X_MzM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 21:00:33 KST"
+          },
+          {
+            "title": "반도체 실적보다 중요한 희대의 스캔들? | 장재영 NH투자증권 차장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=1WWPRAc8i08",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 21:00:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "SK하이닉스는 삼성전자와 함께 언급되며 반도체 섹터의 주요 종목으로 다루어졌습니다. 다른 종목과의 비교를 통해 시장 내에서의 강도에 대한 분석이 제시되었습니다.",
+        "refs": [
+          4,
+          5
+        ],
+        "reason": "SK하이닉스는 삼성전자와 함께 언급되며 반도체 섹터의 주요 종목으로 다루어졌습니다. 다른 종목과의 비교를 통해 시장 내에서의 강도에 대한 분석이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자·SK하이닉스보다 더 강한 종목은 따로 있다? 급반등 이후 신고가 주도주를 찾아야 하는 이유ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=yFAAd8X_MzM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 21:00:33 KST"
+          },
+          {
+            "title": "반도체 실적보다 중요한 희대의 스캔들? | 장재영 NH투자증권 차장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=1WWPRAc8i08",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-11 21:00:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "젠슨 황과 관련된 스캔들이 언급되었으며, 이는 Nvidia의 실적 및 시장 상황에 영향을 미칠 수 있는 요인으로 다루어졌습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "젠슨 황과 관련된 스캔들이 언급되었으며, 이는 Nvidia의 실적 및 시장 상황에 영향을 미칠 수 있는 요인으로 다루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "젠슨 황 스캔들에 울고 코어위브에 웃고…실적 24.71% 폭등 | '국고채 입찰 담합' 역대급 1.6조 과징금 때린 공정위 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=qQvmbjl2Fr0",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-12 05:28:26 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 2
+        },
+        {
+          "name": "United Airlines",
+          "freq": 3
+        },
+        {
+          "name": "American Airlines",
+          "freq": 3
+        },
+        {
+          "name": "Poundland",
+          "freq": 3
+        },
+        {
+          "name": "Lutnick",
+          "freq": 3
+        },
+        {
+          "name": "Micron",
+          "freq": 2
+        },
+        {
+          "name": "Lumentum",
+          "freq": 2
+        },
+        {
+          "name": "Sandisk",
+          "freq": 2
+        },
+        {
+          "name": "BJC Health",
+          "freq": 2
+        },
+        {
+          "name": "St. Luke's Hospital",
+          "freq": 2
+        },
+        {
+          "name": "JetBlue",
+          "freq": 1
+        },
+        {
+          "name": "Solana Company",
+          "freq": 1
+        },
+        {
+          "name": "Innovative Industrial",
+          "freq": 1
+        },
+        {
+          "name": "908 devices",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Aviation",
+          "freq": 5
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Financial Services",
+          "freq": 1
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 1
+        },
+        {
+          "name": "Gaming",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
+          "freq": 1
+        },
+        {
+          "name": "Digital Services",
+          "freq": 1
+        },
+        {
+          "name": "Trading Cards",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 3
+        },
+        {
+          "name": "Micron",
+          "freq": 1
+        },
+        {
+          "name": "버넥트",
+          "freq": 1
+        },
+        {
+          "name": "보스턴다이내믹스",
+          "freq": 1
+        },
+        {
+          "name": "어도비",
+          "freq": 1
+        },
+        {
+          "name": "금융보안원",
+          "freq": 1
+        },
+        {
+          "name": "Alphabet",
+          "freq": 1
+        },
+        {
+          "name": "알파게놈",
+          "freq": 1
+        },
+        {
+          "name": "마곡열린도서관",
+          "freq": 1
+        },
+        {
+          "name": "개포주공5단지",
+          "freq": 1
+        },
+        {
+          "name": "뒷벌어린이공원",
+          "freq": 1
+        },
+        {
+          "name": "우체국",
+          "freq": 1
+        },
+        {
+          "name": "해랑",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 3
+        },
+        {
+          "name": "Aviation",
+          "freq": 2
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Software",
+          "freq": 1
+        },
+        {
+          "name": "Financial Services",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
+          "freq": 1
+        },
+        {
+          "name": "Content Creation",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
