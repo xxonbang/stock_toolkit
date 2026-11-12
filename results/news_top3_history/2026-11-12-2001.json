@@ -1,0 +1,604 @@
+{
+  "generated_at": "2026-11-12 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 10건)",
+        "us_news_refs": [
+          1,
+          2,
+          4,
+          5,
+          20,
+          21,
+          31,
+          42,
+          49,
+          83
+        ],
+        "related_news": [
+          {
+            "title": "Anthropic to Seek $1.3 Trillion Valuation in IPO - WSJ",
+            "title_ko": "Anthropic, IPO서 1.3조 달러 가치 목표 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBWWWhzNWttUWJZVjlpX2xCcnhyRVhRVGNBVnlXWGZBWnNVbE55bm1SQVVfR2xuekhqbVJCZkVmRlZFS0xZMmZvdXVkVF9pX0g4V3cwSzZDV1hEMHBVazNRSVlPejM0ZXpWeERaWVpyZ0lDdHF3aGc?oc=5",
+            "published_at": "2026-11-12 19:19:21 KST"
+          },
+          {
+            "title": "Nvidia stock falls 6% as investors await Jensen Huang’s fate - CNBC",
+            "title_ko": "Nvidia 주가 6% 하락, Jensen Huang 운명 주목 - CNBC",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQVFBOVnFZT1F2M3oteUktWm1qb29oLW5DLW9MZ2pBRzhEenlNZWFERC1NRXJlSV9saDN5MmNRZzdzQm0xQ0hWSzVpSktBSy00aDZlUTcyQzd2Vmlia1F1UTlEdE11anNMVE10RDNEVlc4cUlMcW5CRlpxaWFEbDh2Mg?oc=5",
+            "published_at": "2026-11-12 18:02:10 KST"
+          },
+          {
+            "title": "EXCLUSIVE: Chinese AI firms rush to secure Nvidia chip capacity as spy scandal stirs fear of US curbs - Reuters",
+            "title_ko": "단독: 스파이 스캔들로 미국 제재 우려 커지자 중국 AI 기업들 Nvidia 칩 확보 서둘러 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPc1EtU18tWjZNZTZtOFBZNzdqZkRFMk1nbm9MTm9VWUQwUHlLc1dTdDNLWmNCcllESHVVYjFnXzlKcFJrSWpHUkY2S1lhcTFtWWdPVG9WdkcyTkFSaEpLanVzeWctM1hCTkdxUEJ6VnBrLXFYVnBsalpKUkJVUGQyUE5DOEJtaTctZlFEaV9VR1loQ1JrVlhyRmRxR25UMkI2MVgtZnBFU1pVaXhBcmw0ZV9jb0RPYlduY1ppbnpCTlc?oc=5",
+            "published_at": "2026-11-12 14:31:00 KST"
+          },
+          {
+            "title": "Here’s what Megaspeed, the company at the forefront of the Nvidia scandal, is now saying",
+            "title_ko": "Nvidia 스캔들 중심 Megaspeed, 현재 입장 발표",
+            "url": "https://www.marketwatch.com/story/heres-what-megaspeed-the-company-at-the-forefront-of-the-nvidia-scandal-is-now-saying-b73f8d0b?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 19:57:00 KST"
+          },
+          {
+            "title": "Jensen Huang built Nvidia into a behemoth. His scandal puts the entire AI boom in jeopardy.",
+            "title_ko": "Jensen Huang, Nvidia를 거대 기업으로 키웠다. 그의 스캔들이 AI 붐 전체를 위태롭게 한다.",
+            "url": "https://www.marketwatch.com/story/jensen-huang-built-nvidia-into-a-behemoth-his-scandal-puts-the-entire-ai-boom-in-jeopardy-c374b079?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 16:30:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Space Exploration",
+        "reason": "우주 탐사 관련 기업들의 활동 및 투자가 주목받고 있음 (총 3건)",
+        "us_news_refs": [
+          37,
+          47,
+          50
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "NASA’s secret weapon in the lunar space race may be … procurement reform? - Ars Technica",
+            "title_ko": "NASA의 달 경주 비밀 무기는... 조달 개혁? - Ars Technica",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc3VFQ2tqdnlwS1N0dXllcFN1S1JDdzY1SEQyUVBTWFpFbks5Ulo4STM3RnBoQ0I5eUdBN1psRzVmQjZzZUcxTW5OOUd3N0xkTjRoeG1HOGpQUUdycmVQUFdXb29WSWtwaWluTnJSLUNEX1lIZ3VNdTZuOWV1dTE0OGFKQWwxQmg3OWh0VUpOa2ZLR3p1ZnlUeHhPYmFjcXJHLWhhaUw4UTY?oc=5",
+            "published_at": "2026-11-12 04:00:26 KST"
+          },
+          {
+            "title": "SpaceX Starship Flight 15 live updates: T-2 days to SpaceX's 1st-ever double Starship landing attempt - Space",
+            "title_ko": "SpaceX Starship 15호 비행 라이브 업데이트: SpaceX 최초의 더블 Starship 착륙 시도 2일 전 - Space",
+            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOR2NsZVpDNUticGl0NTB1VUJYUHhVVTlkTHN3RnZCcXNZTHZ5d0JNaGZGMGlxdV9HS1A5VF9QNl9sMm5HT3NIVVZObDVJMnk1dDhuRHJ6WE95eXhkNVJDS3JRdThhREpIdnZCUG5PRnF3R0hscjZOWFJDRHNPdERlVVZSTU9mc2xXcXlmbGI2RHFzcUp2SUl2YnhEOEF5SVBEelhaSy1oc0xMV3JxLVRkd1FXSGoxLTdTR3Z1OA?oc=5",
+            "published_at": "2026-11-12 01:30:50 KST"
+          },
+          {
+            "title": "'There's tremendous demand': Rocket Lab raises price of Neutron launch from $55 million to $70 million - Space",
+            "title_ko": "'엄청난 수요': Rocket Lab, Neutron 발사 가격 5,500만 달러에서 7,000만 달러로 인상 - Space",
+            "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxOb2duVzhNUkxrZTZPTmdPSHQyMDZVMTg1S0wzMWhqeDBMeFBQQXcySENyWTVReHJHMFBqYkozdHMxMlNoai1PMDVpSDdPaFhlVFEwZDVLV3dBek96ZWUtTmJPU1doRmNqV1ZXWGlTdDR0TFd6dFRacWROWUVUeDVhOHVCaG5qaC00WFRlYnFtLTRXOU15MHdmc3dnYXNHbUluNF8tQjVYazBDMG9LaGNkeUZDY1BxNWVsczN3NXo5ZUxBZkpEdEJqWFdFYU1yeE9lbmN0My01T29wYmRwXzUyTmJacG9WSEpnbGpPTXpsdGdoa0VL?oc=5",
+            "published_at": "2026-11-12 01:00:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세 및 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 9건)",
+        "us_news_refs": [
+          2,
+          3,
+          4,
+          5,
+          17,
+          19,
+          20,
+          21,
+          42
+        ],
+        "related_news": [
+          {
+            "title": "Nvidia stock falls 6% as investors await Jensen Huang’s fate - CNBC",
+            "title_ko": "Nvidia 주가 6% 하락, Jensen Huang 운명 주목 - CNBC",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQVFBOVnFZT1F2M3oteUktWm1qb29oLW5DLW9MZ2pBRzhEenlNZWFERC1NRXJlSV9saDN5MmNRZzdzQm0xQ0hWSzVpSktBSy00aDZlUTcyQzd2Vmlia1F1UTlEdE11anNMVE10RDNEVlc4cUlMcW5CRlpxaWFEbDh2Mg?oc=5",
+            "published_at": "2026-11-12 18:02:10 KST"
+          },
+          {
+            "title": "Scoop: Lutnick stalled curbing Nvidia chip sales to China — again — after Oval Office showdown - Axios",
+            "title_ko": "단독: Lutnick, 백악관 대치 후 Nvidia 칩 중국 판매 중단 또 보류 - Axios",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPa01VNnZpTE10OFNfTFRXZDZzeUJwSjFkNmlhVjFwUVExM3RmaUlNOG1jWm1aYXJMRHkyb2s1WGdMQU9IQUN6RE5kVi1ub3JkQ0wxVnc2YWFvY2VzTWRiX0FZeVlpdDNsMzBhcWpzOVhqNVh4UUFCa2cySy1ZSlkwTGRxbHVjcEU?oc=5",
+            "published_at": "2026-11-12 15:13:09 KST"
+          },
+          {
+            "title": "EXCLUSIVE: Chinese AI firms rush to secure Nvidia chip capacity as spy scandal stirs fear of US curbs - Reuters",
+            "title_ko": "단독: 스파이 스캔들로 미국 제재 우려 커지자 중국 AI 기업들 Nvidia 칩 확보 서둘러 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPc1EtU18tWjZNZTZtOFBZNzdqZkRFMk1nbm9MTm9VWUQwUHlLc1dTdDNLWmNCcllESHVVYjFnXzlKcFJrSWpHUkY2S1lhcTFtWWdPVG9WdkcyTkFSaEpLanVzeWctM1hCTkdxUEJ6VnBrLXFYVnBsalpKUkJVUGQyUE5DOEJtaTctZlFEaV9VR1loQ1JrVlhyRmRxR25UMkI2MVgtZnBFU1pVaXhBcmw0ZV9jb0RPYlduY1ppbnpCTlc?oc=5",
+            "published_at": "2026-11-12 14:31:00 KST"
+          },
+          {
+            "title": "Here’s what Megaspeed, the company at the forefront of the Nvidia scandal, is now saying",
+            "title_ko": "Nvidia 스캔들 중심 Megaspeed, 현재 입장 발표",
+            "url": "https://www.marketwatch.com/story/heres-what-megaspeed-the-company-at-the-forefront-of-the-nvidia-scandal-is-now-saying-b73f8d0b?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 19:57:00 KST"
+          },
+          {
+            "title": "Nvidia’s stock drops as the board reportedly prepares to remove CEO Jensen Huang",
+            "title_ko": "Nvidia 이사회, CEO Jensen Huang 해임 준비 보도에 주가 하락",
+            "url": "https://www.marketwatch.com/story/nvidias-stock-drops-as-the-board-reportedly-prepares-to-remove-ceo-jensen-huang-9edee58d?mod=mw_rss_topstories",
+            "published_at": "2026-11-12 19:07:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전과 관련 기업들의 실적 개선 기대감이 반영됨 (총 5건)",
+        "kr_news_refs": [
+          5,
+          8,
+          21,
+          66,
+          67
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "\"돈 펑펑 쓸 때 아니다\"…AI 호황 누리는 한국에 날린 경고 - 한국경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1MRU9NMW85WDZ6bXZreUcyMHRkTzR0cUFfUFU2VUN4VmxhQ0ZkWTlwWEczTTU0Y1QzTGxPampmTWo4LUNmT09PeThOUHBYTzBrblBldWtYX1dzUQ?oc=5",
+            "published_at": "2026-11-12 18:00:38 KST"
+          },
+          {
+            "title": "젠슨 황 ‘두번째 외도’…CEO 직보하는 핵심 임원 킴벌리 파월 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRDZKemFuMndPNGpGM0c0U0hPeDlKeExsTEV1ZDRmUk9DeVY5UUc3dWJSd1pZQlZ1RDFSMVEyLVRfMmsxVW1MZkVGSDdvVlNoN1lwa2dJNURUSXpBWVNmNFg0eTk2TGJiWC1OOVdFb2hlaWdoZFF0QlMyV0VvVlo5ZGR3?oc=5",
+            "published_at": "2026-11-12 17:31:00 KST"
+          },
+          {
+            "title": "李, 충청서 메가프로젝트 4차 점검 \"23.6조 원 추가 투자\" - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE85NHRMQ1JycXptMUtvVDRCX1JkdXY0blhlZkJnWW8xTHd6YVZsZGpUZkE5MWdNYmNRM2RyRU9pQlhYMkpuUXVlT3NweVJCQjlsS0JzcmJfb0pkUnBoaTlyeTJMY0lsanAxMTdhLTZidGdrV01FSzN0VNIBeEFVX3lxTE1JNHlLWXY2M256Ukd4VUFsdkEwNDRsZjg5bDVLSjZ6ZEhXVGhiSTVEU3RqTkRoazQ2SElBS3FKNkhCcnh4cnJMejBDSnRod1lILWNrZlplWGxjeUJ2ZFJzM3ZHQldwV3pFOTdFbWprLW1oYk9xWEFwcA?oc=5",
+            "published_at": "2026-11-12 14:43:52 KST"
+          },
+          {
+            "title": "“AI가 한 말 진짜일까”…어린이 디지털윤리 체험관 문 열어",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12206750",
+            "published_at": "2026-11-12 18:17:06 KST"
+          },
+          {
+            "title": "AI가 거짓말하면 국민이 잡는다…‘AI 안전 지킴이’ 출범",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12206749",
+            "published_at": "2026-11-12 18:16:55 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세 및 관련 기술 발전 소식이 시장의 관심을 받고 있음 (총 2건)",
+        "kr_news_refs": [
+          8,
+          93
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "젠슨 황 ‘두번째 외도’…CEO 직보하는 핵심 임원 킴벌리 파월 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRDZKemFuMndPNGpGM0c0U0hPeDlKeExsTEV1ZDRmUk9DeVY5UUc3dWJSd1pZQlZ1RDFSMVEyLVRfMmsxVW1MZkVGSDdvVlNoN1lwa2dJNURUSXpBWVNmNFg0eTk2TGJiWC1OOVdFb2hlaWdoZFF0QlMyV0VvVlo5ZGR3?oc=5",
+            "published_at": "2026-11-12 17:31:00 KST"
+          },
+          {
+            "title": "싱가포르 中기업 해외진출 발판 역할…젠슨황 사태로 험로 예고",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261112165100084",
+            "published_at": "2026-11-12 17:53:04 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "부동산",
+        "freq": 3,
+        "summary": "부동산으로 돈 버는 시대가 끝났다는 분석이 제시되었습니다. 하우스푸어가 폭증할 것이며, 집값이 초토화될 것이라는 전망이 나왔습니다. 집을 싸게 내놓아도 살 사람이 없을 것이라는 의견도 있었습니다.",
+        "refs": [
+          1,
+          6,
+          9
+        ],
+        "reason": "부동산으로 돈 버는 시대가 끝났다는 분석이 제시되었습니다. 하우스푸어가 폭증할 것이며, 집값이 초토화될 것이라는 전망이 나왔습니다. 집을 싸게 내놓아도 살 사람이 없을 것이라는 의견도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "부동산으로 돈 버는 시대 끝났다, 요즘 한국에 나타난 이상 현상 (서동기 박사)",
+            "url": "https://www.youtube.com/watch?v=x3CpoSHJsaU",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-12 19:45:17 KST"
+          },
+          {
+            "title": "하우스푸어 곧 폭증할 겁니다, 집 싸게 내놔도 살 사람 없다 (박은정 감정평가사)",
+            "url": "https://www.youtube.com/watch?v=8dOpHX5lemg",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-12 17:15:17 KST"
+          },
+          {
+            "title": "집 주인들 곡소리 시작됐다, 12월부터 집값 초토화 된다 (박은정 감정평가사)",
+            "url": "https://www.youtube.com/watch?v=8qP2u-1t33U",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-11 21:15:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "코스피 5,000 붕괴와 관련하여 AI 서사가 무너졌는지에 대한 논의가 있었습니다. 영상에서는 AI 관련 서사에 대한 질문을 던지고 있습니다.",
+        "refs": [
+          10
+        ],
+        "reason": "코스피 5,000 붕괴와 관련하여 AI 서사가 무너졌는지에 대한 논의가 있었습니다. 영상에서는 AI 관련 서사에 대한 질문을 던지고 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "코스피 5,000 붕괴, AI 서사는 무너졌는가",
+            "url": "https://www.youtube.com/watch?v=QBSm6BJko4A",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-11 20:22:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "관광",
+        "freq": 1,
+        "summary": "외국인 관광객 3천만 명 목표 달성을 위한 방안에 대한 내용이 다루어졌습니다. 외국인 관광객 2천만 명 돌파 현황과 한국 여행 시 소비 규모, 도심 집중 소비 등에 대한 분석이 포함되었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "외국인 관광객 3천만 명 목표 달성을 위한 방안에 대한 내용이 다루어졌습니다. 외국인 관광객 2천만 명 돌파 현황과 한국 여행 시 소비 규모, 도심 집중 소비 등에 대한 분석이 포함되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "외국인 관광객 3천만 목표를 위한 신박한 묘수",
+            "url": "https://www.youtube.com/watch?v=-4vtbZjNJ4M",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-12 18:58:51 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "AI 서사와 관련하여 언급되었을 가능성이 있습니다. 코스피 5,000 붕괴와 AI 서사의 연관성을 논의하는 영상에서 주요 AI 관련 기업이 언급될 수 있습니다.",
+        "refs": [
+          10
+        ],
+        "reason": "AI 서사와 관련하여 언급되었을 가능성이 있습니다. 코스피 5,000 붕괴와 AI 서사의 연관성을 논의하는 영상에서 주요 AI 관련 기업이 언급될 수 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "코스피 5,000 붕괴, AI 서사는 무너졌는가",
+            "url": "https://www.youtube.com/watch?v=QBSm6BJko4A",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-11 20:22:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "Apple",
+        "freq": 1,
+        "summary": "AI 서사와 관련하여 언급되었을 가능성이 있습니다. 코스피 5,000 붕괴와 AI 서사의 연관성을 논의하는 영상에서 주요 AI 관련 기업이 언급될 수 있습니다.",
+        "refs": [
+          10
+        ],
+        "reason": "AI 서사와 관련하여 언급되었을 가능성이 있습니다. 코스피 5,000 붕괴와 AI 서사의 연관성을 논의하는 영상에서 주요 AI 관련 기업이 언급될 수 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "코스피 5,000 붕괴, AI 서사는 무너졌는가",
+            "url": "https://www.youtube.com/watch?v=QBSm6BJko4A",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-11 20:22:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tesla",
+        "freq": 1,
+        "summary": "AI 서사와 관련하여 언급되었을 가능성이 있습니다. 코스피 5,000 붕괴와 AI 서사의 연관성을 논의하는 영상에서 주요 AI 관련 기업이 언급될 수 있습니다.",
+        "refs": [
+          10
+        ],
+        "reason": "AI 서사와 관련하여 언급되었을 가능성이 있습니다. 코스피 5,000 붕괴와 AI 서사의 연관성을 논의하는 영상에서 주요 AI 관련 기업이 언급될 수 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "코스피 5,000 붕괴, AI 서사는 무너졌는가",
+            "url": "https://www.youtube.com/watch?v=QBSm6BJko4A",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-11 20:22:17 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "United Airlines",
+          "freq": 5
+        },
+        {
+          "name": "SpaceX",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Pfizer",
+          "freq": 4
+        },
+        {
+          "name": "Tesla",
+          "freq": 2
+        },
+        {
+          "name": "Suja Life",
+          "freq": 1
+        },
+        {
+          "name": "Nokia",
+          "freq": 1
+        },
+        {
+          "name": "Royal Caribbean",
+          "freq": 1
+        },
+        {
+          "name": "QinetiQ",
+          "freq": 1
+        },
+        {
+          "name": "Dr. Martens",
+          "freq": 1
+        },
+        {
+          "name": "Wirtek",
+          "freq": 1
+        },
+        {
+          "name": "EnerSys",
+          "freq": 1
+        },
+        {
+          "name": "Apple",
+          "freq": 1
+        },
+        {
+          "name": "Lego",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Oil & Gas",
+          "freq": 4
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 4
+        },
+        {
+          "name": "Chip Sales",
+          "freq": 3
+        },
+        {
+          "name": "Weight-Loss Drugs",
+          "freq": 3
+        },
+        {
+          "name": "IPO",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Rare Earths",
+          "freq": 2
+        },
+        {
+          "name": "Nuclear Power",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Digital Services",
+          "freq": 2
+        },
+        {
+          "name": "Quantum Computing",
+          "freq": 1
+        },
+        {
+          "name": "Retail Sales",
+          "freq": 1
+        },
+        {
+          "name": "Telecommunications",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "도레이첨단소재",
+          "freq": 4
+        },
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "현대로템",
+          "freq": 2
+        },
+        {
+          "name": "고려아연",
+          "freq": 2
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "지니언스",
+          "freq": 1
+        },
+        {
+          "name": "밀리의서재",
+          "freq": 1
+        },
+        {
+          "name": "영광와이케이엠씨",
+          "freq": 1
+        },
+        {
+          "name": "bhc",
+          "freq": 1
+        },
+        {
+          "name": "LG디스플레이",
+          "freq": 1
+        },
+        {
+          "name": "효성중공업",
+          "freq": 1
+        },
+        {
+          "name": "진에어",
+          "freq": 1
+        },
+        {
+          "name": "에어부산",
+          "freq": 1
+        },
+        {
+          "name": "에어서울",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Nuclear Power",
+          "freq": 3
+        },
+        {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "ESG",
+          "freq": 3
+        },
+        {
+          "name": "Food & Beverage",
+          "freq": 2
+        },
+        {
+          "name": "Fiscal Policy",
+          "freq": 2
+        },
+        {
+          "name": "Monetary Policy",
+          "freq": 2
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 2
+        },
+        {
+          "name": "Financial Markets",
+          "freq": 2
+        },
+        {
+          "name": "Foreign Labor",
+          "freq": 1
+        },
+        {
+          "name": "Aviation",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Battery Materials",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
