@@ -1,136 +1,131 @@
 {
-  "generated_at": "2026-11-14 07:31 KST",
+  "generated_at": "2026-11-14 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "항공",
-        "reason": "항공 업종 전반에 대한 언급이 다수 나타나며, 관련 기업들의 동향을 중심으로 보도되었습니다 (총 4건)",
+        "reason": "항공 섹터는 대형 항공사들의 실적 발표 및 운항 관련 소식으로 주목받고 있습니다 (총 4건)",
         "us_news_refs": [
           2,
-          21,
-          25,
-          27
+          14,
+          43,
+          99
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Live updates: FAA issues nationwide ground stop for all flights - CNN",
-            "title_ko": "실시간 업데이트: FAA, 전국 항공편 운항 중단 명령",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE81eUJ1SV9Pd0hzS1ZmVk1Ec1A1MndfTTZiaFE0VGh4Ym04VnJMcWVOSHpOVmJYOFowSGtCOVB6Z3pUZGZoQmlVTHlDSG5lMldwZTZMNWFuRk9KM3ZnWXRlRTBid1ZRMGczVGh0OWkxa21OZmpMcHc?oc=5",
-            "published_at": "2026-11-14 07:09:00 KST"
+            "title": "What to Know About Friday’s Nationwide Ground Stop - The New York Times",
+            "title_ko": "금요일 전국 지상 통제에 대해 알아야 할 사항",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQQ3ZnWGY2YWY1TW9QakM0dTdtNFRBcW9qVDc3aGJlV25yb0Q3S0szQ2otUy1IREYyWGgyMllrQW1xY2RRQlJMRlhnRHFEVFlwcFJyQ0FMLWFVTFdwbzdQVzRXR3FQc0lTQlFodFlzcnFkRk13emQ0Z05KRVQwa2lhbkVSS2FvZw?oc=5",
+            "published_at": "2026-11-14 15:54:00 KST"
           },
           {
-            "title": "FAA declares rare, nationwide ground stop on flights, citing ‘extraordinary circumstances’",
-            "title_ko": "FAA, '특별한 상황'으로 전국 항공편 운항 중단 명령",
-            "url": "https://www.marketwatch.com/story/faa-declares-rare-widespread-ground-outage-bdc46393?mod=mw_rss_topstories",
-            "published_at": "2026-11-14 07:10:00 KST"
+            "title": "Ari Emanuel Blames FAA Issues On Pete Buttigieg - Deadline",
+            "title_ko": "Ari Emanuel, FAA 문제 blames Pete Buttigieg에게 돌려",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPZXhlWWZ2dzlwcVpOTWdiTHJlWDJRVXJHc1pGcnc3WjMzbkZJY0Fld0pQVnMzNi1ySkhER3ZjTHJZUjk3R3dpSFEzMGFFV1hVZ0ZQY3JHbGZ5ZnY2QVVRSG1GZGRzX25LRmxodGNpUng5Q0x4SGxNVzdkbGJCbTNwRWEyZmhDcHRENG1lRUp3?oc=5",
+            "published_at": "2026-11-14 13:55:00 KST"
           },
           {
-            "title": "Why is United Airlines stock sliding today?",
-            "title_ko": "유나이티드 항공 주가 오늘 하락 이유는?",
-            "url": "https://www.investing.com/news/stock-market-news/why-is-united-airlines-stock-sliding-today-93CH-5026647",
-            "published_at": "2026-11-14 07:07:01 KST"
-          },
-          {
-            "title": "Paul Lohrey appointed to board of iShares Ethereum Trust ETF sponsor",
-            "title_ko": "폴 로리, iShares 이더리움 신탁 ETF 후원사 이사회 임명",
-            "url": "https://www.investing.com/news/sec-filings/paul-lohrey-appointed-to-board-of-ishares-ethereum-trust-etf-sponsor-93CH-5026643",
-            "published_at": "2026-11-14 07:05:08 KST"
+            "title": "Over 1,322 flights delayed, 268 canceled amid widespread U.S. travel disruptions - NJ.com",
+            "title_ko": "미국 전역 여행 차질 속 1,322편 이상 지연, 268편 취소",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPUVZkbzRpY0dtZHZLU2JQbGJHQjZKYXVDZVd3b2ZRX0VsYnRTSkJXWWlFcHhoalhhX0FOc0xrYzVRbHJlcVlSUGxHdktJSlBORlRmbUFESmZubVUxRF8wR19ZdkdBOUYzcFZwbnZrWWxxN2d1V01HbnMweEp3NnNSTE5WRFRUUG5ZcFcwaldEMHlEVXVwMzRNOHdxV19YWUhicFN3NFFEQjRxM1lRQkpQSWZJY9IBxwFBVV95cUxNbGJxYk9oeW9ESXVQaUhBU0VEVm45eXFMSFJCREotZWtWSUpabTR1Z0xJNWx5d1h2TFNDYmpUQkNZZ1FkU2ctZjJCZU5NRTZRaWJ3U2ZSZmV4eVlITHRFQkxwODYzU1g1UGZRNlctWGRQaXkzbk5OT3BMR2ExbUt4RkVKcFpjZW9ZdXdUNFVscFdQWTV3ZXhvZ181bEoxMWx5WWtIWHc2djJabDJSUF9CaE1uX1lkQXRHaXo3STBjaHkyOTNsdDVR?oc=5",
+            "published_at": "2026-11-13 23:52:00 KST"
           }
         ]
       },
       {
         "name": "AI",
-        "reason": "AI 칩 수요와 관련 기업들의 성과에 대한 지속적인 관심이 반영되었습니다 (총 3건)",
+        "reason": "AI 칩 수요 증가와 관련 기업들의 기술 개발 소식이 AI 섹터의 주요 관심사입니다 (총 10건)",
         "us_news_refs": [
-          6,
-          9,
-          12,
           14,
+          22,
+          25,
+          28,
           31,
+          32,
           34,
-          38,
+          37,
           40,
-          45,
-          48
+          47
         ],
         "related_news": [
           {
-            "title": "Wall Street Loses a Powerful Dealmaker After Nvidia’s CEO Is Ousted - The New York Times",
-            "title_ko": "Nvidia CEO 해임 후 월스트리트의 강력한 거래 주도자 상실",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNbXBvOHJYRmdHTG5FaUpvVVRoRFZaLUlWeXNHQ01ZZi1ReXBJRUVIUnNCN0g5blRzNjdCUE9VNGJPQnI2S29obU9SdmpLTU5mMEhJRDVsQTNKM093b3Z6NzhTTF92NDI1T3lIZmZCQzNHSHo1bHpYbExlM05WR0F0cmduSHpwTnc?oc=5",
-            "published_at": "2026-11-14 04:52:01 KST"
+            "title": "Ari Emanuel Blames FAA Issues On Pete Buttigieg - Deadline",
+            "title_ko": "Ari Emanuel, FAA 문제 blames Pete Buttigieg에게 돌려",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPZXhlWWZ2dzlwcVpOTWdiTHJlWDJRVXJHc1pGcnc3WjMzbkZJY0Fld0pQVnMzNi1ySkhER3ZjTHJZUjk3R3dpSFEzMGFFV1hVZ0ZQY3JHbGZ5ZnY2QVVRSG1GZGRzX25LRmxodGNpUng5Q0x4SGxNVzdkbGJCbTNwRWEyZmhDcHRENG1lRUp3?oc=5",
+            "published_at": "2026-11-14 13:55:00 KST"
           },
           {
-            "title": "Export-banned Nvidia chips are behind China’s most powerful AI models — uh oh, Jensen! - TechCrunch",
-            "title_ko": "수출 금지된 Nvidia 칩, 중국 최고 AI 모델 구동 중 - 젠슨!",
-            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQM2RjMXJ5cnYyUmVXT3FXVVVIeENJN0hQT3E0ZTg1YlpRSEItczBNaW1SZzlIM2hBNEZldVVzUjEwQzRDczhvVkQwMjZlLXh4U1pqd1NFcTFJOHh6MUMtQktSVmFmZUtzTUowb2hCdU1tVzY5NFFwWURpT3c5RW9zMUJOVHNvcG5aVG9lTUIzVUNqMW8yWkNzcXpidmtNRnlia3hySVpfbGRfQ3phbjJmbGZuYlhwS0E?oc=5",
-            "published_at": "2026-11-14 03:40:30 KST"
+            "title": "EXCLUSIVE: Investors flock to Anthropic IPO but question durability of AI lead - Reuters",
+            "title_ko": "독점: 투자자들 Anthropic IPO 몰리지만 AI 리드 지속 가능성 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOckJYSDVUWDh1cTJPb3ptd2pLZmxuNXBtSEJkN0F0WWFucUZuWDgtQ0dZbzZITDBWY3dhSWZqcjcyZl9FdGpHdHJsX1dkbVowTkZ3OWRKd3pwN2NIMnBGZ1AtbDFkMkl6Vm1RZFNsZ2VDOU1nLUVmY2d4UHV2U01ER1pJTmdlSGFDdmsyM2ZhbXlXYVdEb01ERlNybGxWY0RsYlo4QlNxa0NCaUNpQjQw?oc=5",
+            "published_at": "2026-11-14 08:30:55 KST"
           },
           {
-            "title": "Nvidia Stock Falls. It Faces One Big Threat in Life After Jensen. - Barron's",
-            "title_ko": "Nvidia 주가 하락, 젠슨 이후 큰 위협 직면",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaUpieHEtVm55SjR2ak9lSXFic1VjZk9XVG1XUklXQS1TVTNFb2k5ejV2cVp2MnBPZUpYLWZfNWJoUnhEOEpmSkhsNnNwMjYzVmxTWFhEMnVQaVNNbG5ObkhjTnd1MS1tT2c1WldfNHRUcm1RSjhDRW41UmVUZTdoeVQwZjBwZw?oc=5",
-            "published_at": "2026-11-14 02:44:00 KST"
+            "title": "US Futures Gain With Microsoft Outage, Producer Prices in Focus - Bloomberg.com",
+            "title_ko": "미국 선물, Microsoft 장애, 생산자 물가 주시하며 상승",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOUGFnaDF1dHVTeVV2SlEyQ0w4SHlwMTVSb1RxMlc3SFByR1l1WnM1YXRVRy11RjAyZ0xnMVdldU1PY1lhMVRHeldxQ0pUTGp1eC13eEZSLUpiejF0ZlpqRlQ4QTBhN0xEMmxaNktiRldvbG5tbk9OZy1Pbkw0ck5MRXZnblRsRnVsbHY3TlBkRGxUVEVmX1B0dDJuNDlnR1h4cld4UWdsUUI5OWhEQnRBNTJZdw?oc=5",
+            "published_at": "2026-11-14 06:40:05 KST"
           },
           {
-            "title": "Exclusive: OpenAI disbands its stand-alone robotics team as its general models start running robots - Fortune",
-            "title_ko": "OpenAI, 로봇 구동 일반 모델 출시로 로봇팀 해체",
-            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQdUpabzdVdVRFd0RUN0pnVTJuQUtkYThSdzlhc3FHSmxmTnZETWNyajZGcGEtVHFvYmxMTGJMa0VHaGxEMVh5bmY1MXlVTDlWTHVBWlotdkJ0ZmRSdk9GRzh0ZTNrZElwYzlLWmp0ZkZqRFZKOEI5RkdDdkVHYzVUWFpOU2NqTnJGTmF3R0dTQTRGaDFXZl9jQ2s5bEd4dHJFZFRyQ3hrcw?oc=5",
-            "published_at": "2026-11-14 02:05:00 KST"
+            "title": "AI risks are the biggest threat to the financial system, Fed survey finds - CNBC",
+            "title_ko": "AI 위험이 금융 시스템 최대 위협, Fed 조사 결과",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOd1luSGcydUl6NE15cEcydlNhSnRuNjNjVHdMQldrQjRYcXpLZ3FfbnNrWndndDNTaUowRWJ6NDg0dUdaN084LW00YU4tNEhPTXh6Ymx3WVFpZk5MQTgwVFpMX1o4cFdXT2lCQi1xSzlncG9mUkpDa0xTUF9BY2E3cXVnS2fSAYoBQVVfeXFMTmZFcVNQMElxVkdHNTFNMVBOYTg0SGVKNm5ISHM5N3pGUUxKSE5Za2ZuMmZNb3RnY0FpVWxNbWtIdXFIdm0wOWVIa3FXWVJJaVhhTHBzOVpJbzVnY2VGZk04WE5aRHVBdjdkRlVpSm1VQXo1ckRPRTV4aDNjNGJNeGlhSXZ4ZEhIa1dR?oc=5",
+            "published_at": "2026-11-14 06:00:12 KST"
           },
           {
-            "title": "AMD and other chip stocks slide as Wall Street rethinks the AI trade without Jensen Huang",
-            "title_ko": "AMD 등 칩 주가 하락, 월스트리트, 젠슨 없는 AI 거래 재평가",
-            "url": "https://www.marketwatch.com/story/amd-and-other-chip-stocks-slide-as-wall-street-rethinks-the-ai-trade-without-jensen-huang-2fb74547?mod=mw_rss_topstories",
-            "published_at": "2026-11-14 06:10:00 KST"
+            "title": "The 4 types of people Dario Amodei said he won’t hire — and what Anthropic looks for instead - Business Insider",
+            "title_ko": "Dario Amodei가 고용하지 않을 4가지 유형의 사람들과 Anthropic이 대신 찾는 것",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQa283c1h5YlcwMGFkTWxMTzVrUVJOWnVzUlU1WHNSLWxyNy1JdTNqZHJaWVFYcFRXSUNmSDlHQkl4cDRWcjdmVTh2UHJobmdLZE40WW5OekF4bW8zcHdCRGlSNzBiN2o4eHJTNVRSb1MtaWNxaXl2Z284ZHpBdklfQ2JDVUdCZV84dEREZUtfVDE1S0pBQVRxVnp1b25KZC1YcDhz?oc=5",
+            "published_at": "2026-11-14 04:33:00 KST"
           }
         ]
       },
       {
         "name": "반도체",
-        "reason": "AI 칩 수요와 더불어 반도체 산업 전반에 대한 논의가 이루어졌습니다 (총 3건)",
+        "reason": "반도체 섹터는 AI 관련 수요와 함께 주요 반도체 기업들의 실적 및 기술 동향이 부각되고 있습니다 (총 9건)",
         "us_news_refs": [
+          3,
           4,
           6,
-          9,
-          12,
-          31,
+          17,
+          19,
+          20,
           34,
-          41
+          37,
+          47
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "Nasdaq falls on Friday as Nvidia sells off, but index notches best week since August: Live updates - CNBC",
-            "title_ko": "Nvidia 매도에 나스닥 금요일 하락, 8월 이후 최고 주간 상승",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1DUGhtX3RkQk1tTVc3WFZQOGhSalVKd2RzNks0R1dHRlFMSUd1bUhOeVVmNTQxS09JQjhaaTBQVWVnY3RBblNRRlc3a21TVEJJUnZmVm9pYmJMSVNWazl5bU9lZkdyOVpSSXhoSUlfeEx1ZUdvakVR0gF8QVVfeXFMUEZVRDFwUjNBQ01QTjdQX0h5WXU5R3BqdDZwVFJiNU9obl9qYk1lWC1XTWUxbDhFaGR4V2x0cERQdDAyNFlJQk1fNXBqdFItb3FaTDdyV2R6WklkbExBZHNnQ3k1WFR4X0FaeGpRM09SZHprem0zajZXbEx6Vg?oc=5",
-            "published_at": "2026-11-14 06:22:00 KST"
+            "title": "Behind Jensen Huang’s spy scandal, a shadow war for Trump’s ear on China - The Washington Post",
+            "title_ko": "Jensen Huang의 스파이 스캔들 뒤, 트럼프의 중국 관련 귀를 향한 그림자 전쟁",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNV83TGNqLXB1TGRFV1otMFAwS3poMGY4dHp6V05vWllwcmJ0SGN1QkxXdHpob3czaXJSLW1jcjkta1FpRFR1emR3SVZtWWlUclVIWDlFODZHRDFabzcxR2JfamFhU3VxTnVRNG16Z0F2Y09wRUU0ZmxRazVwTDVSV0V2dlFNNm1WazBoUXg2U1kxM1p0Ym5NSmREU1htSDk2SF9jR2hSTXFYLU85ZHFnaW5YMzY?oc=5",
+            "published_at": "2026-11-14 14:45:28 KST"
           },
           {
-            "title": "Wall Street Loses a Powerful Dealmaker After Nvidia’s CEO Is Ousted - The New York Times",
-            "title_ko": "Nvidia CEO 해임 후 월스트리트의 강력한 거래 주도자 상실",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNbXBvOHJYRmdHTG5FaUpvVVRoRFZaLUlWeXNHQ01ZZi1ReXBJRUVIUnNCN0g5blRzNjdCUE9VNGJPQnI2S29obU9SdmpLTU5mMEhJRDVsQTNKM093b3Z6NzhTTF92NDI1T3lIZmZCQzNHSHo1bHpYbExlM05WR0F0cmduSHpwTnc?oc=5",
-            "published_at": "2026-11-14 04:52:01 KST"
+            "title": "Live Nation CEO Michael Rapino sells $35.4M in stock",
+            "title_ko": "Live Nation CEO Michael Rapino, 3,540만 달러 주식 매도",
+            "url": "https://www.investing.com/news/insider-trading-news/live-nation-ceo-michael-rapino-sells-354m-in-stock-93CH-5027277",
+            "published_at": "2026-11-14 19:31:39 KST"
           },
           {
-            "title": "Export-banned Nvidia chips are behind China’s most powerful AI models — uh oh, Jensen! - TechCrunch",
-            "title_ko": "수출 금지된 Nvidia 칩, 중국 최고 AI 모델 구동 중 - 젠슨!",
-            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQM2RjMXJ5cnYyUmVXT3FXVVVIeENJN0hQT3E0ZTg1YlpRSEItczBNaW1SZzlIM2hBNEZldVVzUjEwQzRDczhvVkQwMjZlLXh4U1pqd1NFcTFJOHh6MUMtQktSVmFmZUtzTUowb2hCdU1tVzY5NFFwWURpT3c5RW9zMUJOVHNvcG5aVG9lTUIzVUNqMW8yWkNzcXpidmtNRnlia3hySVpfbGRfQ3phbjJmbGZuYlhwS0E?oc=5",
-            "published_at": "2026-11-14 03:40:30 KST"
+            "title": "Binance aims to restore all withdrawals next week after $6.3 billion hack",
+            "title_ko": "Binance, 63억 달러 해킹 후 다음 주 모든 출금 복구 목표",
+            "url": "https://www.investing.com/news/company-news/binance-aims-to-restore-all-withdrawals-next-week-after-63-billion-hack-5027266",
+            "published_at": "2026-11-14 19:03:13 KST"
           },
           {
-            "title": "Nvidia Stock Falls. It Faces One Big Threat in Life After Jensen. - Barron's",
-            "title_ko": "Nvidia 주가 하락, 젠슨 이후 큰 위협 직면",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaUpieHEtVm55SjR2ak9lSXFic1VjZk9XVG1XUklXQS1TVTNFb2k5ejV2cVp2MnBPZUpYLWZfNWJoUnhEOEpmSkhsNnNwMjYzVmxTWFhEMnVQaVNNbG5ObkhjTnd1MS1tT2c1WldfNHRUcm1RSjhDRW41UmVUZTdoeVQwZjBwZw?oc=5",
-            "published_at": "2026-11-14 02:44:00 KST"
+            "title": "Donald Trump will not raise Nvidia spy issue with Xi Jinping at summit, officials say - Financial Times",
+            "title_ko": "도널드 트럼프, 정상회담에서 시진핑에게 Nvidia 스파이 문제 제기 안 할 것",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQkI1ZVNvLXc5RXBHWkJ0Z3p2UDNiM2I0Y0dFS2VEajRHaURMYk5lN0ZDQktjZnNqVTFkUHZCMHhGT0E2aGFkTFhOcm9NU2YxODlwNElTRDhXOURZWGFiczhhZEsyazlzYlN0Vi1WQVVKLVpRaXdmakJ6MUpuQUoxQ3NRQV8?oc=5",
+            "published_at": "2026-11-14 10:29:13 KST"
           },
           {
-            "title": "AMD and other chip stocks slide as Wall Street rethinks the AI trade without Jensen Huang",
-            "title_ko": "AMD 등 칩 주가 하락, 월스트리트, 젠슨 없는 AI 거래 재평가",
-            "url": "https://www.marketwatch.com/story/amd-and-other-chip-stocks-slide-as-wall-street-rethinks-the-ai-trade-without-jensen-huang-2fb74547?mod=mw_rss_topstories",
-            "published_at": "2026-11-14 06:10:00 KST"
+            "title": "Bessent accuses Lutnick of failing to prevent China from obtaining Nvidia chips - PBS",
+            "title_ko": "Bessent, Lutnick가 중국의 Nvidia 칩 획득 막지 못했다고 비난",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdEdCMktMcUhKb3pUNmdCdjcxdTJrUVMzNlJkRmZHLWVBd0RoTWRuSlZHM09ySGwzYXo4U0FwZGdzNTdGOGYzRndsZ052cG1SakY0NEdLb1ZOOXhlbklZN3VYZzNUMGJWNFo0LTIzeTJUQWxRWlNvY21KZkxHNlZxVjZfOEFvazlaMDBWYUFNTHY1bkMxYkltVDZZYnZJeDBQRjlxZEJsMllyVGhYcUQ2aUttOA?oc=5",
+            "published_at": "2026-11-14 08:50:51 KST"
           }
         ]
       }
@@ -138,109 +133,89 @@
     "top3_stocks": [
       {
         "name": "Nvidia",
-        "reason": "AI 칩 수요 강세와 관련 기술 발전이 주가에 긍정적인 영향을 미치며 지속적으로 주목받고 있습니다 (총 4건)",
+        "reason": "AI 칩 수요 강세와 빅테크 기업들의 투자 확대가 Nvidia 주가에 긍정적인 영향을 미치고 있습니다 (총 13건)",
         "us_news_refs": [
-          4,
-          6,
-          9,
-          10,
-          12,
-          15,
-          16,
-          31,
+          3,
+          17,
+          19,
+          20,
+          25,
           34,
           37,
           38,
-          39,
-          41,
-          42,
-          45
+          40,
+          44,
+          47,
+          48,
+          51
         ],
         "related_news": [
           {
-            "title": "Nasdaq falls on Friday as Nvidia sells off, but index notches best week since August: Live updates - CNBC",
-            "title_ko": "Nvidia 매도에 나스닥 금요일 하락, 8월 이후 최고 주간 상승",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1DUGhtX3RkQk1tTVc3WFZQOGhSalVKd2RzNks0R1dHRlFMSUd1bUhOeVVmNTQxS09JQjhaaTBQVWVnY3RBblNRRlc3a21TVEJJUnZmVm9pYmJMSVNWazl5bU9lZkdyOVpSSXhoSUlfeEx1ZUdvakVR0gF8QVVfeXFMUEZVRDFwUjNBQ01QTjdQX0h5WXU5R3BqdDZwVFJiNU9obl9qYk1lWC1XTWUxbDhFaGR4V2x0cERQdDAyNFlJQk1fNXBqdFItb3FaTDdyV2R6WklkbExBZHNnQ3k1WFR4X0FaeGpRM09SZHprem0zajZXbEx6Vg?oc=5",
-            "published_at": "2026-11-14 06:22:00 KST"
+            "title": "Behind Jensen Huang’s spy scandal, a shadow war for Trump’s ear on China - The Washington Post",
+            "title_ko": "Jensen Huang의 스파이 스캔들 뒤, 트럼프의 중국 관련 귀를 향한 그림자 전쟁",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNV83TGNqLXB1TGRFV1otMFAwS3poMGY4dHp6V05vWllwcmJ0SGN1QkxXdHpob3czaXJSLW1jcjkta1FpRFR1emR3SVZtWWlUclVIWDlFODZHRDFabzcxR2JfamFhU3VxTnVRNG16Z0F2Y09wRUU0ZmxRazVwTDVSV0V2dlFNNm1WazBoUXg2U1kxM1p0Ym5NSmREU1htSDk2SF9jR2hSTXFYLU85ZHFnaW5YMzY?oc=5",
+            "published_at": "2026-11-14 14:45:28 KST"
           },
           {
-            "title": "Wall Street Loses a Powerful Dealmaker After Nvidia’s CEO Is Ousted - The New York Times",
-            "title_ko": "Nvidia CEO 해임 후 월스트리트의 강력한 거래 주도자 상실",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNbXBvOHJYRmdHTG5FaUpvVVRoRFZaLUlWeXNHQ01ZZi1ReXBJRUVIUnNCN0g5blRzNjdCUE9VNGJPQnI2S29obU9SdmpLTU5mMEhJRDVsQTNKM093b3Z6NzhTTF92NDI1T3lIZmZCQzNHSHo1bHpYbExlM05WR0F0cmduSHpwTnc?oc=5",
-            "published_at": "2026-11-14 04:52:01 KST"
+            "title": "Donald Trump will not raise Nvidia spy issue with Xi Jinping at summit, officials say - Financial Times",
+            "title_ko": "도널드 트럼프, 정상회담에서 시진핑에게 Nvidia 스파이 문제 제기 안 할 것",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQkI1ZVNvLXc5RXBHWkJ0Z3p2UDNiM2I0Y0dFS2VEajRHaURMYk5lN0ZDQktjZnNqVTFkUHZCMHhGT0E2aGFkTFhOcm9NU2YxODlwNElTRDhXOURZWGFiczhhZEsyazlzYlN0Vi1WQVVKLVpRaXdmakJ6MUpuQUoxQ3NRQV8?oc=5",
+            "published_at": "2026-11-14 10:29:13 KST"
           },
           {
-            "title": "Export-banned Nvidia chips are behind China’s most powerful AI models — uh oh, Jensen! - TechCrunch",
-            "title_ko": "수출 금지된 Nvidia 칩, 중국 최고 AI 모델 구동 중 - 젠슨!",
-            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQM2RjMXJ5cnYyUmVXT3FXVVVIeENJN0hQT3E0ZTg1YlpRSEItczBNaW1SZzlIM2hBNEZldVVzUjEwQzRDczhvVkQwMjZlLXh4U1pqd1NFcTFJOHh6MUMtQktSVmFmZUtzTUowb2hCdU1tVzY5NFFwWURpT3c5RW9zMUJOVHNvcG5aVG9lTUIzVUNqMW8yWkNzcXpidmtNRnlia3hySVpfbGRfQ3phbjJmbGZuYlhwS0E?oc=5",
-            "published_at": "2026-11-14 03:40:30 KST"
+            "title": "Bessent accuses Lutnick of failing to prevent China from obtaining Nvidia chips - PBS",
+            "title_ko": "Bessent, Lutnick가 중국의 Nvidia 칩 획득 막지 못했다고 비난",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdEdCMktMcUhKb3pUNmdCdjcxdTJrUVMzNlJkRmZHLWVBd0RoTWRuSlZHM09ySGwzYXo4U0FwZGdzNTdGOGYzRndsZ052cG1SakY0NEdLb1ZOOXhlbklZN3VYZzNUMGJWNFo0LTIzeTJUQWxRWlNvY21KZkxHNlZxVjZfOEFvazlaMDBWYUFNTHY1bkMxYkltVDZZYnZJeDBQRjlxZEJsMllyVGhYcUQ2aUttOA?oc=5",
+            "published_at": "2026-11-14 08:50:51 KST"
           },
           {
-            "title": "Bessent blames Lutnick’s Commerce Department for not restricting Nvidia chips to China - AP News",
-            "title_ko": "베센트, 뤼트닉 상무부에 Nvidia 칩 대중국 제한 안 했다고 비난",
-            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPQmthd2p1bWNiTUNEQ1puWC14bVlmeTJ2MjVIcGN2ZEkzdVlncWJYVUZ2TGdEdzRQd1NCb2RGRG5ZRm9RX3BXMVJfd25SQjVzdEN1RTdpc2VkSkdlVkxGMW5CNURkb3gxS25uYzRuZGFqZjV5Mk1KSXlCR2NaTlI4NHZudkZXUXduU0lXNmpMZHl4LWdoZk82akdoenV5c1piemdKX0RaSEw?oc=5",
-            "published_at": "2026-11-14 03:05:00 KST"
+            "title": "Super Micro, run by Jensen Huang’s friend, says Megaspeed was ‘never’ its customer - Fortune",
+            "title_ko": "Super Micro, Jensen Huang 친구 운영, Megaspeed는 '절대' 고객 아니었다고 밝혀",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNSWtYMllsc1Rta1ozeUZSM0RncUhIdkVhRnliTFNrQXBtOUdkaUhfU0pKbHQtVVhVeUlXX21ZY2phU0ZoaHpGYjBqVXpweGdCWjhnUElZR1A2NlNKeUFNLTlmbnZwQU9ueW5fbUJuU05hb1JvMWhjbTM0NEFhZXFMQUVrNlpSZUxLdEJ4WGVVdw?oc=5",
+            "published_at": "2026-11-14 08:48:00 KST"
           },
           {
-            "title": "Nvidia Stock Falls. It Faces One Big Threat in Life After Jensen. - Barron's",
-            "title_ko": "Nvidia 주가 하락, 젠슨 이후 큰 위협 직면",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaUpieHEtVm55SjR2ak9lSXFic1VjZk9XVG1XUklXQS1TVTNFb2k5ejV2cVp2MnBPZUpYLWZfNWJoUnhEOEpmSkhsNnNwMjYzVmxTWFhEMnVQaVNNbG5ObkhjTnd1MS1tT2c1WldfNHRUcm1RSjhDRW41UmVUZTdoeVQwZjBwZw?oc=5",
-            "published_at": "2026-11-14 02:44:00 KST"
+            "title": "US Futures Gain With Microsoft Outage, Producer Prices in Focus - Bloomberg.com",
+            "title_ko": "미국 선물, Microsoft 장애, 생산자 물가 주시하며 상승",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOUGFnaDF1dHVTeVV2SlEyQ0w4SHlwMTVSb1RxMlc3SFByR1l1WnM1YXRVRy11RjAyZ0xnMVdldU1PY1lhMVRHeldxQ0pUTGp1eC13eEZSLUpiejF0ZlpqRlQ4QTBhN0xEMmxaNktiRldvbG5tbk9OZy1Pbkw0ck5MRXZnblRsRnVsbHY3TlBkRGxUVEVmX1B0dDJuNDlnR1h4cld4UWdsUUI5OWhEQnRBNTJZdw?oc=5",
+            "published_at": "2026-11-14 06:40:05 KST"
           }
         ]
       },
       {
         "name": "Microsoft",
-        "reason": "클라우드 서비스 및 AI 관련 사업에서의 성과가 주가에 반영되며 주목받고 있습니다 (총 3건)",
+        "reason": "AI 기술 투자 확대 및 클라우드 사업 성장이 Microsoft의 주목도를 높이고 있습니다 (총 5건)",
         "us_news_refs": [
-          5,
-          45,
-          48,
-          80
+          2,
+          15,
+          17,
+          25,
+          65
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "Microsoft 365 Outage Continues: Tech Giant Has No Timeline For Recovery, Says It’s ‘Deeply Sorry’ - Forbes",
-            "title_ko": "Microsoft 365 장애 지속, 복구 시점 불투명 '깊이 사과'",
-            "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNd0ZWZFJCWmp3MUlFMFFrRExhTldkeEs1aEt2bVJDend6Y24yck5wUHlsNF9yNERkQWNsY25va25DMnpMWFE2QmtZVy1CQnlVMjZTNlBFM1g1ak5kWjJEclk2V0IycmFKRHg1RjU2M1RVaHhwTEJUM2hZa0FXaUZRWVRZd0tpTThCZkoxeTJxZERQSFZBb1M3SWptclpVVUVxUEtzSUFTMWxLcmM4VURJbXNCQ1NZQm9fTzBnOS00eGRiV2NRVUo3Rl94QnR2TnlfMGM5dUYxRmZuVDQzZzBWRE0zb2w?oc=5",
-            "published_at": "2026-11-14 05:28:00 KST"
+            "title": "What to Know About Friday’s Nationwide Ground Stop - The New York Times",
+            "title_ko": "금요일 전국 지상 통제에 대해 알아야 할 사항",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQQ3ZnWGY2YWY1TW9QakM0dTdtNFRBcW9qVDc3aGJlV25yb0Q3S0szQ2otUy1IREYyWGgyMllrQW1xY2RRQlJMRlhnRHFEVFlwcFJyQ0FMLWFVTFdwbzdQVzRXR3FQc0lTQlFodFlzcnFkRk13emQ0Z05KRVQwa2lhbkVSS2FvZw?oc=5",
+            "published_at": "2026-11-14 15:54:00 KST"
           },
           {
-            "title": "Cerebras Stock: Earnings Beat and New Microsoft Partnership - Barron's",
-            "title_ko": "Cerebras 주가: 실적 예상치 상회 및 마이크로소프트와 신규 파트너십",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5GV3pHZXI5bHdjSjFjc2JBMEF0UGNGZTBYVUgzZzZ6Smd0dGhTdUdyYzd2QzVYbnBrUkRweWhSWW9OQ1ZWVWotWXlBbHFob05kWUtqSmVwOEhZXzh6azBFZ0haOTh3eXYzazZ3SFluUDRWRW5FYi1EY0FtOA?oc=5",
-            "published_at": "2026-11-13 20:13:00 KST"
+            "title": "How the Microsoft outage impacted courts and governments - Axios",
+            "title_ko": "Microsoft 장애가 법원 및 정부에 미친 영향",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1yUnhQZ1hSOVFGajVoZXJDcE1TbWhCa2RJU0ExblA5WElCZVczWnh0VlpBdXljcnlDM2cxZWh1dW50ZXQ1M3pTWE4tamZGMWk2X2VXZmVETC1pd1M0WDBYQXo2Ri16QlVrVnFMdjBpamUxdVdaNWVLMjhn?oc=5",
+            "published_at": "2026-11-14 13:50:40 KST"
           },
           {
-            "title": "Doctors want liability shield from AI mistakes - Axios",
-            "title_ko": "의사들, AI 실수에 대한 책임 면제 요구",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5GSkFKc1NkdlpaU1NIOFNnX0dyUDI5ZjZ6RTdEemNRaTlzQzdtZlRmajlsdXJPSjNkMW5PNmhhQ1FhNmpXLTFXM3ItUHBoSXZ3Y3RlREFOdUt1WVQ5bnNPVFB4SWJUYVFURHJaaUswQktScERWQVE4Vg?oc=5",
-            "published_at": "2026-11-13 19:33:10 KST"
-          }
-        ]
-      },
-      {
-        "name": "SpaceX",
-        "reason": "우주항공 분야에서의 혁신과 사업 확장에 대한 소식이 보도되었습니다 (총 2건)",
-        "us_news_refs": [
-          1,
-          8,
-          58
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "SpaceX Starship Flight 15 live updates: SpaceX counts down to Starship launch and double-catch test flight - Space",
-            "title_ko": "SpaceX Starship 15호 업데이트: 발사 및 이중 포획 테스트 카운트다운",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOaWF2TXFBVDAyeWp4UjZmZ25BQll3OEdqckh3OGJEWTQwVEdlMGdyT1VQQlBjR09Qc00yakFZQ2g1NGlUSkI0R3hadTlGazhOZlhFLVFZVjR6b0RrREJEVzdpYmhRZWJsbUplOTJaYzlpMlFXVGpDQzFNNTVjbF9NOFRuMHlkQlFZT1pBdDk4M0h1M0RtTWJXbV9oRGRaR1hYbjVUWTZOTDRkUWV3ZERvQkFyLW9mNS1rcmVTUQ?oc=5",
-            "published_at": "2026-11-14 07:22:31 KST"
+            "title": "Donald Trump will not raise Nvidia spy issue with Xi Jinping at summit, officials say - Financial Times",
+            "title_ko": "도널드 트럼프, 정상회담에서 시진핑에게 Nvidia 스파이 문제 제기 안 할 것",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQkI1ZVNvLXc5RXBHWkJ0Z3p2UDNiM2I0Y0dFS2VEajRHaURMYk5lN0ZDQktjZnNqVTFkUHZCMHhGT0E2aGFkTFhOcm9NU2YxODlwNElTRDhXOURZWGFiczhhZEsyazlzYlN0Vi1WQVVKLVpRaXdmakJ6MUpuQUoxQ3NRQV8?oc=5",
+            "published_at": "2026-11-14 10:29:13 KST"
           },
           {
-            "title": "Anthropic’s Dario Amodei ‘not super fussed’ about market turmoil ahead of IPO - Financial Times",
-            "title_ko": "Anthropic CEO, IPO 앞둔 시장 혼란에 '크게 신경 쓰지 않아'",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNOTd1OTNDQlBsYUpZU2JwcjlOQlZkc2t2b3c4ZkpubWc2Q0JqekxWSmVRaDJkeTRCd29uLUNXSzRrcDVUTnVHaGVrV0dpYVFNdHBtXzZjUWdZY1FrNUo4MGl1QkFZbE05ZmhhZmR3N01PX1Z1QTZDbFc3MmFnVE9teHBxVjQ?oc=5",
-            "published_at": "2026-11-14 04:41:26 KST"
+            "title": "US Futures Gain With Microsoft Outage, Producer Prices in Focus - Bloomberg.com",
+            "title_ko": "미국 선물, Microsoft 장애, 생산자 물가 주시하며 상승",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOUGFnaDF1dHVTeVV2SlEyQ0w4SHlwMTVSb1RxMlc3SFByR1l1WnM1YXRVRy11RjAyZ0xnMVdldU1PY1lhMVRHeldxQ0pUTGp1eC13eEZSLUpiejF0ZlpqRlQ4QTBhN0xEMmxaNktiRldvbG5tbk9OZy1Pbkw0ck5MRXZnblRsRnVsbHY3TlBkRGxUVEVmX1B0dDJuNDlnR1h4cld4UWdsUUI5OWhEQnRBNTJZdw?oc=5",
+            "published_at": "2026-11-14 06:40:05 KST"
           }
         ]
       }
@@ -256,222 +231,205 @@
   "kr": {
     "top3_sectors": [
       {
-        "name": "반도체",
-        "reason": "AI 반도체 수요 증가와 관련 기업들의 실적 개선 기대감이 주가에 반영되며 주목받고 있습니다 (총 3건)",
+        "name": "프로농구",
+        "reason": "프로농구 시즌 경기 결과 및 선수 관련 소식이 꾸준히 보도되며 높은 빈도를 기록하고 있습니다 (총 5건)",
         "kr_news_refs": [
-          3,
-          6,
+          13,
+          20,
           21,
-          34,
-          40,
-          42,
-          44
+          23,
+          61
         ],
+        "_weak_signal": true,
         "related_news": [
           {
-            "title": "[뉴욕증시-1보] 젠슨 황 스캔들 여파 지속…혼조 마감 - 연합인포맥스",
+            "title": "4연승 지휘한 정관장 유도훈 감독 \"선수들 각자 역할 해줬다\"",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1BaFhLd2dPcDhaNHFtYTg3cERiZ0hVWU1aSjFmZ1J4eVRWU0FxazFEWm14REZsY1hISll3eFRkaXR3Q0RWNGN0TXRVWlRlVmpZMVVnUUNfQmI4ZmZ4US0yMmxJUDd0SDFRN3V4bW5JQm7SAXRBVV95cUxQZlpWYUgtOFlSME9YWmQtVVJfODBITmVaVDJBZ0U1QmJUbm9rTEpwVVFEVFhnZW9CTlFicnFoaUk0SWRzWjh5SHF3SlR0SEpydXJiVkxvUGNGdEx1cV9Fal8wRTY3Y0FmV2l0OUNqX04yX1BlSQ?oc=5",
-            "published_at": "2026-11-14 06:16:38 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114045600007",
+            "published_at": "2026-11-14 19:23:37 KST"
           },
           {
-            "title": "美의회 ‘對中 칩 규제 3법’ 가속… 국내기업 中공장 불똥 우려 - 동아일보",
+            "title": "[프로농구 중간순위] 14일",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB6UUZ5ak1nY0E1Y3kyekNneFgyZEZpdkVpNnZpZDNER1poakdlckxRS3NWRkdXSXN3bTg4Y0Q2NUFnVE00VVpVajRIYmJVaGRrRzN3RXBYMlh2cHBRSFhvWTlkMjU1Z1ZvNTZaSEg1UDBhc0pLSWfSAWZBVV95cUxNM2JIRG9oZ0NSZTdvRWJDZlgzc2JzV25SQVhsUkkyUmhPWnJ5S1FFR1Z1aExvSVNRSk5jM1FtMDhYUEJOVkhPX3o0d0Rlc09rSHI5ejNxeXJjSzZLWXY1OXpodldmV3c?oc=5",
-            "published_at": "2026-11-14 01:40:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261113175651007",
+            "published_at": "2026-11-14 18:48:16 KST"
           },
           {
-            "title": "“남의 집 불륜에 불똥 맞을라”…‘깐부 동맹’ 삼전닉스에 쏠린 눈",
+            "title": "프로농구 정관장, 1위 삼성 제압하고 4연승 신바람…박지훈 22점(종합)",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/business/12208743",
-            "published_at": "2026-11-14 07:08:32 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114038651007",
+            "published_at": "2026-11-14 18:43:35 KST"
           },
           {
-            "title": "\"기관이 먼저 이전 요청\"…대전은 공공기관 이전 '남방한계선'?",
+            "title": "[프로농구 서울전적] 정관장 87-80 삼성",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261113081400063",
-            "published_at": "2026-11-14 07:00:02 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114044600007",
+            "published_at": "2026-11-14 18:37:53 KST"
           },
           {
-            "title": "엔비디아, Arm CEO 접촉설에 \"아직 누구와도 공식 연락 안해\"(종합)",
+            "title": "KCC, SK 꺾고 4연승…허웅, 4쿼터서 결정적 장거리 3점 '쾅쾅!'",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261114004751091",
-            "published_at": "2026-11-14 06:55:05 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114038600007",
+            "published_at": "2026-11-14 16:25:14 KST"
           }
         ]
       },
       {
-        "name": "항공",
-        "reason": "항공 업종 전반에 대한 언급이 다수 나타나며, 관련 기업들의 동향을 중심으로 보도되었습니다 (총 3건)",
+        "name": "여자농구",
+        "reason": "여자농구 리그 경기 및 선수들의 활약에 대한 뉴스가 여자농구 섹터의 빈도를 높이고 있습니다 (총 4건)",
         "kr_news_refs": [
-          3,
-          17,
           25,
-          27,
-          54,
-          57
+          28,
+          30,
+          59
         ],
+        "_weak_signal": true,
         "related_news": [
           {
-            "title": "[뉴욕증시-1보] 젠슨 황 스캔들 여파 지속…혼조 마감 - 연합인포맥스",
+            "title": "'3점 슛 13개' 여자농구 신한은행, 하나은행 꺾고 공동 선두(종합)",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1BaFhLd2dPcDhaNHFtYTg3cERiZ0hVWU1aSjFmZ1J4eVRWU0FxazFEWm14REZsY1hISll3eFRkaXR3Q0RWNGN0TXRVWlRlVmpZMVVnUUNfQmI4ZmZ4US0yMmxJUDd0SDFRN3V4bW5JQm7SAXRBVV95cUxQZlpWYUgtOFlSME9YWmQtVVJfODBITmVaVDJBZ0U1QmJUbm9rTEpwVVFEVFhnZW9CTlFicnFoaUk0SWRzWjh5SHF3SlR0SEpydXJiVkxvUGNGdEx1cV9Fal8wRTY3Y0FmV2l0OUNqX04yX1BlSQ?oc=5",
-            "published_at": "2026-11-14 06:16:38 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114038751007",
+            "published_at": "2026-11-14 18:15:31 KST"
           },
           {
-            "title": "뉴욕증시, 다우지수만 0.1% 상승…엔비디아 2%↓, 하락 지속(종합)",
+            "title": "[여자농구 중간순위] 14일",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261114009551072",
-            "published_at": "2026-11-14 07:14:46 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114036100007",
+            "published_at": "2026-11-14 18:03:08 KST"
           },
           {
-            "title": "美전역 항공기 이륙 중단…교통장관 \"관제센터 통신문제\"(종합)",
+            "title": "[여자농구 부천전적] 신한은행 87-73 하나은행",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261114010351071",
-            "published_at": "2026-11-14 07:06:13 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114043400007",
+            "published_at": "2026-11-14 18:00:40 KST"
           },
           {
-            "title": "“이륙하지 말고 대기”…美 전역 항공기 운항 중단 지시",
+            "title": "여자농구 삼성생명, 박지수 출전한 KB 꺾고 공동 선두",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12208736",
-            "published_at": "2026-11-14 07:01:38 KST"
-          },
-          {
-            "title": "美연방항공청, 美 전역 공항에 이례적 운항 중단 지시",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261114010300071",
-            "published_at": "2026-11-14 06:23:18 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114038700007",
+            "published_at": "2026-11-14 16:28:21 KST"
           }
         ]
       },
       {
-        "name": "AI",
-        "reason": "AI 기술 발전과 관련 서비스 확장에 대한 기대감이 지속적으로 언급되고 있습니다 (총 2건)",
+        "name": "금융",
+        "reason": "금융권의 개인정보보호 강화 및 관련 제도 변화에 대한 뉴스가 금융 섹터의 주목도를 높이고 있습니다 (총 3건)",
         "kr_news_refs": [
-          2,
-          3,
-          6,
-          14,
-          31,
-          46,
-          48,
-          52,
-          56,
-          82,
-          86,
-          89,
-          97
+          1,
+          29,
+          54
         ],
+        "_weak_signal": true,
         "related_news": [
           {
-            "title": "앤트로픽 CEO \"컴퓨팅 자원 확보, 회사가 직면한 최대 경영상 딜레마\" - 연합인포맥스",
+            "title": "조폐공사 “모바일 지역사랑상품권 플랫폼 3천여 명 개인정보 유출” - KBS 뉴스",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5LS2FLWjA0cFlraWROaWpqVHMxTS1BSjU1SWphSDVwaHVTZGtjNElaSElIaks0T2FpdFZxTHB6LTFrQ2djVEdzQU5kN2pXejVSMHdPNDU1QzhkU2Ixd1Q0Sjd0bGNmQ0JkQVQ3c3g1OGw?oc=5",
-            "published_at": "2026-11-14 06:23:16 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE10bEQwQllYMXNSZkowZndkSXZOWktLb0JvWDBEUGtrcjNnTTZRdG1RZTQyYVFMREVOSGlIVlhiUHZ2TkFWNUlOMmpQYmpRTHpxUTNVeDBBVF9RT2s?oc=5",
+            "published_at": "2026-11-14 18:57:00 KST"
           },
           {
-            "title": "[뉴욕증시-1보] 젠슨 황 스캔들 여파 지속…혼조 마감 - 연합인포맥스",
+            "title": "조폐공사 \"모바일 지역사랑상품권 플랫폼서 개인정보 유출\"",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1BaFhLd2dPcDhaNHFtYTg3cERiZ0hVWU1aSjFmZ1J4eVRWU0FxazFEWm14REZsY1hISll3eFRkaXR3Q0RWNGN0TXRVWlRlVmpZMVVnUUNfQmI4ZmZ4US0yMmxJUDd0SDFRN3V4bW5JQm7SAXRBVV95cUxQZlpWYUgtOFlSME9YWmQtVVJfODBITmVaVDJBZ0U1QmJUbm9rTEpwVVFEVFhnZW9CTlFicnFoaUk0SWRzWjh5SHF3SlR0SEpydXJiVkxvUGNGdEx1cV9Fal8wRTY3Y0FmV2l0OUNqX04yX1BlSQ?oc=5",
-            "published_at": "2026-11-14 06:16:38 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114043100063",
+            "published_at": "2026-11-14 18:00:42 KST"
           },
           {
-            "title": "美의회 ‘對中 칩 규제 3법’ 가속… 국내기업 中공장 불똥 우려 - 동아일보",
+            "title": "“내 이름·주소도 새나갔나”…‘192만명 가입’ 노란우산, 유출 의심",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB6UUZ5ak1nY0E1Y3kyekNneFgyZEZpdkVpNnZpZDNER1poakdlckxRS3NWRkdXSXN3bTg4Y0Q2NUFnVE00VVpVajRIYmJVaGRrRzN3RXBYMlh2cHBRSFhvWTlkMjU1Z1ZvNTZaSEg1UDBhc0pLSWfSAWZBVV95cUxNM2JIRG9oZ0NSZTdvRWJDZlgzc2JzV25SQVhsUkkyUmhPWnJ5S1FFR1Z1aExvSVNRSk5jM1FtMDhYUEJOVkhPX3o0d0Rlc09rSHI5ejNxeXJjSzZLWXY1OXpodldmV3c?oc=5",
-            "published_at": "2026-11-14 01:40:00 KST"
-          },
-          {
-            "title": "“6학년 하굣길에 남학생이 나를”…‘학폭 피해’  고백한 전소미, 눈물",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/culture/12208757",
-            "published_at": "2026-11-14 07:19:40 KST"
-          },
-          {
-            "title": "[신상잇슈] 사조푸디스트 '케어포유 가루쌀 치킨'·오뚜기 '슈퍼레드 케첩'",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261113076500030",
-            "published_at": "2026-11-14 07:00:04 KST"
+            "url": "https://www.mk.co.kr/news/business/12208887",
+            "published_at": "2026-11-14 16:38:18 KST"
           }
         ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "Nvidia",
-        "reason": "AI 반도체 수요 강세와 관련 기술 발전이 주가에 긍정적인 영향을 미치며 지속적으로 주목받고 있습니다 (총 3건)",
+        "name": "한국조폐공사",
+        "reason": "개인정보보호 강화 및 관련 제도 변화에 대한 뉴스가 한국조폐공사의 주목도를 높이고 있습니다 (총 3건)",
         "kr_news_refs": [
+          1,
           2,
-          3,
-          6,
-          17,
-          21,
-          34,
-          40,
-          42,
-          44,
-          46
-        ],
-        "related_news": [
-          {
-            "title": "앤트로픽 CEO \"컴퓨팅 자원 확보, 회사가 직면한 최대 경영상 딜레마\" - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5LS2FLWjA0cFlraWROaWpqVHMxTS1BSjU1SWphSDVwaHVTZGtjNElaSElIaks0T2FpdFZxTHB6LTFrQ2djVEdzQU5kN2pXejVSMHdPNDU1QzhkU2Ixd1Q0Sjd0bGNmQ0JkQVQ3c3g1OGw?oc=5",
-            "published_at": "2026-11-14 06:23:16 KST"
-          },
-          {
-            "title": "[뉴욕증시-1보] 젠슨 황 스캔들 여파 지속…혼조 마감 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1BaFhLd2dPcDhaNHFtYTg3cERiZ0hVWU1aSjFmZ1J4eVRWU0FxazFEWm14REZsY1hISll3eFRkaXR3Q0RWNGN0TXRVWlRlVmpZMVVnUUNfQmI4ZmZ4US0yMmxJUDd0SDFRN3V4bW5JQm7SAXRBVV95cUxQZlpWYUgtOFlSME9YWmQtVVJfODBITmVaVDJBZ0U1QmJUbm9rTEpwVVFEVFhnZW9CTlFicnFoaUk0SWRzWjh5SHF3SlR0SEpydXJiVkxvUGNGdEx1cV9Fal8wRTY3Y0FmV2l0OUNqX04yX1BlSQ?oc=5",
-            "published_at": "2026-11-14 06:16:38 KST"
-          },
-          {
-            "title": "美의회 ‘對中 칩 규제 3법’ 가속… 국내기업 中공장 불똥 우려 - 동아일보",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB6UUZ5ak1nY0E1Y3kyekNneFgyZEZpdkVpNnZpZDNER1poakdlckxRS3NWRkdXSXN3bTg4Y0Q2NUFnVE00VVpVajRIYmJVaGRrRzN3RXBYMlh2cHBRSFhvWTlkMjU1Z1ZvNTZaSEg1UDBhc0pLSWfSAWZBVV95cUxNM2JIRG9oZ0NSZTdvRWJDZlgzc2JzV25SQVhsUkkyUmhPWnJ5S1FFR1Z1aExvSVNRSk5jM1FtMDhYUEJOVkhPX3o0d0Rlc09rSHI5ejNxeXJjSzZLWXY1OXpodldmV3c?oc=5",
-            "published_at": "2026-11-14 01:40:00 KST"
-          },
-          {
-            "title": "뉴욕증시, 다우지수만 0.1% 상승…엔비디아 2%↓, 하락 지속(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261114009551072",
-            "published_at": "2026-11-14 07:14:46 KST"
-          },
-          {
-            "title": "“남의 집 불륜에 불똥 맞을라”…‘깐부 동맹’ 삼전닉스에 쏠린 눈",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/business/12208743",
-            "published_at": "2026-11-14 07:08:32 KST"
-          }
-        ]
-      },
-      {
-        "name": "삼성전자",
-        "reason": "AI 반도체 시장에서의 경쟁력 강화와 실적 개선 기대감이 주가에 반영되며 주목받고 있습니다 (총 2건)",
-        "kr_news_refs": [
-          6,
-          21,
-          44
+          29
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "美의회 ‘對中 칩 규제 3법’ 가속… 국내기업 中공장 불똥 우려 - 동아일보",
+            "title": "조폐공사 “모바일 지역사랑상품권 플랫폼 3천여 명 개인정보 유출” - KBS 뉴스",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB6UUZ5ak1nY0E1Y3kyekNneFgyZEZpdkVpNnZpZDNER1poakdlckxRS3NWRkdXSXN3bTg4Y0Q2NUFnVE00VVpVajRIYmJVaGRrRzN3RXBYMlh2cHBRSFhvWTlkMjU1Z1ZvNTZaSEg1UDBhc0pLSWfSAWZBVV95cUxNM2JIRG9oZ0NSZTdvRWJDZlgzc2JzV25SQVhsUkkyUmhPWnJ5S1FFR1Z1aExvSVNRSk5jM1FtMDhYUEJOVkhPX3o0d0Rlc09rSHI5ejNxeXJjSzZLWXY1OXpodldmV3c?oc=5",
-            "published_at": "2026-11-14 01:40:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE10bEQwQllYMXNSZkowZndkSXZOWktLb0JvWDBEUGtrcjNnTTZRdG1RZTQyYVFMREVOSGlIVlhiUHZ2TkFWNUlOMmpQYmpRTHpxUTNVeDBBVF9RT2s?oc=5",
+            "published_at": "2026-11-14 18:57:00 KST"
           },
           {
-            "title": "“남의 집 불륜에 불똥 맞을라”…‘깐부 동맹’ 삼전닉스에 쏠린 눈",
+            "title": "정부, 마이크로소프트 서비스 장애에 비상대응반 구성하고 점검 - MBC 뉴스",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/business/12208743",
-            "published_at": "2026-11-14 07:08:32 KST"
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1EaGgzRnBCQUxmZnV0WlJETVRZY0hTSHREaGE5Y000dGdVd0o4ZVhwNVVpOTBtWW14MzZ3cVVadkVEWjVQLVY2dVRmSDBNcTBXU2lVZmpwaV9mZ0E0V09iMHphMHpRVmNSWUJNWm5ObWVHY0NR0gF0QVVfeXFMUE9EM1lUa1hNb0tLLUl1eUNlZFNoWG1FSDBIT3BGUVFiQjR0djIwb3RJMjdjaGFnZERTQWNZcHlxTHo0ZXRRd29JZDlobC1lOFRqcHNBRzhGOU42ZWlRRmwxRUtJTTR3WnBVSjZNVkFTM0FFb3c?oc=5",
+            "published_at": "2026-11-14 18:24:39 KST"
           },
           {
-            "title": "폭등할 때 지켜보다가 반토막 때 샀다...국민연금 3분기 3900억 지른 종목",
+            "title": "조폐공사 \"모바일 지역사랑상품권 플랫폼서 개인정보 유출\"",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12208726",
-            "published_at": "2026-11-14 06:50:34 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261114043100063",
+            "published_at": "2026-11-14 18:00:42 KST"
+          }
+        ]
+      },
+      {
+        "name": "정관장",
+        "reason": "프로농구 시즌과 연계된 정관장의 마케팅 활동 및 건강 관련 소식이 주목받고 있습니다 (총 3건)",
+        "kr_news_refs": [
+          13,
+          21,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "4연승 지휘한 정관장 유도훈 감독 \"선수들 각자 역할 해줬다\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261114045600007",
+            "published_at": "2026-11-14 19:23:37 KST"
+          },
+          {
+            "title": "프로농구 정관장, 1위 삼성 제압하고 4연승 신바람…박지훈 22점(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261114038651007",
+            "published_at": "2026-11-14 18:43:35 KST"
+          },
+          {
+            "title": "[프로농구 서울전적] 정관장 87-80 삼성",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261114044600007",
+            "published_at": "2026-11-14 18:37:53 KST"
+          }
+        ]
+      },
+      {
+        "name": "노란우산",
+        "reason": "소상공인 지원 정책 및 금융 관련 뉴스가 노란우산의 주목도를 높이고 있습니다 (총 3건)",
+        "kr_news_refs": [
+          54,
+          55,
+          73
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "“내 이름·주소도 새나갔나”…‘192만명 가입’ 노란우산, 유출 의심",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12208887",
+            "published_at": "2026-11-14 16:38:18 KST"
+          },
+          {
+            "title": "중기중앙회 \"노란우산 정보 유출 가능성…주소·연락처 등 포함\"(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261114037551030",
+            "published_at": "2026-11-14 16:37:21 KST"
+          },
+          {
+            "title": "중기중앙회 \"노란우산 정보 유출 가능성…주소·연락처 등 포함\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261114037500030",
+            "published_at": "2026-11-14 15:57:04 KST"
           }
         ]
       }
@@ -487,44 +445,31 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "부동산",
-        "freq": 3,
-        "summary": "한국 부동산 시장이 일본보다 처참한 상황이며, IMF보다 무서운 충격이 올 수 있다는 분석이 있습니다. 아파트 가격 하락과 하우스푸어 폭증 가능성이 제기되었습니다.",
+        "name": "반도체",
+        "freq": 1,
+        "summary": "염승환 LS증권 이사는 현재 반도체 섹터가 매우 저평가되어 있다고 언급했습니다. '지금 보이는 건 반도체 뿐'이라며, 싸도 너무 싸다고 평가했습니다.",
         "refs": [
-          4,
-          6,
-          8
+          5
         ],
-        "reason": "한국 부동산 시장이 일본보다 처참한 상황이며, IMF보다 무서운 충격이 올 수 있다는 분석이 있습니다. 아파트 가격 하락과 하우스푸어 폭증 가능성이 제기되었습니다.",
+        "reason": "염승환 LS증권 이사는 현재 반도체 섹터가 매우 저평가되어 있다고 언급했습니다. '지금 보이는 건 반도체 뿐'이라며, 싸도 너무 싸다고 평가했습니다.",
+        "_weak_signal": true,
         "related_videos": [
           {
-            "title": "IMF보다 무서운 충격 몰려온다, 한국 부동산 일본보다 처참하다 (서동기 박사)",
-            "url": "https://www.youtube.com/watch?v=ZeNpHp6Qkz4",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-13 19:15:15 KST"
-          },
-          {
-            "title": "한국 아파트 싹다 물갈이 된다, 집값 내년부터 무서울 겁니다 (서동기 박사)",
-            "url": "https://www.youtube.com/watch?v=x3CpoSHJsaU",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-12 19:45:17 KST"
-          },
-          {
-            "title": "하우스푸어 곧 폭증할 겁니다, 집 싸게 내놔도 살 사람 없다 (박은정 감정평가사)",
-            "url": "https://www.youtube.com/watch?v=8dOpHX5lemg",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-12 17:15:17 KST"
+            "title": "\"지금 보이는 건 반도체 뿐\" 싸도 너무 싸다 | 염승환 LS증권 이사 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=BIhFDJtoK6k",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-14 11:00:13 KST"
           }
         ]
       },
       {
-        "name": "미용 의료",
+        "name": "미용의료",
         "freq": 1,
-        "summary": "일본에서 미용 의료에 대한 세금 부과를 고려하고 있으며, 이는 의료보험법 개혁과 연관된 움직임으로 분석됩니다.",
+        "summary": "일본에서 미용 의료에 대한 세금 부과를 고려하고 있다는 내용이 언급되었습니다. 이는 미용 의료 산업에 대한 정책 변화 가능성을 시사합니다.",
         "refs": [
-          1
+          7
         ],
-        "reason": "일본에서 미용 의료에 대한 세금 부과를 고려하고 있으며, 이는 의료보험법 개혁과 연관된 움직임으로 분석됩니다.",
+        "reason": "일본에서 미용 의료에 대한 세금 부과를 고려하고 있다는 내용이 언급되었습니다. 이는 미용 의료 산업에 대한 정책 변화 가능성을 시사합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
@@ -538,11 +483,11 @@
       {
         "name": "관광",
         "freq": 1,
-        "summary": "외국인 관광객 3천만 명 목표 달성을 위한 방안이 논의되었습니다. 한국을 방문하는 외국인 관광객의 소비 패턴과 도심 집중 현상에 대한 분석이 포함되었습니다.",
+        "summary": "외국인 관광객 3천만 명 목표 달성을 위한 방안들이 논의되었습니다. 외국인의 한국 여행 소비 패턴과 도심 집중 현상에 대한 분석이 포함되었습니다.",
         "refs": [
-          7
+          8
         ],
-        "reason": "외국인 관광객 3천만 명 목표 달성을 위한 방안이 논의되었습니다. 한국을 방문하는 외국인 관광객의 소비 패턴과 도심 집중 현상에 대한 분석이 포함되었습니다.",
+        "reason": "외국인 관광객 3천만 명 목표 달성을 위한 방안들이 논의되었습니다. 외국인의 한국 여행 소비 패턴과 도심 집중 현상에 대한 분석이 포함되었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
@@ -558,18 +503,18 @@
       {
         "name": "삼성전자",
         "freq": 1,
-        "summary": "삼성전자(삼전닉스)의 단기 랠리 가능성과 매도 타이밍에 대한 분석이 언급되었습니다.",
+        "summary": "라오어 작가는 삼성전자 대신 다른 주식을 추천하며, 해당 주식이 장기적으로 큰 수익을 가져다줄 것이라고 언급했습니다. 구체적인 종목명은 '이 주식'으로 표기되었습니다.",
         "refs": [
           3
         ],
-        "reason": "삼성전자(삼전닉스)의 단기 랠리 가능성과 매도 타이밍에 대한 분석이 언급되었습니다.",
+        "reason": "라오어 작가는 삼성전자 대신 다른 주식을 추천하며, 해당 주식이 장기적으로 큰 수익을 가져다줄 것이라고 언급했습니다. 구체적인 종목명은 '이 주식'으로 표기되었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "삼전닉스 단기 랠리 어디까지 가능할까…반등할수록 중요해지는 매도 타이밍ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=DNHHB8jEuSM",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-13 20:00:13 KST"
+            "title": "삼성전자 말고 '이 주식' 사라, 앞으로 평생 돈 걱정 끝이다 (라오어 작가, shorts)",
+            "url": "https://www.youtube.com/watch?v=_qtDqYc6syQ",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-14 16:00:19 KST"
           }
         ]
       }
@@ -589,54 +534,54 @@
         },
         {
           "name": "SpaceX",
-          "freq": 2
+          "freq": 1
+        },
+        {
+          "name": "Tesla",
+          "freq": 3
         },
         {
           "name": "Anthropic",
           "freq": 2
         },
         {
-          "name": "Arm",
+          "name": "Super Micro",
           "freq": 2
         },
         {
-          "name": "OpenAI",
+          "name": "Owlet",
+          "freq": 2
+        },
+        {
+          "name": "Live Nation",
           "freq": 1
         },
         {
-          "name": "Cerebras",
+          "name": "Patanjali Foods",
           "freq": 1
         },
         {
-          "name": "AMD",
+          "name": "Binance",
           "freq": 1
         },
         {
-          "name": "DocGo",
+          "name": "Cloudastructure",
           "freq": 1
         },
         {
-          "name": "Beasley Media Group",
+          "name": "CMS Info Systems",
           "freq": 1
         },
         {
-          "name": "Southwest Airlines",
+          "name": "Valley National Bancorp",
           "freq": 1
         },
         {
-          "name": "Delta Air Lines",
+          "name": "U S Global Investors",
           "freq": 1
         },
         {
-          "name": "United Airlines",
-          "freq": 1
-        },
-        {
-          "name": "American Airlines",
-          "freq": 1
-        },
-        {
-          "name": "Ford",
+          "name": "Weyerhaeuser",
           "freq": 1
         }
       ],
@@ -654,31 +599,31 @@
           "freq": 4
         },
         {
-          "name": "Energy",
-          "freq": 2
-        },
-        {
           "name": "클라우드",
-          "freq": 2
+          "freq": 3
         },
         {
-          "name": "자동차",
+          "name": "우주",
           "freq": 2
         },
         {
           "name": "로보틱스",
-          "freq": 1
+          "freq": 2
         },
         {
-          "name": "암호화폐",
-          "freq": 1
-        },
-        {
-          "name": "Healthcare",
-          "freq": 1
+          "name": "데이터센터",
+          "freq": 2
         },
         {
           "name": "채권",
+          "freq": 2
+        },
+        {
+          "name": "소매",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
           "freq": 1
         },
         {
@@ -686,137 +631,11 @@
           "freq": 1
         },
         {
-          "name": "핀테크",
-          "freq": 1
-        },
-        {
-          "name": "우주항공",
-          "freq": 1
-        },
-        {
-          "name": "소프트웨어",
-          "freq": 1
-        },
-        {
-          "name": "데이터센터",
-          "freq": 1
-        }
-      ]
-    },
-    "kr": {
-      "stocks": [
-        {
-          "name": "Nvidia",
-          "freq": 3
-        },
-        {
-          "name": "삼성전자",
-          "freq": 2
-        },
-        {
-          "name": "아이센스",
-          "freq": 1
-        },
-        {
-          "name": "유한양행",
-          "freq": 1
-        },
-        {
-          "name": "베링거인겔하임",
-          "freq": 1
-        },
-        {
-          "name": "SK하이닉스",
-          "freq": 1
-        },
-        {
-          "name": "마이크론",
-          "freq": 1
-        },
-        {
-          "name": "모나리자",
-          "freq": 1
-        },
-        {
-          "name": "아이더",
-          "freq": 1
-        },
-        {
-          "name": "사조푸디스트",
-          "freq": 1
-        },
-        {
-          "name": "오뚜기",
-          "freq": 1
-        },
-        {
-          "name": "제네시스",
-          "freq": 1
-        },
-        {
-          "name": "마세라티",
-          "freq": 1
-        },
-        {
-          "name": "포르쉐",
-          "freq": 1
-        },
-        {
-          "name": "BMW",
-          "freq": 1
-        }
-      ],
-      "sectors": [
-        {
-          "name": "AI",
-          "freq": 2
-        },
-        {
-          "name": "반도체",
-          "freq": 3
-        },
-        {
-          "name": "항공",
-          "freq": 3
-        },
-        {
-          "name": "Energy",
-          "freq": 2
-        },
-        {
-          "name": "소프트웨어",
-          "freq": 2
-        },
-        {
-          "name": "자동차",
-          "freq": 2
-        },
-        {
-          "name": "당뇨병",
-          "freq": 1
-        },
-        {
-          "name": "바이오",
-          "freq": 1
-        },
-        {
-          "name": "핀테크",
-          "freq": 1
-        },
-        {
           "name": "Healthcare",
           "freq": 1
         },
         {
-          "name": "부동산",
-          "freq": 1
-        },
-        {
-          "name": "뷰티",
-          "freq": 1
-        },
-        {
-          "name": "재생에너지",
+          "name": "소프트웨어",
           "freq": 1
         },
         {
@@ -824,7 +643,133 @@
           "freq": 1
         },
         {
-          "name": "국방",
+          "name": "주택",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "한국조폐공사",
+          "freq": 3
+        },
+        {
+          "name": "정관장",
+          "freq": 3
+        },
+        {
+          "name": "노란우산",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "신한은행",
+          "freq": 2
+        },
+        {
+          "name": "삼성생명",
+          "freq": 2
+        },
+        {
+          "name": "삼성화재",
+          "freq": 2
+        },
+        {
+          "name": "KCC",
+          "freq": 2
+        },
+        {
+          "name": "바나나맛 우유",
+          "freq": 2
+        },
+        {
+          "name": "깐부치킨",
+          "freq": 1
+        },
+        {
+          "name": "세븐일레븐",
+          "freq": 1
+        },
+        {
+          "name": "BBQ",
+          "freq": 1
+        },
+        {
+          "name": "HL안양",
+          "freq": 1
+        },
+        {
+          "name": "KB스타뱅킹",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "프로농구",
+          "freq": 5
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "여자농구",
+          "freq": 4
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "개인정보보호",
+          "freq": 3
+        },
+        {
+          "name": "프로배구",
+          "freq": 3
+        },
+        {
+          "name": "소프트웨어",
+          "freq": 2
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "우주",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 2
+        },
+        {
+          "name": "광고",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "유통",
+          "freq": 1
+        },
+        {
+          "name": "식품",
           "freq": 1
         }
       ]
