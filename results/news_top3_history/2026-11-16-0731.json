@@ -1,0 +1,548 @@
+{
+  "generated_at": "2026-11-16 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 증가와 관련 기술 발전에 대한 지속적인 관심이 주목받고 있습니다 (총 10건).",
+        "us_news_refs": [
+          5,
+          6,
+          32,
+          36,
+          38,
+          40,
+          44,
+          46,
+          47,
+          95
+        ],
+        "related_news": [
+          {
+            "title": "Could everything be broken? Grounded jets, Microsoft outage, AI chaos make some wonder - AP News",
+            "title_ko": "모든 것이 망가졌나? 항공기 결항, Microsoft 장애, AI 혼란에 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbUFCdzU3WWxqWDJyOThxR0pfSENwbHdjWE50LVZfX0xSUUZFZnpTemtWN2RRckNlOW56TnZwT2pmUHpPYnU0cGtiaUJ4aFpzLXZ4OHN0a3UxVEpNenFlc0VETFE2UDJkdy1Ld0ZSU2V2MHJxNE9WN3VFMjA2U1lLRThOdE5kSWk2UVdpektzb00yV3ZjUjhOeWpiNA?oc=5",
+            "published_at": "2026-11-16 04:10:00 KST"
+          },
+          {
+            "title": "Anthropic Is About to Become the World’s Most Important AI Stock - Bloomberg.com",
+            "title_ko": "Anthropic, 세계에서 가장 중요한 AI 주식 될 것",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNQ0FXWUttSDRhNUNacC1GM0hiUWtnSVRoamZreG5QRkFqNlZVTHdSUjNNeHNCNmhGWWZBcGxiaTBIcDhvSDZxNExuclFYRlBJTXFuRXdjd2xzNkdpZ2RkblFZYlFNNnBkcHdfU0VRQXhvaWNaamU2SUNNdDNCVTctZnB5cUZiVmFuXy1aWFNqRWlXQ3pZSl9NcGQ1MFFnWEZBTHdaZE9GNGI5cEJSaG1pQkhGNA?oc=5",
+            "published_at": "2026-11-16 04:00:20 KST"
+          },
+          {
+            "title": "Gen Z judges colleagues who use AI, but paradoxically may see it as the key to their own promotion - Fortune",
+            "title_ko": "Gen Z, AI 사용자 동료 비판하지만, 승진 열쇠로 AI 볼 수도",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPN1NkRXRZdnFsVU1aNUxuaTdLd1NhZmlxc2FuaUhlOHBBTEVGR2EySlRxZWFBYUhiSHF5a1dDWXdVdmF6T3dLTkFDS0g5ZHA4a01iTC1VTlkzeGpoYS1VTDE0eG9valBmMXNCM3JFOGNxSGVTNXphTnVwWlo1XzVhWFQxaFVrWGp0ZnpURUdncG83RFBtT0E?oc=5",
+            "published_at": "2026-11-15 23:28:00 KST"
+          },
+          {
+            "title": "How Nvidia's scandal knocked thousands off your 401(k) - Axios",
+            "title_ko": "Nvidia 스캔들, 401(k) 수천 달러 하락시킨 방법",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5TcWtMLWwzT2tqM2hJUjhrdnZUY2RZOWV2dWFYcURGSFJqRlVMaVBFSDdxVDV4NzFtbUc0M2NpRWN1QUlLZmdiNGhhWkZWTVlxYl9ocjZ2NVpxMTNtdnZNdFF1NVo4V3NISGNhMDJYOUo1V0twaG5QNWxqZw?oc=5",
+            "published_at": "2026-11-15 21:31:43 KST"
+          },
+          {
+            "title": "Will Nvidia earnings steady the AI sell-off? - Financial Times",
+            "title_ko": "Nvidia 실적, AI 매도세 진정시킬까?",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOanRDUmp4Q3pKeGgxSDFSVTN1S1pseVh2ZVVhcHkyUDdxdjVCVVVfSGtEaTl1ZjMyVU5HSndJdlBZb1dKZTRsUHpNLW1iT0JNOFU0Q2V3d2xuT2plQUJiZHNSdDJ1c0FYeEpjQzRhSlFSTEdrcDBnbTluVkJIMVJiVXNtWWU?oc=5",
+            "published_at": "2026-11-15 21:00:05 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요와 연관된 반도체 산업의 성장이 주목받고 있습니다 (총 7건).",
+        "us_news_refs": [
+          2,
+          4,
+          9,
+          10,
+          36,
+          46,
+          57
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Jensen Huang Is Already Considering Returning To Nvidia, Report Says - Forbes",
+            "title_ko": "Jensen Huang, Nvidia 복귀 고려 중 - Forbes 보도",
+            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOa3E3cUNQYmpNNDRkbXlac1dOeC1qWWF3cjdUcnRPLWtONW5QM3FUVk1PVXBuamhCQzdZOHdMYUdxMHd0LTNkTFF3UVV2VzFFenAzaGtEYnFsY3BuOVU4VVp6YmRpSExBUm9PSjhaXzVzWE1mbmx2R2pKa2tGM2V0bDRrMlNJMEZqLWVGYXVvUlY1ek9lQm9UOFRBeUdrNkU4UVhuVlBTSlFJcWFtVzMwQ1VNM2RsaDlwcm10Vg?oc=5",
+            "published_at": "2026-11-16 06:24:56 KST"
+          },
+          {
+            "title": "Megaspeed Says Alice Huang Left Company in August 2025 - The New York Times",
+            "title_ko": "Megaspeed, Alice Huang 2025년 8월 퇴사 발표",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVTFteWE3T01VQ29ObzFtdi1VSlExVDZmWVAwWGM3YkdtZHliQXNEa0hQMjhkYTlKRDJqSnhEbU5VeEFKNnRQaWZ6bF9OZGpKdUs5OEFRTWQ4eHpySlJuZlJOY3NsaVdLUnJULXJrcVJWUHlpWkY2N01XTnZxOGhoN01BMXdyT2lwVjJn?oc=5",
+            "published_at": "2026-11-16 05:11:11 KST"
+          },
+          {
+            "title": "Bessent questions did Nvidia \"goose\" earnings with suspect China chip sales - Axios",
+            "title_ko": "Bessent, Nvidia가 의심스러운 중국 칩 판매로 실적 '부풀렸나' 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPT1Rud2hiNnZiMFQ2RlJYZUxjdkg3UElselZNd0d5Mk5EYVpfazI3NlMxRk1jbEFES1RhcE1QRXpXeThnVTRNcHQ0TURMdjF4RkpHNGpPQ3o0OFhoREpZV3NGaDg3cE9id3J4U3FOcDVLeVI0N1RNbEZ3aDA1WU9ZRG5ZUQ?oc=5",
+            "published_at": "2026-11-16 02:49:09 KST"
+          },
+          {
+            "title": "How Jensen Huang Built a Business to Feed Chinese Appetite for American Chips - WSJ",
+            "title_ko": "Jensen Huang, 중국의 미국 칩 수요 충족 사업 구축 방법",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQTFJYdnc1enJkNHlnR1AwRGlNUTNCT09IeTVDbzBBd1FGYnpBYUFSemtpUUROOVEzQ29WTTBwbXZuc3ZFTWhiU01vTGExNDQySnVHUG9IRVRpQW1FdE5WOVNqbUJfQ3dNNFZ0cUVaQmw4NmQycENqY2VNbThmNmZaTjJ2OVRkXzJUbV9XNWNDMGJtMlJjcW5HRjlwLU1qMng2TGNzdVNnX2pmYUN4NS1rUk5XMklVUQ?oc=5",
+            "published_at": "2026-11-16 01:51:00 KST"
+          },
+          {
+            "title": "How Nvidia's scandal knocked thousands off your 401(k) - Axios",
+            "title_ko": "Nvidia 스캔들, 401(k) 수천 달러 하락시킨 방법",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5TcWtMLWwzT2tqM2hJUjhrdnZUY2RZOWV2dWFYcURGSFJqRlVMaVBFSDdxVDV4NzFtbUc0M2NpRWN1QUlLZmdiNGhhWkZWTVlxYl9ocjZ2NVpxMTNtdnZNdFF1NVo4V3NISGNhMDJYOUo1V0twaG5QNWxqZw?oc=5",
+            "published_at": "2026-11-15 21:31:43 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 증가와 관련 기술 발전으로 인한 지속적인 관심이 주목받고 있습니다 (총 18건).",
+        "us_news_refs": [
+          1,
+          2,
+          4,
+          5,
+          9,
+          10,
+          13,
+          30,
+          36,
+          37,
+          38,
+          40,
+          43,
+          46,
+          47,
+          50,
+          57,
+          90
+        ],
+        "related_news": [
+          {
+            "title": "Duffy blames Congress, prior administrations for air travel halt, chaos - The Washington Post",
+            "title_ko": "Duffy, 의회와 이전 행정부가 항공 여행 중단, 혼란 초래 비난",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQVlQzU3hQUWZCUmRhaEFhLWJqU29tT2Z0c3lwV1RQckNNVVkxV0gxdW0wOER1Vmp6UklNb09rQUcxT2d2ZDNhT0RjTERxaTFXTHEtZGJodk5oY3NyVTFDRE1QdXZkckFoMV9rTGFubjRGODhUS2VUaDBMcV9GbmFNU3Y1VUlWZEJ0WS0zaVVxcWEwc0Q0TVNOMHpKM1FrbDFPYzFTN2gtU1V0V2dBNndTTnhQZXA4WXJEQkxoSjYwanNPUQ?oc=5",
+            "published_at": "2026-11-16 06:59:42 KST"
+          },
+          {
+            "title": "Jensen Huang Is Already Considering Returning To Nvidia, Report Says - Forbes",
+            "title_ko": "Jensen Huang, Nvidia 복귀 고려 중 - Forbes 보도",
+            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOa3E3cUNQYmpNNDRkbXlac1dOeC1qWWF3cjdUcnRPLWtONW5QM3FUVk1PVXBuamhCQzdZOHdMYUdxMHd0LTNkTFF3UVV2VzFFenAzaGtEYnFsY3BuOVU4VVp6YmRpSExBUm9PSjhaXzVzWE1mbmx2R2pKa2tGM2V0bDRrMlNJMEZqLWVGYXVvUlY1ek9lQm9UOFRBeUdrNkU4UVhuVlBTSlFJcWFtVzMwQ1VNM2RsaDlwcm10Vg?oc=5",
+            "published_at": "2026-11-16 06:24:56 KST"
+          },
+          {
+            "title": "Megaspeed Says Alice Huang Left Company in August 2025 - The New York Times",
+            "title_ko": "Megaspeed, Alice Huang 2025년 8월 퇴사 발표",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVTFteWE3T01VQ29ObzFtdi1VSlExVDZmWVAwWGM3YkdtZHliQXNEa0hQMjhkYTlKRDJqSnhEbU5VeEFKNnRQaWZ6bF9OZGpKdUs5OEFRTWQ4eHpySlJuZlJOY3NsaVdLUnJULXJrcVJWUHlpWkY2N01XTnZxOGhoN01BMXdyT2lwVjJn?oc=5",
+            "published_at": "2026-11-16 05:11:11 KST"
+          },
+          {
+            "title": "Could everything be broken? Grounded jets, Microsoft outage, AI chaos make some wonder - AP News",
+            "title_ko": "모든 것이 망가졌나? 항공기 결항, Microsoft 장애, AI 혼란에 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbUFCdzU3WWxqWDJyOThxR0pfSENwbHdjWE50LVZfX0xSUUZFZnpTemtWN2RRckNlOW56TnZwT2pmUHpPYnU0cGtiaUJ4aFpzLXZ4OHN0a3UxVEpNenFlc0VETFE2UDJkdy1Ld0ZSU2V2MHJxNE9WN3VFMjA2U1lLRThOdE5kSWk2UVdpektzb00yV3ZjUjhOeWpiNA?oc=5",
+            "published_at": "2026-11-16 04:10:00 KST"
+          },
+          {
+            "title": "Bessent questions did Nvidia \"goose\" earnings with suspect China chip sales - Axios",
+            "title_ko": "Bessent, Nvidia가 의심스러운 중국 칩 판매로 실적 '부풀렸나' 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPT1Rud2hiNnZiMFQ2RlJYZUxjdkg3UElselZNd0d5Mk5EYVpfazI3NlMxRk1jbEFES1RhcE1QRXpXeThnVTRNcHQ0TURMdjF4RkpHNGpPQ3o0OFhoREpZV3NGaDg3cE9id3J4U3FOcDVLeVI0N1RNbEZ3aDA1WU9ZRG5ZUQ?oc=5",
+            "published_at": "2026-11-16 02:49:09 KST"
+          }
+        ]
+      },
+      {
+        "name": "Amazon",
+        "reason": "AI 및 클라우드 서비스 관련 성장과 빅테크 기업으로서의 시장 영향력이 주목받고 있습니다 (총 3건).",
+        "us_news_refs": [
+          3,
+          45,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Rocket from Boeing-Lockheed firm fails mid-flight, destroys payload of Amazon satellites - Reuters",
+            "title_ko": "Boeing-Lockheed 합작사 로켓, 중간 비행 실패, Amazon 위성 탑재물 파괴",
+            "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRENJR2FvRjB1WmJfWk56alNqNHBwRHExSk0tdU91LV9wSUMzVm9PZEtRdHc0Y1JaMW44OVBJc3puTENpMXNBY3VmSVNjSTZIazlYRGh4aUxVaW9GdXNBamZla29sRzJnajdMdU1yQU9xekdPcUwyRXdaRzF4TXhiZXV6RDZIN21yVS15bGpNVUJFZUpnWU1ZTFJqbm94OXhjamR3SXFRV3F0YWZWSnA5ei1Gd2o4UW1PSnlrTnFtMENUb2V1VjVDc09XSFJNN0JaWXc?oc=5",
+            "published_at": "2026-11-16 05:47:02 KST"
+          },
+          {
+            "title": "We found 45 early Black Friday deals: $250 off MacBooks, live Lego discounts, and Kindles on sale - Mashable",
+            "title_ko": "얼리 블랙 프라이데이 딜 45개 발견: 맥북 250달러 할인, 레고 할인, 킨들 세일",
+            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBHQjRSSFBudjhuMTZNWFhPQkhnbnpuS1hHVllicGJhRU9JdmJGV3k5U2VMZXNjYnpDYU9UTllucmNWSjJuRElRRVFYemwtZ1hwdzFpLXphanpYQVdHSmdDWFhPaGxxVUtRaUtXWVA4MGlnZlE?oc=5",
+            "published_at": "2026-11-15 19:00:00 KST"
+          },
+          {
+            "title": "How Jensen Huang Built the Backdoor Route That Keeps Beijing in the AI Race - WSJ",
+            "title_ko": "Jensen Huang, 베이징의 AI 경쟁 유지하는 백도어 경로 구축 방법",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5WRVRId0ZUcVRGRlNaOFhjRE5vUUVQWnZ6OElxc0llcUVsaXAxbDFxdXJocTh6UTc2OGN6VnZuN2sxMnZROVhnaU1aTWVVUlZLbU1KRzFYT2ljczNYTV9FTVQxWnFrS2xNdDdZQ2FHejNDUjh2d29PbHRROA?oc=5",
+            "published_at": "2026-11-15 18:48:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전과 국내 기업들의 관련 사업 추진이 주목받고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          2,
+          18,
+          53
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[인터뷰] “젠슨 황 퇴진, 미·중 AI 발전 모두 늦출 수도” - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBuSVA2SGhZNUF2WEJxazdDSHlOOEhlY2ZacHB5Y1Y2blh0YlYyX1lIdGNNSTY2UUpIWXlhaUI1cW1QVjhraWZ3a0hqRzF2TzZrMWxFUXdmaS1wMGc0cjdFSWVmcHhpU09ibVhYcS1EUQ?oc=5",
+            "published_at": "2026-11-16 05:00:00 KST"
+          },
+          {
+            "title": "AI로 친구 놀리는 노래 만들고 옷찢은 중학생…\"학폭 처분 정당\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261113070900051",
+            "published_at": "2026-11-16 07:01:02 KST"
+          },
+          {
+            "title": "회의 시작했는데 폰 열고 앱 켜고…버튼 누르면 끝나는 AI회의록 뜬다",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12209547",
+            "published_at": "2026-11-16 06:05:37 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI가 금융 시장에 미치는 영향과 AI 부정행위 사례가 언급되었습니다. 또한 AI가 일자리를 파괴할 수 있다는 내용도 포함되었습니다.",
+        "refs": [
+          2,
+          7
+        ],
+        "reason": "AI가 금융 시장에 미치는 영향과 AI 부정행위 사례가 언급되었습니다. 또한 AI가 일자리를 파괴할 수 있다는 내용도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "670조 AI 금융 흔들…젠슨 황 복귀 청원 확산 | 세무사 수석의 AI 부정행위…농락당한 전문직 시험 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=nRr8HYVQvMY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 05:23:51 KST"
+          },
+          {
+            "title": "수많은 취준생을 울린 '꿈꾸던 어른이 되었나요?'",
+            "url": "https://www.youtube.com/watch?v=yagCF3JqwAE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-14 20:12:16 KST"
+          }
+        ]
+      },
+      {
+        "name": "금융",
+        "freq": 2,
+        "summary": "AI가 금융 시장에 미치는 영향과 금융 관련 세무사 시험 부정행위 사례가 언급되었습니다.",
+        "refs": [
+          2,
+          10
+        ],
+        "reason": "AI가 금융 시장에 미치는 영향과 금융 관련 세무사 시험 부정행위 사례가 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "670조 AI 금융 흔들…젠슨 황 복귀 청원 확산 | 세무사 수석의 AI 부정행위…농락당한 전문직 시험 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=nRr8HYVQvMY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 05:23:51 KST"
+          },
+          {
+            "title": "20년 전 부시 행정부와 똑같다? 초강경 모드 진입한 트럼프, 분위기 바꿀까",
+            "url": "https://www.youtube.com/watch?v=gNm_uU33nOk",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-11 22:00:36 KST"
+          }
+        ]
+      },
+      {
+        "name": "의료",
+        "freq": 2,
+        "summary": "건강검진의 위험성과 일본의 미용 의료 관련 개혁 및 세금 부과 고려 내용이 언급되었습니다.",
+        "refs": [
+          3,
+          8
+        ],
+        "reason": "건강검진의 위험성과 일본의 미용 의료 관련 개혁 및 세금 부과 고려 내용이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "죽음을 부르는 건강검진 1위, '이 검사는' 죽어도 받지마세요 (강형창 원장)",
+            "url": "https://www.youtube.com/watch?v=Be1ZQAND8m0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-15 20:00:01 KST"
+          },
+          {
+            "title": "급증하는 미용의사, 개혁에 나선 일본",
+            "url": "https://www.youtube.com/watch?v=dRnL_432Oo4",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-13 21:37:36 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "freq": 2,
+        "summary": "엔비디아의 주가 하락과 젠슨 황 복귀 청원 확산에 대한 내용이 언급되었습니다.",
+        "refs": [
+          1,
+          2
+        ],
+        "reason": "엔비디아의 주가 하락과 젠슨 황 복귀 청원 확산에 대한 내용이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아, 2025년 4월 이후 최악의 1주일...나스닥·비트코인 등 위험 자산 급락 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=mLfghqfrG1g",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 07:04:36 KST"
+          },
+          {
+            "title": "670조 AI 금융 흔들…젠슨 황 복귀 청원 확산 | 세무사 수석의 AI 부정행위…농락당한 전문직 시험 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=nRr8HYVQvMY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 05:23:51 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 5
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Diamondback",
+          "freq": 4
+        },
+        {
+          "name": "Amazon",
+          "freq": 3
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        },
+        {
+          "name": "SpaceX",
+          "freq": 1
+        },
+        {
+          "name": "Datadog",
+          "freq": 2
+        },
+        {
+          "name": "Cooper Companies",
+          "freq": 2
+        },
+        {
+          "name": "Boeing",
+          "freq": 1
+        },
+        {
+          "name": "Lockheed",
+          "freq": 1
+        },
+        {
+          "name": "Evergy",
+          "freq": 1
+        },
+        {
+          "name": "Dell Technologies",
+          "freq": 1
+        },
+        {
+          "name": "West Pharma",
+          "freq": 1
+        },
+        {
+          "name": "Rivian",
+          "freq": 1
+        },
+        {
+          "name": "Lucid",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "석유/가스",
+          "freq": 4
+        },
+        {
+          "name": "우주항공",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "전기차",
+          "freq": 2
+        },
+        {
+          "name": "클라우드",
+          "freq": 1
+        },
+        {
+          "name": "소프트웨어",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "핀테크",
+          "freq": 1
+        },
+        {
+          "name": "소셜 미디어",
+          "freq": 1
+        },
+        {
+          "name": "암호화폐",
+          "freq": 1
+        },
+        {
+          "name": "소비재",
+          "freq": 1
+        },
+        {
+          "name": "소매",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "LG유플러스",
+          "freq": 1
+        },
+        {
+          "name": "삼성디스플레이",
+          "freq": 1
+        },
+        {
+          "name": "LG디스플레이",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "IT",
+          "freq": 1
+        },
+        {
+          "name": "OLED",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        },
+        {
+          "name": "자율주행",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "유통",
+          "freq": 1
+        },
+        {
+          "name": "콘텐츠",
+          "freq": 1
+        },
+        {
+          "name": "화학",
+          "freq": 1
+        },
+        {
+          "name": "문화",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,83 +1,99 @@
 {
-  "generated_at": "2026-11-15 20:01 KST",
+  "generated_at": "2026-11-16 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 칩 수요와 관련 기업들의 실적 모멘텀이 지속적으로 주목받고 있습니다 (총 10건).",
+        "reason": "AI 칩 수요 증가와 관련 기술 발전에 대한 지속적인 관심이 주목받고 있습니다 (총 10건).",
         "us_news_refs": [
-          3,
-          4,
-          15,
-          20,
-          23,
-          35,
+          5,
+          6,
+          32,
           36,
-          37,
+          38,
+          40,
+          44,
           46,
-          48
+          47,
+          95
         ],
         "related_news": [
           {
-            "title": "Data centre construction stocks lose $4.2tn as boom in AI trade unravels - Financial Times",
-            "title_ko": "AI 무역 붐 해소, 데이터센터 건설주 4.2조 달러 하락",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOczFJMEhqM3AwdHNCUF9ZU3QyNkUtbWtuLVF5dUxHSkpuR0Y2VWx6WXNxQUJ1Vm5iTDN6V0c0YUR4QUpXZl9ubklZVHlDbGlDREVoM3N1a1pMNWlZdmpfTDNWZG5RSXVuU2o3M3Z5Yld2VEtpSDE0NjZ6Y1NZekd1NUxLUGw?oc=5",
-            "published_at": "2026-11-15 17:08:13 KST"
-          },
-          {
             "title": "Could everything be broken? Grounded jets, Microsoft outage, AI chaos make some wonder - AP News",
-            "title_ko": "항공기 결항, 마이크로소프트 장애, AI 혼란…모든 것이 무너졌나?",
+            "title_ko": "모든 것이 망가졌나? 항공기 결항, Microsoft 장애, AI 혼란에 의문 제기",
             "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbUFCdzU3WWxqWDJyOThxR0pfSENwbHdjWE50LVZfX0xSUUZFZnpTemtWN2RRckNlOW56TnZwT2pmUHpPYnU0cGtiaUJ4aFpzLXZ4OHN0a3UxVEpNenFlc0VETFE2UDJkdy1Ld0ZSU2V2MHJxNE9WN3VFMjA2U1lLRThOdE5kSWk2UVdpektzb00yV3ZjUjhOeWpiNA?oc=5",
-            "published_at": "2026-11-15 14:51:26 KST"
+            "published_at": "2026-11-16 04:10:00 KST"
           },
           {
-            "title": "Ireland’s AI data center boom faces legal challenge over power demand",
-            "title_ko": "아일랜드 AI 데이터센터 붐, 전력 수요로 법적 도전 직면",
-            "url": "https://www.investing.com/news/stock-market-news/irelands-ai-data-center-boom-faces-legal-challenge-over-power-demand-5027782",
-            "published_at": "2026-11-15 18:37:57 KST"
+            "title": "Anthropic Is About to Become the World’s Most Important AI Stock - Bloomberg.com",
+            "title_ko": "Anthropic, 세계에서 가장 중요한 AI 주식 될 것",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNQ0FXWUttSDRhNUNacC1GM0hiUWtnSVRoamZreG5QRkFqNlZVTHdSUjNNeHNCNmhGWWZBcGxiaTBIcDhvSDZxNExuclFYRlBJTXFuRXdjd2xzNkdpZ2RkblFZYlFNNnBkcHdfU0VRQXhvaWNaamU2SUNNdDNCVTctZnB5cUZiVmFuXy1aWFNqRWlXQ3pZSl9NcGQ1MFFnWEZBTHdaZE9GNGI5cEJSaG1pQkhGNA?oc=5",
+            "published_at": "2026-11-16 04:00:20 KST"
           },
           {
-            "title": "How Jensen Huang Built the Backdoor Route That Keeps Beijing in the AI Race - WSJ",
-            "title_ko": "젠슨 황, 베이징 AI 경쟁력 유지 비결은?",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5WRVRId0ZUcVRGRlNaOFhjRE5vUUVQWnZ6OElxc0llcUVsaXAxbDFxdXJocTh6UTc2OGN6VnZuN2sxMnZROVhnaU1aTWVVUlZLbU1KRzFYT2ljczNYTV9FTVQxWnFrS2xNdDdZQ2FHejNDUjh2d29PbHRROA?oc=5",
-            "published_at": "2026-11-15 11:00:00 KST"
+            "title": "Gen Z judges colleagues who use AI, but paradoxically may see it as the key to their own promotion - Fortune",
+            "title_ko": "Gen Z, AI 사용자 동료 비판하지만, 승진 열쇠로 AI 볼 수도",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPN1NkRXRZdnFsVU1aNUxuaTdLd1NhZmlxc2FuaUhlOHBBTEVGR2EySlRxZWFBYUhiSHF5a1dDWXdVdmF6T3dLTkFDS0g5ZHA4a01iTC1VTlkzeGpoYS1VTDE0eG9valBmMXNCM3JFOGNxSGVTNXphTnVwWlo1XzVhWFQxaFVrWGp0ZnpURUdncG83RFBtT0E?oc=5",
+            "published_at": "2026-11-15 23:28:00 KST"
           },
           {
-            "title": "New AI Millionaires Want Wealth Advisers Who Can Help Give Their Money Away - WSJ",
-            "title_ko": "새로운 AI 억만장자들, 부의 분배 도울 자산 관리사 원해",
-            "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOYnlHMF9IdTZ4bEdCZnluYWxUWm9oUU11WDBfREtHem00aXlrZUc3LUhsdjBNdWlBdngwRUtGUEFFVjJkQ19fYjIyNUdTZ3ZzWFNQQUdRRjdtSU1NQWxuMHBUTFhyS1o3ajJzTUpIN0FnQnJNa3dWMUZ5YTRtdVMyOWJpbzUxMHBEMTNVNUY3dHNnZVRXVXNEd0pkTDNmd01HbHJUemtIZkZ5VVBHUjJvRFh4TXh4MFVqcnJ0TVVYSQ?oc=5",
-            "published_at": "2026-11-15 10:02:42 KST"
+            "title": "How Nvidia's scandal knocked thousands off your 401(k) - Axios",
+            "title_ko": "Nvidia 스캔들, 401(k) 수천 달러 하락시킨 방법",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5TcWtMLWwzT2tqM2hJUjhrdnZUY2RZOWV2dWFYcURGSFJqRlVMaVBFSDdxVDV4NzFtbUc0M2NpRWN1QUlLZmdiNGhhWkZWTVlxYl9ocjZ2NVpxMTNtdnZNdFF1NVo4V3NISGNhMDJYOUo1V0twaG5QNWxqZw?oc=5",
+            "published_at": "2026-11-15 21:31:43 KST"
+          },
+          {
+            "title": "Will Nvidia earnings steady the AI sell-off? - Financial Times",
+            "title_ko": "Nvidia 실적, AI 매도세 진정시킬까?",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOanRDUmp4Q3pKeGgxSDFSVTN1S1pseVh2ZVVhcHkyUDdxdjVCVVVfSGtEaTl1ZjMyVU5HSndJdlBZb1dKZTRsUHpNLW1iT0JNOFU0Q2V3d2xuT2plQUJiZHNSdDJ1c0FYeEpjQzRhSlFSTEdrcDBnbTluVkJIMVJiVXNtWWU?oc=5",
+            "published_at": "2026-11-15 21:00:05 KST"
           }
         ]
       },
       {
-        "name": "Aviation",
-        "reason": "항공 및 관련 산업에 대한 뉴스가 꾸준히 언급되었습니다 (총 3건).",
+        "name": "반도체",
+        "reason": "AI 칩 수요와 연관된 반도체 산업의 성장이 주목받고 있습니다 (총 7건).",
         "us_news_refs": [
+          2,
           4,
-          16,
-          43
+          9,
+          10,
+          36,
+          46,
+          57
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Could everything be broken? Grounded jets, Microsoft outage, AI chaos make some wonder - AP News",
-            "title_ko": "항공기 결항, 마이크로소프트 장애, AI 혼란…모든 것이 무너졌나?",
-            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbUFCdzU3WWxqWDJyOThxR0pfSENwbHdjWE50LVZfX0xSUUZFZnpTemtWN2RRckNlOW56TnZwT2pmUHpPYnU0cGtiaUJ4aFpzLXZ4OHN0a3UxVEpNenFlc0VETFE2UDJkdy1Ld0ZSU2V2MHJxNE9WN3VFMjA2U1lLRThOdE5kSWk2UVdpektzb00yV3ZjUjhOeWpiNA?oc=5",
-            "published_at": "2026-11-15 14:51:26 KST"
+            "title": "Jensen Huang Is Already Considering Returning To Nvidia, Report Says - Forbes",
+            "title_ko": "Jensen Huang, Nvidia 복귀 고려 중 - Forbes 보도",
+            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOa3E3cUNQYmpNNDRkbXlac1dOeC1qWWF3cjdUcnRPLWtONW5QM3FUVk1PVXBuamhCQzdZOHdMYUdxMHd0LTNkTFF3UVV2VzFFenAzaGtEYnFsY3BuOVU4VVp6YmRpSExBUm9PSjhaXzVzWE1mbmx2R2pKa2tGM2V0bDRrMlNJMEZqLWVGYXVvUlY1ek9lQm9UOFRBeUdrNkU4UVhuVlBTSlFJcWFtVzMwQ1VNM2RsaDlwcm10Vg?oc=5",
+            "published_at": "2026-11-16 06:24:56 KST"
           },
           {
-            "title": "A timeline of Trump administration's response to FAA ground stop - CBS News",
-            "title_ko": "트럼프 행정부 FAA 지상 통제 대응 타임라인",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE00ZGwtdldoc3hySUwwbUZMbXlHSFRmYS1lU3IwZ3htek4zMmZVd21ESmszZnQ3RDU3clJUS0xCNEh4d0ZQNURUUElaUnQxMXZEcVZYT21IMEd6RTBEdE9fQnhnYnBqTFNsa2llQzE3b0tWXzRX?oc=5",
-            "published_at": "2026-11-15 12:16:17 KST"
+            "title": "Megaspeed Says Alice Huang Left Company in August 2025 - The New York Times",
+            "title_ko": "Megaspeed, Alice Huang 2025년 8월 퇴사 발표",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVTFteWE3T01VQ29ObzFtdi1VSlExVDZmWVAwWGM3YkdtZHliQXNEa0hQMjhkYTlKRDJqSnhEbU5VeEFKNnRQaWZ6bF9OZGpKdUs5OEFRTWQ4eHpySlJuZlJOY3NsaVdLUnJULXJrcVJWUHlpWkY2N01XTnZxOGhoN01BMXdyT2lwVjJn?oc=5",
+            "published_at": "2026-11-16 05:11:11 KST"
           },
           {
-            "title": "Delta CEO says air traffic control systems are so outdated that some routes were faster in the 1950s - Fortune",
-            "title_ko": "Delta CEO, 항공 관제 시스템 노후화로 1950년대보다 느린 노선 지적",
-            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQcVVhNUdjTVFxYTR1eWp6ZVdjbXJXN1FrRzc3V1QzRnlQS18zaVpMUlVFS3A5dDl5MTA4WEhLbGZsZTRsS21IQ1RTVWlwcDdoNGVZWEptQ2hsdUlzUHpaMnQyb1o5Sy1WLUtIT2YwdHVmejc0aDZ0enMydGZZVlgwWE5fLWlmN0gzdmdLbC1pY0dCTXpGUDZROWVrLXA3elNWWUd1UzdNRW5GVHBXNHkzS2w5SHlVUQ?oc=5",
-            "published_at": "2026-11-14 23:47:00 KST"
+            "title": "Bessent questions did Nvidia \"goose\" earnings with suspect China chip sales - Axios",
+            "title_ko": "Bessent, Nvidia가 의심스러운 중국 칩 판매로 실적 '부풀렸나' 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPT1Rud2hiNnZiMFQ2RlJYZUxjdkg3UElselZNd0d5Mk5EYVpfazI3NlMxRk1jbEFES1RhcE1QRXpXeThnVTRNcHQ0TURMdjF4RkpHNGpPQ3o0OFhoREpZV3NGaDg3cE9id3J4U3FOcDVLeVI0N1RNbEZ3aDA1WU9ZRG5ZUQ?oc=5",
+            "published_at": "2026-11-16 02:49:09 KST"
+          },
+          {
+            "title": "How Jensen Huang Built a Business to Feed Chinese Appetite for American Chips - WSJ",
+            "title_ko": "Jensen Huang, 중국의 미국 칩 수요 충족 사업 구축 방법",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQTFJYdnc1enJkNHlnR1AwRGlNUTNCT09IeTVDbzBBd1FGYnpBYUFSemtpUUROOVEzQ29WTTBwbXZuc3ZFTWhiU01vTGExNDQySnVHUG9IRVRpQW1FdE5WOVNqbUJfQ3dNNFZ0cUVaQmw4NmQycENqY2VNbThmNmZaTjJ2OVRkXzJUbV9XNWNDMGJtMlJjcW5HRjlwLU1qMng2TGNzdVNnX2pmYUN4NS1rUk5XMklVUQ?oc=5",
+            "published_at": "2026-11-16 01:51:00 KST"
+          },
+          {
+            "title": "How Nvidia's scandal knocked thousands off your 401(k) - Axios",
+            "title_ko": "Nvidia 스캔들, 401(k) 수천 달러 하락시킨 방법",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5TcWtMLWwzT2tqM2hJUjhrdnZUY2RZOWV2dWFYcURGSFJqRlVMaVBFSDdxVDV4NzFtbUc0M2NpRWN1QUlLZmdiNGhhWkZWTVlxYl9ocjZ2NVpxMTNtdnZNdFF1NVo4V3NISGNhMDJYOUo1V0twaG5QNWxqZw?oc=5",
+            "published_at": "2026-11-15 21:31:43 KST"
           }
         ]
       }
@@ -85,120 +101,87 @@
     "top3_stocks": [
       {
         "name": "Nvidia",
-        "reason": "AI 칩 수요와 빅테크 기업들의 실적 발표 모멘텀이 주가에 반영되고 있습니다 (총 13건).",
+        "reason": "AI 칩 수요 증가와 관련 기술 발전으로 인한 지속적인 관심이 주목받고 있습니다 (총 18건).",
         "us_news_refs": [
           1,
-          3,
-          16,
-          20,
-          27,
+          2,
+          4,
+          5,
+          9,
+          10,
+          13,
           30,
-          35,
           36,
           37,
-          39,
-          41,
+          38,
+          40,
+          43,
+          46,
+          47,
+          50,
+          57,
+          90
+        ],
+        "related_news": [
+          {
+            "title": "Duffy blames Congress, prior administrations for air travel halt, chaos - The Washington Post",
+            "title_ko": "Duffy, 의회와 이전 행정부가 항공 여행 중단, 혼란 초래 비난",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQVlQzU3hQUWZCUmRhaEFhLWJqU29tT2Z0c3lwV1RQckNNVVkxV0gxdW0wOER1Vmp6UklNb09rQUcxT2d2ZDNhT0RjTERxaTFXTHEtZGJodk5oY3NyVTFDRE1QdXZkckFoMV9rTGFubjRGODhUS2VUaDBMcV9GbmFNU3Y1VUlWZEJ0WS0zaVVxcWEwc0Q0TVNOMHpKM1FrbDFPYzFTN2gtU1V0V2dBNndTTnhQZXA4WXJEQkxoSjYwanNPUQ?oc=5",
+            "published_at": "2026-11-16 06:59:42 KST"
+          },
+          {
+            "title": "Jensen Huang Is Already Considering Returning To Nvidia, Report Says - Forbes",
+            "title_ko": "Jensen Huang, Nvidia 복귀 고려 중 - Forbes 보도",
+            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOa3E3cUNQYmpNNDRkbXlac1dOeC1qWWF3cjdUcnRPLWtONW5QM3FUVk1PVXBuamhCQzdZOHdMYUdxMHd0LTNkTFF3UVV2VzFFenAzaGtEYnFsY3BuOVU4VVp6YmRpSExBUm9PSjhaXzVzWE1mbmx2R2pKa2tGM2V0bDRrMlNJMEZqLWVGYXVvUlY1ek9lQm9UOFRBeUdrNkU4UVhuVlBTSlFJcWFtVzMwQ1VNM2RsaDlwcm10Vg?oc=5",
+            "published_at": "2026-11-16 06:24:56 KST"
+          },
+          {
+            "title": "Megaspeed Says Alice Huang Left Company in August 2025 - The New York Times",
+            "title_ko": "Megaspeed, Alice Huang 2025년 8월 퇴사 발표",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVTFteWE3T01VQ29ObzFtdi1VSlExVDZmWVAwWGM3YkdtZHliQXNEa0hQMjhkYTlKRDJqSnhEbU5VeEFKNnRQaWZ6bF9OZGpKdUs5OEFRTWQ4eHpySlJuZlJOY3NsaVdLUnJULXJrcVJWUHlpWkY2N01XTnZxOGhoN01BMXdyT2lwVjJn?oc=5",
+            "published_at": "2026-11-16 05:11:11 KST"
+          },
+          {
+            "title": "Could everything be broken? Grounded jets, Microsoft outage, AI chaos make some wonder - AP News",
+            "title_ko": "모든 것이 망가졌나? 항공기 결항, Microsoft 장애, AI 혼란에 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbUFCdzU3WWxqWDJyOThxR0pfSENwbHdjWE50LVZfX0xSUUZFZnpTemtWN2RRckNlOW56TnZwT2pmUHpPYnU0cGtiaUJ4aFpzLXZ4OHN0a3UxVEpNenFlc0VETFE2UDJkdy1Ld0ZSU2V2MHJxNE9WN3VFMjA2U1lLRThOdE5kSWk2UVdpektzb00yV3ZjUjhOeWpiNA?oc=5",
+            "published_at": "2026-11-16 04:10:00 KST"
+          },
+          {
+            "title": "Bessent questions did Nvidia \"goose\" earnings with suspect China chip sales - Axios",
+            "title_ko": "Bessent, Nvidia가 의심스러운 중국 칩 판매로 실적 '부풀렸나' 의문 제기",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPT1Rud2hiNnZiMFQ2RlJYZUxjdkg3UElselZNd0d5Mk5EYVpfazI3NlMxRk1jbEFES1RhcE1QRXpXeThnVTRNcHQ0TURMdjF4RkpHNGpPQ3o0OFhoREpZV3NGaDg3cE9id3J4U3FOcDVLeVI0N1RNbEZ3aDA1WU9ZRG5ZUQ?oc=5",
+            "published_at": "2026-11-16 02:49:09 KST"
+          }
+        ]
+      },
+      {
+        "name": "Amazon",
+        "reason": "AI 및 클라우드 서비스 관련 성장과 빅테크 기업으로서의 시장 영향력이 주목받고 있습니다 (총 3건).",
+        "us_news_refs": [
+          3,
           45,
-          48,
-          49
-        ],
-        "related_news": [
-          {
-            "title": "Consumer Alert: Urgent Park Outside Recall Issued for Nearly 721K BMW Vehicles - NHTSA | National Highway Traffic Safety Administration (.gov)",
-            "title_ko": "BMW 차량 약 72.1만 대 리콜 경고",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9HcWM2OUppWHA1TFJOVm1WTTNZVm9wNUpEdnNrSDR0TVdEY21HTlVRczNZaVdaUnVST1kzbTctQURMZk1ZZkgwZUFEdmlqeGZ1SGlHRzdkVGlIazZtVWhUM1llbXFBV0MyZl9WaGpfekNBWFcxQkE4?oc=5",
-            "published_at": "2026-11-15 19:01:29 KST"
-          },
-          {
-            "title": "Data centre construction stocks lose $4.2tn as boom in AI trade unravels - Financial Times",
-            "title_ko": "AI 무역 붐 해소, 데이터센터 건설주 4.2조 달러 하락",
-            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOczFJMEhqM3AwdHNCUF9ZU3QyNkUtbWtuLVF5dUxHSkpuR0Y2VWx6WXNxQUJ1Vm5iTDN6V0c0YUR4QUpXZl9ubklZVHlDbGlDREVoM3N1a1pMNWlZdmpfTDNWZG5RSXVuU2o3M3Z5Yld2VEtpSDE0NjZ6Y1NZekd1NUxLUGw?oc=5",
-            "published_at": "2026-11-15 17:08:13 KST"
-          },
-          {
-            "title": "A timeline of Trump administration's response to FAA ground stop - CBS News",
-            "title_ko": "트럼프 행정부 FAA 지상 통제 대응 타임라인",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE00ZGwtdldoc3hySUwwbUZMbXlHSFRmYS1lU3IwZ3htek4zMmZVd21ESmszZnQ3RDU3clJUS0xCNEh4d0ZQNURUUElaUnQxMXZEcVZYT21IMEd6RTBEdE9fQnhnYnBqTFNsa2llQzE3b0tWXzRX?oc=5",
-            "published_at": "2026-11-15 12:16:17 KST"
-          },
-          {
-            "title": "How Jensen Huang Built the Backdoor Route That Keeps Beijing in the AI Race - WSJ",
-            "title_ko": "젠슨 황, 베이징 AI 경쟁력 유지 비결은?",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5WRVRId0ZUcVRGRlNaOFhjRE5vUUVQWnZ6OElxc0llcUVsaXAxbDFxdXJocTh6UTc2OGN6VnZuN2sxMnZROVhnaU1aTWVVUlZLbU1KRzFYT2ljczNYTV9FTVQxWnFrS2xNdDdZQ2FHejNDUjh2d29PbHRROA?oc=5",
-            "published_at": "2026-11-15 11:00:00 KST"
-          },
-          {
-            "title": "Elon Musk, other tech execs sign petition calling on Nvidia to reinstate Jensen Huang - Yahoo Finance",
-            "title_ko": "Elon Musk 등 기술 임원, 젠슨 황 복귀 촉구 Nvidia 청원 서명",
-            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQNHZ3T21XRUxwQWdPcURMSUlDZFdycUdxWFJMdXo0anNPRS14VURoWFhHRkl4VHlZZ19QV2NsUEg4Z3RNUmlqWm40RUxwMDQ3MU1oZHUyaGcxc2tQRHM3VjdYS2NvT3Z1djFrV194SE1hT3lZV01PZmF0aUlkMlRmNklWcWlkelJWMHM3NGo4S1E?oc=5",
-            "published_at": "2026-11-15 06:41:22 KST"
-          }
-        ]
-      },
-      {
-        "name": "Datadog",
-        "reason": "데이터 분석 및 클라우드 모니터링 솔루션 기업에 대한 관심이 나타났습니다 (총 4건).",
-        "us_news_refs": [
-          7,
-          8,
-          9,
-          12
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "European stocks face 10% underperformance risk as rally loses momentum",
-            "title_ko": "유럽 증시, 랠리 모멘텀 상실로 10% 언더퍼폼 위험",
-            "url": "https://www.investing.com/news/stock-market-news/european-stocks-face-10-underperformance-risk-as-rally-loses-momentum-5027803",
-            "published_at": "2026-11-15 19:16:22 KST"
-          },
-          {
-            "title": "Datadog CFO David Obstler sells $9.1M in shares",
-            "title_ko": "Datadog CFO David Obstler, 910만 달러 주식 매도",
-            "url": "https://www.investing.com/news/insider-trading-news/datadog-cfo-david-obstler-sells-91m-in-shares-93CH-5027797",
-            "published_at": "2026-11-15 19:01:10 KST"
-          },
-          {
-            "title": "Datadog CFO David Obstler sells $5.46M in stock",
-            "title_ko": "Datadog CFO David Obstler, 546만 달러 주식 매도",
-            "url": "https://www.investing.com/news/insider-trading-news/datadog-cfo-david-obstler-sells-546m-in-stock-93CH-5027796",
-            "published_at": "2026-11-15 19:01:05 KST"
-          },
-          {
-            "title": "Datadog general counsel Kerry Acocella sells $1,208,327 in stock",
-            "title_ko": "Datadog 법률 고문 Kerry Acocella, 1,208,327달러 주식 매도",
-            "url": "https://www.investing.com/news/insider-trading-news/datadog-general-counsel-kerry-acocella-sells-1208327-in-stock-93CH-5027787",
-            "published_at": "2026-11-15 18:46:05 KST"
-          }
-        ]
-      },
-      {
-        "name": "Anthropic",
-        "reason": "AI 분야의 경쟁 심화와 함께 관련 스타트업에 대한 뉴스가 언급되었습니다 (총 3건).",
-        "us_news_refs": [
-          23,
-          35,
           46
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "New AI Millionaires Want Wealth Advisers Who Can Help Give Their Money Away - WSJ",
-            "title_ko": "새로운 AI 억만장자들, 부의 분배 도울 자산 관리사 원해",
-            "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOYnlHMF9IdTZ4bEdCZnluYWxUWm9oUU11WDBfREtHem00aXlrZUc3LUhsdjBNdWlBdngwRUtGUEFFVjJkQ19fYjIyNUdTZ3ZzWFNQQUdRRjdtSU1NQWxuMHBUTFhyS1o3ajJzTUpIN0FnQnJNa3dWMUZ5YTRtdVMyOWJpbzUxMHBEMTNVNUY3dHNnZVRXVXNEd0pkTDNmd01HbHJUemtIZkZ5VVBHUjJvRFh4TXh4MFVqcnJ0TVVYSQ?oc=5",
-            "published_at": "2026-11-15 10:02:42 KST"
+            "title": "Rocket from Boeing-Lockheed firm fails mid-flight, destroys payload of Amazon satellites - Reuters",
+            "title_ko": "Boeing-Lockheed 합작사 로켓, 중간 비행 실패, Amazon 위성 탑재물 파괴",
+            "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRENJR2FvRjB1WmJfWk56alNqNHBwRHExSk0tdU91LV9wSUMzVm9PZEtRdHc0Y1JaMW44OVBJc3puTENpMXNBY3VmSVNjSTZIazlYRGh4aUxVaW9GdXNBamZla29sRzJnajdMdU1yQU9xekdPcUwyRXdaRzF4TXhiZXV6RDZIN21yVS15bGpNVUJFZUpnWU1ZTFJqbm94OXhjamR3SXFRV3F0YWZWSnA5ei1Gd2o4UW1PSnlrTnFtMENUb2V1VjVDc09XSFJNN0JaWXc?oc=5",
+            "published_at": "2026-11-16 05:47:02 KST"
           },
           {
-            "title": "Anthropic IPO to test Wall Street’s faith in AI as skepticism mounts - Yahoo Finance",
-            "title_ko": "Anthropic IPO, AI 신뢰도 시험대",
-            "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQcHZ4cmtrWmFOWXB6M0oyLWFDX2dJMEdOV3ZVelNIUUxpZDF4ZkdJaU5EZ2t6bUduUk9MaFJleEdsOHAzY3V6bWRzNmpxaTJFVGxYQVFic1BBU2VsUU01TjQ3S2dHNWlhZVhZczVzNi1aNTFLV3FnYmx0SVNsNjh1RC1FX21LZ0V0R0ktaDRLWTJjSWl6MHU1bUlrN3UxN0dXMklxNmV6T0VCalBZWm1aYUZYY05LdXJaWGtpM1c3UUFQb1Q5Q1M0Wk5YWQ?oc=5",
-            "published_at": "2026-11-15 03:56:19 KST"
+            "title": "We found 45 early Black Friday deals: $250 off MacBooks, live Lego discounts, and Kindles on sale - Mashable",
+            "title_ko": "얼리 블랙 프라이데이 딜 45개 발견: 맥북 250달러 할인, 레고 할인, 킨들 세일",
+            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBHQjRSSFBudjhuMTZNWFhPQkhnbnpuS1hHVllicGJhRU9JdmJGV3k5U2VMZXNjYnpDYU9UTllucmNWSjJuRElRRVFYemwtZ1hwdzFpLXphanpYQVdHSmdDWFhPaGxxVUtRaUtXWVA4MGlnZlE?oc=5",
+            "published_at": "2026-11-15 19:00:00 KST"
           },
           {
-            "title": "Meet the seven co-founders of Anthropic - CNBC",
-            "title_ko": "Anthropic 7명의 공동 창립자 소개",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQUmx5a0M0RE5jMXUzRE16VFRaY2xZMjBoQ19hRGhaSkEtNzRKaGk1eWFidXhhTmY5S1d2U0lMbHJNZUxsb3V1eHlOTXhKalp1OFgyQmNmMU5FLU5Cd044QnNhdEpUekxQa05jeEwybWtwVXZEQTJrbzZNZk80cGNJRUJ30gGHAUFVX3lxTE1ubHplaC1vS3hRNFpxQTZYcGhKQjBXMlJoNHFqbkhxRmlVZ2hoQW9rSXVMdTBRU19EZUpRdHFrS241ekdFYVhZS0txeU9wYmhZemVkOVhrU01EbU9QMnJkc1dqNDZMSFExRWJobnhTU2xQUG5aa29EeUp6RG1TaDlWTHc4a1NMdw?oc=5",
-            "published_at": "2026-11-14 21:00:01 KST"
+            "title": "How Jensen Huang Built the Backdoor Route That Keeps Beijing in the AI Race - WSJ",
+            "title_ko": "Jensen Huang, 베이징의 AI 경쟁 유지하는 백도어 경로 구축 방법",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5WRVRId0ZUcVRGRlNaOFhjRE5vUUVQWnZ6OElxc0llcUVsaXAxbDFxdXJocTh6UTc2OGN6VnZuN2sxMnZROVhnaU1aTWVVUlZLbU1KRzFYT2ljczNYTV9FTVQxWnFrS2xNdDdZQ2FHejNDUjh2d29PbHRROA?oc=5",
+            "published_at": "2026-11-15 18:48:00 KST"
           }
         ]
       }
@@ -215,244 +198,36 @@
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 기술 발전 및 관련 산업에 대한 뉴스가 가장 많이 보도되었습니다 (총 19건).",
+        "reason": "AI 기술 발전과 국내 기업들의 관련 사업 추진이 주목받고 있습니다 (총 3건).",
         "kr_news_refs": [
           2,
-          4,
-          9,
-          10,
-          11,
-          12,
-          13,
-          21,
-          36,
-          46,
-          56,
-          65,
-          68,
-          74,
-          86,
-          87,
-          88,
-          89,
-          94
-        ],
-        "related_news": [
-          {
-            "title": "박현주 미래에셋 회장도 젠슨황 복귀 청원 동참…\"AI 생태계·투자자 우선\" - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5NS3VhaERTc0hPaC01cVBZUHlubjY0Q0JGSmMwVVZuLVI5ZUVsSl9OZzR3bXpxX3J2c3hpNkstRTR6NUtlaVRLNDlRbUFoMDBvbGVzM18yRFQwQUtOdS1DS0tDYWJOa2t5UURVQkloMmQ?oc=5",
-            "published_at": "2026-11-15 18:31:05 KST"
-          },
-          {
-            "title": "'역대급 IT대란'에도 보험금은 '찔끔'…피해 기업들 '보상 사각지대' - 마켓인",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE15V1h3ZzZudHRDd3FuYzQtQzZpanFIZDZ0VEdRTHpNRTVCN1VaZFlWNjMwZmotSUtZWjRpM25FSEprUjZJWUpxZm5fUVY1QkJVVHVLMUFqcGdJSmpVLUJPazFFbWhEVzN5Z3JKSHBpSXd1MGs?oc=5",
-            "published_at": "2026-11-15 18:03:07 KST"
-          },
-          {
-            "title": "이번주 코스피 ‘젠슨황 쇼크’ 벗어날까···앤트로픽 상장까지 ‘AI 신뢰’ 시험대 - 경향신문",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1wYkw0UXFiS1BWaUJVTGYzTFVqQld3eDVYZG1Ia1l3dW8yeC1yMzYzS2pDQ2NqZVJyUGR0Q3hpSFUxU3JtQTZvLThmVHZXTXN5OHozb2VNT2tqUdIBX0FVX3lxTE45alVROW9ESDFpcHp0Y2hsdU9CeEs2bGpjTUo2N1RhVHpVeWNyaWg1WVBydXRhM0pqcWlkVEpTOVdYXy1rNUVTekVmUmtmRVRpam5EMjNqS0pmbFYtZVJV?oc=5",
-            "published_at": "2026-11-15 15:27:00 KST"
-          },
-          {
-            "title": "오픈AI 재단 이사 \"AI 사고, 현대인 주요 사망원인 될 것\" - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9qaklJZWVOWURHZ3B6YmRKRjNBVFJhUVhLb3BSZTFiUkxRSDJTcU9US0ppUWxFTlpSTFMwdEF4aFlJUUhQSWoxQVJyUkRZT1FBRnFFbE95SDdqWW1HQ1FVcWt6eUFWblhJcXBadVltRVZsRG9s0gF0QVVfeXFMTVVyR1ZFZlk3cDVZQnVLcHR2cDAzVVJ4cjBLWmdSVmZpVDRiWlFDUG9PSDQ4ZG5KRm5GOGw3RWhybWxtdVRNREd1S3BvMWJSa0lnTk1sN1B2d2RUUkRTWGZ1WXMwMXdkUXA1LWFKN1VfN0I5Ukk?oc=5",
-            "published_at": "2026-11-15 15:20:55 KST"
-          },
-          {
-            "title": "안보실 \"전체 IT 자산관리 상황 점검\"‥사이버안보 공동 대응 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1vQkN4cW9xWU1qQUx5V2RSQUNkd25jc2FYNmhSQmkwMndVNmg5NVRkMzZucWROcXZnbTdOWGZESFRoWlIwYlQ0dVRZWFFCbVpYandfOG5KWGFoZzM1b21IU0lFMEszalpkQ1lpaURvZ3pmMmdJcmhNVNIBeEFVX3lxTE5jblVNNkZqQU9ubXdLVW5Mb25xUTFlVTdQU0FITTNfODk2QU5KTUlRZ1FNSjZiNWJNdUowZEQ0YnM3RzRDTmtOaDQ1TnlkNFdyQ0dSU3FraDhxWFFybVlfTGZIV2Jpd2ZYUWQ0V0lBNF9UaWNyUmc1Ng?oc=5",
-            "published_at": "2026-11-15 15:17:14 KST"
-          }
-        ]
-      },
-      {
-        "name": "Aviation",
-        "reason": "항공 산업 및 관련 기업들의 동향에 대한 뉴스가 꾸준히 언급되었습니다 (총 4건).",
-        "kr_news_refs": [
-          1,
-          4,
-          33,
-          84
+          18,
+          53
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "미국 항공대란 여파 6500여편 결항…“15일 완전 정상화 예상” - KBS 뉴스",
+            "title": "[인터뷰] “젠슨 황 퇴진, 미·중 AI 발전 모두 늦출 수도” - 한겨레",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE4yMjFuTzRYbW03aHRKVDhDcHlRWjM5Q3Q2eDFoUi1Hd05tUjlSN1ZTejUwQWdMR1hNN2VNTHAwSmstcUFNcGRWV0ZFQmU3N2dXYVNoUUpMTUR4LV9PSkw1OFdYUk1LQQ?oc=5",
-            "published_at": "2026-11-15 19:04:00 KST"
+            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBuSVA2SGhZNUF2WEJxazdDSHlOOEhlY2ZacHB5Y1Y2blh0YlYyX1lIdGNNSTY2UUpIWXlhaUI1cW1QVjhraWZ3a0hqRzF2TzZrMWxFUXdmaS1wMGc0cjdFSWVmcHhpU09ibVhYcS1EUQ?oc=5",
+            "published_at": "2026-11-16 05:00:00 KST"
           },
           {
-            "title": "'역대급 IT대란'에도 보험금은 '찔끔'…피해 기업들 '보상 사각지대' - 마켓인",
+            "title": "AI로 친구 놀리는 노래 만들고 옷찢은 중학생…\"학폭 처분 정당\"",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE15V1h3ZzZudHRDd3FuYzQtQzZpanFIZDZ0VEdRTHpNRTVCN1VaZFlWNjMwZmotSUtZWjRpM25FSEprUjZJWUpxZm5fUVY1QkJVVHVLMUFqcGdJSmpVLUJPazFFbWhEVzN5Z3JKSHBpSXd1MGs?oc=5",
-            "published_at": "2026-11-15 18:03:07 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261113070900051",
+            "published_at": "2026-11-16 07:01:02 KST"
           },
           {
-            "title": "테러도 해킹도 아닌데 9·11수준 재앙…미국 항공편 셧다운 대체 왜",
+            "title": "회의 시작했는데 폰 열고 앱 켜고…버튼 누르면 끝나는 AI회의록 뜬다",
             "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12209478",
-            "published_at": "2026-11-15 18:51:30 KST"
-          },
-          {
-            "title": "9·11 이후 최악 … 美전역 하늘길이 묶였다",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12209397",
-            "published_at": "2026-11-15 17:36:03 KST"
-          }
-        ]
-      },
-      {
-        "name": "방산",
-        "reason": "방위 산업 관련 기업들의 수주 및 사업 확장 소식이 주목받았습니다 (총 3건).",
-        "kr_news_refs": [
-          13,
-          25,
-          96
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "HD현대·안두릴, 첫 한·미 합작 무인수상함 건조 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5OdVI3V3ZIYV9ONUZuNUc5N2hnNmF1TWQyMWNmSkpqQTAxZWdaWlJyMVlFZEdBT08wdGZTOUlMbUV4Y1V1dTJDQVlaSllEc2V2VVdFeFVmSHVoWDNTUGZDZzN3aUh0VVRxeHBtSWVBck8?oc=5",
-            "published_at": "2026-11-15 14:48:54 KST"
-          },
-          {
-            "title": "승조원 '0명'… HD현대, 600t급 자율수상함 띄웠다",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/economy/12209481",
-            "published_at": "2026-11-15 19:04:49 KST"
-          },
-          {
-            "title": "승조원 '0명'… HD현대, 600t급 자율수상함 띄웠다",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/business/12209381",
-            "published_at": "2026-11-15 17:33:35 KST"
+            "url": "https://www.mk.co.kr/news/it/12209547",
+            "published_at": "2026-11-16 06:05:37 KST"
           }
         ]
       }
     ],
-    "top3_stocks": [
-      {
-        "name": "Anthropic",
-        "reason": "AI 분야의 경쟁 심화와 함께 관련 스타트업에 대한 뉴스가 언급되었습니다 (총 3건).",
-        "kr_news_refs": [
-          9,
-          35,
-          46
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "이번주 코스피 ‘젠슨황 쇼크’ 벗어날까···앤트로픽 상장까지 ‘AI 신뢰’ 시험대 - 경향신문",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1wYkw0UXFiS1BWaUJVTGYzTFVqQld3eDVYZG1Ia1l3dW8yeC1yMzYzS2pDQ2NqZVJyUGR0Q3hpSFUxU3JtQTZvLThmVHZXTXN5OHozb2VNT2tqUdIBX0FVX3lxTE45alVROW9ESDFpcHp0Y2hsdU9CeEs2bGpjTUo2N1RhVHpVeWNyaWg1WVBydXRhM0pqcWlkVEpTOVdYXy1rNUVTekVmUmtmRVRpam5EMjNqS0pmbFYtZVJV?oc=5",
-            "published_at": "2026-11-15 15:27:00 KST"
-          },
-          {
-            "title": "[프로농구 부산전적] KCC 80-77 한국가스공사",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261115046200007",
-            "published_at": "2026-11-15 18:43:22 KST"
-          },
-          {
-            "title": "“회식 2차 안가면 어때”라는 소주 회장님…알고보니 러닝계 핵인싸",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/business/12209453",
-            "published_at": "2026-11-15 18:03:47 KST"
-          }
-        ]
-      },
-      {
-        "name": "HD Hyundai",
-        "reason": "HD 현대 그룹의 조선 및 건설기계 사업 부문에 대한 뉴스가 보도되었습니다 (총 3건).",
-        "kr_news_refs": [
-          13,
-          25,
-          96
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "HD현대·안두릴, 첫 한·미 합작 무인수상함 건조 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5OdVI3V3ZIYV9ONUZuNUc5N2hnNmF1TWQyMWNmSkpqQTAxZWdaWlJyMVlFZEdBT08wdGZTOUlMbUV4Y1V1dTJDQVlaSllEc2V2VVdFeFVmSHVoWDNTUGZDZzN3aUh0VVRxeHBtSWVBck8?oc=5",
-            "published_at": "2026-11-15 14:48:54 KST"
-          },
-          {
-            "title": "승조원 '0명'… HD현대, 600t급 자율수상함 띄웠다",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/economy/12209481",
-            "published_at": "2026-11-15 19:04:49 KST"
-          },
-          {
-            "title": "승조원 '0명'… HD현대, 600t급 자율수상함 띄웠다",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/business/12209381",
-            "published_at": "2026-11-15 17:33:35 KST"
-          }
-        ]
-      },
-      {
-        "name": "Nvidia",
-        "reason": "AI 칩 수요와 관련 기술 발전으로 인해 지속적인 관심을 받고 있습니다 (총 2건).",
-        "kr_news_refs": [
-          1,
-          2,
-          9,
-          14,
-          20,
-          36,
-          48,
-          53,
-          56,
-          65,
-          68,
-          74,
-          86,
-          87,
-          89
-        ],
-        "related_news": [
-          {
-            "title": "미국 항공대란 여파 6500여편 결항…“15일 완전 정상화 예상” - KBS 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE4yMjFuTzRYbW03aHRKVDhDcHlRWjM5Q3Q2eDFoUi1Hd05tUjlSN1ZTejUwQWdMR1hNN2VNTHAwSmstcUFNcGRWV0ZFQmU3N2dXYVNoUUpMTUR4LV9PSkw1OFdYUk1LQQ?oc=5",
-            "published_at": "2026-11-15 19:04:00 KST"
-          },
-          {
-            "title": "박현주 미래에셋 회장도 젠슨황 복귀 청원 동참…\"AI 생태계·투자자 우선\" - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5NS3VhaERTc0hPaC01cVBZUHlubjY0Q0JGSmMwVVZuLVI5ZUVsSl9OZzR3bXpxX3J2c3hpNkstRTR6NUtlaVRLNDlRbUFoMDBvbGVzM18yRFQwQUtOdS1DS0tDYWJOa2t5UURVQkloMmQ?oc=5",
-            "published_at": "2026-11-15 18:31:05 KST"
-          },
-          {
-            "title": "이번주 코스피 ‘젠슨황 쇼크’ 벗어날까···앤트로픽 상장까지 ‘AI 신뢰’ 시험대 - 경향신문",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1wYkw0UXFiS1BWaUJVTGYzTFVqQld3eDVYZG1Ia1l3dW8yeC1yMzYzS2pDQ2NqZVJyUGR0Q3hpSFUxU3JtQTZvLThmVHZXTXN5OHozb2VNT2tqUdIBX0FVX3lxTE45alVROW9ESDFpcHp0Y2hsdU9CeEs2bGpjTUo2N1RhVHpVeWNyaWg1WVBydXRhM0pqcWlkVEpTOVdYXy1rNUVTekVmUmtmRVRpam5EMjNqS0pmbFYtZVJV?oc=5",
-            "published_at": "2026-11-15 15:27:00 KST"
-          },
-          {
-            "title": "젠슨황 명판 떼버린 식당…엔비디아 내부선 '갑질·독설' 폭로(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261115050200009",
-            "published_at": "2026-11-15 19:56:52 KST"
-          },
-          {
-            "title": "허훈의 막판 3점 플레이…프로농구 KCC, 가스공사 꺾고 5연승(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261115037351007",
-            "published_at": "2026-11-15 19:20:40 KST"
-          }
-        ]
-      }
-    ],
+    "top3_stocks": [],
     "outlook": {
       "sectors": [],
       "stocks": []
@@ -466,18 +241,18 @@
       {
         "name": "AI",
         "freq": 2,
-        "summary": "AI가 일자리를 파괴한다는 내용이 언급되었습니다. 또한, 엔비디아의 주가 하락과 관련하여 AI 산업의 성장세에 대한 논의가 있었습니다.",
+        "summary": "AI가 금융 시장에 미치는 영향과 AI 부정행위 사례가 언급되었습니다. 또한 AI가 일자리를 파괴할 수 있다는 내용도 포함되었습니다.",
         "refs": [
-          3,
-          8
+          2,
+          7
         ],
-        "reason": "AI가 일자리를 파괴한다는 내용이 언급되었습니다. 또한, 엔비디아의 주가 하락과 관련하여 AI 산업의 성장세에 대한 논의가 있었습니다.",
+        "reason": "AI가 금융 시장에 미치는 영향과 AI 부정행위 사례가 언급되었습니다. 또한 AI가 일자리를 파괴할 수 있다는 내용도 포함되었습니다.",
         "related_videos": [
           {
-            "title": "엔비디아 -33% 폭락, 기회일까 vs 후폭풍올까/2018 연말 급락 데자뷰? 불길한 신호일까/앤트로픽 IPO 대흥행 예정? FOMO 조심할 이유",
-            "url": "https://www.youtube.com/watch?v=asqrvwuWB7o",
-            "channel_name": "소수몽키",
-            "published_at": "2026-11-15 17:10:55 KST"
+            "title": "670조 AI 금융 흔들…젠슨 황 복귀 청원 확산 | 세무사 수석의 AI 부정행위…농락당한 전문직 시험 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=nRr8HYVQvMY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 05:23:51 KST"
           },
           {
             "title": "수많은 취준생을 울린 '꿈꾸던 어른이 되었나요?'",
@@ -488,14 +263,38 @@
         ]
       },
       {
-        "name": "헬스케어",
+        "name": "금융",
         "freq": 2,
-        "summary": "건강검진의 위험성과 암 예방에 대한 내용이 다루어졌습니다. 또한, 일본의 미용 의료 관련 개혁 및 세금 부과 논의가 있었습니다.",
+        "summary": "AI가 금융 시장에 미치는 영향과 금융 관련 세무사 시험 부정행위 사례가 언급되었습니다.",
         "refs": [
-          1,
-          9
+          2,
+          10
         ],
-        "reason": "건강검진의 위험성과 암 예방에 대한 내용이 다루어졌습니다. 또한, 일본의 미용 의료 관련 개혁 및 세금 부과 논의가 있었습니다.",
+        "reason": "AI가 금융 시장에 미치는 영향과 금융 관련 세무사 시험 부정행위 사례가 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "670조 AI 금융 흔들…젠슨 황 복귀 청원 확산 | 세무사 수석의 AI 부정행위…농락당한 전문직 시험 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=nRr8HYVQvMY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 05:23:51 KST"
+          },
+          {
+            "title": "20년 전 부시 행정부와 똑같다? 초강경 모드 진입한 트럼프, 분위기 바꿀까",
+            "url": "https://www.youtube.com/watch?v=gNm_uU33nOk",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-11 22:00:36 KST"
+          }
+        ]
+      },
+      {
+        "name": "의료",
+        "freq": 2,
+        "summary": "건강검진의 위험성과 일본의 미용 의료 관련 개혁 및 세금 부과 고려 내용이 언급되었습니다.",
+        "refs": [
+          3,
+          8
+        ],
+        "reason": "건강검진의 위험성과 일본의 미용 의료 관련 개혁 및 세금 부과 고려 내용이 언급되었습니다.",
         "related_videos": [
           {
             "title": "죽음을 부르는 건강검진 1위, '이 검사는' 죽어도 받지마세요 (강형창 원장)",
@@ -510,66 +309,30 @@
             "published_at": "2026-11-13 21:37:36 KST"
           }
         ]
-      },
-      {
-        "name": "지정학적 리스크",
-        "freq": 2,
-        "summary": "일본의 지진 위험과 관련된 내용이 언급되었습니다. 또한, 가자지구 전쟁의 현실과 관련된 내용이 다루어졌습니다.",
-        "refs": [
-          2,
-          6
-        ],
-        "reason": "일본의 지진 위험과 관련된 내용이 언급되었습니다. 또한, 가자지구 전쟁의 현실과 관련된 내용이 다루어졌습니다.",
-        "related_videos": [
-          {
-            "title": "폭발 직전의 일본 지진 심상치않다, 대지진 카운트다운 이미 시작됐다 (김기범 교수 풀버전)",
-            "url": "https://www.youtube.com/watch?v=EGCHJsiyfpo",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-15 18:30:06 KST"
-          },
-          {
-            "title": "\"전쟁 끝나지 않았다\" 가자지구 현장 기자들이 직접 밝힌 충격적인 현실 | 모하메드 알바바 AFP 기자·파티마 압둘카림 독립 저널리스트 [신과대화]",
-            "url": "https://www.youtube.com/watch?v=bHeSYnGiA-U",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-15 11:00:17 KST"
-          }
-        ]
       }
     ],
     "top3_stocks": [
       {
         "name": "Nvidia",
-        "freq": 1,
-        "summary": "엔비디아의 주가 33% 폭락 가능성과 2018년 연말 급락과의 비교, 그리고 앤트로픽 IPO 예정에 대한 내용이 언급되었습니다.",
+        "freq": 2,
+        "summary": "엔비디아의 주가 하락과 젠슨 황 복귀 청원 확산에 대한 내용이 언급되었습니다.",
         "refs": [
-          3
+          1,
+          2
         ],
-        "reason": "엔비디아의 주가 33% 폭락 가능성과 2018년 연말 급락과의 비교, 그리고 앤트로픽 IPO 예정에 대한 내용이 언급되었습니다.",
-        "_weak_signal": true,
+        "reason": "엔비디아의 주가 하락과 젠슨 황 복귀 청원 확산에 대한 내용이 언급되었습니다.",
         "related_videos": [
           {
-            "title": "엔비디아 -33% 폭락, 기회일까 vs 후폭풍올까/2018 연말 급락 데자뷰? 불길한 신호일까/앤트로픽 IPO 대흥행 예정? FOMO 조심할 이유",
-            "url": "https://www.youtube.com/watch?v=asqrvwuWB7o",
-            "channel_name": "소수몽키",
-            "published_at": "2026-11-15 17:10:55 KST"
-          }
-        ]
-      },
-      {
-        "name": "앤트로픽",
-        "freq": 1,
-        "summary": "앤트로픽의 IPO 대흥행 예정 가능성과 FOMO(Fear Of Missing Out)에 대한 주의가 언급되었습니다.",
-        "refs": [
-          3
-        ],
-        "reason": "앤트로픽의 IPO 대흥행 예정 가능성과 FOMO(Fear Of Missing Out)에 대한 주의가 언급되었습니다.",
-        "_weak_signal": true,
-        "related_videos": [
+            "title": "엔비디아, 2025년 4월 이후 최악의 1주일...나스닥·비트코인 등 위험 자산 급락 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=mLfghqfrG1g",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 07:04:36 KST"
+          },
           {
-            "title": "엔비디아 -33% 폭락, 기회일까 vs 후폭풍올까/2018 연말 급락 데자뷰? 불길한 신호일까/앤트로픽 IPO 대흥행 예정? FOMO 조심할 이유",
-            "url": "https://www.youtube.com/watch?v=asqrvwuWB7o",
-            "channel_name": "소수몽키",
-            "published_at": "2026-11-15 17:10:55 KST"
+            "title": "670조 AI 금융 흔들…젠슨 황 복귀 청원 확산 | 세무사 수석의 AI 부정행위…농락당한 전문직 시험 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=nRr8HYVQvMY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-16 05:23:51 KST"
           }
         ]
       }
@@ -581,180 +344,124 @@
       "stocks": [
         {
           "name": "Nvidia",
-          "freq": 3
+          "freq": 5
         },
         {
           "name": "Anthropic",
           "freq": 2
         },
         {
-          "name": "Datadog",
+          "name": "Diamondback",
+          "freq": 4
+        },
+        {
+          "name": "Amazon",
           "freq": 3
         },
         {
-          "name": "Megaspeed",
-          "freq": 2
+          "name": "Microsoft",
+          "freq": 1
         },
         {
           "name": "SpaceX",
           "freq": 1
         },
         {
-          "name": "Tesla",
+          "name": "Datadog",
           "freq": 2
         },
         {
-          "name": "Apple",
+          "name": "Cooper Companies",
           "freq": 2
         },
         {
-          "name": "BMW",
+          "name": "Boeing",
           "freq": 1
         },
         {
-          "name": "EquipmentShare",
+          "name": "Lockheed",
           "freq": 1
         },
         {
-          "name": "Five Below",
+          "name": "Evergy",
           "freq": 1
         },
         {
-          "name": "Aaon",
+          "name": "Dell Technologies",
           "freq": 1
         },
         {
-          "name": "L3 Harris",
+          "name": "West Pharma",
           "freq": 1
         },
         {
-          "name": "Meta",
+          "name": "Rivian",
           "freq": 1
         },
         {
-          "name": "Bitcoin",
-          "freq": 1
-        },
-        {
-          "name": "H-E-B",
-          "freq": 1
-        },
-        {
-          "name": "Family Dollar",
-          "freq": 1
-        },
-        {
-          "name": "Costco",
-          "freq": 1
-        },
-        {
-          "name": "Toyota",
-          "freq": 1
-        },
-        {
-          "name": "Texas Roadhouse",
-          "freq": 1
-        },
-        {
-          "name": "Brookfield",
-          "freq": 1
-        },
-        {
-          "name": "Amazon",
-          "freq": 1
-        },
-        {
-          "name": "Delta",
-          "freq": 1
-        },
-        {
-          "name": "Arista",
-          "freq": 1
-        },
-        {
-          "name": "Foundation Future Industries",
+          "name": "Lucid",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "항공",
           "freq": 2
         },
         {
-          "name": "Aviation",
+          "name": "석유/가스",
+          "freq": 4
+        },
+        {
+          "name": "우주항공",
           "freq": 2
         },
         {
-          "name": "Data center construction",
+          "name": "Healthcare",
           "freq": 2
         },
         {
-          "name": "Retail",
+          "name": "전기차",
           "freq": 2
         },
         {
-          "name": "Automotive",
-          "freq": 2
-        },
-        {
-          "name": "Infrastructure",
+          "name": "클라우드",
           "freq": 1
         },
         {
-          "name": "Retirement savings",
+          "name": "소프트웨어",
           "freq": 1
         },
         {
-          "name": "Data privacy",
+          "name": "바이오",
           "freq": 1
         },
         {
-          "name": "Cryptocurrency",
+          "name": "핀테크",
           "freq": 1
         },
         {
-          "name": "Diesel fuel",
+          "name": "소셜 미디어",
           "freq": 1
         },
         {
-          "name": "Wealth Management",
+          "name": "암호화폐",
           "freq": 1
         },
         {
-          "name": "Space exploration",
+          "name": "소비재",
           "freq": 1
         },
         {
-          "name": "Food",
-          "freq": 1
-        },
-        {
-          "name": "Restaurant",
-          "freq": 1
-        },
-        {
-          "name": "Manufacturing",
-          "freq": 1
-        },
-        {
-          "name": "Energy",
-          "freq": 1
-        },
-        {
-          "name": "Interest rates",
-          "freq": 1
-        },
-        {
-          "name": "Industrial outdoor storage",
-          "freq": 1
-        },
-        {
-          "name": "E-commerce",
-          "freq": 1
-        },
-        {
-          "name": "Robotics",
+          "name": "소매",
           "freq": 1
         }
       ]
@@ -762,97 +469,77 @@
     "kr": {
       "stocks": [
         {
-          "name": "Nvidia",
-          "freq": 2
-        },
-        {
-          "name": "Anthropic",
-          "freq": 3
-        },
-        {
-          "name": "HD Hyundai",
-          "freq": 3
-        },
-        {
-          "name": "BMW",
+          "name": "LG유플러스",
           "freq": 1
         },
         {
-          "name": "Microsoft",
+          "name": "삼성디스플레이",
           "freq": 1
         },
         {
-          "name": "Datadog",
-          "freq": 1
-        },
-        {
-          "name": "Bitcoin",
-          "freq": 1
-        },
-        {
-          "name": "Coinone",
-          "freq": 1
-        },
-        {
-          "name": "Anadolus",
-          "freq": 1
-        },
-        {
-          "name": "Tesla",
-          "freq": 1
-        },
-        {
-          "name": "Apple",
-          "freq": 1
-        },
-        {
-          "name": "Samsung SDI",
-          "freq": 1
-        },
-        {
-          "name": "LG Energy Solution",
+          "name": "LG디스플레이",
           "freq": 1
         }
       ],
       "sectors": [
         {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
           "name": "AI",
-          "freq": 5
+          "freq": 1
         },
         {
-          "name": "Aviation",
-          "freq": 3
-        },
-        {
-          "name": "Real Estate",
+          "name": "항공",
           "freq": 2
         },
         {
           "name": "IT",
-          "freq": 2
-        },
-        {
-          "name": "방산",
-          "freq": 2
-        },
-        {
-          "name": "Energy",
           "freq": 1
         },
         {
-          "name": "Cryptocurrency",
+          "name": "OLED",
           "freq": 1
         },
         {
-          "name": "반도체",
+          "name": "게임",
           "freq": 1
         },
         {
-          "name": "Software",
+          "name": "금융",
           "freq": 1
         },
         {
-          "name": "Energy Storage",
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        },
+        {
+          "name": "자율주행",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "유통",
+          "freq": 1
+        },
+        {
+          "name": "콘텐츠",
+          "freq": 1
+        },
+        {
+          "name": "화학",
+          "freq": 1
+        },
+        {
+          "name": "문화",
           "freq": 1
         }
       ]
