@@ -1,0 +1,614 @@
+{
+  "generated_at": "2026-11-17 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 4건)",
+        "us_news_refs": [
+          14,
+          19,
+          49,
+          93
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nvidia’s stock extends decline following harsh words from the U.S. government",
+            "title_ko": "Nvidia 주가, 미 정부의 혹평 이후 하락세 연장",
+            "url": "https://www.marketwatch.com/story/nvidias-stock-extends-declines-following-harsh-words-from-the-u-s-government-d721188e?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:53:00 KST"
+          },
+          {
+            "title": "Micron, AMD and other AI stocks fall as the chip sector’s selloff intensifies",
+            "title_ko": "Micron, AMD 등 AI 주식 하락, 반도체 섹터 매도세 심화",
+            "url": "https://www.marketwatch.com/story/micron-amd-and-other-ai-stocks-fall-as-the-chip-sectors-selloff-intensifies-48e38bdf?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:17:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 반도체 섹터 전반의 주목도가 높아짐 (총 1건)",
+        "us_news_refs": [
+          11,
+          14,
+          19,
+          20
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Nvidia rules out Huang comeback as campaign for his return grows",
+            "title_ko": "Nvidia, 황 회장 복귀 캠페인에도 복귀 가능성 일축",
+            "url": "https://www.investing.com/news/stock-market-news/silicon-valley-leaders-back-call-for-jensen-huangs-return-to-nvidia-5029956",
+            "published_at": "2026-11-17 07:18:33 KST"
+          },
+          {
+            "title": "Nvidia’s stock extends decline following harsh words from the U.S. government",
+            "title_ko": "Nvidia 주가, 미 정부의 혹평 이후 하락세 연장",
+            "url": "https://www.marketwatch.com/story/nvidias-stock-extends-declines-following-harsh-words-from-the-u-s-government-d721188e?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:53:00 KST"
+          },
+          {
+            "title": "Micron, AMD and other AI stocks fall as the chip sector’s selloff intensifies",
+            "title_ko": "Micron, AMD 등 AI 주식 하락, 반도체 섹터 매도세 심화",
+            "url": "https://www.marketwatch.com/story/micron-amd-and-other-ai-stocks-fall-as-the-chip-sectors-selloff-intensifies-48e38bdf?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:17:00 KST"
+          },
+          {
+            "title": "Nvidia investors will be clamoring for these answers during a historic earnings call",
+            "title_ko": "Nvidia 투자자, 역사적 실적 발표에서 답변 요구할 것",
+            "url": "https://www.marketwatch.com/story/nvidia-investors-will-be-clamoring-for-answers-to-these-questions-during-the-companys-hotly-anticipated-earnings-call-a49ec19d?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:05:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "JPMorgan Chase",
+        "reason": "주요 은행의 실적 발표 및 금융 시장에서의 영향력이 부각됨 (총 2건)",
+        "us_news_refs": [
+          12,
+          15
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "JPMorgan Chase says temporary software bug is affecting consumer banking",
+            "title_ko": "JPMorgan Chase, 일시적 소프트웨어 버그가 소비자 금융 영향",
+            "url": "https://www.cnbc.com/2026/11/16/jpmorgan-chase-technical-issue.html",
+            "published_at": "2026-11-17 07:14:47 KST"
+          },
+          {
+            "title": "Chase says ‘software bug’ could be causing disruptions at major U.S. banks",
+            "title_ko": "Chase, '소프트웨어 버그'가 미 주요 은행 혼란 야기 가능성 시사",
+            "url": "https://www.marketwatch.com/story/customers-of-chase-bank-of-america-and-other-u-s-banks-report-service-outages-18fe23b8?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:49:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 27
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전 및 관련 기업들의 동향에 대한 지속적인 관심이 나타남 (총 7건)",
+        "kr_news_refs": [
+          3,
+          8,
+          18,
+          19,
+          20,
+          24,
+          33
+        ],
+        "related_news": [
+          {
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117008651072",
+            "published_at": "2026-11-17 07:20:03 KST"
+          },
+          {
+            "title": "美 반도체지수 3일간 9% 급락…AI 투자심리 위축",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117012800009",
+            "published_at": "2026-11-17 07:15:06 KST"
+          },
+          {
+            "title": "AI 시대에 적정한 주파수 대가는 얼마일까 [율촌 TMT리포트]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12210227",
+            "published_at": "2026-11-17 07:00:00 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 17일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12210146",
+            "published_at": "2026-11-17 07:00:00 KST"
+          },
+          {
+            "title": "“언론에 집중포화돼도, 그래도 이 말은 해야겠다”…‘영어 일타강사’도 목소리",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12210745",
+            "published_at": "2026-11-17 06:53:56 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 반도체 수요 증가와 국내 주요 반도체 기업들의 실적 및 전망에 대한 보도가 있었음 (총 3건)",
+        "kr_news_refs": [
+          3,
+          8,
+          55
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117008651072",
+            "published_at": "2026-11-17 07:20:03 KST"
+          },
+          {
+            "title": "美 반도체지수 3일간 9% 급락…AI 투자심리 위축",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117012800009",
+            "published_at": "2026-11-17 07:15:06 KST"
+          },
+          {
+            "title": "삼전닉스 현금 곳간 329조 돌파…1년새 193조 급증",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261116168000003",
+            "published_at": "2026-11-17 06:01:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 기술 및 반도체 섹터 전반의 높은 관심 속에서 언급됨 (총 1건)",
+        "kr_news_refs": [
+          3,
+          8,
+          37
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117008651072",
+            "published_at": "2026-11-17 07:20:03 KST"
+          },
+          {
+            "title": "美 반도체지수 3일간 9% 급락…AI 투자심리 위축",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117012800009",
+            "published_at": "2026-11-17 07:15:06 KST"
+          },
+          {
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117008600072",
+            "published_at": "2026-11-17 06:15:30 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 기술의 발전과 부정행위, 일자리 파괴 가능성에 대한 논의가 있었습니다. AI 기술이 시험 부정행위에 활용되거나, 기존 일자리를 대체할 수 있다는 우려가 제기되었습니다. 또한, AI 관련 기업의 주가 변동성도 언급되었습니다.",
+        "refs": [
+          5,
+          6,
+          9
+        ],
+        "reason": "AI 기술의 발전과 부정행위, 일자리 파괴 가능성에 대한 논의가 있었습니다. AI 기술이 시험 부정행위에 활용되거나, 기존 일자리를 대체할 수 있다는 우려가 제기되었습니다. 또한, AI 관련 기업의 주가 변동성도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
+          },
+          {
+            "title": "그동안 AI 부정행위로 얼마나 많이 해먹었을까",
+            "url": "https://www.youtube.com/watch?v=eq6ptQbtw3s",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-16 18:16:59 KST"
+          },
+          {
+            "title": "수많은 취준생을 울린 '꿈꾸던 어른이 되었나요?'",
+            "url": "https://www.youtube.com/watch?v=yagCF3JqwAE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-14 20:12:16 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "엔비디아의 주가 하락 및 CEO 사임 가능성에 대한 내용이 언급되었습니다. 이는 AI 섹터 전반의 변동성과 연관되어 증시 혼란을 야기할 수 있다는 분석이 있었습니다.",
+        "refs": [
+          1,
+          5
+        ],
+        "reason": "엔비디아의 주가 하락 및 CEO 사임 가능성에 대한 내용이 언급되었습니다. 이는 AI 섹터 전반의 변동성과 연관되어 증시 혼란을 야기할 수 있다는 분석이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아 이사회 \"젠슨황 복귀 고려 안 해\"…월가 \"앤트로픽 IPO, 10~20배 초과 청약\" | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=0J5AXS2pqUg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 07:05:54 KST"
+          },
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
+          }
+        ]
+      },
+      {
+        "name": "2차전지",
+        "freq": 1,
+        "summary": "삼성SDI가 미국에 LFP 배터리를 공급하는 내용이 언급되었습니다. 이는 2차전지 섹터 내 기업의 사업 확장 및 공급망 관련 이슈를 시사합니다.",
+        "refs": [
+          2
+        ],
+        "reason": "삼성SDI가 미국에 LFP 배터리를 공급하는 내용이 언급되었습니다. 이는 2차전지 섹터 내 기업의 사업 확장 및 공급망 관련 이슈를 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "미국에선 AI 반중연대, 중국에선 미중러 회담…격동의 APEC | 삼성SDI, 미국에 최대 4조 LFP 배터리 공급 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=VkvJKPIUpl8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 05:27:03 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "엔비디아",
+        "freq": 2,
+        "summary": "엔비디아의 CEO인 젠슨 황의 복귀 고려 여부와 주가 폭락 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "refs": [
+          1,
+          5
+        ],
+        "reason": "엔비디아의 CEO인 젠슨 황의 복귀 고려 여부와 주가 폭락 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아 이사회 \"젠슨황 복귀 고려 안 해\"…월가 \"앤트로픽 IPO, 10~20배 초과 청약\" | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=0J5AXS2pqUg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 07:05:54 KST"
+          },
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성SDI",
+        "freq": 1,
+        "summary": "삼성SDI가 미국에 LFP 배터리를 공급한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 확장 및 미국 시장 진출과 관련된 구체적인 이슈입니다.",
+        "refs": [
+          2
+        ],
+        "reason": "삼성SDI가 미국에 LFP 배터리를 공급한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 확장 및 미국 시장 진출과 관련된 구체적인 이슈입니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "미국에선 AI 반중연대, 중국에선 미중러 회담…격동의 APEC | 삼성SDI, 미국에 최대 4조 LFP 배터리 공급 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=VkvJKPIUpl8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 05:27:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "엔비디아의 주가 폭락 및 젠슨 황의 사임 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "refs": [
+          5
+        ],
+        "reason": "엔비디아의 주가 폭락 및 젠슨 황의 사임 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "JPMorgan Chase",
+          "freq": 2
+        },
+        {
+          "name": "Daré Bioscience",
+          "freq": 1
+        },
+        {
+          "name": "Red Cat",
+          "freq": 1
+        },
+        {
+          "name": "L’Oreal US",
+          "freq": 1
+        },
+        {
+          "name": "United Airlines",
+          "freq": 1
+        },
+        {
+          "name": "Firy",
+          "freq": 1
+        },
+        {
+          "name": "Parabolic",
+          "freq": 1
+        },
+        {
+          "name": "Standard Lithium",
+          "freq": 1
+        },
+        {
+          "name": "Summit Therapeutics",
+          "freq": 1
+        },
+        {
+          "name": "Wrap Technologies",
+          "freq": 1
+        },
+        {
+          "name": "USA Rare Earth",
+          "freq": 1
+        },
+        {
+          "name": "Micron",
+          "freq": 1
+        },
+        {
+          "name": "AMD",
+          "freq": 1
+        },
+        {
+          "name": "Novo",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Aviation",
+          "freq": 2
+        },
+        {
+          "name": "Banking",
+          "freq": 2
+        },
+        {
+          "name": "Rare Earths",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "EV",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
+          "freq": 1
+        },
+        {
+          "name": "Software",
+          "freq": 1
+        },
+        {
+          "name": "Cancer Drugs",
+          "freq": 1
+        },
+        {
+          "name": "Consumer Banking",
+          "freq": 1
+        },
+        {
+          "name": "Chip Sector",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "현대오토에버",
+          "freq": 1
+        },
+        {
+          "name": "두나무",
+          "freq": 1
+        },
+        {
+          "name": "빗썸",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "교보생명",
+          "freq": 1
+        },
+        {
+          "name": "SK㈜",
+          "freq": 1
+        },
+        {
+          "name": "파파존스",
+          "freq": 1
+        },
+        {
+          "name": "이너시아",
+          "freq": 1
+        },
+        {
+          "name": "커시안그룹",
+          "freq": 1
+        },
+        {
+          "name": "한수원",
+          "freq": 1
+        },
+        {
+          "name": "대우건설",
+          "freq": 1
+        },
+        {
+          "name": "한국파파존스",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Aviation",
+          "freq": 2
+        },
+        {
+          "name": "Electric Vehicles",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "핀테크",
+          "freq": 1
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Nuclear Power",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}

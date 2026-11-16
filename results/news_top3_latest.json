@@ -1,116 +1,30 @@
 {
-  "generated_at": "2026-11-16 20:01 KST",
+  "generated_at": "2026-11-17 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 칩 수요 증가와 관련 기업들의 실적 발표가 시장의 주목을 받고 있습니다 (총 13건)",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 4건)",
         "us_news_refs": [
-          1,
-          2,
-          4,
-          6,
-          8,
+          14,
           19,
-          26,
-          30,
-          39,
-          43,
-          44,
-          46,
-          47
-        ],
-        "related_news": [
-          {
-            "title": "Stock market today: Dow, S&P 500, Nasdaq futures little changed ahead of pivotal week for AI traders - Yahoo Finance",
-            "title_ko": "다우, S&P 500, 나스닥 선물, AI 트레이더 주간 앞두고 소폭 변동",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQm1pRzVJd0lQc2F6aUtMUGIzUnVtazZTRFQtUndVeHZCSzhTTkVTSEJJRnIyN0JhVnN0eTVuZkFiVEN5a0xWbk54cjlXejFPTjlkb3JhTDdjQnNNMXFvblF0S3ZNUmtiTmFDdEd2NkdpZmtLSG01eldfYWZDT3lIcldSc2VlZnNQSGRkWmRmYmh3b195WDY1bnNoU25neEFTc3dwX21yTkRGdkRiSW5FMDZrdmpRZTdDZUpHaw?oc=5",
-            "published_at": "2026-11-16 19:00:39 KST"
-          },
-          {
-            "title": "Tech Stocks Slide as Nvidia, Anthropic Tests Await: Markets Wrap - Bloomberg.com",
-            "title_ko": "Nvidia, Anthropic 테스트 앞두고 기술주 하락",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOU3BQd2lUam5YX1RGekdqV203U1BmRzNUQnlhem10ajRycVpfTUYzRWtOM2h1ZDd5M2tvUnNXeG1VOHRGTEl4VkJsSUhuQk41UlcyNU1EZDJaSTNTd2NvM3lDUDV5NU95SUtxSHZaZEpjSnMxRGgtamUtb0lYWUtHMTFZZDBLblVaeXhVTEhSa2ZPeF9y?oc=5",
-            "published_at": "2026-11-16 18:59:04 KST"
-          },
-          {
-            "title": "Avoid this Black Friday scam - how to check it's a real deal - BBC",
-            "title_ko": "블랙 프라이데이 사기 피하는 법",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9ocFhoczdNMjB6MHE4MWtMR3ZJeVpQbk00LW1Mdjg3cUxyX05BY19HRmtKY0s1V2kwXy1fSzB4NDBaZW9zdjY1cjhmdENtNU9MTmVVc0piRzJMX1k?oc=5",
-            "published_at": "2026-11-16 18:58:52 KST"
-          },
-          {
-            "title": "Morgan Stanley Is ‘Max Overweight’ Global Stocks on AI Cycle - Bloomberg.com",
-            "title_ko": "Morgan Stanley, AI 사이클에 글로벌 주식 '최대 비중'",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPeHdTZG14X3RFSFFCSzJ6VGlqaVdNekZxd0t5eXMzLWdjVHlhWjZkSndXSDV2RlZnWVBGdEtZaWxPakR6SjJWSUxSV0l6TGctTWowU25uQjdwWllDallCUnhENV9xeXJvM2RrYTdPSGxiNUtJbzlMZ0JvMUlwVzRQeUxmazFNZlM4alRDdHVhY01ZNnJqOHBtY0RIa2swSjBVV1BoWm5sQ0VubjF6NEVPeFhBNA?oc=5",
-            "published_at": "2026-11-16 18:14:17 KST"
-          },
-          {
-            "title": "Questions swirl around FAA's new SMART AI system, though officials say no link to ground stop - AP News",
-            "title_ko": "FAA 신규 AI 시스템 의문, 당국은 연관 부인",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOUENIeGFqX0FwQk9Vcm5VekZSY0xES05yc3k2bHFqY1JDZ0Y2cG0wWTl0QXNqZ1lJR3N0VUZYM0hGR3R5NVR4dGlXZ0JzMGFESDdVZi1hR3dBREM2SmsxODAwQmItd2xtS2RFdkVvZjQ1LUNWOV9OZkdTSVJfQ3piTkVZYlVMdw?oc=5",
-            "published_at": "2026-11-16 16:27:00 KST"
-          }
-        ]
-      },
-      {
-        "name": "반도체",
-        "reason": "AI 칩 수요 강세와 관련 기업들의 실적이 반도체 섹터에 긍정적인 영향을 미치고 있습니다 (총 3건)",
-        "us_news_refs": [
-          26,
-          27,
-          46
+          49,
+          93
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Exclusive | Trump Administration to Name Nvidia Among AI ‘National Champions’ - WSJ",
-            "title_ko": "트럼프 행정부, Nvidia를 AI '국가 챔피언'으로 지정할 것",
-            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNbVZuRkZvWWp2cTVZRkh3Tm96YThHTGFtSmk4TjhOMWZqT0xsSXZkbEFQRzRZcWFaMHlzNGYxZHBzTF9YYUZJa0ktNFNua1ZiLTVvNDRNZGViZlFxMVVsQlZXM09faWZOSDZkNDRiaTJjYXFfMUgxN3p1UWZkZXVuOEQxUFJRSHI4TG9yRU1kT0Rlb2ZoUGQtQUNndkdnajdTZmc?oc=5",
-            "published_at": "2026-11-16 12:59:00 KST"
+            "title": "Nvidia’s stock extends decline following harsh words from the U.S. government",
+            "title_ko": "Nvidia 주가, 미 정부의 혹평 이후 하락세 연장",
+            "url": "https://www.marketwatch.com/story/nvidias-stock-extends-declines-following-harsh-words-from-the-u-s-government-d721188e?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:53:00 KST"
           },
           {
-            "title": "Investors sue chip giant Intel after 29% stock plunge - BBC",
-            "title_ko": "투자자들, 인텔 주가 29% 폭락 후 소송 제기",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE52Rm9pc2ZLV1dEOUtOdFRQZTJYQW9ZREtpLWRzVWFfUVV1Q0QwZnIxcU1BeGZoNjRCNGxLWXRHUWdfR1lOM1lXZDc0QzZlX0U5TG02Z250Z3VlWjQ?oc=5",
-            "published_at": "2026-11-16 12:04:01 KST"
-          },
-          {
-            "title": "Congress wants to tighten export rules on AI chips after Nvidia spy scandal - The Verge",
-            "title_ko": "의회, Nvidia 스파이 스캔들 후 AI 칩 수출 규제 강화 원해",
-            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOYUdJdF80Q0hNQ1d6di0yZVRpSDNKZm1ZSkxCYVEtNERiVFpwOTROZ2RXZXRrNEd1U2RtR1hVaGJPUXgtS3BUczNCV2EyUGpFRkxqemZWLXBZTHU4WklGcnBRcTVLLW1QcWZUQmNiR21CYjVRQ3VydWg1ZVRHVlJ2UjRpLUprZTg2QjhkVGxrRTdDWDRLV1NUY1JMbW0?oc=5",
-            "published_at": "2026-11-16 04:15:43 KST"
-          }
-        ]
-      },
-      {
-        "name": "Retail",
-        "reason": "연말 쇼핑 시즌을 맞아 소비 심리 회복에 대한 기대감이 커지고 있습니다 (총 3건)",
-        "us_news_refs": [
-          4,
-          29,
-          50
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Avoid this Black Friday scam - how to check it's a real deal - BBC",
-            "title_ko": "블랙 프라이데이 사기 피하는 법",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9ocFhoczdNMjB6MHE4MWtMR3ZJeVpQbk00LW1Mdjg3cUxyX05BY19HRmtKY0s1V2kwXy1fSzB4NDBaZW9zdjY1cjhmdENtNU9MTmVVc0piRzJMX1k?oc=5",
-            "published_at": "2026-11-16 18:58:52 KST"
-          },
-          {
-            "title": "Costco recalls whipped cream over potential cleaning chemical contamination - The Washington Post",
-            "title_ko": "코스트코, 세척 화학물질 오염 가능성으로 휘핑크림 리콜",
-            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNQ1h3SFNmaGNDbXZUOW5xVzhnRnEzczFiaWlEZ25tLTJWajFLNjBrQXRyTjJnNF9hMzZ2MGRnU3Y3VEtoNjZVODAzWVV1SnUtTjlsQTl2MGJ1TzNldUZ3R1ZNcTV3WnotUmxlT2w5U01kalhJQ2RtNXlfRkp0alhzSE9aVmxiSHk3SS1BNnRLV1NmOUJnek9wT0xicnJYSWl2bDV5cVBTelZsNkE?oc=5",
-            "published_at": "2026-11-16 11:30:00 KST"
-          },
-          {
-            "title": "Amazon Stretches 2026 Black Friday-Cyber Monday To 12-Day Sales Event - Forbes",
-            "title_ko": "아마존, 2026년 블랙 프라이데이-사이버 먼데이를 12일간 세일 행사로 확대",
-            "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNSkVnWDB5V25lYjFyWnJGT2ExS25oMDVhNnpNZ2N2bTYwZF9lbTZjbmxDdjY3THN0R1g5T1Znd0hhbWd0R2czbEpTY3dBSkJ2QnZuVkhodmFqd0hERVF0elFMUEV3THJHQW55VWxEYW5LSG5uc000Ri02TG8zdU9VRzBzRXl4UTJlUjQwcEQ0Zng4UUhjMjFfQWdpQVhPWEdWZHdZTzdadVBmT28wT1cwUHhhMlJBWGZVMjYtdE1rQQ?oc=5",
-            "published_at": "2026-11-16 03:02:43 KST"
+            "title": "Micron, AMD and other AI stocks fall as the chip sector’s selloff intensifies",
+            "title_ko": "Micron, AMD 등 AI 주식 하락, 반도체 섹터 매도세 심화",
+            "url": "https://www.marketwatch.com/story/micron-amd-and-other-ai-stocks-fall-as-the-chip-sectors-selloff-intensifies-48e38bdf?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:17:00 KST"
           }
         ]
       }
@@ -118,112 +32,61 @@
     "top3_stocks": [
       {
         "name": "Nvidia",
-        "reason": "AI 칩 수요 강세와 관련 기업들의 실적 발표 모멘텀이 주가에 반영되고 있습니다 (총 13건)",
+        "reason": "AI 칩 수요 강세와 반도체 섹터 전반의 주목도가 높아짐 (총 1건)",
         "us_news_refs": [
-          1,
-          2,
-          5,
-          15,
+          11,
+          14,
           19,
-          26,
-          30,
-          39,
-          42,
-          43,
-          46,
-          47,
-          50
-        ],
-        "related_news": [
-          {
-            "title": "Stock market today: Dow, S&P 500, Nasdaq futures little changed ahead of pivotal week for AI traders - Yahoo Finance",
-            "title_ko": "다우, S&P 500, 나스닥 선물, AI 트레이더 주간 앞두고 소폭 변동",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQm1pRzVJd0lQc2F6aUtMUGIzUnVtazZTRFQtUndVeHZCSzhTTkVTSEJJRnIyN0JhVnN0eTVuZkFiVEN5a0xWbk54cjlXejFPTjlkb3JhTDdjQnNNMXFvblF0S3ZNUmtiTmFDdEd2NkdpZmtLSG01eldfYWZDT3lIcldSc2VlZnNQSGRkWmRmYmh3b195WDY1bnNoU25neEFTc3dwX21yTkRGdkRiSW5FMDZrdmpRZTdDZUpHaw?oc=5",
-            "published_at": "2026-11-16 19:00:39 KST"
-          },
-          {
-            "title": "Tech Stocks Slide as Nvidia, Anthropic Tests Await: Markets Wrap - Bloomberg.com",
-            "title_ko": "Nvidia, Anthropic 테스트 앞두고 기술주 하락",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOU3BQd2lUam5YX1RGekdqV203U1BmRzNUQnlhem10ajRycVpfTUYzRWtOM2h1ZDd5M2tvUnNXeG1VOHRGTEl4VkJsSUhuQk41UlcyNU1EZDJaSTNTd2NvM3lDUDV5NU95SUtxSHZaZEpjSnMxRGgtamUtb0lYWUtHMTFZZDBLblVaeXhVTEhSa2ZPeF9y?oc=5",
-            "published_at": "2026-11-16 18:59:04 KST"
-          },
-          {
-            "title": "Nvidia stock slips as Jensen Huang reportedly weighs CEO comeback, Musk backs return - Yahoo Finance",
-            "title_ko": "젠슨 황 CEO 복귀설에 Nvidia 주가 하락",
-            "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNVzVrZl9udUdNTVdUdnNoUG1meHJncG1HUVN6WXlXQ3JkTGNSOE9HQU1pcHJ5RFhEZ01STzQ0ZHFlNUh4YVV6eVNpN3NHNXR0eUpoT2l6bTY2QW5hT05yaXMzaGtZcVBrUWdOa25YeWNkckJ6SW80U3Q1VFhsUUJjUjV1dzNyM0EtUlR5OWh6T1paRnVjeUIzSjVqS0hIaDA1REVkMGMxM3lzMDhYdG1wOFZCLVdxRjRleXNDNTdYc2pQSDVmZVhzZ1ZTUThfWUgwdkRnUzhQOGc?oc=5",
-            "published_at": "2026-11-16 18:24:55 KST"
-          },
-          {
-            "title": "S&P 500, Nasdaq futures slide as Nvidia earnings, Anthropic debut loom",
-            "title_ko": "Nvidia 실적, Anthropic 데뷔 앞두고 S&P 500, 나스닥 선물 하락",
-            "url": "https://www.investing.com/news/economy-news/sp-500-nasdaq-futures-slide-as-nvidia-earnings-anthropic-debut-loom-5028900",
-            "published_at": "2026-11-16 19:48:23 KST"
-          },
-          {
-            "title": "Here’s how much the stock market could crumble if AI is a bubble that bursts, according to former White House economist",
-            "title_ko": "AI 거품 붕괴 시 주식 시장 폭락 가능성",
-            "url": "https://www.marketwatch.com/story/heres-how-much-the-stock-market-could-crumble-if-ai-is-a-bubble-that-bursts-according-to-former-white-house-economist-3a4c15e1?mod=mw_rss_topstories",
-            "published_at": "2026-11-16 19:32:00 KST"
-          }
-        ]
-      },
-      {
-        "name": "Anthropic",
-        "reason": "AI 분야의 경쟁 심화와 기술 발전이 관련 기업들의 주가에 영향을 미치고 있습니다 (총 4건)",
-        "us_news_refs": [
-          2,
-          15,
-          26,
-          44
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Tech Stocks Slide as Nvidia, Anthropic Tests Await: Markets Wrap - Bloomberg.com",
-            "title_ko": "Nvidia, Anthropic 테스트 앞두고 기술주 하락",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOU3BQd2lUam5YX1RGekdqV203U1BmRzNUQnlhem10ajRycVpfTUYzRWtOM2h1ZDd5M2tvUnNXeG1VOHRGTEl4VkJsSUhuQk41UlcyNU1EZDJaSTNTd2NvM3lDUDV5NU95SUtxSHZaZEpjSnMxRGgtamUtb0lYWUtHMTFZZDBLblVaeXhVTEhSa2ZPeF9y?oc=5",
-            "published_at": "2026-11-16 18:59:04 KST"
-          },
-          {
-            "title": "S&P 500, Nasdaq futures slide as Nvidia earnings, Anthropic debut loom",
-            "title_ko": "Nvidia 실적, Anthropic 데뷔 앞두고 S&P 500, 나스닥 선물 하락",
-            "url": "https://www.investing.com/news/economy-news/sp-500-nasdaq-futures-slide-as-nvidia-earnings-anthropic-debut-loom-5028900",
-            "published_at": "2026-11-16 19:48:23 KST"
-          },
-          {
-            "title": "Exclusive | Trump Administration to Name Nvidia Among AI ‘National Champions’ - WSJ",
-            "title_ko": "트럼프 행정부, Nvidia를 AI '국가 챔피언'으로 지정할 것",
-            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNbVZuRkZvWWp2cTVZRkh3Tm96YThHTGFtSmk4TjhOMWZqT0xsSXZkbEFQRzRZcWFaMHlzNGYxZHBzTF9YYUZJa0ktNFNua1ZiLTVvNDRNZGViZlFxMVVsQlZXM09faWZOSDZkNDRiaTJjYXFfMUgxN3p1UWZkZXVuOEQxUFJRSHI4TG9yRU1kT0Rlb2ZoUGQtQUNndkdnajdTZmc?oc=5",
-            "published_at": "2026-11-16 12:59:00 KST"
-          },
-          {
-            "title": "Anthropic’s giant IPO puts the heat on OpenAI - The Economist",
-            "title_ko": "Anthropic의 거대 IPO, OpenAI에 압박",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNRTd6eHRac3JHWEQ5TElWUXZZUWRsMHdXckRQbjJ6X3ZvOFUtVHZDcjFBVWVqOE9LVnNPS3NWeDROZUtsRFdEdklzRzctYlpWbWszbElsMU94VWxtUm5OZ1ozdUxWWnVGRlpGM3ozYWxISG5fS1Y5QlB1bVQ0Z09sVGphWmgzMlpKMWduNkZYX0N1b1Br?oc=5",
-            "published_at": "2026-11-16 04:49:20 KST"
-          }
-        ]
-      },
-      {
-        "name": "Morgan Stanley",
-        "reason": "금융 시장의 변동성과 경제 전망에 대한 분석이 투자자들의 관심을 받고 있습니다 (총 2건)",
-        "us_news_refs": [
-          6,
           20
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Morgan Stanley Is ‘Max Overweight’ Global Stocks on AI Cycle - Bloomberg.com",
-            "title_ko": "Morgan Stanley, AI 사이클에 글로벌 주식 '최대 비중'",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPeHdTZG14X3RFSFFCSzJ6VGlqaVdNekZxd0t5eXMzLWdjVHlhWjZkSndXSDV2RlZnWVBGdEtZaWxPakR6SjJWSUxSV0l6TGctTWowU25uQjdwWllDallCUnhENV9xeXJvM2RrYTdPSGxiNUtJbzlMZ0JvMUlwVzRQeUxmazFNZlM4alRDdHVhY01ZNnJqOHBtY0RIa2swSjBVV1BoWm5sQ0VubjF6NEVPeFhBNA?oc=5",
-            "published_at": "2026-11-16 18:14:17 KST"
+            "title": "Nvidia rules out Huang comeback as campaign for his return grows",
+            "title_ko": "Nvidia, 황 회장 복귀 캠페인에도 복귀 가능성 일축",
+            "url": "https://www.investing.com/news/stock-market-news/silicon-valley-leaders-back-call-for-jensen-huangs-return-to-nvidia-5029956",
+            "published_at": "2026-11-17 07:18:33 KST"
           },
           {
-            "title": "Why Morgan Stanley says it’s time to go ‘max’ overweight on stocks",
-            "title_ko": "Morgan Stanley, 주식 '최대 비중' 늘릴 때라고 말하는 이유",
-            "url": "https://www.marketwatch.com/story/why-morgan-stanley-says-its-time-to-go-max-overweight-on-stocks-bd33b103?mod=mw_rss_topstories",
-            "published_at": "2026-11-16 19:20:00 KST"
+            "title": "Nvidia’s stock extends decline following harsh words from the U.S. government",
+            "title_ko": "Nvidia 주가, 미 정부의 혹평 이후 하락세 연장",
+            "url": "https://www.marketwatch.com/story/nvidias-stock-extends-declines-following-harsh-words-from-the-u-s-government-d721188e?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:53:00 KST"
+          },
+          {
+            "title": "Micron, AMD and other AI stocks fall as the chip sector’s selloff intensifies",
+            "title_ko": "Micron, AMD 등 AI 주식 하락, 반도체 섹터 매도세 심화",
+            "url": "https://www.marketwatch.com/story/micron-amd-and-other-ai-stocks-fall-as-the-chip-sectors-selloff-intensifies-48e38bdf?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:17:00 KST"
+          },
+          {
+            "title": "Nvidia investors will be clamoring for these answers during a historic earnings call",
+            "title_ko": "Nvidia 투자자, 역사적 실적 발표에서 답변 요구할 것",
+            "url": "https://www.marketwatch.com/story/nvidia-investors-will-be-clamoring-for-answers-to-these-questions-during-the-companys-hotly-anticipated-earnings-call-a49ec19d?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:05:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "JPMorgan Chase",
+        "reason": "주요 은행의 실적 발표 및 금융 시장에서의 영향력이 부각됨 (총 2건)",
+        "us_news_refs": [
+          12,
+          15
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "JPMorgan Chase says temporary software bug is affecting consumer banking",
+            "title_ko": "JPMorgan Chase, 일시적 소프트웨어 버그가 소비자 금융 영향",
+            "url": "https://www.cnbc.com/2026/11/16/jpmorgan-chase-technical-issue.html",
+            "published_at": "2026-11-17 07:14:47 KST"
+          },
+          {
+            "title": "Chase says ‘software bug’ could be causing disruptions at major U.S. banks",
+            "title_ko": "Chase, '소프트웨어 버그'가 미 주요 은행 혼란 야기 가능성 시사",
+            "url": "https://www.marketwatch.com/story/customers-of-chase-bank-of-america-and-other-u-s-banks-report-service-outages-18fe23b8?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 06:49:00 KST"
           }
         ]
       }
@@ -233,221 +96,115 @@
       "stocks": []
     },
     "collected": {
-      "news": 50
+      "news": 27
     }
   },
   "kr": {
     "top3_sectors": [
       {
-        "name": "반도체",
-        "reason": "SK하이닉스 등 국내 반도체 기업들의 실적 개선 기대감과 HBM 수요 강세가 섹터 전반에 긍정적인 영향을 미치고 있습니다 (총 7건)",
-        "kr_news_refs": [
-          1,
-          2,
-          9,
-          12,
-          13,
-          14,
-          89
-        ],
-        "related_news": [
-          {
-            "title": "SK하이닉스, 올 3분기 누적 설비투자 31조 원 역대 최대 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1RMWtsa3VpbHJzamN2ZncydU5Td0U5ZWFfamRnVVp3SU9OSFBnRHRuMEphUlRZZlFvOW94aUdLa3JubWljenltYWxaR0hjMHh5dG00UGc4TDlvREZwLS1OWlFlT1I2TDhya2JzTHpXUlVFaDV10gF0QVVfeXFMTmplSC1iaFNpTVJValBDaEhPaDVkM0tEMlZVN25ZSFEwSUNKRjBoRjFIMDBjQXNfTk9kN0Y5dnBqMEJNUDBCek5uUGxRcTlGdHJPMkJWYmVUNlhtTUdhZVZXZ0w1d1J1Wlc1S0JSaHF0eVp0bmc?oc=5",
-            "published_at": "2026-11-16 19:04:27 KST"
-          },
-          {
-            "title": "美 법원, 삼성·SK하이닉스·마이크론 DRAM 담합소송 각하 기각 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAwcFVuRDFpbFRtd3lTMnpZOUJsSEhzTTNrQTJENC1OQkFxUFBOM0tvbkNjd1JFSy00ekRvUEgzWDI3UVlCb3Z2Q3dqR0ZDdXdhQVJQNTh0eU1BbnRoakRHLVFCMHd2MVI3aDkzcEtfMmU?oc=5",
-            "published_at": "2026-11-16 17:34:39 KST"
-          },
-          {
-            "title": "젠슨 황 떠난 엔비디아‥\"AI 자금 지원 축소\" 전망 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE12cENIV2VCYklRcm9EbkN3N2QtSUppTU41eG9GajlNdnFKZW1MS1RlTUdkX0FpQ0ViS2JiWTg2WFlYQmNhVDNBZmdZVS1vQ3k3TmEyc25ETXdidEFHMTV5QXdiTGxZNWtuZndOaEtCTVV3YTh50gF0QVVfeXFMTkJRdlFiTTNIRVQxWURnSlB1dWhYdVY0NHpJUzRGZzEtYUp6QldXT2Y2X01MQWdVNG1PaHBiRU9TQlFnd1dnLVdpcE1KR1I2X01VZlJ6UTgxbERqdWJGNGlrNC1CeFJ3eWttVHZURWhTb0JGNHE?oc=5",
-            "published_at": "2026-11-16 16:15:18 KST"
-          },
-          {
-            "title": "외국인 매도 폭탄에…코스피 3%대 급락해 5100선 '턱걸이' - 한국경제",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBrQkY4M1Y1Rk5uZUJ4cEZvRW1pNV8wNkRGUG9EX3VEU3V0eC1fS1lJY25KYnNjYjB1ZWlrWFFHblhSUTRHMW9pc1UwWm1tcklTanVqQ25OeVRSdw?oc=5",
-            "published_at": "2026-11-16 15:46:01 KST"
-          },
-          {
-            "title": "美, 엔비디아 'AI 선도기업' 지정 추진‥스캔들에도 해외 진출 지원 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBnZW1oOGNZLXJkYTk3em0tclkzcnpKN0tWdmpuSUJQNzh5Qm02R1ZwTk9RaHJnMHF3SGlSc1haY0lIY21VQ2JOZlh6UFA0QVF3TmMxeU1rcHVYc3FyelRublRacnRwajdQb1ByVzdRdVQ4eUhj0gF0QVVfeXFMTXFZQlk3c3pDUWswRU16SkQ1WWNyVW10T0dYcHRnaFo4eEhkblQ4Z1p6ZlR5bFZNSUR6VFhiOVhicFFfdU1vZjduQ1hIWDNQeC1JR3JZWWw0bWpUNElDRDgxZ3diRm9GWC12YV9CUVdaS29MeVk?oc=5",
-            "published_at": "2026-11-16 15:44:32 KST"
-          }
-        ]
-      },
-      {
         "name": "AI",
-        "reason": "AI 기술 발전과 관련 스타트업들의 성장이 주목받으며 관련 섹터의 관심이 높아지고 있습니다 (총 11건)",
-        "kr_news_refs": [
-          9,
-          13,
-          23,
-          25,
-          34,
-          59,
-          64,
-          76,
-          85,
-          93,
-          94
-        ],
-        "related_news": [
-          {
-            "title": "젠슨 황 떠난 엔비디아‥\"AI 자금 지원 축소\" 전망 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE12cENIV2VCYklRcm9EbkN3N2QtSUppTU41eG9GajlNdnFKZW1MS1RlTUdkX0FpQ0ViS2JiWTg2WFlYQmNhVDNBZmdZVS1vQ3k3TmEyc25ETXdidEFHMTV5QXdiTGxZNWtuZndOaEtCTVV3YTh50gF0QVVfeXFMTkJRdlFiTTNIRVQxWURnSlB1dWhYdVY0NHpJUzRGZzEtYUp6QldXT2Y2X01MQWdVNG1PaHBiRU9TQlFnd1dnLVdpcE1KR1I2X01VZlJ6UTgxbERqdWJGNGlrNC1CeFJ3eWttVHZURWhTb0JGNHE?oc=5",
-            "published_at": "2026-11-16 16:15:18 KST"
-          },
-          {
-            "title": "美, 엔비디아 'AI 선도기업' 지정 추진‥스캔들에도 해외 진출 지원 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBnZW1oOGNZLXJkYTk3em0tclkzcnpKN0tWdmpuSUJQNzh5Qm02R1ZwTk9RaHJnMHF3SGlSc1haY0lIY21VQ2JOZlh6UFA0QVF3TmMxeU1rcHVYc3FyelRublRacnRwajdQb1ByVzdRdVQ4eUhj0gF0QVVfeXFMTXFZQlk3c3pDUWswRU16SkQ1WWNyVW10T0dYcHRnaFo4eEhkblQ4Z1p6ZlR5bFZNSUR6VFhiOVhicFFfdU1vZjduQ1hIWDNQeC1JR3JZWWw0bWpUNElDRDgxZ3diRm9GWC12YV9CUVdaS29MeVk?oc=5",
-            "published_at": "2026-11-16 15:44:32 KST"
-          },
-          {
-            "title": "법무부 \"변호사 시험서 AI 안경 검사‥전파탐지기 도입 검토\" - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5pdFlGSXNnLUZyYzRLMTZpR28yeGcweENPVTlaazd2MjhJRzBSa2VBcVpUMFNPWUtwaXplNm15QVQ3cUdDaFFwWDY4VUx0WHJtdm83VDhoTzNUaV9UbzBUQ3NVZ0NLT3JwT0M5RFNmX2xRREFsaU840gF3QVVfeXFMT1VESDBMVloxV1pWanF2WUVsQnVsNGdkeFl3Q0dOX05lTXpEMUJ6d2Y1WTFpeWgyYWpTYWEtdHJWSWtINWFiOVFFbEZ1U19URW8wbHZCbDRfOEFHWXVTS3VXZEpNeFh4WlI0TjB0U01NMy1NelhER1k?oc=5",
-            "published_at": "2026-11-16 14:44:16 KST"
-          },
-          {
-            "title": "李대통령 \"한-아세안, AI·문화창조산업 이니셔티브 제안\"(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261116124751001",
-            "published_at": "2026-11-16 19:56:30 KST"
-          },
-          {
-            "title": "李대통령, 韓-태국 정상회담…CEPA 조속한 타결에 공감대(종합)",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261116146551001",
-            "published_at": "2026-11-16 19:31:53 KST"
-          }
-        ]
-      },
-      {
-        "name": "금융",
-        "reason": "증권사 및 보험사 등 금융 업계의 실적 발표와 규제 변화에 대한 분석이 투자자들의 관심을 끌고 있습니다 (총 7건)",
+        "reason": "AI 기술 발전 및 관련 기업들의 동향에 대한 지속적인 관심이 나타남 (총 7건)",
         "kr_news_refs": [
           3,
-          4,
+          8,
+          18,
           19,
-          70,
-          74,
-          75,
-          86
+          20,
+          24,
+          33
         ],
         "related_news": [
           {
-            "title": "’주담대 변동금리 기준’ 코픽스, 2년 8개월 만에 최고 - 연합뉴스TV",
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓(종합)",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBnd1c1SlNqVGRGb1owdHdHTGxoWXphcmdlYXBLMG1makdUejMxQ1oyWU41YWpJZUN4VGlzMnJCSlJMdFZCU21hSC1UWEJ1Umk3OWRoTjhwZ1J4TkRvOWRfb1YxbmpNZlU?oc=5",
-            "published_at": "2026-11-16 17:13:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261117008651072",
+            "published_at": "2026-11-17 07:20:03 KST"
           },
           {
-            "title": "다올투자증권, 3분기 순이익 69억원…전 분기보다 60% 줄어 - 연합뉴스TV",
+            "title": "美 반도체지수 3일간 9% 급락…AI 투자심리 위축",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFByQVVRdkNQaktycTVnbldZMTE3c1BLWjd0Z1hXMmN0TldrWGlvSHliSEpSQmdVWGNZdkRickVmWk5jVGZBWVMtZTNJdWRVT0piRlQ3WmN2VEVDT0xHSDBDS0MzZVhQYzA?oc=5",
-            "published_at": "2026-11-16 17:03:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261117012800009",
+            "published_at": "2026-11-17 07:15:06 KST"
           },
           {
-            "title": "광주은행, 창립 58주년 기념…역대 행장들 간담회 - 연합뉴스",
+            "title": "AI 시대에 적정한 주파수 대가는 얼마일까 [율촌 TMT리포트]",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE16cFU2R2R2UE1zV3JiYUNEc2wzUmxsV2ZLbE10cjUxVVdfNE9BLTBRM1kySDZYekktU002SXNOcGtxbFA3ZjhIWHJwWXNRTm03WEFMREtRMllVU03SAWBBVV95cUxPeWQ1cGkwX1J2Ni1CZlhVTUh1bmtRaE85RkF4d1FNTTZvYmtEUUk5anVCT085bUpYeS1ia0dPbDNBOXgwMHJvbi1Db3gydnpieTNTY3RObHBQU21hNnZ4X3E?oc=5",
-            "published_at": "2026-11-16 15:01:38 KST"
+            "url": "https://www.mk.co.kr/news/society/12210227",
+            "published_at": "2026-11-17 07:00:00 KST"
           },
           {
-            "title": "교보생명, 3분기 누적 순이익 7천82억원…작년 대비 19.9%↓",
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 17일)",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261116164900002",
-            "published_at": "2026-11-16 18:14:45 KST"
+            "url": "https://www.mk.co.kr/news/society/12210146",
+            "published_at": "2026-11-17 07:00:00 KST"
           },
           {
-            "title": "상상인증권, 3분기 순이익 37억원…전기 대비 42%↑",
+            "title": "“언론에 집중포화돼도, 그래도 이 말은 해야겠다”…‘영어 일타강사’도 목소리",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261116166100008",
-            "published_at": "2026-11-16 18:11:20 KST"
+            "url": "https://www.mk.co.kr/news/society/12210745",
+            "published_at": "2026-11-17 06:53:56 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 반도체 수요 증가와 국내 주요 반도체 기업들의 실적 및 전망에 대한 보도가 있었음 (총 3건)",
+        "kr_news_refs": [
+          3,
+          8,
+          55
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117008651072",
+            "published_at": "2026-11-17 07:20:03 KST"
+          },
+          {
+            "title": "美 반도체지수 3일간 9% 급락…AI 투자심리 위축",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117012800009",
+            "published_at": "2026-11-17 07:15:06 KST"
+          },
+          {
+            "title": "삼전닉스 현금 곳간 329조 돌파…1년새 193조 급증",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261116168000003",
+            "published_at": "2026-11-17 06:01:00 KST"
           }
         ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "SK하이닉스",
-        "reason": "HBM 수요 강세와 실적 개선 기대감으로 반도체 섹터 내에서 가장 높은 주목도를 보이고 있습니다 (총 4건)",
+        "name": "Nvidia",
+        "reason": "AI 기술 및 반도체 섹터 전반의 높은 관심 속에서 언급됨 (총 1건)",
         "kr_news_refs": [
-          1,
-          2,
-          9,
-          12
+          3,
+          8,
+          37
         ],
+        "_weak_signal": true,
         "related_news": [
           {
-            "title": "SK하이닉스, 올 3분기 누적 설비투자 31조 원 역대 최대 - MBC 뉴스",
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓(종합)",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1RMWtsa3VpbHJzamN2ZncydU5Td0U5ZWFfamRnVVp3SU9OSFBnRHRuMEphUlRZZlFvOW94aUdLa3JubWljenltYWxaR0hjMHh5dG00UGc4TDlvREZwLS1OWlFlT1I2TDhya2JzTHpXUlVFaDV10gF0QVVfeXFMTmplSC1iaFNpTVJValBDaEhPaDVkM0tEMlZVN25ZSFEwSUNKRjBoRjFIMDBjQXNfTk9kN0Y5dnBqMEJNUDBCek5uUGxRcTlGdHJPMkJWYmVUNlhtTUdhZVZXZ0w1d1J1Wlc1S0JSaHF0eVp0bmc?oc=5",
-            "published_at": "2026-11-16 19:04:27 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261117008651072",
+            "published_at": "2026-11-17 07:20:03 KST"
           },
           {
-            "title": "美 법원, 삼성·SK하이닉스·마이크론 DRAM 담합소송 각하 기각 - 연합인포맥스",
+            "title": "美 반도체지수 3일간 9% 급락…AI 투자심리 위축",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAwcFVuRDFpbFRtd3lTMnpZOUJsSEhzTTNrQTJENC1OQkFxUFBOM0tvbkNjd1JFSy00ekRvUEgzWDI3UVlCb3Z2Q3dqR0ZDdXdhQVJQNTh0eU1BbnRoakRHLVFCMHd2MVI3aDkzcEtfMmU?oc=5",
-            "published_at": "2026-11-16 17:34:39 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261117012800009",
+            "published_at": "2026-11-17 07:15:06 KST"
           },
           {
-            "title": "젠슨 황 떠난 엔비디아‥\"AI 자금 지원 축소\" 전망 - MBC 뉴스",
+            "title": "AI 매도세 계속, 뉴욕증시 일제히 하락…엔비디아 4.1%↓",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE12cENIV2VCYklRcm9EbkN3N2QtSUppTU41eG9GajlNdnFKZW1MS1RlTUdkX0FpQ0ViS2JiWTg2WFlYQmNhVDNBZmdZVS1vQ3k3TmEyc25ETXdidEFHMTV5QXdiTGxZNWtuZndOaEtCTVV3YTh50gF0QVVfeXFMTkJRdlFiTTNIRVQxWURnSlB1dWhYdVY0NHpJUzRGZzEtYUp6QldXT2Y2X01MQWdVNG1PaHBiRU9TQlFnd1dnLVdpcE1KR1I2X01VZlJ6UTgxbERqdWJGNGlrNC1CeFJ3eWttVHZURWhTb0JGNHE?oc=5",
-            "published_at": "2026-11-16 16:15:18 KST"
-          },
-          {
-            "title": "외국인 매도 폭탄에…코스피 3%대 급락해 5100선 '턱걸이' - 한국경제",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBrQkY4M1Y1Rk5uZUJ4cEZvRW1pNV8wNkRGUG9EX3VEU3V0eC1fS1lJY25KYnNjYjB1ZWlrWFFHblhSUTRHMW9pc1UwWm1tcklTanVqQ25OeVRSdw?oc=5",
-            "published_at": "2026-11-16 15:46:01 KST"
-          }
-        ]
-      },
-      {
-        "name": "삼성전자",
-        "reason": "반도체 업황 회복에 대한 기대감과 신규 기술 개발 소식이 주가에 영향을 미치고 있습니다 (총 4건)",
-        "kr_news_refs": [
-          2,
-          9,
-          12,
-          14
-        ],
-        "related_news": [
-          {
-            "title": "美 법원, 삼성·SK하이닉스·마이크론 DRAM 담합소송 각하 기각 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAwcFVuRDFpbFRtd3lTMnpZOUJsSEhzTTNrQTJENC1OQkFxUFBOM0tvbkNjd1JFSy00ekRvUEgzWDI3UVlCb3Z2Q3dqR0ZDdXdhQVJQNTh0eU1BbnRoakRHLVFCMHd2MVI3aDkzcEtfMmU?oc=5",
-            "published_at": "2026-11-16 17:34:39 KST"
-          },
-          {
-            "title": "젠슨 황 떠난 엔비디아‥\"AI 자금 지원 축소\" 전망 - MBC 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE12cENIV2VCYklRcm9EbkN3N2QtSUppTU41eG9GajlNdnFKZW1MS1RlTUdkX0FpQ0ViS2JiWTg2WFlYQmNhVDNBZmdZVS1vQ3k3TmEyc25ETXdidEFHMTV5QXdiTGxZNWtuZndOaEtCTVV3YTh50gF0QVVfeXFMTkJRdlFiTTNIRVQxWURnSlB1dWhYdVY0NHpJUzRGZzEtYUp6QldXT2Y2X01MQWdVNG1PaHBiRU9TQlFnd1dnLVdpcE1KR1I2X01VZlJ6UTgxbERqdWJGNGlrNC1CeFJ3eWttVHZURWhTb0JGNHE?oc=5",
-            "published_at": "2026-11-16 16:15:18 KST"
-          },
-          {
-            "title": "외국인 매도 폭탄에…코스피 3%대 급락해 5100선 '턱걸이' - 한국경제",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBrQkY4M1Y1Rk5uZUJ4cEZvRW1pNV8wNkRGUG9EX3VEU3V0eC1fS1lJY25KYnNjYjB1ZWlrWFFHblhSUTRHMW9pc1UwWm1tcklTanVqQ25OeVRSdw?oc=5",
-            "published_at": "2026-11-16 15:46:01 KST"
-          },
-          {
-            "title": "외국인이 먼저 담았다…차세대 '성장·가치주'는? - 한국경제",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5vWXh1UXpLT2RCVjAzeFNqMTluZkx4WXdTNFRtZ1BhTXk4RUFZSi1iWUNsUWxUUHZ3T19lZ0tMQktJYjBKSkpDbXVscVJwWW5iRno2TTBCMVNsQQ?oc=5",
-            "published_at": "2026-11-16 15:35:23 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261117008600072",
+            "published_at": "2026-11-17 06:15:30 KST"
           }
         ]
       }
@@ -463,52 +220,21 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "반도체",
+        "name": "AI",
         "freq": 3,
-        "summary": "엔비디아의 경영 불확실성 및 소송 부담으로 인한 투심 급랭이 언급되었습니다. 실적 및 앤트로픽 IPO를 앞두고 경계감이 고조되는 상황이 설명되었습니다.",
+        "summary": "AI 기술의 발전과 부정행위, 일자리 파괴 가능성에 대한 논의가 있었습니다. AI 기술이 시험 부정행위에 활용되거나, 기존 일자리를 대체할 수 있다는 우려가 제기되었습니다. 또한, AI 관련 기업의 주가 변동성도 언급되었습니다.",
         "refs": [
-          1,
-          3,
-          4
+          5,
+          6,
+          9
         ],
-        "reason": "엔비디아의 경영 불확실성 및 소송 부담으로 인한 투심 급랭이 언급되었습니다. 실적 및 앤트로픽 IPO를 앞두고 경계감이 고조되는 상황이 설명되었습니다.",
+        "reason": "AI 기술의 발전과 부정행위, 일자리 파괴 가능성에 대한 논의가 있었습니다. AI 기술이 시험 부정행위에 활용되거나, 기존 일자리를 대체할 수 있다는 우려가 제기되었습니다. 또한, AI 관련 기업의 주가 변동성도 언급되었습니다.",
         "related_videos": [
-          {
-            "title": "엔비디아부터 삼전닉스까지 무차별 급락…AI 버블 붕괴 공포가 지나치다고 보는 이유ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=FaYdu-Fa5_U",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 20:00:02 KST"
-          },
-          {
-            "title": "[26.11.16 오후 방송 전체보기] 엔비디아 경영 불확실성에 D램 소송 부담까지…반도체 투심 급랭, 실적·앤트로픽 IPO 앞두고 경계감 고조",
-            "url": "https://www.youtube.com/watch?v=q0XXzZJGfoA",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 19:13:32 KST"
-          },
           {
             "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
             "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
             "channel_name": "소수몽키",
             "published_at": "2026-11-16 18:45:47 KST"
-          }
-        ]
-      },
-      {
-        "name": "AI",
-        "freq": 3,
-        "summary": "AI 버블 붕괴 공포에 대한 지나친 우려를 제기하는 분석이 있었습니다. 또한 AI의 부정행위 및 일자리 파괴 가능성에 대한 논의가 포함되었습니다.",
-        "refs": [
-          1,
-          5,
-          9
-        ],
-        "reason": "AI 버블 붕괴 공포에 대한 지나친 우려를 제기하는 분석이 있었습니다. 또한 AI의 부정행위 및 일자리 파괴 가능성에 대한 논의가 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "엔비디아부터 삼전닉스까지 무차별 급락…AI 버블 붕괴 공포가 지나치다고 보는 이유ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=FaYdu-Fa5_U",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 20:00:02 KST"
           },
           {
             "title": "그동안 AI 부정행위로 얼마나 많이 해먹었을까",
@@ -525,53 +251,20 @@
         ]
       },
       {
-        "name": "부동산",
+        "name": "반도체",
         "freq": 2,
-        "summary": "하우스푸어 폭증 및 주택 구매자 감소에 대한 전망이 제시되었습니다. 또한 건물주들의 빚 부담 증가와 상가 공실률 상승에 대한 분석이 포함되었습니다.",
-        "refs": [
-          2,
-          7
-        ],
-        "reason": "하우스푸어 폭증 및 주택 구매자 감소에 대한 전망이 제시되었습니다. 또한 건물주들의 빚 부담 증가와 상가 공실률 상승에 대한 분석이 포함되었습니다.",
-        "related_videos": [
-          {
-            "title": "하우스푸어 곧 폭증합니다, 집 사는 사람 싹다 사라졌다 (박은정 감정평가사)",
-            "url": "https://www.youtube.com/watch?v=9U2TUMps-jI",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-16 19:15:07 KST"
-          },
-          {
-            "title": "빚더미에 깔리고 있는 건물주, 1층 상가 80%가 텅텅 비었다 (서동기 박사)",
-            "url": "https://www.youtube.com/watch?v=2nVYe_DFJGU",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-16 17:00:07 KST"
-          }
-        ]
-      }
-    ],
-    "top3_stocks": [
-      {
-        "name": "엔비디아",
-        "freq": 3,
-        "summary": "경영 불확실성, 소송 부담, 그리고 주가 급락에 대한 내용이 다뤄졌습니다. AI 버블 붕괴 공포와 연관되어 언급되었습니다.",
+        "summary": "엔비디아의 주가 하락 및 CEO 사임 가능성에 대한 내용이 언급되었습니다. 이는 AI 섹터 전반의 변동성과 연관되어 증시 혼란을 야기할 수 있다는 분석이 있었습니다.",
         "refs": [
           1,
-          3,
-          4
+          5
         ],
-        "reason": "경영 불확실성, 소송 부담, 그리고 주가 급락에 대한 내용이 다뤄졌습니다. AI 버블 붕괴 공포와 연관되어 언급되었습니다.",
+        "reason": "엔비디아의 주가 하락 및 CEO 사임 가능성에 대한 내용이 언급되었습니다. 이는 AI 섹터 전반의 변동성과 연관되어 증시 혼란을 야기할 수 있다는 분석이 있었습니다.",
         "related_videos": [
           {
-            "title": "엔비디아부터 삼전닉스까지 무차별 급락…AI 버블 붕괴 공포가 지나치다고 보는 이유ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=FaYdu-Fa5_U",
+            "title": "엔비디아 이사회 \"젠슨황 복귀 고려 안 해\"…월가 \"앤트로픽 IPO, 10~20배 초과 청약\" | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=0J5AXS2pqUg",
             "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 20:00:02 KST"
-          },
-          {
-            "title": "[26.11.16 오후 방송 전체보기] 엔비디아 경영 불확실성에 D램 소송 부담까지…반도체 투심 급랭, 실적·앤트로픽 IPO 앞두고 경계감 고조",
-            "url": "https://www.youtube.com/watch?v=q0XXzZJGfoA",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 19:13:32 KST"
+            "published_at": "2026-11-17 07:05:54 KST"
           },
           {
             "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
@@ -582,38 +275,82 @@
         ]
       },
       {
-        "name": "삼성전자",
+        "name": "2차전지",
         "freq": 1,
-        "summary": "엔비디아와 함께 언급되며 AI 버블 붕괴 공포 속에서도 지나친 우려가 아니라는 분석이 있었습니다. 반도체 섹터 내에서 주요 종목으로 다뤄졌습니다.",
+        "summary": "삼성SDI가 미국에 LFP 배터리를 공급하는 내용이 언급되었습니다. 이는 2차전지 섹터 내 기업의 사업 확장 및 공급망 관련 이슈를 시사합니다.",
         "refs": [
-          1
+          2
         ],
-        "reason": "엔비디아와 함께 언급되며 AI 버블 붕괴 공포 속에서도 지나친 우려가 아니라는 분석이 있었습니다. 반도체 섹터 내에서 주요 종목으로 다뤄졌습니다.",
+        "reason": "삼성SDI가 미국에 LFP 배터리를 공급하는 내용이 언급되었습니다. 이는 2차전지 섹터 내 기업의 사업 확장 및 공급망 관련 이슈를 시사합니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "엔비디아부터 삼전닉스까지 무차별 급락…AI 버블 붕괴 공포가 지나치다고 보는 이유ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=FaYdu-Fa5_U",
+            "title": "미국에선 AI 반중연대, 중국에선 미중러 회담…격동의 APEC | 삼성SDI, 미국에 최대 4조 LFP 배터리 공급 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=VkvJKPIUpl8",
             "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 20:00:02 KST"
+            "published_at": "2026-11-17 05:27:03 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "엔비디아",
+        "freq": 2,
+        "summary": "엔비디아의 CEO인 젠슨 황의 복귀 고려 여부와 주가 폭락 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "refs": [
+          1,
+          5
+        ],
+        "reason": "엔비디아의 CEO인 젠슨 황의 복귀 고려 여부와 주가 폭락 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "related_videos": [
+          {
+            "title": "엔비디아 이사회 \"젠슨황 복귀 고려 안 해\"…월가 \"앤트로픽 IPO, 10~20배 초과 청약\" | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=0J5AXS2pqUg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 07:05:54 KST"
+          },
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
           }
         ]
       },
       {
-        "name": "SK하이닉스",
+        "name": "삼성SDI",
         "freq": 1,
-        "summary": "엔비디아와 함께 언급되며 AI 버블 붕괴 공포 속에서도 지나친 우려가 아니라는 분석이 있었습니다. 반도체 섹터 내에서 주요 종목으로 다뤄졌습니다.",
+        "summary": "삼성SDI가 미국에 LFP 배터리를 공급한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 확장 및 미국 시장 진출과 관련된 구체적인 이슈입니다.",
         "refs": [
-          1
+          2
         ],
-        "reason": "엔비디아와 함께 언급되며 AI 버블 붕괴 공포 속에서도 지나친 우려가 아니라는 분석이 있었습니다. 반도체 섹터 내에서 주요 종목으로 다뤄졌습니다.",
+        "reason": "삼성SDI가 미국에 LFP 배터리를 공급한다는 내용이 언급되었습니다. 이는 해당 기업의 사업 확장 및 미국 시장 진출과 관련된 구체적인 이슈입니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "엔비디아부터 삼전닉스까지 무차별 급락…AI 버블 붕괴 공포가 지나치다고 보는 이유ㅣ명민준, 서수진, 송재경 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=FaYdu-Fa5_U",
+            "title": "미국에선 AI 반중연대, 중국에선 미중러 회담…격동의 APEC | 삼성SDI, 미국에 최대 4조 LFP 배터리 공급 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=VkvJKPIUpl8",
             "channel_name": "삼프로TV",
-            "published_at": "2026-11-16 20:00:02 KST"
+            "published_at": "2026-11-17 05:27:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "엔비디아의 주가 폭락 및 젠슨 황의 사임 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "refs": [
+          5
+        ],
+        "reason": "엔비디아의 주가 폭락 및 젠슨 황의 사임 가능성이 언급되었습니다. 이는 AI 섹터의 주요 기업으로서 시장에 미치는 영향이 크다는 점을 시사합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
           }
         ]
       }
@@ -625,100 +362,100 @@
       "stocks": [
         {
           "name": "Nvidia",
-          "freq": 4
+          "freq": 1
         },
         {
-          "name": "Anthropic",
-          "freq": 3
-        },
-        {
-          "name": "Morgan Stanley",
-          "freq": 3
-        },
-        {
-          "name": "Omada Health",
+          "name": "JPMorgan Chase",
           "freq": 2
         },
         {
-          "name": "Amazon",
-          "freq": 2
-        },
-        {
-          "name": "Western Midstream",
+          "name": "Daré Bioscience",
           "freq": 1
         },
         {
-          "name": "Array Digital Infrastructure",
+          "name": "Red Cat",
           "freq": 1
         },
         {
-          "name": "Ovintiv",
+          "name": "L’Oreal US",
           "freq": 1
         },
         {
-          "name": "Telephone & Data Systems",
+          "name": "United Airlines",
           "freq": 1
         },
         {
-          "name": "INDO-MIM",
+          "name": "Firy",
           "freq": 1
         },
         {
-          "name": "Angelina Jolie",
+          "name": "Parabolic",
           "freq": 1
         },
         {
-          "name": "Chris Simms",
+          "name": "Standard Lithium",
           "freq": 1
         },
         {
-          "name": "Boeing",
+          "name": "Summit Therapeutics",
           "freq": 1
         },
         {
-          "name": "Lockheed",
+          "name": "Wrap Technologies",
           "freq": 1
         },
         {
-          "name": "Intel",
+          "name": "USA Rare Earth",
+          "freq": 1
+        },
+        {
+          "name": "Micron",
+          "freq": 1
+        },
+        {
+          "name": "AMD",
+          "freq": 1
+        },
+        {
+          "name": "Novo",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
-          "freq": 4
+          "freq": 1
         },
         {
-          "name": "Energy",
-          "freq": 3
+          "name": "바이오",
+          "freq": 2
         },
         {
           "name": "Oil",
-          "freq": 3
-        },
-        {
-          "name": "Black Friday",
-          "freq": 3
+          "freq": 2
         },
         {
           "name": "반도체",
           "freq": 1
         },
         {
-          "name": "Cybersecurity",
+          "name": "Aviation",
           "freq": 2
         },
         {
-          "name": "Retail",
+          "name": "Banking",
           "freq": 2
         },
         {
-          "name": "Building Materials",
+          "name": "Rare Earths",
           "freq": 1
         },
         {
-          "name": "Infrastructure",
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "EV",
           "freq": 1
         },
         {
@@ -726,23 +463,23 @@
           "freq": 1
         },
         {
-          "name": "Space",
+          "name": "Logistics",
           "freq": 1
         },
         {
-          "name": "Data Center",
+          "name": "Software",
           "freq": 1
         },
         {
-          "name": "Crypto",
+          "name": "Cancer Drugs",
           "freq": 1
         },
         {
-          "name": "Lung Cancer Drug",
+          "name": "Consumer Banking",
           "freq": 1
         },
         {
-          "name": "Bond Market",
+          "name": "Chip Sector",
           "freq": 1
         }
       ]
@@ -750,43 +487,31 @@
     "kr": {
       "stocks": [
         {
-          "name": "SK하이닉스",
-          "freq": 4
+          "name": "Nvidia",
+          "freq": 1
         },
         {
           "name": "삼성전자",
-          "freq": 2
-        },
-        {
-          "name": "다올투자증권",
           "freq": 1
         },
         {
-          "name": "롯데지주",
+          "name": "SK하이닉스",
           "freq": 1
         },
         {
-          "name": "카카오뱅크",
+          "name": "현대오토에버",
           "freq": 1
         },
         {
-          "name": "KG그룹",
+          "name": "두나무",
           "freq": 1
         },
         {
-          "name": "루닛",
+          "name": "빗썸",
           "freq": 1
         },
         {
-          "name": "한국전력",
-          "freq": 1
-        },
-        {
-          "name": "모아라이프플러스",
-          "freq": 1
-        },
-        {
-          "name": "광주은행",
+          "name": "현대자동차",
           "freq": 1
         },
         {
@@ -794,53 +519,61 @@
           "freq": 1
         },
         {
-          "name": "상상인증권",
+          "name": "SK㈜",
           "freq": 1
         },
         {
-          "name": "삼성화재",
+          "name": "파파존스",
           "freq": 1
         },
         {
-          "name": "현대모비스",
+          "name": "이너시아",
           "freq": 1
         },
         {
-          "name": "에이엘로봇",
+          "name": "커시안그룹",
+          "freq": 1
+        },
+        {
+          "name": "한수원",
+          "freq": 1
+        },
+        {
+          "name": "대우건설",
+          "freq": 1
+        },
+        {
+          "name": "한국파파존스",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "반도체",
-          "freq": 3
-        },
-        {
           "name": "AI",
           "freq": 2
         },
         {
-          "name": "금융",
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Aviation",
           "freq": 2
         },
         {
-          "name": "자동차",
-          "freq": 2
+          "name": "Electric Vehicles",
+          "freq": 1
         },
         {
-          "name": "광물",
-          "freq": 2
+          "name": "Robotics",
+          "freq": 1
         },
         {
-          "name": "스타트업",
-          "freq": 2
+          "name": "Cybersecurity",
+          "freq": 1
         },
         {
-          "name": "바이오/헬스케어",
-          "freq": 2
-        },
-        {
-          "name": "부동산",
+          "name": "Biotechnology",
           "freq": 1
         },
         {
@@ -848,27 +581,31 @@
           "freq": 1
         },
         {
-          "name": "가상자산",
+          "name": "Cryptocurrency",
           "freq": 1
         },
         {
-          "name": "IT/소프트웨어",
+          "name": "Automotive",
           "freq": 1
         },
         {
-          "name": "방산",
+          "name": "Energy",
           "freq": 1
         },
         {
-          "name": "농업",
+          "name": "Nuclear Power",
           "freq": 1
         },
         {
-          "name": "게임",
+          "name": "Real Estate",
           "freq": 1
         },
         {
-          "name": "화학",
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
           "freq": 1
         }
       ]
