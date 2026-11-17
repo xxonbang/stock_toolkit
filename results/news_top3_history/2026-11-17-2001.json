@@ -1,0 +1,808 @@
+{
+  "generated_at": "2026-11-17 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 10건)",
+        "us_news_refs": [
+          0,
+          2,
+          3,
+          26,
+          31,
+          41,
+          45,
+          46,
+          48,
+          50
+        ],
+        "related_news": [
+          {
+            "title": "Stock market today: Dow, S&P 500 futures slip, and Nasdaq futures slip in countdown to Nvidia earnings - Yahoo Finance",
+            "title_ko": "오늘 주식 시장: 다우, S&P 500 선물 하락, Nvidia 실적 발표 전 나스닥 선물 하락",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQdWtWNkNlN3hudEVCOTMybUtBdGpTLV9XcXNKT3BoZ1EzamZCalNiQzNNMkFvSWtFU1ZqTXQwOTBhQ0pmTTVoQTg2R1NUdWZLdDNzS3J5Z09EMVVtU29YNlZVU1NlWVdaNXJOMWVhUjBJOEhFdFZaemtuemg5cmRnUDFEdnE1YTBnckJocmc5VjRjYV9kaVdHdXIweHVsSXF0TldQbGhMRkRSM2Vtb2wya3FyOHdpM19nVmU3V2pmVGtiX3BJ?oc=5",
+            "published_at": "2026-11-17 19:00:50 KST"
+          },
+          {
+            "title": "Nvidia stock valuation looks 'draconian,' even without Jensen Huang: Analyst - Yahoo Finance",
+            "title_ko": "Nvidia 주가 밸류에이션, 젠슨 황 없이도 '가혹'하다: 분석가",
+            "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMDl4WHFaaUdid1hZWl9vazlpQTJwbmxuR2xyT3RUblBjemlFOHRnR3BGemhCUmI3ZWktSHlib1NqUDl5SnFPVWlFenh6NUFUMUk1YWdyWmxfTmRKbzJDSDFZdUJCU3FTb3UzbVF0NXBJS25QMWxIOHFiSmhLXzR5clZqYmZYZkRHYi1WVXdnYkdwOUNVX2JrS1ZxUWhkaXZJdnJTcTBWMzRPbm42dm1zVEE2NmNhOEcyRUtjTkFFZU1KWWJUZk5WTVhxd1dmYXpSQlE?oc=5",
+            "published_at": "2026-11-17 18:44:58 KST"
+          },
+          {
+            "title": "Bessent pushed new AI chips rule - Politico",
+            "title_ko": "베센트, 새 AI 칩 규정 추진",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSnRIQ2pkaE9LMG5IYzczNmdEZUlPYnc4SmJsRzduc0VzUnhBX2E1eklOYlItMHU5SWE0bjA3RWNWdElJWF9BT25CQTcwX2tMaktXYXlyQ0k0QndwblJOci1mR09sS3N4dVotcHJUZ0ktSkJkekhKRzZOcWZ0ckZmVjdmNXYyXzFvOElSdWtROTFVaEV0ekk3RVJBRk5uLTZWbmtqbjNPTl85Mmc?oc=5",
+            "published_at": "2026-11-17 13:06:00 KST"
+          },
+          {
+            "title": "OpenAI sued by California over Hugging Face attack - BBC",
+            "title_ko": "OpenAI, Hugging Face 공격 관련 캘리포니아에 피소",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE44X3h6ZDFZV05Gdzc1TTZtX083U2dlX2tmcWY5ZmVyYmk0cy0teWw0Q1VtWi1ISjRxNFZPYmZBMmZKUVN4WVhGOGVvX1B4VHhtVzBPUjIwOEMwRnM?oc=5",
+            "published_at": "2026-11-17 08:12:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "reason": "헬스케어 기업들의 실적 및 신약 개발 관련 소식이 주목받음 (총 4건)",
+        "us_news_refs": [
+          10,
+          11,
+          13,
+          19
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Viatris at UBS Global Biopharma Conference 2026: growth story gains pace",
+            "title_ko": "Viatris, UBS 글로벌 바이오파마 컨퍼런스 2026: 성장 스토리 가속",
+            "url": "https://www.investing.com/news/transcripts/viatris-at-ubs-global-biopharma-conference-2026-growth-story-gains-pace-93CH-5032234",
+            "published_at": "2026-11-17 19:53:53 KST"
+          },
+          {
+            "title": "Gilead at UBS Global Biopharma Conference 2026: growth runway widens",
+            "title_ko": "길리어드, UBS 글로벌 바이오파마 컨퍼런스 2026: 성장 궤도 확대",
+            "url": "https://www.investing.com/news/transcripts/gilead-at-ubs-global-biopharma-conference-2026-growth-runway-widens-93CH-5032233",
+            "published_at": "2026-11-17 19:53:38 KST"
+          },
+          {
+            "title": "Danaher at Jefferies Global Healthcare Conference: growth plan takes shape",
+            "title_ko": "다나허, 제프리스 글로벌 헬스케어 컨퍼런스: 성장 계획 구체화",
+            "url": "https://www.investing.com/news/transcripts/danaher-at-jefferies-global-healthcare-conference-growth-plan-takes-shape-93CH-5032231",
+            "published_at": "2026-11-17 19:53:07 KST"
+          },
+          {
+            "title": "Pick the two sectors where earnings growth will accelerate — as long as the 10-year stays below this key level, say strategists",
+            "title_ko": "실적 성장 가속화할 두 섹터 선택…전략가",
+            "url": "https://www.marketwatch.com/story/pick-the-two-sectors-where-earnings-growth-will-accelerate-as-long-as-the-10-year-stays-below-this-key-level-say-strategists-e7c13914?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 19:47:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Aerospace",
+        "reason": "항공우주 산업 관련 기업들의 실적 및 사업 확장 소식이 부각됨 (총 4건)",
+        "us_news_refs": [
+          4,
+          27,
+          33,
+          38
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "1.5-hour-long system outage forces United Airlines to delay departing flights - AP News",
+            "title_ko": "1.5시간 시스템 장애로 유나이티드항공 출발편 지연",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQc2xoSnd5Sm9rYTl5eFVRVzc2MFlNSk5qNUJRckg2X0tVazZEZG4wNTVVYW9JeWNyY1J6TWlKS0VURXd1c1JzUUdYU01WQzhQNWhkOEVCOXo4TTlLSnFNanUzVW9BYkZMOVBSb3ZfRnFMWXZFSGp1ZE5vSF9MTEd3VmxSTGI0YlR1VlE?oc=5",
+            "published_at": "2026-11-17 18:19:00 KST"
+          },
+          {
+            "title": "Trump administration's $50B air traffic demand hits GOP turbulence in the Senate - Politico",
+            "title_ko": "트럼프 행정부 500억 달러 항공 교통 수요, 공화당 상원 난항",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPejVnalQxVlRtempGWUFsVUtDY2I0a2VjT0k4RTRwZGVJQ1JvZ0RxS1lTSGh3TmNkYi0wUXQ5LTcxLUQxaDJ2RFFnTXY5eWR3YnYxRXNnZldISUxEdHlNVVJiUXNWd283MDUyOV9XX3ppRFlEZ3IwWmphdVJoVU9XOTg4SDl4YWg2ZXBhbFNfMm9KVFBwZ3I0RVNnVDY?oc=5",
+            "published_at": "2026-11-17 11:31:00 KST"
+          },
+          {
+            "title": "Women stranded by FAA ground stop buy a Bronco for a 27-hour road trip home - NBC News",
+            "title_ko": "FAA 운항 중단으로 발 묶인 여성들, 27시간 로드 트립 위해 브롱코 구매",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQSnZxRXBDLXNPbDZNME1POVMyOUY3eS0xckwtWngwUlUyY2MyZkx5elVwNWJ3cEN5eUFtb1JNY3J2X3pFMmtOQUZsdkdQdFMyV2Y0U2sxM3hxNERha1E0ZENtNjEyQUZUclh6NTQwT0gzTlNHTVhBUjgzYVlGQmFxaU5uckZxN0NUSXktYzItZ2ZKak8yN1loODNlbGJvU21vLTIxaUxDNi0xaHVEb3JfRmRB?oc=5",
+            "published_at": "2026-11-17 07:03:18 KST"
+          },
+          {
+            "title": "Relive Starship’s historic Flight 15 with our best photos from launch and ‘Mechazilla’ tower catch - Space",
+            "title_ko": "스타십 역사적인 15차 비행 릴레이…발사 및 '메카질라' 타워 포획 최고 사진",
+            "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQa2RGRXdMaExTazBUSEtDbklKN0s4T3M4U0g2QktTQmVqOWRJdzAtZDd5anZrRXRlSGhKZEN5QjNFMFcyQUVuVkZOS0lDS0tIWEY3cmdJdGpieTBsVktnOUt0N25TckxzbUtUeG5PZl9FbWZ2QkxkWVgxT2ZQTV9URkY4OWVVZDZOa20td1Y5S090cGd4MlBjQmNfdXdnMGlFZDdveDFSb0Z5SDdXZk9jalY0M1VsREdIMWVyQ191UXVGaWdfYnUtWEcyVWZfMG55d1RDSUU2UDFxc1IzTl9JRnVKZ3hUVGQ0VGln?oc=5",
+            "published_at": "2026-11-17 06:26:29 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 18건)",
+        "us_news_refs": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          8,
+          20,
+          25,
+          26,
+          29,
+          32,
+          34,
+          35,
+          45,
+          46,
+          47,
+          48,
+          50
+        ],
+        "related_news": [
+          {
+            "title": "Tepper, Loeb among fund managers piling into Nvidia and other megacap tech on the eve of October drawdown",
+            "title_ko": "테퍼, 롭 등 펀드매니저, 10월 하락 전 Nvidia 등 대형 기술주 매수",
+            "url": "https://www.marketwatch.com/story/tepper-loeb-among-fund-managers-piling-into-nvidia-and-other-megacap-tech-on-the-eve-of-october-drawdown-de45f572?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 19:28:00 KST"
+          },
+          {
+            "title": "Stock market today: Dow, S&P 500 futures slip, and Nasdaq futures slip in countdown to Nvidia earnings - Yahoo Finance",
+            "title_ko": "오늘 주식 시장: 다우, S&P 500 선물 하락, Nvidia 실적 발표 전 나스닥 선물 하락",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQdWtWNkNlN3hudEVCOTMybUtBdGpTLV9XcXNKT3BoZ1EzamZCalNiQzNNMkFvSWtFU1ZqTXQwOTBhQ0pmTTVoQTg2R1NUdWZLdDNzS3J5Z09EMVVtU29YNlZVU1NlWVdaNXJOMWVhUjBJOEhFdFZaemtuemg5cmRnUDFEdnE1YTBnckJocmc5VjRjYV9kaVdHdXIweHVsSXF0TldQbGhMRkRSM2Vtb2wya3FyOHdpM19nVmU3V2pmVGtiX3BJ?oc=5",
+            "published_at": "2026-11-17 19:00:50 KST"
+          },
+          {
+            "title": "Nvidia stock valuation looks 'draconian,' even without Jensen Huang: Analyst - Yahoo Finance",
+            "title_ko": "Nvidia 주가 밸류에이션, 젠슨 황 없이도 '가혹'하다: 분석가",
+            "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMDl4WHFaaUdid1hZWl9vazlpQTJwbmxuR2xyT3RUblBjemlFOHRnR3BGemhCUmI3ZWktSHlib1NqUDl5SnFPVWlFenh6NUFUMUk1YWdyWmxfTmRKbzJDSDFZdUJCU3FTb3UzbVF0NXBJS25QMWxIOHFiSmhLXzR5clZqYmZYZkRHYi1WVXdnYkdwOUNVX2JrS1ZxUWhkaXZJdnJTcTBWMzRPbm42dm1zVEE2NmNhOEcyRUtjTkFFZU1KWWJUZk5WTVhxd1dmYXpSQlE?oc=5",
+            "published_at": "2026-11-17 18:44:58 KST"
+          },
+          {
+            "title": "Trump Backs Huang Comeback While Nvidia Board Seeks New CEO - Bloomberg.com",
+            "title_ko": "트럼프, 황 복귀 지지…Nvidia 이사회 새 CEO 물색",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQTzZFZHJxQ1ZMaW5Ba1V4bm8taHd4bFBvYUZHWFY4SFpydml5YUVhLTRCaEFsNG9TbjY1dl9ac2tDek1DemJ0M3FwQTNtQm5aNV83RjFsZEZTNmJ2WHRJRWtHUVRDVEdnTUJtSzlaMWZfSEU2anpRSmVGcG9SUEgxN3c1WG5UcVBkdG02bmsyQkxvNlVqeEV2SDFORlA3VGNHZnpha2EyQ3V5aDVIS1E?oc=5",
+            "published_at": "2026-11-17 15:09:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Deutsche Bank",
+        "reason": "유럽 은행 섹터 전반의 관심과 함께 실적 발표 및 전망이 주목받음 (총 4건)",
+        "us_news_refs": [
+          7,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Leaked Files Show Deutsche Bank Protected Russian Profits Despite Warnings - The New York Times",
+            "title_ko": "유출된 파일, 도이체방크가 경고에도 러시아 이익 보호 보여줘",
+            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxORnNyU2FWSTVxZEFydWh0bmk5MEc2aVJpRWJ6ckNNYXZEaXQ3U0pTM2RuWFRIQmJMZllRQ2FWOVJjdVJCZ2tGWkZfU1hFMGN4NW5qUE1KR1dkb3V5TjZFVnNla2cyc0FWOGJlcnJkREpIYThNcEdQZ3kzMHBiUzdKSzFPTjE1LVFYM1FaMHhqWVFReFNpeE5PTU5rSWZrUXhibWc?oc=5",
+            "published_at": "2026-11-17 15:00:12 KST"
+          },
+          {
+            "title": "Here’s how much of Deutsche Bank’s market cap has been wiped away after reports on 15 million leaked documents",
+            "title_ko": "1500만 건 유출 문서 보도 후 도이체방크 시총 얼마나 증발했나",
+            "url": "https://www.marketwatch.com/story/heres-how-much-of-deutsche-banks-market-cap-has-been-wiped-away-after-reports-on-15-million-leaked-documents-fe3db078?mod=mw_rss_topstories",
+            "published_at": "2026-11-17 18:35:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전 및 관련 기업들의 실적 개선 기대감이 시장의 주목을 받음 (총 22건)",
+        "kr_news_refs": [
+          2,
+          3,
+          6,
+          13,
+          23,
+          24,
+          26,
+          31,
+          32,
+          45,
+          48,
+          49,
+          51,
+          64,
+          77,
+          83,
+          85,
+          86,
+          88,
+          91,
+          93,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "대구시. ‘2026 대구국제기계산업대전’ 개최 - 데일리대구경북뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5DYUMyVldyNmdqaFRRZjZPTlYtdVJYb09oSVZrSThVbEw4S2ZGUk9SMmNvSUtzNk1HQjNIWF8wTkdyek9yd255b3k1b2JnTGotZ2swX3RCRzctcktCTUNiSEVhN0R5Zw?oc=5",
+            "published_at": "2026-11-17 18:24:38 KST"
+          },
+          {
+            "title": "[중국증시-마감] 美 AI 반도체 규제 여파 속 하락 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA0YzBpVzlicjlnRVZZWGNweVphRlRVVlpfcDhZTGt1aVlMc0VQWHYtU2VxWDRSbTRIWE1NSlNtN25DeVZnSmFzLVpEUDJpcDB3Ui1FdFNSMzhLbnZsUDBGZWxQZGNEX2swSTY1NUVDN3g?oc=5",
+            "published_at": "2026-11-17 18:13:02 KST"
+          },
+          {
+            "title": "이미 2년 전 ‘AI 커닝’…일본은 이렇게 잡는다, 전파탐지부터 광학센서까지 - 한겨레",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOYkJFc19tdElUNkdzOGFNWnRvTV9VeEE0Nkk0a0xCSXljMlZ2dTRPUlhRLUxTejJUUHczSVc5UVV4MFlGc1h3dFZwOWo2d3I4Uy1qOWtSX0Y4S3dUUE42bTZYaGRUVkdXcUotRUFYU2duSFdDaFpLMmZzVXZ2SEhncmdR?oc=5",
+            "published_at": "2026-11-17 16:52:00 KST"
+          },
+          {
+            "title": "“AI가 내 경력도 바꾼다”…2030년까지 직장인 4억3550만명 직무 재편 - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9VS1dCM3g1d3U3SkRaN290dHRKUW1RZmZzU0pLY3dKSWFUMjJBSE1oemNBZHM1ZFJUVkdlY1l1Vl9yYUczTjBXeWdRQS1jZw?oc=5",
+            "published_at": "2026-11-17 14:52:49 KST"
+          },
+          {
+            "title": "“저기, 손톱 좀 봅시다” 할 판…하다 하다 이젠 초소형 네일 카메라까지",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12211579",
+            "published_at": "2026-11-17 19:37:10 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "반도체 업황 개선 및 신규 기술 개발 관련 소식이 시장의 주목을 받음 (총 6건)",
+        "kr_news_refs": [
+          1,
+          3,
+          4,
+          5,
+          26,
+          94
+        ],
+        "related_news": [
+          {
+            "title": "[외환-마감] 外人 선물 매수 vs 네고에 '엎치락뒤치락'…1,330원대 후반 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1uWHJiVmJWMy14Z1hObVIyWHhpZnJINUk4MG55RXBDM2RfSjNETHhKNktXak1ObmlVYkswZkVyTWVkNE8yUVRBQkdsZlNhaHkzR0ZzY3lTNWN6emMzSjlES0h4LTZ3eWh0amZEaW81RW4?oc=5",
+            "published_at": "2026-11-17 18:34:53 KST"
+          },
+          {
+            "title": "[중국증시-마감] 美 AI 반도체 규제 여파 속 하락 - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA0YzBpVzlicjlnRVZZWGNweVphRlRVVlpfcDhZTGt1aVlMc0VQWHYtU2VxWDRSbTRIWE1NSlNtN25DeVZnSmFzLVpEUDJpcDB3Ui1FdFNSMzhLbnZsUDBGZWxQZGNEX2swSTY1NUVDN3g?oc=5",
+            "published_at": "2026-11-17 18:13:02 KST"
+          },
+          {
+            "title": "김정관 장관, 수출 1조 달러 앞두고 물류 최전선 인천신항 방문 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1TVXZsbkZ4Z0d3Q0VpV0xoRVh5VzU2QmE3bG1oYnRsNTI5WXRCYmUwSTFqMFJJREVHM3VSYnlGekhKSVdlMk41eWxQWVJJbmV4bU1PV1dzOThTdnQ5T3JuQUZaZ2tzRk9OUmVlSXg1ZWp1d2RD0gF0QVVfeXFMUDIweUc3RjZYejFMWjJBSDVVdzFVTXU5dTFiMDdOMjlHWnpDdHdsZlZfeFBLbEdZcWxXOHdTMFA3NEtkTjAyUWRXSThPa1RMdXd2R2Y3Y2I3aUEtNC1heGV5UWVPdUJPTlExU2xEbDIwZE00Zk4?oc=5",
+            "published_at": "2026-11-17 17:48:01 KST"
+          },
+          {
+            "title": "[단독] 삼성전자·애플, D램 장기공급계약 ‘초읽기’ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1qbmFzeUw0X1VNVlJGOE1ITjhGaXNGZ05SS2ptMmE4OFBZTkxGQ0xYWXNuZ2tLRVhkTkxEcFZNYTdGSkJTRDVLckVuUmpabFRjM1E3X2xn?oc=5",
+            "published_at": "2026-11-17 17:00:00 KST"
+          },
+          {
+            "title": "李대통령, 취임 후 처음으로 푸틴 만나나",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12211576",
+            "published_at": "2026-11-17 19:31:59 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Apple",
+        "reason": "신제품 출시 및 견조한 실적 발표가 국내 증시에서도 관련주에 영향을 미침 (총 3건)",
+        "kr_news_refs": [
+          5,
+          99
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[단독] 삼성전자·애플, D램 장기공급계약 ‘초읽기’ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1qbmFzeUw0X1VNVlJGOE1ITjhGaXNGZ05SS2ptMmE4OFBZTkxGQ0xYWXNuZ2tLRVhkTkxEcFZNYTdGSkJTRDVLckVuUmpabFRjM1E3X2xn?oc=5",
+            "published_at": "2026-11-17 17:00:00 KST"
+          },
+          {
+            "title": "[단독] D램 다급한 애플, 삼성과 장기계약",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12211500",
+            "published_at": "2026-11-17 17:47:48 KST"
+          }
+        ]
+      },
+      {
+        "name": "쿠팡",
+        "reason": "전자상거래 시장 성장 및 실적 개선 기대감이 주가에 반영됨 (총 2건)",
+        "kr_news_refs": [
+          20,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "공정위, 쿠팡·김범석 고발 심의 착수",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12211580",
+            "published_at": "2026-11-17 19:49:26 KST"
+          },
+          {
+            "title": "공정위, '총수 지정자료 허위제출' 쿠팡·김범석 고발 의견",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261117163200002",
+            "published_at": "2026-11-17 18:47:59 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "반도체 업황 개선 및 신규 기술 개발 관련 소식이 시장의 주목을 받음 (총 2건)",
+        "kr_news_refs": [
+          5,
+          99
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[단독] 삼성전자·애플, D램 장기공급계약 ‘초읽기’ - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1qbmFzeUw0X1VNVlJGOE1ITjhGaXNGZ05SS2ptMmE4OFBZTkxGQ0xYWXNuZ2tLRVhkTkxEcFZNYTdGSkJTRDVLckVuUmpabFRjM1E3X2xn?oc=5",
+            "published_at": "2026-11-17 17:00:00 KST"
+          },
+          {
+            "title": "[단독] D램 다급한 애플, 삼성과 장기계약",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12211500",
+            "published_at": "2026-11-17 17:47:48 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 5,
+        "summary": "영상들은 반도체 섹터의 이익 급감, 주가 폭락, 최악의 시나리오에 갇힌 증시 상황을 언급했습니다. 젠슨 황의 사임이 반도체 주가 폭락의 나비효과를 키울 수 있다는 분석도 제시되었습니다.",
+        "refs": [
+          1,
+          2,
+          5,
+          6,
+          8
+        ],
+        "reason": "영상들은 반도체 섹터의 이익 급감, 주가 폭락, 최악의 시나리오에 갇힌 증시 상황을 언급했습니다. 젠슨 황의 사임이 반도체 주가 폭락의 나비효과를 키울 수 있다는 분석도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자·SK하이닉스 급락에도 섣부른 매수는 금물…반등을 위해 먼저 확인해야 할 조건ㅣ명민준, 서수진, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=dOy04iFw5_U",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 20:00:21 KST"
+          },
+          {
+            "title": "젠슨 황의 사임이 불러온, 반도체 주가 폭락",
+            "url": "https://www.youtube.com/watch?v=1NuMdHW8lio",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-17 19:43:01 KST"
+          },
+          {
+            "title": "반도체 이익 30% 급감까지 반영한 주가…최악의 시나리오에 갇힌 증시ㅣ홍선애, 김한진 삼프로TV 이코노미스트 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=xZHld6KdReU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 18:15:39 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 또 폭락, 못 팔았으면 '이때까지' 버티세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=JYyoOyLbEdY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 18:15:23 KST"
+          },
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 섹터는 부정행위 이슈와 관련하여 언급되었습니다. 또한 AI가 일자리를 파괴하고 대졸 신입 정규직이 급감하는 현상과 연관 지어 분석되었습니다.",
+        "refs": [
+          9,
+          10
+        ],
+        "reason": "AI 섹터는 부정행위 이슈와 관련하여 언급되었습니다. 또한 AI가 일자리를 파괴하고 대졸 신입 정규직이 급감하는 현상과 연관 지어 분석되었습니다.",
+        "related_videos": [
+          {
+            "title": "그동안 AI 부정행위로 얼마나 많이 해먹었을까",
+            "url": "https://www.youtube.com/watch?v=eq6ptQbtw3s",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-16 18:16:59 KST"
+          },
+          {
+            "title": "수많은 취준생을 울린 '꿈꾸던 어른이 되었나요?'",
+            "url": "https://www.youtube.com/watch?v=yagCF3JqwAE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-14 20:12:16 KST"
+          }
+        ]
+      },
+      {
+        "name": "부동산",
+        "freq": 1,
+        "summary": "부동산 섹터는 '하우스푸어'의 폭증 가능성과 집을 사는 사람이 사라지고 있다는 점을 언급하며 관련 이슈를 다루었습니다.",
+        "refs": [
+          7
+        ],
+        "reason": "부동산 섹터는 '하우스푸어'의 폭증 가능성과 집을 사는 사람이 사라지고 있다는 점을 언급하며 관련 이슈를 다루었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "하우스푸어 곧 폭증합니다, 집 사는 사람 싹다 사라졌다 (박은정 감정평가사)",
+            "url": "https://www.youtube.com/watch?v=9U2TUMps-jI",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-16 19:15:07 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자는 급락에도 섣부른 매수는 금물이며, 반등을 위해 확인해야 할 조건이 있다는 분석이 있었습니다. 또한 추가 폭락 후 '이때까지' 버텨야 한다는 의견도 제시되었습니다.",
+        "refs": [
+          1,
+          6
+        ],
+        "reason": "삼성전자는 급락에도 섣부른 매수는 금물이며, 반등을 위해 확인해야 할 조건이 있다는 분석이 있었습니다. 또한 추가 폭락 후 '이때까지' 버텨야 한다는 의견도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자·SK하이닉스 급락에도 섣부른 매수는 금물…반등을 위해 먼저 확인해야 할 조건ㅣ명민준, 서수진, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=dOy04iFw5_U",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 20:00:21 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 또 폭락, 못 팔았으면 '이때까지' 버티세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=JYyoOyLbEdY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 18:15:23 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스는 급락에도 섣부른 매수는 금물이며, 반등을 위해 확인해야 할 조건이 있다는 분석이 있었습니다. 또한 추가 폭락 후 '이때까지' 버텨야 한다는 의견도 제시되었습니다.",
+        "refs": [
+          1,
+          6
+        ],
+        "reason": "SK하이닉스는 급락에도 섣부른 매수는 금물이며, 반등을 위해 확인해야 할 조건이 있다는 분석이 있었습니다. 또한 추가 폭락 후 '이때까지' 버텨야 한다는 의견도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자·SK하이닉스 급락에도 섣부른 매수는 금물…반등을 위해 먼저 확인해야 할 조건ㅣ명민준, 서수진, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=dOy04iFw5_U",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-17 20:00:21 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 또 폭락, 못 팔았으면 '이때까지' 버티세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=JYyoOyLbEdY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 18:15:23 KST"
+          }
+        ]
+      },
+      {
+        "name": "엔비디아",
+        "freq": 2,
+        "summary": "엔비디아는 33% 폭락했으며, 젠슨 황의 사임이 증시 혼란을 더 키울 수 있다는 분석이 있었습니다. 이는 반도체 주가 폭락의 원인으로도 지목되었습니다.",
+        "refs": [
+          2,
+          8
+        ],
+        "reason": "엔비디아는 33% 폭락했으며, 젠슨 황의 사임이 증시 혼란을 더 키울 수 있다는 분석이 있었습니다. 이는 반도체 주가 폭락의 원인으로도 지목되었습니다.",
+        "related_videos": [
+          {
+            "title": "젠슨 황의 사임이 불러온, 반도체 주가 폭락",
+            "url": "https://www.youtube.com/watch?v=1NuMdHW8lio",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-17 19:43:01 KST"
+          },
+          {
+            "title": "엔비디아-33% 폭락, 젠슨 황 사임 나비효과가 증시 혼란 더 키울까",
+            "url": "https://www.youtube.com/watch?v=wImd4kZNdN4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-16 18:45:47 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 6
+        },
+        {
+          "name": "United Airlines",
+          "freq": 4
+        },
+        {
+          "name": "Deutsche Bank",
+          "freq": 4
+        },
+        {
+          "name": "Disney",
+          "freq": 4
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 1
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "freq": 2
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        },
+        {
+          "name": "OpenAI",
+          "freq": 1
+        },
+        {
+          "name": "Viatris",
+          "freq": 1
+        },
+        {
+          "name": "Gilead",
+          "freq": 1
+        },
+        {
+          "name": "Danaher",
+          "freq": 1
+        },
+        {
+          "name": "Bally’s",
+          "freq": 1
+        },
+        {
+          "name": "Grindr",
+          "freq": 1
+        },
+        {
+          "name": "Microbot Medical",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Healthcare",
+          "freq": 3
+        },
+        {
+          "name": "바이오",
+          "freq": 3
+        },
+        {
+          "name": "Data Center",
+          "freq": 2
+        },
+        {
+          "name": "Aerospace",
+          "freq": 2
+        },
+        {
+          "name": "Banking",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "클라우드",
+          "freq": 1
+        },
+        {
+          "name": "Financials",
+          "freq": 1
+        },
+        {
+          "name": "Entertainment",
+          "freq": 1
+        },
+        {
+          "name": "Travel",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 2
+        },
+        {
+          "name": "Apple",
+          "freq": 3
+        },
+        {
+          "name": "쿠팡",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "쿠팡Inc",
+          "freq": 2
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "LG",
+          "freq": 1
+        },
+        {
+          "name": "LIG D&A",
+          "freq": 1
+        },
+        {
+          "name": "KT wiz",
+          "freq": 1
+        },
+        {
+          "name": "울산 HD",
+          "freq": 1
+        },
+        {
+          "name": "OK저축은행",
+          "freq": 1
+        },
+        {
+          "name": "캠테크",
+          "freq": 1
+        },
+        {
+          "name": "니어네트웍스",
+          "freq": 1
+        },
+        {
+          "name": "삼성",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 5
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "수출",
+          "freq": 3
+        },
+        {
+          "name": "보험",
+          "freq": 2
+        },
+        {
+          "name": "제조업",
+          "freq": 1
+        },
+        {
+          "name": "로봇",
+          "freq": 1
+        },
+        {
+          "name": "벤처 투자",
+          "freq": 1
+        },
+        {
+          "name": "보안",
+          "freq": 1
+        },
+        {
+          "name": "리모델링",
+          "freq": 1
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "ESG",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "자동차 부품",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
