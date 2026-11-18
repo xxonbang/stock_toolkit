@@ -1,0 +1,810 @@
+{
+  "generated_at": "2026-11-18 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 및 관련 기업들의 활동이 지속적으로 주목받고 있습니다 (총 11건)",
+        "us_news_refs": [
+          1,
+          3,
+          24,
+          25,
+          30,
+          34,
+          35,
+          37,
+          42,
+          46,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Stock futures rise as Nvidia gains on earnings beat and solid outlook: Live updates - CNBC",
+            "title_ko": "Nvidia 실적 호조 및 전망에 주가 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAwTDVScDA1ZzNHQi1GT1RaRFVzYTJPa2lHVVJyVzR6RlhfaGZNbG5Va1BFblNtYm54eG82YWl4dlA3SkltcC1WSmdCVEUtMlVKNXlCVDNVcG8wRnBaNkc0UVctakctUDdZUDJsNEp4dWN0Z0Vsczlv?oc=5",
+            "published_at": "2026-11-18 19:50:11 KST"
+          },
+          {
+            "title": "Anthropic Crypto Bets Imply $1.7 Trillion Value Despite AI Rout - Bloomberg.com",
+            "title_ko": "Anthropic 암호화폐 베팅, AI 폭락에도 1.7조 달러 가치 시사",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdGVJd04yYnJqVHFiTTZUckFGMGNUcXE2TEpsWEp4aXVMYVhfb281OFVxUEhuV055R1ZmMmtfdE93N1lRNnZmRlgxbnpVcWF2MU9mMWlIeGYzbV96M0MxT3Z6ODJOSXZaOUhMbDkxZW94VFJXZWdjM0ZBcmZKNVk2cmUzNWVWd1Fya1Rxd0RqVWJZN3I5T0pmN2V0ZHFHNU85TGJneHduTGZrU1o1aXVpOHVqRQ?oc=5",
+            "published_at": "2026-11-18 18:22:09 KST"
+          },
+          {
+            "title": "Microsoft aims to challenge OpenAI, Anthropic with cheaper, specialized AI models - Axios",
+            "title_ko": "Microsoft, 더 저렴하고 특화된 AI 모델로 OpenAI, Anthropic 도전 목표",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOWnpSWUhVX2NkMm9wR1R1dE92a2VBYVM5TUpKc19Ia3NsSlVmUmZfTjNfYVVuTnU4ZjJPMHJJWHNrclcxT3dSZGZ5ckdDYlM3M3BvcGVNNGtkb1ZKZk5KM2ZvOGJKdVhtLU5fQ3JtSDZsMW5rbGwwczhEX2R4TTY5Nm9n?oc=5",
+            "published_at": "2026-11-18 13:21:37 KST"
+          },
+          {
+            "title": "Nvidia Stops Selling AI Chips to China Despite US Approval - Bloomberg.com",
+            "title_ko": "Nvidia, 미국 승인에도 중국 AI 칩 판매 중단",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQVk5ZV2dpR3EyVEtJcVdSZTBCVGl6UE1qZ1gzNWdiaHJ3WGR1S3NUd2VRcWVzUWhjanFicXVzNi1zRWZNel9EdlVOaC1uMUFCckRXMkRGWkRZeHdZUnE4VTdtUkZ2N0dITkRYa040X29HanoxODdGVXV3NzEyOGhnR1VOb2VwcFNIcHFJQlFrNXM3T1hqQlN5WnB0MHJTU0R2cTZOUnBNbV9Ubm81clFKM0x5cHRxdw?oc=5",
+            "published_at": "2026-11-18 13:10:00 KST"
+          },
+          {
+            "title": "Nvidia bought itself a little breathing room in the Jensen Huang comeback fight - Business Insider",
+            "title_ko": "Nvidia, Jensen Huang 복귀전에서 숨 돌릴 여지 확보",
+            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPbFA2UGFkWVYwZ0lxQkFybS1NX0hlM29jZXIyTjRFOG9NWGFnelJndkJ0XzhQMF9xaDFvUjVBZXNRTWJVamZCOEJSbjl4ZTBXSU9yejFCUkxWckpZbmU0X19nVl9vODh2U0JsOTZuT2taTHl5LV84cnNrWTdVd3hzbi1INFVUS3VsYVhwY0hKTDNod1lQbDZIanU0UGRFNmMw?oc=5",
+            "published_at": "2026-11-18 11:13:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "바이오",
+        "reason": "바이오 섹터 내 다양한 기업들의 신규 파이프라인 및 기술 개발 소식이 시장의 관심을 받고 있습니다 (총 4건)",
+        "us_news_refs": [
+          5,
+          12,
+          13,
+          48
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Leukemia vaccine passes key trial, adding to breakthrough year for cancer drugs - The Washington Post",
+            "title_ko": "백혈병 백신 주요 시험 통과, 암 치료제 돌파 해에 추가",
+            "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQX2g0R1N2YjdZbGhhdmduT1VCa2RmZ0pScWhETjVaYTRUOUszXzRuYnM3SldxSWVuX0VnVG56TW5MVDdWM3ZQUEVDb3RKazJHVFBMYjMzWnhFdXFHRm5hSWpvRDdBYmF2aEhjNFNnZ2t2NjFsSk5RbnVYVEFldEg4RURQRDJpbnd5OVUteklQUGdaQi0tNEkzWV9vMzJoQ2hUQzY3SUJ6Qm9EcFkxdjZueW93a1ZzWndRUHBTNkJn?oc=5",
+            "published_at": "2026-11-18 15:38:13 KST"
+          },
+          {
+            "title": "Vericel stock holds at Neutral as BTIG eyes MACI growth debate",
+            "title_ko": "Vericel 주식 중립 유지, BTIG, MACI 성장 논쟁 주시",
+            "url": "https://www.investing.com/news/analyst-ratings/vericel-stock-holds-at-neutral-as-btig-eyes-maci-growth-debate-93CH-5035389",
+            "published_at": "2026-11-18 19:46:52 KST"
+          },
+          {
+            "title": "B.Riley cuts Cue Biopharma stock price target on financing concerns",
+            "title_ko": "B.Riley, 자금 조달 우려로 Cue Biopharma 주가 목표 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/briley-cuts-cue-biopharma-stock-price-target-on-financing-concerns-93CH-5035388",
+            "published_at": "2026-11-18 19:46:51 KST"
+          },
+          {
+            "title": "Viagra-Like Pill May Slow Alzheimer's - Newser",
+            "title_ko": "비아그라 유사 알약, 알츠하이머병 늦출 수도",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZzV2eTA1NkpndzVBcVNzVGlqRlk5b1FqOU5ycnRJZS1pTmF2al82QWdVUDVFYjJwWGtNbUd2a3FqWnRYWnhxbGJIeTY1MDhVYUdRNHNWZ0pOYllxaTQzMTZmYnpXTWNkLUNZXzV0Y3B3MjM3c2g3WElWQnpqYTg5OXYxQndiRnV3dzlwVTQyaHV0WmQ3c3A1TA?oc=5",
+            "published_at": "2026-11-18 03:38:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 빅테크 기업들의 투자 확대가 주가에 긍정적인 영향을 미치고 있습니다 (총 11건)",
+        "us_news_refs": [
+          1,
+          2,
+          6,
+          8,
+          20,
+          25,
+          30,
+          34,
+          35,
+          37,
+          38
+        ],
+        "related_news": [
+          {
+            "title": "Stock futures rise as Nvidia gains on earnings beat and solid outlook: Live updates - CNBC",
+            "title_ko": "Nvidia 실적 호조 및 전망에 주가 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAwTDVScDA1ZzNHQi1GT1RaRFVzYTJPa2lHVVJyVzR6RlhfaGZNbG5Va1BFblNtYm54eG82YWl4dlA3SkltcC1WSmdCVEUtMlVKNXlCVDNVcG8wRnBaNkc0UVctakctUDdZUDJsNEp4dWN0Z0Vsczlv?oc=5",
+            "published_at": "2026-11-18 19:50:11 KST"
+          },
+          {
+            "title": "Why Nvidia broke with its usual practice in holding back its quarterly SEC report",
+            "title_ko": "Nvidia, 분기 SEC 보고서 공개 연기 관행 깬 이유",
+            "url": "https://www.marketwatch.com/story/why-nvidia-broke-with-its-usual-practice-in-holding-back-its-quarterly-sec-report-1489d492?mod=mw_rss_topstories",
+            "published_at": "2026-11-18 18:32:00 KST"
+          },
+          {
+            "title": "Colette Kress Just Delivered Excellent News for Nvidia Investors - The Motley Fool",
+            "title_ko": "Colette Kress, Nvidia 투자자들에게 희소식 전해",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTm56RWFEcXV6NWdweUtlUDZLWkNzYUFUYnNlU244Mm1ObGd6dF90Z0lGOXRqeF9wY0lLb0l2OFVzY19ySVgtUERlVHNpZnF6RE16bFdwWkFCMWVMRGFTUmpxT09yUlJJekpsYkpXQ183aFM1SXlOT1ZUNjFIeUFhU3NlbkVUajA5RF8xa2ZNZmlabTlqTmNETGFHcFFCTmh6c1c3bmI0dERvdzg?oc=5",
+            "published_at": "2026-11-18 14:30:00 KST"
+          },
+          {
+            "title": "Needham reiterates Buy on Nvidia stock, keeps $200 target on demand",
+            "title_ko": "Needham, Nvidia 주식 매수 재확인, 수요에 200달러 목표 유지",
+            "url": "https://www.investing.com/news/analyst-ratings/needham-reiterates-buy-on-nvidia-stock-keeps-200-target-on-demand-93CH-5035392",
+            "published_at": "2026-11-18 19:52:47 KST"
+          },
+          {
+            "title": "What Wall Street analysts are now saying after Nvidia’s beat-and-raise quarter",
+            "title_ko": "Nvidia 실적 호조 및 상향 조정 후 월스트리트 분석가들 반응",
+            "url": "https://www.marketwatch.com/story/what-wall-street-analysts-are-now-saying-after-nvidias-beat-and-raise-quarter-9311c85d?mod=mw_rss_topstories",
+            "published_at": "2026-11-18 18:41:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 기업 Anthropic의 활동 및 기술 개발 소식이 시장의 관심을 끌고 있습니다 (총 4건)",
+        "us_news_refs": [
+          1,
+          3,
+          24,
+          37
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock futures rise as Nvidia gains on earnings beat and solid outlook: Live updates - CNBC",
+            "title_ko": "Nvidia 실적 호조 및 전망에 주가 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAwTDVScDA1ZzNHQi1GT1RaRFVzYTJPa2lHVVJyVzR6RlhfaGZNbG5Va1BFblNtYm54eG82YWl4dlA3SkltcC1WSmdCVEUtMlVKNXlCVDNVcG8wRnBaNkc0UVctakctUDdZUDJsNEp4dWN0Z0Vsczlv?oc=5",
+            "published_at": "2026-11-18 19:50:11 KST"
+          },
+          {
+            "title": "Anthropic Crypto Bets Imply $1.7 Trillion Value Despite AI Rout - Bloomberg.com",
+            "title_ko": "Anthropic 암호화폐 베팅, AI 폭락에도 1.7조 달러 가치 시사",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdGVJd04yYnJqVHFiTTZUckFGMGNUcXE2TEpsWEp4aXVMYVhfb281OFVxUEhuV055R1ZmMmtfdE93N1lRNnZmRlgxbnpVcWF2MU9mMWlIeGYzbV96M0MxT3Z6ODJOSXZaOUhMbDkxZW94VFJXZWdjM0ZBcmZKNVk2cmUzNWVWd1Fya1Rxd0RqVWJZN3I5T0pmN2V0ZHFHNU85TGJneHduTGZrU1o1aXVpOHVqRQ?oc=5",
+            "published_at": "2026-11-18 18:22:09 KST"
+          },
+          {
+            "title": "Microsoft aims to challenge OpenAI, Anthropic with cheaper, specialized AI models - Axios",
+            "title_ko": "Microsoft, 더 저렴하고 특화된 AI 모델로 OpenAI, Anthropic 도전 목표",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOWnpSWUhVX2NkMm9wR1R1dE92a2VBYVM5TUpKc19Ia3NsSlVmUmZfTjNfYVVuTnU4ZjJPMHJJWHNrclcxT3dSZGZ5ckdDYlM3M3BvcGVNNGtkb1ZKZk5KM2ZvOGJKdVhtLU5fQ3JtSDZsMW5rbGwwczhEX2R4TTY5Nm9n?oc=5",
+            "published_at": "2026-11-18 13:21:37 KST"
+          },
+          {
+            "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit - TechCrunch",
+            "title_ko": "Nvidia, Jensen Huang 퇴사 후 오픈소스 AI 전략 유지 밝혀",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOcDRWN3ZsWTVWNkNia01rdTdxR0c4bnVsTS0xUFBWbG9EUWZCWnFKQVhWV0dXVUdVNmJhM3VpTFM4UWJDOGYxUVl2LTd5ZUlWWGVFX0RubWFRYThfV2lVU0tpWDJJM0V2cHljbUVqR3dBRE5yb2hscXBmU0I2NzRhRjBDS3dONmNCYnZrelRDWFRoNTFNS0t3cXRvVXRIcVBEa25YVjAxWHJ6ek56cERNbEFGY2I?oc=5",
+            "published_at": "2026-11-18 08:04:35 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "시험/교육",
+        "reason": "교육 관련 정책 변화 및 시험 제도 개편에 대한 논의가 활발하게 이루어지고 있습니다 (총 12건)",
+        "kr_news_refs": [
+          4,
+          6,
+          9,
+          16,
+          31,
+          52,
+          53,
+          59,
+          62,
+          75,
+          88,
+          89,
+          91,
+          97
+        ],
+        "related_news": [
+          {
+            "title": "노무사시험 치렀는데 '결시'로 무효 처리…또 시험관리 부실(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118166651530",
+            "published_at": "2026-11-18 19:50:52 KST"
+          },
+          {
+            "title": "AI 부정 막아라...대학들, 면접전형에 가운·앞치마 제공",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12212870",
+            "published_at": "2026-11-18 19:48:36 KST"
+          },
+          {
+            "title": "與 '올 수능부터 AI 부정행위시 응시정지 10년' 법안 발의",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118177800001",
+            "published_at": "2026-11-18 19:45:42 KST"
+          },
+          {
+            "title": "이 대통령 “수능 부정행위 무관용…끝까지 추적해 책임 묻겠다”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12212852",
+            "published_at": "2026-11-18 19:22:11 KST"
+          },
+          {
+            "title": "“AI 커닝 막아라”…수능 앞두고 대박 난 ‘이것’, 품절대란까지",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12212844",
+            "published_at": "2026-11-18 19:00:55 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "국내 AI 기술 발전 및 관련 산업 육성에 대한 기대감이 높아지고 있습니다 (총 14건)",
+        "kr_news_refs": [
+          6,
+          9,
+          16,
+          31,
+          33,
+          46,
+          52,
+          53,
+          59,
+          61,
+          62,
+          77,
+          89,
+          91
+        ],
+        "related_news": [
+          {
+            "title": "AI 부정 막아라...대학들, 면접전형에 가운·앞치마 제공",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12212870",
+            "published_at": "2026-11-18 19:48:36 KST"
+          },
+          {
+            "title": "與 '올 수능부터 AI 부정행위시 응시정지 10년' 법안 발의",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118177800001",
+            "published_at": "2026-11-18 19:45:42 KST"
+          },
+          {
+            "title": "이 대통령 “수능 부정행위 무관용…끝까지 추적해 책임 묻겠다”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12212852",
+            "published_at": "2026-11-18 19:22:11 KST"
+          },
+          {
+            "title": "“AI 커닝 막아라”…수능 앞두고 대박 난 ‘이것’, 품절대란까지",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12212844",
+            "published_at": "2026-11-18 19:00:55 KST"
+          },
+          {
+            "title": "한·IEA, '라이즈 아시아' 국제무대 첫선…전기화 35% 목표 추진",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118142600530",
+            "published_at": "2026-11-18 19:00:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "콘텐츠",
+        "reason": "국내 콘텐츠 산업의 글로벌 경쟁력 강화 및 신규 플랫폼 출시 소식이 주목받고 있습니다 (총 6건)",
+        "kr_news_refs": [
+          2,
+          17,
+          24,
+          37,
+          55,
+          81
+        ],
+        "related_news": [
+          {
+            "title": "8년 끈 한중FTA 2단계 타결 … K콘텐츠·관광 中빗장 풀린다",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12212875",
+            "published_at": "2026-11-18 19:59:55 KST"
+          },
+          {
+            "title": "K-영화·게임, 중국서 최혜국대우…한한령 빗장 풀리나(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118152451003",
+            "published_at": "2026-11-18 19:20:04 KST"
+          },
+          {
+            "title": "李대통령, 中 'K콘텐츠 최혜국대우'에 \"새로운 한중관계 토대\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118177100001",
+            "published_at": "2026-11-18 19:11:12 KST"
+          },
+          {
+            "title": "K-콘텐츠 중국 진출 탄력받는다…최혜국대우에 공동제작도 확대(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118156251005",
+            "published_at": "2026-11-18 18:49:27 KST"
+          },
+          {
+            "title": "한중FTA 서비스 분야 협상 타결…한한령 10년만에 해제 급물살",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/politics/12212834",
+            "published_at": "2026-11-18 18:24:11 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SK하이닉스",
+        "reason": "AI 반도체 시장 성장과 HBM 수요 증가에 따른 실적 개선 기대감이 반영되고 있습니다 (총 2건)",
+        "kr_news_refs": [
+          44,
+          94
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "“이제 밥값 벌면 바로 뺍니다”…ETF 단타매매 1년새 4.5배 급증",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12212841",
+            "published_at": "2026-11-18 18:40:18 KST"
+          },
+          {
+            "title": "SK하이닉스, 청주 취약계층 아동 겨울나기에 1억원 기탁",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118169200064",
+            "published_at": "2026-11-18 17:55:46 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 기술 발전과 관련하여 가치 하락 가능성, 부정행위 방지 이슈, 그리고 AI를 활용한 결과물의 질에 대한 논의가 있었습니다. 또한, AI 기술이 반도체 산업에 미치는 영향에 대한 언급도 포함되었습니다.",
+        "refs": [
+          5,
+          7,
+          10
+        ],
+        "reason": "AI 기술 발전과 관련하여 가치 하락 가능성, 부정행위 방지 이슈, 그리고 AI를 활용한 결과물의 질에 대한 논의가 있었습니다. 또한, AI 기술이 반도체 산업에 미치는 영향에 대한 언급도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI로 만들면 가치가 떨어지는가?",
+            "url": "https://www.youtube.com/watch?v=xQAauzLGvlg",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-18 19:11:22 KST"
+          },
+          {
+            "title": "수능 비상! AI 부정행위를 막아라!",
+            "url": "https://www.youtube.com/watch?v=NINJ94H2s04",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-18 16:57:19 KST"
+          },
+          {
+            "title": "젠슨 황의 사임이 불러온, 반도체 주가 폭락",
+            "url": "https://www.youtube.com/watch?v=1NuMdHW8lio",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-17 19:43:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "엔비디아 실적 발표 이후 반도체 주가 변동성에 대한 분석이 있었습니다. 젠슨 황의 사임 가능성과 관련된 반도체 주가 폭락 가능성, 그리고 동남아시아 데이터센터 건설 이슈가 언급되었습니다.",
+        "refs": [
+          4,
+          10,
+          10
+        ],
+        "reason": "엔비디아 실적 발표 이후 반도체 주가 변동성에 대한 분석이 있었습니다. 젠슨 황의 사임 가능성과 관련된 반도체 주가 폭락 가능성, 그리고 동남아시아 데이터센터 건설 이슈가 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.18 오후 방송 전체보기] 엔비디아 실적은 확인했지만 아직 끝나지 않았다…남은 변수들이 가를 국내 증시 향방",
+            "url": "https://www.youtube.com/watch?v=EsqB5CuzaWE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-18 19:11:25 KST"
+          },
+          {
+            "title": "젠슨 황의 사임이 불러온, 반도체 주가 폭락",
+            "url": "https://www.youtube.com/watch?v=1NuMdHW8lio",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-17 19:43:01 KST"
+          },
+          {
+            "title": "젠슨 황의 사임이 불러온, 반도체 주가 폭락",
+            "url": "https://www.youtube.com/watch?v=1NuMdHW8lio",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-17 19:43:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "증시/투자",
+        "freq": 3,
+        "summary": "국내 증시 향방에 대한 변수 분석, 과거 사례를 통한 반등 가능성 검토, 그리고 연준의 태세 전환 가능성에 따른 시장 충격 가능성이 제기되었습니다. 또한, 신용 위험 완화와 유동성 회복 신호에 대한 언급도 있었습니다.",
+        "refs": [
+          1,
+          4,
+          6,
+          8
+        ],
+        "reason": "국내 증시 향방에 대한 변수 분석, 과거 사례를 통한 반등 가능성 검토, 그리고 연준의 태세 전환 가능성에 따른 시장 충격 가능성이 제기되었습니다. 또한, 신용 위험 완화와 유동성 회복 신호에 대한 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "앤트로픽 IPO 이후 주목할 변화…신용위험 완화와 유동성 회복의 신호ㅣ명민준, 박가영, 송재경 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=eFnxFsUiMvs",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-18 20:00:38 KST"
+          },
+          {
+            "title": "[26.11.18 오후 방송 전체보기] 엔비디아 실적은 확인했지만 아직 끝나지 않았다…남은 변수들이 가를 국내 증시 향방",
+            "url": "https://www.youtube.com/watch?v=EsqB5CuzaWE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-18 19:11:25 KST"
+          },
+          {
+            "title": "\"반드시 반등은 올 것\" 옛말은 항상 옳을까 | 빈센트 [더블밸류업]",
+            "url": "https://www.youtube.com/watch?v=DS2u_UooFsw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-18 18:05:28 KST"
+          },
+          {
+            "title": "중간선거 끝나자마자 태세전환하는 연준? 2018년 연말 쇼크 재현될까",
+            "url": "https://www.youtube.com/watch?v=MQ8gneRrYuw",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-17 21:08:10 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자 주가에 대한 매도 금지 의견과 특정 가격대에서 매수 시 계좌 복구 가능성에 대한 언급이 있었습니다. 또한, 고점 물림 시 대응 전략에 대한 조언도 포함되었습니다.",
+        "refs": [
+          2,
+          9,
+          9
+        ],
+        "reason": "삼성전자 주가에 대한 매도 금지 의견과 특정 가격대에서 매수 시 계좌 복구 가능성에 대한 언급이 있었습니다. 또한, 고점 물림 시 대응 전략에 대한 조언도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 지금은 팔지마세요, '이 가격에' 사면 계좌 복구된다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=-PVT3Gp45SE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 20:00:24 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=n16GTXBi7e0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 20:15:30 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=n16GTXBi7e0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 20:15:30 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스 주가에 대한 매도 금지 의견과 특정 가격대에서 매수 시 계좌 복구 가능성에 대한 언급이 있었습니다. 또한, 고점 물림 시 대응 전략에 대한 조언도 포함되었습니다.",
+        "refs": [
+          2,
+          9,
+          9
+        ],
+        "reason": "SK하이닉스 주가에 대한 매도 금지 의견과 특정 가격대에서 매수 시 계좌 복구 가능성에 대한 언급이 있었습니다. 또한, 고점 물림 시 대응 전략에 대한 조언도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 지금은 팔지마세요, '이 가격에' 사면 계좌 복구된다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=-PVT3Gp45SE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 20:00:24 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=n16GTXBi7e0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 20:15:30 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=n16GTXBi7e0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-17 20:15:30 KST"
+          }
+        ]
+      },
+      {
+        "name": "엔비디아",
+        "freq": 1,
+        "summary": "엔비디아의 실적 발표가 국내 증시에 미치는 영향에 대한 분석이 있었습니다. 실적 발표 이후에도 아직 끝나지 않은 변수들이 국내 증시 향방을 가를 것이라는 전망이 제시되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "엔비디아의 실적 발표가 국내 증시에 미치는 영향에 대한 분석이 있었습니다. 실적 발표 이후에도 아직 끝나지 않은 변수들이 국내 증시 향방을 가를 것이라는 전망이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[26.11.18 오후 방송 전체보기] 엔비디아 실적은 확인했지만 아직 끝나지 않았다…남은 변수들이 가를 국내 증시 향방",
+            "url": "https://www.youtube.com/watch?v=EsqB5CuzaWE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-18 19:11:25 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "Target",
+          "freq": 5
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Waymo",
+          "freq": 4
+        },
+        {
+          "name": "OpenAI",
+          "freq": 3
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        },
+        {
+          "name": "Apple",
+          "freq": 3
+        },
+        {
+          "name": "Duke Energy",
+          "freq": 3
+        },
+        {
+          "name": "Sellas Life Sciences",
+          "freq": 2
+        },
+        {
+          "name": "Experian",
+          "freq": 1
+        },
+        {
+          "name": "SSE",
+          "freq": 1
+        },
+        {
+          "name": "SEALSQ",
+          "freq": 1
+        },
+        {
+          "name": "Vericel",
+          "freq": 1
+        },
+        {
+          "name": "Cue Biopharma",
+          "freq": 1
+        },
+        {
+          "name": "Nike",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
+          "freq": 6
+        },
+        {
+          "name": "소매",
+          "freq": 5
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "사이버 보안",
+          "freq": 3
+        },
+        {
+          "name": "자율주행",
+          "freq": 4
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "인터넷",
+          "freq": 3
+        },
+        {
+          "name": "데이터 센터",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "IPO",
+          "freq": 2
+        },
+        {
+          "name": "클라우드",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "DB하이텍",
+          "freq": 1
+        },
+        {
+          "name": "세븐브로이맥주",
+          "freq": 1
+        },
+        {
+          "name": "소프트캠프",
+          "freq": 1
+        },
+        {
+          "name": "하나에어로다이내믹스",
+          "freq": 1
+        },
+        {
+          "name": "삼성웰스토리",
+          "freq": 1
+        },
+        {
+          "name": "씨위드",
+          "freq": 1
+        },
+        {
+          "name": "코오롱모빌리티그룹",
+          "freq": 1
+        },
+        {
+          "name": "한국산업은행",
+          "freq": 1
+        },
+        {
+          "name": "삼양식품",
+          "freq": 1
+        },
+        {
+          "name": "넥스트페이즈",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "기아",
+          "freq": 1
+        },
+        {
+          "name": "한화오션",
+          "freq": 1
+        },
+        {
+          "name": "한국동서발전",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 4
+        },
+        {
+          "name": "시험/교육",
+          "freq": 8
+        },
+        {
+          "name": "콘텐츠",
+          "freq": 5
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "IT 인프라",
+          "freq": 3
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "안전/보안",
+          "freq": 3
+        },
+        {
+          "name": "국방/방산",
+          "freq": 3
+        },
+        {
+          "name": "관광",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "물류/운송",
+          "freq": 2
+        },
+        {
+          "name": "식음료",
+          "freq": 2
+        },
+        {
+          "name": "제조",
+          "freq": 2
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
