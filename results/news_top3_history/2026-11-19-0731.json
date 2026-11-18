@@ -1,0 +1,865 @@
+{
+  "generated_at": "2026-11-19 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 강세와 관련 기업들의 실적 발표 모멘텀이 주목받으며 AI 섹터가 높은 빈도를 기록했습니다 (총 11건).",
+        "us_news_refs": [
+          2,
+          3,
+          5,
+          6,
+          13,
+          17,
+          34,
+          36,
+          37,
+          47,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "Anthropic IPO live: Company said to price stock at $83, begin trading Thursday - Yahoo Finance",
+            "title_ko": "Anthropic IPO 라이브: 주식 83달러 책정, 목요일 거래 시작 예정",
+            "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQYmJBc3JzY0NwYkFWVWFEbGtLUTlvYTRHeFdVUlhTTUhhNFp6TzNIS1ZhejNINXk3ekxNc2lwNklyaXRDNWt3NjJkRldjZkpsTmNDSVYyNHNOTG1FRjBtOFZYelV6b3d1YXk5NmM0LW5RZUp1UHVHLU5FNVgzNlZQX2ZxUmpfTkhpYVBEYm5ZclBZUlk4dEJfYm95SF9aaFV1ZVAtclZZbVJnVE1Sd0xmN21ZLU9uSFh1Si1KRUhfRzhHVGJhT0VYQlEzNmg?oc=5",
+            "published_at": "2026-11-19 06:30:02 KST"
+          },
+          {
+            "title": "US Stock Futures Rally as Nvidia Results Ease AI Trade Worries - Bloomberg.com",
+            "title_ko": "Nvidia 실적에 AI 무역 우려 완화되며 미국 주식 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRi1ZbVpsWDREeUZoOV8tRHkxLVZ2WnNtaFdXWENZbkVWVHRITUNZRmFFX1V1X2RCV1ctdWFBMk14emVFTEl0eDV0cERXU0ZmN3A5NnphRDZkU3FEdmpCSXpJRU5HMnFHbENrbmhoYkhsX2VIZUxrU0VlUTUycFo0a3l0UFoxaEVOS2ZxaGxwRmdRd3lJSktTZy14VUdRTVJCNlVTb3BmZW44ankzblhKWFZ6dw?oc=5",
+            "published_at": "2026-11-19 06:13:26 KST"
+          },
+          {
+            "title": "Exclusive | Palo Alto Networks to Buy AI-Startup Applied Compute for $4.5 Billion - WSJ",
+            "title_ko": "독점 | Palo Alto Networks, AI 스타트업 Applied Compute 45억 달러에 인수",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNYzJMRVRpMDh6UlVrLWNaa0JYTmZhMkUxWWdweFJuWDdJZWE2NmVsSFczcFMwT3FVYzRxVV93TXlrSVhfWDBnRTBsSTNRcjMxUF9KMnp5UVNYOTRKSlJPa0tRMC1Mc2FTN3I4RGpZRVJxZ3FCOUVkaEZkQTlDUzNpZ1V2VS1UOXZRdEkyODVCMTJuMC1pSWd2QnN1Skw1eTFWS0Z3dzd1enk?oc=5",
+            "published_at": "2026-11-19 06:00:00 KST"
+          },
+          {
+            "title": "NYC, LA and Chicago School Districts Weigh Breaking Up With Google Search Over A.I. - The New York Times",
+            "title_ko": "뉴욕, LA, 시카고 교육구, AI 때문에 Google 검색과 결별 고려",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNaFZTcW1oQlltWWRFUy1hUzY4ODVqZXFKcl9McGNhUDZqam90WE9YQ3RqclV1czZJOVdKZURXeUxpTkRVM2FONklyQ2ZiS215WTBLTE14RFVZOWY1cnZUQTR5cDVNRlJ3bTVrWkJ5aGdxMG83NURiTjk1V0NLclhVM1NFcWctSVA0bUhad2dMYjg0czFSTk1KVUQyZXZTUQ?oc=5",
+            "published_at": "2026-11-19 05:49:53 KST"
+          },
+          {
+            "title": "Largest U.S. data centers use as much electricity as some states and countries, study finds - CBS News",
+            "title_ko": "미국 최대 데이터 센터, 일부 주 및 국가와 동일한 전력 사용량: 연구 결과",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPRG5vLWl6a25MM3doTnRwQ0FnVDRrWGhkSGhhOHJINlBTb21IYWZQLUtabnotNjlkczltRGJDRXRIUDhpNXlhT056cEtvWXgwQmJ0WFVIUl9NalNHY3hQc0pyczhGMWY4elZiYi1keW5nZFFPdkQzYXdTc0Q4NTdnZ2ZVcllFdw?oc=5",
+            "published_at": "2026-11-19 02:52:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요 증가와 관련 기술 개발 소식이 반도체 섹터의 주목도를 높였습니다 (총 4건).",
+        "us_news_refs": [
+          1,
+          5,
+          31,
+          47
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stock Market Today: Dow Ends In Red On Rate Shock Fears; Nvidia Sinks As Anthropic IPO Looms - Investor's Business Daily",
+            "title_ko": "주식 시장 오늘: 금리 충격 우려에 다우 하락; Anthropic IPO 임박에 Nvidia 급락",
+            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNWXBraTU4T2FpajlyR1NvUy10anpSNi0weU02QkhIbU01NGVsNHc0dU9ENHVaaTlWblBSMHdFWXR0WmFCdFpCS2YzRlR1YzgtOE1BUUw0Mlo2c3p4RjVDcDE3bm5uYUNxdHY4SnlfbnlLMWVrTk1MWUY2bzAxUVhsMTc0dHBHQXZDWUxMRDZLRk0tcGE3aVFsVEN2d2RMTUJ1MUt3R3J4akcyTzlqelBIX2F6MHVNeVFsMWktSFM1T1RXM2ozQkpJekMta00xZw?oc=5",
+            "published_at": "2026-11-19 06:48:00 KST"
+          },
+          {
+            "title": "Exclusive | Palo Alto Networks to Buy AI-Startup Applied Compute for $4.5 Billion - WSJ",
+            "title_ko": "독점 | Palo Alto Networks, AI 스타트업 Applied Compute 45억 달러에 인수",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNYzJMRVRpMDh6UlVrLWNaa0JYTmZhMkUxWWdweFJuWDdJZWE2NmVsSFczcFMwT3FVYzRxVV93TXlrSVhfWDBnRTBsSTNRcjMxUF9KMnp5UVNYOTRKSlJPa0tRMC1Mc2FTN3I4RGpZRVJxZ3FCOUVkaEZkQTlDUzNpZ1V2VS1UOXZRdEkyODVCMTJuMC1pSWd2QnN1Skw1eTFWS0Z3dzd1enk?oc=5",
+            "published_at": "2026-11-19 06:00:00 KST"
+          },
+          {
+            "title": "Is Social Security a Ponzi scheme? No, but fear is fueling such talk.",
+            "title_ko": "사회 보장 제도가 폰지 사기인가? 아니다, 하지만 두려움이 그런 말을 부추긴다.",
+            "url": "https://www.marketwatch.com/story/the-thought-of-living-to-100-terrifies-me-is-social-security-a-giant-ponzi-scheme-84a64e7e?mod=mw_rss_topstories",
+            "published_at": "2026-11-19 07:00:00 KST"
+          },
+          {
+            "title": "Nvidia Does 180 on Sending AI Chips to China - Newser",
+            "title_ko": "Nvidia, 중국 AI 칩 발송에 180도 입장 변경",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPeWVyYm5oVmhyVEJsMVR3c0xGVThIaVdJbGtpZXBlOXNWZWk4REZzMzdlMzN2LXp2UTRfbXpfdWtOSU8tZjNGemJCamlINWJFMVF0OW12Q0NHckgyY3hfX3dpRUFCRFp2WkhRRkRHT2pIYjVoaU9CRndSc2lTTFpJaWJwaDBlY2JuTmljVmtxaTlOYWQ0bmdLb3RsUVo?oc=5",
+            "published_at": "2026-11-19 00:30:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 빅테크 기업들의 투자 확대에 힘입어 Nvidia가 높은 빈도로 언급되며 주목받았습니다 (총 9건).",
+        "us_news_refs": [
+          1,
+          3,
+          5,
+          10,
+          11,
+          26,
+          31,
+          36,
+          47
+        ],
+        "related_news": [
+          {
+            "title": "Stock Market Today: Dow Ends In Red On Rate Shock Fears; Nvidia Sinks As Anthropic IPO Looms - Investor's Business Daily",
+            "title_ko": "주식 시장 오늘: 금리 충격 우려에 다우 하락; Anthropic IPO 임박에 Nvidia 급락",
+            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNWXBraTU4T2FpajlyR1NvUy10anpSNi0weU02QkhIbU01NGVsNHc0dU9ENHVaaTlWblBSMHdFWXR0WmFCdFpCS2YzRlR1YzgtOE1BUUw0Mlo2c3p4RjVDcDE3bm5uYUNxdHY4SnlfbnlLMWVrTk1MWUY2bzAxUVhsMTc0dHBHQXZDWUxMRDZLRk0tcGE3aVFsVEN2d2RMTUJ1MUt3R3J4akcyTzlqelBIX2F6MHVNeVFsMWktSFM1T1RXM2ozQkpJekMta00xZw?oc=5",
+            "published_at": "2026-11-19 06:48:00 KST"
+          },
+          {
+            "title": "US Stock Futures Rally as Nvidia Results Ease AI Trade Worries - Bloomberg.com",
+            "title_ko": "Nvidia 실적에 AI 무역 우려 완화되며 미국 주식 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRi1ZbVpsWDREeUZoOV8tRHkxLVZ2WnNtaFdXWENZbkVWVHRITUNZRmFFX1V1X2RCV1ctdWFBMk14emVFTEl0eDV0cERXU0ZmN3A5NnphRDZkU3FEdmpCSXpJRU5HMnFHbENrbmhoYkhsX2VIZUxrU0VlUTUycFo0a3l0UFoxaEVOS2ZxaGxwRmdRd3lJSktTZy14VUdRTVJCNlVTb3BmZW44ankzblhKWFZ6dw?oc=5",
+            "published_at": "2026-11-19 06:13:26 KST"
+          },
+          {
+            "title": "Exclusive | Palo Alto Networks to Buy AI-Startup Applied Compute for $4.5 Billion - WSJ",
+            "title_ko": "독점 | Palo Alto Networks, AI 스타트업 Applied Compute 45억 달러에 인수",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNYzJMRVRpMDh6UlVrLWNaa0JYTmZhMkUxWWdweFJuWDdJZWE2NmVsSFczcFMwT3FVYzRxVV93TXlrSVhfWDBnRTBsSTNRcjMxUF9KMnp5UVNYOTRKSlJPa0tRMC1Mc2FTN3I4RGpZRVJxZ3FCOUVkaEZkQTlDUzNpZ1V2VS1UOXZRdEkyODVCMTJuMC1pSWd2QnN1Skw1eTFWS0Z3dzd1enk?oc=5",
+            "published_at": "2026-11-19 06:00:00 KST"
+          },
+          {
+            "title": "Nvidia interim CEO Kress tells employees ‘let’s move forward’ at first all-hands meeting since Jensen Huang exit - CNBC",
+            "title_ko": "Nvidia 임시 CEO Kress, Jensen Huang 퇴사 후 첫 전체 회의에서 직원들에게 '앞으로 나아가자'고 말해",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOUHlsTnZZSU9BNjZuZUZvQXBGUkZnc2hxZ2U4cE5WWkE2OG81eUZxVTVsRHdaMTVGdFBTWnBSQUZhS0lBOEhJdVhCNjJ5ZURrOGlCekFWU010bWRjRXJQd1JuVFRSbGRtYWl4STNlVFNrREdVV3BXYW4zRDlMNGFoek5TbkVLaVlaWGpCcjJrVXJzb2xHQ0xNUm50U2V2YUVPRlJrYdIBqgFBVV95cUxNNzZwUmstbGVkVFNDZ3FfTkNYRHZmUlhMRGJvbENlNG1sRl9MZjJjSVpORzVvRTZ2ZWNJWWRTQ2pkYlY4ZTdpMzhfN1AwVzZzSWUxR1hPR2pCWDJPLTIxZGdMT0JMLVdZUUlyWWVxT2ZsNXFwZ2VEZ2czRl9Ya3NDVEFBZF9wb0lOMVlnczBIazh1OHdJTFRCYXVNTWU1RVVjQnBWREQxQ005Zw?oc=5",
+            "published_at": "2026-11-19 04:09:18 KST"
+          },
+          {
+            "title": "Stocks Fall as Nvidia’s Earnings Rally Sputters: Markets Wrap - Bloomberg.com",
+            "title_ko": "Nvidia 실적 랠리 주춤하며 주가 하락: 시장 마감",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOUHhZZG5FcFhON3BCMkRyY201M2FVdVRTaUF2a29ScWc3ZTd4TkI1Zm44SXNOcmZoOE9tN29nalFxMllaQV9ZQVp5SFNKbFlmVWtxVmtjdGl4WVVRRnpFeVZaVjVCVGozeFVWYzF6NnM1dERENnQ5SWpLTlNsejBDS21mS2k2aUhQeHZHNU80V2dvbG9h?oc=5",
+            "published_at": "2026-11-19 04:04:28 KST"
+          }
+        ]
+      },
+      {
+        "name": "Alphabet",
+        "reason": "AI 기술 개발 및 투자 확대 소식이 Alphabet의 주가에 긍정적인 영향을 미치며 주목받았습니다 (총 3건).",
+        "us_news_refs": [
+          6,
+          17,
+          37
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "NYC, LA and Chicago School Districts Weigh Breaking Up With Google Search Over A.I. - The New York Times",
+            "title_ko": "뉴욕, LA, 시카고 교육구, AI 때문에 Google 검색과 결별 고려",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNaFZTcW1oQlltWWRFUy1hUzY4ODVqZXFKcl9McGNhUDZqam90WE9YQ3RqclV1czZJOVdKZURXeUxpTkRVM2FONklyQ2ZiS215WTBLTE14RFVZOWY1cnZUQTR5cDVNRlJ3bTVrWkJ5aGdxMG83NURiTjk1V0NLclhVM1NFcWctSVA0bUhad2dMYjg0czFSTk1KVUQyZXZTUQ?oc=5",
+            "published_at": "2026-11-19 05:49:53 KST"
+          },
+          {
+            "title": "Google Buys Worker Data From Spirit Airlines in a New Market to Feed A.I. - The New York Times",
+            "title_ko": "Google, AI 공급 위해 Spirit Airlines 직원 데이터 구매",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOekFZXzgzY1dvR1VRWTJDMTUyblZmZ3Y5aXFZd2R4ZlpldkZ3WVFvUEZsVWc2WkVpS1dwR2ZUT0dBaFZtOXRIWUdZZldFTzhITmVJN1BxbUdsR0hCeEJGa3hvZm5Ud05RTWFVSElFdzc2REtnNUsxMVBQek5uT1hYb2ZjTHp5T0l6UzNXZGxoc3o?oc=5",
+            "published_at": "2026-11-19 02:02:13 KST"
+          },
+          {
+            "title": "Google turns to a volcano and rock-melting technology in a wild new bid to power AI",
+            "title_ko": "Google, AI 동력 위해 화산과 암석 용해 기술 활용",
+            "url": "https://www.marketwatch.com/story/google-turns-to-a-volcano-and-rock-melting-technology-in-a-wild-new-bid-to-power-ai-fbbe57ef?mod=mw_rss_topstories",
+            "published_at": "2026-11-19 06:01:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야의 경쟁 심화 속에서 Anthropic의 기술 개발 및 투자 유치 소식이 관심을 끌었습니다 (총 2건).",
+        "us_news_refs": [
+          2,
+          3,
+          26,
+          31,
+          37,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "Anthropic IPO live: Company said to price stock at $83, begin trading Thursday - Yahoo Finance",
+            "title_ko": "Anthropic IPO 라이브: 주식 83달러 책정, 목요일 거래 시작 예정",
+            "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQYmJBc3JzY0NwYkFWVWFEbGtLUTlvYTRHeFdVUlhTTUhhNFp6TzNIS1ZhejNINXk3ekxNc2lwNklyaXRDNWt3NjJkRldjZkpsTmNDSVYyNHNOTG1FRjBtOFZYelV6b3d1YXk5NmM0LW5RZUp1UHVHLU5FNVgzNlZQX2ZxUmpfTkhpYVBEYm5ZclBZUlk4dEJfYm95SF9aaFV1ZVAtclZZbVJnVE1Sd0xmN21ZLU9uSFh1Si1KRUhfRzhHVGJhT0VYQlEzNmg?oc=5",
+            "published_at": "2026-11-19 06:30:02 KST"
+          },
+          {
+            "title": "US Stock Futures Rally as Nvidia Results Ease AI Trade Worries - Bloomberg.com",
+            "title_ko": "Nvidia 실적에 AI 무역 우려 완화되며 미국 주식 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRi1ZbVpsWDREeUZoOV8tRHkxLVZ2WnNtaFdXWENZbkVWVHRITUNZRmFFX1V1X2RCV1ctdWFBMk14emVFTEl0eDV0cERXU0ZmN3A5NnphRDZkU3FEdmpCSXpJRU5HMnFHbENrbmhoYkhsX2VIZUxrU0VlUTUycFo0a3l0UFoxaEVOS2ZxaGxwRmdRd3lJSktTZy14VUdRTVJCNlVTb3BmZW44ankzblhKWFZ6dw?oc=5",
+            "published_at": "2026-11-19 06:13:26 KST"
+          },
+          {
+            "title": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+            "title_ko": "거래일: Nvidia, Anthropic, 회의록 소용돌이 속 혼조세",
+            "url": "https://www.investing.com/news/economy-news/trading-day-markets-mixed-in-a-nvidiaanthropic-minutes-swirl-5037221",
+            "published_at": "2026-11-19 07:18:40 KST"
+          },
+          {
+            "title": "Is Social Security a Ponzi scheme? No, but fear is fueling such talk.",
+            "title_ko": "사회 보장 제도가 폰지 사기인가? 아니다, 하지만 두려움이 그런 말을 부추긴다.",
+            "url": "https://www.marketwatch.com/story/the-thought-of-living-to-100-terrifies-me-is-social-security-a-giant-ponzi-scheme-84a64e7e?mod=mw_rss_topstories",
+            "published_at": "2026-11-19 07:00:00 KST"
+          },
+          {
+            "title": "Google turns to a volcano and rock-melting technology in a wild new bid to power AI",
+            "title_ko": "Google, AI 동력 위해 화산과 암석 용해 기술 활용",
+            "url": "https://www.marketwatch.com/story/google-turns-to-a-volcano-and-rock-melting-technology-in-a-wild-new-bid-to-power-ai-fbbe57ef?mod=mw_rss_topstories",
+            "published_at": "2026-11-19 06:01:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "유통",
+        "reason": "소비 심리 변화 및 관련 기업들의 사업 전략 변화가 유통 섹터의 주목도를 높였습니다 (총 4건).",
+        "kr_news_refs": [
+          48,
+          68,
+          69,
+          71
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "면세점 3분기 흑자…몸집 불린 롯데·현대, 이익률 1% 안팎 그쳐",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118155000030",
+            "published_at": "2026-11-19 06:10:01 KST"
+          },
+          {
+            "title": "신세계百, '취향 저격' VIP 공략…미쉐린 디저트·커피 스튜디오",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118155400030",
+            "published_at": "2026-11-19 06:00:09 KST"
+          },
+          {
+            "title": "이마트, '두 줄 3천900원대' 김밥 상시 판매",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118157100030",
+            "published_at": "2026-11-19 06:00:09 KST"
+          },
+          {
+            "title": "롯데·유통학회, 상전유통학술상 대상에 안승호 숭실대 명예교수",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118160300030",
+            "published_at": "2026-11-19 06:00:07 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "국내외 AI 기술 발전 및 관련 산업의 성장 가능성이 AI 섹터에 대한 관심을 높였습니다 (총 2건).",
+        "kr_news_refs": [
+          2,
+          4,
+          28,
+          34,
+          54,
+          95,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "AI 해외영업, 메일 '물량공세'론 역부족 - 약업신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5pU3BfZ2ZQcjViSng3M2JUZEVpdjFnN0dwVzN2alQyS0ZSUFpnQWJfV2R6ek1NT0tveXRvZTZIVk1kZWRVQnNsaURUUWNYdXZGVC0zdWZmQVctVVFERnVxQUx1SVZtSUZra2lxdlI4dmExdw?oc=5",
+            "published_at": "2026-11-19 05:50:00 KST"
+          },
+          {
+            "title": "MEDI:GATE NEWS : 의료 AI 보상 도입 여부보다 어떤 효과 냈나…기업·투자업계 보상 예측 가능해야 - MEDI:GATE NEWS",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE44cUM0UW5MSTYyN2g2YXB0Wm13b2tlZTJVUXN0RUp5VElZM0x6N1k4YjBaWG1LcFNtbkU5dGVKejVEbjR5eXR0bUczTTg2Y2g0OUE3T2lhbw?oc=5",
+            "published_at": "2026-11-19 04:07:00 KST"
+          },
+          {
+            "title": "삼성전자 \"네오클라우드 비중 8%…AI 거품 우려 과도\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261119010200009",
+            "published_at": "2026-11-19 06:48:14 KST"
+          },
+          {
+            "title": "네이버 카페에 AI 에이전트 도입…회원 경험담 찾아 답변",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118164500017",
+            "published_at": "2026-11-19 06:33:01 KST"
+          },
+          {
+            "title": "무뇨스 “현대차는 피지컬AI 기업…아틀라스 로봇 훈련인력 채용중”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12213130",
+            "published_at": "2026-11-19 06:06:52 KST"
+          }
+        ]
+      },
+      {
+        "name": "금융",
+        "reason": "금리 변동 및 금융 시장의 주요 이슈들이 금융 섹터의 동향에 영향을 미치며 주목받았습니다 (총 2건).",
+        "kr_news_refs": [
+          1,
+          75,
+          87,
+          90
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "국내 금융사 해외 부동산 EOD 규모 2.64조…반년 새 27% '쑥' - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5RajhQazViaWkwUkJ4Mk5EVWVhZlhnT28ycWctREw1cGZqWVhTVG9rUkpfbXotWjBuaTAxOVFBNGVLZDVYQ1hlUjlQS1hCdXQxNFBOYVJXcWZULXJHS1JOYmd0UXBibzJtNlVIRTRCOFE?oc=5",
+            "published_at": "2026-11-19 06:00:23 KST"
+          },
+          {
+            "title": "상반기 금융사 해외부동산 부실우려 2.6조…\"리스크 관리 지속\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118164200002",
+            "published_at": "2026-11-19 06:00:05 KST"
+          },
+          {
+            "title": "금융지주가 전망한 연말 증시…\"기술적 반등 그칠 가능성\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118147500002",
+            "published_at": "2026-11-19 05:55:00 KST"
+          },
+          {
+            "title": "4대은행 올해 고정이하여신 23% 늘 때 대손충당금 2% 증가",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118159600002",
+            "published_at": "2026-11-19 05:51:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "앤트로픽",
+        "reason": "AI 기술 경쟁 심화 속에서 앤트로픽의 기술 개발 및 투자 소식이 국내외적으로 주목받았습니다 (총 3건).",
+        "kr_news_refs": [
+          5,
+          31,
+          37,
+          83,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "오천피 이끈 기관… 삼전닉스는 숨돌리기 - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBRWXVxSmFXRHNNYTFBcG5tcGZNeUFCbWU2REVRTVBvSTlNdlhRRzFSMk1kSXU3QVF5VDhmUnJQRHA0LXp3azhrYi1mbTNzVGRwSjZUU0lpSGhhLUo4YVBkeVFrX25GZHNx0gFuQVVfeXFMTWxqMzhYdm9DSWREdEhVOE55ZHlZajdrRGtfbnhETEJaZTNhd0pUR3RZODc4Y0JBQVRMQjJ6OHZCdUE3M3lsUlNNNEdWdDB0cExQYUphVl9SeU94dHU3MFZhLUFzLUdpTEpzTldjUUE?oc=5",
+            "published_at": "2026-11-19 04:00:00 KST"
+          },
+          {
+            "title": "美증시 혼조...엔트로픽 역대 최대 IPO되나 [월가월부]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12213167",
+            "published_at": "2026-11-19 06:44:13 KST"
+          },
+          {
+            "title": "앤트로픽, 공모가 83달러…스페이스X 조달액 기록 넘어설듯",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261119010000091",
+            "published_at": "2026-11-19 06:27:19 KST"
+          },
+          {
+            "title": "[속보] \"앤트로픽, 공모가 80∼85달러 검토…예상 훨씬 웃돌아\"<블룸버그>",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261119008400072",
+            "published_at": "2026-11-19 05:57:19 KST"
+          },
+          {
+            "title": "골치 아픈 엑셀도 한마디로 ‘뚝딱’ … GPT 꺾고 ‘세기의 상장’하는 앤트로픽",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12212672",
+            "published_at": "2026-11-19 05:10:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "롯데",
+        "reason": "유통 및 소비재 관련 사업에서 롯데 그룹의 활동이 언급되며 주목받았습니다 (총 2건).",
+        "kr_news_refs": [
+          48,
+          71
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "면세점 3분기 흑자…몸집 불린 롯데·현대, 이익률 1% 안팎 그쳐",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118155000030",
+            "published_at": "2026-11-19 06:10:01 KST"
+          },
+          {
+            "title": "롯데·유통학회, 상전유통학술상 대상에 안승호 숭실대 명예교수",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261118160300030",
+            "published_at": "2026-11-19 06:00:07 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "AI 기술 발전과 반도체 시장 동향 속에서 삼성전자의 사업 전략 및 기술 개발 소식이 관심을 끌었습니다 (총 1건).",
+        "kr_news_refs": [
+          5,
+          28
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "오천피 이끈 기관… 삼전닉스는 숨돌리기 - 머니투데이 - 머니투데이",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBRWXVxSmFXRHNNYTFBcG5tcGZNeUFCbWU2REVRTVBvSTlNdlhRRzFSMk1kSXU3QVF5VDhmUnJQRHA0LXp3azhrYi1mbTNzVGRwSjZUU0lpSGhhLUo4YVBkeVFrX25GZHNx0gFuQVVfeXFMTWxqMzhYdm9DSWREdEhVOE55ZHlZajdrRGtfbnhETEJaZTNhd0pUR3RZODc4Y0JBQVRMQjJ6OHZCdUE3M3lsUlNNNEdWdDB0cExQYUphVl9SeU94dHU3MFZhLUFzLUdpTEpzTldjUUE?oc=5",
+            "published_at": "2026-11-19 04:00:00 KST"
+          },
+          {
+            "title": "삼성전자 \"네오클라우드 비중 8%…AI 거품 우려 과도\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261119010200009",
+            "published_at": "2026-11-19 06:48:14 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 기술 발전과 관련된 기업들의 IPO 및 투자에 대한 논의가 있었습니다. AI 기술을 활용한 콘텐츠 제작의 가치와 부정행위 방지 방안에 대한 내용도 포함되었습니다.",
+        "refs": [
+          4,
+          6,
+          9
+        ],
+        "reason": "AI 기술 발전과 관련된 기업들의 IPO 및 투자에 대한 논의가 있었습니다. AI 기술을 활용한 콘텐츠 제작의 가치와 부정행위 방지 방안에 대한 내용도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "드디어 내일 엔트로픽 상장된다, 삼성전자, SK하이닉스 정말 무서울 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=AT8gm5K7xAY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 21:00:14 KST"
+          },
+          {
+            "title": "AI 끝판왕 앤트로픽 사려고 다른 주식 매도 중? 역대 IPO 패턴 반복될까",
+            "url": "https://www.youtube.com/watch?v=Z4fzVAS4KCc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-18 20:40:03 KST"
+          },
+          {
+            "title": "AI로 만들면 가치가 떨어지는가?",
+            "url": "https://www.youtube.com/watch?v=xQAauzLGvlg",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-18 19:11:22 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "중국 콘텐츠 시장 개방과 함께 반도체 공장 투입 관련 내용이 언급되었습니다. 또한, 삼성전자와 SK하이닉스에 대한 투자 의견이 제시되었습니다.",
+        "refs": [
+          2,
+          4,
+          7
+        ],
+        "reason": "중국 콘텐츠 시장 개방과 함께 반도체 공장 투입 관련 내용이 언급되었습니다. 또한, 삼성전자와 SK하이닉스에 대한 투자 의견이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "중국 콘텐츠 시장 열린다…한한령 해제·최혜국대우, FTA 2단계 타결 | 반도체 공장 투입된 ‘아틀라스’ | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=2Rmp4RHsjek",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-19 05:27:58 KST"
+          },
+          {
+            "title": "드디어 내일 엔트로픽 상장된다, 삼성전자, SK하이닉스 정말 무서울 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=AT8gm5K7xAY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 21:00:14 KST"
+          },
+          {
+            "title": "삼성전자 '여기까지' 떨어지면 꼭 사세요, 저도 사모을 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=-PVT3Gp45SE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 20:00:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "콘텐츠",
+        "freq": 1,
+        "summary": "중국 콘텐츠 시장 개방과 한한령 해제, 최혜국 대우, FTA 2단계 타결에 대한 내용이 다루어졌습니다.",
+        "refs": [
+          2
+        ],
+        "reason": "중국 콘텐츠 시장 개방과 한한령 해제, 최혜국 대우, FTA 2단계 타결에 대한 내용이 다루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "중국 콘텐츠 시장 열린다…한한령 해제·최혜국대우, FTA 2단계 타결 | 반도체 공장 투입된 ‘아틀라스’ | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=2Rmp4RHsjek",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-19 05:27:58 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자에 대한 매수 시점과 가격에 대한 구체적인 언급이 있었습니다. 또한, 엔트로픽 상장과 관련하여 삼성전자의 주가에 대한 전망이 제시되었습니다.",
+        "refs": [
+          4,
+          7,
+          8
+        ],
+        "reason": "삼성전자에 대한 매수 시점과 가격에 대한 구체적인 언급이 있었습니다. 또한, 엔트로픽 상장과 관련하여 삼성전자의 주가에 대한 전망이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "드디어 내일 엔트로픽 상장된다, 삼성전자, SK하이닉스 정말 무서울 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=AT8gm5K7xAY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 21:00:14 KST"
+          },
+          {
+            "title": "삼성전자 '여기까지' 떨어지면 꼭 사세요, 저도 사모을 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=-PVT3Gp45SE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 20:00:24 KST"
+          },
+          {
+            "title": "27년까지 '딱 2개 주식만' 사세요, 앞으로 평생 돈 걱정 끝입니다 (무극선생 이승조 대표)",
+            "url": "https://www.youtube.com/watch?v=agyobp9BQ4I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 19:15:33 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "SK하이닉스에 대한 매수 시점과 가격에 대한 구체적인 언급이 있었습니다. 또한, 엔트로픽 상장과 관련하여 SK하이닉스의 주가에 대한 전망이 제시되었습니다.",
+        "refs": [
+          4,
+          7
+        ],
+        "reason": "SK하이닉스에 대한 매수 시점과 가격에 대한 구체적인 언급이 있었습니다. 또한, 엔트로픽 상장과 관련하여 SK하이닉스의 주가에 대한 전망이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "드디어 내일 엔트로픽 상장된다, 삼성전자, SK하이닉스 정말 무서울 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=AT8gm5K7xAY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 21:00:14 KST"
+          },
+          {
+            "title": "삼성전자 '여기까지' 떨어지면 꼭 사세요, 저도 사모을 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=-PVT3Gp45SE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 20:00:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "엔트로픽",
+        "freq": 2,
+        "summary": "엔트로픽의 상장 예정 및 IPO 패턴에 대한 논의가 있었습니다. 엔트로픽의 상장을 위해 다른 주식을 매도하는 움직임에 대한 언급도 포함되었습니다.",
+        "refs": [
+          4,
+          6
+        ],
+        "reason": "엔트로픽의 상장 예정 및 IPO 패턴에 대한 논의가 있었습니다. 엔트로픽의 상장을 위해 다른 주식을 매도하는 움직임에 대한 언급도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "드디어 내일 엔트로픽 상장된다, 삼성전자, SK하이닉스 정말 무서울 겁니다 (서준식 교수)",
+            "url": "https://www.youtube.com/watch?v=AT8gm5K7xAY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-18 21:00:14 KST"
+          },
+          {
+            "title": "AI 끝판왕 앤트로픽 사려고 다른 주식 매도 중? 역대 IPO 패턴 반복될까",
+            "url": "https://www.youtube.com/watch?v=Z4fzVAS4KCc",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-18 20:40:03 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Alphabet",
+          "freq": 4
+        },
+        {
+          "name": "UnitedHealth",
+          "freq": 3
+        },
+        {
+          "name": "Nike",
+          "freq": 3
+        },
+        {
+          "name": "Palo Alto Networks",
+          "freq": 3
+        },
+        {
+          "name": "Ford",
+          "freq": 3
+        },
+        {
+          "name": "Target",
+          "freq": 3
+        },
+        {
+          "name": "Markel Group",
+          "freq": 1
+        },
+        {
+          "name": "Red Robin",
+          "freq": 1
+        },
+        {
+          "name": "Sandisk",
+          "freq": 1
+        },
+        {
+          "name": "Vericel",
+          "freq": 1
+        },
+        {
+          "name": "Ondas Inc.",
+          "freq": 1
+        },
+        {
+          "name": "Loar Holdings",
+          "freq": 1
+        },
+        {
+          "name": "SI-BONE",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Data Centers",
+          "freq": 3
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Software",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Metals & Mining",
+          "freq": 2
+        },
+        {
+          "name": "Aviation",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Gaming",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Electric Vehicles",
+          "freq": 1
+        },
+        {
+          "name": "Venture Capital",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "앤트로픽",
+          "freq": 3
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "롯데",
+          "freq": 2
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "NAVER",
+          "freq": 1
+        },
+        {
+          "name": "삼양식품",
+          "freq": 1
+        },
+        {
+          "name": "이마트",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        },
+        {
+          "name": "롯데멤버스",
+          "freq": 1
+        },
+        {
+          "name": "한국개발연구원(KDI)",
+          "freq": 1
+        },
+        {
+          "name": "코스모닝",
+          "freq": 1
+        },
+        {
+          "name": "코스인코리아닷컴",
+          "freq": 1
+        },
+        {
+          "name": "서울우리소리박물관",
+          "freq": 1
+        },
+        {
+          "name": "서울시복지재단",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "유통",
+          "freq": 3
+        },
+        {
+          "name": "해외 부동산",
+          "freq": 2
+        },
+        {
+          "name": "의료 AI",
+          "freq": 2
+        },
+        {
+          "name": "로봇",
+          "freq": 1
+        },
+        {
+          "name": "화장품",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "소프트웨어",
+          "freq": 1
+        },
+        {
+          "name": "자동차",
+          "freq": 1
+        },
+        {
+          "name": "콘텐츠",
+          "freq": 1
+        },
+        {
+          "name": "친환경",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "인터넷",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
