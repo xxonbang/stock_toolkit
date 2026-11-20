@@ -1,0 +1,613 @@
+{
+  "generated_at": "2026-11-20 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 관련 기업들의 기술 발전이 지속적으로 주목받고 있습니다 (총 1건).",
+        "us_news_refs": [
+          2,
+          3,
+          21,
+          97
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Wall Street’s fear gauge touches seven-month high as AI worries mount",
+            "title_ko": "AI 우려 고조, 월스트리트 공포지수 7개월 최고치",
+            "url": "https://www.investing.com/news/stock-market-news/wall-streets-fear-gauge-touches-sevenmonth-high-as-ai-worries-mount-5041172",
+            "published_at": "2026-11-20 19:43:29 KST"
+          },
+          {
+            "title": "Wall St futures slip as Anthropic debut fails to reassure AI investors",
+            "title_ko": "Anthropic 상장 실패, AI 투자자 불안감에 월스트리트 선물 하락",
+            "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-anthropic-debut-fails-to-reassure-ai-investors-5041171",
+            "published_at": "2026-11-20 19:43:11 KST"
+          },
+          {
+            "title": "A CoreWeave co-founder just made an unconventional $30 million wager on its battered bonds",
+            "title_ko": "CoreWeave 공동 창업자, 부진한 채권에 3천만 달러 베팅",
+            "url": "https://www.marketwatch.com/story/a-coreweave-co-founder-just-made-an-unconventional-30-million-wager-on-its-battered-bonds-5586b0e9?mod=mw_rss_topstories",
+            "published_at": "2026-11-20 07:41:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Wells Fargo",
+        "reason": "Wells Fargo의 실적 및 재무 상태에 대한 보도가 있었습니다 (총 4건).",
+        "us_news_refs": [
+          4,
+          5,
+          6,
+          8
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Wells Fargo raises Valvoline stock price target on margin outlook",
+            "title_ko": "Wells Fargo, 마진 전망에 Valvoline 목표가 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/wells-fargo-raises-valvoline-stock-price-target-on-margin-outlook-93CH-5041169",
+            "published_at": "2026-11-20 19:43:00 KST"
+          },
+          {
+            "title": "Wells Fargo reiterates Overweight on CoreWeave stock, $115 target",
+            "title_ko": "Wells Fargo, CoreWeave 'Overweight' 유지, 목표가 $115",
+            "url": "https://www.investing.com/news/analyst-ratings/wells-fargo-reiterates-overweight-on-coreweave-stock-115-target-93CH-5041170",
+            "published_at": "2026-11-20 19:43:00 KST"
+          },
+          {
+            "title": "Wells Fargo cuts Keysight Technologies price target on valuation",
+            "title_ko": "Wells Fargo, 밸류에이션 이유로 Keysight 목표가 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/wells-fargo-cuts-keysight-technologies-price-target-on-valuation-93CH-5041168",
+            "published_at": "2026-11-20 19:42:59 KST"
+          },
+          {
+            "title": "Wells Fargo cuts Ross Stores stock price target on guidance concerns",
+            "title_ko": "Wells Fargo, 가이던스 우려에 Ross Stores 목표가 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/wells-fargo-cuts-ross-stores-stock-price-target-on-guidance-concerns-93CH-5041166",
+            "published_at": "2026-11-20 19:42:57 KST"
+          }
+        ]
+      },
+      {
+        "name": "Intuit",
+        "reason": "Intuit의 실적 및 사업 전망에 대한 뉴스가 있었습니다 (총 3건).",
+        "us_news_refs": [
+          7,
+          10,
+          20
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Evercore ISI cuts Intuit stock price target to $335 on Credit Karma miss",
+            "title_ko": "Evercore ISI, Credit Karma 부진에 Intuit 목표가 $335로 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/evercore-isi-cuts-intuit-stock-price-target-to-335-on-credit-karma-miss-93CH-5041167",
+            "published_at": "2026-11-20 19:42:58 KST"
+          },
+          {
+            "title": "Wells Fargo cuts Intuit stock price target to $320 on guidance concerns",
+            "title_ko": "Wells Fargo, 가이던스 우려에 Intuit 목표가 $320로 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/wells-fargo-cuts-intuit-stock-price-target-to-320-on-guidance-concerns-93CH-5041165",
+            "published_at": "2026-11-20 19:42:56 KST"
+          },
+          {
+            "title": "Intuit’s downbeat outlook deepens Wall Street’s anxiety about software companies",
+            "title_ko": "Intuit 비관적 전망, 소프트웨어 기업 불안감 증폭",
+            "url": "https://www.marketwatch.com/story/intuits-downbeat-outlook-deepens-wall-streets-anxiety-about-software-companies-15b878e5?mod=mw_rss_topstories",
+            "published_at": "2026-11-20 07:53:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "CoreWeave",
+        "reason": "CoreWeave의 사업 확장 및 투자 관련 소식이 있었습니다 (총 2건).",
+        "us_news_refs": [
+          5,
+          21
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Wells Fargo reiterates Overweight on CoreWeave stock, $115 target",
+            "title_ko": "Wells Fargo, CoreWeave 'Overweight' 유지, 목표가 $115",
+            "url": "https://www.investing.com/news/analyst-ratings/wells-fargo-reiterates-overweight-on-coreweave-stock-115-target-93CH-5041170",
+            "published_at": "2026-11-20 19:43:00 KST"
+          },
+          {
+            "title": "A CoreWeave co-founder just made an unconventional $30 million wager on its battered bonds",
+            "title_ko": "CoreWeave 공동 창업자, 부진한 채권에 3천만 달러 베팅",
+            "url": "https://www.marketwatch.com/story/a-coreweave-co-founder-just-made-an-unconventional-30-million-wager-on-its-battered-bonds-5586b0e9?mod=mw_rss_topstories",
+            "published_at": "2026-11-20 07:41:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 22
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 기술 발전 및 관련 산업 동향에 대한 보도가 있었습니다 (총 1건).",
+        "kr_news_refs": [
+          22,
+          34,
+          60,
+          61
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[단독] 금감원, ‘AI 커닝’ 세무사 수석 회계사 시험 부정행위로 고소",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12214917",
+            "published_at": "2026-11-20 18:43:33 KST"
+          },
+          {
+            "title": "[영상] \"혹시 AI 아냐?\" 흔들리는 믿음…부정행위 의혹 후폭풍",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120164300797",
+            "published_at": "2026-11-20 18:22:13 KST"
+          },
+          {
+            "title": "[연합뉴스 이 시각 헤드라인] - 18:00",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120153100011",
+            "published_at": "2026-11-20 18:00:00 KST"
+          },
+          {
+            "title": "\"수능 공정성 믿어도 되나요\"…'AI 커닝'에 입시설명회도 '술렁'",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120160600530",
+            "published_at": "2026-11-20 17:59:33 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "CJ ENM",
+        "reason": "CJ ENM의 사업 재편 및 합병 관련 소식이 있었습니다 (총 2건).",
+        "kr_news_refs": [
+          15,
+          81
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "CJ ENM, LG헬로비전 채널 송출 중단 금지 가처분 신청(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120156651017",
+            "published_at": "2026-11-20 18:59:42 KST"
+          },
+          {
+            "title": "CJ ENM, LG헬로비전 채널 송출 중단 금지 가처분 신청",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120156600017",
+            "published_at": "2026-11-20 17:44:27 KST"
+          }
+        ]
+      },
+      {
+        "name": "LG헬로비전",
+        "reason": "LG헬로비전의 사업 재편 및 합병 관련 소식이 있었습니다 (총 2건).",
+        "kr_news_refs": [
+          15,
+          81
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "CJ ENM, LG헬로비전 채널 송출 중단 금지 가처분 신청(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120156651017",
+            "published_at": "2026-11-20 18:59:42 KST"
+          },
+          {
+            "title": "CJ ENM, LG헬로비전 채널 송출 중단 금지 가처분 신청",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120156600017",
+            "published_at": "2026-11-20 17:44:27 KST"
+          }
+        ]
+      },
+      {
+        "name": "포스코",
+        "reason": "포스코의 사업 및 투자 관련 소식이 있었습니다 (총 2건).",
+        "kr_news_refs": [
+          6,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "포스코 노사, 1차 합의안 부결 13일 만에 임금교섭 잠정합의(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120166151053",
+            "published_at": "2026-11-20 19:27:20 KST"
+          },
+          {
+            "title": "포스코 노사, 1차 합의안 부결 13일 만에 임금교섭 잠정합의",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120166100053",
+            "published_at": "2026-11-20 18:38:25 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 섹터는 앤트로픽 상장 후 투자법 변화가 필요하며, 다음 사이클의 승자를 잡는 법에 대한 논의가 있습니다. LLM 액티브 ETF에 대한 정보도 언급되었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "AI 섹터는 앤트로픽 상장 후 투자법 변화가 필요하며, 다음 사이클의 승자를 잡는 법에 대한 논의가 있습니다. LLM 액티브 ETF에 대한 정보도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "삼성전자와 SK하이닉스가 '시대의 주식'으로 재평가받기 위해 필요한 조건에 대한 분석이 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "삼성전자와 SK하이닉스가 '시대의 주식'으로 재평가받기 위해 필요한 조건에 대한 분석이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스가 '시대의 주식'으로 재평가받기 위해 반드시 필요한 조건ㅣ홍선애, 빈센트 하나증권 애널리스트 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=kXGnjB4FYIk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-20 17:52:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "항공",
+        "freq": 1,
+        "summary": "방한객 3천만 명 시대를 맞아 인천공항의 상황과 지방 신공항 10개 추진 계획에 대한 내용이 다루어졌습니다.",
+        "refs": [
+          8
+        ],
+        "reason": "방한객 3천만 명 시대를 맞아 인천공항의 상황과 지방 신공항 10개 추진 계획에 대한 내용이 다루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "공항 부자가 될 대한민국",
+            "url": "https://www.youtube.com/watch?v=KWIutLqKXfo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-19 19:05:39 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자를 지금 팔지 않고 버틸 경우 2027년에 어떤 변화가 있을지에 대한 전망이 제시되었습니다. 또한, 삼성전자와 SK하이닉스가 시대의 주식으로 재평가받기 위한 조건에 대한 분석도 있었습니다.",
+        "refs": [
+          6,
+          7
+        ],
+        "reason": "삼성전자를 지금 팔지 않고 버틸 경우 2027년에 어떤 변화가 있을지에 대한 전망이 제시되었습니다. 또한, 삼성전자와 SK하이닉스가 시대의 주식으로 재평가받기 위한 조건에 대한 분석도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "삼전닉스가 '시대의 주식'으로 재평가받기 위해 반드시 필요한 조건ㅣ홍선애, 빈센트 하나증권 애널리스트 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=kXGnjB4FYIk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-20 17:52:21 KST"
+          },
+          {
+            "title": "삼성전자 지금 안 팔고 버티면, 결국 2027년 ‘이렇게’ 됩니다 (강관우 대표)",
+            "url": "https://www.youtube.com/watch?v=_1luAl4h7rw",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-20 17:30:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "SK하이닉스가 '시대의 주식'으로 재평가받기 위해 필요한 조건에 대한 분석이 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "SK하이닉스가 '시대의 주식'으로 재평가받기 위해 필요한 조건에 대한 분석이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼전닉스가 '시대의 주식'으로 재평가받기 위해 반드시 필요한 조건ㅣ홍선애, 빈센트 하나증권 애널리스트 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=kXGnjB4FYIk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-20 17:52:21 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Wells Fargo",
+          "freq": 4
+        },
+        {
+          "name": "Intuit",
+          "freq": 3
+        },
+        {
+          "name": "CoreWeave",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Palo Alto Networks",
+          "freq": 1
+        },
+        {
+          "name": "Valvoline",
+          "freq": 1
+        },
+        {
+          "name": "Keysight Technologies",
+          "freq": 1
+        },
+        {
+          "name": "Ross Stores",
+          "freq": 1
+        },
+        {
+          "name": "Gap",
+          "freq": 1
+        },
+        {
+          "name": "Athleta",
+          "freq": 1
+        },
+        {
+          "name": "Walmart",
+          "freq": 1
+        },
+        {
+          "name": "Apple",
+          "freq": 0
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        },
+        {
+          "name": "Tesla",
+          "freq": 0
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Software",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Technology",
+          "freq": 1
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 0
+        },
+        {
+          "name": "Automotive",
+          "freq": 0
+        },
+        {
+          "name": "Energy",
+          "freq": 0
+        },
+        {
+          "name": "Financials",
+          "freq": 0
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Industrials",
+          "freq": 0
+        },
+        {
+          "name": "Materials",
+          "freq": 0
+        },
+        {
+          "name": "Real Estate",
+          "freq": 0
+        },
+        {
+          "name": "Consumer Staples",
+          "freq": 0
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "포스코",
+          "freq": 2
+        },
+        {
+          "name": "CJ ENM",
+          "freq": 2
+        },
+        {
+          "name": "LG헬로비전",
+          "freq": 2
+        },
+        {
+          "name": "삼성중공업",
+          "freq": 1
+        },
+        {
+          "name": "STX",
+          "freq": 1
+        },
+        {
+          "name": "스타벅스",
+          "freq": 1
+        },
+        {
+          "name": "고려아연",
+          "freq": 1
+        },
+        {
+          "name": "한진칼",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "롯데",
+          "freq": 1
+        },
+        {
+          "name": "키움",
+          "freq": 1
+        },
+        {
+          "name": "컬리",
+          "freq": 1
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 0
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "미디어",
+          "freq": 2
+        },
+        {
+          "name": "제조업",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        },
+        {
+          "name": "바이오/헬스케어",
+          "freq": 1
+        },
+        {
+          "name": "식품/음료",
+          "freq": 1
+        },
+        {
+          "name": "철강",
+          "freq": 1
+        },
+        {
+          "name": "운송/물류",
+          "freq": 1
+        },
+        {
+          "name": "IT",
+          "freq": 0
+        },
+        {
+          "name": "유통",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 0
+        },
+        {
+          "name": "통신",
+          "freq": 0
+        },
+        {
+          "name": "조선",
+          "freq": 0
+        }
+      ]
+    }
+  }
+}
