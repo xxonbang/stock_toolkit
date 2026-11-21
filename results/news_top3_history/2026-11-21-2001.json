@@ -1,0 +1,540 @@
+{
+  "generated_at": "2026-11-21 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 14
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 뉴스가 5건으로 가장 높은 빈도를 기록하며 주목받고 있습니다. (총 5건)",
+        "kr_news_refs": [
+          3,
+          14,
+          15,
+          82,
+          97
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "‘갤럭시 S펜’ 핵심기술 보유한 日와콤, MBK가 1조원대 인수 - 매일경제",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1kSG1yaWtldld5ZUdPVDJDYWRZZXlFOFp4VWNkTHFOeU5XUlJXMHJXSWVNeTU4UmxrZ3ppRTJnNHdkZ3hocVR0NUJRM09uV1IxVXc?oc=5",
+            "published_at": "2026-11-21 17:42:34 KST"
+          },
+          {
+            "title": "'첫 금' 신동민, 男쇼트트랙 위기 평가에 \"조금만 기다려주세요\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121047400007",
+            "published_at": "2026-11-21 19:16:28 KST"
+          },
+          {
+            "title": "“앤트로픽 상장했는데 내 주식도 오를까”…수혜주 살펴보니",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12215326",
+            "published_at": "2026-11-21 19:12:12 KST"
+          },
+          {
+            "title": "K리그1 우승팀 서울, 전북 꺾고 4경기 무승 탈출…안데르손 골",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121040700007",
+            "published_at": "2026-11-21 16:09:35 KST"
+          },
+          {
+            "title": "李대통령 \"수능 부정행위 신고포상금 건당 최소 1억…행위자수만큼 가산\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121039400001",
+            "published_at": "2026-11-21 15:40:14 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "반도체 섹터 관련 뉴스가 3건으로 높은 빈도를 보이며 시장의 관심을 받고 있습니다. (총 3건)",
+        "kr_news_refs": [
+          0,
+          14,
+          22
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "'첫 금' 신동민, 男쇼트트랙 위기 평가에 \"조금만 기다려주세요\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121047400007",
+            "published_at": "2026-11-21 19:16:28 KST"
+          },
+          {
+            "title": "“먼저 떠난 친구와 다시 걷습니다”…AI로 직접 되살린 옛 제주의 기억",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12215319",
+            "published_at": "2026-11-21 19:02:56 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "와콤",
+        "reason": "와콤 관련 뉴스가 3건으로 가장 높은 빈도를 기록하며 주목받고 있습니다. (총 3건)",
+        "kr_news_refs": [
+          2,
+          48,
+          79
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "예산소위, 여야 이견에 내년도 지역사랑상품권 예산 심사 보류 - KBS 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9WQ0EwR3NGdENPNWo1cDJjZU5haks4TDFUM0RCbTNtUU9jX2xHSldPVXFnY0EyRFJ4SEVUN1FMQWdWRFRmWmwtV2JGQW1uZTljY2l5cS14UjRaTmc?oc=5",
+            "published_at": "2026-11-21 18:39:00 KST"
+          },
+          {
+            "title": "졸업 미루며 대기업만 노리는 청년들…“첫 단추 잘못 꿰면 인생 꼬일 수도”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12215302",
+            "published_at": "2026-11-21 17:43:55 KST"
+          },
+          {
+            "title": "빙속 김민선, 2차 월드컵 500ｍ 1차 레이스 17위",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121041200007",
+            "published_at": "2026-11-21 16:14:50 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "삼성전자 관련 뉴스가 2건 언급되었습니다. (총 2건)",
+        "kr_news_refs": [
+          5,
+          14
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "\"젠슨 황 사임 이유, 혼외관계 아니라 거짓말 때문\"…폭언 폭로도 잇따라 - JTBC",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFAwVGpxZkxwcmRjNTBrUUlabjdoTndEcDNld0dZVWpWbXRieTBQREdfQ1dqNWxhaUNWNDBVWUVrSVU3OWc5dGpnWnlYTzh6c3hNRW44aA?oc=5",
+            "published_at": "2026-11-21 15:57:00 KST"
+          },
+          {
+            "title": "'첫 금' 신동민, 男쇼트트랙 위기 평가에 \"조금만 기다려주세요\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121047400007",
+            "published_at": "2026-11-21 19:16:28 KST"
+          }
+        ]
+      },
+      {
+        "name": "수원 삼성",
+        "reason": "수원 삼성 관련 뉴스가 2건 언급되었습니다. (총 2건)",
+        "kr_news_refs": [
+          59,
+          89
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "여자농구 신한은행, 3연승으로 공동 선두…KB는 4연패 수렁",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121043700007",
+            "published_at": "2026-11-21 17:23:16 KST"
+          },
+          {
+            "title": "[프로축구 포항전적] 포항 1-1 안양",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121040200007",
+            "published_at": "2026-11-21 15:57:42 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 다음 사이클의 승자를 잡는 법에 대한 논의가 있으며, 앤트로픽 상장 후 투자법 변화에 대한 언급이 있습니다. LLM 액티브 ETF가 소개되었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "AI 다음 사이클의 승자를 잡는 법에 대한 논의가 있으며, 앤트로픽 상장 후 투자법 변화에 대한 언급이 있습니다. LLM 액티브 ETF가 소개되었습니다.",
+        "related_videos": [
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "삼성전자와 SK하이닉스의 주가 급락 및 대응 방안에 대한 분석이 제시되었습니다. 향후 주가 전망에 대한 언급도 포함되었습니다.",
+        "refs": [
+          1,
+          3
+        ],
+        "reason": "삼성전자와 SK하이닉스의 주가 급락 및 대응 방안에 대한 분석이 제시되었습니다. 향후 주가 전망에 대한 언급도 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=mVbORW1vjDY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 17:00:37 KST"
+          },
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 급락, 지금 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=Cg3blW1uJ-I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 14:30:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "공항",
+        "freq": 1,
+        "summary": "대한민국 공항의 현황과 지방 신공항 10개 추진 계획에 대한 내용이 다루어졌습니다. 방한객 3천만 명 시대의 인천공항 상황도 언급되었습니다.",
+        "refs": [
+          8
+        ],
+        "reason": "대한민국 공항의 현황과 지방 신공항 10개 추진 계획에 대한 내용이 다루어졌습니다. 방한객 3천만 명 시대의 인천공항 상황도 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "공항 부자가 될 대한민국",
+            "url": "https://www.youtube.com/watch?v=KWIutLqKXfo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-19 19:05:39 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자의 주가 급락(-7%)에 대한 분석과 함께, 투자자가 취해야 할 대응 방안이 제시되었습니다. 향후 30만 원대 전망에 대한 언급도 있었습니다.",
+        "refs": [
+          1,
+          3
+        ],
+        "reason": "삼성전자의 주가 급락(-7%)에 대한 분석과 함께, 투자자가 취해야 할 대응 방안이 제시되었습니다. 향후 30만 원대 전망에 대한 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=mVbORW1vjDY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 17:00:37 KST"
+          },
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 급락, 지금 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=Cg3blW1uJ-I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 14:30:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "SK하이닉스의 주가 급락(-6%)에 대한 분석과 함께, 투자자가 취해야 할 대응 방안이 제시되었습니다. 향후 200만 원대 전망에 대한 언급도 있었습니다.",
+        "refs": [
+          1,
+          3
+        ],
+        "reason": "SK하이닉스의 주가 급락(-6%)에 대한 분석과 함께, 투자자가 취해야 할 대응 방안이 제시되었습니다. 향후 200만 원대 전망에 대한 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=mVbORW1vjDY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 17:00:37 KST"
+          },
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 급락, 지금 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=Cg3blW1uJ-I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 14:30:17 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Legend Biotech",
+          "freq": 1
+        },
+        {
+          "name": "Webuild",
+          "freq": 1
+        },
+        {
+          "name": "Trevi",
+          "freq": 1
+        },
+        {
+          "name": "Glacier Bancorp",
+          "freq": 1
+        },
+        {
+          "name": "Alternative Ballistics",
+          "freq": 1
+        },
+        {
+          "name": "Adtran Holdings",
+          "freq": 1
+        },
+        {
+          "name": "Casella Waste Systems",
+          "freq": 1
+        },
+        {
+          "name": "3D Systems",
+          "freq": 1
+        },
+        {
+          "name": "Docler Holding",
+          "freq": 1
+        },
+        {
+          "name": "Playboy",
+          "freq": 1
+        },
+        {
+          "name": "PLBY",
+          "freq": 1
+        },
+        {
+          "name": "Gap",
+          "freq": 1
+        },
+        {
+          "name": "Athleta",
+          "freq": 1
+        },
+        {
+          "name": "Old Navy",
+          "freq": 1
+        },
+        {
+          "name": "GM",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Airlines",
+          "freq": 1
+        },
+        {
+          "name": "Construction",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Entertainment",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Waste Management",
+          "freq": 1
+        },
+        {
+          "name": "3D Printing",
+          "freq": 1
+        },
+        {
+          "name": "Apparel",
+          "freq": 1
+        },
+        {
+          "name": "Streaming",
+          "freq": 1
+        },
+        {
+          "name": "Banking",
+          "freq": 1
+        },
+        {
+          "name": "Technology",
+          "freq": 1
+        },
+        {
+          "name": "Digital Media",
+          "freq": 1
+        },
+        {
+          "name": "Cryptocurrency",
+          "freq": 1
+        },
+        {
+          "name": "Corporate Services",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "와콤",
+          "freq": 3
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "수원 삼성",
+          "freq": 2
+        },
+        {
+          "name": "FC 서울",
+          "freq": 2
+        },
+        {
+          "name": "Taiwan Semiconductor Manufacturing",
+          "freq": 1
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 1
+        },
+        {
+          "name": "SKT",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "앤트로픽",
+          "freq": 1
+        },
+        {
+          "name": "메가박스중앙",
+          "freq": 1
+        },
+        {
+          "name": "대전하나시티즌",
+          "freq": 1
+        },
+        {
+          "name": "울산 HD",
+          "freq": 1
+        },
+        {
+          "name": "포항 스틸러스",
+          "freq": 1
+        },
+        {
+          "name": "안양 FC",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "지역사랑상품권",
+          "freq": 1
+        },
+        {
+          "name": "IT 서비스",
+          "freq": 1
+        },
+        {
+          "name": "전력기기",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "보험",
+          "freq": 1
+        },
+        {
+          "name": "엔터테인먼트",
+          "freq": 1
+        },
+        {
+          "name": "소프트웨어",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        },
+        {
+          "name": "의료",
+          "freq": 1
+        },
+        {
+          "name": "교육",
+          "freq": 1
+        },
+        {
+          "name": "여행",
+          "freq": 1
+        },
+        {
+          "name": "무역",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
