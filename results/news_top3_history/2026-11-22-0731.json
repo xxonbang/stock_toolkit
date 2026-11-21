@@ -1,0 +1,799 @@
+{
+  "generated_at": "2026-11-22 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 기술 및 서비스에 대한 지속적인 관심과 투자가 반영되었습니다. (총 5건)",
+        "us_news_refs": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          18,
+          20,
+          21,
+          23,
+          25,
+          30,
+          31,
+          32,
+          34,
+          35,
+          39,
+          40,
+          43,
+          46,
+          48,
+          49,
+          61,
+          65,
+          66,
+          67,
+          68,
+          71
+        ],
+        "related_news": [
+          {
+            "title": "Column | Before you use AI to hunt Black Friday deals, keep 5 things in mind - The Washington Post",
+            "title_ko": "블랙 프라이데이 딜 사냥에 AI 쓰기 전, 5가지 기억할 것",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOX2VmY3VVQjJPVDlqcVVpOEl0eVJzdGt2SUVlTktmUC1ITWR0eWJ0SV9oYkNtRHYzaGJaMF9TTWFBaEVTQkJhQV9yaElYU3FzOGt3TzV2dU5KazE2WklYbUJQQUFnVXdOUjlHOV9pXzlUekNyN1IteUFzQ2ZfZnBrUkVjZTBPeFJHUVpaVExoam52MzVQ?oc=5",
+            "published_at": "2026-11-22 03:00:00 KST"
+          },
+          {
+            "title": "Anthropic IPO signals ‘beginning of a gold rush’ for small businesses, says biz tech CEO - Fox Business",
+            "title_ko": "Anthropic IPO, 중소기업에 '골드러시 시작' 신호탄",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMjVQWHNJMWw0Y21HYTVDN0lhX0ZYQS1FdzFCLV9nbVRzS09jNFN5UXRaanhHM2tXbGJkVGtlZVdMMnlTa2RTR29MUU1KbXVkekg1X19VeU5ISGJCbG9FRU5nSkNrZG1MWFJBaVZWY3pGUm5vUmZUWl96aWl6TVNDcUFCOXFxRmlYTFhRLTlqdTQ2S2FWTjJ4RWNBbnlVS2dtemlUSF9nOVlpZFpONElOdUhB0gG3AUFVX3lxTFBNVVBhQ1VSV2VIc0Z5OTJfSU1FUmc2UVFZNDJPX19TSjgteXV4QWxmbDZQWGQwa0M3S0tLUTY1V3ZTRXhUTmVNLTNBSk15QTRuQ1ZzSDY5VkFVT3laUl9XemZJVWZBVG9TU21UaW1US3JvWGZ3dGpiakppUDJobkQ2NW5lVGxEZUdCTlBnaGhEVWNvRE43ZTEySTBZaDJ6VzFuY08xN2FJRkFWUzI1Rkg0eEljUHl0OA?oc=5",
+            "published_at": "2026-11-22 02:54:21 KST"
+          },
+          {
+            "title": "Tech Outages Are Only the Beginning. A.I. Will Bring More Disruptions. - The New York Times",
+            "title_ko": "기술 장애는 시작일 뿐, AI는 더 많은 혼란 가져올 것",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQM0M2dXVZWU9jNzEySnF2YXRxeE1lSWEyTzdISXBGc2dqdEFjZWJmaGUyVmVwbktreFZ2eHB5VmNEWVdLZzVCMDJONHpVNDB2eHNmWFJlLTdDNzFqdEJBU0VhRGt6anhxaHltazE0UG5IcWNyYlFQR3ZjWm9CYXRLMzhkZGFZUQ?oc=5",
+            "published_at": "2026-11-22 02:40:46 KST"
+          },
+          {
+            "title": "What smart people are saying about the market sell-off ripping through tech and AI - Business Insider",
+            "title_ko": "똑똑한 사람들이 말하는 기술 및 AI 시장 매도세",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYWh6YUdkVkxHaVNudVdOOWlBM2ZjY3lMTS1rNEhfeVFETnRNVjBlMUt0ODVzRE1HQUxUdU85MXhJdWVfTnUtUnV1YS1mQjZ3QnNPc3RmZzk3RlNKRjNDdVByMUgwcEI1TFY1WUk4cVlXVWlwOE5WMWZSUUc1Q3FnMjVNRUNZMUVjRE5FMmZtbng1ekVZ?oc=5",
+            "published_at": "2026-11-22 02:23:00 KST"
+          },
+          {
+            "title": "California Nvidia Probe Covers Potential Criminal Law Violations - Bloomberg.com",
+            "title_ko": "캘리포니아 Nvidia 조사, 잠재적 형사법 위반 포함",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPM3ZKSUpVM0xWNVRuM3B0RjhyOTM0NUNoRmNYVnVKYm50andhaTFJVHZLenZrckE1aFZuMGhiSW42Mlh5c2lZcGc5eTg1NDQwWVRFQWxSOGtzWHk2S2pGLVpvM3N2enh4Mms5OTF0MHFXc0JnN3ZoYlB3ODJqX3FoSjJCTWlPOHQ2SjNOQ1Q3cjVNR0NWRVYxWVFEanpwZC1mSW5SeGpXSDRqX1d0TUVwdE1vYVJWUQ?oc=5",
+            "published_at": "2026-11-22 02:11:23 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tech Outages",
+        "reason": "기술 시스템의 일시적인 장애 및 복구 관련 소식이 시장의 주목을 받았습니다. (총 4건)",
+        "us_news_refs": [
+          4,
+          29,
+          33,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Tech Outages Are Only the Beginning. A.I. Will Bring More Disruptions. - The New York Times",
+            "title_ko": "기술 장애는 시작일 뿐, AI는 더 많은 혼란 가져올 것",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQM0M2dXVZWU9jNzEySnF2YXRxeE1lSWEyTzdISXBGc2dqdEFjZWJmaGUyVmVwbktreFZ2eHB5VmNEWVdLZzVCMDJONHpVNDB2eHNmWFJlLTdDNzFqdEJBU0VhRGt6anhxaHltazE0UG5IcWNyYlFQR3ZjWm9CYXRLMzhkZGFZUQ?oc=5",
+            "published_at": "2026-11-22 02:40:46 KST"
+          },
+          {
+            "title": "The Outages Are Just Getting Started - WIRED",
+            "title_ko": "정전은 이제 시작일 뿐",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5fNzdnendnRkFmcGtfWE5XQnJrX0o0TEh3YkNCcnh3R0pzbU5fQW14YkJhV0gtWnJBWjZzSTdUb1dnOFp0alhxbGpiQmZnVjdUVGxUVm0xTEpGSEVsRlBQMDh0TXBQR1d3WjllZHpaczBlel9KN0lHbw?oc=5",
+            "published_at": "2026-11-21 22:00:00 KST"
+          },
+          {
+            "title": "Walmart shoppers stocked up on emergency supplies after series of tech outages: report - Fox Business",
+            "title_ko": "월마트 쇼핑객들, 일련의 기술 장애 후 비상 용품 비축",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOUng4UVFJOXRjQ2lwUU5MZ2dwVVk5WEkwNTJjT3g1UkZkOXhrcWRPZlowUDJkNEhnclJtOFhJRUYwbFdaYlNDMFctSXRrODNaZlZ3RDQzUUw2ak5uQU90RktjZDM0TTlkTUw3TjNYNVU3LUVrSXlYN29QRGtwNDdGYTl3QUtZTklrLU9XMDBJdGpxYzVlT1RhZVBrT0I0SnFoM2d1WXBNd0RRUGJCeFBGbEN6YjZmUdIBuwFBVV95cUxQd1B4c3htS0puckdCQllyQ1dwTm8wSWhMdkJjbjFDUFh4ZEpHcGhwM2VBMHpYa3NWdDVPNl9TQTc0QWlVUU9DZUNQWmp4NFVCUzFtSGZodXJ4NmRvb0lpLXB3YVVEbzVoR3RoTzB1YXZOakJJSm8zdHJmbnR4MC1wQUZKUGoyMmk3WnQwUXItMnI1RVZBaFRmS2FVRGdiUGg5N2NKM0NEMjRtbGRYektDcmRBcVk0b3BDZjJv?oc=5",
+            "published_at": "2026-11-21 19:52:00 KST"
+          },
+          {
+            "title": "Being a prepper once came with a stigma. Recent outages are turning skeptics into believers - NPR",
+            "title_ko": "준비자(prepper)가 되는 것에는 낙인이 찍혔었다. 최근 정전은 회의론자들을 신봉자로 바꾸고 있다.",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPTG56c0JWQ3F0NTFabk5OVS1aSVE2TVpvVXA4RjMyRVlBcFBTaGtIUkUtTjBqWmJXY052aFNPQW1VZEQzeFBtX0xfaHdvZHYtbWN5ZVMxSmFYQl9TRXNmN1l2REc5azhqc0x6ZEp0UVpXMUxoMFhqTm9FaUI3SHoxT3B0M0pmdzQ?oc=5",
+            "published_at": "2026-11-21 06:30:58 KST"
+          }
+        ]
+      },
+      {
+        "name": "Retail",
+        "reason": "소매 업종의 실적 발표 및 소비자 지출 동향에 대한 뉴스가 보도되었습니다. (총 3건)",
+        "us_news_refs": [
+          2,
+          19,
+          26
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Column | Before you use AI to hunt Black Friday deals, keep 5 things in mind - The Washington Post",
+            "title_ko": "블랙 프라이데이 딜 사냥에 AI 쓰기 전, 5가지 기억할 것",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOX2VmY3VVQjJPVDlqcVVpOEl0eVJzdGt2SUVlTktmUC1ITWR0eWJ0SV9oYkNtRHYzaGJaMF9TTWFBaEVTQkJhQV9yaElYU3FzOGt3TzV2dU5KazE2WklYbUJQQUFnVXdOUjlHOV9pXzlUekNyN1IteUFzQ2ZfZnBrUkVjZTBPeFJHUVpaVExoam52MzVQ?oc=5",
+            "published_at": "2026-11-22 03:00:00 KST"
+          },
+          {
+            "title": "'They’re blowing this': Amazon's push against NYC delivery worker bill may be backfiring - Gothamist",
+            "title_ko": "'이것 망치고 있다': 아마존의 NYC 배달원 법안 반대, 역효과 날 수도",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVjVfUjBqOTBXcVZOSXlPOE40NmtVZnd6VWV3dlR4emN6S3EyMDJkcHNGU1Y1RC1GbGc5MUxhUFc3SVBjV3A5OTdsS1JtVlI3cFN2ampQS0swSFluckE3b1QxbmxxMkpKUmRpc1FXSzBibVluTmRkV1hscmVrRGdjM2NJU3BWdkNZZmhTeWVLdm4tTHc1eGIyc0xwSGNPMG4tbUNJQmx1ZUZxcmpMbmhV?oc=5",
+            "published_at": "2026-11-22 01:23:00 KST"
+          },
+          {
+            "title": "Skip the junk: What retail experts say is actually worth buying on Black Friday - Yahoo",
+            "title_ko": "쓰레기는 건너뛰세요: 블랙 프라이데이, 전문가들이 살 만하다고 말하는 것",
+            "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPUFdibHVwdWhicnRMTVRtS1ZZdDF2ZzhZRU1ER0ZfSlNXdEV5UmNoZUpLVUFpZGppVFRqWWEwcnVZY0NyeDh1NWtlUkpObE9YcHVINXFhWWRuQ1p2Sjc3RWx1bTJzdXdTY0Jvc1pfdXhZWjhsanNqQmVwT2diVzdfLXQxcWRpNWIweld2LXp0LUVvdlNDT1VrczZTVU1QYjcxLU1qUEYzenNqdXdHeXlQQ2xXWF9pOF81M09Gd3RERFlERU8weHRsNWdoOVdaT1pfVmc?oc=5",
+            "published_at": "2026-11-21 22:40:16 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세 및 관련 기술 발전 소식이 주가에 긍정적인 영향을 미쳤습니다. (총 3건)",
+        "us_news_refs": [
+          3,
+          5,
+          6,
+          18,
+          21,
+          30,
+          34,
+          40,
+          43,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Anthropic IPO signals ‘beginning of a gold rush’ for small businesses, says biz tech CEO - Fox Business",
+            "title_ko": "Anthropic IPO, 중소기업에 '골드러시 시작' 신호탄",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMjVQWHNJMWw0Y21HYTVDN0lhX0ZYQS1FdzFCLV9nbVRzS09jNFN5UXRaanhHM2tXbGJkVGtlZVdMMnlTa2RTR29MUU1KbXVkekg1X19VeU5ISGJCbG9FRU5nSkNrZG1MWFJBaVZWY3pGUm5vUmZUWl96aWl6TVNDcUFCOXFxRmlYTFhRLTlqdTQ2S2FWTjJ4RWNBbnlVS2dtemlUSF9nOVlpZFpONElOdUhB0gG3AUFVX3lxTFBNVVBhQ1VSV2VIc0Z5OTJfSU1FUmc2UVFZNDJPX19TSjgteXV4QWxmbDZQWGQwa0M3S0tLUTY1V3ZTRXhUTmVNLTNBSk15QTRuQ1ZzSDY5VkFVT3laUl9XemZJVWZBVG9TU21UaW1US3JvWGZ3dGpiakppUDJobkQ2NW5lVGxEZUdCTlBnaGhEVWNvRE43ZTEySTBZaDJ6VzFuY08xN2FJRkFWUzI1Rkg0eEljUHl0OA?oc=5",
+            "published_at": "2026-11-22 02:54:21 KST"
+          },
+          {
+            "title": "What smart people are saying about the market sell-off ripping through tech and AI - Business Insider",
+            "title_ko": "똑똑한 사람들이 말하는 기술 및 AI 시장 매도세",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYWh6YUdkVkxHaVNudVdOOWlBM2ZjY3lMTS1rNEhfeVFETnRNVjBlMUt0ODVzRE1HQUxUdU85MXhJdWVfTnUtUnV1YS1mQjZ3QnNPc3RmZzk3RlNKRjNDdVByMUgwcEI1TFY1WUk4cVlXVWlwOE5WMWZSUUc1Q3FnMjVNRUNZMUVjRE5FMmZtbng1ekVZ?oc=5",
+            "published_at": "2026-11-22 02:23:00 KST"
+          },
+          {
+            "title": "California Nvidia Probe Covers Potential Criminal Law Violations - Bloomberg.com",
+            "title_ko": "캘리포니아 Nvidia 조사, 잠재적 형사법 위반 포함",
+            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPM3ZKSUpVM0xWNVRuM3B0RjhyOTM0NUNoRmNYVnVKYm50andhaTFJVHZLenZrckE1aFZuMGhiSW42Mlh5c2lZcGc5eTg1NDQwWVRFQWxSOGtzWHk2S2pGLVpvM3N2enh4Mms5OTF0MHFXc0JnN3ZoYlB3ODJqX3FoSjJCTWlPOHQ2SjNOQ1Q3cjVNR0NWRVYxWVFEanpwZC1mSW5SeGpXSDRqX1d0TUVwdE1vYVJWUQ?oc=5",
+            "published_at": "2026-11-22 02:11:23 KST"
+          },
+          {
+            "title": "Bessent says no further restrictions are needed for Nvidia chip exports to China - PBS",
+            "title_ko": "Bessent, 중국으로의 Nvidia 칩 수출 추가 제한 불필요 주장",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNdGhFLVdNQVNlbl9tSXFrRmI4LS1VQmhxamhUS0F0WjhFMmoydGtBbG5Lc1AzbklUekQ0NDdvWDM0Q2Nfd2dOUTZEdE9MVnZCUVJtc1p3M0R4M2VjVS1zNUdXWWF1R2ZnNmpQU2lJSXNQQlM5WUk3cF92bDB3c3F5N3d6ZEEySktWeVRmSkE4SXR3R3JUaXhObmhjdmgzSEgxNTV6d3N0M2k5UU9uSDBsRXZiNzIxRWJsQmfSAb8BQVVfeXFMUElMcEVVRXcweUZhTloxWGJFdlN0UWx2ZDBBSm5DRzhiejNJZlgtWWV2eUpiQ0diajZlZ3BrbmZEMTJRZnU2eVBJWkwxdGNzTkprSElzTk05VXhKREVDcnYwN0t4aXl2V2VFbHZ4SWNuWEVvUXA5bEE1dm94UWU3aTBQT0phSEEydHdEMWYzSkNvbWtlbHVlajJRblRfUUc3eFBXTFZmd2VYQWh2RjMwZzM3N2ZYQ0l3OWhqS29mQm8?oc=5",
+            "published_at": "2026-11-22 01:28:20 KST"
+          },
+          {
+            "title": "What Jensen Huang’s allies say they've told him since his resignation: 'Let's fight' - Business Insider",
+            "title_ko": "젠슨 황의 동맹들이 사임 후 그에게 했다는 말: '싸우자'",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxORnU4MHkxSU5DSkRlWkdZbGJaQXppeUJwckVueDN2V3A4bjFkaW5KMzhFSm42dmRPTkZqWVE1WnRIWjJwcU94TjMtNDJIWDRYTENIMVU1ZDhFbnVXWXdITjEyMjZuMlJXb2tnQlNKbWdPcjYzelN4R0RMWkIyWTJhX3p2VlJPR1JwTXhYSTFqUQ?oc=5",
+            "published_at": "2026-11-22 00:31:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 분야의 경쟁 심화 및 투자 유치 관련 소식이 주목받았습니다. (총 2건)",
+        "us_news_refs": [
+          3,
+          5,
+          25,
+          41,
+          43,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Anthropic IPO signals ‘beginning of a gold rush’ for small businesses, says biz tech CEO - Fox Business",
+            "title_ko": "Anthropic IPO, 중소기업에 '골드러시 시작' 신호탄",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMjVQWHNJMWw0Y21HYTVDN0lhX0ZYQS1FdzFCLV9nbVRzS09jNFN5UXRaanhHM2tXbGJkVGtlZVdMMnlTa2RTR29MUU1KbXVkekg1X19VeU5ISGJCbG9FRU5nSkNrZG1MWFJBaVZWY3pGUm5vUmZUWl96aWl6TVNDcUFCOXFxRmlYTFhRLTlqdTQ2S2FWTjJ4RWNBbnlVS2dtemlUSF9nOVlpZFpONElOdUhB0gG3AUFVX3lxTFBNVVBhQ1VSV2VIc0Z5OTJfSU1FUmc2UVFZNDJPX19TSjgteXV4QWxmbDZQWGQwa0M3S0tLUTY1V3ZTRXhUTmVNLTNBSk15QTRuQ1ZzSDY5VkFVT3laUl9XemZJVWZBVG9TU21UaW1US3JvWGZ3dGpiakppUDJobkQ2NW5lVGxEZUdCTlBnaGhEVWNvRE43ZTEySTBZaDJ6VzFuY08xN2FJRkFWUzI1Rkg0eEljUHl0OA?oc=5",
+            "published_at": "2026-11-22 02:54:21 KST"
+          },
+          {
+            "title": "What smart people are saying about the market sell-off ripping through tech and AI - Business Insider",
+            "title_ko": "똑똑한 사람들이 말하는 기술 및 AI 시장 매도세",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYWh6YUdkVkxHaVNudVdOOWlBM2ZjY3lMTS1rNEhfeVFETnRNVjBlMUt0ODVzRE1HQUxUdU85MXhJdWVfTnUtUnV1YS1mQjZ3QnNPc3RmZzk3RlNKRjNDdVByMUgwcEI1TFY1WUk4cVlXVWlwOE5WMWZSUUc1Q3FnMjVNRUNZMUVjRE5FMmZtbng1ekVZ?oc=5",
+            "published_at": "2026-11-22 02:23:00 KST"
+          },
+          {
+            "title": "Economists Are Hyperventilating Over the AI Bubble - Futurism",
+            "title_ko": "경제학자들, AI 거품에 과호흡",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFB4QmY0SzdLNlBIYlhqSm1qcVBQWUZadHNSUEtDdnY0bHhyUERfRl90eTJoVWRMMWYxN1ZQenk5NTZHcjY4SXA3QXoxQS1JR0ZsU21GRjI4RTQxVXU2a0FDOUhReHllRjNHNVI5RUlyUjlFeWhNcTl2OXdkbF8tZw?oc=5",
+            "published_at": "2026-11-21 22:51:00 KST"
+          },
+          {
+            "title": "They Run Anthropic. They Want to Keep It Weird. They’re Brother and Sister. - WSJ",
+            "title_ko": "그들은 Anthropic을 운영한다. 그들은 그것을 이상하게 유지하고 싶어한다. 그들은 형제자매다.",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZGJyNGh6cktKS0FsM3FIbF9LbjFqVThfY3MyRURJREVmd1JqVGtVX3pTV1FuQzBUUUI3VDdXVHdUYkpKTDk1Ml9vZzdoN1p5T0pVZ3g1eGpwQ1NfVFp6VlhJX1FSXzZ6ajVDYjVKazF5N2FGbXVHLUdjN05YRzVQZnRYaVZtMkE?oc=5",
+            "published_at": "2026-11-21 11:00:00 KST"
+          },
+          {
+            "title": "Stock Market News From Nov. 20, 2026: S&P 500 Ends Week in Correction Territory - Barron's",
+            "title_ko": "2026년 11월 20일 주식 시장 뉴스: S&P 500, 조정 국면에서 주간 마감",
+            "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9PbFN3R1Bpa1RUYkt0Vm1yRFZjaWczbEZSNWlEck54REtud2VUYXZHMnEtTXhsNEtQMGdtSUdNa3RDUkpGdHVrQU5tTDNvTS02WXU0Qm54Qzc2WXI3SmNEcU1rMnRaTEpKZDNYMGM3TzJkWnVocFE?oc=5",
+            "published_at": "2026-11-21 09:39:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "SpaceX",
+        "reason": "우주 탐사 및 관련 기술 개발에 대한 뉴스가 시장의 관심을 끌었습니다. (총 3건)",
+        "us_news_refs": [
+          20,
+          30,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Goldman’s SpaceX Pitch Helps Solve AI Debt Puzzle - Bloomberg.com",
+            "title_ko": "골드만, SpaceX 제안으로 AI 부채 퍼즐 해결",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPcDk5bGRkTEZVRVFMWmlIb0xJZkxOM1NNb3o2blFual9HVGxSX1NMUHpWbjQ2MmFXYXc0WHdkUnZidG5GZ2xSbHM2MENrb0dqSnhHNXhWR2xNcWhkbElYZDlFbURmeExiUTRXMm03UnZBREk3U1QwQzhxbzFVVkdXY0x1b1k5NGlVVGZ2dnVCZTR6MVU5VXNCQW5xbWZkejZHUHlUQnFHV3cyV1J4UktLTnZQRzA?oc=5",
+            "published_at": "2026-11-22 00:31:22 KST"
+          },
+          {
+            "title": "SpaceX will retire 1st Starship upper stage ever caught by 'chopsticks,' Elon Musk says - Space",
+            "title_ko": "SpaceX, '젓가락'에 잡힌 첫 스타십 상단 스테이지 퇴역 예정 - Elon Musk",
+            "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNVFVrdHE3QlZ1OHpJZXFMdDgwTjZVdFZyNjFmNVcydnlUODZlTDFIek5hNGpJMXBLUEhsREVTaGF6T0pueFRWZWZvVzAzTG81TjJncTVtZHI3c0pBLW1zbHI5ME9IZTdHX3VJY0xLUFN1UnktVEpPWUtuRlY5TXo2M09yWFZVYlB2aTFsczlZczZqUGF5WUszMS1oYkY4Y3NOX0k5NkdXZnJSNkcyczM4MkZuN3dTOVA5NlZZOEF0OFVQLUtQc1p1UTZGaG9qWTV4SnpSS3RWNzZrdU1l?oc=5",
+            "published_at": "2026-11-21 22:00:00 KST"
+          },
+          {
+            "title": "Being a prepper once came with a stigma. Recent outages are turning skeptics into believers - NPR",
+            "title_ko": "준비자(prepper)가 되는 것에는 낙인이 찍혔었다. 최근 정전은 회의론자들을 신봉자로 바꾸고 있다.",
+            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPTG56c0JWQ3F0NTFabk5OVS1aSVE2TVpvVXA4RjMyRVlBcFBTaGtIUkUtTjBqWmJXY052aFNPQW1VZEQzeFBtX0xfaHdvZHYtbWN5ZVMxSmFYQl9TRXNmN1l2REc5azhqc0x6ZEp0UVpXMUxoMFhqTm9FaUI3SHoxT3B0M0pmdzQ?oc=5",
+            "published_at": "2026-11-21 06:30:58 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "국내 AI 기술 발전 및 관련 산업 투자에 대한 소식이 주목받았습니다. (총 3건)",
+        "kr_news_refs": [
+          5,
+          26,
+          32,
+          39,
+          49,
+          61,
+          65,
+          66,
+          67,
+          68,
+          82
+        ],
+        "related_news": [
+          {
+            "title": "약과 AI의 결합…치료 패러다임 바꾸는 디지털융합의약품",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121040800017",
+            "published_at": "2026-11-22 07:13:00 KST"
+          },
+          {
+            "title": "카카오 3년 사법리스크의 여파…AI 경쟁 속 사업 확장 차질",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120151400017",
+            "published_at": "2026-11-22 06:33:00 KST"
+          },
+          {
+            "title": "'블루 웨이브'로 AI인프라 우려 커지자 '닥터 코퍼' 구리주 하락",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121020600008",
+            "published_at": "2026-11-22 06:25:01 KST"
+          },
+          {
+            "title": "국내 대학 연쇄 해킹에 중국 해킹 커뮤니티 연관 AI 도구 흔적",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120131200017",
+            "published_at": "2026-11-22 06:15:02 KST"
+          },
+          {
+            "title": "스페이스X 때보다는 '뚝'…서학개미, 상장첫날 앤트로픽 2천200억 매수",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121030200008",
+            "published_at": "2026-11-22 06:10:02 KST"
+          }
+        ]
+      },
+      {
+        "name": "Real Estate",
+        "reason": "부동산 시장 동향 및 관련 규제 변화에 대한 뉴스가 보도되었습니다. (총 3건)",
+        "kr_news_refs": [
+          36,
+          83,
+          84
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "서울 집값 상승에도 내집마련 기간 14→12년…왜 줄었나",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121044900003",
+            "published_at": "2026-11-22 06:21:01 KST"
+          },
+          {
+            "title": "\"대전 1억·대구 6천\"…과천·광명·수원도 억대 부담금 예고",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121050500003",
+            "published_at": "2026-11-22 05:55:30 KST"
+          },
+          {
+            "title": "내달 강남권 첫 재초환 부담금…서울 52개 단지 1억1천만원씩",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121036800003",
+            "published_at": "2026-11-22 05:55:20 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SK하이닉스",
+        "reason": "AI 반도체 수요 증가 및 HBM 시장 경쟁력 강화에 대한 뉴스가 주목받았습니다. (총 2건)",
+        "kr_news_refs": [
+          47,
+          66
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "대기업 영업익 3배 늘었지만 기부금은 감소…SK하이닉스도 줄여",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120155200003",
+            "published_at": "2026-11-22 06:11:01 KST"
+          },
+          {
+            "title": "삼전닉스, 3분기 배당성향 껑충…상반기 대비 21배로 늘기도",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120152600003",
+            "published_at": "2026-11-22 06:03:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "reason": "AI 반도체 기술 개발 및 신규 투자 소식이 시장의 관심을 끌었습니다. (총 1건)",
+        "kr_news_refs": [
+          47,
+          66
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "대기업 영업익 3배 늘었지만 기부금은 감소…SK하이닉스도 줄여",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120155200003",
+            "published_at": "2026-11-22 06:11:01 KST"
+          },
+          {
+            "title": "삼전닉스, 3분기 배당성향 껑충…상반기 대비 21배로 늘기도",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261120152600003",
+            "published_at": "2026-11-22 06:03:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 섹터는 앤트로픽 상장 후 투자법 변화 필요성이 언급되었으며, AI 다음 사이클의 승자를 잡는 방법에 대한 논의가 있었습니다. 또한, 대한법률구조공단에서 인공지능 정책 부장이 언급되었습니다.",
+        "refs": [
+          4,
+          10
+        ],
+        "reason": "AI 섹터는 앤트로픽 상장 후 투자법 변화 필요성이 언급되었으며, AI 다음 사이클의 승자를 잡는 방법에 대한 논의가 있었습니다. 또한, 대한법률구조공단에서 인공지능 정책 부장이 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "갚아도 끝나지 않는 빚의 굴레…벗어날 방법은 따로 있다? | 정해청 대한법률구조공단 전략기획 부장, 김민구 대한법률구조공단 인공지능정책 부장 [주말인터뷰]",
+            "url": "https://www.youtube.com/watch?v=8xsfQnUGgNg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-21 15:00:09 KST"
+          },
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "삼성전자와 SK하이닉스의 주가 하락 및 대응 방안에 대한 논의가 여러 영상에서 집중적으로 다루어졌습니다. 구체적인 주가 변동(-7%, -6%)과 함께 투자자들이 취해야 할 행동에 대한 전문가 의견이 제시되었습니다.",
+        "refs": [
+          1,
+          3,
+          5
+        ],
+        "reason": "삼성전자와 SK하이닉스의 주가 하락 및 대응 방안에 대한 논의가 여러 영상에서 집중적으로 다루어졌습니다. 구체적인 주가 변동(-7%, -6%)과 함께 투자자들이 취해야 할 행동에 대한 전문가 의견이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 폭락, 지금 꼭 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=M0Ak8p29VyQ",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 21:15:22 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=mVbORW1vjDY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 17:00:37 KST"
+          },
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 급락, 지금 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=Cg3blW1uJ-I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 14:30:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "공항/항공",
+        "freq": 1,
+        "summary": "방한객 3000만 명 시대를 맞아 인천공항의 북새통 상황과 함께 지방 신공항 10개 추진 계획이 언급되었습니다. 현재 대한민국 공항 현황과 일본 공항 수와 비교하며 논의가 진행되었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "방한객 3000만 명 시대를 맞아 인천공항의 북새통 상황과 함께 지방 신공항 10개 추진 계획이 언급되었습니다. 현재 대한민국 공항 현황과 일본 공항 수와 비교하며 논의가 진행되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "공항 부자가 될 대한민국",
+            "url": "https://www.youtube.com/watch?v=KWIutLqKXfo",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-19 19:05:39 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자의 주가 하락(-7%)에 대한 언급이 3개 영상에서 나왔습니다. 해당 상황에서 투자자들이 취해야 할 구체적인 대응 방안에 대한 전문가의 조언이 제시되었습니다.",
+        "refs": [
+          1,
+          3,
+          5
+        ],
+        "reason": "삼성전자의 주가 하락(-7%)에 대한 언급이 3개 영상에서 나왔습니다. 해당 상황에서 투자자들이 취해야 할 구체적인 대응 방안에 대한 전문가의 조언이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 폭락, 지금 꼭 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=M0Ak8p29VyQ",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 21:15:22 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=mVbORW1vjDY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 17:00:37 KST"
+          },
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 급락, 지금 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=Cg3blW1uJ-I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 14:30:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스의 주가 하락(-6%)에 대한 언급이 3개 영상에서 나타났습니다. 전문가들은 이러한 주가 변동 시점에 투자자들이 어떻게 대처해야 하는지에 대한 실전 투자 전략을 제시했습니다.",
+        "refs": [
+          1,
+          3,
+          5
+        ],
+        "reason": "SK하이닉스의 주가 하락(-6%)에 대한 언급이 3개 영상에서 나타났습니다. 전문가들은 이러한 주가 변동 시점에 투자자들이 어떻게 대처해야 하는지에 대한 실전 투자 전략을 제시했습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 폭락, 지금 꼭 '이렇게' 하세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=M0Ak8p29VyQ",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 21:15:22 KST"
+          },
+          {
+            "title": "삼성전자 30만대, SK하이닉스 200만원대, 물렸으면, 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=mVbORW1vjDY",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 17:00:37 KST"
+          },
+          {
+            "title": "삼성전자 -7%, SK하이닉스 -6% 급락, 지금 꼭 '이렇게' 하세요 (박병창 대표)",
+            "url": "https://www.youtube.com/watch?v=Cg3blW1uJ-I",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-21 14:30:17 KST"
+          }
+        ]
+      },
+      {
+        "name": "앤트로픽",
+        "freq": 1,
+        "summary": "앤트로픽의 상장 이후 투자법 변화의 필요성이 제기되었습니다. AI 다음 사이클의 승자를 잡기 위한 투자 전략과 관련하여 언급되었습니다.",
+        "refs": [
+          10
+        ],
+        "reason": "앤트로픽의 상장 이후 투자법 변화의 필요성이 제기되었습니다. AI 다음 사이클의 승자를 잡기 위한 투자 전략과 관련하여 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 3
+        },
+        {
+          "name": "Tecogen",
+          "freq": 3
+        },
+        {
+          "name": "Amazon",
+          "freq": 2
+        },
+        {
+          "name": "Honda",
+          "freq": 2
+        },
+        {
+          "name": "Toyota",
+          "freq": 2
+        },
+        {
+          "name": "Origin Bancorp",
+          "freq": 1
+        },
+        {
+          "name": "Clene Inc.",
+          "freq": 1
+        },
+        {
+          "name": "First Community Corp",
+          "freq": 1
+        },
+        {
+          "name": "Bayer",
+          "freq": 1
+        },
+        {
+          "name": "Costco",
+          "freq": 1
+        },
+        {
+          "name": "Etsy",
+          "freq": 1
+        },
+        {
+          "name": "Capricor Therapeutics",
+          "freq": 1
+        },
+        {
+          "name": "Dollar General",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 5
+        },
+        {
+          "name": "Tech Outages",
+          "freq": 4
+        },
+        {
+          "name": "Retail",
+          "freq": 3
+        },
+        {
+          "name": "IPO",
+          "freq": 2
+        },
+        {
+          "name": "Crypto",
+          "freq": 2
+        },
+        {
+          "name": "Space Exploration",
+          "freq": 2
+        },
+        {
+          "name": "Credit Card Interest Rates",
+          "freq": 1
+        },
+        {
+          "name": "Chip Exports",
+          "freq": 1
+        },
+        {
+          "name": "Automotive Recall",
+          "freq": 1
+        },
+        {
+          "name": "Weedkiller Cancer Claims",
+          "freq": 1
+        },
+        {
+          "name": "Meme Coin",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Inflation",
+          "freq": 1
+        },
+        {
+          "name": "Tariff Refunds",
+          "freq": 1
+        },
+        {
+          "name": "Digital Assets",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "Kakao",
+          "freq": 1
+        },
+        {
+          "name": "이마트",
+          "freq": 1
+        },
+        {
+          "name": "쿠팡",
+          "freq": 1
+        },
+        {
+          "name": "Tesla",
+          "freq": 1
+        },
+        {
+          "name": "롯데마트",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        },
+        {
+          "name": "디센트",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Real Estate",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Tourism",
+          "freq": 2
+        },
+        {
+          "name": "Food & Beverage",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Local Currency",
+          "freq": 1
+        },
+        {
+          "name": "Telemedicine",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Digital Assets",
+          "freq": 1
+        },
+        {
+          "name": "ESG Bonds",
+          "freq": 1
+        },
+        {
+          "name": "Supply Chain",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 1
+        },
+        {
+          "name": "Agriculture",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
