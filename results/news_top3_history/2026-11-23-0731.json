@@ -1,0 +1,860 @@
+{
+  "generated_at": "2026-11-23 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 관련 기업들의 실적 발표 및 칩 수요 강세가 지속적으로 주목받고 있습니다 (총 14건)",
+        "us_news_refs": [
+          2,
+          4,
+          5,
+          7,
+          12,
+          21,
+          30,
+          31,
+          37,
+          43,
+          47,
+          48,
+          82,
+          85
+        ],
+        "related_news": [
+          {
+            "title": "Stocks are 'on fire sale' as Anthropic IPO fails to calm AI trade jitters - Yahoo Finance",
+            "title_ko": "애스로픽 IPO, AI 거래 불안 잠재우지 못해 주식 '염가 판매' - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOZjc4cHQ0TnRGd25uNTM5MUw5Zk5WUUdIV09nY3ltNDNBR2pvemJNRl9TOTZnR2lNay1CdTl1RHhPZEhtVmdTWE1qdS1SZVVmWURldUhJTTgxTktCX0xsMTdPNGpKS0JkYV9fUXpaY0NqLWlBa0tlVElTSmpnV1NzVGZ3Z0RSWW9XTFkwVm9YdW5WOWNRQU92MzUyekxmNjZWUnkyZ1VNdl9FMy13eTN5SFhIVG14TG5DZHZyYVR2VUxwOHkzeWRz?oc=5",
+            "published_at": "2026-11-23 04:00:51 KST"
+          },
+          {
+            "title": "Bessent says we \"need answers\" on role Nvidia played in sending AI chips to China, suggests Alice Huang is \"kind of a canard\" - CBS News",
+            "title_ko": "베슨트, Nvidia의 대중국 AI 칩 수출 역할에 '답변 필요'…앨리스 황은 '기만' - CBS News",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQ0w1SkRVbmd2cF9NcmxBeHYyeTdIdjQwR3c0VG5KT0g1UHlxRm15S1B4ZE1KbUVXOHhlMXhuS1VOeEFnd3VkQmNES2ZpekFDbERtQzFJUVNYXzJHZ0VvdDlUZFVQTWsxOUlJeWRGQnI4ZElsMTc3eklnUDRBcEFmLXF4Z3o?oc=5",
+            "published_at": "2026-11-23 03:48:39 KST"
+          },
+          {
+            "title": "Inside an AI prophet’s secretive visions for humanity’s future - The Washington Post",
+            "title_ko": "AI 예언가의 인류 미래 비밀 비전 - The Washington Post",
+            "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNNGZfRXNLSjJFSWtDbEktLW1XLXVPZUVaaXFTRHhaSlhGend6QU02VnBqWHVndGZPLXZnYXJNSktyc1pObV9JcUE0TDduMTZxUTlBY0RlellYb0s5OEx2Q05leExlMjVFOVRPaHd5UjdNb0MyM3NfSnc3Um5TelJtcUpNT0RqaktPR25YYVFrSVpoVnp5OW5UNlBDVmVBc1VsaFFIQjRWLWxhNjF1?oc=5",
+            "published_at": "2026-11-23 03:00:00 KST"
+          },
+          {
+            "title": "Nvidia Stock Has A Cockroach Problem. What Comes Next Could Be Worse - Forbes",
+            "title_ko": "Nvidia 주식에 바퀴벌레 문제. 다음은 더 나쁠 수 있다 - Forbes",
+            "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWklQNGRTcVdjQjVORTluS1l0VEJGd2dYTlNMQnRRTnBmekdvNjMydmp6bnk2aElqbjZ1UHdBeWZkTnZXVmVfZGp6U2NVMVE1NF9CeEhwU0NUYWE1S1VUQUNwQ1JCNE9qYV8ycVU5UmdNMVFEa3hENHRVR2lqcGJ6MmV4MEJKdXlyUXotaUJGVHE3NnZnNFlQMmM5YV9WOHc0amFjbFN3Uml6eHdYaE1SOGJLcUlGZ2Vv?oc=5",
+            "published_at": "2026-11-23 02:37:43 KST"
+          },
+          {
+            "title": "Corporate America hunts for ‘generational’ growth in AI, trading cards and the L.A. airport",
+            "title_ko": "기업, AI, 트레이딩 카드, LA 공항서 '세대적' 성장 추구",
+            "url": "https://www.marketwatch.com/story/corporate-america-hunts-for-generational-growth-in-ai-trading-cards-and-the-l-a-airport-3072eb1a?mod=mw_rss_topstories",
+            "published_at": "2026-11-23 06:51:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요와 연관된 반도체 산업의 성장이 투자자들의 관심을 받고 있습니다 (총 4건)",
+        "us_news_refs": [
+          4,
+          7,
+          43,
+          85
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Bessent says we \"need answers\" on role Nvidia played in sending AI chips to China, suggests Alice Huang is \"kind of a canard\" - CBS News",
+            "title_ko": "베슨트, Nvidia의 대중국 AI 칩 수출 역할에 '답변 필요'…앨리스 황은 '기만' - CBS News",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQ0w1SkRVbmd2cF9NcmxBeHYyeTdIdjQwR3c0VG5KT0g1UHlxRm15S1B4ZE1KbUVXOHhlMXhuS1VOeEFnd3VkQmNES2ZpekFDbERtQzFJUVNYXzJHZ0VvdDlUZFVQTWsxOUlJeWRGQnI4ZElsMTc3eklnUDRBcEFmLXF4Z3o?oc=5",
+            "published_at": "2026-11-23 03:48:39 KST"
+          },
+          {
+            "title": "Nvidia Stock Has A Cockroach Problem. What Comes Next Could Be Worse - Forbes",
+            "title_ko": "Nvidia 주식에 바퀴벌레 문제. 다음은 더 나쁠 수 있다 - Forbes",
+            "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWklQNGRTcVdjQjVORTluS1l0VEJGd2dYTlNMQnRRTnBmekdvNjMydmp6bnk2aElqbjZ1UHdBeWZkTnZXVmVfZGp6U2NVMVE1NF9CeEhwU0NUYWE1S1VUQUNwQ1JCNE9qYV8ycVU5UmdNMVFEa3hENHRVR2lqcGJ6MmV4MEJKdXlyUXotaUJGVHE3NnZnNFlQMmM5YV9WOHc0amFjbFN3Uml6eHdYaE1SOGJLcUlGZ2Vv?oc=5",
+            "published_at": "2026-11-23 02:37:43 KST"
+          },
+          {
+            "title": "The Stock Market Is Doing Something for Only the 5th Time This Century, and History Says It's Obvious What Comes Next for Stocks - The Motley Fool",
+            "title_ko": "주식 시장, 이번 세기 단 5번째 일 발생 중, 역사는 다음을 명확히 말해준다 - The Motley Fool",
+            "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxORUQtblJfenRtODNzS1I1NTZJTDEtaWgzX1dYSjhYckE2NDlraGpzUFNzXzhPV2F5U3Z4YWNUdXctdE9MamlDUjhpbU1yMW1zd2Z1SUlyUG1sLWpQLXY2RDVfaWE5NjI1Wm56REdTS1lvRHdjVXhmNER2Wl9ITktDMmM2MU9ReG80WnQtTVE1Z0ctM2oyeVg2OWdCYU5EM0VBdmgxUnBhUE9Wc01lVzNNN1lZOTRGMGZTdlpFcnpsTlVKTmpiZ0p3NHhjN3FZblVTa29mUVhPQQ?oc=5",
+            "published_at": "2026-11-22 20:36:02 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tech Outages",
+        "reason": "기술 시스템 장애와 관련된 보도가 언급되며 관련 기업들의 동향에 대한 관심이 나타나고 있습니다 (총 3건)",
+        "us_news_refs": [
+          8,
+          31,
+          73
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Transcript: Treasury Secretary Scott Bessent on \"Face the Nation with Margaret Brennan,\" Nov. 22, 2026 - CBS News",
+            "title_ko": "트랜스크립트: 스콧 베슨트 재무장관, 2026년 11월 22일 '마가렛 브레넌과 함께하는 얼굴' 출연 - CBS News",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPR283dmtxRUE1S1RDMlczSWpxSjBUckxmNUVCeVlodF93N25kU214dmE1TkMweVpRMWZ3ZTl3MUZrYnEwVnVUb1l4Z0I0UlNPaXRTU3M2eHQzeWZEazZ5QkhWem41RVhsczZYanRuUElLUlJmNGc3X1g2Zmtvd0M3Q21Pa19XYnJNVWZkOHRxSnE3aWtPRmpmcWhvZUp2NXJpUHl1bXA1S2VoM3ZJYmktN25hMlJ0S1h1WkJCR0JNelo?oc=5",
+            "published_at": "2026-11-23 02:16:00 KST"
+          },
+          {
+            "title": "Director of National Intelligence Jay Clayton warns Americans of 'bumps in the road' after tech outages - CNBC",
+            "title_ko": "Jay Clayton 국가정보국장, 기술 장애 후 미국인들에게 '험로' 경고 - CNBC",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPc0UyZUdJbmJyV3E2MkFmMjlaVU43ZXItWDZNd2JtdVFKcGEwMlNENHpLdWJ0dGlqNk5iTXhvc0xXRkI5TVhzSHg3bTFTdzN6MkNkT1pnRktNRWFFazZCTkQ2dlNrZGhjTGI4cWxKaDhKbTg3R2dSbXE2N19aU2plcktMUGFNYmpqLVdkbkVLU3ZDd9IBlwFBVV95cUxQRmQ4Rjd1WnZHMVZWb1BKNTYwWFdzV1JRWWY3SllzSm5EOG5yZjlvNmhma0JEUWhJbHIwNkxHUGZfTTZqUHVQV0ZyR0JfQmx5VFNVR29OaTByQ1VhS3hmVFdNUkJlUmlnbElzSDNXc3Y1VjNkdm9nUTVOTUtYdUNsWHdNajJ5eGhPZVB1Uk5QMmZ4VzV1Q3Fj?oc=5",
+            "published_at": "2026-11-23 01:17:53 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 빅테크 기업들의 실적 발표 모멘텀이 주가에 반영되고 있습니다 (총 8건)",
+        "us_news_refs": [
+          4,
+          7,
+          10,
+          21,
+          28,
+          43,
+          85,
+          97
+        ],
+        "related_news": [
+          {
+            "title": "Bessent says we \"need answers\" on role Nvidia played in sending AI chips to China, suggests Alice Huang is \"kind of a canard\" - CBS News",
+            "title_ko": "베슨트, Nvidia의 대중국 AI 칩 수출 역할에 '답변 필요'…앨리스 황은 '기만' - CBS News",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQ0w1SkRVbmd2cF9NcmxBeHYyeTdIdjQwR3c0VG5KT0g1UHlxRm15S1B4ZE1KbUVXOHhlMXhuS1VOeEFnd3VkQmNES2ZpekFDbERtQzFJUVNYXzJHZ0VvdDlUZFVQTWsxOUlJeWRGQnI4ZElsMTc3eklnUDRBcEFmLXF4Z3o?oc=5",
+            "published_at": "2026-11-23 03:48:39 KST"
+          },
+          {
+            "title": "Nvidia Stock Has A Cockroach Problem. What Comes Next Could Be Worse - Forbes",
+            "title_ko": "Nvidia 주식에 바퀴벌레 문제. 다음은 더 나쁠 수 있다 - Forbes",
+            "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWklQNGRTcVdjQjVORTluS1l0VEJGd2dYTlNMQnRRTnBmekdvNjMydmp6bnk2aElqbjZ1UHdBeWZkTnZXVmVfZGp6U2NVMVE1NF9CeEhwU0NUYWE1S1VUQUNwQ1JCNE9qYV8ycVU5UmdNMVFEa3hENHRVR2lqcGJ6MmV4MEJKdXlyUXotaUJGVHE3NnZnNFlQMmM5YV9WOHc0amFjbFN3Uml6eHdYaE1SOGJLcUlGZ2Vv?oc=5",
+            "published_at": "2026-11-23 02:37:43 KST"
+          },
+          {
+            "title": "A New Figure Emerges in the Nvidia Chip-Smuggling Saga - WSJ",
+            "title_ko": "Nvidia 칩 밀수 사건에 새로운 인물 등장 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQUlhNXzR5WjJQLVh5WHE1dW1mdFE4MmZreUtrNHRhOVh1NEd5d2p5cjNkSlZRYzY0eU9wZUlfNms4NXM2Z1VnUDdUdnZkR20tekRUX1B4Mm01ZEJTVmFyMWdEdnFjVWFiMkFNZm5tTWtPVmJZV3ktMmdjQjdKQWY0blA1V210MGl3Q0ExTnRsZHpiakQyNWEw?oc=5",
+            "published_at": "2026-11-23 01:46:00 KST"
+          },
+          {
+            "title": "How exposed is the S&P 500 to an AI trade bust?",
+            "title_ko": "S&P 500, AI 거래 붕괴에 얼마나 노출되었나?",
+            "url": "https://www.investing.com/news/stock-market-news/how-exposed-is-sp-500-to-an-ai-trade-bust-5044112",
+            "published_at": "2026-11-23 05:43:07 KST"
+          },
+          {
+            "title": "‘Nvidia’s turmoil has me spooked’: Is it time to sell my stocks and buy real estate?",
+            "title_ko": "‘Nvidia의 혼란에 불안’: 주식 팔고 부동산 사야 할 때인가?",
+            "url": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
+            "published_at": "2026-11-23 02:00:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Delta Air Lines",
+        "reason": "항공 산업의 회복세와 여행 수요 증가가 델타항공의 주가에 긍정적인 영향을 미치고 있습니다 (총 3건)",
+        "us_news_refs": [
+          0,
+          1,
+          20,
+          73
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Equipment outage in Atlanta causes over 1,600 Delta flight delays - ABC News - Breaking News, Latest News and Videos",
+            "title_ko": "애틀랜타 장비 장애로 델타항공 1,600편 이상 지연 - ABC News",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNWWRfMUlqa2NON3pHbWVBT3NuRDBNajZQYklJRlBlNTdrT2J6cGpxWU5FODBmU29sSnJ5QlhpaVRJY3dpSFN6dEVCcVlVWTVkcWVfSU5XS1l2MWNfUXl0ckZObS11ckVhV0Rsb0ZGcXBHN0NmZ2MxbUxRNmlZRHNfbW9XYkJUZFpmaXMxbDBadWRFRnJHajNCc2hSSDZkaVnSAaQBQVVfeXFMTXVUSGQ5N2Q1MWRVdGRyLTdITHVfWlNtdzhWSWwzZ1dYVzJiTnJuRzlTOEY4MDNTM2p5MUlMcGZvZnVTU3FOV0RMTEpDcUFqbnVrbms5UXlwb2IzUEE4SXZJU0RQZEtjYUtnbGRUZjBjUkF5aS1yUXRBenZsR215WEJZWWZHRUI3NWdXZ1RqYmxEZEhGS3ZaZHQtTGdZUUtjSDdNczM?oc=5",
+            "published_at": "2026-11-23 07:18:45 KST"
+          },
+          {
+            "title": "Delta flights faced brief delays at Atlanta airport over automated system issue",
+            "title_ko": "델타항공, 자동 시스템 문제로 애틀랜타 공항서 잠시 지연",
+            "url": "https://www.investing.com/news/stock-market-news/delta-flights-faced-brief-delays-atatlanta-airport-over-automated-system-issue-5044102",
+            "published_at": "2026-11-23 06:12:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "Amazon",
+        "reason": "전자상거래 및 클라우드 서비스 부문의 견조한 실적 발표가 아마존 주가에 대한 긍정적인 전망을 뒷받침하고 있습니다 (총 3건)",
+        "us_news_refs": [
+          44,
+          46
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Jeff Bezos donated $198.9 million in Amazon stock in two days, including shares he's held since 1994 - Fortune",
+            "title_ko": "Jeff Bezos, 2일간 아마존 주식 1억 9,890만 달러 기부, 1994년부터 보유 주식 포함 - Fortune",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOSFFNbFZXU3NuZS1rNllqbjJTOUNaa1MzdzFXZUt1dlpuYl9UdWJ1S2swWktWcTZHMXIxUEw2U016Z1ByS3ZmX3RMczhNOERDcWVObkI2UU0xV3NLM3V2bTk5c2c5U19sMU1FMWFTU2hpYXV0ZDlOWk5sQlFTS1k4cExPME5heC0wRno3cmFvUW43N2lyT3NvcTQ5UQ?oc=5",
+            "published_at": "2026-11-22 20:20:00 KST"
+          },
+          {
+            "title": "Amazon Saved Thousands of Early Black Friday Deals for Prime Members—We Narrowed Down the 50 Best, From $10 - Travel + Leisure",
+            "title_ko": "Amazon, 프라임 회원 위한 얼리 블랙 프라이데이 딜 수천 개 확보—10달러부터 50개 최고 딜 엄선 - Travel + Leisure",
+            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxObWJwV3c2MEJLVDUyMGFUNTJ1WVB0UHNyWk9uZk8yYl9NbTlpU3hnTUhmN3p6VVIwOEpDVW8ycWpyeVgzSDAyUks1dk1Zdndtc2RBWjkwTjluZzV5T1ExWllnOWF5dFJ3eGhtVmVEVGo1c2xyNmU0WXgydXA0TDYxT3BteUFlNGxHMDIyVEotLWktaWtlTFdPalNSbWZGSVIw?oc=5",
+            "published_at": "2026-11-22 20:00:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "인공지능(AI)",
+        "reason": "AI 기술 발전과 관련 기업들의 실적 개선 기대감이 주식 시장에서 주목받고 있습니다 (총 6건)",
+        "kr_news_refs": [
+          10,
+          23,
+          30,
+          69,
+          82,
+          85
+        ],
+        "related_news": [
+          {
+            "title": "부문장 ‘전부 교체’ 초강수…LG유플러스 조직개편 키워드는?",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12215771",
+            "published_at": "2026-11-23 07:12:56 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 23일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12215710",
+            "published_at": "2026-11-23 07:00:00 KST"
+          },
+          {
+            "title": "\"메모리값 급등 전가…계약 뒤에도 AI 서버값 인상\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123007000009",
+            "published_at": "2026-11-23 06:40:52 KST"
+          },
+          {
+            "title": "세무서 전화상담 절반 이상 AI가 처리…OECD, 한국 사례 소개",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121023100002",
+            "published_at": "2026-11-23 05:59:12 KST"
+          },
+          {
+            "title": "알파고로 이해하는 ‘학습’과 ‘추론’ … 반도체 주문이 계속되는 이유",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12215520",
+            "published_at": "2026-11-23 05:50:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "주식 시장",
+        "reason": "전반적인 주식 시장의 변동성과 투자 심리가 다양한 섹터에 영향을 미치고 있습니다 (총 12건)",
+        "kr_news_refs": [
+          2,
+          7,
+          8,
+          9,
+          17,
+          23,
+          40,
+          41,
+          76,
+          82,
+          85,
+          90
+        ],
+        "related_news": [
+          {
+            "title": "트럼프, 美 주가하락에 야당 탓…\"反성장·보복정책에 기인\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123010300071",
+            "published_at": "2026-11-23 07:23:16 KST"
+          },
+          {
+            "title": "“저평가 우량주 사놓고 주식창 끕니다”…그 와중에 ‘더 싼 종목’ 찾아보니",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12215776",
+            "published_at": "2026-11-23 07:16:20 KST"
+          },
+          {
+            "title": "반도체주 급락에도 퇴직연금은 샀다…하반기 들어 투자 열기는 ‘뚝’",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12215775",
+            "published_at": "2026-11-23 07:15:49 KST"
+          },
+          {
+            "title": "하락장에 빛난다던 ‘방어형’ ETF…코스피 보다 더 떨어진 상품 속출",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12215774",
+            "published_at": "2026-11-23 07:15:19 KST"
+          },
+          {
+            "title": "상반기 급등장에 CB발행 역대최대…최근 급락에 상환부담",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121033800008",
+            "published_at": "2026-11-23 07:00:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "부동산",
+        "reason": "부동산 시장의 변화와 관련 정책, 세금 이슈가 투자자들의 관심을 끌고 있습니다 (총 5건)",
+        "kr_news_refs": [
+          12,
+          46,
+          64,
+          78,
+          89
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "“분양가 잘못 계산했다”…남양주 아파트 수분양자들 46억 돌려받는다",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/realestate/12215769",
+            "published_at": "2026-11-23 07:08:28 KST"
+          },
+          {
+            "title": "“그러게 월세를 왜 3배나 올려요?”...마음대로 하다가 된서리 맞은 건물주",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/realestate/12215763",
+            "published_at": "2026-11-23 06:14:09 KST"
+          },
+          {
+            "title": "\"분양가 너무 높아\"…남양주 수분양자들 소송 내 46억원 받아",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261122038400004",
+            "published_at": "2026-11-23 06:00:02 KST"
+          },
+          {
+            "title": "내년 공시가 현실화율 동결…비강남·경기남부 상승률 비상",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261122049700003",
+            "published_at": "2026-11-23 05:55:01 KST"
+          },
+          {
+            "title": "서울 재개발·재건축 절반 이상 ‘초기 단계’ … 숫자로 본 공급 시간표 [손품100]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/realestate/12215569",
+            "published_at": "2026-11-23 04:40:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "에이티즈",
+        "reason": "에이티즈 관련 소식이 연이어 보도되며 투자자들의 주목을 받고 있습니다 (총 2건)",
+        "kr_news_refs": [
+          16,
+          28
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "에이티즈, 美 빌보드앨범 네 번째 1위…2020년대 그룹 최다 톱10(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261122049251005",
+            "published_at": "2026-11-23 07:00:22 KST"
+          },
+          {
+            "title": "에이티즈, '골든아워 : 파트6'로 美 '빌보드 200' 네 번째 1위",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261122049200005",
+            "published_at": "2026-11-23 06:44:29 KST"
+          }
+        ]
+      },
+      {
+        "name": "한국철도공사",
+        "reason": "한국철도공사와 관련된 보도가 두 차례 언급되며 관련 사업 및 이슈에 대한 관심이 나타나고 있습니다 (총 2건)",
+        "kr_news_refs": [
+          19,
+          20
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "코레일 장애인 전형으로 뽑혔는데…\"신체검사 결과 불합격\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261121045400004",
+            "published_at": "2026-11-23 07:00:01 KST"
+          },
+          {
+            "title": "음주운전한 기관사 면직한 철도공사…법원 \"정당한 처분\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261122032900004",
+            "published_at": "2026-11-23 07:00:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "국내 반도체 산업의 성장과 기술 개발에 대한 뉴스가 꾸준히 보도되고 있습니다 (총 7건)",
+        "kr_news_refs": [
+          8,
+          23,
+          30,
+          41,
+          76,
+          82,
+          85
+        ],
+        "related_news": [
+          {
+            "title": "반도체주 급락에도 퇴직연금은 샀다…하반기 들어 투자 열기는 ‘뚝’",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12215775",
+            "published_at": "2026-11-23 07:15:49 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 23일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12215710",
+            "published_at": "2026-11-23 07:00:00 KST"
+          },
+          {
+            "title": "\"메모리값 급등 전가…계약 뒤에도 AI 서버값 인상\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123007000009",
+            "published_at": "2026-11-23 06:40:52 KST"
+          },
+          {
+            "title": "충북 오후부터 가끔 비…낮 최고 13도",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123005700064",
+            "published_at": "2026-11-23 06:20:11 KST"
+          },
+          {
+            "title": "주가급락에도 노후자금 반도체 선호 여전…ETF 순매수 지속",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261122010200002",
+            "published_at": "2026-11-23 05:55:01 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 섹터의 신화가 흔들리고 있으며, AI 다음 사이클의 승자를 잡는 투자법 변화가 논의됩니다. 앤트로픽 상장 후 투자 전략 변화에 대한 언급이 있습니다.",
+        "refs": [
+          2,
+          4,
+          10
+        ],
+        "reason": "AI 섹터의 신화가 흔들리고 있으며, AI 다음 사이클의 승자를 잡는 투자법 변화가 논의됩니다. 앤트로픽 상장 후 투자 전략 변화에 대한 언급이 있습니다.",
+        "related_videos": [
+          {
+            "title": "흔들리는 AI 신화…블랙 먼데이 전망에 개미들 패닉 | 18년 만에 증안펀드 투입 준비…\"폭락장 대비하라\" | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=8H7hQU8EncU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-23 05:28:38 KST"
+          },
+          {
+            "title": "2027년 '이 주식' 크게 오를 겁니다, 앞으로 조금씩 계속 사 모으세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=HMPPwxebak0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 19:45:21 KST"
+          },
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "삼성전자와 SK하이닉스 종목에 대한 언급이 있으며, 해당 종목에 투자한 투자자들의 대응 전략에 대한 논의가 포함됩니다.",
+        "refs": [
+          3,
+          4
+        ],
+        "reason": "삼성전자와 SK하이닉스 종목에 대한 언급이 있으며, 해당 종목에 투자한 투자자들의 대응 전략에 대한 논의가 포함됩니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 물린 분들 꼭 보세요, 지금 팔면 땅을 치고 후회한다 (무극선생 이승조 대표 풀버전)",
+            "url": "https://www.youtube.com/watch?v=gEl4lMfwQTA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 20:45:03 KST"
+          },
+          {
+            "title": "2027년 '이 주식' 크게 오를 겁니다, 앞으로 조금씩 계속 사 모으세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=HMPPwxebak0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 19:45:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "증권/금융",
+        "freq": 2,
+        "summary": "증권 펀드 투입 준비 및 폭락장 대비에 대한 언급이 있으며, 퇴직연금 제도에 대한 논의도 포함됩니다.",
+        "refs": [
+          2,
+          8
+        ],
+        "reason": "증권 펀드 투입 준비 및 폭락장 대비에 대한 언급이 있으며, 퇴직연금 제도에 대한 논의도 포함됩니다.",
+        "related_videos": [
+          {
+            "title": "흔들리는 AI 신화…블랙 먼데이 전망에 개미들 패닉 | 18년 만에 증안펀드 투입 준비…\"폭락장 대비하라\" | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=8H7hQU8EncU",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-23 05:28:38 KST"
+          },
+          {
+            "title": "퇴직금을 주지 않고 버티는 기업들",
+            "url": "https://www.youtube.com/watch?v=PHU46Tg0Msw",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-20 18:45:13 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자 주가에 물린 투자자들에게 매도 시점을 놓치면 후회할 것이라는 의견이 제시되었습니다. 또한, 향후 크게 오를 주식 중 하나로 언급되었습니다.",
+        "refs": [
+          3,
+          4
+        ],
+        "reason": "삼성전자 주가에 물린 투자자들에게 매도 시점을 놓치면 후회할 것이라는 의견이 제시되었습니다. 또한, 향후 크게 오를 주식 중 하나로 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 물린 분들 꼭 보세요, 지금 팔면 땅을 치고 후회한다 (무극선생 이승조 대표 풀버전)",
+            "url": "https://www.youtube.com/watch?v=gEl4lMfwQTA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 20:45:03 KST"
+          },
+          {
+            "title": "2027년 '이 주식' 크게 오를 겁니다, 앞으로 조금씩 계속 사 모으세요 (슈퍼개미 이정윤 세무사)",
+            "url": "https://www.youtube.com/watch?v=HMPPwxebak0",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 19:45:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "SK하이닉스 주가에 물린 투자자들에게 대응 전략이 제시되었습니다. 해당 종목에 대한 구체적인 가격대 언급이 있었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "SK하이닉스 주가에 물린 투자자들에게 대응 전략이 제시되었습니다. 해당 종목에 대한 구체적인 가격대 언급이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼성전자 물린 분들 꼭 보세요, 지금 팔면 땅을 치고 후회한다 (무극선생 이승조 대표 풀버전)",
+            "url": "https://www.youtube.com/watch?v=gEl4lMfwQTA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 20:45:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "앤트로픽",
+        "freq": 1,
+        "summary": "앤트로픽 상장 이후 AI 투자법의 변화 필요성이 제기되었습니다. AI 다음 사이클의 승자를 잡기 위한 투자 전략 변화에 대한 논의가 있었습니다.",
+        "refs": [
+          10
+        ],
+        "reason": "앤트로픽 상장 이후 AI 투자법의 변화 필요성이 제기되었습니다. AI 다음 사이클의 승자를 잡기 위한 투자 전략 변화에 대한 논의가 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "Anthropic",
+          "freq": 1
+        },
+        {
+          "name": "Delta Air Lines",
+          "freq": 3
+        },
+        {
+          "name": "Amazon",
+          "freq": 3
+        },
+        {
+          "name": "Foundation Future Industries",
+          "freq": 2
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Weyco Group",
+          "freq": 1
+        },
+        {
+          "name": "Gladstone Land",
+          "freq": 1
+        },
+        {
+          "name": "Invivyd",
+          "freq": 1
+        },
+        {
+          "name": "Umh Properties",
+          "freq": 1
+        },
+        {
+          "name": "Procter & Gamble",
+          "freq": 1
+        },
+        {
+          "name": "Dell",
+          "freq": 1
+        },
+        {
+          "name": "Kohl’s",
+          "freq": 1
+        },
+        {
+          "name": "Alteogen",
+          "freq": 1
+        },
+        {
+          "name": "Jeju Semiconductor",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "Tech Outages",
+          "freq": 2
+        },
+        {
+          "name": "Social Security",
+          "freq": 3
+        },
+        {
+          "name": "Robotics",
+          "freq": 2
+        },
+        {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "Homeownership",
+          "freq": 1
+        },
+        {
+          "name": "Glyphosate",
+          "freq": 1
+        },
+        {
+          "name": "Economic Outlook",
+          "freq": 1
+        },
+        {
+          "name": "Memory Stocks",
+          "freq": 1
+        },
+        {
+          "name": "COVID-19",
+          "freq": 1
+        },
+        {
+          "name": "Climate Diplomacy",
+          "freq": 1
+        },
+        {
+          "name": "Hospice Care",
+          "freq": 1
+        },
+        {
+          "name": "Skilled Trades",
+          "freq": 1
+        },
+        {
+          "name": "Copper Prices",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "에이티즈",
+          "freq": 2
+        },
+        {
+          "name": "한국철도공사",
+          "freq": 2
+        },
+        {
+          "name": "SSG닷컴",
+          "freq": 1
+        },
+        {
+          "name": "현대자동차",
+          "freq": 1
+        },
+        {
+          "name": "LG유플러스",
+          "freq": 1
+        },
+        {
+          "name": "제주반도체",
+          "freq": 1
+        },
+        {
+          "name": "빗썸",
+          "freq": 1
+        },
+        {
+          "name": "FC 서울",
+          "freq": 1
+        },
+        {
+          "name": "알테오젠",
+          "freq": 1
+        },
+        {
+          "name": "트레이더스",
+          "freq": 1
+        },
+        {
+          "name": "농협",
+          "freq": 1
+        },
+        {
+          "name": "두나무",
+          "freq": 1
+        },
+        {
+          "name": "네이버파이낸셜",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        },
+        {
+          "name": "파리 생제르맹",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "인공지능(AI)",
+          "freq": 4
+        },
+        {
+          "name": "주식 시장",
+          "freq": 3
+        },
+        {
+          "name": "부동산",
+          "freq": 3
+        },
+        {
+          "name": "스포츠",
+          "freq": 3
+        },
+        {
+          "name": "퇴직연금",
+          "freq": 2
+        },
+        {
+          "name": "ETF",
+          "freq": 2
+        },
+        {
+          "name": "퀵커머스",
+          "freq": 1
+        },
+        {
+          "name": "장사시설",
+          "freq": 1
+        },
+        {
+          "name": "불교문화",
+          "freq": 1
+        },
+        {
+          "name": "전환사채(CB)",
+          "freq": 1
+        },
+        {
+          "name": "기업결합",
+          "freq": 1
+        },
+        {
+          "name": "K-푸드 수출",
+          "freq": 1
+        },
+        {
+          "name": "온라인투자연계금융업",
+          "freq": 1
+        },
+        {
+          "name": "부동산 보유세",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
