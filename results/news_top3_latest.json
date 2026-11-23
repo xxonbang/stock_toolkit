@@ -1,89 +1,213 @@
 {
-  "generated_at": "2026-11-23 20:01 KST",
+  "generated_at": "2026-11-24 07:31 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "AI",
-        "reason": "AI 분야는 지속적인 기술 발전과 투자로 인해 주목받고 있으며, 관련 기업들의 성장이 기대됩니다 (총 1건).",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 10건)",
         "us_news_refs": [
-          9,
-          19,
-          21
+          6,
+          10,
+          25,
+          28,
+          32,
+          33,
+          35,
+          37,
+          39,
+          43
+        ],
+        "related_news": [
+          {
+            "title": "Anthropic options post solid debut, trailing SpaceX record - Reuters",
+            "title_ko": "Anthropic 옵션, SpaceX 기록 뒤이어 견조한 데뷔 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZzZBTkVsVXo2NVo5WmF4NXlRZnpidUVLNE1ZX25XbHFLUm1RamtHODdMRWJYTWJDSVlFRmlfSDI5dGVGVEQ1ZHItNVhoLWFhX0M2eGxVTHdtUExfMUxEc1p2S3ZTVkJuTVd0TUYxXy04UEJnOXFldDE2ZHMzMDEyeXcyMkNpdlpHamVDRmtpVQ?oc=5",
+            "published_at": "2026-11-24 05:38:10 KST"
+          },
+          {
+            "title": "States sue Musk companies over flood of sexualized images made with AI chatbot Grok - AP News",
+            "title_ko": "주, AI 챗봇 Grok으로 만든 성적 이미지 범람 관련 Musk 기업 소송 - AP News",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxORmt4N1d4MGFnXzJiOXBseVl4SExXOGZ4YkVoXzdMV0RCd1dnMHc5RWpJNTNCOTFxb2VSa3I1M19rZnRYaG4zOTZHZWtoQmRyc2RIdURGUEFnRWlaZkhSNi1aTXQyRmpQaGc4aHptWnRoTmQ1M3dIQlZrRDhIck8zQm1TNmdmUVdOVTg2SmJLdTlLbk1oMDZUdDFxTHFPbWc?oc=5",
+            "published_at": "2026-11-24 04:21:00 KST"
+          },
+          {
+            "title": "Stock Market Today: Dow Soars As Jensen Huang Makes This Nvidia Promise; Anthropic Falls - Investor's Business Daily",
+            "title_ko": "오늘의 주식 시장: 젠슨 황의 Nvidia 약속에 다우 급등; Anthropic 하락 - Investor's Business Daily",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQbFRJSUJYanAyQ3Z1TzEwdDRnM084bjRZUTJNYlpHMDFZVk9zZzJ1d2NjSVUtcHpGWFpaVEppMzR6N203ZFVyRVRJQlpKSDY3TGMzMkUzMVVZRlFsUl9EdXdvY3FIbVEyVF9lcmdiNWdicl9McXU2NUNFMjIta0RmbEVkQ01nUXZ2NzRZYXJfTExSVVlNRE93SEN6ZFJ5N2Z1NXotbVZWQjNKMVlyYzRpdnNVRQ?oc=5",
+            "published_at": "2026-11-24 06:56:00 KST"
+          },
+          {
+            "title": "Delta delays flights ahead of Thanksgiving holiday over system failure - Gothamist",
+            "title_ko": "Delta, 추수감사절 연휴 앞두고 시스템 오류로 항공편 지연 - Gothamist",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNWVItdzdjRmRzV1UxS2FUOXRmZVRDXzR5a3RjS1JYXzQ4UjdBRUJ3UGxMOWJKbU1IWG1uNTZmQTNVZkgzMkdmQ0RHQVlBSmJkWmE5RlpsSHZiSWZDRHVIRVlFWUFzZ19LXzB3LXRNTVZCMGFTODkwWjZXZ1JzUElVX3hwakI2dUhQZGtKa2NB?oc=5",
+            "published_at": "2026-11-24 00:24:00 KST"
+          },
+          {
+            "title": "'The sacred object in mathematics': The Riemann hypothesis, AI and a proof no human can read - Phys.org",
+            "title_ko": "'수학의 성물': 리만 가설, AI, 인간이 읽을 수 없는 증명 - Phys.org",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNaXd4OE0wSGgzVmN1Sk9GWUNUbEZnd0ptNXd1TTJJTjZPZUxuWXAxMHlvUmo1T092Y3lyZGNhMElGc3JXR291ZmRDWXlkQmYyblBINkZYV0dTVlo4M1docGVyWXdJVWdNclVVTmphNUl1VWRBRkRpZWJURzF2Yjk1VA?oc=5",
+            "published_at": "2026-11-23 23:40:08 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요 강세와 관련 기업들의 실적 호조가 주목받고 있음 (총 7건)",
+        "us_news_refs": [
+          0,
+          1,
+          2,
+          6,
+          28,
+          38,
+          43
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Exclusive-Some US banks tighten AI-agent controls on concern about models escaping safeguards",
-            "title_ko": "美 은행들, AI 모델 탈출 우려에 AI 에이전트 통제 강화",
-            "url": "https://www.investing.com/news/economy-news/exclusivesome-us-banks-tighten-aiagent-controls-on-concern-about-models-escaping-safeguards-5044788",
-            "published_at": "2026-11-23 19:36:56 KST"
+            "title": "Exclusive / Commerce adds Megaspeed to trade blacklist - Semafor",
+            "title_ko": "상거래부, 메가스피드를 무역 블랙리스트에 추가 - Semafor",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOeWx0S2VkQ0dLSnh1QVZKcUlpZ0lZVlZHSDNTYzY4bEc5RFFuUmhIMC0yby1iWTBFM08wOWlkOTFaTkFQWVpER0xEQTZmQVBtZ2ZxOUs3MjhYeFdXT0k4TjRqSVljekJHRG1BWVAxbmRCTWR6d0NWcjFVX1NmYjFramJIdlBhUnRiSGozeXZDOVQ?oc=5",
+            "published_at": "2026-11-24 07:08:00 KST"
           },
           {
-            "title": "Corporate America hunts for ‘generational’ growth in AI, trading cards and the L.A. airport",
-            "title_ko": "기업들, AI·카드·LA 공항서 '세대적' 성장 모색",
-            "url": "https://www.marketwatch.com/story/corporate-america-hunts-for-generational-growth-in-ai-trading-cards-and-the-l-a-airport-3072eb1a?mod=mw_rss_topstories",
-            "published_at": "2026-11-23 06:51:00 KST"
+            "title": "Jensen Huang went to war with Washington — and won a path to China - The Washington Post",
+            "title_ko": "젠슨 황, 워싱턴과 전쟁 후 중국 진출 길 열어 - The Washington Post",
+            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQQ01rTDUyQUlHbDdURmstWlM2VWZFTkk3OTBNWWdOUWpfM3BKeE5yMXpEbUlzNGxLZUx2b0pOZWZZUm53WDFSUjhCMjJDTHdfbGJ3SmVGVG1wNzhRV1YwVnVYNkFtRG42LTVSVUNjZUw4UU5LdXRaZktCUzF6ZndpUFdFM2lZdmh5OTFVcG9BYkRZUEdyMC02T0RvNTJQcnJGUjZxMHgxaERRT0t1NFRIYk91OVZBdVU?oc=5",
+            "published_at": "2026-11-24 07:03:12 KST"
           },
           {
-            "title": "Employees at Eric Trump-backed robot startup lose health benefits as company's cash crunch deepens",
-            "title_ko": "Eric Trump 지원 로봇 스타트업 직원, 자금난에 건강 보험 상실",
-            "url": "https://www.cnbc.com/2026/11/22/foundation-future-industries-health-benefits-payroll-base-group.html",
-            "published_at": "2026-11-23 03:55:05 KST"
+            "title": "Anthropic options post solid debut, trailing SpaceX record - Reuters",
+            "title_ko": "Anthropic 옵션, SpaceX 기록 뒤이어 견조한 데뷔 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZzZBTkVsVXo2NVo5WmF4NXlRZnpidUVLNE1ZX25XbHFLUm1RamtHODdMRWJYTWJDSVlFRmlfSDI5dGVGVEQ1ZHItNVhoLWFhX0M2eGxVTHdtUExfMUxEc1p2S3ZTVkJuTVd0TUYxXy04UEJnOXFldDE2ZHMzMDEyeXcyMkNpdlpHamVDRmtpVQ?oc=5",
+            "published_at": "2026-11-24 05:38:10 KST"
+          },
+          {
+            "title": "Delta delays flights ahead of Thanksgiving holiday over system failure - Gothamist",
+            "title_ko": "Delta, 추수감사절 연휴 앞두고 시스템 오류로 항공편 지연 - Gothamist",
+            "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNWVItdzdjRmRzV1UxS2FUOXRmZVRDXzR5a3RjS1JYXzQ4UjdBRUJ3UGxMOWJKbU1IWG1uNTZmQTNVZkgzMkdmQ0RHQVlBSmJkWmE5RlpsSHZiSWZDRHVIRVlFWUFzZ19LXzB3LXRNTVZCMGFTODkwWjZXZ1JzUElVX3hwakI2dUhQZGtKa2NB?oc=5",
+            "published_at": "2026-11-24 00:24:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Chip",
+        "reason": "AI 칩 수요와 공급망 관련 이슈가 지속적으로 언급되고 있음 (총 4건)",
+        "us_news_refs": [
+          0,
+          1,
+          38,
+          43
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Exclusive / Commerce adds Megaspeed to trade blacklist - Semafor",
+            "title_ko": "상거래부, 메가스피드를 무역 블랙리스트에 추가 - Semafor",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOeWx0S2VkQ0dLSnh1QVZKcUlpZ0lZVlZHSDNTYzY4bEc5RFFuUmhIMC0yby1iWTBFM08wOWlkOTFaTkFQWVpER0xEQTZmQVBtZ2ZxOUs3MjhYeFdXT0k4TjRqSVljekJHRG1BWVAxbmRCTWR6d0NWcjFVX1NmYjFramJIdlBhUnRiSGozeXZDOVQ?oc=5",
+            "published_at": "2026-11-24 07:08:00 KST"
+          },
+          {
+            "title": "Scott Bessent sends a strong verdict to Nvidia’s stock investors - TheStreet",
+            "title_ko": "Scott Bessent, Nvidia 주식 투자자들에게 강력한 평가 전달 - TheStreet",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPUXo3U1IxN0tMX1hwT0FKXzFCbmNQZU1nRGRheW56ckk1Rm9oQkYwbnJ3SHNCcGtVWW1sd0hMcV9OSWdjZEFGeFJyS0NFcW5DbEtQY0V5ODdodk9MUkNod2ZwTVljQXFBaVZsNFlPVm9UV0tDendxdksyencxem5oRWxVODNXLW43Q0ppTUwzZkRSZEdiY1lBcnY0c2NOeDVjX3d2OERQUjBnUQ?oc=5",
+            "published_at": "2026-11-23 22:07:00 KST"
+          },
+          {
+            "title": "U.S. chip and neocloud stocks rally premarket after last week’s selloff - Yahoo Finance",
+            "title_ko": "미국 반도체 및 클라우드 주식, 지난주 매도세 후 프리마켓 랠리 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNaC12TnM1bUZIMUxFX1RKZmVvU2JobVU0T1ljRWpBODU3T3JfTllkOEg3bGVidDQxdzZ2TnVTWWJ0aDVHaUJtOS1Jdl8yS2lvS2FnTGlCWG92NG5aVVVIVUJuczVfdEVqVkY1cjVVX0l1RzlvWk9RYk5fREo1YWRHc01QNnB0YndjQVpfTF9OMXNQbDlTdVJtdw?oc=5",
+            "published_at": "2026-11-23 19:21:33 KST"
           }
         ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "CrowdStrike",
-        "reason": "사이버 보안 분야에서의 성장 가능성과 관련 기술에 대한 관심이 주가에 반영되고 있습니다 (총 2건).",
+        "name": "Nvidia",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 19건)",
         "us_news_refs": [
-          4,
-          8
+          0,
+          1,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          12,
+          14,
+          15,
+          25,
+          29,
+          30,
+          31,
+          38,
+          43,
+          49,
+          50
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "CrowdStrike bets on network security with $43.9 billion Zscaler deal",
-            "title_ko": "CrowdStrike, Zscaler 439억 달러에 인수하며 네트워크 보안 강화",
-            "url": "https://www.investing.com/news/stock-market-news/crowdstrike-bets-on-network-security-with-439-billion-zscaler-deal-5044856",
-            "published_at": "2026-11-23 19:42:22 KST"
+            "title": "Exclusive / Commerce adds Megaspeed to trade blacklist - Semafor",
+            "title_ko": "상거래부, 메가스피드를 무역 블랙리스트에 추가 - Semafor",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOeWx0S2VkQ0dLSnh1QVZKcUlpZ0lZVlZHSDNTYzY4bEc5RFFuUmhIMC0yby1iWTBFM08wOWlkOTFaTkFQWVpER0xEQTZmQVBtZ2ZxOUs3MjhYeFdXT0k4TjRqSVljekJHRG1BWVAxbmRCTWR6d0NWcjFVX1NmYjFramJIdlBhUnRiSGozeXZDOVQ?oc=5",
+            "published_at": "2026-11-24 07:08:00 KST"
           },
           {
-            "title": "CrowdStrike to acquire Zscaler for $43.9 billion in stock",
-            "title_ko": "CrowdStrike, Zscaler 439억 달러에 주식으로 인수",
-            "url": "https://www.investing.com/news/company-news/crowdstrike-to-acquire-zscaler-for-439-billion-in-stock-93CH-5044852",
-            "published_at": "2026-11-23 19:40:40 KST"
+            "title": "Jensen Huang went to war with Washington — and won a path to China - The Washington Post",
+            "title_ko": "젠슨 황, 워싱턴과 전쟁 후 중국 진출 길 열어 - The Washington Post",
+            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQQ01rTDUyQUlHbDdURmstWlM2VWZFTkk3OTBNWWdOUWpfM3BKeE5yMXpEbUlzNGxLZUx2b0pOZWZZUm53WDFSUjhCMjJDTHdfbGJ3SmVGVG1wNzhRV1YwVnVYNkFtRG42LTVSVUNjZUw4UU5LdXRaZktCUzF6ZndpUFdFM2lZdmh5OTFVcG9BYkRZUEdyMC02T0RvNTJQcnJGUjZxMHgxaERRT0t1NFRIYk91OVZBdVU?oc=5",
+            "published_at": "2026-11-24 07:03:12 KST"
+          },
+          {
+            "title": "Nvidia live updates: Nvidia stock climbs more than 31% as board reinstates Jensen Huang as CEO - Yahoo Finance",
+            "title_ko": "Nvidia 주가 31% 이상 급등, 이사회 젠슨 황 CEO 복귀 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPSWh4SkxkZkVEYVE0bHF3bzR2azhpV1pRbVJVSzJ2dHYyTEFwcFNFNFlLb25Qa0NnekRUTUlOcXd3SDBfZlJsdDVtOFNTd0VQS0RCWC1WaWZJdURybFFnZFRCM2h1SHA2RXNpWjQzLXNNMURST3dULWp4QVBKMVkycGVmeXN1eXJCWEZkaXg5YmVaTlp2SlpfM0pidU1ZaVExbGxKZXc4VG1vLVZDQTVYSTF3R2RGalo0LWVvcmtzdzVscHl0OEpsUF9RQU1wM0MyRHhQcEQ2ZEg?oc=5",
+            "published_at": "2026-11-24 07:00:20 KST"
+          },
+          {
+            "title": "Anthropic options post solid debut, trailing SpaceX record - Reuters",
+            "title_ko": "Anthropic 옵션, SpaceX 기록 뒤이어 견조한 데뷔 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZzZBTkVsVXo2NVo5WmF4NXlRZnpidUVLNE1ZX25XbHFLUm1RamtHODdMRWJYTWJDSVlFRmlfSDI5dGVGVEQ1ZHItNVhoLWFhX0M2eGxVTHdtUExfMUxEc1p2S3ZTVkJuTVd0TUYxXy04UEJnOXFldDE2ZHMzMDEyeXcyMkNpdlpHamVDRmtpVQ?oc=5",
+            "published_at": "2026-11-24 05:38:10 KST"
           }
         ]
       },
       {
-        "name": "Zscaler",
-        "reason": "클라우드 기반 보안 솔루션 제공 업체로서, 사이버 보안 강화 추세에 따라 주목받고 있습니다 (총 2건).",
+        "name": "Anthropic",
+        "reason": "AI 분야에서의 경쟁 심화와 관련 기술 개발이 주목받고 있음 (총 2건)",
         "us_news_refs": [
-          4,
-          8
+          6,
+          25,
+          32
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "CrowdStrike bets on network security with $43.9 billion Zscaler deal",
-            "title_ko": "CrowdStrike, Zscaler 439억 달러에 인수하며 네트워크 보안 강화",
-            "url": "https://www.investing.com/news/stock-market-news/crowdstrike-bets-on-network-security-with-439-billion-zscaler-deal-5044856",
-            "published_at": "2026-11-23 19:42:22 KST"
+            "title": "Anthropic options post solid debut, trailing SpaceX record - Reuters",
+            "title_ko": "Anthropic 옵션, SpaceX 기록 뒤이어 견조한 데뷔 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZzZBTkVsVXo2NVo5WmF4NXlRZnpidUVLNE1ZX25XbHFLUm1RamtHODdMRWJYTWJDSVlFRmlfSDI5dGVGVEQ1ZHItNVhoLWFhX0M2eGxVTHdtUExfMUxEc1p2S3ZTVkJuTVd0TUYxXy04UEJnOXFldDE2ZHMzMDEyeXcyMkNpdlpHamVDRmtpVQ?oc=5",
+            "published_at": "2026-11-24 05:38:10 KST"
           },
           {
-            "title": "CrowdStrike to acquire Zscaler for $43.9 billion in stock",
-            "title_ko": "CrowdStrike, Zscaler 439억 달러에 주식으로 인수",
-            "url": "https://www.investing.com/news/company-news/crowdstrike-to-acquire-zscaler-for-439-billion-in-stock-93CH-5044852",
-            "published_at": "2026-11-23 19:40:40 KST"
+            "title": "Stock Market Today: Dow Soars As Jensen Huang Makes This Nvidia Promise; Anthropic Falls - Investor's Business Daily",
+            "title_ko": "오늘의 주식 시장: 젠슨 황의 Nvidia 약속에 다우 급등; Anthropic 하락 - Investor's Business Daily",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQbFRJSUJYanAyQ3Z1TzEwdDRnM084bjRZUTJNYlpHMDFZVk9zZzJ1d2NjSVUtcHpGWFpaVEppMzR6N203ZFVyRVRJQlpKSDY3TGMzMkUzMVVZRlFsUl9EdXdvY3FIbVEyVF9lcmdiNWdicl9McXU2NUNFMjIta0RmbEVkQ01nUXZ2NzRZYXJfTExSVVlNRE93SEN6ZFJ5N2Z1NXotbVZWQjNKMVlyYzRpdnNVRQ?oc=5",
+            "published_at": "2026-11-24 06:56:00 KST"
+          },
+          {
+            "title": "'The sacred object in mathematics': The Riemann hypothesis, AI and a proof no human can read - Phys.org",
+            "title_ko": "'수학의 성물': 리만 가설, AI, 인간이 읽을 수 없는 증명 - Phys.org",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNaXd4OE0wSGgzVmN1Sk9GWUNUbEZnd0ptNXd1TTJJTjZPZUxuWXAxMHlvUmo1T092Y3lyZGNhMElGc3JXR291ZmRDWXlkQmYyblBINkZYV0dTVlo4M1docGVyWXdJVWdNclVVTmphNUl1VWRBRkRpZWJURzF2Yjk1VA?oc=5",
+            "published_at": "2026-11-23 23:40:08 KST"
           }
         ]
       },
       {
-        "name": "Texas Capital",
-        "reason": "금융 섹터 내에서 언급되며, 특정 금융 서비스나 시장 상황과 관련된 뉴스가 주목받고 있습니다 (총 2건).",
+        "name": "SpaceX",
+        "reason": "우주 산업 관련 기술 개발 및 사업 확장 소식이 지속적으로 보도됨 (총 2건)",
         "us_news_refs": [
           6,
           10
@@ -91,16 +215,16 @@
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "Texas Capital upgrades Universal Technical Institute stock rating to buy",
-            "title_ko": "Texas Capital, Universal Technical Institute 주식 '매수'로 상향",
-            "url": "https://www.investing.com/news/analyst-ratings/texas-capital-upgrades-universal-technical-institute-stock-rating-to-buy-93CH-5044854",
-            "published_at": "2026-11-23 19:40:53 KST"
+            "title": "Anthropic options post solid debut, trailing SpaceX record - Reuters",
+            "title_ko": "Anthropic 옵션, SpaceX 기록 뒤이어 견조한 데뷔 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZzZBTkVsVXo2NVo5WmF4NXlRZnpidUVLNE1ZX25XbHFLUm1RamtHODdMRWJYTWJDSVlFRmlfSDI5dGVGVEQ1ZHItNVhoLWFhX0M2eGxVTHdtUExfMUxEc1p2S3ZTVkJuTVd0TUYxXy04UEJnOXFldDE2ZHMzMDEyeXcyMkNpdlpHamVDRmtpVQ?oc=5",
+            "published_at": "2026-11-24 05:38:10 KST"
           },
           {
-            "title": "Texas Capital cuts Builders FirstSource stock rating on demand concerns",
-            "title_ko": "Texas Capital, 수요 우려에 Builders FirstSource 주식 등급 하향",
-            "url": "https://www.investing.com/news/analyst-ratings/texas-capital-cuts-builders-firstsource-stock-rating-on-demand-concerns-93CH-5044841",
-            "published_at": "2026-11-23 19:35:59 KST"
+            "title": "States sue Musk companies over flood of sexualized images made with AI chatbot Grok - AP News",
+            "title_ko": "주, AI 챗봇 Grok으로 만든 성적 이미지 범람 관련 Musk 기업 소송 - AP News",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxORmt4N1d4MGFnXzJiOXBseVl4SExXOGZ4YkVoXzdMV0RCd1dnMHc5RWpJNTNCOTFxb2VSa3I1M19rZnRYaG4zOTZHZWtoQmRyc2RIdURGUEFnRWlaZkhSNi1aTXQyRmpQaGc4aHptWnRoTmQ1M3dIQlZrRDhIck8zQm1TNmdmUVdOVTg2SmJLdTlLbk1oMDZUdDFxTHFPbWc?oc=5",
+            "published_at": "2026-11-24 04:21:00 KST"
           }
         ]
       }
@@ -110,93 +234,220 @@
       "stocks": []
     },
     "collected": {
-      "news": 22
+      "news": 50
     }
   },
   "kr": {
     "top3_sectors": [
       {
-        "name": "금융",
-        "reason": "토스뱅크, KB금융 등 금융 관련 기업들이 언급되며, 금융 시장의 변화와 새로운 서비스에 대한 관심이 반영되었습니다 (총 2건).",
+        "name": "Automotive",
+        "reason": "전기차 시장 경쟁 심화 및 관련 기업들의 실적 발표가 주목받고 있음 (총 3건)",
         "kr_news_refs": [
-          2,
-          7,
-          23
+          5,
+          8,
+          12,
+          47,
+          86
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "[금융 풍향계] 이은미 토스뱅크 대표 “AI 시대, 기술보다 신뢰 중요” 外 - 에너지경제신문",
+            "title": "75만원에 산 현대차, 24만원 됐다…외국인 지분도 확 줄었다는데",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9WeTJzSWdXelhYS01VTjZzODhmaVcxWU9qa194clVaRTV6MHNrSzJPQmZYY1dneGJNUlhQMy1DRmhpUi1BMFZQaVdhZHQxdG5PNjl3QjB2ZHdLXzhpQ1RjeXF3SQ?oc=5",
-            "published_at": "2026-11-23 18:11:28 KST"
+            "url": "https://www.mk.co.kr/news/stock/12216714",
+            "published_at": "2026-11-24 07:14:28 KST"
           },
           {
-            "title": "이재근 KB금융 회장, 취임 직후 해킹 대응 회의…보안부터 챙긴다(종합) - 연합인포맥스",
+            "title": "“너 미쳤니? 한국서 이런 車는 민폐”…배 아파서 거짓말, 솔직히 타고 싶다 [카슐랭]",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBYRldick04SDNiRjhiRHd5QmxmdDFsQjlFSThubDk4b0FPX3RRY3laeW9fLWY0MS1SNWM2TnpHMU00VGVOMHhJejkyMjBoU0JuWFMyc2hpNDJxd1dBZVVHbDBqbW5jUXFjNWxpSmE3am0?oc=5",
-            "published_at": "2026-11-23 16:36:20 KST"
+            "url": "https://www.mk.co.kr/news/business/12216439",
+            "published_at": "2026-11-24 07:07:00 KST"
           },
           {
-            "title": "삼성증권도 해킹 피해...계좌번호·운전면허번호까지 털려 - YTN",
+            "title": "BMW M, 3년 연속 국내 프리미엄 고성능 차 판매 1위 눈앞",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBCOXc2ZXM0VWRid3JwV19aR00zQmNQNGVaSEJvc3k2enBETGQ3RnlCSVhIQzlWMTE0VWNVX1VsbzRlQkJoNjVNNlV3bU50T1phNUh6ZFZBX2l4b0tWcnc?oc=5",
-            "published_at": "2026-11-23 14:35:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261123142700003",
+            "published_at": "2026-11-24 07:01:00 KST"
+          },
+          {
+            "title": "◇오늘의 경기(24일)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123168300007",
+            "published_at": "2026-11-24 06:15:24 KST"
+          },
+          {
+            "title": "사이버트럭 단종·4680 좌절 … 테슬라 ‘원가 공식’이 멈춘 이유",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12216328",
+            "published_at": "2026-11-24 05:30:00 KST"
           }
         ]
       },
       {
-        "name": "부동산",
-        "reason": "부동산 시장의 동향 및 관련 기업들에 대한 뉴스가 꾸준히 나오고 있으며, 이는 시장의 중요성을 나타냅니다 (총 2건).",
+        "name": "Real Estate",
+        "reason": "부동산 시장 동향 및 관련 규제 완화 기대감이 언급되고 있음 (총 3건)",
         "kr_news_refs": [
-          8,
-          29,
-          51
+          2,
+          7,
+          55,
+          95
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "이헌욱 부동산원장, 공시가격 조사 현장 방문… 정확성·객관성 당부 - Chosunbiz",
+            "title": "강남구, 내달 정비사업아카데미서 조합원 지위 양도기준 강의",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMkptSFZLUlg4TkJsQnNYU00tUWtMNDR6WlJjcENzNzVEN0JLVTZZak1oY1d2RWRibjdDNkVsX1VTMTdVMm5xQWxJWGhsVkxXTWs3cE5jT0FzNFJDUXFETlpwaVIzYzVnNVpNVHFaVFVkWFVTWnV3LXpuY2J4MHZMY2xWWnlnQUdoTlBLbHFtNDVxZW0yOGt6Y9IBrAFBVV95cUxQN0t5c2Nwc1RXcHdhV2dnVEJVZU5yNF8wTFNKYkxiT2QwaXNMS0FhaTdZRGQzbnJOYnFoZHRvT0pDdjVjc3pieVhqVHIyRWNPakhUUEdwcTRlb2h0NDhPMUN3OXZvMWNjai01bTh2S284anJBX09ScHZzUGhaS2xVWUJmanBTTFNqQVZCUUtpOW9PSlFZQ1JDWk9kSHMwSE00bEE5ejNSZFRjQ09m?oc=5",
-            "published_at": "2026-11-23 16:27:00 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261124016500004",
+            "published_at": "2026-11-24 07:18:13 KST"
           },
           {
-            "title": "국힘-개혁신당 “세법개정안 철회해야…다음 총선은 부동산 심판선거” - 동아일보",
+            "title": "“폐업하는 자리에 오고 싶겠어요?”…늘어나는 공실, 건물주까지 덮쳤다",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9NUjFGS2pzLXpPNHBCRjBsUWUtcXdSZ0RVajdvSDgwQ0FXNHI1Z0RtR3oxVXVMZDh0bTV3cU1rUnZ0dzczbVV2cnFmNFhjVVQ5bUsxZ2R3THdVcHdfakxNLURnWHhFbXVreGZranlfVEg1Y25NNlNN0gFmQVVfeXFMUHQzdkRLQ0YyOWs2VzNpNWtTSUxKRDBpVnNpdlVZR0NGQmpyZ2I0amtzNTBpZmZrVTI4T2FKZnJRTkVfeWJMUlgwTGJzOHJvYm9qZjd0MElTaHRRdGFVaGFCVnB3VkdB?oc=5",
-            "published_at": "2026-11-23 14:10:00 KST"
+            "url": "https://www.mk.co.kr/news/economy/12216713",
+            "published_at": "2026-11-24 07:13:16 KST"
           },
           {
-            "title": "LH, 공공주택 4천232가구 공모 연기…연내 선정 차질 우려",
+            "title": "내년부터 주택조합도 공사비 검증 의무…조합원 5분의 1 요구 시",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261123157200003",
-            "published_at": "2026-11-23 18:59:20 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261123124600003",
+            "published_at": "2026-11-24 06:07:00 KST"
+          },
+          {
+            "title": "잠실 ‘엘리트’ 국평 30억 깨졌는데 … “내 아파트는 어떻게 될까”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/realestate/12216143",
+            "published_at": "2026-11-24 05:00:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Travel",
+        "reason": "여행 수요 회복 및 관련 산업의 성장 가능성이 주목받고 있음 (총 3건)",
+        "kr_news_refs": [
+          14,
+          15,
+          60
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[우분투칼럼] 막힌 중동 바닷길과 아프리카 희망봉의 재부상",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261119089000898",
+            "published_at": "2026-11-24 07:00:05 KST"
+          },
+          {
+            "title": "[반려동물] 댕냥이와 크리스마스 추억을…호텔·리조트 연말 상품 잇따라",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123142500030",
+            "published_at": "2026-11-24 07:00:04 KST"
+          },
+          {
+            "title": "한중 FTA 후속타결에 K-뷰티·여행업 '화색'…중국 재공략 시동",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123159500030",
+            "published_at": "2026-11-24 06:03:03 KST"
           }
         ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "SK하이닉스",
-        "reason": "반도체 업황 개선 기대감과 HBM 등 고성능 메모리 수요 증가에 대한 뉴스가 주목받고 있습니다 (총 2건).",
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 관련 기술 개발이 한국 증시에서도 큰 영향을 미치고 있음 (총 9건)",
         "kr_news_refs": [
-          5,
-          34
+          1,
+          6,
+          20,
+          23,
+          28,
+          29,
+          30,
+          39,
+          42,
+          53,
+          58,
+          88,
+          91,
+          97,
+          99
+        ],
+        "related_news": [
+          {
+            "title": "젠슨황 복귀에 엔비디아 공매도 세력 16조원 넘게 손실",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261124015900009",
+            "published_at": "2026-11-24 07:22:10 KST"
+          },
+          {
+            "title": "트럼프 정부, 젠슨황 복귀 당일 中첩자 의혹 내연녀 회사 제재(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261124006551071",
+            "published_at": "2026-11-24 07:14:14 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 24일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12216302",
+            "published_at": "2026-11-24 07:00:00 KST"
+          },
+          {
+            "title": "'젠슨황 귀환'에 나스닥 6.5%↑…1년7개월만에 최대 상승(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261124009451072",
+            "published_at": "2026-11-24 06:51:16 KST"
+          },
+          {
+            "title": "엔비디아 시총 하룻새 1천300조원↑…AI·반도체주 급등",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261124011600009",
+            "published_at": "2026-11-24 06:37:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "BMW",
+        "reason": "전기차 시장 경쟁 심화 및 관련 기업들의 실적 발표가 주목받고 있음 (총 2건)",
+        "kr_news_refs": [
+          8,
+          12
         ],
         "_weak_signal": true,
         "related_news": [
           {
-            "title": "단일종목 레버리지 최저가‥하닉 ETF 2천 원대로 주저앉아 - MBC 뉴스",
+            "title": "“너 미쳤니? 한국서 이런 車는 민폐”…배 아파서 거짓말, 솔직히 타고 싶다 [카슐랭]",
             "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1VT3pLZE5hcjNXNUhtRks1MExXSVYtdkNIUmFaelZjYnA5VEljMFdENXZLT1RkcHREaklBWGsya0d6NmVuUkxYYUE3ckF6Uzd5T1V5Q2p4YmRzOW03ZlpiN1hhQU9sUGtiUjRCRTB2Rmh0Tm1w0gF0QVVfeXFMTTgyTjZKajl4T2wzTzRxaDFITzcwNDlsR2FEd3kwSVJ5Q0U2cFFIdGJWMXB0VUhWZFBFSFg0YWJ2UlRrWjhuQjVNYVViYmJUNXFMV0NLTTlUNnYwQXF0SFpwMU9SajhMSHUwVlp5d3UxajJLVUY?oc=5",
-            "published_at": "2026-11-23 17:08:57 KST"
+            "url": "https://www.mk.co.kr/news/business/12216439",
+            "published_at": "2026-11-24 07:07:00 KST"
           },
           {
-            "title": "글로벌IB, 삼전닉스 목표가 잇달아 하향…2028년 업황 둔화 우려",
+            "title": "BMW M, 3년 연속 국내 프리미엄 고성능 차 판매 1위 눈앞",
             "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261123166100008",
-            "published_at": "2026-11-23 19:32:41 KST"
+            "url": "https://www.yna.co.kr/view/AKR20261123142700003",
+            "published_at": "2026-11-24 07:01:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tesla",
+        "reason": "전기차 시장에서의 경쟁 심화 및 혁신 기술 개발이 지속적으로 언급되고 있음 (총 2건)",
+        "kr_news_refs": [
+          47,
+          86
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "◇오늘의 경기(24일)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123168300007",
+            "published_at": "2026-11-24 06:15:24 KST"
+          },
+          {
+            "title": "사이버트럭 단종·4680 좌절 … 테슬라 ‘원가 공식’이 멈춘 이유",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12216328",
+            "published_at": "2026-11-24 05:30:00 KST"
           }
         ]
       }
@@ -212,44 +463,34 @@
   "youtube": {
     "top3_sectors": [
       {
-        "name": "AI",
-        "freq": 2,
-        "summary": "AI 다음 사이클의 승자를 잡는 투자법에 대한 논의가 있으며, 앤트로픽 상장 후 투자법 변화에 대한 언급이 있습니다. 또한, LLM 액티브 ETF가 소개되었습니다.",
-        "refs": [
-          3,
-          10
-        ],
-        "reason": "AI 다음 사이클의 승자를 잡는 투자법에 대한 논의가 있으며, 앤트로픽 상장 후 투자법 변화에 대한 언급이 있습니다. 또한, LLM 액티브 ETF가 소개되었습니다.",
-        "related_videos": [
-          {
-            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
-            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
-            "channel_name": "슈카월드",
-            "published_at": "2026-11-23 18:59:34 KST"
-          },
-          {
-            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
-            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
-            "channel_name": "소수몽키",
-            "published_at": "2026-11-19 18:23:01 KST"
-          }
-        ]
-      },
-      {
         "name": "반도체",
-        "freq": 2,
-        "summary": "삼성전자와 SK하이닉스의 주가 하락 및 반등 가능성에 대한 분석이 있으며, AMD와 엔비디아의 차이점에 대한 내용이 포함되어 있습니다.",
+        "freq": 4,
+        "summary": "엔비디아(Nvidia)의 젠슨 황 복귀 및 관련 이슈가 언급되었습니다. AMD와 엔비디아의 차이점, 그리고 엔비디아의 주가 변동성에 대한 내용이 포함되었습니다.",
         "refs": [
           1,
-          3
+          2,
+          3,
+          6
         ],
-        "reason": "삼성전자와 SK하이닉스의 주가 하락 및 반등 가능성에 대한 분석이 있으며, AMD와 엔비디아의 차이점에 대한 내용이 포함되어 있습니다.",
+        "reason": "엔비디아(Nvidia)의 젠슨 황 복귀 및 관련 이슈가 언급되었습니다. AMD와 엔비디아의 차이점, 그리고 엔비디아의 주가 변동성에 대한 내용이 포함되었습니다.",
         "related_videos": [
           {
-            "title": "[26.11.23 오후 방송 전체보기] 국내 증시 '검은 월요일' …고점 대비 반토막 난 삼전닉스, 반등을 이끌 돈은 어디에?",
-            "url": "https://www.youtube.com/watch?v=xY5-S_n1SDo",
+            "title": "젠슨 황 전격 복귀! 트럼프까지 직접 나섰다…엔비디아 30%대 급등 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=yo24thbKD4A",
             "channel_name": "삼프로TV",
-            "published_at": "2026-11-23 19:12:18 KST"
+            "published_at": "2026-11-24 07:17:21 KST"
+          },
+          {
+            "title": "젠슨 황 전격 복귀...트럼프 \"내가 이사회 설득\" | 최태원 \"재산분할금 9440억원 전액 내겠다\" 화해권고 신청 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=D-fg9WglsRw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-24 05:24:40 KST"
+          },
+          {
+            "title": "나스닥-20%, 엔비디아 -48% 극단적 공포 구간에 진입한 증시, 기회일까",
+            "url": "https://www.youtube.com/watch?v=6amgLtc9IgU",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-23 22:02:23 KST"
           },
           {
             "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
@@ -260,40 +501,116 @@
         ]
       },
       {
-        "name": "부동산",
+        "name": "AI",
         "freq": 1,
-        "summary": "하우스푸어의 폭증 가능성과 집값 하락에 대한 전망이 제시되었습니다.",
+        "summary": "젠슨 황의 복귀와 관련된 내용이 AI 섹터 전반에 대한 관심으로 이어졌습니다. AI 기술 발전과 관련된 기업들의 움직임이 언급되었습니다.",
         "refs": [
-          6
+          1
         ],
-        "reason": "하우스푸어의 폭증 가능성과 집값 하락에 대한 전망이 제시되었습니다.",
+        "reason": "젠슨 황의 복귀와 관련된 내용이 AI 섹터 전반에 대한 관심으로 이어졌습니다. AI 기술 발전과 관련된 기업들의 움직임이 언급되었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "하우스푸어 곧 폭증합니다, 집 싸게 내놔도 살 사람 없다 (박은정 감정평가사 풀버전)",
-            "url": "https://www.youtube.com/watch?v=BPj-OYDX590",
+            "title": "젠슨 황 전격 복귀! 트럼프까지 직접 나섰다…엔비디아 30%대 급등 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=yo24thbKD4A",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-24 07:17:21 KST"
+          }
+        ]
+      },
+      {
+        "name": "증시",
+        "freq": 4,
+        "summary": "한국 증시(코스피)와 미국 증시(나스닥)의 하락세 및 반등 가능성에 대한 논의가 있었습니다. 단기 반등에 집중해야 한다는 의견도 제시되었습니다.",
+        "refs": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "reason": "한국 증시(코스피)와 미국 증시(나스닥)의 하락세 및 반등 가능성에 대한 논의가 있었습니다. 단기 반등에 집중해야 한다는 의견도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "나스닥-20%, 엔비디아 -48% 극단적 공포 구간에 진입한 증시, 기회일까",
+            "url": "https://www.youtube.com/watch?v=6amgLtc9IgU",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-23 22:02:23 KST"
+          },
+          {
+            "title": "\"3%만 올라도 감사합니다\"…큰 수익보다 짧은 반등에 집중해야 하는 증시ㅣ명민준, 서수진, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=YBPuplDBzU4",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-23 21:00:22 KST"
+          },
+          {
+            "title": "삼성전자 '여기까지' 떨어지면, 꼭 사세요, 저도 사모을 겁니다 (서준식 교수 풀버전)",
+            "url": "https://www.youtube.com/watch?v=ffv19kOoCzc",
             "channel_name": "김작가 TV",
-            "published_at": "2026-11-23 17:45:34 KST"
+            "published_at": "2026-11-23 19:00:36 KST"
+          },
+          {
+            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
+            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-23 18:59:34 KST"
           }
         ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "삼성전자",
-        "freq": 2,
-        "summary": "고점 대비 반토막 난 삼성전자 주가에 대한 언급과 함께, 현재 시점에서 매도 시 후회할 것이라는 분석이 제시되었습니다.",
+        "name": "엔비디아",
+        "freq": 4,
+        "summary": "젠슨 황의 복귀와 관련된 소식이 4개의 영상에서 다뤄졌습니다. 주가 급등 및 급락에 대한 언급과 함께, AMD와의 비교 분석도 포함되었습니다.",
         "refs": [
           1,
-          7
+          2,
+          3,
+          6
         ],
-        "reason": "고점 대비 반토막 난 삼성전자 주가에 대한 언급과 함께, 현재 시점에서 매도 시 후회할 것이라는 분석이 제시되었습니다.",
+        "reason": "젠슨 황의 복귀와 관련된 소식이 4개의 영상에서 다뤄졌습니다. 주가 급등 및 급락에 대한 언급과 함께, AMD와의 비교 분석도 포함되었습니다.",
         "related_videos": [
           {
-            "title": "[26.11.23 오후 방송 전체보기] 국내 증시 '검은 월요일' …고점 대비 반토막 난 삼전닉스, 반등을 이끌 돈은 어디에?",
-            "url": "https://www.youtube.com/watch?v=xY5-S_n1SDo",
+            "title": "젠슨 황 전격 복귀! 트럼프까지 직접 나섰다…엔비디아 30%대 급등 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=yo24thbKD4A",
             "channel_name": "삼프로TV",
-            "published_at": "2026-11-23 19:12:18 KST"
+            "published_at": "2026-11-24 07:17:21 KST"
+          },
+          {
+            "title": "젠슨 황 전격 복귀...트럼프 \"내가 이사회 설득\" | 최태원 \"재산분할금 9440억원 전액 내겠다\" 화해권고 신청 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=D-fg9WglsRw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-24 05:24:40 KST"
+          },
+          {
+            "title": "나스닥-20%, 엔비디아 -48% 극단적 공포 구간에 진입한 증시, 기회일까",
+            "url": "https://www.youtube.com/watch?v=6amgLtc9IgU",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-23 22:02:23 KST"
+          },
+          {
+            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
+            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-23 18:59:34 KST"
+          }
+        ]
+      },
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자의 주가 하락 시 매수 기회에 대한 분석과 함께, 현재 보유 중인 투자자들에게 대한 조언이 제시되었습니다. 구체적인 가격대 언급도 있었습니다.",
+        "refs": [
+          5,
+          8
+        ],
+        "reason": "삼성전자의 주가 하락 시 매수 기회에 대한 분석과 함께, 현재 보유 중인 투자자들에게 대한 조언이 제시되었습니다. 구체적인 가격대 언급도 있었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 '여기까지' 떨어지면, 꼭 사세요, 저도 사모을 겁니다 (서준식 교수 풀버전)",
+            "url": "https://www.youtube.com/watch?v=ffv19kOoCzc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-23 19:00:36 KST"
           },
           {
             "title": "삼성전자 물린 분들 꼭 보세요, 지금 팔면 땅을 치고 후회한다 (무극선생 이승조 대표 풀버전)",
@@ -306,36 +623,18 @@
       {
         "name": "SK하이닉스",
         "freq": 1,
-        "summary": "고점 대비 반토막 난 SK하이닉스 주가에 대한 언급이 있습니다.",
+        "summary": "삼성전자와 함께 언급되었으며, 특정 가격대에서 물려 있는 투자자들에게 대한 대응 방안이 제시되었습니다.",
         "refs": [
-          1
+          8
         ],
-        "reason": "고점 대비 반토막 난 SK하이닉스 주가에 대한 언급이 있습니다.",
+        "reason": "삼성전자와 함께 언급되었으며, 특정 가격대에서 물려 있는 투자자들에게 대한 대응 방안이 제시되었습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "[26.11.23 오후 방송 전체보기] 국내 증시 '검은 월요일' …고점 대비 반토막 난 삼전닉스, 반등을 이끌 돈은 어디에?",
-            "url": "https://www.youtube.com/watch?v=xY5-S_n1SDo",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-23 19:12:18 KST"
-          }
-        ]
-      },
-      {
-        "name": "엔비디아",
-        "freq": 1,
-        "summary": "젠슨 황의 발언과 함께 엔비디아에 대한 언급이 있습니다.",
-        "refs": [
-          3
-        ],
-        "reason": "젠슨 황의 발언과 함께 엔비디아에 대한 언급이 있습니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
-            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
-            "channel_name": "슈카월드",
-            "published_at": "2026-11-23 18:59:34 KST"
+            "title": "삼성전자 물린 분들 꼭 보세요, 지금 팔면 땅을 치고 후회한다 (무극선생 이승조 대표 풀버전)",
+            "url": "https://www.youtube.com/watch?v=gEl4lMfwQTA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 20:45:03 KST"
           }
         ]
       }
@@ -347,76 +646,112 @@
       "stocks": [
         {
           "name": "Nvidia",
-          "freq": 1
+          "freq": 6
         },
         {
-          "name": "CrowdStrike",
+          "name": "Anthropic",
           "freq": 2
         },
         {
-          "name": "Zscaler",
+          "name": "SpaceX",
           "freq": 2
         },
         {
-          "name": "Texas Capital",
+          "name": "Apple",
           "freq": 2
         },
         {
-          "name": "Netflix",
+          "name": "Terex",
+          "freq": 2
+        },
+        {
+          "name": "Linamar",
+          "freq": 2
+        },
+        {
+          "name": "Bose",
           "freq": 1
         },
         {
-          "name": "Universal Technical Institute",
+          "name": "Nintendo",
           "freq": 1
         },
         {
-          "name": "Mid-America Apartment",
+          "name": "Zoom",
           "freq": 1
         },
         {
-          "name": "Builders FirstSource",
+          "name": "Hewlett Packard Enterprise",
           "freq": 1
         },
         {
-          "name": "Aveanna Healthcare",
+          "name": "Agilent",
           "freq": 1
         },
         {
-          "name": "Nemetschek",
+          "name": "Lumentum Holdings",
           "freq": 1
         },
         {
-          "name": "QXO",
+          "name": "Amentum",
           "freq": 1
         },
         {
-          "name": "Alphabet",
+          "name": "Gemini Space Station",
           "freq": 1
         },
         {
-          "name": "Evercore ISI",
-          "freq": 1
-        },
-        {
-          "name": "BMO",
-          "freq": 1
-        },
-        {
-          "name": "Truist",
+          "name": "Omni-Lite Industries",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
-          "freq": 1
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "Chip",
+          "freq": 4
+        },
+        {
+          "name": "Oil",
+          "freq": 4
+        },
+        {
+          "name": "Black Friday",
+          "freq": 3
         },
         {
           "name": "Cybersecurity",
           "freq": 2
         },
         {
-          "name": "Financials",
+          "name": "Tech",
+          "freq": 2
+        },
+        {
+          "name": "E-commerce",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
+          "freq": 2
+        },
+        {
+          "name": "Travel",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
           "freq": 2
         },
         {
@@ -428,43 +763,7 @@
           "freq": 1
         },
         {
-          "name": "반도체",
-          "freq": 1
-        },
-        {
-          "name": "Cloud Computing",
-          "freq": 1
-        },
-        {
-          "name": "Food Services",
-          "freq": 1
-        },
-        {
-          "name": "Robotics",
-          "freq": 1
-        },
-        {
-          "name": "Trading Cards",
-          "freq": 1
-        },
-        {
-          "name": "Airport Infrastructure",
-          "freq": 1
-        },
-        {
-          "name": "Social Security",
-          "freq": 1
-        },
-        {
-          "name": "Retirement Planning",
-          "freq": 1
-        },
-        {
-          "name": "Entertainment",
-          "freq": 1
-        },
-        {
-          "name": "Investment Strategy",
+          "name": "Aerospace",
           "freq": 1
         }
       ]
@@ -472,55 +771,35 @@
     "kr": {
       "stocks": [
         {
-          "name": "SK하이닉스",
+          "name": "Nvidia",
+          "freq": 9
+        },
+        {
+          "name": "BMW",
           "freq": 2
         },
         {
-          "name": "삼성전자",
-          "freq": 1
-        },
-        {
-          "name": "KAI",
+          "name": "Tesla",
           "freq": 2
         },
         {
-          "name": "현대산업개발",
-          "freq": 2
-        },
-        {
-          "name": "토스뱅크",
+          "name": "현대자동차",
           "freq": 1
         },
         {
-          "name": "KB금융",
+          "name": "비야디",
           "freq": 1
         },
         {
-          "name": "한국전력",
+          "name": "캐딜락",
           "freq": 1
         },
         {
-          "name": "에쓰오일",
+          "name": "벤츠",
           "freq": 1
         },
         {
-          "name": "SK지오센트릭",
-          "freq": 1
-        },
-        {
-          "name": "호텔신라",
-          "freq": 1
-        },
-        {
-          "name": "한국동서발전",
-          "freq": 1
-        },
-        {
-          "name": "LG전자",
-          "freq": 1
-        },
-        {
-          "name": "삼성증권",
+          "name": "미트윌란",
           "freq": 1
         },
         {
@@ -528,69 +807,89 @@
           "freq": 1
         },
         {
-          "name": "미래에셋증권",
+          "name": "인스피언",
+          "freq": 1
+        },
+        {
+          "name": "세아베스틸",
+          "freq": 1
+        },
+        {
+          "name": "카카오페이",
+          "freq": 1
+        },
+        {
+          "name": "신세계백화점",
+          "freq": 1
+        },
+        {
+          "name": "GTA",
+          "freq": 1
+        },
+        {
+          "name": "스마일게이트",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "반도체",
-          "freq": 1
-        },
-        {
           "name": "AI",
           "freq": 1
         },
         {
-          "name": "금융",
+          "name": "Real Estate",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Automotive",
+          "freq": 3
+        },
+        {
+          "name": "Travel",
+          "freq": 3
+        },
+        {
+          "name": "Chip",
           "freq": 2
         },
         {
-          "name": "부동산",
+          "name": "Construction",
           "freq": 2
         },
         {
-          "name": "우주항공",
+          "name": "Healthcare",
           "freq": 2
         },
         {
-          "name": "방산",
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Finance",
+          "freq": 2
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "바이오",
           "freq": 1
         },
         {
-          "name": "석유화학",
+          "name": "Oil",
           "freq": 1
         },
         {
-          "name": "개인정보보호",
+          "name": "Gaming",
           "freq": 1
         },
         {
-          "name": "가상발전소",
-          "freq": 1
-        },
-        {
-          "name": "K-푸드",
-          "freq": 1
-        },
-        {
-          "name": "게임",
-          "freq": 1
-        },
-        {
-          "name": "치매 치료제",
-          "freq": 1
-        },
-        {
-          "name": "암호화폐",
-          "freq": 1
-        },
-        {
-          "name": "회계",
-          "freq": 1
-        },
-        {
-          "name": "건설",
+          "name": "Beauty",
           "freq": 1
         }
       ]
