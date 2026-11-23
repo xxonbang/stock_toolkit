@@ -1,0 +1,599 @@
+{
+  "generated_at": "2026-11-23 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 분야는 지속적인 기술 발전과 투자로 인해 주목받고 있으며, 관련 기업들의 성장이 기대됩니다 (총 1건).",
+        "us_news_refs": [
+          9,
+          19,
+          21
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Exclusive-Some US banks tighten AI-agent controls on concern about models escaping safeguards",
+            "title_ko": "美 은행들, AI 모델 탈출 우려에 AI 에이전트 통제 강화",
+            "url": "https://www.investing.com/news/economy-news/exclusivesome-us-banks-tighten-aiagent-controls-on-concern-about-models-escaping-safeguards-5044788",
+            "published_at": "2026-11-23 19:36:56 KST"
+          },
+          {
+            "title": "Corporate America hunts for ‘generational’ growth in AI, trading cards and the L.A. airport",
+            "title_ko": "기업들, AI·카드·LA 공항서 '세대적' 성장 모색",
+            "url": "https://www.marketwatch.com/story/corporate-america-hunts-for-generational-growth-in-ai-trading-cards-and-the-l-a-airport-3072eb1a?mod=mw_rss_topstories",
+            "published_at": "2026-11-23 06:51:00 KST"
+          },
+          {
+            "title": "Employees at Eric Trump-backed robot startup lose health benefits as company's cash crunch deepens",
+            "title_ko": "Eric Trump 지원 로봇 스타트업 직원, 자금난에 건강 보험 상실",
+            "url": "https://www.cnbc.com/2026/11/22/foundation-future-industries-health-benefits-payroll-base-group.html",
+            "published_at": "2026-11-23 03:55:05 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "CrowdStrike",
+        "reason": "사이버 보안 분야에서의 성장 가능성과 관련 기술에 대한 관심이 주가에 반영되고 있습니다 (총 2건).",
+        "us_news_refs": [
+          4,
+          8
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "CrowdStrike bets on network security with $43.9 billion Zscaler deal",
+            "title_ko": "CrowdStrike, Zscaler 439억 달러에 인수하며 네트워크 보안 강화",
+            "url": "https://www.investing.com/news/stock-market-news/crowdstrike-bets-on-network-security-with-439-billion-zscaler-deal-5044856",
+            "published_at": "2026-11-23 19:42:22 KST"
+          },
+          {
+            "title": "CrowdStrike to acquire Zscaler for $43.9 billion in stock",
+            "title_ko": "CrowdStrike, Zscaler 439억 달러에 주식으로 인수",
+            "url": "https://www.investing.com/news/company-news/crowdstrike-to-acquire-zscaler-for-439-billion-in-stock-93CH-5044852",
+            "published_at": "2026-11-23 19:40:40 KST"
+          }
+        ]
+      },
+      {
+        "name": "Zscaler",
+        "reason": "클라우드 기반 보안 솔루션 제공 업체로서, 사이버 보안 강화 추세에 따라 주목받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          4,
+          8
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "CrowdStrike bets on network security with $43.9 billion Zscaler deal",
+            "title_ko": "CrowdStrike, Zscaler 439억 달러에 인수하며 네트워크 보안 강화",
+            "url": "https://www.investing.com/news/stock-market-news/crowdstrike-bets-on-network-security-with-439-billion-zscaler-deal-5044856",
+            "published_at": "2026-11-23 19:42:22 KST"
+          },
+          {
+            "title": "CrowdStrike to acquire Zscaler for $43.9 billion in stock",
+            "title_ko": "CrowdStrike, Zscaler 439억 달러에 주식으로 인수",
+            "url": "https://www.investing.com/news/company-news/crowdstrike-to-acquire-zscaler-for-439-billion-in-stock-93CH-5044852",
+            "published_at": "2026-11-23 19:40:40 KST"
+          }
+        ]
+      },
+      {
+        "name": "Texas Capital",
+        "reason": "금융 섹터 내에서 언급되며, 특정 금융 서비스나 시장 상황과 관련된 뉴스가 주목받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          6,
+          10
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Texas Capital upgrades Universal Technical Institute stock rating to buy",
+            "title_ko": "Texas Capital, Universal Technical Institute 주식 '매수'로 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/texas-capital-upgrades-universal-technical-institute-stock-rating-to-buy-93CH-5044854",
+            "published_at": "2026-11-23 19:40:53 KST"
+          },
+          {
+            "title": "Texas Capital cuts Builders FirstSource stock rating on demand concerns",
+            "title_ko": "Texas Capital, 수요 우려에 Builders FirstSource 주식 등급 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/texas-capital-cuts-builders-firstsource-stock-rating-on-demand-concerns-93CH-5044841",
+            "published_at": "2026-11-23 19:35:59 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 22
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "금융",
+        "reason": "토스뱅크, KB금융 등 금융 관련 기업들이 언급되며, 금융 시장의 변화와 새로운 서비스에 대한 관심이 반영되었습니다 (총 2건).",
+        "kr_news_refs": [
+          2,
+          7,
+          23
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[금융 풍향계] 이은미 토스뱅크 대표 “AI 시대, 기술보다 신뢰 중요” 外 - 에너지경제신문",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9WeTJzSWdXelhYS01VTjZzODhmaVcxWU9qa194clVaRTV6MHNrSzJPQmZYY1dneGJNUlhQMy1DRmhpUi1BMFZQaVdhZHQxdG5PNjl3QjB2ZHdLXzhpQ1RjeXF3SQ?oc=5",
+            "published_at": "2026-11-23 18:11:28 KST"
+          },
+          {
+            "title": "이재근 KB금융 회장, 취임 직후 해킹 대응 회의…보안부터 챙긴다(종합) - 연합인포맥스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBYRldick04SDNiRjhiRHd5QmxmdDFsQjlFSThubDk4b0FPX3RRY3laeW9fLWY0MS1SNWM2TnpHMU00VGVOMHhJejkyMjBoU0JuWFMyc2hpNDJxd1dBZVVHbDBqbW5jUXFjNWxpSmE3am0?oc=5",
+            "published_at": "2026-11-23 16:36:20 KST"
+          },
+          {
+            "title": "삼성증권도 해킹 피해...계좌번호·운전면허번호까지 털려 - YTN",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBCOXc2ZXM0VWRid3JwV19aR00zQmNQNGVaSEJvc3k2enBETGQ3RnlCSVhIQzlWMTE0VWNVX1VsbzRlQkJoNjVNNlV3bU50T1phNUh6ZFZBX2l4b0tWcnc?oc=5",
+            "published_at": "2026-11-23 14:35:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "부동산",
+        "reason": "부동산 시장의 동향 및 관련 기업들에 대한 뉴스가 꾸준히 나오고 있으며, 이는 시장의 중요성을 나타냅니다 (총 2건).",
+        "kr_news_refs": [
+          8,
+          29,
+          51
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "이헌욱 부동산원장, 공시가격 조사 현장 방문… 정확성·객관성 당부 - Chosunbiz",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMkptSFZLUlg4TkJsQnNYU00tUWtMNDR6WlJjcENzNzVEN0JLVTZZak1oY1d2RWRibjdDNkVsX1VTMTdVMm5xQWxJWGhsVkxXTWs3cE5jT0FzNFJDUXFETlpwaVIzYzVnNVpNVHFaVFVkWFVTWnV3LXpuY2J4MHZMY2xWWnlnQUdoTlBLbHFtNDVxZW0yOGt6Y9IBrAFBVV95cUxQN0t5c2Nwc1RXcHdhV2dnVEJVZU5yNF8wTFNKYkxiT2QwaXNMS0FhaTdZRGQzbnJOYnFoZHRvT0pDdjVjc3pieVhqVHIyRWNPakhUUEdwcTRlb2h0NDhPMUN3OXZvMWNjai01bTh2S284anJBX09ScHZzUGhaS2xVWUJmanBTTFNqQVZCUUtpOW9PSlFZQ1JDWk9kSHMwSE00bEE5ejNSZFRjQ09m?oc=5",
+            "published_at": "2026-11-23 16:27:00 KST"
+          },
+          {
+            "title": "국힘-개혁신당 “세법개정안 철회해야…다음 총선은 부동산 심판선거” - 동아일보",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9NUjFGS2pzLXpPNHBCRjBsUWUtcXdSZ0RVajdvSDgwQ0FXNHI1Z0RtR3oxVXVMZDh0bTV3cU1rUnZ0dzczbVV2cnFmNFhjVVQ5bUsxZ2R3THdVcHdfakxNLURnWHhFbXVreGZranlfVEg1Y25NNlNN0gFmQVVfeXFMUHQzdkRLQ0YyOWs2VzNpNWtTSUxKRDBpVnNpdlVZR0NGQmpyZ2I0amtzNTBpZmZrVTI4T2FKZnJRTkVfeWJMUlgwTGJzOHJvYm9qZjd0MElTaHRRdGFVaGFCVnB3VkdB?oc=5",
+            "published_at": "2026-11-23 14:10:00 KST"
+          },
+          {
+            "title": "LH, 공공주택 4천232가구 공모 연기…연내 선정 차질 우려",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123157200003",
+            "published_at": "2026-11-23 18:59:20 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SK하이닉스",
+        "reason": "반도체 업황 개선 기대감과 HBM 등 고성능 메모리 수요 증가에 대한 뉴스가 주목받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          5,
+          34
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "단일종목 레버리지 최저가‥하닉 ETF 2천 원대로 주저앉아 - MBC 뉴스",
+            "title_ko": "",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1VT3pLZE5hcjNXNUhtRks1MExXSVYtdkNIUmFaelZjYnA5VEljMFdENXZLT1RkcHREaklBWGsya0d6NmVuUkxYYUE3ckF6Uzd5T1V5Q2p4YmRzOW03ZlpiN1hhQU9sUGtiUjRCRTB2Rmh0Tm1w0gF0QVVfeXFMTTgyTjZKajl4T2wzTzRxaDFITzcwNDlsR2FEd3kwSVJ5Q0U2cFFIdGJWMXB0VUhWZFBFSFg0YWJ2UlRrWjhuQjVNYVViYmJUNXFMV0NLTTlUNnYwQXF0SFpwMU9SajhMSHUwVlp5d3UxajJLVUY?oc=5",
+            "published_at": "2026-11-23 17:08:57 KST"
+          },
+          {
+            "title": "글로벌IB, 삼전닉스 목표가 잇달아 하향…2028년 업황 둔화 우려",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261123166100008",
+            "published_at": "2026-11-23 19:32:41 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 다음 사이클의 승자를 잡는 투자법에 대한 논의가 있으며, 앤트로픽 상장 후 투자법 변화에 대한 언급이 있습니다. 또한, LLM 액티브 ETF가 소개되었습니다.",
+        "refs": [
+          3,
+          10
+        ],
+        "reason": "AI 다음 사이클의 승자를 잡는 투자법에 대한 논의가 있으며, 앤트로픽 상장 후 투자법 변화에 대한 언급이 있습니다. 또한, LLM 액티브 ETF가 소개되었습니다.",
+        "related_videos": [
+          {
+            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
+            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-23 18:59:34 KST"
+          },
+          {
+            "title": "앤트로픽 상장 후 투자법 달라져야 한다? AI 다음 사이클의 승자들 잡는 법",
+            "url": "https://www.youtube.com/watch?v=_HKbEOD-fd8",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-19 18:23:01 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "삼성전자와 SK하이닉스의 주가 하락 및 반등 가능성에 대한 분석이 있으며, AMD와 엔비디아의 차이점에 대한 내용이 포함되어 있습니다.",
+        "refs": [
+          1,
+          3
+        ],
+        "reason": "삼성전자와 SK하이닉스의 주가 하락 및 반등 가능성에 대한 분석이 있으며, AMD와 엔비디아의 차이점에 대한 내용이 포함되어 있습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.23 오후 방송 전체보기] 국내 증시 '검은 월요일' …고점 대비 반토막 난 삼전닉스, 반등을 이끌 돈은 어디에?",
+            "url": "https://www.youtube.com/watch?v=xY5-S_n1SDo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-23 19:12:18 KST"
+          },
+          {
+            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
+            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-23 18:59:34 KST"
+          }
+        ]
+      },
+      {
+        "name": "부동산",
+        "freq": 1,
+        "summary": "하우스푸어의 폭증 가능성과 집값 하락에 대한 전망이 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "하우스푸어의 폭증 가능성과 집값 하락에 대한 전망이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "하우스푸어 곧 폭증합니다, 집 싸게 내놔도 살 사람 없다 (박은정 감정평가사 풀버전)",
+            "url": "https://www.youtube.com/watch?v=BPj-OYDX590",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-23 17:45:34 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "고점 대비 반토막 난 삼성전자 주가에 대한 언급과 함께, 현재 시점에서 매도 시 후회할 것이라는 분석이 제시되었습니다.",
+        "refs": [
+          1,
+          7
+        ],
+        "reason": "고점 대비 반토막 난 삼성전자 주가에 대한 언급과 함께, 현재 시점에서 매도 시 후회할 것이라는 분석이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.23 오후 방송 전체보기] 국내 증시 '검은 월요일' …고점 대비 반토막 난 삼전닉스, 반등을 이끌 돈은 어디에?",
+            "url": "https://www.youtube.com/watch?v=xY5-S_n1SDo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-23 19:12:18 KST"
+          },
+          {
+            "title": "삼성전자 물린 분들 꼭 보세요, 지금 팔면 땅을 치고 후회한다 (무극선생 이승조 대표 풀버전)",
+            "url": "https://www.youtube.com/watch?v=gEl4lMfwQTA",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-22 20:45:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "고점 대비 반토막 난 SK하이닉스 주가에 대한 언급이 있습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "고점 대비 반토막 난 SK하이닉스 주가에 대한 언급이 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "[26.11.23 오후 방송 전체보기] 국내 증시 '검은 월요일' …고점 대비 반토막 난 삼전닉스, 반등을 이끌 돈은 어디에?",
+            "url": "https://www.youtube.com/watch?v=xY5-S_n1SDo",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-23 19:12:18 KST"
+          }
+        ]
+      },
+      {
+        "name": "엔비디아",
+        "freq": 1,
+        "summary": "젠슨 황의 발언과 함께 엔비디아에 대한 언급이 있습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "젠슨 황의 발언과 함께 엔비디아에 대한 언급이 있습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "산(山)을 표현한 코스피, 그양반 갈 때도 예술로 가는구만",
+            "url": "https://www.youtube.com/watch?v=TF1VKLJW1YQ",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-23 18:59:34 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "CrowdStrike",
+          "freq": 2
+        },
+        {
+          "name": "Zscaler",
+          "freq": 2
+        },
+        {
+          "name": "Texas Capital",
+          "freq": 2
+        },
+        {
+          "name": "Netflix",
+          "freq": 1
+        },
+        {
+          "name": "Universal Technical Institute",
+          "freq": 1
+        },
+        {
+          "name": "Mid-America Apartment",
+          "freq": 1
+        },
+        {
+          "name": "Builders FirstSource",
+          "freq": 1
+        },
+        {
+          "name": "Aveanna Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Nemetschek",
+          "freq": 1
+        },
+        {
+          "name": "QXO",
+          "freq": 1
+        },
+        {
+          "name": "Alphabet",
+          "freq": 1
+        },
+        {
+          "name": "Evercore ISI",
+          "freq": 1
+        },
+        {
+          "name": "BMO",
+          "freq": 1
+        },
+        {
+          "name": "Truist",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Cybersecurity",
+          "freq": 2
+        },
+        {
+          "name": "Financials",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 1
+        },
+        {
+          "name": "Food Services",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Trading Cards",
+          "freq": 1
+        },
+        {
+          "name": "Airport Infrastructure",
+          "freq": 1
+        },
+        {
+          "name": "Social Security",
+          "freq": 1
+        },
+        {
+          "name": "Retirement Planning",
+          "freq": 1
+        },
+        {
+          "name": "Entertainment",
+          "freq": 1
+        },
+        {
+          "name": "Investment Strategy",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        },
+        {
+          "name": "KAI",
+          "freq": 2
+        },
+        {
+          "name": "현대산업개발",
+          "freq": 2
+        },
+        {
+          "name": "토스뱅크",
+          "freq": 1
+        },
+        {
+          "name": "KB금융",
+          "freq": 1
+        },
+        {
+          "name": "한국전력",
+          "freq": 1
+        },
+        {
+          "name": "에쓰오일",
+          "freq": 1
+        },
+        {
+          "name": "SK지오센트릭",
+          "freq": 1
+        },
+        {
+          "name": "호텔신라",
+          "freq": 1
+        },
+        {
+          "name": "한국동서발전",
+          "freq": 1
+        },
+        {
+          "name": "LG전자",
+          "freq": 1
+        },
+        {
+          "name": "삼성증권",
+          "freq": 1
+        },
+        {
+          "name": "라온시큐리티",
+          "freq": 1
+        },
+        {
+          "name": "미래에셋증권",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 2
+        },
+        {
+          "name": "우주항공",
+          "freq": 2
+        },
+        {
+          "name": "방산",
+          "freq": 1
+        },
+        {
+          "name": "석유화학",
+          "freq": 1
+        },
+        {
+          "name": "개인정보보호",
+          "freq": 1
+        },
+        {
+          "name": "가상발전소",
+          "freq": 1
+        },
+        {
+          "name": "K-푸드",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "치매 치료제",
+          "freq": 1
+        },
+        {
+          "name": "암호화폐",
+          "freq": 1
+        },
+        {
+          "name": "회계",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
