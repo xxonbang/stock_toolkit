@@ -1,0 +1,662 @@
+{
+  "generated_at": "2026-11-25 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 12건)",
+        "us_news_refs": [
+          3,
+          4,
+          5,
+          9,
+          20,
+          22,
+          23,
+          30,
+          39,
+          43
+        ],
+        "related_news": [
+          {
+            "title": "Asian Stocks to Slide as AI Trade Doubts Resurface: Markets Wrap - Bloomberg",
+            "title_ko": "AI 거래 의구심 재부상에 아시아 증시 하락 전망",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWjE4Zm9DOUxVdmFFaTlaQVJMWHFaVEVGVy1JcTNEcEc3bnhET2xfaGNCdFlpbXkwS210Tkx0d3JVUWVzbzA4amhwWU1FWGxLd2E0YUJBY1lOOUNlVmlwNF83b3Bqc2dqaWVMTzUwSGFfYWNJVDZwXzh5TGp5YUZaTzZoa0dZenZfalhyelF0UUZwbllhOEZIbWNGc1V3OHQxWlhfV3ZoeGdKRURCS3dTVEFSRnk?oc=5",
+            "published_at": "2026-11-25 18:10:26 KST"
+          },
+          {
+            "title": "Nasdaq futures slide amid reports of fresh U.S. tariffs as tech sell-off intensifies: Live updates - CNBC",
+            "title_ko": "美 추가 관세 소식에 나스닥 선물 하락, 기술주 매도세",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Jd2QwOVppNGtIY3I5ZXgyVmZKQzJ3SzZvVnVydTJHQnliRXBCR2RiQTBMeXExQU16TnpPQzkwWVl2Q0FKV055NzJBNE4tMGQ0UmlFMFdnQ3o1OG9tR2JNd1Z6Ymk5cGtDVFBxZjJPT19jblIxZ2lwRdIBfkFVX3lxTE5qZGNISDFwMjNGQUoxc3ZlT1JFR1A5Zk1oTmJSX1kxWVFOWUZscTZGTWh2cHdfMW92SzVCbXdBR2o3YWJUVzN2TXhfOUdhSUZpdFNyNXBaUjdseWpuQklwaVgzaUlGdkJqNm54TWEyVTluWVFYVTZVMVptNV9xQQ?oc=5",
+            "published_at": "2026-11-25 16:27:00 KST"
+          },
+          {
+            "title": "EXCLUSIVE: Alice Huang-linked firms listed $270 million in AI servers in China, records show - Reuters",
+            "title_ko": "앨리스 황 연관 기업, 중국서 AI 서버 2.7억 달러 등록",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPYXNKWVJFdGJPenhtYnNFM2VnNnJGdUpjaUlfVDMycE9TWlVUOWJwNVNmU0dyMC1OUF90NzQ1TUZwdDlERUc0RENMRU44MVo2eGhsT1V3MTFpLXh0OTM3cW1hWkNZbGFzc3V5WVdFenoxTE5uZkZoaDNXdW41cmFzVThQZnVNYUR2N3hMcE1EeUQ4cGotR3FVYjJKV0FudldtekoyZUQ3b2NlNTUxWmNfODdPd3RHVlNZM2tsYWpwSFVjZGFY?oc=5",
+            "published_at": "2026-11-25 15:13:00 KST"
+          },
+          {
+            "title": "Workday stock rating reiterated by Wells Fargo on AI momentum, solid Q3",
+            "title_ko": "Wells Fargo, AI 모멘텀·견조한 3분기에 Workday 등급 유지",
+            "url": "https://www.investing.com/news/analyst-ratings/workday-stock-rating-reiterated-by-wells-fargo-on-ai-momentum-solid-q3-93CH-5050249",
+            "published_at": "2026-11-25 19:40:59 KST"
+          },
+          {
+            "title": "Jensen Huang says he’s thankful for second chance at Nvidia employee meeting - NBC News",
+            "title_ko": "젠슨 황, Nvidia 직원 회의서 두 번째 기회에 감사 표명",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOQmhlWk90SmZVWUllcWFBTGNHbWs3SUhBUXNEWUh1ei1tQUd0eFQxSHN5RnJHcFZyRENZS3VCaVdLalFqZzZpd29NcjRJU3BuSGlEVGZULXJJRVN3VlVJeXE4RGM2VVBIcFNPaC1ielpmaWd2YjZzZkxWU195YWNyQmlvTXVmQ1hFelNzcGtabU0xUGtUUlItTXhhYnBjX3NsQm1BajRtRWhwblFubjhqLVg5eV8tbW9wU2JWWWMybVpPQQ?oc=5",
+            "published_at": "2026-11-25 13:11:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tech",
+        "reason": "기술 기업들의 실적 발표와 AI 관련 성장성이 주목받으며 관련 섹터 전반의 관심이 이어짐 (총 4건)",
+        "us_news_refs": [
+          3,
+          4,
+          39,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Asian Stocks to Slide as AI Trade Doubts Resurface: Markets Wrap - Bloomberg",
+            "title_ko": "AI 거래 의구심 재부상에 아시아 증시 하락 전망",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWjE4Zm9DOUxVdmFFaTlaQVJMWHFaVEVGVy1JcTNEcEc3bnhET2xfaGNCdFlpbXkwS210Tkx0d3JVUWVzbzA4amhwWU1FWGxLd2E0YUJBY1lOOUNlVmlwNF83b3Bqc2dqaWVMTzUwSGFfYWNJVDZwXzh5TGp5YUZaTzZoa0dZenZfalhyelF0UUZwbllhOEZIbWNGc1V3OHQxWlhfV3ZoeGdKRURCS3dTVEFSRnk?oc=5",
+            "published_at": "2026-11-25 18:10:26 KST"
+          },
+          {
+            "title": "Nasdaq futures slide amid reports of fresh U.S. tariffs as tech sell-off intensifies: Live updates - CNBC",
+            "title_ko": "美 추가 관세 소식에 나스닥 선물 하락, 기술주 매도세",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Jd2QwOVppNGtIY3I5ZXgyVmZKQzJ3SzZvVnVydTJHQnliRXBCR2RiQTBMeXExQU16TnpPQzkwWVl2Q0FKV055NzJBNE4tMGQ0UmlFMFdnQ3o1OG9tR2JNd1Z6Ymk5cGtDVFBxZjJPT19jblIxZ2lwRdIBfkFVX3lxTE5qZGNISDFwMjNGQUoxc3ZlT1JFR1A5Zk1oTmJSX1kxWVFOWUZscTZGTWh2cHdfMW92SzVCbXdBR2o3YWJUVzN2TXhfOUdhSUZpdFNyNXBaUjdseWpuQklwaVgzaUlGdkJqNm54TWEyVTluWVFYVTZVMVptNV9xQQ?oc=5",
+            "published_at": "2026-11-25 16:27:00 KST"
+          },
+          {
+            "title": "What are AI chips, and what’s so special about Nvidia’s? - The Conversation",
+            "title_ko": "AI 칩이란 무엇이며 Nvidia의 특별함은?",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWGZiVHdoQTRzVkdRbS0tZTBjVTdnZnA5RXRYU1lXWVNYbTFaNHlMdWdackFqUW5IZjZpenNBbUpqT0FCanhQYXN6cmFsYkVkdy04TC1CZVRNUFVBcnRaaThOTklhMDZ2QVExRDFNeExQLXJYWndReWR3Zng2WGJzUmFvM1lwcW1YYTNaOGlhVDc?oc=5",
+            "published_at": "2026-11-25 05:08:14 KST"
+          },
+          {
+            "title": "Retail chief calls AI ‘magic’ as shoppers turn to chatbots for holiday bargains - Fox Business",
+            "title_ko": "유통업계 수장, AI를 '마법'이라 칭하며 챗봇 활용 증가",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNTFJNMmpJV0tFdzBPTW12Z1dvcWZmWE5Qd3NmX19BdmJMVC1LY2JQZWhkb1B0LWxXbmFISDhJc1g2NXp2eHhmNEhCU0VqOHh2aktHcm9mM2pIU1gybG5jY2k4akFkU1p3SjA1X3JicHliaDEybER4aHdreF9lLXc4ZzN5ZUNUOWR3WkxkRnlFSWNwX3FwUHd0WVBEN1ZLM014cHdv0gGoAUFVX3lxTFB2dnpCQlhzaG9fYmdBVUZicFozVzE5NWxUcFRsc0MzWExJUlpjbWM2NkxKS1NHQ2IwU0tmd0pPQ2dxR1lfaUc0Yy02YTRVbEhQLUR3aGRYczhUbzdjc0diOGpoU3pzcjFTc21ZVVN6NWJYaGVDNk5WdjhzSDlYZTBPeVFqQW43R21abUgxVjRmdkFGSTkwNmprWVhoOENGRURVZlp0Q0dRbQ?oc=5",
+            "published_at": "2026-11-25 02:17:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Retail",
+        "reason": "소비자 심리 지표 발표와 함께 유통 기업들의 실적 및 전망에 대한 관심이 나타남 (총 3건)",
+        "us_news_refs": [
+          8,
+          37,
+          49
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Best Buy stock price target raised to $102 by Evercore ISI on strong comp results",
+            "title_ko": "Evercore ISI, 호조에 Best Buy 목표가 102달러로 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/best-buy-stock-price-target-raised-to-102-by-evercore-isi-on-strong-comp-results-93CH-5050250",
+            "published_at": "2026-11-25 19:41:03 KST"
+          },
+          {
+            "title": "There are thousands of discounts at Walmart's Black Friday Deals event — here are 20 our editors are eyeing - Yahoo",
+            "title_ko": "월마트 블랙 프라이데이 딜, 수천 개 할인 중 20개 추천",
+            "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxOTDg0VVREc08zRGg1bDFNVVBTbnVwaHlCNS1zcmgwQlE5dzBXN2pudUU0N3RabHp4bENTTElTUHh5QWRMMUdmSUVCV0xnWG4tVlNLQ1h0Z0ZIb0Y3bkh6anEtZUhacGFWOEhicUxhRDYyVFdBR19xcV9jWjVqY2txU2lveTQxSkRlekV5RkVUUjY2bkxZa1NNTHdFaFRhTTNPdE5MMk5VaHE2WXNOM1hoU1d0N1N0VHhCY1d1Q2xNSVhyTkR3dVNvaG82R0lRUzJZaW1GR3FpdnB2ZzVIM2tydkN0MVVXa19lRmFxbkI4RUpaa3J2ZHpZM3YwdFRld3E0YUNLWTVn?oc=5",
+            "published_at": "2026-11-25 06:00:32 KST"
+          },
+          {
+            "title": "Retail chief calls AI ‘magic’ as shoppers turn to chatbots for holiday bargains - Fox Business",
+            "title_ko": "유통업계 수장, AI를 '마법'이라 칭하며 챗봇 활용 증가",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNTFJNMmpJV0tFdzBPTW12Z1dvcWZmWE5Qd3NmX19BdmJMVC1LY2JQZWhkb1B0LWxXbmFISDhJc1g2NXp2eHhmNEhCU0VqOHh2aktHcm9mM2pIU1gybG5jY2k4akFkU1p3SjA1X3JicHliaDEybER4aHdreF9lLXc4ZzN5ZUNUOWR3WkxkRnlFSWNwX3FwUHd0WVBEN1ZLM014cHdv0gGoAUFVX3lxTFB2dnpCQlhzaG9fYmdBVUZicFozVzE5NWxUcFRsc0MzWExJUlpjbWM2NkxKS1NHQ2IwU0tmd0pPQ2dxR1lfaUc0Yy02YTRVbEhQLUR3aGRYczhUbzdjc0diOGpoU3pzcjFTc21ZVVN6NWJYaGVDNk5WdjhzSDlYZTBPeVFqQW43R21abUgxVjRmdkFGSTkwNmprWVhoOENGRURVZlp0Q0dRbQ?oc=5",
+            "published_at": "2026-11-25 02:17:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세와 관련 기술 발전이 지속적으로 주가에 긍정적인 영향을 미치고 있음 (총 12건)",
+        "us_news_refs": [
+          3,
+          4,
+          5,
+          18,
+          20,
+          22,
+          23,
+          24,
+          25,
+          34,
+          39,
+          43
+        ],
+        "related_news": [
+          {
+            "title": "Asian Stocks to Slide as AI Trade Doubts Resurface: Markets Wrap - Bloomberg",
+            "title_ko": "AI 거래 의구심 재부상에 아시아 증시 하락 전망",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWjE4Zm9DOUxVdmFFaTlaQVJMWHFaVEVGVy1JcTNEcEc3bnhET2xfaGNCdFlpbXkwS210Tkx0d3JVUWVzbzA4amhwWU1FWGxLd2E0YUJBY1lOOUNlVmlwNF83b3Bqc2dqaWVMTzUwSGFfYWNJVDZwXzh5TGp5YUZaTzZoa0dZenZfalhyelF0UUZwbllhOEZIbWNGc1V3OHQxWlhfV3ZoeGdKRURCS3dTVEFSRnk?oc=5",
+            "published_at": "2026-11-25 18:10:26 KST"
+          },
+          {
+            "title": "Nasdaq futures slide amid reports of fresh U.S. tariffs as tech sell-off intensifies: Live updates - CNBC",
+            "title_ko": "美 추가 관세 소식에 나스닥 선물 하락, 기술주 매도세",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Jd2QwOVppNGtIY3I5ZXgyVmZKQzJ3SzZvVnVydTJHQnliRXBCR2RiQTBMeXExQU16TnpPQzkwWVl2Q0FKV055NzJBNE4tMGQ0UmlFMFdnQ3o1OG9tR2JNd1Z6Ymk5cGtDVFBxZjJPT19jblIxZ2lwRdIBfkFVX3lxTE5qZGNISDFwMjNGQUoxc3ZlT1JFR1A5Zk1oTmJSX1kxWVFOWUZscTZGTWh2cHdfMW92SzVCbXdBR2o3YWJUVzN2TXhfOUdhSUZpdFNyNXBaUjdseWpuQklwaVgzaUlGdkJqNm54TWEyVTluWVFYVTZVMVptNV9xQQ?oc=5",
+            "published_at": "2026-11-25 16:27:00 KST"
+          },
+          {
+            "title": "EXCLUSIVE: Alice Huang-linked firms listed $270 million in AI servers in China, records show - Reuters",
+            "title_ko": "앨리스 황 연관 기업, 중국서 AI 서버 2.7억 달러 등록",
+            "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPYXNKWVJFdGJPenhtYnNFM2VnNnJGdUpjaUlfVDMycE9TWlVUOWJwNVNmU0dyMC1OUF90NzQ1TUZwdDlERUc0RENMRU44MVo2eGhsT1V3MTFpLXh0OTM3cW1hWkNZbGFzc3V5WVdFenoxTE5uZkZoaDNXdW41cmFzVThQZnVNYUR2N3hMcE1EeUQ4cGotR3FVYjJKV0FudldtekoyZUQ3b2NlNTUxWmNfODdPd3RHVlNZM2tsYWpwSFVjZGFY?oc=5",
+            "published_at": "2026-11-25 15:13:00 KST"
+          },
+          {
+            "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
+            "title_ko": "젠슨 황의 Nvidia 복귀, 내 401(k)에 좋지만 위선자인가?",
+            "url": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
+            "published_at": "2026-11-25 19:05:00 KST"
+          },
+          {
+            "title": "Jensen Huang says he’s thankful for second chance at Nvidia employee meeting - NBC News",
+            "title_ko": "젠슨 황, Nvidia 직원 회의서 두 번째 기회에 감사 표명",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOQmhlWk90SmZVWUllcWFBTGNHbWs3SUhBUXNEWUh1ei1tQUd0eFQxSHN5RnJHcFZyRENZS3VCaVdLalFqZzZpd29NcjRJU3BuSGlEVGZULXJJRVN3VlVJeXE4RGM2VVBIcFNPaC1ielpmaWd2YjZzZkxWU195YWNyQmlvTXVmQ1hFelNzcGtabU0xUGtUUlItTXhhYnBjX3NsQm1BajRtRWhwblFubjhqLVg5eV8tbW9wU2JWWWMybVpPQQ?oc=5",
+            "published_at": "2026-11-25 13:11:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Workday",
+        "reason": "클라우드 컴퓨팅 및 AI 관련 기업으로서 성장 가능성에 대한 관심이 나타남 (총 2건)",
+        "us_news_refs": [
+          9,
+          14
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Workday stock rating reiterated by Wells Fargo on AI momentum, solid Q3",
+            "title_ko": "Wells Fargo, AI 모멘텀·견조한 3분기에 Workday 등급 유지",
+            "url": "https://www.investing.com/news/analyst-ratings/workday-stock-rating-reiterated-by-wells-fargo-on-ai-momentum-solid-q3-93CH-5050249",
+            "published_at": "2026-11-25 19:40:59 KST"
+          },
+          {
+            "title": "Workday stock price target cut to $215 by BMO Capital on growth outlook",
+            "title_ko": "BMO Capital, 성장 전망에 Workday 목표가 215달러로 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/workday-stock-price-target-cut-to-215-by-bmo-capital-on-growth-outlook-93CH-5050244",
+            "published_at": "2026-11-25 19:40:48 KST"
+          }
+        ]
+      },
+      {
+        "name": "Dell",
+        "reason": "AI 관련 하드웨어 수요 증가와 실적 개선 기대감이 주가에 반영됨 (총 2건)",
+        "us_news_refs": [
+          7,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Dell stock price target cut by Wells Fargo to $400 on PC weakness",
+            "title_ko": "Wells Fargo, PC 약세에 Dell 목표가 400달러로 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/dell-stock-price-target-cut-by-wells-fargo-to-400-on-pc-weakness-93CH-5050251",
+            "published_at": "2026-11-25 19:41:04 KST"
+          },
+          {
+            "title": "Dell Technologies Smashes Q3 Estimates, Guides Above Views - Investor's Business Daily",
+            "title_ko": "Dell Technologies, 3분기 예상치 대폭 상회, 전망치도 상향",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNNXdYbXBXQm8tYUZuY2hDWnZNRTVEc3kySW0wZFVTR2VUMW0wd0dkOWlrNF93Q2l4bDdpZEl5MzVCUzFlSm5QM0lmTjV2QnE0YXprTGxIeVFYa1lEVUxQSVo5TlNPUzhsejBTVGhmRm5CYnE3QmFxMjZoMEpDczluaUM1VQ?oc=5",
+            "published_at": "2026-11-25 07:02:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [
+      {
+        "name": "삼성전기",
+        "reason": "MLCC 등 주요 부품 사업의 실적 개선 및 신규 수주 가능성이 주가에 긍정적인 영향을 미치고 있음 (총 2건)",
+        "kr_news_refs": [
+          16,
+          54
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "삼성전기, 1조7000억원 자사주 전량 소각",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12218546",
+            "published_at": "2026-11-25 19:13:33 KST"
+          },
+          {
+            "title": "삼성전기, 1.7조원 자사주 소각…주가 상승에 규모 12배↑",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261125166100003",
+            "published_at": "2026-11-25 18:16:05 KST"
+          }
+        ]
+      },
+      {
+        "name": "한국투자저축은행",
+        "reason": "금융 시장 내에서의 역할과 실적에 대한 소식이 주목받으며 해당 종목에 대한 관심이 나타남 (총 2건)",
+        "kr_news_refs": [
+          25,
+          56
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "업계서 최대규모 해킹…8.6만 고객 정보 유출된 한국투자저축은행",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12218530",
+            "published_at": "2026-11-25 19:05:24 KST"
+          },
+          {
+            "title": "한국투자저축은행 8만6천여명 개인정보 유출…업권 최대 규모",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261125165600002",
+            "published_at": "2026-11-25 18:11:32 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 4,
+        "summary": "AI 기대감으로 인한 반도체 쏠림 현상이 언급되었으며, 이는 증시 변동성을 키우는 요인으로 분석되었습니다. 일부 영상에서는 삼성전자, SK하이닉스와 같은 반도체 대장주에 대한 언급과 함께 향후 주가 흐름에 대한 전망이 제시되었습니다.",
+        "refs": [
+          2,
+          4,
+          5,
+          6
+        ],
+        "reason": "AI 기대감으로 인한 반도체 쏠림 현상이 언급되었으며, 이는 증시 변동성을 키우는 요인으로 분석되었습니다. 일부 영상에서는 삼성전자, SK하이닉스와 같은 반도체 대장주에 대한 언급과 함께 향후 주가 흐름에 대한 전망이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.25 오후 방송 전체보기] AI 기대감에 커진 반도체 쏠림의 역설…금융위기 때보다 커진 증시 변동성, 무엇이 문제인가",
+            "url": "https://www.youtube.com/watch?v=p7VzsJTeqmw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 19:10:50 KST"
+          },
+          {
+            "title": "깐부도 의미없는 장...반도체가 지겹다면 로봇으로? | 박지훈 NH투자증권 부장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=_npClkKKRrM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 18:00:10 KST"
+          },
+          {
+            "title": "반토막 난 코스피, 닷컴버블과 비교하면 안 된다…내년 2분기 증시 상승을 기대하는 이유ㅣ홍선애, 문남중 대신증권 리서치센터 수석연구위원 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=ndChrW-zsdE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 18:00:03 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등하면 조금 파세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=3rVJujtM4HE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 17:45:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 기술 발전이 반도체 섹터의 성장 동력으로 언급되었습니다. AI 관련 기대감이 증시에 미치는 영향과 함께, AI 기술이 가져올 산업 변화에 대한 논의가 포함되었습니다.",
+        "refs": [
+          2,
+          5
+        ],
+        "reason": "AI 기술 발전이 반도체 섹터의 성장 동력으로 언급되었습니다. AI 관련 기대감이 증시에 미치는 영향과 함께, AI 기술이 가져올 산업 변화에 대한 논의가 포함되었습니다.",
+        "related_videos": [
+          {
+            "title": "[26.11.25 오후 방송 전체보기] AI 기대감에 커진 반도체 쏠림의 역설…금융위기 때보다 커진 증시 변동성, 무엇이 문제인가",
+            "url": "https://www.youtube.com/watch?v=p7VzsJTeqmw",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 19:10:50 KST"
+          },
+          {
+            "title": "반토막 난 코스피, 닷컴버블과 비교하면 안 된다…내년 2분기 증시 상승을 기대하는 이유ㅣ홍선애, 문남중 대신증권 리서치센터 수석연구위원 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=ndChrW-zsdE",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 18:00:03 KST"
+          }
+        ]
+      },
+      {
+        "name": "로봇",
+        "freq": 1,
+        "summary": "반도체 섹터에 대한 지겨움을 느끼는 투자자들에게 로봇 섹터가 대안으로 제시되었습니다. 로봇 산업의 성장 가능성에 대한 언급이 있었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "반도체 섹터에 대한 지겨움을 느끼는 투자자들에게 로봇 섹터가 대안으로 제시되었습니다. 로봇 산업의 성장 가능성에 대한 언급이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "깐부도 의미없는 장...반도체가 지겹다면 로봇으로? | 박지훈 NH투자증권 부장 [아침N투자]",
+            "url": "https://www.youtube.com/watch?v=_npClkKKRrM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 18:00:10 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자는 한국 주식 시장에서 중요한 종목으로 언급되었습니다. 일부 영상에서는 삼성전자의 주가 흐름에 대한 전망과 함께, 향후 급등 시 매도에 대한 조언이 있었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "삼성전자는 한국 주식 시장에서 중요한 종목으로 언급되었습니다. 일부 영상에서는 삼성전자의 주가 흐름에 대한 전망과 함께, 향후 급등 시 매도에 대한 조언이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등하면 조금 파세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=3rVJujtM4HE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 17:45:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 1,
+        "summary": "SK하이닉스는 삼성전자와 함께 한국 주식 시장에서 주목받는 반도체 기업으로 언급되었습니다. 향후 주가 상승에 대한 기대감이 제시되었습니다.",
+        "refs": [
+          6
+        ],
+        "reason": "SK하이닉스는 삼성전자와 함께 한국 주식 시장에서 주목받는 반도체 기업으로 언급되었습니다. 향후 주가 상승에 대한 기대감이 제시되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등하면 조금 파세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=3rVJujtM4HE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 17:45:04 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 4
+        },
+        {
+          "name": "Workday",
+          "freq": 2
+        },
+        {
+          "name": "Dell",
+          "freq": 2
+        },
+        {
+          "name": "Starbucks",
+          "freq": 1
+        },
+        {
+          "name": "Softbank",
+          "freq": 1
+        },
+        {
+          "name": "Best Buy",
+          "freq": 1
+        },
+        {
+          "name": "Analog Devices",
+          "freq": 1
+        },
+        {
+          "name": "Dick’s Sporting Goods",
+          "freq": 1
+        },
+        {
+          "name": "GoodRx",
+          "freq": 1
+        },
+        {
+          "name": "Bristol-Myers Squibb",
+          "freq": 1
+        },
+        {
+          "name": "Li Auto",
+          "freq": 1
+        },
+        {
+          "name": "Tesla",
+          "freq": 1
+        },
+        {
+          "name": "SpaceX",
+          "freq": 1
+        },
+        {
+          "name": "Citigroup",
+          "freq": 1
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "Tech",
+          "freq": 4
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Automotive",
+          "freq": 2
+        },
+        {
+          "name": "Cloud Computing",
+          "freq": 1
+        },
+        {
+          "name": "Biotechnology",
+          "freq": 1
+        },
+        {
+          "name": "Healthcare",
+          "freq": 1
+        },
+        {
+          "name": "Banking",
+          "freq": 1
+        },
+        {
+          "name": "Travel",
+          "freq": 1
+        },
+        {
+          "name": "Real Estate",
+          "freq": 1
+        },
+        {
+          "name": "Robotics",
+          "freq": 1
+        },
+        {
+          "name": "Consumer Confidence",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전기",
+          "freq": 2
+        },
+        {
+          "name": "한국투자저축은행",
+          "freq": 2
+        },
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "빗썸",
+          "freq": 1
+        },
+        {
+          "name": "고려아연",
+          "freq": 1
+        },
+        {
+          "name": "CJ ENM",
+          "freq": 1
+        },
+        {
+          "name": "나라셀라",
+          "freq": 1
+        },
+        {
+          "name": "코웨이",
+          "freq": 1
+        },
+        {
+          "name": "KT",
+          "freq": 1
+        },
+        {
+          "name": "한화에어로스페이스",
+          "freq": 1
+        },
+        {
+          "name": "KAI",
+          "freq": 1
+        },
+        {
+          "name": "LG헬로비전",
+          "freq": 1
+        },
+        {
+          "name": "SK그룹",
+          "freq": 1
+        },
+        {
+          "name": "안랩",
+          "freq": 1
+        },
+        {
+          "name": "삼성전자",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 2
+        },
+        {
+          "name": "자동차",
+          "freq": 2
+        },
+        {
+          "name": "항공우주",
+          "freq": 2
+        },
+        {
+          "name": "안전",
+          "freq": 2
+        },
+        {
+          "name": "가상자산",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "바이오",
+          "freq": 1
+        },
+        {
+          "name": "미디어",
+          "freq": 1
+        },
+        {
+          "name": "기술",
+          "freq": 1
+        },
+        {
+          "name": "주류",
+          "freq": 1
+        },
+        {
+          "name": "수자원",
+          "freq": 1
+        },
+        {
+          "name": "주택",
+          "freq": 1
+        },
+        {
+          "name": "국방",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
