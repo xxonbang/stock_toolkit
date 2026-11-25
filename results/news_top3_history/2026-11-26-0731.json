@@ -1,0 +1,910 @@
+{
+  "generated_at": "2026-11-26 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 18건)",
+        "us_news_refs": [
+          2,
+          4,
+          8,
+          10,
+          12,
+          13,
+          15,
+          19,
+          21,
+          26,
+          31,
+          35,
+          36,
+          37,
+          42,
+          43,
+          44,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Stocks Swoon as AI Fears Spur Rush to Treasuries: Markets Wrap - Bloomberg",
+            "title_ko": "AI 공포에 국채로 몰린 증시 급락: 마켓 랩 - Bloomberg",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWjE4Zm9DOUxVdmFFaTlaQVJMWHFaVEVGVy1JcTNEcEc3bnhET2xfaGNCdFlpbXkwS210Tkx0d3JVUWVzbzA4amhwWU1FWGxLd2E0YUJBY1lOOUNlVmlwNF83b3Bqc2dqaWVMTzUwSGFfYWNJVDZwXzh5TGp5YUZaTzZoa0dZenZfalhyelF0UUZwbllhOEZIbWNGc1V3OHQxWlhfV3ZoeGdKRURCS3dTVEFSRnk?oc=5",
+            "published_at": "2026-11-26 06:30:24 KST"
+          },
+          {
+            "title": "Volatility-weary investors side swiped as tariff mayhem adds to tech pain - Reuters",
+            "title_ko": "관세 혼란이 기술주 고통 가중, 변동성 지친 투자자들 강타 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNZGd2TDZySmQ2VXE4QUhfUG1OOGU3S3l4eWVDMGFKLWNVRlp1dE1zYnNmOUNYTGpQeGZtS3RrWC11R0x0aEo2YnBsU2Y1NTEwT2V2eF9fQmhfLXc1ekFmajRGUWg0NVZheFBtUy15RWd6NkpsZzFSZTY1M1FIYjI5b2htVWVYemdvRDQyTUFQbw?oc=5",
+            "published_at": "2026-11-26 05:50:19 KST"
+          },
+          {
+            "title": "Anthropic's slide tests Wall Street's lofty bets on future AI profits - Reuters",
+            "title_ko": "Anthropic의 하락세, AI 미래 수익에 대한 월스트리트의 높은 베팅 시험대 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZE1sRHlKd3Y1aUpqaUVpeFQ3QjFmX191blVmM1gyS0hidW81RjFjSXJjQndnODAwQU9qb3VkYkJfZ3ppYzdBQ1J5cTRUaDMzamxvZVNsYzB6RUpiVzd2RlhxV2hKaDRjTFdhamRKZ3g3MXZDY1c5c3NMalpmc09aQ3JnNGEyQTR5NG85OW9VTEE1NW9md1VKdFYxeTlnbWNjd25UcjVwamhDX1pIaXc?oc=5",
+            "published_at": "2026-11-26 03:35:00 KST"
+          },
+          {
+            "title": "‘If we can solve Riemann, what can’t we do?’: mathematicians shocked and excited by AI breakthroughs - Nature",
+            "title_ko": "리만 가설 풀면 무엇을 못하겠나? AI 혁신에 수학자들 충격과 흥분 - Nature",
+            "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBZdFR3XzYzM0lfVVQ2b3Uxb2R6aTdJMW0yeVp5ck5nNWJwMVg5M2ZKS215ckhEaW1URThMWVFwUXc0QjBlRUgyYUF1SWprWWlFcWJ4djNrTjE0aTA3Wmtj?oc=5",
+            "published_at": "2026-11-26 03:23:56 KST"
+          },
+          {
+            "title": "Cutting-edge Nvidia chips not hard to find for sale in China, despite U.S. ban - The Washington Post",
+            "title_ko": "첨단 Nvidia 칩, 미국 제재에도 중국서 구하기 어렵지 않아 - The Washington Post",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWU5hX1JQNkttU1FuMGgzNXZKNnp3MXhQWTVRcko3Mi1nT2JSZncyQV9RVGV3cHRGSG1zbm5yNUhmU3kyaVJvZ0FQU1dkMFIxTnB5R1lpNDJ4cnVWalN4bFY0aXVDX1VuV2dGbEZ1WDFXSjdQTGIwd2NjR0NTdmc2RGE1UkdHenZ1Wksta0NwUWc3aGcxdWlCVXlvUDNLVk9SRlF4bw?oc=5",
+            "published_at": "2026-11-26 03:00:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "블랙프라이데이",
+        "reason": "연말 쇼핑 시즌을 앞두고 소비 심리 및 관련 기업들의 실적 기대감이 부각됨 (총 4건)",
+        "us_news_refs": [
+          3,
+          9,
+          43,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "The 150+ Best Black Friday Deals Live Right Now - The New York Times",
+            "title_ko": "지금 바로 구매 가능한 150개 이상 최고의 블랙프라이데이 딜 - The New York Times",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMHhwRmVVV1NiUHR6UGtqcUsyMjZUVjV4RklvcjBFV2xmZF9udjFJaXlrMHVNWW5WcmJQcVE2RXNCbGFWMHJqS0ZicEFhNXFQSnFsZ3k1VUJZUV9aN1FBLW51eDM1RktnZUN5QXJPSUZ5OF9qN2pjanlCMGx3SVQtS0NpZGlFUi1E?oc=5",
+            "published_at": "2026-11-26 06:26:07 KST"
+          },
+          {
+            "title": "Thanksgiving Day hours: What’s open and closed across grocery, retail and restaurants - Fox Business",
+            "title_ko": "추수감사절 영업시간: 식료품, 소매, 식당 영업 및 휴무 안내 - Fox Business",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQcEk3eGsyeWQ1M0R2WlU0cWRzWmhwSUNXM3poaHQzUzVDTzh0YXdkOVYtQmJsVThBTXJQSTRSVmN1Tzl4YUVyZDhXeTUzcW5XaHIzM0hsS0NkRHFVc1NxcXZjdVBRdUt5VUNqNGxjZ1RVeU9XZ1d0NGRzSnFEeGJfQWtaQ0dRS2xTQ0Vmc3RpZ1lVTWpPTWJmRTRFWTFHQlhYclR1cHlQQmpUN1FNMDc2YTRB0gG3AUFVX3lxTE1lYVA0ZEd6X0FJZ1BVMVVOdmo1MzdZMF9MVjlTYWtWT2YyTm5pUGY0RzN3Nnh3X0tQcDJYM0YzeHlnS3VDQndSdjU4NGZtU0VESGxCMFBMaXV0bmh0X2RORU5BYWxQSllxTWFrRHdjelBCM1k0WjBLUzhhWDcybXJjTTE5NlBtbEc3QmFOTkZjNUhYOUJ2elVvWDI0TF9QTUxVWHFuMHh0aDRQR3pnQXRkcDBRa3RXOA?oc=5",
+            "published_at": "2026-11-26 03:25:00 KST"
+          },
+          {
+            "title": "What to know before using AI agents for Black Friday shopping - NPR",
+            "title_ko": "블랙프라이데이 쇼핑 AI 에이전트 사용 전 알아야 할 것 - NPR",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQNDlWaVNLMGhDTHpmeHc1MmJNNDVIcVZ0WVNDUnhyYlZlS3BGR1lGdThQYWppcW5NSkxpbXhscG4tZkttMUJqZmhRNmI2OHNYbjBJSnRjdG1fNXpxelg0dm5kTFJjOVhCQ255VWhNYmkydHpmRnlaRnh0aWFvZHhLVmVfSVBMLVh4Q2tPVUNJUjloT3NJLXFsTExDcGUzbF9TeXRxMDg0dFJJUQ?oc=5",
+            "published_at": "2026-11-25 22:51:56 KST"
+          },
+          {
+            "title": "Looking for a Black Friday car deal? These 10 could save you thousands - USA Today",
+            "title_ko": "블랙프라이데이 자동차 딜 찾으세요? 이 10가지로 수천 달러 절약 가능 - USA Today",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxORm95NkFaQ1dmYm5kNVlHVldLU3lQOUhaSFpqdWwxNmhuUHBXLUxDWC1NSkdCekM5ZWQ5dnhOUE5jR05kbC1pcWU2NlhoeThGay0yRXB6LVBMVTdnSFprUXFsekp4em1QNE9idVdhWDZoSEpkN0dVZ2kxTzlZVl9PV3dfSlRkU2dyUDZMcXRpazllckU1Y19uNmlNZVRDMDdYU21ORS02RkF5VHhySDdUag?oc=5",
+            "published_at": "2026-11-25 21:16:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 칩 수요 강세와 관련 기술 발전이 반도체 섹터 전반에 긍정적인 영향을 미치고 있음 (총 8건)",
+        "us_news_refs": [
+          12,
+          15,
+          23,
+          26,
+          31,
+          36,
+          37,
+          42
+        ],
+        "related_news": [
+          {
+            "title": "Cutting-edge Nvidia chips not hard to find for sale in China, despite U.S. ban - The Washington Post",
+            "title_ko": "첨단 Nvidia 칩, 미국 제재에도 중국서 구하기 어렵지 않아 - The Washington Post",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWU5hX1JQNkttU1FuMGgzNXZKNnp3MXhQWTVRcko3Mi1nT2JSZncyQV9RVGV3cHRGSG1zbm5yNUhmU3kyaVJvZ0FQU1dkMFIxTnB5R1lpNDJ4cnVWalN4bFY0aXVDX1VuV2dGbEZ1WDFXSjdQTGIwd2NjR0NTdmc2RGE1UkdHenZ1Wksta0NwUWc3aGcxdWlCVXlvUDNLVk9SRlF4bw?oc=5",
+            "published_at": "2026-11-26 03:00:00 KST"
+          },
+          {
+            "title": "Nvidia sellers seek new buyers as U.S. curbs China AI chip access, sources tell CNBC - CNBC",
+            "title_ko": "미국, 중국 AI 칩 접근 제한에 Nvidia 판매자 새 구매자 찾아 - CNBC",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1IN1pwRHJFN1ZiXzJpeXpsLWI5RGJNMTNUU3VSNFY5Q21iUkVkNDhneFg2VFg4TTI3R3k5RXUtb0hBRGRhYkVXdXZablA3dG4zSF9yc3Q5YmVDTjBBZjAxMXJFWUdCUFFwZHQ3dm9QWG5uSWhXdS1KRGRVY9IBgAFBVV95cUxPYW9MbXdwMWFTZFd6dmhZLVNGYzdHUmNDaF9VQk5jN2lMdDFfU010WUdOX2t1ai1qNXYtZi1TbnVTbEt6b0pvejRsdjJoYmZuWXJwZjl4TkpuZHNpeHNIbEpFZkxuc3RnNExQZGRWZ0ZQTy0xYU9wYnhCT3k5a2tBUA?oc=5",
+            "published_at": "2026-11-26 02:28:24 KST"
+          },
+          {
+            "title": "Dermata Therapeutics receives Nasdaq notice for minimum bid price non-compliance",
+            "title_ko": "Dermata Therapeutics, 나스닥 최저 입찰가 미달 통지 수신",
+            "url": "https://www.investing.com/news/sec-filings/dermata-therapeutics-receives-nasdaq-notice-for-minimum-bid-price-noncompliance-93CH-5051650",
+            "published_at": "2026-11-26 07:22:34 KST"
+          },
+          {
+            "title": "Stardust Power to be delisted from Nasdaq; board member resigns",
+            "title_ko": "Stardust Power, 나스닥 상장 폐지 예정; 이사회 멤버 사임",
+            "url": "https://www.investing.com/news/sec-filings/stardust-power-to-be-delisted-from-nasdaq-board-member-resigns-93CH-5051634",
+            "published_at": "2026-11-26 07:18:48 KST"
+          },
+          {
+            "title": "S&P Global places Nvidia rating on 'CreditWatch Negative' on rising management and governance risks - Reuters",
+            "title_ko": "S&P Global, 경영 및 거버넌스 위험 증가로 Nvidia 등급 '신용등급 부정적 검토' - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNb1ZBby1iVDJnTmJwX3hDYWJpU2lxTUdLTHdlWHFqRHJUcmtTOWFuQkFRTlUyZTJBcGdNMWR3N3d1YlJIV05kWk1mU21JSDZmSVpZR1BlanpqRzFXSkg3NkxkeElWcHM0Q2Y4eFJKb3Fha29XakxYNFJ4cXExZHo4MFVDOHdDbENrQWs0d0lqQ3Z5cEVDRVBQR1hNNWZxSmhiUll4NFg1amZlU01oWm9fN2hkUFBBNkdKT21v?oc=5",
+            "published_at": "2026-11-26 04:54:35 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요와 빅테크 실적 발표 모멘텀이 주가에 반영됨 (총 13건)",
+        "us_news_refs": [
+          1,
+          2,
+          4,
+          12,
+          13,
+          14,
+          15,
+          21,
+          23,
+          26,
+          31,
+          34,
+          37
+        ],
+        "related_news": [
+          {
+            "title": "How the Trump administration determined Jensen Huang is not a national security threat - Reuters",
+            "title_ko": "트럼프 행정부, 젠슨 황을 안보 위협으로 보지 않은 이유 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOZ0IzSk1IWkpMeGFmZWlDR2RseE11U3ZSbXlIOGdQalJyOS1rakJjUUxYZDYwd2ZYZERTQTdNNTQzR1dVMmRwVU1KNmhxc2ZtOXhwczJJckVxT0dUSHJnZEJpUnp0MXVVX1VqSElzQkJLc25neHJEZEYzZ0R5LXdnb01hNGZaTFFrbEc3c1haRVZpUUFldnRZY3NqVmlSRGVNVEloQ1Q2Q29VQzlRSWxtSUdnVHNIUGVwZ2VuekdHS1I1UQ?oc=5",
+            "published_at": "2026-11-26 06:55:12 KST"
+          },
+          {
+            "title": "Stocks Swoon as AI Fears Spur Rush to Treasuries: Markets Wrap - Bloomberg",
+            "title_ko": "AI 공포에 국채로 몰린 증시 급락: 마켓 랩 - Bloomberg",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWjE4Zm9DOUxVdmFFaTlaQVJMWHFaVEVGVy1JcTNEcEc3bnhET2xfaGNCdFlpbXkwS210Tkx0d3JVUWVzbzA4amhwWU1FWGxLd2E0YUJBY1lOOUNlVmlwNF83b3Bqc2dqaWVMTzUwSGFfYWNJVDZwXzh5TGp5YUZaTzZoa0dZenZfalhyelF0UUZwbllhOEZIbWNGc1V3OHQxWlhfV3ZoeGdKRURCS3dTVEFSRnk?oc=5",
+            "published_at": "2026-11-26 06:30:24 KST"
+          },
+          {
+            "title": "Volatility-weary investors side swiped as tariff mayhem adds to tech pain - Reuters",
+            "title_ko": "관세 혼란이 기술주 고통 가중, 변동성 지친 투자자들 강타 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNZGd2TDZySmQ2VXE4QUhfUG1OOGU3S3l4eWVDMGFKLWNVRlp1dE1zYnNmOUNYTGpQeGZtS3RrWC11R0x0aEo2YnBsU2Y1NTEwT2V2eF9fQmhfLXc1ekFmajRGUWg0NVZheFBtUy15RWd6NkpsZzFSZTY1M1FIYjI5b2htVWVYemdvRDQyTUFQbw?oc=5",
+            "published_at": "2026-11-26 05:50:19 KST"
+          },
+          {
+            "title": "Cutting-edge Nvidia chips not hard to find for sale in China, despite U.S. ban - The Washington Post",
+            "title_ko": "첨단 Nvidia 칩, 미국 제재에도 중국서 구하기 어렵지 않아 - The Washington Post",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWU5hX1JQNkttU1FuMGgzNXZKNnp3MXhQWTVRcko3Mi1nT2JSZncyQV9RVGV3cHRGSG1zbm5yNUhmU3kyaVJvZ0FQU1dkMFIxTnB5R1lpNDJ4cnVWalN4bFY0aXVDX1VuV2dGbEZ1WDFXSjdQTGIwd2NjR0NTdmc2RGE1UkdHenZ1Wksta0NwUWc3aGcxdWlCVXlvUDNLVk9SRlF4bw?oc=5",
+            "published_at": "2026-11-26 03:00:00 KST"
+          },
+          {
+            "title": "Nvidia Stock Keeps Falling. It’s Obvious Jensen Was Not the Only Problem. - Barron's",
+            "title_ko": "Nvidia 주가 계속 하락. 젠슨만이 유일한 문제가 아니었음은 명백 - Barron's",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1qNE95d05EdUt4VmhtanBHWXZjaEZhUktJLXRZaUNqejRZWk1lRW5lRUdUbFhMOGM5OUZBVUNYOVAwZTk0LURzQ3RSZHJTU29QT3dGdWhyTjdaMzJUcUdFaUFMMktvUkx3aWE4LTRvUnYtN3NYZHU0TTJR?oc=5",
+            "published_at": "2026-11-26 02:50:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "SpaceX",
+        "reason": "우주 탐사 및 관련 기술 개발에 대한 지속적인 관심이 섹터 내 주목도를 높이고 있음 (총 4건)",
+        "us_news_refs": [
+          5,
+          6,
+          10,
+          36
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SpaceX, Musk pledge to donate a share each to active Trump Accounts - CNBC",
+            "title_ko": "SpaceX, Musk, 트럼프 계정에 지분 기부 약속 - CNBC",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9JR3BiQWdENkItZjIyRUU3TWVYVFB3N0dYcDlNNmU3NG1lZEVXUFZ3dl9fVUpKcWwyemZkYTYtQ25xbVNnMGZ5SUNiWjJyckxXNzVJSEg5ZWkyUnM2UEZTQVJLTllDSlFCdU9lLWU3RjRmdlZGZ0dv0gF8QVVfeXFMT1p4Yzk2RWM5RVp6b2J2VEZObUpGbktpcXBFLTdHN3BadmxTeFZNdmJWV2Y4YjdVZnVTMnBEU0R3WF9fZXhWY0dNNUpQbjVwTjhYazFwMDhJRXd3VkNxLWRIVHpJZzVvRUtWbUhzQ181cUYtU29xdm9aRVBYOQ?oc=5",
+            "published_at": "2026-11-26 05:07:57 KST"
+          },
+          {
+            "title": "SpaceX gets green light to deploy 1 million satellites for data centers in space - NBC News",
+            "title_ko": "SpaceX, 우주 데이터센터 위한 위성 100만 개 배치 승인 - NBC News",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNUE1ZSDI1cldnWVJ2dFE3RnRhVFlXWXZCcW1aR3EwcEVfYUh2ZWJ1MWV6S3hDTEpXYVJ3VVlfM3Y5OGVrZzMzMHdDSzEtbkVHV3hJbDR4ODFueUtxNEVENzlBSlRjdTRqcWc1SDJ2dUlGcFRIdUNKaTJId0pPZTVfdmJCMWFVai1WTnRQdGFSc21ZTkRodVBCTVAtbUNLRW1HREwzY2xSU3Z3dGl5OWtv?oc=5",
+            "published_at": "2026-11-26 04:54:25 KST"
+          },
+          {
+            "title": "‘If we can solve Riemann, what can’t we do?’: mathematicians shocked and excited by AI breakthroughs - Nature",
+            "title_ko": "리만 가설 풀면 무엇을 못하겠나? AI 혁신에 수학자들 충격과 흥분 - Nature",
+            "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBZdFR3XzYzM0lfVVQ2b3Uxb2R6aTdJMW0yeVp5ck5nNWJwMVg5M2ZKS215ckhEaW1URThMWVFwUXc0QjBlRUgyYUF1SWprWWlFcWJ4djNrTjE0aTA3Wmtj?oc=5",
+            "published_at": "2026-11-26 03:23:56 KST"
+          },
+          {
+            "title": "Billions in Data Center Deals Grind to Halt After AI Chip Curbs - Yahoo Finance",
+            "title_ko": "AI 칩 규제로 수십억 달러 규모 데이터센터 거래 중단 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNMzBLOEdxVEtoZ2Z4Q0I3ZXBNTXZDV2FwckpNNjJIaVVqZWlBM25XUVdabFlsNWVYZ0hUY2pwU1AyY0dHZUwyZ0JGTGo4clRnMDl5a0tweEFtdzJNWWNCRlZZWXU3bmtXMEZvNDZEMEhSNUI0ei1mNThRaXlkVmpMUnJZSjZsLV9qOVZVbDFHeG82dXJyblBjdi1MbWk?oc=5",
+            "published_at": "2026-11-26 01:01:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "reason": "AI 기술 경쟁 심화 속에서 새로운 AI 모델 개발 및 투자 소식이 주목받고 있음 (총 4건)",
+        "us_news_refs": [
+          2,
+          8,
+          19,
+          42
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stocks Swoon as AI Fears Spur Rush to Treasuries: Markets Wrap - Bloomberg",
+            "title_ko": "AI 공포에 국채로 몰린 증시 급락: 마켓 랩 - Bloomberg",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWjE4Zm9DOUxVdmFFaTlaQVJMWHFaVEVGVy1JcTNEcEc3bnhET2xfaGNCdFlpbXkwS210Tkx0d3JVUWVzbzA4amhwWU1FWGxLd2E0YUJBY1lOOUNlVmlwNF83b3Bqc2dqaWVMTzUwSGFfYWNJVDZwXzh5TGp5YUZaTzZoa0dZenZfalhyelF0UUZwbllhOEZIbWNGc1V3OHQxWlhfV3ZoeGdKRURCS3dTVEFSRnk?oc=5",
+            "published_at": "2026-11-26 06:30:24 KST"
+          },
+          {
+            "title": "Anthropic's slide tests Wall Street's lofty bets on future AI profits - Reuters",
+            "title_ko": "Anthropic의 하락세, AI 미래 수익에 대한 월스트리트의 높은 베팅 시험대 - Reuters",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZE1sRHlKd3Y1aUpqaUVpeFQ3QjFmX191blVmM1gyS0hidW81RjFjSXJjQndnODAwQU9qb3VkYkJfZ3ppYzdBQ1J5cTRUaDMzamxvZVNsYzB6RUpiVzd2RlhxV2hKaDRjTFdhamRKZ3g3MXZDY1c5c3NMalpmc09aQ3JnNGEyQTR5NG85OW9VTEE1NW9md1VKdFYxeTlnbWNjd25UcjVwamhDX1pIaXc?oc=5",
+            "published_at": "2026-11-26 03:35:00 KST"
+          },
+          {
+            "title": "Anthropic is getting more AI from less compute. That's great for Anthropic and bad for everyone else. - Business Insider",
+            "title_ko": "Anthropic, 적은 컴퓨팅으로 더 많은 AI 확보. Anthropic엔 좋고 타인에겐 나쁨 - Business Insider",
+            "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPWnFXQUktajV6cmdhc05MNGxPbUlzbk1MenZFUENscnBzV3JIYU1DUXJGdHlSQUpTaGE3ZUhhczNsdDUzSHJSQ0s2QzJmQXV1aFdhVk5Sb3hVR1lMZ0dBTWRxZWJObFgzTERMQlRRQksyNFBFcVRUQllWeUJIX1dnNnNmX3JTU2JWNTFHT3M4c2tkcUM4N042UF9hRFpFX0l3M2tyNTlhZE5HZnFu?oc=5",
+            "published_at": "2026-11-26 01:38:00 KST"
+          },
+          {
+            "title": "Chinese AI Firms Confront Dire Future as U.S. Tightens Access to Chips and Tokens - The Information",
+            "title_ko": "중국 AI 기업, 미국 칩 및 토큰 접근 강화에 절망적 미래 직면 - The Information",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcUtIYnhjUFNSRkJpR2wtTzl0Z3RIekt5dHF0Q0lGamVnNjBPU0Y1V19QY2p3MGc0NVlUSjV6cmVTN2FYVkk1cXJseTJKMXo0UG5LRC1iMU91WlcxbFFwc0p0ZEtKcS1reTVsbk1hWk1YZWpiWHMzYWNXTUg2YjZLYjQwbTFxVUlxRDBVTDRWcTFVa1JsZ2hCNTNGSEhHQWdrNnNCbGctUWU4d0M2cmxB?oc=5",
+            "published_at": "2026-11-25 23:00:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 반도체 및 관련 기술 개발에 대한 지속적인 투자와 수요 증가가 섹터 전반의 강세를 이끌고 있음 (총 14건)",
+        "kr_news_refs": [
+          4,
+          6,
+          20,
+          21,
+          22,
+          26,
+          28,
+          42,
+          48,
+          53,
+          55,
+          83,
+          85,
+          95
+        ],
+        "related_news": [
+          {
+            "title": "젠슨황 복귀에 '美부통령·상무장관 vs 국무·재무장관' 편 갈려",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126012300071",
+            "published_at": "2026-11-26 07:14:26 KST"
+          },
+          {
+            "title": "미 정부, 스페이스X의 우주 데이터센터 승인…‘트럼프 계좌’에 주식 기부도",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12218877",
+            "published_at": "2026-11-26 07:12:46 KST"
+          },
+          {
+            "title": "멜론 1위 AI 노래, 마음대로 이용해도 될까 [지평 테크레이더]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12218483",
+            "published_at": "2026-11-26 07:00:00 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 26일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12218293",
+            "published_at": "2026-11-26 07:00:00 KST"
+          },
+          {
+            "title": "뉴욕증시, AI 투자 불안에 또 롤러코스터…나스닥 0.6%↓(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126009851072",
+            "published_at": "2026-11-26 06:59:59 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "reason": "AI 시장 성장에 따른 고성능 반도체 수요 증가와 기술 혁신이 섹터의 핵심 동력으로 작용하고 있음 (총 9건)",
+        "kr_news_refs": [
+          4,
+          21,
+          23,
+          26,
+          27,
+          36,
+          42,
+          85,
+          99
+        ],
+        "related_news": [
+          {
+            "title": "젠슨황 복귀에 '美부통령·상무장관 vs 국무·재무장관' 편 갈려",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126012300071",
+            "published_at": "2026-11-26 07:14:26 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 26일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12218293",
+            "published_at": "2026-11-26 07:00:00 KST"
+          },
+          {
+            "title": "'美제재 무색' 中상가서 수출금지 엔비디아 최첨단칩 버젓이 유통",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126010700091",
+            "published_at": "2026-11-26 06:56:06 KST"
+          },
+          {
+            "title": "엔비디아 신용등급 강등 검토하는 S&P…“경영·지배구조 평가 악화”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12218865",
+            "published_at": "2026-11-26 06:42:12 KST"
+          },
+          {
+            "title": "D램 우려에 마이크론 이틀새 15% 급락…고점 반토막",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126012100009",
+            "published_at": "2026-11-26 06:41:27 KST"
+          }
+        ]
+      },
+      {
+        "name": "가상자산",
+        "reason": "가상자산 시장의 변동성과 함께 관련 규제 및 기술 발전 동향이 투자자들의 관심을 받고 있음 (총 3건)",
+        "kr_news_refs": [
+          25,
+          47,
+          53
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "빗썸, 3분기 가상자산 처분손실 690억원…작년 동기 86배",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261125165200002",
+            "published_at": "2026-11-26 06:45:01 KST"
+          },
+          {
+            "title": "업비트서 바이낸스로 반년간 4천억원 순유출…\"파생상품 수요\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261125137600002",
+            "published_at": "2026-11-26 06:13:01 KST"
+          },
+          {
+            "title": "AI 시험 부정행위 장비 판매 관련 지갑에 28억원어치 테더 유입",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261125177600002",
+            "published_at": "2026-11-26 06:05:01 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 반도체 시장의 선두 주자로서 지속적인 기술 혁신과 수요 증가가 주가에 긍정적인 영향을 미치고 있음 (총 4건)",
+        "kr_news_refs": [
+          4,
+          21,
+          23,
+          26
+        ],
+        "related_news": [
+          {
+            "title": "젠슨황 복귀에 '美부통령·상무장관 vs 국무·재무장관' 편 갈려",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126012300071",
+            "published_at": "2026-11-26 07:14:26 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 26일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12218293",
+            "published_at": "2026-11-26 07:00:00 KST"
+          },
+          {
+            "title": "'美제재 무색' 中상가서 수출금지 엔비디아 최첨단칩 버젓이 유통",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126010700091",
+            "published_at": "2026-11-26 06:56:06 KST"
+          },
+          {
+            "title": "엔비디아 신용등급 강등 검토하는 S&P…“경영·지배구조 평가 악화”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/world/12218865",
+            "published_at": "2026-11-26 06:42:12 KST"
+          }
+        ]
+      },
+      {
+        "name": "스페이스X",
+        "reason": "우주 탐사 및 위성 인터넷 사업 확장 등 혁신적인 프로젝트가 지속적으로 주목받고 있음 (총 2건)",
+        "kr_news_refs": [
+          6,
+          10
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "미 정부, 스페이스X의 우주 데이터센터 승인…‘트럼프 계좌’에 주식 기부도",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12218877",
+            "published_at": "2026-11-26 07:12:46 KST"
+          },
+          {
+            "title": "스페이스X-테슬라 5천조원 초대형 합병 진척…특별위 이사 선임",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126012200075",
+            "published_at": "2026-11-26 07:07:34 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "AI 반도체 및 관련 기술 개발에 대한 지속적인 투자와 수요 증가가 섹터 전반의 강세를 이끌고 있음 (총 14건)",
+        "kr_news_refs": [
+          4,
+          6,
+          20,
+          21,
+          22,
+          26,
+          28,
+          42,
+          48,
+          53,
+          55,
+          83,
+          85,
+          95
+        ],
+        "related_news": [
+          {
+            "title": "젠슨황 복귀에 '美부통령·상무장관 vs 국무·재무장관' 편 갈려",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126012300071",
+            "published_at": "2026-11-26 07:14:26 KST"
+          },
+          {
+            "title": "미 정부, 스페이스X의 우주 데이터센터 승인…‘트럼프 계좌’에 주식 기부도",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/it/12218877",
+            "published_at": "2026-11-26 07:12:46 KST"
+          },
+          {
+            "title": "멜론 1위 AI 노래, 마음대로 이용해도 될까 [지평 테크레이더]",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12218483",
+            "published_at": "2026-11-26 07:00:00 KST"
+          },
+          {
+            "title": "매경이 전하는 세상의 지식 (매-세-지, 11월 26일)",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12218293",
+            "published_at": "2026-11-26 07:00:00 KST"
+          },
+          {
+            "title": "뉴욕증시, AI 투자 불안에 또 롤러코스터…나스닥 0.6%↓(종합)",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261126009851072",
+            "published_at": "2026-11-26 06:59:59 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "반도체",
+        "freq": 3,
+        "summary": "삼성전자와 SK하이닉스의 실적 및 시장 상황에 대한 분석이 언급되었습니다. 메모리 가격 하락 및 정점론이 거론되었으며, 향후 급등 시 일부 매도 의견도 제시되었습니다.",
+        "refs": [
+          2,
+          3,
+          8
+        ],
+        "reason": "삼성전자와 SK하이닉스의 실적 및 시장 상황에 대한 분석이 언급되었습니다. 메모리 가격 하락 및 정점론이 거론되었으며, 향후 급등 시 일부 매도 의견도 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "미국, 중국 등에 과잉 생산 관세…한국은 15% 상한 유지 | 내년부터 낸드 가격 하락...D램도 메모리값 정점론 거론 | 정프로, 이주호, 권순우, 이혁진 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=KtnvpzjdIjg",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-26 05:28:42 KST"
+          },
+          {
+            "title": "반등장에서 드러난 삼성전자·SK하이닉스의 이상 신호…추가 매수에서 절반 매도로 돌아선 이유ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=C6ApP7Rw_Wk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 21:00:24 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등하면 조금 파세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=3rVJujtM4HE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 17:45:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "freq": 1,
+        "summary": "AI 안경이 수능에 미칠 영향에 대한 논의가 있었습니다. 이는 교육 시스템 변화와 관련된 이슈로 다루어졌습니다.",
+        "refs": [
+          5
+        ],
+        "reason": "AI 안경이 수능에 미칠 영향에 대한 논의가 있었습니다. 이는 교육 시스템 변화와 관련된 이슈로 다루어졌습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI 안경이 부른, 30년 된 수능의 종말",
+            "url": "https://www.youtube.com/watch?v=0JWvZlIRTG4",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-25 20:05:29 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 3,
+        "summary": "삼성전자의 이상 신호와 추가 매수에서 절반 매도로 돌아선 이유에 대한 분석이 제시되었습니다. 향후 급등 시 일부 매도 의견도 언급되었습니다.",
+        "refs": [
+          3,
+          8
+        ],
+        "reason": "삼성전자의 이상 신호와 추가 매수에서 절반 매도로 돌아선 이유에 대한 분석이 제시되었습니다. 향후 급등 시 일부 매도 의견도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "반등장에서 드러난 삼성전자·SK하이닉스의 이상 신호…추가 매수에서 절반 매도로 돌아선 이유ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=C6ApP7Rw_Wk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 21:00:24 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등하면 조금 파세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=3rVJujtM4HE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 17:45:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 3,
+        "summary": "SK하이닉스의 이상 신호와 추가 매수에서 절반 매도로 돌아선 이유에 대한 분석이 제시되었습니다. 향후 급등 시 일부 매도 의견도 언급되었습니다.",
+        "refs": [
+          3,
+          8
+        ],
+        "reason": "SK하이닉스의 이상 신호와 추가 매수에서 절반 매도로 돌아선 이유에 대한 분석이 제시되었습니다. 향후 급등 시 일부 매도 의견도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "반등장에서 드러난 삼성전자·SK하이닉스의 이상 신호…추가 매수에서 절반 매도로 돌아선 이유ㅣ명민준, 박가영, 유창희 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=C6ApP7Rw_Wk",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-25 21:00:24 KST"
+          },
+          {
+            "title": "삼성전자, SK하이닉스 정말 무서울 겁니다, 앞으로 급등하면 조금 파세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=3rVJujtM4HE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 17:45:04 KST"
+          }
+        ]
+      },
+      {
+        "name": "엔비디아",
+        "freq": 1,
+        "summary": "나스닥 급락 출발 이후 변동성이 지속되는 가운데 엔비디아의 움직임이 언급되었습니다.",
+        "refs": [
+          1
+        ],
+        "reason": "나스닥 급락 출발 이후 변동성이 지속되는 가운데 엔비디아의 움직임이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "나스닥, 급락 출발 이후 낙폭 축소…엔비디아, 코어위브 등 변동성 지속 | 여도은, 박명석 큐레이터 [월가 뉴스레터]",
+            "url": "https://www.youtube.com/watch?v=XoqCYEsrgro",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-26 07:17:18 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 4
+        },
+        {
+          "name": "SpaceX",
+          "freq": 2
+        },
+        {
+          "name": "Anthropic",
+          "freq": 2
+        },
+        {
+          "name": "Amazon",
+          "freq": 1
+        },
+        {
+          "name": "Lukoil",
+          "freq": 1
+        },
+        {
+          "name": "HP",
+          "freq": 1
+        },
+        {
+          "name": "Nutanix",
+          "freq": 1
+        },
+        {
+          "name": "Microsoft",
+          "freq": 1
+        },
+        {
+          "name": "Cathay General Bancorp",
+          "freq": 1
+        },
+        {
+          "name": "Dermata Therapeutics",
+          "freq": 1
+        },
+        {
+          "name": "Hadron Energy",
+          "freq": 1
+        },
+        {
+          "name": "Stardust Power",
+          "freq": 1
+        },
+        {
+          "name": "Fisher & Paykel",
+          "freq": 1
+        },
+        {
+          "name": "Aflac",
+          "freq": 1
+        },
+        {
+          "name": "1Password",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 3
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "블랙프라이데이",
+          "freq": 4
+        },
+        {
+          "name": "데이터 센터",
+          "freq": 3
+        },
+        {
+          "name": "소매",
+          "freq": 2
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "인플레이션",
+          "freq": 2
+        },
+        {
+          "name": "관세",
+          "freq": 2
+        },
+        {
+          "name": "우주",
+          "freq": 2
+        },
+        {
+          "name": "테크",
+          "freq": 2
+        },
+        {
+          "name": "통신",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        },
+        {
+          "name": "가상자산",
+          "freq": 1
+        },
+        {
+          "name": "드론",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 2
+        },
+        {
+          "name": "스페이스X",
+          "freq": 2
+        },
+        {
+          "name": "Tesla",
+          "freq": 1
+        },
+        {
+          "name": "마이크론",
+          "freq": 1
+        },
+        {
+          "name": "삼성전기",
+          "freq": 1
+        },
+        {
+          "name": "HNIX",
+          "freq": 1
+        },
+        {
+          "name": "LG헬로비전",
+          "freq": 1
+        },
+        {
+          "name": "CJ ENM",
+          "freq": 1
+        },
+        {
+          "name": "빗썸",
+          "freq": 1
+        },
+        {
+          "name": "업비트",
+          "freq": 1
+        },
+        {
+          "name": "롯데마트",
+          "freq": 1
+        },
+        {
+          "name": "롯데하이마트",
+          "freq": 1
+        },
+        {
+          "name": "이마트",
+          "freq": 1
+        },
+        {
+          "name": "롯데백화점",
+          "freq": 1
+        },
+        {
+          "name": "현대차그룹",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 5
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "가상자산",
+          "freq": 3
+        },
+        {
+          "name": "항공",
+          "freq": 2
+        },
+        {
+          "name": "유통",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "IT",
+          "freq": 1
+        },
+        {
+          "name": "금융",
+          "freq": 1
+        },
+        {
+          "name": "음악",
+          "freq": 1
+        },
+        {
+          "name": "농업",
+          "freq": 1
+        },
+        {
+          "name": "게임",
+          "freq": 1
+        },
+        {
+          "name": "건설",
+          "freq": 1
+        },
+        {
+          "name": "서비스",
+          "freq": 1
+        },
+        {
+          "name": "식품",
+          "freq": 1
+        },
+        {
+          "name": "Energy",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
