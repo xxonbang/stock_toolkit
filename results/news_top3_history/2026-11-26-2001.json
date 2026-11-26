@@ -1,0 +1,605 @@
+{
+  "generated_at": "2026-11-26 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "소매",
+        "reason": "월마트 등 소매업체 실적 발표 및 전자상거래 성장세에 대한 관심이 지속됨 (총 4건)",
+        "us_news_refs": [
+          3,
+          33,
+          34,
+          38
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Shein agrees to pay $100 million to settle claims of misleading customers - Scripps News",
+            "title_ko": "Shein, 고객 오인 소송 1억 달러 합의",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPd1ZEcHhzTlpFcmdfYWt0Rk1DbmktazFfQl9ja0xQVTF2MGpIZzc4QW5UQlEwZ0hnOE85NzU3X2pIS2ZoYlpIZFprWXBINkpNSmQzUGQ1a1NkeXU0bVV3REJqTldvcEViZUpRUWdNYks1UVF2ZWdCdURNVVFEQklqRmVrem92Tmh2cDQ1a2tvRHd2aDZJLVoxRVZvMEVFRS0zRWdLWVpfUHRKQVJlQ2o3RWxGZ3JIXzZ1NFE?oc=5",
+            "published_at": "2026-11-26 17:35:44 KST"
+          },
+          {
+            "title": "These Walmart Black Friday Deals are actually cheaper than Amazon — prices start at just $6 - Yahoo",
+            "title_ko": "월마트 블랙프라이데이 딜, 아마존보다 저렴",
+            "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPU1BheU1NZkxMMmEzdWRsbWNFT2NFRGF3WGlNZGU5S2VNSl9LVmJlUkJqQXF1cHEyeEJPUjUyUHVFWi1uN0lsVjYxaHlaUE8wM0g4SDAwSzVqYzYzWkdwLXpIS0lqa2tuZGZHWVlJLWQwdFZNOHozMjZrVzhqTURKbW1Oa19qWVVFTl9WN0lSeUFINGxJMlU4NE9EYTNIa2NxZ291X2JFRElNSjRHRHRrV3BqWFNrNm5DclhRcGN6VmNEYmpUb0pzZk5LT2FZcnhCSVZYTjU0MTM1aDVWS3hpWFM3OFBQODVhcm9sSVJ5RHI?oc=5",
+            "published_at": "2026-11-26 06:43:48 KST"
+          },
+          {
+            "title": "The 150 Best Black Friday Deals Live Right Now | Reviews by Wirecutter - The New York Times",
+            "title_ko": "지금 바로 구매 가능한 최고의 블랙프라이데이 딜 150개",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMHhwRmVVV1NiUHR6UGtqcUsyMjZUVjV4RklvcjBFV2xmZF9udjFJaXlrMHVNWW5WcmJQcVE2RXNCbGFWMHJqS0ZicEFhNXFQSnFsZ3k1VUJZUV9aN1FBLW51eDM1RktnZUN5QXJPSUZ5OF9qN2pjanlCMGx3SVQtS0NpZGlFUi1E?oc=5",
+            "published_at": "2026-11-26 06:26:07 KST"
+          },
+          {
+            "title": "A Complete List of Grocery Stores Open on Thanksgiving Day 2026 - TODAY.com",
+            "title_ko": "추수감사절 당일 영업하는 식료품점 목록",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNOS02b190Sk5ZU19DcTZhX2tiSjROXy1jR0JQUXVMR0loNDNwNjFGY3pPMzF0dUlBY1doMlhKQmM2bFRjSVE1VFdZdjRvSkRBSmMxRHhUam5EUUhhS2l2eXUxeDB1dXFMUWdYMWQ3VFNoMmFSeGg5OFhuZWVkRjM2bmhUMlIySkVlellhR2UwMno?oc=5",
+            "published_at": "2026-11-26 05:00:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "항공",
+        "reason": "노스 애틀랜틱 항공 등 항공사들의 운항 및 실적 관련 소식이 주목받음 (총 4건)",
+        "us_news_refs": [
+          11,
+          23,
+          27,
+          28
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Futures point to Black Friday gains for Wall Street as global markets welcome U.S. resilience.",
+            "title_ko": "美 회복세에 월가 블랙프라이데이 기대",
+            "url": "https://www.marketwatch.com/story/futures-point-to-black-friday-gains-for-wall-street-as-global-markets-welcome-u-s-resilience-ad6bcef2?mod=mw_rss_topstories",
+            "published_at": "2026-11-26 19:37:00 KST"
+          },
+          {
+            "title": "Norse Atlantic ceases flights amid cash crunch - The Points Guy",
+            "title_ko": "Norse Atlantic, 자금난으로 운항 중단",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQOTlxcmNLdGpsRkVseVI0N3BicnJ5WGZpOU5JeUczTklTUDRhN1FMb0p6alNSOHh4TWRuU29SM1R4NHNiNE43R2RKeEJPcGl2NHpuOC0xVURhTV9yRmFiZGdjMHdxZE9ETnlvWGtsZmlLWGU0djNOWFpfckFFVlZ6U1ZmQlA?oc=5",
+            "published_at": "2026-11-26 12:39:32 KST"
+          },
+          {
+            "title": "FedEx cargo plane runs off Miami International Airport runway, causing ground stop during Thanksgiving travel - CBS News",
+            "title_ko": "FedEx 화물기 활주로 이탈, 추수감사절 여행 차질",
+            "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOdlVKVU13R09JUmtRV0ZpMW5yVkdhT1MxQzJhdDdjNDFUdDVWSlJPOWl3R2tGYzU4ZWFuMldlcjNCVnVKYTlqUlhPaUJoNlVkVXdhOWxmeTdqaDltWDl3QTF6cDlXYTlZeExiTkZsQmNSdE8wRXp6eS1iNWNDQzFxbTRKZEZYdHZzV2RGQkNwZmNxUHhCdjU4T3ozc0VYV1JzbWt6eWNKTVhpc3NE?oc=5",
+            "published_at": "2026-11-26 10:54:00 KST"
+          },
+          {
+            "title": "US travelers facing long airport lines, bad weather in the run up to Thanksgiving - AP News",
+            "title_ko": "美 여행객, 추수감사절 앞두고 공항 혼잡",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQQkk2WEd6VjhQeXF0eGZsQnFSUmNlbnBXQmlicUdtaWJKdWJ0Tm5TNXJmRll2LUdSMmNaekFCenlKb3hnX1Jod0t0TDRONWlueUdrYWRfZ1ZpTkp0WGhXbEEyZ1diSm1PTWluWVNPQUlPWWFFSnFZWTlQdl9BZXl5TGRMdHloN2tLZTJUcG93el9Ya0IzV00tT1JrZVVnUQ?oc=5",
+            "published_at": "2026-11-26 08:12:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "기술",
+        "reason": "AI 및 데이터 센터 등 기술 분야의 성장성과 관련 기업들의 움직임이 조명됨 (총 4건)",
+        "us_news_refs": [
+          2,
+          18,
+          20,
+          31
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Stocks, Nasdaq Futures Climb as AI Trade Rebounds: Markets Wrap - Bloomberg.com",
+            "title_ko": "AI 주가 반등에 나스닥 선물 상승",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPeEQtTUQwY0ZyTEpubU1fOUV6eVQzR2llam9uaF9UUnQ5LVNvcWJFT0dRYW9NRHM2cDQtYkpaOF9rS1ZuVE8zaDhmYWk0S1IzdU1sOER5aWJLOTQteFZFTjRkMUJwUTdta0ZnemNITTBEa1VVb1c1MGJkUnZoMFRKNDZjM1d6SDBqZ1g2NDZTenZfSEZK?oc=5",
+            "published_at": "2026-11-26 18:15:23 KST"
+          },
+          {
+            "title": "European stocks rally as tech, bank stocks rebound, tariff fears ease",
+            "title_ko": "유럽 증시, 기술·은행주 반등에 랠리",
+            "url": "https://www.investing.com/news/economy-news/european-stocks-rally-as-tech-and-banks-rebound-tariff-fears-ease-5052228",
+            "published_at": "2026-11-26 19:24:21 KST"
+          },
+          {
+            "title": "The tech rout should bottom soon, with a 25% rally for the S&P 500 to follow, says Deutsche Bank",
+            "title_ko": "S&P 500, 25% 랠리 전망 - Deutsche Bank",
+            "url": "https://www.marketwatch.com/story/the-tech-rout-should-bottom-soon-with-a-25-rally-for-the-s-p-500-to-follow-says-deutsche-bank-c9070bf6?mod=mw_rss_topstories",
+            "published_at": "2026-11-26 19:11:00 KST"
+          },
+          {
+            "title": "Stock Market Today: Dow closes higher after big comeback; S&P 500, Nasdaq fall but end well off lows — live update - MarketWatch",
+            "title_ko": "다우 상승 마감, S&P·나스닥 하락",
+            "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPWUoxN04xLTNpMnpwa1d3YkJLT1l0RElYblJUckRXTktsMXpfakMxdXkyd2JfcXdKUTZXWVE0Y1dmWHBDbGlSVTBqWVkxS2ViWUdtX01rU21rYnpBdDFsSWg2UG16UkNCWTJSNWdjbndGcm5LcExsZVNENkptV0tvblRQMTlKTjREaDR6Q3lNeGR3Tm42enlyX0s3ZENmX2ZLMzNrMlprVXotbjdfZXBYRDlVZV8?oc=5",
+            "published_at": "2026-11-26 07:55:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세 및 관련 기술 발전으로 인한 지속적인 관심이 반영됨 (총 10건)",
+        "us_news_refs": [
+          4,
+          8,
+          20,
+          24,
+          26,
+          29,
+          32,
+          37,
+          44,
+          49
+        ],
+        "related_news": [
+          {
+            "title": "Nvidia halts chip shipments to south-east Asia - Financial Times",
+            "title_ko": "Nvidia, 동남아 칩 선적 중단",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQbDFtRGxaSmJxdndYb1VMbTBjLWJGOExCdUdULWNlRXF6RG90SDQzQkdYb29GbmI3Q1J5UHp2Yk80N3R1Wkl4UXlfWFdFd0VmQ2FEYUZXdnFpbnR3SndRWkh6dVJYQlY1cHhQMWVkTEpJaV9lbHJteGc1ai0tS0ppYWxuWVI?oc=5",
+            "published_at": "2026-11-26 17:07:01 KST"
+          },
+          {
+            "title": "Hegseth, Pentagon officials floated using wartime law to reappoint Nvidia CEO - The Washington Post",
+            "title_ko": "펜타곤, Nvidia CEO 재임명 위해 전시법 검토",
+            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcDJ0UmNqUTc2UWNoaVh0STB6ZHRZTnV6WGVPX2Q0VDhmRWU4Wk5hV2lZMTZOZUV4ZEwzOVBnVmVtbnB0eXlpekIyMVF5cG91WmVxLTNIeWx1MzhLN3czOHFLbFRuVTdYRUIwdk4zMTlfcEtLb2J3Y1lQM0l1OTREU2p5UzBxaXI5aExoOGlyUVctZlJZcllacVRzTU9zVXlNaVVMNThZRE85NWdlaEo2WUJKd3FtTVBRZ00xU0l0V2tMLTRiLUE?oc=5",
+            "published_at": "2026-11-26 15:32:48 KST"
+          },
+          {
+            "title": "The tech rout should bottom soon, with a 25% rally for the S&P 500 to follow, says Deutsche Bank",
+            "title_ko": "S&P 500, 25% 랠리 전망 - Deutsche Bank",
+            "url": "https://www.marketwatch.com/story/the-tech-rout-should-bottom-soon-with-a-25-rally-for-the-s-p-500-to-follow-says-deutsche-bank-c9070bf6?mod=mw_rss_topstories",
+            "published_at": "2026-11-26 19:11:00 KST"
+          },
+          {
+            "title": "S&P warns Nvidia credit rating could be cut over 'rising' management and governance risk - CNBC",
+            "title_ko": "S&P, Nvidia 신용등급 강등 가능성 경고",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE51YVJtVWRQVW9UQ2F0TmcyYnRIY1o3eTdTX1pPamJjRWlod2stNjhCRnIwdndsRm4zTkdWR1NSblpacElZSUdVcmc3ZlB5WDdUNk02VHRid19Nak83VjVVYmlhcVlwZ3BUQVg4RXB3V2N5UU9v0gF6QVVfeXFMT05JRkhHVWFocEE4YlFWMHpMb29MZzJSa2NpX1VuSVNtSGxJbkpsLXEtbHBocEh4Zk1NQVlmMVdFd1FNX0FhT0dRUFJ5dGo0aGozelJMY3VYVDNhUmRzR1pkVzViaUdRc1RxU19xWWstT2xtMDNELW9oaHc?oc=5",
+            "published_at": "2026-11-26 11:57:00 KST"
+          },
+          {
+            "title": "The Other Nvidia Romance With an Executive at a Company Linked to China - WSJ",
+            "title_ko": "Nvidia CEO와 중국 연계 기업 임원 관계",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNM2JKcnNFYk5jM09EUEZXNjdqZ1N6V05CbnNQR1gzd09nUlhzRVpTSlM4ZjM4SG1uVXExci1OWWdCY05oNkpTOVFjbzk5amIyeHNzdHNpejM1THVZNFdYVWw5dGx3MFF6YndNbGVnN0dTbHNuVDdSSlQwVWl4MDRadXVxbkJyV0FnVEhjNDlVN21JRDVKRkpGeQ?oc=5",
+            "published_at": "2026-11-26 11:00:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "OpenAI",
+        "reason": "인공지능 기술 발전 및 새로운 서비스 출시 관련 뉴스가 시장의 관심을 끌고 있음 (총 3건)",
+        "us_news_refs": [
+          43,
+          45
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Saudi national in OpenAI bugging case is out on bond after DOJ tries to block release - CNBC",
+            "title_ko": "OpenAI 버그 사건 사우디 국적자 보석 석방",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNb2g1bERMSlZJUWZRQ0hCcURVVUJnUXRxZWlGNDVORlE0Yko1RkNXZE10VW1EUnpsQUxUOXl0Ulg0bjlzUXRNcGpleDdDWXJoVEJuUld2ZHRrb3prOWdQMnI4ZUVPZ1JyeGprUG5nNmFxMENkckE5amRqbkxkZ1Rid2VfUmrSAYoBQVVfeXFMT0pGcEgwaDgwQU9OVUh3R0QyWGNTVXVIVVJkbEY5Yi1qMG1vS3d2b1dva3pJRzE2YUdpUEVsa3Naalc0ZXJfTmpxZTNEZnRyVFk1V0dPeW9MSHNJdEJhUjhnV3IyVWZQVWdXQlo2aUU5Q21VQTB4T0R3RDJ4c2RKQVVXbGc2cGVacjRB?oc=5",
+            "published_at": "2026-11-26 03:14:03 KST"
+          },
+          {
+            "title": "Character.AI’s plan to auction off users’ private chats challenged by state AGs - TechCrunch",
+            "title_ko": "Character.AI, 사용자 대화 경매 계획 논란",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNakNNRDVkcHZLNHRHdmx4ZjhxZjZXMXZZaEJyLW55VmRuaG44b3hYZGJEX1B4dy1FWm5nbzlwTGRmRm04czJhcjlRWjR3OG8zSHNuU2EwQUpuMnJmSC1RYmtmN0psRldZNTRTcW95NE1YLS0zem5oazI2Nmo0MHJCQVJwdDlyOTFCZ3JXVEFZVDVYZHpKenVkQlN1akNUZUtvcHJ6OXZlNA?oc=5",
+            "published_at": "2026-11-26 02:35:58 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 50
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 데이터센터의 버블 가능성이 제기되었으며, AI 안경이 교육 시스템에 미치는 영향에 대한 논의가 있었습니다. AI 기술 발전이 투자 기회와 관련하여 언급되었습니다.",
+        "refs": [
+          4,
+          9
+        ],
+        "reason": "AI 데이터센터의 버블 가능성이 제기되었으며, AI 안경이 교육 시스템에 미치는 영향에 대한 논의가 있었습니다. AI 기술 발전이 투자 기회와 관련하여 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI 데이터센터는 버블인가",
+            "url": "https://www.youtube.com/watch?v=glG__Zh1woE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-26 19:06:54 KST"
+          },
+          {
+            "title": "AI 안경이 부른, 30년 된 수능의 종말",
+            "url": "https://www.youtube.com/watch?v=0JWvZlIRTG4",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-25 20:05:29 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 1,
+        "summary": "AI 데이터센터와 관련된 논의에서 반도체 산업의 중요성이 간접적으로 언급되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "AI 데이터센터와 관련된 논의에서 반도체 산업의 중요성이 간접적으로 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI 데이터센터는 버블인가",
+            "url": "https://www.youtube.com/watch?v=glG__Zh1woE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-26 19:06:54 KST"
+          }
+        ]
+      },
+      {
+        "name": "금융/투자",
+        "freq": 4,
+        "summary": "글로벌 기관들의 AI 채권 및 주식 매도 동향과 수급 변화 가능성이 언급되었습니다. 또한, 폭락장 대비 현금 보유의 중요성과 특정 수준 이하로 떨어지면 주식을 매수하겠다는 전략이 제시되었습니다.",
+        "refs": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "reason": "글로벌 기관들의 AI 채권 및 주식 매도 동향과 수급 변화 가능성이 언급되었습니다. 또한, 폭락장 대비 현금 보유의 중요성과 특정 수준 이하로 떨어지면 주식을 매수하겠다는 전략이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI 채권부터 주식까지 던지는 글로벌 기관들…1월부터 수급이 달라질 수 있는 이유ㅣ명민준, 박가영, 유영화 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=YYynHIiVjYY",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-26 20:00:07 KST"
+          },
+          {
+            "title": "코스피 9300에서 반토막 폭락했다, 폭락장엔 방어주 말고 현금 쥐세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=JDhGdGwsppE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 19:30:24 KST"
+          },
+          {
+            "title": "6년 동안 기다린 폭락장입니다, 속는 셈치고 한 번만 해보세요 (전업투자자 김종봉)",
+            "url": "https://www.youtube.com/watch?v=cX8NAxq84Tw",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 18:19:11 KST"
+          },
+          {
+            "title": "한국 주식 '여기까지' 떨어지면, 가진 현금으로 주식 다 살 겁니다 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=J59BlFTiHEc",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-25 20:00:01 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "AI 데이터센터 관련 논의에서 Nvidia가 언급되었으며, 해당 기업의 역할과 시장 영향력이 간접적으로 시사되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "AI 데이터센터 관련 논의에서 Nvidia가 언급되었으며, 해당 기업의 역할과 시장 영향력이 간접적으로 시사되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI 데이터센터는 버블인가",
+            "url": "https://www.youtube.com/watch?v=glG__Zh1woE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-26 19:06:54 KST"
+          }
+        ]
+      },
+      {
+        "name": "Apple",
+        "freq": 1,
+        "summary": "AI 안경과 관련된 논의에서 Apple의 기술 개발 및 시장 영향력이 언급되었습니다.",
+        "refs": [
+          9
+        ],
+        "reason": "AI 안경과 관련된 논의에서 Apple의 기술 개발 및 시장 영향력이 언급되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI 안경이 부른, 30년 된 수능의 종말",
+            "url": "https://www.youtube.com/watch?v=0JWvZlIRTG4",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-25 20:05:29 KST"
+          }
+        ]
+      },
+      {
+        "name": "Tesla",
+        "freq": 1,
+        "summary": "AI 데이터센터 관련 논의에서 Tesla가 간접적으로 언급되었으며, 해당 기업의 기술력과 시장에서의 위치가 시사되었습니다.",
+        "refs": [
+          4
+        ],
+        "reason": "AI 데이터센터 관련 논의에서 Tesla가 간접적으로 언급되었으며, 해당 기업의 기술력과 시장에서의 위치가 시사되었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "AI 데이터센터는 버블인가",
+            "url": "https://www.youtube.com/watch?v=glG__Zh1woE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-26 19:06:54 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 3
+        },
+        {
+          "name": "SpaceX",
+          "freq": 1
+        },
+        {
+          "name": "Shein",
+          "freq": 3
+        },
+        {
+          "name": "Norse Atlantic",
+          "freq": 3
+        },
+        {
+          "name": "FedEx",
+          "freq": 3
+        },
+        {
+          "name": "Walmart",
+          "freq": 3
+        },
+        {
+          "name": "OpenAI",
+          "freq": 3
+        },
+        {
+          "name": "Lukoil",
+          "freq": 2
+        },
+        {
+          "name": "Amazon",
+          "freq": 1
+        },
+        {
+          "name": "Character.AI",
+          "freq": 2
+        },
+        {
+          "name": "HICL",
+          "freq": 1
+        },
+        {
+          "name": "Halfords",
+          "freq": 1
+        },
+        {
+          "name": "ams OSRAM",
+          "freq": 1
+        },
+        {
+          "name": "L.B. Foster",
+          "freq": 1
+        },
+        {
+          "name": "Deutsche Bank",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 2
+        },
+        {
+          "name": "소매",
+          "freq": 4
+        },
+        {
+          "name": "항공",
+          "freq": 4
+        },
+        {
+          "name": "기술",
+          "freq": 4
+        },
+        {
+          "name": "데이터 센터",
+          "freq": 3
+        },
+        {
+          "name": "유통",
+          "freq": 3
+        },
+        {
+          "name": "전자상거래",
+          "freq": 3
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "소비재",
+          "freq": 3
+        },
+        {
+          "name": "물류",
+          "freq": 3
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "사이버 보안",
+          "freq": 2
+        },
+        {
+          "name": "자동차",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "freq": 2
+        },
+        {
+          "name": "SK하이닉스",
+          "freq": 2
+        },
+        {
+          "name": "스페이스X",
+          "freq": 2
+        },
+        {
+          "name": "홈플러스",
+          "freq": 2
+        },
+        {
+          "name": "에너지머티리얼즈",
+          "freq": 2
+        },
+        {
+          "name": "쿠팡",
+          "freq": 1
+        },
+        {
+          "name": "진에어",
+          "freq": 1
+        },
+        {
+          "name": "KS인더스트리",
+          "freq": 1
+        },
+        {
+          "name": "현대엔지니어링",
+          "freq": 1
+        },
+        {
+          "name": "알테오젠",
+          "freq": 1
+        },
+        {
+          "name": "세아베스틸",
+          "freq": 1
+        },
+        {
+          "name": "SNT다이내믹스",
+          "freq": 1
+        },
+        {
+          "name": "ANH스트럭쳐",
+          "freq": 1
+        },
+        {
+          "name": "볼트1932",
+          "freq": 1
+        },
+        {
+          "name": "메리츠지주",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "반도체",
+          "freq": 3
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 3
+        },
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "주택",
+          "freq": 4
+        },
+        {
+          "name": "유통",
+          "freq": 2
+        },
+        {
+          "name": "항공",
+          "freq": 3
+        },
+        {
+          "name": "메모리",
+          "freq": 3
+        },
+        {
+          "name": "IT",
+          "freq": 3
+        },
+        {
+          "name": "교통",
+          "freq": 3
+        },
+        {
+          "name": "디지털 자산",
+          "freq": 2
+        },
+        {
+          "name": "건설",
+          "freq": 2
+        },
+        {
+          "name": "바이오/제약",
+          "freq": 2
+        },
+        {
+          "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "물류",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
