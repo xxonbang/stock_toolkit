@@ -1,0 +1,341 @@
+{
+  "generated_at": "2026-11-27 07:31 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "reason": "AI 칩 수요 및 관련 기술 발전이 주목받고 있습니다 (총 3건)",
+        "us_news_refs": [
+          7,
+          21,
+          32
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Canadian bonds extend rally amid AI jitters, Macklem comments",
+            "title_ko": "AI 불안감, Macklem 발언 속 캐나다 채권 랠리 지속",
+            "url": "https://www.investing.com/news/stock-market-news/canadian-bonds-extend-rally-amid-ai-jitters-macklem-comments-5052727",
+            "published_at": "2026-11-27 06:41:16 KST"
+          },
+          {
+            "title": "Nvidia and the whole AI trade aren’t out of the woods — not by a long shot",
+            "title_ko": "Nvidia와 AI 주식, 아직 안심하기 이르다",
+            "url": "https://www.marketwatch.com/story/nvidia-and-the-whole-ai-trade-arent-out-of-the-woods-not-by-a-long-shot-bccc0025?mod=mw_rss_topstories",
+            "published_at": "2026-11-26 23:00:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Nvidia",
+        "reason": "AI 칩 수요와 관련된 지속적인 관심이 반영되었습니다 (총 4건)",
+        "us_news_refs": [
+          10,
+          18,
+          21,
+          32
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
+            "title_ko": "Nvidia 덕에 401(k) 늘었지만 Jensen Huang 복귀 싫어, 위선자인가?",
+            "url": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
+            "published_at": "2026-11-27 06:30:00 KST"
+          },
+          {
+            "title": "We are living in perilous times if Nvidia CEO Jensen Huang dictates your 401(k) balance",
+            "title_ko": "Nvidia CEO Jensen Huang이 401(k) 잔고 좌우하는 시대",
+            "url": "https://www.marketwatch.com/story/we-are-living-in-perilous-times-if-nvidias-jensen-huang-dictates-your-401-k-balance-e0942d1e?mod=mw_rss_topstories",
+            "published_at": "2026-11-27 00:30:00 KST"
+          },
+          {
+            "title": "Nvidia and the whole AI trade aren’t out of the woods — not by a long shot",
+            "title_ko": "Nvidia와 AI 주식, 아직 안심하기 이르다",
+            "url": "https://www.marketwatch.com/story/nvidia-and-the-whole-ai-trade-arent-out-of-the-woods-not-by-a-long-shot-bccc0025?mod=mw_rss_topstories",
+            "published_at": "2026-11-26 23:00:00 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 23
+    }
+  },
+  "kr": {
+    "top3_sectors": [],
+    "top3_stocks": [],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 2,
+        "summary": "AI 데이터센터의 버블 가능성에 대한 논의가 있으며, AI 안경과 같은 신기술이 기존 산업(수능)에 미치는 영향에 대한 분석이 제시되었습니다.",
+        "refs": [
+          6,
+          10
+        ],
+        "reason": "AI 데이터센터의 버블 가능성에 대한 논의가 있으며, AI 안경과 같은 신기술이 기존 산업(수능)에 미치는 영향에 대한 분석이 제시되었습니다.",
+        "related_videos": [
+          {
+            "title": "AI 데이터센터는 버블인가",
+            "url": "https://www.youtube.com/watch?v=glG__Zh1woE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-26 19:06:54 KST"
+          },
+          {
+            "title": "AI 안경이 부른, 30년 된 수능의 종말",
+            "url": "https://www.youtube.com/watch?v=0JWvZlIRTG4",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-25 20:05:29 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "메모리 과잉 생산 관세 이슈와 함께, 젠슨 황의 복귀가 하방 물량 해소에 영향을 미쳤다는 분석이 있었습니다. 또한, 삼성전자와 SK하이닉스의 목표 주가에 대한 언급이 있었습니다.",
+        "refs": [
+          2,
+          3,
+          4
+        ],
+        "reason": "메모리 과잉 생산 관세 이슈와 함께, 젠슨 황의 복귀가 하방 물량 해소에 영향을 미쳤다는 분석이 있었습니다. 또한, 삼성전자와 SK하이닉스의 목표 주가에 대한 언급이 있었습니다.",
+        "related_videos": [
+          {
+            "title": "금리 올린 한은 \"내년 성장률 4.1%\" | '머스크도 당황' 메모리 부족으로 난리인데, 메모리 과잉 생산 관세라니 | 정프로, 이주호, 권순우, 박병창 [오늘아침 라이브]",
+            "url": "https://www.youtube.com/watch?v=eXAueXZo6dM",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 05:27:04 KST"
+          },
+          {
+            "title": "젠슨 황 복귀로 꼬였던 하방 물량 해소! 미국 휴장 이후 국내 증시와 다음 주 시나리오ㅣ명민준, 박가영, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=KjGSl6-7Ww8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-26 21:00:21 KST"
+          },
+          {
+            "title": "삼성전자 7만원, SK하이닉스 20만원 전망? 제 생각을 솔직히 말씀드리죠 (고태훈 본부장)",
+            "url": "https://www.youtube.com/watch?v=Jm8OLVCvJI4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 21:00:00 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "삼성전자의 목표 주가 7만원에 대한 전망이 제시되었으며, 이는 긍정적인 시장 분석의 일부로 언급되었습니다.",
+        "refs": [
+          4,
+          5
+        ],
+        "reason": "삼성전자의 목표 주가 7만원에 대한 전망이 제시되었으며, 이는 긍정적인 시장 분석의 일부로 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 7만원, SK하이닉스 20만원 전망? 제 생각을 솔직히 말씀드리죠 (고태훈 본부장)",
+            "url": "https://www.youtube.com/watch?v=Jm8OLVCvJI4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 21:00:00 KST"
+          },
+          {
+            "title": "현금 5000만원 있다면 '이 2개 주식만' 사세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=JDhGdGwsppE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 19:30:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "SK하이닉스의 목표 주가 20만원에 대한 전망이 제시되었으며, 이는 긍정적인 시장 분석의 일부로 언급되었습니다.",
+        "refs": [
+          4,
+          5
+        ],
+        "reason": "SK하이닉스의 목표 주가 20만원에 대한 전망이 제시되었으며, 이는 긍정적인 시장 분석의 일부로 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "삼성전자 7만원, SK하이닉스 20만원 전망? 제 생각을 솔직히 말씀드리죠 (고태훈 본부장)",
+            "url": "https://www.youtube.com/watch?v=Jm8OLVCvJI4",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 21:00:00 KST"
+          },
+          {
+            "title": "현금 5000만원 있다면 '이 2개 주식만' 사세요 (남석관 회장)",
+            "url": "https://www.youtube.com/watch?v=JDhGdGwsppE",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-26 19:30:24 KST"
+          }
+        ]
+      },
+      {
+        "name": "Nvidia",
+        "freq": 1,
+        "summary": "젠슨 황의 복귀가 미국 증시의 하방 물량 해소에 영향을 미쳤다는 분석이 있었습니다.",
+        "refs": [
+          3
+        ],
+        "reason": "젠슨 황의 복귀가 미국 증시의 하방 물량 해소에 영향을 미쳤다는 분석이 있었습니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "젠슨 황 복귀로 꼬였던 하방 물량 해소! 미국 휴장 이후 국내 증시와 다음 주 시나리오ㅣ명민준, 박가영, 이지환 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=KjGSl6-7Ww8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-26 21:00:21 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "BMW",
+          "freq": 1
+        },
+        {
+          "name": "Macy's",
+          "freq": 1
+        },
+        {
+          "name": "Allegiance Resources",
+          "freq": 1
+        },
+        {
+          "name": "Bradesco",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "Microdrama apps",
+          "freq": 1
+        },
+        {
+          "name": "Secondhand shopping",
+          "freq": 1
+        },
+        {
+          "name": "Vertical video",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "TSMC",
+          "freq": 1
+        },
+        {
+          "name": "유베이스",
+          "freq": 1
+        },
+        {
+          "name": "스타벅스",
+          "freq": 1
+        },
+        {
+          "name": "롯데멤버스",
+          "freq": 1
+        },
+        {
+          "name": "세븐일레븐",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "은행",
+          "freq": 2
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
+          "freq": 1
+        },
+        {
+          "name": "국민연금",
+          "freq": 2
+        },
+        {
+          "name": "병원",
+          "freq": 1
+        },
+        {
+          "name": "자동차",
+          "freq": 1
+        },
+        {
+          "name": "오픈카",
+          "freq": 1
+        },
+        {
+          "name": "다크패턴",
+          "freq": 1
+        },
+        {
+          "name": "공매도",
+          "freq": 1
+        },
+        {
+          "name": "콜센터",
+          "freq": 1
+        },
+        {
+          "name": "외국인 투자",
+          "freq": 1
+        },
+        {
+          "name": "창업벤처",
+          "freq": 1
+        },
+        {
+          "name": "저상버스",
+          "freq": 1
+        },
+        {
+          "name": "교량 안전",
+          "freq": 1
+        },
+        {
+          "name": "식중독 예방",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
