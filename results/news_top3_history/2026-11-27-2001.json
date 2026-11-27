@@ -1,0 +1,611 @@
+{
+  "generated_at": "2026-11-27 20:01 KST",
+  "phase": 2,
+  "us": {
+    "top3_sectors": [
+      {
+        "name": "핀테크",
+        "reason": "핀테크 관련 기업들의 언급 빈도가 높아 주목받고 있습니다 (총 3건).",
+        "us_news_refs": [
+          6,
+          7,
+          8
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Goat Funded Launches Perpetuals Prop Firm Powered by Hyperliquid",
+            "title_ko": "Goat Funded, Hyperliquid 기반 영구 선물사 출시",
+            "url": "https://www.investing.com/news/company-news/goat-funded-launches-perpetuals-prop-firm-powered-by-hyperliquid-5053282",
+            "published_at": "2026-11-27 19:41:21 KST"
+          },
+          {
+            "title": "MEXC Launches Golden Gratitude Gala With a 10M USDT Prize Pool, Including a Gold Bar and BTC",
+            "title_ko": "MEXC, 1000만 USDT 상금 규모 '골든 감사 갈라' 개최",
+            "url": "https://www.investing.com/news/press-releases/mexc-launches-golden-gratitude-gala-with-a-10m-usdt-prize-pool-including-a-gold-bar-and-btc-5053283",
+            "published_at": "2026-11-27 19:41:21 KST"
+          },
+          {
+            "title": "BASIS Opens First-Round Applications for Card Offering Cashback in the Asset Spent",
+            "title_ko": "BASIS, 자산 지출 시 캐시백 제공 카드 상품 1차 신청 개시",
+            "url": "https://www.investing.com/news/cryptocurrency-news/basis-opens-firstround-applications-for-card-offering-cashback-in-the-asset-spent-5053281",
+            "published_at": "2026-11-27 19:41:20 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "SAP",
+        "reason": "SAP는 두 건의 뉴스에서 언급되며 주목받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          4,
+          61
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SAP reportedly to cut 10,000 jobs. It marks the latest in a brutal year for tech layoffs.",
+            "title_ko": "SAP, 1만명 감원 보도. 기술 업계 해고 칼바람 거세져",
+            "url": "https://www.marketwatch.com/story/sap-reportedly-to-cut-10-000-jobs-it-marks-the-latest-in-a-brutal-year-for-tech-layoffs-c7989744?mod=mw_rss_topstories",
+            "published_at": "2026-11-27 19:49:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "Salesforce",
+        "reason": "Salesforce는 두 건의 뉴스에서 언급되며 시장의 관심을 받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          11,
+          12
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Erste Group downgrades Salesforce stock rating on lower growth potential",
+            "title_ko": "Erste Group, 성장 잠재력 하락에 Salesforce 주가 등급 하향",
+            "url": "https://www.investing.com/news/analyst-ratings/erste-group-downgrades-salesforce-stock-rating-on-lower-growth-potential-93CH-5053278",
+            "published_at": "2026-11-27 19:40:48 KST"
+          },
+          {
+            "title": "Why is Salesforce stock climbing today?",
+            "title_ko": "Salesforce 주가 오늘 왜 오르나?",
+            "url": "https://www.investing.com/news/stock-market-news/why-is-salesforce-stock-climbing-today-93CH-5053277",
+            "published_at": "2026-11-27 19:40:16 KST"
+          }
+        ]
+      },
+      {
+        "name": "Spotify",
+        "reason": "Spotify는 두 건의 뉴스에서 언급되며 주목받고 있습니다 (총 2건).",
+        "us_news_refs": [
+          9,
+          13
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "Erste Group upgrades Spotify stock rating on strong revenue growth",
+            "title_ko": "Erste Group, 강력한 매출 성장으로 Spotify 주가 등급 상향",
+            "url": "https://www.investing.com/news/analyst-ratings/erste-group-upgrades-spotify-stock-rating-on-strong-revenue-growth-93CH-5053280",
+            "published_at": "2026-11-27 19:40:54 KST"
+          },
+          {
+            "title": "Why is Spotify stock gaining today?",
+            "title_ko": "Spotify 주가 오늘 왜 오르나?",
+            "url": "https://www.investing.com/news/stock-market-news/why-is-spotify-stock-gaining-today-93CH-5053276",
+            "published_at": "2026-11-27 19:39:41 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 22
+    }
+  },
+  "kr": {
+    "top3_sectors": [
+      {
+        "name": "금융",
+        "reason": "금융 관련 뉴스가 세 차례 언급되며 시장의 주요 관심사로 부각되었습니다 (총 3건).",
+        "kr_news_refs": [
+          3,
+          79,
+          80,
+          96
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "국내 송금업체 해킹으로 25억원 피해…금감원 현장점검 착수",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127162500002",
+            "published_at": "2026-11-27 19:48:58 KST"
+          },
+          {
+            "title": "하나·iM·기업·농협은행 '지역재투자 평가' 최우수",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12220431",
+            "published_at": "2026-11-27 17:46:50 KST"
+          },
+          {
+            "title": "금감원 '깜깜이 검사' 관행 대수술",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12220432",
+            "published_at": "2026-11-27 17:46:50 KST"
+          },
+          {
+            "title": "인터넷은행 3사, 3분기 중·저신용자 대출비중 목표치 30% 넘겨",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127149500002",
+            "published_at": "2026-11-27 17:43:48 KST"
+          }
+        ]
+      },
+      {
+        "name": "철도",
+        "reason": "철도 관련 뉴스가 세 건의 보도를 통해 시장의 주목을 받고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          11,
+          25,
+          30
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "철도노조 준법투쟁 둘째날 서울 지하철 1호선 '퇴근길 대란'",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127162600004",
+            "published_at": "2026-11-27 19:29:52 KST"
+          },
+          {
+            "title": "\"철도노조 준법투쟁 2일차, 광역전철 445대 20분이상 지연\"",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127158700063",
+            "published_at": "2026-11-27 18:53:08 KST"
+          },
+          {
+            "title": "[속보] “철도노조 준법투쟁 2일차, 전철 445대 20분 이상 지연”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12220452",
+            "published_at": "2026-11-27 18:40:33 KST"
+          }
+        ]
+      },
+      {
+        "name": "국민연금",
+        "reason": "국민연금 관련 소식이 세 차례 보도되며 시장의 관심을 끌었습니다 (총 3건).",
+        "kr_news_refs": [
+          58,
+          60,
+          99
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "[속보] 국민연금 석 달 새 202조 증발…상반기 수익률 절반 반납",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/business/12220440",
+            "published_at": "2026-11-27 18:04:10 KST"
+          },
+          {
+            "title": "국민연금 적립금 석달만에 202조원↓…3분기 수익률 13%",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127153400530",
+            "published_at": "2026-11-27 18:02:54 KST"
+          },
+          {
+            "title": "[속보] 국민연금 9월말 기준수익률 연초대비 13%",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/stock/12220415",
+            "published_at": "2026-11-27 17:42:28 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "Kakao",
+        "reason": "카카오 관련 뉴스가 세 건의 보도를 통해 시장의 주목을 받고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          7,
+          39,
+          55
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SM 시세조종 혐의 … 김범수 무죄 확정",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12220463",
+            "published_at": "2026-11-27 19:35:46 KST"
+          },
+          {
+            "title": "김범수 'SM시세조종 혐의' 무죄 확정…공소청 상고 포기",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127156300004",
+            "published_at": "2026-11-27 18:25:55 KST"
+          },
+          {
+            "title": "[속보] 김범수 ‘SM시세조종 혐의’ 무죄 확정…공소청 상고 포기",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12220441",
+            "published_at": "2026-11-27 18:06:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "SM엔터테인먼트",
+        "reason": "SM엔터테인먼트 관련 뉴스가 세 건의 보도를 통해 시장의 주목을 받고 있습니다 (총 3건).",
+        "kr_news_refs": [
+          7,
+          39,
+          55
+        ],
+        "_weak_signal": true,
+        "related_news": [
+          {
+            "title": "SM 시세조종 혐의 … 김범수 무죄 확정",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12220463",
+            "published_at": "2026-11-27 19:35:46 KST"
+          },
+          {
+            "title": "김범수 'SM시세조종 혐의' 무죄 확정…공소청 상고 포기",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127156300004",
+            "published_at": "2026-11-27 18:25:55 KST"
+          },
+          {
+            "title": "[속보] 김범수 ‘SM시세조종 혐의’ 무죄 확정…공소청 상고 포기",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/society/12220441",
+            "published_at": "2026-11-27 18:06:00 KST"
+          }
+        ]
+      },
+      {
+        "name": "AI",
+        "reason": "AI 관련 뉴스가 두 차례 언급되며 시장의 관심을 받고 있습니다 (총 2건).",
+        "kr_news_refs": [
+          6,
+          24,
+          27,
+          95,
+          98
+        ],
+        "related_news": [
+          {
+            "title": "김정관 산업장관 “R&D 노동특례 늦어지면 청년 일자리 잃을 것”",
+            "title_ko": "",
+            "url": "https://www.mk.co.kr/news/economy/12220464",
+            "published_at": "2026-11-27 19:38:30 KST"
+          },
+          {
+            "title": "대만, AI붐에 올해 성장전망 13.28%로 상향…48년 만에 최고",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127159000089",
+            "published_at": "2026-11-27 18:56:52 KST"
+          },
+          {
+            "title": "AI 보안기업 에임인텔리전스, K-디지털 챔피언십 대상",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127156800017",
+            "published_at": "2026-11-27 18:48:58 KST"
+          },
+          {
+            "title": "[테크스냅] NIA, AI 안전·격차 해소 법제도 논의",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127147500017",
+            "published_at": "2026-11-27 17:44:03 KST"
+          },
+          {
+            "title": "디노티시아, AI 데이터 검색 속도 높이는 스토리지 출시",
+            "title_ko": "",
+            "url": "https://www.yna.co.kr/view/AKR20261127149000017",
+            "published_at": "2026-11-27 17:42:44 KST"
+          }
+        ]
+      }
+    ],
+    "outlook": {
+      "sectors": [],
+      "stocks": []
+    },
+    "collected": {
+      "news": 100
+    }
+  },
+  "youtube": {
+    "top3_sectors": [
+      {
+        "name": "AI",
+        "freq": 3,
+        "summary": "AI 관련 섹터는 데이터센터 투자와 신용 리스크에 대한 논의가 있었습니다. AI 기술 발전이 데이터센터 수요를 견인할 수 있다는 분석과 함께, 과도한 투자로 인한 버블 가능성에 대한 경계도 나타났습니다. 또한, AI 기술이 군사 분야에 적용되는 사례도 언급되었습니다.",
+        "refs": [
+          3,
+          7,
+          9
+        ],
+        "reason": "AI 관련 섹터는 데이터센터 투자와 신용 리스크에 대한 논의가 있었습니다. AI 기술 발전이 데이터센터 수요를 견인할 수 있다는 분석과 함께, 과도한 투자로 인한 버블 가능성에 대한 경계도 나타났습니다. 또한, AI 기술이 군사 분야에 적용되는 사례도 언급되었습니다.",
+        "related_videos": [
+          {
+            "title": "첨단 무기에 참교육 당한 아이티 갱단",
+            "url": "https://www.youtube.com/watch?v=2oQ4qNnfng8",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-27 19:55:42 KST"
+          },
+          {
+            "title": "추가 반등 기대에도 방심할 수 없는 증시…AI 신용 리스크와 12월 투자전략ㅣ홍선애, 장우진 금시공 대표 [여의도 인사이트]",
+            "url": "https://www.youtube.com/watch?v=vzzM6xLK8B8",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 18:22:58 KST"
+          },
+          {
+            "title": "AI 데이터센터는 버블인가",
+            "url": "https://www.youtube.com/watch?v=glG__Zh1woE",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-26 19:06:54 KST"
+          }
+        ]
+      },
+      {
+        "name": "반도체",
+        "freq": 2,
+        "summary": "삼성전자와 SK하이닉스 등 반도체 관련 종목에 대한 투자 전략이 논의되었습니다. 순환매 장세 속에서도 해당 종목들을 급하게 매도할 필요가 없다는 의견이 제시되었습니다. 이는 반도체 산업의 중요성과 향후 전망에 대한 긍정적인 시각을 반영합니다.",
+        "refs": [
+          1,
+          4
+        ],
+        "reason": "삼성전자와 SK하이닉스 등 반도체 관련 종목에 대한 투자 전략이 논의되었습니다. 순환매 장세 속에서도 해당 종목들을 급하게 매도할 필요가 없다는 의견이 제시되었습니다. 이는 반도체 산업의 중요성과 향후 전망에 대한 긍정적인 시각을 반영합니다.",
+        "related_videos": [
+          {
+            "title": "순환매 장세에도 삼성전자·SK하이닉스를 급하게 팔고 갈아탈 필요 없는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=tx-pbWaIoTc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 20:00:22 KST"
+          },
+          {
+            "title": "[26.11.27 오후 방송 전체보기] 급등과 급락을 오간 11월 증시…외국인·기관 동반 매수, 반등의 연속성 확보할까?",
+            "url": "https://www.youtube.com/watch?v=XKLl70T41Bc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 19:15:48 KST"
+          }
+        ]
+      },
+      {
+        "name": "우주항공/방산",
+        "freq": 1,
+        "summary": "첨단 무기가 아이티 갱단에 사용된 사례가 언급되었으며, 로봇이 전투에 참여하는 시대가 도래할 수 있다는 내용이 포함되었습니다. 이는 방산 및 우주항공 분야의 기술 발전과 미래 전장 변화에 대한 시사점을 제공합니다.",
+        "refs": [
+          3
+        ],
+        "reason": "첨단 무기가 아이티 갱단에 사용된 사례가 언급되었으며, 로봇이 전투에 참여하는 시대가 도래할 수 있다는 내용이 포함되었습니다. 이는 방산 및 우주항공 분야의 기술 발전과 미래 전장 변화에 대한 시사점을 제공합니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "첨단 무기에 참교육 당한 아이티 갱단",
+            "url": "https://www.youtube.com/watch?v=2oQ4qNnfng8",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-27 19:55:42 KST"
+          }
+        ]
+      }
+    ],
+    "top3_stocks": [
+      {
+        "name": "삼성전자",
+        "freq": 2,
+        "summary": "순환매 장세에도 불구하고 삼성전자를 급하게 팔고 갈아탈 필요가 없다는 분석이 제시되었습니다. 이는 현재 시장 상황에서 삼성전자의 투자 매력도가 유지되고 있음을 시사합니다.",
+        "refs": [
+          1,
+          4
+        ],
+        "reason": "순환매 장세에도 불구하고 삼성전자를 급하게 팔고 갈아탈 필요가 없다는 분석이 제시되었습니다. 이는 현재 시장 상황에서 삼성전자의 투자 매력도가 유지되고 있음을 시사합니다.",
+        "related_videos": [
+          {
+            "title": "순환매 장세에도 삼성전자·SK하이닉스를 급하게 팔고 갈아탈 필요 없는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=tx-pbWaIoTc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 20:00:22 KST"
+          },
+          {
+            "title": "[26.11.27 오후 방송 전체보기] 급등과 급락을 오간 11월 증시…외국인·기관 동반 매수, 반등의 연속성 확보할까?",
+            "url": "https://www.youtube.com/watch?v=XKLl70T41Bc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 19:15:48 KST"
+          }
+        ]
+      },
+      {
+        "name": "SK하이닉스",
+        "freq": 2,
+        "summary": "순환매 장세 속에서도 SK하이닉스를 급하게 매도할 필요가 없다는 의견이 제시되었습니다. 이는 반도체 섹터 전반에 대한 긍정적인 전망과 함께 SK하이닉스의 투자 가치를 높게 평가하는 시각을 반영합니다.",
+        "refs": [
+          1,
+          4
+        ],
+        "reason": "순환매 장세 속에서도 SK하이닉스를 급하게 매도할 필요가 없다는 의견이 제시되었습니다. 이는 반도체 섹터 전반에 대한 긍정적인 전망과 함께 SK하이닉스의 투자 가치를 높게 평가하는 시각을 반영합니다.",
+        "related_videos": [
+          {
+            "title": "순환매 장세에도 삼성전자·SK하이닉스를 급하게 팔고 갈아탈 필요 없는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
+            "url": "https://www.youtube.com/watch?v=tx-pbWaIoTc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 20:00:22 KST"
+          },
+          {
+            "title": "[26.11.27 오후 방송 전체보기] 급등과 급락을 오간 11월 증시…외국인·기관 동반 매수, 반등의 연속성 확보할까?",
+            "url": "https://www.youtube.com/watch?v=XKLl70T41Bc",
+            "channel_name": "삼프로TV",
+            "published_at": "2026-11-27 19:15:48 KST"
+          }
+        ]
+      },
+      {
+        "name": "테슬라",
+        "freq": 1,
+        "summary": "테슬라 주식을 보유하고 있다면 특정 전략을 취해야 한다는 내용이 언급되었습니다. 이는 테슬라의 현재 주가 상황 및 향후 전망에 대한 투자자들의 관심을 보여줍니다.",
+        "refs": [
+          6
+        ],
+        "reason": "테슬라 주식을 보유하고 있다면 특정 전략을 취해야 한다는 내용이 언급되었습니다. 이는 테슬라의 현재 주가 상황 및 향후 전망에 대한 투자자들의 관심을 보여줍니다.",
+        "_weak_signal": true,
+        "related_videos": [
+          {
+            "title": "테슬라, 스페이스X 단 1주라도 있다면, 반드시 '이렇게' 하세요 (고태훈 본부장)",
+            "url": "https://www.youtube.com/watch?v=s616_igCIqs",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-27 18:30:01 KST"
+          }
+        ]
+      }
+    ],
+    "videos_collected": 10
+  },
+  "_extraction": {
+    "us": {
+      "stocks": [
+        {
+          "name": "Nvidia",
+          "freq": 1
+        },
+        {
+          "name": "SAP",
+          "freq": 2
+        },
+        {
+          "name": "Salesforce",
+          "freq": 2
+        },
+        {
+          "name": "Spotify",
+          "freq": 2
+        },
+        {
+          "name": "Advanced Micro Devices",
+          "freq": 1
+        },
+        {
+          "name": "Johnson & Johnson",
+          "freq": 1
+        },
+        {
+          "name": "Qfin Holdings",
+          "freq": 1
+        },
+        {
+          "name": "Goat Funded",
+          "freq": 1
+        },
+        {
+          "name": "MEXC",
+          "freq": 1
+        },
+        {
+          "name": "BASIS",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "AI",
+          "freq": 1
+        },
+        {
+          "name": "핀테크",
+          "freq": 3
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Software",
+          "freq": 2
+        },
+        {
+          "name": "Tech Layoffs",
+          "freq": 1
+        },
+        {
+          "name": "Video",
+          "freq": 1
+        }
+      ]
+    },
+    "kr": {
+      "stocks": [
+        {
+          "name": "Kakao",
+          "freq": 3
+        },
+        {
+          "name": "SM엔터테인먼트",
+          "freq": 3
+        },
+        {
+          "name": "피노",
+          "freq": 1
+        },
+        {
+          "name": "대동",
+          "freq": 1
+        },
+        {
+          "name": "온코닉테라퓨틱스",
+          "freq": 1
+        }
+      ],
+      "sectors": [
+        {
+          "name": "금융",
+          "freq": 3
+        },
+        {
+          "name": "AI",
+          "freq": 2
+        },
+        {
+          "name": "철도",
+          "freq": 3
+        },
+        {
+          "name": "국민연금",
+          "freq": 3
+        },
+        {
+          "name": "미세먼지",
+          "freq": 2
+        },
+        {
+          "name": "부동산",
+          "freq": 1
+        },
+        {
+          "name": "전기차",
+          "freq": 2
+        },
+        {
+          "name": "R&D",
+          "freq": 1
+        },
+        {
+          "name": "소상공인",
+          "freq": 1
+        },
+        {
+          "name": "패션/온라인",
+          "freq": 1
+        },
+        {
+          "name": "조류독감(AI)",
+          "freq": 1
+        }
+      ]
+    }
+  }
+}
