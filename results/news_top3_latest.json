@@ -1,193 +1,133 @@
 {
-  "generated_at": "2026-11-28 07:31 KST",
+  "generated_at": "2026-11-28 20:01 KST",
   "phase": 2,
   "us": {
     "top3_sectors": [
       {
         "name": "Black Friday",
-        "reason": "블랙프라이데이 관련 소비 증가 및 유통업체 실적 기대감으로 주목 (총 13건)",
+        "reason": "블랙 프라이데이 쇼핑 시즌 관련 소비 지출 증가 및 유통업체 실적 기대감에 주목 (총 8건)",
         "us_news_refs": [
-          0,
-          1,
-          2,
-          4,
-          11,
+          13,
+          14,
           20,
-          28,
-          40,
-          41,
-          43,
-          45,
-          47,
-          48
+          26,
+          27,
+          33,
+          49,
+          50
         ],
         "related_news": [
           {
-            "title": "41 best Walmart deals happening right now for Black Friday 2026 - NBC News",
-            "title_ko": "블랙 프라이데이 월마트 41가지 최고의 딜",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPV3JueGwySWxtZUNpQ05pWTBLNTlQS2RsWHNKZzBUNmpUemRhMGFGYlI2QkUzT2pXNzRPLVhseEVQazQ1WkFnRlV3aV9nLTdLLURiTUJrSFlpNzREVTZjSHVSWUJTQ0x4ZDUzdDFjOWFLeTVEdzRFalozcktuWGZfR3NneEJHeXZmT0E?oc=5",
-            "published_at": "2026-11-28 06:41:54 KST"
+            "title": "Looking for affordable finds this Black Friday? These deals are all under $50 - NBC News",
+            "title_ko": "블랙 프라이데이 저렴한 상품 찾으세요? 50달러 미만 딜 - NBC News",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOQUJseGdhY09CbHQ3bW5LZG5OYlo1bDktdUk3X1gxVms3b0J3bGVJSy1lQnJLd3RwV1d4NXNyOW5uOURfYV9WcHhEYVFiQTJFM2EyTUhzUlNXRm9pelhrV211eDZqLUlfaTRGaE1ycndONTZiT2VyRGlILUJNQXo2Uzk4M0NGM2JSMDN3?oc=5",
+            "published_at": "2026-11-28 13:36:00 KST"
           },
           {
-            "title": "Black Friday shopping on a budget? These 41+ deals are all under $50 - NBC News",
-            "title_ko": "블랙 프라이데이 예산 쇼핑? 41가지 딜은 50달러 미만",
-            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOQUJseGdhY09CbHQ3bW5LZG5OYlo1bDktdUk3X1gxVms3b0J3bGVJSy1lQnJLd3RwV1d4NXNyOW5uOURfYV9WcHhEYVFiQTJFM2EyTUhzUlNXRm9pelhrV211eDZqLUlfaTRGaE1ycndONTZiT2VyRGlILUJNQXo2Uzk4M0NGM2JSMDN3?oc=5",
-            "published_at": "2026-11-28 05:58:07 KST"
+            "title": "Walmart Black Friday deals are live: 43 that are worth buying right now - NBC News",
+            "title_ko": "월마트 블랙 프라이데이 딜 시작: 지금 구매할 가치 있는 43가지 - NBC News",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPV3JueGwySWxtZUNpQ05pWTBLNTlQS2RsWHNKZzBUNmpUemRhMGFGYlI2QkUzT2pXNzRPLVhseEVQazQ1WkFnRlV3aV9nLTdLLURiTUJrSFlpNzREVTZjSHVSWUJTQ0x4ZDUzdDFjOWFLeTVEdzRFalozcktuWGZfR3NneEJHeXZmT0E?oc=5",
+            "published_at": "2026-11-28 13:13:00 KST"
+          },
+          {
+            "title": "You need to replace your sneakers every 6 months — 27+ Black Friday sneaker deals to shop now - NBC News",
+            "title_ko": "운동화 6개월마다 교체 필요…블랙 프라이데이 스니커즈 딜 27+ - NBC News",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQdGRfdURxZnBwa1QtU0FaM183SFhyS2IxTHFBZjJ6OWVpUjNUU25KWWJYVDhDSm1DcGF3ckZEQlk2bm5tNi11NHBkeHVXYmxjWDdyb3k3TFdOMGh3Y2ViNm5HNVJzZUZ1XzNFaW53Z1pyVDI2eE00ZHA3YUVxa2hqRV9rRXJ2cEM2TXc?oc=5",
+            "published_at": "2026-11-28 09:53:00 KST"
           },
           {
             "title": "About 1,000 people set shopping bag Guinness World Record at Mall of America - 5 EYEWITNESS NEWS",
-            "title_ko": "몰 오브 아메리카에서 쇼핑백 기네스 기록 약 1,000명 달성",
+            "title_ko": "아메리카 몰서 쇼핑백 기네스 세계 기록 달성…약 1,000명 참여 - 5 EYEWITNESS NEWS",
             "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOZ3BwamYxU3JhVjRNbW9SNHdTNHljd2hxUjdJajNScUtpd0dMOHFhN1B2WkpXaGZBYXdhRVdDNlNkV1Z5VzUwZGpES2JGZnlTOFh0R0x0TGxDaDNQT3VjdVpVX1pGbDlXbDlLajd4QzZoSHJfNWZlQjNtYXl6enJFMmp2eE43NTdDeXBfVktqWFBib2JaY1VRcUQwdnI4ZlRhb2xIR01JcHJ2QQ?oc=5",
             "published_at": "2026-11-28 05:04:59 KST"
           },
           {
-            "title": "Black Friday shoppers head to brick-and-mortar stores across the U.S. - NBC News",
-            "title_ko": "블랙 프라이데이 쇼핑객, 미국 전역 오프라인 매장으로 향해",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNYlVjQWdKMUYwNnNCUkJrbWpTVU9sMWV2QnNHLXpLWko5bTJBV1FJQ3hKSnZabkpDV0dBTDcyT0Q0RDFXMTh5Yng1Y3BaZmhnM1FLN3pOTzlOOFlUdnFzdEhZbXJNXzVWWncwSTN5VHd3M0pZbjhqWERUXzBmNFJBTGw4MnlTeHI5S01ZZ3lPcUcxM3A5akJLdTlhb1k2UQ?oc=5",
-            "published_at": "2026-11-28 01:58:32 KST"
+            "title": "The best Black Friday deals on our favorite smart home gear - The Verge",
+            "title_ko": "가장 좋은 블랙 프라이데이 스마트 홈 기기 딜 - The Verge",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPQllfT1FjWHRDZjd3d1ZyMDNpUUJDSXdrWi1tWGUzVFkwX2dMZTRQOUpBb1I3eWpodlFBUHloR1czWDk4VTBZQVZiTHBuRm95eHUtWlZ6ejUzd0lBeTVTRUR3cUlmRVZNNGZFREd4M1RsOG5OQXJMUnNGeS15cE1LTw?oc=5",
+            "published_at": "2026-11-28 04:30:00 KST"
           }
         ]
       },
       {
         "name": "AI",
-        "reason": "AI 칩 수요 증가와 관련 기술 발전에 대한 기대감이 지속적으로 부각됨 (총 7건)",
-        "us_news_refs": [
-          5,
-          7,
-          12,
-          23,
-          25,
-          31,
-          35
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Los Angeles schools block Google’s AI features, consider dropping tech giant’s products - AP News",
-            "title_ko": "LA 학교, Google AI 기능 차단, 기술 거대 기업 제품 중단 고려",
-            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPX28yVGlpUUl3UEpZMGJaTDRFbXBWR09uX1diWWotVXFuQ2JOTDlZRVVCUXRtN3FyUUNzczI2SG9sTXZXanlELUZfYU1YTHZ3enQ1NUoyUGU4NmwzNzJYV3l5ZjM0cHF0NHlhMDl2R3gwaWROaHREY3Zrd3BBd2hHd202WnFqWTJwSF9pSThfUk5wRV9TQkdBVC1zc09hbHh6M1BVVHJ5MUdmc2JzQmJ2YUJLaEkzSGJXNHc?oc=5",
-            "published_at": "2026-11-28 04:46:00 KST"
-          },
-          {
-            "title": "Stock Market News Nov. 27, 2026: Dow zooms higher, clinches best week since 2022 as stocks rebound in holiday-shortened trade - MarketWatch",
-            "title_ko": "주식 시장 뉴스 2026년 11월 27일: 다우 지수 급등, 2022년 이후 최고 주간 기록",
-            "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOQ3U3andqWFB6Qk9kcW51T1h6M3NpYkVDdmpKRzFXNVMxb0tLYjFzY29KeHF3d1czcUwxTmNrRDF5ZXVHX0tkZ0FFZkQyVUNqRjdaZHJnWGV5dlprNXJ5cHkyTk1od05NaktPM1JKeEV2QTdDeEVxSkFQckQwSTNCbE5aa1BzdWpFOFIzcnZQVF9tVmdmV2EtXy1QREhzc2hGYkFaUVI0X0JjUmkyYmNkNU5FRjBOaWRsSkEzamZzYldqVjRBX2JvTGh3?oc=5",
-            "published_at": "2026-11-28 03:20:00 KST"
-          },
-          {
-            "title": "Wall Street ends higher as battered AI stocks gain in volatile week",
-            "title_ko": "월스트리트, 변동성 큰 주간 AI 주식 상승 마감",
-            "url": "https://www.investing.com/news/stock-market-news/wall-st-futures-surge-as-investors-return-from-holiday-5053052",
-            "published_at": "2026-11-28 07:18:18 KST"
-          },
-          {
-            "title": "These stocks soared the most during a wild week highlighted by Huang’s return to Nvidia",
-            "title_ko": "Nvidia Huang 복귀로 주목받은 변동성 큰 주간 최고 상승 주식",
-            "url": "https://www.marketwatch.com/story/these-stocks-soared-the-most-during-a-wild-week-highlighted-by-huangs-return-to-nvidia-578b3f9a?mod=mw_rss_topstories",
-            "published_at": "2026-11-28 05:16:00 KST"
-          },
-          {
-            "title": "Nvidia Blackwell Chips Turn Up at China Site Tied to Alice Huang - Bloomberg",
-            "title_ko": "Nvidia Blackwell 칩, Alice Huang 연계 중국 현장에서 발견",
-            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOajRDYnpkT2kwWEdlR2REeG93cnBZdkdsYmo3dTFmaVp3enZYN3Jid0RYVWZwNXJvcE00OG5FNjdwd0MzQXpFV1gzeUxkdnhxTVNoaGVNRmpnRllMTGY4emNtNW9VYnc4RWZVX0I2WExQNy1Ha21aV0FNWWVUb0FacnFLM01rUWRudjBCdGJpbGxCVUx3dl9KMEtZb0pyYURCTG1iWW5xUmNpaDlnc0lsMVpldmV6QQ?oc=5",
-            "published_at": "2026-11-28 04:18:51 KST"
-          }
-        ]
-      },
-      {
-        "name": "Retail",
-        "reason": "블랙프라이데이 시즌을 맞아 소비 심리 회복 및 유통 채널 강세가 나타나고 있음 (총 4건)",
+        "reason": "AI 칩 수요 강세 및 관련 기술 발전 모멘텀이 지속적으로 주목받고 있음 (총 3건)",
         "us_news_refs": [
           0,
-          1,
-          11,
-          20
+          15,
+          18,
+          22,
+          24,
+          28,
+          30,
+          35,
+          38,
+          41
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "41 best Walmart deals happening right now for Black Friday 2026 - NBC News",
-            "title_ko": "블랙 프라이데이 월마트 41가지 최고의 딜",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPV3JueGwySWxtZUNpQ05pWTBLNTlQS2RsWHNKZzBUNmpUemRhMGFGYlI2QkUzT2pXNzRPLVhseEVQazQ1WkFnRlV3aV9nLTdLLURiTUJrSFlpNzREVTZjSHVSWUJTQ0x4ZDUzdDFjOWFLeTVEdzRFalozcktuWGZfR3NneEJHeXZmT0E?oc=5",
-            "published_at": "2026-11-28 06:41:54 KST"
+            "title": "Samsung's Galaxy S25 and S25 Ultra could be banned in the US after a patent ruling - Android Police",
+            "title_ko": "삼성 갤럭시 S25/S25 Ultra, 특허 판결 후 미국서 금지될 수도 - Android Police",
+            "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNT0kwVXQyY1ZBcWdMdXBqMG9NZk5rTHlKRkZFcGwwLWZqSl8wd1Rwcm5SN2hWX0M4aGpheTlZUEZabXBUTXU3TUttLUJRd0dyUGlzc2ZfcXRaRzR2N2FxeFhNcFJOY2pQemhOLWdzX2RYb2JsTkwxTmd0am4xUWdyT1B3anJYR05NMS1RSGdTT19VQmhNTTJIbWdEU2JmS1Fla2gySWd0blVGZw?oc=5",
+            "published_at": "2026-11-28 12:14:00 KST"
           },
           {
-            "title": "Black Friday shoppers head to brick-and-mortar stores across the U.S. - NBC News",
-            "title_ko": "블랙 프라이데이 쇼핑객, 미국 전역 오프라인 매장으로 향해",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNYlVjQWdKMUYwNnNCUkJrbWpTVU9sMWV2QnNHLXpLWko5bTJBV1FJQ3hKSnZabkpDV0dBTDcyT0Q0RDFXMTh5Yng1Y3BaZmhnM1FLN3pOTzlOOFlUdnFzdEhZbXJNXzVWWncwSTN5VHd3M0pZbjhqWERUXzBmNFJBTGw4MnlTeHI5S01ZZ3lPcUcxM3A5akJLdTlhb1k2UQ?oc=5",
-            "published_at": "2026-11-28 01:58:32 KST"
+            "title": "The High Political Cost of Trump’s Loyalty to Jensen Huang - WSJ",
+            "title_ko": "트럼프의 젠슨 황 충성심의 높은 정치적 대가 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOd0RESWZCNURwWGRtNHhIZTY0OXFScXNJYVk5TUJ2djBDWHVKNXVsZlVmRDZfUmFucEJqTUZBdkF0NkY4Y2JmQUJqZzRfazlhN0dWbnY0WTJCRXJ0X0NQTXAySXE3bGtKNnVWbWJhQ1czWGhJVk1qV1NBM01HMXE2S1J2S2VzTlBmT3VUa2pObFBGMHZzUUtRYkNsNnUzUzc5Ty16OQ?oc=5",
+            "published_at": "2026-11-28 11:00:00 KST"
           },
           {
-            "title": "Inflation has shoppers hunting for value. That bodes well for Black Friday",
-            "title_ko": "인플레이션으로 쇼핑객 가치 사냥, 블랙 프라이데이에 호재",
-            "url": "https://www.cnbc.com/2026/11/27/black-friday-2026-inflation-value-deals.html",
-            "published_at": "2026-11-28 07:00:57 KST"
+            "title": "Michael Dell Races to Deliver a $132 Billion A.I. Server Backlog - Observer",
+            "title_ko": "마이클 델, 1320억 달러 AI 서버 백로그 전달 위해 질주 - Observer",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1nWkZWV2lHVU5ucV93ZmVwVDNkMllvelliR3p4WVV6ZTRMU2pHMnRHTVdjaUxvY3hYZmpENXFxQmI3NGFkUXUyNDhSbm43Y3B6ZHRyZnRnN25lQWdiSllwVjR6bjVlNmViY0M3WA?oc=5",
+            "published_at": "2026-11-28 08:06:59 KST"
+          },
+          {
+            "title": "Nvidia chips on sale for $3M in China — as Jensen Huang scandal and US crackdown chokes supply - Yahoo Finance",
+            "title_ko": "중국서 300만 달러에 Nvidia 칩 판매…젠슨 황 스캔들·미국 제재로 공급 차질 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPaFNHTjdIUlp0OUVGTWdNZnJtcTdWeGpSSE5UbE9WSmhYVFRYUGhPOHRBd2VIa2tuVU9PZUJOS2wxTjZUWWdUXzFmdG14QzlueFZLYXVqZDJIeEFQTkYxbjVlekw3WGZBNmVsdGtBbTZPZ2tSQkQwQjM0d25PRDlrZkM4T2tHc2lFY1pTOExyNmRHZXEyRW1TMlE5VWFZQQ?oc=5",
+            "published_at": "2026-11-28 06:18:40 KST"
           }
         ]
       }
     ],
     "top3_stocks": [
       {
-        "name": "Walmart",
-        "reason": "블랙프라이데이 소비 시즌을 맞아 실적 개선 기대감으로 주목받고 있음 (총 3건)",
+        "name": "Nvidia",
+        "reason": "AI 칩 수요 강세 및 기술 발전 관련 소식이 지속적으로 주가에 영향을 미치고 있음 (총 2건)",
         "us_news_refs": [
           0,
-          1,
-          11
+          18,
+          24,
+          28,
+          35,
+          41
         ],
-        "_weak_signal": true,
         "related_news": [
           {
-            "title": "41 best Walmart deals happening right now for Black Friday 2026 - NBC News",
-            "title_ko": "블랙 프라이데이 월마트 41가지 최고의 딜",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPV3JueGwySWxtZUNpQ05pWTBLNTlQS2RsWHNKZzBUNmpUemRhMGFGYlI2QkUzT2pXNzRPLVhseEVQazQ1WkFnRlV3aV9nLTdLLURiTUJrSFlpNzREVTZjSHVSWUJTQ0x4ZDUzdDFjOWFLeTVEdzRFalozcktuWGZfR3NneEJHeXZmT0E?oc=5",
-            "published_at": "2026-11-28 06:41:54 KST"
+            "title": "The High Political Cost of Trump’s Loyalty to Jensen Huang - WSJ",
+            "title_ko": "트럼프의 젠슨 황 충성심의 높은 정치적 대가 - WSJ",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOd0RESWZCNURwWGRtNHhIZTY0OXFScXNJYVk5TUJ2djBDWHVKNXVsZlVmRDZfUmFucEJqTUZBdkF0NkY4Y2JmQUJqZzRfazlhN0dWbnY0WTJCRXJ0X0NQTXAySXE3bGtKNnVWbWJhQ1czWGhJVk1qV1NBM01HMXE2S1J2S2VzTlBmT3VUa2pObFBGMHZzUUtRYkNsNnUzUzc5Ty16OQ?oc=5",
+            "published_at": "2026-11-28 11:00:00 KST"
           },
           {
-            "title": "Black Friday shoppers head to brick-and-mortar stores across the U.S. - NBC News",
-            "title_ko": "블랙 프라이데이 쇼핑객, 미국 전역 오프라인 매장으로 향해",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNYlVjQWdKMUYwNnNCUkJrbWpTVU9sMWV2QnNHLXpLWko5bTJBV1FJQ3hKSnZabkpDV0dBTDcyT0Q0RDFXMTh5Yng1Y3BaZmhnM1FLN3pOTzlOOFlUdnFzdEhZbXJNXzVWWncwSTN5VHd3M0pZbjhqWERUXzBmNFJBTGw4MnlTeHI5S01ZZ3lPcUcxM3A5akJLdTlhb1k2UQ?oc=5",
-            "published_at": "2026-11-28 01:58:32 KST"
-          }
-        ]
-      },
-      {
-        "name": "Alphabet",
-        "reason": "AI 기술 발전과 클라우드 사업 성장에 대한 기대감이 주가에 긍정적인 영향을 미치고 있음 (총 3건)",
-        "us_news_refs": [
-          5,
-          47
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "Los Angeles schools block Google’s AI features, consider dropping tech giant’s products - AP News",
-            "title_ko": "LA 학교, Google AI 기능 차단, 기술 거대 기업 제품 중단 고려",
-            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPX28yVGlpUUl3UEpZMGJaTDRFbXBWR09uX1diWWotVXFuQ2JOTDlZRVVCUXRtN3FyUUNzczI2SG9sTXZXanlELUZfYU1YTHZ3enQ1NUoyUGU4NmwzNzJYV3l5ZjM0cHF0NHlhMDl2R3gwaWROaHREY3Zrd3BBd2hHd202WnFqWTJwSF9pSThfUk5wRV9TQkdBVC1zc09hbHh6M1BVVHJ5MUdmc2JzQmJ2YUJLaEkzSGJXNHc?oc=5",
-            "published_at": "2026-11-28 04:46:00 KST"
+            "title": "Nvidia chips on sale for $3M in China — as Jensen Huang scandal and US crackdown chokes supply - Yahoo Finance",
+            "title_ko": "중국서 300만 달러에 Nvidia 칩 판매…젠슨 황 스캔들·미국 제재로 공급 차질 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPaFNHTjdIUlp0OUVGTWdNZnJtcTdWeGpSSE5UbE9WSmhYVFRYUGhPOHRBd2VIa2tuVU9PZUJOS2wxTjZUWWdUXzFmdG14QzlueFZLYXVqZDJIeEFQTkYxbjVlekw3WGZBNmVsdGtBbTZPZ2tSQkQwQjM0d25PRDlrZkM4T2tHc2lFY1pTOExyNmRHZXEyRW1TMlE5VWFZQQ?oc=5",
+            "published_at": "2026-11-28 06:18:40 KST"
           },
           {
-            "title": "Amazon main event Black Friday sale now live! Apple, Google, Anker, LEGO, TVs, more - 9to5Toys",
-            "title_ko": "아마존 메인 이벤트 블랙 프라이데이 세일 시작! Apple, Google, Anker, LEGO, TV 등",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNSVFjLTFlemtDdTFYNGFwVGpGUU5CMEpRa2xlb0l1dmhmeEZXY3BnQy1ydlg2bUp4cklxcjJTOVpuaFZXTmM4WWNoTWUyendBTXZBNEp2b2RfUVVpWDhMaGlZR1JBUXlacGJQNEhxNWhHSE1qaVZ5V1gybzVXejNCUGd3?oc=5",
-            "published_at": "2026-11-27 17:01:00 KST"
-          }
-        ]
-      },
-      {
-        "name": "Allstate",
-        "reason": "보험 업계의 견조한 실적 발표와 시장 회복 가능성이 부각됨 (총 3건)",
-        "us_news_refs": [
-          33,
-          89
-        ],
-        "_weak_signal": true,
-        "related_news": [
+            "title": "Stocks snap from a $6 trillion washout to a $3.5 trillion surge as Nvidia, Micron, and SpaceX bounce back - Yahoo Finance",
+            "title_ko": "Nvidia, Micron, SpaceX 반등에 6조 달러 폭락서 3.5조 달러 급등한 증시 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNQnNIN21ZLWU4dTFmYXh6TnluRXFFY3cxNGJ6ZGZ3QnFTdmdVUF9POFExV01NQVM1Z2tTdW1KekwtOXlXeExfQmtWcVNLcE5TSEQ3Nnd5b0UxZVQ0SEVLeW1fOXFXbGxWVmlUaTE4SzZPQ01kaFAyS093VVlIaXRheHdiYVBnRndvUHRlaXlRYU56dmVGRkN4NkF0eC13R3k1VUk4eV94Q1YzY2R3akR6SXNMajV3RTNVQ2tHOU5QT3R1YU5JTFJ4eVRxSFlnelU1STFtSm5yRVdNUllYZ1F5UTJ4bWF2RzB5akFSNQ?oc=5",
+            "published_at": "2026-11-28 03:32:22 KST"
+          },
           {
-            "title": "Allstate roiled by tech outage over Thanksgiving week - CBS News",
-            "title_ko": "Allstate, 추수감사절 주간 기술 장애로 혼란",
-            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOVnhyX20tNWl0ZzUyT1Zia2VPYmI2WGx4czNSVTFnRm5OcVBJaThFX0pVSTBxRm5qTEZHbzhrSGh0SVNPazJBWFpIRmk2YmxLcGY2NC1MT0Nzdm1tM0haYWhqTWp5ODFZSlNYVXZrM0ZVdGVFTTlDdFloR20zXzFxZQ?oc=5",
-            "published_at": "2026-11-28 00:06:52 KST"
+            "title": "Jensen Huang Said Nvidia’s Blackwell Chips Were Too Big to Smuggle. Bloomberg Just Found Them in China. - Yahoo Finance",
+            "title_ko": "젠슨 황, Nvidia Blackwell 칩은 밀수하기엔 너무 크다고 말했으나…블룸버그, 중국서 발견 - Yahoo Finance",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOTGczVmpQQzJWZ0NUNlZxSUxUUm9qVFprdTBwMFZ3S0ZGQWxvSnZHX2Y3S0VYVXJreTFOUUphdHlEQXVfZXVkZzE2cnhDZlNTb1lUTVNEQ3IxUzlZWXFlRl9IRVJYbU43eXlZbTlTQjlsaU9qdTlfV1RwNTNBay12VllJMTJIYkRtNlhFRVNzemxaaEJHeko1MkNRaVBNY2s?oc=5",
+            "published_at": "2026-11-28 00:50:22 KST"
           }
         ]
       }
@@ -201,161 +141,8 @@
     }
   },
   "kr": {
-    "top3_sectors": [
-      {
-        "name": "AI",
-        "reason": "AI 기술 발전과 관련 기업들의 실적 개선 기대감이 한국 증시에서 지속적으로 주목받고 있음 (총 9건)",
-        "kr_news_refs": [
-          1,
-          3,
-          7,
-          8,
-          23,
-          29,
-          51,
-          71,
-          98
-        ],
-        "related_news": [
-          {
-            "title": "“젠슨 황 불륜 상대와 연계된 중국 데이터센터에 엔비디아 블랙웰 설치” - KBS 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5qU04wUGZ6S1N6TC1samtwbHgtSzB4Rm9TaW9zTFFvN2N0N21meVA0U3RqaHhRTjN3RzBHa3FEUzg5a1VWM0N2cXh0ZTV3TTdnZzVFc3RMdUZLUXM?oc=5",
-            "published_at": "2026-11-28 06:03:00 KST"
-          },
-          {
-            "title": "[뉴욕증시-1보] AI株 저가 매수에 훈풍…3대 지수 강세 마감 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBWNzBHTWNnQVpoXzhtVGlvOVFLcWd5SGFRYU5TZzNDbVdSS2RmOEN0YnJmV0tHQnZNaUxCZjZBTHJSM0ZRTWk1eGpma25zSXNNT0I0MnBzRWdXSVFScGtLQTNzOTBvMW1Wd1ktMHo3X1M?oc=5",
-            "published_at": "2026-11-28 03:07:46 KST"
-          },
-          {
-            "title": "폴란드, '원격차단 위험' 논란에도 팔란티어와 군용 AI 계약",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261128012000009",
-            "published_at": "2026-11-28 07:25:56 KST"
-          },
-          {
-            "title": "젠슨 황 불륜녀, 무슨 짓을 한거야…중국 시설서 발견된 물건 ‘충격’",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12220616",
-            "published_at": "2026-11-28 07:25:38 KST"
-          },
-          {
-            "title": "93엑스포 이을 간판 될까…대전 '글로벌 테크아트 허브' 시동",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261127074900063",
-            "published_at": "2026-11-28 07:00:09 KST"
-          }
-        ]
-      },
-      {
-        "name": "반도체",
-        "reason": "글로벌 AI 수요 증가와 HBM 시장 성장에 대한 기대감이 한국 반도체 기업들의 주가에 긍정적인 영향을 미치고 있음 (총 7건)",
-        "kr_news_refs": [
-          1,
-          3,
-          8,
-          38,
-          41,
-          51,
-          98
-        ],
-        "related_news": [
-          {
-            "title": "“젠슨 황 불륜 상대와 연계된 중국 데이터센터에 엔비디아 블랙웰 설치” - KBS 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5qU04wUGZ6S1N6TC1samtwbHgtSzB4Rm9TaW9zTFFvN2N0N21meVA0U3RqaHhRTjN3RzBHa3FEUzg5a1VWM0N2cXh0ZTV3TTdnZzVFc3RMdUZLUXM?oc=5",
-            "published_at": "2026-11-28 06:03:00 KST"
-          },
-          {
-            "title": "[뉴욕증시-1보] AI株 저가 매수에 훈풍…3대 지수 강세 마감 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBWNzBHTWNnQVpoXzhtVGlvOVFLcWd5SGFRYU5TZzNDbVdSS2RmOEN0YnJmV0tHQnZNaUxCZjZBTHJSM0ZRTWk1eGpma25zSXNNT0I0MnBzRWdXSVFScGtLQTNzOTBvMW1Wd1ktMHo3X1M?oc=5",
-            "published_at": "2026-11-28 03:07:46 KST"
-          },
-          {
-            "title": "젠슨 황 불륜녀, 무슨 짓을 한거야…중국 시설서 발견된 물건 ‘충격’",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12220616",
-            "published_at": "2026-11-28 07:25:38 KST"
-          },
-          {
-            "title": "한국서 5% 뛴 SK하이닉스, 미국선 7%대 급등…나스닥도 2.31%↑",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12220603",
-            "published_at": "2026-11-28 06:58:26 KST"
-          },
-          {
-            "title": "샌디스크 16%↑…메모리주, '이익절벽' 우려 속 주간 반등",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261128008900009",
-            "published_at": "2026-11-28 06:42:01 KST"
-          }
-        ]
-      }
-    ],
-    "top3_stocks": [
-      {
-        "name": "Nvidia",
-        "reason": "AI 칩 수요 증가와 관련 기술 발전에 대한 기대감이 한국 증시에서도 높은 관심을 받고 있음 (총 4건)",
-        "kr_news_refs": [
-          1,
-          8,
-          48,
-          98
-        ],
-        "related_news": [
-          {
-            "title": "“젠슨 황 불륜 상대와 연계된 중국 데이터센터에 엔비디아 블랙웰 설치” - KBS 뉴스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5qU04wUGZ6S1N6TC1samtwbHgtSzB4Rm9TaW9zTFFvN2N0N21meVA0U3RqaHhRTjN3RzBHa3FEUzg5a1VWM0N2cXh0ZTV3TTdnZzVFc3RMdUZLUXM?oc=5",
-            "published_at": "2026-11-28 06:03:00 KST"
-          },
-          {
-            "title": "젠슨 황 불륜녀, 무슨 짓을 한거야…중국 시설서 발견된 물건 ‘충격’",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12220616",
-            "published_at": "2026-11-28 07:25:38 KST"
-          },
-          {
-            "title": "한국 올 때 입었던 그 셔츠…젠슨 황, 복귀 첫날 다시 꺼냈다는데",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/world/12220592",
-            "published_at": "2026-11-28 06:24:46 KST"
-          },
-          {
-            "title": "'젠슨황 불륜 상대' 연계 中시설서 엔비디아 최첨단 칩 발견",
-            "title_ko": "",
-            "url": "https://www.yna.co.kr/view/AKR20261128002400072",
-            "published_at": "2026-11-28 01:44:47 KST"
-          }
-        ]
-      },
-      {
-        "name": "SK하이닉스",
-        "reason": "AI 반도체 시장 성장과 HBM 수요 강세에 대한 기대감이 주가에 긍정적인 영향을 미치고 있음 (총 3건)",
-        "kr_news_refs": [
-          3,
-          38
-        ],
-        "_weak_signal": true,
-        "related_news": [
-          {
-            "title": "[뉴욕증시-1보] AI株 저가 매수에 훈풍…3대 지수 강세 마감 - 연합인포맥스",
-            "title_ko": "",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBWNzBHTWNnQVpoXzhtVGlvOVFLcWd5SGFRYU5TZzNDbVdSS2RmOEN0YnJmV0tHQnZNaUxCZjZBTHJSM0ZRTWk1eGpma25zSXNNT0I0MnBzRWdXSVFScGtLQTNzOTBvMW1Wd1ktMHo3X1M?oc=5",
-            "published_at": "2026-11-28 03:07:46 KST"
-          },
-          {
-            "title": "한국서 5% 뛴 SK하이닉스, 미국선 7%대 급등…나스닥도 2.31%↑",
-            "title_ko": "",
-            "url": "https://www.mk.co.kr/news/stock/12220603",
-            "published_at": "2026-11-28 06:58:26 KST"
-          }
-        ]
-      }
-    ],
+    "top3_sectors": [],
+    "top3_stocks": [],
     "outlook": {
       "sectors": [],
       "stocks": []
@@ -368,19 +155,26 @@
     "top3_sectors": [
       {
         "name": "AI",
-        "freq": 2,
-        "summary": "AI 관련 섹터는 거품론이 제기되는 가운데, AI 데이터센터의 과잉 투자 가능성에 대한 논의가 있었습니다. 다만, AI 기술 발전의 잠재력 또한 언급되었습니다.",
+        "freq": 3,
+        "summary": "AI 기술 발전이 새로운 투자 기회를 창출하며, AI 관련 주식에 대한 투자 전략이 논의되었습니다. 특히 한국판 MANGOS와 같은 AI 주식에 대한 관심이 높았습니다.",
         "refs": [
-          1,
-          9
+          2,
+          8,
+          10
         ],
-        "reason": "AI 관련 섹터는 거품론이 제기되는 가운데, AI 데이터센터의 과잉 투자 가능성에 대한 논의가 있었습니다. 다만, AI 기술 발전의 잠재력 또한 언급되었습니다.",
+        "reason": "AI 기술 발전이 새로운 투자 기회를 창출하며, AI 관련 주식에 대한 투자 전략이 논의되었습니다. 특히 한국판 MANGOS와 같은 AI 주식에 대한 관심이 높았습니다.",
         "related_videos": [
           {
-            "title": "\"오늘 급등, 절대 따라가지 마세요\" 숏커버링 대응법부터 삼성전자·AI 거품론까지 완벽 정리ㅣ명민준, 박가영, 차영주 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=IKlg03x1dMw",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-27 21:00:19 KST"
+            "title": "다음 상승장은 이 주식들이 이끈다? 돈 버는 AI 주식들 한 번에 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=j8EaDcK7Hc4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-28 18:41:53 KST"
+          },
+          {
+            "title": "첨단 무기에 참교육 당한 아이티 갱단",
+            "url": "https://www.youtube.com/watch?v=2oQ4qNnfng8",
+            "channel_name": "슈카월드",
+            "published_at": "2026-11-27 19:55:42 KST"
           },
           {
             "title": "AI 데이터센터는 버블인가",
@@ -393,42 +187,24 @@
       {
         "name": "반도체",
         "freq": 2,
-        "summary": "삼성전자와 SK하이닉스 등 반도체 관련 종목에 대한 언급이 있었습니다. 현재 시장 상황에서 해당 종목들을 급하게 매도할 필요는 없다는 의견이 제시되었습니다.",
+        "summary": "삼성전자와 SK하이닉스 등 주요 반도체 기업에 대한 투자 전략이 언급되었습니다. 다음 주 코스피 시장에서 반도체 섹터의 움직임이 주목받았습니다.",
         "refs": [
           1,
-          2
+          1
         ],
-        "reason": "삼성전자와 SK하이닉스 등 반도체 관련 종목에 대한 언급이 있었습니다. 현재 시장 상황에서 해당 종목들을 급하게 매도할 필요는 없다는 의견이 제시되었습니다.",
+        "reason": "삼성전자와 SK하이닉스 등 주요 반도체 기업에 대한 투자 전략이 언급되었습니다. 다음 주 코스피 시장에서 반도체 섹터의 움직임이 주목받았습니다.",
         "related_videos": [
           {
-            "title": "\"오늘 급등, 절대 따라가지 마세요\" 숏커버링 대응법부터 삼성전자·AI 거품론까지 완벽 정리ㅣ명민준, 박가영, 차영주 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=IKlg03x1dMw",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-27 21:00:19 KST"
+            "title": "다음주 코스피 심상치 않습니다, 삼성전자, SK하이닉스 싹다 '이렇게' 하세요 (김장열 센터장)",
+            "url": "https://www.youtube.com/watch?v=7_RtJh8NbNo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-28 20:00:28 KST"
           },
           {
-            "title": "순환매 장세에도 삼성전자·SK하이닉스를 급하게 팔고 갈아탈 필요 없는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=tx-pbWaIoTc",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-27 20:00:22 KST"
-          }
-        ]
-      },
-      {
-        "name": "방산",
-        "freq": 1,
-        "summary": "첨단 무기가 등장하며 아이티 갱단이 참교육을 당했다는 내용이 언급되었습니다. 이는 방산 기술의 발전과 실제 적용 사례를 시사합니다.",
-        "refs": [
-          4
-        ],
-        "reason": "첨단 무기가 등장하며 아이티 갱단이 참교육을 당했다는 내용이 언급되었습니다. 이는 방산 기술의 발전과 실제 적용 사례를 시사합니다.",
-        "_weak_signal": true,
-        "related_videos": [
-          {
-            "title": "첨단 무기에 참교육 당한 아이티 갱단",
-            "url": "https://www.youtube.com/watch?v=2oQ4qNnfng8",
-            "channel_name": "슈카월드",
-            "published_at": "2026-11-27 19:55:42 KST"
+            "title": "다음주 코스피 심상치 않습니다, 삼성전자, SK하이닉스 싹다 '이렇게' 하세요 (김장열 센터장)",
+            "url": "https://www.youtube.com/watch?v=7_RtJh8NbNo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-28 20:00:28 KST"
           }
         ]
       }
@@ -436,61 +212,55 @@
     "top3_stocks": [
       {
         "name": "삼성전자",
-        "freq": 2,
-        "summary": "삼성전자는 AI 거품론과 함께 언급되었으며, 현재 시장 상황에서 급하게 매도할 필요가 없다는 의견이 제시되었습니다.",
+        "freq": 1,
+        "summary": "다음 주 코스피 시장에서 삼성전자에 대한 투자 전략이 언급되었습니다. 김장열 센터장이 삼성전자에 대한 구체적인 투자 방안을 제시했습니다.",
         "refs": [
-          1,
-          2
+          1
         ],
-        "reason": "삼성전자는 AI 거품론과 함께 언급되었으며, 현재 시장 상황에서 급하게 매도할 필요가 없다는 의견이 제시되었습니다.",
+        "reason": "다음 주 코스피 시장에서 삼성전자에 대한 투자 전략이 언급되었습니다. 김장열 센터장이 삼성전자에 대한 구체적인 투자 방안을 제시했습니다.",
+        "_weak_signal": true,
         "related_videos": [
           {
-            "title": "\"오늘 급등, 절대 따라가지 마세요\" 숏커버링 대응법부터 삼성전자·AI 거품론까지 완벽 정리ㅣ명민준, 박가영, 차영주 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=IKlg03x1dMw",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-27 21:00:19 KST"
-          },
-          {
-            "title": "순환매 장세에도 삼성전자·SK하이닉스를 급하게 팔고 갈아탈 필요 없는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=tx-pbWaIoTc",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-27 20:00:22 KST"
+            "title": "다음주 코스피 심상치 않습니다, 삼성전자, SK하이닉스 싹다 '이렇게' 하세요 (김장열 센터장)",
+            "url": "https://www.youtube.com/watch?v=7_RtJh8NbNo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-28 20:00:28 KST"
           }
         ]
       },
       {
         "name": "SK하이닉스",
         "freq": 1,
-        "summary": "SK하이닉스는 현재 시장 상황에서 급하게 매도할 필요가 없다는 의견과 함께 언급되었습니다.",
+        "summary": "다음 주 코스피 시장에서 SK하이닉스에 대한 투자 전략이 언급되었습니다. 김장열 센터장이 SK하이닉스에 대한 구체적인 투자 방안을 제시했습니다.",
         "refs": [
-          2
+          1
         ],
-        "reason": "SK하이닉스는 현재 시장 상황에서 급하게 매도할 필요가 없다는 의견과 함께 언급되었습니다.",
+        "reason": "다음 주 코스피 시장에서 SK하이닉스에 대한 투자 전략이 언급되었습니다. 김장열 센터장이 SK하이닉스에 대한 구체적인 투자 방안을 제시했습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "순환매 장세에도 삼성전자·SK하이닉스를 급하게 팔고 갈아탈 필요 없는 이유ㅣ명민준, 박가영, 황유현 [주린이 구조대]",
-            "url": "https://www.youtube.com/watch?v=tx-pbWaIoTc",
-            "channel_name": "삼프로TV",
-            "published_at": "2026-11-27 20:00:22 KST"
+            "title": "다음주 코스피 심상치 않습니다, 삼성전자, SK하이닉스 싹다 '이렇게' 하세요 (김장열 센터장)",
+            "url": "https://www.youtube.com/watch?v=7_RtJh8NbNo",
+            "channel_name": "김작가 TV",
+            "published_at": "2026-11-28 20:00:28 KST"
           }
         ]
       },
       {
-        "name": "테슬라",
+        "name": "ACE 미국AI TOP6 Plus",
         "freq": 1,
-        "summary": "테슬라 주식을 보유한 투자자들에게 특정 행동을 취할 것을 권고하는 내용이 언급되었습니다.",
+        "summary": "AI 기술 발전으로 인한 투자 기회와 관련하여 'ACE 미국AI TOP6 Plus' ETF 상품이 소개되었습니다. 이 ETF는 AI 관련 주식에 한번에 투자하는 방법을 제시했습니다.",
         "refs": [
-          7
+          2
         ],
-        "reason": "테슬라 주식을 보유한 투자자들에게 특정 행동을 취할 것을 권고하는 내용이 언급되었습니다.",
+        "reason": "AI 기술 발전으로 인한 투자 기회와 관련하여 'ACE 미국AI TOP6 Plus' ETF 상품이 소개되었습니다. 이 ETF는 AI 관련 주식에 한번에 투자하는 방법을 제시했습니다.",
         "_weak_signal": true,
         "related_videos": [
           {
-            "title": "테슬라, 스페이스X 단 1주라도 있다면, 반드시 '이렇게' 하세요 (고태훈 본부장)",
-            "url": "https://www.youtube.com/watch?v=s616_igCIqs",
-            "channel_name": "김작가 TV",
-            "published_at": "2026-11-27 18:30:01 KST"
+            "title": "다음 상승장은 이 주식들이 이끈다? 돈 버는 AI 주식들 한 번에 투자하는 법",
+            "url": "https://www.youtube.com/watch?v=j8EaDcK7Hc4",
+            "channel_name": "소수몽키",
+            "published_at": "2026-11-28 18:41:53 KST"
           }
         ]
       }
@@ -505,121 +275,121 @@
           "freq": 2
         },
         {
-          "name": "Walmart",
-          "freq": 3
-        },
-        {
-          "name": "Amazon",
-          "freq": 2
-        },
-        {
-          "name": "Alphabet",
-          "freq": 3
-        },
-        {
-          "name": "Allstate",
+          "name": "Waymo",
           "freq": 3
         },
         {
           "name": "SpaceX",
-          "freq": 1
+          "freq": 2
+        },
+        {
+          "name": "Walmart",
+          "freq": 2
+        },
+        {
+          "name": "American Airlines",
+          "freq": 3
+        },
+        {
+          "name": "United Fidelity",
+          "freq": 3
+        },
+        {
+          "name": "Allstate",
+          "freq": 2
         },
         {
           "name": "Apple",
           "freq": 2
         },
         {
-          "name": "OpenAI",
+          "name": "Dell Technologies",
           "freq": 2
         },
         {
-          "name": "Micron",
-          "freq": 1
+          "name": "Amazon",
+          "freq": 2
+        },
+        {
+          "name": "Verizon",
+          "freq": 2
+        },
+        {
+          "name": "Altria",
+          "freq": 2
         },
         {
           "name": "Anthropic",
           "freq": 1
         },
         {
-          "name": "Vail Resorts",
+          "name": "Samsung",
           "freq": 1
         },
         {
-          "name": "Distribution Solutions Group",
-          "freq": 1
-        },
-        {
-          "name": "Lensar",
-          "freq": 1
-        },
-        {
-          "name": "60 Degrees Pharmaceuticals",
-          "freq": 1
-        },
-        {
-          "name": "Frontier Nuclear",
+          "name": "Micron",
           "freq": 1
         }
       ],
       "sectors": [
         {
-          "name": "Black Friday",
-          "freq": 10
-        },
-        {
           "name": "AI",
-          "freq": 2
-        },
-        {
-          "name": "Retail",
           "freq": 3
         },
         {
-          "name": "Cybersecurity",
-          "freq": 3
-        },
-        {
-          "name": "Oil",
-          "freq": 3
-        },
-        {
-          "name": "Inflation",
-          "freq": 3
-        },
-        {
-          "name": "Technology",
-          "freq": 3
-        },
-        {
-          "name": "Cloud Computing",
-          "freq": 2
+          "name": "Black Friday",
+          "freq": 8
         },
         {
           "name": "반도체",
           "freq": 1
         },
         {
-          "name": "Travel",
+          "name": "Self-driving cars",
+          "freq": 3
+        },
+        {
+          "name": "Banking",
+          "freq": 3
+        },
+        {
+          "name": "Tech outages",
+          "freq": 3
+        },
+        {
+          "name": "Retail",
           "freq": 2
         },
         {
-          "name": "Healthcare",
-          "freq": 1
-        },
-        {
-          "name": "Electric Vehicles",
-          "freq": 1
-        },
-        {
           "name": "Aviation",
-          "freq": 1
+          "freq": 3
         },
         {
-          "name": "Data Centers",
-          "freq": 1
+          "name": "Cybersecurity",
+          "freq": 2
         },
         {
-          "name": "Automotive",
+          "name": "Broadband",
+          "freq": 2
+        },
+        {
+          "name": "Oil",
+          "freq": 2
+        },
+        {
+          "name": "Tobacco",
+          "freq": 2
+        },
+        {
+          "name": "Telecommunications",
+          "freq": 2
+        },
+        {
+          "name": "E-commerce",
+          "freq": 2
+        },
+        {
+          "name": "Smart home",
           "freq": 1
         }
       ]
@@ -627,8 +397,8 @@
     "kr": {
       "stocks": [
         {
-          "name": "Nvidia",
-          "freq": 2
+          "name": "FC 서울",
+          "freq": 4
         },
         {
           "name": "삼성전자",
@@ -639,113 +409,113 @@
           "freq": 2
         },
         {
-          "name": "스페이스X",
+          "name": "두산 베어스",
+          "freq": 3
+        },
+        {
+          "name": "OK저축은행",
           "freq": 2
         },
         {
-          "name": "Palantir",
-          "freq": 1
+          "name": "한국전력",
+          "freq": 2
         },
         {
-          "name": "마이크론",
-          "freq": 1
+          "name": "포스코",
+          "freq": 2
+        },
+        {
+          "name": "우리은행",
+          "freq": 2
+        },
+        {
+          "name": "하나은행",
+          "freq": 2
         },
         {
           "name": "레인보우로보틱스",
           "freq": 1
         },
         {
-          "name": "농심",
+          "name": "메가박스중앙",
           "freq": 1
         },
         {
-          "name": "현대자동차",
+          "name": "JTBC",
           "freq": 1
         },
         {
-          "name": "K2",
+          "name": "김천",
           "freq": 1
         },
         {
-          "name": "브랜든",
+          "name": "부천",
           "freq": 1
         },
         {
-          "name": "매일유업",
-          "freq": 1
-        },
-        {
-          "name": "이마트",
-          "freq": 1
-        },
-        {
-          "name": "트레이더스",
-          "freq": 1
-        },
-        {
-          "name": "이마트 에브리데이",
+          "name": "광주",
           "freq": 1
         }
       ],
       "sectors": [
         {
           "name": "AI",
+          "freq": 4
+        },
+        {
+          "name": "Sports",
           "freq": 5
         },
         {
-          "name": "반도체",
+          "name": "Weather",
+          "freq": 4
+        },
+        {
+          "name": "Investment",
           "freq": 3
         },
         {
-          "name": "블랙프라이데이",
+          "name": "Robotics",
           "freq": 2
-        },
-        {
-          "name": "유통",
-          "freq": 2
-        },
-        {
-          "name": "부동산",
-          "freq": 2
-        },
-        {
-          "name": "배당",
-          "freq": 1
-        },
-        {
-          "name": "로봇",
-          "freq": 1
-        },
-        {
-          "name": "바이오",
-          "freq": 1
-        },
-        {
-          "name": "방산",
-          "freq": 1
-        },
-        {
-          "name": "자동차",
-          "freq": 1
-        },
-        {
-          "name": "소비재",
-          "freq": 1
-        },
-        {
-          "name": "IT",
-          "freq": 1
         },
         {
           "name": "Energy",
+          "freq": 2
+        },
+        {
+          "name": "Real Estate",
+          "freq": 2
+        },
+        {
+          "name": "반도체",
           "freq": 1
         },
         {
-          "name": "국방",
+          "name": "Data Centers",
+          "freq": 2
+        },
+        {
+          "name": "Healthcare",
+          "freq": 2
+        },
+        {
+          "name": "Retail",
+          "freq": 2
+        },
+        {
+          "name": "Labor Relations",
+          "freq": 2
+        },
+        {
+          "name": "M&A",
           "freq": 1
         },
         {
-          "name": "금융",
+          "name": "Automotive",
+          "freq": 1
+        },
+        {
+          "name": "Logistics",
           "freq": 1
         }
       ]
